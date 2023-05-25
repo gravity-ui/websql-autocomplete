@@ -1,3 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`ko.truncatedText.js should render binding 1`] = `"<div data-bind=\\"truncatedText: text\\">More than 20 charact...</div>"`;

@@ -1,3 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`ko.visibleOnHover.js should render binding 1`] = `"<div id=\\"foo\\" data-bind=\\"visibleOnHover: { selector: '#foo' }\\"></div>"`;

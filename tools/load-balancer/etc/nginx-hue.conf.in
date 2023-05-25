@@ -1,5 +1,0 @@
-upstream hue {
-	ip_hash;
-
-%(servers)s
-}

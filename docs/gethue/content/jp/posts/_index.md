@@ -1,6 +1,0 @@
-+++
-aliases = [
-    "/posts/",
-    "/blog/"
-]
-+++

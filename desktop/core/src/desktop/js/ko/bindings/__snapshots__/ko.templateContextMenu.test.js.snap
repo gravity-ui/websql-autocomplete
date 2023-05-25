@@ -1,3 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`ko.templateContextMenu.js should render binding 1`] = `"<div data-bind=\\"templateContextMenu: { }\\"></div>"`;
