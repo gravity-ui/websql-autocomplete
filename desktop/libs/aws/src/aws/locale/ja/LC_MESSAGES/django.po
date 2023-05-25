@@ -1,0 +1,158 @@
+# Japanese translations for Hue.
+# Copyright (C) 2013 Cloudera, Inc
+# This file is distributed under the same license as the Hue project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2013.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Hue VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2018-03-07 10:03-0800\n"
+"PO-Revision-Date: 2013-10-28 10:31-0700\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 0.9.6\n"
+
+#: src/aws/conf.py:89
+msgid "One entry for each AWS account"
+msgstr "AWS アカウントごとに 1 つのエントリ"
+
+#: src/aws/conf.py:91
+msgid "Information about single AWS account"
+msgstr "1 つの AWS アカウントについての情報"
+
+#: src/aws/conf.py:103
+msgid "Execute this script to produce the AWS access key ID."
+msgstr "このスクリプトを実行して AWS アクセスキー ID を作成します。"
+
+#: src/aws/conf.py:115
+msgid "Execute this script to produce the AWS secret access key."
+msgstr "このスクリプトを実行して AWS シークレットアクセスキーを作成します。"
+
+#: src/aws/conf.py:123
+msgid ""
+"Allow to use environment sources of credentials (environment variables, "
+"EC2 profile)."
+msgstr ""
+"資格情報の環境ソース（環境変数、EC2 プロファイル）の使用を"
+"許可します。"
+
+#: src/aws/conf.py:134
+msgid "Alternate address for the S3 endpoint."
+msgstr "S3 エンドポイントの代替アドレスです。"
+
+#: src/aws/conf.py:140
+msgid "Proxy address to use for the S3 connection."
+msgstr "S3 接続に使用するプロキシアドレスです。"
+
+#: src/aws/conf.py:146
+msgid "Proxy port to use for the S3 connection."
+msgstr "S3 接続に使用するプロキシポートです。"
+
+#: src/aws/conf.py:152
+msgid "Proxy user to use for the S3 connection."
+msgstr "S3 接続に使用するプロキシユーザーです。"
+
+#: src/aws/conf.py:158
+msgid "Proxy password to use for the S3 connection."
+msgstr "S3 接続に使用するプロキシパスワードです。"
+
+#: src/aws/conf.py:200
+msgid "Failed to connect to S3, check your AWS credentials."
+msgstr "S3 に接続できませんでした。AWS の資格情報を確認してください。"
+
+#: src/aws/s3/s3fs.py:61
+msgid ""
+"User is not authorized to perform the attempted operation. Check that the"
+" user has appropriate permissions."
+msgstr ""
+"試行した操作の実行はユーザーに許可されていません。ユーザーに適切なパーミッションがあることを"
+"確認してください。"
+
+#: src/aws/s3/s3fs.py:63
+#, python-format
+msgid ""
+"User is not authorized to write or modify path: %s. Check that the user "
+"has write permissions."
+msgstr ""
+"パスの書き込みまたは変更はユーザーに許可されていません：%s。ユーザーに書き込みパーミッションがあることを"
+"確認してください。"
+
+#: src/aws/s3/s3fs.py:88 src/aws/s3/s3fs.py:90
+#, python-format
+msgid "Failed to initialize bucket cache: %s"
+msgstr "バケットのキャッシュを初期化できませんでした：%s"
+
+#: src/aws/s3/s3fs.py:105 src/aws/s3/s3fs.py:117
+#, python-format
+msgid "Failed to create bucket named \"%s\": %s"
+msgstr "\"%s\" という名前のバケットを作成できませんでした：%s"
+
+#: src/aws/s3/s3fs.py:108 src/aws/s3/s3fs.py:146
+#, python-format
+msgid ""
+"User is not authorized to access bucket named \"%s\". If you are "
+"attempting to create a bucket, this bucket name is already reserved."
+msgstr ""
+"\"%s\" という名前のバケットへのアクセスはユーザーに許可されていません。バケットの作成を"
+"試行している場合、このバケット名はすでに予約されています。"
+
+#: src/aws/s3/s3fs.py:157
+#, python-format
+msgid "Failed to access path at \"%s\": %s"
+msgstr "パス \"%s\" にアクセスできませんでした：%s"
+
+#: src/aws/s3/s3fs.py:160
+#, python-format
+msgid ""
+"Failed to access path: \"%s\" Check that you have access to read this "
+"bucket and that the region is correct: %s"
+msgstr ""
+"パスにアクセスできませんでした：\"%s\"。このバケットを読み取る権限があること、"
+"および領域が正しいことを確認してください：%s"
+
+#: src/aws/s3/s3fs.py:163
+#, python-format
+msgid "User is not authorized to access path at \"%s\"."
+msgstr "パス \"%s\" へのアクセスを許可されていません。"
+
+#: src/aws/s3/s3fs.py:180 src/aws/s3/s3fs.py:187
+#, python-format
+msgid "Failed to access path \"%s\": %s"
+msgstr "パス \"%s\" にアクセスできませんでした：%s"
+
+#: src/aws/s3/s3fs.py:185
+#, python-format
+msgid "User is not authorized to access path: \"%s\""
+msgstr "パスへのアクセスを許可されていません：\"%s\""
+
+#: src/aws/s3/s3fs.py:285
+msgid "Option `glob` is not implemented"
+msgstr "オプション `glob` は実装されません"
+
+#: src/aws/s3/s3fs.py:312 src/aws/s3/s3fs.py:344
+msgid "Moving to trash is not implemented for S3"
+msgstr "ゴミ箱への移動機能は S3 では実装されません"
+
+#: src/aws/s3/s3fs.py:360
+#, python-format
+msgid "Invalid bucket name: %s"
+msgstr "バケット名が無効です：%s"
+
+#: src/aws/s3/s3fs.py:367 src/aws/s3/s3fs.py:369
+#, python-format
+msgid "Failed to create S3 bucket \"%s\": %s"
+msgstr "S3 バケット \"%s\" を作成できませんでした：%s"
+
+#: src/aws/s3/s3fs.py:425
+#, python-format
+msgid "Invalid key to transform: %s"
+msgstr "変換に対して無効なキー：%s"
+
+#: src/aws/s3/upload.py:124
+msgid "No S3 filesystem found."
+msgstr "S3 ファイルシステムが見つかりません。"

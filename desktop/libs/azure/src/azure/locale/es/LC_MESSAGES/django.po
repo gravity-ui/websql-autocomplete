@@ -1,0 +1,35 @@
+# Spanish translations for Hue.
+# Copyright (C) 2015 Cloudera, Inc
+# This file is distributed under the same license as the Hue project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2015.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Hue VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2018-03-07 10:03-0800\n"
+"PO-Revision-Date: 2017-09-22 10:22-0700\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: es <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 0.9.6\n"
+
+#: src/azure/conf.py:109
+msgid "Execute this script to produce the ADLS client secret."
+msgstr "Ejecute esta secuencia de comandos para obtener el secreto de cliente de ADLS."
+
+#: src/azure/conf.py:120
+msgid "Execute this script to produce the ADLS tenant id."
+msgstr "Ejecute esta secuencia de comandos para generar el ID de inquilino de ADLS."
+
+#: src/azure/conf.py:144
+msgid ""
+"Failed to obtain Azure authorization token, check your azure "
+"configuration."
+msgstr ""
+"Error al obtener el token de autorización de Azure. Compruebe su configuración "
+"de Azure."

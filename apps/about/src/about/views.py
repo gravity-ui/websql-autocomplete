@@ -1,0 +1,68 @@
+#!/usr/bin/env python
+# Licensed to Cloudera, Inc. under one
+# or more contributor license agreements.  See the NOTICE file
+# distributed with this work for additional information
+# regarding copyright ownership.  Cloudera, Inc. licenses this file
+# to you under the Apache License, Version 2.0 (the
+# "License"); you may not use this file except in compliance
+# with the License.  You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+from builtins import str
+import logging
+import sys
+
+from desktop import appmanager
+from desktop.auth.backend import is_hue_admin
+from desktop.auth.decorators import admin_required
+from desktop.lib.django_util import JsonResponse, render
+from desktop.models import Settings, hue_version
+from desktop.views import collect_usage
+
+if sys.version_info[0] > 2:
+  from django.utils.translation import gettext as _
+else:
+  from django.utils.translation import ugettext as _
+
+
+def admin_wizard(request):
+  if is_hue_admin(request.user):
+    apps = appmanager.get_apps(request.user)
+  else:
+    apps = []
+  app_names = [app.name for app in sorted(apps, key=lambda app: app.menu_index)]
+
+  return render('admin_wizard.mako', request, {
+      'version': hue_version(),
+      'apps': dict([(app.name, app) for app in apps]),
+      'app_names': app_names,
+      'is_embeddable': request.GET.get('is_embeddable', False),
+      'collect_usage': collect_usage(),
+  })
+
+
+@admin_required
+def update_preferences(request):
+  response = {'status': -1, 'data': ''}
+
+  if request.method == 'POST':
+    try:
+      settings = Settings.get_settings()
+      settings.collect_usage = request.POST.get('collect_usage', 'False').lower() == "true"
+      settings.save()
+
+      response['status'] = 0
+      response['collect_usage'] = settings.collect_usage
+    except Exception as e:
+      response['data'] = str(e)
+  else:
+    response['data'] = _('POST request required.')
+
+  return JsonResponse(response)

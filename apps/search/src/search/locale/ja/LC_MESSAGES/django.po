@@ -1,0 +1,74 @@
+# Japanese translations for Hue.
+# Copyright (C) 2012 Cloudera, Inc
+# This file is distributed under the same license as the Hue project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2012.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Hue VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2018-03-07 10:05-0800\n"
+"PO-Revision-Date: 2013-10-28 10:31-0700\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 0.9.6\n"
+
+#: src/search/conf.py:25
+msgid "URL of the Solr Server."
+msgstr "Solr サーバーの URL です。"
+
+#: src/search/conf.py:30
+msgid "Query sent when no term is entered."
+msgstr "用語が入力されずにクエリが送信されました。"
+
+#: src/search/conf.py:35
+msgid "Whether Solr requires client to perform Kerberos authentication."
+msgstr "Solr が Kerberos 認証の実行をクライアントに要求するかどうかの指定です。"
+
+#: src/search/conf.py:42
+msgid "Use latest Solr 5.2+ features."
+msgstr "最新の Solr 5.2+ 機能を使用します。"
+
+#: src/search/models.py:230
+msgid "Solr index name pointing to"
+msgstr "Solr インデックス名が指している先"
+
+#: src/search/models.py:231
+msgid "Friendlier name in UI"
+msgstr "UI のわかりやすい名前"
+
+#: src/search/models.py:233
+msgid "Collection with cores data"
+msgstr "コアデータを含むコレクション"
+
+#: src/search/models.py:233
+msgid "Solr json"
+msgstr "Solr JSON"
+
+#: src/search/models.py:235
+msgid "Properties"
+msgstr "プロパティ"
+
+#: src/search/models.py:236
+msgid "Hue properties (e.g. results by pages number)"
+msgstr "Hue プロパティ（例：ページ番号による結果）"
+
+#: src/search/models.py:243
+msgid "Owner"
+msgstr "所有者"
+
+#: src/search/models.py:243
+msgid "User who created the job."
+msgstr "ジョブを作成したユーザーです。"
+
+#: src/search/views.py:35
+msgid "You must be a superuser."
+msgstr "スーパーユーザーであることが必要です。"
+
+#: src/search/views.py:38
+msgid "A POST request is required."
+msgstr "POST 要求が必要です。"

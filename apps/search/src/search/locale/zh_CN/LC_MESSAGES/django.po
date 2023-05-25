@@ -1,0 +1,74 @@
+# Chinese (China) translations for Hue.
+# Copyright (C) 2012 Cloudera, Inc
+# This file is distributed under the same license as the Hue project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2012.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Hue VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2018-03-07 10:05-0800\n"
+"PO-Revision-Date: 2013-10-28 10:31-0700\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: zh_CN <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 0.9.6\n"
+
+#: src/search/conf.py:25
+msgid "URL of the Solr Server."
+msgstr "Solr 服务器的 URL。"
+
+#: src/search/conf.py:30
+msgid "Query sent when no term is entered."
+msgstr "未输入术语时发送的查询。"
+
+#: src/search/conf.py:35
+msgid "Whether Solr requires client to perform Kerberos authentication."
+msgstr "Solr 是否需要客户端执行 Kerberos 身份验证。"
+
+#: src/search/conf.py:42
+msgid "Use latest Solr 5.2+ features."
+msgstr "使用最新 Solr 5.2+ 功能。"
+
+#: src/search/models.py:230
+msgid "Solr index name pointing to"
+msgstr "Solr 索引名称指向"
+
+#: src/search/models.py:231
+msgid "Friendlier name in UI"
+msgstr "UI 中更友好的名称"
+
+#: src/search/models.py:233
+msgid "Collection with cores data"
+msgstr "带核心数据的集合"
+
+#: src/search/models.py:233
+msgid "Solr json"
+msgstr "Solr json"
+
+#: src/search/models.py:235
+msgid "Properties"
+msgstr "属性"
+
+#: src/search/models.py:236
+msgid "Hue properties (e.g. results by pages number)"
+msgstr "Hue 属性（例如，按页码排列的结果）"
+
+#: src/search/models.py:243
+msgid "Owner"
+msgstr "所有者"
+
+#: src/search/models.py:243
+msgid "User who created the job."
+msgstr "创建作业的用户。"
+
+#: src/search/views.py:35
+msgid "You must be a superuser."
+msgstr "您必须是超级用户。"
+
+#: src/search/views.py:38
+msgid "A POST request is required."
+msgstr "需要 POST 请求。"

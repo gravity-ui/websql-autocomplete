@@ -1,0 +1,62 @@
+# Chinese (China) translations for Hue.
+# Copyright (C) 2013 Cloudera, Inc
+# This file is distributed under the same license as the Hue project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2013.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Hue VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2018-03-07 10:04-0800\n"
+"PO-Revision-Date: 2013-10-28 10:31-0700\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: zh_CN <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 0.9.6\n"
+
+#: src/libsolr/api.py:369 src/libsolr/api.py:381 src/libsolr/api.py:392
+#: src/libsolr/api.py:403 src/libsolr/api.py:414 src/libsolr/api.py:428
+#: src/libsolr/api.py:447 src/libsolr/api.py:459 src/libsolr/api.py:474
+#: src/libsolr/api.py:500 src/libsolr/api.py:512 src/libsolr/api.py:526
+#: src/libsolr/api.py:549 src/libsolr/api.py:567 src/libsolr/api.py:584
+#: src/libsolr/api.py:603 src/libsolr/api.py:623 src/libsolr/api.py:633
+#: src/libsolr/api.py:643 src/libsolr/api.py:654 src/libsolr/api.py:665
+#: src/libsolr/api.py:678 src/libsolr/api.py:688 src/libsolr/api.py:707
+#: src/libsolr/api.py:729 src/libsolr/api.py:745 src/libsolr/api.py:757
+#: src/libsolr/api.py:776 src/libsolr/api.py:788 src/libsolr/api.py:803
+#: src/libsolr/api.py:841 src/libsolr/api.py:863 src/libsolr/api.py:882
+#: src/libsolr/api.py:1064
+msgid "Error while accessing Solr"
+msgstr "访问 Solr 时出错"
+
+#: src/libsolr/api.py:496
+#, python-format
+msgid "Collection could not be created: %(failure)s"
+msgstr "无法创建集合：%(failure)s"
+
+#: src/libsolr/api.py:563
+#, python-format
+msgid "Could not create or edit alias: %s"
+msgstr "无法创建或编辑别名：%s"
+
+#: src/libsolr/api.py:580
+#, python-format
+msgid ""
+"Could not delete alias. Check response:\n"
+"%s"
+msgstr ""
+"无法删除别名。请检查响应：\n"
+"%s"
+
+#: src/libsolr/conf.py:33
+msgid ""
+"In secure mode (HTTPS), if Solr SSL certificates have to be verified "
+"against certificate authority"
+msgstr "在安全模式 (HTTPS) 下，是否必须验证 Solr SSL 证书的证书颁发机构"
+
+#: src/libsolr/conf.py:55
+msgid "Default path to Solr in ZooKeeper"
+msgstr "ZooKeeper 中到 Solr 的默认路径"

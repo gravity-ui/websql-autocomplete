@@ -1,0 +1,51 @@
+/*
+ Licensed to Cloudera, Inc. under one
+ or more contributor license agreements.  See the NOTICE file
+ distributed with this work for additional information
+ regarding copyright ownership.  Cloudera, Inc. licenses this file
+ to you under the Apache License, Version 2.0 (the
+ "License"); you may not use this file except in compliance
+ with the License.  You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+*/
+
+// Legacy styles for Mako, Knockout.js and Vue components
+@import (reference) 'cui/colors.less';
+@import (reference) 'hue-mixins.less';
+@import 'hue-assist';
+@import 'hue-autocomplete';
+@import 'hue-cui-overrides.less';
+@import 'hue-cross-version.less';
+@import 'hue-multi-cluster-icons.less';
+@import 'components/hue-clearable.less';
+@import 'hue4.less';
+
+// Styles for react.js components based on the Ant design library
+// and the Cuix library. Will only be applied for components wrapped in
+// the classes "cuix" and "antd" in order not to intefere with the legacy styles.
+@import 'root-wrapped-antd.less';
+@import 'cuix/dist/styles/variables.less';
+@import 'cuix/dist/styles/cuix-ant-overrides.less';
+
+html {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  font-size: 1em;
+}
+
+body {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}

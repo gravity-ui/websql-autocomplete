@@ -1,0 +1,259 @@
+/*
+ Licensed to Cloudera, Inc. under one
+ or more contributor license agreements.  See the NOTICE file
+ distributed with this work for additional information
+ regarding copyright ownership.  Cloudera, Inc. licenses this file
+ to you under the Apache License, Version 2.0 (the
+ "License"); you may not use this file except in compliance
+ with the License.  You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+*/
+@import (reference) "cui/colors.less";
+
+/*
+
+  TODO: Replace with CUI equivalents where possible
+
+*/
+
+@hue-primary-color-dark: #0B7FAD;
+@hue-primary-color-light: #DBE8F1;
+@hue-trunk: @cui-purple-300;
+
+@hue-disabled-color: @cui-gray-100;
+@hue-error-color: @cui-red-500;
+@hue-warning-color: @cui-orange-400;
+
+@hue-panel-border-radius: 2px;
+
+.hue-transform(@transform) {
+  -webkit-transform: @transform;
+  -moz-transform: @transform;
+  -ms-transform: @transform;
+  -o-transform: @transform;
+}
+
+.nowrap-ellipsis {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow-x: hidden;
+}
+
+.no-select {
+  // Every browser except IE 9
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.hue-linear-transition(@attributes) {
+  @value: ~`"@{attributes}".replace(/,/g, ' .2s linear,')`;
+
+  -webkit-transition: @value 0.2s linear;
+  -moz-transition: @value 0.2s linear;
+  -ms-transition: @value 0.2s linear;
+  transition: @value 0.2s linear;
+}
+
+.hue-ease-transition(@attributes) {
+  @value: ~`"@{attributes}".replace(/,/g, ' .2s ease,')`;
+
+  -webkit-transition: @value 0.2s ease;
+  -moz-transition: @value 0.2s ease;
+  -ms-transition: @value 0.2s ease;
+  transition: @value 0.2s ease;
+}
+
+.icon-only-button {
+  color: @cui-gray-600;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  display: inline;
+  margin: 0;
+  padding: 2px 6px;
+  font-size: 15px;
+
+  &:hover {
+    color: @hue-primary-color-dark;
+  }
+
+  &:hover,
+  &:focus {
+    text-decoration: none;
+    outline: none;
+  }
+}
+
+.hue-box-shadow-top {
+  .hue-box-shadow(0, -2px);
+}
+
+.hue-box-shadow-right {
+  .hue-box-shadow(2px, 0);
+}
+
+.hue-box-shadow-bottom {
+  .hue-box-shadow(0, 2px);
+}
+
+.hue-box-shadow-left {
+  .hue-box-shadow(-2px, 0);
+}
+
+.hue-box-shadow(@left: 2px, @top: 2px) {
+  -webkit-box-shadow: @left @top 8px rgba(0, 0, 0, 0.18);
+  -moz-box-shadow: @left @top 8px rgba(0, 0, 0, 0.18);
+  box-shadow: @left @top 6px 0 rgba(0, 0, 0, 0.18), @left @top 8px 0 rgba(0, 0, 0, 0.13);
+}
+
+.hue-inset-box-shadow {
+  -webkit-box-shadow: inset 1px 0 0 rgba(255, 255, 255, 0.125) !important;
+  -moz-box-shadow: inset 1px 0 0 rgba(255, 255, 255, 0.125) !important;
+  box-shadow: inset 1px 0 0 rgba(255, 255, 255, 0.125) !important;
+}
+
+.hue-no-box-shadow {
+  -webkit-box-shadow: none !important;
+  -moz-box-shadow: none !important;
+  box-shadow: none !important;
+}
+
+.animation(@params) {
+  -webkit-animation: @params;
+  -moz-animation: @params;
+  -ms-animation: @params;
+  animation: @params;
+}
+
+.keyframes(@name,@rules) {
+  @-webkit-keyframes @name {
+    @rules();
+  }
+
+  @-moz-keyframes @name {
+    @rules();
+  }
+
+  @-ms-keyframes @name {
+    @rules();
+  }
+
+  @-o-keyframes @name {
+    @rules();
+  }
+
+  @keyframes @name {
+    @rules();
+  }
+}
+
+.keyframes(hue-fade-in-frames, {
+  from { opacity: 0; }
+  to { opacity: 1; }
+});
+
+.hue-fade-in {
+  .animation(hue-fade-in-frames 2s);
+}
+
+.fillAbsolute() {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+// Flexbox mixins
+
+.flexRowLayout() {
+  .display-flex();
+  .flex-direction(column);
+
+  overflow: hidden;
+}
+
+.flexRowLayoutRow(@flex, @position: relative) {
+  .flex(@flex);
+
+  position: @position;
+}
+
+.display-flex() {
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -ms-flex;
+  display: flex;
+}
+
+.flex(@flex: initial) {
+  -ms-flex: @flex;
+  -webkit-flex: @flex;
+  flex: @flex;
+}
+
+.flex-align-items(@align: stretch) {
+  -webkit-align-items: @align;
+  -ms-align-items: @align;
+  align-items: @align;
+}
+
+.flex-basis(@basis) {
+  -webkit-flex-basis: @basis;
+  -ms-flex-basis: @basis;
+  flex-basis: @basis;
+}
+
+.flex-box-flex(@flex) {
+  -webkit-box-flex: @flex;
+  -moz-box-flex: @flex;
+  box-flex: @flex; /* stylelint-disable-line */
+}
+
+.flex-box-align(@align) {
+  -webkit-box-align: @align;
+  -moz-box-align: @align;
+  box-align: @align; /* stylelint-disable-line */
+}
+
+.flex-box-pack(@pack) {
+  -webkit-box-pack: @pack;
+  -moz-box-pack: @pack;
+  box-pack: @pack; /* stylelint-disable-line */
+}
+
+.flex-shrink(@shrink) {
+  -webkit-flex-shrink: @shrink;
+  -ms-flex-shrink: @shrink;
+  flex-shrink: @shrink;
+}
+
+.flex-direction(@direction: row) {
+  -webkit-flex-direction: @direction;
+  -ms-flex-direction: @direction;
+  flex-direction: @direction;
+}
+
+.flex-flow(@flow) {
+  -webkit-flex-flow: @flow;
+  -ms-flex-flow: @flow;
+  flex-flow: @flow;
+}
+
+.flex-wrap(@wrap: nowrap) {
+  -webkit-flex-wrap: @wrap;
+  -ms-flex-wrap: @wrap;
+  flex-wrap: @wrap;
+}

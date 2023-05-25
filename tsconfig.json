@@ -1,0 +1,45 @@
+{
+  "compilerOptions": {
+    "jsx": "react",
+    "declaration": true,
+    "target": "esnext",
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "allowJs": true,
+    "noEmit": true,
+    "strict": true,
+    "experimentalDecorators": true,
+    "isolatedModules": true,
+    "esModuleInterop": true,
+    "baseUrl": "desktop/core/src/desktop/js",
+    "typeRoots": [ "desktop/core/src/desktop/js/types", "./node_modules/@types"],
+    "lib": [
+      "es2019",
+      "dom",
+      "webworker"
+    ]
+  },
+  "include": [
+    "."
+  ],
+  "exclude": [
+    "ext",
+    "parse",
+    "jquery",
+    "apps",
+    "build",
+    "dist",
+    "docs",
+    "ext",
+    "logs",
+    "maven",
+    "node_modules",
+    ".github",
+    ".git",
+    ".circleci",
+    // Temporary fix to prevent typescript generated JSX errors in the IDE 
+    // triggered by using baseUrl": "desktop/core/src/desktop/js".
+    "**/*.tsx"
+  ]
+}

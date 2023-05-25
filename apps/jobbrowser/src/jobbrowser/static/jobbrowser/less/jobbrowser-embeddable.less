@@ -1,0 +1,411 @@
+/*
+ Licensed to Cloudera, Inc. under one
+ or more contributor license agreements.  See the NOTICE file
+ distributed with this work for additional information
+ regarding copyright ownership.  Cloudera, Inc. licenses this file
+ to you under the Apache License, Version 2.0 (the
+ "License"); you may not use this file except in compliance
+ with the License.  You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+*/
+@import (reference) "hue-mixins.less";
+
+.jobbrowser-mini {
+  .span12.no-margin {
+    margin-left: 0 !important;
+  }
+}
+
+.jobbrowser-full {
+  .content-panel-inner {
+    padding: 10px;
+  }
+  .jb-breadcrumbs {
+    margin-bottom: 0;
+  }
+
+  .jb-panel {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}
+.jobbrowser-components {
+  .hue-uncheck::before {
+    padding-left: 2px;
+  }
+
+  .tab-content {
+    padding: 10px;
+    border: none !important;
+  }
+
+  .hue-breadcrumbs-bar {
+    padding: 0;
+  }
+
+  .hue-breadcrumbs-bar li {
+    padding: 12px;
+  }
+
+  .hue-breadcrumbs-bar li:first-child {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .hue-breadcrumbs-bar a {
+    color: @hue-primary-color-dark !important;
+    display: inline !important;
+  }
+
+  .divider {
+    color: @cui-gray-400;
+    padding-right: 12px;
+  }
+
+  .app-icon {
+    vertical-align: text-top;
+  }
+
+  .sidebar-nav {
+    .progress {
+      margin-bottom: 0;
+    }
+    .nav-list > li > a {
+      margin-top: 0 !important;
+      margin-bottom: 0 !important;
+    }
+    .nav-list li:not(.nav-header) {
+      text-overflow: ellipsis;
+      overflow-x: hidden;
+      white-space: nowrap;
+    }
+  }
+
+  .query-plan {
+    border: 1px solid @cui-gray-300;
+    overflow: hidden;
+    .label,
+    .badge {
+      color: @cui-gray-800;
+      text-shadow: none;
+      font-weight: normal;
+    }
+    .metric {
+      float: right;
+    }
+    .name {
+      text-transform: capitalize;
+      font-size: 13px;
+      width: 115px;
+      overflow: hidden;
+      display: inline-block;
+    }
+    .detail {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      width: 150px;
+      display: inline-block;
+      height: 14px;
+      text-transform: lowercase;
+    }
+    foreignObject {
+      .fa {
+        padding-top: 3px;
+        padding-right: 2px;
+        vertical-align: top;
+      }
+      .hi {
+        padding-right: 5px;
+        vertical-align: top;
+      }
+    }
+    .fa {
+      color: @cui-gray-600;
+      font-size: 21px;
+    }
+    .hi {
+      color: @cui-gray-600 !important;
+      width: 2.2em !important;
+      height: 2.2em !important;
+    }
+    .clickable .hi {
+      width: 1.4em !important;
+      height: 1.4em !important;
+    }
+    .id {
+      display: none;
+    }
+    .node.active {
+      > rect {
+        filter: url(#dropshadow);
+        stroke: @hue-primary-color-dark;
+        fill: @hue-primary-color-light;
+      }
+    }
+    .node {
+      cursor: pointer;
+      rect {
+        fill: @cui-white;
+        stroke-width: 1px;
+      }
+      rect.active {
+        fill: @hue-primary-color-dark;
+      }
+    }
+    .node:hover rect {
+      fill: @cui-purple-gray-050;
+    }
+    .output {
+      path,
+      .node > rect {
+        stroke: @cui-gray-600;
+      }
+    }
+    .buttons {
+      position: absolute;
+      background-color: white;
+      box-shadow: 0 0 5px 0;
+      width:32px;
+      right: 45px;
+      bottom: 5px;
+      color: @cui-gray-600;
+      div {
+        line-height: 32px !important;
+        display: block;
+        width: 32px;
+        height: 32px;
+      }
+      .hi {
+        color: @cui-gray-600 !important;
+        width: 2.2em !important;
+        height: 2.2em !important;
+        padding-left: 2px;
+      }
+      .divider {
+        background-color: @cui-gray-300;
+        width: 10px;
+        height: 1px;
+        margin-left: 5px;
+      }
+    }
+    .buttons div:hover {
+      color: @hue-primary-color-dark;
+    }
+    .edgePath > path {
+      fill: none;
+      stroke-width: 1.5px;
+    }
+    .edgePath marker path {
+      fill: @cui-gray-600;
+      stroke-width: 1.5px;
+    }
+    .edgeLabel text {
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      fill: @cui-gray-800;
+      font-size: inherit;
+    }
+    .above-average {
+      font-weight: bold;
+    }
+    .timeline {
+      width: 175px;
+      height: 10px;
+      border: 1px solid @cui-gray-300;
+      border-radius: 4px;
+      background-color: @cui-white;
+    }
+    .cpu {
+      fill: @hue-primary-color-dark !important;
+      background-color: @hue-primary-color-dark;
+    }
+    .io {
+      fill: @cui-blue-400 !important;
+      background-color: @cui-blue-400;
+    }
+    .resizer {
+      top: 0px;
+      right: 200px;
+      visibility: hidden;
+    }
+    .details {
+      background-color: @cui-white;
+      box-shadow: 0 0 10px 0;
+      color: @cui-gray-600;
+      position: absolute;
+      top: 0;
+      right: -164px;
+      width: 200px;
+      height: 100%;
+      flex-direction: column;
+      header {
+        white-space: nowrap;
+      }
+      .divider {
+        background-color: @cui-gray-300;
+        width: calc(~"100% - 10px");
+        margin-left: 5px;
+        padding: 0;
+        height: 1px;
+      }
+      h3 {
+        display: inline-block;
+        margin: 0;
+      }
+      h4 {
+        margin: 0;
+        display: inline-block;
+      }
+      h5 {
+        margin: 0;
+        display: inline-block;
+      }
+      ol {
+        list-style-type: none;
+        margin: 0;
+      }
+      ul {
+        margin: 0;
+      }
+      .details-content {
+        overflow: scroll;
+        visibility: hidden;
+      }
+      .details-section {
+        padding: 4px;
+        header {
+          margin-top: 10px;
+        }
+      }
+      .metric-title {
+        background-color: @hue-primary-color-light;
+        cursor: pointer;
+        padding: 4px;
+        .fa {
+          padding-top: 0;
+          line-height: 40px;
+          padding-right: 2px;
+        }
+        .hi {
+          padding-top: 2px;
+          padding-right: 5px;
+        }
+      }
+      .hi {
+        padding-right: 4px;
+      }
+      .fa {
+        padding-right: 2px;
+      }
+      .metrics {
+        max-height: calc(~"100% - 40px");
+      }
+      .legend-icon {
+        width: 8px;
+        height: 8px;
+        border-radius: 5px;
+        border: 1px solid @cui-gray-300;
+        display: inline-block;
+      }
+      .metric-name {
+        padding-left: 2px;
+      }
+      .details-section .timeline {
+        margin-bottom: 10px;
+      }
+      table.clickable tr {
+        cursor: pointer;
+      }
+      table.clickable tr:hover {
+        background-color: @cui-gray-050 !important;
+      }
+      table tr:nth-child(1) {
+        max-width: 107px;
+      }
+      table tr td {
+        color: @cui-gray-800;
+        overflow: hidden;
+        white-space: nowrap;
+        padding-right: 5px;
+        text-overflow: ellipsis;
+      }
+      table thead tr:nth-child(odd) {
+        background-color:@cui-white;
+      }
+      table.ncolumn tr:nth-child(odd) {
+        background-color: @cui-gray-050;
+      }
+      table.column {
+        display: table;
+      }
+      table.column tr {
+        display: table-cell;
+      }
+      table.column tr td {
+        display: block;
+      }
+      table.column tr:nth-child(1) td {
+        border-right: 1px solid @cui-gray-300;
+      }
+      table.column thead tr td:nth-child(odd) {
+        background-color:@cui-white;
+      }
+      table.column tr td:nth-child(odd) {
+        background-color: @cui-gray-050;
+      }
+      table.column thead tr td {
+        background-color: @cui-white;
+        border-bottom: 1px solid @cui-gray-300;
+        text-transform: capitalize;
+      }
+    }
+  }
+  .query-plan.open {
+    .resizer {
+      visibility: visible;
+    }
+    .details {
+      right: 0;
+      display: flex;
+      .details-content {
+        visibility: visible;
+      }
+    }
+    .buttons {
+      right: 208px;
+    }
+  }
+  div[data-jobType="queries"] pre {
+    overflow-x: auto;
+    white-space: pre;
+  }
+  .nav.nav-tabs.scrollable {
+    height: 50px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+  }
+  .nav.nav-tabs > li {
+    display: inline-block;
+    float: initial;
+  }
+
+  #workflow-page-graph {
+    position: relative;
+  }
+}
+
+.hue-jobs-table > tbody > tr > td:last-child {
+  min-width: 50px;
+  word-break: break-all;
+}
+
+.hue-horizontally-scrollable {
+  overflow-x: auto;
+}

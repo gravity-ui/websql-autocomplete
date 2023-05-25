@@ -1,0 +1,110 @@
+#
+# Licensed to Cloudera, Inc. under one
+# or more contributor license agreements.  See the NOTICE file
+# distributed with this work for additional information
+# regarding copyright ownership.  Cloudera, Inc. licenses this file
+# to you under the Apache License, Version 2.0 (the
+# "License"); you may not use this file except in compliance
+# with the License.  You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+
+# <<<< DEV ONLY
+
+PROD_INCLUDES := \
+	apps \
+	desktop \
+	ext/thirdparty \
+	LICENSE.txt \
+	NOTICE.txt \
+	Makefile* \
+	maven \
+	tools/app_reg \
+	tools/virtual-bootstrap \
+	tools/relocatable.sh \
+	tools/enable-python27.sh \
+	tools/load-balancer \
+	VERSION \
+	webpack-stats*.json \
+	package.json \
+	package-lock.json \
+	webpack.config*.js \
+	babel.config.js \
+	tsconfig.json
+
+# Check for things in BDIST_EXCLUDES in various apps
+PROD_EXCLUDES := \
+	apps/beeswax/thrift \
+	apps/hello \
+	apps/jframegallery \
+	build \
+	desktop/conf \
+	desktop/desktop.db \
+	desktop/devtools.mk \
+	desktop/libs/hadoop/regenerate-thrift.sh \
+	ext/thirdparty/js/manifest.json \
+	Makefile.tarball
+
+# Macro to remove things we don't want to package
+define remove_devtree_exclusions
+	@find $(1) \( -name '.git' -o \
+		      -name '.gitignore' -o \
+		      -name '.*~' -o \
+		      -name '.#*' -o \
+		      -name '.pylintrc' -o \
+		      -name 'build' -o \
+		      -name 'logs' -o \
+		      -name 'tags' -o \
+		      -name 'target' -o \
+		      -name 'desktop.db' -o \
+		      -name 'app.reg' -o \
+		      -name '*.py[co]' -o \
+		      -name '.*.sw?' \) -not -path '*/boto/*' -prune -exec rm -rf {} \;
+endef
+
+
+###################################
+# Packaging for production release
+###################################
+
+# Make a tarball
+.PHONY: prod
+prod: $(BLD_DIR_PROD_TGZ)
+
+$(BLD_DIR_PROD_TGZ): $(BLD_DIR_PROD)
+	@tar -C $(BLD_DIR_PROD)/.. -czf $(BLD_DIR_PROD_TGZ) hue-$(DESKTOP_VERSION)
+	@echo "--- Generated $(BLD_DIR_PROD_TGZ)"
+
+.PHONY: $(BLD_DIR_PROD)
+$(BLD_DIR_PROD): apps docs locales
+	@echo "--- Preparing general distribution tree at $@"
+	@rm -rf $@
+	@mkdir -p $@
+	tar -cf - $(PROD_INCLUDES) | tar -C $(BLD_DIR_PROD) -xf -
+
+	@echo "---- Removing exclusions"
+	@for i in $(PROD_EXCLUDES) ; do rm -rf $(BLD_DIR_PROD)/$$i ; done
+	$(call remove_devtree_exclusions,$(BLD_DIR_PROD))
+
+	@echo "---- Copying misc files"
+	@cp $(ROOT)/dist/* $(BLD_DIR_PROD)
+	@mv $(BLD_DIR_PROD)/desktop/conf{.dist,}
+	cp -r $(BLD_DIR_DOC) $(BLD_DIR_PROD)/docs
+
+	@echo "---- Stripping Makefiles"
+	@$(call STRIP_DEV, $(ROOT)/Makefile, $(BLD_DIR_PROD)/Makefile)
+	@$(call STRIP_DEV, $(ROOT)/Makefile.vars.priv, $(BLD_DIR_PROD)/Makefile.vars.priv)
+	@$(call STRIP_DEV, $(APPS_DIR)/Makefile, $(BLD_DIR_PROD)/apps/Makefile)
+	@$(call STRIP_DEV, $(DESKTOP_DIR)/Makefile, $(BLD_DIR_PROD)/desktop/Makefile)
+	@echo "---- Removing build directories"
+	find $(BLD_DIR_PROD) -name build -prune -exec rm -rf {} \;
+	@$(MAKE) -C $(BLD_DIR_PROD) ext-clean
+
+# END DEV ONLY >>>>

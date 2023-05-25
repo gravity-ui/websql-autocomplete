@@ -1,0 +1,76 @@
+# German translations for Hue.
+# Copyright (C) 2012 Cloudera, Inc
+# This file is distributed under the same license as the Hue project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2012.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Hue VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2018-03-07 10:05-0800\n"
+"PO-Revision-Date: 2013-10-28 10:31-0700\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: de <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 0.9.6\n"
+
+#: src/search/conf.py:25
+msgid "URL of the Solr Server."
+msgstr "URL des Solr-Servers."
+
+#: src/search/conf.py:30
+msgid "Query sent when no term is entered."
+msgstr "Wenn kein Begriff eingegeben wird, wird eine Abfrage gesendet."
+
+#: src/search/conf.py:35
+msgid "Whether Solr requires client to perform Kerberos authentication."
+msgstr ""
+"Ob Solr für die Durchführung der Kerberos-Authentifizierung einen Client "
+"benötigt."
+
+#: src/search/conf.py:42
+msgid "Use latest Solr 5.2+ features."
+msgstr "Nutzen Sie aktuelle Solr 5.2+-Funktionen."
+
+#: src/search/models.py:230
+msgid "Solr index name pointing to"
+msgstr "Solr-Indexname verweist auf"
+
+#: src/search/models.py:231
+msgid "Friendlier name in UI"
+msgstr "Benutzerfreundlicherer Name in UI"
+
+#: src/search/models.py:233
+msgid "Collection with cores data"
+msgstr "Sammlung mit Kerndaten"
+
+#: src/search/models.py:233
+msgid "Solr json"
+msgstr "Solr-JSON"
+
+#: src/search/models.py:235
+msgid "Properties"
+msgstr "Eigenschaften"
+
+#: src/search/models.py:236
+msgid "Hue properties (e.g. results by pages number)"
+msgstr "Hue-Eigenschaften (z. B. Ergebnisse nach Seitenzahl)"
+
+#: src/search/models.py:243
+msgid "Owner"
+msgstr "Eigentümer"
+
+#: src/search/models.py:243
+msgid "User who created the job."
+msgstr "Der Benutzer, der den Job erstellt hat."
+
+#: src/search/views.py:35
+msgid "You must be a superuser."
+msgstr "Sie müssen ein Superuser sein."
+
+#: src/search/views.py:38
+msgid "A POST request is required."
+msgstr "Eine POST-Anforderung ist erforderlich."

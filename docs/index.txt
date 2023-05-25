@@ -1,0 +1,55 @@
+image:images/hue_logo.png[Hue Logo]
+===================================
+
+Hue is an open source workbench for self-service operation and development of SQL applications
+in a Data Warehouse: link:http://gethue.com[gethue.com].
+
+Thousands of companies and organizations use Hue to open-up and query their data and make smarter decisions. Hue is heavily
+used by hundreds of Cloudera customers executing millions of queries daily.
+
+
+Administrate
+------------
+The link:admin-manual/manual.html[manual] has instructions to install and configure Hue.
+
+User Guide
+----------
+The link:user-guide/user-guide.html[user guide] has instructions about how to use Hue.
+
+SDK
+---
+It is encouraged to link:sdk/sdk.html[extend SQL connectors or applications] within the Hue environment.
+
+Release Notes
+-------------
+
+* October 17, 2018 --- link:release-notes/release-notes-4.3.0.html[Version 4.3.0]
+* April 4, 2018 --- link:release-notes/release-notes-4.2.0.html[Version 4.2.0]
+* October 4, 2017 --- link:release-notes/release-notes-4.1.0.html[Version 4.1.0]
+* June 9, 2017 --- link:release-notes/release-notes-4.0.0.html[Version 4.0.0]
+* Feb 6, 2017 --- link:release-notes/release-notes-3.12.0.html[Version 3.12.0]
+* Aug 17, 2016 --- link:release-notes/release-notes-3.11.0.html[Version 3.11.0]
+* May 11, 2016 --- link:release-notes/release-notes-3.10.0.html[Version 3.10.0]
+* August 7, 2015 --- link:release-notes/release-notes-3.9.0.html[Version 3.9.0]
+* April 24, 2015 --- link:release-notes/release-notes-3.8.0.html[Version 3.8.0]
+* October 9, 2014 --- link:release-notes/release-notes-3.7.0.html[Version 3.7.0]
+* May 29, 2014 --- link:release-notes/release-notes-3.6.0.html[Version 3.6.0]
+* December 4, 2013 --- link:release-notes/release-notes-3.5.0.html[Version 3.5.0]
+* September 20, 2013 --- link:release-notes/release-notes-3.0.0.html[Version 3.0.0]
+* July 15, 2013 --- link:release-notes/release-notes-2.5.0.html[Version 2.5.0]
+* June 12, 2013 --- link:release-notes/release-notes-2.4.0.html[Version 2.4.0]
+* April 15, 2013 --- link:release-notes/release-notes-2.3.0.html[Version 2.3.0]
+* Feb 25, 2013 --- link:release-notes/release-notes-2.2.0.html[Version 2.2.0]
+* Oct 2, 2012 --- link:release-notes/release-notes-2.1.0.html[Version 2.1.0]
+* June 4, 2012 --- link:release-notes/release-notes-2.0.1.html[Version 2.0.1]
+* Apr 10, 2012 --- link:release-notes/release-notes-2.0.0-beta.html[Version 2.0.0-beta]
+* Feb 21, 2011 --- link:release-notes/release-notes-1.2.0.html[Version 1.2.0]
+* Oct 11, 2010 --- link:release-notes/release-notes-1.1.0.html[Version 1.1.0]
+* Aug 20, 2010 --- link:release-notes/release-notes-1.0.1.html[Version 1.0.1]
+* Aug 13, 2010 --- link:release-notes/release-notes-1.0.0.html[Version 1.0.0]
+* June 29, 2010 --- link:release-notes/release-notes-0.9.0.html[Version 0.9.0]
+* May 21, 2010 --- link:release-notes/release-notes-0.4.2.html[Version 0.4.2]
+* April 7, 2010 --- link:release-notes/release-notes-0.4.1.html[Version 0.4.1]
+* March 31, 2010 --- link:release-notes/release-notes-0.4.0.html[Version 0.4.0]
+* November 23, 2009 --- link:release-notes/release-notes-0.3.0.html[Version 0.3.0]
+* October 2, 2009 --- Version 0.2.0

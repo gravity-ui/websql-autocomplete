@@ -1,0 +1,225 @@
+# Spanish translations for Hue.
+# Copyright (C) 2013 Cloudera, Inc
+# This file is distributed under the same license as the Hue project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2013.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Hue VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2018-03-07 10:05-0800\n"
+"PO-Revision-Date: 2013-10-28 10:31-0700\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: es <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 0.9.6\n"
+
+#: src/rdbms/api.py:139 src/rdbms/api.py:184 src/rdbms/api.py:267
+msgid "A POST request is required."
+msgstr "Se necesita una solicitud POST."
+
+#: src/rdbms/api.py:171 src/rdbms/api.py:209
+msgid "There was an error with your query."
+msgstr "Se ha producido un error en la consulta."
+
+#: src/rdbms/api.py:294
+msgid "A GET request is required."
+msgstr "Se necesita una solicitud GET."
+
+#: src/rdbms/api.py:335
+msgid "Server specified doesn't exist."
+msgstr "El servidor especificado no existe."
+
+#: src/rdbms/api.py:341
+msgid "No databases are available. Permissions could be missing."
+msgstr "No hay bases de datos disponibles. Puede que falten los permisos."
+
+#: src/rdbms/forms.py:23 src/rdbms/templates/common.mako:30
+msgid "Query Editor"
+msgstr "Editor de consultas"
+
+#: src/rdbms/views.py:101
+#, python-format
+msgid "Invalid design type %(type)s"
+msgstr "Tipo de diseño no válido %(type)s"
+
+#: src/rdbms/templates/common.mako:26
+msgid "DBQuery icon"
+msgstr "Icono de DBQuery"
+
+#: src/rdbms/templates/common.mako:27
+msgid "DB Query"
+msgstr "Consulta de base de datos"
+
+#: src/rdbms/templates/common.mako:31
+msgid "My Queries"
+msgstr "Mis consultas"
+
+#: src/rdbms/templates/common.mako:32
+msgid "Saved Queries"
+msgstr "Consultas guardadas"
+
+#: src/rdbms/templates/common.mako:33
+msgid "History"
+msgstr "Historial"
+
+#: src/rdbms/templates/error.mako:23 src/rdbms/templates/execute.mako:23
+msgid "Query"
+msgstr "Consulta"
+
+#: src/rdbms/templates/error.mako:34
+msgid "There are currently no databases configured."
+msgstr "Actualmente no hay ninguna base de datos definida."
+
+#: src/rdbms/templates/error.mako:35
+msgid ""
+"Please go to your Hue configuration and add a database under the "
+"\"rdbms\" section."
+msgstr ""
+"Vaya a la configuración de Hue y agregue una base de datos en la sección "
+"\"rdbms\"."
+
+#: src/rdbms/templates/execute.mako:32
+msgid "Assist"
+msgstr "Asistir"
+
+#: src/rdbms/templates/execute.mako:39
+msgid "Double click on a table name or field to insert it in the editor"
+msgstr ""
+"Haga doble clic en el nombre de una tabla o en un campo para insertarlo "
+"en el editor"
+
+#: src/rdbms/templates/execute.mako:40
+msgid "Manually refresh the table list"
+msgstr "Actualizar manualmente la lista de tablas"
+
+#: src/rdbms/templates/execute.mako:43
+msgid "server"
+msgstr "servidor"
+
+#: src/rdbms/templates/execute.mako:46 src/rdbms/templates/execute.mako:52
+msgid "Choose a database..."
+msgstr "Seleccionar una base de datos..."
+
+#: src/rdbms/templates/execute.mako:49
+msgid "database"
+msgstr "base de datos"
+
+#: src/rdbms/templates/execute.mako:54
+msgid "Table name..."
+msgstr "Nombre de tabla..."
+
+#: src/rdbms/templates/execute.mako:55
+msgid "The selected database has no tables."
+msgstr "La base de datos seleccionada no tiene tablas."
+
+#: src/rdbms/templates/execute.mako:95 src/rdbms/templates/execute.mako:815
+msgid "Query name"
+msgstr "Nombre de consulta"
+
+#: src/rdbms/templates/execute.mako:103
+msgid "Query description"
+msgstr "Descripción de consulta"
+
+#: src/rdbms/templates/execute.mako:114
+msgid "Your query has the following error(s):"
+msgstr "La consulta tiene los siguientes errores:"
+
+#: src/rdbms/templates/execute.mako:123
+msgid "Execute"
+msgstr "Ejecutar"
+
+#: src/rdbms/templates/execute.mako:124 src/rdbms/templates/execute.mako:196
+msgid "Save"
+msgstr "Guardar"
+
+#: src/rdbms/templates/execute.mako:125
+msgid "Save as..."
+msgstr "Guardar como..."
+
+#: src/rdbms/templates/execute.mako:126
+msgid "Explain"
+msgstr "Explicar"
+
+#: src/rdbms/templates/execute.mako:127
+msgid "or create a"
+msgstr "o crear"
+
+#: src/rdbms/templates/execute.mako:127
+msgid "New query"
+msgstr "Nueva consulta"
+
+#: src/rdbms/templates/execute.mako:152
+msgid "The server returned no results."
+msgstr "El servidor no ha devuelto ningún resultado."
+
+#: src/rdbms/templates/execute.mako:175
+msgid "Close"
+msgstr "Cerrar"
+
+#: src/rdbms/templates/execute.mako:176
+msgid "Save your query"
+msgstr "Guardar la consulta"
+
+#: src/rdbms/templates/execute.mako:181
+msgid "Name"
+msgstr "Nombre"
+
+#: src/rdbms/templates/execute.mako:187
+msgid "Description"
+msgstr "Descripción"
+
+#: src/rdbms/templates/execute.mako:195
+msgid "Cancel"
+msgstr "Cancelar"
+
+#: src/rdbms/templates/execute.mako:389
+msgid "Example: SELECT * FROM tablename, or press CTRL + space"
+msgstr "Ejemplo: SELECT * FROM nombre de tabla o pulse CTRL + espacio"
+
+#: src/rdbms/templates/execute.mako:578
+msgid "Did you know?"
+msgstr "¿Lo sabía?"
+
+#: src/rdbms/templates/execute.mako:664
+msgid "No query provided to save."
+msgstr "No se ha indicado ninguna consulta que guardar."
+
+#: src/rdbms/templates/execute.mako:686
+msgid "Oops, no server found!"
+msgstr "No se encontró ningún servidor."
+
+#: src/rdbms/templates/execute.mako:692
+msgid "Oops, no database found!"
+msgstr "No se ha encontrado ninguna base de datos."
+
+#: src/rdbms/templates/execute.mako:809
+msgid "This field is required."
+msgstr "Este campo es obligatorio."
+
+#: src/rdbms/templates/execute.mako:822
+msgid "Empty description"
+msgstr "Descripción vacía"
+
+#: src/rdbms/templates/execute.mako:828
+msgid "Query saved successfully!"
+msgstr "Consulta guardada correctamente."
+
+#: src/rdbms/templates/execute.mako:874
+msgid "No data available"
+msgstr "No hay datos disponibles"
+
+#: src/rdbms/templates/execute.mako:875
+msgid "No matching records"
+msgstr "No hay registros coincidentes"
+
+#: src/rdbms/templates/execute.mako:913
+msgid "Server error occurred: "
+msgstr "Se ha producido un error en el servidor: "
+
+#: src/rdbms/templates/execute.mako:916
+msgid "Unmanageable server error occurred: "
+msgstr "Se ha producido un error de servidor no administrable: "

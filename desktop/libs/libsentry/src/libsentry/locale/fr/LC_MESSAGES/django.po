@@ -1,0 +1,71 @@
+# French translations for Hue.
+# Copyright (C) 2013 Cloudera, Inc
+# This file is distributed under the same license as the Hue project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2013.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Hue VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2018-03-07 10:04-0800\n"
+"PO-Revision-Date: 2013-10-28 10:31-0700\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: fr <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 0.9.6\n"
+
+#: src/libsentry/api.py:44 src/libsentry/api2.py:44
+#, python-format
+msgid "Failed to connect to Sentry server %s, and Sentry HA is not enabled."
+msgstr "Impossible de se connecter au serveur Sentry %s et la haute disponibilité Sentry n’est pas activée."
+
+#: src/libsentry/api.py:53 src/libsentry/api.py:91 src/libsentry/api2.py:53
+#: src/libsentry/api2.py:91
+msgid "Failed to find an available Sentry server."
+msgstr "Impossible de trouver un serveur Sentry disponible."
+
+#: src/libsentry/api.py:57 src/libsentry/api2.py:57
+msgid "Encountered unexpected error in SentryApi."
+msgstr "Erreur inattendue rencontrée dans SentryApi."
+
+#: src/libsentry/conf.py:30
+msgid "Hostname or IP of server."
+msgstr "Nom d'hôte ou IP de serveur."
+
+#: src/libsentry/conf.py:37
+msgid "Port the sentry service is running on."
+msgstr "Port sur lequel le service Sentry est en cours d'exécution."
+
+#: src/libsentry/conf.py:44
+msgid "Sentry configuration directory, where sentry-site.xml is located."
+msgstr ""
+"Répertoire de configuration de Sentry, où se trouve le fichier sentry-"
+"site.xml."
+
+#: src/libsentry/conf.py:50
+msgid "Number of seconds when the privilege list of a user is cached."
+msgstr "Nombre de secondes lorsque la liste des privilèges d’un utilisateur est cachée."
+
+#: src/libsentry/sentry_ha.py:46 src/libsentry/tests.py:58
+msgid "Cannot create a Sentry client without server hostname and port."
+msgstr "Impossible de créer un client Sentry sans le nom d’hôte et le port du serveur."
+
+#: src/libsentry/sentry_ha.py:76
+#, python-format
+msgid ""
+"Encountered unexpected error while trying to find available Sentry "
+"client: %s"
+msgstr ""
+"Erreur inattendue rencontrée lors de la recherche d'un client Sentry "
+"disponible : %s"
+
+#: src/libsentry/sentry_site.py:133
+msgid "No Sentry servers are configured."
+msgstr "Aucun serveur Sentry n'est configuré."
+
+#: src/libsentry/sentry_site.py:152
+msgid "Error in retrieving Sentry server properties."
+msgstr "Erreur lors de la récupération des propriétés du serveur Sentry."

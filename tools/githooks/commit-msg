@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+INPUT_FILE=$1
+START_LINE=${2:-`head -n1 $INPUT_FILE`}
+MAX=71
+PATTERN="^.{0,$MAX}$"
+
+if ! [[ "$START_LINE" =~ $PATTERN ]]; then
+  echo "'$START_LINE' is not a valid commit message, please see for examples:"
+  echo ""
+  echo "  50 characters lenght recommended, $MAX max"
+  echo ""
+  echo "  [hive] Add numExecutors options"
+  echo "  [hive] Add numExecutors options (#1000)"
+  echo "  GH-1000 [hive] Add numExecutors options"
+  echo ""
+  echo "  Examples of labels: [hive], [impala], [ui], [docs], [api]..."
+  echo ""
+  exit 1
+fi

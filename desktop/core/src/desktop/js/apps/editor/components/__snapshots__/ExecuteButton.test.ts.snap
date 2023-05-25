@@ -1,0 +1,42 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ExecuteButton.vue should render 1`] = `
+<div
+  data-v-app=""
+>
+  
+  <hue-button-stub
+    alert="false"
+    borderless="false"
+    disabled="true"
+    large="false"
+    primary="false"
+    small="true"
+    title="Creating session"
+  />
+  <!--v-if-->
+  <!--v-if-->
+  <!--v-if-->
+  
+</div>
+`;
+
+exports[`ExecuteButton.vue should show execute once the session is loaded 1`] = `
+<div
+  data-v-app=""
+>
+  
+  <!--v-if-->
+  <hue-button-stub
+    alert="false"
+    borderless="false"
+    disabled="false"
+    large="false"
+    primary="true"
+    small="true"
+  />
+  <!--v-if-->
+  <!--v-if-->
+  
+</div>
+`;

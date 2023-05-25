@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: hue
+  labels:
+    pod: hue
+spec:
+  selector:
+    pod: hue
+  ports:
+  - name: hue
+    port: 8888
+  type: NodePort

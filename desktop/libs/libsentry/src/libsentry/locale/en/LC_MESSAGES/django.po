@@ -1,0 +1,68 @@
+# English translations for Hue.
+# Copyright (C) 2013 Cloudera, Inc
+# This file is distributed under the same license as the Hue project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2013.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Hue VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2018-03-07 10:04-0800\n"
+"PO-Revision-Date: 2013-10-28 10:31-0700\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: en <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 0.9.6\n"
+
+#: src/libsentry/api.py:44 src/libsentry/api2.py:44
+#, python-format
+msgid "Failed to connect to Sentry server %s, and Sentry HA is not enabled."
+msgstr ""
+
+#: src/libsentry/api.py:53 src/libsentry/api.py:91 src/libsentry/api2.py:53
+#: src/libsentry/api2.py:91
+msgid "Failed to find an available Sentry server."
+msgstr ""
+
+#: src/libsentry/api.py:57 src/libsentry/api2.py:57
+msgid "Encountered unexpected error in SentryApi."
+msgstr ""
+
+#: src/libsentry/conf.py:30
+msgid "Hostname or IP of server."
+msgstr ""
+
+#: src/libsentry/conf.py:37
+msgid "Port the sentry service is running on."
+msgstr ""
+
+#: src/libsentry/conf.py:44
+msgid "Sentry configuration directory, where sentry-site.xml is located."
+msgstr ""
+
+#: src/libsentry/conf.py:50
+msgid "Number of seconds when the privilege list of a user is cached."
+msgstr ""
+
+#: src/libsentry/sentry_ha.py:46 src/libsentry/tests.py:58
+msgid "Cannot create a Sentry client without server hostname and port."
+msgstr ""
+
+#: src/libsentry/sentry_ha.py:76
+#, python-format
+msgid ""
+"Encountered unexpected error while trying to find available Sentry "
+"client: %s"
+msgstr ""
+
+#: src/libsentry/sentry_site.py:133
+msgid "No Sentry servers are configured."
+msgstr ""
+
+#: src/libsentry/sentry_site.py:152
+msgid "Error in retrieving Sentry server properties."
+msgstr ""
+

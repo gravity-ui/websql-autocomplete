@@ -1,0 +1,38 @@
+[
+  {
+    "data_file": "employe_sample.csv",
+    "create_sql": "CREATE TABLE employe_sample (\n  code text ,\n  description text ,\n  total_emp int ,\n  salary int )\n",
+    "insert_sql": "INSERT INTO employe_sample (code, description, total_emp, salary)\nVALUES %(values)s",
+    "table_name": "employe_sample",
+    "dialects": ["mysql", "postgresql", "presto"],
+    "transactional": true
+  }
+  ,
+  {
+    "data_file": "./tables/us_population.csv",
+    "create_sql": "CREATE TABLE IF NOT EXISTS us_population (\n  state CHAR(2) NOT NULL,\n  city VARCHAR NOT NULL,\n  population BIGINT\n  CONSTRAINT my_pk PRIMARY KEY (state, city)\n)\n",
+    "insert_sql": "UPSERT INTO us_population VALUES %(values)s",
+    "table_name": "us_population",
+    "dialects": ["phoenix"],
+    "transactional": true,
+    "is_multi_inserts": true
+  }
+  ,
+  {
+    "data_file": null,
+    "create_sql": "CREATE TABLE datagen ( f_sequence INT, f_random INT, f_random_str STRING, ts AS localtimestamp, WATERMARK FOR ts AS ts ) WITH ( 'connector' = 'datagen', 'rows-per-second'='5', 'fields.f_sequence.kind'='sequence', 'fields.f_sequence.start'='1', 'fields.f_sequence.end'='1000', 'fields.f_random.min'='1', 'fields.f_random.max'='1000', 'fields.f_random_str.length'='10' )\n",
+    "insert_sql": null,
+    "table_name": "datagen",
+    "dialects": ["flink"],
+    "transactional": true
+  }
+  ,
+  {
+    "data_file": null,
+    "create_sql": "CREATE STREAM user_behavior (\n  user_id BIGINT,\n  item_id BIGINT,\n  category_id BIGINT,\n  behavior STRING,\n  ts STRING\n) WITH (kafka_topic='user_behavior', value_format='json', partitions=1)\n",
+    "insert_sql": null,
+    "table_name": "user_behavior",
+    "dialects": ["ksql"],
+    "transactional": true
+  }
+]

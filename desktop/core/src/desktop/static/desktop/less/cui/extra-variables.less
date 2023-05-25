@@ -1,0 +1,130 @@
+/*
+ Licensed to Cloudera, Inc. under one
+ or more contributor license agreements.  See the NOTICE file
+ distributed with this work for additional information
+ regarding copyright ownership.  Cloudera, Inc. licenses this file
+ to you under the Apache License, Version 2.0 (the
+ "License"); you may not use this file except in compliance
+ with the License.  You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+*/
+
+@import (reference) "./variables.less";
+
+@font-weight-h1: normal;
+@font-weight-h2: 400;
+@font-weight-h3: 600;
+@font-weight-h4: 400;
+@font-weight-h5: 400;
+@font-weight-h6: normal;
+
+@line-height-h1: 48px;
+@line-height-h2: 32px;
+@line-height-h3: 24px;
+@line-height-h4: 20px;
+@line-height-h5: 20px;
+@line-height-h6: 20px;
+
+@state-unknown-bg:               @cui-gray-050;
+@state-unknown-text:             @text-muted;
+
+@state-progress-bg:              @cui-gray-050;
+@state-progress-text:            @cui-blue;
+
+// === Buttons : Sizes === //
+// Button Height
+@cui-btn-height-lg: @input-height-large;
+@cui-btn-height-md: @input-height-base;
+@cui-btn-height-sm: @input-height-small;
+@cui-btn-height-xs: 24px;
+
+// Button Line Height (Computed)
+@cui-btn-border-offset: 2 * 1px;
+@cui-btn-line-height-lg: (@cui-btn-height-lg - @cui-btn-border-offset - 2 * @padding-large-vertical);
+@cui-btn-line-height-md: (@cui-btn-height-md - @cui-btn-border-offset - 2 * @padding-base-vertical);
+@cui-btn-line-height-sm: (@cui-btn-height-sm - @cui-btn-border-offset - 2 * @padding-small-vertical);
+@cui-btn-line-height-xs: (@cui-btn-height-xs - @cui-btn-border-offset - 2 * @padding-xs-vertical);
+
+// Button Side Padding
+@cui-btn-shoulder-padding-lg: @padding-large-horizontal;
+@cui-btn-shoulder-padding-md: @padding-base-horizontal;
+@cui-btn-shoulder-padding-sm: @padding-small-horizontal;
+@cui-btn-shoulder-padding-xs: @padding-small-horizontal;
+
+// Button Font Size
+@cui-btn-font-size-lg: @font-size-h2;    // 20px
+@cui-btn-font-size-md: @font-size-base;  // 14px
+@cui-btn-font-size-sm: 13px;
+@cui-btn-font-size-xs: @font-size-small; // 12px
+
+@cui-btn-circle-size-md: 22px;
+
+// === Buttons : Colors === //
+
+// button colors go darker when :hover, :focus, and :active
+@cui-btn-hover-color:     @cui-blue-900;
+@cui-btn-hover-bg:        @cui-gray-050;
+@cui-btn-hover-border:    @cui-gray-400;
+@cui-btn-hover-shadow:    0 1px 2px 0 @cui-gray-100;
+
+@cui-btn-active-color:    @cui-blue-900;
+@cui-btn-active-bg:       @cui-gray-050;
+@cui-btn-active-border:   @cui-gray-400;
+@cui-btn-active-shadow:   inset 0 2px 4px 0 @cui-gray-400;
+
+@cui-btn-disabled-color:  @cui-gray-600;
+@cui-btn-disabled-bg:     @cui-default-bg-color;
+@cui-btn-disabled-border: @cui-gray-300;
+
+@cui-btn-primary-font-weight:     500;
+@cui-btn-primary-hover-color:     @cui-default-inverse-color;
+@cui-btn-primary-hover-bg:        @cui-blue-800;
+@cui-btn-primary-hover-border:    @cui-blue-900;
+@cui-btn-primary-hover-shadow:    0 1px 2px 0 @cui-gray-500;
+
+@cui-btn-primary-active-color:    @cui-default-inverse-color;
+@cui-btn-primary-active-bg:       @cui-blue-800;
+@cui-btn-primary-active-border:   @cui-blue-900;
+@cui-btn-primary-active-shadow:   inset 0 2px 4px 0 @cui-blue-gray-900;
+
+@cui-btn-primary-disabled-color:  @cui-gray-600;
+@cui-btn-primary-disabled-bg:     @cui-gray-200;
+@cui-btn-primary-disabled-border: @cui-gray-400;
+
+// === Modals : Shape and Position === //
+@cui-modal-clearing: 30px; // For calculating max-height
+@cui-modal-border-radius: 7px;
+// @cui-modal-margin-top:    7%;
+@cui-modal-box-shadow:    0 0 3px 0 rgba(0, 0, 0, 0.11);
+
+// === Modals : Spacing === //
+@cui-modal-header-height: @modal-title-line-height;
+// Cloudera UI does not set modal title font size;
+// Use markups to specific font size, e.g. <h2>Title</h2>
+@cui-modal-height-ratio: 0.8;
+@cui-modal-footer-height: (@modal-inner-padding * 2 + @cui-btn-height-md);
+@cui-modal-reserve-height: (@cui-modal-clearing * 2 + @cui-modal-header-height + @cui-modal-footer-height);
+// Reserve for calculating the max-height of .modal-body: 30 * 2 + 68 + 24 * 2 + 32 = 208
+
+// === Modals : Colors === //
+@cui-modal-title-color: @cui-gray-700;
+@cui-modal-header-bg:   @cui-purple-gray-050;
+@cui-modal-footer-bg:   @cui-default-bg-color;
+
+// === Modals : Sizing === //
+@cui-modal-width-md: 580px;
+@cui-modal-width-lg: 900px;
+@cui-modal-width-xl: 90%;
+
+// For right aligned horizontal dl, we want a slightly wider.
+@dl-horizontal-right-offset: 176px;
+
+// Many of the paddings/margins are defined based on this variable
+@page-padding-base: @grid-gutter-width;
