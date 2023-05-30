@@ -11,6 +11,10 @@
   "engines": {
     "node": ">=0.10.0"
   },
+  "files": [
+    "NOTICE.txt",
+    "desktop/core/src/desktop/js/parse/sql/generic/genericAutocompleteParser.js"
+  ],
   "devDependencies": {
     "@babel/plugin-proposal-class-properties": "7.13.0",
     "@babel/plugin-proposal-decorators": "7.13.0",
