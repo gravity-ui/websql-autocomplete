@@ -1,29 +1,11 @@
 {
-  "name": "gethue",
-  "version": "5.0.0",
-  "description": "Hue is an Open source SQL Query Editor for Databases/Warehouses",
-  "keywords": [
-    "Query Editor",
-    "SQL Editor",
-    "SQL",
-    "SQL Components",
-    "SQL Autocomplete",
-    "SQL Parsers",
-    "SQL Scratchpad"
-  ],
-  "homepage": "http://gethue.com",
+  "name": "sql-autocomplete-parsers",
+  "version": "1.0.0",
+  "description": "A tool that provides autocompletion for various sql dialects",
   "repository": {
     "type": "git",
-    "url": "https://github.com/cloudera/hue"
+    "url": "git+ssh://git@github.com/gravity-ui/sql-autocomplete-parsers"
   },
-  "author": "Gethue.com",
-  "contributors": [
-    "Romain Rigaux <info@getromain.com>",
-    "Prakash Ranade <ranade@cloudera.com>",
-    "Ying Chen <yingchen@cloudera.com>",
-    "Sreenath Somarajapuram <ssomarajapuram@cloudera.com>",
-    "Johan Ahlen <johan.ahlen@cloudera.com>"
-  ],
   "license": "Apache-2.0",
   "private": false,
   "engines": {
