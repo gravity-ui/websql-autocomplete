@@ -22674,6 +22674,9 @@ SUCH DAMAGE.
 
 Please note that changes have been made to the files:
 - /desktop/core/src/desktop/js/parse/sql/generic/jison/structure.json
+- /desktop/core/src/desktop/js/parse/sql/generic/genericAutocompleteParser.test.ts
+- /desktop/core/src/desktop/js/parse/sql/generic/genericAutocompleteParser.test.ts
+- /desktop/core/src/desktop/js/parse/sql/sharedParserTests.ts
 - /tools/jison/package.json
 - /tools/jison/package-lock.json
 - /.gitignore
