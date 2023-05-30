@@ -25,30 +25,8 @@
     "typescript": "4.3.2"
   },
   "scripts": {
-    "devinstall": "npm cache clean && npm install && npm prune",
-    "webpack": "webpack --config webpack.config.js",
-    "webpack-login": "webpack --config webpack.config.login.js",
-    "webpack-workers": "webpack --config webpack.config.workers.js",
-    "webpack-npm": "webpack --config webpack.config.npm.js",
-    "publish-gethue": "make sql-all-parsers && npm run webpack-npm && cd npm_dist && npm publish",
-    "dev": "webpack --watch --config webpack.config.js -d eval",
-    "dev-login": "webpack --config webpack.config.login.js --watch -d eval",
-    "dev-workers": "webpack --config webpack.config.workers.js --watch -d eval",
-    "dev-webpack-npm": "webpack --config webpack.config.npm.js --watch -d eval",
-    "less": "./node_modules/.bin/grunt less",
-    "less-dev": "./node_modules/.bin/grunt watch",
-    "style-lint": "stylelint \"desktop/core/src/desktop/static/desktop/less/**/*.less\" \"desktop/core/src/desktop/js/**/*.scss\"",
-    "style-lint-fix": "npm run style-lint -- --fix",
-    "lint-vue-template": "vti diagnostics",
-    "lint": "eslint desktop/core/src/desktop/js tools/sql-docs tools/jison",
-    "lint-debug": "npm run lint -- --debug",
-    "lint-fix": "npm run lint -- --fix",
-    "test": "jest",
-    "test-coverage": "jest --coverage",
-    "test-dev": "jest --watch",
-    "test-clearCache": "jest --clearCache",
-    "check-license": "node ./tools/ci/check_for_js_licenses.js",
-    "check-absolute-paths": "node ./tools/ci/check_for_absolute_paths.js",
-    "check-pinned-versions": "node ./tools/ci/check_for_pinned_versions.js"
+    "setup": "npm install && cd tools/jison && npm install",
+    "test": "jest src/desktop/js/parse/sql/",
+    "build": "cd tools/jison && node generateParsers.js generic"
   }
 }
