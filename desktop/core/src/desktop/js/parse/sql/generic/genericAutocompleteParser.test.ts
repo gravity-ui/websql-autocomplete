@@ -30,7 +30,7 @@
 
 import genericAutocompleteParser from './genericAutocompleteParser';
 import structure from './jison/structure.json';
-import { AutocompleteParser } from '../../types';
+import { AutocompleteParser } from '../types';
 import { extractTestCases, runTestCases } from '../testUtils';
 import { assertPartials, CommonParser } from '../sqlTypedParseUtils';
 
