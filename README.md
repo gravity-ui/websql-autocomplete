@@ -1,6 +1,6 @@
 # About
 
-A tool that suggest sql completion for various sql dialects.
+A tool that provides autocompletion for various sql dialects.
 
 # Repository structure
 
