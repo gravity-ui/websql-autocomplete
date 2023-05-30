@@ -32,11 +32,9 @@
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 
-import 'apps/editor/execution/sessionManager';
 import './sqlTestUtils';
 
 import axios from 'axios';
-import $ from 'jquery';
 import * as ko from 'knockout';
 import komapping from 'knockout.mapping';
 
@@ -116,13 +114,6 @@ Object.keys(globalVars).forEach(key => {
   global.window[key] = globalVars[key];
 });
 
-$.ajaxSetup({
-  beforeSend: function () {
-    console.warn('actual jQuery ajax called');
-    console.trace();
-  }
-});
-
 axios.interceptors.request.use(config => {
   console.warn('Actual axios ajax request made to url: ' + config.url);
   console.trace();
@@ -132,6 +123,3 @@ axios.interceptors.request.use(config => {
 process.on('unhandledRejection', err => {
   fail(err);
 });
-
-jest.mock('../utils/i18nReact');
-jest.mock('../utils/hueAnalytics');
