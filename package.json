@@ -13,7 +13,7 @@
   },
   "files": [
     "NOTICE.txt",
-    "desktop/core/src/desktop/js/parse/sql/generic/genericAutocompleteParser.js"
+    "desktop/*"
   ],
   "devDependencies": {
     "@babel/plugin-proposal-class-properties": "7.13.0",
