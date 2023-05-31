@@ -34,7 +34,7 @@ import { AutocompleteParser } from '../../lib/types';
 import { extractTestCases, runTestCases } from '../../test/testing-typed';
 import { assertPartials, CommonParser } from '../../lib/parsing-typed';
 
-const jisonFolder = 'src/parsing/generic/jison';
+const jisonFolder = 'src/parsing/parsers/generic/jison';
 const groupedTestCases = extractTestCases(jisonFolder, structure.autocomplete);
 
 describe('genericAutocompleteParser', () => {
