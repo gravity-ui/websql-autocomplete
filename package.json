@@ -15,14 +15,9 @@
     "src/*"
   ],
   "devDependencies": {
-    "@babel/plugin-proposal-class-properties": "7.13.0",
-    "@babel/plugin-proposal-decorators": "7.13.0",
-    "@babel/plugin-proposal-object-rest-spread": "7.13.0",
-    "@babel/plugin-syntax-dynamic-import": "7.8.3",
     "@babel/preset-env": "7.14.4",
     "@babel/preset-typescript": "^7.21.5",
     "@types/jest": "27.0.2",
-    "babel-plugin-module-resolver": "^5.0.0",
     "ts-jest": "^29.1.0",
     "typescript": "4.3.2"
   },
