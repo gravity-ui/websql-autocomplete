@@ -1,5 +1,7 @@
 import {genericAutocompleteParser} from './parsers/generic/genericAutocompleteParser';
 
+export const cursorSymbol = '†';
+
 export abstract class Parser {
     abstract parseSql(beforeCursor: string, afterCursor: string, debug?: boolean): ParseResult;
 }
