@@ -53,17 +53,17 @@ const jsonStringToJsString = function (jsonString) {
 expect.extend({
   toEqualAutocompleteValues(actualItems, expectedValues) {
     if (actualItems.length !== expectedValues.length) {
-      return { pass: false };
+      return { pass: false, message: () => 'items length is not equal' };
     }
 
     for (let i = 0; i < expectedValues.length; i++) {
       const stringValue =
         typeof actualItems[i] !== 'string' ? '' + actualItems[i].value : actualItems[i].value;
       if (stringValue !== expectedValues[i]) {
-        return { pass: false };
+        return { pass: false, message: () => `got '${stringValue}', but expected '${expectedValues}'`};
       }
     }
-    return { pass: true };
+    return { pass: true, message: () => 'test' };
   },
   toEqualDefinition(actualResponse, testDefinition) {
     if (typeof testDefinition.noErrors === 'undefined' && actualResponse.errors) {
