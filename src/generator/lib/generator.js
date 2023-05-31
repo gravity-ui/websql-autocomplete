@@ -216,8 +216,7 @@ const createParserDefinition = (
           `var ${parserName} = `,
           imports
             ? `${imports.join(';\n')};\n\n$var ${parserName} = `
-            // TODO: rename SqlParseSupport
-            : `import SqlParseSupport from './parser-extension';\n\nvar ${parserName} = `
+            : `import { extendParser } from './parser-extension';\n\nvar ${parserName} = `
         )
         // Add jsdoc to the parse function
         .replace('parse: function parse', AUTOCOMPLETE_PARSER_JSDOC + 'parse: function parse')

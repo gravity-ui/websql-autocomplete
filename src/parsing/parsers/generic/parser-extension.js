@@ -30,16 +30,14 @@
 
 import {
   initSharedAutocomplete,
-  initSyntaxParser,
   identifierEquals,
   equalIgnoreCase,
   SIMPLE_TABLE_REF_SUGGESTIONS,
   adjustForPartialBackticks
-// } from 'parse/sql/sqlParseUtils';
 } from '../../lib/parsing';
 import {matchesType} from "../../lib/sql-reference/types";
 
-const initSqlParser = function (parser) {
+export const extendParser = function (parser) {
   initSharedAutocomplete(parser);
 
   parser.prepareNewStatement = function () {
@@ -1468,9 +1466,4 @@ const initSqlParser = function (parser) {
 
     return result;
   };
-};
-
-export default {
-  initSqlParser: initSqlParser,
-  initSyntaxParser: initSyntaxParser
 };
