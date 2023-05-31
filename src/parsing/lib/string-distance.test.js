@@ -14,7 +14,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import stringDistance from './stringDistance';
+import stringDistance from './string-distance';
 
 describe('stringDistance.js', () => {
   const expectDistance = function (strA, strB, distance, ignoreCase) {

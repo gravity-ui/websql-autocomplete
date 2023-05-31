@@ -14,9 +14,23 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+// Please note that the code below is the modified code distributed on the terms, mentioned below.
+// The copyright for the changes belongs to YANDEX LLC.
+//
+// Copyright 2023 YANDEX LLC
+//
+// Licensed under the Apache License, Version 2.0 (the "License")
+// You may not use this file except in compliance with the License.
+// You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software distributed under
+// the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+// either express or implied. See the License for the specific language governing permissions
+// and limitations under the License.
+
 /* eslint-disable no-restricted-syntax */
 
-import { fileExists, listDir, readFile } from './utils.js';
+import { fileExists, listDir, readFile } from './files.js';
 
 const LICENSE = `// Licensed to Cloudera, Inc. under one
 // or more contributor license agreements.  See the NOTICE file
@@ -33,6 +47,21 @@ const LICENSE = `// Licensed to Cloudera, Inc. under one
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
+
+// Please note that the code below is the modified code distributed on the terms, mentioned below.
+// The copyright for the changes belongs to YANDEX LLC.
+//
+// Copyright 2023 YANDEX LLC
+//
+// Licensed under the Apache License, Version 2.0 (the "License")
+// You may not use this file except in compliance with the License.
+// You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software distributed under
+// the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+// either express or implied. See the License for the specific language governing permissions
+// and limitations under the License.
+
 `;
 
 const SQL_STATEMENTS_PARSER_JSDOC = `/**
@@ -49,8 +78,8 @@ const AUTOCOMPLETE_PARSER_JSDOC = `/**
  */
 `;
 
-const PARSER_FOLDER = '../../desktop/core/src/desktop/js/parse';
-const SQL_FOLDER = '../../desktop/core/src/desktop/js/parse/sql';
+const PARSING_FOLDER = '../parsing';
+const PARSERS_FOLDER = `${PARSING_FOLDER}/parsers`;
 
 /*
  The FIXED_PARSER_DEFINITIONS are for parsers other than the ones used for SQL autocomplete and syntax
@@ -61,9 +90,9 @@ const SQL_FOLDER = '../../desktop/core/src/desktop/js/parse/sql';
  */
 const FIXED_PARSER_DEFINITIONS = {
   globalSearchParser: {
-    sources: [`${PARSER_FOLDER}/jison/globalSearchParser.jison`],
+    sources: [`${PARSING_FOLDER}/jison/globalSearchParser.jison`],
     targetJison: 'globalSearchParser.jison',
-    outputFolder: PARSER_FOLDER,
+    outputFolder: PARSING_FOLDER,
     parserName: 'globalSearchParser',
     afterParse: async contents =>
       `${LICENSE}${contents.replace(
@@ -72,23 +101,23 @@ const FIXED_PARSER_DEFINITIONS = {
       )}\nexport default globalSearchParser;\n`
   },
   solrFormulaParser: {
-    sources: [`${PARSER_FOLDER}/jison/solrFormulaParser.jison`],
+    sources: [`${PARSING_FOLDER}/jison/solrFormulaParser.jison`],
     targetJison: 'solrFormulaParser.jison',
-    outputFolder: PARSER_FOLDER,
+    outputFolder: PARSING_FOLDER,
     parserName: 'solrFormulaParser',
     afterParse: async contents => `${LICENSE}${contents}\nexport default solrFormulaParser;\n`
   },
   solrQueryParser: {
-    sources: [`${PARSER_FOLDER}/jison/solrQueryParser.jison`],
+    sources: [`${PARSING_FOLDER}/jison/solrQueryParser.jison`],
     targetJison: 'solrQueryParser.jison',
-    outputFolder: PARSER_FOLDER,
+    outputFolder: PARSING_FOLDER,
     parserName: 'solrQueryParser',
     afterParse: async contents => `${LICENSE}${contents}\nexport default solrQueryParser;\n`
   },
   sqlStatementsParser: {
-    sources: [`${PARSER_FOLDER}/jison/sqlStatementsParser.jison`],
+    sources: [`${PARSING_FOLDER}/jison/sqlStatementsParser.jison`],
     targetJison: 'sqlStatementsParser.jison',
-    outputFolder: PARSER_FOLDER,
+    outputFolder: PARSING_FOLDER,
     parserName: 'sqlStatementsParser',
     afterParse: async contents =>
       `${LICENSE}${contents.replace(
@@ -97,9 +126,9 @@ const FIXED_PARSER_DEFINITIONS = {
       )}\nexport default sqlStatementsParser;\n`
   },
   hplsqlStatementsParser: {
-    sources: [`${PARSER_FOLDER}/jison/hplsqlStatementsParser.jison`],
+    sources: [`${PARSING_FOLDER}/jison/hplsqlStatementsParser.jison`],
     targetJison: 'hplsqlStatementsParser.jison',
-    outputFolder: PARSER_FOLDER,
+    outputFolder: PARSING_FOLDER,
     parserName: 'hplsqlStatementsParser',
     afterParse: async contents =>
       `${LICENSE}${contents.replace(
@@ -113,10 +142,10 @@ const FIXED_PARSER_DEFINITIONS = {
  * Searches through the SQL_FOLDER and if a jison/structure.json file exists it considers it a parser
  */
 const findParserSources = async () => {
-  const folders = await listDir(SQL_FOLDER);
+  const folders = await listDir(PARSERS_FOLDER);
   const structureFiles = [];
   for (const folder of folders) {
-    const outputFolder = `${SQL_FOLDER}/${folder}`;
+    const outputFolder = `${PARSERS_FOLDER}/${folder}`;
     const jisonFolder = `${outputFolder}/jison`;
     const structureFile = `${jisonFolder}/structure.json`;
     if (fileExists(structureFile)) {
@@ -132,6 +161,7 @@ const findParserSources = async () => {
 export const identifySqlParsers = async () => {
   const parserSources = await findParserSources();
   const foundDefinitions = {};
+
   for (const parserSource of parserSources) {
     const structure = JSON.parse(await readFile(parserSource.structureFile));
     if (structure.autocomplete) {
@@ -186,7 +216,8 @@ const createParserDefinition = (
           `var ${parserName} = `,
           imports
             ? `${imports.join(';\n')};\n\n$var ${parserName} = `
-            : `import SqlParseSupport from 'parse/sql/${dialect}/sqlParseSupport';\n\nvar ${parserName} = `
+            // TODO: rename SqlParseSupport
+            : `import SqlParseSupport from './parser-extension';\n\nvar ${parserName} = `
         )
         // Add jsdoc to the parse function
         .replace('parse: function parse', AUTOCOMPLETE_PARSER_JSDOC + 'parse: function parse')

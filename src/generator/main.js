@@ -14,15 +14,30 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+// Please note that the code below is the modified code distributed on the terms, mentioned below.
+// The copyright for the changes belongs to YANDEX LLC.
+//
+// Copyright 2023 YANDEX LLC
+//
+// Licensed under the Apache License, Version 2.0 (the "License")
+// You may not use this file except in compliance with the License.
+// You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software distributed under
+// the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+// either express or implied. See the License for the specific language governing permissions
+// and limitations under the License.
+
 /* eslint-disable no-restricted-syntax */
 
-import { identifySqlParsers } from './parserDefinitions.js';
-import { deleteFile, readFile, writeFile } from './utils.js';
+import { identifySqlParsers } from './lib/generator.js';
+import { deleteFile, readFile, writeFile } from './lib/files.js';
 import jisonCli from 'jison/lib/cli.js';
 
 const findParsersToGenerateFromArgs = parserDefinitions => {
   process.argv.shift(); // drop "node"
   process.argv.shift(); // drop "generateParsers.js"
+
   const foundDefinitions = new Set();
   const invalid = [];
   if (process.argv[0] === 'all') {

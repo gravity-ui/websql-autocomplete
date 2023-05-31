@@ -30,7 +30,7 @@
 
 import fs from 'fs';
 
-import { AutocompleteParser } from './types';
+import { AutocompleteParser } from '../lib/types';
 
 interface TestCase {
   namePrefix: string; // ex. "should suggest keywords"

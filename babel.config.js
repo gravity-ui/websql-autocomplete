@@ -26,7 +26,7 @@ module.exports = function (api) {
     [
       'module-resolver',
       {
-        root: ['./desktop/core/src/desktop/js']
+        root: ['./src/parsing']
       }
     ],
     '@babel/plugin-syntax-dynamic-import',
@@ -63,7 +63,7 @@ module.exports = function (api) {
         [
           'module-resolver',
           {
-            root: ['./desktop/core/src/desktop/js']
+            root: ['./src/parsing']
           }
         ],
         '@babel/plugin-syntax-dynamic-import'

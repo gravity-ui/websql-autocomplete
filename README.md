@@ -4,16 +4,16 @@ A tool that provides autocompletion for various sql dialects.
 
 # Scripts
 
-- ```npm run setup``` - Install all dependencies
-- ```npm run test``` - Run tests
-- ```npm run build``` - Build parsers
+- `npm run setup` - Install all dependencies
+- `npm run generate` - Generate parsers
+- `npm run test` - Run tests
 
 # Repository structure
 
-- `desktop/core/src/desktop/js/parse/sql/{dialect}/jison/` - contains grammar definitions for {dialect}, from which the actual autocomplete parser is built
-- `desktop/core/src/desktop/js/parse/sql/{dialect}/{dialect}AutocompleteParser.js` - the actual autocomplete parser that you can import in your project
-- `desktop/core/src/desktop/js/parse/sql/{dialect}/**/*.test.*` - contains autocomplete parser tests
-- `tools/jison/generateParsers.js` - tool that builds autocomplete parsers
+- `src/parsing/parsers/{dialect}/jison/` - contains grammar definitions for {dialect}, from which the parser is built
+- `src/parsing/parsers/{dialect}/{dialect}AutocompleteParser.js` - the parser that you can import in your project
+- `src/parsing/parsers/{dialect}/**/*.test.*` - contains parser tests
+- `src/generator/main.js` - tool that builds autocomplete parsers
 
 # Contributing
 

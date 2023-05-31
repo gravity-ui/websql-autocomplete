@@ -29,7 +29,7 @@
   },
   "scripts": {
     "setup": "npm install && cd tools/jison && npm install",
-    "test": "jest src/desktop/js/parse/sql/",
-    "build": "cd tools/jison && node generateParsers.js generic"
+    "test": "jest src/parsing",
+    "generate": "cd src/generator && node main.js generic"
   }
 }

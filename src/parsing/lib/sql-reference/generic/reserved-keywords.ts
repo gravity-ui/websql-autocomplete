@@ -3,13 +3,13 @@
 // distributed with this work for additional information
 // regarding copyright ownership.  Cloudera, Inc. licenses this file
 // to you under the Apache License, Version 2.0 (the
-// 'License'); you may not use this file except in compliance
+// "License"); you may not use this file except in compliance
 // with the License.  You may obtain a copy of the License at
 //
 //     http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an 'AS IS' BASIS,
+// distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
@@ -28,22 +28,90 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
-import genericAutocompleteParser from './genericAutocompleteParser';
-import structure from './jison/structure.json';
-import { AutocompleteParser } from '../types';
-import { extractTestCases, runTestCases } from '../testUtils';
-import { assertPartials, CommonParser } from '../sqlTypedParseUtils';
-
-const jisonFolder = 'desktop/core/src/desktop/js/parse/sql/generic/jison';
-const groupedTestCases = extractTestCases(jisonFolder, structure.autocomplete);
-
-describe('genericAutocompleteParser', () => {
-  // TODO: Fix the types
-  runTestCases(genericAutocompleteParser as unknown as AutocompleteParser, groupedTestCases);
-
-  describe('partial removal', () => {
-    it('should identify part lengths', () => {
-      assertPartials(genericAutocompleteParser as unknown as CommonParser);
-    });
-  });
-});
+export const RESERVED_WORDS: Set<string> = new Set([
+  'ALL',
+  'ALTER',
+  'AND',
+  'AS',
+  'ASC',
+  'BETWEEN',
+  'BIGINT',
+  'BOOLEAN',
+  'BY',
+  'CASCADE',
+  'CASE',
+  'CHAR',
+  'COMMENT',
+  'CREATE',
+  'CROSS',
+  'CURRENT',
+  'DATABASE',
+  'DECIMAL',
+  'DESC',
+  'DISTINCT',
+  'DIV',
+  'DOUBLE',
+  'DROP',
+  'ELSE',
+  'END',
+  'EXISTS',
+  'FALSE',
+  'FLOAT',
+  'FOLLOWING',
+  'FROM',
+  'FULL',
+  'GROUP',
+  'HAVING',
+  'IF',
+  'IN',
+  'INNER',
+  'INSERT',
+  'INT',
+  'INTO',
+  'IS',
+  'JOIN',
+  'LEFT',
+  'LIKE',
+  'LIMIT',
+  'NOT',
+  'NULL',
+  'ON',
+  'OPTION',
+  'OR',
+  'ORDER',
+  'OUTER',
+  'PARTITION',
+  'PRECEDING',
+  'PURGE',
+  'RANGE',
+  'REGEXP',
+  'RIGHT',
+  'RLIKE',
+  'ROLE',
+  'ROW',
+  'ROWS',
+  'SCHEMA',
+  'SELECT',
+  'SEMI',
+  'SET',
+  'SHOW',
+  'SMALLINT',
+  'STRING',
+  'TABLE',
+  'THEN',
+  'TIMESTAMP',
+  'TINYINT',
+  'TO',
+  'TRUE',
+  'TRUNCATE',
+  'UNBOUNDED',
+  'UNION',
+  'UPDATE',
+  'USE',
+  'VALUES',
+  'VARCHAR',
+  'VIEW',
+  'WHEN',
+  'WHERE',
+  "WITH"
+]);

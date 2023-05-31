@@ -5,11 +5,11 @@ module.exports = {
   },
   moduleNameMapper: {
     '\\.(css|less|scss|sass)$': 'identity-obj-proxy',
-    '^\\./desktop/core/src/desktop/js/(.*)$': '<rootDir>/desktop/core/src/desktop/js/$1'
+    '^\\./src/parsing/(.*)$': '<rootDir>/src/parsing/$1'
   },
-  moduleDirectories: ['node_modules', 'desktop/core/src/desktop/js'],
-  modulePaths: ['desktop/core/src/desktop/js'],
-  testMatch: ['<rootDir>/desktop/core/src/desktop/js/**/*.test.(js|jsx|ts|tsx)'],
-  setupFilesAfterEnv: ['<rootDir>/desktop/core/src/desktop/js/jest/jest.init.js'],
-  collectCoverageFrom: ['<rootDir>/desktop/core/src/desktop/js/**/*.{js,jsx}']
+  moduleDirectories: ['node_modules', 'src/parsing'],
+  modulePaths: ['src/parsing'],
+  testMatch: ['<rootDir>/src/parsing/**/*.test.(js|jsx|ts|tsx)'],
+  setupFilesAfterEnv: ['<rootDir>/src/parsing/test/jest.init.js'],
+  collectCoverageFrom: ['<rootDir>/src/parsing/**/*.{js,jsx}']
 };

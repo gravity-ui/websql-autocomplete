@@ -22673,15 +22673,25 @@ SUCH DAMAGE.
 --------------------------------------------------------------------------------
 
 Please note that changes have been made to the files:
-- /desktop/core/src/desktop/js/parse/sql/generic/jison/structure.json
-- /desktop/core/src/desktop/js/parse/sql/generic/genericAutocompleteParser.test.ts
-- /desktop/core/src/desktop/js/parse/sql/sharedParserTests.ts
-- /desktop/core/src/desktop/js/parse/sql/testUtils.ts
-- /desktop/core/src/desktop/js/parse/sql/types.ts
-- /desktop/core/src/desktop/js/parse/types.ts
-- /desktop/core/src/desktop/js/jest/jest.init.js
-- /tools/jison/package.json
-- /tools/jison/package-lock.json
+- /src/generator/lib/files.js
+- /src/generator/lib/generator.js
+- /src/generator/main.js
+- /src/generator/package.json
+- /src/parsing/lib/sql-reference/generic/reserved-keywords.ts
+- /src/parsing/lib/sql-reference/generic/type-conversion.ts
+- /src/parsing/lib/sql-reference/generic/user-defined-functions.ts
+- /src/parsing/lib/sql-reference/types.ts
+- /src/parsing/lib/parsing.js
+- /src/parsing/lib/parsing-typed.ts
+- /src/parsing/lib/string-distance.test.js
+- /src/parsing/lib/types.ts
+- /src/parsing/parsers/generic/genericAutocompleteParser.js
+- /src/parsing/parsers/generic/genericAutocompleteParser.test.ts
+- /src/parsing/parsers/generic/genericAutocompleteParser.locations.test.js
+- /src/parsing/parsers/generic/parser-extension.js
+- /src/parsing/test/jest.init.js
+- /src/parsing/test/testing.js
+- /src/parsing/test/testing-typed.ts
 - /.gitignore
 - /babel.config.js
 - /jest.config.js

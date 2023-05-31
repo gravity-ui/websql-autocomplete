@@ -28,10 +28,6 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
-import { CancellablePromise } from 'api/cancellablePromise';
-import DataCatalogEntry from 'catalog/DataCatalogEntry';
-import { ParsedSqlStatement } from './sqlStatementsParser';
-
 export interface IdentifierChainEntry {
   name: string;
   cte?: string;
@@ -57,14 +53,6 @@ export interface ParsedLocation {
   last_column: number;
 }
 
-export interface SyntaxError {
-  expected: { text: string; distance: number }[];
-  expectedStatementEnd?: boolean;
-  loc: ParsedLocation;
-  text: string;
-  ruleId?: string;
-}
-
 export interface IdentifierLocation {
   identifier: string;
   type: string;
@@ -83,18 +71,6 @@ export interface IdentifierLocation {
   parentLocation?: ParsedLocation;
   path?: string;
   qualified?: boolean;
-  resolveCatalogEntry: (options?: {
-    cachedOnly?: boolean;
-    cancellable?: boolean;
-    temporaryOnly?: boolean;
-  }) => CancellablePromise<DataCatalogEntry>;
-}
-
-export interface StatementDetails {
-  selectedStatements: ParsedSqlStatement[];
-  precedingStatements: ParsedSqlStatement[];
-  activeStatement: ParsedSqlStatement;
-  followingStatements: ParsedSqlStatement[];
 }
 
 export interface ColumnAliasDetails {
@@ -204,19 +180,6 @@ export interface AutocompleteParseResult {
   useDatabase?: string;
 }
 
-export interface SqlStatementsParser {
-  parse(text: string): ParsedSqlStatement[];
-}
-
 export interface AutocompleteParser {
   parseSql(beforeCursor: string, afterCursor: string, debug?: boolean): AutocompleteParseResult;
-}
-
-export interface SyntaxParser {
-  parseSyntax(beforeCursor: string, afterCursor: string): unknown;
-}
-
-export interface SqlParserProvider {
-  getAutocompleteParser(dialect: string): Promise<AutocompleteParser>;
-  getSyntaxParser(dialect: string): Promise<SyntaxParser>;
 }
