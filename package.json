@@ -12,8 +12,7 @@
     "node": ">=0.10.0"
   },
   "files": [
-    "NOTICE.txt",
-    "desktop/*"
+    "src/*"
   ],
   "devDependencies": {
     "@babel/plugin-proposal-class-properties": "7.13.0",
