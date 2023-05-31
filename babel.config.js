@@ -14,9 +14,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-const aceRegex = /.*\/js\/ext\/ace\/ace.js$/;
-const parserFileRegex = /.*desktop\/js\/parse\/.*Parser.js$/;
-
 module.exports = function (api) {
   api.cache(true);
   api.assertVersion('^7.4.5');
@@ -26,7 +23,7 @@ module.exports = function (api) {
     [
       'module-resolver',
       {
-        root: ['./src/parsing']
+        root: ['./src']
       }
     ],
     '@babel/plugin-syntax-dynamic-import',
@@ -46,16 +43,6 @@ module.exports = function (api) {
     '@babel/proposal-object-rest-spread'
   ];
 
-  const overrides = [
-    {
-      test: parserFileRegex,
-      compact: false
-    },
-    {
-      test: aceRegex,
-      compact: false
-    }
-  ];
   const env = {
     test: {
       presets: ['@babel/typescript', '@babel/preset-env'],
@@ -63,7 +50,7 @@ module.exports = function (api) {
         [
           'module-resolver',
           {
-            root: ['./src/parsing']
+            root: ['./src']
           }
         ],
         '@babel/plugin-syntax-dynamic-import'
@@ -73,7 +60,6 @@ module.exports = function (api) {
 
   return {
     env,
-    overrides,
     presets,
     plugins
   };
