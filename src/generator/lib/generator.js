@@ -216,7 +216,7 @@ const createParserDefinition = (
           `var ${parserName} = `,
           imports
             ? `${imports.join(';\n')};\n\n$var ${parserName} = `
-            : `import { extendParser } from './parser-extension';\n\nvar ${parserName} = `
+            : `import { extendParser } from './parser-extension';\n\nexport let ${parserName} = `
         )
         // Add jsdoc to the parse function
         .replace('parse: function parse', AUTOCOMPLETE_PARSER_JSDOC + 'parse: function parse')
@@ -224,7 +224,7 @@ const createParserDefinition = (
         .replace(
           'loc: yyloc,',
           "loc: lexer.yylloc, ruleId: stack.slice(stack.length - 2, stack.length).join(''),"
-        )}\nexport default ${parserName};\n`
+        )}\n`
   };
 };
 

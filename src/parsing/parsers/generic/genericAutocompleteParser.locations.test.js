@@ -28,7 +28,7 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
-import genericAutocompleteParser from './genericAutocompleteParser';
+import {genericAutocompleteParser} from './genericAutocompleteParser';
 
 // prettier-ignore-start
 
