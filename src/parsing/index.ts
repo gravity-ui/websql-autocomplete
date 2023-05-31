@@ -58,7 +58,7 @@ export interface IdentifierChainEntry {
     name: string;
 }
 
-export function parseGenericSql(queryBeforeCursor: string, queryAfterCursor: string, debug: boolean): ParseResult {
+export function parseGenericSql(queryBeforeCursor: string, queryAfterCursor: string, debug?: boolean): ParseResult {
     let parser = genericAutocompleteParser as unknown as Parser;
     return parser.parseSql(queryBeforeCursor, queryAfterCursor, debug) as ParseResult;
 }
