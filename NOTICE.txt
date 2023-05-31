@@ -22690,9 +22690,8 @@ Please note that changes have been made to the files:
 - /src/parsing/parsers/generic/genericAutocompleteParser.test.ts
 - /src/parsing/parsers/generic/genericAutocompleteParser.locations.test.js
 - /src/parsing/parsers/generic/parser-extension.js
-- /src/parsing/test/jest.init.js
-- /src/parsing/test/testing.js
-- /src/parsing/test/testing-typed.ts
+- /src/parsing/test/jest.init.ts
+- /src/parsing/test/testing.ts
 - /.gitignore
 - /babel.config.js
 - /jest.config.js
