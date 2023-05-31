@@ -31,7 +31,7 @@
 import {genericAutocompleteParser} from './genericAutocompleteParser';
 import structure from './jison/structure.json';
 import { AutocompleteParser } from '../../lib/types';
-import { extractTestCases, runTestCases } from '../../test/testing-typed';
+import { extractTestCases, runTestCases } from '../../test/testing';
 import { assertPartials, CommonParser } from '../../lib/parsing-typed';
 
 const jisonFolder = 'src/parsing/parsers/generic/jison';

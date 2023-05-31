@@ -28,7 +28,12 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
-import './testing';
+import {getToEqualAutocompleteValues, toEqualDefinition} from './testing';
+
+expect.extend({
+  toEqualAutocompleteValues: getToEqualAutocompleteValues,
+  toEqualDefinition: toEqualDefinition,
+});
 
 process.on('unhandledRejection', err => {
   fail(err);
