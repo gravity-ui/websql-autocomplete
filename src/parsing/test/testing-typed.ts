@@ -28,7 +28,7 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
-import fs from 'fs';
+import {existsSync, readFileSync} from 'fs';
 
 import { AutocompleteParser } from '../lib/types';
 
@@ -65,17 +65,17 @@ export const extractTestCases = (
   structureFiles: string[]
 ): GroupedTestCases[] => {
   const groupedTestCases: GroupedTestCases[] = [];
+
   structureFiles.forEach(jisonFile => {
     const testFile = `${jisonFolder}/${jisonFile.replace('.jison', '.test.json')}`;
-    if (fs.existsSync(testFile)) {
-      const fileJson = fs.readFileSync(testFile).toString();
-      const testCases: TestCase[] = [];
-      JSON.parse(fileJson).forEach((testCase: TestCase) => {
-        testCases.push(testCase);
-      });
-      groupedTestCases.push({ jisonFile, testCases });
+    if (!existsSync(testFile)) {
+      return
     }
+
+    const testCases = JSON.parse(readFileSync(testFile).toString()) as TestCase[];
+    groupedTestCases.push({ jisonFile, testCases });
   });
+
   return groupedTestCases;
 };
 
