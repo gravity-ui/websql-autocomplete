@@ -1,7 +1,7 @@
 {
-  "name": "sql-autocomplete-parsers",
+  "name": "sql-autocomplete-parsers-2",
   "version": "1.0.0",
-  "description": "A tool that provides autocompletion for various sql dialects",
+  "description": "A library that provides autocompletion and errors highlighting for various sql dialects",
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/gravity-ui/sql-autocomplete-parsers"
