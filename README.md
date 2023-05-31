@@ -10,8 +10,8 @@ A tool that provides autocompletion for various sql dialects.
 
 # Repository structure
 
+- `src/parsing/index.ts` - api file that you can import in your project. You need to compile it yourself though!
 - `src/parsing/parsers/{dialect}/jison/` - contains grammar definitions for {dialect}, from which the parser is built
-- `src/parsing/parsers/{dialect}/{dialect}AutocompleteParser.js` - the parser that you can import in your project
 - `src/parsing/parsers/{dialect}/**/*.test.*` - contains parser tests
 - `src/generator/main.js` - tool that builds autocomplete parsers
 
