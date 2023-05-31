@@ -18,8 +18,8 @@ A tool that provides autocompletion for various sql dialects.
 # Contributing
 
 - When adding a new file, just add Yandex copyright header
-- When editing or moving a file that hasn't been edited by Yandex, add Yandex copyright header underneath the existent copyright from Cloudera, and update changed files list in [NOTICE.txt](NOTICE.txt) at the bottom
-- Delete files freely
+- When editing a file that has not Yandex copyright, add Yandex copyright header underneath the existent copyright from Cloudera, and update changed files list in [NOTICE.txt](NOTICE.txt) at the bottom
+- Delete and move files freely
 
 Yandex copyright:
 ```text
