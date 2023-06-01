@@ -389,7 +389,7 @@ export function runTestCases(
     autocompleteParser: AutocompleteParser,
     groupedTestCases: GroupedTestCases[],
     debug = false
-): void {
+) {
     beforeAll(() => {
         // This guarantees that any parse errors are actually thrown
         (
