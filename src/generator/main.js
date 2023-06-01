@@ -28,10 +28,14 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
-import { generateParsers } from './lib/generator.js';
+import {createFullParserName, generateParsers} from './lib/generator.js';
 
 try {
-  await generateParsers();
+  process.argv.shift(); // drop "node"
+  process.argv.shift(); // drop "main.js"
+  const requestedParserNames = process.argv.map(arg => createFullParserName(arg))
+
+  await generateParsers(requestedParserNames);
 } catch (err) {
   console.log(err);
 }

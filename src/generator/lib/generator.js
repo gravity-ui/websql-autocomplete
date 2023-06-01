@@ -31,7 +31,8 @@
 import {deleteFile, fileExists, listDir, readFile, writeFile} from './files.js';
 import jisonCli from "jison/lib/cli.js";
 
-const LICENSE = `// Licensed to Cloudera, Inc. under one
+function getLicenseText() {
+  return `// Licensed to Cloudera, Inc. under one
 // or more contributor license agreements.  See the NOTICE file
 // distributed with this work for additional information
 // regarding copyright ownership.  Cloudera, Inc. licenses this file
@@ -61,19 +62,14 @@ const LICENSE = `// Licensed to Cloudera, Inc. under one
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
-`;
+`
+}
 
-const AUTOCOMPLETE_PARSER_JSDOC = `/**
- * @param {string} input
- *
- * @return {AutocompleteParseResult}
- */
-`;
+export function createFullParserName(shortName) {
+  return `${shortName}AutocompleteParser`;
+}
 
-const PARSING_FOLDER = '../parsing';
-const PARSERS_FOLDER = `${PARSING_FOLDER}/parsers`;
-
-async function getConcatenatedContent(sources) {
+async function concatinateJisonFiles(sources) {
   const contents = [];
 
   for (const source of sources) {
@@ -87,11 +83,13 @@ async function getConcatenatedContent(sources) {
  * Searches through the SQL_FOLDER and if a jison/structure.json file exists it considers it a parser
  */
 async function getParserStructureFiles() {
-  const folders = await listDir(PARSERS_FOLDER);
+  const parsersFolder = `../parsing/parsers`;
+
+  const folders = await listDir(parsersFolder);
   const structureFiles = [];
 
   for (const folder of folders) {
-    const outputFolder = `${PARSERS_FOLDER}/${folder}`;
+    const outputFolder = `${parsersFolder}/${folder}`;
     const jisonFolder = `${outputFolder}/jison`;
     const structureFile = `${jisonFolder}/structure.json`;
 
@@ -106,7 +104,7 @@ async function getParserStructureFiles() {
 /**
  * Identifies all the SQL parsers based on subfolders in SQL_FOLDER and adds them to parserDefinitions
  */
-export async function getAllParserDefinitions() {
+async function getAvailableParserDefinitions() {
   const parserSources = await getParserStructureFiles();
   const foundDefinitions = new Map();
 
@@ -123,7 +121,7 @@ export async function getAllParserDefinitions() {
       true,
       structure
     );
-    foundDefinitions.set(`${parserSource.dialect}AutocompleteParser`, parserDefinition);
+    foundDefinitions.set(createFullParserName(parserSource.dialect), parserDefinition);
   }
 
   return foundDefinitions;
@@ -135,10 +133,9 @@ async function createParserDefinition(
   autocomplete,
   { lexer, imports }
 ) {
-  const parserName = `${dialect}${autocomplete ? 'AutocompleteParser' : 'SyntaxParser'}`;
+  const parserName = createFullParserName(dialect);
 
   const absoluteSources = sources.map(source => `${jisonFolder}/${source}`);
-
   for (const source of absoluteSources) {
     if (!fileExists(source)) {
       throw new Error(
@@ -150,58 +147,44 @@ async function createParserDefinition(
   return {
     sources: sources.map(source => `${jisonFolder}/${source}`),
     lexer: `${jisonFolder}/${lexer}`,
-    targetJison: `${outputFolder}/${parserName}.jison`,
-    sqlParser: autocomplete ? 'AUTOCOMPLETE' : 'SYNTAX',
+    concatenatedJisonFileName: `${outputFolder}/${parserName}.jison`,
+    sqlParser: 'AUTOCOMPLETE',
     parserName,
     outputFolder,
-    afterParse: async contents =>
-      `${LICENSE}${contents
-        // Add default import of sqlParseSupport or imports specified in the structure file
-        .replace(
-          `var ${parserName} = `,
-          imports
-            ? `${imports.join(';\n')};\n\n$var ${parserName} = `
-            : `import { extendParser } from './parser-extension';\n\nexport let ${parserName} = `
-        )
-        // Add jsdoc to the parse function
-        .replace('parse: function parse', AUTOCOMPLETE_PARSER_JSDOC + 'parse: function parse')
-        // Fix a bug in jison (https://github.com/zaach/jison/pull/356)
-        .replace(
-          'loc: yyloc,',
-          "loc: lexer.yylloc, ruleId: stack.slice(stack.length - 2, stack.length).join(''),"
-        )}\n`
+    extendParser: async content => {
+      let fixedContents = content
+          .replace(
+            `var ${parserName} = `,
+            imports ? `${imports.join(';\n')};\n\n$var ${parserName} = ` : `import { extendParser } from './parser-extension';\n\nexport let ${parserName} = `
+          )
+          // Fix a bug in jison (https://github.com/zaach/jison/pull/356)
+          .replace(
+            'loc: yyloc,',
+            "loc: lexer.yylloc, ruleId: stack.slice(stack.length - 2, stack.length).join(''),"
+          );
+      return `${getLicenseText()}${fixedContents}\n`;
+    }
   };
 }
 
-async function findParserDefinitionsToGenerate(requestedParserNames) {
-  const allParsers = await getAllParserDefinitions();
+async function findParserDefinitions(parserNames) {
+  const availableParsers = await getAvailableParserDefinitions();
 
   const foundParsers = [];
 
-  requestedParserNames.forEach(parserName => {
-    if (allParsers.get(parserName)) {
-      foundParsers.push(allParsers.get(parserName));
+  parserNames.forEach(parserName => {
+    if (availableParsers.get(parserName)) {
+      foundParsers.push(availableParsers.get(parserName));
     }
   });
 
   return foundParsers;
 }
 
-export function getRequestedParserNames() {
-  process.argv.shift(); // drop "node"
-  process.argv.shift(); // drop "generateParsers.js"
-
-  return process.argv.map(arg => `${arg}AutocompleteParser`)
-}
-
-export async function generateParser(parserDefinition) {
-  const jisonContents = await getConcatenatedContent(parserDefinition.sources);
-  await writeFile(parserDefinition.targetJison, jisonContents);
-
-  const generatedParserFileName = `${parserDefinition.parserName}.js`;
+function runJisonTool(parserDefinition, parserFileName) {
   const options = {
-    file: parserDefinition.targetJison,
-    outfile: generatedParserFileName,
+    file: parserDefinition.concatenatedJisonFileName,
+    outfile: parserFileName,
     'module-type': 'js'
   };
   if (parserDefinition.lexer) {
@@ -214,30 +197,42 @@ export async function generateParser(parserDefinition) {
     console.error('Failed calling jison cli');
     throw err;
   }
-
-  // Remove the concatenated jison file
-  deleteFile(parserDefinition.targetJison);
-
-  const generatedFileContents = await readFile(generatedParserFileName);
-  const modifiedContents = await parserDefinition.afterParse(generatedFileContents);
-
-  // Write a modified version of the parser to the defined outputFolder
-  await writeFile(`${parserDefinition.outputFolder}/${generatedParserFileName}`, modifiedContents);
-
-  // Remove the generated parser
-  deleteFile(generatedParserFileName);
 }
 
-export async function generateParsers() {
-  const requestedParserNames = getRequestedParserNames();
+async function generateJisonParser(parserDefinition, outputFileName) {
+  const jisonContents = await concatinateJisonFiles(parserDefinition.sources);
+  await writeFile(parserDefinition.concatenatedJisonFileName, jisonContents);
 
-  const foundParsers = await findParserDefinitionsToGenerate(requestedParserNames);
-  if (requestedParserNames.length !== foundParsers.length) {
+  runJisonTool(parserDefinition, outputFileName);
+  const generatedFileContents = await readFile(outputFileName);
+
+  deleteFile(parserDefinition.concatenatedJisonFileName);
+  deleteFile(outputFileName);
+
+  return generatedFileContents
+}
+
+async function extendParser(astFileContents, parserDefinition, outputFileName) {
+  const modifiedContents = await parserDefinition.extendParser(astFileContents);
+  await writeFile(outputFileName, modifiedContents);
+}
+
+async function generateParser(parserDefinition) {
+  const parserFileName = `${parserDefinition.parserName}.js`;
+  let outputFileName = `${parserDefinition.outputFolder}/${parserFileName}`;
+
+  const jisonParserContents = await generateJisonParser(parserDefinition, parserFileName);
+  await extendParser(jisonParserContents, parserDefinition, outputFileName);
+}
+
+export async function generateParsers(parserNames) {
+  const parserDefinitions = await findParserDefinitions(parserNames);
+  if (parserNames.length !== parserDefinitions.length) {
     throw new Error(`Could not find all requested parser definitions`);
   }
 
-  for (let i = 0; i < foundParsers.length; i++) {
-    console.log(`Generating ${foundParsers[i].parserName}`);
-    await generateParser(foundParsers[i]);
+  for (let i = 0; i < parserDefinitions.length; i++) {
+    console.log(`Generating ${parserDefinitions[i].parserName}`);
+    await generateParser(parserDefinitions[i]);
   }
 }
