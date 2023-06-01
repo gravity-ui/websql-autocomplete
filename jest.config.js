@@ -12,9 +12,7 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
-import type { Config } from "@jest/types"
-
-const config: Config.InitialOptions = {
+module.exports = {
   moduleFileExtensions: ['js', 'jsx', 'ts', 'tsx', 'json'],
   transform: {
     '^.+\\.(js|ts|jsx|tsx)$': 'babel-jest',
@@ -24,10 +22,7 @@ const config: Config.InitialOptions = {
     '^\\./src/parsing/(.*)$': 'src/parsing/$1'
   },
   moduleDirectories: ['node_modules', 'src/parsing'],
-  // modulePaths: ['src/parsing'],
   testMatch: ['<rootDir>/src/parsing/**/*.test.(js|jsx|ts|tsx)'],
   setupFilesAfterEnv: ['<rootDir>/src/parsing/test/jest.init.ts'],
   collectCoverageFrom: ['<rootDir>/src/parsing/**/*.{js,jsx}']
 };
-
-export default config;
