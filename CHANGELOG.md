@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.1](https://github.com/gravity-ui/sql-autocomplete-parsers/compare/v1.1.0...v1.1.1) (2023-06-01)
+
+
+### Bug Fixes
+
+* ts-ignore genericAutocompleteParser import ([8590b60](https://github.com/gravity-ui/sql-autocomplete-parsers/commit/8590b607eefe647af1da9f99c86679cd524a8924))
+
 ## [1.1.0](https://github.com/gravity-ui/sql-autocomplete-parsers/compare/v1.0.0...v1.1.0) (2023-06-01)
 
 
