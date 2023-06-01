@@ -33,7 +33,7 @@ export interface CommonParser {
   ): { backtickAfter: boolean; backtickBefore: boolean; left: number; right: number };
 }
 
-export const assertPartials = (parser: CommonParser): void => {
+export function assertPartials(parser: CommonParser): void {
   const limitChars = [
     ' ',
     '\n',
@@ -162,4 +162,4 @@ export const assertPartials = (parser: CommonParser): void => {
       right: 0
     });
   });
-};
+}

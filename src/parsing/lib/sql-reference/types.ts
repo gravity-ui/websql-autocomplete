@@ -80,8 +80,9 @@ export interface SqlReferenceProvider {
   hasUdfCategories(dialect: string): boolean;
 }
 
-const stripPrecision = (types: string[]): string[] => {
+function stripPrecision(types: string[]): string[] {
   const result: string[] = [];
+
   types.forEach(type => {
     if (type.indexOf('(') > -1) {
       result.push(type.substring(0, type.indexOf('(')));
@@ -89,27 +90,22 @@ const stripPrecision = (types: string[]): string[] => {
       result.push(type);
     }
   });
-  return result;
-};
 
-const getTypeConversion = (dialect: string): TypeConversion => {
-  switch (dialect) {
-    default:
-      return GENERIC_TYPE_CONVERSION;
-  }
-};
+  return result;
+}
 
 /**
  * Matches types based on implicit conversion i.e. if you expect a BIGINT then INT is ok but not BOOLEAN etc.
  */
-export const matchesType = (
+export function matchesType(
     dialect: string,
     expectedTypes: string[],
     actualRawTypes: string[]
-): boolean => {
+): boolean {
   if (expectedTypes.length === 1 && expectedTypes[0] === 'T') {
     return true;
   }
+
   const actualTypes = stripPrecision(actualRawTypes);
   if (
       actualTypes.indexOf('ARRAY') !== -1 ||
@@ -118,20 +114,20 @@ export const matchesType = (
   ) {
     return true;
   }
-  const conversionTable = getTypeConversion(dialect);
+
+  const conversionTable = GENERIC_TYPE_CONVERSION;
   for (let i = 0; i < expectedTypes.length; i++) {
     for (let j = 0; j < actualTypes.length; j++) {
       // To support future unknown types
-      if (
-          typeof conversionTable[expectedTypes[i]] === 'undefined' ||
-          typeof conversionTable[expectedTypes[i]][actualTypes[j]] == 'undefined'
-      ) {
+      if (typeof conversionTable[expectedTypes[i]] === 'undefined' || typeof conversionTable[expectedTypes[i]][actualTypes[j]] == 'undefined') {
         return true;
       }
+
       if (conversionTable[expectedTypes[i]] && conversionTable[expectedTypes[i]][actualTypes[j]]) {
         return true;
       }
     }
   }
+
   return false;
-};
+}

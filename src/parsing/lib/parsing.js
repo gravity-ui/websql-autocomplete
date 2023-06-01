@@ -28,8 +28,6 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
-import stringDistance from './string-distance';
-
 // endsWith polyfill from hue_utils.js, needed as workers live in their own js environment
 if (!String.prototype.endsWith) {
   String.prototype.endsWith = function (searchString, position) {
@@ -42,19 +40,23 @@ if (!String.prototype.endsWith) {
     ) {
       position = subjectString.length;
     }
+
     position -= searchString.length;
     const lastIndex = subjectString.lastIndexOf(searchString, position);
+
     return lastIndex !== -1 && lastIndex === position;
   };
 }
 
-export const identifierEquals = (a, b) =>
-  a &&
-  b &&
-  a.replace(/^\s*`/, '').replace(/`\s*$/, '').toLowerCase() ===
-    b.replace(/^\s*`/, '').replace(/`\s*$/, '').toLowerCase();
+export function identifierEquals(a, b) {
+  return a &&
+    b &&
+    a.replace(/^\s*`/, '').replace(/`\s*$/, '').toLowerCase() === b.replace(/^\s*`/, '').replace(/`\s*$/, '').toLowerCase();
+}
 
-export const equalIgnoreCase = (a, b) => a && b && a.toLowerCase() === b.toLowerCase();
+export function equalIgnoreCase(a, b) {
+  return a && b && a.toLowerCase() === b.toLowerCase();
+}
 
 export const SIMPLE_TABLE_REF_SUGGESTIONS = [
   'suggestJoinConditions',
@@ -86,7 +88,7 @@ const APPEND_BACKTICK_SUGGESTIONS = [
   'suggestTables'
 ];
 
-export const adjustForPartialBackticks = parser => {
+export function adjustForPartialBackticks(parser) {
   const partials = parser.yy.partialLengths;
   if (parser.yy.result && partials.backtickBefore && !partials.backtickAfter) {
     APPEND_BACKTICK_SUGGESTIONS.forEach(suggestionType => {
@@ -95,9 +97,9 @@ export const adjustForPartialBackticks = parser => {
       }
     });
   }
-};
+}
 
-export const initSharedAutocomplete = parser => {
+export function initSharedAutocomplete(parser) {
   parser.SELECT_FIRST_OPTIONAL_KEYWORDS = [
     { value: 'ALL', weight: 2 },
     { value: 'DISTINCT', weight: 2 }
@@ -111,17 +113,16 @@ export const initSharedAutocomplete = parser => {
       first_column: location.first_column + 1,
       last_column: location.last_column + 1
     };
+
     if (parser.yy.cursorFound) {
-      if (
-        parser.yy.cursorFound.first_line === newLocation.first_line &&
-        parser.yy.cursorFound.last_column <= newLocation.first_column
-      ) {
+      if (parser.yy.cursorFound.first_line === newLocation.first_line && parser.yy.cursorFound.last_column <= newLocation.first_column) {
         let additionalSpace = parser.yy.partialLengths.left + parser.yy.partialLengths.right;
         additionalSpace -= parser.yy.partialCursor ? 1 : 3; // For some reason the normal cursor eats 3 positions.
         newLocation.first_column = newLocation.first_column + additionalSpace;
         newLocation.last_column = newLocation.last_column + additionalSpace;
       }
     }
+
     return newLocation;
   };
 
@@ -640,263 +641,4 @@ export const initSharedAutocomplete = parser => {
     }
     parser.suggestKeywords(keywords);
   };
-};
-
-const SYNTAX_PARSER_NOOP_FUNCTIONS = [
-  'addAsteriskLocation',
-  'addClauseLocation',
-  'addColRefIfExists',
-  'addColRefToVariableIfExists',
-  'addColumnAliasLocation',
-  'addColumnLocation',
-  'addCommonTableExpressions',
-  'addCteAliasLocation',
-  'addDatabaseLocation',
-  'addFileLocation',
-  'addFunctionArgumentLocations',
-  'addFunctionLocation',
-  'addNewDatabaseLocation',
-  'addNewTableLocation',
-  'addStatementLocation',
-  'addStatementTypeLocation',
-  'addSubqueryAliasLocation',
-  'addTableAliasLocation',
-  'addTableLocation',
-  'addTablePrimary',
-  'addUnknownLocation',
-  'addVariableLocation',
-  'applyArgumentTypesToSuggestions',
-  'applyTypeToSuggestions',
-  'checkForKeywords',
-  'checkForSelectListKeywords',
-  'commitLocations',
-  'extractExpressionText',
-  'firstDefined',
-  'getSelectListKeywords',
-  'getSubQuery',
-  'getValueExpressionKeywords',
-  'identifyPartials',
-  'popQueryState',
-  'prepareNewStatement',
-  'pushQueryState',
-  'selectListNoTableSuggest',
-  'suggestAggregateFunctions',
-  'suggestAnalyticFunctions',
-  'suggestColRefKeywords',
-  'suggestColumns',
-  'suggestDatabases',
-  'suggestDdlAndDmlKeywords',
-  'suggestFileFormats',
-  'suggestFilters',
-  'suggestFunctions',
-  'suggestGroupBys',
-  'suggestHdfs',
-  'suggestIdentifiers',
-  'suggestJoinConditions',
-  'suggestJoins',
-  'suggestKeyValues',
-  'suggestKeywords',
-  'suggestOrderBys',
-  'suggestSelectListAliases',
-  'suggestTables',
-  'suggestTablesOrColumns',
-  'suggestValueExpressionKeywords',
-  'suggestValues',
-  'valueExpressionSuggest'
-];
-
-const SYNTAX_PARSER_NOOP = function () {};
-
-export const initSyntaxParser = parser => {
-  // Noop functions for compatibility with the autocomplete parser as the grammar is shared
-  SYNTAX_PARSER_NOOP_FUNCTIONS.forEach(noopFn => {
-    parser[noopFn] = SYNTAX_PARSER_NOOP;
-  });
-
-  parser.yy.locations = [{}];
-
-  parser.determineCase = text => {
-    if (!parser.yy.caseDetermined) {
-      parser.yy.lowerCase = text.toLowerCase() === text;
-      parser.yy.caseDetermined = true;
-    }
-  };
-
-  parser.getKeywordsForOptionalsLR = () => [];
-
-  parser.mergeSuggestKeywords = () => ({});
-
-  parser.getTypeKeywords = () => [];
-
-  parser.getColumnDataTypeKeywords = () => [];
-
-  parser.findCaseType = () => ({ types: ['T'] });
-
-  parser.expandIdentifierChain = () => [];
-
-  parser.createWeightedKeywords = () => [];
-
-  parser.handleQuotedValueWithCursor = (lexer, yytext, yylloc, quoteChar) => {
-    if (yytext.indexOf('\u2020') !== -1 || yytext.indexOf('\u2021') !== -1) {
-      parser.yy.partialCursor = yytext.indexOf('\u2021') !== -1;
-      const cursorIndex = parser.yy.partialCursor
-        ? yytext.indexOf('\u2021')
-        : yytext.indexOf('\u2020');
-      parser.yy.cursorFound = {
-        first_line: yylloc.first_line,
-        last_line: yylloc.last_line,
-        first_column: yylloc.first_column + cursorIndex,
-        last_column: yylloc.first_column + cursorIndex + 1
-      };
-      const remainder = yytext.substring(cursorIndex + 1);
-      const remainingQuotes = (lexer.upcomingInput().match(new RegExp(quoteChar, 'g')) || [])
-        .length;
-      if (remainingQuotes > 0 && (remainingQuotes & 1) !== 0) {
-        parser.yy.missingEndQuote = false;
-        lexer.input();
-      } else {
-        parser.yy.missingEndQuote = true;
-        lexer.unput(remainder);
-      }
-      lexer.popState();
-      return true;
-    }
-    return false;
-  };
-
-  parser.yy.parseError = (str, hash) => {
-    parser.yy.error = hash;
-  };
-
-  const IGNORED_EXPECTED = {
-    ';': true,
-    '.': true,
-    CREATE_REMOTE: true,
-    EOF: true,
-    UNSIGNED_INTEGER: true,
-    UNSIGNED_INTEGER_E: true,
-    REGULAR_IDENTIFIER: true,
-    CURSOR: true,
-    PARTIAL_CURSOR: true,
-    HDFS_START_QUOTE: true,
-    HDFS_PATH: true,
-    HDFS_END_QUOTE: true,
-    COMPARISON_OPERATOR: true, // TODO: Expand in results when found
-    ARITHMETIC_OPERATOR: true, // TODO: Expand in results when found
-    VARIABLE_REFERENCE: true,
-    BACKTICK: true,
-    VALUE: true,
-    PARTIAL_VALUE: true,
-    SINGLE_QUOTE: true,
-    DOUBLE_QUOTE: true
-  };
-
-  const CLEAN_EXPECTED = {
-    BETWEEN_AND: 'AND',
-    OVERWRITE_DIRECTORY: 'OVERWRITE',
-    STORED_AS_DIRECTORIES: 'STORED',
-    LIKE_PARQUET: 'LIKE',
-    PARTITION_VALUE: 'PARTITION'
-  };
-
-  parser.parseSyntax = (beforeCursor, afterCursor, debug) => {
-    parser.yy.caseDetermined = false;
-    parser.yy.error = undefined;
-
-    parser.yy.latestTablePrimaries = [];
-    parser.yy.subQueries = [];
-    parser.yy.selectListAliases = [];
-    parser.yy.latestTablePrimaries = [];
-
-    parser.yy.activeDialect = 'generic';
-
-    // TODO: Find a way around throwing an exception when the parser finds a syntax error
-    try {
-      parser.yy.error = false;
-      parser.parse(beforeCursor + afterCursor);
-    } catch (err) {
-      if (debug) {
-        console.warn(parser.yy.error);
-        throw err;
-      }
-    }
-
-    if (
-      parser.yy.error &&
-      (parser.yy.error.loc.last_column < beforeCursor.length ||
-        !beforeCursor.endsWith(parser.yy.error.text))
-    ) {
-      const weightedExpected = [];
-
-      const addedExpected = {};
-
-      const isLowerCase =
-        (parser.yy.caseDetermined && parser.yy.lowerCase) ||
-        parser.yy.error.text.toLowerCase() === parser.yy.error.text;
-
-      if (
-        parser.yy.error.expected.length === 2 &&
-        parser.yy.error.expected.indexOf("';'") !== -1 &&
-        parser.yy.error.expected.indexOf("'EOF'") !== -1
-      ) {
-        parser.yy.error.expected = [];
-        parser.yy.error.expectedStatementEnd = true;
-        return parser.yy.error;
-      }
-      for (let i = 0; i < parser.yy.error.expected.length; i++) {
-        let expected = parser.yy.error.expected[i];
-        // Strip away the surrounding ' chars
-        expected = expected.substring(1, expected.length - 1);
-        // TODO: Only suggest alphanumeric?
-        if (expected === 'REGULAR_IDENTIFIER') {
-          parser.yy.error.expectedIdentifier = true;
-          if (/^<[a-z]+>/.test(parser.yy.error.token)) {
-            const text = '`' + parser.yy.error.text + '`';
-            weightedExpected.push({
-              text: text,
-              distance: stringDistance(parser.yy.error.text, text, true)
-            });
-            parser.yy.error.possibleReserved = true;
-          }
-        } else if (!IGNORED_EXPECTED[expected] && /[a-z_]+/i.test(expected)) {
-          // Skip mixed-case expected
-          if (expected.toUpperCase() !== expected) {
-            continue;
-          }
-          expected = CLEAN_EXPECTED[expected] || expected;
-          if (expected === parser.yy.error.text.toUpperCase()) {
-            // Can happen when the lexer entry for a rule contains multiple words like 'stored' in 'stored as parquet'
-            return false;
-          }
-          const text = isLowerCase ? expected.toLowerCase() : expected;
-          if (text && !addedExpected[text]) {
-            addedExpected[text] = true;
-            weightedExpected.push({
-              text: text,
-              distance: stringDistance(parser.yy.error.text, text, true)
-            });
-          }
-        }
-      }
-      if (weightedExpected.length === 0) {
-        parser.yy.error.expected = [];
-        parser.yy.error.incompleteStatement = true;
-        return parser.yy.error;
-      }
-      weightedExpected.sort((a, b) => {
-        if (a.distance === b.distance) {
-          return a.text.localeCompare(b.text);
-        }
-        return a.distance - b.distance;
-      });
-      parser.yy.error.expected = weightedExpected;
-      parser.yy.error.incompleteStatement = true;
-      return parser.yy.error;
-    } else if (parser.yy.error) {
-      parser.yy.error.expected = [];
-      parser.yy.error.incompleteStatement = true;
-      return parser.yy.error;
-    }
-    return false;
-  };
-};
+}
