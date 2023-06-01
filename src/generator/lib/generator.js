@@ -28,9 +28,8 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
-/* eslint-disable no-restricted-syntax */
-
-import { fileExists, listDir, readFile } from './files.js';
+import {deleteFile, fileExists, listDir, readFile, writeFile} from './files.js';
+import jisonCli from "jison/lib/cli.js";
 
 const LICENSE = `// Licensed to Cloudera, Inc. under one
 // or more contributor license agreements.  See the NOTICE file
@@ -64,13 +63,6 @@ const LICENSE = `// Licensed to Cloudera, Inc. under one
 
 `;
 
-const SQL_STATEMENTS_PARSER_JSDOC = `/**
- * @param {string} input
- *
- * @return {SqlStatementsParserResult}
- */
-`;
-
 const AUTOCOMPLETE_PARSER_JSDOC = `/**
  * @param {string} input
  *
@@ -81,115 +73,67 @@ const AUTOCOMPLETE_PARSER_JSDOC = `/**
 const PARSING_FOLDER = '../parsing';
 const PARSERS_FOLDER = `${PARSING_FOLDER}/parsers`;
 
-/*
- The FIXED_PARSER_DEFINITIONS are for parsers other than the ones used for SQL autocomplete and syntax
- which are identified automatically under SQL_FOLDER
+async function getConcatenatedContent(sources) {
+  const contents = [];
 
- The "afterParse" function can be used to modify the generated parser code, for instance, add the license header,
- add specific imports, and make sure it is ES modules compatible etc.
- */
-const FIXED_PARSER_DEFINITIONS = {
-  globalSearchParser: {
-    sources: [`${PARSING_FOLDER}/jison/globalSearchParser.jison`],
-    targetJison: 'globalSearchParser.jison',
-    outputFolder: PARSING_FOLDER,
-    parserName: 'globalSearchParser',
-    afterParse: async contents =>
-      `${LICENSE}${contents.replace(
-        'var globalSearchParser = ',
-        "import SqlParseSupport from 'parse/sqlParseSupport';\n\nvar globalSearchParser = "
-      )}\nexport default globalSearchParser;\n`
-  },
-  solrFormulaParser: {
-    sources: [`${PARSING_FOLDER}/jison/solrFormulaParser.jison`],
-    targetJison: 'solrFormulaParser.jison',
-    outputFolder: PARSING_FOLDER,
-    parserName: 'solrFormulaParser',
-    afterParse: async contents => `${LICENSE}${contents}\nexport default solrFormulaParser;\n`
-  },
-  solrQueryParser: {
-    sources: [`${PARSING_FOLDER}/jison/solrQueryParser.jison`],
-    targetJison: 'solrQueryParser.jison',
-    outputFolder: PARSING_FOLDER,
-    parserName: 'solrQueryParser',
-    afterParse: async contents => `${LICENSE}${contents}\nexport default solrQueryParser;\n`
-  },
-  sqlStatementsParser: {
-    sources: [`${PARSING_FOLDER}/jison/sqlStatementsParser.jison`],
-    targetJison: 'sqlStatementsParser.jison',
-    outputFolder: PARSING_FOLDER,
-    parserName: 'sqlStatementsParser',
-    afterParse: async contents =>
-      `${LICENSE}${contents.replace(
-        'parse: function parse',
-        SQL_STATEMENTS_PARSER_JSDOC + 'parse: function parse'
-      )}\nexport default sqlStatementsParser;\n`
-  },
-  hplsqlStatementsParser: {
-    sources: [`${PARSING_FOLDER}/jison/hplsqlStatementsParser.jison`],
-    targetJison: 'hplsqlStatementsParser.jison',
-    outputFolder: PARSING_FOLDER,
-    parserName: 'hplsqlStatementsParser',
-    afterParse: async contents =>
-      `${LICENSE}${contents.replace(
-        'parse: function parse',
-        SQL_STATEMENTS_PARSER_JSDOC + 'parse: function parse'
-      )}\nexport default hplsqlStatementsParser;\n`
+  for (const source of sources) {
+    contents.push(await readFile(source));
   }
-};
+
+  return contents.join();
+}
 
 /**
  * Searches through the SQL_FOLDER and if a jison/structure.json file exists it considers it a parser
  */
-const findParserSources = async () => {
+async function findParserSources() {
   const folders = await listDir(PARSERS_FOLDER);
   const structureFiles = [];
+
   for (const folder of folders) {
     const outputFolder = `${PARSERS_FOLDER}/${folder}`;
     const jisonFolder = `${outputFolder}/jison`;
     const structureFile = `${jisonFolder}/structure.json`;
+
     if (fileExists(structureFile)) {
       structureFiles.push({ dialect: folder, outputFolder, jisonFolder, structureFile });
     }
   }
+
   return structureFiles;
-};
+}
 
 /**
  * Identifies all the SQL parsers based on subfolders in SQL_FOLDER and adds them to parserDefinitions
  */
-export const identifySqlParsers = async () => {
+export async function identifySqlParsers() {
   const parserSources = await findParserSources();
   const foundDefinitions = {};
 
   for (const parserSource of parserSources) {
     const structure = JSON.parse(await readFile(parserSource.structureFile));
-    if (structure.autocomplete) {
-      foundDefinitions[`${parserSource.dialect}AutocompleteParser`] = createParserDefinition(
-        structure.autocomplete,
-        parserSource,
-        true,
-        structure
-      );
+    if (!structure.autocomplete) {
+      console.log("parser definition doesn't have autocomplete");
+      continue
     }
-    if (structure.syntax) {
-      foundDefinitions[`${parserSource.dialect}SyntaxParser`] = createParserDefinition(
-        structure.syntax,
-        parserSource,
-        false,
-        structure
-      );
-    }
-  }
-  return { ...FIXED_PARSER_DEFINITIONS, ...foundDefinitions };
-};
 
-const createParserDefinition = (
+    foundDefinitions[`${parserSource.dialect}AutocompleteParser`] = await createParserDefinition(
+      structure.autocomplete,
+      parserSource,
+      true,
+      structure
+    );
+  }
+
+  return { ...foundDefinitions };
+}
+
+async function createParserDefinition(
   sources,
   { dialect, outputFolder, jisonFolder },
   autocomplete,
   { lexer, imports }
-) => {
+) {
   const parserName = `${dialect}${autocomplete ? 'AutocompleteParser' : 'SyntaxParser'}`;
 
   const absoluteSources = sources.map(source => `${jisonFolder}/${source}`);
@@ -226,6 +170,96 @@ const createParserDefinition = (
           "loc: lexer.yylloc, ruleId: stack.slice(stack.length - 2, stack.length).join(''),"
         )}\n`
   };
-};
+}
 
-/* eslint-enable no-restricted-syntax */
+function findParsersToGenerateFromArgs(parserDefinitions) {
+  process.argv.shift(); // drop "node"
+  process.argv.shift(); // drop "generateParsers.js"
+
+  const foundDefinitions = new Set();
+  const invalid = [];
+
+  if (process.argv[0] === 'all') {
+    Object.values(parserDefinitions).forEach(definition => foundDefinitions.add(definition));
+  } else {
+    process.argv.forEach(arg => {
+      if (parserDefinitions[arg]) {
+        foundDefinitions.add(parserDefinitions[arg]);
+      } else {
+        let found = false;
+        Object.keys(parserDefinitions).forEach(key => {
+          if (key.indexOf(arg) === 0) {
+            found = true;
+            foundDefinitions.add(parserDefinitions[key]);
+          }
+        });
+        if (!found) {
+          invalid.push(arg);
+        }
+      }
+    });
+  }
+
+  if (invalid.length) {
+    throw new Error(`Could not find parser definitions for '${invalid.join(", '")}'`);
+  }
+
+  return [...foundDefinitions];
+}
+
+export async function generateParser(parserDefinition) {
+  const jisonContents = await getConcatenatedContent(parserDefinition.sources);
+  await writeFile(parserDefinition.targetJison, jisonContents);
+
+  const generatedParserFileName = `${parserDefinition.parserName}.js`;
+  const options = {
+    file: parserDefinition.targetJison,
+    outfile: generatedParserFileName,
+    'module-type': 'js'
+  };
+  if (parserDefinition.lexer) {
+    options.lexfile = parserDefinition.lexer;
+  }
+
+  try {
+    jisonCli.main(options); // Writes the generated parser in the current folder
+  } catch (err) {
+    console.error('Failed calling jison cli');
+    throw err;
+  }
+
+  // Remove the concatenated jison file
+  deleteFile(parserDefinition.targetJison);
+
+  const generatedFileContents = await readFile(generatedParserFileName);
+  const modifiedContents = await parserDefinition.afterParse(generatedFileContents);
+
+  // Write a modified version of the parser to the defined outputFolder
+  await writeFile(`${parserDefinition.outputFolder}/${generatedParserFileName}`, modifiedContents);
+
+  // Remove the generated parser
+  deleteFile(generatedParserFileName);
+}
+
+export async function generateParsers() {
+  console.log('Identifying parsers...');
+  const parserDefinitions = await identifySqlParsers();
+
+  const definitionsToGenerate = findParsersToGenerateFromArgs(parserDefinitions);
+  const totalParserCount = definitionsToGenerate.length;
+  if (totalParserCount > 1) {
+    console.log(`Generating ${totalParserCount} parser(s)...`);
+  }
+
+  for (let i = 0; i < definitionsToGenerate.length; i++) {
+    const parserDefinition = definitionsToGenerate[i];
+    console.log(
+        `Generating "${parserDefinition.parserName}"${
+            definitionsToGenerate.length > 1 ? ` (${i + 1}/${totalParserCount})` : ''
+        }...`
+    );
+    await generateParser(parserDefinition);
+  }
+
+  console.log('Done!');
+}
