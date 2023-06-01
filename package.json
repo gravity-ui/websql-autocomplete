@@ -1,5 +1,5 @@
 {
-  "name": "sql-autocomplete-parsers-2",
+  "name": "sql-autocomplete-parsers",
   "version": "1.0.0",
   "description": "A library that provides autocompletion and errors highlighting for various sql dialects",
   "repository": {
