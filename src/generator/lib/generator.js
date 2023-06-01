@@ -86,7 +86,7 @@ async function getConcatenatedContent(sources) {
 /**
  * Searches through the SQL_FOLDER and if a jison/structure.json file exists it considers it a parser
  */
-async function findParserSources() {
+async function getParserStructureFiles() {
   const folders = await listDir(PARSERS_FOLDER);
   const structureFiles = [];
 
@@ -106,9 +106,9 @@ async function findParserSources() {
 /**
  * Identifies all the SQL parsers based on subfolders in SQL_FOLDER and adds them to parserDefinitions
  */
-export async function identifySqlParsers() {
-  const parserSources = await findParserSources();
-  const foundDefinitions = {};
+export async function getAllParserDefinitions() {
+  const parserSources = await getParserStructureFiles();
+  const foundDefinitions = new Map();
 
   for (const parserSource of parserSources) {
     const structure = JSON.parse(await readFile(parserSource.structureFile));
@@ -117,15 +117,16 @@ export async function identifySqlParsers() {
       continue
     }
 
-    foundDefinitions[`${parserSource.dialect}AutocompleteParser`] = await createParserDefinition(
+    const parserDefinition = await createParserDefinition(
       structure.autocomplete,
       parserSource,
       true,
       structure
     );
+    foundDefinitions.set(`${parserSource.dialect}AutocompleteParser`, parserDefinition);
   }
 
-  return { ...foundDefinitions };
+  return foundDefinitions;
 }
 
 async function createParserDefinition(
@@ -172,39 +173,25 @@ async function createParserDefinition(
   };
 }
 
-function findParsersToGenerateFromArgs(parserDefinitions) {
+async function findParserDefinitionsToGenerate(requestedParserNames) {
+  const allParsers = await getAllParserDefinitions();
+
+  const foundParsers = [];
+
+  requestedParserNames.forEach(parserName => {
+    if (allParsers.get(parserName)) {
+      foundParsers.push(allParsers.get(parserName));
+    }
+  });
+
+  return foundParsers;
+}
+
+export function getRequestedParserNames() {
   process.argv.shift(); // drop "node"
   process.argv.shift(); // drop "generateParsers.js"
 
-  const foundDefinitions = new Set();
-  const invalid = [];
-
-  if (process.argv[0] === 'all') {
-    Object.values(parserDefinitions).forEach(definition => foundDefinitions.add(definition));
-  } else {
-    process.argv.forEach(arg => {
-      if (parserDefinitions[arg]) {
-        foundDefinitions.add(parserDefinitions[arg]);
-      } else {
-        let found = false;
-        Object.keys(parserDefinitions).forEach(key => {
-          if (key.indexOf(arg) === 0) {
-            found = true;
-            foundDefinitions.add(parserDefinitions[key]);
-          }
-        });
-        if (!found) {
-          invalid.push(arg);
-        }
-      }
-    });
-  }
-
-  if (invalid.length) {
-    throw new Error(`Could not find parser definitions for '${invalid.join(", '")}'`);
-  }
-
-  return [...foundDefinitions];
+  return process.argv.map(arg => `${arg}AutocompleteParser`)
 }
 
 export async function generateParser(parserDefinition) {
@@ -242,24 +229,15 @@ export async function generateParser(parserDefinition) {
 }
 
 export async function generateParsers() {
-  console.log('Identifying parsers...');
-  const parserDefinitions = await identifySqlParsers();
+  const requestedParserNames = getRequestedParserNames();
 
-  const definitionsToGenerate = findParsersToGenerateFromArgs(parserDefinitions);
-  const totalParserCount = definitionsToGenerate.length;
-  if (totalParserCount > 1) {
-    console.log(`Generating ${totalParserCount} parser(s)...`);
+  const foundParsers = await findParserDefinitionsToGenerate(requestedParserNames);
+  if (requestedParserNames.length !== foundParsers.length) {
+    throw new Error(`Could not find all requested parser definitions`);
   }
 
-  for (let i = 0; i < definitionsToGenerate.length; i++) {
-    const parserDefinition = definitionsToGenerate[i];
-    console.log(
-        `Generating "${parserDefinition.parserName}"${
-            definitionsToGenerate.length > 1 ? ` (${i + 1}/${totalParserCount})` : ''
-        }...`
-    );
-    await generateParser(parserDefinition);
+  for (let i = 0; i < foundParsers.length; i++) {
+    console.log(`Generating ${foundParsers[i].parserName}`);
+    await generateParser(foundParsers[i]);
   }
-
-  console.log('Done!');
 }
