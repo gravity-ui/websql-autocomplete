@@ -1,3 +1,4 @@
+// @ts-ignore
 import {genericAutocompleteParser} from './parsers/generic/genericAutocompleteParser';
 
 export const cursorSymbol = '†';
