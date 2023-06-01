@@ -22699,7 +22699,6 @@ Please note that changes have been made to the files:
 - /package.json
 - /package-lock.json
 - /README.md
-- /VERSION.md
 
 The copyright for the changes belongs to YANDEX LLC.
 
