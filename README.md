@@ -22,7 +22,6 @@ Resources to research:
 
 # Main scripts
 
-- `npm run setup` - Install all dependencies
 - `npm run generate` - Generate parsers
 - `npm run test` - Run tests
 
