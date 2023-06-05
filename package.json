@@ -23,8 +23,8 @@
   },
   "scripts": {
     "setup": "npm install && cd tools/jison && npm install",
-    "test": "jest src/parsing",
+    "test": "npm run generate && npm run test_without_generate",
     "generate": "cd src/generator && node main.js generic",
-    "generate_and_test": "npm run generate && npm run test"
+    "test_without_generate": "jest src/parsing"
   }
 }

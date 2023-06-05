@@ -2,7 +2,7 @@
 
 A tool that provides autocompletion for various sql dialects.
 
-# Scripts
+# Main scripts
 
 - `npm run setup` - Install all dependencies
 - `npm run generate` - Generate parsers
