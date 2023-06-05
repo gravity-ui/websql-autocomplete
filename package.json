@@ -24,6 +24,7 @@
   "scripts": {
     "setup": "npm install && cd tools/jison && npm install",
     "test": "jest src/parsing",
-    "generate": "cd src/generator && node main.js generic"
+    "generate": "cd src/generator && node main.js generic",
+    "generate_and_test": "npm run generate && npm run test"
   }
 }
