@@ -1,0 +1,23 @@
+[
+  {
+    "namePrefix": "should not report errors on short delete statement",
+    "beforeCursor": "DELETE FROM test_table; ",
+    "afterCursor": "",
+    "noErrors": true,
+    "containsKeywords": [
+      "SELECT"
+    ],
+    "expectedResult": {
+      "lowerCase": false
+    }
+  },
+  {
+    "namePrefix": "should not report errors on full delete statement",
+    "beforeCursor": "DELETE FROM test_table WHERE test_field != 1; ",
+    "afterCursor": "",
+    "noErrors": true,
+    "containsKeywords": [
+      "SELECT"
+    ]
+  }
+]

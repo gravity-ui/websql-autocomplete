@@ -10,6 +10,7 @@
     "create/create_role.jison",
     "create/create_table.jison",
     "create/create_view.jison",
+    "delete/delete.jison",
     "drop/drop_common.jison",
     "drop/drop_database.jison",
     "drop/drop_role.jison",
