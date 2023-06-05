@@ -2957,7 +2957,7 @@ parse: function parse (input) {
 
     lexer.setInput(input, sharedState.yy);
     sharedState.yy.lexer = lexer;
-    sharedState.yy.genericAutocompleteParser = this;
+    sharedState.yy.parser = this;
     if (typeof lexer.yylloc == 'undefined') {
         lexer.yylloc = {};
     }
