@@ -47,6 +47,7 @@
 'CURRENT'                                  { return 'CURRENT'; }
 'DATABASE'                                 { return 'DATABASE'; }
 'DECIMAL'                                  { return 'DECIMAL'; }
+'DELETE'                                   { return 'DELETE'; }
 'DESC'                                     { return 'DESC'; }
 'DISTINCT'                                 { return 'DISTINCT'; }
 'DIV'                                      { return 'ARITHMETIC_OPERATOR'; }
