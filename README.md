@@ -2,18 +2,29 @@
 
 A tool that provides autocompletion for various sql dialects.
 
+# Parser theory
+
+In order to parse any language, you need a [lexer](https://en.wikipedia.org/wiki/Lexical_analysis) (tokenizer) and a [parser](https://en.wikipedia.org/wiki/Parsing#Parser) (ast builder)
+
+Resources to research:
+- Bison grammar specification: https://www.gnu.org/software/bison/manual/html_node/Rules-Syntax.html
+- Playlist with the explanation on how parser and lexer work together: https://www.youtube.com/playlist?list=PLIrl0f9NJZy4oOOAVPU6MyRdFjJFGtceu
+
+# How everything works
+
+1. Autocomplete parser source code for different `{dialect}` are defined in `src/parsing/parsers/{dialect}` directories.
+2. Lexer configuration is specified in `src/parsing/parsers/{dialect}/jison/sql.jisonlex` file.
+3. SQL grammar is specified in `src/parsing/parsers/{dialect}/jison/**/*.jison`. It is placed in multiple files for easier understanding. Test files `*.test.json` are placed nearby. Jison is basically bison, but for javascript.
+4. `src/parsing/parsers/{dialect}/jison/structure.json` specifies paths to a lexer, and to all the grammar files.
+5. Parser extension (basically the autocomplete features) is specified in `src/parsing/parsers/{dialect}/parser-extension.js`.
+6. `src/generator/main.js` concatenates all the jison files into a single big jison file, and runs the jison tool with the specified lexer, then wires everything up with the `parser-extension.js`, generating `src/parsing/parsers/{dialect}/{dialect}AutocompleteParser.js`.
+7. The generated file is in plain javascript, so we create a convenient typescript wrapper in `src/parsing/index.ts` with all the types and functions. Our users should include this file in their own projects (for the time being they need to compile it yourself)
+
 # Main scripts
 
 - `npm run setup` - Install all dependencies
 - `npm run generate` - Generate parsers
 - `npm run test` - Run tests
-
-# Repository structure
-
-- `src/parsing/index.ts` - api file that you can import in your project. You need to compile it yourself though!
-- `src/parsing/parsers/{dialect}/jison/` - contains grammar definitions for {dialect}, from which the parser is built
-- `src/parsing/parsers/{dialect}/**/*.test.*` - contains parser tests
-- `src/generator/main.js` - tool that builds autocomplete parsers
 
 # Contributing
 
