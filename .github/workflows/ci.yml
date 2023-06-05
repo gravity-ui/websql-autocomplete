@@ -25,10 +25,7 @@ jobs:
       - name: Generate Parsers
         run: npm run generate
       - name: Check That Generated Files Are Unchanged
-        uses: actions/github-script@v3
-        with:
-          script: |
-            git diff --exit-code origin/${GITHUB_HEAD_REF} || core.setFailed('Some generated file changes are not committed')
+        run: git diff --exit-code origin/${GITHUB_HEAD_REF} || core.setFailed('Some generated file changes are not committed')
   tests:
     name: Run tests
     runs-on: ubuntu-latest
