@@ -1,5 +1,22 @@
 # Changelog
 
+## [1.2.0](https://github.com/gravity-ui/sql-autocomplete-parsers/compare/v1.1.1...v1.2.0) (2023-06-05)
+
+
+### Features
+
+* add CI ([114426f](https://github.com/gravity-ui/sql-autocomplete-parsers/commit/114426ff2cebd57161d6692e48ce9812effe77db))
+* add generate_and_test script to package.json ([eb3e082](https://github.com/gravity-ui/sql-autocomplete-parsers/commit/eb3e08292e7deef62255b084de31bfea3cc9047a))
+* enrich README.md ([38962ed](https://github.com/gravity-ui/sql-autocomplete-parsers/commit/38962edaaae6274a7bad8af4ee78c87602ea7e47))
+* support 'DELETE FROM mytable' for genericAutocompleteParser ([65e0c06](https://github.com/gravity-ui/sql-autocomplete-parsers/commit/65e0c064bd3f05a7d8fad8894befbd58ed4c79bb))
+
+
+### Bug Fixes
+
+* add missing copyright ([ba6c8e6](https://github.com/gravity-ui/sql-autocomplete-parsers/commit/ba6c8e6b4d5731e925fdcddb76dbde6dd5c0657d))
+* fix accidentally renamed yy.parser field ([40cd3c6](https://github.com/gravity-ui/sql-autocomplete-parsers/commit/40cd3c6e7bd431db65d249aa7aa0daa1bd3ab31c))
+* fix ci test script ([a065c27](https://github.com/gravity-ui/sql-autocomplete-parsers/commit/a065c27f03478b4a0a61bed17059330bb47ab573))
+
 ## [1.1.1](https://github.com/gravity-ui/sql-autocomplete-parsers/compare/v1.1.0...v1.1.1) (2023-06-01)
 
 
