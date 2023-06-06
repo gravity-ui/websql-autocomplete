@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.0](https://github.com/gravity-ui/sql-autocomplete-parsers/compare/v1.1.1...v1.2.0) (2023-06-05)
+
+
+### Features
+
+* support 'DELETE FROM mytable' for genericAutocompleteParser (65e0c06)
+
 ## [1.1.1](https://github.com/gravity-ui/sql-autocomplete-parsers/compare/v1.1.0...v1.1.1) (2023-06-01)
 
 
