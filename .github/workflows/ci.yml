@@ -25,7 +25,7 @@ jobs:
       - name: Generate Parsers
         run: npm run generate
       - name: Check That Generated Files Are Unchanged
-        run: git diff --exit-code origin/${GITHUB_REF} || exit 1
+        run: git diff --exit-code origin/${GITHUB_BASE_REF} || exit 1
   tests:
     name: Run tests
     runs-on: ubuntu-latest
