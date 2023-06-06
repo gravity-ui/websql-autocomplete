@@ -23,8 +23,8 @@
   },
   "scripts": {
     "postinstall": "cd src/generator && npm install",
-    "pretest": "npm run generate",
-    "test": "jest src/parsing",
+    "test": "npm run generate && npm run test_without_generate",
+    "test_without_generate": "jest src/parsing",
     "generate": "cd src/generator && node main.js generic"
   }
 }
