@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.5.0](https://github.com/gravity-ui/sql-autocomplete-parsers/compare/v1.4.0...v1.5.0) (2023-06-06)
+
+
+### Features
+
+* add delete statement suggestions ([34f22e0](https://github.com/gravity-ui/sql-autocomplete-parsers/commit/34f22e06f3db322418c6f706eec5d79a13b4b018))
+* add delete statement suggestions ([d4ba052](https://github.com/gravity-ui/sql-autocomplete-parsers/commit/d4ba052db182bf1719c3d288de7cf1fcaca80e16))
+
 ## [1.4.0](https://github.com/gravity-ui/sql-autocomplete-parsers/compare/v1.3.0...v1.4.0) (2023-06-06)
 
 
