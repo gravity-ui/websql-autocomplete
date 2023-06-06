@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.0](https://github.com/gravity-ui/sql-autocomplete-parsers/compare/v1.2.0...v1.3.0) (2023-06-06)
+
+
+### Features
+
+* expand ParseResult interface ([7235b0d](https://github.com/gravity-ui/sql-autocomplete-parsers/commit/7235b0dce5d27a2385c1253f07fce2fd2ae56922))
+
 ## [1.2.0](https://github.com/gravity-ui/sql-autocomplete-parsers/compare/v1.1.1...v1.2.0) (2023-06-05)
 
 
