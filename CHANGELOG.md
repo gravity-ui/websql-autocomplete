@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.0](https://github.com/gravity-ui/sql-autocomplete-parsers/compare/v1.3.0...v1.4.0) (2023-06-06)
+
+
+### Features
+
+* add alias for table interface ([12920a3](https://github.com/gravity-ui/sql-autocomplete-parsers/commit/12920a37e79d0a2021e90d22780bddc2ee83e3f9))
+
 ## [1.3.0](https://github.com/gravity-ui/sql-autocomplete-parsers/compare/v1.2.0...v1.3.0) (2023-06-06)
 
 
