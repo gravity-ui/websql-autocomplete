@@ -19,5 +19,127 @@
     "containsKeywords": [
       "SELECT"
     ]
+  },
+  {
+    "namePrefix": "should suggest DELETE",
+    "beforeCursor": "",
+    "afterCursor": "",
+    "containsKeywords": [
+      "DELETE"
+    ],
+    "noErrors": true,
+    "expectedResult": {
+      "lowerCase": false
+    }
+  },
+  {
+    "namePrefix": "should suggest FROM",
+    "beforeCursor": "DELETE ",
+    "afterCursor": "",
+    "containsKeywords": [
+      "FROM"
+    ],
+    "noErrors": true,
+    "expectedResult": {
+      "lowerCase": false
+    }
+  },
+  {
+    "namePrefix": "should suggest tables",
+    "beforeCursor": "DELETE FROM ",
+    "afterCursor": "",
+    "noErrors": true,
+    "expectedResult": {
+      "lowerCase": false,
+      "suggestTables": {},
+      "suggestDatabases": {
+        "appendDot": true
+      }
+    }
+  },
+  {
+    "namePrefix": "should suggest WHERE",
+    "beforeCursor": "DELETE FROM mytable ",
+    "afterCursor": "",
+    "containsKeywords": [
+      "WHERE"
+    ],
+    "expectedResult": {
+      "lowerCase": false,
+      "locations": [
+        {
+          "type": "statement",
+          "location": {
+            "first_line": 1,
+            "last_line": 1,
+            "first_column": 1,
+            "last_column": 20
+          }
+        },
+        {
+          "type": "table",
+          "location": {
+            "first_line": 1,
+            "last_line": 1,
+            "first_column": 13,
+            "last_column": 20
+          },
+          "identifierChain": [
+            {
+              "name": "mytable"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "namePrefix": "should suggest WHERE fields",
+    "beforeCursor": "DELETE FROM mytable WHERE ",
+    "afterCursor": "",
+    "suggestColumns": {
+      "tables": [
+        {
+          "identifierChain": [
+            {
+              "name": "mytable"
+            }
+          ]
+        }
+      ]
+    },
+    "expectedResult": {
+      "lowerCase": false,
+      "locations": [
+        {
+          "type": "statement",
+          "location": {
+            "first_line": 1,
+            "last_line": 1,
+            "first_column": 1,
+            "last_column": 26
+          }
+        },
+        {
+          "type": "table",
+          "location": {
+            "first_line": 1,
+            "last_line": 1,
+            "first_column": 13,
+            "last_column": 20
+          },
+          "identifierChain": [
+            {
+              "name": "mytable"
+            }
+          ]
+        }
+      ],
+      "suggestFunctions": {},
+      "suggestKeywords": [
+        "EXISTS",
+        "NOT EXISTS"
+      ]
+    }
   }
 ]

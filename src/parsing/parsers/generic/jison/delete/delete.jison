@@ -23,3 +23,24 @@ DeleteStatement
         parser.addTablePrimary($3);
       }
  ;
+
+DataManipulation_EDIT
+ : DeleteStatement_EDIT
+ ;
+
+DeleteStatement_EDIT
+ : 'DELETE' 'CURSOR'
+   {
+     parser.suggestKeywords(['FROM']);
+   }
+ | 'DELETE' 'FROM' 'CURSOR'
+   {
+     parser.suggestTables();
+     parser.suggestDatabases({ appendDot: true });
+   }
+ | 'DELETE' 'FROM' SchemaQualifiedTableIdentifier 'CURSOR'
+   {
+     parser.suggestKeywords(['WHERE']);
+   }
+ | 'DELETE' 'FROM' SchemaQualifiedTableIdentifier WhereClause_EDIT
+ ;
