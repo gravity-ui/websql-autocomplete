@@ -53,6 +53,7 @@ export interface Location {
 }
 
 export interface Table {
+    alias?: string;
     identifierChain: IdentifierChainEntry[];
 }
 
