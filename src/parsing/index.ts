@@ -27,6 +27,7 @@ export interface ParseResult {
     suggestFilters?: unknown;
     suggestFunctions?: unknown;
     suggestGroupBys?: unknown;
+    suggestIdentifiers?: IdentifierSuggestion[];
 }
 
 export interface KeywordSuggestion {
@@ -57,6 +58,11 @@ export interface Table {
 
 export interface IdentifierChainEntry {
     name: string;
+}
+
+export interface IdentifierSuggestion {
+    name: string;
+    type: string;
 }
 
 export function parseGenericSql(queryBeforeCursor: string, queryAfterCursor: string, debug?: boolean): ParseResult {
