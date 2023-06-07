@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.0](https://github.com/gravity-ui/sql-autocomplete-parsers/compare/v1.5.0...v1.6.0) (2023-06-07)
+
+
+### Features
+
+* add newline just for the release ([#25](https://github.com/gravity-ui/sql-autocomplete-parsers/issues/25)) ([cc95a05](https://github.com/gravity-ui/sql-autocomplete-parsers/commit/cc95a056c5077d1ede897a8d071b958103d216cf))
+
 ## [1.5.0](https://github.com/gravity-ui/sql-autocomplete-parsers/compare/v1.4.0...v1.5.0) (2023-06-06)
 
 
