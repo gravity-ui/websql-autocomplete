@@ -1,4 +1,9 @@
-# About
+# SQL Autocomplete Parsers
+
+![ci_badge](https://img.shields.io/github/actions/workflow/status/gravity-ui/sql-autocomplete-parsers/ci.yml)
+![npm_package_version_badge](https://img.shields.io/npm/v/sql-autocomplete-parsers)
+![last_commit_badge](https://img.shields.io/github/last-commit/gravity-ui/sql-autocomplete-parsers)
+![license_badge](https://img.shields.io/github/license/gravity-ui/sql-autocomplete-parsers)
 
 A tool that provides autocompletion for various sql dialects.
 
