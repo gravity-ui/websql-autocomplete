@@ -305,15 +305,9 @@ export function toEqualDefinition(actualResponse, testDefinition) {
             !testDefinition.expectedResult ||
             resultEquals(actualResponse, testDefinition.expectedResult),
         message: () =>
-            '\n        Statement: ' +
-            testDefinition.beforeCursor +
-            '|' +
-            testDefinition.afterCursor +
-            '\n' +
-            'Expected response: ' +
-            jsonStringToJsString(JSON.stringify(testDefinition.expectedResult) + '\n') +
-            '  Parser response: ' +
-            jsonStringToJsString(JSON.stringify(actualResponse) + '\n')
+            '-------- Statement: ' + testDefinition.beforeCursor + '|' + testDefinition.afterCursor + '\n' +
+            '-- Expected response: ' + jsonStringToJsString(JSON.stringify(testDefinition.expectedResult)) + '\n' +
+            '-- Parser response: ' + jsonStringToJsString(JSON.stringify(actualResponse)) + '\n'
     };
 }
 
