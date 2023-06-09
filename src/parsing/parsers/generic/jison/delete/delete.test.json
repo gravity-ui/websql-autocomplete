@@ -128,7 +128,112 @@
       "suggestKeywords": [
         "EXISTS",
         "NOT EXISTS"
-      ]
+      ],
+      "suggestColumns": {
+        "tables": [
+          {
+            "identifierChain": [
+              {
+                "name": "mytable"
+              }
+            ]
+          }
+        ]
+      },
+      "suggestFilters": {
+        "tables": [
+          {
+            "identifierChain": [
+              {
+                "name": "mytable"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "namePrefix": "should suggest WHERE fields when some field conditions already exist",
+    "beforeCursor": "DELETE FROM mytable WHERE testfield = 1 AND ",
+    "afterCursor": "",
+    "containsKeywords": [
+      "EXISTS"
+    ],
+    "expectedResult": {
+      "lowerCase": false,
+      "locations": [
+        {
+          "type": "statement",
+          "location": {
+            "first_line": 1,
+            "last_line": 1,
+            "first_column": 1,
+            "last_column": 44
+          }
+        },
+        {
+          "type": "table",
+          "location": {
+            "first_line": 1,
+            "last_line": 1,
+            "first_column": 13,
+            "last_column": 20
+          },
+          "identifierChain": [
+            {
+              "name": "mytable"
+            }
+          ]
+        },
+        {
+          "type": "column",
+          "location": {
+            "first_line": 1,
+            "last_line": 1,
+            "first_column": 27,
+            "last_column": 36
+          },
+          "identifierChain": [
+            {
+              "name": "testfield"
+            }
+          ],
+          "qualified": false,
+          "tables": [
+            {
+              "identifierChain": [
+                {
+                  "name": "mytable"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "suggestFunctions": {},
+      "suggestColumns": {
+        "tables": [
+          {
+            "identifierChain": [
+              {
+                "name": "mytable"
+              }
+            ]
+          }
+        ]
+      },
+      "suggestFilters": {
+        "tables": [
+          {
+            "identifierChain": [
+              {
+                "name": "mytable"
+              }
+            ]
+          }
+        ]
+      }
     }
   }
 ]
