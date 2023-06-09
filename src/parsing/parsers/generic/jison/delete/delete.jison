@@ -18,9 +18,9 @@ DataManipulation
 
 DeleteStatement
  : 'DELETE' 'FROM' TableName OptionalWhereClause
-      {
-        parser.addTablePrimary($3);
-      }
+   {
+     parser.addTablePrimary($3);
+   }
  ;
 
 DataManipulation_EDIT
