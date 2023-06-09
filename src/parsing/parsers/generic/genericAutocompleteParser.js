@@ -400,6 +400,7 @@ case 230:
 break;
 case 232:
 
+     console.log('test');
      parser.suggestKeywords(['WHERE']);
    
 break;

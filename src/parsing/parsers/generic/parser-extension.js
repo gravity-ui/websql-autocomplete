@@ -40,13 +40,6 @@ import {matchesType} from "../../lib/sql-reference/types";
 export const extendParser = function (parser) {
   initSharedAutocomplete(parser);
 
-  parser.debug = function (message) {
-    if (!parser.yy.result.debugMessages) {
-      parser.yy.result.debugMessages = []
-    }
-    parser.yy.result.debugMessages.push(message);
-  }
-
   parser.prepareNewStatement = function () {
     linkTablePrimaries();
     parser.commitLocations();

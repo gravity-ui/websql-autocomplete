@@ -293,13 +293,6 @@ export function toEqualDefinition(actualResponse, testDefinition) {
         testDefinition.expectedResult.lowerCase = false;
     }
 
-    if (actualResponse.debugMessages) {
-        console.log('debug messages =', actualResponse.debugMessages)
-        // The only way to transfer data from the parser is via yy.result.
-        // So don't forget to cleanup after yourself
-        delete actualResponse.debugMessages;
-    }
-
     return {
         pass:
             !testDefinition.expectedResult ||

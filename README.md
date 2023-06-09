@@ -30,18 +30,6 @@ Resources to research:
 - `npm run generate` - Generate parsers
 - `npm run test` - Run tests
 
-# How to debug
-
-You should put `parser.debug('test message')` in the grammar semantic actions or `parser-extension.js`.
-After that you can run a single test, e.g. `jest src/parsing/parsers/generic/genericAutocompleteParser.test.ts --verbose=false -t="should suggest columns given.*UPDATE bar.foo SET bla ="`, and you should see the debug messages like this:
-```text
-debug messages = [
-  'test message 1',
-  'test message 2',
-  'test message 3',
-]
-```
-
 # Contributing
 
 - When adding a new file, just add Yandex copyright header
