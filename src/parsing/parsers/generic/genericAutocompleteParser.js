@@ -393,11 +393,6 @@ break;
 case 220: case 222:
 this.$ = $$[$0-3];
 break;
-case 226:
-
-        parser.addTablePrimary($$[$0-1]);
-      
-break;
 case 230:
 
      parser.suggestKeywords(['FROM']);
