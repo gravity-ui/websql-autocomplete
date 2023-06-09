@@ -97,17 +97,6 @@
     "namePrefix": "should suggest WHERE fields",
     "beforeCursor": "DELETE FROM mytable WHERE ",
     "afterCursor": "",
-    "suggestColumns": {
-      "tables": [
-        {
-          "identifierChain": [
-            {
-              "name": "mytable"
-            }
-          ]
-        }
-      ]
-    },
     "expectedResult": {
       "lowerCase": false,
       "locations": [
