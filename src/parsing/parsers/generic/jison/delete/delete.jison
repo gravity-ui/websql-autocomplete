@@ -34,7 +34,6 @@ DeleteStatement_EDIT
      parser.suggestTables();
      parser.suggestDatabases({ appendDot: true });
    }
- | 'DELETE' 'FROM' TableName_EDIT
  | 'DELETE' 'FROM' TableName 'CURSOR'
    {
      parser.suggestKeywords(['WHERE']);
