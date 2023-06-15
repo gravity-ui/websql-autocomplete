@@ -54,6 +54,7 @@
     "use/use.jison",
     "sql_error.jison",
     "sql_main.jison",
+    "sql_table.jison",
     "sql_valueExpression.jison",
     "autocomplete_footer.jison"
   ]

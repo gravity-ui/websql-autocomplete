@@ -17,11 +17,7 @@ DataManipulation
  ;
 
 DeleteStatement
- : 'DELETE' 'FROM' SchemaQualifiedTableIdentifier OptionalWhereClause
-      {
-        $3.owner = 'delete';
-        parser.addTablePrimary($3);
-      }
+ : 'DELETE' 'FROM' TableName OptionalWhereClause
  ;
 
 DataManipulation_EDIT
@@ -38,9 +34,9 @@ DeleteStatement_EDIT
      parser.suggestTables();
      parser.suggestDatabases({ appendDot: true });
    }
- | 'DELETE' 'FROM' SchemaQualifiedTableIdentifier 'CURSOR'
+ | 'DELETE' 'FROM' TableName 'CURSOR'
    {
      parser.suggestKeywords(['WHERE']);
    }
- | 'DELETE' 'FROM' SchemaQualifiedTableIdentifier WhereClause_EDIT
+ | 'DELETE' 'FROM' TableName WhereClause_EDIT
  ;

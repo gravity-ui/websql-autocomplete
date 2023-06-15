@@ -13,7 +13,7 @@
   },
   {
     "namePrefix": "should not report errors on full delete statement",
-    "beforeCursor": "DELETE FROM test_table WHERE test_field != 1; ",
+    "beforeCursor": "DELETE FROM test_table WHERE test_column != 1; ",
     "afterCursor": "",
     "noErrors": true,
     "containsKeywords": [
@@ -94,20 +94,9 @@
     }
   },
   {
-    "namePrefix": "should suggest WHERE fields",
+    "namePrefix": "should suggest WHERE columns",
     "beforeCursor": "DELETE FROM mytable WHERE ",
     "afterCursor": "",
-    "suggestColumns": {
-      "tables": [
-        {
-          "identifierChain": [
-            {
-              "name": "mytable"
-            }
-          ]
-        }
-      ]
-    },
     "expectedResult": {
       "lowerCase": false,
       "locations": [
@@ -139,7 +128,112 @@
       "suggestKeywords": [
         "EXISTS",
         "NOT EXISTS"
-      ]
+      ],
+      "suggestColumns": {
+        "tables": [
+          {
+            "identifierChain": [
+              {
+                "name": "mytable"
+              }
+            ]
+          }
+        ]
+      },
+      "suggestFilters": {
+        "tables": [
+          {
+            "identifierChain": [
+              {
+                "name": "mytable"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "namePrefix": "should suggest WHERE columns when some column conditions already exist",
+    "beforeCursor": "DELETE FROM mytable WHERE testcolumn = 1 AND ",
+    "afterCursor": "",
+    "containsKeywords": [
+      "EXISTS"
+    ],
+    "expectedResult": {
+      "lowerCase": false,
+      "locations": [
+        {
+          "type": "statement",
+          "location": {
+            "first_line": 1,
+            "last_line": 1,
+            "first_column": 1,
+            "last_column": 45
+          }
+        },
+        {
+          "type": "table",
+          "location": {
+            "first_line": 1,
+            "last_line": 1,
+            "first_column": 13,
+            "last_column": 20
+          },
+          "identifierChain": [
+            {
+              "name": "mytable"
+            }
+          ]
+        },
+        {
+          "type": "column",
+          "location": {
+            "first_line": 1,
+            "last_line": 1,
+            "first_column": 27,
+            "last_column": 37
+          },
+          "identifierChain": [
+            {
+              "name": "testcolumn"
+            }
+          ],
+          "qualified": false,
+          "tables": [
+            {
+              "identifierChain": [
+                {
+                  "name": "mytable"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "suggestFunctions": {},
+      "suggestColumns": {
+        "tables": [
+          {
+            "identifierChain": [
+              {
+                "name": "mytable"
+              }
+            ]
+          }
+        ]
+      },
+      "suggestFilters": {
+        "tables": [
+          {
+            "identifierChain": [
+              {
+                "name": "mytable"
+              }
+            ]
+          }
+        ]
+      }
     }
   }
 ]

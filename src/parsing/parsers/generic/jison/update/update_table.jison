@@ -48,25 +48,6 @@ UpdateStatement_EDIT
    }
  ;
 
-TargetTable
- : TableName
- ;
-
-TargetTable_EDIT
- : TableName_EDIT
- ;
-
-TableName
- : LocalOrSchemaQualifiedName
-   {
-     parser.addTablePrimary($1);
-   }
- ;
-
-TableName_EDIT
- : LocalOrSchemaQualifiedName_EDIT
- ;
-
 SetClauseList
  : SetClause
  | SetClauseList ',' SetClause
