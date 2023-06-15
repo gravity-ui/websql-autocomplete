@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.1](https://github.com/gravity-ui/sql-autocomplete-parsers/compare/v1.6.0...v1.6.1) (2023-06-15)
+
+
+### Bug Fixes
+
+* fix column suggestions for delete statement ([#27](https://github.com/gravity-ui/sql-autocomplete-parsers/issues/27)) ([7d5c916](https://github.com/gravity-ui/sql-autocomplete-parsers/commit/7d5c91674554f98b5e05e0f50becd1c80abaed01))
+
 ## [1.6.0](https://github.com/gravity-ui/sql-autocomplete-parsers/compare/v1.5.0...v1.6.0) (2023-06-07)
 
 
