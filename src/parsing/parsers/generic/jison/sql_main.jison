@@ -38,7 +38,7 @@ NewStatement
 
 SqlStatements
  :
- | ExplainSqlStatement
+ | SqlStatement
    {
      parser.addStatementLocation(@1);
    }
@@ -46,19 +46,19 @@ SqlStatements
  ;
 
 SqlStatements_EDIT
- : ExplainSqlStatement_EDIT
+ : SqlStatement_EDIT
    {
      parser.addStatementLocation(@1);
    }
- | ExplainSqlStatement_EDIT ';' NewStatement SqlStatements
+ | SqlStatement_EDIT ';' NewStatement SqlStatements
    {
      parser.addStatementLocation(@1);
    }
- | SqlStatements ';' NewStatement ExplainSqlStatement_EDIT
+ | SqlStatements ';' NewStatement SqlStatement_EDIT
    {
      parser.addStatementLocation(@4);
    }
- | SqlStatements ';' NewStatement ExplainSqlStatement_EDIT ';' NewStatement SqlStatements
+ | SqlStatements ';' NewStatement SqlStatement_EDIT ';' NewStatement SqlStatements
    {
      parser.addStatementLocation(@4);
    }
@@ -68,6 +68,9 @@ SqlStatement
  : DataDefinition
  | DataManipulation
  | QuerySpecification
+ | 'EXPLAIN' DataDefinition
+ | 'EXPLAIN' DataManipulation
+ | 'EXPLAIN' QuerySpecification
  ;
 
 SqlStatement_EDIT

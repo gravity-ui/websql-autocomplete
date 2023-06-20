@@ -42,5 +42,69 @@
     "expectedResult": {
       "lowerCase": false
     }
+  },
+  {
+    "namePrefix": "should not report errors on EXPLAIN SELECT statement",
+    "beforeCursor": "EXPLAIN SELECT * FROM test_table; ",
+    "afterCursor": "",
+    "noErrors": true,
+    "containsKeywords": [
+      "SELECT"
+    ],
+    "expectedResult": {
+      "lowerCase": false
+    }
+  },
+  {
+    "namePrefix": "should not report errors on EXPLAIN DELETE statement",
+    "beforeCursor": "EXPLAIN DELETE FROM test_table; ",
+    "afterCursor": "",
+    "noErrors": true,
+    "containsKeywords": [
+      "SELECT"
+    ],
+    "expectedResult": {
+      "lowerCase": false
+    }
+  },
+  {
+    "namePrefix": "should not report errors on EXPLAIN CREATE statement",
+    "beforeCursor": "EXPLAIN CREATE TABLE Persons (id int); ",
+    "afterCursor": "",
+    "noErrors": true,
+    "containsKeywords": [
+      "SELECT"
+    ],
+    "expectedResult": {
+      "lowerCase": false
+    }
+  },
+  {
+    "namePrefix": "should report error on double EXPLAIN statement",
+    "beforeCursor": "EXPLAIN EXPLAIN SELECT * FROM test_table; ",
+    "afterCursor": "",
+    "noErrors": false,
+    "expectedResult": {
+      "lowerCase": false,
+      "suggestKeywords": [
+        "ALTER", "CREATE", "DELETE", "DESCRIBE", "DROP", "GRANT", "INSERT", "REVOKE", "SELECT", "SET", "SHOW", "TRUNCATE", "UPDATE", "USE", "WITH"
+      ],
+      "errors": [
+        {
+          "text": "EXPLAIN",
+          "token": "EXPLAIN",
+          "line": 0,
+          "loc": {
+            "first_line": 1,
+            "last_line": 1,
+            "first_column": 8,
+            "last_column": 15
+          },
+          "ruleId": "354_119",
+          "expected": ["'ALTER'", "'CREATE'", "'DROP'", "'SET'", "'DELETE'", "'INSERT'", "'WITH'", "'SELECT'", "'TRUNCATE'", "'UPDATE'", "'USE'"],
+          "recoverable": true
+        }
+      ]
+    }
   }
 ]
