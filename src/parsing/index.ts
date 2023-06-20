@@ -18,7 +18,9 @@ export interface ParseResult {
         source: string;
         tables: Table[];
     };
-    suggestAggregateFunctions?: unknown;
+    suggestAggregateFunctions?: {
+        tables: Table[],
+    };
     suggestAnalyticFunctions?: unknown;
     suggestColRefKeywords?: unknown;
     suggestColumnAliases?: unknown;
