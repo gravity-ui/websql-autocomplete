@@ -70,6 +70,7 @@
 'ELSE'                                     { return 'ELSE'; }
 'END'                                      { return 'END'; }
 'EXISTS'                                   { parser.yy.correlatedSubQuery = true; return 'EXISTS'; }
+'EXPLAIN'                                  { return 'EXPLAIN'; }
 'FALSE'                                    { return 'FALSE'; }
 'FLOAT'                                    { return 'FLOAT'; }
 'FOLLOWING'                                { return 'FOLLOWING'; }
