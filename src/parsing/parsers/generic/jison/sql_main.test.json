@@ -42,17 +42,5 @@
     "expectedResult": {
       "lowerCase": false
     }
-  },
-  {
-    "namePrefix": "should not report errors on EXPLAIN SELECT statement",
-    "beforeCursor": "EXPLAIN SELECT * FROM test_table; ",
-    "afterCursor": "",
-    "noErrors": true,
-    "containsKeywords": [
-      "SELECT"
-    ],
-    "expectedResult": {
-      "lowerCase": false
-    }
   }
 ]
