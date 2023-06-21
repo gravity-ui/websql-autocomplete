@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.7.0](https://github.com/gravity-ui/sql-autocomplete-parsers/compare/v1.6.1...v1.7.0) (2023-06-21)
+
+
+### Features
+
+* specify type for ParseResult.suggestAggregateFunctions ([#33](https://github.com/gravity-ui/sql-autocomplete-parsers/issues/33)) ([b9e9dbd](https://github.com/gravity-ui/sql-autocomplete-parsers/commit/b9e9dbdce90582e46093d3e31b30beb55a1ca31b))
+
 ## [1.6.1](https://github.com/gravity-ui/sql-autocomplete-parsers/compare/v1.6.0...v1.6.1) (2023-06-15)
 
 
