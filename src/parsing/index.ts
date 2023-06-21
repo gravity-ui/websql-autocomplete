@@ -23,7 +23,7 @@ export interface ParseResult {
     };
     suggestAnalyticFunctions?: unknown;
     suggestColRefKeywords?: unknown;
-    suggestColumnAliases?: unknown;
+    suggestColumnAliases?: ColumnAliasSuggestion[];
     suggestCommonTableExpressions?: unknown;
     suggestDatabases?: unknown;
     suggestFilters?: unknown;
@@ -66,6 +66,11 @@ export interface IdentifierChainEntry {
 export interface IdentifierSuggestion {
     name: string;
     type: string;
+}
+
+export interface ColumnAliasSuggestion {
+    name: string;
+    types: string[];
 }
 
 export function parseGenericSql(queryBeforeCursor: string, queryAfterCursor: string, debug?: boolean): ParseResult {
