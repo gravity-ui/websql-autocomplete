@@ -65,27 +65,31 @@ SqlStatements_EDIT
  ;
 
 SqlStatement
- : DataDefinition
- | DataManipulation
- | QuerySpecification
- | 'EXPLAIN' DataDefinition
- | 'EXPLAIN' DataManipulation
- | 'EXPLAIN' QuerySpecification
+ : SqlStatementTypes
  ;
 
 SqlStatement_EDIT
  : AnyCursor
    {
-     parser.suggestDdlAndDmlKeywords();
+     parser.suggestDdlAndDmlKeywords(['EXPLAIN']);
    }
  | CommonTableExpression 'CURSOR'
    {
      parser.suggestKeywords(['SELECT']);
    }
- | DataDefinition_EDIT
+ | SqlStatementTypes_EDIT
+ ;
+
+SqlStatementTypes
+ : DataDefinition
+ | DataManipulation
+ | QuerySpecification
+ ;
+
+SqlStatementTypes_EDIT
+ : DataDefinition_EDIT
  | DataManipulation_EDIT
  | QuerySpecification_EDIT
- | SetSpecification_EDIT
  ;
 
 NonReservedKeyword

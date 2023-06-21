@@ -16,6 +16,7 @@
     "drop/drop_role.jison",
     "drop/drop_table.jison",
     "drop/drop_view.jison",
+    "explain/explain.jison",
     "insert/insert.jison",
     "select/cte_select_statement.jison",
     "select/from_clause.jison",

@@ -1,0 +1,85 @@
+[
+  {
+    "namePrefix": "should not report errors on EXPLAIN DELETE statement",
+    "beforeCursor": "EXPLAIN DELETE FROM test_table; ",
+    "afterCursor": "",
+    "noErrors": true,
+    "containsKeywords": [
+      "SELECT"
+    ],
+    "expectedResult": {
+      "lowerCase": false
+    }
+  },
+  {
+    "namePrefix": "should not report errors on EXPLAIN CREATE statement",
+    "beforeCursor": "EXPLAIN CREATE TABLE Persons (id int); ",
+    "afterCursor": "",
+    "noErrors": true,
+    "containsKeywords": [
+      "SELECT"
+    ],
+    "expectedResult": {
+      "lowerCase": false
+    }
+  },
+  {
+    "namePrefix": "should report error on double EXPLAIN statement",
+    "beforeCursor": "EXPLAIN EXPLAIN SELECT * FROM test_table; ",
+    "afterCursor": "",
+    "noErrors": false,
+    "expectedResult": {
+      "lowerCase": false,
+      "suggestKeywords": [
+        "ALTER", "CREATE", "DELETE", "DESCRIBE", "DROP", "EXPLAIN", "GRANT", "INSERT", "REVOKE", "SELECT", "SET", "SHOW", "TRUNCATE", "UPDATE", "USE", "WITH"
+      ],
+      "errors": [
+        {
+          "text": "EXPLAIN",
+          "token": "EXPLAIN",
+          "line": 0,
+          "loc": {
+            "first_line": 1,
+            "last_line": 1,
+            "first_column": 8,
+            "last_column": 15
+          },
+          "ruleId": "175_122",
+          "expected": ["'ALTER'", "'CURSOR'", "'CREATE'", "'DROP'", "'SET'", "'DELETE'", "'INSERT'", "'WITH'", "'SELECT'", "'TRUNCATE'", "'UPDATE'", "'USE'", "'PARTIAL_CURSOR'"],
+          "recoverable": true
+        }
+      ]
+    }
+  },
+  {
+    "namePrefix": "should suggest EXPLAIN",
+    "beforeCursor": "",
+    "afterCursor": "",
+    "noErrors": true,
+    "containsKeywords": [
+      "EXPLAIN"
+    ],
+    "expectedResult": {
+      "lowerCase": false
+    }
+  },
+  {
+    "namePrefix": "should suggest query",
+    "beforeCursor": "EXPLAIN ",
+    "afterCursor": "",
+    "noErrors": true,
+    "containsKeywords": [
+      "ALTER",
+      "CREATE",
+      "DELETE",
+      "DROP",
+      "INSERT",
+      "SELECT",
+      "SET",
+      "UPDATE"
+    ],
+    "expectedResult": {
+      "lowerCase": false
+    }
+  }
+]
