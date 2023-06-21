@@ -25,7 +25,7 @@ ExplainSqlStatement
  ;
 
 ExplainSqlStatement_EDIT
- : 'EXPLAIN' AnyCursor
+ : 'EXPLAIN' 'CURSOR'
     {
       parser.suggestDdlAndDmlKeywords();
     }

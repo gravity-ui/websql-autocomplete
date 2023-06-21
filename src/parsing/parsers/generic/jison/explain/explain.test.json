@@ -57,7 +57,7 @@
             "last_column": 15
           },
           "ruleId": "175_122",
-          "expected": ["'ALTER'", "'CURSOR'", "'CREATE'", "'DROP'", "'SET'", "'DELETE'", "'INSERT'", "'WITH'", "'SELECT'", "'TRUNCATE'", "'UPDATE'", "'USE'", "'PARTIAL_CURSOR'"],
+          "expected": ["'ALTER'", "'CURSOR'", "'CREATE'", "'DROP'", "'SET'", "'DELETE'", "'INSERT'", "'WITH'", "'SELECT'", "'TRUNCATE'", "'UPDATE'", "'USE'"],
           "recoverable": true
         }
       ]
