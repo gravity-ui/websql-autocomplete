@@ -319,7 +319,7 @@ export function toEqualDefinition(actualResponse, testDefinition) {
                 message: () =>
                     '-------- Statement: ' + testDefinition.beforeCursor + '|' + testDefinition.afterCursor + '\n' +
                     '-- Expected errors: ' + jsonStringToJsString(JSON.stringify(testDefinition.expectedErrors)) + '\n' +
-                    '-- Parser response: ' + jsonStringToJsString(JSON.stringify(filteredResponseErrors)) + '\n'
+                    '-- Parser errors: ' + jsonStringToJsString(JSON.stringify(filteredResponseErrors)) + '\n'
             }
         }
 
