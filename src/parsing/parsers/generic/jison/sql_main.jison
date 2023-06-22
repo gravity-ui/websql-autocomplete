@@ -73,7 +73,7 @@ SqlStatement
 SqlStatement_EDIT
  : AnyCursor
    {
-     parser.suggestDdlAndDmlKeywords();
+     parser.suggestDdlAndDmlKeywords(['EXPLAIN']);
    }
  | CommonTableExpression 'CURSOR'
    {
@@ -82,7 +82,6 @@ SqlStatement_EDIT
  | DataDefinition_EDIT
  | DataManipulation_EDIT
  | QuerySpecification_EDIT
- | SetSpecification_EDIT
  ;
 
 NonReservedKeyword

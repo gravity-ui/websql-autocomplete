@@ -48,6 +48,16 @@ interface TestCase {
             appendDot?: boolean;
         };
     };
+    expectedErrors?: {
+        text: string,
+        token: string,
+        loc: {
+            first_line: number,
+            last_line: number,
+            first_column: number,
+            last_column: number
+        },
+    }[]
 }
 
 interface GroupedTestCases {
@@ -74,7 +84,7 @@ export function getToEqualAutocompleteValues(actualItems, expectedValues) {
 }
 
 export function toEqualDefinition(actualResponse, testDefinition) {
-    if (typeof testDefinition.noErrors === 'undefined' && actualResponse.errors) {
+    if (typeof testDefinition.noErrors === 'undefined' && actualResponse.errors && !testDefinition.expectedErrors) {
         let allRecoverable = true;
         actualResponse.errors.forEach(error => {
             allRecoverable = allRecoverable && error.recoverable;
@@ -291,6 +301,47 @@ export function toEqualDefinition(actualResponse, testDefinition) {
         typeof testDefinition.expectedResult.lowerCase === 'undefined'
     ) {
         testDefinition.expectedResult.lowerCase = false;
+    }
+
+    if (testDefinition.expectedErrors) {
+        if (!Array.isArray(testDefinition.expectedErrors)) {
+            return {
+                pass: false,
+                message: () =>
+                    '-------- Statement: ' + testDefinition.beforeCursor + '|' + testDefinition.afterCursor + '\n' +
+                    '-- expectedErrors should be array'
+            }
+        }
+
+        if (!actualResponse.errors) {
+            return {
+                pass: false,
+                message: () =>
+                    '-------- Statement: ' + testDefinition.beforeCursor + '|' + testDefinition.afterCursor + '\n' +
+                    '-- Expected errors: ' + jsonStringToJsString(JSON.stringify(testDefinition.expectedErrors)) + '\n' +
+                    '-- Parser errors list is empty'
+            }
+        }
+
+        const filteredResponseErrors = actualResponse.errors.map((responseError, index) => {
+            const expectedKeys = Object.keys(testDefinition.expectedErrors[index]);
+            return expectedKeys.reduce((acc, expectedKey) => {
+                acc[expectedKey] = responseError[expectedKey];
+                return acc
+            }, {});
+        })
+
+        if (!resultEquals(testDefinition.expectedErrors, filteredResponseErrors)) {
+            return {
+                pass: false,
+                message: () =>
+                    '-------- Statement: ' + testDefinition.beforeCursor + '|' + testDefinition.afterCursor + '\n' +
+                    '-- Expected errors: ' + jsonStringToJsString(JSON.stringify(testDefinition.expectedErrors)) + '\n' +
+                    '-- Parser errors: ' + jsonStringToJsString(JSON.stringify(filteredResponseErrors)) + '\n'
+            }
+        }
+
+        delete actualResponse.errors;
     }
 
     return {
