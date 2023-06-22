@@ -48,6 +48,17 @@ interface TestCase {
             appendDot?: boolean;
         };
     };
+    expectedErrors?: {
+        text: string,
+        token: string,
+        line: 0,
+        loc: {
+            first_line: number,
+            last_line: number,
+            first_column: number,
+            last_column: number
+        },
+    }[]
 }
 
 interface GroupedTestCases {
@@ -291,6 +302,30 @@ export function toEqualDefinition(actualResponse, testDefinition) {
         typeof testDefinition.expectedResult.lowerCase === 'undefined'
     ) {
         testDefinition.expectedResult.lowerCase = false;
+    }
+
+    if (testDefinition.noErrors === false && testDefinition.expectedErrors) {
+        const filteredResponseErrors = actualResponse.errors.map((responseError, index) => {
+            const expectedKeys = Object.keys(testDefinition.expectedErrors[index]);
+            return expectedKeys.reduce((acc, expectedKey) => {
+                acc[expectedKey] = responseError[expectedKey];
+                return acc
+            }, {});
+        })
+
+        const isPartiallyEquals = resultEquals(testDefinition.expectedErrors, filteredResponseErrors);
+        if (!isPartiallyEquals || testDefinition.expectedErrors.length !== filteredResponseErrors.length) {
+            return {
+                pass: false,
+                message: () =>
+                    '-------- Statement: ' + testDefinition.beforeCursor + '|' + testDefinition.afterCursor + '\n' +
+                    '-- Expected errors: ' + jsonStringToJsString(JSON.stringify(testDefinition.expectedErrors)) + '\n' +
+                    '-- Parser response: ' + jsonStringToJsString(JSON.stringify(filteredResponseErrors)) + '\n'
+            }
+        }
+
+        delete testDefinition.expectedErrors;
+        delete actualResponse.errors;
     }
 
     return {
