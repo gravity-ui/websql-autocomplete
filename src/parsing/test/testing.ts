@@ -51,7 +51,7 @@ interface TestCase {
     expectedErrors?: {
         text: string,
         token: string,
-        line: 0,
+        line: number,
         loc: {
             first_line: number,
             last_line: number,
@@ -85,7 +85,7 @@ export function getToEqualAutocompleteValues(actualItems, expectedValues) {
 }
 
 export function toEqualDefinition(actualResponse, testDefinition) {
-    if (typeof testDefinition.noErrors === 'undefined' && actualResponse.errors) {
+    if (typeof testDefinition.noErrors === 'undefined' && actualResponse.errors && !testDefinition.expectedErrors) {
         let allRecoverable = true;
         actualResponse.errors.forEach(error => {
             allRecoverable = allRecoverable && error.recoverable;
@@ -304,7 +304,24 @@ export function toEqualDefinition(actualResponse, testDefinition) {
         testDefinition.expectedResult.lowerCase = false;
     }
 
-    if (testDefinition.noErrors === false && testDefinition.expectedErrors) {
+    if (testDefinition.expectedErrors) {
+        if (!Array.isArray(testDefinition.expectedErrors)) {
+            return {
+                pass: false,
+                message: () => '-------- expectedErrors should be array'
+            }
+        }
+
+        if (!actualResponse.errors) {
+            return {
+                pass: false,
+                message: () =>
+                    '-------- Statement: ' + testDefinition.beforeCursor + '|' + testDefinition.afterCursor + '\n' +
+                    '-- Expected errors: ' + jsonStringToJsString(JSON.stringify(testDefinition.expectedErrors)) + '\n' +
+                    '-- Parser errors list is empty'
+            }
+        }
+
         const filteredResponseErrors = actualResponse.errors.map((responseError, index) => {
             const expectedKeys = Object.keys(testDefinition.expectedErrors[index]);
             return expectedKeys.reduce((acc, expectedKey) => {
@@ -323,7 +340,6 @@ export function toEqualDefinition(actualResponse, testDefinition) {
             }
         }
 
-        delete testDefinition.expectedErrors;
         delete actualResponse.errors;
     }
 
