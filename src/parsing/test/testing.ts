@@ -37,9 +37,16 @@ interface TestCase {
     beforeCursor: string;
     afterCursor: string;
     containsKeywords?: string[];
+    doesNotContainKeywords?: string[];
+    containsColRefKeywords?: string[];
     noErrors?: boolean;
+    locationsOnly?: boolean;
+    noLocations?: boolean;
+    expectedDefinitions: unknown,
+    expectedLocations?: unknown;
     expectedResult: {
         lowerCase?: boolean;
+        locations?: unknown;
         suggestTables?: {
             identifierChain?: { name: string }[];
             onlyTables?: boolean;
@@ -83,7 +90,7 @@ export function getToEqualAutocompleteValues(actualItems, expectedValues) {
     return {pass: true, message: () => 'test'};
 }
 
-export function toEqualDefinition(actualResponse, testDefinition) {
+export function toEqualDefinition(actualResponse, testDefinition: TestCase) {
     if (typeof testDefinition.noErrors === 'undefined' && actualResponse.errors && !testDefinition.expectedErrors) {
         let allRecoverable = true;
         actualResponse.errors.forEach(error => {
