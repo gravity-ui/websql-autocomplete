@@ -21,7 +21,9 @@ SqlStatement_EDIT
  ;
 
 ExplainSqlStatement
- : 'EXPLAIN' SqlStatementTypes
+ : 'EXPLAIN' DataDefinition
+ | 'EXPLAIN' DataManipulation
+ | 'EXPLAIN' QuerySpecification
  ;
 
 ExplainSqlStatement_EDIT
@@ -29,5 +31,7 @@ ExplainSqlStatement_EDIT
     {
       parser.suggestDdlAndDmlKeywords();
     }
- | 'EXPLAIN' SqlStatementTypes_EDIT
+ | 'EXPLAIN' DataDefinition_EDIT
+ | 'EXPLAIN' DataManipulation_EDIT
+ | 'EXPLAIN' QuerySpecification_EDIT
  ;

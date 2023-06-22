@@ -65,7 +65,9 @@ SqlStatements_EDIT
  ;
 
 SqlStatement
- : SqlStatementTypes
+ : DataDefinition
+ | DataManipulation
+ | QuerySpecification
  ;
 
 SqlStatement_EDIT
@@ -77,17 +79,7 @@ SqlStatement_EDIT
    {
      parser.suggestKeywords(['SELECT']);
    }
- | SqlStatementTypes_EDIT
- ;
-
-SqlStatementTypes
- : DataDefinition
- | DataManipulation
- | QuerySpecification
- ;
-
-SqlStatementTypes_EDIT
- : DataDefinition_EDIT
+ | DataDefinition_EDIT
  | DataManipulation_EDIT
  | QuerySpecification_EDIT
  ;

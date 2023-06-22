@@ -51,7 +51,6 @@ interface TestCase {
     expectedErrors?: {
         text: string,
         token: string,
-        line: number,
         loc: {
             first_line: number,
             last_line: number,
