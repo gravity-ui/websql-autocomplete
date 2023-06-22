@@ -313,8 +313,7 @@ export function toEqualDefinition(actualResponse, testDefinition) {
             }, {});
         })
 
-        const isPartiallyEquals = resultEquals(testDefinition.expectedErrors, filteredResponseErrors);
-        if (!isPartiallyEquals || testDefinition.expectedErrors.length !== filteredResponseErrors.length) {
+        if (!resultEquals(testDefinition.expectedErrors, filteredResponseErrors)) {
             return {
                 pass: false,
                 message: () =>
