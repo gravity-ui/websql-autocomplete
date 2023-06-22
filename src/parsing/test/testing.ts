@@ -313,7 +313,9 @@ function constructTestCaseMessage(testCase: TestCase, details: Record<string, an
         let value = details[key];
 
         let strValue = value;
-        if (typeof value != 'string') {
+        if (value === undefined) {
+            strValue = 'undefined';
+        } else if (typeof value !== 'string') {
             strValue = jsonStringToJsString(JSON.stringify(value))
         }
 
