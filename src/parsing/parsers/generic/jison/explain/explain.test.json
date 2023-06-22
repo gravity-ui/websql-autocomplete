@@ -56,7 +56,8 @@
           "last_line": 1,
           "first_column": 8,
           "last_column": 15
-        }
+        },
+        "expected": ["'ALTER'", "'CURSOR'", "'CREATE'", "'DROP'", "'SET'", "'DELETE'", "'INSERT'", "'WITH'", "'SELECT'", "'TRUNCATE'", "'UPDATE'", "'USE'"]
       }
     ]
   },
