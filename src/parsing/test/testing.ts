@@ -308,7 +308,9 @@ export function toEqualDefinition(actualResponse, testDefinition) {
         if (!Array.isArray(testDefinition.expectedErrors)) {
             return {
                 pass: false,
-                message: () => '-------- expectedErrors should be array'
+                message: () =>
+                    '-------- Statement: ' + testDefinition.beforeCursor + '|' + testDefinition.afterCursor + '\n' +
+                    '-- expectedErrors should be array'
             }
         }
 
