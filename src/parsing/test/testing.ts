@@ -37,9 +37,16 @@ interface TestCase {
     beforeCursor: string;
     afterCursor: string;
     containsKeywords?: string[];
+    doesNotContainKeywords?: string[];
+    containsColRefKeywords?: string[];
     noErrors?: boolean;
+    locationsOnly?: boolean;
+    noLocations?: boolean;
+    expectedDefinitions: unknown,
+    expectedLocations?: unknown;
     expectedResult: {
         lowerCase?: boolean;
+        locations?: unknown;
         suggestTables?: {
             identifierChain?: { name: string }[];
             onlyTables?: boolean;
@@ -83,7 +90,7 @@ export function getToEqualAutocompleteValues(actualItems, expectedValues) {
     return {pass: true, message: () => 'test'};
 }
 
-export function toEqualDefinition(actualResponse, testDefinition) {
+export function toEqualDefinition(actualResponse, testDefinition: TestCase) {
     if (typeof testDefinition.noErrors === 'undefined' && actualResponse.errors && !testDefinition.expectedErrors) {
         let allRecoverable = true;
         actualResponse.errors.forEach(error => {
@@ -97,17 +104,10 @@ export function toEqualDefinition(actualResponse, testDefinition) {
     if (testDefinition.noErrors && actualResponse.errors) {
         return {
             pass: false,
-            message: () =>
-                '\n        Statement: ' +
-                testDefinition.beforeCursor +
-                '|' +
-                testDefinition.afterCursor +
-                '\n' +
-                '  noErrors set to: ' +
-                testDefinition.noErrors +
-                '\n' +
-                '     Found errors: ' +
-                JSON.stringify(actualResponse.errors)
+            message: constructTestCaseMessage(testDefinition, {
+                'Expected': 'no errors',
+                'Found errors': actualResponse.errors,
+            }),
         };
     }
 
@@ -129,18 +129,10 @@ export function toEqualDefinition(actualResponse, testDefinition) {
         if (!resultEquals(actualResponse.definitions, testDefinition.expectedDefinitions)) {
             return {
                 pass: false,
-                message: () =>
-                    '\n        Statement: ' +
-                    testDefinition.beforeCursor +
-                    '|' +
-                    testDefinition.afterCursor +
-                    '\n' +
-                    'Expected definitions: ' +
-                    jsonStringToJsString(JSON.stringify(testDefinition.expectedDefinitions)) +
-                    '\n' +
-                    '  Parser definitions: ' +
-                    jsonStringToJsString(JSON.stringify(actualResponse.definitions)) +
-                    '\n'
+                message: constructTestCaseMessage(testDefinition, {
+                    'Expected definitions': testDefinition.expectedDefinitions,
+                    'Found definitions': actualResponse.definitions,
+                }),
             };
         }
     } else {
@@ -150,18 +142,10 @@ export function toEqualDefinition(actualResponse, testDefinition) {
     if (testDefinition.locationsOnly) {
         return {
             pass: resultEquals(actualResponse.locations, testDefinition.expectedLocations),
-            message: () =>
-                '\n        Statement: ' +
-                testDefinition.beforeCursor +
-                '|' +
-                testDefinition.afterCursor +
-                '\n' +
-                'Expected locations: ' +
-                jsonStringToJsString(JSON.stringify(testDefinition.expectedLocations)) +
-                '\n' +
-                '  Parser locations: ' +
-                jsonStringToJsString(JSON.stringify(actualResponse.locations)) +
-                '\n'
+            message: constructTestCaseMessage(testDefinition, {
+                'Expected': 'only locations',
+                'Found': 'other fields',
+            }),
         };
     }
 
@@ -177,14 +161,10 @@ export function toEqualDefinition(actualResponse, testDefinition) {
         if (actualResponse.locations.length > 0) {
             return {
                 pass: false,
-                message: () =>
-                    '\nStatement: ' +
-                    testDefinition.beforeCursor +
-                    '|' +
-                    testDefinition.afterCursor +
-                    '\n' +
-                    '           Expected no locations, found ' +
-                    actualResponse.locations.length
+                message: constructTestCaseMessage(testDefinition, {
+                    'Expected locations': 'none',
+                    'Found locations': actualResponse.locations.length,
+                }),
             };
         }
     }
@@ -196,13 +176,9 @@ export function toEqualDefinition(actualResponse, testDefinition) {
         if (typeof actualResponse.suggestColRefKeywords == 'undefined') {
             return {
                 pass: false,
-                message: () =>
-                    '\nStatement: ' +
-                    testDefinition.beforeCursor +
-                    '|' +
-                    testDefinition.afterCursor +
-                    '\n' +
-                    '           No colRef keywords found'
+                message: constructTestCaseMessage(testDefinition, {
+                    'colRef keywords': 'not found',
+                }),
             };
         } else if (testDefinition.containsColRefKeywords !== true) {
             let contains = true;
@@ -216,19 +192,10 @@ export function toEqualDefinition(actualResponse, testDefinition) {
             if (!contains) {
                 return {
                     pass: false,
-                    message: () =>
-                        '\nStatement: ' +
-                        testDefinition.beforeCursor +
-                        '|' +
-                        testDefinition.afterCursor +
-                        '\n' +
-                        '           Expected colRef keywords not found ' +
-                        'Expected keywords: ' +
-                        JSON.stringify(testDefinition.containsColRefKeywords) +
-                        '\n' +
-                        '  Parser keywords: ' +
-                        JSON.stringify(actualResponse.suggestColRefKeywords) +
-                        '\n'
+                    message: constructTestCaseMessage(testDefinition, {
+                        'Expected colRef keywords': testDefinition.containsColRefKeywords,
+                        'Parser colRef keywords': actualResponse.suggestColRefKeywords,
+                    }),
                 };
             }
         }
@@ -247,18 +214,10 @@ export function toEqualDefinition(actualResponse, testDefinition) {
         if (!contains) {
             return {
                 pass: false,
-                message: () =>
-                    '\n        Statement: ' +
-                    testDefinition.beforeCursor +
-                    '|' +
-                    testDefinition.afterCursor +
-                    '\n' +
-                    'Expected keywords: ' +
-                    JSON.stringify(testDefinition.containsKeywords) +
-                    '\n' +
-                    '  Parser keywords: ' +
-                    JSON.stringify(keywords) +
-                    '\n'
+                message: constructTestCaseMessage(testDefinition, {
+                    'Expected keywords': testDefinition.containsKeywords,
+                    'Found keywords': keywords,
+                }),
             };
         }
         deleteKeywords = true;
@@ -275,18 +234,10 @@ export function toEqualDefinition(actualResponse, testDefinition) {
         if (contains) {
             return {
                 pass: false,
-                message: () =>
-                    '\n            Statement: ' +
-                    testDefinition.beforeCursor +
-                    '|' +
-                    testDefinition.afterCursor +
-                    '\n' +
-                    'Not expected keywords: ' +
-                    JSON.stringify(testDefinition.doesNotContainKeywords) +
-                    '\n' +
-                    '      Parser keywords: ' +
-                    JSON.stringify(keywords) +
-                    '\n'
+                message: constructTestCaseMessage(testDefinition, {
+                    'Not expected keywords': testDefinition.doesNotContainKeywords,
+                    'Found keywords': keywords,
+                })
             };
         }
         deleteKeywords = true;
@@ -307,19 +258,19 @@ export function toEqualDefinition(actualResponse, testDefinition) {
         if (!Array.isArray(testDefinition.expectedErrors)) {
             return {
                 pass: false,
-                message: () =>
-                    '-------- Statement: ' + testDefinition.beforeCursor + '|' + testDefinition.afterCursor + '\n' +
-                    '-- expectedErrors should be array'
+                message: constructTestCaseMessage(testDefinition, {
+                    'expectedErrors': 'should be an array',
+                }),
             }
         }
 
         if (!actualResponse.errors) {
             return {
                 pass: false,
-                message: () =>
-                    '-------- Statement: ' + testDefinition.beforeCursor + '|' + testDefinition.afterCursor + '\n' +
-                    '-- Expected errors: ' + jsonStringToJsString(JSON.stringify(testDefinition.expectedErrors)) + '\n' +
-                    '-- Parser errors list is empty'
+                message: constructTestCaseMessage(testDefinition, {
+                    'Expected errors': testDefinition.expectedErrors,
+                    'Parser errors': 'none',
+                }),
             }
         }
 
@@ -334,10 +285,10 @@ export function toEqualDefinition(actualResponse, testDefinition) {
         if (!resultEquals(testDefinition.expectedErrors, filteredResponseErrors)) {
             return {
                 pass: false,
-                message: () =>
-                    '-------- Statement: ' + testDefinition.beforeCursor + '|' + testDefinition.afterCursor + '\n' +
-                    '-- Expected errors: ' + jsonStringToJsString(JSON.stringify(testDefinition.expectedErrors)) + '\n' +
-                    '-- Parser errors: ' + jsonStringToJsString(JSON.stringify(filteredResponseErrors)) + '\n'
+                message: constructTestCaseMessage(testDefinition, {
+                    'Expected errors': testDefinition.expectedErrors,
+                    'Parser errors': filteredResponseErrors,
+                }),
             }
         }
 
@@ -348,11 +299,28 @@ export function toEqualDefinition(actualResponse, testDefinition) {
         pass:
             !testDefinition.expectedResult ||
             resultEquals(actualResponse, testDefinition.expectedResult),
-        message: () =>
-            '-------- Statement: ' + testDefinition.beforeCursor + '|' + testDefinition.afterCursor + '\n' +
-            '-- Expected response: ' + jsonStringToJsString(JSON.stringify(testDefinition.expectedResult)) + '\n' +
-            '-- Parser response: ' + jsonStringToJsString(JSON.stringify(actualResponse)) + '\n'
+        message: constructTestCaseMessage(testDefinition, {
+            'Expected errors': testDefinition.expectedResult,
+            'Parser errors': actualResponse,
+        }),
     };
+}
+
+function constructTestCaseMessage(testCase: TestCase, details: Record<string, any>): () => string {
+    let message = `- Query: ${testCase.beforeCursor + '|' + testCase.afterCursor} \n`;
+
+    for (let key in details) {
+        let value = details[key];
+        if (value === undefined) {
+            value = 'undefined';
+        } else if (typeof value !== 'string') {
+            value = jsonStringToJsString(JSON.stringify(value))
+        }
+
+        message += `- ${key}: ${value} \n`;
+    }
+
+    return () => message
 }
 
 function resultEquals(a, b): boolean {
