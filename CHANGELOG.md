@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.8.0](https://github.com/gravity-ui/sql-autocomplete-parsers/compare/v1.7.0...v1.8.0) (2023-06-23)
+
+
+### Features
+
+* support explain statement ([#30](https://github.com/gravity-ui/sql-autocomplete-parsers/issues/30)) ([27aef7c](https://github.com/gravity-ui/sql-autocomplete-parsers/commit/27aef7c00d5a3fb247d9ddb55819607881ba8c30))
+
 ## [1.7.0](https://github.com/gravity-ui/sql-autocomplete-parsers/compare/v1.6.1...v1.7.0) (2023-06-21)
 
 
