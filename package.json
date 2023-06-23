@@ -32,10 +32,8 @@
     "test": "npm run generate && npm run test_without_generate",
     "test_without_generate": "jest src/parsing",
     "generate": "cd src/generator && node main.js generic",
-    "lint": "npm run lint:other",
-    "lint:other": "npm run prettier -- --check ",
-    "fix": "npm run fix:other",
-    "fix:other": "npm run prettier -- --write ",
+    "lint": "npm run prettier -- --check",
+    "fix": "npm run prettier -- --write",
     "prettier": "prettier \"**/*.{md,yaml,yml,json}\""
   }
 }
