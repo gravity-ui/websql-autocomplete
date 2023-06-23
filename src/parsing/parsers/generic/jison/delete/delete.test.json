@@ -4,9 +4,7 @@
     "beforeCursor": "DELETE FROM test_table; ",
     "afterCursor": "",
     "noErrors": true,
-    "containsKeywords": [
-      "SELECT"
-    ],
+    "containsKeywords": ["SELECT"],
     "expectedResult": {
       "lowerCase": false
     }
@@ -16,17 +14,13 @@
     "beforeCursor": "DELETE FROM test_table WHERE test_column != 1; ",
     "afterCursor": "",
     "noErrors": true,
-    "containsKeywords": [
-      "SELECT"
-    ]
+    "containsKeywords": ["SELECT"]
   },
   {
     "namePrefix": "should suggest DELETE",
     "beforeCursor": "",
     "afterCursor": "",
-    "containsKeywords": [
-      "DELETE"
-    ],
+    "containsKeywords": ["DELETE"],
     "noErrors": true,
     "expectedResult": {
       "lowerCase": false
@@ -36,9 +30,7 @@
     "namePrefix": "should suggest FROM",
     "beforeCursor": "DELETE ",
     "afterCursor": "",
-    "containsKeywords": [
-      "FROM"
-    ],
+    "containsKeywords": ["FROM"],
     "noErrors": true,
     "expectedResult": {
       "lowerCase": false
@@ -61,9 +53,7 @@
     "namePrefix": "should suggest WHERE",
     "beforeCursor": "DELETE FROM mytable ",
     "afterCursor": "",
-    "containsKeywords": [
-      "WHERE"
-    ],
+    "containsKeywords": ["WHERE"],
     "expectedResult": {
       "lowerCase": false,
       "locations": [
@@ -125,10 +115,7 @@
         }
       ],
       "suggestFunctions": {},
-      "suggestKeywords": [
-        "EXISTS",
-        "NOT EXISTS"
-      ],
+      "suggestKeywords": ["EXISTS", "NOT EXISTS"],
       "suggestColumns": {
         "tables": [
           {
@@ -157,9 +144,7 @@
     "namePrefix": "should suggest WHERE columns when some column conditions already exist",
     "beforeCursor": "DELETE FROM mytable WHERE testcolumn = 1 AND ",
     "afterCursor": "",
-    "containsKeywords": [
-      "EXISTS"
-    ],
+    "containsKeywords": ["EXISTS"],
     "expectedResult": {
       "lowerCase": false,
       "locations": [

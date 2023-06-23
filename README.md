@@ -12,6 +12,7 @@ A tool that provides autocompletion for various sql dialects.
 In order to parse any language, you need a [lexer](https://en.wikipedia.org/wiki/Lexical_analysis) (tokenizer) and a [parser](https://en.wikipedia.org/wiki/Parsing#Parser) (ast builder)
 
 Resources to research:
+
 - Bison grammar specification: https://www.gnu.org/software/bison/manual/html_node/Rules-Syntax.html
 - Playlist with the explanation on how parser and lexer work together: https://www.youtube.com/playlist?list=PLIrl0f9NJZy4oOOAVPU6MyRdFjJFGtceu
 
@@ -37,6 +38,7 @@ Resources to research:
 - Delete and move files freely
 
 Yandex copyright:
+
 ```text
 // Please note that the code below is the modified code distributed on the terms, mentioned below.
 // The copyright for the changes belongs to YANDEX LLC.
