@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.8.0](https://github.com/gravity-ui/sql-autocomplete-parsers/compare/v1.7.0...v1.8.0) (2023-06-23)
+
+
+### Features
+
+* refactor test case message construction ([#39](https://github.com/gravity-ui/sql-autocomplete-parsers/issues/39)) ([e512860](https://github.com/gravity-ui/sql-autocomplete-parsers/commit/e5128609a8d54f28f0f547e7ff772e6b1f66a421))
+
 ## [1.7.0](https://github.com/gravity-ui/sql-autocomplete-parsers/compare/v1.6.1...v1.7.0) (2023-06-21)
 
 
