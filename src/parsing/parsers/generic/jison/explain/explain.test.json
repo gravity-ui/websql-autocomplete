@@ -4,9 +4,7 @@
     "beforeCursor": "EXPLAIN SELECT * FROM test_table; ",
     "afterCursor": "",
     "noErrors": true,
-    "containsKeywords": [
-      "SELECT"
-    ],
+    "containsKeywords": ["SELECT"],
     "expectedResult": {
       "lowerCase": false
     }
@@ -16,9 +14,7 @@
     "beforeCursor": "EXPLAIN DELETE FROM test_table; ",
     "afterCursor": "",
     "noErrors": true,
-    "containsKeywords": [
-      "SELECT"
-    ],
+    "containsKeywords": ["SELECT"],
     "expectedResult": {
       "lowerCase": false
     }
@@ -28,9 +24,7 @@
     "beforeCursor": "EXPLAIN CREATE TABLE Persons (id int); ",
     "afterCursor": "",
     "noErrors": true,
-    "containsKeywords": [
-      "SELECT"
-    ],
+    "containsKeywords": ["SELECT"],
     "expectedResult": {
       "lowerCase": false
     }
@@ -57,9 +51,7 @@
     "beforeCursor": "",
     "afterCursor": "",
     "noErrors": true,
-    "containsKeywords": [
-      "EXPLAIN"
-    ],
+    "containsKeywords": ["EXPLAIN"],
     "expectedResult": {
       "lowerCase": false
     }
@@ -69,16 +61,7 @@
     "beforeCursor": "EXPLAIN ",
     "afterCursor": "",
     "noErrors": true,
-    "containsKeywords": [
-      "ALTER",
-      "CREATE",
-      "DELETE",
-      "DROP",
-      "INSERT",
-      "SELECT",
-      "SET",
-      "UPDATE"
-    ],
+    "containsKeywords": ["ALTER", "CREATE", "DELETE", "DROP", "INSERT", "SELECT", "SET", "UPDATE"],
     "expectedResult": {
       "lowerCase": false
     }
