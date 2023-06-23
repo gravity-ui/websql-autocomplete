@@ -311,15 +311,13 @@ function constructTestCaseMessage(testCase: TestCase, details: Record<string, an
 
     for (let key in details) {
         let value = details[key];
-
-        let strValue = value;
         if (value === undefined) {
-            strValue = 'undefined';
+            value = 'undefined';
         } else if (typeof value !== 'string') {
-            strValue = jsonStringToJsString(JSON.stringify(value))
+            value = jsonStringToJsString(JSON.stringify(value))
         }
 
-        message += `- ${key}: ${strValue} \n`;
+        message += `- ${key}: ${value} \n`;
     }
 
     return () => message
