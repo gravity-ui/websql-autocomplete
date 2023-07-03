@@ -34,5 +34,58 @@
     "expectedResult": {
       "lowerCase": false
     }
+  },
+  {
+    "namePrefix": "should contain suggestSnippets",
+    "beforeCursor": "",
+    "afterCursor": "",
+    "containsKeywords": [
+      "ALTER",
+      "CREATE",
+      "DELETE",
+      "DESCRIBE",
+      "DROP",
+      "EXPLAIN",
+      "GRANT",
+      "INSERT",
+      "REVOKE",
+      "SELECT",
+      "SET",
+      "SHOW",
+      "TRUNCATE",
+      "UPDATE",
+      "USE",
+      "WITH"
+    ],
+    "expectedResult": {
+      "lowerCase": false,
+      "suggestSnippets": true
+    }
+  },
+  {
+    "namePrefix": "should contain suggestSnippets with EXPLAIN prefix",
+    "beforeCursor": "EXPLAIN ",
+    "afterCursor": "",
+    "containsKeywords": [
+      "ALTER",
+      "CREATE",
+      "DELETE",
+      "DESCRIBE",
+      "DROP",
+      "GRANT",
+      "INSERT",
+      "REVOKE",
+      "SELECT",
+      "SET",
+      "SHOW",
+      "TRUNCATE",
+      "UPDATE",
+      "USE",
+      "WITH"
+    ],
+    "expectedResult": {
+      "lowerCase": false,
+      "suggestSnippets": true
+    }
   }
 ]

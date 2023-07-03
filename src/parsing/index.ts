@@ -30,6 +30,7 @@ export interface ParseResult {
     suggestFunctions?: unknown;
     suggestGroupBys?: unknown;
     suggestIdentifiers?: IdentifierSuggestion[];
+    suggestSnippets?: boolean;
 }
 
 export interface KeywordSuggestion {

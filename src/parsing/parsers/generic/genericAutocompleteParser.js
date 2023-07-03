@@ -472,11 +472,13 @@ break;
 case 262:
 
      parser.suggestDdlAndDmlKeywords(['EXPLAIN']);
+     parser.suggestSnippets();
    
 break;
 case 270:
 
       parser.suggestDdlAndDmlKeywords();
+      parser.suggestSnippets();
     
 break;
 case 275:

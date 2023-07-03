@@ -300,8 +300,8 @@ export function toEqualDefinition(actualResponse, testDefinition: TestCase) {
             !testDefinition.expectedResult ||
             resultEquals(actualResponse, testDefinition.expectedResult),
         message: constructTestCaseMessage(testDefinition, {
-            'Expected errors': testDefinition.expectedResult,
-            'Parser errors': actualResponse,
+            'Expected result': testDefinition.expectedResult,
+            'Parser result': actualResponse,
         }),
     };
 }

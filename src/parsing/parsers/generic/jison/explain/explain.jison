@@ -30,6 +30,7 @@ ExplainSqlStatement_EDIT
  : 'EXPLAIN' 'CURSOR'
     {
       parser.suggestDdlAndDmlKeywords();
+      parser.suggestSnippets();
     }
  | 'EXPLAIN' DataDefinition_EDIT
  | 'EXPLAIN' DataManipulation_EDIT

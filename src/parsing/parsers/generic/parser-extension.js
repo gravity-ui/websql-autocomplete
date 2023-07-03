@@ -1294,6 +1294,10 @@ export const extendParser = function (parser) {
 
   let lexerModified = false;
 
+  parser.suggestSnippets = function () {
+    parser.yy.result.suggestSnippets = true;
+  }
+
   /**
    * Main parser function
    */
