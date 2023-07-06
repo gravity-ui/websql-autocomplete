@@ -5,7 +5,8 @@
     "afterCursor": "",
     "containsKeywords": ["SELECT"],
     "expectedResult": {
-      "lowerCase": false
+      "lowerCase": false,
+      "suggestSnippets": true
     }
   },
   {
@@ -14,7 +15,8 @@
     "afterCursor": "",
     "containsKeywords": ["SELECT"],
     "expectedResult": {
-      "lowerCase": false
+      "lowerCase": false,
+      "suggestSnippets": true
     }
   },
   {
@@ -23,7 +25,8 @@
     "afterCursor": "",
     "containsKeywords": ["SELECT"],
     "expectedResult": {
-      "lowerCase": false
+      "lowerCase": false,
+      "suggestSnippets": true
     }
   },
   {
@@ -32,7 +35,8 @@
     "afterCursor": ";bladiblaa blaa",
     "containsKeywords": ["SELECT"],
     "expectedResult": {
-      "lowerCase": false
+      "lowerCase": false,
+      "suggestSnippets": true
     }
   },
   {
@@ -41,7 +45,8 @@
     "afterCursor": "",
     "containsKeywords": ["SELECT"],
     "expectedResult": {
-      "lowerCase": false
+      "lowerCase": false,
+      "suggestSnippets": true
     }
   },
   {
@@ -50,7 +55,8 @@
     "afterCursor": "",
     "containsKeywords": ["SELECT"],
     "expectedResult": {
-      "lowerCase": false
+      "lowerCase": false,
+      "suggestSnippets": true
     }
   },
   {
@@ -59,7 +65,8 @@
     "afterCursor": "",
     "containsKeywords": ["SELECT"],
     "expectedResult": {
-      "lowerCase": false
+      "lowerCase": false,
+      "suggestSnippets": true
     }
   },
   {
@@ -68,7 +75,8 @@
     "afterCursor": ";BLAAA; AND;",
     "containsKeywords": ["SELECT"],
     "expectedResult": {
-      "lowerCase": false
+      "lowerCase": false,
+      "suggestSnippets": true
     }
   },
   {
@@ -77,7 +85,8 @@
     "afterCursor": "",
     "containsKeywords": ["SELECT"],
     "expectedResult": {
-      "lowerCase": false
+      "lowerCase": false,
+      "suggestSnippets": true
     }
   },
   {
@@ -86,7 +95,8 @@
     "afterCursor": "; SELECT LIMIT 10",
     "containsKeywords": ["SELECT"],
     "expectedResult": {
-      "lowerCase": false
+      "lowerCase": false,
+      "suggestSnippets": true
     }
   },
   {

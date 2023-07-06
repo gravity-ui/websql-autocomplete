@@ -6,7 +6,8 @@
     "noErrors": true,
     "containsKeywords": ["SELECT"],
     "expectedResult": {
-      "lowerCase": false
+      "lowerCase": false,
+      "suggestSnippets": true
     }
   },
   {
@@ -16,7 +17,8 @@
     "noErrors": true,
     "containsKeywords": ["SELECT"],
     "expectedResult": {
-      "lowerCase": false
+      "lowerCase": false,
+      "suggestSnippets": true
     }
   },
   {
@@ -26,7 +28,8 @@
     "noErrors": true,
     "containsKeywords": ["SELECT"],
     "expectedResult": {
-      "lowerCase": false
+      "lowerCase": false,
+      "suggestSnippets": true
     }
   },
   {
@@ -53,7 +56,8 @@
     "noErrors": true,
     "containsKeywords": ["EXPLAIN"],
     "expectedResult": {
-      "lowerCase": false
+      "lowerCase": false,
+      "suggestSnippets": true
     }
   },
   {
@@ -63,7 +67,8 @@
     "noErrors": true,
     "containsKeywords": ["ALTER", "CREATE", "DELETE", "DROP", "INSERT", "SELECT", "SET", "UPDATE"],
     "expectedResult": {
-      "lowerCase": false
+      "lowerCase": false,
+      "suggestSnippets": true
     }
   }
 ]

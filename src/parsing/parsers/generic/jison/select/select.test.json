@@ -5,7 +5,8 @@
     "afterCursor": "",
     "containsKeywords": ["SELECT"],
     "expectedResult": {
-      "lowerCase": false
+      "lowerCase": false,
+      "suggestSnippets": true
     }
   },
   {
@@ -296,7 +297,8 @@
     "noErrors": true,
     "containsKeywords": ["SELECT"],
     "expectedResult": {
-      "lowerCase": false
+      "lowerCase": false,
+      "suggestSnippets": true
     }
   },
   {
@@ -306,7 +308,8 @@
     "noErrors": true,
     "containsKeywords": ["SELECT"],
     "expectedResult": {
-      "lowerCase": false
+      "lowerCase": false,
+      "suggestSnippets": true
     }
   },
   {
@@ -316,7 +319,8 @@
     "noErrors": true,
     "containsKeywords": ["SELECT"],
     "expectedResult": {
-      "lowerCase": false
+      "lowerCase": false,
+      "suggestSnippets": true
     }
   },
   {
@@ -326,7 +330,8 @@
     "noErrors": true,
     "containsKeywords": ["SELECT"],
     "expectedResult": {
-      "lowerCase": false
+      "lowerCase": false,
+      "suggestSnippets": true
     }
   },
   {
@@ -597,7 +602,8 @@
           }
         }
       ],
-      "lowerCase": true
+      "lowerCase": true,
+      "suggestSnippets": true
     }
   },
   {
@@ -830,7 +836,8 @@
           }
         }
       ],
-      "lowerCase": true
+      "lowerCase": true,
+      "suggestSnippets": true
     }
   },
   {
@@ -2352,7 +2359,8 @@
     "noErrors": true,
     "containsKeywords": ["SELECT"],
     "expectedResult": {
-      "lowerCase": false
+      "lowerCase": false,
+      "suggestSnippets": true
     }
   },
   {
@@ -2362,7 +2370,8 @@
     "noErrors": true,
     "containsKeywords": ["SELECT"],
     "expectedResult": {
-      "lowerCase": false
+      "lowerCase": false,
+      "suggestSnippets": true
     }
   },
   {
@@ -3574,6 +3583,7 @@
     "noErrors": true,
     "expectedResult": {
       "lowerCase": false,
+      "suggestSnippets": true,
       "locations": [
         {
           "type": "statement",

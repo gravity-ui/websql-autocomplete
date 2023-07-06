@@ -5,7 +5,8 @@
     "afterCursor": "",
     "containsKeywords": ["UPDATE"],
     "expectedResult": {
-      "lowerCase": false
+      "lowerCase": false,
+      "suggestSnippets": true
     }
   },
   {

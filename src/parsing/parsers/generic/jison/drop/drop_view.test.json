@@ -15,7 +15,8 @@
     "containsKeywords": ["SELECT"],
     "noErrors": true,
     "expectedResult": {
-      "lowerCase": false
+      "lowerCase": false,
+      "suggestSnippets": true
     }
   },
   {
@@ -25,7 +26,8 @@
     "containsKeywords": ["SELECT"],
     "noErrors": true,
     "expectedResult": {
-      "lowerCase": false
+      "lowerCase": false,
+      "suggestSnippets": true
     }
   },
   {

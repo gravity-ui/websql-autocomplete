@@ -6,7 +6,8 @@
     "noErrors": true,
     "containsKeywords": ["SELECT"],
     "expectedResult": {
-      "lowerCase": true
+      "lowerCase": true,
+      "suggestSnippets": true
     }
   },
   {
@@ -16,7 +17,8 @@
     "noErrors": true,
     "containsKeywords": ["SELECT"],
     "expectedResult": {
-      "lowerCase": true
+      "lowerCase": true,
+      "suggestSnippets": true
     }
   },
   {
@@ -26,7 +28,8 @@
     "noErrors": true,
     "containsKeywords": ["SELECT"],
     "expectedResult": {
-      "lowerCase": true
+      "lowerCase": true,
+      "suggestSnippets": true
     }
   },
   {
@@ -36,7 +39,8 @@
     "noErrors": true,
     "containsKeywords": ["SELECT"],
     "expectedResult": {
-      "lowerCase": true
+      "lowerCase": true,
+      "suggestSnippets": true
     }
   },
   {
@@ -46,7 +50,8 @@
     "noErrors": true,
     "containsKeywords": ["SELECT"],
     "expectedResult": {
-      "lowerCase": true
+      "lowerCase": true,
+      "suggestSnippets": true
     }
   }
 ]
