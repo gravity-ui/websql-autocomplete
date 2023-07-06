@@ -6,8 +6,7 @@
     "noErrors": true,
     "containsKeywords": ["SELECT"],
     "expectedResult": {
-      "lowerCase": false,
-      "suggestSnippets": true
+      "lowerCase": false
     }
   },
   {
@@ -24,8 +23,7 @@
     "containsKeywords": ["DELETE"],
     "noErrors": true,
     "expectedResult": {
-      "lowerCase": false,
-      "suggestSnippets": true
+      "lowerCase": false
     }
   },
   {

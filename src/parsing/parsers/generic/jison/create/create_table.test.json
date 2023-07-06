@@ -41,8 +41,7 @@
     "afterCursor": "",
     "containsKeywords": ["SELECT"],
     "expectedResult": {
-      "lowerCase": false,
-      "suggestSnippets": true
+      "lowerCase": false
     }
   },
   {

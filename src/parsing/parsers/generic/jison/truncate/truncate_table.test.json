@@ -6,8 +6,7 @@
     "containsKeywords": ["SELECT"],
     "noErrors": true,
     "expectedResult": {
-      "lowerCase": false,
-      "suggestSnippets": true
+      "lowerCase": false
     }
   },
   {

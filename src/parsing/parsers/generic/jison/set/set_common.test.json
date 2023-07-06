@@ -5,8 +5,7 @@
     "afterCursor": "",
     "containsKeywords": ["SET"],
     "expectedResult": {
-      "lowerCase": false,
-      "suggestSnippets": true
+      "lowerCase": false
     }
   }
 ]

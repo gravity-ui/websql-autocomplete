@@ -5,8 +5,7 @@
     "afterCursor": "",
     "containsKeywords": ["SELECT"],
     "expectedResult": {
-      "lowerCase": false,
-      "suggestSnippets": true
+      "lowerCase": false
     }
   },
   {
@@ -15,8 +14,7 @@
     "afterCursor": ";",
     "containsKeywords": ["SELECT"],
     "expectedResult": {
-      "lowerCase": false,
-      "suggestSnippets": true
+      "lowerCase": false
     }
   },
   {
@@ -25,8 +23,7 @@
     "afterCursor": ";;;;",
     "containsKeywords": ["SELECT"],
     "expectedResult": {
-      "lowerCase": false,
-      "suggestSnippets": true
+      "lowerCase": false
     }
   },
   {
@@ -35,8 +32,7 @@
     "afterCursor": "bar",
     "containsKeywords": ["SELECT"],
     "expectedResult": {
-      "lowerCase": false,
-      "suggestSnippets": true
+      "lowerCase": false
     }
   },
   {

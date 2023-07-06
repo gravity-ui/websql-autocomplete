@@ -5,8 +5,7 @@
     "afterCursor": "",
     "containsKeywords": ["SELECT"],
     "expectedResult": {
-      "lowerCase": false,
-      "suggestSnippets": true
+      "lowerCase": false
     }
   },
   {
@@ -15,8 +14,7 @@
     "afterCursor": "",
     "containsKeywords": ["SELECT"],
     "expectedResult": {
-      "lowerCase": false,
-      "suggestSnippets": true
+      "lowerCase": false
     }
   },
   {
@@ -25,8 +23,7 @@
     "afterCursor": "",
     "containsKeywords": ["SELECT"],
     "expectedResult": {
-      "lowerCase": false,
-      "suggestSnippets": true
+      "lowerCase": false
     }
   },
   {
@@ -35,8 +32,7 @@
     "afterCursor": ";bladiblaa blaa",
     "containsKeywords": ["SELECT"],
     "expectedResult": {
-      "lowerCase": false,
-      "suggestSnippets": true
+      "lowerCase": false
     }
   },
   {
@@ -45,8 +41,7 @@
     "afterCursor": "",
     "containsKeywords": ["SELECT"],
     "expectedResult": {
-      "lowerCase": false,
-      "suggestSnippets": true
+      "lowerCase": false
     }
   },
   {
@@ -55,8 +50,7 @@
     "afterCursor": "",
     "containsKeywords": ["SELECT"],
     "expectedResult": {
-      "lowerCase": false,
-      "suggestSnippets": true
+      "lowerCase": false
     }
   },
   {
@@ -65,8 +59,7 @@
     "afterCursor": "",
     "containsKeywords": ["SELECT"],
     "expectedResult": {
-      "lowerCase": false,
-      "suggestSnippets": true
+      "lowerCase": false
     }
   },
   {
@@ -75,8 +68,7 @@
     "afterCursor": ";BLAAA; AND;",
     "containsKeywords": ["SELECT"],
     "expectedResult": {
-      "lowerCase": false,
-      "suggestSnippets": true
+      "lowerCase": false
     }
   },
   {
@@ -85,8 +77,7 @@
     "afterCursor": "",
     "containsKeywords": ["SELECT"],
     "expectedResult": {
-      "lowerCase": false,
-      "suggestSnippets": true
+      "lowerCase": false
     }
   },
   {
@@ -95,8 +86,7 @@
     "afterCursor": "; SELECT LIMIT 10",
     "containsKeywords": ["SELECT"],
     "expectedResult": {
-      "lowerCase": false,
-      "suggestSnippets": true
+      "lowerCase": false
     }
   },
   {

@@ -6,8 +6,7 @@
     "noErrors": true,
     "containsKeywords": ["SELECT"],
     "expectedResult": {
-      "lowerCase": false,
-      "suggestSnippets": true
+      "lowerCase": false
     }
   },
   {
@@ -17,8 +16,7 @@
     "containsKeywords": ["INSERT"],
     "noErrors": true,
     "expectedResult": {
-      "lowerCase": false,
-      "suggestSnippets": true
+      "lowerCase": false
     }
   },
   {
