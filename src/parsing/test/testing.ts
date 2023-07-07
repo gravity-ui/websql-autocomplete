@@ -304,7 +304,7 @@ export function toEqualDefinition(actualResponse, testDefinition: TestCase) {
             return {
                 pass: false,
                 message: constructTestCaseMessage(testDefinition, {
-                    'Unexpected result': 'Expected that suggestTemplates key should not contain in result',
+                    'Expected suggestSnippets': 'false',
                 }),
             }
         }
