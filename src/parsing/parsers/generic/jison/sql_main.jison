@@ -74,6 +74,7 @@ SqlStatement_EDIT
  : AnyCursor
    {
      parser.suggestDdlAndDmlKeywords(['EXPLAIN']);
+     parser.suggestTemplates();
    }
  | CommonTableExpression 'CURSOR'
    {

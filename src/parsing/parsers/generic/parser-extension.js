@@ -1294,6 +1294,10 @@ export const extendParser = function (parser) {
 
   let lexerModified = false;
 
+  parser.suggestTemplates = function () {
+    parser.yy.result.suggestTemplates = true;
+  }
+
   /**
    * Main parser function
    */

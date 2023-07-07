@@ -54,6 +54,7 @@ interface TestCase {
         suggestDatabases?: {
             appendDot?: boolean;
         };
+        suggestTemplates?: boolean;
     };
     expectedErrors?: {
         text: string,
@@ -295,13 +296,28 @@ export function toEqualDefinition(actualResponse, testDefinition: TestCase) {
         delete actualResponse.errors;
     }
 
+    if (testDefinition.expectedResult?.suggestTemplates === undefined) {
+        delete actualResponse.suggestTemplates;
+    }
+     if (testDefinition.expectedResult?.suggestTemplates === false) {
+        if (actualResponse.suggestTemplates) {
+            return {
+                pass: false,
+                message: constructTestCaseMessage(testDefinition, {
+                    'Expected suggestTemplates': 'false',
+                }),
+            }
+        }
+        delete testDefinition.expectedResult.suggestTemplates;
+     }
+
     return {
         pass:
             !testDefinition.expectedResult ||
             resultEquals(actualResponse, testDefinition.expectedResult),
         message: constructTestCaseMessage(testDefinition, {
-            'Expected errors': testDefinition.expectedResult,
-            'Parser errors': actualResponse,
+            'Expected result': testDefinition.expectedResult,
+            'Parser result': actualResponse,
         }),
     };
 }
