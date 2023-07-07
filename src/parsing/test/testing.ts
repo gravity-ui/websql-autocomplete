@@ -304,7 +304,7 @@ export function toEqualDefinition(actualResponse, testDefinition: TestCase) {
             return {
                 pass: false,
                 message: constructTestCaseMessage(testDefinition, {
-                    'Expected suggestSnippets': 'false',
+                    'Expected suggestTemplates': 'false',
                 }),
             }
         }
