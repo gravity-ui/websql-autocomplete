@@ -54,7 +54,7 @@ interface TestCase {
         suggestDatabases?: {
             appendDot?: boolean;
         };
-        suggestSnippets?: boolean;
+        suggestTemplates?: boolean;
     };
     expectedErrors?: {
         text: string,
@@ -296,19 +296,19 @@ export function toEqualDefinition(actualResponse, testDefinition: TestCase) {
         delete actualResponse.errors;
     }
 
-    if (testDefinition.expectedResult?.suggestSnippets === undefined) {
-        delete actualResponse.suggestSnippets;
+    if (testDefinition.expectedResult?.suggestTemplates === undefined) {
+        delete actualResponse.suggestTemplates;
     }
-     if (testDefinition.expectedResult?.suggestSnippets === false) {
-        if (actualResponse.suggestSnippets) {
+     if (testDefinition.expectedResult?.suggestTemplates === false) {
+        if (actualResponse.suggestTemplates) {
             return {
                 pass: false,
                 message: constructTestCaseMessage(testDefinition, {
-                    'Unexpected result': 'Expected that suggestSnippets key should not contain in result',
+                    'Unexpected result': 'Expected that suggestTemplates key should not contain in result',
                 }),
             }
         }
-        delete testDefinition.expectedResult.suggestSnippets;
+        delete testDefinition.expectedResult.suggestTemplates;
      }
 
     return {
