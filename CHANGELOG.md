@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.9.0](https://github.com/gravity-ui/sql-autocomplete-parsers/compare/v1.8.0...v1.9.0) (2023-07-07)
+
+
+### Features
+
+* add and integrate suggestSnippet method ([#43](https://github.com/gravity-ui/sql-autocomplete-parsers/issues/43)) ([f1eb102](https://github.com/gravity-ui/sql-autocomplete-parsers/commit/f1eb102fa17ee14500cf946b6895b63abef5b603))
+
 ## [1.8.0](https://github.com/gravity-ui/sql-autocomplete-parsers/compare/v1.7.0...v1.8.0) (2023-06-23)
 
 
