@@ -54,6 +54,7 @@ interface TestCase {
         suggestDatabases?: {
             appendDot?: boolean;
         };
+        suggestSnippets?: boolean;
     };
     expectedErrors?: {
         text: string,
@@ -293,6 +294,10 @@ export function toEqualDefinition(actualResponse, testDefinition: TestCase) {
         }
 
         delete actualResponse.errors;
+    }
+
+    if (!testDefinition.expectedResult?.suggestSnippets) {
+        delete actualResponse.suggestSnippets;
     }
 
     return {
