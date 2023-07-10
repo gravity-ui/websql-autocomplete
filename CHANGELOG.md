@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.10.0](https://github.com/gravity-ui/sql-autocomplete-parsers/compare/v1.9.0...v1.10.0) (2023-07-10)
+
+
+### Features
+
+* expand suggestTables interface ([#45](https://github.com/gravity-ui/sql-autocomplete-parsers/issues/45)) ([e312358](https://github.com/gravity-ui/sql-autocomplete-parsers/commit/e312358d031de933a89c202d917c582fc63124a5))
+
 ## [1.9.0](https://github.com/gravity-ui/sql-autocomplete-parsers/compare/v1.8.0...v1.9.0) (2023-07-07)
 
 
