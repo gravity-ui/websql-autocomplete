@@ -13,6 +13,7 @@ export interface ParseResult {
     suggestTables?: {
         prependFrom?: boolean;
         prependQuestionMark?: boolean;
+        onlyTables?: boolean;
     };
     suggestColumns?: {
         source: string;
