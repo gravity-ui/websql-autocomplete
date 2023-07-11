@@ -8,6 +8,7 @@ export abstract class Parser {
 }
 
 export interface ParseResult {
+    locations: StatementPart[];
     errors?: SyntaxError[];
     suggestKeywords?: KeywordSuggestion[];
     suggestTables?: {
@@ -33,6 +34,45 @@ export interface ParseResult {
     suggestIdentifiers?: IdentifierSuggestion[];
     suggestTemplates?: boolean;
 }
+
+export type StatementPart =
+    {
+        type: 'statement'
+        location: Location
+    }
+    | {
+        type: 'statementType'
+        location: Location
+        identifier: string
+    }
+    | {
+        type: 'selectList'
+        location: Location
+        missing?: boolean
+        subquery?: true
+    }
+    | {
+        type: 'asterisk'
+        location: Location
+        tables: Table[];
+    }
+    | {
+        type: 'table'
+        location: Location
+        identifierChain: IdentifierChainEntry[]
+    }
+    | {
+        type: 'whereClause'
+        location: Location
+        missing: boolean
+        subquery?: true
+    }
+    | {
+        type: 'limitClause'
+        location: Location
+        missing: boolean
+        subquery?: true
+    };
 
 export interface KeywordSuggestion {
     value: string;
