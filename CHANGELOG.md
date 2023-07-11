@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.11.0](https://github.com/gravity-ui/sql-autocomplete-parsers/compare/v1.10.0...v1.11.0) (2023-07-11)
+
+
+### Features
+
+* specify locations in ParseResult ([#48](https://github.com/gravity-ui/sql-autocomplete-parsers/issues/48)) ([bf348b8](https://github.com/gravity-ui/sql-autocomplete-parsers/commit/bf348b8efb1d7b2a5c44787299aaf57ae916e7ad))
+
 ## [1.10.0](https://github.com/gravity-ui/sql-autocomplete-parsers/compare/v1.9.0...v1.10.0) (2023-07-10)
 
 
