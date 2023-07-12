@@ -1,4 +1,3 @@
-// @ts-ignore
 import {genericAutocompleteParser} from './parsers/generic/genericAutocompleteParser';
 
 export const cursorSymbol = '†';
@@ -116,6 +115,6 @@ export interface ColumnAliasSuggestion {
 }
 
 export function parseGenericSql(queryBeforeCursor: string, queryAfterCursor: string, debug?: boolean): ParseResult {
-    let parser = genericAutocompleteParser as unknown as Parser;
-    return parser.parseSql(queryBeforeCursor, queryAfterCursor, debug) as ParseResult;
+    let parser = genericAutocompleteParser as Parser;
+    return parser.parseSql(queryBeforeCursor, queryAfterCursor, debug);
 }

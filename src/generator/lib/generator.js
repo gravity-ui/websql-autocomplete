@@ -155,7 +155,7 @@ async function createParserDefinition(
       let fixedContents = content
           .replace(
             `var ${parserName} = `,
-            imports ? `${imports.join(';\n')};\n\n$var ${parserName} = ` : `import { extendParser } from './parser-extension';\n\nexport let ${parserName} = `
+            imports ? `${imports.join(';\n')};\n\n$var ${parserName} = ` : `import { extendParser } from './parser-extension';\n\n/** @type {any} */\nexport let ${parserName} = `
           )
           // Fix a bug in jison (https://github.com/zaach/jison/pull/356)
           .replace(

@@ -98,7 +98,7 @@ function stripPrecision(types: string[]): string[] {
  * Matches types based on implicit conversion i.e. if you expect a BIGINT then INT is ok but not BOOLEAN etc.
  */
 export function matchesType(
-    dialect: string,
+    _dialect: string,
     expectedTypes: string[],
     actualRawTypes: string[]
 ): boolean {

@@ -1,0 +1,11 @@
+{
+  "extends": "@gravity-ui/tsconfig",
+  "compilerOptions": {
+    "target": "ES2020",
+    "declaration": true,
+    "outDir": "../../dist",
+    "checkJs": false
+  },
+  "include": ["./*"],
+  "exclude": ["./test/*"]
+}
