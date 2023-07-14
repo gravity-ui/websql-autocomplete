@@ -3,7 +3,7 @@ import {genericAutocompleteParser} from './parsers/generic/genericAutocompletePa
 export const cursorSymbol = '†';
 
 export abstract class Parser {
-    abstract parseSql(beforeCursor: string, afterCursor: string, debug?: boolean): ParseResult;
+    abstract parseSql(beforeCursor: string, afterCursor: string): ParseResult;
 }
 
 export interface ParseResult {
@@ -114,7 +114,7 @@ export interface ColumnAliasSuggestion {
     types: string[];
 }
 
-export function parseGenericSql(queryBeforeCursor: string, queryAfterCursor: string, debug?: boolean): ParseResult {
+export function parseGenericSql(queryBeforeCursor: string, queryAfterCursor: string): ParseResult {
     let parser = genericAutocompleteParser as Parser;
-    return parser.parseSql(queryBeforeCursor, queryAfterCursor, debug);
+    return parser.parseSql(queryBeforeCursor, queryAfterCursor);
 }
