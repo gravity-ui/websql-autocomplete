@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.12.0](https://github.com/gravity-ui/sql-autocomplete-parsers/compare/v1.11.0...v1.12.0) (2023-07-14)
+
+
+### Features
+
+* remove debug field from Parser.parseSql ([#51](https://github.com/gravity-ui/sql-autocomplete-parsers/issues/51)) ([304cc96](https://github.com/gravity-ui/sql-autocomplete-parsers/commit/304cc96ed052652b7f939b31d6cac86d517cba7a))
+
 ## [1.11.0](https://github.com/gravity-ui/sql-autocomplete-parsers/compare/v1.10.0...v1.11.0) (2023-07-11)
 
 
