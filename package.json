@@ -20,7 +20,7 @@
     "prepare": "husky install",
     "test": "npm run generate && npm run test_without_generate",
     "test_without_generate": "jest src/parsing",
-    "generate": "cd src/generator && node main.js generic",
+    "generate": "cd src/generator && npm ci && node main.js generic",
     "lint": "npm run prettier -- --check",
     "fix": "npm run prettier -- --write",
     "prettier": "prettier \"**/*.{md,yaml,yml,json}\"",
