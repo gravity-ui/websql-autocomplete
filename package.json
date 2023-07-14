@@ -18,7 +18,6 @@
   "types": "./dist/index.d.ts",
   "scripts": {
     "prepare": "husky install",
-    "postinstall": "cd src/generator && npm install",
     "test": "npm run generate && npm run test_without_generate",
     "test_without_generate": "jest src/parsing",
     "generate": "cd src/generator && node main.js generic",

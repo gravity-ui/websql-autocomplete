@@ -21,7 +21,7 @@ jobs:
           node-version: '18.x'
           cache: 'npm'
       - name: Install Packages
-        run: npm ci
+        run: npm ci && cd src/generator/ && npm ci
       - name: Lint Files
         run: npm run lint
 
@@ -39,7 +39,7 @@ jobs:
           node-version: '18.x'
           cache: 'npm'
       - name: Install Packages
-        run: npm ci
+        run: npm ci && cd src/generator/ && npm ci
       - name: Generate Parsers
         run: npm run generate
       - name: Check That Generated Files Are Unchanged
@@ -59,6 +59,6 @@ jobs:
           node-version: '18.x'
           cache: 'npm'
       - name: Install Packages
-        run: npm ci
+        run: npm ci && cd src/generator/ && npm ci
       - name: Unit Tests
         run: npm run test

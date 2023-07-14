@@ -24,7 +24,7 @@ Resources to research:
 4. `src/parsing/parsers/{dialect}/jison/structure.json` specifies paths to a lexer, and to all the grammar files.
 5. Parser extension (basically the autocomplete features) is specified in `src/parsing/parsers/{dialect}/parser-extension.js`.
 6. `src/generator/main.js` concatenates all the jison files into a single big jison file, and runs the jison tool with the specified lexer, then wires everything up with the `parser-extension.js`, generating `src/parsing/parsers/{dialect}/{dialect}AutocompleteParser.js`.
-7. The generated file is in plain javascript, so we create a convenient typescript wrapper in `src/parsing/index.ts` with all the types and functions. Our users should include this file in their own projects (for the time being they need to compile it yourself)
+7. The generated file is in plain javascript, so we create a convenient typescript wrapper in `src/parsing/index.ts` with all the types and functions. Our users should include this file in their own projects.
 
 # Main scripts
 
