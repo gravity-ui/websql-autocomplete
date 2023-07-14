@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.13.0](https://github.com/gravity-ui/sql-autocomplete-parsers/compare/v1.12.0...v1.13.0) (2023-07-14)
+
+
+### Features
+
+* move npm ci installation for generator to a script ([#54](https://github.com/gravity-ui/sql-autocomplete-parsers/issues/54)) ([dadded4](https://github.com/gravity-ui/sql-autocomplete-parsers/commit/dadded40e5695953c59fe0cc829e2fac3a7099b5))
+* remove postinstall script, update readme.md ([#53](https://github.com/gravity-ui/sql-autocomplete-parsers/issues/53)) ([2ac6e20](https://github.com/gravity-ui/sql-autocomplete-parsers/commit/2ac6e20f066ba72d023aff7d4288bc6d1dbeb59c))
+* restore postinstall script, make it execute only when we're not installed as dependency ([#56](https://github.com/gravity-ui/sql-autocomplete-parsers/issues/56)) ([16a7efb](https://github.com/gravity-ui/sql-autocomplete-parsers/commit/16a7efbf886bbd6fc28a14c991a872ca622f8c0a))
+
 ## [1.12.0](https://github.com/gravity-ui/sql-autocomplete-parsers/compare/v1.11.0...v1.12.0) (2023-07-14)
 
 
