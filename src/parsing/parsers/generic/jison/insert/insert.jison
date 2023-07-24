@@ -54,7 +54,7 @@ InsertValuesStatement_EDIT
      parser.addTablePrimary($4);
      parser.suggestKeywords(['VALUES']);
    }
- | 'INSERT' 'INTO' OptionalTable SchemaQualifiedTableIdentifier_EDIT 'VALUES' InsertValuesList
+ | 'INSERT' 'INTO' OptionalTable SchemaQualifiedTableIdentifier_EDIT OptionalParenthesizedColumnList 'VALUES' InsertValuesList
  | 'INSERT' 'INTO' OptionalTable SchemaQualifiedTableIdentifier OptionalParenthesizedColumnList_EDIT 'VALUES' InsertValuesList
  ;
 
