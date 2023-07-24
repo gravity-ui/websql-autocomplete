@@ -35,7 +35,25 @@ import { extractTestCases, runTestCases } from '../../test/testing';
 import { assertPartials, CommonParser } from '../../lib/parsing-typed';
 
 const jisonFolder = 'src/parsing/parsers/generic/jison';
-const groupedTestCases = extractTestCases(jisonFolder, structure.autocomplete);
+
+let structureFiles = structure.autocomplete
+
+// We slice first 3 arguments which required for the other places
+const exactFiles = process.argv.slice(3).filter((arg) => /.jison$/.test(arg))
+
+if (exactFiles) {
+  structureFiles = structureFiles.filter(
+      (filePath) => exactFiles.some(
+          (exactFile) => new RegExp(exactFile + '$').test(filePath)
+      )
+  )
+}
+
+const groupedTestCases = extractTestCases(jisonFolder, structureFiles);
+
+if (groupedTestCases.length === 0) {
+  process.stdout.write(''.concat('\x1b[33m', 'JISON test cases list is empty', '\x1b[0m\ ', '\n'));
+}
 
 describe('genericAutocompleteParser', () => {
   // TODO: Fix the types
