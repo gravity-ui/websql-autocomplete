@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.14.0](https://github.com/gravity-ui/sql-autocomplete-parsers/compare/v1.13.0...v1.14.0) (2023-07-24)
+
+
+### Features
+
+* Support column names syntax for `INSERT` query ([#58](https://github.com/gravity-ui/sql-autocomplete-parsers/issues/58)) ([d95843a](https://github.com/gravity-ui/sql-autocomplete-parsers/commit/d95843a23189031450792552f5cbb001434954db))
+
 ## [1.13.0](https://github.com/gravity-ui/sql-autocomplete-parsers/compare/v1.12.0...v1.13.0) (2023-07-14)
 
 
