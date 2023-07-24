@@ -37,11 +37,9 @@ import { assertPartials, CommonParser } from '../../lib/parsing-typed';
 const jisonFolder = 'src/parsing/parsers/generic/jison';
 
 let structureFiles = structure.autocomplete
-
 // We slice first 3 arguments which required for the other places
 const exactFiles = process.argv.slice(3).filter((arg) => /.jison$/.test(arg))
-
-if (exactFiles) {
+if (exactFiles.length !== 0) {
   structureFiles = structureFiles.filter(
       (filePath) => exactFiles.some(
           (exactFile) => new RegExp(exactFile + '$').test(filePath)
