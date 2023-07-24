@@ -1,13 +1,13 @@
-// @ts-ignore
 import {genericAutocompleteParser} from './parsers/generic/genericAutocompleteParser';
 
 export const cursorSymbol = '†';
 
 export abstract class Parser {
-    abstract parseSql(beforeCursor: string, afterCursor: string, debug?: boolean): ParseResult;
+    abstract parseSql(beforeCursor: string, afterCursor: string): ParseResult;
 }
 
 export interface ParseResult {
+    locations: StatementPart[];
     errors?: SyntaxError[];
     suggestKeywords?: KeywordSuggestion[];
     suggestTables?: {
@@ -33,6 +33,45 @@ export interface ParseResult {
     suggestIdentifiers?: IdentifierSuggestion[];
     suggestTemplates?: boolean;
 }
+
+export type StatementPart =
+    {
+        type: 'statement'
+        location: Location
+    }
+    | {
+        type: 'statementType'
+        location: Location
+        identifier: string
+    }
+    | {
+        type: 'selectList'
+        location: Location
+        missing?: boolean
+        subquery?: true
+    }
+    | {
+        type: 'asterisk'
+        location: Location
+        tables: Table[];
+    }
+    | {
+        type: 'table'
+        location: Location
+        identifierChain: IdentifierChainEntry[]
+    }
+    | {
+        type: 'whereClause'
+        location: Location
+        missing: boolean
+        subquery?: true
+    }
+    | {
+        type: 'limitClause'
+        location: Location
+        missing: boolean
+        subquery?: true
+    };
 
 export interface KeywordSuggestion {
     value: string;
@@ -75,7 +114,7 @@ export interface ColumnAliasSuggestion {
     types: string[];
 }
 
-export function parseGenericSql(queryBeforeCursor: string, queryAfterCursor: string, debug?: boolean): ParseResult {
-    let parser = genericAutocompleteParser as unknown as Parser;
-    return parser.parseSql(queryBeforeCursor, queryAfterCursor, debug) as ParseResult;
+export function parseGenericSql(queryBeforeCursor: string, queryAfterCursor: string): ParseResult {
+    let parser = genericAutocompleteParser as Parser;
+    return parser.parseSql(queryBeforeCursor, queryAfterCursor);
 }

@@ -1,5 +1,42 @@
 # Changelog
 
+## [1.14.0](https://github.com/gravity-ui/sql-autocomplete-parsers/compare/v1.13.0...v1.14.0) (2023-07-24)
+
+
+### Features
+
+* Support column names syntax for `INSERT` query ([#58](https://github.com/gravity-ui/sql-autocomplete-parsers/issues/58)) ([d95843a](https://github.com/gravity-ui/sql-autocomplete-parsers/commit/d95843a23189031450792552f5cbb001434954db))
+
+## [1.13.0](https://github.com/gravity-ui/sql-autocomplete-parsers/compare/v1.12.0...v1.13.0) (2023-07-14)
+
+
+### Features
+
+* move npm ci installation for generator to a script ([#54](https://github.com/gravity-ui/sql-autocomplete-parsers/issues/54)) ([dadded4](https://github.com/gravity-ui/sql-autocomplete-parsers/commit/dadded40e5695953c59fe0cc829e2fac3a7099b5))
+* remove postinstall script, update readme.md ([#53](https://github.com/gravity-ui/sql-autocomplete-parsers/issues/53)) ([2ac6e20](https://github.com/gravity-ui/sql-autocomplete-parsers/commit/2ac6e20f066ba72d023aff7d4288bc6d1dbeb59c))
+* restore postinstall script, make it execute only when we're not installed as dependency ([#56](https://github.com/gravity-ui/sql-autocomplete-parsers/issues/56)) ([16a7efb](https://github.com/gravity-ui/sql-autocomplete-parsers/commit/16a7efbf886bbd6fc28a14c991a872ca622f8c0a))
+
+## [1.12.0](https://github.com/gravity-ui/sql-autocomplete-parsers/compare/v1.11.0...v1.12.0) (2023-07-14)
+
+
+### Features
+
+* remove debug field from Parser.parseSql ([#51](https://github.com/gravity-ui/sql-autocomplete-parsers/issues/51)) ([304cc96](https://github.com/gravity-ui/sql-autocomplete-parsers/commit/304cc96ed052652b7f939b31d6cac86d517cba7a))
+
+## [1.11.0](https://github.com/gravity-ui/sql-autocomplete-parsers/compare/v1.10.0...v1.11.0) (2023-07-11)
+
+
+### Features
+
+* specify locations in ParseResult ([#48](https://github.com/gravity-ui/sql-autocomplete-parsers/issues/48)) ([bf348b8](https://github.com/gravity-ui/sql-autocomplete-parsers/commit/bf348b8efb1d7b2a5c44787299aaf57ae916e7ad))
+
+## [1.10.0](https://github.com/gravity-ui/sql-autocomplete-parsers/compare/v1.9.0...v1.10.0) (2023-07-10)
+
+
+### Features
+
+* expand suggestTables interface ([#45](https://github.com/gravity-ui/sql-autocomplete-parsers/issues/45)) ([e312358](https://github.com/gravity-ui/sql-autocomplete-parsers/commit/e312358d031de933a89c202d917c582fc63124a5))
+
 ## [1.9.0](https://github.com/gravity-ui/sql-autocomplete-parsers/compare/v1.8.0...v1.9.0) (2023-07-07)
 
 
