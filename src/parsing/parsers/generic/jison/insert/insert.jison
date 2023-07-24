@@ -27,7 +27,7 @@ DataManipulation_EDIT
  ;
 
 InsertValuesStatement
- : 'INSERT' 'INTO' OptionalTable SchemaQualifiedTableIdentifier 'VALUES' InsertValuesList
+ : 'INSERT' 'INTO' OptionalTable SchemaQualifiedTableIdentifier OptionalParenthesizedColumnList 'VALUES' InsertValuesList
    {
      $4.owner = 'insert';
      parser.addTablePrimary($4);
@@ -48,13 +48,14 @@ InsertValuesStatement_EDIT
      parser.suggestDatabases({ appendDot: true });
    }
  | 'INSERT' 'INTO' OptionalTable SchemaQualifiedTableIdentifier_EDIT
- | 'INSERT' 'INTO' OptionalTable SchemaQualifiedTableIdentifier 'CURSOR'
+ | 'INSERT' 'INTO' OptionalTable SchemaQualifiedTableIdentifier OptionalParenthesizedColumnList 'CURSOR'
    {
      $4.owner = 'insert';
      parser.addTablePrimary($4);
      parser.suggestKeywords(['VALUES']);
    }
  | 'INSERT' 'INTO' OptionalTable SchemaQualifiedTableIdentifier_EDIT 'VALUES' InsertValuesList
+ | 'INSERT' 'INTO' OptionalTable SchemaQualifiedTableIdentifier OptionalParenthesizedColumnList_EDIT 'VALUES' InsertValuesList
  ;
 
 InsertValuesList

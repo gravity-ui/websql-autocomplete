@@ -10,6 +10,16 @@
     }
   },
   {
+    "namePrefix": "should not report errors",
+    "beforeCursor": "INSERT INTO bla.boo (column) VALUES (1, 2, 'a', 3); ",
+    "afterCursor": "",
+    "noErrors": true,
+    "containsKeywords": ["SELECT"],
+    "expectedResult": {
+      "lowerCase": false
+    }
+  },
+  {
     "namePrefix": "should suggest keywords",
     "beforeCursor": "",
     "afterCursor": "",
