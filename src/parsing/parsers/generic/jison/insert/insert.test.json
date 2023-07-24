@@ -11,7 +11,7 @@
   },
   {
     "namePrefix": "should not report errors",
-    "beforeCursor": "INSERT INTO bla.boo (column) VALUES (1, 2, 'a', 3); ",
+    "beforeCursor": "INSERT INTO bla.boo (column) VALUES (1); ",
     "afterCursor": "",
     "noErrors": true,
     "containsKeywords": ["SELECT"],
