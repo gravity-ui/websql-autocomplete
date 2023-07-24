@@ -10,6 +10,36 @@
     }
   },
   {
+    "namePrefix": "should not report errors",
+    "beforeCursor": "INSERT INTO bla.boo (column) VALUES (1); ",
+    "afterCursor": "",
+    "noErrors": true,
+    "containsKeywords": ["SELECT"],
+    "expectedResult": {
+      "lowerCase": false
+    }
+  },
+  {
+    "namePrefix": "should not report errors with couple column names",
+    "beforeCursor": "INSERT INTO bla.boo (column1, column2) VALUES (1, 2); ",
+    "afterCursor": "",
+    "noErrors": true,
+    "containsKeywords": ["SELECT"],
+    "expectedResult": {
+      "lowerCase": false
+    }
+  },
+  {
+    "namePrefix": "should not report errors with filled column",
+    "beforeCursor": "INSERT INTO bla.boo (column) ",
+    "afterCursor": "",
+    "noErrors": true,
+    "containsKeywords": ["VALUES"],
+    "expectedResult": {
+      "lowerCase": false
+    }
+  },
+  {
     "namePrefix": "should suggest keywords",
     "beforeCursor": "",
     "afterCursor": "",
