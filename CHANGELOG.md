@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.15.0](https://github.com/gravity-ui/sql-autocomplete-parsers/compare/v1.14.0...v1.15.0) (2023-07-26)
+
+
+### Features
+
+* Column suggestions for `INSERT` query ([#60](https://github.com/gravity-ui/sql-autocomplete-parsers/issues/60)) ([fd02a6b](https://github.com/gravity-ui/sql-autocomplete-parsers/commit/fd02a6b421cea3b315958d8abd043e8e095bd2a7))
+
 ## [1.14.0](https://github.com/gravity-ui/sql-autocomplete-parsers/compare/v1.13.0...v1.14.0) (2023-07-24)
 
 
