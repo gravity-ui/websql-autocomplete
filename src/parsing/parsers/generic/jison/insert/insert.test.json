@@ -124,5 +124,85 @@
     "expectedResult": {
       "lowerCase": false
     }
+  },
+  {
+    "namePrefix": "should suggest columns",
+    "beforeCursor": "INSERT INTO TABLE baa (",
+    "afterCursor": ")",
+    "noErrors": true,
+    "expectedResult": {
+      "lowerCase": false,
+      "suggestColumns": {
+        "tables": [
+          {
+            "identifierChain": [
+              {
+                "name": "baa"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "namePrefix": "should suggest columns",
+    "beforeCursor": "INSERT INTO TABLE baa (column1, ",
+    "afterCursor": ")",
+    "noErrors": true,
+    "expectedResult": {
+      "lowerCase": false,
+      "suggestColumns": {
+        "tables": [
+          {
+            "identifierChain": [
+              {
+                "name": "baa"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "namePrefix": "should suggest columns on full SQL query",
+    "beforeCursor": "INSERT INTO TABLE baa (",
+    "afterCursor": ") VALUES (one, two)",
+    "noErrors": true,
+    "expectedResult": {
+      "lowerCase": false,
+      "suggestColumns": {
+        "tables": [
+          {
+            "identifierChain": [
+              {
+                "name": "baa"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "namePrefix": "should suggest columns on full SQL query",
+    "beforeCursor": "INSERT INTO TABLE baa (column1, ",
+    "afterCursor": ") VALUES (one, two)",
+    "noErrors": true,
+    "expectedResult": {
+      "lowerCase": false,
+      "suggestColumns": {
+        "tables": [
+          {
+            "identifierChain": [
+              {
+                "name": "baa"
+              }
+            ]
+          }
+        ]
+      }
+    }
   }
 ]
