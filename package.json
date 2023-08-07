@@ -1,6 +1,6 @@
 {
   "name": "sql-autocomplete-parsers",
-  "version": "1.15.0",
+  "version": "1.16.0",
   "description": "A library that provides autocompletion and errors highlighting for various sql dialects",
   "repository": {
     "type": "git",
