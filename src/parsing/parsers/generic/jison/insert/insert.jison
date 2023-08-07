@@ -39,7 +39,7 @@ InsertValuesStatement_EDIT
    {
      parser.suggestKeywords(['INTO']);
    }
- | 'INSERT' 'INTO' OptionalTable 'CURSOR'
+ | 'INSERT' 'INTO' OptionalTable 'CURSOR' OptionalParenthesizedColumnListOrError
    {
      if (!$3) {
        parser.suggestKeywords(['TABLE']);
@@ -47,15 +47,15 @@ InsertValuesStatement_EDIT
      parser.suggestTables();
      parser.suggestDatabases({ appendDot: true });
    }
- | 'INSERT' 'INTO' OptionalTable SchemaQualifiedTableIdentifier_EDIT OptionalParenthesizedColumnList
- | 'INSERT' 'INTO' OptionalTable SchemaQualifiedTableIdentifier OptionalParenthesizedColumnList 'CURSOR'
+ | 'INSERT' 'INTO' OptionalTable SchemaQualifiedTableIdentifier_EDIT OptionalParenthesizedColumnListOrError
+ | 'INSERT' 'INTO' OptionalTable SchemaQualifiedTableIdentifier OptionalParenthesizedColumnListOrError 'CURSOR'
    {
      $4.owner = 'insert';
      parser.addTablePrimary($4);
      parser.suggestKeywords(['VALUES']);
    }
- | 'INSERT' 'INTO' OptionalTable SchemaQualifiedTableIdentifier_EDIT OptionalParenthesizedColumnList 'VALUES' InsertValuesList
- | 'INSERT' 'INTO' OptionalTable SchemaQualifiedTableIdentifier OptionalParenthesizedColumnList_EDIT 'VALUES' InsertValuesList
+ | 'INSERT' 'INTO' OptionalTable SchemaQualifiedTableIdentifier_EDIT OptionalParenthesizedColumnListOrError 'VALUES' InsertValuesListOrError
+ | 'INSERT' 'INTO' OptionalTable SchemaQualifiedTableIdentifier OptionalParenthesizedColumnList_EDIT 'VALUES' InsertValuesListOrError
    {
      parser.addTablePrimary($4);
      parser.suggestColumns();
@@ -65,6 +65,25 @@ InsertValuesStatement_EDIT
      parser.addTablePrimary($4);
      parser.suggestColumns();
    }
+ | 'INSERT' 'INTO' OptionalTable 'CURSOR' OptionalParenthesizedColumnListOrError 'VALUES' InsertValuesListOrError
+   {
+     if (!$3) {
+       parser.suggestKeywords(['TABLE']);
+     }
+     parser.suggestTables();
+     parser.suggestDatabases({ appendDot: true });
+   }
+ ;
+
+OptionalParenthesizedColumnListOrError
+ : OptionalParenthesizedColumnList
+ | '(' error ')'
+ ;
+
+InsertValuesListOrError
+ : InsertValuesList
+ | '(' error ')'
+ | error
  ;
 
 InsertValuesList
