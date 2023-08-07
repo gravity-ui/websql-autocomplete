@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.16.0](https://github.com/gravity-ui/sql-autocomplete-parsers/compare/v1.15.0...v1.16.0) (2023-08-07)
+
+
+### Features
+
+* Handle errors for `INSERT` template ([#62](https://github.com/gravity-ui/sql-autocomplete-parsers/issues/62)) ([c6af390](https://github.com/gravity-ui/sql-autocomplete-parsers/commit/c6af390f45878afaf577eb65b98d841b1f00286b))
+
 ## [1.15.0](https://github.com/gravity-ui/sql-autocomplete-parsers/compare/v1.14.0...v1.15.0) (2023-07-26)
 
 
