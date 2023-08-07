@@ -47,7 +47,7 @@ InsertValuesStatement_EDIT
      parser.suggestTables();
      parser.suggestDatabases({ appendDot: true });
    }
- | 'INSERT' 'INTO' OptionalTable SchemaQualifiedTableIdentifier_EDIT
+ | 'INSERT' 'INTO' OptionalTable SchemaQualifiedTableIdentifier_EDIT OptionalParenthesizedColumnList
  | 'INSERT' 'INTO' OptionalTable SchemaQualifiedTableIdentifier OptionalParenthesizedColumnList 'CURSOR'
    {
      $4.owner = 'insert';
@@ -56,6 +56,15 @@ InsertValuesStatement_EDIT
    }
  | 'INSERT' 'INTO' OptionalTable SchemaQualifiedTableIdentifier_EDIT OptionalParenthesizedColumnList 'VALUES' InsertValuesList
  | 'INSERT' 'INTO' OptionalTable SchemaQualifiedTableIdentifier OptionalParenthesizedColumnList_EDIT 'VALUES' InsertValuesList
+   {
+     parser.addTablePrimary($4);
+     parser.suggestColumns();
+   }
+ | 'INSERT' 'INTO' OptionalTable SchemaQualifiedTableIdentifier OptionalParenthesizedColumnList_EDIT
+   {
+     parser.addTablePrimary($4);
+     parser.suggestColumns();
+   }
  ;
 
 InsertValuesList
