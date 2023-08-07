@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.17.0](https://github.com/gravity-ui/sql-autocomplete-parsers/compare/v1.16.0...v1.17.0) (2023-08-07)
+
+
+### Features
+
+* handle UPDATE errors with SET ([#65](https://github.com/gravity-ui/sql-autocomplete-parsers/issues/65)) ([ceb0dff](https://github.com/gravity-ui/sql-autocomplete-parsers/commit/ceb0dffcbcb439c680457efacfc5f74563a55b1e))
+
 ## [1.16.0](https://github.com/gravity-ui/sql-autocomplete-parsers/compare/v1.15.0...v1.16.0) (2023-08-07)
 
 
