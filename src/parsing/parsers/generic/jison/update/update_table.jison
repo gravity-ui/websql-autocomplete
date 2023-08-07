@@ -23,15 +23,15 @@ DataManipulation_EDIT
  ;
 
 UpdateStatement
- : 'UPDATE' TargetTable 'SET' SetClauseList OptionalFromJoinedTable OptionalWhereClause
+ : 'UPDATE' TargetTable 'SET' SetClauseListOrError OptionalFromJoinedTable OptionalWhereClause
  ;
 
 UpdateStatement_EDIT
- : 'UPDATE' TargetTable_EDIT 'SET' SetClauseList OptionalFromJoinedTable OptionalWhereClause
+ : 'UPDATE' TargetTable_EDIT 'SET' SetClauseListOrError OptionalFromJoinedTable OptionalWhereClause
  | 'UPDATE' TargetTable 'SET' SetClauseList_EDIT OptionalFromJoinedTable OptionalWhereClause
- | 'UPDATE' TargetTable 'SET' SetClauseList FromJoinedTable_EDIT OptionalWhereClause
- | 'UPDATE' TargetTable 'SET' SetClauseList OptionalFromJoinedTable WhereClause_EDIT
- | 'UPDATE' TargetTable 'SET' SetClauseList OptionalFromJoinedTable OptionalWhereClause 'CURSOR'
+ | 'UPDATE' TargetTable 'SET' SetClauseListOrError FromJoinedTable_EDIT OptionalWhereClause
+ | 'UPDATE' TargetTable 'SET' SetClauseListOrError OptionalFromJoinedTable WhereClause_EDIT
+ | 'UPDATE' TargetTable 'SET' SetClauseListOrError OptionalFromJoinedTable OptionalWhereClause 'CURSOR'
    {
      parser.suggestKeywords([ 'WHERE' ]);
    }
@@ -46,18 +46,24 @@ UpdateStatement_EDIT
      parser.suggestTables();
      parser.suggestDatabases({ appendDot: true });
    }
+ | 'UPDATE' 'CURSOR' 'SET' SetClauseListOrError OptionalFromJoinedTable OptionalWhereClause
+   {
+     parser.suggestTables();
+     parser.suggestDatabases({ appendDot: true });
+   }
  ;
 
-SetClauseList
+SetClauseListOrError
  : SetClause
- | SetClauseList ',' SetClause
+ | SetClauseListOrError ',' SetClause
+ | error
  ;
 
 SetClauseList_EDIT
  : SetClause_EDIT
- | SetClauseList ',' SetClause_EDIT
- | SetClause_EDIT ',' SetClauseList
- | SetClauseList ',' SetClause_EDIT ',' SetClauseList
+ | SetClauseListOrError ',' SetClause_EDIT
+ | SetClause_EDIT ',' SetClauseListOrError
+ | SetClauseListOrError ',' SetClause_EDIT ',' SetClauseListOrError
  ;
 
 SetClause
