@@ -204,5 +204,50 @@
         ]
       }
     }
+  },
+  {
+    "namePrefix": "should suggest tables without filled table columns",
+    "beforeCursor": "INSERT INTO ",
+    "afterCursor": " ()",
+    "expectedResult": {
+      "lowerCase": false,
+      "suggestTables": {},
+      "suggestKeywords": ["TABLE"],
+      "suggestDatabases": {
+        "appendDot": true
+      }
+    }
+  },
+  {
+    "namePrefix": "should suggest tables without filled table columns and values",
+    "beforeCursor": "INSERT INTO ",
+    "afterCursor": " () VALUES ()",
+    "expectedResult": {
+      "lowerCase": false,
+      "suggestTables": {},
+      "suggestKeywords": ["TABLE"],
+      "suggestDatabases": {
+        "appendDot": true
+      }
+    }
+  },
+  {
+    "namePrefix": "should suggest columns with filled table and empty values",
+    "beforeCursor": "INSERT INTO some_table (",
+    "afterCursor": ") VALUES ()",
+    "expectedResult": {
+      "lowerCase": false,
+      "suggestColumns": {
+        "tables": [
+          {
+            "identifierChain": [
+              {
+                "name": "some_table"
+              }
+            ]
+          }
+        ]
+      }
+    }
   }
 ]
