@@ -209,6 +209,19 @@
     "namePrefix": "should suggest tables without filled table columns",
     "beforeCursor": "INSERT INTO ",
     "afterCursor": " ()",
+    "expectedErrors": [
+      {
+        "text": ")",
+        "token": ")",
+        "line": 0,
+        "loc": {
+          "first_line": 1,
+          "last_line": 1,
+          "first_column": 17,
+          "last_column": 18
+        }
+      }
+    ],
     "expectedResult": {
       "lowerCase": false,
       "suggestTables": {},
@@ -222,6 +235,30 @@
     "namePrefix": "should suggest tables without filled table columns and values",
     "beforeCursor": "INSERT INTO ",
     "afterCursor": " () VALUES ()",
+    "expectedErrors": [
+      {
+        "text": ")",
+        "token": ")",
+        "line": 0,
+        "loc": {
+          "first_line": 1,
+          "last_line": 1,
+          "first_column": 17,
+          "last_column": 18
+        }
+      },
+      {
+        "text": ")",
+        "token": ")",
+        "line": 0,
+        "loc": {
+          "first_line": 1,
+          "last_line": 1,
+          "first_column": 27,
+          "last_column": 28
+        }
+      }
+    ],
     "expectedResult": {
       "lowerCase": false,
       "suggestTables": {},
@@ -235,6 +272,19 @@
     "namePrefix": "should suggest columns with filled table and empty values",
     "beforeCursor": "INSERT INTO some_table (",
     "afterCursor": ") VALUES ()",
+    "expectedErrors": [
+      {
+        "text": ")",
+        "token": ")",
+        "line": 0,
+        "loc": {
+          "first_line": 1,
+          "last_line": 1,
+          "first_column": 37,
+          "last_column": 38
+        }
+      }
+    ],
     "expectedResult": {
       "lowerCase": false,
       "suggestColumns": {
