@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.18.0](https://github.com/gravity-ui/sql-autocomplete-parsers/compare/v1.17.0...v1.18.0) (2023-08-08)
+
+
+### Features
+
+* Separate PostgreSQL parser ([#69](https://github.com/gravity-ui/sql-autocomplete-parsers/issues/69)) ([a005dce](https://github.com/gravity-ui/sql-autocomplete-parsers/commit/a005dcebab879c50c5ff7cc2f56f8d3edd2fe63d))
+
 ## [1.17.0](https://github.com/gravity-ui/sql-autocomplete-parsers/compare/v1.16.0...v1.17.0) (2023-08-07)
 
 
