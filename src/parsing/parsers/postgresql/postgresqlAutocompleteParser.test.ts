@@ -37,7 +37,7 @@ import { assertPartials, CommonParser } from '../../lib/parsing-typed';
 const jisonFolder = 'src/parsing/parsers/generic/jison';
 const groupedTestCases = extractTestCases(jisonFolder, structure.autocomplete);
 
-describe('genericAutocompleteParser', () => {
+describe('postgresqlAutocompleteParser', () => {
   // TODO: Fix the types
   runTestCases(postgresqlAutocompleteParser as unknown as AutocompleteParser, groupedTestCases);
 
