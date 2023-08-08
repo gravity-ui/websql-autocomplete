@@ -121,6 +121,8 @@ export function parseGenericSql(queryBeforeCursor: string, queryAfterCursor: str
 }
 
 export function parseGenericSqlWithoutCursor(query: string): ParseResult {
+    // If our finished query is "SELECT * FROM|" and we try to parse it, parser thinks that we still haven't finished writing it and doesn't show some errors.
+    // In order to truly complete a finished query, we need to add space to it like so "SELECT * FROM |".
     return parseGenericSql(query + ' ', '');
 }
 
@@ -130,5 +132,7 @@ export function parsePostgreSql(queryBeforeCursor: string, queryAfterCursor: str
 }
 
 export function parsePostgreSqlWithoutCursor(query: string): ParseResult {
+    // If our finished query is "SELECT * FROM|" and we try to parse it, parser thinks that we still haven't finished writing it and doesn't show some errors.
+    // In order to truly complete a finished query, we need to add space to it like so "SELECT * FROM |".
     return parsePostgreSql(query + ' ', '');
 }
