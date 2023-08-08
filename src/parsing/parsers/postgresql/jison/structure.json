@@ -1,5 +1,5 @@
 {
-  "lexer": "sql.jisonlex",
+  "lexer": "../../generic/jison/sql.jisonlex",
   "autocomplete": [
     "../../generic/jison/autocomplete_header.jison",
     "../../generic/jison/alter/alter_common.jison",
