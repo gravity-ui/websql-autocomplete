@@ -10,9 +10,22 @@
     }
   },
   {
-    "namePrefix": "should allow to write offset with comma",
+    "namePrefix": "should not allow to write offset with comma",
     "beforeCursor": "SELECT COUNT(*) AS boo FROM testTable GROUP BY baa LIMIT 100, 100 ",
     "afterCursor": "",
-    "noErrors": true
+    "noErrors": false,
+    "expectedErrors": [
+      {
+        "text": ",",
+        "token": ",",
+        "line": 0,
+        "loc": {
+          "first_line": 1,
+          "last_line": 1,
+          "first_column": 60,
+          "last_column": 61
+        }
+      }
+    ]
   }
 ]

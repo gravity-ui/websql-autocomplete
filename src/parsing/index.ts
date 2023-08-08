@@ -1,4 +1,5 @@
 import {genericAutocompleteParser} from './parsers/generic/genericAutocompleteParser';
+import {postgresqlAutocompleteParser} from './parsers/postgresql/postgresqlAutocompleteParser';
 
 export const cursorSymbol = '†';
 
@@ -117,4 +118,21 @@ export interface ColumnAliasSuggestion {
 export function parseGenericSql(queryBeforeCursor: string, queryAfterCursor: string): ParseResult {
     let parser = genericAutocompleteParser as Parser;
     return parser.parseSql(queryBeforeCursor, queryAfterCursor);
+}
+
+export function parseGenericSqlWithoutCursor(query: string): ParseResult {
+    // If our finished query is "SELECT * FROM|" and we try to parse it, parser thinks that we still haven't finished writing it and doesn't show some errors.
+    // In order to truly complete a finished query, we need to add space to it like so "SELECT * FROM |".
+    return parseGenericSql(query + ' ', '');
+}
+
+export function parsePostgreSql(queryBeforeCursor: string, queryAfterCursor: string): ParseResult {
+    let parser = postgresqlAutocompleteParser as Parser;
+    return parser.parseSql(queryBeforeCursor, queryAfterCursor);
+}
+
+export function parsePostgreSqlWithoutCursor(query: string): ParseResult {
+    // If our finished query is "SELECT * FROM|" and we try to parse it, parser thinks that we still haven't finished writing it and doesn't show some errors.
+    // In order to truly complete a finished query, we need to add space to it like so "SELECT * FROM |".
+    return parsePostgreSql(query + ' ', '');
 }
