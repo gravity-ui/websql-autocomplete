@@ -120,8 +120,8 @@ export function parseGenericSql(queryBeforeCursor: string, queryAfterCursor: str
     return parser.parseSql(queryBeforeCursor, queryAfterCursor);
 }
 
-export function parseGenericSqlWithoutCursor(queryBeforeCursor: string): ParseResult {
-    return parseGenericSql(queryBeforeCursor + ' ', '');
+export function parseGenericSqlWithoutCursor(query: string): ParseResult {
+    return parseGenericSql(query + ' ', '');
 }
 
 export function parsePostgreSql(queryBeforeCursor: string, queryAfterCursor: string): ParseResult {
@@ -129,6 +129,6 @@ export function parsePostgreSql(queryBeforeCursor: string, queryAfterCursor: str
     return parser.parseSql(queryBeforeCursor, queryAfterCursor);
 }
 
-export function parsePostgreSqlWithoutCursor(queryBeforeCursor: string): ParseResult {
-    return parsePostgreSql(queryBeforeCursor + ' ', '');
+export function parsePostgreSqlWithoutCursor(query: string): ParseResult {
+    return parsePostgreSql(query + ' ', '');
 }
