@@ -30,7 +30,7 @@
 
 import {postgresqlAutocompleteParser} from './postgresqlAutocompleteParser';
 import structure from './jison/structure.json';
-import { AutocompleteParser } from '../../lib/types';
+import type { AutocompleteParser } from '../../lib/types';
 import { extractTestCases, runTestCases } from '../../test/testing';
 import { assertPartials, CommonParser } from '../../lib/parsing-typed';
 
