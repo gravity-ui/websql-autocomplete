@@ -28,22 +28,22 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
-import {genericAutocompleteParser} from './genericAutocompleteParser';
+import {postgresqlAutocompleteParser} from './postgresqlAutocompleteParser';
 import structure from './jison/structure.json';
 import { AutocompleteParser } from '../../lib/types';
 import { extractTestCases, runTestCases } from '../../test/testing';
 import { assertPartials, CommonParser } from '../../lib/parsing-typed';
 
-const jisonFolder = 'src/parsing/parsers/postgresql/jison';
+const jisonFolder = 'src/parsing/parsers/generic/jison';
 const groupedTestCases = extractTestCases(jisonFolder, structure.autocomplete);
 
-describe('postgresqlAutocompleteParser', () => {
+describe('genericAutocompleteParser', () => {
   // TODO: Fix the types
-  runTestCases(genericAutocompleteParser as unknown as AutocompleteParser, groupedTestCases);
+  runTestCases(postgresqlAutocompleteParser as unknown as AutocompleteParser, groupedTestCases);
 
   describe('partial removal', () => {
     it('should identify part lengths', () => {
-      assertPartials(genericAutocompleteParser as unknown as CommonParser);
+      assertPartials(postgresqlAutocompleteParser as unknown as CommonParser);
     });
   });
 });

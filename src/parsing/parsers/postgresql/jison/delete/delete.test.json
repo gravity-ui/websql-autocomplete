@@ -1,0 +1,224 @@
+[
+  {
+    "namePrefix": "should not report errors on short delete statement",
+    "beforeCursor": "DELETE FROM test_table; ",
+    "afterCursor": "",
+    "noErrors": true,
+    "containsKeywords": ["SELECT"],
+    "expectedResult": {
+      "lowerCase": false
+    }
+  },
+  {
+    "namePrefix": "should not report errors on full delete statement",
+    "beforeCursor": "DELETE FROM test_table WHERE test_column != 1; ",
+    "afterCursor": "",
+    "noErrors": true,
+    "containsKeywords": ["SELECT"]
+  },
+  {
+    "namePrefix": "should suggest DELETE",
+    "beforeCursor": "",
+    "afterCursor": "",
+    "containsKeywords": ["DELETE"],
+    "noErrors": true,
+    "expectedResult": {
+      "lowerCase": false
+    }
+  },
+  {
+    "namePrefix": "should suggest FROM",
+    "beforeCursor": "DELETE ",
+    "afterCursor": "",
+    "containsKeywords": ["FROM"],
+    "noErrors": true,
+    "expectedResult": {
+      "lowerCase": false
+    }
+  },
+  {
+    "namePrefix": "should suggest tables",
+    "beforeCursor": "DELETE FROM ",
+    "afterCursor": "",
+    "noErrors": true,
+    "expectedResult": {
+      "lowerCase": false,
+      "suggestTables": {},
+      "suggestDatabases": {
+        "appendDot": true
+      }
+    }
+  },
+  {
+    "namePrefix": "should suggest WHERE",
+    "beforeCursor": "DELETE FROM mytable ",
+    "afterCursor": "",
+    "containsKeywords": ["WHERE"],
+    "expectedResult": {
+      "lowerCase": false,
+      "locations": [
+        {
+          "type": "statement",
+          "location": {
+            "first_line": 1,
+            "last_line": 1,
+            "first_column": 1,
+            "last_column": 20
+          }
+        },
+        {
+          "type": "table",
+          "location": {
+            "first_line": 1,
+            "last_line": 1,
+            "first_column": 13,
+            "last_column": 20
+          },
+          "identifierChain": [
+            {
+              "name": "mytable"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "namePrefix": "should suggest WHERE columns",
+    "beforeCursor": "DELETE FROM mytable WHERE ",
+    "afterCursor": "",
+    "expectedResult": {
+      "lowerCase": false,
+      "locations": [
+        {
+          "type": "statement",
+          "location": {
+            "first_line": 1,
+            "last_line": 1,
+            "first_column": 1,
+            "last_column": 26
+          }
+        },
+        {
+          "type": "table",
+          "location": {
+            "first_line": 1,
+            "last_line": 1,
+            "first_column": 13,
+            "last_column": 20
+          },
+          "identifierChain": [
+            {
+              "name": "mytable"
+            }
+          ]
+        }
+      ],
+      "suggestFunctions": {},
+      "suggestKeywords": ["EXISTS", "NOT EXISTS"],
+      "suggestColumns": {
+        "tables": [
+          {
+            "identifierChain": [
+              {
+                "name": "mytable"
+              }
+            ]
+          }
+        ]
+      },
+      "suggestFilters": {
+        "tables": [
+          {
+            "identifierChain": [
+              {
+                "name": "mytable"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "namePrefix": "should suggest WHERE columns when some column conditions already exist",
+    "beforeCursor": "DELETE FROM mytable WHERE testcolumn = 1 AND ",
+    "afterCursor": "",
+    "containsKeywords": ["EXISTS"],
+    "expectedResult": {
+      "lowerCase": false,
+      "locations": [
+        {
+          "type": "statement",
+          "location": {
+            "first_line": 1,
+            "last_line": 1,
+            "first_column": 1,
+            "last_column": 45
+          }
+        },
+        {
+          "type": "table",
+          "location": {
+            "first_line": 1,
+            "last_line": 1,
+            "first_column": 13,
+            "last_column": 20
+          },
+          "identifierChain": [
+            {
+              "name": "mytable"
+            }
+          ]
+        },
+        {
+          "type": "column",
+          "location": {
+            "first_line": 1,
+            "last_line": 1,
+            "first_column": 27,
+            "last_column": 37
+          },
+          "identifierChain": [
+            {
+              "name": "testcolumn"
+            }
+          ],
+          "qualified": false,
+          "tables": [
+            {
+              "identifierChain": [
+                {
+                  "name": "mytable"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "suggestFunctions": {},
+      "suggestColumns": {
+        "tables": [
+          {
+            "identifierChain": [
+              {
+                "name": "mytable"
+              }
+            ]
+          }
+        ]
+      },
+      "suggestFilters": {
+        "tables": [
+          {
+            "identifierChain": [
+              {
+                "name": "mytable"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  }
+]

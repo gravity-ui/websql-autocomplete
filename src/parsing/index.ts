@@ -1,4 +1,5 @@
 import {genericAutocompleteParser} from './parsers/generic/genericAutocompleteParser';
+import {postgresqlAutocompleteParser} from './parsers/postgresql/postgresqlAutocompleteParser';
 
 export const cursorSymbol = '†';
 
@@ -116,5 +117,10 @@ export interface ColumnAliasSuggestion {
 
 export function parseGenericSql(queryBeforeCursor: string, queryAfterCursor: string): ParseResult {
     let parser = genericAutocompleteParser as Parser;
+    return parser.parseSql(queryBeforeCursor, queryAfterCursor);
+}
+
+export function parsePostgreSql(queryBeforeCursor: string, queryAfterCursor: string): ParseResult {
+    let parser = postgresqlAutocompleteParser as Parser;
     return parser.parseSql(queryBeforeCursor, queryAfterCursor);
 }
