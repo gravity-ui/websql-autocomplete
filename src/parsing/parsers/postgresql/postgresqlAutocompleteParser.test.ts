@@ -4,7 +4,7 @@ import type { AutocompleteParser } from '../../lib/types';
 import { extractTestCases, runTestCases } from '../../test/testing';
 import { assertPartials, CommonParser } from '../../lib/parsing-typed';
 
-const jisonFolder = 'src/parsing/parsers/generic/jison';
+const jisonFolder = 'src/parsing/parsers/postgresql/jison';
 const groupedTestCases = extractTestCases(jisonFolder, structure.autocomplete);
 
 describe('postgresqlAutocompleteParser', () => {

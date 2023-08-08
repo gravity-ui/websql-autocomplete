@@ -23,7 +23,7 @@
     "../../generic/jison/select/group_by_clause.jison",
     "../../generic/jison/select/having_clause.jison",
     "../../generic/jison/select/joins.jison",
-    "../../generic/jison/select/limit_clause.jison",
+    "select/limit_clause.jison",
     "../../generic/jison/select/order_by_clause.jison",
     "../../generic/jison/select/select.jison",
     "../../generic/jison/select/select_conditions.jison",
