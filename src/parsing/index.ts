@@ -115,12 +115,20 @@ export interface ColumnAliasSuggestion {
     types: string[];
 }
 
-export function parseGenericSql(queryBeforeCursor: string, queryAfterCursor: string = ''): ParseResult {
+export function parseGenericSql(queryBeforeCursor: string, queryAfterCursor: string): ParseResult {
     let parser = genericAutocompleteParser as Parser;
     return parser.parseSql(queryBeforeCursor, queryAfterCursor);
 }
 
-export function parsePostgreSql(queryBeforeCursor: string, queryAfterCursor: string = ''): ParseResult {
+export function parseGenericSqlWithoutCursor(queryBeforeCursor: string): ParseResult {
+    return parseGenericSql(queryBeforeCursor + ' ', '');
+}
+
+export function parsePostgreSql(queryBeforeCursor: string, queryAfterCursor: string): ParseResult {
     let parser = postgresqlAutocompleteParser as Parser;
     return parser.parseSql(queryBeforeCursor, queryAfterCursor);
+}
+
+export function parsePostgreSqlWithoutCursor(queryBeforeCursor: string): ParseResult {
+    return parsePostgreSql(queryBeforeCursor + ' ', '');
 }
