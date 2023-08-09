@@ -2,7 +2,7 @@ import {postgresqlAutocompleteParser} from './postgresqlAutocompleteParser';
 
 // prettier-ignore-start
 
-describe('genericAutocompleteParser.js locations', () => {
+describe('postgreSqlAutocompleteParser.js locations', () => {
   beforeAll(() => {
     postgresqlAutocompleteParser.yy.parseError = function (msg) {
       throw Error(msg);

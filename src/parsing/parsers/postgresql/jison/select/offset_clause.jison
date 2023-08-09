@@ -9,18 +9,18 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
-OptionalLimitClause
+OptionalOffsetClause
  :
- | LimitClause
+ | OffsetClause
  ;
 
-LimitClause
- : 'LIMIT' UnsignedNumericLiteral
+OffsetClause
+ : 'OFFSET' ValueExpression
  ;
 
-LimitClause_EDIT
- : 'LIMIT' 'CURSOR'
+OffsetClause_EDIT
+ : 'OFFSET' 'CURSOR'
    {
-     parser.suggestKeywords([{ value: '10', weight: 10000 }, { value: '100', weight: 10000 }, { value: '1000', weight: 10000 }, { value: '5000', weight: 10000 }, { value: '10000', weight: 10000 }])
+     parser.suggestFunctions({ types: ['BIGINT'] });
    }
  ;
