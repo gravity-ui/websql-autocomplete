@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.19.0](https://github.com/gravity-ui/sql-autocomplete-parsers/compare/v1.18.0...v1.19.0) (2023-08-09)
+
+
+### Features
+
+* Support `OFFSET` for `PostgreSQL` ([#71](https://github.com/gravity-ui/sql-autocomplete-parsers/issues/71)) ([7834158](https://github.com/gravity-ui/sql-autocomplete-parsers/commit/78341587e1a4b42d007b2b04b893722550fbaf76))
+
 ## [1.18.0](https://github.com/gravity-ui/sql-autocomplete-parsers/compare/v1.17.0...v1.18.0) (2023-08-08)
 
 
