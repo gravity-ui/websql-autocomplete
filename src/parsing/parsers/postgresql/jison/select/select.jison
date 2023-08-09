@@ -147,7 +147,6 @@ TableExpression
    {
      parser.addClauseLocation('whereClause', @1, $2.whereClauseLocation);
      parser.addClauseLocation('limitClause', $2.limitClausePreceding || @1, $2.limitClauseLocation);
-     parser.addClauseLocation('offsetClause', $2.offsetClausePreceding || @1, $2.offsetClauseLocation);
    }
  ;
 
@@ -156,7 +155,6 @@ TableExpression_EDIT
    {
      parser.addClauseLocation('whereClause', @1, $2.whereClauseLocation);
      parser.addClauseLocation('limitClause', $2.limitClausePreceding || @1, $2.limitClauseLocation);
-     parser.addClauseLocation('offsetClause', $2.offsetClausePreceding || @1, $2.offsetClauseLocation);
    }
  | FromClause 'CURSOR' OptionalSelectConditions OptionalJoins
    {
@@ -164,7 +162,6 @@ TableExpression_EDIT
 
      parser.addClauseLocation('whereClause', @1, $3.whereClauseLocation);
      parser.addClauseLocation('limitClause', $2.limitClausePreceding || @1, $2.limitClauseLocation);
-     parser.addClauseLocation('offsetClause', $2.offsetClausePreceding || @1, $2.offsetClauseLocation);
 
      if ($1) {
        if (typeof $1.tableReferenceList.hasJoinCondition !== 'undefined' && !$1.tableReferenceList.hasJoinCondition) {
@@ -248,12 +245,10 @@ TableExpression_EDIT
      if (!$2) {
        parser.addClauseLocation('whereClause', @1);
        parser.addClauseLocation('limitClause', @1);
-       parser.addClauseLocation('offsetClause', @1);
        return;
      }
      parser.addClauseLocation('whereClause', @1, $2.whereClauseLocation);
      parser.addClauseLocation('limitClause', $2.limitClausePreceding || @1, $2.limitClauseLocation);
-     parser.addClauseLocation('offsetClause', $2.offsetClausePreceding || @1, $2.offsetClauseLocation);
      var keywords = [];
 
      if ($2.suggestColRefKeywords) {

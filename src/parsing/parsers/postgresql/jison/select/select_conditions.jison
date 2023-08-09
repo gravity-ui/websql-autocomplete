@@ -99,8 +99,6 @@ OptionalSelectConditions_EDIT
      $$.whereClauseLocation = $1 ? @1 : undefined;
      $$.limitClausePreceding = parser.firstDefined($5, @5, $4, @4, $3, @3, $1, @1);
      $$.limitClauseLocation = $6 ? @6 : undefined;
-     $$.offsetClausePreceding = parser.firstDefined($6, @6);
-     $$.offsetClauseLocation = $7 ? @7 : undefined;
    }
  | OptionalWhereClause GroupByClause 'CURSOR' OptionalHavingClause OptionalOrderByClause OptionalLimitClause OptionalOffsetClause
    {
@@ -126,8 +124,6 @@ OptionalSelectConditions_EDIT
      $$.whereClauseLocation = $1 ? @1 : undefined;
      $$.limitClausePreceding = parser.firstDefined($5, @5, $4, @4, $2, @2);
      $$.limitClauseLocation = $6 ? @6 : undefined;
-     $$.offsetClausePreceding = parser.firstDefined($6, @6);
-     $$.offsetClauseLocation = $7 ? @7 : undefined;
    }
  | OptionalWhereClause OptionalGroupByClause HavingClause 'CURSOR' OptionalOrderByClause OptionalLimitClause OptionalOffsetClause
    {
@@ -142,8 +138,6 @@ OptionalSelectConditions_EDIT
      $$.whereClauseLocation = $1 ? @1 : undefined;
      $$.limitClausePreceding = parser.firstDefined($5, @5, $3, @3);
      $$.limitClauseLocation = $6 ? @6 : undefined;
-     $$.offsetClausePreceding = parser.firstDefined($6, @6);
-     $$.offsetClauseLocation = $7 ? @7 : undefined;
    }
  | OptionalWhereClause OptionalGroupByClause OptionalHavingClause OrderByClause 'CURSOR' OptionalLimitClause OptionalOffsetClause
    {
@@ -158,8 +152,6 @@ OptionalSelectConditions_EDIT
      $$.whereClauseLocation = $1 ? @1 : undefined;
      $$.limitClausePreceding = parser.firstDefined($4, @4);
      $$.limitClauseLocation = $6 ? @6 : undefined;
-     $$.offsetClausePreceding = parser.firstDefined($6, @6);
-     $$.offsetClauseLocation = $7 ? @7 : undefined;
    }
  | OptionalWhereClause OptionalGroupByClause OptionalHavingClause OptionalOrderByClause LimitClause 'CURSOR' OptionalOffsetClause
    {
@@ -168,7 +160,5 @@ OptionalSelectConditions_EDIT
      $$.whereClauseLocation = $1 ? @1 : undefined;
      $$.limitClausePreceding = parser.firstDefined($4, @4, $3, @3, $2, @2, $1, @1);
      $$.limitClauseLocation = @5;
-     $$.offsetClausePreceding = parser.firstDefined($6, @6, $5, @5, $4, @4, $3, @3, $2, @2, $1, @1);
-     $$.offsetClauseLocation = $7 ? @7 : undefined;
    }
  ;
