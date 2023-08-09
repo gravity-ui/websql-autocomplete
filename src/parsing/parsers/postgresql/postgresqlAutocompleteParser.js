@@ -942,7 +942,6 @@ case 458: case 459:
 
      parser.addClauseLocation('whereClause', _$[$0-1], $$[$0].whereClauseLocation);
      parser.addClauseLocation('limitClause', $$[$0].limitClausePreceding || _$[$0-1], $$[$0].limitClauseLocation);
-     parser.addClauseLocation('offsetClause', $$[$0].offsetClausePreceding || _$[$0-1], $$[$0].offsetClauseLocation);
    
 break;
 case 460:
@@ -951,7 +950,6 @@ case 460:
 
      parser.addClauseLocation('whereClause', _$[$0-3], $$[$0-1].whereClauseLocation);
      parser.addClauseLocation('limitClause', $$[$0-2].limitClausePreceding || _$[$0-3], $$[$0-2].limitClauseLocation);
-     parser.addClauseLocation('offsetClause', $$[$0-2].offsetClausePreceding || _$[$0-3], $$[$0-2].offsetClauseLocation);
 
      if ($$[$0-3]) {
        if (typeof $$[$0-3].tableReferenceList.hasJoinCondition !== 'undefined' && !$$[$0-3].tableReferenceList.hasJoinCondition) {
@@ -1036,12 +1034,10 @@ case 461:
      if (!$$[$0-1]) {
        parser.addClauseLocation('whereClause', _$[$0-2]);
        parser.addClauseLocation('limitClause', _$[$0-2]);
-       parser.addClauseLocation('offsetClause', _$[$0-2]);
        return;
      }
      parser.addClauseLocation('whereClause', _$[$0-2], $$[$0-1].whereClauseLocation);
      parser.addClauseLocation('limitClause', $$[$0-1].limitClausePreceding || _$[$0-2], $$[$0-1].limitClauseLocation);
-     parser.addClauseLocation('offsetClause', $$[$0-1].offsetClausePreceding || _$[$0-2], $$[$0-1].offsetClauseLocation);
      var keywords = [];
 
      if ($$[$0-1].suggestColRefKeywords) {
@@ -1206,8 +1202,6 @@ case 489:
      this.$.whereClauseLocation = $$[$0-6] ? _$[$0-6] : undefined;
      this.$.limitClausePreceding = parser.firstDefined($$[$0-2], _$[$0-2], $$[$0-3], _$[$0-3], $$[$0-4], _$[$0-4], $$[$0-6], _$[$0-6]);
      this.$.limitClauseLocation = $$[$0-1] ? _$[$0-1] : undefined;
-     this.$.offsetClausePreceding = parser.firstDefined($$[$0-1], _$[$0-1]);
-     this.$.offsetClauseLocation = $$[$0] ? _$[$0] : undefined;
    
 break;
 case 490:
@@ -1234,8 +1228,6 @@ case 490:
      this.$.whereClauseLocation = $$[$0-6] ? _$[$0-6] : undefined;
      this.$.limitClausePreceding = parser.firstDefined($$[$0-2], _$[$0-2], $$[$0-3], _$[$0-3], $$[$0-5], _$[$0-5]);
      this.$.limitClauseLocation = $$[$0-1] ? _$[$0-1] : undefined;
-     this.$.offsetClausePreceding = parser.firstDefined($$[$0-1], _$[$0-1]);
-     this.$.offsetClauseLocation = $$[$0] ? _$[$0] : undefined;
    
 break;
 case 491:
@@ -1251,8 +1243,6 @@ case 491:
      this.$.whereClauseLocation = $$[$0-6] ? _$[$0-6] : undefined;
      this.$.limitClausePreceding = parser.firstDefined($$[$0-2], _$[$0-2], $$[$0-4], _$[$0-4]);
      this.$.limitClauseLocation = $$[$0-1] ? _$[$0-1] : undefined;
-     this.$.offsetClausePreceding = parser.firstDefined($$[$0-1], _$[$0-1]);
-     this.$.offsetClauseLocation = $$[$0] ? _$[$0] : undefined;
    
 break;
 case 492:
@@ -1268,8 +1258,6 @@ case 492:
      this.$.whereClauseLocation = $$[$0-6] ? _$[$0-6] : undefined;
      this.$.limitClausePreceding = parser.firstDefined($$[$0-3], _$[$0-3]);
      this.$.limitClauseLocation = $$[$0-1] ? _$[$0-1] : undefined;
-     this.$.offsetClausePreceding = parser.firstDefined($$[$0-1], _$[$0-1]);
-     this.$.offsetClauseLocation = $$[$0] ? _$[$0] : undefined;
    
 break;
 case 493:
@@ -1279,8 +1267,6 @@ case 493:
      this.$.whereClauseLocation = $$[$0-6] ? _$[$0-6] : undefined;
      this.$.limitClausePreceding = parser.firstDefined($$[$0-3], _$[$0-3], $$[$0-4], _$[$0-4], $$[$0-5], _$[$0-5], $$[$0-6], _$[$0-6]);
      this.$.limitClauseLocation = _$[$0-2];
-     this.$.offsetClausePreceding = parser.firstDefined($$[$0-1], _$[$0-1], $$[$0-2], _$[$0-2], $$[$0-3], _$[$0-3], $$[$0-4], _$[$0-4], $$[$0-5], _$[$0-5], $$[$0-6], _$[$0-6]);
-     this.$.offsetClauseLocation = $$[$0] ? _$[$0] : undefined;
    
 break;
 case 494:
