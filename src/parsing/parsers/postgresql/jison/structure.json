@@ -1,5 +1,5 @@
 {
-  "lexer": "../../generic/jison/sql.jisonlex",
+  "lexer": "sql.jisonlex",
   "autocomplete": [
     "../../generic/jison/autocomplete_header.jison",
     "../../generic/jison/alter/alter_common.jison",
@@ -24,9 +24,10 @@
     "../../generic/jison/select/having_clause.jison",
     "../../generic/jison/select/joins.jison",
     "select/limit_clause.jison",
+    "select/offset_clause.jison",
     "../../generic/jison/select/order_by_clause.jison",
-    "../../generic/jison/select/select.jison",
-    "../../generic/jison/select/select_conditions.jison",
+    "select/select.jison",
+    "select/select_conditions.jison",
     "../../generic/jison/select/union_clause.jison",
     "../../generic/jison/select/where_clause.jison",
     "../../generic/jison/set/set_common.jison",

@@ -1,0 +1,42 @@
+[
+  {
+    "namePrefix": "should suggest OFFSET",
+    "beforeCursor": "SELECT * FROM testTable LIMIT 100 ",
+    "afterCursor": "",
+    "noErrors": true,
+    "containsKeywords": ["OFFSET"],
+    "expectedResult": {
+      "lowerCase": false
+    }
+  },
+  {
+    "namePrefix": "should not throw errors",
+    "beforeCursor": "SELECT * FROM testTable OFFSET 100;",
+    "afterCursor": "",
+    "noErrors": true,
+    "containsKeywords": ["SELECT"],
+    "expectedResult": {
+      "lowerCase": false
+    }
+  },
+  {
+    "namePrefix": "should not throw errors",
+    "beforeCursor": "SELECT * FROM testTable LIMIT 1 OFFSET 12; ",
+    "afterCursor": "",
+    "noErrors": true,
+    "containsKeywords": ["SELECT"],
+    "expectedResult": {
+      "lowerCase": false
+    }
+  },
+  {
+    "namePrefix": "should not throw errors",
+    "beforeCursor": "SELECT * FROM testTable LIMIT 1; ",
+    "afterCursor": "",
+    "noErrors": true,
+    "containsKeywords": ["SELECT"],
+    "expectedResult": {
+      "lowerCase": false
+    }
+  }
+]
