@@ -21,7 +21,6 @@ OptionalLimitClause
 
 LimitClause
  : 'LIMIT' UnsignedNumericLiteral
- | 'LIMIT' 'VARIABLE_REFERENCE'
  ;
 
 LimitClause_EDIT
