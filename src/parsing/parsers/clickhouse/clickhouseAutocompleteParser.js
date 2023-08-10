@@ -216,7 +216,10 @@ case 73:
        keywords.push({ value: 'LIKE', weight: 1 });
      } else {
        if (!$$[$0-2]) {
-         keywords.push({ value: 'PARTITIONED BY', weight: 12 });
+         keywords.push({ value: 'PARTITION BY', weight: 12 });
+       }
+       if (!$$[$0-1]) {
+         keywords.push({ value: 'ENGINE', weight: 13 });
        }
        keywords.push({ value: 'AS', weight: 1 });
      }
