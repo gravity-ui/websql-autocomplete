@@ -186,8 +186,6 @@ LimitOffsetClause_EDIT
  | OffsetClause LimitClause_EDIT
  ;
 
-
-
 OptionalLimitOffsetClause
  :
  | LimitOffsetClause

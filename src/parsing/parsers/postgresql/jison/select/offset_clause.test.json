@@ -54,7 +54,7 @@
     "beforeCursor": "SELECT * FROM testTable WHERE column = 1 ",
     "afterCursor": "",
     "noErrors": true,
-    "containsKeywords": ["OFFSET"],
+    "containsKeywords": ["OFFSET", "LIMIT"],
     "expectedResult": {
       "lowerCase": false,
       "suggestGroupBys": {
