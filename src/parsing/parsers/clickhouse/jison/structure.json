@@ -8,7 +8,7 @@
     "../../generic/jison/create/create_common.jison",
     "../../generic/jison/create/create_database.jison",
     "../../generic/jison/create/create_role.jison",
-    "../../generic/jison/create/create_table.jison",
+    "create/create_table.jison",
     "../../generic/jison/create/create_view.jison",
     "../../generic/jison/delete/delete.jison",
     "../../generic/jison/drop/drop_common.jison",
