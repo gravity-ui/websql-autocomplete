@@ -87,7 +87,7 @@ OptionalSelectConditions_EDIT
      if (!$3) {
        parser.suggestGroupBys({ prefix: 'GROUP BY', tablePrimaries: parser.yy.latestTablePrimaries.concat() });
      }
-     if (!$3 && !$4 && !$5 && !$6) {
+     if (!$3 && !$4 && !$5) {
        parser.suggestOrderBys({ prefix: 'ORDER BY', tablePrimaries: parser.yy.latestTablePrimaries.concat() });
      }
      $$.whereClauseLocation = $1 ? @1 : undefined;
@@ -112,7 +112,7 @@ OptionalSelectConditions_EDIT
        $$ = { suggestKeywords: keywords };
      }
      $$.cursorAtEnd = !$4 && !$5 && !$6;
-     if (!$4 && !$5 && !$6) {
+     if (!$4 && !$5) {
        parser.suggestOrderBys({ prefix: 'ORDER BY', tablePrimaries: parser.yy.latestTablePrimaries.concat() });
      }
      $$.whereClauseLocation = $1 ? @1 : undefined;
@@ -126,7 +126,7 @@ OptionalSelectConditions_EDIT
        [{ value: 'ORDER BY', weight: 5 }, { value: 'LIMIT', weight: 3 }, { value: 'OFFSET', weight: 2 }],
        [true, true, true]);
      $$ = { suggestKeywords: keywords, cursorAtEnd: !$5 && !$6 };
-     if (!$5 && !$6) {
+     if (!$5) {
        parser.suggestOrderBys({ prefix: 'ORDER BY', tablePrimaries: parser.yy.latestTablePrimaries.concat() });
      }
      $$.whereClauseLocation = $1 ? @1 : undefined;

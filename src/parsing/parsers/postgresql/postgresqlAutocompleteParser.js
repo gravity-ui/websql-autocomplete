@@ -1147,13 +1147,13 @@ case 482:
      this.$.limitClausePreceding = parser.firstDefined($$[$0-1], _$[$0-1], $$[$0-2], _$[$0-2], $$[$0-3], _$[$0-3], $$[$0-4], _$[$0-4]);
      this.$.limitClauseLocation = $$[$0]?.limitClauseLocation;
 
-     if (!$$[$0-4] && !$$[$0-3] && !$$[$0-2] && !$$[$0-1] && (!$$[$0]?.limitClauseLocation || !$$[$0]?.offsetClauseLocation)) {
+     if (!$$[$0-4] && !$$[$0-3] && !$$[$0-2] && !$$[$0-1] && !$$[$0]) {
        this.$.suggestFilters = { prefix: 'WHERE', tablePrimaries: parser.yy.latestTablePrimaries.concat() };
      }
-     if (!$$[$0-3] && !$$[$0-2] && !$$[$0-1] && (!$$[$0]?.limitClauseLocation || !$$[$0]?.offsetClauseLocation)) {
+     if (!$$[$0-3] && !$$[$0-2] && !$$[$0-1] && !$$[$0]) {
        this.$.suggestGroupBys = { prefix: 'GROUP BY', tablePrimaries: parser.yy.latestTablePrimaries.concat() };
      }
-     if (!$$[$0-1] && (!$$[$0]?.limitClauseLocation || !$$[$0]?.offsetClauseLocation)) {
+     if (!$$[$0-1] && !$$[$0]) {
        this.$.suggestOrderBys = { prefix: 'ORDER BY', tablePrimaries: parser.yy.latestTablePrimaries.concat() };
      }
    
@@ -1196,7 +1196,7 @@ case 488:
      if (!$$[$0-3]) {
        parser.suggestGroupBys({ prefix: 'GROUP BY', tablePrimaries: parser.yy.latestTablePrimaries.concat() });
      }
-     if (!$$[$0-3] && !$$[$0-2] && !$$[$0-1] && !$$[$0]?.limitClauseLocation && !$$[$0]?.offsetClauseLocation) {
+     if (!$$[$0-3] && !$$[$0-2] && !$$[$0-1]) {
        parser.suggestOrderBys({ prefix: 'ORDER BY', tablePrimaries: parser.yy.latestTablePrimaries.concat() });
      }
      this.$.whereClauseLocation = $$[$0-5] ? _$[$0-5] : undefined;
@@ -1222,7 +1222,7 @@ case 489:
        this.$ = { suggestKeywords: keywords };
      }
      this.$.cursorAtEnd = !$$[$0-2] && !$$[$0-1] && !$$[$0];
-     if (!$$[$0-2] && !$$[$0-1] && (!$$[$0]?.limitClauseLocation || !$$[$0]?.offsetClauseLocation)) {
+     if (!$$[$0-2] && !$$[$0-1]) {
        parser.suggestOrderBys({ prefix: 'ORDER BY', tablePrimaries: parser.yy.latestTablePrimaries.concat() });
      }
      this.$.whereClauseLocation = $$[$0-5] ? _$[$0-5] : undefined;
