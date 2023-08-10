@@ -1,5 +1,5 @@
 {
-  "lexer": "../../generic/jison/sql.jisonlex",
+  "lexer": "sql.jisonlex",
   "autocomplete": [
     "../../generic/jison/autocomplete_header.jison",
     "../../generic/jison/alter/alter_common.jison",
@@ -16,7 +16,7 @@
     "../../generic/jison/drop/drop_role.jison",
     "../../generic/jison/drop/drop_table.jison",
     "../../generic/jison/drop/drop_view.jison",
-    "../../generic/jison/explain/explain.jison",
+    "explain/explain.jison",
     "../../generic/jison/insert/insert.jison",
     "../../generic/jison/select/cte_select_statement.jison",
     "../../generic/jison/select/from_clause.jison",
