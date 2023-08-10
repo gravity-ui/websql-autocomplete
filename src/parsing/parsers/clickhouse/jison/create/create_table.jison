@@ -52,7 +52,7 @@ TableDefinitionRightPart_EDIT
        keywords.push({ value: 'LIKE', weight: 1 });
      } else {
        if (!$2) {
-         keywords.push({ value: 'PARTITIONED BY', weight: 12 });
+         keywords.push({ value: 'PARTITION BY', weight: 12 });
        }
        keywords.push({ value: 'AS', weight: 1 });
      }
