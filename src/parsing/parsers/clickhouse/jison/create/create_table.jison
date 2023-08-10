@@ -54,6 +54,9 @@ TableDefinitionRightPart_EDIT
        if (!$2) {
          keywords.push({ value: 'PARTITION BY', weight: 12 });
        }
+       if (!$3) {
+         keywords.push({ value: 'ENGINE', weight: 13 });
+       }
        keywords.push({ value: 'AS', weight: 1 });
      }
 
