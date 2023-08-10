@@ -69,6 +69,7 @@
 'DROP'                                     { parser.determineCase(yytext); parser.addStatementTypeLocation('DROP', yylloc, yy.lexer.upcomingInput()); return 'DROP'; }
 'ELSE'                                     { return 'ELSE'; }
 'END'                                      { return 'END'; }
+'ENGINE'                                   { return 'ENGINE'; }
 'EXISTS'                                   { parser.yy.correlatedSubQuery = true; return 'EXISTS'; }
 'EXPLAIN'                                  { return 'EXPLAIN'; }
 'FALSE'                                    { return 'FALSE'; }
