@@ -121,7 +121,7 @@
     "afterCursor": "",
     "expectedResult": {
       "lowerCase": false,
-      "suggestKeywords": ["ASC", "DESC", "LIMIT", "UNION"]
+      "suggestKeywords": ["ASC", "DESC", "LIMIT", "OFFSET", "UNION"]
     }
   },
   {
@@ -236,7 +236,7 @@
     "afterCursor": "",
     "expectedResult": {
       "lowerCase": false,
-      "suggestKeywords": ["ASC", "DESC", "LIMIT", "UNION"]
+      "suggestKeywords": ["ASC", "DESC", "LIMIT", "OFFSET", "UNION"]
     }
   },
   {
