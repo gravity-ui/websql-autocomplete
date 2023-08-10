@@ -470,7 +470,8 @@ OptionalEngineType
  ;
 
 EngineType
- : 'ENGINE' '=' RegularIdentifier
+ : 'ENGINE' '=' 'REGULAR_IDENTIFIER'
+ | 'ENGINE' '=' 'REGULAR_IDENTIFIER' ArbitraryFunctionRightPart
  ;
 
 EngineType_EDIT
@@ -479,4 +480,5 @@ EngineType_EDIT
    parser.suggestKeywords(['='])
  }
  | 'ENGINE' '=' 'CURSOR'
+ | 'ENGINE' '=' ArbitraryFunctionRightPart_EDIT
  ;
