@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.20.0](https://github.com/gravity-ui/sql-autocomplete-parsers/compare/v1.19.0...v1.20.0) (2023-08-10)
+
+
+### Features
+
+* Support non-ordered `LIMIT` and `OFFSET` ([#76](https://github.com/gravity-ui/sql-autocomplete-parsers/issues/76)) ([049a46e](https://github.com/gravity-ui/sql-autocomplete-parsers/commit/049a46e54501df54857b53b31123801dc9fa2ff1))
+
 ## [1.19.0](https://github.com/gravity-ui/sql-autocomplete-parsers/compare/v1.18.0...v1.19.0) (2023-08-09)
 
 
