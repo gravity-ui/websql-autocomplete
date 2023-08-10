@@ -38,14 +38,14 @@ TableDefinition_EDIT
  ;
 
 TableDefinitionRightPart
- : TableIdentifierAndOptionalColumnSpecification OptionalPartitionedBy OptionalAsSelectStatement
+ : TableIdentifierAndOptionalColumnSpecification OptionalPartitionedBy EngineType OptionalAsSelectStatement
  ;
 
 TableDefinitionRightPart_EDIT
- : TableIdentifierAndOptionalColumnSpecification_EDIT OptionalPartitionedBy OptionalAsSelectStatement
- | TableIdentifierAndOptionalColumnSpecification PartitionedBy_EDIT OptionalAsSelectStatement
- | TableIdentifierAndOptionalColumnSpecification OptionalPartitionedBy OptionalAsSelectStatement_EDIT
- | TableIdentifierAndOptionalColumnSpecification OptionalPartitionedBy 'CURSOR'
+ : TableIdentifierAndOptionalColumnSpecification_EDIT OptionalPartitionedBy OptionalEngineType OptionalAsSelectStatement
+ | TableIdentifierAndOptionalColumnSpecification PartitionedBy_EDIT OptionalEngineType OptionalAsSelectStatement
+ | TableIdentifierAndOptionalColumnSpecification OptionalPartitionedBy EngineType_EDIT OptionalAsSelectStatement_EDIT
+ | TableIdentifierAndOptionalColumnSpecification OptionalPartitionedBy OptionalEngineType 'CURSOR'
    {
      var keywords = [];
      if (!$1 && !$2) {
@@ -459,4 +459,21 @@ CommitLocations
    {
      parser.commitLocations();
    }
+ ;
+
+OptionalEngineType
+ :
+ | EngineType
+ ;
+
+EngineType
+ : 'ENGINE' '=' RegularIdentifier
+ ;
+
+EngineType_EDIT
+ : 'ENGINE' 'CURSOR'
+ {
+   parser.suggestKeywords(['='])
+ }
+ | 'ENGINE' '=' 'CURSOR'
  ;
