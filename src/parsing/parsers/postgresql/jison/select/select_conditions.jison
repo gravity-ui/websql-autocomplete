@@ -10,10 +10,10 @@
 // and limitations under the License.
 
 OptionalSelectConditions
- : OptionalWhereClause OptionalGroupByClause OptionalHavingClause OptionalOrderByClause OptionalLimitClause OptionalOffsetClause
+ : OptionalWhereClause OptionalGroupByClause OptionalHavingClause OptionalOrderByClause OptionalLimitOffsetClause
    {
      var keywords = parser.getKeywordsForOptionalsLR(
-       [$1, $2, $3, $4, $5, $6],
+       [$1, $2, $3, $4, $5?.limitClauseLocation, $5?.offsetClauseLocation],
        [
         { value: 'WHERE', weight: 7 },
         { value: 'GROUP BY', weight: 6 },
@@ -25,14 +25,14 @@ OptionalSelectConditions
        [true, true, true, true, true, true]);
 
      if (keywords.length > 0) {
-       $$ = { suggestKeywords: keywords, empty: !$1 && !$2 && !$3 && !$4 && !$5 };
+       $$ = { suggestKeywords: keywords, empty: !$1 && !$2 && !$3 && !$4 && !$5?.limitClauseLocation && !$5?.offsetClauseLocation };
      } else {
        $$ = {};
      }
 
      $$.whereClauseLocation = $1 ? @1 : undefined;
      $$.limitClausePreceding = parser.firstDefined($4, @4, $3, @3, $2, @2, $1, @1);
-     $$.limitClauseLocation = $5 ? @5 : undefined;
+     $$.limitClauseLocation = $5?.limitClauseLocation;
 
      if (!$1 && !$2 && !$3 && !$4 && !$5) {
        $$.suggestFilters = { prefix: 'WHERE', tablePrimaries: parser.yy.latestTablePrimaries.concat() };
@@ -47,34 +47,33 @@ OptionalSelectConditions
  ;
 
 OptionalSelectConditions_EDIT
- : WhereClause_EDIT OptionalGroupByClause OptionalHavingClause OptionalOrderByClause OptionalLimitClause OptionalOffsetClause
+ : WhereClause_EDIT OptionalGroupByClause OptionalHavingClause OptionalOrderByClause OptionalLimitOffsetClause
    {
      if (parser.yy.result.suggestColumns) {
        parser.yy.result.suggestColumns.source = 'where';
      }
    }
- | OptionalWhereClause GroupByClause_EDIT OptionalHavingClause OptionalOrderByClause OptionalLimitClause OptionalOffsetClause
+ | OptionalWhereClause GroupByClause_EDIT OptionalHavingClause OptionalOrderByClause OptionalLimitOffsetClause
    {
      if (parser.yy.result.suggestColumns) {
        parser.yy.result.suggestColumns.source = 'group by';
      }
    }
- | OptionalWhereClause OptionalGroupByClause HavingClause_EDIT OptionalOrderByClause OptionalLimitClause OptionalOffsetClause
- | OptionalWhereClause OptionalGroupByClause OptionalHavingClause OrderByClause_EDIT OptionalLimitClause OptionalOffsetClause
+ | OptionalWhereClause OptionalGroupByClause HavingClause_EDIT OptionalOrderByClause OptionalLimitOffsetClause
+ | OptionalWhereClause OptionalGroupByClause OptionalHavingClause OrderByClause_EDIT OptionalLimitOffsetClause
    {
      if (parser.yy.result.suggestColumns) {
        parser.yy.result.suggestColumns.source = 'order by';
      }
    }
- | OptionalWhereClause OptionalGroupByClause OptionalHavingClause OptionalOrderByClause LimitClause_EDIT
- | OptionalWhereClause OptionalGroupByClause OptionalHavingClause OptionalOrderByClause OptionalLimitClause OffsetClause_EDIT
+ | OptionalWhereClause OptionalGroupByClause OptionalHavingClause OptionalOrderByClause LimitOffsetClause_EDIT
  ;
 
 OptionalSelectConditions_EDIT
- : WhereClause 'CURSOR' OptionalGroupByClause OptionalHavingClause OptionalOrderByClause OptionalLimitClause OptionalOffsetClause
+ : WhereClause 'CURSOR' OptionalGroupByClause OptionalHavingClause OptionalOrderByClause OptionalLimitOffsetClause
    {
      var keywords = parser.getKeywordsForOptionalsLR(
-       [$3, $4, $5, $6, $7],
+       [$3, $4, $5, $6?.limitClauseLocation, $6?.offsetClauseLocation],
        [{ value: 'GROUP BY', weight: 8 }, { value: 'HAVING', weight: 7 }, { value: 'ORDER BY', weight: 5 }, { value: 'LIMIT', weight: 3 }, { value: 'OFFSET', weight: 2 }],
        [true, true, true, true, true]);
      if ($1.suggestKeywords) {
@@ -88,17 +87,17 @@ OptionalSelectConditions_EDIT
      if (!$3) {
        parser.suggestGroupBys({ prefix: 'GROUP BY', tablePrimaries: parser.yy.latestTablePrimaries.concat() });
      }
-     if (!$3 && !$4 && !$5) {
+     if (!$3 && !$4 && !$5 && !$6) {
        parser.suggestOrderBys({ prefix: 'ORDER BY', tablePrimaries: parser.yy.latestTablePrimaries.concat() });
      }
      $$.whereClauseLocation = $1 ? @1 : undefined;
      $$.limitClausePreceding = parser.firstDefined($5, @5, $4, @4, $3, @3, $1, @1);
-     $$.limitClauseLocation = $6 ? @6 : undefined;
+     $$.limitClauseLocation = $6?.limitClauseLocation;
    }
- | OptionalWhereClause GroupByClause 'CURSOR' OptionalHavingClause OptionalOrderByClause OptionalLimitClause OptionalOffsetClause
+ | OptionalWhereClause GroupByClause 'CURSOR' OptionalHavingClause OptionalOrderByClause OptionalLimitOffsetClause
    {
      var keywords = parser.getKeywordsForOptionalsLR(
-       [$4, $5, $6],
+       [$4, $5, $6?.limitClauseLocation, $6?.offsetClauseLocation],
        [{ value: 'HAVING', weight: 7 }, { value: 'ORDER BY', weight: 5 }, { value: 'LIMIT', weight: 3 }, { value: 'OFFSET', weight: 2 }],
        [true, true, true, true]);
      if ($2.suggestKeywords) {
@@ -113,31 +112,31 @@ OptionalSelectConditions_EDIT
        $$ = { suggestKeywords: keywords };
      }
      $$.cursorAtEnd = !$4 && !$5 && !$6;
-     if (!$4 && !$5) {
+     if (!$4 && !$5 && !$6) {
        parser.suggestOrderBys({ prefix: 'ORDER BY', tablePrimaries: parser.yy.latestTablePrimaries.concat() });
      }
      $$.whereClauseLocation = $1 ? @1 : undefined;
      $$.limitClausePreceding = parser.firstDefined($5, @5, $4, @4, $2, @2);
-     $$.limitClauseLocation = $6 ? @6 : undefined;
+     $$.limitClauseLocation = $6?.limitClauseLocation;
    }
- | OptionalWhereClause OptionalGroupByClause HavingClause 'CURSOR' OptionalOrderByClause OptionalLimitClause OptionalOffsetClause
+ | OptionalWhereClause OptionalGroupByClause HavingClause 'CURSOR' OptionalOrderByClause OptionalLimitOffsetClause
    {
      var keywords = parser.getKeywordsForOptionalsLR(
-       [$5, $6],
+       [$5, $6?.limitClauseLocation, $6?.offsetClauseLocation],
        [{ value: 'ORDER BY', weight: 5 }, { value: 'LIMIT', weight: 3 }, { value: 'OFFSET', weight: 2 }],
        [true, true, true]);
      $$ = { suggestKeywords: keywords, cursorAtEnd: !$5 && !$6 };
-     if (!$5) {
+     if (!$5 && !$6) {
        parser.suggestOrderBys({ prefix: 'ORDER BY', tablePrimaries: parser.yy.latestTablePrimaries.concat() });
      }
      $$.whereClauseLocation = $1 ? @1 : undefined;
      $$.limitClausePreceding = parser.firstDefined($5, @5, $3, @3);
-     $$.limitClauseLocation = $6 ? @6 : undefined;
+     $$.limitClauseLocation = $6?.limitClauseLocation;
    }
- | OptionalWhereClause OptionalGroupByClause OptionalHavingClause OrderByClause 'CURSOR' OptionalLimitClause OptionalOffsetClause
+ | OptionalWhereClause OptionalGroupByClause OptionalHavingClause OrderByClause 'CURSOR' OptionalLimitOffsetClause
    {
      var keywords = parser.getKeywordsForOptionalsLR(
-       [$6],
+       [$6?.limitClauseLocation, $6?.offsetClauseLocation],
        [{ value: 'LIMIT', weight: 3 }, { value: 'OFFSET', weight: 2 }],
        [true, true]);
      if ($4.suggestKeywords) {
@@ -146,14 +145,53 @@ OptionalSelectConditions_EDIT
      $$ = { suggestKeywords: keywords, cursorAtEnd: !$6 };
      $$.whereClauseLocation = $1 ? @1 : undefined;
      $$.limitClausePreceding = parser.firstDefined($4, @4);
-     $$.limitClauseLocation = $6 ? @6 : undefined;
+     $$.limitClauseLocation = $6?.limitClauseLocation;
    }
- | OptionalWhereClause OptionalGroupByClause OptionalHavingClause OptionalOrderByClause LimitClause 'CURSOR' OptionalOffsetClause
+ | OptionalWhereClause OptionalGroupByClause OptionalHavingClause OptionalOrderByClause LimitOffsetClause 'CURSOR'
    {
-     var keywords = parser.getKeywordsForOptionalsLR([$7], [{ value: 'OFFSET', weight: 2 }], [true]);
-     $$ = { suggestKeywords: keywords, cursorAtEnd: !$7 };
+     var keywords = [];
+     if ($5?.limitClauseLocation && !$5.offsetClauseLocation) {
+        keywords.push({ value: 'OFFSET', weight: 2 })
+     }
+     if ($5?.offsetClauseLocation && !$5?.limitClauseLocation ) {
+        keywords.push({ value: 'LIMIT', weight: 2 })
+     }
+
+     $$ = {suggestKeywords: keywords, cursorAtEnd: true};
      $$.whereClauseLocation = $1 ? @1 : undefined;
      $$.limitClausePreceding = parser.firstDefined($4, @4, $3, @3, $2, @2, $1, @1);
-     $$.limitClauseLocation = @5;
+     $$.limitClauseLocation = $5?.limitClauseLocation;
    }
+ ;
+
+LimitOffsetClause
+ : LimitClause OptionalOffsetClause
+ {
+   $$ = {}
+   $$.limitClauseLocation = @1
+   $$.offsetClauseLocation = $2 && @2
+ }
+ | OffsetClause OptionalLimitClause
+ {
+   $$ = {}
+   $$.offsetClauseLocation = @1
+   $$.limitClauseLocation = $2 && @2
+ }
+ ;
+
+LimitOffsetClause_EDIT
+ : LimitClause_EDIT OptionalOffsetClause
+ | LimitClause OffsetClause_EDIT
+ | OffsetClause_EDIT OptionalLimitClause
+ | OffsetClause LimitClause_EDIT
+ ;
+
+
+
+OptionalLimitOffsetClause
+ :
+ | LimitOffsetClause
+ {
+    $$ = $1
+ }
  ;

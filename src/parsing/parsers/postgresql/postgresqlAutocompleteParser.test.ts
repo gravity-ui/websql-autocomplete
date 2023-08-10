@@ -6,6 +6,7 @@ import { assertPartials, CommonParser } from '../../lib/parsing-typed';
 
 const jisonFolder = 'src/parsing/parsers/postgresql/jison';
 const groupedTestCases = extractTestCases(jisonFolder, structure.autocomplete);
+// const groupedTestCases = extractTestCases(jisonFolder, structure.autocomplete.filter((item) => item.indexOf('offset_clause') > -1));
 
 describe('postgresqlAutocompleteParser', () => {
   // TODO: Fix the types
