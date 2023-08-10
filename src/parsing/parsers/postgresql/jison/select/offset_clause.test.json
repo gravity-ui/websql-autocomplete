@@ -31,6 +31,16 @@
   },
   {
     "namePrefix": "should not throw errors",
+    "beforeCursor": "SELECT * FROM testTable OFFSET 12 LIMIT 1; ",
+    "afterCursor": "",
+    "noErrors": true,
+    "containsKeywords": ["SELECT"],
+    "expectedResult": {
+      "lowerCase": false
+    }
+  },
+  {
+    "namePrefix": "should not throw errors",
     "beforeCursor": "SELECT * FROM testTable LIMIT 1; ",
     "afterCursor": "",
     "noErrors": true,
