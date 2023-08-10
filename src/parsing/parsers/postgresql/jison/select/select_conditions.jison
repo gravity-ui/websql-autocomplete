@@ -74,7 +74,7 @@ OptionalSelectConditions_EDIT
  : WhereClause 'CURSOR' OptionalGroupByClause OptionalHavingClause OptionalOrderByClause OptionalLimitClause OptionalOffsetClause
    {
      var keywords = parser.getKeywordsForOptionalsLR(
-       [$3, $4, $5, $6],
+       [$3, $4, $5, $6, $7],
        [{ value: 'GROUP BY', weight: 8 }, { value: 'HAVING', weight: 7 }, { value: 'ORDER BY', weight: 5 }, { value: 'LIMIT', weight: 3 }, { value: 'OFFSET', weight: 2 }],
        [true, true, true, true, true]);
      if ($1.suggestKeywords) {

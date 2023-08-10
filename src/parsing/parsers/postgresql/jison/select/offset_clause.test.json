@@ -38,5 +38,23 @@
     "expectedResult": {
       "lowerCase": false
     }
+  },
+  {
+    "namePrefix": "should suggest OFFSET",
+    "beforeCursor": "SELECT * FROM testTable WHERE column = 1 ",
+    "afterCursor": "",
+    "noErrors": true,
+    "containsKeywords": ["OFFSET"],
+    "expectedResult": {
+      "lowerCase": false,
+      "suggestGroupBys": {
+        "prefix": "GROUP BY",
+        "tables": [{"identifierChain": [{"name": "testTable"}]}]
+      },
+      "suggestOrderBys": {
+        "prefix": "ORDER BY",
+        "tables": [{"identifierChain": [{"name": "testTable"}]}]
+      }
+    }
   }
 ]
