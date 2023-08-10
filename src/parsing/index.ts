@@ -1,5 +1,6 @@
 import {genericAutocompleteParser} from './parsers/generic/genericAutocompleteParser';
 import {postgresqlAutocompleteParser} from './parsers/postgresql/postgresqlAutocompleteParser';
+import {clickhouseAutocompleteParser} from './parsers/clickhouse/clickhouseAutocompleteParser';
 
 export const cursorSymbol = '†';
 
@@ -135,4 +136,16 @@ export function parsePostgreSqlWithoutCursor(query: string): ParseResult {
     // If our finished query is "SELECT * FROM|" and we try to parse it, parser thinks that we still haven't finished writing it and doesn't show some errors.
     // In order to truly complete a finished query, we need to add space to it like so "SELECT * FROM |".
     return parsePostgreSql(query + ' ', '');
+}
+
+
+export function parseClickhouse(queryBeforeCursor: string, queryAfterCursor: string): ParseResult {
+    let parser = clickhouseAutocompleteParser as Parser;
+    return parser.parseSql(queryBeforeCursor, queryAfterCursor);
+}
+
+export function parseClickhouseWithoutCursor(query: string): ParseResult {
+    // If our finished query is "SELECT * FROM|" and we try to parse it, parser thinks that we still haven't finished writing it and doesn't show some errors.
+    // In order to truly complete a finished query, we need to add space to it like so "SELECT * FROM |".
+    return parseClickhouse(query + ' ', '');
 }
