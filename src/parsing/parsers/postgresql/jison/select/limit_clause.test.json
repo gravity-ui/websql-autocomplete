@@ -10,6 +10,16 @@
     }
   },
   {
+    "namePrefix": "should contain LIMIT in suggestions",
+    "beforeCursor": "SELECT COUNT(*) AS boo FROM testTable GROUP BY baa OFFSET 10 ",
+    "afterCursor": "",
+    "noErrors": true,
+    "containsKeywords": ["LIMIT"],
+    "expectedResult": {
+      "lowerCase": false
+    }
+  },
+  {
     "namePrefix": "should not allow to write offset with comma",
     "beforeCursor": "SELECT COUNT(*) AS boo FROM testTable GROUP BY baa LIMIT 100, 100 ",
     "afterCursor": "",

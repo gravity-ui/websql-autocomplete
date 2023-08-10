@@ -31,12 +31,40 @@
   },
   {
     "namePrefix": "should not throw errors",
+    "beforeCursor": "SELECT * FROM testTable OFFSET 12 LIMIT 1; ",
+    "afterCursor": "",
+    "noErrors": true,
+    "containsKeywords": ["SELECT"],
+    "expectedResult": {
+      "lowerCase": false
+    }
+  },
+  {
+    "namePrefix": "should not throw errors",
     "beforeCursor": "SELECT * FROM testTable LIMIT 1; ",
     "afterCursor": "",
     "noErrors": true,
     "containsKeywords": ["SELECT"],
     "expectedResult": {
       "lowerCase": false
+    }
+  },
+  {
+    "namePrefix": "should suggest OFFSET",
+    "beforeCursor": "SELECT * FROM testTable WHERE column = 1 ",
+    "afterCursor": "",
+    "noErrors": true,
+    "containsKeywords": ["OFFSET", "LIMIT"],
+    "expectedResult": {
+      "lowerCase": false,
+      "suggestGroupBys": {
+        "prefix": "GROUP BY",
+        "tables": [{"identifierChain": [{"name": "testTable"}]}]
+      },
+      "suggestOrderBys": {
+        "prefix": "ORDER BY",
+        "tables": [{"identifierChain": [{"name": "testTable"}]}]
+      }
     }
   }
 ]
