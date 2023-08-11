@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.21.0](https://github.com/gravity-ui/sql-autocomplete-parsers/compare/v1.20.0...v1.21.0) (2023-08-11)
+
+
+### Features
+
+* Support `CREATE TABLE` with `ENGINE` syntax for ClickHouse ([#78](https://github.com/gravity-ui/sql-autocomplete-parsers/issues/78)) ([759b642](https://github.com/gravity-ui/sql-autocomplete-parsers/commit/759b642daaed763a11c59c8c22994247574f6555))
+
 ## [1.20.0](https://github.com/gravity-ui/sql-autocomplete-parsers/compare/v1.19.0...v1.20.0) (2023-08-10)
 
 
