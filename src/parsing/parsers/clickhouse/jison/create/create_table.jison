@@ -38,14 +38,14 @@ TableDefinition_EDIT
  ;
 
 TableDefinitionRightPart
- : TableIdentifierAndOptionalColumnSpecification OptionalPartitionedBy EngineType OptionalAsSelectStatement
+ : TableIdentifierAndOptionalColumnSpecification OptionalPartitionedBy EngineTypeSet OptionalAsSelectStatement
  ;
 
 TableDefinitionRightPart_EDIT
- : TableIdentifierAndOptionalColumnSpecification_EDIT OptionalPartitionedBy OptionalEngineType OptionalAsSelectStatement
- | TableIdentifierAndOptionalColumnSpecification PartitionedBy_EDIT OptionalEngineType OptionalAsSelectStatement
- | TableIdentifierAndOptionalColumnSpecification OptionalPartitionedBy EngineType_EDIT OptionalAsSelectStatement_EDIT
- | TableIdentifierAndOptionalColumnSpecification OptionalPartitionedBy OptionalEngineType 'CURSOR'
+ : TableIdentifierAndOptionalColumnSpecification_EDIT OptionalPartitionedBy OptionalEngineTypeSet OptionalAsSelectStatement
+ | TableIdentifierAndOptionalColumnSpecification PartitionedBy_EDIT OptionalEngineTypeSet OptionalAsSelectStatement
+ | TableIdentifierAndOptionalColumnSpecification OptionalPartitionedBy EngineTypeSet_EDIT OptionalAsSelectStatement_EDIT
+ | TableIdentifierAndOptionalColumnSpecification OptionalPartitionedBy OptionalEngineTypeSet 'CURSOR'
    {
      var keywords = [];
      if (!$1 && !$2) {
@@ -464,17 +464,17 @@ CommitLocations
    }
  ;
 
-OptionalEngineType
+OptionalEngineTypeSet
  :
- | EngineType
+ | EngineTypeSet
  ;
 
-EngineType
+EngineTypeSet
  : 'ENGINE' '=' 'REGULAR_IDENTIFIER'
  | 'ENGINE' '=' 'REGULAR_IDENTIFIER' ArbitraryFunctionRightPart
  ;
 
-EngineType_EDIT
+EngineTypeSet_EDIT
  : 'ENGINE' 'CURSOR'
  {
    parser.suggestKeywords(['='])
