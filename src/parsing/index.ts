@@ -128,7 +128,7 @@ export function parseGenericSql(queryBeforeCursor: string, queryAfterCursor: str
 export function parseGenericSqlWithoutCursor(query: string): ParseResult {
     // If our finished query is "SELECT * FROM|" and we try to parse it, parser thinks that we still haven't finished writing it and doesn't show some errors.
     // In order to truly complete a finished query, we need to add space to it like so "SELECT * FROM |".
-    return parseGenericSql(query + ' ', '');
+    return parseGenericSql(getFinishedQuery(query), '');
 }
 
 export function parsePostgreSql(queryBeforeCursor: string, queryAfterCursor: string): ParseResult {
@@ -139,17 +139,20 @@ export function parsePostgreSql(queryBeforeCursor: string, queryAfterCursor: str
 export function parsePostgreSqlWithoutCursor(query: string): ParseResult {
     // If our finished query is "SELECT * FROM|" and we try to parse it, parser thinks that we still haven't finished writing it and doesn't show some errors.
     // In order to truly complete a finished query, we need to add space to it like so "SELECT * FROM |".
-    return parsePostgreSql(query + ' ', '');
+    return parsePostgreSql(getFinishedQuery(query), '');
 }
 
-
-export function parseClickhouse(queryBeforeCursor: string, queryAfterCursor: string): ParseResult {
+export function parseClickHouse(queryBeforeCursor: string, queryAfterCursor: string): ParseResult {
     let parser = clickhouseAutocompleteParser as Parser;
     return parser.parseSql(queryBeforeCursor, queryAfterCursor);
 }
 
-export function parseClickhouseWithoutCursor(query: string): ParseResult {
+export function parseClickHouseWithoutCursor(query: string): ParseResult {
+    return parseClickHouse(getFinishedQuery(query), '');
+}
+
+function getFinishedQuery(query: string): string {
     // If our finished query is "SELECT * FROM|" and we try to parse it, parser thinks that we still haven't finished writing it and doesn't show some errors.
     // In order to truly complete a finished query, we need to add space to it like so "SELECT * FROM |".
-    return parseClickhouse(query + ' ', '');
+    return query + ' ';
 }
