@@ -38,14 +38,14 @@ TableDefinition_EDIT
  ;
 
 TableDefinitionRightPart
- : TableIdentifierAndOptionalColumnSpecification OptionalPartitionedBy OptionalAsSelectStatement
+ : TableIdentifierAndOptionalColumnSpecification OptionalPartitionedBy EngineTypeSet OptionalAsSelectStatement
  ;
 
 TableDefinitionRightPart_EDIT
- : TableIdentifierAndOptionalColumnSpecification_EDIT OptionalPartitionedBy OptionalAsSelectStatement
- | TableIdentifierAndOptionalColumnSpecification PartitionedBy_EDIT OptionalAsSelectStatement
- | TableIdentifierAndOptionalColumnSpecification OptionalPartitionedBy OptionalAsSelectStatement_EDIT
- | TableIdentifierAndOptionalColumnSpecification OptionalPartitionedBy 'CURSOR'
+ : TableIdentifierAndOptionalColumnSpecification_EDIT OptionalPartitionedBy OptionalEngineTypeSet OptionalAsSelectStatement
+ | TableIdentifierAndOptionalColumnSpecification PartitionedBy_EDIT OptionalEngineTypeSet OptionalAsSelectStatement
+ | TableIdentifierAndOptionalColumnSpecification OptionalPartitionedBy EngineTypeSet_EDIT OptionalAsSelectStatement_EDIT
+ | TableIdentifierAndOptionalColumnSpecification OptionalPartitionedBy OptionalEngineTypeSet 'CURSOR'
    {
      var keywords = [];
      if (!$1 && !$2) {
@@ -53,6 +53,9 @@ TableDefinitionRightPart_EDIT
      } else {
        if (!$2) {
          keywords.push({ value: 'PARTITION BY', weight: 12 });
+       }
+       if (!$3) {
+         keywords.push({ value: 'ENGINE', weight: 13 });
        }
        keywords.push({ value: 'AS', weight: 1 });
      }
@@ -459,4 +462,62 @@ CommitLocations
    {
      parser.commitLocations();
    }
+ ;
+
+OptionalEngineTypeSet
+ :
+ | EngineTypeSet
+ ;
+
+EngineTypeSet
+ : 'ENGINE' '=' EngineType
+ | 'ENGINE' '=' EngineTypeFunctional ArbitraryFunctionRightPart
+ ;
+
+EngineTypeSet_EDIT
+ : 'ENGINE' 'CURSOR'
+ {
+   parser.suggestKeywords(['=']);
+ }
+ | 'ENGINE' '=' 'CURSOR'
+ {
+   parser.suggestEngines();
+ }
+ | 'ENGINE' '=' EngineTypeFunctional ArbitraryFunctionRightPart_EDIT
+ ;
+
+EngineType
+ : 'Null'
+ | 'Set'
+ | 'Log'
+ | 'Memory'
+ | 'TinyLog'
+ | 'StripeLog'
+ ;
+
+EngineTypeFunctional
+ : 'MergeTree'
+ | 'Merge'
+ | 'ReplacingMergeTree'
+ | 'CollapsingMergeTree'
+ | 'AggregatingMergeTree'
+ | 'Buffer'
+ | 'Dictionary'
+ | 'Distributed'
+ | 'File'
+ | 'GraphiteMergeTree'
+ | 'Join'
+ | 'Kafka'
+ | 'MySQL'
+ | 'URL'
+ | 'ReplicatedAggregatingMergeTree'
+ | 'ReplicatedCollapsingMergeTree'
+ | 'ReplicatedGraphiteMergeTree'
+ | 'ReplicatedMergeTree'
+ | 'ReplicatedReplacingMergeTree'
+ | 'ReplicatedSummingMergeTree'
+ | 'ReplicatedVersionedCollapsingMergeTree'
+ | 'SummingMergeTree'
+ | 'VersionedCollapsingMergeTree'
+ | 'PostgreSQL'
  ;

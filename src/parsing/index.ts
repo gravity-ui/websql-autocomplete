@@ -1,5 +1,6 @@
 import {genericAutocompleteParser} from './parsers/generic/genericAutocompleteParser';
 import {postgresqlAutocompleteParser} from './parsers/postgresql/postgresqlAutocompleteParser';
+import {clickhouseAutocompleteParser} from './parsers/clickhouse/clickhouseAutocompleteParser';
 
 export const cursorSymbol = '†';
 
@@ -33,6 +34,10 @@ export interface ParseResult {
     suggestGroupBys?: unknown;
     suggestIdentifiers?: IdentifierSuggestion[];
     suggestTemplates?: boolean;
+    suggestEngines?: {
+        engines: string[],
+        functionalEngines: string[]
+    };
 }
 
 export type StatementPart =
@@ -121,9 +126,7 @@ export function parseGenericSql(queryBeforeCursor: string, queryAfterCursor: str
 }
 
 export function parseGenericSqlWithoutCursor(query: string): ParseResult {
-    // If our finished query is "SELECT * FROM|" and we try to parse it, parser thinks that we still haven't finished writing it and doesn't show some errors.
-    // In order to truly complete a finished query, we need to add space to it like so "SELECT * FROM |".
-    return parseGenericSql(query + ' ', '');
+    return parseGenericSql(getFinishedQuery(query), '');
 }
 
 export function parsePostgreSql(queryBeforeCursor: string, queryAfterCursor: string): ParseResult {
@@ -132,7 +135,20 @@ export function parsePostgreSql(queryBeforeCursor: string, queryAfterCursor: str
 }
 
 export function parsePostgreSqlWithoutCursor(query: string): ParseResult {
+    return parsePostgreSql(getFinishedQuery(query), '');
+}
+
+export function parseClickHouse(queryBeforeCursor: string, queryAfterCursor: string): ParseResult {
+    let parser = clickhouseAutocompleteParser as Parser;
+    return parser.parseSql(queryBeforeCursor, queryAfterCursor);
+}
+
+export function parseClickHouseWithoutCursor(query: string): ParseResult {
+    return parseClickHouse(getFinishedQuery(query), '');
+}
+
+function getFinishedQuery(query: string): string {
     // If our finished query is "SELECT * FROM|" and we try to parse it, parser thinks that we still haven't finished writing it and doesn't show some errors.
     // In order to truly complete a finished query, we need to add space to it like so "SELECT * FROM |".
-    return parsePostgreSql(query + ' ', '');
+    return query + ' ';
 }

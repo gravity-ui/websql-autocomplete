@@ -1,0 +1,69 @@
+[
+  {
+    "namePrefix": "should not report errors on EXPLAIN SELECT statement",
+    "beforeCursor": "EXPLAIN SELECT * FROM test_table; ",
+    "afterCursor": "",
+    "noErrors": true,
+    "containsKeywords": ["SELECT"],
+    "expectedResult": {
+      "lowerCase": false
+    }
+  },
+  {
+    "namePrefix": "should not report errors on EXPLAIN DELETE statement",
+    "beforeCursor": "EXPLAIN DELETE FROM test_table; ",
+    "afterCursor": "",
+    "noErrors": true,
+    "containsKeywords": ["SELECT"],
+    "expectedResult": {
+      "lowerCase": false
+    }
+  },
+  {
+    "namePrefix": "should not report errors on EXPLAIN CREATE statement",
+    "beforeCursor": "EXPLAIN CREATE TABLE Persons (id int) ENGINE = Memory; ",
+    "afterCursor": "",
+    "noErrors": true,
+    "containsKeywords": ["SELECT"],
+    "expectedResult": {
+      "lowerCase": false
+    }
+  },
+  {
+    "namePrefix": "should report error on double EXPLAIN statement",
+    "beforeCursor": "EXPLAIN EXPLAIN SELECT * FROM test_table; ",
+    "afterCursor": "",
+    "expectedErrors": [
+      {
+        "text": "EXPLAIN",
+        "token": "EXPLAIN",
+        "loc": {
+          "first_line": 1,
+          "last_line": 1,
+          "first_column": 8,
+          "last_column": 15
+        }
+      }
+    ]
+  },
+  {
+    "namePrefix": "should suggest EXPLAIN",
+    "beforeCursor": "",
+    "afterCursor": "",
+    "noErrors": true,
+    "containsKeywords": ["EXPLAIN"],
+    "expectedResult": {
+      "lowerCase": false
+    }
+  },
+  {
+    "namePrefix": "should suggest query",
+    "beforeCursor": "EXPLAIN ",
+    "afterCursor": "",
+    "noErrors": true,
+    "containsKeywords": ["ALTER", "CREATE", "DELETE", "DROP", "INSERT", "SELECT", "SET", "UPDATE"],
+    "expectedResult": {
+      "lowerCase": false
+    }
+  }
+]

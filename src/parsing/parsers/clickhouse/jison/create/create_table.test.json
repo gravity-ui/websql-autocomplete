@@ -1,0 +1,175 @@
+[
+  {
+    "namePrefix": "should suggest keywords",
+    "beforeCursor": "CREATE ",
+    "afterCursor": "",
+    "containsKeywords": ["TABLE"],
+    "expectedResult": {
+      "lowerCase": false
+    }
+  },
+  {
+    "namePrefix": "should suggest keywords",
+    "beforeCursor": "CREATE TABLE ",
+    "afterCursor": "",
+    "expectedResult": {
+      "lowerCase": false,
+      "suggestKeywords": ["IF NOT EXISTS"]
+    }
+  },
+  {
+    "namePrefix": "should suggest keywords",
+    "beforeCursor": "CREATE TABLE IF ",
+    "afterCursor": "",
+    "expectedResult": {
+      "lowerCase": false,
+      "suggestKeywords": ["NOT EXISTS"]
+    }
+  },
+  {
+    "namePrefix": "should suggest keywords",
+    "beforeCursor": "CREATE TABLE IF NOT ",
+    "afterCursor": "",
+    "expectedResult": {
+      "lowerCase": false,
+      "suggestKeywords": ["EXISTS"]
+    }
+  },
+  {
+    "namePrefix": "should not report errors",
+    "beforeCursor": "CREATE TABLE foo (id INT);",
+    "afterCursor": "",
+    "containsKeywords": ["SELECT"],
+    "expectedResult": {
+      "lowerCase": false
+    }
+  },
+  {
+    "namePrefix": "should suggest keywords",
+    "beforeCursor": "CREATE TABLE foo (id ",
+    "afterCursor": "",
+    "containsKeywords": ["BOOLEAN"],
+    "expectedResult": {
+      "lowerCase": false
+    }
+  },
+  {
+    "namePrefix": "should suggest keywords",
+    "beforeCursor": "CREATE TABLE foo (id INT, `some` FLOAT, bar ",
+    "afterCursor": "",
+    "containsKeywords": ["BOOLEAN"],
+    "expectedResult": {
+      "lowerCase": false
+    }
+  },
+  {
+    "namePrefix": "should suggest ENGINE keyword",
+    "beforeCursor": "CREATE TABLE foo (id INT, `some` FLOAT) ",
+    "afterCursor": "",
+    "containsKeywords": ["ENGINE"],
+    "expectedResult": {
+      "lowerCase": false
+    }
+  },
+  {
+    "namePrefix": "should suggest equal symbol keyword",
+    "beforeCursor": "CREATE TABLE foo (id INT, `some` FLOAT) ENGINE ",
+    "afterCursor": "",
+    "containsKeywords": ["="],
+    "expectedResult": {
+      "lowerCase": false
+    }
+  },
+  {
+    "namePrefix": "should suggest engines",
+    "beforeCursor": "CREATE TABLE foo (id INT, `some` FLOAT) ENGINE = ",
+    "afterCursor": "",
+    "expectedResult": {
+      "lowerCase": false,
+      "suggestEngines": {
+        "engines": ["Null", "Set", "Log", "Memory", "TinyLog", "StripeLog"],
+        "functionalEngines": [
+          "MergeTree()",
+          "Merge()",
+          "ReplacingMergeTree()",
+          "CollapsingMergeTree()",
+          "AggregatingMergeTree()",
+          "Buffer()",
+          "Dictionary()",
+          "Distributed()",
+          "File()",
+          "GraphiteMergeTree()",
+          "Join()",
+          "Kafka()",
+          "MySQL()",
+          "URL()",
+          "ReplicatedAggregatingMergeTree()",
+          "ReplicatedCollapsingMergeTree()",
+          "ReplicatedGraphiteMergeTree()",
+          "ReplicatedMergeTree()",
+          "ReplicatedReplacingMergeTree()",
+          "ReplicatedSummingMergeTree()",
+          "ReplicatedVersionedCollapsingMergeTree()",
+          "SummingMergeTree()",
+          "VersionedCollapsingMergeTree()",
+          "PostgreSQL()"
+        ]
+      }
+    }
+  },
+  {
+    "namePrefix": "should not throw errors",
+    "beforeCursor": "CREATE TABLE foo (id INT, `some` FLOAT) ENGINE = Memory; ",
+    "afterCursor": "",
+    "noErrors": true,
+    "containsKeywords": ["SELECT"],
+    "expectedResult": {
+      "lowerCase": false
+    }
+  },
+  {
+    "namePrefix": "should throw error",
+    "beforeCursor": "CREATE TABLE foo (id INT, `some` FLOAT); ",
+    "afterCursor": "",
+    "noErrors": false,
+    "containsKeywords": ["SELECT"],
+    "expectedErrors": [
+      {
+        "text": ";",
+        "token": ";",
+        "line": 0,
+        "loc": {"first_line": 1, "last_line": 1, "first_column": 39, "last_column": 40}
+      }
+    ],
+    "expectedResult": {
+      "lowerCase": false
+    }
+  },
+  {
+    "namePrefix": "should not throw error",
+    "beforeCursor": "CREATE TABLE foo (id INT, `some` FLOAT) ENGINE = ReplacingMergeTree(update_ts); ",
+    "afterCursor": "",
+    "noErrors": true,
+    "containsKeywords": ["SELECT"],
+    "expectedResult": {
+      "lowerCase": false
+    }
+  },
+  {
+    "namePrefix": "should throw error",
+    "beforeCursor": "CREATE TABLE foo (id INT, `some` FLOAT) ENGINE = ReplacingMergeTree(update_ts, ) ",
+    "afterCursor": "",
+    "noErrors": false,
+    "expectedErrors": [
+      {
+        "text": ")",
+        "token": ")",
+        "line": 0,
+        "loc": {"first_line": 1, "last_line": 1, "first_column": 79, "last_column": 80}
+      }
+    ],
+    "expectedResult": {
+      "lowerCase": false
+    }
+  }
+]

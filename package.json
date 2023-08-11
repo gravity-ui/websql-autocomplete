@@ -21,7 +21,7 @@
     "postinstall": "if [ -e src/generator ]; then cd src/generator && npm install; fi",
     "test": "npm run generate && npm run test_without_generate",
     "test_without_generate": "jest src/parsing",
-    "generate": "cd src/generator && node main.js generic postgresql",
+    "generate": "cd src/generator && node main.js generic postgresql clickhouse",
     "lint": "npm run prettier -- --check",
     "fix": "npm run prettier -- --write",
     "prettier": "prettier \"**/*.{md,yaml,yml,json}\"",
