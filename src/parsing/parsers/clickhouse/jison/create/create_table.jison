@@ -519,4 +519,5 @@ EngineTypeFunctional
  | 'ReplicatedVersionedCollapsingMergeTree'
  | 'SummingMergeTree'
  | 'VersionedCollapsingMergeTree'
+ | 'PostgreSQL'
  ;

@@ -164,6 +164,7 @@
 'ReplicatedVersionedCollapsingMergeTree'   { return 'ReplicatedVersionedCollapsingMergeTree'; }
 'SummingMergeTree'                         { return 'SummingMergeTree'; }
 'VersionedCollapsingMergeTree'             { return 'VersionedCollapsingMergeTree'; }
+'PostgreSQL'                               { return 'PostgreSQL'; }
 
 // Non-reserved Keywords
 'OVER'                                     { return 'OVER'; }

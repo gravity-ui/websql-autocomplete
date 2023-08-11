@@ -81,6 +81,43 @@
     }
   },
   {
+    "namePrefix": "should suggest engines",
+    "beforeCursor": "CREATE TABLE foo (id INT, `some` FLOAT) ENGINE = ",
+    "afterCursor": "",
+    "expectedResult": {
+      "lowerCase": false,
+      "suggestEngines": {
+        "engines": ["Null", "Set", "Log", "Memory", "TinyLog", "StripeLog"],
+        "functionalEngines": [
+          "MergeTree()",
+          "Merge()",
+          "ReplacingMergeTree()",
+          "CollapsingMergeTree()",
+          "AggregatingMergeTree()",
+          "Buffer()",
+          "Dictionary()",
+          "Distributed()",
+          "File()",
+          "GraphiteMergeTree()",
+          "Join()",
+          "Kafka()",
+          "MySQL()",
+          "URL()",
+          "ReplicatedAggregatingMergeTree()",
+          "ReplicatedCollapsingMergeTree()",
+          "ReplicatedGraphiteMergeTree()",
+          "ReplicatedMergeTree()",
+          "ReplicatedReplacingMergeTree()",
+          "ReplicatedSummingMergeTree()",
+          "ReplicatedVersionedCollapsingMergeTree()",
+          "SummingMergeTree()",
+          "VersionedCollapsingMergeTree()",
+          "PostgreSQL()"
+        ]
+      }
+    }
+  },
+  {
     "namePrefix": "should not throw errors",
     "beforeCursor": "CREATE TABLE foo (id INT, `some` FLOAT) ENGINE = Memory; ",
     "afterCursor": "",

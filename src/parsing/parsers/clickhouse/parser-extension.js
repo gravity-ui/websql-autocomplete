@@ -1332,6 +1332,7 @@ export const extendParser = function (parser) {
       'ReplicatedVersionedCollapsingMergeTree()',
       'SummingMergeTree()',
       'VersionedCollapsingMergeTree()',
+      'PostgreSQL()',
     ]
 
     parser.yy.result.suggestEngines = {
