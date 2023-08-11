@@ -21,7 +21,7 @@
   },
   {
     "namePrefix": "should not report errors on EXPLAIN CREATE statement",
-    "beforeCursor": "EXPLAIN CREATE TABLE Persons (id int) ENGINE = some; ",
+    "beforeCursor": "EXPLAIN CREATE TABLE Persons (id int) ENGINE = Memory; ",
     "afterCursor": "",
     "noErrors": true,
     "containsKeywords": ["SELECT"],

@@ -470,15 +470,60 @@ OptionalEngineTypeSet
  ;
 
 EngineTypeSet
- : 'ENGINE' '=' 'REGULAR_IDENTIFIER'
- | 'ENGINE' '=' 'REGULAR_IDENTIFIER' ArbitraryFunctionRightPart
+ : 'ENGINE' '=' EngineType
+ | 'ENGINE' '=' EngineTypeFunctional ArbitraryFunctionRightPart
  ;
 
 EngineTypeSet_EDIT
  : 'ENGINE' 'CURSOR'
  {
-   parser.suggestKeywords(['='])
+   parser.suggestKeywords(['=']);
  }
  | 'ENGINE' '=' 'CURSOR'
- | 'ENGINE' '=' ArbitraryFunctionRightPart_EDIT
+ {
+   parser.suggestKeywords([
+    'Null',
+    'Set',
+    'Log',
+    'Memory',
+    'TinyLog',
+    'StripeLog'
+   ]);
+ }
+ | 'ENGINE' '=' EngineTypeFunctional ArbitraryFunctionRightPart_EDIT
+ ;
+
+EngineType
+ : 'Null'
+ | 'Set'
+ | 'Log'
+ | 'Memory'
+ | 'TinyLog'
+ | 'StripeLog'
+ ;
+
+EngineTypeFunctional
+ : 'MergeTree'
+ | 'Merge'
+ | 'ReplacingMergeTree'
+ | 'CollapsingMergeTree'
+ | 'AggregatingMergeTree'
+ | 'Buffer'
+ | 'Dictionary'
+ | 'Distributed'
+ | 'File'
+ | 'GraphiteMergeTree'
+ | 'Join'
+ | 'Kafka'
+ | 'MySQL'
+ | 'URL'
+ | 'ReplicatedAggregatingMergeTree'
+ | 'ReplicatedCollapsingMergeTree'
+ | 'ReplicatedGraphiteMergeTree'
+ | 'ReplicatedMergeTree'
+ | 'ReplicatedReplacingMergeTree'
+ | 'ReplicatedSummingMergeTree'
+ | 'ReplicatedVersionedCollapsingMergeTree'
+ | 'SummingMergeTree'
+ | 'VersionedCollapsingMergeTree'
  ;

@@ -132,6 +132,39 @@
 'WHERE'                                    { return 'WHERE'; }
 'WITH'                                     { parser.determineCase(yytext); parser.addStatementTypeLocation('WITH', yylloc); return 'WITH'; }
 
+// Engine types
+'Null'                                     { return 'Null'; }
+'Set'                                      { return 'Set'; }
+'Log'                                      { return 'Log'; }
+'MEMORY'                                   { return 'Memory'; }
+'TinyLog'                                  { return 'TinyLog'; }
+'StripeLog'                                { return 'StripeLog'; }
+
+// Functional engine types
+'MergeTree'                                { return 'MergeTree'; }
+'Merge'                                    { return 'Merge'; }
+'ReplacingMergeTree'                       { return 'ReplacingMergeTree'; }
+'CollapsingMergeTree'                      { return 'CollapsingMergeTree'; }
+'AggregatingMergeTree'                     { return 'AggregatingMergeTree'; }
+'Buffer'                                   { return 'Buffer'; }
+'Dictionary'                               { return 'Dictionary'; }
+'Distributed'                              { return 'Distributed'; }
+'File'                                     { return 'File'; }
+'GraphiteMergeTree'                        { return 'GraphiteMergeTree'; }
+'Join'                                     { return 'Join'; }
+'Kafka'                                    { return 'Kafka'; }
+'MySQL'                                    { return 'MySQL'; }
+'URL'                                      { return 'URL'; }
+'ReplicatedAggregatingMergeTree'           { return 'ReplicatedAggregatingMergeTree'; }
+'ReplicatedCollapsingMergeTree'            { return 'ReplicatedCollapsingMergeTree'; }
+'ReplicatedGraphiteMergeTree'              { return 'ReplicatedGraphiteMergeTree'; }
+'ReplicatedMergeTree'                      { return 'ReplicatedMergeTree'; }
+'ReplicatedReplacingMergeTree'             { return 'ReplicatedReplacingMergeTree'; }
+'ReplicatedSummingMergeTree'               { return 'ReplicatedSummingMergeTree'; }
+'ReplicatedVersionedCollapsingMergeTree'   { return 'ReplicatedVersionedCollapsingMergeTree'; }
+'SummingMergeTree'                         { return 'SummingMergeTree'; }
+'VersionedCollapsingMergeTree'             { return 'VersionedCollapsingMergeTree'; }
+
 // Non-reserved Keywords
 'OVER'                                     { return 'OVER'; }
 'ROLE'                                     { return 'ROLE'; }
@@ -241,36 +274,3 @@ ROW_NUMBER\s*\(                            { yy.lexer.unput('('); yytext = 'row_
 <backtickedValue>.                         { }
 <singleQuotedValue>.                       { }
 <doubleQuotedValue>.                       { }
-
-// Engine types
-'Null'                                     { return 'Null'; }
-'Set'                                      { return 'Set'; }
-'Log'                                      { return 'Log'; }
-'Memory'                                   { return 'Memory'; }
-'TinyLog'                                  { return 'TinyLog'; }
-'StripeLog'                                { return 'StripeLog'; }
-
-// Functional engine types
-'MergeTree'                                { return 'MergeTree'; }
-'Merge'                                    { return 'Merge'; }
-'ReplacingMergeTree'                       { return 'ReplacingMergeTree'; }
-'CollapsingMergeTree'                      { return 'CollapsingMergeTree'; }
-'AggregatingMergeTree'                     { return 'AggregatingMergeTree'; }
-'Buffer'                                   { return 'Buffer'; }
-'Dictionary'                               { return 'Dictionary'; }
-'Distributed'                              { return 'Distributed'; }
-'File'                                     { return 'File'; }
-'GraphiteMergeTree'                        { return 'GraphiteMergeTree'; }
-'Join'                                     { return 'Join'; }
-'Kafka'                                    { return 'Kafka'; }
-'MySQL'                                    { return 'MySQL'; }
-'URL'                                      { return 'URL'; }
-'ReplicatedAggregatingMergeTree'           { return 'ReplicatedAggregatingMergeTree'; }
-'ReplicatedCollapsingMergeTree'            { return 'ReplicatedCollapsingMergeTree'; }
-'ReplicatedGraphiteMergeTree'              { return 'ReplicatedGraphiteMergeTree'; }
-'ReplicatedMergeTree'                      { return 'ReplicatedMergeTree'; }
-'ReplicatedReplacingMergeTree'             { return 'ReplicatedReplacingMergeTree'; }
-'ReplicatedSummingMergeTree'               { return 'ReplicatedSummingMergeTree'; }
-'ReplicatedVersionedCollapsingMergeTree'   { return 'ReplicatedVersionedCollapsingMergeTree'; }
-'SummingMergeTree'                         { return 'SummingMergeTree'; }
-'VersionedCollapsingMergeTree'             { return 'VersionedCollapsingMergeTree'; }
