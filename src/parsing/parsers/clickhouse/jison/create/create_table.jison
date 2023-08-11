@@ -481,14 +481,7 @@ EngineTypeSet_EDIT
  }
  | 'ENGINE' '=' 'CURSOR'
  {
-   parser.suggestKeywords([
-    'Null',
-    'Set',
-    'Log',
-    'Memory',
-    'TinyLog',
-    'StripeLog'
-   ]);
+   parser.suggestEngines();
  }
  | 'ENGINE' '=' EngineTypeFunctional ArbitraryFunctionRightPart_EDIT
  ;

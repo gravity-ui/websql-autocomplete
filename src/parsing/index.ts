@@ -34,6 +34,10 @@ export interface ParseResult {
     suggestGroupBys?: unknown;
     suggestIdentifiers?: IdentifierSuggestion[];
     suggestTemplates?: boolean;
+    suggestEngines?: {
+        engines: string[],
+        functionalEngines: string[]
+    };
 }
 
 export type StatementPart =

@@ -365,7 +365,12 @@ case 203:
 break;
 case 208:
 
-   parser.suggestKeywords(['='])
+   parser.suggestKeywords(['=']);
+ 
+break;
+case 209:
+
+   parser.suggestEngines();
  
 break;
 case 241:

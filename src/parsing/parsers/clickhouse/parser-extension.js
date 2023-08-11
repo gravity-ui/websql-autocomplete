@@ -1298,6 +1298,48 @@ export const extendParser = function (parser) {
     parser.yy.result.suggestTemplates = true;
   }
 
+  parser.suggestEngines = function() {
+    const engines = [
+      'Null',
+      'Set',
+      'Log',
+      'Memory',
+      'TinyLog',
+      'StripeLog'
+    ]
+
+    const functionalEngines = [
+      'MergeTree()',
+      'Merge()',
+      'ReplacingMergeTree()',
+      'CollapsingMergeTree()',
+      'AggregatingMergeTree()',
+      'Buffer()',
+      'Dictionary()',
+      'Distributed()',
+      'File()',
+      'GraphiteMergeTree()',
+      'Join()',
+      'Kafka()',
+      'MySQL()',
+      'URL()',
+      'ReplicatedAggregatingMergeTree()',
+      'ReplicatedCollapsingMergeTree()',
+      'ReplicatedGraphiteMergeTree()',
+      'ReplicatedMergeTree()',
+      'ReplicatedReplacingMergeTree()',
+      'ReplicatedSummingMergeTree()',
+      'ReplicatedVersionedCollapsingMergeTree()',
+      'SummingMergeTree()',
+      'VersionedCollapsingMergeTree()',
+    ]
+
+    parser.yy.result.suggestEngines = {
+      engines: engines,
+      functionalEngines: functionalEngines
+    }
+  }
+
   /**
    * Main parser function
    */
