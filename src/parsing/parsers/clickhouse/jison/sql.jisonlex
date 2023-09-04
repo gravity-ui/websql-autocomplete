@@ -164,6 +164,7 @@
 'LONGBLOB'                                 { return 'LONGBLOB'; }
 'MEDIUMBLOB'                               { return 'MEDIUMBLOB'; }
 'TINYBLOB'                                 { return 'TINYBLOB'; }
+'BLOB'                                     { return 'BLOB'; }
 'BIGINT'                                   { return 'BIGINT'; }
 'SMALLINT'                                 { return 'SMALLINT'; }
 'TIMESTAMP'                                { return 'TIMESTAMP'; }

@@ -709,6 +709,7 @@ PrimitiveType
  | 'LONGBLOB' OptionalTypeLength
  | 'MEDIUMBLOB' OptionalTypeLength
  | 'TINYBLOB' OptionalTypeLength
+ | 'BLOB' OptionalTypeLength
  | 'BIGINT'
  | 'SMALLINT'
  | 'INTEGER'
