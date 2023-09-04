@@ -706,21 +706,19 @@ PrimitiveType
  | 'IntervalQuarter'
  | 'UUID'
  | 'IntervalYear'
- | 'LONGBLOB'
- | 'MEDIUMBLOB'
- | 'TINYBLOB'
+ | 'LONGBLOB' OptionalTypeLength
+ | 'MEDIUMBLOB' OptionalTypeLength
+ | 'TINYBLOB' OptionalTypeLength
  | 'BIGINT'
  | 'SMALLINT'
- | 'TIMESTAMP'
  | 'INTEGER'
  | 'INT'
  | 'DOUBLE'
- | 'MEDIUMTEXT'
+ | 'MEDIUMTEXT' OptionalTypeLength
  | 'TINYINT'
- | 'DEC'
- | 'BINARY'
+ | 'DEC' TypeNumberRange
  | 'FLOAT'
- | 'CHAR'
+ | 'CHAR' OptionalTypeLength
  ;
 
 TypeLength

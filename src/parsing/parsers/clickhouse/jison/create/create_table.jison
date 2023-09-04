@@ -204,6 +204,18 @@ ColumnDataType
  | DateTimeType
  | TupleType
  | 'Nested' ParenthesizedColumnSpecificationList
+ | TimestampType
+ | BinaryType
+ ;
+
+BinaryType
+ : 'BINARY' '(' 'UNSIGNED_INTEGER' ')'
+ | 'BINARY' '(' 'NULL' ')'
+ ;
+
+TimestampType
+ : 'TIMESTAMP' '(' QuotedValue ')'
+ | 'TIMESTAMP' '(' 'NULL' ')'
  ;
 
 ColumnDataType_EDIT
@@ -215,8 +227,7 @@ TupleType
  ;
 
 DateTimeType
- : 'DateTime' '(' SingleQuotedValue ')'
- | 'DateTime' '(' DoubleQuotedValue ')'
+ : 'DateTime' '(' QuotedValue ')'
  ;
 
 PrimitiveTypeList
@@ -236,12 +247,9 @@ EnumSet
  ;
 
 EnumItem
- : SingleQuotedValue
- | SingleQuotedValue '=' 'UNSIGNED_INTEGER'
- | SingleQuotedValue '=' '-' 'UNSIGNED_INTEGER'
- | DoubleQuotedValue
- | DoubleQuotedValue '=' 'UNSIGNED_INTEGER'
- | DoubleQuotedValue '=' '-' 'UNSIGNED_INTEGER'
+ : QuotedValue
+ | QuotedValue '=' 'UNSIGNED_INTEGER'
+ | QuotedValue '=' '-' 'UNSIGNED_INTEGER'
  ;
 
 LowCardinalityType
