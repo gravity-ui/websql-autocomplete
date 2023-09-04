@@ -48,7 +48,7 @@
     "namePrefix": "should suggest keywords",
     "beforeCursor": "CREATE TABLE foo (id ",
     "afterCursor": "",
-    "containsKeywords": ["BOOLEAN"],
+    "containsKeywords": ["DOUBLE"],
     "expectedResult": {
       "lowerCase": false
     }
@@ -57,7 +57,7 @@
     "namePrefix": "should suggest keywords",
     "beforeCursor": "CREATE TABLE foo (id INT, `some` FLOAT, bar ",
     "afterCursor": "",
-    "containsKeywords": ["BOOLEAN"],
+    "containsKeywords": ["DOUBLE"],
     "expectedResult": {
       "lowerCase": false
     }
@@ -157,7 +157,7 @@
   },
   {
     "namePrefix": "should throw error",
-    "beforeCursor": "CREATE TABLE foo (id INT, `some` FLOAT) ENGINE = ReplacingMergeTree(update_ts, ) ",
+    "beforeCursor": "CREATE TABLE foo (id UInt32, `some` Float64) ENGINE = ReplacingMergeTree(update_ts, ) ",
     "afterCursor": "",
     "noErrors": false,
     "expectedErrors": [
@@ -165,9 +165,109 @@
         "text": ")",
         "token": ")",
         "line": 0,
-        "loc": {"first_line": 1, "last_line": 1, "first_column": 79, "last_column": 80}
+        "loc": {"first_line": 1, "last_line": 1, "first_column": 84, "last_column": 85}
       }
     ],
+    "expectedResult": {
+      "lowerCase": false
+    }
+  },
+  {
+    "namePrefix": "should accept Enum argument",
+    "beforeCursor": "CREATE TABLE foo (id Enum8('string' = 1)) ENGINE = Memory; ",
+    "afterCursor": "",
+    "noErrors": true,
+    "containsKeywords": ["SELECT"],
+    "expectedResult": {
+      "lowerCase": false
+    }
+  },
+  {
+    "namePrefix": "should accept Enum argument",
+    "beforeCursor": "CREATE TABLE foo (id Enum8('string' = 1, 'string', 'string')) ENGINE = Memory; ",
+    "afterCursor": "",
+    "noErrors": true,
+    "containsKeywords": ["SELECT"],
+    "expectedResult": {
+      "lowerCase": false
+    }
+  },
+  {
+    "namePrefix": "should accept simple aggregate function",
+    "beforeCursor": "CREATE TABLE foo (id SimpleAggregateFunction(sum, DOUBLE)) ENGINE = Memory; ",
+    "afterCursor": "",
+    "noErrors": true,
+    "containsKeywords": ["SELECT"],
+    "expectedResult": {
+      "lowerCase": false
+    }
+  },
+  {
+    "namePrefix": "should accept Decimal64",
+    "beforeCursor": "CREATE TABLE foo (id Decimal64(12)) ENGINE = Memory; ",
+    "afterCursor": "",
+    "noErrors": true,
+    "containsKeywords": ["SELECT"],
+    "expectedResult": {
+      "lowerCase": false
+    }
+  },
+  {
+    "namePrefix": "should accept Decimal",
+    "beforeCursor": "CREATE TABLE foo (id Decimal(12, 12)) ENGINE = Memory; ",
+    "afterCursor": "",
+    "noErrors": true,
+    "containsKeywords": ["SELECT"],
+    "expectedResult": {
+      "lowerCase": false
+    }
+  },
+  {
+    "namePrefix": "should accept Nullable",
+    "beforeCursor": "CREATE TABLE foo (id Nullable(Decimal(12, 12))) ENGINE = Memory; ",
+    "afterCursor": "",
+    "noErrors": true,
+    "containsKeywords": ["SELECT"],
+    "expectedResult": {
+      "lowerCase": false
+    }
+  },
+  {
+    "namePrefix": "should accept aggregate function",
+    "beforeCursor": "CREATE TABLE foo (id AggregateFunction(sum, DOUBLE)) ENGINE = Memory; ",
+    "afterCursor": "",
+    "noErrors": true,
+    "containsKeywords": ["SELECT"],
+    "expectedResult": {
+      "lowerCase": false
+    }
+  },
+  {
+    "namePrefix": "should accept date time",
+    "beforeCursor": "CREATE TABLE foo (id DateTime('Some/Timezone')) ENGINE = Memory; ",
+    "afterCursor": "",
+    "noErrors": true,
+    "containsKeywords": ["SELECT"],
+    "expectedResult": {
+      "lowerCase": false
+    }
+  },
+  {
+    "namePrefix": "should accept date time",
+    "beforeCursor": "CREATE TABLE foo (id Tuple(s String, i Int64)) ENGINE = Memory; ",
+    "afterCursor": "",
+    "noErrors": true,
+    "containsKeywords": ["SELECT"],
+    "expectedResult": {
+      "lowerCase": false
+    }
+  },
+  {
+    "namePrefix": "should accept date time",
+    "beforeCursor": "CREATE TABLE foo (id Nested(id String, data Int64)) ENGINE = Memory; ",
+    "afterCursor": "",
+    "noErrors": true,
+    "containsKeywords": ["SELECT"],
     "expectedResult": {
       "lowerCase": false
     }

@@ -54,7 +54,7 @@
     "../../generic/jison/update/update_table.jison",
     "../../generic/jison/use/use.jison",
     "../../generic/jison/sql_error.jison",
-    "../../generic/jison/sql_main.jison",
+    "./sql_main.jison",
     "../../generic/jison/sql_table.jison",
     "../../generic/jison/sql_valueExpression.jison",
     "../../generic/jison/autocomplete_footer.jison"

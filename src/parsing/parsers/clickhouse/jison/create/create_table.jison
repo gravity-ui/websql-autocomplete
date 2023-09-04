@@ -195,69 +195,62 @@ ColumnOption_EDIT
 ColumnDataType
  : PrimitiveType
  | ArrayType
- | MapType
- | StructType
- | ArrayType_INVALID
- | MapType_INVALID
- | StructType_INVALID
+ | LowCardinalityType
+ | EnumType
+ | 'Nullable' '(' PrimitiveType ')'
+ | 'FixedString' OptionalTypeLength
+ | 'AGGREGATE_FUNCTION' '(' 'REGULAR_IDENTIFIER' ',' PrimitiveTypeList ')'
+ | 'SIMPLE_AGGREGATE_FUNCTION' '(' 'REGULAR_IDENTIFIER' ',' PrimitiveType ')'
+ | DateTimeType
+ | TupleType
+ | 'Nested' ParenthesizedColumnSpecificationList
  ;
 
 ColumnDataType_EDIT
- : ArrayType_EDIT
- | MapType_EDIT
- | StructType_EDIT
+ : 'Nested' ParenthesizedColumnSpecificationList_EDIT
+ ;
+
+TupleType
+ : 'Tuple' '(' 'REGULAR_IDENTIFIER' PrimitiveType ',' 'REGULAR_IDENTIFIER' PrimitiveType ')'
+ ;
+
+DateTimeType
+ : 'DateTime' '(' SingleQuotedValue ')'
+ | 'DateTime' '(' DoubleQuotedValue ')'
+ ;
+
+PrimitiveTypeList
+ : PrimitiveType
+ | PrimitiveTypeList ',' PrimitiveType
+ ;
+
+EnumType
+ : 'Enum16' '(' EnumSet ')'
+ | 'Enum8' '(' EnumSet ')'
+ | 'Enum' '(' EnumSet ')'
+ ;
+
+EnumSet
+ : EnumItem
+ | EnumSet ',' EnumItem
+ ;
+
+EnumItem
+ : SingleQuotedValue
+ | SingleQuotedValue '=' 'UNSIGNED_INTEGER'
+ | SingleQuotedValue '=' '-' 'UNSIGNED_INTEGER'
+ | DoubleQuotedValue
+ | DoubleQuotedValue '=' 'UNSIGNED_INTEGER'
+ | DoubleQuotedValue '=' '-' 'UNSIGNED_INTEGER'
+ ;
+
+LowCardinalityType
+ : 'LowCardinality' '(' PrimitiveType ')'
  ;
 
 ArrayType
- : 'ARRAY' '<' ColumnDataType '>'
- ;
-
-ArrayType_INVALID
- : 'ARRAY' '<' '>'
- ;
-
-ArrayType_EDIT
- : 'ARRAY' '<' AnyCursor GreaterThanOrError
-   {
-     parser.suggestKeywords(parser.getColumnDataTypeKeywords());
-   }
- | 'ARRAY' '<' ColumnDataType_EDIT GreaterThanOrError
- ;
-
-MapType
- : 'MAP' '<' PrimitiveType ',' ColumnDataType '>'
- ;
-
-MapType_INVALID
- : 'MAP' '<' '>'
- ;
-
-MapType_EDIT
- : 'MAP' '<' PrimitiveType ',' ColumnDataType_EDIT GreaterThanOrError
- | 'MAP' '<' AnyCursor GreaterThanOrError
-   {
-     parser.suggestKeywords(parser.getTypeKeywords());
-   }
- | 'MAP' '<' PrimitiveType ',' AnyCursor GreaterThanOrError
-   {
-     parser.suggestKeywords(parser.getColumnDataTypeKeywords());
-   }
- | 'MAP' '<' ',' AnyCursor GreaterThanOrError
-   {
-     parser.suggestKeywords(parser.getColumnDataTypeKeywords());
-   }
- ;
-
-StructType
- : 'STRUCT' '<' StructDefinitionList '>'
- ;
-
-StructType_INVALID
- : 'STRUCT' '<' '>'
- ;
-
-StructType_EDIT
- : 'STRUCT' '<' StructDefinitionList_EDIT GreaterThanOrError
+ : 'Array' '(' ArrayType ')'
+ | 'Array' '(' PrimitiveType ')'
  ;
 
 StructDefinitionList
