@@ -678,29 +678,71 @@ PartialBacktickedIdentifierOrPartialCursor
  ;
 
 PrimitiveType
- : 'BIGINT'
- | 'BOOLEAN'
- | 'CHAR' OptionalTypeLength
- | 'DECIMAL' OptionalTypePrecision
- | 'DOUBLE'
- | 'FLOAT'
- | 'INT'
+ : 'IPv6'
+ | 'IPv4'
+ | 'Decimal' TypeNumberRange
+ | 'String'
+ | 'Decimal64' TypeLength
+ | 'Decimal32' TypeLength
+ | 'Decimal128' TypeLength
+ | 'Float64'
+ | 'Float32'
+ | 'Int64'
+ | 'Nothing'
+ | 'UInt16'
+ | 'UInt32'
+ | 'Date'
+ | 'Int8'
+ | 'Int32'
+ | 'UInt64'
+ | 'IntervalSecond'
+ | 'Int16'
+ | 'IntervalMonth'
+ | 'IntervalMinute'
+ | 'IntervalHour'
+ | 'IntervalWeek'
+ | 'IntervalDay'
+ | 'UInt8'
+ | 'IntervalQuarter'
+ | 'UUID'
+ | 'IntervalYear'
+ | 'LONGBLOB'
+ | 'MEDIUMBLOB'
+ | 'TINYBLOB'
+ | 'BIGINT'
  | 'SMALLINT'
- | 'STRING'
  | 'TIMESTAMP'
+ | 'INTEGER'
+ | 'INT'
+ | 'DOUBLE'
+ | 'MEDIUMTEXT'
  | 'TINYINT'
- | 'VARCHAR' OptionalTypeLength
+ | 'DEC'
+ | 'BINARY'
+ | 'FLOAT'
+ | 'CHAR'
+ ;
+
+TypeLength
+ : '(' 'UNSIGNED_INTEGER' ')'
  ;
 
 OptionalTypeLength
  :
- | '(' 'UNSIGNED_INTEGER' ')'
+ | TypeLength
+ ;
+
+TypePrecision
+ : '(' 'UNSIGNED_INTEGER' ')'
+ | '(' 'UNSIGNED_INTEGER' ',' 'UNSIGNED_INTEGER' ')'
  ;
 
 OptionalTypePrecision
  :
- | '(' 'UNSIGNED_INTEGER' ')'
- | '(' 'UNSIGNED_INTEGER' ',' 'UNSIGNED_INTEGER' ')'
+ | TypePrecision
+ ;
+TypeNumberRange
+ : '(' 'UNSIGNED_INTEGER' ',' 'UNSIGNED_INTEGER' ')'
  ;
 
 ValueExpression
