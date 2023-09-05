@@ -1,0 +1,71 @@
+[
+  {
+    "namePrefix": "should suggest keywords",
+    "beforeCursor": "[;;",
+    "afterCursor": "",
+    "containsKeywords": ["SELECT"],
+    "expectedResult": {
+      "lowerCase": false
+    }
+  },
+  {
+    "namePrefix": "should suggest keywords",
+    "beforeCursor": ";",
+    "afterCursor": ";",
+    "containsKeywords": ["SELECT"],
+    "expectedResult": {
+      "lowerCase": false
+    }
+  },
+  {
+    "namePrefix": "should suggest keywords",
+    "beforeCursor": "",
+    "afterCursor": ";;;;",
+    "containsKeywords": ["SELECT"],
+    "expectedResult": {
+      "lowerCase": false
+    }
+  },
+  {
+    "namePrefix": "should suggest keywords",
+    "beforeCursor": "foo",
+    "afterCursor": "bar",
+    "containsKeywords": ["SELECT"],
+    "expectedResult": {
+      "lowerCase": false
+    }
+  },
+  {
+    "namePrefix": "should contain suggestTemplates",
+    "beforeCursor": "",
+    "afterCursor": "",
+    "containsKeywords": ["SELECT"],
+    "expectedResult": {
+      "lowerCase": false,
+      "suggestTemplates": true
+    }
+  },
+  {
+    "namePrefix": "should contain suggestTemplates with EXPLAIN prefix",
+    "beforeCursor": "EXPLAIN ",
+    "afterCursor": "",
+    "containsKeywords": ["SELECT"],
+    "expectedResult": {
+      "lowerCase": false,
+      "suggestTemplates": true
+    }
+  },
+  {
+    "namePrefix": "should not contain suggestTemplates",
+    "beforeCursor": "SELECT * FROM ",
+    "afterCursor": "",
+    "expectedResult": {
+      "lowerCase": false,
+      "suggestTemplates": false,
+      "suggestTables": {},
+      "suggestDatabases": {
+        "appendDot": true
+      }
+    }
+  }
+]

@@ -25,7 +25,7 @@
     "../../generic/jison/select/joins.jison",
     "../../generic/jison/select/limit_clause.jison",
     "../../generic/jison/select/order_by_clause.jison",
-    "../../generic/jison/select/select.jison",
+    "./select/select.jison",
     "../../generic/jison/select/select_conditions.jison",
     "../../generic/jison/select/union_clause.jison",
     "../../generic/jison/select/where_clause.jison",
@@ -54,7 +54,7 @@
     "../../generic/jison/update/update_table.jison",
     "../../generic/jison/use/use.jison",
     "../../generic/jison/sql_error.jison",
-    "../../generic/jison/sql_main.jison",
+    "./sql_main.jison",
     "../../generic/jison/sql_table.jison",
     "../../generic/jison/sql_valueExpression.jison",
     "../../generic/jison/autocomplete_footer.jison"

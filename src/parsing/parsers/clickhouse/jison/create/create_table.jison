@@ -195,69 +195,96 @@ ColumnOption_EDIT
 ColumnDataType
  : PrimitiveType
  | ArrayType
- | MapType
- | StructType
- | ArrayType_INVALID
- | MapType_INVALID
- | StructType_INVALID
+ | LowCardinalityType
+ | EnumType
+ | 'Nullable' '(' PrimitiveType ')'
+ | 'FixedString' OptionalTypeLength
+ | AggregateFunctionType
+ | DateTimeType
+ | TupleType
+ | 'Nested' ParenthesizedColumnSpecificationList
+ | TimestampType
+ | BinaryType
+ | GeoType
+ | 'IPv6'
+ | 'IPv4'
+ | 'Nothing'
+ | 'Date'
+ | 'IntervalSecond'
+ | 'IntervalMonth'
+ | 'IntervalMinute'
+ | 'IntervalHour'
+ | 'IntervalWeek'
+ | 'IntervalDay'
+ | 'IntervalQuarter'
+ | 'IntervalYear'
+ | 'DOUBLE'
+ | 'Map' '(' PrimitiveType ',' PrimitiveType ')'
+ ;
+
+GeoType
+ : 'Point'
+ | 'Ring'
+ | 'Polygon'
+ | 'MultiPolygon'
+ ;
+
+AggregateFunctionType
+ : 'AGGREGATE_FUNCTION' '(' 'REGULAR_IDENTIFIER' ',' PrimitiveTypeList ')'
+ | 'SIMPLE_AGGREGATE_FUNCTION' '(' 'REGULAR_IDENTIFIER' ',' PrimitiveType ')'
+ ;
+
+BinaryType
+ : 'BINARY' '(' 'UNSIGNED_INTEGER' ')'
+ | 'BINARY' '(' 'NULL' ')'
+ ;
+
+TimestampType
+ : 'TIMESTAMP' '(' QuotedValue ')'
+ | 'TIMESTAMP' '(' 'NULL' ')'
  ;
 
 ColumnDataType_EDIT
- : ArrayType_EDIT
- | MapType_EDIT
- | StructType_EDIT
+ : 'Nested' ParenthesizedColumnSpecificationList_EDIT
+ ;
+
+TupleType
+ : 'Tuple' '(' 'REGULAR_IDENTIFIER' PrimitiveType ',' 'REGULAR_IDENTIFIER' PrimitiveType ')'
+ ;
+
+DateTimeType
+ : 'DateTime' '(' QuotedValue ')'
+ ;
+
+PrimitiveTypeList
+ : PrimitiveType
+ | PrimitiveTypeList ',' PrimitiveType
+ ;
+
+EnumType
+ : 'Enum16' '(' EnumSet ')'
+ | 'Enum8' '(' EnumSet ')'
+ | 'Enum' '(' EnumSet ')'
+ ;
+
+EnumSet
+ : EnumItem
+ | EnumSet ',' EnumItem
+ ;
+
+EnumItem
+ : QuotedValue
+ | QuotedValue '=' 'UNSIGNED_INTEGER'
+ | QuotedValue '=' '-' 'UNSIGNED_INTEGER'
+ ;
+
+LowCardinalityType
+ : 'LowCardinality' '(' PrimitiveType ')'
  ;
 
 ArrayType
- : 'ARRAY' '<' ColumnDataType '>'
- ;
-
-ArrayType_INVALID
- : 'ARRAY' '<' '>'
- ;
-
-ArrayType_EDIT
- : 'ARRAY' '<' AnyCursor GreaterThanOrError
-   {
-     parser.suggestKeywords(parser.getColumnDataTypeKeywords());
-   }
- | 'ARRAY' '<' ColumnDataType_EDIT GreaterThanOrError
- ;
-
-MapType
- : 'MAP' '<' PrimitiveType ',' ColumnDataType '>'
- ;
-
-MapType_INVALID
- : 'MAP' '<' '>'
- ;
-
-MapType_EDIT
- : 'MAP' '<' PrimitiveType ',' ColumnDataType_EDIT GreaterThanOrError
- | 'MAP' '<' AnyCursor GreaterThanOrError
-   {
-     parser.suggestKeywords(parser.getTypeKeywords());
-   }
- | 'MAP' '<' PrimitiveType ',' AnyCursor GreaterThanOrError
-   {
-     parser.suggestKeywords(parser.getColumnDataTypeKeywords());
-   }
- | 'MAP' '<' ',' AnyCursor GreaterThanOrError
-   {
-     parser.suggestKeywords(parser.getColumnDataTypeKeywords());
-   }
- ;
-
-StructType
- : 'STRUCT' '<' StructDefinitionList '>'
- ;
-
-StructType_INVALID
- : 'STRUCT' '<' '>'
- ;
-
-StructType_EDIT
- : 'STRUCT' '<' StructDefinitionList_EDIT GreaterThanOrError
+ : 'Array' '(' ArrayType ')'
+ | 'Array' '(' PrimitiveType ')'
  ;
 
 StructDefinitionList
