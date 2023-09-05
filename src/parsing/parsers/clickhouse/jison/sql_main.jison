@@ -686,9 +686,12 @@ StringType
  : 'LONGBLOB' OptionalTypeLength
  | 'MEDIUMBLOB' OptionalTypeLength
  | 'TINYBLOB' OptionalTypeLength
+ | 'TINYTEXT' OptionalTypeLength
+ | 'LONGTEXT' OptionalTypeLength
  | 'BLOB' OptionalTypeLength
  | 'MEDIUMTEXT' OptionalTypeLength
  | 'CHAR' OptionalTypeLength
+ | 'VARCHAR' OptionalTypeLength
  | 'String'
  | 'TEXT'
  | 'UUID'

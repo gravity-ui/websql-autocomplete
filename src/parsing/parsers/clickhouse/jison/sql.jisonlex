@@ -126,6 +126,7 @@
 'LowCardinality'                           { return 'LowCardinality'; }
 'Decimal'                                  { return 'Decimal'; }
 'String'                                   { return 'String'; }
+'VARCHAR'                                  { return 'VARCHAR'; }
 'Decimal64'                                { return 'Decimal64'; }
 'Decimal32'                                { return 'Decimal32'; }
 'Decimal128'                               { return 'Decimal128'; }
@@ -172,6 +173,9 @@
 'INT'                                      { return 'INT'; }
 'DOUBLE'                                   { return 'DOUBLE'; }
 'MEDIUMTEXT'                               { return 'MEDIUMTEXT'; }
+'TEXT'                                     { return 'TEXT'; }
+'TINYTEXT'                                 { return 'TINYTEXT'; }
+'LONGTEXT'                                 { return 'LONGTEXT'; }
 'TINYINT'                                  { return 'TINYINT'; }
 'DEC'                                      { return 'DEC'; }
 'BINARY'                                   { return 'BINARY'; }
