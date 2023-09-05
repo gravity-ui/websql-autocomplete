@@ -177,6 +177,10 @@
 'BINARY'                                   { return 'BINARY'; }
 'FLOAT'                                    { return 'FLOAT'; }
 'CHAR'                                     { return 'CHAR'; }
+'Point'                                    { return 'Point'; }
+'Ring'                                     { return 'Ring'; }
+'Polygon'                                  { return 'Polygon'; }
+'MultiPolygon'                             { return 'MultiPolygon'; }
 
 // Engine types
 'Null'                                     { return 'Null'; }

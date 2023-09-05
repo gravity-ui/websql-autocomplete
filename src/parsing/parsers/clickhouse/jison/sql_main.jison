@@ -720,6 +720,10 @@ PrimitiveType
  | 'DEC' TypeNumberRange
  | 'FLOAT'
  | 'CHAR' OptionalTypeLength
+ | 'Point'
+ | 'Ring'
+ | 'Polygon'
+ | 'MultiPolygon'
  ;
 
 TypeLength

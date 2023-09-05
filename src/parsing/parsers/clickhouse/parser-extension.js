@@ -268,6 +268,10 @@ export const extendParser = function (parser) {
       'TINYTEXT',
       'LONGTEXT',
       'BLOB',
+      'Point',
+      'Ring',
+      'Polygon',
+      'MultiPolygon',
     ];
   };
 
