@@ -690,6 +690,7 @@ StringType
  | 'MEDIUMTEXT' OptionalTypeLength
  | 'CHAR' OptionalTypeLength
  | 'String'
+ | 'TEXT'
  | 'UUID'
  ;
 

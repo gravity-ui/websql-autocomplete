@@ -3534,7 +3534,7 @@
     "namePrefix": "should suggest keywords",
     "beforeCursor": "select cast(bla as ",
     "afterCursor": "",
-    "containsKeywords": ["INT", "STRING"],
+    "containsKeywords": ["String", "TEXT"],
     "expectedResult": {
       "lowerCase": true
     }
@@ -3543,7 +3543,7 @@
     "namePrefix": "should suggest keywords",
     "beforeCursor": "SELECT CAST(bla AS ",
     "afterCursor": " FROM bar;",
-    "containsKeywords": ["INT", "STRING"],
+    "containsKeywords": ["String", "TEXT"],
     "expectedResult": {
       "lowerCase": false
     }
@@ -3552,7 +3552,7 @@
     "namePrefix": "should suggest keywords",
     "beforeCursor": "SELECT CAST(bla AS ST",
     "afterCursor": ") FROM bar;",
-    "containsKeywords": ["INT", "STRING"],
+    "containsKeywords": ["String", "TEXT"],
     "expectedResult": {
       "lowerCase": false
     }
@@ -3561,7 +3561,7 @@
     "namePrefix": "should suggest keywords",
     "beforeCursor": "SELECT CAST(AS ",
     "afterCursor": "",
-    "containsKeywords": ["INT", "STRING"],
+    "containsKeywords": ["String", "TEXT"],
     "expectedResult": {
       "lowerCase": false
     }
