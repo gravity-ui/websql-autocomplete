@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.22.0](https://github.com/gravity-ui/sql-autocomplete-parsers/compare/v1.21.0...v1.22.0) (2023-09-05)
+
+
+### Features
+
+* actualise clickhouse data types ([#82](https://github.com/gravity-ui/sql-autocomplete-parsers/issues/82)) ([e16505a](https://github.com/gravity-ui/sql-autocomplete-parsers/commit/e16505aef7bfdcc5d1cdf5d99c18ea24f1a74c22))
+
 ## [1.21.0](https://github.com/gravity-ui/sql-autocomplete-parsers/compare/v1.20.0...v1.21.0) (2023-08-11)
 
 
