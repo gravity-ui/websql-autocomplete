@@ -194,7 +194,7 @@
   },
   {
     "namePrefix": "should accept simple aggregate function",
-    "beforeCursor": "CREATE TABLE foo (id SimpleAggregateFunction(sum, DOUBLE)) ENGINE = Memory; ",
+    "beforeCursor": "CREATE TABLE foo (id SimpleAggregateFunction(sum, String)) ENGINE = Memory; ",
     "afterCursor": "",
     "noErrors": true,
     "containsKeywords": ["SELECT"],
@@ -234,7 +234,7 @@
   },
   {
     "namePrefix": "should accept aggregate function",
-    "beforeCursor": "CREATE TABLE foo (id AggregateFunction(sum, DOUBLE)) ENGINE = Memory; ",
+    "beforeCursor": "CREATE TABLE foo (id AggregateFunction(sum, String)) ENGINE = Memory; ",
     "afterCursor": "",
     "noErrors": true,
     "containsKeywords": ["SELECT"],

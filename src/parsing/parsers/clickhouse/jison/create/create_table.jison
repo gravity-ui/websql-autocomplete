@@ -199,13 +199,38 @@ ColumnDataType
  | EnumType
  | 'Nullable' '(' PrimitiveType ')'
  | 'FixedString' OptionalTypeLength
- | 'AGGREGATE_FUNCTION' '(' 'REGULAR_IDENTIFIER' ',' PrimitiveTypeList ')'
- | 'SIMPLE_AGGREGATE_FUNCTION' '(' 'REGULAR_IDENTIFIER' ',' PrimitiveType ')'
+ | AggregateFunctionType
  | DateTimeType
  | TupleType
  | 'Nested' ParenthesizedColumnSpecificationList
  | TimestampType
  | BinaryType
+ | GeoType
+ | 'IPv6'
+ | 'IPv4'
+ | 'Nothing'
+ | 'Date'
+ | 'IntervalSecond'
+ | 'IntervalMonth'
+ | 'IntervalMinute'
+ | 'IntervalHour'
+ | 'IntervalWeek'
+ | 'IntervalDay'
+ | 'IntervalQuarter'
+ | 'IntervalYear'
+ | 'DOUBLE'
+ ;
+
+GeoType
+ : 'Point'
+ | 'Ring'
+ | 'Polygon'
+ | 'MultiPolygon'
+ ;
+
+AggregateFunctionType
+ : 'AGGREGATE_FUNCTION' '(' 'REGULAR_IDENTIFIER' ',' PrimitiveTypeList ')'
+ | 'SIMPLE_AGGREGATE_FUNCTION' '(' 'REGULAR_IDENTIFIER' ',' PrimitiveType ')'
  ;
 
 BinaryType

@@ -678,52 +678,44 @@ PartialBacktickedIdentifierOrPartialCursor
  ;
 
 PrimitiveType
- : 'IPv6'
- | 'IPv4'
- | 'Decimal' TypeNumberRange
+ : NumberType
+ | StringType
+ ;
+
+StringType
+ : 'LONGBLOB' OptionalTypeLength
+ | 'MEDIUMBLOB' OptionalTypeLength
+ | 'TINYBLOB' OptionalTypeLength
+ | 'BLOB' OptionalTypeLength
+ | 'MEDIUMTEXT' OptionalTypeLength
+ | 'CHAR' OptionalTypeLength
  | 'String'
+ | 'UUID'
+ ;
+
+
+NumberType
+ : 'Decimal' TypeNumberRange
  | 'Decimal64' TypeLength
  | 'Decimal32' TypeLength
  | 'Decimal128' TypeLength
  | 'Float64'
  | 'Float32'
+ | 'Int8'
+ | 'Int16'
+ | 'Int32'
  | 'Int64'
- | 'Nothing'
+ | 'UInt8'
  | 'UInt16'
  | 'UInt32'
- | 'Date'
- | 'Int8'
- | 'Int32'
  | 'UInt64'
- | 'IntervalSecond'
- | 'Int16'
- | 'IntervalMonth'
- | 'IntervalMinute'
- | 'IntervalHour'
- | 'IntervalWeek'
- | 'IntervalDay'
- | 'UInt8'
- | 'IntervalQuarter'
- | 'UUID'
- | 'IntervalYear'
- | 'LONGBLOB' OptionalTypeLength
- | 'MEDIUMBLOB' OptionalTypeLength
- | 'TINYBLOB' OptionalTypeLength
- | 'BLOB' OptionalTypeLength
+ | 'DEC' TypeNumberRange
+ | 'FLOAT'
  | 'BIGINT'
  | 'SMALLINT'
  | 'INTEGER'
  | 'INT'
- | 'DOUBLE'
- | 'MEDIUMTEXT' OptionalTypeLength
  | 'TINYINT'
- | 'DEC' TypeNumberRange
- | 'FLOAT'
- | 'CHAR' OptionalTypeLength
- | 'Point'
- | 'Ring'
- | 'Polygon'
- | 'MultiPolygon'
  ;
 
 TypeLength
