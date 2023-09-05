@@ -25,7 +25,7 @@
     "../../generic/jison/select/joins.jison",
     "../../generic/jison/select/limit_clause.jison",
     "../../generic/jison/select/order_by_clause.jison",
-    "../../generic/jison/select/select.jison",
+    "./select/select.jison",
     "../../generic/jison/select/select_conditions.jison",
     "../../generic/jison/select/union_clause.jison",
     "../../generic/jison/select/where_clause.jison",
