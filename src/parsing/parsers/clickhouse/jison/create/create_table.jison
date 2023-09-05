@@ -219,6 +219,7 @@ ColumnDataType
  | 'IntervalQuarter'
  | 'IntervalYear'
  | 'DOUBLE'
+ | 'Map' '(' PrimitiveType ',' PrimitiveType ')'
  ;
 
 GeoType

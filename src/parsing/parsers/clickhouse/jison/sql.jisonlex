@@ -185,6 +185,7 @@
 'Ring'                                     { return 'Ring'; }
 'Polygon'                                  { return 'Polygon'; }
 'MultiPolygon'                             { return 'MultiPolygon'; }
+'Map'                                      { return 'Map'; }
 
 // Engine types
 'Null'                                     { return 'Null'; }
