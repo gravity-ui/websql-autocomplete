@@ -21,7 +21,7 @@
     "test": "npm run generate && npm run test_without_generate",
     "test_without_generate": "jest src/autocomplete",
     "build_generator": "cd src/generator && rimraf dist && tsc -p tsconfig.build.json",
-    "launch_generator": "cd src/generator && node dist/main.js mysql postgresql clickhouse",
+    "launch_generator": "cd src/generator && node dist/main.js mysql postgresql clickhouse yql",
     "generate": "npm run build_generator && npm run launch_generator",
     "lint": "run-p lint:*",
     "lint:js": "eslint --ext .js,.ts src",

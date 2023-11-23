@@ -1,6 +1,7 @@
 import {clickhouseAutocompleteParser} from './parsers/clickhouse/clickhouseAutocompleteParser';
 import {mysqlAutocompleteParser} from './parsers/mysql/mysqlAutocompleteParser';
 import {postgresqlAutocompleteParser} from './parsers/postgresql/postgresqlAutocompleteParser';
+import {yqlAutocompleteParser} from './parsers/yql/yqlAutocompleteParser';
 
 export const cursorSymbol = '†';
 
@@ -327,6 +328,18 @@ export function parseClickHouseQuery(
 
 export function parseClickHouseQueryWithoutCursor(query: string): AutocompleteParseResult {
     return parseClickHouseQuery(getFinishedQuery(query), '');
+}
+
+export function parseYql(
+    queryBeforeCursor: string,
+    queryAfterCursor: string,
+): AutocompleteParseResult {
+    const parser = yqlAutocompleteParser as Parser;
+    return parser.parseSql(queryBeforeCursor, queryAfterCursor);
+}
+
+export function parseYqlWithoutCursor(query: string): AutocompleteParseResult {
+    return parseYql(getFinishedQuery(query), '');
 }
 
 function getFinishedQuery(query: string): string {
