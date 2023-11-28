@@ -17,10 +17,7 @@ export interface ParseResult {
         prependQuestionMark?: boolean;
         onlyTables?: boolean;
     };
-    suggestColumns?: {
-        source: string;
-        tables: Table[];
-    };
+    suggestColumns?: ColumnSuggestion;
     suggestAggregateFunctions?: {
         tables: Table[],
     };
@@ -78,6 +75,11 @@ export type StatementPart =
         missing: boolean
         subquery?: true
     };
+
+export interface ColumnSuggestion {
+    source?: string;
+    tables: Table[];
+}
 
 export interface KeywordSuggestion {
     value: string;
