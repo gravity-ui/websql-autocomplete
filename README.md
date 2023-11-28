@@ -1,4 +1,4 @@
-# SQL Autocomplete Parsers
+# WebSQL autocomplete
 
 ![ci_badge](https://img.shields.io/github/actions/workflow/status/gravity-ui/websql-autocomplete/ci.yml)
 ![npm_package_version_badge](https://img.shields.io/npm/v/websql-autocomplete)
@@ -36,6 +36,7 @@ Resources to research:
 - When adding a new file, just add Yandex copyright header
 - When editing a file that has not Yandex copyright, add Yandex copyright header underneath the existent copyright from Cloudera, and update changed files list in [NOTICE.txt](NOTICE.txt) at the bottom
 - Delete and move files freely
+- You should name your pull requests and commits in [conventional commits](https://www.conventionalcommits.org/en/v1.0.0/) naming. We update release version based on the commits
 
 Yandex copyright:
 
