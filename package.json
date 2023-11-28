@@ -1,10 +1,10 @@
 {
-  "name": "sql-autocomplete-parsers",
-  "version": "1.22.0",
-  "description": "A library that provides autocompletion and errors highlighting for various sql dialects",
+  "name": "websql-autocomplete",
+  "version": "1.23.0",
+  "description": "A library that provides autocompletion and errors highlighting for various database dialects",
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/gravity-ui/sql-autocomplete-parsers"
+    "url": "git+ssh://git@github.com/gravity-ui/websql-autocomplete"
   },
   "license": "Apache-2.0",
   "private": false,
