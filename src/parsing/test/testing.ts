@@ -31,6 +31,7 @@
 // Needed to compare by val without taking attr order into account
 import {existsSync, readFileSync} from 'fs';
 import {AutocompleteParser} from '../lib/types';
+import {describe, expect, it, beforeAll} from '@jest/globals';
 
 interface TestCase {
     namePrefix: string; // ex. "should suggest keywords"
