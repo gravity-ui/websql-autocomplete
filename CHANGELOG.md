@@ -1,5 +1,16 @@
 # Changelog
 
+## [2.0.0](https://github.com/gravity-ui/websql-autocomplete/compare/v1.22.0...v2.0.0) (2023-11-28)
+
+
+### ⚠ BREAKING CHANGES
+
+* rename sql-autocomplete-parsers to websql-autocomplete ([#88](https://github.com/gravity-ui/websql-autocomplete/issues/88))
+
+### Features
+
+* rename sql-autocomplete-parsers to websql-autocomplete ([#88](https://github.com/gravity-ui/websql-autocomplete/issues/88)) ([123d585](https://github.com/gravity-ui/websql-autocomplete/commit/123d5852c76c643a67d0cad1768c8b1e4abba188))
+
 ## [1.22.0](https://github.com/gravity-ui/websql-autocomplete/compare/v1.21.0...v1.22.0) (2023-09-05)
 
 
