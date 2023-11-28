@@ -1,4 +1,4 @@
-# SQL Autocomplete Parsers
+# WebSQL autocomplete
 
 ![ci_badge](https://img.shields.io/github/actions/workflow/status/gravity-ui/websql-autocomplete/ci.yml)
 ![npm_package_version_badge](https://img.shields.io/npm/v/websql-autocomplete)
