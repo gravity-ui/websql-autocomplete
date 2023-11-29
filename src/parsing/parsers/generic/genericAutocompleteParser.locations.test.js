@@ -29,6 +29,7 @@
 // and limitations under the License.
 
 import {genericAutocompleteParser} from './genericAutocompleteParser';
+import {describe, expect, it, beforeAll} from '@jest/globals';
 
 // prettier-ignore-start
 

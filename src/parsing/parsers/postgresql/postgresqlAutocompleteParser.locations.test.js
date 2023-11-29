@@ -1,4 +1,5 @@
 import {postgresqlAutocompleteParser} from './postgresqlAutocompleteParser';
+import {describe, expect, it, beforeAll} from '@jest/globals';
 
 // prettier-ignore-start
 

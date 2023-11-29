@@ -3,6 +3,7 @@ import structure from './jison/structure.json';
 import type { AutocompleteParser } from '../../lib/types';
 import { extractTestCases, runTestCases } from '../../test/testing';
 import { assertPartials, CommonParser } from '../../lib/parsing-typed';
+import {describe, it} from '@jest/globals';
 
 const jisonFolder = 'src/parsing/parsers/postgresql/jison';
 const groupedTestCases = extractTestCases(jisonFolder, structure.autocomplete);

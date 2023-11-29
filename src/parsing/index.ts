@@ -17,10 +17,7 @@ export interface ParseResult {
         prependQuestionMark?: boolean;
         onlyTables?: boolean;
     };
-    suggestColumns?: {
-        source: string;
-        tables: Table[];
-    };
+    suggestColumns?: ColumnSuggestion;
     suggestAggregateFunctions?: {
         tables: Table[],
     };
@@ -38,6 +35,10 @@ export interface ParseResult {
         engines: string[],
         functionalEngines: string[]
     };
+
+    // Reasons for those fields are unknown
+    definitions?: [];
+    lowerCase: boolean;
 }
 
 export type StatementPart =
@@ -77,7 +78,19 @@ export type StatementPart =
         location: Location
         missing: boolean
         subquery?: true
+    }
+    | {
+        type: 'column'
+        location: Location,
+        identifierChain: IdentifierChainEntry[]
+        tables: Table[]
+        qualified: boolean,
     };
+
+export interface ColumnSuggestion {
+    source?: string;
+    tables: Table[];
+}
 
 export interface KeywordSuggestion {
     value: string;

@@ -10,6 +10,7 @@
 // and limitations under the License.
 
 import {clickhouseAutocompleteParser} from './clickhouseAutocompleteParser';
+import {describe, expect, it, beforeAll} from '@jest/globals';
 
 // prettier-ignore-start
 
