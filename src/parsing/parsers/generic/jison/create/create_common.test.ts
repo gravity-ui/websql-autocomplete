@@ -13,14 +13,13 @@ test('should suggest CREATE', () => {
     expect(parseResult.suggestKeywords).toContainEqual(suggestion);
 })
 
-// TODO: remove
+// TODO: remove, because it's being tested in other tests
 test('should suggest CREATE objects', () => {
     const parseResult = parseGenericSql('CREATE ', '');
 
     expect(parseResult.errors).toBeUndefined();
 
     const suggestions: KeywordSuggestion[] = [
-        { value: 'ROLE', weight: -1 },
         { value: 'TABLE', weight: -1 },
         { value: 'VIEW', weight: -1 },
     ];

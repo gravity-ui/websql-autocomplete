@@ -1,6 +1,6 @@
 import {
     KeywordSuggestion,
-    parseGenericSql,
+    parseGenericSql, parseGenericSqlWithoutCursor,
 } from '../../../../index';
 import {expect, test} from '@jest/globals';
 
@@ -42,4 +42,14 @@ test('should suggest IF NOT EXISTS for schema creation', () => {
         { value: 'IF NOT EXISTS', weight: -1 },
     ];
     expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(suggestions))
+})
+
+test('should not report errors on full CREATE DATABASE statement', () => {
+    const parseResult = parseGenericSqlWithoutCursor('CREATE DATABASE test_database;');
+    expect(parseResult.errors).toBeUndefined();
+})
+
+test('should not report errors on full CREATE SCHEMA statement', () => {
+    const parseResult = parseGenericSqlWithoutCursor('CREATE SCHEMA test_schema;');
+    expect(parseResult.errors).toBeUndefined();
 })
