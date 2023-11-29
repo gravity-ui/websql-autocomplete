@@ -22,6 +22,7 @@ test('should suggest creating DATABASE and SCHEMA', () => {
     expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(suggestions))
 })
 
+// TODO: remove duplicates, because databaseOrSchema should be tested separately
 test('should suggest IF NOT EXISTS for database creation', () => {
     const parseResult = parseGenericSql('CREATE DATABASE ', '');
 

@@ -6,7 +6,7 @@
     "alter/alter_table.jison",
     "alter/alter_view.jison",
     "create/create_common.jison",
-    "create/create_database.jison",
+    "create/create_database_or_schema.jison",
     "create/create_role.jison",
     "create/create_table.jison",
     "create/create_view.jison",
