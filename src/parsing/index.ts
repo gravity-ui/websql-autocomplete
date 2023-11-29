@@ -18,9 +18,7 @@ export interface ParseResult {
         onlyTables?: boolean;
     };
     suggestColumns?: ColumnSuggestion;
-    suggestAggregateFunctions?: {
-        tables: Table[],
-    };
+    suggestAggregateFunctions?: AggregateFunctionsSuggestion;
     suggestAnalyticFunctions?: unknown;
     suggestColRefKeywords?: unknown;
     suggestColumnAliases?: ColumnAliasSuggestion[];
@@ -86,6 +84,10 @@ export type StatementPart =
         tables: Table[]
         qualified: boolean,
     };
+
+export interface AggregateFunctionsSuggestion {
+    tables: Table[],
+}
 
 export interface ColumnSuggestion {
     source?: string;
