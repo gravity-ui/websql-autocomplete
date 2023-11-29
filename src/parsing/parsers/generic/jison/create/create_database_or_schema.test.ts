@@ -1,6 +1,6 @@
 import {
     KeywordSuggestion,
-    parseGenericSql, parseGenericSqlWithoutCursor,
+    parseGenericSql, parseGenericSqlWithoutCursor, StatementPart,
 } from '../../../../index';
 import {expect, test} from '@jest/globals';
 
@@ -45,12 +45,27 @@ test('should suggest IF NOT EXISTS for schema creation', () => {
     expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(suggestions))
 })
 
+// TODO: remove duplicates, because databaseOrSchema should be tested separately
 test('should not report errors on full CREATE DATABASE statement', () => {
     const parseResult = parseGenericSqlWithoutCursor('CREATE DATABASE test_database;');
     expect(parseResult.errors).toBeUndefined();
 })
 
-test('should not report errors on full CREATE SCHEMA statement', () => {
+test('should not report errors on full CREATE SCHEMA statement and fill locations', () => {
     const parseResult = parseGenericSqlWithoutCursor('CREATE SCHEMA test_schema;');
+
     expect(parseResult.errors).toBeUndefined();
+
+    const statementParts: StatementPart[] = [
+        {
+            type: 'statement',
+            location: {
+                first_column: 1,
+                first_line: 1,
+                last_column: 26,
+                last_line: 1
+            },
+        }
+    ];
+    expect(parseResult.locations).toEqual(statementParts);
 })

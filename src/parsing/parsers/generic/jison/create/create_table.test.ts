@@ -1,6 +1,6 @@
 import {
     KeywordSuggestion,
-    parseGenericSql, parseGenericSqlWithoutCursor,
+    parseGenericSql, parseGenericSqlWithoutCursor, StatementPart,
 } from '../../../../index';
 import {expect, test} from '@jest/globals';
 
@@ -64,5 +64,19 @@ test('should suggest data types when some types are already written', () => {
 
 test('should not report errors on full CREATE TABLE statement', () => {
     const parseResult = parseGenericSqlWithoutCursor('CREATE TABLE test_table (id INT, age FLOAT);');
+
     expect(parseResult.errors).toBeUndefined();
+
+    const statementParts: StatementPart[] = [
+        {
+            type: 'statement',
+            location: {
+                first_column: 1,
+                first_line: 1,
+                last_column: 44,
+                last_line: 1
+            },
+        }
+    ];
+    expect(parseResult.locations).toEqual(statementParts);
 })

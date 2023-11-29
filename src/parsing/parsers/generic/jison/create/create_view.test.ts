@@ -1,6 +1,6 @@
 import {
     KeywordSuggestion,
-    parseGenericSql, parseGenericSqlWithoutCursor,
+    parseGenericSql, parseGenericSqlWithoutCursor, StatementPart,
 } from '../../../../index';
 import {expect, test} from '@jest/globals';
 
@@ -49,12 +49,128 @@ test('should suggest SELECT', () => {
     expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(suggestions))
 })
 
-test('should not report errors on full CREATE VIEW statement', () => {
-    const parseResult = parseGenericSqlWithoutCursor('CREATE VIEW test_view COMMENT "test" AS SELECT test_field, test_field_2 FROM test_table;');
-    expect(parseResult.errors).toBeUndefined();
-})
-
 test('should not report errors on full CREATE VIEW statement without comment', () => {
     const parseResult = parseGenericSqlWithoutCursor('CREATE VIEW test_view AS SELECT test_field, test_field_2 FROM test_table;');
     expect(parseResult.errors).toBeUndefined();
+})
+
+test('should not report errors on full CREATE VIEW statement and fill locations', () => {
+    const parseResult = parseGenericSqlWithoutCursor('CREATE VIEW test_view COMMENT "test" AS SELECT test_field, test_field_2 FROM test_table;');
+
+    expect(parseResult.errors).toBeUndefined();
+
+    const statementParts: StatementPart[] = [
+        {
+            location: {
+                first_column: 1,
+                first_line: 1,
+                last_column: 88,
+                last_line: 1
+            },
+            type: "statement"
+        },
+        {
+            identifier: 'SELECT',
+            location: {
+                first_column: 41,
+                first_line: 1,
+                last_column: 47,
+                last_line: 1
+            },
+            type: "statementType"
+        },
+        {
+            location: {
+                first_column: 48,
+                first_line: 1,
+                last_column: 72,
+                last_line: 1
+            },
+            missing: false,
+            type: "selectList"
+        },
+        {
+            identifierChain: [
+                {
+                    name: "test_field"
+                }
+            ],
+            location: {
+                first_column: 48,
+                first_line: 1,
+                last_column: 58,
+                last_line: 1
+            },
+            qualified: false,
+            tables: [
+                {
+                    identifierChain: [
+                        {
+                            name: "test_table"
+                        }
+                    ]
+                }
+            ],
+            type: "column"
+        },
+        {
+            identifierChain: [
+                {
+                    name: "test_field_2"
+                }
+            ],
+            location: {
+                first_column: 60,
+                first_line: 1,
+                last_column: 72,
+                last_line: 1
+            },
+            qualified: false,
+            tables: [
+                {
+                    identifierChain: [
+                        {
+                            name: "test_table"
+                        }
+                    ]
+                }
+            ],
+            type: "column"
+        },
+        {
+            identifierChain: [
+                {
+                    name: "test_table"
+                }
+            ],
+            location: {
+                first_column: 78,
+                first_line: 1,
+                last_column: 88,
+                last_line: 1
+            },
+            type: "table"
+        },
+        {
+            location: {
+                first_column: 88,
+                first_line: 1,
+                last_column: 88,
+                last_line: 1
+            },
+            missing: true,
+            type: "whereClause"
+        },
+        {
+            location: {
+                first_column: 88,
+                first_line: 1,
+                last_column: 88,
+                last_line: 1
+            },
+            missing: true,
+            type: "limitClause"
+        }
+    ];
+    expect(parseResult.locations).toEqual(statementParts);
 })
