@@ -9,21 +9,17 @@ export abstract class Parser {
 }
 
 export interface ParseResult {
-    locations: StatementPart[];
+    locations: StatementPart[]; // TODO: figure our if it's optional
     errors?: SyntaxError[];
     suggestKeywords?: KeywordSuggestion[];
-    suggestTables?: {
-        prependFrom?: boolean;
-        prependQuestionMark?: boolean;
-        onlyTables?: boolean;
-    };
+    suggestTables?: TablesSuggestion;
     suggestColumns?: ColumnSuggestion;
     suggestAggregateFunctions?: AggregateFunctionsSuggestion;
     suggestAnalyticFunctions?: unknown;
     suggestColRefKeywords?: unknown;
     suggestColumnAliases?: ColumnAliasSuggestion[];
     suggestCommonTableExpressions?: unknown;
-    suggestDatabases?: unknown;
+    suggestDatabases?: DatabasesSuggestion;
     suggestFilters?: unknown;
     suggestFunctions?: unknown;
     suggestGroupBys?: unknown;
@@ -35,7 +31,7 @@ export interface ParseResult {
     };
 
     // Reasons for those fields are unknown
-    definitions?: [];
+    definitions?: []; // TODO: figure our if it's optional
     lowerCase: boolean;
 }
 
@@ -85,12 +81,23 @@ export type StatementPart =
         qualified: boolean,
     };
 
+export interface TablesSuggestion {
+    prependFrom?: boolean; // TODO: figure our if it's optional
+    prependQuestionMark?: boolean; // TODO: figure our if it's optional
+    onlyTables?: boolean; // TODO: figure our if it's optional
+    onlyViews?: boolean; // TODO: figure our if it's optional
+}
+
+export interface DatabasesSuggestion {
+    appendDot?: boolean; // TODO: figure our if it's optional
+}
+
 export interface AggregateFunctionsSuggestion {
     tables: Table[],
 }
 
 export interface ColumnSuggestion {
-    source?: string;
+    source?: string; // TODO: figure our if it's optional
     tables: Table[];
 }
 
