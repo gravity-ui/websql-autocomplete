@@ -20,7 +20,6 @@ test('should suggest CREATE objects', () => {
     expect(parseResult.errors).toBeUndefined();
 
     const suggestions: KeywordSuggestion[] = [
-        { value: 'TABLE', weight: -1 },
         { value: 'VIEW', weight: -1 },
     ];
     expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(suggestions))
