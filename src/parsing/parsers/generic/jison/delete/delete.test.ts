@@ -63,7 +63,7 @@ test('should suggest WHERE columns', () => {
 })
 
 test('should suggest WHERE columns when some column conditions already exist', () => {
-    const parseResult = parseGenericSqlWithoutCursor('DELETE FROM test_table WHERE test_column = 1 AND ');
+    const parseResult = parseGenericSql('DELETE FROM test_table WHERE test_column = 1 AND ', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -82,7 +82,7 @@ test('should suggest WHERE columns when some column conditions already exist', (
 })
 
 test('should properly fill locations', () => {
-    const parseResult = parseGenericSqlWithoutCursor('DELETE FROM test_table WHERE test_column = 1 AND ');
+    const parseResult = parseGenericSqlWithoutCursor('DELETE FROM test_table WHERE test_column = 1');
 
     expect(parseResult.errors).toBeUndefined();
 
