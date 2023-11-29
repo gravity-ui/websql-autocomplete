@@ -31,7 +31,7 @@ test('should suggest IF NOT EXISTS for database creation', () => {
     const suggestions: KeywordSuggestion[] = [
         { value: 'IF NOT EXISTS', weight: -1 },
     ];
-    expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(suggestions))
+    expect(parseResult.suggestKeywords).toEqual(suggestions)
 })
 
 test('should suggest IF NOT EXISTS for schema creation', () => {
@@ -42,7 +42,7 @@ test('should suggest IF NOT EXISTS for schema creation', () => {
     const suggestions: KeywordSuggestion[] = [
         { value: 'IF NOT EXISTS', weight: -1 },
     ];
-    expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(suggestions))
+    expect(parseResult.suggestKeywords).toEqual(suggestions)
 })
 
 // TODO: remove duplicates, because databaseOrSchema should be tested separately

@@ -23,7 +23,7 @@ test('should suggest IF NOT EXISTS', () => {
     const suggestions: KeywordSuggestion[] = [
         { value: 'IF NOT EXISTS', weight: -1 },
     ];
-    expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(suggestions))
+    expect(parseResult.suggestKeywords).toEqual(suggestions)
 })
 
 test('should suggest data types', () => {

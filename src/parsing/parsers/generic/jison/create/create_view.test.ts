@@ -23,7 +23,7 @@ test('should suggest IF NOT EXISTS', () => {
     const suggestions: KeywordSuggestion[] = [
         { value: 'IF NOT EXISTS', weight: -1 },
     ];
-    expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(suggestions))
+    expect(parseResult.suggestKeywords).toEqual(suggestions)
 })
 
 test('should suggest AS and COMMENT', () => {
@@ -32,10 +32,10 @@ test('should suggest AS and COMMENT', () => {
     expect(parseResult.errors).toBeUndefined();
 
     const suggestions: KeywordSuggestion[] = [
-        { value: 'AS', weight: 1 },
         { value: 'COMMENT', weight: 3 },
+        { value: 'AS', weight: 1 },
     ];
-    expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(suggestions))
+    expect(parseResult.suggestKeywords).toEqual(suggestions)
 })
 
 test('should suggest SELECT', () => {
@@ -46,7 +46,7 @@ test('should suggest SELECT', () => {
     const suggestions: KeywordSuggestion[] = [
         { value: 'SELECT', weight: -1 },
     ];
-    expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(suggestions))
+    expect(parseResult.suggestKeywords).toEqual(suggestions)
 })
 
 test('should not report errors on full CREATE VIEW statement without comment', () => {
