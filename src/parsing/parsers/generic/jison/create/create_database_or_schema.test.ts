@@ -10,18 +10,6 @@ import {expect, test} from '@jest/globals';
 //  - 'something IF NOT [exists]'
 //  - 'something [IF NOT EXISTS] something2'
 
-test('should suggest creating DATABASE and SCHEMA', () => {
-    const parseResult = parseGenericSql('CREATE ', '');
-
-    expect(parseResult.errors).toBeUndefined();
-
-    const suggestions: KeywordSuggestion[] = [
-        { value: 'DATABASE', weight: -1 },
-        { value: 'SCHEMA', weight: -1 },
-    ];
-    expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(suggestions))
-})
-
 // TODO: remove duplicates, because databaseOrSchema should be tested separately
 test('should suggest IF NOT EXISTS for database creation', () => {
     const parseResult = parseGenericSql('CREATE DATABASE ', '');

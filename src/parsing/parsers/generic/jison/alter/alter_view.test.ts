@@ -5,15 +5,6 @@ import {
 } from '../../../../index';
 import {expect, test} from '@jest/globals';
 
-test('should suggest altering views', () => {
-    const parseResult = parseGenericSql('ALTER ', '');
-
-    expect(parseResult.errors).toBeUndefined();
-
-    const suggestion: KeywordSuggestion = { value: 'VIEW', weight: -1 };
-    expect(parseResult.suggestKeywords).toContainEqual(suggestion);
-})
-
 test('should suggest views to alter', () => {
     const parseResult = parseGenericSql('ALTER VIEW ', '');
 

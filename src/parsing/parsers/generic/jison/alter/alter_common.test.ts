@@ -12,3 +12,15 @@ test('should suggest ALTER', () => {
     const suggestion: KeywordSuggestion = { value: 'ALTER', weight: -1 };
     expect(parseResult.suggestKeywords).toContainEqual(suggestion);
 })
+
+test('should suggest ALTER objects', () => {
+    const parseResult = parseGenericSql('ALTER ', '');
+
+    expect(parseResult.errors).toBeUndefined();
+
+    const suggestions: KeywordSuggestion[] = [
+        { value: 'TABLE', weight: -1 },
+        { value: 'VIEW', weight: -1 },
+    ];
+    expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(suggestions))
+})

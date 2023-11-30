@@ -4,17 +4,6 @@ import {
 } from '../../../../index';
 import {expect, test} from '@jest/globals';
 
-test('should suggest creating VIEW', () => {
-    const parseResult = parseGenericSql('CREATE ', '');
-
-    expect(parseResult.errors).toBeUndefined();
-
-    const suggestions: KeywordSuggestion[] = [
-        { value: 'VIEW', weight: -1 },
-    ];
-    expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(suggestions))
-})
-
 test('should suggest IF NOT EXISTS', () => {
     const parseResult = parseGenericSql('CREATE VIEW ', '');
 
