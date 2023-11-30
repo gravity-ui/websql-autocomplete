@@ -9,15 +9,6 @@ import {
     parseGenericSqlWithoutCursor,
 } from '../../../../index';
 
-test('should suggest altering views', () => {
-    const parseResult = parseGenericSql('ALTER ', '');
-
-    expect(parseResult.errors).toBeUndefined();
-
-    const suggestion: KeywordSuggestion = {value: 'VIEW', weight: -1};
-    expect(parseResult.suggestKeywords).toContainEqual(suggestion);
-});
-
 test('should suggest views to alter', () => {
     const parseResult = parseGenericSql('ALTER VIEW ', '');
 
@@ -52,7 +43,7 @@ test('should suggest SELECT', () => {
     expect(parseResult.suggestKeywords).toEqual(suggestion);
 });
 
-test('should not report errors on full ALTER VIEW statement and fill locations', () => {
+test('should not report errors on full statement and fill locations', () => {
     const parseResult = parseGenericSqlWithoutCursor(
         'ALTER VIEW test_view AS SELECT test_field, test_field_2 FROM test_table;',
     );

@@ -4,12 +4,10 @@ import {
     ColumnSuggestion,
     KeywordSuggestion,
     StatementPart,
+    TablesSuggestion,
     parseGenericSql,
     parseGenericSqlWithoutCursor,
 } from '../../../../index';
-
-// TODO: reuse it in more places
-const SUGGEST_TABLES_VALUE = {};
 
 test('should suggest DELETE', () => {
     const parseResult = parseGenericSql('', '');
@@ -33,7 +31,9 @@ test('should suggest tables', () => {
     const parseResult = parseGenericSql('DELETE FROM ', '');
 
     expect(parseResult.errors).toBeUndefined();
-    expect(parseResult.suggestTables).toEqual(SUGGEST_TABLES_VALUE);
+
+    const tablesSuggestion: TablesSuggestion = {};
+    expect(parseResult.suggestTables).toEqual(tablesSuggestion);
 });
 
 test('should suggest WHERE', () => {

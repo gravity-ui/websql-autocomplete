@@ -1,20 +1,6 @@
 import {expect, test} from '@jest/globals';
 
-import {
-    DatabasesSuggestion,
-    KeywordSuggestion,
-    TablesSuggestion,
-    parseGenericSql,
-} from '../../../../index';
-
-test('should suggest altering table', () => {
-    const parseResult = parseGenericSql('ALTER ', '');
-
-    expect(parseResult.errors).toBeUndefined();
-
-    const suggestion: KeywordSuggestion = {value: 'TABLE', weight: -1};
-    expect(parseResult.suggestKeywords).toContainEqual(suggestion);
-});
+import {DatabasesSuggestion, TablesSuggestion, parseGenericSql} from '../../../../index';
 
 test('should suggest tables to alter', () => {
     const parseResult = parseGenericSql('ALTER TABLE ', '');

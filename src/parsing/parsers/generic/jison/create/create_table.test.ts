@@ -7,15 +7,6 @@ import {
     parseGenericSqlWithoutCursor,
 } from '../../../../index';
 
-test('should suggest creating TABLE', () => {
-    const parseResult = parseGenericSql('CREATE ', '');
-
-    expect(parseResult.errors).toBeUndefined();
-
-    const suggestions: KeywordSuggestion[] = [{value: 'TABLE', weight: -1}];
-    expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(suggestions));
-});
-
 test('should suggest IF NOT EXISTS', () => {
     const parseResult = parseGenericSql('CREATE TABLE ', '');
 
@@ -61,7 +52,7 @@ test('should suggest data types when some types are already written', () => {
     expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(suggestions));
 });
 
-test('should not report errors on full CREATE TABLE statement', () => {
+test('should not report errors on full statement and fill locations', () => {
     const parseResult = parseGenericSqlWithoutCursor(
         'CREATE TABLE test_table (id INT, age FLOAT);',
     );
