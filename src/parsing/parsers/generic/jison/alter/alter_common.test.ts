@@ -22,5 +22,5 @@ test('should suggest ALTER objects', () => {
         { value: 'TABLE', weight: -1 },
         { value: 'VIEW', weight: -1 },
     ];
-    expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(suggestions))
+    expect(parseResult.suggestKeywords).toEqual(suggestions)
 })
