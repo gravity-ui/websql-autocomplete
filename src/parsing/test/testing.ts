@@ -158,6 +158,7 @@ export function toEqualDefinition(actualResponse: Partial<ParseResult>, testDefi
         const weightFreeKeywords: ParseResult['suggestKeywords'] = [];
         actualResponse.suggestKeywords.forEach(keyword => {
             if (typeof keyword !== 'string') {
+                // This file is going to be obsolete in 2 weeks, when we rewrite tests
                 // @ts-ignore
                 weightFreeKeywords.push(keyword.value);
             }
@@ -216,6 +217,7 @@ export function toEqualDefinition(actualResponse: Partial<ParseResult>, testDefi
         const keywords = actualResponse.suggestKeywords;
         let contains = true;
         testDefinition.containsKeywords.forEach((keyword): boolean | void => {
+            // This file is going to be obsolete in 2 weeks, when we rewrite tests
             // @ts-ignore
             if (typeof keywords === 'undefined' || keywords.indexOf(keyword) === -1) {
                 contains = false;
@@ -237,6 +239,7 @@ export function toEqualDefinition(actualResponse: Partial<ParseResult>, testDefi
         const keywords = actualResponse.suggestKeywords || [];
         let contains = false;
         testDefinition.doesNotContainKeywords.forEach((keyword): boolean | void => {
+            // This file is going to be obsolete in 2 weeks, when we rewrite tests
             // @ts-ignore
             if (typeof keywords === 'undefined' || keywords.indexOf(keyword) !== -1) {
                 contains = true;
@@ -291,6 +294,7 @@ export function toEqualDefinition(actualResponse: Partial<ParseResult>, testDefi
                 return {};
             }
 
+            // This file is going to be obsolete in 2 weeks, when we rewrite tests
             // @ts-ignore
             const expectedKeys = Object.keys(testDefinition.expectedErrors[index]);
             return expectedKeys.reduce<Record<string, any>>((acc, expectedKey) => {

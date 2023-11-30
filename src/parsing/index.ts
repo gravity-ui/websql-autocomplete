@@ -28,8 +28,8 @@ export interface ParseResult {
     suggestIdentifiers?: IdentifierSuggestion[];
     suggestTemplates?: boolean;
     suggestEngines?: {
-        engines: string[];
-        functionalEngines: string[];
+        engines: Engines;
+        functionalEngines: Engines;
     };
 
     // Reasons for those fields are unknown
@@ -143,6 +143,8 @@ export interface ColumnAliasSuggestion {
     name: string;
     types: string[];
 }
+
+type Engines = string[];
 
 export function parseGenericSql(queryBeforeCursor: string, queryAfterCursor: string): ParseResult {
     let parser = genericAutocompleteParser as Parser;
