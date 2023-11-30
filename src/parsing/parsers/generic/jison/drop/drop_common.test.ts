@@ -1,20 +1,22 @@
 import {
     KeywordSuggestion,
-    parseGenericSql,
+    parseGenericSql
 } from '../../../../index';
 import {expect, test} from '@jest/globals';
 
-test('should suggest CREATE', () => {
+test('should suggest DROP on empty query', () => {
     const parseResult = parseGenericSql('', '');
 
     expect(parseResult.errors).toBeUndefined();
 
-    const suggestion: KeywordSuggestion = { value: 'CREATE', weight: -1 };
-    expect(parseResult.suggestKeywords).toContainEqual(suggestion);
+    const suggestions: KeywordSuggestion[] = [
+        { value: 'DROP', weight: -1 },
+    ];
+    expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(suggestions))
 })
 
-test('should suggest CREATE objects', () => {
-    const parseResult = parseGenericSql('CREATE ', '');
+test('should suggest DROP objects', () => {
+    const parseResult = parseGenericSql('DROP ', '');
 
     expect(parseResult.errors).toBeUndefined();
 

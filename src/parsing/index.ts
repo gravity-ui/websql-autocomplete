@@ -81,13 +81,19 @@ export type StatementPart =
         identifierChain: IdentifierChainEntry[]
         tables: Table[]
         qualified: boolean,
+    }
+    | {
+        type: "database"
+        location: Location,
+        identifierChain: IdentifierChainEntry[],
     };
 
 export interface TablesSuggestion {
-    prependFrom?: boolean; // TODO: figure our if it's optional
-    prependQuestionMark?: boolean; // TODO: figure our if it's optional
-    onlyTables?: boolean; // TODO: figure our if it's optional
-    onlyViews?: boolean; // TODO: figure our if it's optional
+    prependFrom?: boolean;
+    prependQuestionMark?: boolean;
+    onlyTables?: boolean;
+    onlyViews?: boolean;
+    identifierChain?: IdentifierChainEntry[];
 }
 
 export interface DatabasesSuggestion {

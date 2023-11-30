@@ -12,3 +12,8 @@ You can always link those rules in your PR without hesitation if you see that th
 - Don't use `foo` or `bar` custom names, always use `test_{object}`, e.g. `SELECT * FROM test_table`, not `SELECT * FROM hehe_haha`. If you need multiple names, use `_{number}` suffix, e.g. `SELECT test_field, test_field_2 FROM test_table;`
 - Write all the static tokens in UPPER_CASE, and all the custom variables in lower_case, e.g. `SELECT test_field`
 - Always test your statements on errors, and if there's an unexpected error, just add `TODO: fix unhandled error` error
+
+What we'll do later:
+
+- Add required in-between tests, e.g. `parseGeneralSql('DROP DATABASE', ' test_database')`. Currently most of the tests are only checking if query is good when the cursor is at the end.
+- Add more shared grouping tests.
