@@ -262,8 +262,8 @@ export async function generateParsers(parserNames: string[]): Promise<void> {
         throw new Error(`Could not find all requested parser definitions`);
     }
 
-    for (let i = 0; i < parserDefinitions.length; i++) {
-        console.log(`Generating ${parserDefinitions[i].parserName}`);
-        await generateParser(parserDefinitions[i]);
+    for (const parserDefinition of parserDefinitions) {
+        console.log(`Generating ${parserDefinition.parserName}`);
+        await generateParser(parserDefinition);
     }
 }
