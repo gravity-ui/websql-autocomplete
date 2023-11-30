@@ -26,6 +26,7 @@
     "lint": "npm run prettier -- --check",
     "fix": "npm run prettier -- --write",
     "prettier": "prettier \"**/*.{md,yaml,yml,json}\"",
+    "typecheck": "tsc --noEmit",
     "build": "rimraf dist && tsc -p tsconfig.build.json",
     "prepublishOnly": "npm run build"
   },

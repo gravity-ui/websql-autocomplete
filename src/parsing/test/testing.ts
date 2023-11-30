@@ -32,22 +32,34 @@
 import {existsSync, readFileSync} from 'fs';
 import {AutocompleteParser} from '../lib/types';
 import {describe, expect, it, beforeAll} from '@jest/globals';
+import type {ParseResult} from '..';
 
-interface TestCase {
+interface ExpectedError {
+    text: string,
+    token: string,
+    loc: {
+        first_line: number,
+        last_line: number,
+        first_column: number,
+        last_column: number
+    },
+}
+
+export interface TestCase {
     namePrefix: string; // ex. "should suggest keywords"
     beforeCursor: string;
     afterCursor: string;
     containsKeywords?: string[];
     doesNotContainKeywords?: string[];
-    containsColRefKeywords?: string[];
+    containsColRefKeywords?: boolean | string[];
     noErrors?: boolean;
     locationsOnly?: boolean;
     noLocations?: boolean;
     expectedDefinitions: unknown,
-    expectedLocations?: unknown;
+    expectedLocations?: ParseResult['locations'];
     expectedResult: {
         lowerCase?: boolean;
-        locations?: unknown;
+        locations?: ParseResult['locations'];
         suggestTables?: {
             identifierChain?: { name: string }[];
             onlyTables?: boolean;
@@ -57,16 +69,7 @@ interface TestCase {
         };
         suggestTemplates?: boolean;
     };
-    expectedErrors?: {
-        text: string,
-        token: string,
-        loc: {
-            first_line: number,
-            last_line: number,
-            first_column: number,
-            last_column: number
-        },
-    }[]
+    expectedErrors?: ExpectedError[]
 }
 
 interface GroupedTestCases {
@@ -74,7 +77,7 @@ interface GroupedTestCases {
     testCases: TestCase[];
 }
 
-export function getToEqualAutocompleteValues(actualItems, expectedValues) {
+export function getToEqualAutocompleteValues(actualItems: {value: string}[], expectedValues: string[]) {
     if (actualItems.length !== expectedValues.length) {
         return {pass: false, message: () => 'items length is not equal'};
     }
@@ -92,7 +95,7 @@ export function getToEqualAutocompleteValues(actualItems, expectedValues) {
     return {pass: true, message: () => 'test'};
 }
 
-export function toEqualDefinition(actualResponse, testDefinition: TestCase) {
+export function toEqualDefinition(actualResponse: ParseResult, testDefinition: TestCase) {
     if (typeof testDefinition.noErrors === 'undefined' && actualResponse.errors && !testDefinition.expectedErrors) {
         let allRecoverable = true;
         actualResponse.errors.forEach(error => {
@@ -119,7 +122,7 @@ export function toEqualDefinition(actualResponse, testDefinition: TestCase) {
     ) {
         const expectedLoc =
             testDefinition.expectedLocations || testDefinition.expectedResult.locations;
-        const expectsType = expectedLoc.some(location => location.type === 'statementType');
+        const expectsType = expectedLoc?.some(location => location.type === 'statementType');
         if (!expectsType) {
             actualResponse.locations = actualResponse.locations.filter(
                 location => location.type !== 'statementType'
@@ -152,20 +155,22 @@ export function toEqualDefinition(actualResponse, testDefinition: TestCase) {
     }
 
     if (actualResponse.suggestKeywords) {
-        const weightFreeKeywords = [];
+        const weightFreeKeywords: ParseResult['suggestKeywords'] = [];
         actualResponse.suggestKeywords.forEach(keyword => {
-            weightFreeKeywords.push(keyword.value);
+            if (typeof keyword !== 'string') {
+                weightFreeKeywords.push(keyword.value);
+            }
         });
         actualResponse.suggestKeywords = weightFreeKeywords;
     }
 
     if (!!testDefinition.noLocations) {
-        if (actualResponse.locations.length > 0) {
+        if (actualResponse.locations && actualResponse.locations.length > 0) {
             return {
                 pass: false,
                 message: constructTestCaseMessage(testDefinition, {
                     'Expected locations': 'none',
-                    'Found locations': actualResponse.locations.length,
+                    'Found locations': actualResponse.locations?.length,
                 }),
             };
         }
@@ -175,7 +180,9 @@ export function toEqualDefinition(actualResponse, testDefinition: TestCase) {
     }
     let deleteKeywords = false;
     if (testDefinition.containsColRefKeywords) {
-        if (typeof actualResponse.suggestColRefKeywords == 'undefined') {
+        const actualSuggestColRefKeywords = actualResponse.suggestColRefKeywords;
+
+        if (typeof actualSuggestColRefKeywords == 'undefined') {
             return {
                 pass: false,
                 message: constructTestCaseMessage(testDefinition, {
@@ -187,9 +194,9 @@ export function toEqualDefinition(actualResponse, testDefinition: TestCase) {
             testDefinition.containsColRefKeywords.forEach(keyword => {
                 contains =
                     contains &&
-                    (actualResponse.suggestColRefKeywords.BOOLEAN.indexOf(keyword) !== -1 ||
-                        actualResponse.suggestColRefKeywords.NUMBER.indexOf(keyword) !== -1 ||
-                        actualResponse.suggestColRefKeywords.STRING.indexOf(keyword) !== -1);
+                    (actualSuggestColRefKeywords.BOOLEAN.indexOf(keyword) !== -1 ||
+                        actualSuggestColRefKeywords.NUMBER.indexOf(keyword) !== -1 ||
+                        actualSuggestColRefKeywords.STRING.indexOf(keyword) !== -1);
             });
             if (!contains) {
                 return {
@@ -207,7 +214,7 @@ export function toEqualDefinition(actualResponse, testDefinition: TestCase) {
     if (typeof testDefinition.containsKeywords !== 'undefined') {
         const keywords = actualResponse.suggestKeywords;
         let contains = true;
-        testDefinition.containsKeywords.forEach(keyword => {
+        testDefinition.containsKeywords.forEach((keyword): boolean | void => {
             if (typeof keywords === 'undefined' || keywords.indexOf(keyword) === -1) {
                 contains = false;
                 return false;
@@ -227,7 +234,7 @@ export function toEqualDefinition(actualResponse, testDefinition: TestCase) {
     if (typeof testDefinition.doesNotContainKeywords !== 'undefined') {
         const keywords = actualResponse.suggestKeywords || [];
         let contains = false;
-        testDefinition.doesNotContainKeywords.forEach(keyword => {
+        testDefinition.doesNotContainKeywords.forEach((keyword): boolean | void => {
             if (typeof keywords === 'undefined' || keywords.indexOf(keyword) !== -1) {
                 contains = true;
                 return false;
@@ -276,9 +283,13 @@ export function toEqualDefinition(actualResponse, testDefinition: TestCase) {
             }
         }
 
-        const filteredResponseErrors = actualResponse.errors.map((responseError, index) => {
+        const filteredResponseErrors = actualResponse.errors.map((responseError: Record<string, any>, index) => {
+            if (!testDefinition.expectedErrors) {
+                return {};
+            }
+
             const expectedKeys = Object.keys(testDefinition.expectedErrors[index]);
-            return expectedKeys.reduce((acc, expectedKey) => {
+            return expectedKeys.reduce<Record<string, any>>((acc, expectedKey) => {
                 acc[expectedKey] = responseError[expectedKey];
                 return acc
             }, {});
@@ -340,7 +351,7 @@ function constructTestCaseMessage(testCase: TestCase, details: Record<string, an
     return () => message
 }
 
-function resultEquals(a, b): boolean {
+function resultEquals(a: any, b: any): boolean {
     if (typeof a !== typeof b) {
         return false;
     }
@@ -349,7 +360,7 @@ function resultEquals(a, b): boolean {
         return true;
     }
 
-    if (typeof a === 'object') {
+    if (typeof a === 'object' && a !== null) {
         const aKeys = Object.keys(a);
         if (aKeys.length !== Object.keys(b).length) {
             return false;
@@ -367,12 +378,12 @@ function resultEquals(a, b): boolean {
     return a == b;
 }
 
-function jsonStringToJsString(jsonString) {
+function jsonStringToJsString(jsonString: string): string {
     return jsonString
-        .replace(/'([a-zA-Z]+)':/g, (all, group) => {
+        .replace(/'([a-zA-Z]+)':/g, (_, group) => {
             return group + ':';
         })
-        .replace(/([:{,])/g, (all, group) => {
+        .replace(/([:{,])/g, (_, group) => {
             return group + ' ';
         })
         .replace(/[}]/g, ' }')

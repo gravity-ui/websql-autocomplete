@@ -1,6 +1,7 @@
 import {genericAutocompleteParser} from './parsers/generic/genericAutocompleteParser';
 import {postgresqlAutocompleteParser} from './parsers/postgresql/postgresqlAutocompleteParser';
 import {clickhouseAutocompleteParser} from './parsers/clickhouse/clickhouseAutocompleteParser';
+import type {AutocompleteParseResult} from './lib/types';
 
 export const cursorSymbol = '†';
 
@@ -9,14 +10,14 @@ export abstract class Parser {
 }
 
 export interface ParseResult {
-    locations: StatementPart[]; // TODO: figure our if it's optional
+    locations?: StatementPart[]; // TODO: figure our if it's optional
     errors?: SyntaxError[];
-    suggestKeywords?: KeywordSuggestion[];
+    suggestKeywords?: Array<KeywordSuggestion | string>;
     suggestTables?: TablesSuggestion;
     suggestColumns?: ColumnSuggestion;
     suggestAggregateFunctions?: AggregateFunctionsSuggestion;
     suggestAnalyticFunctions?: unknown;
-    suggestColRefKeywords?: unknown;
+    suggestColRefKeywords?: AutocompleteParseResult['suggestColRefKeywords'];
     suggestColumnAliases?: ColumnAliasSuggestion[];
     suggestCommonTableExpressions?: unknown;
     suggestDatabases?: DatabasesSuggestion;
