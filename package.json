@@ -18,15 +18,19 @@
   "types": "./dist/index.d.ts",
   "scripts": {
     "prepare": "husky install",
-    "postinstall": "if [ -e src/generator ]; then cd src/generator && npm install; fi",
     "test": "npm run generate && npm run test_without_generate",
     "test_without_generate": "jest src/parsing",
-    "generate": "cd src/generator && node main.js generic postgresql clickhouse",
+    "build_generator": "cd src/generator && rimraf dist && tsc -p tsconfig.build.json",
+    "launch_generator": "cd src/generator && node dist/main.js generic postgresql clickhouse",
+    "generate": "npm run build_generator && npm run launch_generator",
     "lint": "npm run prettier -- --check",
     "fix": "npm run prettier -- --write",
     "prettier": "prettier \"**/*.{md,yaml,yml,json}\"",
-    "build": "rimraf dist && tsc -p src/parsing",
+    "build": "rimraf dist && tsc -p tsconfig.build.json",
     "prepublishOnly": "npm run build"
+  },
+  "dependencies": {
+    "jison": "https://github.com/JohanAhlen/jison/tarball/ad8e41475e"
   },
   "devDependencies": {
     "@babel/preset-env": "7.14.4",
