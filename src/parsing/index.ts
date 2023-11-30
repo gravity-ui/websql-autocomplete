@@ -80,6 +80,12 @@ export type StatementPart =
           type: 'database';
           location: Location;
           identifierChain: IdentifierChainEntry[];
+      }
+    | {
+          type: 'limitClause';
+          location: Location;
+          missing: boolean;
+          subquery?: true;
       };
 
 export interface TablesSuggestion {
