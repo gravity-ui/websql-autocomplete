@@ -18,14 +18,15 @@
   "types": "./dist/index.d.ts",
   "scripts": {
     "prepare": "husky install",
-    "postinstall": "if [ -e src/generator ]; then cd src/generator && npm install; fi",
     "test": "npm run generate && npm run test_without_generate",
     "test_without_generate": "jest src/parsing",
-    "generate": "cd src/generator && node main.js generic postgresql clickhouse",
+    "build_generator": "cd src/generator && rimraf dist && tsc -p tsconfig.build.json",
+    "launch_generator": "cd src/generator && node dist/main.js generic postgresql clickhouse",
+    "generate": "npm run build_generator && npm run launch_generator",
     "lint": "npm run prettier -- --check",
     "fix": "npm run prettier -- --write",
     "prettier": "prettier \"**/*.{md,yaml,yml,json}\"",
-    "build": "rimraf dist && tsc -p src/parsing",
+    "build": "rimraf dist && tsc -p tsconfig.build.json",
     "prepublishOnly": "npm run build"
   },
   "devDependencies": {
@@ -38,6 +39,7 @@
     "@jest/globals": "^29.7.0",
     "husky": "^8.0.3",
     "jest": "^29.5.0",
+    "jison": "https://github.com/JohanAhlen/jison/tarball/ad8e41475e",
     "nano-staged": "^0.8.0",
     "prettier": "^2.8.4",
     "rimraf": "^5.0.1",

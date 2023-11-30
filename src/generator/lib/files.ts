@@ -28,14 +28,25 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
-import {createFullParserName, generateParsers} from './lib/generator.js';
+import fs from 'fs';
 
-try {
-  process.argv.shift(); // drop "node"
-  process.argv.shift(); // drop "main.js"
-  const requestedParserNames = process.argv.map(arg => createFullParserName(arg))
+export async function listDir(folder: string): Promise<string[]> {
+    return fs.promises.readdir(folder);
+}
 
-  await generateParsers(requestedParserNames);
-} catch (err) {
-  console.log(err);
+export function fileExists(file: string): boolean {
+    return fs.existsSync(file);
+}
+
+export async function readFile(path: string): Promise<string> {
+    const buffer = await fs.promises.readFile(path);
+    return buffer ? buffer.toString() : '';
+}
+
+export async function writeFile(path: string, contents: string): Promise<void> {
+    return fs.promises.writeFile(path, contents);
+}
+
+export function deleteFile(path: string): void {
+    fs.unlinkSync(path);
 }
