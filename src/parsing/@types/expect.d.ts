@@ -12,12 +12,11 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
-import type {Matchers} from 'expect';
-import type { TestCase } from '../test/testing';
+import type {TestCase} from '../test/testing';
 
 declare module 'expect' {
-  export interface Matchers<R extends void | Promise<void>, T = unknown> {
-    toEqualAutocompleteValues(values: string[]): R;
-    toEqualDefinition(testDefinition: TestCase): R;
-  }
+    export interface Matchers<R extends void | Promise<void>> {
+        toEqualAutocompleteValues(values: string[]): R;
+        toEqualDefinition(testDefinition: TestCase): R;
+    }
 }

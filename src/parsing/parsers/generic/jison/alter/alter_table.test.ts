@@ -1,18 +1,20 @@
+import {expect, test} from '@jest/globals';
+
 import {
     DatabasesSuggestion,
     KeywordSuggestion,
-    parseGenericSql, TablesSuggestion,
+    TablesSuggestion,
+    parseGenericSql,
 } from '../../../../index';
-import {expect, test} from '@jest/globals';
 
 test('should suggest altering table', () => {
     const parseResult = parseGenericSql('ALTER ', '');
 
     expect(parseResult.errors).toBeUndefined();
 
-    const suggestion: KeywordSuggestion = { value: 'TABLE', weight: -1 };
+    const suggestion: KeywordSuggestion = {value: 'TABLE', weight: -1};
     expect(parseResult.suggestKeywords).toContainEqual(suggestion);
-})
+});
 
 test('should suggest tables to alter', () => {
     const parseResult = parseGenericSql('ALTER TABLE ', '');
@@ -26,8 +28,8 @@ test('should suggest tables to alter', () => {
 
     const databasesSuggestion: DatabasesSuggestion = {
         appendDot: true,
-    }
+    };
     expect(parseResult.suggestDatabases).toEqual(databasesSuggestion);
-})
+});
 
 // TODO: add full tests + locations test

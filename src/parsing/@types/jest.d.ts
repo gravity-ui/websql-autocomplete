@@ -12,4 +12,6 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
+// This declaration is required for jest global fail function and these rules don't make sense here
+// eslint-disable-next-line no-implicit-globals, @typescript-eslint/no-explicit-any
 declare function fail(error?: any): never;

@@ -1,18 +1,22 @@
+import {expect, test} from '@jest/globals';
+
 import {
     DatabasesSuggestion,
     KeywordSuggestion,
-    parseGenericSql, parseGenericSqlWithoutCursor, StatementPart, TablesSuggestion,
+    StatementPart,
+    TablesSuggestion,
+    parseGenericSql,
+    parseGenericSqlWithoutCursor,
 } from '../../../../index';
-import {expect, test} from '@jest/globals';
 
 test('should suggest altering views', () => {
     const parseResult = parseGenericSql('ALTER ', '');
 
     expect(parseResult.errors).toBeUndefined();
 
-    const suggestion: KeywordSuggestion = { value: 'VIEW', weight: -1 };
+    const suggestion: KeywordSuggestion = {value: 'VIEW', weight: -1};
     expect(parseResult.suggestKeywords).toContainEqual(suggestion);
-})
+});
 
 test('should suggest views to alter', () => {
     const parseResult = parseGenericSql('ALTER VIEW ', '');
@@ -26,34 +30,32 @@ test('should suggest views to alter', () => {
 
     const databasesSuggestion: DatabasesSuggestion = {
         appendDot: true,
-    }
+    };
     expect(parseResult.suggestDatabases).toEqual(databasesSuggestion);
-})
+});
 
 test('should suggest AS', () => {
     const parseResult = parseGenericSql('ALTER VIEW test_view ', '');
 
     expect(parseResult.errors).toBeUndefined();
 
-    const suggestion: KeywordSuggestion[] = [
-        { value: 'AS', weight: -1 },
-    ];
+    const suggestion: KeywordSuggestion[] = [{value: 'AS', weight: -1}];
     expect(parseResult.suggestKeywords).toEqual(suggestion);
-})
+});
 
 test('should suggest SELECT', () => {
     const parseResult = parseGenericSql('ALTER VIEW test_view AS ', '');
 
     expect(parseResult.errors).toBeUndefined();
 
-    const suggestion: KeywordSuggestion[] = [
-        { value: 'SELECT', weight: -1 },
-    ];
+    const suggestion: KeywordSuggestion[] = [{value: 'SELECT', weight: -1}];
     expect(parseResult.suggestKeywords).toEqual(suggestion);
-})
+});
 
 test('should not report errors on full ALTER VIEW statement and fill locations', () => {
-    const parseResult = parseGenericSqlWithoutCursor('ALTER VIEW test_view AS SELECT test_field, test_field_2 FROM test_table;');
+    const parseResult = parseGenericSqlWithoutCursor(
+        'ALTER VIEW test_view AS SELECT test_field, test_field_2 FROM test_table;',
+    );
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -63,150 +65,150 @@ test('should not report errors on full ALTER VIEW statement and fill locations',
                 first_column: 1,
                 first_line: 1,
                 last_column: 72,
-                last_line: 1
+                last_line: 1,
             },
-            type: "statement"
+            type: 'statement',
         },
         {
-            identifier: "ALTER VIEW",
+            identifier: 'ALTER VIEW',
             location: {
                 first_column: 1,
                 first_line: 1,
                 last_column: 6,
-                last_line: 1
+                last_line: 1,
             },
-            type: "statementType"
+            type: 'statementType',
         },
         {
             identifierChain: [
                 {
-                    name: "test_view"
-                }
+                    name: 'test_view',
+                },
             ],
             location: {
                 first_column: 12,
                 first_line: 1,
                 last_column: 21,
-                last_line: 1
+                last_line: 1,
             },
-            type: "table"
+            type: 'table',
         },
         {
-            identifier: "SELECT",
+            identifier: 'SELECT',
             location: {
                 first_column: 25,
                 first_line: 1,
                 last_column: 31,
-                last_line: 1
+                last_line: 1,
             },
-            type: "statementType"
+            type: 'statementType',
         },
         {
             location: {
                 first_column: 32,
                 first_line: 1,
                 last_column: 56,
-                last_line: 1
+                last_line: 1,
             },
             missing: false,
-            type: "selectList"
+            type: 'selectList',
         },
         {
             identifierChain: [
                 {
-                    name: "test_field"
-                }
+                    name: 'test_field',
+                },
             ],
             location: {
                 first_column: 32,
                 first_line: 1,
                 last_column: 42,
-                last_line: 1
+                last_line: 1,
             },
             qualified: false,
             tables: [
                 {
                     identifierChain: [
                         {
-                            name: "test_view"
-                        }
-                    ]
+                            name: 'test_view',
+                        },
+                    ],
                 },
                 {
                     identifierChain: [
                         {
-                            name: "test_table"
-                        }
-                    ]
-                }
+                            name: 'test_table',
+                        },
+                    ],
+                },
             ],
-            type: "column"
+            type: 'column',
         },
         {
             identifierChain: [
                 {
-                    name: "test_field_2"
-                }
+                    name: 'test_field_2',
+                },
             ],
             location: {
                 first_column: 44,
                 first_line: 1,
                 last_column: 56,
-                last_line: 1
+                last_line: 1,
             },
             qualified: false,
             tables: [
                 {
                     identifierChain: [
                         {
-                            name: "test_view"
-                        }
-                    ]
+                            name: 'test_view',
+                        },
+                    ],
                 },
                 {
                     identifierChain: [
                         {
-                            name: "test_table"
-                        }
-                    ]
-                }
+                            name: 'test_table',
+                        },
+                    ],
+                },
             ],
-            type: "column"
+            type: 'column',
         },
         {
             identifierChain: [
                 {
-                    name: "test_table"
-                }
+                    name: 'test_table',
+                },
             ],
             location: {
                 first_column: 62,
                 first_line: 1,
                 last_column: 72,
-                last_line: 1
+                last_line: 1,
             },
-            type: "table"
+            type: 'table',
         },
         {
             location: {
                 first_column: 72,
                 first_line: 1,
                 last_column: 72,
-                last_line: 1
+                last_line: 1,
             },
             missing: true,
-            type: "whereClause"
+            type: 'whereClause',
         },
         {
             location: {
                 first_column: 72,
                 first_line: 1,
                 last_column: 72,
-                last_line: 1
+                last_line: 1,
             },
             missing: true,
-            type: "limitClause"
-        }
+            type: 'limitClause',
+        },
     ];
     expect(parseResult.locations).toEqual(statementParts);
-})
+});

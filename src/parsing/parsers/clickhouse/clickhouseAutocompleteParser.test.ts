@@ -9,23 +9,25 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
+import {describe, it} from '@jest/globals';
+
+import {CommonParser, assertPartials} from '../../lib/parsing-typed';
+import type {AutocompleteParser} from '../../lib/types';
+import {extractTestCases, runTestCases} from '../../test/testing';
+
 import {clickhouseAutocompleteParser} from './clickhouseAutocompleteParser';
 import structure from './jison/structure.json';
-import type { AutocompleteParser } from '../../lib/types';
-import { extractTestCases, runTestCases } from '../../test/testing';
-import { assertPartials, CommonParser } from '../../lib/parsing-typed';
-import {describe, it} from '@jest/globals';
 
 const jisonFolder = 'src/parsing/parsers/clickhouse/jison';
 const groupedTestCases = extractTestCases(jisonFolder, structure.autocomplete);
 
 describe('clickhouseAutocompleteParser', () => {
-  // TODO: Fix the types
-  runTestCases(clickhouseAutocompleteParser as unknown as AutocompleteParser, groupedTestCases);
+    // TODO: Fix the types
+    runTestCases(clickhouseAutocompleteParser as unknown as AutocompleteParser, groupedTestCases);
 
-  describe('partial removal', () => {
-    it('should identify part lengths', () => {
-      assertPartials(clickhouseAutocompleteParser as unknown as CommonParser);
+    describe('partial removal', () => {
+        it('should identify part lengths', () => {
+            assertPartials(clickhouseAutocompleteParser as unknown as CommonParser);
+        });
     });
-  });
 });

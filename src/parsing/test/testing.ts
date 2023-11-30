@@ -30,19 +30,22 @@
 
 // Needed to compare by val without taking attr order into account
 import {existsSync, readFileSync} from 'fs';
-import {AutocompleteParser} from '../lib/types';
-import {describe, expect, it, beforeAll} from '@jest/globals';
+
+import type {MatcherFunction} from '@jest/expect';
+import {beforeAll, describe, expect, it} from '@jest/globals';
+
 import type {ParseResult} from '..';
+import {AutocompleteParser} from '../lib/types';
 
 interface ExpectedError {
-    text: string,
-    token: string,
+    text: string;
+    token: string;
     loc: {
-        first_line: number,
-        last_line: number,
-        first_column: number,
-        last_column: number
-    },
+        first_line: number;
+        last_line: number;
+        first_column: number;
+        last_column: number;
+    };
 }
 
 export interface TestCase {
@@ -55,13 +58,13 @@ export interface TestCase {
     noErrors?: boolean;
     locationsOnly?: boolean;
     noLocations?: boolean;
-    expectedDefinitions: unknown,
+    expectedDefinitions: unknown;
     expectedLocations?: ParseResult['locations'];
     expectedResult: {
         lowerCase?: boolean;
         locations?: ParseResult['locations'];
         suggestTables?: {
-            identifierChain?: { name: string }[];
+            identifierChain?: {name: string}[];
             onlyTables?: boolean;
         };
         suggestDatabases?: {
@@ -69,7 +72,7 @@ export interface TestCase {
         };
         suggestTemplates?: boolean;
     };
-    expectedErrors?: ExpectedError[]
+    expectedErrors?: ExpectedError[];
 }
 
 interface GroupedTestCases {
@@ -77,17 +80,23 @@ interface GroupedTestCases {
     testCases: TestCase[];
 }
 
-export function getToEqualAutocompleteValues(actualItems: {value: string}[], expectedValues: string[]) {
+export function getToEqualAutocompleteValues(
+    actualItems: {value: string}[],
+    expectedValues: string[],
+): ReturnType<MatcherFunction> {
     if (actualItems.length !== expectedValues.length) {
         return {pass: false, message: () => 'items length is not equal'};
     }
 
     for (let i = 0; i < expectedValues.length; i++) {
-        const stringValue = typeof actualItems[i] !== 'string' ? '' + actualItems[i]?.value : actualItems[i]?.value;
+        const stringValue =
+            typeof actualItems[i] !== 'string'
+                ? String(actualItems[i]?.value)
+                : actualItems[i]?.value;
         if (stringValue !== expectedValues[i]) {
             return {
                 pass: false,
-                message: () => `got '${stringValue}', but expected '${expectedValues}'`
+                message: () => `got '${stringValue}', but expected '${expectedValues}'`,
             };
         }
     }
@@ -95,10 +104,17 @@ export function getToEqualAutocompleteValues(actualItems: {value: string}[], exp
     return {pass: true, message: () => 'test'};
 }
 
-export function toEqualDefinition(actualResponse: Partial<ParseResult>, testDefinition: TestCase) {
-    if (typeof testDefinition.noErrors === 'undefined' && actualResponse.errors && !testDefinition.expectedErrors) {
+export function toEqualDefinition(
+    actualResponse: Partial<ParseResult>,
+    testDefinition: TestCase,
+): ReturnType<MatcherFunction> {
+    if (
+        typeof testDefinition.noErrors === 'undefined' &&
+        actualResponse.errors &&
+        !testDefinition.expectedErrors
+    ) {
         let allRecoverable = true;
-        actualResponse.errors.forEach(error => {
+        actualResponse.errors.forEach((error) => {
             allRecoverable = allRecoverable && error.recoverable;
         });
         if (allRecoverable) {
@@ -110,7 +126,7 @@ export function toEqualDefinition(actualResponse: Partial<ParseResult>, testDefi
         return {
             pass: false,
             message: constructTestCaseMessage(testDefinition, {
-                'Expected': 'no errors',
+                Expected: 'no errors',
                 'Found errors': actualResponse.errors,
             }),
         };
@@ -122,10 +138,10 @@ export function toEqualDefinition(actualResponse: Partial<ParseResult>, testDefi
     ) {
         const expectedLoc =
             testDefinition.expectedLocations || testDefinition.expectedResult.locations;
-        const expectsType = expectedLoc?.some(location => location.type === 'statementType');
+        const expectsType = expectedLoc?.some((location) => location.type === 'statementType');
         if (!expectsType) {
             actualResponse.locations = actualResponse.locations.filter(
-                location => location.type !== 'statementType'
+                (location) => location.type !== 'statementType',
             );
         }
     }
@@ -148,15 +164,15 @@ export function toEqualDefinition(actualResponse: Partial<ParseResult>, testDefi
         return {
             pass: resultEquals(actualResponse.locations, testDefinition.expectedLocations),
             message: constructTestCaseMessage(testDefinition, {
-                'Expected': 'only locations',
-                'Found': 'other fields',
+                Expected: 'only locations',
+                Found: 'other fields',
             }),
         };
     }
 
     if (actualResponse.suggestKeywords) {
         const weightFreeKeywords: ParseResult['suggestKeywords'] = [];
-        actualResponse.suggestKeywords.forEach(keyword => {
+        actualResponse.suggestKeywords.forEach((keyword) => {
             if (typeof keyword !== 'string') {
                 // This file is going to be obsolete in 2 weeks, when we rewrite tests
                 // @ts-ignore
@@ -166,7 +182,7 @@ export function toEqualDefinition(actualResponse: Partial<ParseResult>, testDefi
         actualResponse.suggestKeywords = weightFreeKeywords;
     }
 
-    if (!!testDefinition.noLocations) {
+    if (testDefinition.noLocations) {
         if (actualResponse.locations && actualResponse.locations.length > 0) {
             return {
                 pass: false,
@@ -184,7 +200,7 @@ export function toEqualDefinition(actualResponse: Partial<ParseResult>, testDefi
     if (testDefinition.containsColRefKeywords) {
         const actualSuggestColRefKeywords = actualResponse.suggestColRefKeywords;
 
-        if (typeof actualSuggestColRefKeywords == 'undefined') {
+        if (typeof actualSuggestColRefKeywords === 'undefined') {
             return {
                 pass: false,
                 message: constructTestCaseMessage(testDefinition, {
@@ -193,7 +209,7 @@ export function toEqualDefinition(actualResponse: Partial<ParseResult>, testDefi
             };
         } else if (testDefinition.containsColRefKeywords !== true) {
             let contains = true;
-            testDefinition.containsColRefKeywords.forEach(keyword => {
+            testDefinition.containsColRefKeywords.forEach((keyword) => {
                 contains =
                     contains &&
                     (actualSuggestColRefKeywords.BOOLEAN?.indexOf(keyword) !== -1 ||
@@ -252,7 +268,7 @@ export function toEqualDefinition(actualResponse: Partial<ParseResult>, testDefi
                 message: constructTestCaseMessage(testDefinition, {
                     'Not expected keywords': testDefinition.doesNotContainKeywords,
                     'Found keywords': keywords,
-                })
+                }),
             };
         }
         deleteKeywords = true;
@@ -274,9 +290,9 @@ export function toEqualDefinition(actualResponse: Partial<ParseResult>, testDefi
             return {
                 pass: false,
                 message: constructTestCaseMessage(testDefinition, {
-                    'expectedErrors': 'should be an array',
+                    expectedErrors: 'should be an array',
                 }),
-            }
+            };
         }
 
         if (!actualResponse.errors) {
@@ -286,22 +302,24 @@ export function toEqualDefinition(actualResponse: Partial<ParseResult>, testDefi
                     'Expected errors': testDefinition.expectedErrors,
                     'Parser errors': 'none',
                 }),
-            }
+            };
         }
 
-        const filteredResponseErrors = actualResponse.errors.map((responseError: Record<string, any>, index) => {
-            if (!testDefinition.expectedErrors) {
-                return {};
-            }
+        const filteredResponseErrors = actualResponse.errors.map(
+            (responseError: Record<string, any>, index) => {
+                if (!testDefinition.expectedErrors) {
+                    return {};
+                }
 
-            // This file is going to be obsolete in 2 weeks, when we rewrite tests
-            // @ts-ignore
-            const expectedKeys = Object.keys(testDefinition.expectedErrors[index]);
-            return expectedKeys.reduce<Record<string, any>>((acc, expectedKey) => {
-                acc[expectedKey] = responseError[expectedKey];
-                return acc
-            }, {});
-        })
+                // This file is going to be obsolete in 2 weeks, when we rewrite tests
+                // @ts-ignore
+                const expectedKeys = Object.keys(testDefinition.expectedErrors[index]);
+                return expectedKeys.reduce<Record<string, any>>((acc, expectedKey) => {
+                    acc[expectedKey] = responseError[expectedKey];
+                    return acc;
+                }, {});
+            },
+        );
 
         if (!resultEquals(testDefinition.expectedErrors, filteredResponseErrors)) {
             return {
@@ -310,7 +328,7 @@ export function toEqualDefinition(actualResponse: Partial<ParseResult>, testDefi
                     'Expected errors': testDefinition.expectedErrors,
                     'Parser errors': filteredResponseErrors,
                 }),
-            }
+            };
         }
 
         delete actualResponse.errors;
@@ -319,17 +337,17 @@ export function toEqualDefinition(actualResponse: Partial<ParseResult>, testDefi
     if (testDefinition.expectedResult?.suggestTemplates === undefined) {
         delete actualResponse.suggestTemplates;
     }
-     if (testDefinition.expectedResult?.suggestTemplates === false) {
+    if (testDefinition.expectedResult?.suggestTemplates === false) {
         if (actualResponse.suggestTemplates) {
             return {
                 pass: false,
                 message: constructTestCaseMessage(testDefinition, {
                     'Expected suggestTemplates': 'false',
                 }),
-            }
+            };
         }
         delete testDefinition.expectedResult.suggestTemplates;
-     }
+    }
 
     return {
         pass:
@@ -345,18 +363,20 @@ export function toEqualDefinition(actualResponse: Partial<ParseResult>, testDefi
 function constructTestCaseMessage(testCase: TestCase, details: Record<string, any>): () => string {
     let message = `- Query: ${testCase.beforeCursor + '|' + testCase.afterCursor} \n`;
 
-    for (let key in details) {
-        let value = details[key];
-        if (value === undefined) {
-            value = 'undefined';
-        } else if (typeof value !== 'string') {
-            value = jsonStringToJsString(JSON.stringify(value))
-        }
+    for (const key in details) {
+        if (Object.prototype.hasOwnProperty.call(details, key)) {
+            let value = details[key];
+            if (value === undefined) {
+                value = 'undefined';
+            } else if (typeof value !== 'string') {
+                value = jsonStringToJsString(JSON.stringify(value));
+            }
 
-        message += `- ${key}: ${value} \n`;
+            message += `- ${key}: ${value} \n`;
+        }
     }
 
-    return () => message
+    return () => message;
 }
 
 function resultEquals(a: any, b: any): boolean {
@@ -373,7 +393,7 @@ function resultEquals(a: any, b: any): boolean {
         if (aKeys.length !== Object.keys(b).length) {
             return false;
         }
-        
+
         for (let i = 0; i < aKeys.length; i++) {
             const aKey = aKeys[i];
 
@@ -405,21 +425,21 @@ function jsonStringToJsString(jsonString: string): string {
         .replace(/'([a-z_]+)':/gi, '$1:');
 }
 
-/**
- * Finds and parses x.test.json files given a list of jison files.
- * For example, if alter_table.jison is part of the structure it will look for alter_table.test.json, and if it
- * exists it'll parse it (TestCase[]). Test cases are grouped per found .jison file.
+/*
+Finds and parses x.test.json files given a list of jison files.
+For example, if alter_table.jison is part of the structure it will look for alter_table.test.json, and if it
+exists it'll parse it (TestCase[]). Test cases are grouped per found .jison file.
  */
 export function extractTestCases(
     jisonFolder: string,
-    structureFiles: string[]
+    structureFiles: string[],
 ): GroupedTestCases[] {
     const groupedTestCases: GroupedTestCases[] = [];
 
-    structureFiles.forEach(jisonFile => {
+    structureFiles.forEach((jisonFile) => {
         const testFile = `${jisonFolder}/${jisonFile.replace('.jison', '.test.json')}`;
         if (!existsSync(testFile)) {
-            return
+            return;
         }
 
         const testCases = JSON.parse(readFileSync(testFile).toString()) as TestCase[];
@@ -429,11 +449,14 @@ export function extractTestCases(
     return groupedTestCases;
 }
 
-function createAssertForAutocomplete(parser: AutocompleteParser, debug = false): ((testCase: TestCase) => void) {
+function createAssertForAutocomplete(
+    parser: AutocompleteParser,
+    debug = false,
+): (testCase: TestCase) => void {
     return (testCase: TestCase) => {
-        expect(parser.parseSql(testCase.beforeCursor, testCase.afterCursor, debug)).toEqualDefinition(
-            testCase
-        );
+        expect(
+            parser.parseSql(testCase.beforeCursor, testCase.afterCursor, debug),
+        ).toEqualDefinition(testCase);
     };
 }
 
@@ -444,13 +467,13 @@ function prettyLineBreaks(text: string): string {
 export function runTestCases(
     autocompleteParser: AutocompleteParser,
     groupedTestCases: GroupedTestCases[],
-    debug = false
-) {
+    debug = false,
+): void {
     beforeAll(() => {
         // This guarantees that any parse errors are actually thrown
         (
-            autocompleteParser as unknown as { yy: { parseError: (msg?: string) => void } }
-        ).yy.parseError = msg => {
+            autocompleteParser as unknown as {yy: {parseError: (msg?: string) => void}}
+        ).yy.parseError = (msg): void => {
             throw Error(msg);
         };
     });
@@ -460,9 +483,9 @@ export function runTestCases(
     groupedTestCases.forEach(({jisonFile, testCases}) => {
         // Each group (jison file) gets its own describe
         describe(jisonFile, () => {
-            testCases.forEach(testCase => {
+            testCases.forEach((testCase) => {
                 it(`${testCase.namePrefix} given "${prettyLineBreaks(
-                    testCase.beforeCursor
+                    testCase.beforeCursor,
                 )}|${prettyLineBreaks(testCase.afterCursor)}"`, () => {
                     assertTestCase(testCase);
                 });
@@ -470,4 +493,3 @@ export function runTestCases(
         });
     });
 }
-
