@@ -38,12 +38,12 @@ test('should suggest SELECT', () => {
     expect(parseResult.suggestKeywords).toEqual(suggestions)
 })
 
-test('should not report errors on full CREATE VIEW statement without comment', () => {
+test('should not report errors on full statement without comment', () => {
     const parseResult = parseGenericSqlWithoutCursor('CREATE VIEW test_view AS SELECT test_field, test_field_2 FROM test_table;');
     expect(parseResult.errors).toBeUndefined();
 })
 
-test('should not report errors on full CREATE VIEW statement and fill locations', () => {
+test('should not report errors on full statement and fill locations', () => {
     const parseResult = parseGenericSqlWithoutCursor('CREATE VIEW test_view COMMENT "test" AS SELECT test_field, test_field_2 FROM test_table;');
 
     expect(parseResult.errors).toBeUndefined();

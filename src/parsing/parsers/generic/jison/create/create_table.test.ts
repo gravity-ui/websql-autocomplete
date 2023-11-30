@@ -51,7 +51,7 @@ test('should suggest data types when some types are already written', () => {
     expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(suggestions))
 })
 
-test('should not report errors on full CREATE TABLE statement', () => {
+test('should not report errors on full statement and fill locations', () => {
     const parseResult = parseGenericSqlWithoutCursor('CREATE TABLE test_table (id INT, age FLOAT);');
 
     expect(parseResult.errors).toBeUndefined();

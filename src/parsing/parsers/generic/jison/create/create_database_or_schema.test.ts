@@ -34,12 +34,12 @@ test('should suggest IF NOT EXISTS for schema creation', () => {
 })
 
 // TODO: remove duplicates, because databaseOrSchema should be tested separately
-test('should not report errors on full CREATE DATABASE statement', () => {
+test('should not report errors on full statement', () => {
     const parseResult = parseGenericSqlWithoutCursor('CREATE DATABASE test_database;');
     expect(parseResult.errors).toBeUndefined();
 })
 
-test('should not report errors on full CREATE SCHEMA statement and fill locations', () => {
+test('should not report errors on full statement and fill locations', () => {
     const parseResult = parseGenericSqlWithoutCursor('CREATE SCHEMA test_schema;');
 
     expect(parseResult.errors).toBeUndefined();
