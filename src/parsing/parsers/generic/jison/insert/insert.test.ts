@@ -1,10 +1,14 @@
+import {expect, test} from '@jest/globals';
+
 import {
     ColumnSuggestion,
     DatabasesSuggestion,
     KeywordSuggestion,
-    parseGenericSql, parseGenericSqlWithoutCursor, StatementPart, TablesSuggestion
+    StatementPart,
+    TablesSuggestion,
+    parseGenericSql,
+    parseGenericSqlWithoutCursor,
 } from '../../../../index';
-import {expect, test} from '@jest/globals';
 
 // TODO: test separately OptionalParenthesizedColumnListOrError
 // TODO: test separately InsertValuesListOrError
@@ -14,77 +18,69 @@ test('should suggest INSERT', () => {
 
     expect(parseResult.errors).toBeUndefined();
 
-    const suggestion: KeywordSuggestion = { value: 'INSERT', weight: -1 };
-    expect(parseResult.suggestKeywords).toContainEqual(suggestion)
-})
+    const suggestion: KeywordSuggestion = {value: 'INSERT', weight: -1};
+    expect(parseResult.suggestKeywords).toContainEqual(suggestion);
+});
 
 test('should suggest INTO', () => {
     const parseResult = parseGenericSql('INSERT ', '');
 
     expect(parseResult.errors).toBeUndefined();
 
-    const suggestion: KeywordSuggestion[] = [
-        { value: 'INTO', weight: -1 },
-    ];
-    expect(parseResult.suggestKeywords).toEqual(suggestion)
-})
+    const suggestion: KeywordSuggestion[] = [{value: 'INTO', weight: -1}];
+    expect(parseResult.suggestKeywords).toEqual(suggestion);
+});
 
 test('should suggest tables', () => {
     const parseResult = parseGenericSql('INSERT INTO ', '');
 
     expect(parseResult.errors).toBeUndefined();
 
-    const tablesSuggestion: TablesSuggestion = {
-
-    };
+    const tablesSuggestion: TablesSuggestion = {};
     expect(parseResult.suggestTables).toEqual(tablesSuggestion);
 
     const databasesSuggestion: DatabasesSuggestion = {
         appendDot: true,
-    }
+    };
     expect(parseResult.suggestDatabases).toEqual(databasesSuggestion);
 
-    const suggestion: KeywordSuggestion[] = [
-        { value: 'TABLE', weight: -1 },
-    ];
-    expect(parseResult.suggestKeywords).toEqual(suggestion)
-})
+    const suggestion: KeywordSuggestion[] = [{value: 'TABLE', weight: -1}];
+    expect(parseResult.suggestKeywords).toEqual(suggestion);
+});
 
 test('should suggest tables', () => {
     const parseResult = parseGenericSql('INSERT INTO TABLE ', '');
 
     expect(parseResult.errors).toBeUndefined();
 
-    const tablesSuggestion: TablesSuggestion = { };
+    const tablesSuggestion: TablesSuggestion = {};
     expect(parseResult.suggestTables).toEqual(tablesSuggestion);
 
     const databasesSuggestion: DatabasesSuggestion = {
         appendDot: true,
-    }
+    };
     expect(parseResult.suggestDatabases).toEqual(databasesSuggestion);
 
     expect(parseResult.suggestKeywords).toBeUndefined();
-})
+});
 
 test('should suggest tables', () => {
     const parseResult = parseGenericSql('INSERT INTO TABLE test_table ', '');
 
     expect(parseResult.errors).toBeUndefined();
 
-    const suggestion: KeywordSuggestion = { value: 'VALUES', weight: -1 };
-    expect(parseResult.suggestKeywords).toContainEqual(suggestion)
-
-})
+    const suggestion: KeywordSuggestion = {value: 'VALUES', weight: -1};
+    expect(parseResult.suggestKeywords).toContainEqual(suggestion);
+});
 
 test('should suggest tables', () => {
     const parseResult = parseGenericSql('INSERT INTO test_table (test_column) ', '');
 
     expect(parseResult.errors).toBeUndefined();
 
-    const suggestion: KeywordSuggestion = { value: 'VALUES', weight: -1 };
-    expect(parseResult.suggestKeywords).toContainEqual(suggestion)
-
-})
+    const suggestion: KeywordSuggestion = {value: 'VALUES', weight: -1};
+    expect(parseResult.suggestKeywords).toContainEqual(suggestion);
+});
 
 test('should suggest columns', () => {
     const parseResult = parseGenericSql('INSERT INTO test_table (', ')');
@@ -94,65 +90,64 @@ test('should suggest columns', () => {
             {
                 identifierChain: [
                     {
-                        name: "test_table"
-                    }
-                ]
-            }
-        ]
-    }
+                        name: 'test_table',
+                    },
+                ],
+            },
+        ],
+    };
     expect(parseResult.suggestColumns).toEqual(columnSuggestion);
-})
+});
 
 test('should suggest columns', () => {
-    const parseResult = parseGenericSql('INSERT INTO test_table (', ') VALUES (test_value_1, test_value_2)');
+    const parseResult = parseGenericSql(
+        'INSERT INTO test_table (',
+        ') VALUES (test_value_1, test_value_2)',
+    );
 
     const columnSuggestion: ColumnSuggestion = {
         tables: [
             {
                 identifierChain: [
                     {
-                        name: "test_table"
-                    }
-                ]
-            }
-        ]
-    }
+                        name: 'test_table',
+                    },
+                ],
+            },
+        ],
+    };
     expect(parseResult.suggestColumns).toEqual(columnSuggestion);
-})
+});
 
 test('should suggest tables', () => {
     const parseResult = parseGenericSql('INSERT INTO  ', ' ()');
 
-    const tablesSuggestion: TablesSuggestion = { };
+    const tablesSuggestion: TablesSuggestion = {};
     expect(parseResult.suggestTables).toEqual(tablesSuggestion);
 
     const databasesSuggestion: DatabasesSuggestion = {
         appendDot: true,
-    }
+    };
     expect(parseResult.suggestDatabases).toEqual(databasesSuggestion);
 
-    const suggestion: KeywordSuggestion[] = [
-        { value: 'TABLE', weight: -1 },
-    ];
-    expect(parseResult.suggestKeywords).toEqual(suggestion)
-})
+    const suggestion: KeywordSuggestion[] = [{value: 'TABLE', weight: -1}];
+    expect(parseResult.suggestKeywords).toEqual(suggestion);
+});
 
 test('should suggest tables', () => {
     const parseResult = parseGenericSql('INSERT INTO ', ' () VALUES ()');
 
-    const tablesSuggestion: TablesSuggestion = { };
+    const tablesSuggestion: TablesSuggestion = {};
     expect(parseResult.suggestTables).toEqual(tablesSuggestion);
 
     const databasesSuggestion: DatabasesSuggestion = {
         appendDot: true,
-    }
+    };
     expect(parseResult.suggestDatabases).toEqual(databasesSuggestion);
 
-    const suggestion: KeywordSuggestion[] = [
-        { value: 'TABLE', weight: -1 },
-    ];
-    expect(parseResult.suggestKeywords).toEqual(suggestion)
-})
+    const suggestion: KeywordSuggestion[] = [{value: 'TABLE', weight: -1}];
+    expect(parseResult.suggestKeywords).toEqual(suggestion);
+});
 
 test('should suggest columns', () => {
     const parseResult = parseGenericSql('INSERT INTO test_table (', ') VALUES ()');
@@ -162,17 +157,19 @@ test('should suggest columns', () => {
             {
                 identifierChain: [
                     {
-                        name: "test_table"
-                    }
-                ]
-            }
-        ]
-    }
+                        name: 'test_table',
+                    },
+                ],
+            },
+        ],
+    };
     expect(parseResult.suggestColumns).toEqual(columnSuggestion);
-})
+});
 
 test('should not report errors and fill locations', () => {
-    const parseResult = parseGenericSqlWithoutCursor('INSERT INTO test_table (test_column_1, test_column_2) VALUES (123, 324);');
+    const parseResult = parseGenericSqlWithoutCursor(
+        'INSERT INTO test_table (test_column_1, test_column_2) VALUES (123, 324);',
+    );
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -182,27 +179,27 @@ test('should not report errors and fill locations', () => {
                 first_column: 1,
                 first_line: 1,
                 last_column: 72,
-                last_line: 1
+                last_line: 1,
             },
-            type: "statement"
+            type: 'statement',
         },
         {
             identifierChain: [
                 {
-                    name: "test_table"
-                }
+                    name: 'test_table',
+                },
             ],
             location: {
                 first_column: 13,
                 first_line: 1,
                 last_column: 23,
-                last_line: 1
+                last_line: 1,
             },
-            type: "table"
-        }
+            type: 'table',
+        },
     ];
     expect(parseResult.locations).toEqual(statementParts);
-})
+});
 
 test('should not report errors and fill locations', () => {
     const parseResult = parseGenericSqlWithoutCursor('INSERT INTO test_table VALUES (123, 324);');
@@ -215,24 +212,24 @@ test('should not report errors and fill locations', () => {
                 first_column: 1,
                 first_line: 1,
                 last_column: 41,
-                last_line: 1
+                last_line: 1,
             },
-            type: "statement"
+            type: 'statement',
         },
         {
             identifierChain: [
                 {
-                    name: "test_table"
-                }
+                    name: 'test_table',
+                },
             ],
             location: {
                 first_column: 13,
                 first_line: 1,
                 last_column: 23,
-                last_line: 1
+                last_line: 1,
             },
-            type: "table"
-        }
+            type: 'table',
+        },
     ];
     expect(parseResult.locations).toEqual(statementParts);
-})
+});
