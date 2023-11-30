@@ -1,0 +1,15 @@
+{
+  "root": true,
+  "extends": [
+      "@gravity-ui/eslint-config",
+      "@gravity-ui/eslint-config/prettier"
+  ],
+  "ignorePatterns": ["**/*AutocompleteParser.js"],
+  "rules": {
+      "array-callback-return": "off",
+      "consistent-return": "off",
+      "no-negated-condition": "off",
+      "@typescript-eslint/explicit-function-return-type": "error",
+      "object-shorthand": "error"
+  }
+}

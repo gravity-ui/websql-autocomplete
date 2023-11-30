@@ -23,8 +23,12 @@
     "build_generator": "cd src/generator && rimraf dist && tsc -p tsconfig.build.json",
     "launch_generator": "cd src/generator && node dist/main.js generic postgresql clickhouse",
     "generate": "npm run build_generator && npm run launch_generator",
-    "lint": "npm run prettier -- --check",
-    "fix": "npm run prettier -- --write",
+    "lint": "run-p lint:*",
+    "lint:js": "eslint --ext .js,.ts src",
+    "lint:other": "npm run prettier -- --check ",
+    "fix": "run-p fix:*",
+    "fix:js": "npm run lint:js -- --fix",
+    "fix:other": "npm run prettier -- --write ",
     "prettier": "prettier \"**/*.{md,yaml,yml,json}\"",
     "typecheck": "tsc --noEmit",
     "build": "rimraf dist && tsc -p tsconfig.build.json",
@@ -35,13 +39,16 @@
     "@babel/preset-typescript": "^7.21.5",
     "@commitlint/cli": "^17.4.4",
     "@commitlint/config-conventional": "^17.4.4",
+    "@gravity-ui/eslint-config": "^2.0.0",
     "@gravity-ui/prettier-config": "^1.0.1",
     "@gravity-ui/tsconfig": "^1.0.0",
     "@jest/globals": "^29.7.0",
+    "eslint": "^8.35.0",
     "husky": "^8.0.3",
     "jest": "^29.5.0",
     "jison": "https://github.com/JohanAhlen/jison/tarball/ad8e41475e",
     "nano-staged": "^0.8.0",
+    "npm-run-all": "^4.1.5",
     "prettier": "^2.8.4",
     "rimraf": "^5.0.1",
     "typescript": "5.1.6"
@@ -49,6 +56,9 @@
   "nano-staged": {
     "*.{md,yaml,yml,json}": [
       "prettier --write"
+    ],
+    "*.{js,ts}": [
+      "eslint --fix"
     ]
   }
 }
