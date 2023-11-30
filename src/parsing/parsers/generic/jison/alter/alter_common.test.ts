@@ -1,17 +1,15 @@
-import {
-    KeywordSuggestion,
-    parseGenericSql,
-} from '../../../../index';
 import {expect, test} from '@jest/globals';
+
+import {KeywordSuggestion, parseGenericSql} from '../../../../index';
 
 test('should suggest ALTER', () => {
     const parseResult = parseGenericSql('', '');
 
     expect(parseResult.errors).toBeUndefined();
 
-    const suggestion: KeywordSuggestion = { value: 'ALTER', weight: -1 };
+    const suggestion: KeywordSuggestion = {value: 'ALTER', weight: -1};
     expect(parseResult.suggestKeywords).toContainEqual(suggestion);
-})
+});
 
 test('should suggest ALTER objects', () => {
     const parseResult = parseGenericSql('ALTER ', '');
@@ -19,8 +17,8 @@ test('should suggest ALTER objects', () => {
     expect(parseResult.errors).toBeUndefined();
 
     const suggestions: KeywordSuggestion[] = [
-        { value: 'TABLE', weight: -1 },
-        { value: 'VIEW', weight: -1 },
+        {value: 'TABLE', weight: -1},
+        {value: 'VIEW', weight: -1},
     ];
-    expect(parseResult.suggestKeywords).toEqual(suggestions)
-})
+    expect(parseResult.suggestKeywords).toEqual(suggestions);
+});

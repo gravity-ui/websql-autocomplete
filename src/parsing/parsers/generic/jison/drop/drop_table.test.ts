@@ -1,9 +1,13 @@
+import {expect, test} from '@jest/globals';
+
 import {
     DatabasesSuggestion,
     KeywordSuggestion,
-    parseGenericSql, parseGenericSqlWithoutCursor, StatementPart, TablesSuggestion
+    StatementPart,
+    TablesSuggestion,
+    parseGenericSql,
+    parseGenericSqlWithoutCursor,
 } from '../../../../index';
-import {expect, test} from '@jest/globals';
 
 test('should suggest tables, databases and IF EXISTS', () => {
     const parseResult = parseGenericSql('DROP TABLE ', '');
@@ -20,11 +24,9 @@ test('should suggest tables, databases and IF EXISTS', () => {
     };
     expect(parseResult.suggestDatabases).toEqual(databasesSuggestion);
 
-    const suggestions: KeywordSuggestion[] = [
-        { value: 'IF EXISTS', weight: -1 },
-    ];
-    expect(parseResult.suggestKeywords).toEqual(suggestions)
-})
+    const suggestions: KeywordSuggestion[] = [{value: 'IF EXISTS', weight: -1}];
+    expect(parseResult.suggestKeywords).toEqual(suggestions);
+});
 
 // TODO: test SchemaQualifiedTableIdentifier separatelly
 test('should suggest tables', () => {
@@ -37,14 +39,16 @@ test('should suggest tables', () => {
         identifierChain: [
             {
                 name: 'test_database',
-            }
-        ]
+            },
+        ],
     };
     expect(parseResult.suggestTables).toEqual(tablesSuggestion);
-})
+});
 
 test('should not report errors on full statement and fill locations', () => {
-    const parseResult = parseGenericSqlWithoutCursor('DROP TABLE IF EXISTS test_database.test_table;');
+    const parseResult = parseGenericSqlWithoutCursor(
+        'DROP TABLE IF EXISTS test_database.test_table;',
+    );
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -54,51 +58,51 @@ test('should not report errors on full statement and fill locations', () => {
                 first_column: 1,
                 first_line: 1,
                 last_column: 46,
-                last_line: 1
+                last_line: 1,
             },
-            type: "statement"
+            type: 'statement',
         },
         {
-            identifier: "DROP TABLE",
+            identifier: 'DROP TABLE',
             location: {
                 first_column: 1,
                 first_line: 1,
                 last_column: 5,
-                last_line: 1
+                last_line: 1,
             },
-            type: "statementType"
+            type: 'statementType',
         },
         {
             identifierChain: [
                 {
-                    name: "test_database"
-                }
+                    name: 'test_database',
+                },
             ],
             location: {
                 first_column: 22,
                 first_line: 1,
                 last_column: 35,
-                last_line: 1
+                last_line: 1,
             },
-            type: "database"
+            type: 'database',
         },
         {
             identifierChain: [
                 {
-                    name: "test_database"
+                    name: 'test_database',
                 },
                 {
-                    name: "test_table"
-                }
+                    name: 'test_table',
+                },
             ],
             location: {
                 first_column: 36,
                 first_line: 1,
                 last_column: 46,
-                last_line: 1
+                last_line: 1,
             },
-            type: "table"
-        }
+            type: 'table',
+        },
     ];
     expect(parseResult.locations).toEqual(statementParts);
-})
+});

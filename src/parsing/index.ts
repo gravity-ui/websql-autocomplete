@@ -1,6 +1,6 @@
+import {clickhouseAutocompleteParser} from './parsers/clickhouse/clickhouseAutocompleteParser';
 import {genericAutocompleteParser} from './parsers/generic/genericAutocompleteParser';
 import {postgresqlAutocompleteParser} from './parsers/postgresql/postgresqlAutocompleteParser';
-import {clickhouseAutocompleteParser} from './parsers/clickhouse/clickhouseAutocompleteParser';
 
 export const cursorSymbol = '†';
 
@@ -10,7 +10,7 @@ export abstract class Parser {
 
 export interface ParseResult {
     locations: StatementPart[]; // TODO: figure our if it's optional
-    errors?: SyntaxError[];
+    errors?: ParserSyntaxError[];
     suggestKeywords?: KeywordSuggestion[];
     suggestTables?: TablesSuggestion;
     suggestColumns?: ColumnSuggestion;
@@ -38,55 +38,55 @@ export interface ParseResult {
 }
 
 export type StatementPart =
-    {
-        type: 'statement'
-        location: Location
-    }
     | {
-        type: 'statementType'
-        location: Location
-        identifier: string
-    }
+          type: 'statement';
+          location: Location;
+      }
     | {
-        type: 'selectList'
-        location: Location
-        missing?: boolean
-        subquery?: true
-    }
+          type: 'statementType';
+          location: Location;
+          identifier: string;
+      }
     | {
-        type: 'asterisk'
-        location: Location
-        tables: Table[];
-    }
+          type: 'selectList';
+          location: Location;
+          missing?: boolean;
+          subquery?: true;
+      }
     | {
-        type: 'table'
-        location: Location
-        identifierChain: IdentifierChainEntry[]
-    }
+          type: 'asterisk';
+          location: Location;
+          tables: Table[];
+      }
     | {
-        type: 'whereClause'
-        location: Location
-        missing: boolean
-        subquery?: true
-    }
+          type: 'table';
+          location: Location;
+          identifierChain: IdentifierChainEntry[];
+      }
     | {
-        type: 'limitClause'
-        location: Location
-        missing: boolean
-        subquery?: true
-    }
+          type: 'whereClause';
+          location: Location;
+          missing: boolean;
+          subquery?: true;
+      }
     | {
-        type: 'column'
-        location: Location,
-        identifierChain: IdentifierChainEntry[]
-        tables: Table[]
-        qualified: boolean,
-    }
+          type: 'column';
+          location: Location;
+          identifierChain: IdentifierChainEntry[];
+          tables: Table[];
+          qualified: boolean;
+      }
     | {
-        type: "database"
-        location: Location,
-        identifierChain: IdentifierChainEntry[],
-    };
+          type: 'database';
+          location: Location;
+          identifierChain: IdentifierChainEntry[];
+      }
+    | {
+          type: 'limitClause';
+          location: Location;
+          missing: boolean;
+          subquery?: true;
+      };
 
 export interface TablesSuggestion {
     prependFrom?: boolean;
@@ -101,7 +101,7 @@ export interface DatabasesSuggestion {
 }
 
 export interface AggregateFunctionsSuggestion {
-    tables: Table[],
+    tables: Table[];
 }
 
 export interface ColumnSuggestion {
@@ -114,7 +114,7 @@ export interface KeywordSuggestion {
     weight: number;
 }
 
-export interface SyntaxError {
+export interface ParserSyntaxError {
     expected: string[];
     line: number;
     loc: Location;
@@ -153,7 +153,7 @@ export interface ColumnAliasSuggestion {
 type Engines = string[];
 
 export function parseGenericSql(queryBeforeCursor: string, queryAfterCursor: string): ParseResult {
-    let parser = genericAutocompleteParser as Parser;
+    const parser = genericAutocompleteParser as Parser;
     return parser.parseSql(queryBeforeCursor, queryAfterCursor);
 }
 
@@ -162,7 +162,7 @@ export function parseGenericSqlWithoutCursor(query: string): ParseResult {
 }
 
 export function parsePostgreSql(queryBeforeCursor: string, queryAfterCursor: string): ParseResult {
-    let parser = postgresqlAutocompleteParser as Parser;
+    const parser = postgresqlAutocompleteParser as Parser;
     return parser.parseSql(queryBeforeCursor, queryAfterCursor);
 }
 
@@ -171,7 +171,7 @@ export function parsePostgreSqlWithoutCursor(query: string): ParseResult {
 }
 
 export function parseClickHouse(queryBeforeCursor: string, queryAfterCursor: string): ParseResult {
-    let parser = clickhouseAutocompleteParser as Parser;
+    const parser = clickhouseAutocompleteParser as Parser;
     return parser.parseSql(queryBeforeCursor, queryAfterCursor);
 }
 

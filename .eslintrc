@@ -1,0 +1,32 @@
+{
+  "root": true,
+  "extends": [
+      "@gravity-ui/eslint-config",
+      "@gravity-ui/eslint-config/prettier"
+  ],
+  // These files are generated, so they don't have to be linted
+  "ignorePatterns": ["**/*AutocompleteParser.js", "src/generator/dist/**/*"],
+  "rules": {
+      "array-callback-return": "off",
+      "consistent-return": "off",
+      "no-negated-condition": "off",
+      "@typescript-eslint/explicit-function-return-type": "error",
+      "object-shorthand": "error",
+      "no-implicit-globals": "off"
+  },
+  "overrides": [
+    {
+      "files": "*.js",
+      "rules": {
+        "@typescript-eslint/explicit-function-return-type": "off"
+      }
+    },
+    {
+      "files": ["**/parser-extension.js", "src/parsing/lib/parsing.js"],
+      "rules": {
+        // Parser is extended via reassignment, so this rule doesn't make sense
+        "no-param-reassign": "off"
+      }
+    }
+  ]
+}

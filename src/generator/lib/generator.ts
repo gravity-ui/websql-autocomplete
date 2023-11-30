@@ -28,8 +28,9 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
-import {deleteFile, fileExists, listDir, readFile, writeFile} from './files';
 import jisonCli, {JisonOptions} from 'jison/lib/cli.js';
+
+import {deleteFile, fileExists, listDir, readFile, writeFile} from './files';
 
 interface StructureFileObject {
     dialect: string;
@@ -101,9 +102,7 @@ async function concatinateJisonFiles(sources: string[]): Promise<string> {
     return contents.join();
 }
 
-/**
- * Searches through the SQL_FOLDER and if a jison/structure.json file exists it considers it a parser
- */
+// Searches through the SQL_FOLDER and if a jison/structure.json file exists it considers it a parser
 async function getParserStructureFiles(): Promise<StructureFileObject[]> {
     const parsersFolder = `../parsing/parsers`;
 
@@ -123,9 +122,7 @@ async function getParserStructureFiles(): Promise<StructureFileObject[]> {
     return structureFiles;
 }
 
-/**
- * Identifies all the SQL parsers based on subfolders in SQL_FOLDER and adds them to parserDefinitions
- */
+// Identifies all the SQL parsers based on subfolders in SQL_FOLDER and adds them to parserDefinitions
 async function getAvailableParserDefinitions(): Promise<Map<string, ParserDefinition>> {
     const parserSources = await getParserStructureFiles();
     const foundDefinitions = new Map<string, ParserDefinition>();
@@ -171,8 +168,8 @@ async function createParserDefinition(
         sqlParser: 'AUTOCOMPLETE',
         parserName,
         outputFolder,
-        extendParser: async (content) => {
-            let fixedContents = content
+        extendParser: async (content): Promise<string> => {
+            const fixedContents = content
                 .replace(
                     `var ${parserName} = `,
                     imports
@@ -250,7 +247,7 @@ async function extendParser(
 
 async function generateParser(parserDefinition: ParserDefinition): Promise<void> {
     const parserFileName = `${parserDefinition.parserName}.js`;
-    let outputFileName = `${parserDefinition.outputFolder}/${parserFileName}`;
+    const outputFileName = `${parserDefinition.outputFolder}/${parserFileName}`;
 
     const jisonParserContents = await generateJisonParser(parserDefinition, parserFileName);
     await extendParser(jisonParserContents, parserDefinition, outputFileName);
