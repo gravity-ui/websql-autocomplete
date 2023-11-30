@@ -205,7 +205,7 @@ async function findParserDefinitions(parserNames: string[]): Promise<ParserDefin
     return foundParsers;
 }
 
-function runJisonTool(parserDefinition: ParserDefinition, parserFileName: string): void {
+function runJisonCli(parserDefinition: ParserDefinition, parserFileName: string): void {
     const options: JisonOptions = {
         file: parserDefinition.concatenatedJisonFileName,
         outfile: parserFileName,
@@ -230,7 +230,7 @@ async function generateJisonParser(
     const jisonContents = await concatinateJisonFiles(parserDefinition.sources);
     await writeFile(parserDefinition.concatenatedJisonFileName, jisonContents);
 
-    runJisonTool(parserDefinition, outputFileName);
+    runJisonCli(parserDefinition, outputFileName);
     const generatedFileContents = await readFile(outputFileName);
 
     deleteFile(parserDefinition.concatenatedJisonFileName);
