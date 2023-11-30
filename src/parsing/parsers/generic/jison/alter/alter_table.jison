@@ -26,6 +26,7 @@ AlterTable
  : AlterTableLeftSide PartitionSpec
  ;
 
+// TODO: support AlterTableRightSide, PartitionSpec will not work for MySQL, PostgreSQL
 AlterTable_EDIT
  : AlterTableLeftSide_EDIT
  | AlterTableLeftSide_EDIT PartitionSpec

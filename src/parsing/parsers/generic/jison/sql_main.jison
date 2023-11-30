@@ -226,6 +226,7 @@ FromOrIn
  | 'IN'
  ;
 
+// TODO: make sure it has tests
 DatabaseOrSchema
  : 'DATABASE'
  | 'SCHEMA'
@@ -334,6 +335,7 @@ OptionalPartitionSpec_EDIT
  : PartitionSpec_EDIT
  ;
 
+// TODO: make sure it has tests
 PartitionSpec
  : 'PARTITION' '(' PartitionSpecList ')'
  ;
