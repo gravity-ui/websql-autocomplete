@@ -28,23 +28,25 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
+import {describe, it} from '@jest/globals';
+
+import {CommonParser, assertPartials} from '../../lib/parsing-typed';
+import type {AutocompleteParser} from '../../lib/types';
+import {extractTestCases, runTestCases} from '../../test/testing';
+
 import {genericAutocompleteParser} from './genericAutocompleteParser';
 import structure from './jison/structure.json';
-import type { AutocompleteParser } from '../../lib/types';
-import { extractTestCases, runTestCases } from '../../test/testing';
-import { assertPartials, CommonParser } from '../../lib/parsing-typed';
-import {describe, it} from '@jest/globals';
 
 const jisonFolder = 'src/parsing/parsers/generic/jison';
 const groupedTestCases = extractTestCases(jisonFolder, structure.autocomplete);
 
 describe('genericAutocompleteParser', () => {
-  // TODO: Fix the types
-  runTestCases(genericAutocompleteParser as unknown as AutocompleteParser, groupedTestCases);
+    // TODO: Fix the types
+    runTestCases(genericAutocompleteParser as unknown as AutocompleteParser, groupedTestCases);
 
-  describe('partial removal', () => {
-    it('should identify part lengths', () => {
-      assertPartials(genericAutocompleteParser as unknown as CommonParser);
+    describe('partial removal', () => {
+        it('should identify part lengths', () => {
+            assertPartials(genericAutocompleteParser as unknown as CommonParser);
+        });
     });
-  });
 });

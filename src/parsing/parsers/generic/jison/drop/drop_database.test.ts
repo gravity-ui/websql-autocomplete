@@ -1,9 +1,12 @@
+import {expect, test} from '@jest/globals';
+
 import {
     DatabasesSuggestion,
     KeywordSuggestion,
-    parseGenericSql, parseGenericSqlWithoutCursor, StatementPart
+    StatementPart,
+    parseGenericSql,
+    parseGenericSqlWithoutCursor,
 } from '../../../../index';
-import {expect, test} from '@jest/globals';
 
 test('should suggest databases and IF EXISTS', () => {
     const parseResult = parseGenericSql('DROP DATABASE ', '');
@@ -13,22 +16,18 @@ test('should suggest databases and IF EXISTS', () => {
     const databasesSuggestion: DatabasesSuggestion = {};
     expect(parseResult.suggestDatabases).toEqual(databasesSuggestion);
 
-    const suggestions: KeywordSuggestion[] = [
-        { value: 'IF EXISTS', weight: -1 },
-    ];
-    expect(parseResult.suggestKeywords).toEqual(suggestions)
-})
+    const suggestions: KeywordSuggestion[] = [{value: 'IF EXISTS', weight: -1}];
+    expect(parseResult.suggestKeywords).toEqual(suggestions);
+});
 
 test('should suggest CASCADE', () => {
     const parseResult = parseGenericSql('DROP DATABASE test_database ', '');
 
     expect(parseResult.errors).toBeUndefined();
 
-    const suggestions: KeywordSuggestion[] = [
-        { value: 'CASCADE', weight: -1 },
-    ];
-    expect(parseResult.suggestKeywords).toEqual(suggestions)
-})
+    const suggestions: KeywordSuggestion[] = [{value: 'CASCADE', weight: -1}];
+    expect(parseResult.suggestKeywords).toEqual(suggestions);
+});
 
 test('should not report errors on full statement and fill locations', () => {
     const parseResult = parseGenericSqlWithoutCursor('DROP DATABASE test_database CASCADE;');
@@ -41,20 +40,20 @@ test('should not report errors on full statement and fill locations', () => {
                 first_column: 1,
                 first_line: 1,
                 last_column: 36,
-                last_line: 1
+                last_line: 1,
             },
-            type: "statement"
+            type: 'statement',
         },
         {
-            identifier: "DROP DATABASE",
+            identifier: 'DROP DATABASE',
             location: {
                 first_column: 1,
                 first_line: 1,
                 last_column: 5,
-                last_line: 1
+                last_line: 1,
             },
-            type: "statementType"
-        }
+            type: 'statementType',
+        },
     ];
     expect(parseResult.locations).toEqual(statementParts);
-})
+});

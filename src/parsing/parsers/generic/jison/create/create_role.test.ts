@@ -1,7 +1,6 @@
-import {
-    parseGenericSqlWithoutCursor, StatementPart,
-} from '../../../../index';
 import {expect, test} from '@jest/globals';
+
+import {StatementPart, parseGenericSqlWithoutCursor} from '../../../../index';
 
 test('should not report errors on full statement and fill locations', () => {
     const parseResult = parseGenericSqlWithoutCursor('CREATE ROLE test_role;');
@@ -15,9 +14,9 @@ test('should not report errors on full statement and fill locations', () => {
                 first_column: 1,
                 first_line: 1,
                 last_column: 22,
-                last_line: 1
+                last_line: 1,
             },
-        }
+        },
     ];
     expect(parseResult.locations).toEqual(statementParts);
-})
+});
