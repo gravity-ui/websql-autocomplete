@@ -118,12 +118,16 @@ export function matchesType(
   const conversionTable = GENERIC_TYPE_CONVERSION;
   for (let i = 0; i < expectedTypes.length; i++) {
     for (let j = 0; j < actualTypes.length; j++) {
+      const expectedType = expectedTypes[i];
+      const actualType = actualTypes[j];
+      const convertedType = expectedType && conversionTable[expectedType];
+
       // To support future unknown types
-      if (typeof conversionTable[expectedTypes[i]] === 'undefined' || typeof conversionTable[expectedTypes[i]][actualTypes[j]] == 'undefined') {
+      if (!convertedType || !actualType || typeof convertedType === 'undefined' || typeof convertedType[actualType] == 'undefined') {
         return true;
       }
 
-      if (conversionTable[expectedTypes[i]] && conversionTable[expectedTypes[i]][actualTypes[j]]) {
+      if (convertedType && convertedType[actualType]) {
         return true;
       }
     }

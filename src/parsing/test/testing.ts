@@ -83,7 +83,7 @@ export function getToEqualAutocompleteValues(actualItems: {value: string}[], exp
     }
 
     for (let i = 0; i < expectedValues.length; i++) {
-        const stringValue = typeof actualItems[i] !== 'string' ? '' + actualItems[i].value : actualItems[i].value;
+        const stringValue = typeof actualItems[i] !== 'string' ? '' + actualItems[i]?.value : actualItems[i]?.value;
         if (stringValue !== expectedValues[i]) {
             return {
                 pass: false,
@@ -95,7 +95,7 @@ export function getToEqualAutocompleteValues(actualItems: {value: string}[], exp
     return {pass: true, message: () => 'test'};
 }
 
-export function toEqualDefinition(actualResponse: ParseResult, testDefinition: TestCase) {
+export function toEqualDefinition(actualResponse: Partial<ParseResult>, testDefinition: TestCase) {
     if (typeof testDefinition.noErrors === 'undefined' && actualResponse.errors && !testDefinition.expectedErrors) {
         let allRecoverable = true;
         actualResponse.errors.forEach(error => {
@@ -158,6 +158,7 @@ export function toEqualDefinition(actualResponse: ParseResult, testDefinition: T
         const weightFreeKeywords: ParseResult['suggestKeywords'] = [];
         actualResponse.suggestKeywords.forEach(keyword => {
             if (typeof keyword !== 'string') {
+                // @ts-ignore
                 weightFreeKeywords.push(keyword.value);
             }
         });
@@ -194,9 +195,9 @@ export function toEqualDefinition(actualResponse: ParseResult, testDefinition: T
             testDefinition.containsColRefKeywords.forEach(keyword => {
                 contains =
                     contains &&
-                    (actualSuggestColRefKeywords.BOOLEAN.indexOf(keyword) !== -1 ||
-                        actualSuggestColRefKeywords.NUMBER.indexOf(keyword) !== -1 ||
-                        actualSuggestColRefKeywords.STRING.indexOf(keyword) !== -1);
+                    (actualSuggestColRefKeywords.BOOLEAN?.indexOf(keyword) !== -1 ||
+                        actualSuggestColRefKeywords.NUMBER?.indexOf(keyword) !== -1 ||
+                        actualSuggestColRefKeywords.STRING?.indexOf(keyword) !== -1);
             });
             if (!contains) {
                 return {
@@ -215,6 +216,7 @@ export function toEqualDefinition(actualResponse: ParseResult, testDefinition: T
         const keywords = actualResponse.suggestKeywords;
         let contains = true;
         testDefinition.containsKeywords.forEach((keyword): boolean | void => {
+            // @ts-ignore
             if (typeof keywords === 'undefined' || keywords.indexOf(keyword) === -1) {
                 contains = false;
                 return false;
@@ -235,6 +237,7 @@ export function toEqualDefinition(actualResponse: ParseResult, testDefinition: T
         const keywords = actualResponse.suggestKeywords || [];
         let contains = false;
         testDefinition.doesNotContainKeywords.forEach((keyword): boolean | void => {
+            // @ts-ignore
             if (typeof keywords === 'undefined' || keywords.indexOf(keyword) !== -1) {
                 contains = true;
                 return false;
@@ -288,6 +291,7 @@ export function toEqualDefinition(actualResponse: ParseResult, testDefinition: T
                 return {};
             }
 
+            // @ts-ignore
             const expectedKeys = Object.keys(testDefinition.expectedErrors[index]);
             return expectedKeys.reduce<Record<string, any>>((acc, expectedKey) => {
                 acc[expectedKey] = responseError[expectedKey];
@@ -365,9 +369,15 @@ function resultEquals(a: any, b: any): boolean {
         if (aKeys.length !== Object.keys(b).length) {
             return false;
         }
-
+        
         for (let i = 0; i < aKeys.length; i++) {
-            if (!resultEquals(a[aKeys[i]], b[aKeys[i]])) {
+            const aKey = aKeys[i];
+
+            if (aKey === undefined) {
+                return false;
+            }
+
+            if (!resultEquals(a[aKey], b[aKey])) {
                 return false;
             }
         }
