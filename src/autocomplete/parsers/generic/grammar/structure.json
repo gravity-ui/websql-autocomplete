@@ -18,7 +18,7 @@
     "drop/drop_view.jison",
     "explain/explain.jison",
     "insert/insert.jison",
-    "select/cte_select_statement.jison",
+    "select/common_table_expression_select_statement.jison",
     "select/from_clause.jison",
     "select/group_by_clause.jison",
     "select/having_clause.jison",

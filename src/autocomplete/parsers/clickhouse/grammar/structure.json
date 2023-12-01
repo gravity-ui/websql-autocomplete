@@ -18,7 +18,7 @@
     "../../generic/grammar/drop/drop_view.jison",
     "explain/explain.jison",
     "../../generic/grammar/insert/insert.jison",
-    "../../generic/grammar/select/cte_select_statement.jison",
+    "../../generic/grammar/select/common_table_expression_select_statement.jison",
     "../../generic/grammar/select/from_clause.jison",
     "../../generic/grammar/select/group_by_clause.jison",
     "../../generic/grammar/select/having_clause.jison",
