@@ -168,6 +168,10 @@ export interface AutocompleteParseResult {
     errors?: ErrorLocation[];
     definitions?: IdentifierLocation[];
     suggestTemplates?: boolean;
+    suggestEngines?: {
+        engines: string[];
+        functionalEngines: string[];
+    };
 }
 
 export interface AutocompleteParser {
@@ -352,6 +356,7 @@ export interface ParserContext {
         yylloc: ParsedLocation,
         quoteChar: string,
     ): boolean;
+    suggestEngines(): void;
 }
 
 export interface ColumnSpecification {
