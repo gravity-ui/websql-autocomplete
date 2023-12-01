@@ -32,7 +32,7 @@ export interface ParseResult {
         engines: Engines;
         functionalEngines: Engines;
     };
-    colRef?: ColRef;
+    colRef?: ColumnReference;
 
     // Reasons for those fields are unknown
     definitions?: []; // TODO: figure our if it's optional
@@ -126,7 +126,7 @@ export interface ValuesSuggestion {
     partialQuote?: boolean;
 }
 
-export interface ColRef {
+export interface ColumnReference {
     identifierChain: IdentifierChainEntry[];
 }
 

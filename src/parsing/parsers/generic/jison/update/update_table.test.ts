@@ -1,7 +1,7 @@
 import {expect, test} from '@jest/globals';
 
 import {
-    ColRef,
+    ColumnReference,
     ColumnSuggestion,
     DatabasesSuggestion,
     FiltersSuggestion,
@@ -69,7 +69,7 @@ test('should suggest databases or table', () => {
 });
 
 test('should suggest databases or table midway', () => {
-    const parseResult = parseGenericSql('UPDATE test_ta', '');
+    const parseResult = parseGenericSql('UPDATE test_table', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -98,7 +98,7 @@ test('should suggest tables after database', () => {
 });
 
 test('should suggest tables midway after database', () => {
-    const parseResult = parseGenericSql('UPDATE test_database.test_ta', '');
+    const parseResult = parseGenericSql('UPDATE test_database.test_table', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -243,7 +243,7 @@ test('should suggest columns, functions, values, keywords, colRef after equal si
     const keywordSuggestion: KeywordSuggestion = {value: 'CASE', weight: 450};
     expect(parseResult.suggestKeywords).toContainEqual(keywordSuggestion);
 
-    const colRef: ColRef = {
+    const colRef: ColumnReference = {
         identifierChain: [
             {
                 name: 'test_database',
