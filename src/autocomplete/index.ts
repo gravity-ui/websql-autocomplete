@@ -22,8 +22,9 @@ export interface ParseResult {
     suggestColumnAliases?: ColumnAliasSuggestion[];
     suggestCommonTableExpressions?: unknown;
     suggestDatabases?: DatabasesSuggestion;
-    suggestFilters?: unknown;
-    suggestFunctions?: unknown;
+    suggestFilters?: FiltersSuggestion;
+    suggestFunctions?: FunctionsSuggestion;
+    suggestValues?: ValuesSuggestion;
     suggestGroupBys?: unknown;
     suggestIdentifiers?: IdentifierSuggestion[];
     suggestTemplates?: boolean;
@@ -31,6 +32,7 @@ export interface ParseResult {
         engines: Engines;
         functionalEngines: Engines;
     };
+    colRef?: ColumnReference;
 
     // Reasons for those fields are unknown
     definitions?: []; // TODO: figure our if it's optional
@@ -106,7 +108,26 @@ export interface AggregateFunctionsSuggestion {
 
 export interface ColumnSuggestion {
     source?: string; // TODO: figure our if it's optional
+    types?: string[];
     tables: Table[];
+}
+
+export interface FunctionsSuggestion {
+    types?: string[];
+}
+
+export interface FiltersSuggestion {
+    prefix?: string;
+    tables: Table[];
+}
+
+export interface ValuesSuggestion {
+    missingEndQuote?: boolean;
+    partialQuote?: boolean;
+}
+
+export interface ColumnReference {
+    identifierChain: IdentifierChainEntry[];
 }
 
 export interface KeywordSuggestion {
