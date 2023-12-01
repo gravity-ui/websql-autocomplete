@@ -1,7 +1,7 @@
 {
   "lexer": "sql.jisonlex",
   "autocomplete": [
-    "../../generic/jison/autocomplete_header.jison",
+    "../../generic/jison/common/header_and_footer/header.jison",
     "../../generic/jison/alter/alter_common.jison",
     "../../generic/jison/alter/alter_table.jison",
     "../../generic/jison/alter/alter_view.jison",
@@ -25,10 +25,10 @@
     "../../generic/jison/select/joins.jison",
     "../../generic/jison/select/limit_clause.jison",
     "../../generic/jison/select/order_by_clause.jison",
-    "./select/select.jison",
+    "select/select.jison",
     "../../generic/jison/select/select_conditions.jison",
     "../../generic/jison/select/union_clause.jison",
-    "../../generic/jison/select/where_clause.jison",
+    "../../generic/jison/common/where/where_clause.jison",
     "../../generic/jison/set/set_common.jison",
     "../../generic/jison/set/set_all.jison",
     "../../generic/jison/set/set_option.jison",
@@ -53,10 +53,10 @@
     "../../generic/jison/udf/udf_common.jison",
     "../../generic/jison/update/update_table.jison",
     "../../generic/jison/use/use.jison",
-    "../../generic/jison/sql_error.jison",
-    "./sql_main.jison",
-    "../../generic/jison/sql_table.jison",
-    "../../generic/jison/sql_valueExpression.jison",
-    "../../generic/jison/autocomplete_footer.jison"
+    "../../generic/jison/common/error/error.jison",
+    "main.jison",
+    "../../generic/jison/common/table/table.jison",
+    "../../generic/jison/common/value_expression/value_expression.jison",
+    "../../generic/jison/common/header_and_footer/footer.jison"
   ]
 }
