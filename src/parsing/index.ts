@@ -141,8 +141,11 @@ export interface IdentifierChainEntry {
 }
 
 export interface IdentifierSuggestion {
-    name: string;
-    type: string;
+    name?: string;
+    type?: string;
+    prependFrom?: boolean;
+    prependQuestionMark?: boolean;
+    appendBacktick?: boolean;
 }
 
 export interface ColumnAliasSuggestion {

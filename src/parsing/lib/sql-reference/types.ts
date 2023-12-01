@@ -80,10 +80,10 @@ export interface SqlReferenceProvider {
     hasUdfCategories(dialect: string): boolean;
 }
 
-function stripPrecision(types: string[]): string[] {
+function stripPrecision(types?: string[]): string[] {
     const result: string[] = [];
 
-    types.forEach((type) => {
+    types?.forEach((type) => {
         if (type.indexOf('(') > -1) {
             result.push(type.substring(0, type.indexOf('(')));
         } else {
@@ -98,7 +98,7 @@ function stripPrecision(types: string[]): string[] {
 export function matchesType(
     _dialect: string,
     expectedTypes: string[],
-    actualRawTypes: string[],
+    actualRawTypes?: string[],
 ): boolean {
     if (expectedTypes.length === 1 && expectedTypes[0] === 'T') {
         return true;

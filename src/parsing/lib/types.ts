@@ -28,7 +28,7 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
-import {KeywordSuggestion} from '../index';
+import {IdentifierSuggestion, KeywordSuggestion} from '../index';
 
 export interface IdentifierChainEntry {
     name?: string;
@@ -45,8 +45,10 @@ export interface SubQuery {
 
 export interface ParsedTable {
     alias?: string;
-    identifierChain: IdentifierChainEntry[];
-    subQuery?: SubQuery; // TODO: Define
+    identifierChain?: IdentifierChainEntry[];
+    owner?: string;
+    subQuery?: string;
+    subQueryAlias?: string;
 }
 
 export interface ParsedLocation {
@@ -67,7 +69,12 @@ export interface IdentifierLocation {
     value?: string;
     active?: boolean;
     tables?: ParsedTable[];
-    colRef?: boolean | {identifierChain: IdentifierChainEntry[]; tables: ParsedTable[]};
+    colRef?: {
+        identifierChain: IdentifierChainEntry[];
+        tables?: ParsedTable[];
+        linked?: boolean;
+        owner?: string;
+    };
     argumentPosition?: number;
     identifierChain?: IdentifierChainEntry[];
     expression?: AwaitedTokenExpression;
@@ -77,6 +84,9 @@ export interface IdentifierLocation {
     columns?: ColumnDetails[];
     subquery?: boolean;
     suffix?: string;
+    linked?: boolean;
+    firstInChain?: unknown;
+    target?: unknown;
 }
 
 export interface ColumnAliasDetails {
@@ -95,23 +105,29 @@ export interface ColumnDetails {
 }
 
 export interface CommonPopularSuggestion {
-    tables: ParsedTable[];
+    tables?: ParsedTable[];
+    tablePrimaries?: ParsedTable[];
     prefix?: string;
+    linked?: boolean;
+}
+
+export interface SuggestHdfs {
+    path: string;
 }
 
 export interface AutocompleteParseResult {
     colRef?: {
         identifierChain: IdentifierChainEntry[];
+        linked?: boolean;
     };
-    commonTableExpressions?: {
-        alias: string;
-        columns: ColumnDetails[];
-    }[];
+    commonTableExpressions?: IdentifierLocation[];
     locations: IdentifierLocation[];
     lowerCase: boolean;
     subQueries: SubQuery[];
     suggestAggregateFunctions?: {
-        tables: ParsedTable[];
+        tables?: ParsedTable[];
+        tablePrimaries?: ParsedTable[];
+        linked?: boolean;
     };
     suggestAnalyticFunctions?: boolean;
     suggestColRefKeywords?: {
@@ -119,54 +135,23 @@ export interface AutocompleteParseResult {
     };
     suggestColumnAliases?: ColumnAliasDetails[];
     suggestColumns?: SuggestColumns;
-    suggestCommonTableExpressions?: {
-        appendBacktick?: boolean;
-        name: string;
-        prependFrom: boolean;
-        prependQuestionMark: boolean;
-    }[];
-    suggestDatabases?: {
-        appendBacktick?: boolean;
-        appendDot?: boolean;
-        prependFrom?: boolean;
-        prependQuestionMark?: boolean;
-    };
-    suggestFilters?: {
-        tables: ParsedTable[];
-        prefix?: string;
-    };
+    suggestCommonTableExpressions?: IdentifierSuggestion[];
+    suggestDatabases?: SuggestDatabases;
+    suggestFilters?: SuggestFilters;
     suggestFunctions?: SuggestFunctions;
     suggestGroupBys?: CommonPopularSuggestion;
-    suggestHdfs?: {
-        path: string;
-    };
-    suggestJoins?: {
-        prependJoin?: boolean;
-        tables: ParsedTable[];
-    };
-    suggestJoinConditions?: {
-        prependOn?: boolean;
-        tables: ParsedTable[];
-    };
-    suggestIdentifiers?: {
-        name: string;
-        type: string;
-    }[];
-    suggestKeyValues?: unknown;
+    suggestHdfs?: SuggestHdfs;
+    suggestJoins?: SuggestJoins;
+    suggestJoinConditions?: SuggestJoinConditions;
+    suggestIdentifiers?: SuggestIdentifier[];
+    suggestKeyValues?: SuggestKeyValues;
     suggestKeywords?: {
         value: string;
         weight: number;
     }[];
     suggestOrderBys?: CommonPopularSuggestion;
     suggestSetOptions?: boolean;
-    suggestTables?: {
-        appendBacktick?: boolean;
-        identifierChain?: IdentifierChainEntry[];
-        onlyTables?: boolean;
-        onlyViews?: boolean;
-        prependFrom?: boolean;
-        prependQuestionMark?: boolean;
-    };
+    suggestTables?: SuggestTables;
     suggestValues?: {
         missingEndQuote?: boolean;
         partialQuote?: boolean;
@@ -176,6 +161,13 @@ export interface AutocompleteParseResult {
         position: number;
     };
     useDatabase?: string;
+    error?: {
+        expected?: string[];
+        recoverable?: boolean;
+    };
+    errors?: ErrorLocation[];
+    definitions?: IdentifierLocation[];
+    suggestTemplates?: boolean;
 }
 
 export interface AutocompleteParser {
@@ -186,8 +178,8 @@ export interface ParserContext {
     SELECT_FIRST_OPTIONAL_KEYWORDS: KeywordSuggestion[];
     KEYWORDS: Record<string, string[]>;
     yy: {
-        result: AutocompleteParseResult;
-        cursorFound: {
+        result: Partial<AutocompleteParseResult>;
+        cursorFound?: {
             first_line: number;
             last_line: number;
             last_column: number;
@@ -195,13 +187,34 @@ export interface ParserContext {
         };
         partialLengths: PartialLengths;
         partialCursor: unknown;
-        primariesStack: unknown[];
+        primariesStack: ParsedTable[][];
         locations: IdentifierLocation[];
         definitions: IdentifierLocation[];
         allLocations: IdentifierLocation[];
+        latestCommonTableExpressions?: IdentifierLocation[];
+        correlatedSubQuery?: unknown;
+        subQueries: SubQuery[];
+        selectListAliases: ColumnAliasDetails[];
+        latestTablePrimaries: ParsedTable[];
+        errors: ErrorLocation[];
+        resultStack: Partial<AutocompleteParseResult>[];
+        locationsStack: IdentifierLocation[][];
+        selectListAliasesStack: ColumnAliasDetails[][];
+        subQueriesStack: SubQuery[][];
+        activeDialect: string;
+        lowerCase: boolean;
+        caseDetermined: unknown;
+        missingEndQuote: boolean;
+        parseError(message: string, error: ErrorLocation): void;
     };
 
-    parse(beforeCursor: string, afterCursor: string): AutocompleteParseResult;
+    parse(beforeCursor: string, afterCursor?: string): AutocompleteParseResult;
+    parseSql(
+        beforeCursor: string,
+        afterCursor: string,
+        debug: boolean,
+    ): Partial<AutocompleteParseResult>;
+    lexer: Lexer;
     addAsteriskLocation(location: ParsedLocation, identifierChain: IdentifierChainEntry[]): void;
     addClauseLocation(
         type: string,
@@ -249,18 +262,96 @@ export interface ParserContext {
         location: ParsedLocation,
         identifierChain: IdentifierChainEntry[],
     ): IdentifierLocation;
-    applyTypes(suggestion: SuggestFunctions | SuggestColumns, typeDetails: TypeDetails): void;
-    applyTypeToSuggestions(details: TypeDetails): void;
+    applyTypes(suggestion: SuggestFunctions | SuggestColumns, typeDetails: ValueExpression): void;
+    applyTypeToSuggestions(details: ValueExpression): void;
     extractExpressionText(result: TokenExpression, ...expressions: AwaitedTokenExpression[]): void;
     getSubQuery(cols: SubQuery): {
         columns: ColumnDetails[];
     };
     identifyPartials(beforeCursor: string, afterCursor: string): PartialLengths;
-    suggestKeywords(keywords: string | Array<string | KeywordSuggestion>): void;
+    suggestKeywords(keywords: Array<string | KeywordSuggestion>): void;
     valueExpressionSuggest(oppositeValueExpression?: ValueExpression, operator?: string): void;
-    suggestColumns(...args: unknown[]): unknown;
+    suggestColumns(details?: SuggestColumns): unknown;
     suggestFunctions(...args: unknown[]): unknown;
     suggestValues(...args: unknown[]): unknown;
+    prepareNewStatement(): void;
+    commitLocations(): void;
+    addCommonTableExpressions(identifiers: IdentifierLocation[]): void;
+    pushQueryState(): void;
+    popQueryState(subQuery: SubQuery): void;
+    suggestSelectListAliases(): void;
+    mergeSuggestKeywords(): void;
+    suggestValueExpressionKeywords(
+        valueExpression: ValueExpression,
+        extras: Array<KeywordSuggestion | string>,
+    ): void;
+    addColRefIfExists(valueExpression: ValueExpression): void;
+    getValueExpressionKeywords(
+        valueExpression: ValueExpression,
+        extras?: SuggestKeyword[],
+    ): {suggestKeywords: SuggestKeyword[]; suggestColRefKeywords?: SuggestColRefKeywords};
+    getTypeKeywords(): SuggestKeyword[];
+    suggestColRefKeywords(keywords: SuggestColRefKeywords): void;
+    getSelectListKeywords(excludeAsterisk?: boolean): SuggestKeyword[];
+    getColumnDataTypeKeywords(): SuggestKeyword[];
+    selectListNoTableSuggest(
+        selectListEdit: ValueExpression,
+        hasDistinctOrAll: ValueExpression | string,
+    ): void;
+    checkForKeywords(expression: ValueExpression): void;
+    suggestAggregateFunctions(): void;
+    suggestAnalyticFunctions(): void;
+    suggestJoinConditions(details: SuggestJoinConditions): void;
+    suggestJoins(details: SuggestJoins): void;
+    findCaseType(whenThenList: ValueExpression): void;
+    applyArgumentTypesToSuggestions(functionName: string, position: number): void;
+    expandIdentifierChain(options: {
+        wrapper?: {
+            identifierChain?: IdentifierChainEntry[];
+            owner?: string;
+            tables?: ParsedTable[];
+            linked?: boolean;
+        };
+        tablePrimaries?: ParsedTable[];
+        isColumnWrapper?: boolean;
+        isColumnLocation?: boolean;
+        anyOwner?: boolean;
+    }): void;
+    createWeightedKeywords(
+        keywords: SuggestKeyword[] | undefined,
+        weight: number,
+    ): KeywordSuggestion[];
+    addTablePrimary(ref: ParsedTable): void;
+    suggestFileFormats(): void;
+    getKeywordsForOptionalsLR(
+        optionals: ValueExpression[],
+        keywords: SuggestKeyword[] | SuggestKeyword[][],
+        override: boolean[],
+    ): void;
+    suggestDdlAndDmlKeywords(extraKeywords: SuggestKeyword[]): void;
+    suggestTemplates(): void;
+    checkForSelectListKeywords(selectList: ValueExpression[]): void;
+    suggestFunctions(details: SuggestFunctions): void;
+    suggestSetOptions(): void;
+    suggestIdentifiers(identifiers?: SuggestIdentifier[]): void;
+    suggestColumns(details?: SuggestColumns): void;
+    suggestGroupBys(details?: CommonPopularSuggestion): void;
+    suggestOrderBys(details?: CommonPopularSuggestion): void;
+    suggestFilters(details?: SuggestFilters): void;
+    suggestKeyValues(details?: SuggestKeyValues): void;
+    suggestTables(details?: SuggestTables): void;
+    suggestTablesOrColumns(identifier?: string): void;
+    firstDefined(...args: ParsedLocation[]): ParsedLocation | undefined;
+    addColRefToVariableIfExists(left: ValueExpression, right: ValueExpression): void;
+    suggestDatabases(details: SuggestDatabases): void;
+    suggestHdfs(details: SuggestHdfs): void;
+    determineCase(text: string): void;
+    handleQuotedValueWithCursor(
+        lexer: Lexer,
+        yytext: string,
+        yylloc: ParsedLocation,
+        quoteChar: string,
+    ): boolean;
 }
 
 export interface ColumnSpecification {
@@ -270,25 +361,29 @@ export interface ColumnSpecification {
 }
 
 export interface SuggestFunctions {
-    types: string[];
+    types?: string[];
     udfRef?: string;
+}
+
+export interface SuggestDatabases {
+    appendBacktick?: boolean;
+    appendDot?: boolean;
+    prependFrom?: boolean;
+    prependQuestionMark?: boolean;
 }
 
 export interface SuggestColumns {
     appendBacktick?: boolean;
     identifierChain?: IdentifierChainEntry[];
     source?: string;
-    tables: ParsedTable[];
+    tables?: ParsedTable[];
     types?: string[];
     udfRef?: string;
+    linked?: boolean;
+    owner?: string;
 }
 
-export interface TypeDetails {
-    types: string[];
-    function: string;
-}
-
-interface ColumnReference {
+export interface ColumnReference {
     name: string;
 }
 
@@ -341,7 +436,77 @@ export interface PartialLengths {
 }
 
 export interface ValueExpression {
-    types: string[];
-    columnReference: ColumnReference[];
-    function: string;
+    types?: string[];
+    columnReference?: ColumnReference[];
+    function?: string;
+    suggestKeywords?: Array<KeywordSuggestion | string>;
+    lastType?: ValueExpression;
+    cursorAtStart?: boolean;
+    inValueEdit?: boolean;
+    suggestFunctions?: boolean;
+    suggestColumns?: boolean;
+    suggestAggregateFunctions?: boolean;
+    suggestColRefKeywords?: SuggestColRefKeywords;
+    caseTypes?: ValueExpression[];
+    valueExpression?: ValueExpression;
+    alias?: string;
+}
+
+export interface ErrorLocation {
+    text?: unknown;
+    token?: unknown;
+    line?: unknown;
+    loc?: unknown;
+    ruleId?: unknown;
+    expected?: unknown;
+    recoverable?: unknown;
+}
+
+export type SuggestColRefKeywords = Record<string, string[]>;
+
+export type SuggestKeyword = KeywordSuggestion | string;
+
+export interface SuggestJoinConditions {
+    prependOn?: boolean;
+    tables?: ParsedTable[];
+    tablePrimaries?: ParsedTable[];
+    linked?: boolean;
+}
+
+export interface SuggestJoins {
+    prependJoin: unknown;
+    joinType: unknown;
+    tables: ParsedTable[];
+}
+
+export interface SuggestIdentifier {
+    name: string;
+    type: string;
+}
+export interface SuggestFilters {
+    tables?: ParsedTable[];
+    tablePrimaries?: ParsedTable[];
+    prefix?: string;
+    linked?: boolean;
+}
+
+export interface SuggestKeyValues {
+    linked?: boolean;
+}
+
+export interface SuggestTables {
+    appendBacktick?: boolean;
+    identifierChain?: IdentifierChainEntry[];
+    onlyTables?: boolean;
+    onlyViews?: boolean;
+    prependFrom?: boolean;
+    prependQuestionMark?: boolean;
+}
+
+export interface Lexer {
+    setInput: (input: unknown, yy: unknown) => unknown;
+    upcomingInput(): string;
+    input(): string;
+    unput(char: string): Lexer;
+    popState(): unknown;
 }

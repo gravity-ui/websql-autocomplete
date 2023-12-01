@@ -45,7 +45,6 @@ import {
     SuggestFunctions,
     TokenExpression,
     TokenExpressionWithLocation,
-    TypeDetails,
     ValueExpression,
 } from './types';
 
@@ -79,7 +78,7 @@ export function identifierEquals(a?: string, b?: string): boolean {
     );
 }
 
-export function equalIgnoreCase(a: string, b: string): boolean {
+export function equalIgnoreCase(a?: string, b?: string): boolean {
     return Boolean(a && b && a.toLowerCase() === b.toLowerCase());
 }
 
@@ -89,7 +88,7 @@ export const SIMPLE_TABLE_REF_SUGGESTIONS = [
     'suggestFilters',
     'suggestGroupBys',
     'suggestOrderBys',
-];
+] as const;
 
 export const LOCATION_TYPES = {
     ALIAS: 'alias',
@@ -115,7 +114,12 @@ const APPEND_BACKTICK_SUGGESTIONS = [
 
 export function adjustForPartialBackticks(parser: ParserContext): void {
     const partials = parser.yy.partialLengths;
-    if (parser.yy.result && partials.backtickBefore && !partials.backtickAfter) {
+    if (
+        parser.yy.result !== undefined &&
+        partials &&
+        partials.backtickBefore &&
+        !partials.backtickAfter
+    ) {
         APPEND_BACKTICK_SUGGESTIONS.forEach((suggestionType) => {
             const suggestion = parser.yy.result[suggestionType];
             if (suggestion) {
@@ -575,7 +579,7 @@ export function initSharedAutocomplete(parser: ParserContext): void {
 
     parser.applyTypes = (
         suggestion: SuggestFunctions | SuggestColumns,
-        typeDetails: TypeDetails,
+        typeDetails: ValueExpression,
     ): void => {
         suggestion.types = typeDetails.types;
         if (typeDetails.types && typeDetails.types[0] === 'UDFREF') {
@@ -587,11 +591,11 @@ export function initSharedAutocomplete(parser: ParserContext): void {
         }
     };
 
-    parser.applyTypeToSuggestions = (details: TypeDetails): void => {
+    parser.applyTypeToSuggestions = (details: ValueExpression): void => {
         if (!details.types) {
             console.trace();
         }
-        if (details.types[0] === 'BOOLEAN') {
+        if (details.types?.[0] === 'BOOLEAN') {
             return;
         }
         if (parser.yy.result.suggestFunctions && !parser.yy.result.suggestFunctions.types) {
@@ -700,7 +704,7 @@ export function initSharedAutocomplete(parser: ParserContext): void {
         if (typeof oppositeValueExpression === 'undefined' || typeof operator === 'undefined') {
             keywords = keywords.concat(['EXISTS', 'NOT']);
         }
-        if (oppositeValueExpression && oppositeValueExpression.types[0] === 'NUMBER') {
+        if (oppositeValueExpression && oppositeValueExpression.types?.[0] === 'NUMBER') {
             parser.applyTypeToSuggestions(oppositeValueExpression);
         }
         parser.suggestKeywords(keywords);
