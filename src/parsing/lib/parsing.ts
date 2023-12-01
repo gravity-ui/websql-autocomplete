@@ -29,10 +29,30 @@
 // and limitations under the License.
 
 // endsWith polyfill from hue_utils.js, needed as workers live in their own js environment
+import {KeywordSuggestion} from '../index';
+
+import {
+    AwaitedTokenExpression,
+    ColumnDetails,
+    ColumnSpecification,
+    IdentifierChainEntry,
+    IdentifierLocation,
+    ParsedLocation,
+    ParserContext,
+    PartialLengths,
+    SubQuery,
+    SuggestColumns,
+    SuggestFunctions,
+    TokenExpression,
+    TokenExpressionWithLocation,
+    TypeDetails,
+    ValueExpression,
+} from './types';
+
 if (!String.prototype.endsWith) {
     // This code is required for parser to work
     // eslint-disable-next-line no-extend-native
-    String.prototype.endsWith = function (searchString, position) {
+    String.prototype.endsWith = function (searchString, position): boolean {
         const subjectString = this.toString();
         if (
             typeof position !== 'number' ||
@@ -50,17 +70,17 @@ if (!String.prototype.endsWith) {
     };
 }
 
-export function identifierEquals(a, b) {
-    return (
+export function identifierEquals(a?: string, b?: string): boolean {
+    return Boolean(
         a &&
-        b &&
-        a.replace(/^\s*`/, '').replace(/`\s*$/, '').toLowerCase() ===
-            b.replace(/^\s*`/, '').replace(/`\s*$/, '').toLowerCase()
+            b &&
+            a.replace(/^\s*`/, '').replace(/`\s*$/, '').toLowerCase() ===
+                b.replace(/^\s*`/, '').replace(/`\s*$/, '').toLowerCase(),
     );
 }
 
-export function equalIgnoreCase(a, b) {
-    return a && b && a.toLowerCase() === b.toLowerCase();
+export function equalIgnoreCase(a: string, b: string): boolean {
+    return Boolean(a && b && a.toLowerCase() === b.toLowerCase());
 }
 
 export const SIMPLE_TABLE_REF_SUGGESTIONS = [
@@ -91,28 +111,31 @@ const APPEND_BACKTICK_SUGGESTIONS = [
     'suggestCommonTableExpressions',
     'suggestDatabases',
     'suggestTables',
-];
+] as const;
 
-export function adjustForPartialBackticks(parser) {
+export function adjustForPartialBackticks(parser: ParserContext): void {
     const partials = parser.yy.partialLengths;
     if (parser.yy.result && partials.backtickBefore && !partials.backtickAfter) {
         APPEND_BACKTICK_SUGGESTIONS.forEach((suggestionType) => {
-            if (parser.yy.result[suggestionType]) {
-                parser.yy.result[suggestionType].appendBacktick = true;
+            const suggestion = parser.yy.result[suggestionType];
+            if (suggestion) {
+                Object.assign(suggestion, {
+                    appendBacktick: true,
+                });
             }
         });
     }
 }
 
-export function initSharedAutocomplete(parser) {
+export function initSharedAutocomplete(parser: ParserContext): void {
     parser.SELECT_FIRST_OPTIONAL_KEYWORDS = [
         {value: 'ALL', weight: 2},
         {value: 'DISTINCT', weight: 2},
     ];
 
-    const adjustLocationForCursor = (location) => {
+    const adjustLocationForCursor = (location: ParsedLocation): ParsedLocation => {
         // columns are 0-based and lines not, so add 1 to cols
-        const newLocation = {
+        const newLocation: ParsedLocation = {
             first_line: location.first_line,
             last_line: location.last_line,
             first_column: location.first_column + 1,
@@ -135,7 +158,10 @@ export function initSharedAutocomplete(parser) {
         return newLocation;
     };
 
-    parser.addAsteriskLocation = (location, identifierChain) => {
+    parser.addAsteriskLocation = (
+        location: ParsedLocation,
+        identifierChain: IdentifierChainEntry[],
+    ): void => {
         parser.yy.locations.push({
             type: LOCATION_TYPES.ASTERISK,
             location: adjustLocationForCursor(location),
@@ -143,8 +169,13 @@ export function initSharedAutocomplete(parser) {
         });
     };
 
-    parser.addClauseLocation = (type, precedingLocation, locationIfPresent, isCursor) => {
-        let location;
+    parser.addClauseLocation = (
+        type: string,
+        precedingLocation: ParsedLocation,
+        locationIfPresent: ParsedLocation,
+        isCursor: boolean,
+    ): void => {
+        let location: IdentifierLocation;
         if (isCursor) {
             if (parser.yy.partialLengths.left === 0 && parser.yy.partialLengths.right === 0) {
                 location = {
@@ -193,7 +224,11 @@ export function initSharedAutocomplete(parser) {
         parser.yy.locations.push(location);
     };
 
-    parser.addColumnAliasLocation = (location, alias, parentLocation) => {
+    parser.addColumnAliasLocation = (
+        location: ParsedLocation,
+        alias: string,
+        parentLocation: ParsedLocation,
+    ): void => {
         const aliasLocation = {
             type: LOCATION_TYPES.ALIAS,
             source: 'column',
@@ -203,30 +238,34 @@ export function initSharedAutocomplete(parser) {
         };
         if (
             parser.yy.locations.length &&
-            parser.yy.locations[parser.yy.locations.length - 1].type === 'column'
+            parser.yy.locations[parser.yy.locations.length - 1]?.type === 'column'
         ) {
             const closestColumn = parser.yy.locations[parser.yy.locations.length - 1];
             if (
-                closestColumn.location.first_line === aliasLocation.parentLocation.first_line &&
-                closestColumn.location.last_line === aliasLocation.parentLocation.last_line &&
-                closestColumn.location.first_column === aliasLocation.parentLocation.first_column &&
-                closestColumn.location.last_column === aliasLocation.parentLocation.last_column
+                closestColumn?.location.first_line === aliasLocation.parentLocation.first_line &&
+                closestColumn?.location.last_line === aliasLocation.parentLocation.last_line &&
+                closestColumn?.location.first_column ===
+                    aliasLocation.parentLocation.first_column &&
+                closestColumn?.location.last_column === aliasLocation.parentLocation.last_column
             ) {
-                parser.yy.locations[parser.yy.locations.length - 1].alias = alias;
+                closestColumn.alias = alias;
             }
         }
         parser.yy.locations.push(aliasLocation);
     };
 
-    parser.addColumnLocation = (location, identifierChain) => {
+    parser.addColumnLocation = (
+        location: ParsedLocation,
+        identifierChain: IdentifierChainEntry[],
+    ): void => {
         const isVariable =
             identifierChain.length &&
-            /\${[^}]*}/.test(identifierChain[identifierChain.length - 1].name);
+            /\${[^}]*}/.test(identifierChain[identifierChain.length - 1]?.name || '');
         if (isVariable) {
             parser.yy.locations.push({
                 type: LOCATION_TYPES.VARIABLE,
                 location: adjustLocationForCursor(location),
-                value: identifierChain[identifierChain.length - 1].name,
+                value: identifierChain[identifierChain.length - 1]?.name,
             });
         } else {
             parser.yy.locations.push({
@@ -238,7 +277,7 @@ export function initSharedAutocomplete(parser) {
         }
     };
 
-    parser.addCteAliasLocation = (location, alias) => {
+    parser.addCteAliasLocation = (location: ParsedLocation, alias: string): void => {
         parser.yy.locations.push({
             type: LOCATION_TYPES.ALIAS,
             source: 'cte',
@@ -247,7 +286,10 @@ export function initSharedAutocomplete(parser) {
         });
     };
 
-    parser.addDatabaseLocation = (location, identifierChain) => {
+    parser.addDatabaseLocation = (
+        location: ParsedLocation,
+        identifierChain: IdentifierChainEntry[],
+    ): void => {
         parser.yy.locations.push({
             type: LOCATION_TYPES.DATABASE,
             location: adjustLocationForCursor(location),
@@ -255,7 +297,7 @@ export function initSharedAutocomplete(parser) {
         });
     };
 
-    parser.addFileLocation = (location, path) => {
+    parser.addFileLocation = (location: ParsedLocation, path: string): void => {
         parser.yy.locations.push({
             type: LOCATION_TYPES.FILE,
             location: adjustLocationForCursor(location),
@@ -263,7 +305,7 @@ export function initSharedAutocomplete(parser) {
         });
     };
 
-    parser.addFunctionLocation = (location, functionName) => {
+    parser.addFunctionLocation = (location: ParsedLocation, functionName: string): void => {
         // Remove trailing '(' from location
         const adjustedLocation = {
             first_line: location.first_line,
@@ -278,12 +320,16 @@ export function initSharedAutocomplete(parser) {
         });
     };
 
-    parser.addFunctionArgumentLocations = (functionName, expressions, identifierChain) => {
+    parser.addFunctionArgumentLocations = (
+        functionName: string,
+        expressions: TokenExpressionWithLocation[],
+        identifierChain: IdentifierChainEntry[],
+    ): void => {
         if (!expressions || !expressions.length) {
             return;
         }
         expressions.forEach((details, idx) => {
-            const location = {
+            const location: IdentifierLocation = {
                 type: LOCATION_TYPES.FUNCTION_ARGUMENT,
                 location: adjustLocationForCursor(details.location),
                 function: functionName.toLowerCase(),
@@ -299,7 +345,10 @@ export function initSharedAutocomplete(parser) {
         });
     };
 
-    parser.addNewDatabaseLocation = (location, identifierChain) => {
+    parser.addNewDatabaseLocation = (
+        location: ParsedLocation,
+        identifierChain: IdentifierChainEntry[],
+    ): void => {
         parser.yy.definitions.push({
             type: LOCATION_TYPES.DATABASE,
             location: adjustLocationForCursor(location),
@@ -307,8 +356,12 @@ export function initSharedAutocomplete(parser) {
         });
     };
 
-    parser.addNewTableLocation = (location, identifierChain, colSpec) => {
-        const columns = [];
+    parser.addNewTableLocation = (
+        location: ParsedLocation,
+        identifierChain: IdentifierChainEntry[],
+        colSpec: ColumnSpecification[],
+    ): void => {
+        const columns: ColumnDetails[] = [];
         if (colSpec) {
             colSpec.forEach((col) => {
                 columns.push({
@@ -326,7 +379,7 @@ export function initSharedAutocomplete(parser) {
         });
     };
 
-    parser.addStatementLocation = (location) => {
+    parser.addStatementLocation = (location: ParsedLocation): void => {
         // Don't report lonely cursor as a statement
         if (
             location.first_line === location.last_line &&
@@ -364,19 +417,23 @@ export function initSharedAutocomplete(parser) {
         });
     };
 
-    parser.addStatementTypeLocation = (identifier, location, additionalText) => {
+    parser.addStatementTypeLocation = (
+        identifier: string,
+        location: ParsedLocation,
+        additionalText: string,
+    ): void => {
         // Don't add if already there except for SELECT
         if (identifier !== 'SELECT' && parser.yy.allLocations) {
             for (let i = parser.yy.allLocations.length - 1; i >= 0; i--) {
                 if (
                     parser.yy.allLocations[i] &&
-                    parser.yy.allLocations[i].type === LOCATION_TYPES.STATEMENT
+                    parser.yy.allLocations[i]?.type === LOCATION_TYPES.STATEMENT
                 ) {
                     break;
                 }
                 if (
                     parser.yy.allLocations[i] &&
-                    parser.yy.allLocations[i].type === LOCATION_TYPES.STATEMENT_TYPE
+                    parser.yy.allLocations[i]?.type === LOCATION_TYPES.STATEMENT_TYPE
                 ) {
                     return;
                 }
@@ -446,7 +503,7 @@ export function initSharedAutocomplete(parser) {
         parser.yy.locations.push(loc);
     };
 
-    parser.addSubqueryAliasLocation = (location, alias) => {
+    parser.addSubqueryAliasLocation = (location: ParsedLocation, alias: string): void => {
         parser.yy.locations.push({
             type: LOCATION_TYPES.ALIAS,
             source: 'subquery',
@@ -455,7 +512,11 @@ export function initSharedAutocomplete(parser) {
         });
     };
 
-    parser.addTableAliasLocation = (location, alias, identifierChain) => {
+    parser.addTableAliasLocation = (
+        location: ParsedLocation,
+        alias: string,
+        identifierChain: IdentifierChainEntry[],
+    ): void => {
         parser.yy.locations.push({
             type: LOCATION_TYPES.ALIAS,
             source: 'table',
@@ -465,7 +526,10 @@ export function initSharedAutocomplete(parser) {
         });
     };
 
-    parser.addTableLocation = (location, identifierChain) => {
+    parser.addTableLocation = (
+        location: ParsedLocation,
+        identifierChain: IdentifierChainEntry[],
+    ): void => {
         parser.yy.locations.push({
             type: LOCATION_TYPES.TABLE,
             location: adjustLocationForCursor(location),
@@ -473,7 +537,7 @@ export function initSharedAutocomplete(parser) {
         });
     };
 
-    parser.addVariableLocation = (location, value) => {
+    parser.addVariableLocation = (location: ParsedLocation, value: string): void => {
         if (/\${[^}]*}/.test(value)) {
             parser.yy.locations.push({
                 type: LOCATION_TYPES.VARIABLE,
@@ -483,16 +547,19 @@ export function initSharedAutocomplete(parser) {
         }
     };
 
-    parser.addUnknownLocation = (location, identifierChain) => {
+    parser.addUnknownLocation = (
+        location: ParsedLocation,
+        identifierChain: IdentifierChainEntry[],
+    ): IdentifierLocation => {
         const isVariable =
             identifierChain.length &&
-            /\${[^}]*}/.test(identifierChain[identifierChain.length - 1].name);
+            /\${[^}]*}/.test(identifierChain[identifierChain.length - 1]?.name || '');
         let loc;
         if (isVariable) {
             loc = {
                 type: LOCATION_TYPES.VARIABLE,
                 location: adjustLocationForCursor(location),
-                value: identifierChain[identifierChain.length - 1].name,
+                value: identifierChain[identifierChain.length - 1]?.name || '',
             };
         } else {
             loc = {
@@ -506,7 +573,10 @@ export function initSharedAutocomplete(parser) {
         return loc;
     };
 
-    parser.applyTypes = (suggestion, typeDetails) => {
+    parser.applyTypes = (
+        suggestion: SuggestFunctions | SuggestColumns,
+        typeDetails: TypeDetails,
+    ): void => {
         suggestion.types = typeDetails.types;
         if (typeDetails.types && typeDetails.types[0] === 'UDFREF') {
             if (typeDetails.function) {
@@ -517,7 +587,7 @@ export function initSharedAutocomplete(parser) {
         }
     };
 
-    parser.applyTypeToSuggestions = (details) => {
+    parser.applyTypeToSuggestions = (details: TypeDetails): void => {
         if (!details.types) {
             console.trace();
         }
@@ -532,8 +602,11 @@ export function initSharedAutocomplete(parser) {
         }
     };
 
-    parser.extractExpressionText = (result, ...expressions) => {
-        const parts = [];
+    parser.extractExpressionText = (
+        result: TokenExpression,
+        ...expressions: AwaitedTokenExpression[]
+    ): void => {
+        const parts: Array<string | number> = [];
 
         const fail = expressions.some((expression) => {
             if (typeof expression === 'undefined') {
@@ -543,7 +616,7 @@ export function initSharedAutocomplete(parser) {
             if (typeof expression === 'string' || typeof expression === 'number') {
                 parts.push(expression);
             } else if (typeof expression === 'object') {
-                if (expression.text) {
+                if ('text' in expression) {
                     parts.push(expression.text);
                 } else if (expression.columnReference) {
                     parts.push(expression.columnReference.map((ref) => ref.name).join('.'));
@@ -551,6 +624,7 @@ export function initSharedAutocomplete(parser) {
                     return true;
                 }
             }
+            return false;
         });
 
         if (!fail) {
@@ -558,10 +632,10 @@ export function initSharedAutocomplete(parser) {
         }
     };
 
-    parser.getSubQuery = (cols) => {
-        const columns = [];
+    parser.getSubQuery = (cols: SubQuery): {columns: ColumnDetails[]} => {
+        const columns: ColumnDetails[] = [];
         cols.selectList.forEach((col) => {
-            const result = {};
+            const result: ColumnDetails = {};
             if (col.alias) {
                 result.alias = col.alias;
             }
@@ -596,7 +670,7 @@ export function initSharedAutocomplete(parser) {
     const PARTIAL_BEFORE_REGEX = /[0-9a-zA-Z_`]*$/;
     const PARTIAL_AFTER_REGEX = /^[0-9a-zA-Z_`]*(?:\((?:[^)]*\))?)?/;
 
-    parser.identifyPartials = function (beforeCursor, afterCursor) {
+    parser.identifyPartials = function (beforeCursor: string, afterCursor: string): PartialLengths {
         const beforeMatch = beforeCursor.match(PARTIAL_BEFORE_REGEX);
         const afterMatch = afterCursor.match(PARTIAL_AFTER_REGEX);
         return {
@@ -607,39 +681,17 @@ export function initSharedAutocomplete(parser) {
         };
     };
 
-    parser.suggestKeywords = (keywords) => {
-        if (typeof keywords === 'string') {
-            keywords = (parser.KEYWORDS && parser.KEYWORDS[keywords]) || [];
-        }
-
-        const weightedKeywords = [];
-        if (keywords.length === 0) {
-            return;
-        }
-        keywords.forEach((keyword) => {
-            if (typeof keyword.weight !== 'undefined') {
-                weightedKeywords.push(keyword);
-            } else {
-                weightedKeywords.push({value: keyword, weight: -1});
-            }
-        });
-        weightedKeywords.sort((a, b) => {
-            if (a.weight !== b.weight) {
-                return b.weight - a.weight;
-            }
-            return a.value.localeCompare(b.value);
-        });
-        parser.yy.result.suggestKeywords = weightedKeywords;
-    };
-
-    parser.valueExpressionSuggest = (oppositeValueExpression, operator) => {
+    parser.valueExpressionSuggest = (
+        oppositeValueExpression?: ValueExpression,
+        operator?: string,
+    ): void => {
         if (oppositeValueExpression && oppositeValueExpression.columnReference) {
             parser.suggestValues();
             parser.yy.result.colRef = {identifierChain: oppositeValueExpression.columnReference};
         }
         parser.suggestColumns();
         parser.suggestFunctions();
-        let keywords = [
+        let keywords: Array<KeywordSuggestion | string> = [
             {value: 'CASE', weight: 450},
             {value: 'FALSE', weight: 450},
             {value: 'NULL', weight: 450},
