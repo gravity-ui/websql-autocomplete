@@ -18,8 +18,8 @@ import {extractTestCases, runTestCases} from '../../test/testing';
 import {clickhouseAutocompleteParser} from './clickhouseAutocompleteParser';
 import structure from './grammar/structure.json';
 
-const jisonFolder = 'src/parsing/parsers/clickhouse/grammar';
-const groupedTestCases = extractTestCases(jisonFolder, structure.autocomplete);
+const grammarFolder = 'src/autocomplete/parsers/clickhouse/grammar';
+const groupedTestCases = extractTestCases(grammarFolder, structure.autocomplete);
 
 describe('clickhouseAutocompleteParser', () => {
     // TODO: Fix the types

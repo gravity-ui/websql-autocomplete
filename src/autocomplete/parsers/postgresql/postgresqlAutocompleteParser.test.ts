@@ -7,9 +7,9 @@ import {extractTestCases, runTestCases} from '../../test/testing';
 import structure from './grammar/structure.json';
 import {postgresqlAutocompleteParser} from './postgresqlAutocompleteParser';
 
-const jisonFolder = 'src/parsing/parsers/postgresql/grammar';
-const groupedTestCases = extractTestCases(jisonFolder, structure.autocomplete);
-// const groupedTestCases = extractTestCases(jisonFolder, structure.autocomplete.filter((item) => item.indexOf('offset_clause') > -1));
+const grammarFolder = 'src/autocomplete/parsers/postgresql/grammar';
+const groupedTestCases = extractTestCases(grammarFolder, structure.autocomplete);
+// const groupedTestCases = extractTestCases(grammarFolder, structure.autocomplete.filter((item) => item.indexOf('offset_clause') > -1));
 
 describe('postgresqlAutocompleteParser', () => {
     // TODO: Fix the types
