@@ -115,7 +115,12 @@ async function getParserStructureFiles(): Promise<StructureFileObject[]> {
         const structureFile = `${grammarFolder}/structure.json`;
 
         if (fileExists(structureFile)) {
-            structureFiles.push({dialect: folder, outputFolder, grammarFolder: grammarFolder, structureFile});
+            structureFiles.push({
+                dialect: folder,
+                outputFolder,
+                grammarFolder,
+                structureFile,
+            });
         }
     }
 
