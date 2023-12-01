@@ -22685,7 +22685,7 @@ Please note that changes have been made to the files:
 - /src/parsing/lib/parsing-typed.ts
 - /src/parsing/lib/string-distance.test.js
 - /src/parsing/lib/types.ts
-- /src/parsing/parsers/generic/jison/common/header_and_footer/footer.jison
+- /src/parsing/parsers/generic/grammar/common/header_and_footer/footer.jison
 - /src/parsing/parsers/generic/genericAutocompleteParser.js
 - /src/parsing/parsers/generic/genericAutocompleteParser.test.ts
 - /src/parsing/parsers/generic/genericAutocompleteParser.locations.test.js

@@ -16,9 +16,9 @@ import type {AutocompleteParser} from '../../lib/types';
 import {extractTestCases, runTestCases} from '../../test/testing';
 
 import {clickhouseAutocompleteParser} from './clickhouseAutocompleteParser';
-import structure from './jison/structure.json';
+import structure from './grammar/structure.json';
 
-const jisonFolder = 'src/parsing/parsers/clickhouse/jison';
+const jisonFolder = 'src/parsing/parsers/clickhouse/grammar';
 const groupedTestCases = extractTestCases(jisonFolder, structure.autocomplete);
 
 describe('clickhouseAutocompleteParser', () => {

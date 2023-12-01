@@ -102,7 +102,7 @@ async function concatinateJisonFiles(sources: string[]): Promise<string> {
     return contents.join();
 }
 
-// Searches through the SQL_FOLDER and if a jison/structure.json file exists it considers it a parser
+// Searches through the SQL_FOLDER and if a grammar/structure.json file exists it considers it a parser
 async function getParserStructureFiles(): Promise<StructureFileObject[]> {
     const parsersFolder = `../parsing/parsers`;
 
@@ -111,7 +111,7 @@ async function getParserStructureFiles(): Promise<StructureFileObject[]> {
 
     for (const folder of folders) {
         const outputFolder = `${parsersFolder}/${folder}`;
-        const jisonFolder = `${outputFolder}/jison`;
+        const jisonFolder = `${outputFolder}/grammar`;
         const structureFile = `${jisonFolder}/structure.json`;
 
         if (fileExists(structureFile)) {
