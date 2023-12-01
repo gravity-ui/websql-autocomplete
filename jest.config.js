@@ -13,16 +13,16 @@
 // and limitations under the License.
 
 module.exports = {
-  moduleFileExtensions: ['js', 'jsx', 'ts', 'tsx', 'json'],
-  transform: {
-    '^.+\\.(js|ts|jsx|tsx)$': 'babel-jest',
-  },
-  moduleNameMapper: {
-    '\\.(css|less|scss|sass)$': 'identity-obj-proxy',
-    '^\\./src/parsing/(.*)$': 'src/parsing/$1'
-  },
-  moduleDirectories: ['node_modules', 'src/parsing'],
-  testMatch: ['<rootDir>/src/parsing/**/*.test.(js|jsx|ts|tsx)'],
-  setupFilesAfterEnv: ['<rootDir>/src/parsing/test/jest.init.ts'],
-  collectCoverageFrom: ['<rootDir>/src/parsing/**/*.{js,jsx}']
+    moduleFileExtensions: ['js', 'jsx', 'ts', 'tsx', 'json'],
+    transform: {
+        '^.+\\.(js|ts|jsx|tsx)$': 'babel-jest',
+    },
+    moduleNameMapper: {
+        '\\.(css|less|scss|sass)$': 'identity-obj-proxy',
+        '^\\./src/autocomplete/(.*)$': 'src/parsing/$1',
+    },
+    moduleDirectories: ['node_modules', 'src/autocomplete'],
+    testMatch: ['<rootDir>/src/autocomplete/**/*.test.(js|jsx|ts|tsx)'],
+    setupFilesAfterEnv: ['<rootDir>/src/autocomplete/test/jest.init.ts'],
+    collectCoverageFrom: ['<rootDir>/src/autocomplete/**/*.{js,jsx}'],
 };

@@ -21,8 +21,15 @@
         "@typescript-eslint/explicit-function-return-type": "off"
       }
     },
+    // This override allow to avoid error `module not found`
     {
-      "files": ["**/parser-extension.js", "src/parsing/lib/parsing.js"],
+      "files": "jest.config.js",
+      "env": {
+        "node": true
+      }
+    },
+    {
+      "files": ["**/parser-extension.js", "src/autocomplete/lib/parsing.js"],
       "rules": {
         // Parser is extended via reassignment, so this rule doesn't make sense
         "no-param-reassign": "off"
