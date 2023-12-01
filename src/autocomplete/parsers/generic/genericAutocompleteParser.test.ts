@@ -35,10 +35,10 @@ import type {AutocompleteParser} from '../../lib/types';
 import {extractTestCases, runTestCases} from '../../test/testing';
 
 import {genericAutocompleteParser} from './genericAutocompleteParser';
-import structure from './jison/structure.json';
+import structure from './grammar/structure.json';
 
-const jisonFolder = 'src/parsing/parsers/generic/jison';
-const groupedTestCases = extractTestCases(jisonFolder, structure.autocomplete);
+const grammarFolder = 'src/autocomplete/parsers/generic/grammar';
+const groupedTestCases = extractTestCases(grammarFolder, structure.autocomplete);
 
 describe('genericAutocompleteParser', () => {
     // TODO: Fix the types

@@ -431,13 +431,13 @@ For example, if alter_table.jison is part of the structure it will look for alte
 exists it'll parse it (TestCase[]). Test cases are grouped per found .jison file.
  */
 export function extractTestCases(
-    jisonFolder: string,
+    grammarFolder: string,
     structureFiles: string[],
 ): GroupedTestCases[] {
     const groupedTestCases: GroupedTestCases[] = [];
 
     structureFiles.forEach((jisonFile) => {
-        const testFile = `${jisonFolder}/${jisonFile.replace('.jison', '.test.json')}`;
+        const testFile = `${grammarFolder}/${jisonFile.replace('.jison', '.test.json')}`;
         if (!existsSync(testFile)) {
             return;
         }

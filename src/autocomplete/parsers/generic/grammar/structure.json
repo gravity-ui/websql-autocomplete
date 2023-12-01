@@ -1,7 +1,7 @@
 {
   "lexer": "sql.jisonlex",
   "autocomplete": [
-    "autocomplete_header.jison",
+    "common/header_and_footer/header.jison",
     "alter/alter_common.jison",
     "alter/alter_table.jison",
     "alter/alter_view.jison",
@@ -28,7 +28,7 @@
     "select/select.jison",
     "select/select_conditions.jison",
     "select/union_clause.jison",
-    "select/where_clause.jison",
+    "common/where/where_clause.jison",
     "set/set_common.jison",
     "set/set_all.jison",
     "set/set_option.jison",
@@ -53,10 +53,10 @@
     "udf/udf_common.jison",
     "update/update_table.jison",
     "use/use.jison",
-    "sql_error.jison",
-    "sql_main.jison",
-    "sql_table.jison",
-    "sql_valueExpression.jison",
-    "autocomplete_footer.jison"
+    "common/error/error.jison",
+    "main.jison",
+    "common/table/table.jison",
+    "common/value_expression/value_expression.jison",
+    "common/header_and_footer/footer.jison"
   ]
 }

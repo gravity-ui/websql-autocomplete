@@ -1,5 +1,5 @@
 {
   "extends": "./tsconfig.json",
-  "include": ["src/parsing/*"],
-  "exclude": ["src/parsing/test/*"]
+  "include": ["src/autocomplete/*"],
+  "exclude": ["src/autocomplete/test/*"]
 }
