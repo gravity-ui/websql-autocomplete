@@ -20,11 +20,11 @@ OptionalWhereClause
  ;
 
 WhereClause
- : 'WHERE' SearchCondition  -> $2
+ : 'WHERE' ValueExpression  -> $2
  ;
 
 WhereClause_EDIT
- : 'WHERE' SearchCondition_EDIT
+ : 'WHERE' ValueExpression_EDIT
    {
      if ($2.suggestFilters) {
        parser.suggestFilters({ tablePrimaries: parser.yy.latestTablePrimaries.concat() });
@@ -37,12 +37,4 @@ WhereClause_EDIT
      parser.suggestKeywords(['EXISTS', 'NOT EXISTS']);
      parser.suggestFilters({ tablePrimaries: parser.yy.latestTablePrimaries.concat() });
    }
- ;
-
-SearchCondition
- : ValueExpression
- ;
-
-SearchCondition_EDIT
- : ValueExpression_EDIT
  ;

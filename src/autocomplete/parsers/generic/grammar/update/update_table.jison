@@ -23,24 +23,24 @@ DataManipulation_EDIT
  ;
 
 UpdateStatement
- : 'UPDATE' TargetTable 'SET' SetClauseListOrError OptionalFromJoinedTable OptionalWhereClause
+ : 'UPDATE' TableName 'SET' SetClauseListOrError OptionalFromJoinedTable OptionalWhereClause
  ;
 
 UpdateStatement_EDIT
- : 'UPDATE' TargetTable_EDIT 'SET' SetClauseListOrError OptionalFromJoinedTable OptionalWhereClause
- | 'UPDATE' TargetTable 'SET' SetClauseList_EDIT OptionalFromJoinedTable OptionalWhereClause
- | 'UPDATE' TargetTable 'SET' SetClauseListOrError FromJoinedTable_EDIT OptionalWhereClause
- | 'UPDATE' TargetTable 'SET' SetClauseListOrError OptionalFromJoinedTable WhereClause_EDIT
- | 'UPDATE' TargetTable 'SET' SetClauseListOrError OptionalFromJoinedTable OptionalWhereClause 'CURSOR'
+ : 'UPDATE' TableName_EDIT 'SET' SetClauseListOrError OptionalFromJoinedTable OptionalWhereClause
+ | 'UPDATE' TableName 'SET' SetClauseList_EDIT OptionalFromJoinedTable OptionalWhereClause
+ | 'UPDATE' TableName 'SET' SetClauseListOrError FromJoinedTable_EDIT OptionalWhereClause
+ | 'UPDATE' TableName 'SET' SetClauseListOrError OptionalFromJoinedTable WhereClause_EDIT
+ | 'UPDATE' TableName 'SET' SetClauseListOrError OptionalFromJoinedTable OptionalWhereClause 'CURSOR'
    {
      parser.suggestKeywords([ 'WHERE' ]);
    }
- | 'UPDATE' TargetTable 'CURSOR'
+ | 'UPDATE' TableName 'CURSOR'
    {
      parser.suggestKeywords([ 'SET' ]);
    }
- | 'UPDATE' TargetTable_EDIT
- | 'UPDATE' TargetTable
+ | 'UPDATE' TableName_EDIT
+ | 'UPDATE' TableName
  | 'UPDATE' 'CURSOR'
    {
      parser.suggestTables();
