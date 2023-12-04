@@ -1,3 +1,4 @@
+import {IdentifierSuggestion} from './lib/types';
 import {clickhouseAutocompleteParser} from './parsers/clickhouse/clickhouseAutocompleteParser';
 import {genericAutocompleteParser} from './parsers/generic/genericAutocompleteParser';
 import {postgresqlAutocompleteParser} from './parsers/postgresql/postgresqlAutocompleteParser';
@@ -130,10 +131,12 @@ export interface ColumnReference {
     identifierChain: IdentifierChainEntry[];
 }
 
-export interface KeywordSuggestion {
+export interface WeightedKeywordSuggestion {
     value: string;
     weight: number;
 }
+
+export type KeywordSuggestion = WeightedKeywordSuggestion | string;
 
 export interface ParserSyntaxError {
     expected: string[];
@@ -159,14 +162,6 @@ export interface Table {
 
 export interface IdentifierChainEntry {
     name: string;
-}
-
-export interface IdentifierSuggestion {
-    name?: string;
-    type?: string;
-    prependFrom?: boolean;
-    prependQuestionMark?: boolean;
-    appendBacktick?: boolean;
 }
 
 export interface ColumnAliasSuggestion {

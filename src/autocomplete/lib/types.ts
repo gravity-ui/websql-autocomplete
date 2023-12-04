@@ -28,7 +28,7 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
-import {IdentifierSuggestion, KeywordSuggestion} from '../index';
+import {KeywordSuggestion, WeightedKeywordSuggestion} from '../index';
 
 export interface IdentifierChainEntry {
     name?: string;
@@ -137,21 +137,18 @@ export interface AutocompleteParseResult {
     suggestColumns?: SuggestColumns;
     suggestCommonTableExpressions?: IdentifierSuggestion[];
     suggestDatabases?: SuggestDatabases;
-    suggestFilters?: SuggestFilters;
+    suggestFilters?: FiltersSuggestion;
     suggestFunctions?: SuggestFunctions;
     suggestGroupBys?: CommonPopularSuggestion;
     suggestHdfs?: SuggestHdfs;
-    suggestJoins?: SuggestJoins;
-    suggestJoinConditions?: SuggestJoinConditions;
-    suggestIdentifiers?: SuggestIdentifier[];
-    suggestKeyValues?: SuggestKeyValues;
-    suggestKeywords?: {
-        value: string;
-        weight: number;
-    }[];
+    suggestJoins?: JoinsSuggestion;
+    suggestJoinConditions?: JoinConditionsSuggestion;
+    suggestIdentifiers?: IdentifierSuggestion[];
+    suggestKeyValues?: KeyValuesSuggestion;
+    suggestKeywords?: WeightedKeywordSuggestion[];
     suggestOrderBys?: CommonPopularSuggestion;
     suggestSetOptions?: boolean;
-    suggestTables?: SuggestTables;
+    suggestTables?: TablesSuggestion;
     suggestValues?: {
         missingEndQuote?: boolean;
         partialQuote?: boolean;
@@ -292,12 +289,12 @@ export interface ParserContext {
     addColRefIfExists(valueExpression: ValueExpression): void;
     getValueExpressionKeywords(
         valueExpression: ValueExpression,
-        extras?: SuggestKeyword[],
-    ): {suggestKeywords: SuggestKeyword[]; suggestColRefKeywords?: SuggestColRefKeywords};
-    getTypeKeywords(): SuggestKeyword[];
+        extras?: KeywordSuggestion[],
+    ): {suggestKeywords: KeywordSuggestion[]; suggestColRefKeywords?: SuggestColRefKeywords};
+    getTypeKeywords(): KeywordSuggestion[];
     suggestColRefKeywords(keywords: SuggestColRefKeywords): void;
-    getSelectListKeywords(excludeAsterisk?: boolean): SuggestKeyword[];
-    getColumnDataTypeKeywords(): SuggestKeyword[];
+    getSelectListKeywords(excludeAsterisk?: boolean): KeywordSuggestion[];
+    getColumnDataTypeKeywords(): KeywordSuggestion[];
     selectListNoTableSuggest(
         selectListEdit: ValueExpression,
         hasDistinctOrAll: ValueExpression | string,
@@ -305,8 +302,8 @@ export interface ParserContext {
     checkForKeywords(expression: ValueExpression): void;
     suggestAggregateFunctions(): void;
     suggestAnalyticFunctions(): void;
-    suggestJoinConditions(details: SuggestJoinConditions): void;
-    suggestJoins(details: SuggestJoins): void;
+    suggestJoinConditions(details: JoinConditionsSuggestion): void;
+    suggestJoins(details: JoinsSuggestion): void;
     findCaseType(whenThenList: ValueExpression): void;
     applyArgumentTypesToSuggestions(functionName: string, position: number): void;
     expandIdentifierChain(options: {
@@ -322,28 +319,28 @@ export interface ParserContext {
         anyOwner?: boolean;
     }): void;
     createWeightedKeywords(
-        keywords: SuggestKeyword[] | undefined,
+        keywords: KeywordSuggestion[] | undefined,
         weight: number,
-    ): KeywordSuggestion[];
+    ): WeightedKeywordSuggestion[];
     addTablePrimary(ref: ParsedTable): void;
     suggestFileFormats(): void;
     getKeywordsForOptionalsLR(
         optionals: ValueExpression[],
-        keywords: SuggestKeyword[] | SuggestKeyword[][],
+        keywords: KeywordSuggestion[] | KeywordSuggestion[][],
         override: boolean[],
     ): void;
-    suggestDdlAndDmlKeywords(extraKeywords: SuggestKeyword[]): void;
+    suggestDdlAndDmlKeywords(extraKeywords: KeywordSuggestion[]): void;
     suggestTemplates(): void;
     checkForSelectListKeywords(selectList: ValueExpression[]): void;
     suggestFunctions(details: SuggestFunctions): void;
     suggestSetOptions(): void;
-    suggestIdentifiers(identifiers?: SuggestIdentifier[]): void;
+    suggestIdentifiers(identifiers?: IdentifierSuggestion[]): void;
     suggestColumns(details?: SuggestColumns): void;
     suggestGroupBys(details?: CommonPopularSuggestion): void;
     suggestOrderBys(details?: CommonPopularSuggestion): void;
-    suggestFilters(details?: SuggestFilters): void;
-    suggestKeyValues(details?: SuggestKeyValues): void;
-    suggestTables(details?: SuggestTables): void;
+    suggestFilters(details?: FiltersSuggestion): void;
+    suggestKeyValues(details?: KeyValuesSuggestion): void;
+    suggestTables(details?: TablesSuggestion): void;
     suggestTablesOrColumns(identifier?: string): void;
     firstDefined(...args: ParsedLocation[]): ParsedLocation | undefined;
     addColRefToVariableIfExists(left: ValueExpression, right: ValueExpression): void;
@@ -469,37 +466,38 @@ export interface ErrorLocation {
 
 export type SuggestColRefKeywords = Record<string, string[]>;
 
-export type SuggestKeyword = KeywordSuggestion | string;
-
-export interface SuggestJoinConditions {
+export interface JoinConditionsSuggestion {
     prependOn?: boolean;
     tables?: ParsedTable[];
     tablePrimaries?: ParsedTable[];
     linked?: boolean;
 }
 
-export interface SuggestJoins {
+export interface JoinsSuggestion {
     prependJoin: unknown;
     joinType: unknown;
     tables: ParsedTable[];
 }
 
-export interface SuggestIdentifier {
-    name: string;
-    type: string;
+export interface IdentifierSuggestion {
+    name?: string;
+    type?: string;
+    prependFrom?: boolean;
+    prependQuestionMark?: boolean;
+    appendBacktick?: boolean;
 }
-export interface SuggestFilters {
+export interface FiltersSuggestion {
     tables?: ParsedTable[];
     tablePrimaries?: ParsedTable[];
     prefix?: string;
     linked?: boolean;
 }
 
-export interface SuggestKeyValues {
+export interface KeyValuesSuggestion {
     linked?: boolean;
 }
 
-export interface SuggestTables {
+export interface TablesSuggestion {
     appendBacktick?: boolean;
     identifierChain?: IdentifierChainEntry[];
     onlyTables?: boolean;

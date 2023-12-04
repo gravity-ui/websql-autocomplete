@@ -28,13 +28,14 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
+import {KeywordSuggestion} from '../../index';
 import {initSharedAutocomplete} from '../../lib/parsing';
-import {ParserContext, SuggestKeyword} from '../../lib/types';
+import {ParserContext} from '../../lib/types';
 
 export const extendParser = function (parser: ParserContext): void {
     initSharedAutocomplete(parser);
 
-    parser.getTypeKeywords = function (): SuggestKeyword[] {
+    parser.getTypeKeywords = function (): KeywordSuggestion[] {
         return [
             'IPv6',
             'IPv4',

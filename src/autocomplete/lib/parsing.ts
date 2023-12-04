@@ -29,7 +29,7 @@
 // and limitations under the License.
 
 // endsWith polyfill from hue_utils.js, needed as workers live in their own js environment
-import {IdentifierSuggestion, KeywordSuggestion} from '../index';
+import {KeywordSuggestion, WeightedKeywordSuggestion} from '../index';
 
 import {matchesType} from './sql-reference/types';
 import {
@@ -40,6 +40,7 @@ import {
     ErrorLocation,
     IdentifierChainEntry,
     IdentifierLocation,
+    IdentifierSuggestion,
     ParsedLocation,
     ParsedTable,
     ParserContext,
@@ -48,8 +49,6 @@ import {
     SuggestColRefKeywords,
     SuggestColumns,
     SuggestFunctions,
-    SuggestIdentifier,
-    SuggestKeyword,
     TokenExpression,
     TokenExpressionWithLocation,
     ValueExpression,
@@ -800,7 +799,7 @@ export function initSharedAutocomplete(parser: ParserContext): void {
     };
 
     parser.mergeSuggestKeywords = function (...args: Array<KeywordSuggestion | string>): {
-        suggestKeywords?: SuggestKeyword[];
+        suggestKeywords?: KeywordSuggestion[];
     } {
         let result: Array<KeywordSuggestion | string> = [];
         Array.prototype.slice.call(args).forEach((suggestion) => {
@@ -830,7 +829,7 @@ export function initSharedAutocomplete(parser: ParserContext): void {
         }
     };
 
-    parser.getSelectListKeywords = function (excludeAsterisk = false): SuggestKeyword[] {
+    parser.getSelectListKeywords = function (excludeAsterisk = false): KeywordSuggestion[] {
         const keywords = [{value: 'CASE', weight: 450}, 'FALSE', 'TRUE', 'NULL'];
         if (!excludeAsterisk) {
             keywords.push({value: '*', weight: 10000});
@@ -840,13 +839,13 @@ export function initSharedAutocomplete(parser: ParserContext): void {
 
     parser.getValueExpressionKeywords = function (
         valueExpression: ValueExpression,
-        extras: SuggestKeyword[],
-    ): {suggestKeywords: SuggestKeyword[]; suggestColRefKeywords?: SuggestColRefKeywords} {
+        extras: KeywordSuggestion[],
+    ): {suggestKeywords: KeywordSuggestion[]; suggestColRefKeywords?: SuggestColRefKeywords} {
         const types = valueExpression.lastType
             ? valueExpression.lastType.types
             : valueExpression.types;
         // We could have valueExpression.columnReference to suggest based on column type
-        let keywords: SuggestKeyword[] = [
+        let keywords: KeywordSuggestion[] = [
             '<',
             '<=',
             '<=>',
@@ -893,7 +892,7 @@ export function initSharedAutocomplete(parser: ParserContext): void {
         return {suggestKeywords: keywords};
     };
 
-    parser.getTypeKeywords = function (): SuggestKeyword[] {
+    parser.getTypeKeywords = function (): KeywordSuggestion[] {
         return [
             'BIGINT',
             'BOOLEAN',
@@ -910,7 +909,8 @@ export function initSharedAutocomplete(parser: ParserContext): void {
         ];
     };
 
-    parser.getColumnDataTypeKeywords = function (): SuggestKeyword[] {
+    // TODO: delete duplicate method
+    parser.getColumnDataTypeKeywords = function (): KeywordSuggestion[] {
         return parser.getTypeKeywords();
     };
 
@@ -1617,7 +1617,7 @@ export function initSharedAutocomplete(parser: ParserContext): void {
 
     const convertTablePrimariesToSuggestions = function (tablePrimaries: ParsedTable[]): void {
         const tables: ParsedTable[] = [];
-        const identifiers: SuggestIdentifier[] = [];
+        const identifiers: IdentifierSuggestion[] = [];
         tablePrimaries.forEach((tablePrimary) => {
             if (tablePrimary.identifierChain && tablePrimary.identifierChain.length > 0) {
                 const table: ParsedTable = {identifierChain: tablePrimary.identifierChain};
@@ -1778,8 +1778,12 @@ export function initSharedAutocomplete(parser: ParserContext): void {
         ]);
     };
 
-    parser.getKeywordsForOptionalsLR = function (optionals, keywords, override): SuggestKeyword[] {
-        let result: SuggestKeyword[] = [];
+    parser.getKeywordsForOptionalsLR = function (
+        optionals,
+        keywords,
+        override,
+    ): KeywordSuggestion[] {
+        let result: KeywordSuggestion[] = [];
 
         for (let i = 0; i < optionals.length; i++) {
             if (!optionals[i] && (typeof override === 'undefined' || override[i])) {
@@ -1796,8 +1800,8 @@ export function initSharedAutocomplete(parser: ParserContext): void {
         return result;
     };
 
-    parser.suggestDdlAndDmlKeywords = function (extraKeywords: SuggestKeyword[]): void {
-        let keywords: SuggestKeyword[] = [
+    parser.suggestDdlAndDmlKeywords = function (extraKeywords: KeywordSuggestion[]): void {
+        let keywords: KeywordSuggestion[] = [
             'ALTER',
             'CREATE',
             'DELETE',
@@ -1831,7 +1835,7 @@ export function initSharedAutocomplete(parser: ParserContext): void {
             return;
         }
         const valueExpressionKeywords = parser.getValueExpressionKeywords(last.valueExpression);
-        let keywords: SuggestKeyword[] = [];
+        let keywords: KeywordSuggestion[] = [];
         if (last.suggestKeywords) {
             keywords = keywords.concat(last.suggestKeywords);
         }
@@ -1865,8 +1869,8 @@ export function initSharedAutocomplete(parser: ParserContext): void {
     parser.createWeightedKeywords = function (
         keywords: KeywordSuggestion[] | undefined,
         weight: number,
-    ): KeywordSuggestion[] {
-        const result: KeywordSuggestion[] = [];
+    ): WeightedKeywordSuggestion[] {
+        const result: WeightedKeywordSuggestion[] = [];
         keywords?.forEach((keyword) => {
             if (typeof keyword === 'object') {
                 keyword.weight = weight + keyword.weight / 10;
@@ -1879,7 +1883,7 @@ export function initSharedAutocomplete(parser: ParserContext): void {
     };
 
     parser.suggestKeywords = function (keywords): void {
-        const weightedKeywords: KeywordSuggestion[] = [];
+        const weightedKeywords: WeightedKeywordSuggestion[] = [];
         if (keywords.length === 0) {
             return;
         }
