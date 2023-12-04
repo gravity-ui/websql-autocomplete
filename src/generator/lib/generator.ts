@@ -35,7 +35,7 @@ import {deleteFile, fileExists, listDir, readFile, writeFile} from './files';
 interface StructureFileObject {
     dialect: string;
     outputFolder: string;
-    jisonFolder: string;
+    grammarFolder: string;
     structureFile: string;
 }
 
@@ -102,20 +102,25 @@ async function concatinateJisonFiles(sources: string[]): Promise<string> {
     return contents.join();
 }
 
-// Searches through the SQL_FOLDER and if a jison/structure.json file exists it considers it a parser
+// Searches through the SQL_FOLDER and if a grammar/structure.json file exists it considers it a parser
 async function getParserStructureFiles(): Promise<StructureFileObject[]> {
-    const parsersFolder = `../parsing/parsers`;
+    const parsersFolder = `../autocomplete/parsers`;
 
     const folders = await listDir(parsersFolder);
     const structureFiles = [];
 
     for (const folder of folders) {
         const outputFolder = `${parsersFolder}/${folder}`;
-        const jisonFolder = `${outputFolder}/jison`;
-        const structureFile = `${jisonFolder}/structure.json`;
+        const grammarFolder = `${outputFolder}/grammar`;
+        const structureFile = `${grammarFolder}/structure.json`;
 
         if (fileExists(structureFile)) {
-            structureFiles.push({dialect: folder, outputFolder, jisonFolder, structureFile});
+            structureFiles.push({
+                dialect: folder,
+                outputFolder,
+                grammarFolder,
+                structureFile,
+            });
         }
     }
 
@@ -147,12 +152,12 @@ async function getAvailableParserDefinitions(): Promise<Map<string, ParserDefini
 
 async function createParserDefinition(
     sources: string[],
-    {dialect, outputFolder, jisonFolder}: StructureFileObject,
+    {dialect, outputFolder, grammarFolder}: StructureFileObject,
     {lexer, imports}: ParserStructure,
 ): Promise<ParserDefinition> {
     const parserName = createFullParserName(dialect);
 
-    const absoluteSources = sources.map((source) => `${jisonFolder}/${source}`);
+    const absoluteSources = sources.map((source) => `${grammarFolder}/${source}`);
     for (const source of absoluteSources) {
         if (!fileExists(source)) {
             throw new Error(
@@ -162,8 +167,8 @@ async function createParserDefinition(
     }
 
     return {
-        sources: sources.map((source) => `${jisonFolder}/${source}`),
-        lexer: `${jisonFolder}/${lexer}`,
+        sources: sources.map((source) => `${grammarFolder}/${source}`),
+        lexer: `${grammarFolder}/${lexer}`,
         concatenatedJisonFileName: `${outputFolder}/${parserName}.jison`,
         sqlParser: 'AUTOCOMPLETE',
         parserName,

@@ -22,7 +22,7 @@
       }
     },
     {
-      "files": ["**/parser-extension.js", "src/parsing/lib/parsing.js"],
+      "files": ["**/parser-extension.js", "src/autocomplete/lib/parsing.js"],
       "rules": {
         // Parser is extended via reassignment, so this rule doesn't make sense
         "no-param-reassign": "off"
