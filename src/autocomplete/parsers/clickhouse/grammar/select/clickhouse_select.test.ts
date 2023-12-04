@@ -2,8 +2,7 @@ import {expect, test} from '@jest/globals';
 
 import {KeywordSuggestion, parseClickHouse} from '../../../../index';
 
-// TODO: Only 4 tests differ from generic. Lines 3533-3568 (first of these tests is deleted, because we don't test lowercase).
-// TODO: All other tests must be copied here from generic select
+// Only Clickhouse specific tests
 
 test('should suggest type keywords after CAST ... AS', () => {
     const parseResult = parseClickHouse('SELECT CAST(test AS ', '');
