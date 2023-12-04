@@ -16,7 +16,7 @@ export interface ParseResult {
     suggestTables?: TablesSuggestion;
     suggestColumns?: ColumnSuggestion;
     suggestAggregateFunctions?: AggregateFunctionsSuggestion;
-    suggestAnalyticFunctions?: unknown;
+    suggestAnalyticFunctions?: boolean;
     suggestColRefKeywords?: {
         [type: string]: string[];
     };
@@ -29,11 +29,9 @@ export interface ParseResult {
     suggestGroupBys?: unknown;
     suggestIdentifiers?: IdentifierSuggestion[];
     suggestTemplates?: boolean;
-    suggestEngines?: {
-        engines: Engines;
-        functionalEngines: Engines;
-    };
+    suggestEngines?: EnginesSuggestion;
     colRef?: ColumnReference;
+    useDatabase?: string;
 
     // Reasons for those fields are unknown
     definitions?: []; // TODO: figure our if it's optional
@@ -101,6 +99,8 @@ export interface TablesSuggestion {
 
 export interface DatabasesSuggestion {
     appendDot?: boolean; // TODO: figure our if it's optional
+    prependQuestionMark?: boolean;
+    prependFrom?: boolean;
 }
 
 export interface AggregateFunctionsSuggestion {
@@ -170,6 +170,11 @@ export interface ColumnAliasSuggestion {
 }
 
 type Engines = string[];
+
+export type EnginesSuggestion = {
+    engines: Engines;
+    functionalEngines: Engines;
+};
 
 export function parseGenericSql(queryBeforeCursor: string, queryAfterCursor: string): ParseResult {
     const parser = genericAutocompleteParser as Parser;
