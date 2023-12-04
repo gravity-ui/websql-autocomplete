@@ -9,7 +9,7 @@ export abstract class Parser {
 }
 
 export interface ParseResult {
-    locations: StatementPart[]; // TODO: figure our if it's optional
+    locations: StatementPart[];
     errors?: ParserSyntaxError[];
     suggestKeywords?: KeywordSuggestion[];
     suggestTables?: TablesSuggestion;
@@ -25,7 +25,7 @@ export interface ParseResult {
     suggestFilters?: FiltersSuggestion;
     suggestFunctions?: FunctionsSuggestion;
     suggestValues?: ValuesSuggestion;
-    suggestGroupBys?: unknown;
+    suggestGroupBys?: GroupBysSuggestion;
     suggestIdentifiers?: IdentifierSuggestion[];
     suggestTemplates?: boolean;
     suggestEngines?: {
@@ -33,9 +33,10 @@ export interface ParseResult {
         functionalEngines: Engines;
     };
     colRef?: ColumnReference;
+    commonTableExpressions?: CommonTableExpression[];
 
     // Reasons for those fields are unknown
-    definitions?: []; // TODO: figure our if it's optional
+    definitions?: [];
     lowerCase: boolean;
 }
 
@@ -93,13 +94,28 @@ export type StatementPart =
 export interface TablesSuggestion {
     prependFrom?: boolean;
     prependQuestionMark?: boolean;
+    appendBacktick?: boolean;
     onlyTables?: boolean;
     onlyViews?: boolean;
     identifierChain?: IdentifierChainEntry[];
 }
 
 export interface DatabasesSuggestion {
-    appendDot?: boolean; // TODO: figure our if it's optional
+    appendDot?: boolean;
+    appendBacktick?: boolean;
+    prependQuestionMark?: boolean;
+    prependFrom?: true;
+}
+
+export interface CommonTableExpressionsSuggestion {
+    name: string;
+    prependFrom?: boolean;
+    prependQuestionMark?: boolean;
+}
+
+export interface CommonTableExpression {
+    alias: string;
+    columns: ColumnSuggestion[];
 }
 
 export interface AggregateFunctionsSuggestion {
@@ -107,7 +123,7 @@ export interface AggregateFunctionsSuggestion {
 }
 
 export interface ColumnSuggestion {
-    source?: string; // TODO: figure our if it's optional
+    source?: string;
     types?: string[];
     tables: Table[];
 }
@@ -124,6 +140,11 @@ export interface FiltersSuggestion {
 export interface ValuesSuggestion {
     missingEndQuote?: boolean;
     partialQuote?: boolean;
+}
+
+export interface GroupBysSuggestion {
+    prefix?: string;
+    tables: Table[];
 }
 
 export interface ColumnReference {
