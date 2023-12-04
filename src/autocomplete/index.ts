@@ -22,10 +22,12 @@ export interface ParseResult {
     suggestColumnAliases?: ColumnAliasSuggestion[];
     suggestCommonTableExpressions?: unknown;
     suggestDatabases?: DatabasesSuggestion;
-    suggestFilters?: FiltersSuggestion;
+    suggestFilters?: CommonSuggestion;
     suggestFunctions?: FunctionsSuggestion;
     suggestValues?: ValuesSuggestion;
-    suggestGroupBys?: unknown;
+    suggestGroupBys?: CommonSuggestion;
+    suggestOrderBys?: CommonSuggestion;
+    suggestJoins?: JoinsSuggestion;
     suggestIdentifiers?: IdentifierSuggestion[];
     suggestTemplates?: boolean;
     suggestEngines?: EnginesSuggestion;
@@ -116,8 +118,13 @@ export interface FunctionsSuggestion {
     types?: string[];
 }
 
-export interface FiltersSuggestion {
+export interface CommonSuggestion {
     prefix?: string;
+    tables: Table[];
+}
+
+export interface JoinsSuggestion {
+    prependJoin?: boolean;
     tables: Table[];
 }
 
