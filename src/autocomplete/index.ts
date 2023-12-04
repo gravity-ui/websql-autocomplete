@@ -26,6 +26,7 @@ export interface ParseResult {
     suggestFunctions?: FunctionsSuggestion;
     suggestValues?: ValuesSuggestion;
     suggestGroupBys?: GroupBysSuggestion;
+    suggestOrderBys?: OrderBysSuggestion;
     suggestIdentifiers?: IdentifierSuggestion[];
     suggestTemplates?: boolean;
     suggestEngines?: {
@@ -146,6 +147,8 @@ export interface GroupBysSuggestion {
     prefix?: string;
     tables: Table[];
 }
+
+export type OrderBysSuggestion = GroupBysSuggestion;
 
 export interface ColumnReference {
     identifierChain: IdentifierChainEntry[];
