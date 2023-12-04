@@ -12,6 +12,8 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
+// This override allows to avoid error `module not found`, because `node` context provides `module` variable
+/* eslint-env node */
 module.exports = {
     moduleFileExtensions: ['js', 'jsx', 'ts', 'tsx', 'json'],
     transform: {

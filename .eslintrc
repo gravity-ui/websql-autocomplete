@@ -21,13 +21,6 @@
         "@typescript-eslint/explicit-function-return-type": "off"
       }
     },
-    // This override allow to avoid error `module not found`
-    {
-      "files": "jest.config.js",
-      "env": {
-        "node": true
-      }
-    },
     {
       "files": ["**/parser-extension.js", "src/autocomplete/lib/parsing.js"],
       "rules": {
