@@ -15,7 +15,7 @@ export interface ParseResult {
     suggestTables?: TablesSuggestion;
     suggestColumns?: ColumnSuggestion;
     suggestAggregateFunctions?: AggregateFunctionsSuggestion;
-    suggestAnalyticFunctions?: unknown;
+    suggestAnalyticFunctions?: boolean;
     suggestColRefKeywords?: {
         [type: string]: string[];
     };
@@ -33,6 +33,7 @@ export interface ParseResult {
         functionalEngines: Engines;
     };
     colRef?: ColumnReference;
+    useDatabase?: string;
 
     // Reasons for those fields are unknown
     definitions?: []; // TODO: figure our if it's optional
@@ -100,6 +101,8 @@ export interface TablesSuggestion {
 
 export interface DatabasesSuggestion {
     appendDot?: boolean; // TODO: figure our if it's optional
+    prependQuestionMark?: boolean;
+    prependFrom?: boolean;
 }
 
 export interface AggregateFunctionsSuggestion {
