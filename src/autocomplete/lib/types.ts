@@ -284,7 +284,7 @@ export interface ParserContext {
     mergeSuggestKeywords(): void;
     suggestValueExpressionKeywords(
         valueExpression: ValueExpression,
-        extras: Array<KeywordSuggestion | string>,
+        extras: KeywordSuggestion[],
     ): void;
     addColRefIfExists(valueExpression: ValueExpression): void;
     getValueExpressionKeywords(
@@ -441,7 +441,7 @@ export interface ValueExpression {
     types?: string[];
     columnReference?: ColumnReference[];
     function?: string;
-    suggestKeywords?: Array<KeywordSuggestion | string>;
+    suggestKeywords?: KeywordSuggestion[];
     lastType?: ValueExpression;
     cursorAtStart?: boolean;
     inValueEdit?: boolean;

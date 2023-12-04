@@ -701,7 +701,7 @@ export function initSharedAutocomplete(parser: ParserContext): void {
         }
         parser.suggestColumns();
         parser.suggestFunctions();
-        let keywords: Array<KeywordSuggestion | string> = [
+        let keywords: KeywordSuggestion[] = [
             {value: 'CASE', weight: 450},
             {value: 'FALSE', weight: 450},
             {value: 'NULL', weight: 450},
@@ -798,10 +798,10 @@ export function initSharedAutocomplete(parser: ParserContext): void {
         }
     };
 
-    parser.mergeSuggestKeywords = function (...args: Array<KeywordSuggestion | string>): {
+    parser.mergeSuggestKeywords = function (...args: KeywordSuggestion[]): {
         suggestKeywords?: KeywordSuggestion[];
     } {
-        let result: Array<KeywordSuggestion | string> = [];
+        let result: KeywordSuggestion[] = [];
         Array.prototype.slice.call(args).forEach((suggestion) => {
             if (
                 typeof suggestion !== 'undefined' &&
