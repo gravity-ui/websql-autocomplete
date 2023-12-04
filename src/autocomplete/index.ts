@@ -28,10 +28,7 @@ export interface ParseResult {
     suggestGroupBys?: unknown;
     suggestIdentifiers?: IdentifierSuggestion[];
     suggestTemplates?: boolean;
-    suggestEngines?: {
-        engines: Engines;
-        functionalEngines: Engines;
-    };
+    suggestEngines?: EnginesSuggestion;
     colRef?: ColumnReference;
     useDatabase?: string;
 
@@ -175,6 +172,11 @@ export interface ColumnAliasSuggestion {
 }
 
 type Engines = string[];
+
+export type EnginesSuggestion = {
+    engines: Engines;
+    functionalEngines: Engines;
+};
 
 export function parseGenericSql(queryBeforeCursor: string, queryAfterCursor: string): ParseResult {
     const parser = genericAutocompleteParser as Parser;
