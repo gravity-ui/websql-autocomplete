@@ -49,18 +49,18 @@ interface ExpectedError {
 }
 
 export interface TestCase {
-    namePrefix: string; // ex. "should suggest keywords"
+    namePrefix?: string; // ex. "should suggest keywords"
     beforeCursor: string;
-    afterCursor: string;
+    afterCursor?: string;
     containsKeywords?: string[];
     doesNotContainKeywords?: string[];
     containsColRefKeywords?: boolean | string[];
     noErrors?: boolean;
     locationsOnly?: boolean;
     noLocations?: boolean;
-    expectedDefinitions: unknown;
+    expectedDefinitions?: unknown;
     expectedLocations?: ParseResult['locations'];
-    expectedResult: {
+    expectedResult?: {
         lowerCase?: boolean;
         locations?: ParseResult['locations'];
         suggestTables?: {
@@ -137,7 +137,7 @@ export function toEqualDefinition(
         actualResponse.locations
     ) {
         const expectedLoc =
-            testDefinition.expectedLocations || testDefinition.expectedResult.locations;
+            testDefinition.expectedLocations || testDefinition.expectedResult?.locations;
         const expectsType = expectedLoc?.some((location) => location.type === 'statementType');
         if (!expectsType) {
             actualResponse.locations = actualResponse.locations.filter(
@@ -455,7 +455,7 @@ function createAssertForAutocomplete(
 ): (testCase: TestCase) => void {
     return (testCase: TestCase) => {
         expect(
-            parser.parseSql(testCase.beforeCursor, testCase.afterCursor, debug),
+            parser.parseSql(testCase.beforeCursor, testCase.afterCursor || '', debug),
         ).toEqualDefinition(testCase);
     };
 }
@@ -486,7 +486,7 @@ export function runTestCases(
             testCases.forEach((testCase) => {
                 it(`${testCase.namePrefix} given "${prettyLineBreaks(
                     testCase.beforeCursor,
-                )}|${prettyLineBreaks(testCase.afterCursor)}"`, () => {
+                )}|${prettyLineBreaks(testCase.afterCursor || '')}"`, () => {
                     assertTestCase(testCase);
                 });
             });

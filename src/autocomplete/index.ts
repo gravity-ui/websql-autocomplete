@@ -88,7 +88,42 @@ export type StatementPart =
           location: Location;
           missing: boolean;
           subquery?: true;
+      }
+    | {
+          type: 'function';
+          location: Location;
+          function: string;
+      }
+    | {
+          type: 'functionArgument';
+          location: Location;
+          function: string;
+          argumentPosition: number;
+          identifierChain: IdentifierChainEntry[];
+          expression: Expression;
+      }
+    | {
+          type: 'alias';
+          alias: string;
+          location: Location;
+          source?: string;
+          parentLocation?: Location;
+          target?: string;
+          identifierChain?: IdentifierChainEntry[];
+      }
+    | {
+          type: 'complex';
+          location: Location;
+          identifierChain: IdentifierChainEntry[];
+          tables: Table[];
+          qualified: boolean;
       };
+
+interface Expression {
+    types?: string[];
+    text?: string;
+    columnReference?: IdentifierChainEntry[];
+}
 
 export interface TablesSuggestion {
     prependFrom?: boolean;
@@ -164,8 +199,9 @@ export interface Location {
 }
 
 export interface Table {
+    identifierChain?: IdentifierChainEntry[];
     alias?: string;
-    identifierChain: IdentifierChainEntry[];
+    subQuery?: string;
 }
 
 export interface IdentifierChainEntry {
