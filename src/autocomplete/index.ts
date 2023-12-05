@@ -15,6 +15,8 @@ export interface ParseResult {
     suggestTables?: TablesSuggestion;
     suggestColumns?: ColumnSuggestion;
     suggestAggregateFunctions?: AggregateFunctionsSuggestion;
+    suggestJoins?: JoinsSuggestion;
+    suggestJoinConditions?: JoinConditionsSuggestion;
     suggestAnalyticFunctions?: unknown;
     suggestColRefKeywords?: {
         [type: string]: string[];
@@ -193,6 +195,17 @@ export interface IdentifierSuggestion {
 export interface ColumnAliasSuggestion {
     name: string;
     types: string[];
+}
+
+export interface JoinsSuggestion {
+    joinType?: 'JOIN';
+    prependJoin?: boolean;
+    tables?: Table[];
+}
+
+export interface JoinConditionsSuggestion {
+    prependOn?: boolean;
+    tables: Table[];
 }
 
 type Engines = string[];
