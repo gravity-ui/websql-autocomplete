@@ -1,5 +1,21 @@
 # Changelog
 
+## [2.1.0](https://github.com/gravity-ui/websql-autocomplete/compare/v2.0.0...v2.1.0) (2023-12-05)
+
+
+### Features
+
+* add CommonSuggestion and JoinsSuggestion types, migrate postgresql tests to typescript ([#105](https://github.com/gravity-ui/websql-autocomplete/issues/105)) ([36b291c](https://github.com/gravity-ui/websql-autocomplete/commit/36b291c28bc0dfd69e46feac07da6812a85831e4))
+* add eslint ci, fix eslint errors ([#97](https://github.com/gravity-ui/websql-autocomplete/issues/97)) ([2c66e7a](https://github.com/gravity-ui/websql-autocomplete/commit/2c66e7a46b5e790557efe2b53ae4a207e7b1b4d1))
+* define database StatementPart, add identifierChain to TablesSuggestion, remove useless totos, migrate drop tests to typescript ([#96](https://github.com/gravity-ui/websql-autocomplete/issues/96)) ([47a18c2](https://github.com/gravity-ui/websql-autocomplete/commit/47a18c272db9f00dad2a0823eb2c5bf000151866))
+* define FiltersSuggestion, FunctionsSuggestion, ValuesSuggestion, Colref, migrate update table tests to typescript ([#99](https://github.com/gravity-ui/websql-autocomplete/issues/99)) ([4b99563](https://github.com/gravity-ui/websql-autocomplete/commit/4b995634e1a82664f7eae1df91b48763c5a26eb9))
+* define suggestColRefKeywords, suggestEngines, add typechecking ci ([#95](https://github.com/gravity-ui/websql-autocomplete/issues/95)) ([f09f370](https://github.com/gravity-ui/websql-autocomplete/commit/f09f370319d0b8b13cffa6d0bd6d8c0269008b95))
+* define useDatabase, add prependQuestionMark and prependFrom to DatabasesSuggestion, migrate use and set tests to typescript ([#101](https://github.com/gravity-ui/websql-autocomplete/issues/101)) ([7ec60ae](https://github.com/gravity-ui/websql-autocomplete/commit/7ec60ae846df2253a5696e9acbe0dc341cc605e2))
+* extend StatementPart, make TestCase fields optional, migrate location tests to typescript and move files to select folder ([#107](https://github.com/gravity-ui/websql-autocomplete/issues/107)) ([8b6b2c4](https://github.com/gravity-ui/websql-autocomplete/commit/8b6b2c43bc17b71ff83b5fcedc045dc68b9014d6))
+* migrate truncate table tests to typescript ([#102](https://github.com/gravity-ui/websql-autocomplete/issues/102)) ([7d7d38b](https://github.com/gravity-ui/websql-autocomplete/commit/7d7d38be65adec188d1f51c7679700779b3833c7))
+* move AggregateFunctionsSuggestion to a separate interface, refactor general parser create tests ([#92](https://github.com/gravity-ui/websql-autocomplete/issues/92)) ([08e8c26](https://github.com/gravity-ui/websql-autocomplete/commit/08e8c26982ec2e62a3951234f0db014329070741))
+* type generator and move to single package.json ([#93](https://github.com/gravity-ui/websql-autocomplete/issues/93)) ([a5ac8e9](https://github.com/gravity-ui/websql-autocomplete/commit/a5ac8e9f889e9c5b6419a160c4bb4cd97156946d))
+
 ## [2.0.0](https://github.com/gravity-ui/websql-autocomplete/compare/v1.22.0...v2.0.0) (2023-11-28)
 
 
