@@ -1,12 +1,7 @@
 import {expect, test} from '@jest/globals';
 
-import {
-    ColumnSuggestion,
-    FunctionsSuggestion,
-    KeywordSuggestion,
-    OrderBysSuggestion,
-    parsePostgreSql,
-} from '../../../../index';
+import {ColumnSuggestion, FunctionsSuggestion, parsePostgreSql} from '../../../../index';
+import {KeywordSuggestion, OrderBysSuggestion} from '../../../../lib/autocomplete-parse-result';
 
 test('should suggest ORDER BY', () => {
     const parseResult = parsePostgreSql('SELECT * FROM test_table ORDER ', '');

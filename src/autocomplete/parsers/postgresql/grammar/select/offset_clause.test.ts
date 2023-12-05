@@ -1,11 +1,11 @@
 import {expect, test} from '@jest/globals';
 
+import {parsePostgreSql} from '../../../../index';
 import {
     GroupBysSuggestion,
     KeywordSuggestion,
     OrderBysSuggestion,
-    parsePostgreSql,
-} from '../../../../index';
+} from '../../../../lib/autocomplete-parse-result';
 
 test('should suggest OFFSET', () => {
     const parseResult = parsePostgreSql('SELECT * FROM test_table LIMIT 100 ', '');

@@ -1,13 +1,14 @@
 import {expect, test} from '@jest/globals';
 
-import {StatementPart, parseGenericSqlWithoutCursor} from '../../../../index';
+import {parseGenericSqlWithoutCursor} from '../../../../index';
+import {IdentifierLocation} from '../../../../lib/autocomplete-parse-result';
 
 test('should not report errors on full statement and fill locations', () => {
     const parseResult = parseGenericSqlWithoutCursor('DROP ROLE test_role;');
 
     expect(parseResult.errors).toBeUndefined();
 
-    const statementParts: StatementPart[] = [
+    const locations: IdentifierLocation[] = [
         {
             location: {
                 first_column: 1,
@@ -28,5 +29,5 @@ test('should not report errors on full statement and fill locations', () => {
             type: 'statementType',
         },
     ];
-    expect(parseResult.locations).toEqual(statementParts);
+    expect(parseResult.locations).toEqual(locations);
 });

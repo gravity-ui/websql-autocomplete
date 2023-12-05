@@ -1,7 +1,7 @@
 import {describe, it} from '@jest/globals';
 
-import {CommonParser, assertPartials} from '../../lib/parsing-typed';
-import type {AutocompleteParser} from '../../lib/types';
+import {assertPartials} from '../../lib/assert-partials';
+import type {AutocompleteParser, ParserContext} from '../../lib/autocomplete-parse-result';
 import {extractTestCases, runTestCases} from '../../test/testing';
 
 import structure from './grammar/structure.json';
@@ -17,7 +17,7 @@ describe('postgresqlAutocompleteParser', () => {
 
     describe('partial removal', () => {
         it('should identify part lengths', () => {
-            assertPartials(postgresqlAutocompleteParser as unknown as CommonParser);
+            assertPartials(postgresqlAutocompleteParser as unknown as ParserContext);
         });
     });
 });

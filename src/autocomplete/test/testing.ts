@@ -34,8 +34,7 @@ import {existsSync, readFileSync} from 'fs';
 import type {MatcherFunction} from '@jest/expect';
 import {beforeAll, describe, expect, it} from '@jest/globals';
 
-import type {ParseResult} from '..';
-import {AutocompleteParser} from '../lib/types';
+import {AutocompleteParseResult, AutocompleteParser} from '../lib/autocomplete-parse-result';
 
 interface ExpectedError {
     text: string;
@@ -59,10 +58,10 @@ export interface TestCase {
     locationsOnly?: boolean;
     noLocations?: boolean;
     expectedDefinitions?: unknown;
-    expectedLocations?: ParseResult['locations'];
+    expectedLocations?: AutocompleteParseResult['locations'];
     expectedResult?: {
         lowerCase?: boolean;
-        locations?: ParseResult['locations'];
+        locations?: AutocompleteParseResult['locations'];
         suggestTables?: {
             identifierChain?: {name: string}[];
             onlyTables?: boolean;
@@ -105,7 +104,7 @@ export function getToEqualAutocompleteValues(
 }
 
 export function toEqualDefinition(
-    actualResponse: Partial<ParseResult>,
+    actualResponse: Partial<AutocompleteParseResult>,
     testDefinition: TestCase,
 ): ReturnType<MatcherFunction> {
     if (
@@ -171,7 +170,7 @@ export function toEqualDefinition(
     }
 
     if (actualResponse.suggestKeywords) {
-        const weightFreeKeywords: ParseResult['suggestKeywords'] = [];
+        const weightFreeKeywords: AutocompleteParseResult['suggestKeywords'] = [];
         actualResponse.suggestKeywords.forEach((keyword) => {
             if (typeof keyword !== 'string') {
                 // This file is going to be obsolete in 2 weeks, when we rewrite tests

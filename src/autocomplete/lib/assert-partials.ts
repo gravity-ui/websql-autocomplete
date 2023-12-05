@@ -28,14 +28,9 @@
 
 import {expect} from '@jest/globals';
 
-export interface CommonParser {
-    identifyPartials(
-        beforeCursor: string,
-        afterCursor: string,
-    ): {backtickAfter: boolean; backtickBefore: boolean; left: number; right: number};
-}
+import {ParserContext} from './autocomplete-parse-result';
 
-export function assertPartials(parser: CommonParser): void {
+export function assertPartials(parser: ParserContext): void {
     const limitChars = [
         ' ',
         '\n',

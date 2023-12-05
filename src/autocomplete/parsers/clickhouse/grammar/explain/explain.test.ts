@@ -1,6 +1,7 @@
 import {expect, test} from '@jest/globals';
 
-import {KeywordSuggestion, ParserSyntaxError, parseClickHouse} from '../../../../index';
+import {ErrorLocation, parseClickHouse} from '../../../../index';
+import {KeywordSuggestion} from '../../../../lib/autocomplete-parse-result';
 
 test('should not report errors on EXPLAIN SELECT statement', () => {
     const parseResult = parseClickHouse('EXPLAIN SELECT * FROM test_table; ', '');
@@ -26,7 +27,7 @@ test('should not report errors on EXPLAIN CREATE statement', () => {
 test('should report error on double EXPLAIN statement', () => {
     const parseResult = parseClickHouse('EXPLAIN EXPLAIN SELECT * FROM test_table ', '');
 
-    const error: Partial<ParserSyntaxError> = {
+    const error: Partial<ErrorLocation> = {
         text: 'EXPLAIN',
         token: 'EXPLAIN',
         loc: {

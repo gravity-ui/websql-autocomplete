@@ -2,11 +2,10 @@ import {expect, test} from '@jest/globals';
 
 import {
     DatabasesSuggestion,
-    KeywordSuggestion,
-    StatementPart,
     parseGenericSql,
     parseGenericSqlWithoutCursor,
 } from '../../../../index';
+import {IdentifierLocation, KeywordSuggestion} from '../../../../lib/autocomplete-parse-result';
 
 test('should suggest databases and IF EXISTS', () => {
     const parseResult = parseGenericSql('DROP DATABASE ', '');
@@ -34,7 +33,7 @@ test('should not report errors on full statement and fill locations', () => {
 
     expect(parseResult.errors).toBeUndefined();
 
-    const statementParts: StatementPart[] = [
+    const locations: IdentifierLocation[] = [
         {
             location: {
                 first_column: 1,
@@ -55,5 +54,5 @@ test('should not report errors on full statement and fill locations', () => {
             type: 'statementType',
         },
     ];
-    expect(parseResult.locations).toEqual(statementParts);
+    expect(parseResult.locations).toEqual(locations);
 });

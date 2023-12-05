@@ -1,254 +1,49 @@
+import {AutocompleteParseResult} from './lib/autocomplete-parse-result';
 import {clickhouseAutocompleteParser} from './parsers/clickhouse/clickhouseAutocompleteParser';
 import {genericAutocompleteParser} from './parsers/generic/genericAutocompleteParser';
 import {postgresqlAutocompleteParser} from './parsers/postgresql/postgresqlAutocompleteParser';
 
+export * from './lib/autocomplete-parse-result';
+
 export const cursorSymbol = '†';
 
 export abstract class Parser {
-    abstract parseSql(beforeCursor: string, afterCursor: string): ParseResult;
+    abstract parseSql(beforeCursor: string, afterCursor: string): AutocompleteParseResult;
 }
 
-export interface ParseResult {
-    locations: StatementPart[]; // TODO: figure our if it's optional
-    errors?: ParserSyntaxError[];
-    suggestKeywords?: KeywordSuggestion[];
-    suggestTables?: TablesSuggestion;
-    suggestColumns?: ColumnSuggestion;
-    suggestAggregateFunctions?: AggregateFunctionsSuggestion;
-    suggestAnalyticFunctions?: boolean;
-    suggestColRefKeywords?: {
-        [type: string]: string[];
-    };
-    suggestColumnAliases?: ColumnAliasSuggestion[];
-    suggestCommonTableExpressions?: unknown;
-    suggestDatabases?: DatabasesSuggestion;
-    suggestFilters?: FiltersSuggestion;
-    suggestFunctions?: FunctionsSuggestion;
-    suggestValues?: ValuesSuggestion;
-    suggestGroupBys?: GroupBysSuggestion;
-    suggestOrderBys?: OrderBysSuggestion;
-    suggestJoins?: JoinsSuggestion;
-    suggestIdentifiers?: IdentifierSuggestion[];
-    suggestTemplates?: boolean;
-    suggestEngines?: EnginesSuggestion;
-    colRef?: ColumnReference;
-    useDatabase?: string;
-
-    // Reasons for those fields are unknown
-    definitions?: []; // TODO: figure our if it's optional
-    lowerCase: boolean;
-}
-
-export type StatementPart =
-    | {
-          type: 'statement';
-          location: Location;
-      }
-    | {
-          type: 'statementType';
-          location: Location;
-          identifier: string;
-      }
-    | {
-          type: 'selectList';
-          location: Location;
-          missing?: boolean;
-          subquery?: true;
-      }
-    | {
-          type: 'asterisk';
-          location: Location;
-          tables: Table[];
-      }
-    | {
-          type: 'table';
-          location: Location;
-          identifierChain: IdentifierChainEntry[];
-      }
-    | {
-          type: 'whereClause';
-          location: Location;
-          missing: boolean;
-          subquery?: true;
-      }
-    | {
-          type: 'column';
-          location: Location;
-          identifierChain: IdentifierChainEntry[];
-          tables: Table[];
-          qualified: boolean;
-      }
-    | {
-          type: 'database';
-          location: Location;
-          identifierChain: IdentifierChainEntry[];
-      }
-    | {
-          type: 'limitClause';
-          location: Location;
-          missing: boolean;
-          subquery?: true;
-      }
-    | {
-          type: 'function';
-          location: Location;
-          function: string;
-      }
-    | {
-          type: 'functionArgument';
-          location: Location;
-          function: string;
-          argumentPosition: number;
-          identifierChain: IdentifierChainEntry[];
-          expression: Expression;
-      }
-    | {
-          type: 'alias';
-          alias: string;
-          location: Location;
-          source?: string;
-          parentLocation?: Location;
-          target?: string;
-          identifierChain?: IdentifierChainEntry[];
-      }
-    | {
-          type: 'complex';
-          location: Location;
-          identifierChain: IdentifierChainEntry[];
-          tables: Table[];
-          qualified: boolean;
-      };
-
-interface Expression {
-    types?: string[];
-    text?: string;
-    columnReference?: IdentifierChainEntry[];
-}
-
-export interface TablesSuggestion {
-    prependFrom?: boolean;
-    prependQuestionMark?: boolean;
-    onlyTables?: boolean;
-    onlyViews?: boolean;
-    identifierChain?: IdentifierChainEntry[];
-}
-
-export interface DatabasesSuggestion {
-    appendDot?: boolean; // TODO: figure our if it's optional
-    prependQuestionMark?: boolean;
-    prependFrom?: boolean;
-}
-
-export interface AggregateFunctionsSuggestion {
-    tables: Table[];
-}
-
-export interface ColumnSuggestion {
-    source?: string; // TODO: figure our if it's optional
-    types?: string[];
-    tables: Table[];
-}
-
-export interface FunctionsSuggestion {
-    types?: string[];
-}
-
-export interface FiltersSuggestion {
-    prefix?: string;
-    tables: Table[];
-}
-
-export type GroupBysSuggestion = FiltersSuggestion;
-
-export type OrderBysSuggestion = FiltersSuggestion;
-
-export interface JoinsSuggestion {
-    prependJoin?: boolean;
-    tables: Table[];
-}
-
-export interface ValuesSuggestion {
-    missingEndQuote?: boolean;
-    partialQuote?: boolean;
-}
-
-export interface ColumnReference {
-    identifierChain: IdentifierChainEntry[];
-}
-
-export interface KeywordSuggestion {
-    value: string;
-    weight: number;
-}
-
-export interface ParserSyntaxError {
-    expected: string[];
-    line: number;
-    loc: Location;
-    recoverable: boolean;
-    ruleId: string;
-    text: string;
-    token: string;
-}
-
-export interface Location {
-    first_line: number;
-    first_column: number;
-    last_line: number;
-    last_column: number;
-}
-
-export interface Table {
-    identifierChain?: IdentifierChainEntry[];
-    alias?: string;
-    subQuery?: string;
-}
-
-export interface IdentifierChainEntry {
-    name: string;
-}
-
-export interface IdentifierSuggestion {
-    name: string;
-    type: string;
-}
-
-export interface ColumnAliasSuggestion {
-    name: string;
-    types: string[];
-}
-
-type Engines = string[];
-
-export type EnginesSuggestion = {
-    engines: Engines;
-    functionalEngines: Engines;
-};
-
-export function parseGenericSql(queryBeforeCursor: string, queryAfterCursor: string): ParseResult {
+export function parseGenericSql(
+    queryBeforeCursor: string,
+    queryAfterCursor: string,
+): AutocompleteParseResult {
     const parser = genericAutocompleteParser as Parser;
     return parser.parseSql(queryBeforeCursor, queryAfterCursor);
 }
 
-export function parseGenericSqlWithoutCursor(query: string): ParseResult {
+export function parseGenericSqlWithoutCursor(query: string): AutocompleteParseResult {
     return parseGenericSql(getFinishedQuery(query), '');
 }
 
-export function parsePostgreSql(queryBeforeCursor: string, queryAfterCursor: string): ParseResult {
+export function parsePostgreSql(
+    queryBeforeCursor: string,
+    queryAfterCursor: string,
+): AutocompleteParseResult {
     const parser = postgresqlAutocompleteParser as Parser;
     return parser.parseSql(queryBeforeCursor, queryAfterCursor);
 }
 
-export function parsePostgreSqlWithoutCursor(query: string): ParseResult {
+export function parsePostgreSqlWithoutCursor(query: string): AutocompleteParseResult {
     return parsePostgreSql(getFinishedQuery(query), '');
 }
 
-export function parseClickHouse(queryBeforeCursor: string, queryAfterCursor: string): ParseResult {
+export function parseClickHouse(
+    queryBeforeCursor: string,
+    queryAfterCursor: string,
+): AutocompleteParseResult {
     const parser = clickhouseAutocompleteParser as Parser;
     return parser.parseSql(queryBeforeCursor, queryAfterCursor);
 }
 
-export function parseClickHouseWithoutCursor(query: string): ParseResult {
+export function parseClickHouseWithoutCursor(query: string): AutocompleteParseResult {
     return parseClickHouse(getFinishedQuery(query), '');
 }
 

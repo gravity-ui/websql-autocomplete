@@ -3,12 +3,11 @@ import {expect, test} from '@jest/globals';
 import {
     AggregateFunctionsSuggestion,
     DatabasesSuggestion,
-    KeywordSuggestion,
-    StatementPart,
     TablesSuggestion,
     parseGenericSql,
     parseGenericSqlWithoutCursor,
 } from '../../../../index';
+import {IdentifierLocation, KeywordSuggestion} from '../../../../lib/autocomplete-parse-result';
 
 test('should suggest USE', () => {
     const parseResult = parseGenericSql('', '');
@@ -134,7 +133,7 @@ test('should properly fill locations', () => {
 
     expect(parseResult.errors).toBeUndefined();
 
-    const locations: StatementPart[] = [
+    const locations: IdentifierLocation[] = [
         {
             location: {
                 first_column: 1,

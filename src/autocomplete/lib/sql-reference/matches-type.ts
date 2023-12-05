@@ -30,60 +30,10 @@
 
 import {TYPE_CONVERSION as GENERIC_TYPE_CONVERSION} from './generic/type-conversion';
 
-export interface UdfArgument {
-    type: string;
-    multiple?: boolean;
-    keywords?: string[];
-    optional?: boolean;
-}
-
-export interface UdfDetails {
-    returnTypes: string[];
-    name: string;
-    arguments: UdfArgument[][];
-    altArguments?: UdfArgument[][];
-    signature: string;
-    draggable: string;
-    description?: string;
-    described?: boolean;
-}
-
-export interface UdfCategoryFunctions {
-    [attr: string]: UdfDetails;
-}
-
-export interface UdfCategory {
-    name: string;
-    functions: UdfCategoryFunctions;
-    isAnalytic?: boolean;
-    isAggregate?: boolean;
-}
-
-export interface SetOptions {
-    [attr: string]: SetDetails;
-}
-
-export interface SetDetails {
-    default: string;
-    type: string;
-    description: string;
-}
-
-export interface TypeConversion {
-    [attr: string]: {[attr: string]: boolean};
-}
-
-export interface SqlReferenceProvider {
-    getReservedKeywords(dialect: string): Promise<Set<string>>;
-    getSetOptions(dialect: string): Promise<SetOptions>;
-    getUdfCategories(dialect: string): Promise<UdfCategory[]>;
-    hasUdfCategories(dialect: string): boolean;
-}
-
-function stripPrecision(types: string[]): string[] {
+function stripPrecision(types?: string[]): string[] {
     const result: string[] = [];
 
-    types.forEach((type) => {
+    types?.forEach((type) => {
         if (type.indexOf('(') > -1) {
             result.push(type.substring(0, type.indexOf('(')));
         } else {
@@ -98,7 +48,7 @@ function stripPrecision(types: string[]): string[] {
 export function matchesType(
     _dialect: string,
     expectedTypes: string[],
-    actualRawTypes: string[],
+    actualRawTypes?: string[],
 ): boolean {
     if (expectedTypes.length === 1 && expectedTypes[0] === 'T') {
         return true;

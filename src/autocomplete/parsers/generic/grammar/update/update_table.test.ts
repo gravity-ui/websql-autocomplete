@@ -1,19 +1,21 @@
 import {expect, test} from '@jest/globals';
 
 import {
-    ColumnReference,
     ColumnSuggestion,
     DatabasesSuggestion,
+    ErrorLocation,
     FiltersSuggestion,
     FunctionsSuggestion,
-    KeywordSuggestion,
-    ParserSyntaxError,
-    StatementPart,
     TablesSuggestion,
     ValuesSuggestion,
     parseGenericSql,
     parseGenericSqlWithoutCursor,
 } from '../../../../index';
+import {
+    DetailedColumnReference,
+    IdentifierLocation,
+    KeywordSuggestion,
+} from '../../../../lib/autocomplete-parse-result';
 
 test('should suggest UPDATE', () => {
     const parseResult = parseGenericSql('', '');
@@ -243,7 +245,7 @@ test('should suggest columns, functions, values, keywords, colRef after equal si
     const keywordSuggestion: KeywordSuggestion = {value: 'CASE', weight: 450};
     expect(parseResult.suggestKeywords).toContainEqual(keywordSuggestion);
 
-    const colRef: ColumnReference = {
+    const colRef: DetailedColumnReference = {
         identifierChain: [
             {
                 name: 'test_database',
@@ -306,7 +308,7 @@ test('should suggest columns, functions, filters after AND', () => {
 test('should suggest databases or table with SET error', () => {
     const parseResult = parseGenericSql('UPDATE ', ' SET ');
 
-    const error: Partial<ParserSyntaxError> = {
+    const error: Partial<ErrorLocation> = {
         text: '',
         token: 'EOF',
         line: 0,
@@ -331,7 +333,7 @@ test('should suggest databases or table with SET error', () => {
 test('should suggest databases or table with SET error and empty WHERE', () => {
     const parseResult = parseGenericSql('UPDATE ', ' SET  WHERE ');
 
-    const error: Partial<ParserSyntaxError> = {
+    const error: Partial<ErrorLocation> = {
         text: 'WHERE',
         token: 'WHERE',
         line: 0,
@@ -360,7 +362,7 @@ test('should properly fill locations', () => {
 
     expect(parseResult.errors).toBeUndefined();
 
-    const locations: StatementPart[] = [
+    const locations: IdentifierLocation[] = [
         {
             type: 'statement',
             location: {

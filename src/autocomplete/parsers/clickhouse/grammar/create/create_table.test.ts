@@ -1,11 +1,7 @@
 import {expect, test} from '@jest/globals';
 
-import {
-    EnginesSuggestion,
-    KeywordSuggestion,
-    ParserSyntaxError,
-    parseClickHouse,
-} from '../../../../index';
+import {ErrorLocation, parseClickHouse} from '../../../../index';
+import {EnginesSuggestion, KeywordSuggestion} from '../../../../lib/autocomplete-parse-result';
 
 test('should suggest TABLE', () => {
     const parseResult = parseClickHouse('CREATE ', '');
@@ -130,7 +126,7 @@ test('should not report error on statement with Memory engine', () => {
 test('should report error because of missing ENGINE', () => {
     const parseResult = parseClickHouse('CREATE TABLE test_table (test_column INT); ', '');
 
-    const errors: ParserSyntaxError[] = [
+    const errors: ErrorLocation[] = [
         {
             expected: ["'CURSOR'", "'PARTITION'", "'ENGINE'"],
             line: 0,
@@ -160,7 +156,7 @@ test('should report error because of incomplete ReplacingMergeTree syntax', () =
         '',
     );
 
-    const error: Partial<ParserSyntaxError> = {
+    const error: Partial<ErrorLocation> = {
         text: ')',
         token: ')',
         line: 0,
