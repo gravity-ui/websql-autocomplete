@@ -28,6 +28,49 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
+export interface AutocompleteParseResult {
+    // Meta
+    locations?: IdentifierLocation[];
+    errors?: ErrorLocation[];
+
+    // Suggestions
+    suggestAggregateFunctions?: AggregateFunctionsSuggestion;
+    suggestAnalyticFunctions?: boolean;
+    suggestColRefKeywords?: ColRefKeywordsSuggestion;
+    suggestColumnAliases?: ColumnAliasDetails[];
+    suggestColumns?: ColumnSuggestion;
+    suggestCommonTableExpressions?: IdentifierSuggestion[];
+    suggestDatabases?: DatabasesSuggestion;
+    suggestFilters?: FiltersSuggestion;
+    suggestFunctions?: FunctionsSuggestion;
+    suggestGroupBys?: GroupBysSuggestion;
+    suggestHdfs?: HdfsSuggestion;
+    suggestJoins?: JoinsSuggestion;
+    suggestJoinConditions?: JoinConditionsSuggestion;
+    suggestIdentifiers?: IdentifierSuggestion[];
+    suggestKeyValues?: KeyValuesSuggestion;
+    suggestKeywords?: WeightedKeywordSuggestion[];
+    suggestOrderBys?: OrderBysSuggestion;
+    suggestSetOptions?: boolean;
+    suggestTables?: TablesSuggestion;
+    suggestValues?: ValuesSuggestion;
+    suggestTemplates?: boolean;
+    suggestEngines?: EnginesSuggestion;
+
+    // Other
+    subQueries?: SubQuery[];
+    commonTableExpressions?: IdentifierLocation[];
+    useDatabase?: string;
+    udfArgument?: UdfArgumentPosition;
+    error?: {
+        expected?: string[];
+        recoverable?: boolean;
+    };
+    definitions?: IdentifierLocation[];
+    colRef?: DetailedColumnReference;
+    lowerCase?: boolean;
+}
+
 export interface WeightedKeywordSuggestion {
     value: string;
     weight: number;
@@ -63,7 +106,7 @@ export interface ParsedLocation {
     last_column: number;
 }
 
-type IdentifierLocationType =
+export type IdentifierLocationType =
     | 'alias'
     | 'asterisk'
     | 'column'
@@ -130,59 +173,20 @@ export interface ColumnDetails {
     udfRef?: string;
 }
 
-export interface CommonPopularSuggestion {
+export type OrderBysSuggestion = {
     tables?: ParsedTable[];
     tablePrimaries?: ParsedTable[];
     prefix?: string;
     linked?: boolean;
-}
+};
 
-export type OrderBysSuggestion = CommonPopularSuggestion;
-export type GroupBysSuggestion = CommonPopularSuggestion;
+export type GroupBysSuggestion = OrderBysSuggestion;
 
 export interface HdfsSuggestion {
     path: string;
 }
 
-export interface AutocompleteParseResult {
-    colRef?: DetailedColumnReference;
-    commonTableExpressions?: IdentifierLocation[];
-    locations?: IdentifierLocation[];
-    lowerCase?: boolean;
-    subQueries?: SubQuery[];
-    suggestAggregateFunctions?: AggregateFunctionsSuggestion;
-    suggestAnalyticFunctions?: boolean;
-    suggestColRefKeywords?: ColRefKeywordsSuggestion;
-    suggestColumnAliases?: ColumnAliasDetails[];
-    suggestColumns?: ColumnSuggestion;
-    suggestCommonTableExpressions?: IdentifierSuggestion[];
-    suggestDatabases?: DatabasesSuggestion;
-    suggestFilters?: FiltersSuggestion;
-    suggestFunctions?: FunctionsSuggestion;
-    suggestGroupBys?: GroupBysSuggestion;
-    suggestHdfs?: HdfsSuggestion;
-    suggestJoins?: JoinsSuggestion;
-    suggestJoinConditions?: JoinConditionsSuggestion;
-    suggestIdentifiers?: IdentifierSuggestion[];
-    suggestKeyValues?: KeyValuesSuggestion;
-    suggestKeywords?: WeightedKeywordSuggestion[];
-    suggestOrderBys?: OrderBysSuggestion;
-    suggestSetOptions?: boolean;
-    suggestTables?: TablesSuggestion;
-    suggestValues?: ValuesSuggestion;
-    udfArgument?: UdfArgumentPosition;
-    useDatabase?: string;
-    error?: {
-        expected?: string[];
-        recoverable?: boolean;
-    };
-    errors?: ErrorLocation[];
-    definitions?: IdentifierLocation[];
-    suggestTemplates?: boolean;
-    suggestEngines?: EnginesSuggestion;
-}
-
-interface UdfArgumentPosition {
+export interface UdfArgumentPosition {
     name: string;
     position: number;
 }
