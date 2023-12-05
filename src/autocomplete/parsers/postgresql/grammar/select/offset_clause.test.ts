@@ -1,6 +1,11 @@
 import {expect, test} from '@jest/globals';
 
-import {CommonSuggestion, KeywordSuggestion, parsePostgreSql} from '../../../../index';
+import {
+    GroupBysSuggestion,
+    KeywordSuggestion,
+    OrderBysSuggestion,
+    parsePostgreSql,
+} from '../../../../index';
 
 test('should suggest OFFSET', () => {
     const parseResult = parsePostgreSql('SELECT * FROM test_table LIMIT 100 ', '');
@@ -46,13 +51,13 @@ test('should suggest OFFSET, LIMIT, GROUP BY, ORDER BY', () => {
     const limitSuggestion: KeywordSuggestion = {value: 'LIMIT', weight: 2.3};
     expect(parseResult.suggestKeywords).toContainEqual(limitSuggestion);
 
-    const groupBysSuggestion: CommonSuggestion = {
+    const groupBysSuggestion: GroupBysSuggestion = {
         prefix: 'GROUP BY',
         tables: [{identifierChain: [{name: 'test_table'}]}],
     };
     expect(parseResult.suggestGroupBys).toEqual(groupBysSuggestion);
 
-    const orderBysSuggestion: CommonSuggestion = {
+    const orderBysSuggestion: OrderBysSuggestion = {
         prefix: 'ORDER BY',
         tables: [{identifierChain: [{name: 'test_table'}]}],
     };

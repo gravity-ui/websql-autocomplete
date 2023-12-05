@@ -3,8 +3,8 @@ import {expect, test} from '@jest/globals';
 import {
     ColumnReference,
     ColumnSuggestion,
-    CommonSuggestion,
     DatabasesSuggestion,
+    FiltersSuggestion,
     FunctionsSuggestion,
     KeywordSuggestion,
     ParserSyntaxError,
@@ -186,7 +186,7 @@ test('should suggest columns, functions, filters, keywords after WHERE', () => {
     const functionsSuggestion: FunctionsSuggestion = {};
     expect(parseResult.suggestFunctions).toEqual(functionsSuggestion);
 
-    const filtersSuggestion: CommonSuggestion = {
+    const filtersSuggestion: FiltersSuggestion = {
         tables: [
             {
                 identifierChain: [
@@ -286,7 +286,7 @@ test('should suggest columns, functions, filters after AND', () => {
     const functionsSuggestion: FunctionsSuggestion = {};
     expect(parseResult.suggestFunctions).toEqual(functionsSuggestion);
 
-    const filtersSuggestion: CommonSuggestion = {
+    const filtersSuggestion: FiltersSuggestion = {
         tables: [
             {
                 identifierChain: [

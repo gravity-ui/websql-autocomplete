@@ -2,9 +2,9 @@ import {expect, test} from '@jest/globals';
 
 import {
     ColumnSuggestion,
-    CommonSuggestion,
     FunctionsSuggestion,
     KeywordSuggestion,
+    OrderBysSuggestion,
     parsePostgreSql,
 } from '../../../../index';
 
@@ -16,7 +16,7 @@ test('should suggest ORDER BY', () => {
     const suggestion: KeywordSuggestion = {value: 'BY', weight: -1};
     expect(parseResult.suggestKeywords).toContainEqual(suggestion);
 
-    const orderBysSuggestion: CommonSuggestion = {
+    const orderBysSuggestion: OrderBysSuggestion = {
         prefix: 'BY',
         tables: [
             {
@@ -42,7 +42,7 @@ test('should suggest ORDER BY after WHERE', () => {
     const suggestion: KeywordSuggestion = {value: 'BY', weight: -1};
     expect(parseResult.suggestKeywords).toContainEqual(suggestion);
 
-    const orderBysSuggestion: CommonSuggestion = {
+    const orderBysSuggestion: OrderBysSuggestion = {
         prefix: 'BY',
         tables: [
             {
@@ -64,7 +64,7 @@ test('should suggest orderBys, columns, functions', () => {
 
     expect(parseResult.suggestAnalyticFunctions).toEqual(true);
 
-    const orderBysSuggestion: CommonSuggestion = {
+    const orderBysSuggestion: OrderBysSuggestion = {
         tables: [
             {
                 identifierChain: [
@@ -102,7 +102,7 @@ test('should suggest orderBys, columns, functions with database name', () => {
 
     expect(parseResult.suggestAnalyticFunctions).toEqual(true);
 
-    const orderBysSuggestion: CommonSuggestion = {
+    const orderBysSuggestion: OrderBysSuggestion = {
         tables: [
             {
                 identifierChain: [
