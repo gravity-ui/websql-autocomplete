@@ -505,7 +505,7 @@ export interface JoinConditionsSuggestion {
 
 export interface JoinsSuggestion {
     prependJoin: boolean;
-    joinType: unknown;
+    joinType?: unknown;
     tables: ParsedTable[];
 }
 
