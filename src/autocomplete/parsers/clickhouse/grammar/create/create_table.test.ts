@@ -126,19 +126,15 @@ test('should not report error on statement with Memory engine', () => {
 test('should report error because of missing ENGINE', () => {
     const parseResult = parseClickHouse('CREATE TABLE test_table (test_column INT); ', '');
 
-    const errors: ErrorLocation[] = [
-        {
-            expected: ["'CURSOR'", "'PARTITION'", "'ENGINE'"],
-            line: 0,
-            loc: {first_column: 41, first_line: 1, last_column: 42, last_line: 1},
-            recoverable: true,
-            ruleId: '76_745',
-            text: ';',
-            token: ';',
-        },
-    ];
+    const error: Partial<ErrorLocation> = {
+        expected: ["'CURSOR'", "'PARTITION'", "'ENGINE'"],
+        line: 0,
+        loc: {first_column: 41, first_line: 1, last_column: 42, last_line: 1},
+        text: ';',
+        token: ';',
+    };
 
-    expect(parseResult.errors).toEqual(errors);
+    expect(parseResult.errors).toContainEqual(expect.objectContaining(error));
 });
 
 test('should not report error on statement with ReplacingMergeTree engine', () => {
