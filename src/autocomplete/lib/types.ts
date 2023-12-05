@@ -422,6 +422,7 @@ export interface ColumnReference {
 }
 
 interface ColumnTokenExpression {
+    types: string[];
     columnReference: ColumnReference[];
 }
 
