@@ -1,11 +1,7 @@
 import {expect, test} from '@jest/globals';
 
-import {
-    EnginesSuggestion,
-    KeywordSuggestion,
-    ParserSyntaxError,
-    parseClickHouse,
-} from '../../../../index';
+import {ParserSyntaxError, parseClickHouse} from '../../../../index';
+import {EnginesSuggestion, KeywordSuggestion} from '../../../../lib/types';
 
 test('should suggest TABLE', () => {
     const parseResult = parseClickHouse('CREATE ', '');

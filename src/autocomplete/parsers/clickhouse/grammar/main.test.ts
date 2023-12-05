@@ -1,6 +1,7 @@
 import {expect, test} from '@jest/globals';
 
-import {KeywordSuggestion, parseClickHouse} from '../../../index';
+import {parseClickHouse} from '../../../index';
+import {KeywordSuggestion} from '../../../lib/types';
 
 test('should suggest SELECT despite errors before cursor', () => {
     const parseResult = parseClickHouse('[;;', '');

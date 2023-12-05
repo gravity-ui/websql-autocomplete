@@ -29,29 +29,30 @@
 // and limitations under the License.
 
 // endsWith polyfill from hue_utils.js, needed as workers live in their own js environment
-import {KeywordSuggestion, WeightedKeywordSuggestion} from '../index';
-
 import {matchesType} from './sql-reference/types';
 import {
     AutocompleteParseResult,
     AwaitedTokenExpression,
+    ColRefKeywordsSuggestion,
     ColumnDetails,
     ColumnSpecification,
+    ColumnSuggestion,
     ErrorLocation,
+    FunctionsSuggestion,
     IdentifierChainEntry,
     IdentifierLocation,
     IdentifierSuggestion,
+    KeywordSuggestion,
+    Lexer,
     ParsedLocation,
     ParsedTable,
     ParserContext,
     PartialLengths,
     SubQuery,
-    SuggestColRefKeywords,
-    SuggestColumns,
-    SuggestFunctions,
     TokenExpression,
     TokenExpressionWithLocation,
     ValueExpression,
+    WeightedKeywordSuggestion,
 } from './types';
 
 if (!String.prototype.endsWith) {
@@ -109,7 +110,7 @@ export const LOCATION_TYPES = {
     TABLE: 'table',
     UNKNOWN: 'unknown',
     VARIABLE: 'variable',
-};
+} as const;
 
 const APPEND_BACKTICK_SUGGESTIONS = [
     'suggestColumns',
@@ -180,7 +181,7 @@ export function initSharedAutocomplete(parser: ParserContext): void {
     };
 
     parser.addClauseLocation = (
-        type: string,
+        type: IdentifierLocation['type'],
         precedingLocation: ParsedLocation,
         locationIfPresent: ParsedLocation,
         isCursor: boolean,
@@ -584,7 +585,7 @@ export function initSharedAutocomplete(parser: ParserContext): void {
     };
 
     parser.applyTypes = (
-        suggestion: SuggestFunctions | SuggestColumns,
+        suggestion: FunctionsSuggestion | ColumnSuggestion,
         typeDetails: ValueExpression,
     ): void => {
         suggestion.types = typeDetails.types;
@@ -686,8 +687,8 @@ export function initSharedAutocomplete(parser: ParserContext): void {
         return {
             left: beforeMatch ? beforeMatch[0].length : 0,
             right: afterMatch ? afterMatch[0].length : 0,
-            backtickBefore: beforeMatch && beforeMatch[0].indexOf('`') !== -1,
-            backtickAfter: afterMatch && afterMatch[0].indexOf('`') !== -1,
+            backtickBefore: Boolean(beforeMatch && beforeMatch[0].indexOf('`') !== -1),
+            backtickAfter: Boolean(afterMatch && afterMatch[0].indexOf('`') !== -1),
         };
     };
 
@@ -840,7 +841,7 @@ export function initSharedAutocomplete(parser: ParserContext): void {
     parser.getValueExpressionKeywords = function (
         valueExpression: ValueExpression,
         extras: KeywordSuggestion[],
-    ): {suggestKeywords: KeywordSuggestion[]; suggestColRefKeywords?: SuggestColRefKeywords} {
+    ): {suggestKeywords: KeywordSuggestion[]; suggestColRefKeywords?: ColRefKeywordsSuggestion} {
         const types = valueExpression.lastType
             ? valueExpression.lastType.types
             : valueExpression.types;
@@ -1903,7 +1904,7 @@ export function initSharedAutocomplete(parser: ParserContext): void {
         parser.yy.result.suggestKeywords = weightedKeywords;
     };
 
-    parser.suggestColRefKeywords = function (colRefKeywords: SuggestColRefKeywords): void {
+    parser.suggestColRefKeywords = function (colRefKeywords: ColRefKeywordsSuggestion): void {
         parser.yy.result.suggestColRefKeywords = colRefKeywords;
     };
 
@@ -2128,7 +2129,7 @@ export function initSharedAutocomplete(parser: ParserContext): void {
         // Fix for parser bug when switching lexer states
         if (!lexerModified) {
             const originalSetInput = parser.lexer.setInput;
-            parser.lexer.setInput = function (input, yy): unknown {
+            parser.lexer.setInput = function (input, yy): Lexer {
                 return originalSetInput.bind(parser.lexer)(input, yy);
             };
             lexerModified = true;

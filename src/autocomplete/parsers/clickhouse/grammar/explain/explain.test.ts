@@ -1,6 +1,7 @@
 import {expect, test} from '@jest/globals';
 
-import {KeywordSuggestion, ParserSyntaxError, parseClickHouse} from '../../../../index';
+import {ParserSyntaxError, parseClickHouse} from '../../../../index';
+import {KeywordSuggestion} from '../../../../lib/types';
 
 test('should not report errors on EXPLAIN SELECT statement', () => {
     const parseResult = parseClickHouse('EXPLAIN SELECT * FROM test_table; ', '');

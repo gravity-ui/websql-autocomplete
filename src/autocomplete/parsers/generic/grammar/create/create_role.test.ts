@@ -1,13 +1,14 @@
 import {expect, test} from '@jest/globals';
 
-import {StatementPart, parseGenericSqlWithoutCursor} from '../../../../index';
+import {parseGenericSqlWithoutCursor} from '../../../../index';
+import {IdentifierLocation} from '../../../../lib/types';
 
 test('should not report errors on full statement and fill locations', () => {
     const parseResult = parseGenericSqlWithoutCursor('CREATE ROLE test_role;');
 
     expect(parseResult.errors).toBeUndefined();
 
-    const statementParts: StatementPart[] = [
+    const locations: IdentifierLocation[] = [
         {
             type: 'statement',
             location: {
@@ -18,5 +19,5 @@ test('should not report errors on full statement and fill locations', () => {
             },
         },
     ];
-    expect(parseResult.locations).toEqual(statementParts);
+    expect(parseResult.locations).toEqual(locations);
 });

@@ -2,12 +2,11 @@ import {expect, test} from '@jest/globals';
 
 import {
     DatabasesSuggestion,
-    KeywordSuggestion,
-    StatementPart,
     TablesSuggestion,
     parseGenericSql,
     parseGenericSqlWithoutCursor,
 } from '../../../../index';
+import {IdentifierLocation, KeywordSuggestion} from '../../../../lib/types';
 
 test('should suggest views, databases and IF EXISTS', () => {
     const parseResult = parseGenericSql('DROP VIEW ', '');
@@ -35,7 +34,7 @@ test('should not report errors on full statement and fill locations', () => {
 
     expect(parseResult.errors).toBeUndefined();
 
-    const statementParts: StatementPart[] = [
+    const locations: IdentifierLocation[] = [
         {
             location: {
                 first_column: 1,
@@ -87,5 +86,5 @@ test('should not report errors on full statement and fill locations', () => {
             type: 'table',
         },
     ];
-    expect(parseResult.locations).toEqual(statementParts);
+    expect(parseResult.locations).toEqual(locations);
 });

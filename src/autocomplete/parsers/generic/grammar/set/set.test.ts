@@ -1,11 +1,7 @@
 import {expect, test} from '@jest/globals';
 
-import {
-    KeywordSuggestion,
-    StatementPart,
-    parseGenericSql,
-    parseGenericSqlWithoutCursor,
-} from '../../../../index';
+import {parseGenericSql, parseGenericSqlWithoutCursor} from '../../../../index';
+import {IdentifierLocation, KeywordSuggestion} from '../../../../lib/types';
 
 test('should suggest SET', () => {
     const parseResult = parseGenericSql('', '');
@@ -51,7 +47,7 @@ test('should properly fill locations', () => {
 
     expect(parseResult.errors).toBeUndefined();
 
-    const locations: StatementPart[] = [
+    const locations: IdentifierLocation[] = [
         {
             location: {
                 first_column: 1,

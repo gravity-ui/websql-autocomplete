@@ -1,19 +1,21 @@
 import {expect, test} from '@jest/globals';
 
 import {
-    ColumnReference,
     ColumnSuggestion,
     DatabasesSuggestion,
     FiltersSuggestion,
     FunctionsSuggestion,
-    KeywordSuggestion,
     ParserSyntaxError,
-    StatementPart,
     TablesSuggestion,
     ValuesSuggestion,
     parseGenericSql,
     parseGenericSqlWithoutCursor,
 } from '../../../../index';
+import {
+    DetailedColumnReference,
+    IdentifierLocation,
+    KeywordSuggestion,
+} from '../../../../lib/types';
 
 test('should suggest UPDATE', () => {
     const parseResult = parseGenericSql('', '');
@@ -243,7 +245,7 @@ test('should suggest columns, functions, values, keywords, colRef after equal si
     const keywordSuggestion: KeywordSuggestion = {value: 'CASE', weight: 450};
     expect(parseResult.suggestKeywords).toContainEqual(keywordSuggestion);
 
-    const colRef: ColumnReference = {
+    const colRef: DetailedColumnReference = {
         identifierChain: [
             {
                 name: 'test_database',
@@ -360,7 +362,7 @@ test('should properly fill locations', () => {
 
     expect(parseResult.errors).toBeUndefined();
 
-    const locations: StatementPart[] = [
+    const locations: IdentifierLocation[] = [
         {
             type: 'statement',
             location: {

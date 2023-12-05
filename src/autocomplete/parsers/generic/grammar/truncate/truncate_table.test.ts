@@ -2,12 +2,11 @@ import {expect, test} from '@jest/globals';
 
 import {
     DatabasesSuggestion,
-    KeywordSuggestion,
-    StatementPart,
     TablesSuggestion,
     parseGenericSql,
     parseGenericSqlWithoutCursor,
 } from '../../../../index';
+import {IdentifierLocation, KeywordSuggestion} from '../../../../lib/types';
 
 test('should suggest TABLE', () => {
     const parseResult = parseGenericSql('TRUNCATE ', '');
@@ -40,7 +39,7 @@ test('should properly fill locations', () => {
 
     expect(parseResult.errors).toBeUndefined();
 
-    const locations: StatementPart[] = [
+    const locations: IdentifierLocation[] = [
         {
             location: {
                 first_column: 1,

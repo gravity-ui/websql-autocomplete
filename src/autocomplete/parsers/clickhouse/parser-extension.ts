@@ -12,9 +12,8 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
-import {KeywordSuggestion} from '../../index';
 import {initSharedAutocomplete} from '../../lib/parsing';
-import {ParserContext} from '../../lib/types';
+import {KeywordSuggestion, ParserContext} from '../../lib/types';
 
 export const extendParser = function (parser: ParserContext): void {
     initSharedAutocomplete(parser);

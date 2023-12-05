@@ -1,6 +1,7 @@
 import {expect, test} from '@jest/globals';
 
-import {KeywordSuggestion, parseGenericSql} from '../../../../index';
+import {parseGenericSql} from '../../../../index';
+import {KeywordSuggestion} from '../../../../lib/types';
 
 test('should suggest ALTER', () => {
     const parseResult = parseGenericSql('', '');

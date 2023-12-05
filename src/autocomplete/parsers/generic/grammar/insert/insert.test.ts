@@ -3,12 +3,11 @@ import {expect, test} from '@jest/globals';
 import {
     ColumnSuggestion,
     DatabasesSuggestion,
-    KeywordSuggestion,
-    StatementPart,
     TablesSuggestion,
     parseGenericSql,
     parseGenericSqlWithoutCursor,
 } from '../../../../index';
+import {IdentifierLocation, KeywordSuggestion} from '../../../../lib/types';
 
 // TODO: test separately OptionalParenthesizedColumnListOrError
 // TODO: test separately InsertValuesListOrError
@@ -173,7 +172,7 @@ test('should not report errors and fill locations', () => {
 
     expect(parseResult.errors).toBeUndefined();
 
-    const statementParts: StatementPart[] = [
+    const locations: IdentifierLocation[] = [
         {
             location: {
                 first_column: 1,
@@ -198,7 +197,7 @@ test('should not report errors and fill locations', () => {
             type: 'table',
         },
     ];
-    expect(parseResult.locations).toEqual(statementParts);
+    expect(parseResult.locations).toEqual(locations);
 });
 
 test('should not report errors and fill locations', () => {
@@ -206,7 +205,7 @@ test('should not report errors and fill locations', () => {
 
     expect(parseResult.errors).toBeUndefined();
 
-    const statementParts: StatementPart[] = [
+    const identifierLocations: IdentifierLocation[] = [
         {
             location: {
                 first_column: 1,
@@ -231,5 +230,5 @@ test('should not report errors and fill locations', () => {
             type: 'table',
         },
     ];
-    expect(parseResult.locations).toEqual(statementParts);
+    expect(parseResult.locations).toEqual(identifierLocations);
 });
