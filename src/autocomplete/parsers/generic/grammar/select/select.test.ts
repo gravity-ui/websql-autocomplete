@@ -7,11 +7,12 @@ import {
     FiltersSuggestion,
     FunctionsSuggestion,
     GroupBysSuggestion,
+    IdentifierLocation,
+    IdentifierSuggestion,
     JoinsSuggestion,
     KeywordSuggestion,
     OrderBysSuggestion,
-    StatementPart,
-    Table,
+    ParsedTable,
     TablesSuggestion,
     parseGenericSql,
     parseGenericSqlWithoutCursor,
@@ -26,7 +27,7 @@ test('should', () => {
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'BY', weight: -1}];
     expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(keywordSuggestions));
 
-    const tables: Table[] = [
+    const tables: ParsedTable[] = [
         {
             identifierChain: [
                 {
@@ -117,7 +118,7 @@ test('should suggest columns', () => {
 
     expect(parseResult.errors).toBeUndefined();
 
-    const tables: Table[] = [
+    const tables: ParsedTable[] = [
         {
             identifierChain: [
                 {
@@ -315,7 +316,7 @@ test('should suggest keywords', () => {
     ];
     expect(parseResult.suggestKeywords).toEqual(keywordSuggestions);
 
-    const tables: Table[] = [
+    const tables: ParsedTable[] = [
         {
             alias: 't1',
             identifierChain: [
@@ -376,25 +377,26 @@ test('should suggest keywords', () => {
 });
 
 test('should not report errors', () => {
-    const parseResult = parseGenericSql('SELECT 4 / 2; ', '');
+    const parseResult = parseGenericSqlWithoutCursor('SELECT 4 / 2; ');
     expect(parseResult.errors).toBeUndefined();
 });
 
 test('should not report errors', () => {
-    const parseResult = parseGenericSql('SELECT 4 DIV 2; ', '');
+    const parseResult = parseGenericSqlWithoutCursor('SELECT 4 DIV 2; ');
     expect(parseResult.errors).toBeUndefined();
 });
 
 test('should not report errors', () => {
-    const parseResult = parseGenericSql(
+    const parseResult = parseGenericSqlWithoutCursor(
         "SELECT test_column_2 NOT RLIKE 'test', test_column_2 NOT REGEXP 'test_2' FROM test_table; ",
-        '',
     );
     expect(parseResult.errors).toBeUndefined();
 });
 
 test('should not report errors', () => {
-    const parseResult = parseGenericSql('SELECT * FROM test_table limit ${limit=20}; ', '');
+    const parseResult = parseGenericSqlWithoutCursor(
+        'SELECT * FROM test_table limit ${limit=20}; ',
+    );
     expect(parseResult.errors).toBeUndefined();
 });
 
@@ -406,7 +408,7 @@ test('should suggest columns', () => {
 
     expect(parseResult.errors).toBeUndefined();
 
-    const tables: Table[] = [
+    const tables: ParsedTable[] = [
         {
             identifierChain: [
                 {
@@ -449,7 +451,7 @@ test('should suggest columns', () => {
 
     expect(parseResult.errors).toBeUndefined();
 
-    const tables: Table[] = [
+    const tables: ParsedTable[] = [
         {
             identifierChain: [
                 {
@@ -491,7 +493,7 @@ test('should not report errors', () => {
 
     expect(parseResult.errors).toBeUndefined();
 
-    const statementParts: StatementPart[] = [
+    const statementParts: IdentifierLocation[] = [
         {
             location: {
                 first_column: 1,
@@ -704,7 +706,7 @@ test('should not report errors', () => {
 
     expect(parseResult.errors).toBeUndefined();
 
-    const statementParts: StatementPart[] = [
+    const statementParts: IdentifierLocation[] = [
         {
             location: {
                 first_column: 1,
@@ -1126,4 +1128,923 @@ test('should suggest tables', () => {
         appendDot: true,
     };
     expect(parseResult.suggestDatabases).toEqual(databasesSuggestion);
+});
+
+test('should suggest tables', () => {
+    const parseResult = parseGenericSql('SELECT * FROM test_table t;\n\nSELECT ', ';');
+
+    expect(parseResult.errors).toBeUndefined();
+
+    const functionsSuggestions: FunctionsSuggestion = {};
+    expect(parseResult.suggestFunctions).toEqual(functionsSuggestions);
+
+    const aggregateFunctionsSuggestions: AggregateFunctionsSuggestion = {
+        tables: [],
+    };
+    expect(parseResult.suggestAggregateFunctions).toEqual(aggregateFunctionsSuggestions);
+
+    expect(parseResult.suggestAnalyticFunctions).toEqual(true);
+
+    expect(parseResult.suggestColumns).toEqual(undefined);
+
+    const keywordSuggestions: KeywordSuggestion[] = [
+        {
+            value: '*',
+            weight: 10000,
+        },
+        {
+            value: 'ALL',
+            weight: 2,
+        },
+        {
+            value: 'DISTINCT',
+            weight: 2,
+        },
+    ];
+    expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(keywordSuggestions));
+
+    const tablesSuggestion: TablesSuggestion = {
+        prependFrom: true,
+        prependQuestionMark: true,
+    };
+    expect(parseResult.suggestTables).toEqual(tablesSuggestion);
+
+    const databasesSuggestion: DatabasesSuggestion = {
+        prependFrom: true,
+        prependQuestionMark: true,
+        appendDot: true,
+    };
+    expect(parseResult.suggestDatabases).toEqual(databasesSuggestion);
+});
+
+test('should suggest even with lower case', () => {
+    const parseResult = parseGenericSql('select ', ';');
+
+    expect(parseResult.errors).toBeUndefined();
+
+    const functionsSuggestions: FunctionsSuggestion = {};
+    expect(parseResult.suggestFunctions).toEqual(functionsSuggestions);
+
+    const aggregateFunctionsSuggestions: AggregateFunctionsSuggestion = {
+        tables: [],
+    };
+    expect(parseResult.suggestAggregateFunctions).toEqual(aggregateFunctionsSuggestions);
+
+    expect(parseResult.suggestAnalyticFunctions).toEqual(true);
+
+    expect(parseResult.suggestColumns).toEqual(undefined);
+
+    const keywordSuggestions: KeywordSuggestion[] = [
+        {
+            value: '*',
+            weight: 10000,
+        },
+        {
+            value: 'ALL',
+            weight: 2,
+        },
+        {
+            value: 'DISTINCT',
+            weight: 2,
+        },
+    ];
+    expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(keywordSuggestions));
+
+    const tablesSuggestion: TablesSuggestion = {
+        prependFrom: true,
+        prependQuestionMark: true,
+    };
+    expect(parseResult.suggestTables).toEqual(tablesSuggestion);
+
+    const databasesSuggestion: DatabasesSuggestion = {
+        prependFrom: true,
+        prependQuestionMark: true,
+        appendDot: true,
+    };
+    expect(parseResult.suggestDatabases).toEqual(databasesSuggestion);
+});
+
+test('should suggest tables', () => {
+    const parseResult = parseGenericSql('SELECT ALL ', '');
+
+    expect(parseResult.errors).toBeUndefined();
+
+    const functionsSuggestions: FunctionsSuggestion = {};
+    expect(parseResult.suggestFunctions).toEqual(functionsSuggestions);
+
+    const aggregateFunctionsSuggestions: AggregateFunctionsSuggestion = {
+        tables: [],
+    };
+    expect(parseResult.suggestAggregateFunctions).toEqual(aggregateFunctionsSuggestions);
+
+    expect(parseResult.suggestAnalyticFunctions).toEqual(true);
+
+    expect(parseResult.suggestColumns).toEqual(undefined);
+
+    const keywordSuggestions: KeywordSuggestion[] = [
+        {
+            value: '*',
+            weight: 10000,
+        },
+    ];
+    expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(keywordSuggestions));
+
+    const notIncludedKeywordSuggestions: KeywordSuggestion[] = [
+        {
+            value: 'ALL',
+            weight: 2,
+        },
+        {
+            value: 'DISTINCT',
+            weight: 2,
+        },
+    ];
+    expect(parseResult.suggestKeywords).not.toEqual(
+        expect.arrayContaining(notIncludedKeywordSuggestions),
+    );
+
+    const tablesSuggestion: TablesSuggestion = {
+        prependFrom: true,
+        prependQuestionMark: true,
+    };
+    expect(parseResult.suggestTables).toEqual(tablesSuggestion);
+
+    const databasesSuggestion: DatabasesSuggestion = {
+        prependFrom: true,
+        prependQuestionMark: true,
+        appendDot: true,
+    };
+    expect(parseResult.suggestDatabases).toEqual(databasesSuggestion);
+});
+
+test('should suggest tables', () => {
+    const parseResult = parseGenericSql('SELECT DISTINCT ', '');
+
+    expect(parseResult.errors).toBeUndefined();
+
+    const functionsSuggestions: FunctionsSuggestion = {};
+    expect(parseResult.suggestFunctions).toEqual(functionsSuggestions);
+
+    expect(parseResult.suggestColumns).toEqual(undefined);
+
+    const keywordSuggestions: KeywordSuggestion[] = [
+        {
+            value: '*',
+            weight: 10000,
+        },
+    ];
+    expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(keywordSuggestions));
+
+    const notIncludedKeywordSuggestions: KeywordSuggestion[] = [
+        {
+            value: 'ALL',
+            weight: 2,
+        },
+        {
+            value: 'DISTINCT',
+            weight: 2,
+        },
+    ];
+    expect(parseResult.suggestKeywords).not.toEqual(
+        expect.arrayContaining(notIncludedKeywordSuggestions),
+    );
+
+    const tablesSuggestion: TablesSuggestion = {
+        prependFrom: true,
+        prependQuestionMark: true,
+    };
+    expect(parseResult.suggestTables).toEqual(tablesSuggestion);
+
+    const databasesSuggestion: DatabasesSuggestion = {
+        prependFrom: true,
+        prependQuestionMark: true,
+        appendDot: true,
+    };
+    expect(parseResult.suggestDatabases).toEqual(databasesSuggestion);
+});
+
+test('should suggest keywords', () => {
+    const parseResult = parseGenericSql('SELECT ', ' FROM test_table');
+
+    expect(parseResult.errors).toBeUndefined();
+
+    const functionsSuggestions: FunctionsSuggestion = {};
+    expect(parseResult.suggestFunctions).toEqual(functionsSuggestions);
+
+    const tables = [
+        {
+            identifierChain: [
+                {
+                    name: 'test_table',
+                },
+            ],
+        },
+    ];
+
+    const columnSuggestion: ColumnSuggestion = {
+        source: 'select',
+        tables,
+    };
+    expect(parseResult.suggestColumns).toEqual(columnSuggestion);
+
+    const keywordSuggestions: KeywordSuggestion[] = [
+        {
+            value: '*',
+            weight: 10000,
+        },
+        {
+            value: 'ALL',
+            weight: 2,
+        },
+        {
+            value: 'DISTINCT',
+            weight: 2,
+        },
+    ];
+    expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(keywordSuggestions));
+
+    const statementParts: IdentifierLocation[] = [
+        {
+            location: {
+                first_column: 1,
+                first_line: 1,
+                last_column: 24,
+                last_line: 1,
+            },
+            type: 'statement',
+        },
+        {
+            identifier: 'SELECT',
+            location: {
+                first_column: 1,
+                first_line: 1,
+                last_column: 7,
+                last_line: 1,
+            },
+            type: 'statementType',
+        },
+        {
+            location: {
+                first_column: 7,
+                first_line: 1,
+                last_column: 7,
+                last_line: 1,
+            },
+            missing: true,
+            type: 'selectList',
+        },
+        {
+            identifierChain: [
+                {
+                    name: 'test_table',
+                },
+            ],
+            location: {
+                first_column: 14,
+                first_line: 1,
+                last_column: 24,
+                last_line: 1,
+            },
+            type: 'table',
+        },
+        {
+            location: {
+                first_column: 24,
+                first_line: 1,
+                last_column: 24,
+                last_line: 1,
+            },
+            missing: true,
+            type: 'whereClause',
+        },
+        {
+            location: {
+                first_column: 24,
+                first_line: 1,
+                last_column: 24,
+                last_line: 1,
+            },
+            missing: true,
+            type: 'limitClause',
+        },
+    ];
+    expect(parseResult.locations).toEqual(statementParts);
+});
+
+test('should suggest tables', () => {
+    const parseResult = parseGenericSql('SELECT ', ' FROM test_table;');
+
+    expect(parseResult.errors).toBeUndefined();
+
+    const tables = [
+        {
+            identifierChain: [
+                {
+                    name: 'test_table',
+                },
+            ],
+        },
+    ];
+
+    const columnSuggestion: ColumnSuggestion = {
+        source: 'select',
+        tables,
+    };
+    expect(parseResult.suggestColumns).toEqual(columnSuggestion);
+
+    const keywordSuggestions: KeywordSuggestion[] = [
+        {
+            value: '*',
+            weight: 10000,
+        },
+        {
+            value: 'ALL',
+            weight: 2,
+        },
+        {
+            value: 'DISTINCT',
+            weight: 2,
+        },
+    ];
+    expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(keywordSuggestions));
+
+    const functionsSuggestions: FunctionsSuggestion = {};
+    expect(parseResult.suggestFunctions).toEqual(functionsSuggestions);
+
+    const aggregateFunctionsSuggestions: AggregateFunctionsSuggestion = {
+        tables,
+    };
+    expect(parseResult.suggestAggregateFunctions).toEqual(aggregateFunctionsSuggestions);
+
+    expect(parseResult.suggestAnalyticFunctions).toEqual(true);
+});
+
+test('should suggest tables', () => {
+    const parseResult = parseGenericSql('SELECT ', ' AS t FROM test_table;');
+
+    expect(parseResult.errors).toBeUndefined();
+
+    const tables = [
+        {
+            identifierChain: [
+                {
+                    name: 'test_table',
+                },
+            ],
+        },
+    ];
+
+    const columnSuggestion: ColumnSuggestion = {
+        source: 'select',
+        tables,
+    };
+    expect(parseResult.suggestColumns).toEqual(columnSuggestion);
+
+    const functionsSuggestions: FunctionsSuggestion = {};
+    expect(parseResult.suggestFunctions).toEqual(functionsSuggestions);
+
+    const aggregateFunctionsSuggestions: AggregateFunctionsSuggestion = {
+        tables,
+    };
+    expect(parseResult.suggestAggregateFunctions).toEqual(aggregateFunctionsSuggestions);
+
+    expect(parseResult.suggestAnalyticFunctions).toEqual(true);
+});
+
+test('should suggest columns', () => {
+    const parseResult = parseGenericSql('SELECT ', ' test_column FROM test_table;');
+
+    expect(parseResult.errors).toBeUndefined();
+
+    const functionsSuggestions: FunctionsSuggestion = {};
+    expect(parseResult.suggestFunctions).toEqual(functionsSuggestions);
+
+    const tables = [
+        {
+            identifierChain: [
+                {
+                    name: 'test_table',
+                },
+            ],
+        },
+    ];
+
+    const aggregateFunctionsSuggestions: AggregateFunctionsSuggestion = {
+        tables,
+    };
+    expect(parseResult.suggestAggregateFunctions).toEqual(aggregateFunctionsSuggestions);
+
+    expect(parseResult.suggestAnalyticFunctions).toEqual(true);
+
+    const columnSuggestion: ColumnSuggestion = {
+        source: 'select',
+        tables,
+    };
+    expect(parseResult.suggestColumns).toEqual(columnSuggestion);
+
+    const keywordSuggestions: KeywordSuggestion[] = [
+        {
+            value: '*',
+            weight: 10000,
+        },
+        {
+            value: 'ALL',
+            weight: 2,
+        },
+        {
+            value: 'DISTINCT',
+            weight: 2,
+        },
+    ];
+    expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(keywordSuggestions));
+});
+
+test('should suggest columns', () => {
+    const parseResult = parseGenericSql('SELECT test_column_1', ' AS c FROM test_table;');
+
+    expect(parseResult.errors).toBeUndefined();
+
+    const functionsSuggestions: FunctionsSuggestion = {};
+    expect(parseResult.suggestFunctions).toEqual(functionsSuggestions);
+
+    const tables = [
+        {
+            identifierChain: [
+                {
+                    name: 'test_table',
+                },
+            ],
+        },
+    ];
+
+    const aggregateFunctionsSuggestions: AggregateFunctionsSuggestion = {
+        tables,
+    };
+    expect(parseResult.suggestAggregateFunctions).toEqual(aggregateFunctionsSuggestions);
+
+    expect(parseResult.suggestAnalyticFunctions).toEqual(true);
+
+    const columnSuggestion: ColumnSuggestion = {
+        source: 'select',
+        tables,
+    };
+    expect(parseResult.suggestColumns).toEqual(columnSuggestion);
+
+    expect(parseResult.suggestKeywords).toEqual(undefined);
+});
+
+test('should suggest columns', () => {
+    const parseResult = parseGenericSql(
+        'SELECT (test_column_1',
+        ' AND test_column_2) FROM test_table;',
+    );
+
+    expect(parseResult.errors).toBeUndefined();
+
+    const functionsSuggestions: FunctionsSuggestion = {};
+    expect(parseResult.suggestFunctions).toEqual(functionsSuggestions);
+
+    const tables = [
+        {
+            identifierChain: [
+                {
+                    name: 'test_table',
+                },
+            ],
+        },
+    ];
+
+    const columnSuggestion: ColumnSuggestion = {
+        source: 'select',
+        tables,
+    };
+    expect(parseResult.suggestColumns).toEqual(columnSuggestion);
+});
+
+test('should suggest aliases', () => {
+    const parseResult = parseGenericSql('SELECT ', ' FROM test_table_1 t1, test_table_2;');
+
+    expect(parseResult.errors).toBeUndefined();
+
+    const functionsSuggestions: FunctionsSuggestion = {};
+    expect(parseResult.suggestFunctions).toEqual(functionsSuggestions);
+
+    const tables = [
+        {
+            alias: 't1',
+            identifierChain: [
+                {
+                    name: 'test_table_1',
+                },
+            ],
+        },
+        {
+            identifierChain: [
+                {
+                    name: 'test_table_2',
+                },
+            ],
+        },
+    ];
+
+    const columnSuggestion: ColumnSuggestion = {
+        source: 'select',
+        tables,
+    };
+    expect(parseResult.suggestColumns).toEqual(columnSuggestion);
+
+    const identifierSuggestion: IdentifierSuggestion[] = [
+        {
+            name: 't1.',
+            type: 'alias',
+        },
+        {
+            name: 'test_table_2.',
+            type: 'table',
+        },
+    ];
+    expect(parseResult.suggestIdentifiers).toEqual(identifierSuggestion);
+});
+
+test("should suggest columns even if alias case doesn't match", () => {
+    const parseResult = parseGenericSql('SELECT T1.', ' FROM test_table t1;');
+
+    expect(parseResult.errors).toBeUndefined();
+
+    const columnSuggestion: ColumnSuggestion = {
+        source: 'select',
+        tables: [
+            {
+                identifierChain: [
+                    {
+                        name: 'test_table',
+                    },
+                ],
+            },
+        ],
+    };
+    expect(parseResult.suggestColumns).toEqual(columnSuggestion);
+});
+
+test("should suggest columns even if alias case doesn't match", () => {
+    const parseResult = parseGenericSql('SELECT t1.', ' FROM test_table T1;');
+
+    expect(parseResult.errors).toBeUndefined();
+
+    const columnSuggestion: ColumnSuggestion = {
+        source: 'select',
+        tables: [
+            {
+                identifierChain: [
+                    {
+                        name: 'test_table',
+                    },
+                ],
+            },
+        ],
+    };
+    expect(parseResult.suggestColumns).toEqual(columnSuggestion);
+});
+
+test('should suggest columns', () => {
+    const parseResult = parseGenericSql(
+        'SELECT ',
+        ' FROM test_database.test_table_1, test_database.test_table_2',
+    );
+
+    expect(parseResult.errors).toBeUndefined();
+
+    const functionsSuggestions: FunctionsSuggestion = {};
+    expect(parseResult.suggestFunctions).toEqual(functionsSuggestions);
+
+    const tables: ParsedTable[] = [
+        {
+            identifierChain: [
+                {
+                    name: 'test_database',
+                },
+                {
+                    name: 'test_table_1',
+                },
+            ],
+        },
+        {
+            identifierChain: [
+                {
+                    name: 'test_database',
+                },
+                {
+                    name: 'test_table_2',
+                },
+            ],
+        },
+    ];
+    const aggregateFunctionsSuggestions: AggregateFunctionsSuggestion = {
+        tables,
+    };
+    expect(parseResult.suggestAggregateFunctions).toEqual(aggregateFunctionsSuggestions);
+
+    expect(parseResult.suggestAnalyticFunctions).toEqual(true);
+
+    const columnSuggestion: ColumnSuggestion = {
+        source: 'select',
+        tables,
+    };
+    expect(parseResult.suggestColumns).toEqual(columnSuggestion);
+});
+
+test('should suggest columns', () => {
+    const parseResult = parseGenericSql('SELECT test_column, ', ' FROM test_table');
+
+    expect(parseResult.errors).toBeUndefined();
+
+    const functionsSuggestions: FunctionsSuggestion = {};
+    expect(parseResult.suggestFunctions).toEqual(functionsSuggestions);
+
+    const tables: ParsedTable[] = [
+        {
+            identifierChain: [
+                {
+                    name: 'test_table',
+                },
+            ],
+        },
+    ];
+    const aggregateFunctionsSuggestions: AggregateFunctionsSuggestion = {
+        tables,
+    };
+    expect(parseResult.suggestAggregateFunctions).toEqual(aggregateFunctionsSuggestions);
+
+    expect(parseResult.suggestAnalyticFunctions).toEqual(true);
+
+    const columnSuggestion: ColumnSuggestion = {
+        source: 'select',
+        tables,
+    };
+    expect(parseResult.suggestColumns).toEqual(columnSuggestion);
+});
+
+test('should suggest columns', () => {
+    const parseResult = parseGenericSql('SELECT test_column,', ' FROM test_table');
+
+    expect(parseResult.errors).toBeUndefined();
+
+    const functionsSuggestions: FunctionsSuggestion = {};
+    expect(parseResult.suggestFunctions).toEqual(functionsSuggestions);
+
+    const tables: ParsedTable[] = [
+        {
+            identifierChain: [
+                {
+                    name: 'test_table',
+                },
+            ],
+        },
+    ];
+    const aggregateFunctionsSuggestions: AggregateFunctionsSuggestion = {
+        tables,
+    };
+    expect(parseResult.suggestAggregateFunctions).toEqual(aggregateFunctionsSuggestions);
+
+    expect(parseResult.suggestAnalyticFunctions).toEqual(true);
+
+    const columnSuggestion: ColumnSuggestion = {
+        source: 'select',
+        tables,
+    };
+    expect(parseResult.suggestColumns).toEqual(columnSuggestion);
+});
+
+test('should suggest columns', () => {
+    const parseResult = parseGenericSql('SELECT *, ', ' FROM test_table');
+
+    expect(parseResult.errors).toBeUndefined();
+
+    const functionsSuggestions: FunctionsSuggestion = {};
+    expect(parseResult.suggestFunctions).toEqual(functionsSuggestions);
+
+    const tables: ParsedTable[] = [
+        {
+            identifierChain: [
+                {
+                    name: 'test_table',
+                },
+            ],
+        },
+    ];
+    const aggregateFunctionsSuggestions: AggregateFunctionsSuggestion = {
+        tables,
+    };
+    expect(parseResult.suggestAggregateFunctions).toEqual(aggregateFunctionsSuggestions);
+
+    expect(parseResult.suggestAnalyticFunctions).toEqual(true);
+
+    const columnSuggestion: ColumnSuggestion = {
+        source: 'select',
+        tables,
+    };
+    expect(parseResult.suggestColumns).toEqual(columnSuggestion);
+});
+
+test('should suggest columns', () => {
+    const parseResult = parseGenericSql('SELECT *,', ' FROM test_table');
+
+    expect(parseResult.errors).toBeUndefined();
+
+    const functionsSuggestions: FunctionsSuggestion = {};
+    expect(parseResult.suggestFunctions).toEqual(functionsSuggestions);
+
+    const tables: ParsedTable[] = [
+        {
+            identifierChain: [
+                {
+                    name: 'test_table',
+                },
+            ],
+        },
+    ];
+    const aggregateFunctionsSuggestions: AggregateFunctionsSuggestion = {
+        tables,
+    };
+    expect(parseResult.suggestAggregateFunctions).toEqual(aggregateFunctionsSuggestions);
+
+    expect(parseResult.suggestAnalyticFunctions).toEqual(true);
+
+    const columnSuggestion: ColumnSuggestion = {
+        source: 'select',
+        tables,
+    };
+    expect(parseResult.suggestColumns).toEqual(columnSuggestion);
+});
+
+test('should suggest columns', () => {
+    const parseResult = parseGenericSql(
+        'SELECT ',
+        " test_column_1, cast(test_column_2 as int), test_column_3, test_column_4 FROM test_table WHERE test_column_1 = 'US' AND test_column_2 >= 998 ORDER BY test_column_3 DESC LIMIT 15",
+    );
+
+    expect(parseResult.errors).toBeUndefined();
+
+    const functionsSuggestions: FunctionsSuggestion = {};
+    expect(parseResult.suggestFunctions).toEqual(functionsSuggestions);
+
+    const tables: ParsedTable[] = [
+        {
+            identifierChain: [
+                {
+                    name: 'test_table',
+                },
+            ],
+        },
+    ];
+    const aggregateFunctionsSuggestions: AggregateFunctionsSuggestion = {
+        tables,
+    };
+    expect(parseResult.suggestAggregateFunctions).toEqual(aggregateFunctionsSuggestions);
+
+    expect(parseResult.suggestAnalyticFunctions).toEqual(true);
+
+    const columnSuggestion: ColumnSuggestion = {
+        source: 'select',
+        tables,
+    };
+    expect(parseResult.suggestColumns).toEqual(columnSuggestion);
+});
+
+test('should suggest columns', () => {
+    const parseResult = parseGenericSql('SELECT ', ' FROM ${test_variable};');
+
+    expect(parseResult.errors).toBeUndefined();
+
+    const functionsSuggestions: FunctionsSuggestion = {};
+    expect(parseResult.suggestFunctions).toEqual(functionsSuggestions);
+
+    const tables: ParsedTable[] = [
+        {
+            identifierChain: [
+                {
+                    name: '${test_variable}',
+                },
+            ],
+        },
+    ];
+    const aggregateFunctionsSuggestions: AggregateFunctionsSuggestion = {
+        tables,
+    };
+    expect(parseResult.suggestAggregateFunctions).toEqual(aggregateFunctionsSuggestions);
+
+    expect(parseResult.suggestAnalyticFunctions).toEqual(true);
+
+    const columnSuggestion: ColumnSuggestion = {
+        source: 'select',
+        tables,
+    };
+    expect(parseResult.suggestColumns).toEqual(columnSuggestion);
+});
+
+test('should suggest columns', () => {
+    const parseResult = parseGenericSql('SELECT * FROM test_table WHERE ${some_variable} ', '');
+
+    expect(parseResult.errors).toBeUndefined();
+
+    const tables = [
+        {
+            identifierChain: [
+                {
+                    name: 'test_table',
+                },
+            ],
+        },
+    ];
+
+    const orderBysSuggestion: OrderBysSuggestion = {
+        prefix: 'ORDER BY',
+        tables,
+    };
+    expect(parseResult.suggestOrderBys).toEqual(orderBysSuggestion);
+
+    const groupBysSuggestions: GroupBysSuggestion = {
+        prefix: 'GROUP BY',
+        tables,
+    };
+    expect(parseResult.suggestGroupBys).toEqual(groupBysSuggestions);
+});
+
+test('should suggest columns', () => {
+    const parseResult = parseGenericSql(
+        'SELECT * FROM test_table WHERE ${some_variable} + 1 = ',
+        '',
+    );
+
+    expect(parseResult.errors).toBeUndefined();
+
+    const columnSuggestion: ColumnSuggestion = {
+        source: 'where',
+        tables: [
+            {
+                identifierChain: [
+                    {
+                        name: 'test_table',
+                    },
+                ],
+            },
+        ],
+        types: ['NUMBER'],
+    };
+    expect(parseResult.suggestColumns).toEqual(columnSuggestion);
+
+    const functionsSuggestions: FunctionsSuggestion = {
+        types: ['NUMBER'],
+    };
+    expect(parseResult.suggestFunctions).toEqual(functionsSuggestions);
+});
+
+test('should not report errors', () => {
+    const parseResult = parseGenericSqlWithoutCursor(
+        'SELECT row_number() OVER (PARTITION BY test_column) FROM test_table;',
+    );
+    expect(parseResult.errors).toBeUndefined();
+});
+
+test('should not report errors', () => {
+    const parseResult = parseGenericSqlWithoutCursor(
+        'SELECT COUNT(DISTINCT test_column_1) OVER (PARTITION by test_column_2) FROM test_table;',
+    );
+    expect(parseResult.errors).toBeUndefined();
+});
+
+test('should suggest analytical fun report errors', () => {
+    const parseResult = parseGenericSqlWithoutCursor(
+        'SELECT COUNT(DISTINCT test_column_1) OVER (PARTITION by test_column_2) FROM test_table;',
+    );
+    expect(parseResult.errors).toBeUndefined();
+});
+
+test('should suggest tables and databases', () => {
+    const parseResult = parseGenericSql('SELECT ', '');
+
+    expect(parseResult.errors).toBeUndefined();
+
+    const tablesSuggestion: TablesSuggestion = {
+        prependFrom: true,
+        prependQuestionMark: true,
+    };
+    expect(parseResult.suggestTables).toEqual(tablesSuggestion);
+
+    const databasesSuggestion: DatabasesSuggestion = {
+        prependFrom: true,
+        appendDot: true,
+        prependQuestionMark: true,
+    };
+    expect(parseResult.suggestDatabases).toEqual(databasesSuggestion);
+
+    const functionsSuggestions: FunctionsSuggestion = {};
+    expect(parseResult.suggestFunctions).toEqual(functionsSuggestions);
+
+    const aggregateFunctionsSuggestions: AggregateFunctionsSuggestion = {
+        tables: [],
+    };
+    expect(parseResult.suggestAggregateFunctions).toEqual(aggregateFunctionsSuggestions);
+
+    expect(parseResult.suggestAnalyticFunctions).toEqual(true);
 });
