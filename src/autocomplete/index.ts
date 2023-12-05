@@ -25,7 +25,9 @@ export interface ParseResult {
     suggestFilters?: FiltersSuggestion;
     suggestFunctions?: FunctionsSuggestion;
     suggestValues?: ValuesSuggestion;
-    suggestGroupBys?: unknown;
+    suggestGroupBys?: GroupBysSuggestion;
+    suggestOrderBys?: OrderBysSuggestion;
+    suggestJoins?: JoinsSuggestion;
     suggestIdentifiers?: IdentifierSuggestion[];
     suggestTemplates?: boolean;
     suggestEngines?: EnginesSuggestion;
@@ -118,6 +120,15 @@ export interface FunctionsSuggestion {
 
 export interface FiltersSuggestion {
     prefix?: string;
+    tables: Table[];
+}
+
+export type GroupBysSuggestion = FiltersSuggestion;
+
+export type OrderBysSuggestion = FiltersSuggestion;
+
+export interface JoinsSuggestion {
+    prependJoin?: boolean;
     tables: Table[];
 }
 
