@@ -1,11 +1,7 @@
 import {expect, test} from '@jest/globals';
 
-import {
-    KeywordSuggestion,
-    StatementPart,
-    parseGenericSql,
-    parseGenericSqlWithoutCursor,
-} from '../../../../index';
+import {parseGenericSql, parseGenericSqlWithoutCursor} from '../../../../index';
+import {IdentifierLocation, KeywordSuggestion} from '../../../../lib/autocomplete-parse-result';
 
 test('should suggest IF NOT EXISTS', () => {
     const parseResult = parseGenericSql('CREATE TABLE ', '');
@@ -59,7 +55,7 @@ test('should not report errors on full statement and fill locations', () => {
 
     expect(parseResult.errors).toBeUndefined();
 
-    const statementParts: StatementPart[] = [
+    const locations: IdentifierLocation[] = [
         {
             type: 'statement',
             location: {
@@ -70,5 +66,5 @@ test('should not report errors on full statement and fill locations', () => {
             },
         },
     ];
-    expect(parseResult.locations).toEqual(statementParts);
+    expect(parseResult.locations).toEqual(locations);
 });

@@ -8,15 +8,22 @@ import {
 } from '../../../../index';
 import {IdentifierLocation, KeywordSuggestion} from '../../../../lib/autocomplete-parse-result';
 
-test('should suggest views, databases and IF EXISTS', () => {
-    const parseResult = parseGenericSql('DROP VIEW ', '');
+test('should suggest TABLE', () => {
+    const parseResult = parseGenericSql('TRUNCATE ', '');
 
     expect(parseResult.errors).toBeUndefined();
 
-    const tableSuggestion: TablesSuggestion = {
-        onlyViews: true,
-    };
-    expect(parseResult.suggestTables).toEqual(tableSuggestion);
+    const suggestion: KeywordSuggestion = {value: 'TABLE', weight: -1};
+    expect(parseResult.suggestKeywords).toContainEqual(suggestion);
+});
+
+test('should suggest databases or tables and IF EXISTS', () => {
+    const parseResult = parseGenericSql('TRUNCATE TABLE ', '');
+
+    expect(parseResult.errors).toBeUndefined();
+
+    const tablesSuggestion: TablesSuggestion = {};
+    expect(parseResult.suggestTables).toEqual(tablesSuggestion);
 
     const databasesSuggestion: DatabasesSuggestion = {
         appendDot: true,
@@ -27,10 +34,8 @@ test('should suggest views, databases and IF EXISTS', () => {
     expect(parseResult.suggestKeywords).toEqual(suggestions);
 });
 
-test('should not report errors on full statement and fill locations', () => {
-    const parseResult = parseGenericSqlWithoutCursor(
-        'DROP VIEW IF EXISTS test_database.test_view;',
-    );
+test('should properly fill locations', () => {
+    const parseResult = parseGenericSqlWithoutCursor('TRUNCATE TABLE test_database.test_table;');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -39,17 +44,17 @@ test('should not report errors on full statement and fill locations', () => {
             location: {
                 first_column: 1,
                 first_line: 1,
-                last_column: 44,
+                last_column: 40,
                 last_line: 1,
             },
             type: 'statement',
         },
         {
-            identifier: 'DROP VIEW',
+            identifier: 'TRUNCATE TABLE',
             location: {
                 first_column: 1,
                 first_line: 1,
-                last_column: 5,
+                last_column: 9,
                 last_line: 1,
             },
             type: 'statementType',
@@ -61,9 +66,9 @@ test('should not report errors on full statement and fill locations', () => {
                 },
             ],
             location: {
-                first_column: 21,
+                first_column: 16,
                 first_line: 1,
-                last_column: 34,
+                last_column: 29,
                 last_line: 1,
             },
             type: 'database',
@@ -74,13 +79,13 @@ test('should not report errors on full statement and fill locations', () => {
                     name: 'test_database',
                 },
                 {
-                    name: 'test_view',
+                    name: 'test_table',
                 },
             ],
             location: {
-                first_column: 35,
+                first_column: 30,
                 first_line: 1,
-                last_column: 44,
+                last_column: 40,
                 last_line: 1,
             },
             type: 'table',

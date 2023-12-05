@@ -5,6 +5,7 @@ import {
     GroupBysSuggestion,
     IdentifierSuggestion,
     KeywordSuggestion,
+    ParsedTable,
     parseGenericSql,
 } from '../../../../index';
 
@@ -157,7 +158,7 @@ test('should suggest identifiers', () => {
 
     expect(parseResult.errors).toBeUndefined();
 
-    const tables = [
+    const tables: ParsedTable[] = [
         {
             alias: 't1',
             identifierChain: [

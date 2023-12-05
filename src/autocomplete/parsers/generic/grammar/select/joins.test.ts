@@ -10,6 +10,7 @@ import {
     JoinsSuggestion,
     KeywordSuggestion,
     OrderBysSuggestion,
+    ParsedTable,
     TablesSuggestion,
     parseGenericSql,
 } from '../../../../index';
@@ -250,7 +251,7 @@ test('should suggest join conditions', () => {
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'ON', weight: 3}];
     expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(keywordSuggestions));
 
-    const tables = [
+    const tables: ParsedTable[] = [
         {
             identifierChain: [
                 {
@@ -300,7 +301,7 @@ test('should suggest join conditions', () => {
 
     expect(parseResult.errors).toBeUndefined();
 
-    const tables = [
+    const tables: ParsedTable[] = [
         {
             identifierChain: [
                 {
@@ -589,7 +590,7 @@ test('should suggest joins', () => {
 
     expect(parseResult.errors).toBeUndefined();
 
-    const tables = [
+    const tables: ParsedTable[] = [
         {
             identifierChain: [
                 {

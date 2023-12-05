@@ -28,7 +28,7 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
-import {TypeConversion} from '../types';
+import {TypeConversion} from '../../autocomplete-parse-result';
 
 export const TYPE_CONVERSION: TypeConversion = {
     BOOLEAN: {

@@ -34,8 +34,7 @@ import {existsSync, readFileSync} from 'fs';
 import type {MatcherFunction} from '@jest/expect';
 import {beforeAll, describe, expect, it} from '@jest/globals';
 
-import type {ParseResult} from '..';
-import {AutocompleteParser} from '../lib/types';
+import {AutocompleteParseResult, AutocompleteParser} from '../lib/autocomplete-parse-result';
 
 interface ExpectedError {
     text: string;
@@ -49,20 +48,20 @@ interface ExpectedError {
 }
 
 export interface TestCase {
-    namePrefix: string; // ex. "should suggest keywords"
+    namePrefix?: string; // ex. "should suggest keywords"
     beforeCursor: string;
-    afterCursor: string;
+    afterCursor?: string;
     containsKeywords?: string[];
     doesNotContainKeywords?: string[];
     containsColRefKeywords?: boolean | string[];
     noErrors?: boolean;
     locationsOnly?: boolean;
     noLocations?: boolean;
-    expectedDefinitions: unknown;
-    expectedLocations?: ParseResult['locations'];
-    expectedResult: {
+    expectedDefinitions?: unknown;
+    expectedLocations?: AutocompleteParseResult['locations'];
+    expectedResult?: {
         lowerCase?: boolean;
-        locations?: ParseResult['locations'];
+        locations?: AutocompleteParseResult['locations'];
         suggestTables?: {
             identifierChain?: {name: string}[];
             onlyTables?: boolean;
@@ -105,7 +104,7 @@ export function getToEqualAutocompleteValues(
 }
 
 export function toEqualDefinition(
-    actualResponse: Partial<ParseResult>,
+    actualResponse: Partial<AutocompleteParseResult>,
     testDefinition: TestCase,
 ): ReturnType<MatcherFunction> {
     if (
@@ -137,7 +136,7 @@ export function toEqualDefinition(
         actualResponse.locations
     ) {
         const expectedLoc =
-            testDefinition.expectedLocations || testDefinition.expectedResult.locations;
+            testDefinition.expectedLocations || testDefinition.expectedResult?.locations;
         const expectsType = expectedLoc?.some((location) => location.type === 'statementType');
         if (!expectsType) {
             actualResponse.locations = actualResponse.locations.filter(
@@ -171,7 +170,7 @@ export function toEqualDefinition(
     }
 
     if (actualResponse.suggestKeywords) {
-        const weightFreeKeywords: ParseResult['suggestKeywords'] = [];
+        const weightFreeKeywords: AutocompleteParseResult['suggestKeywords'] = [];
         actualResponse.suggestKeywords.forEach((keyword) => {
             if (typeof keyword !== 'string') {
                 // This file is going to be obsolete in 2 weeks, when we rewrite tests
@@ -455,7 +454,7 @@ function createAssertForAutocomplete(
 ): (testCase: TestCase) => void {
     return (testCase: TestCase) => {
         expect(
-            parser.parseSql(testCase.beforeCursor, testCase.afterCursor, debug),
+            parser.parseSql(testCase.beforeCursor, testCase.afterCursor || '', debug),
         ).toEqualDefinition(testCase);
     };
 }
@@ -486,7 +485,7 @@ export function runTestCases(
             testCases.forEach((testCase) => {
                 it(`${testCase.namePrefix} given "${prettyLineBreaks(
                     testCase.beforeCursor,
-                )}|${prettyLineBreaks(testCase.afterCursor)}"`, () => {
+                )}|${prettyLineBreaks(testCase.afterCursor || '')}"`, () => {
                     assertTestCase(testCase);
                 });
             });
