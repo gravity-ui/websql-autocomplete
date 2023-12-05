@@ -1,20 +1,9 @@
-import {AutocompleteParseResult} from './lib/types';
+import {AutocompleteParseResult} from './lib/autocomplete-parse-result';
 import {clickhouseAutocompleteParser} from './parsers/clickhouse/clickhouseAutocompleteParser';
 import {genericAutocompleteParser} from './parsers/generic/genericAutocompleteParser';
 import {postgresqlAutocompleteParser} from './parsers/postgresql/postgresqlAutocompleteParser';
 
-export {
-    ErrorLocation as ParserSyntaxError,
-    AutocompleteParseResult as ParseResult,
-    ValuesSuggestion,
-    TablesSuggestion,
-    ColumnSuggestion,
-    AggregateFunctionsSuggestion,
-    ColumnAliasDetails,
-    DatabasesSuggestion,
-    FiltersSuggestion,
-    FunctionsSuggestion,
-} from './lib/types';
+export * from './lib/autocomplete-parse-result';
 
 export const cursorSymbol = '†';
 

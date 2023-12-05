@@ -1,7 +1,7 @@
 import {expect, test} from '@jest/globals';
 
 import {parsePostgreSql} from '../../../../index';
-import {KeywordSuggestion} from '../../../../lib/types';
+import {KeywordSuggestion} from '../../../../lib/autocomplete-parse-result';
 
 test('should suggest keywords', () => {
     const parseResult = parsePostgreSql(

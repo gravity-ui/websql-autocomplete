@@ -29,7 +29,6 @@
 // and limitations under the License.
 
 // endsWith polyfill from hue_utils.js, needed as workers live in their own js environment
-import {matchesType} from './sql-reference/types';
 import {
     AutocompleteParseResult,
     AwaitedTokenExpression,
@@ -53,7 +52,8 @@ import {
     TokenExpressionWithLocation,
     ValueExpression,
     WeightedKeywordSuggestion,
-} from './types';
+} from './autocomplete-parse-result';
+import {matchesType} from './sql-reference/matches-type';
 
 if (!String.prototype.endsWith) {
     // This code is required for parser to work

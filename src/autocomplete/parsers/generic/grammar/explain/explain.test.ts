@@ -1,7 +1,7 @@
 import {expect, test} from '@jest/globals';
 
 import {parseGenericSql, parseGenericSqlWithoutCursor} from '../../../../index';
-import {IdentifierLocation, KeywordSuggestion} from '../../../../lib/types';
+import {IdentifierLocation, KeywordSuggestion} from '../../../../lib/autocomplete-parse-result';
 
 test('should suggest EXPLAIN', () => {
     const parseResult = parseGenericSql('', '');

@@ -1,7 +1,7 @@
 import {expect, test} from '@jest/globals';
 
 import {parseClickHouse} from '../../../../index';
-import {KeywordSuggestion} from '../../../../lib/types';
+import {KeywordSuggestion} from '../../../../lib/autocomplete-parse-result';
 
 // Only Clickhouse specific tests
 

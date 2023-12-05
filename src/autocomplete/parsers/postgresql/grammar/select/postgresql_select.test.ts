@@ -1,12 +1,12 @@
 import {expect, test} from '@jest/globals';
 
-import {FiltersSuggestion, ParserSyntaxError, parsePostgreSql} from '../../../../index';
+import {ErrorLocation, FiltersSuggestion, parsePostgreSql} from '../../../../index';
 import {
     GroupBysSuggestion,
     JoinsSuggestion,
     KeywordSuggestion,
     OrderBysSuggestion,
-} from '../../../../lib/types';
+} from '../../../../lib/autocomplete-parse-result';
 
 test('should suggest keywords, joins, filters, groupBys, orderBys', () => {
     const parseResult = parsePostgreSql('SELECT * FROM test_table_1 tt1, test_table_2 ', '');
@@ -117,7 +117,7 @@ test('should suggest keywords, joins, filters, groupBys, orderBys', () => {
 test('should report VARIABLE_REFERENCE error', () => {
     const parseResult = parsePostgreSql('SELECT * FROM test_table limit ${limit=20}; ', '');
 
-    const error: Partial<ParserSyntaxError> = {
+    const error: Partial<ErrorLocation> = {
         text: '${limit=20}',
         token: 'VARIABLE_REFERENCE',
         line: 0,

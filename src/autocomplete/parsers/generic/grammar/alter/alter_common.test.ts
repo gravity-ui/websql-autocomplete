@@ -1,7 +1,7 @@
 import {expect, test} from '@jest/globals';
 
 import {parseGenericSql} from '../../../../index';
-import {KeywordSuggestion} from '../../../../lib/types';
+import {KeywordSuggestion} from '../../../../lib/autocomplete-parse-result';
 
 test('should suggest ALTER', () => {
     const parseResult = parseGenericSql('', '');

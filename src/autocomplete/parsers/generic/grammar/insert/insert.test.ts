@@ -7,7 +7,7 @@ import {
     parseGenericSql,
     parseGenericSqlWithoutCursor,
 } from '../../../../index';
-import {IdentifierLocation, KeywordSuggestion} from '../../../../lib/types';
+import {IdentifierLocation, KeywordSuggestion} from '../../../../lib/autocomplete-parse-result';
 
 // TODO: test separately OptionalParenthesizedColumnListOrError
 // TODO: test separately InsertValuesListOrError
