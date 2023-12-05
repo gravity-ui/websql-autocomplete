@@ -1,6 +1,6 @@
 import {describe, it} from '@jest/globals';
 
-import {CommonParser, assertPartials} from '../../lib/parsing-typed';
+import {CommonParser, assertPartials} from '../../lib/autocomplete-parse-result';
 import type {AutocompleteParser} from '../../lib/types';
 import {extractTestCases, runTestCases} from '../../test/testing';
 

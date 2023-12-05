@@ -148,7 +148,7 @@ export interface AutocompleteParseResult {
     colRef?: DetailedColumnReference;
     commonTableExpressions?: IdentifierLocation[];
     locations?: IdentifierLocation[];
-    lowerCase: boolean;
+    lowerCase?: boolean;
     subQueries?: SubQuery[];
     suggestAggregateFunctions?: AggregateFunctionsSuggestion;
     suggestAnalyticFunctions?: boolean;
@@ -195,7 +195,7 @@ export interface ParserContext {
     SELECT_FIRST_OPTIONAL_KEYWORDS: KeywordSuggestion[];
     KEYWORDS: Record<string, string[]>;
     yy: {
-        result: Partial<AutocompleteParseResult>;
+        result: AutocompleteParseResult;
         cursorFound?: {
             first_line: number;
             last_line: number;
