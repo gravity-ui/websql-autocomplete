@@ -16,7 +16,7 @@ import {
 
 test('should suggest columns', () => {
     const parseResult = parseGenericSql(
-        'SELECT t1.testTableColumn1, t2.testTableColumn3 FROM testTable1 t1 JOIN testTable2 t2 ON t1.',
+        'SELECT t1.test_column_1, t2.test_column_3 FROM test_table_1 t1 JOIN test_table_2 t2 ON t1.',
         '',
     );
 
@@ -27,7 +27,7 @@ test('should suggest columns', () => {
             {
                 identifierChain: [
                     {
-                        name: 'testTable1',
+                        name: 'test_table_1',
                     },
                 ],
             },
@@ -38,7 +38,7 @@ test('should suggest columns', () => {
 
 test('should suggest columns', () => {
     const parseResult = parseGenericSql(
-        'SELECT t1.testTableColumn1, t2.testTableColumn3 FROM database_two.testTable1 t1 JOIN testTable2 t2 ON t1.',
+        'SELECT t1.test_column_1, t2.test_column_3 FROM test_database.test_table_1 t1 JOIN test_table_2 t2 ON t1.',
         '',
     );
 
@@ -49,10 +49,10 @@ test('should suggest columns', () => {
             {
                 identifierChain: [
                     {
-                        name: 'database_two',
+                        name: 'test_database',
                     },
                     {
-                        name: 'testTable1',
+                        name: 'test_table_1',
                     },
                 ],
             },
@@ -91,7 +91,7 @@ test('should suggest joins', () => {
 });
 
 test('should suggest joins', () => {
-    const parseResult = parseGenericSql('SELECT * FROM testTable1 JOIN testTable2 JOIN ', '');
+    const parseResult = parseGenericSql('SELECT * FROM test_table_1 JOIN test_table_2 JOIN ', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -102,14 +102,14 @@ test('should suggest joins', () => {
             {
                 identifierChain: [
                     {
-                        name: 'testTable1',
+                        name: 'test_table_1',
                     },
                 ],
             },
             {
                 identifierChain: [
                     {
-                        name: 'testTable2',
+                        name: 'test_table_2',
                     },
                 ],
             },
@@ -154,7 +154,7 @@ test('should suggest keywords', () => {
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parseGenericSql('SELECT * FROM testTable1 FULL OUTER ', '');
+    const parseResult = parseGenericSql('SELECT * FROM test_table_1 FULL OUTER ', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -163,7 +163,7 @@ test('should suggest keywords', () => {
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parseGenericSql('SELECT * FROM testTable1 LEFT ', '');
+    const parseResult = parseGenericSql('SELECT * FROM test_table_1 LEFT ', '');
 
     // TODO: fix unhandled error
     // expect(parseResult.errors).toBeUndefined();
@@ -176,7 +176,7 @@ test('should suggest keywords', () => {
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parseGenericSql('SELECT * FROM testTable1 LEFT OUTER ', '');
+    const parseResult = parseGenericSql('SELECT * FROM test_table_1 LEFT OUTER ', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -185,7 +185,7 @@ test('should suggest keywords', () => {
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parseGenericSql('SELECT * FROM testTable1 RIGHT ', '');
+    const parseResult = parseGenericSql('SELECT * FROM test_table_1 RIGHT ', '');
 
     // TODO: fix unhandled error
     // expect(parseResult.errors).toBeUndefined();
@@ -198,7 +198,7 @@ test('should suggest keywords', () => {
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parseGenericSql('SELECT * FROM testTable1 RIGHT OUTER ', '');
+    const parseResult = parseGenericSql('SELECT * FROM test_table_1 RIGHT OUTER ', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -207,14 +207,14 @@ test('should suggest keywords', () => {
 });
 
 test('should suggest tables', () => {
-    const parseResult = parseGenericSql('SELECT * FROM testTable1 JOIN db1.', '');
+    const parseResult = parseGenericSql('SELECT * FROM test_table_1 JOIN test_database.', '');
 
     expect(parseResult.errors).toBeUndefined();
 
     const tablesSuggestion: TablesSuggestion = {
         identifierChain: [
             {
-                name: 'db1',
+                name: 'test_database',
             },
         ],
     };
@@ -222,14 +222,17 @@ test('should suggest tables', () => {
 });
 
 test('should suggest tables', () => {
-    const parseResult = parseGenericSql('SELECT * FROM testTable1 JOIN db1.', ' JOIN foo');
+    const parseResult = parseGenericSql(
+        'SELECT * FROM test_table_1 JOIN test_database.',
+        ' JOIN foo',
+    );
 
     expect(parseResult.errors).toBeUndefined();
 
     const tablesSuggestion: TablesSuggestion = {
         identifierChain: [
             {
-                name: 'db1',
+                name: 'test_database',
             },
         ],
     };
@@ -237,7 +240,10 @@ test('should suggest tables', () => {
 });
 
 test('should suggest join conditions', () => {
-    const parseResult = parseGenericSql('SELECT testTable1.* FROM testTable1 JOIN testTable2 ', '');
+    const parseResult = parseGenericSql(
+        'SELECT test_table_1.* FROM test_table_1 JOIN test_table_2 ',
+        '',
+    );
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -248,14 +254,14 @@ test('should suggest join conditions', () => {
         {
             identifierChain: [
                 {
-                    name: 'testTable1',
+                    name: 'test_table_1',
                 },
             ],
         },
         {
             identifierChain: [
                 {
-                    name: 'testTable2',
+                    name: 'test_table_2',
                 },
             ],
         },
@@ -288,7 +294,7 @@ test('should suggest join conditions', () => {
 
 test('should suggest join conditions', () => {
     const parseResult = parseGenericSql(
-        'SELECT testTable1.* FROM testTable1 JOIN testTable2 ON ',
+        'SELECT test_table_1.* FROM test_table_1 JOIN test_table_2 ON ',
         '',
     );
 
@@ -298,14 +304,14 @@ test('should suggest join conditions', () => {
         {
             identifierChain: [
                 {
-                    name: 'testTable1',
+                    name: 'test_table_1',
                 },
             ],
         },
         {
             identifierChain: [
                 {
-                    name: 'testTable2',
+                    name: 'test_table_2',
                 },
             ],
         },
@@ -324,11 +330,11 @@ test('should suggest join conditions', () => {
 
     const identifierSuggestion: IdentifierSuggestion[] = [
         {
-            name: 'testTable1.',
+            name: 'test_table_1.',
             type: 'table',
         },
         {
-            name: 'testTable2.',
+            name: 'test_table_2.',
             type: 'table',
         },
     ];
@@ -337,7 +343,7 @@ test('should suggest join conditions', () => {
 
 test('should suggest columns', () => {
     const parseResult = parseGenericSql(
-        'SELECT testTable1.* FROM testTable1 JOIN testTable2 ON (',
+        'SELECT test_table_1.* FROM test_table_1 JOIN test_table_2 ON (',
         '',
     );
 
@@ -349,14 +355,14 @@ test('should suggest columns', () => {
             {
                 identifierChain: [
                     {
-                        name: 'testTable1',
+                        name: 'test_table_1',
                     },
                 ],
             },
             {
                 identifierChain: [
                     {
-                        name: 'testTable2',
+                        name: 'test_table_2',
                     },
                 ],
             },
@@ -366,11 +372,11 @@ test('should suggest columns', () => {
 
     const identifierSuggestion: IdentifierSuggestion[] = [
         {
-            name: 'testTable1.',
+            name: 'test_table_1.',
             type: 'table',
         },
         {
-            name: 'testTable2.',
+            name: 'test_table_2.',
             type: 'table',
         },
     ];
@@ -379,7 +385,7 @@ test('should suggest columns', () => {
 
 test('should suggest columns', () => {
     const parseResult = parseGenericSql(
-        'SELECT testTable1.* FROM testTable1 JOIN testTable2 ON (testTable1.testColumn1 = testTable2.testColumn3 AND ',
+        'SELECT test_table_1.* FROM test_table_1 JOIN test_table_2 ON (test_table_1.test_column_1 = test_table_2.test_column_3 AND ',
         '',
     );
 
@@ -391,14 +397,14 @@ test('should suggest columns', () => {
             {
                 identifierChain: [
                     {
-                        name: 'testTable1',
+                        name: 'test_table_1',
                     },
                 ],
             },
             {
                 identifierChain: [
                     {
-                        name: 'testTable2',
+                        name: 'test_table_2',
                     },
                 ],
             },
@@ -408,11 +414,11 @@ test('should suggest columns', () => {
 
     const identifierSuggestion: IdentifierSuggestion[] = [
         {
-            name: 'testTable1.',
+            name: 'test_table_1.',
             type: 'table',
         },
         {
-            name: 'testTable2.',
+            name: 'test_table_2.',
             type: 'table',
         },
     ];
@@ -421,8 +427,8 @@ test('should suggest columns', () => {
 
 test('should suggest columns', () => {
     const parseResult = parseGenericSql(
-        'SELECT testTable1.* FROM testTable1 JOIN testTable2 ON (',
-        ' AND testTable1.testColumn1 = testTable2.testColumn3',
+        'SELECT test_table_1.* FROM test_table_1 JOIN test_table_2 ON (',
+        ' AND test_table_1.test_column_1 = test_table_2.test_column_3',
     );
 
     // TODO: fix unhandled error
@@ -433,14 +439,14 @@ test('should suggest columns', () => {
             {
                 identifierChain: [
                     {
-                        name: 'testTable1',
+                        name: 'test_table_1',
                     },
                 ],
             },
             {
                 identifierChain: [
                     {
-                        name: 'testTable2',
+                        name: 'test_table_2',
                     },
                 ],
             },
@@ -450,11 +456,11 @@ test('should suggest columns', () => {
 
     const identifierSuggestion: IdentifierSuggestion[] = [
         {
-            name: 'testTable1.',
+            name: 'test_table_1.',
             type: 'table',
         },
         {
-            name: 'testTable2.',
+            name: 'test_table_2.',
             type: 'table',
         },
     ];
@@ -463,7 +469,7 @@ test('should suggest columns', () => {
 
 test('should suggest columns', () => {
     const parseResult = parseGenericSql(
-        'SELECT testTable1.* FROM testTable1 JOIN testTable2 ON (testTable1.testColumn1 = testTable2.testColumn3 AND testTable1.',
+        'SELECT test_table_1.* FROM test_table_1 JOIN test_table_2 ON (test_table_1.test_column_1 = test_table_2.test_column_3 AND test_table_1.',
         '',
     );
 
@@ -475,7 +481,7 @@ test('should suggest columns', () => {
             {
                 identifierChain: [
                     {
-                        name: 'testTable1',
+                        name: 'test_table_1',
                     },
                 ],
             },
@@ -518,8 +524,8 @@ test('should suggest keywords', () => {
 
 test('should suggest keywords', () => {
     const parseResult = parseGenericSql(
-        'SELECT t1.* FROM table1 t1 JOIN table2 t2 ',
-        ' JOIN table3',
+        'SELECT t1.* FROM test_table_1 t1 JOIN test_table_2 t2 ',
+        ' JOIN test_table_3',
     );
 
     expect(parseResult.errors).toBeUndefined();
@@ -531,7 +537,7 @@ test('should suggest keywords', () => {
                 alias: 't1',
                 identifierChain: [
                     {
-                        name: 'table1',
+                        name: 'test_table_1',
                     },
                 ],
             },
@@ -539,7 +545,7 @@ test('should suggest keywords', () => {
                 alias: 't2',
                 identifierChain: [
                     {
-                        name: 'table2',
+                        name: 'test_table_2',
                     },
                 ],
             },
@@ -561,7 +567,7 @@ test('should suggest keywords', () => {
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parseGenericSql('SELECT t1.* FROM table1 t1 FULL ', ' JOIN');
+    const parseResult = parseGenericSql('SELECT t1.* FROM test_table_1 t1 FULL ', ' JOIN');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -570,7 +576,7 @@ test('should suggest keywords', () => {
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parseGenericSql('SELECT t1.* FROM table1 t1 RIGHT ', ' JOIN');
+    const parseResult = parseGenericSql('SELECT t1.* FROM test_table_1 t1 RIGHT ', ' JOIN');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -579,7 +585,7 @@ test('should suggest keywords', () => {
 });
 
 test('should suggest joins', () => {
-    const parseResult = parseGenericSql('SELECT * FROM testTable1 ', '');
+    const parseResult = parseGenericSql('SELECT * FROM test_table_1 ', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -587,7 +593,7 @@ test('should suggest joins', () => {
         {
             identifierChain: [
                 {
-                    name: 'testTable1',
+                    name: 'test_table_1',
                 },
             ],
         },

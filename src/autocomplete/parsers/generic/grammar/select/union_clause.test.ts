@@ -11,7 +11,7 @@ import {
 
 test('should suggest keywords', () => {
     const parseResult = parseGenericSql(
-        'SELECT * FROM database_two.testTable ORDER BY foo LIMIT 10 ',
+        'SELECT * FROM test_database.test_table ORDER BY test_column LIMIT 10 ',
         '',
     );
 
@@ -22,7 +22,7 @@ test('should suggest keywords', () => {
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parseGenericSql('SELECT * FROM t1 UNION ', '');
+    const parseResult = parseGenericSql('SELECT * FROM test_table UNION ', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -35,7 +35,7 @@ test('should suggest keywords', () => {
 });
 
 test('should suggest tables', () => {
-    const parseResult = parseGenericSql('SELECT * FROM t1 UNION ALL SELECT ', '');
+    const parseResult = parseGenericSql('SELECT * FROM test_table UNION ALL SELECT ', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -64,26 +64,28 @@ test('should suggest tables', () => {
 
 test('should not report errors', () => {
     const parseResult = parseGenericSqlWithoutCursor(
-        'SELECT key FROM (SELECT key FROM src ORDER BY key LIMIT 10)subq1 UNION SELECT key FROM (SELECT key FROM src1 ORDER BY key LIMIT 10)subq2;',
+        'SELECT test_column FROM (SELECT test_column FROM test_table ORDER BY test_column LIMIT 10)subq1 UNION SELECT test_column FROM (SELECT test_column FROM test_table_2 ORDER BY test_column LIMIT 10)subq2;',
     );
     expect(parseResult.errors).toBeUndefined();
 });
 
 test('should not report errors', () => {
     const parseResult = parseGenericSqlWithoutCursor(
-        'SELECT * FROM t1 UNION DISTINCT SELECT * FROM t2;',
+        'SELECT * FROM test_table UNION DISTINCT SELECT * FROM t2;',
     );
     expect(parseResult.errors).toBeUndefined();
 });
 
 test('should not report errors', () => {
-    const parseResult = parseGenericSqlWithoutCursor('SELECT * FROM t1 UNION SELECT * FROM t2;');
+    const parseResult = parseGenericSqlWithoutCursor(
+        'SELECT * FROM test_table UNION SELECT * FROM t2;',
+    );
     expect(parseResult.errors).toBeUndefined();
 });
 
 test('should not report errors', () => {
     const parseResult = parseGenericSqlWithoutCursor(
-        'WITH q1 AS (SELECT * FROM src WHERE something), q2 AS (SELECT * FROM src s2 WHERE something) SELECT * FROM q1 UNION ALL SELECT * FROM q2;',
+        'WITH q1 AS (SELECT * FROM test_table WHERE conditions), q2 AS (SELECT * FROM test_table s2 WHERE conditions) SELECT * FROM q1 UNION ALL SELECT * FROM q2;',
     );
     expect(parseResult.errors).toBeUndefined();
 });

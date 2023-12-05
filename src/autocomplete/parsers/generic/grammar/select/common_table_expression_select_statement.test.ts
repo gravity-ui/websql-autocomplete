@@ -29,7 +29,7 @@ test('should suggest SELECT', () => {
 });
 
 test('should suggest SELECT', () => {
-    const parseResult = parseGenericSql('WITH test_table_1 AS (SELECT * FROM test_table_2) ', '');
+    const parseResult = parseGenericSql('WITH t AS (SELECT * FROM test_table) ', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -38,10 +38,7 @@ test('should suggest SELECT', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parseGenericSql(
-        'WITH test_table_1 AS (SELECT * FROM test_table_2) SELECT ',
-        '',
-    );
+    const parseResult = parseGenericSql('WITH t AS (SELECT * FROM test_table) SELECT ', '');
 
     console.log(parseResult);
 
@@ -61,7 +58,7 @@ test('should suggest columns', () => {
     expect(parseResult.suggestDatabases).toEqual(databasesSuggestion);
 
     const commonTableExpressionSuggestion: CommonTableExpressionsSuggestion = {
-        name: 'test_table_1',
+        name: 't',
         prependFrom: true,
         prependQuestionMark: true,
     };
@@ -71,14 +68,14 @@ test('should suggest columns', () => {
 
     const commonTableExpressions: CommonTableExpression[] = [
         {
-            alias: 'test_table_1',
+            alias: 't',
             columns: [
                 {
                     tables: [
                         {
                             identifierChain: [
                                 {
-                                    name: 'test_table_2',
+                                    name: 'test_table',
                                 },
                             ],
                         },
@@ -92,7 +89,7 @@ test('should suggest columns', () => {
 
 test('should suggest keywords', () => {
     const parseResult = parseGenericSql(
-        'with s as (select * from foo join bar) select * from ',
+        'WITH t AS (SELECT * FROM test_table_1 JOIN test_table_2) SELECT * FROM ',
         ';',
     );
 
@@ -114,28 +111,28 @@ test('should suggest keywords', () => {
                         {
                             identifierChain: [
                                 {
-                                    name: 'foo',
+                                    name: 'test_table_1',
                                 },
                             ],
                         },
                         {
                             identifierChain: [
                                 {
-                                    name: 'bar',
+                                    name: 'test_table_2',
                                 },
                             ],
                         },
                     ],
                 },
             ],
-            alias: 's',
+            alias: 't',
         },
     ];
     expect(parseResult.commonTableExpressions).toEqual(commonTableExpressions);
 
     const commonTableExpressionsSuggestion: CommonTableExpressionsSuggestion[] = [
         {
-            name: 's',
+            name: 't',
         },
     ];
     expect(parseResult.suggestCommonTableExpressions).toEqual(commonTableExpressionsSuggestion);
@@ -143,7 +140,7 @@ test('should suggest keywords', () => {
 
 test('should suggest keywords', () => {
     const parseResult = parseGenericSql(
-        'with s as (select * from foo join bar) select * from ',
+        'WITH t AS (SELECT * FROM test_table_1 JOIN test_table_2) SELECT * FROM ',
         '',
     );
 
@@ -165,35 +162,35 @@ test('should suggest keywords', () => {
                         {
                             identifierChain: [
                                 {
-                                    name: 'foo',
+                                    name: 'test_table_1',
                                 },
                             ],
                         },
                         {
                             identifierChain: [
                                 {
-                                    name: 'bar',
+                                    name: 'test_table_2',
                                 },
                             ],
                         },
                     ],
                 },
             ],
-            alias: 's',
+            alias: 't',
         },
     ];
     expect(parseResult.commonTableExpressions).toEqual(commonTableExpressions);
 
     const commonTableExpressionsSuggestion: CommonTableExpressionsSuggestion[] = [
         {
-            name: 's',
+            name: 't',
         },
     ];
     expect(parseResult.suggestCommonTableExpressions).toEqual(commonTableExpressionsSuggestion);
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parseGenericSql('WITH t1 AS (SELECT * FROM FOO) SELECT * FROM ', '');
+    const parseResult = parseGenericSql('WITH t AS (SELECT * FROM test_table) SELECT * FROM ', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -213,28 +210,31 @@ test('should suggest keywords', () => {
                         {
                             identifierChain: [
                                 {
-                                    name: 'FOO',
+                                    name: 'test_table',
                                 },
                             ],
                         },
                     ],
                 },
             ],
-            alias: 't1',
+            alias: 't',
         },
     ];
     expect(parseResult.commonTableExpressions).toEqual(commonTableExpressions);
 
     const commonTableExpressionsSuggestion: CommonTableExpressionsSuggestion[] = [
         {
-            name: 't1',
+            name: 't',
         },
     ];
     expect(parseResult.suggestCommonTableExpressions).toEqual(commonTableExpressionsSuggestion);
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parseGenericSql('WITH t1 AS (SELECT * FROM FOO), t2 AS (SELECT ', '');
+    const parseResult = parseGenericSql(
+        'WITH t1 AS (SELECT * FROM test_table), t2 AS (SELECT ',
+        '',
+    );
 
     // TODO: fix unexpected error
     // expect(parseResult.errors).toBeUndefined();
@@ -266,7 +266,7 @@ test('should suggest keywords', () => {
                         {
                             identifierChain: [
                                 {
-                                    name: 'FOO',
+                                    name: 'test_table',
                                 },
                             ],
                         },
@@ -290,7 +290,7 @@ test('should suggest keywords', () => {
 
 test('should not report errors', () => {
     const parseResult = parseGenericSql(
-        'WITH q1 AS ( SELECT key FROM src WHERE something) SELECT * FROM q1;',
+        'WITH t AS (SELECT key FROM test_table WHERE conditions) SELECT * FROM t;',
         '',
     );
 

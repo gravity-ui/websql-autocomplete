@@ -32,7 +32,10 @@ test('should suggest keywords', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parseGenericSql('SELECT * FROM test_table WHERE baa baaa boo ORDER ', '');
+    const parseResult = parseGenericSql(
+        'SELECT * FROM test_table WHERE condition_1 condition_2 condition_3 ORDER ',
+        '',
+    );
 
     // TODO: fix unhandled error
     // expect(parseResult.errors).toBeUndefined();
@@ -58,7 +61,6 @@ test('should suggest columns', () => {
 test('should suggest columns', () => {
     const parseResult = parseGenericSql('SELECT * FROM test_table ORDER BY ', '');
 
-    // TODO: fix unhandled error
     expect(parseResult.errors).toBeUndefined();
 
     const functionsSuggestions: FunctionsSuggestion = {};
@@ -95,7 +97,6 @@ test('should suggest columns', () => {
 test('should suggest keywords', () => {
     const parseResult = parseGenericSql('SELECT * FROM test_table ORDER BY test_column ', '');
 
-    // TODO: fix unhandled error
     expect(parseResult.errors).toBeUndefined();
 
     const keywordSuggestions: KeywordSuggestion[] = [
@@ -108,7 +109,6 @@ test('should suggest keywords', () => {
 test('should suggest columns', () => {
     const parseResult = parseGenericSql('SELECT * FROM test_table ORDER BY test_column + ', '');
 
-    // TODO: fix unhandled error
     expect(parseResult.errors).toBeUndefined();
 
     const functionsSuggestions: FunctionsSuggestion = {
@@ -135,7 +135,6 @@ test('should suggest columns', () => {
 test('should suggest columns', () => {
     const parseResult = parseGenericSql('SELECT * FROM test_table ORDER BY test_column, ', '');
 
-    // TODO: fix unhandled error
     expect(parseResult.errors).toBeUndefined();
 
     const functionsSuggestions: FunctionsSuggestion = {};
@@ -162,7 +161,6 @@ test('should suggest columns', () => {
         '',
     );
 
-    // TODO: fix unhandled error
     expect(parseResult.errors).toBeUndefined();
 
     const functionsSuggestions: FunctionsSuggestion = {};
@@ -186,7 +184,6 @@ test('should suggest columns', () => {
 test('should suggest columns', () => {
     const parseResult = parseGenericSql('SELECT * FROM test_table ORDER BY test_column ASC, ', '');
 
-    // TODO: fix unhandled error
     expect(parseResult.errors).toBeUndefined();
 
     const functionsSuggestions: FunctionsSuggestion = {};
@@ -209,7 +206,7 @@ test('should suggest columns', () => {
 
 test('should suggest keywords', () => {
     const parseResult = parseGenericSql(
-        'SELECT * FROM test_table ORDER by test_column_1 DESC, test_column2 ',
+        'SELECT * FROM test_table ORDER by test_column_1 DESC, test_column_2 ',
         '',
     );
 

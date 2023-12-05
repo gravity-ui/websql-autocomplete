@@ -4,7 +4,7 @@ import {KeywordSuggestion, parseGenericSql} from '../../../../index';
 
 test('should suggest values', () => {
     const parseResult = parseGenericSql(
-        'SELECT COUNT(*) AS boo FROM testTable GROUP BY baa LIMIT ',
+        'SELECT COUNT(*) AS c FROM test_table GROUP BY test_column LIMIT ',
         '',
     );
 
@@ -22,7 +22,7 @@ test('should suggest values', () => {
 
 test('should allow to write offset with comma', () => {
     const parseResult = parseGenericSql(
-        'SELECT COUNT(*) AS boo FROM testTable GROUP BY baa LIMIT 100, 100 ',
+        'SELECT COUNT(*) AS c FROM test_table GROUP BY test_column LIMIT 100, 100 ',
         '',
     );
     expect(parseResult.errors).toBeUndefined();

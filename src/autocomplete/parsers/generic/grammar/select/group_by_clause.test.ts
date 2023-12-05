@@ -151,58 +151,44 @@ test('should suggest columns', () => {
 
 test('should suggest identifiers', () => {
     const parseResult = parseGenericSql(
-        'SELECT * FROM test_table_1 tt1, test_table_2 GROUP BY ',
+        'SELECT * FROM test_table_1 t1, test_table_2 GROUP BY ',
         '',
     );
 
     expect(parseResult.errors).toBeUndefined();
 
+    const tables = [
+        {
+            alias: 't1',
+            identifierChain: [
+                {
+                    name: 'test_table_1',
+                },
+            ],
+        },
+        {
+            identifierChain: [
+                {
+                    name: 'test_table_2',
+                },
+            ],
+        },
+    ];
+
     const groupBysSuggestions: GroupBysSuggestion = {
-        tables: [
-            {
-                alias: 'tt1',
-                identifierChain: [
-                    {
-                        name: 'test_table_1',
-                    },
-                ],
-            },
-            {
-                identifierChain: [
-                    {
-                        name: 'test_table_2',
-                    },
-                ],
-            },
-        ],
+        tables,
     };
     expect(parseResult.suggestGroupBys).toEqual(groupBysSuggestions);
 
     const columnsSuggestion: ColumnSuggestion = {
         source: 'group by',
-        tables: [
-            {
-                alias: 'tt1',
-                identifierChain: [
-                    {
-                        name: 'test_table_1',
-                    },
-                ],
-            },
-            {
-                identifierChain: [
-                    {
-                        name: 'test_table_2',
-                    },
-                ],
-            },
-        ],
+        tables,
     };
     expect(parseResult.suggestColumns).toEqual(columnsSuggestion);
 
     const identifierSuggestion: IdentifierSuggestion[] = [
         {
-            name: 'tt1.',
+            name: 't1.',
             type: 'alias',
         },
         {
@@ -215,7 +201,7 @@ test('should suggest identifiers', () => {
 
 test('should suggest identifiers', () => {
     const parseResult = parseGenericSql(
-        'SELECT * FROM test_table_1 tt1, test_table_2 GROUP BY test_column_1, ',
+        'SELECT * FROM test_table_1 t1, test_table_2 GROUP BY test_column_1, ',
         '',
     );
 
@@ -227,7 +213,7 @@ test('should suggest identifiers', () => {
         source: 'group by',
         tables: [
             {
-                alias: 'tt1',
+                alias: 't1',
                 identifierChain: [
                     {
                         name: 'test_table_1',
@@ -247,7 +233,7 @@ test('should suggest identifiers', () => {
 
     const identifierSuggestion: IdentifierSuggestion[] = [
         {
-            name: 'tt1.',
+            name: 't1.',
             type: 'alias',
         },
         {
@@ -260,7 +246,7 @@ test('should suggest identifiers', () => {
 
 test('should suggest identifiers', () => {
     const parseResult = parseGenericSql(
-        'SELECT * FROM test_table_1 tt1, test_table_2 GROUP BY test_column_1+',
+        'SELECT * FROM test_table_1 t1, test_table_2 GROUP BY test_column_1+',
         '',
     );
 
@@ -273,7 +259,7 @@ test('should suggest identifiers', () => {
         types: ['NUMBER'],
         tables: [
             {
-                alias: 'tt1',
+                alias: 't1',
                 identifierChain: [
                     {
                         name: 'test_table_1',
@@ -293,7 +279,7 @@ test('should suggest identifiers', () => {
 
     const identifierSuggestion: IdentifierSuggestion[] = [
         {
-            name: 'tt1.',
+            name: 't1.',
             type: 'alias',
         },
         {

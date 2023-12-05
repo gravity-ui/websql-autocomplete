@@ -82,14 +82,14 @@ test('should suggest tables', () => {
 });
 
 test('should suggest tables', () => {
-    const parseResult = parseGenericSql('SELECT * FROM `database_two`.', '');
+    const parseResult = parseGenericSql('SELECT * FROM `test_database`.', '');
 
     expect(parseResult.errors).toBeUndefined();
 
     const tablesSuggestion: TablesSuggestion = {
         identifierChain: [
             {
-                name: 'database_two',
+                name: 'test_database',
             },
         ],
     };
