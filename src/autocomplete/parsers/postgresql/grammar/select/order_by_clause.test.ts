@@ -1,7 +1,7 @@
 import {expect, test} from '@jest/globals';
 
 import {ColumnSuggestion, FunctionsSuggestion, parsePostgreSql} from '../../../../index';
-import {CommonPopularSuggestion, KeywordSuggestion} from '../../../../lib/types';
+import {KeywordSuggestion, OrderBysSuggestion} from '../../../../lib/types';
 
 test('should suggest ORDER BY', () => {
     const parseResult = parsePostgreSql('SELECT * FROM test_table ORDER ', '');
@@ -11,7 +11,7 @@ test('should suggest ORDER BY', () => {
     const suggestion: KeywordSuggestion = {value: 'BY', weight: -1};
     expect(parseResult.suggestKeywords).toContainEqual(suggestion);
 
-    const orderBysSuggestion: CommonPopularSuggestion = {
+    const orderBysSuggestion: OrderBysSuggestion = {
         prefix: 'BY',
         tables: [
             {
@@ -37,7 +37,7 @@ test('should suggest ORDER BY after WHERE', () => {
     const suggestion: KeywordSuggestion = {value: 'BY', weight: -1};
     expect(parseResult.suggestKeywords).toContainEqual(suggestion);
 
-    const orderBysSuggestion: CommonPopularSuggestion = {
+    const orderBysSuggestion: OrderBysSuggestion = {
         prefix: 'BY',
         tables: [
             {
@@ -59,7 +59,7 @@ test('should suggest orderBys, columns, functions', () => {
 
     expect(parseResult.suggestAnalyticFunctions).toEqual(true);
 
-    const orderBysSuggestion: CommonPopularSuggestion = {
+    const orderBysSuggestion: OrderBysSuggestion = {
         tables: [
             {
                 identifierChain: [
@@ -97,7 +97,7 @@ test('should suggest orderBys, columns, functions with database name', () => {
 
     expect(parseResult.suggestAnalyticFunctions).toEqual(true);
 
-    const orderBysSuggestion: CommonPopularSuggestion = {
+    const orderBysSuggestion: OrderBysSuggestion = {
         tables: [
             {
                 identifierChain: [

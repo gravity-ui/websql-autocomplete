@@ -137,6 +137,9 @@ export interface CommonPopularSuggestion {
     linked?: boolean;
 }
 
+export type OrderBysSuggestion = CommonPopularSuggestion;
+export type GroupBysSuggestion = CommonPopularSuggestion;
+
 export interface HdfsSuggestion {
     path: string;
 }
@@ -156,14 +159,14 @@ export interface AutocompleteParseResult {
     suggestDatabases?: DatabasesSuggestion;
     suggestFilters?: FiltersSuggestion;
     suggestFunctions?: FunctionsSuggestion;
-    suggestGroupBys?: CommonPopularSuggestion;
+    suggestGroupBys?: GroupBysSuggestion;
     suggestHdfs?: HdfsSuggestion;
     suggestJoins?: JoinsSuggestion;
     suggestJoinConditions?: JoinConditionsSuggestion;
     suggestIdentifiers?: IdentifierSuggestion[];
     suggestKeyValues?: KeyValuesSuggestion;
     suggestKeywords?: WeightedKeywordSuggestion[];
-    suggestOrderBys?: CommonPopularSuggestion;
+    suggestOrderBys?: OrderBysSuggestion;
     suggestSetOptions?: boolean;
     suggestTables?: TablesSuggestion;
     suggestValues?: ValuesSuggestion;
@@ -352,8 +355,8 @@ export interface ParserContext {
     suggestSetOptions(): void;
     suggestIdentifiers(identifiers?: IdentifierSuggestion[]): void;
     suggestColumns(details?: ColumnSuggestion): void;
-    suggestGroupBys(details?: CommonPopularSuggestion): void;
-    suggestOrderBys(details?: CommonPopularSuggestion): void;
+    suggestGroupBys(details?: GroupBysSuggestion): void;
+    suggestOrderBys(details?: OrderBysSuggestion): void;
     suggestFilters(details?: FiltersSuggestion): void;
     suggestKeyValues(details?: KeyValuesSuggestion): void;
     suggestTables(details?: TablesSuggestion): void;

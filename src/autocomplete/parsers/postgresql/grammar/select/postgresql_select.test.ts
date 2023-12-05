@@ -1,7 +1,12 @@
 import {expect, test} from '@jest/globals';
 
 import {FiltersSuggestion, ParserSyntaxError, parsePostgreSql} from '../../../../index';
-import {CommonPopularSuggestion, JoinsSuggestion, KeywordSuggestion} from '../../../../lib/types';
+import {
+    GroupBysSuggestion,
+    JoinsSuggestion,
+    KeywordSuggestion,
+    OrderBysSuggestion,
+} from '../../../../lib/types';
 
 test('should suggest keywords, joins, filters, groupBys, orderBys', () => {
     const parseResult = parsePostgreSql('SELECT * FROM test_table_1 tt1, test_table_2 ', '');
@@ -28,7 +33,7 @@ test('should suggest keywords, joins, filters, groupBys, orderBys', () => {
     ];
     expect(parseResult.suggestKeywords).toEqual(keywordsSuggestion);
 
-    const orderBysSuggestion: CommonPopularSuggestion = {
+    const orderBysSuggestion: OrderBysSuggestion = {
         prefix: 'ORDER BY',
         tables: [
             {
@@ -50,7 +55,7 @@ test('should suggest keywords, joins, filters, groupBys, orderBys', () => {
     };
     expect(parseResult.suggestOrderBys).toEqual(orderBysSuggestion);
 
-    const groupBysSuggestion: CommonPopularSuggestion = {
+    const groupBysSuggestion: GroupBysSuggestion = {
         prefix: 'GROUP BY',
         tables: [
             {
@@ -164,7 +169,7 @@ test('should suggest keywords, groupBys, orderBys after WHERE', () => {
     ];
     expect(parseResult.suggestKeywords).toEqual(keywordsSuggestion);
 
-    const orderBysSuggestion: CommonPopularSuggestion = {
+    const orderBysSuggestion: OrderBysSuggestion = {
         prefix: 'ORDER BY',
         tables: [
             {
@@ -178,7 +183,7 @@ test('should suggest keywords, groupBys, orderBys after WHERE', () => {
     };
     expect(parseResult.suggestOrderBys).toEqual(orderBysSuggestion);
 
-    const groupBysSuggestion: CommonPopularSuggestion = {
+    const groupBysSuggestion: GroupBysSuggestion = {
         prefix: 'GROUP BY',
         tables: [
             {
@@ -230,7 +235,7 @@ test('should suggest keywords, groupBys, orderBys after null safe WHERE', () => 
     ];
     expect(parseResult.suggestKeywords).toEqual(keywordsSuggestion);
 
-    const orderBysSuggestion: CommonPopularSuggestion = {
+    const orderBysSuggestion: OrderBysSuggestion = {
         prefix: 'ORDER BY',
         tables: [
             {
@@ -244,7 +249,7 @@ test('should suggest keywords, groupBys, orderBys after null safe WHERE', () => 
     };
     expect(parseResult.suggestOrderBys).toEqual(orderBysSuggestion);
 
-    const groupBysSuggestion: CommonPopularSuggestion = {
+    const groupBysSuggestion: GroupBysSuggestion = {
         prefix: 'GROUP BY',
         tables: [
             {
@@ -270,7 +275,7 @@ test('should suggest LIMIT, OFFSET, joins, filters, groupBys, orderBys', () => {
     const offsetSuggestion: KeywordSuggestion = {value: 'OFFSET', weight: 2.2};
     expect(parseResult.suggestKeywords).toContainEqual(offsetSuggestion);
 
-    const orderBysSuggestion: CommonPopularSuggestion = {
+    const orderBysSuggestion: OrderBysSuggestion = {
         prefix: 'ORDER BY',
         tables: [
             {
@@ -284,7 +289,7 @@ test('should suggest LIMIT, OFFSET, joins, filters, groupBys, orderBys', () => {
     };
     expect(parseResult.suggestOrderBys).toEqual(orderBysSuggestion);
 
-    const groupBysSuggestion: CommonPopularSuggestion = {
+    const groupBysSuggestion: GroupBysSuggestion = {
         prefix: 'GROUP BY',
         tables: [
             {
