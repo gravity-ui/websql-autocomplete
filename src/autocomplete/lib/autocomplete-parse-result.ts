@@ -289,7 +289,7 @@ export interface ParserContext {
     ): void;
     applyTypeToSuggestions(details: ValueExpression): void;
     extractExpressionText(result: TokenExpression, ...expressions: AwaitedTokenExpression[]): void;
-    getSubQuery(cols: SubQuery): {
+    getSubQuery(cols: {selectList: SelectExpression[]; tableExpression: TableExpression}): {
         columns: ColumnDetails[];
     };
     identifyPartials(beforeCursor: string, afterCursor: string): PartialLengths;
@@ -456,29 +456,6 @@ export interface TokenExpressionWithLocation {
     suffix?: string;
 }
 
-export interface SubQuery {
-    selectList: Array<{
-        alias?: string;
-        asterisk?: boolean;
-        valueExpression: ValueExpression;
-        columnReference: ColumnReference[];
-    }>;
-    tableExpression: {
-        tableReferenceList: {
-            primary: {
-                identifierChain: IdentifierChainEntry[];
-            };
-            suggestKeywords: string[];
-            suggestJoins: {
-                prependJoin: boolean;
-                tables: Array<{
-                    identifierChain: IdentifierChainEntry;
-                }>;
-            };
-        };
-    };
-}
-
 export interface PartialLengths {
     left: number;
     right: number;
@@ -501,6 +478,28 @@ export interface ValueExpression {
     caseTypes?: ValueExpression[];
     valueExpression?: ValueExpression;
     alias?: string;
+}
+
+export interface SelectExpression {
+    alias?: string;
+    asterisk?: boolean;
+    valueExpression: ValueExpression;
+    columnReference: ColumnReference[];
+}
+
+export interface TableExpression {
+    tableReferenceList?: {
+        primary?: {
+            identifierChain?: IdentifierChainEntry[];
+        };
+        suggestKeywords?: string[];
+        suggestJoins?: {
+            prependJoin?: boolean;
+            tables?: Array<{
+                identifierChain?: IdentifierChainEntry[];
+            }>;
+        };
+    };
 }
 
 export interface ErrorLocation {

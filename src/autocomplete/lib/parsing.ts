@@ -643,9 +643,9 @@ export function initSharedAutocomplete(parser: ParserContext): void {
         }
     };
 
-    parser.getSubQuery = (cols: SubQuery): {columns: ColumnDetails[]} => {
+    parser.getSubQuery = (cols): {columns: ColumnDetails[]} => {
         const columns: ColumnDetails[] = [];
-        cols.selectList.forEach((col) => {
+        cols.selectList?.forEach((col) => {
             const result: ColumnDetails = {};
             if (col.alias) {
                 result.alias = col.alias;
