@@ -1437,8 +1437,7 @@ test('should suggest keywords', () => {
     ];
     expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(keywordSuggestions));
 
-    // TODO
-    // expect(parseResult.suggestColRefKeywords).not.toHaveLength(0);
+    expect(parseResult.suggestColRefKeywords).not.toBeUndefined();
 
     const detailedColumnReference: DetailedColumnReference = {
         identifierChain: [
@@ -2324,8 +2323,7 @@ test('should suggest columns', () => {
     ];
     expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(keywordSuggestions));
 
-    // TODO
-    // expect(parseResult.suggestColRefKeywords).not.toHaveLength(0);
+    expect(parseResult.suggestColRefKeywords).not.toBeUndefined();
 
     const detailedColumnReference: DetailedColumnReference = {
         identifierChain: [
@@ -2574,8 +2572,7 @@ test('should suggest columns', () => {
     ];
     expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(keywordSuggestions));
 
-    // TODO
-    // expect(parseResult.suggestColRefKeywords).not.toHaveLength(0);
+    expect(parseResult.suggestColRefKeywords).not.toBeUndefined();
 
     const detailedColumnReference: DetailedColumnReference = {
         identifierChain: [
@@ -2793,8 +2790,7 @@ test('should suggest keywords', () => {
     ];
     expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(keywordSuggestions));
 
-    // TODO
-    // expect(parseResult.suggestColRefKeywords).not.toHaveLength(0);
+    expect(parseResult.suggestColRefKeywords).not.toBeUndefined();
 
     const detailedColumnReference: DetailedColumnReference = {
         identifierChain: [
@@ -2821,8 +2817,7 @@ test('should suggest keywords', () => {
     ];
     expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(keywordSuggestions));
 
-    // TODO
-    // expect(parseResult.suggestColRefKeywords).not.toHaveLength(0);
+    expect(parseResult.suggestColRefKeywords).not.toBeUndefined();
 
     const detailedColumnReference: DetailedColumnReference = {
         identifierChain: [
@@ -3090,8 +3085,7 @@ test('should suggest columns', () => {
     ];
     expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(keywordSuggestions));
 
-    // TODO
-    // expect(parseResult.suggestColRefKeywords).not.toHaveLength(0);
+    expect(parseResult.suggestColRefKeywords).not.toBeUndefined();
 
     const detailedColumnReference: DetailedColumnReference = {
         identifierChain: [
@@ -4386,8 +4380,7 @@ test('should suggest columns', () => {
     ];
     expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(keywordSuggestions));
 
-    // TODO
-    // expect(parseResult.suggestColRefKeywords).not.toHaveLength(0);
+    expect(parseResult.suggestColRefKeywords).not.toBeUndefined();
 
     const groupBysSuggestion: GroupBysSuggestion = {
         prefix: 'GROUP BY',
@@ -5656,8 +5649,7 @@ test('should suggest keywords', () => {
     ];
     expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(keywordSuggestions));
 
-    // TODO
-    // expect(parseResult.suggestColRefKeywords).not.toHaveLength(0);
+    expect(parseResult.suggestColRefKeywords).not.toBeUndefined();
 
     const detailedColumnReference: DetailedColumnReference = {
         identifierChain: [
@@ -5713,8 +5705,7 @@ test('should suggest keywords', () => {
     ];
     expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(keywordSuggestions));
 
-    // TODO
-    // expect(parseResult.suggestColRefKeywords).not.toHaveLength(0);
+    expect(parseResult.suggestColRefKeywords).not.toBeUndefined();
 
     const groupBysSuggestion: GroupBysSuggestion = {
         prefix: 'GROUP BY',
@@ -5956,8 +5947,7 @@ test('should suggest keywords', () => {
         expect.arrayContaining(notIncludedKeywordSuggestions),
     );
 
-    // TODO
-    // expect(parseResult.suggestColRefKeywords).not.toHaveLength(0);
+    expect(parseResult.suggestColRefKeywords).not.toBeUndefined();
 
     const orderBysSuggestion: OrderBysSuggestion = {
         prefix: 'ORDER BY',
@@ -5997,8 +5987,7 @@ test('should suggest keywords', () => {
     ];
     expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(keywordSuggestions));
 
-    // TODO
-    // expect(parseResult.suggestColRefKeywords).not.toHaveLength(0);
+    expect(parseResult.suggestColRefKeywords).not.toBeUndefined();
 
     const groupBysSuggestion: GroupBysSuggestion = {
         prefix: 'GROUP BY',
