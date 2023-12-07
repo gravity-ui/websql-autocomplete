@@ -1,7 +1,6 @@
 import {expect, test} from '@jest/globals';
 
-import {parseGenericSqlWithoutCursor} from '../../../../index';
-import {IdentifierLocation} from '../../../../lib/autocomplete-parse-result';
+import {IdentifierLocation, parseGenericSqlWithoutCursor} from '../../../../index';
 
 test('should not report errors on full statement and fill locations', () => {
     const parseResult = parseGenericSqlWithoutCursor('DROP ROLE test_role;');

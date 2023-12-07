@@ -1,7 +1,6 @@
 import {expect, test} from '@jest/globals';
 
-import {ErrorLocation, parsePostgreSql} from '../../../../index';
-import {KeywordSuggestion} from '../../../../lib/autocomplete-parse-result';
+import {AutocompleteError, KeywordSuggestion, parsePostgreSql} from '../../../../index';
 
 test('should suggest values', () => {
     const parseResult = parsePostgreSql(
@@ -39,7 +38,7 @@ test('should not allow to include offset after comma', () => {
         '',
     );
 
-    const error: Partial<ErrorLocation> = {
+    const error: Partial<AutocompleteError> = {
         text: ',',
         token: ',',
         line: 0,

@@ -2,11 +2,12 @@ import {expect, test} from '@jest/globals';
 
 import {
     ColumnsSuggestion,
+    IdentifierLocation,
+    KeywordSuggestion,
     TablesSuggestion,
     parseGenericSql,
     parseGenericSqlWithoutCursor,
 } from '../../../../index';
-import {IdentifierLocation, KeywordSuggestion} from '../../../../lib/autocomplete-parse-result';
 
 test('should suggest DELETE', () => {
     const parseResult = parseGenericSql('', '');

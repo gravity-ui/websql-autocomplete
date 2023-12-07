@@ -1,7 +1,6 @@
 import {expect, test} from '@jest/globals';
 
-import {parseGenericSql} from '../../../../index';
-import {KeywordSuggestion} from '../../../../lib/autocomplete-parse-result';
+import {KeywordSuggestion, parseGenericSql} from '../../../../index';
 
 test('should suggest DROP on empty query', () => {
     const parseResult = parseGenericSql('', '');

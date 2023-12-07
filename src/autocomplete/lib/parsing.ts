@@ -33,29 +33,32 @@
 
 // endsWith polyfill from hue_utils.js, needed as workers live in their own js environment
 import {
+    AutocompleteError,
     AutocompleteParseResult,
     AwaitedTokenExpression,
     ColRefKeywordsSuggestion,
     ColumnDetails,
     ColumnSpecification,
     ColumnsSuggestion,
-    ErrorLocation,
     FunctionsSuggestion,
     IdentifierChainEntry,
     IdentifierLocation,
     IdentifierSuggestion,
     KeywordSuggestion,
-    Lexer,
     Location,
-    ParserContext,
-    PartialLengths,
     SubQuery,
     Table,
     TokenExpression,
+    WeightedKeywordSuggestion,
+} from '../index';
+
+import {
+    Lexer,
+    ParserContext,
+    PartialLengths,
     TokenExpressionWithLocation,
     ValueExpression,
-    WeightedKeywordSuggestion,
-} from './autocomplete-parse-result';
+} from './parser-context';
 import {matchesType} from './sql-reference/matches-type';
 
 if (!String.prototype.endsWith) {
@@ -733,7 +736,7 @@ export function initSharedAutocomplete(parser: ParserContext): void {
         prioritizeSuggestions();
     };
 
-    parser.yy.parseError = function (message: string, error: ErrorLocation): string {
+    parser.yy.parseError = function (message: string, error: AutocompleteError): string {
         parser.yy.errors.push(error);
         return message;
     };

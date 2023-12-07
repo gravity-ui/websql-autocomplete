@@ -1,7 +1,11 @@
 import {expect, test} from '@jest/globals';
 
-import {parseGenericSql, parseGenericSqlWithoutCursor} from '../../../../index';
-import {IdentifierLocation, KeywordSuggestion} from '../../../../lib/autocomplete-parse-result';
+import {
+    IdentifierLocation,
+    KeywordSuggestion,
+    parseGenericSql,
+    parseGenericSqlWithoutCursor,
+} from '../../../../index';
 
 test('should suggest IF NOT EXISTS', () => {
     const parseResult = parseGenericSql('CREATE VIEW ', '');

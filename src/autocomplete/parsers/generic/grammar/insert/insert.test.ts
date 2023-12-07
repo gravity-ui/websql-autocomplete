@@ -3,11 +3,12 @@ import {expect, test} from '@jest/globals';
 import {
     ColumnsSuggestion,
     DatabasesSuggestion,
+    IdentifierLocation,
+    KeywordSuggestion,
     TablesSuggestion,
     parseGenericSql,
     parseGenericSqlWithoutCursor,
 } from '../../../../index';
-import {IdentifierLocation, KeywordSuggestion} from '../../../../lib/autocomplete-parse-result';
 
 // TODO: test separately OptionalParenthesizedColumnListOrError
 // TODO: test separately InsertValuesListOrError

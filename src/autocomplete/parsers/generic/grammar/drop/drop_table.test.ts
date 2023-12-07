@@ -2,11 +2,12 @@ import {expect, test} from '@jest/globals';
 
 import {
     DatabasesSuggestion,
+    IdentifierLocation,
+    KeywordSuggestion,
     TablesSuggestion,
     parseGenericSql,
     parseGenericSqlWithoutCursor,
 } from '../../../../index';
-import {IdentifierLocation, KeywordSuggestion} from '../../../../lib/autocomplete-parse-result';
 
 test('should suggest tables, databases and IF EXISTS', () => {
     const parseResult = parseGenericSql('DROP TABLE ', '');

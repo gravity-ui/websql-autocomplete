@@ -1,31 +1,30 @@
 import {expect, test} from '@jest/globals';
 
-import {parseClickHouse} from '../../../index';
-import {KeywordSuggestion} from '../../../lib/autocomplete-parse-result';
+import {KeywordSuggestion, parseClickHouseSql} from '../../../index';
 
 test('should suggest SELECT despite errors before cursor', () => {
-    const parseResult = parseClickHouse('[;;', '');
+    const parseResult = parseClickHouseSql('[;;', '');
 
     const suggestion: KeywordSuggestion = {value: 'SELECT', weight: -1};
     expect(parseResult.suggestKeywords).toContainEqual(suggestion);
 });
 
 test('should suggest SELECT despite errors before and after cursor', () => {
-    const parseResult = parseClickHouse(';', ';');
+    const parseResult = parseClickHouseSql(';', ';');
 
     const suggestion: KeywordSuggestion = {value: 'SELECT', weight: -1};
     expect(parseResult.suggestKeywords).toContainEqual(suggestion);
 });
 
 test('should suggest SELECT despite errors after cursor', () => {
-    const parseResult = parseClickHouse('', ';;;;');
+    const parseResult = parseClickHouseSql('', ';;;;');
 
     const suggestion: KeywordSuggestion = {value: 'SELECT', weight: -1};
     expect(parseResult.suggestKeywords).toContainEqual(suggestion);
 });
 
 test('should suggest SELECT with non-empty editor', () => {
-    const parseResult = parseClickHouse('test_database', 'test_table');
+    const parseResult = parseClickHouseSql('test_database', 'test_table');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -34,7 +33,7 @@ test('should suggest SELECT with non-empty editor', () => {
 });
 
 test('should suggest SELECT and contain suggestTemplates', () => {
-    const parseResult = parseClickHouse('', '');
+    const parseResult = parseClickHouseSql('', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -45,7 +44,7 @@ test('should suggest SELECT and contain suggestTemplates', () => {
 });
 
 test('should suggest SELECT and contain suggestTemplates with EXPLAIN prefix', () => {
-    const parseResult = parseClickHouse('EXPLAIN', '');
+    const parseResult = parseClickHouseSql('EXPLAIN', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -56,7 +55,7 @@ test('should suggest SELECT and contain suggestTemplates with EXPLAIN prefix', (
 });
 
 test('should not contain suggestTemplates with SELECT prefix', () => {
-    const parseResult = parseClickHouse('SELECT * FROM ', '');
+    const parseResult = parseClickHouseSql('SELECT * FROM ', '');
 
     expect(parseResult.errors).toBeUndefined();
 

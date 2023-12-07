@@ -1,21 +1,19 @@
 import {expect, test} from '@jest/globals';
 
 import {
+    AutocompleteError,
     ColumnsSuggestion,
     DatabasesSuggestion,
-    ErrorLocation,
+    DetailedColumnReference,
     FiltersSuggestion,
     FunctionsSuggestion,
+    IdentifierLocation,
+    KeywordSuggestion,
     TablesSuggestion,
     ValuesSuggestion,
     parseGenericSql,
     parseGenericSqlWithoutCursor,
 } from '../../../../index';
-import {
-    DetailedColumnReference,
-    IdentifierLocation,
-    KeywordSuggestion,
-} from '../../../../lib/autocomplete-parse-result';
 
 test('should suggest UPDATE', () => {
     const parseResult = parseGenericSql('', '');
@@ -308,7 +306,7 @@ test('should suggest columns, functions, filters after AND', () => {
 test('should suggest databases or table with SET error', () => {
     const parseResult = parseGenericSql('UPDATE ', ' SET ');
 
-    const error: Partial<ErrorLocation> = {
+    const error: Partial<AutocompleteError> = {
         text: '',
         token: 'EOF',
         line: 0,
@@ -333,7 +331,7 @@ test('should suggest databases or table with SET error', () => {
 test('should suggest databases or table with SET error and empty WHERE', () => {
     const parseResult = parseGenericSql('UPDATE ', ' SET  WHERE ');
 
-    const error: Partial<ErrorLocation> = {
+    const error: Partial<AutocompleteError> = {
         text: 'WHERE',
         token: 'WHERE',
         line: 0,
