@@ -495,7 +495,7 @@ export function initSharedAutocomplete(parser: ParserContext): void {
                         loc.identifier = 'DROP TABLE';
                     } else if (/DROP\s+DATABASE/i.test(additionalText)) {
                         loc.identifier = 'DROP DATABASE';
-                    } else if (/DROP\s+ROLE/i.test(additionalText)) {
+                    } else if (/DROP\s+(ROLE|USER|GROUP)/i.test(additionalText)) {
                         loc.identifier = 'DROP ROLE';
                     } else if (/DROP\s+STATS/i.test(additionalText)) {
                         loc.identifier = 'DROP STATS';

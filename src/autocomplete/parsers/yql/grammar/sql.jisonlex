@@ -96,6 +96,8 @@
 'SMALLINT'                                 { return 'SMALLINT'; }
 'STRING'                                   { return 'STRING'; }
 'TABLE'                                    { return 'TABLE'; }
+'TABLESTORE'                               { return 'TABLESTORE'; }
+'EXTERNAL'                                 { return 'EXTERNAL'; }
 'THEN'                                     { return 'THEN'; }
 'TIMESTAMP'                                { return 'TIMESTAMP'; }
 'TINYINT'                                  { return 'TINYINT'; }
@@ -106,6 +108,7 @@
 'UNION'                                    { return 'UNION'; }
 'UPDATE'                                   { parser.determineCase(yytext); return 'UPDATE'; }
 'USE'                                      { parser.determineCase(yytext); parser.addStatementTypeLocation('USE', yylloc); return 'USE'; }
+'USER'                                     { return 'USER'; }
 'VALUES'                                   { return 'VALUES'; }
 'VARCHAR'                                  { return 'VARCHAR'; }
 'VIEW'                                     { return 'VIEW'; }
