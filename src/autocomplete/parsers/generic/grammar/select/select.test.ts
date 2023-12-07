@@ -2449,8 +2449,6 @@ test('should suggest columns and values', () => {
 
     expect(parseResult.errors).toBeUndefined();
 
-    // TODO: handle hasErrors
-
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'CASE', weight: 450}];
     expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(keywordSuggestions));
 
@@ -2494,8 +2492,6 @@ test('should suggest columns and values', () => {
     const parseResult = parseGenericSql("SELECT bl = '", ' FROM bar;');
 
     expect(parseResult.errors).toBeUndefined();
-
-    // TODO: handle hasErrors
 
     const valuesSuggestions: ValuesSuggestion = {
         partialQuote: "'",
@@ -2612,8 +2608,6 @@ test('should suggest columns and values', () => {
 
     expect(parseResult.errors).toBeUndefined();
 
-    // TODO: handle hasErrors
-
     const valuesSuggestions: ValuesSuggestion = {
         partialQuote: "'",
         missingEndQuote: false,
@@ -2728,8 +2722,6 @@ test('should suggest columns and values', () => {
     const parseResult = parseGenericSql("SELECT bl = 'bl", " bl' FROM bar;");
 
     expect(parseResult.errors).toBeUndefined();
-
-    // TODO: handle hasErrors
 
     const valuesSuggestions: ValuesSuggestion = {
         partialQuote: "'",
@@ -2846,8 +2838,6 @@ test('should suggest columns and values', () => {
 
     expect(parseResult.errors).toBeUndefined();
 
-    // TODO: handle hasErrors
-
     const valuesSuggestions: ValuesSuggestion = {
         partialQuote: '"',
         missingEndQuote: true,
@@ -2871,8 +2861,6 @@ test('should suggest columns and values', () => {
     const parseResult = parseGenericSql('SELECT bl = "', '" FROM bar;');
 
     expect(parseResult.errors).toBeUndefined();
-
-    // TODO: handle hasErrors
 
     const valuesSuggestions: ValuesSuggestion = {
         partialQuote: '"',
@@ -2988,8 +2976,6 @@ test('should suggest columns and values', () => {
     const parseResult = parseGenericSql('SELECT bl = "bl', ' bl" FROM bar;');
 
     expect(parseResult.errors).toBeUndefined();
-
-    // TODO: handle hasErrors
 
     const valuesSuggestions: ValuesSuggestion = {
         partialQuote: '"',
