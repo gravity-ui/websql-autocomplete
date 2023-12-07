@@ -25,6 +25,5 @@ module.exports = {
     },
     moduleDirectories: ['node_modules', 'src/autocomplete'],
     testMatch: ['<rootDir>/src/autocomplete/**/*.test.(js|jsx|ts|tsx)'],
-    setupFilesAfterEnv: ['<rootDir>/src/autocomplete/test/jest.init.ts'],
     collectCoverageFrom: ['<rootDir>/src/autocomplete/**/*.{js,jsx}'],
 };

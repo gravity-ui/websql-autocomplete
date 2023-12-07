@@ -38,6 +38,8 @@ import {createFullParserName, generateParsers} from './lib/generator';
 
         await generateParsers(requestedParserNames);
     } catch (err) {
+        // It's normal to log something to console in the main
+        // eslint-disable-next-line
         console.log(err);
     }
 })();

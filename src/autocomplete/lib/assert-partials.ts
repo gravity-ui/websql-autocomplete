@@ -28,7 +28,7 @@
 
 import {expect} from '@jest/globals';
 
-import {ParserContext} from './autocomplete-parse-result';
+import {ParserContext} from './parser-context';
 
 export function assertPartials(parser: ParserContext): void {
     const limitChars = [

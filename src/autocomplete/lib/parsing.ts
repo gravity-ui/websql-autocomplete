@@ -28,31 +28,37 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
+// It's the legacy file we can't refactor properly, so let's allow this old syntax there
+/* eslint-disable no-param-reassign, complexity, no-console, @typescript-eslint/no-use-before-define */
+
 // endsWith polyfill from hue_utils.js, needed as workers live in their own js environment
 import {
+    AutocompleteError,
     AutocompleteParseResult,
     AwaitedTokenExpression,
     ColRefKeywordsSuggestion,
     ColumnDetails,
     ColumnSpecification,
-    ColumnSuggestion,
-    ErrorLocation,
+    ColumnsSuggestion,
     FunctionsSuggestion,
     IdentifierChainEntry,
     IdentifierLocation,
     IdentifierSuggestion,
     KeywordSuggestion,
+    Location,
+    SubQuery,
+    Table,
+    TokenExpression,
+    WeightedKeywordSuggestion,
+} from '../index';
+
+import {
     Lexer,
-    ParsedLocation,
-    ParsedTable,
     ParserContext,
     PartialLengths,
-    SubQuery,
-    TokenExpression,
     TokenExpressionWithLocation,
     ValueExpression,
-    WeightedKeywordSuggestion,
-} from './autocomplete-parse-result';
+} from './parser-context';
 import {matchesType} from './sql-reference/matches-type';
 
 if (!String.prototype.endsWith) {
@@ -144,9 +150,9 @@ export function initSharedAutocomplete(parser: ParserContext): void {
         {value: 'DISTINCT', weight: 2},
     ];
 
-    const adjustLocationForCursor = (location: ParsedLocation): ParsedLocation => {
+    const adjustLocationForCursor = (location: Location): Location => {
         // columns are 0-based and lines not, so add 1 to cols
-        const newLocation: ParsedLocation = {
+        const newLocation: Location = {
             first_line: location.first_line,
             last_line: location.last_line,
             first_column: location.first_column + 1,
@@ -170,7 +176,7 @@ export function initSharedAutocomplete(parser: ParserContext): void {
     };
 
     parser.addAsteriskLocation = (
-        location: ParsedLocation,
+        location: Location,
         identifierChain: IdentifierChainEntry[],
     ): void => {
         parser.yy.locations.push({
@@ -182,8 +188,8 @@ export function initSharedAutocomplete(parser: ParserContext): void {
 
     parser.addClauseLocation = (
         type: IdentifierLocation['type'],
-        precedingLocation: ParsedLocation,
-        locationIfPresent: ParsedLocation,
+        precedingLocation: Location,
+        locationIfPresent: Location,
         isCursor: boolean,
     ): void => {
         let location: IdentifierLocation;
@@ -236,9 +242,9 @@ export function initSharedAutocomplete(parser: ParserContext): void {
     };
 
     parser.addColumnAliasLocation = (
-        location: ParsedLocation,
+        location: Location,
         alias: string,
-        parentLocation: ParsedLocation,
+        parentLocation: Location,
     ): void => {
         const aliasLocation = {
             type: LOCATION_TYPES.ALIAS,
@@ -266,7 +272,7 @@ export function initSharedAutocomplete(parser: ParserContext): void {
     };
 
     parser.addColumnLocation = (
-        location: ParsedLocation,
+        location: Location,
         identifierChain: IdentifierChainEntry[],
     ): void => {
         const isVariable =
@@ -288,7 +294,7 @@ export function initSharedAutocomplete(parser: ParserContext): void {
         }
     };
 
-    parser.addCteAliasLocation = (location: ParsedLocation, alias: string): void => {
+    parser.addCteAliasLocation = (location: Location, alias: string): void => {
         parser.yy.locations.push({
             type: LOCATION_TYPES.ALIAS,
             source: 'cte',
@@ -298,7 +304,7 @@ export function initSharedAutocomplete(parser: ParserContext): void {
     };
 
     parser.addDatabaseLocation = (
-        location: ParsedLocation,
+        location: Location,
         identifierChain: IdentifierChainEntry[],
     ): void => {
         parser.yy.locations.push({
@@ -308,7 +314,7 @@ export function initSharedAutocomplete(parser: ParserContext): void {
         });
     };
 
-    parser.addFileLocation = (location: ParsedLocation, path: string): void => {
+    parser.addFileLocation = (location: Location, path: string): void => {
         parser.yy.locations.push({
             type: LOCATION_TYPES.FILE,
             location: adjustLocationForCursor(location),
@@ -316,7 +322,7 @@ export function initSharedAutocomplete(parser: ParserContext): void {
         });
     };
 
-    parser.addFunctionLocation = (location: ParsedLocation, functionName: string): void => {
+    parser.addFunctionLocation = (location: Location, functionName: string): void => {
         // Remove trailing '(' from location
         const adjustedLocation = {
             first_line: location.first_line,
@@ -357,7 +363,7 @@ export function initSharedAutocomplete(parser: ParserContext): void {
     };
 
     parser.addNewDatabaseLocation = (
-        location: ParsedLocation,
+        location: Location,
         identifierChain: IdentifierChainEntry[],
     ): void => {
         parser.yy.definitions.push({
@@ -368,7 +374,7 @@ export function initSharedAutocomplete(parser: ParserContext): void {
     };
 
     parser.addNewTableLocation = (
-        location: ParsedLocation,
+        location: Location,
         identifierChain: IdentifierChainEntry[],
         colSpec: ColumnSpecification[],
     ): void => {
@@ -390,7 +396,7 @@ export function initSharedAutocomplete(parser: ParserContext): void {
         });
     };
 
-    parser.addStatementLocation = (location: ParsedLocation): void => {
+    parser.addStatementLocation = (location: Location): void => {
         // Don't report lonely cursor as a statement
         if (
             location.first_line === location.last_line &&
@@ -430,7 +436,7 @@ export function initSharedAutocomplete(parser: ParserContext): void {
 
     parser.addStatementTypeLocation = (
         identifier: string,
-        location: ParsedLocation,
+        location: Location,
         additionalText: string,
     ): void => {
         // Don't add if already there except for SELECT
@@ -514,7 +520,7 @@ export function initSharedAutocomplete(parser: ParserContext): void {
         parser.yy.locations.push(loc);
     };
 
-    parser.addSubqueryAliasLocation = (location: ParsedLocation, alias: string): void => {
+    parser.addSubqueryAliasLocation = (location: Location, alias: string): void => {
         parser.yy.locations.push({
             type: LOCATION_TYPES.ALIAS,
             source: 'subquery',
@@ -524,7 +530,7 @@ export function initSharedAutocomplete(parser: ParserContext): void {
     };
 
     parser.addTableAliasLocation = (
-        location: ParsedLocation,
+        location: Location,
         alias: string,
         identifierChain: IdentifierChainEntry[],
     ): void => {
@@ -538,7 +544,7 @@ export function initSharedAutocomplete(parser: ParserContext): void {
     };
 
     parser.addTableLocation = (
-        location: ParsedLocation,
+        location: Location,
         identifierChain: IdentifierChainEntry[],
     ): void => {
         parser.yy.locations.push({
@@ -548,7 +554,7 @@ export function initSharedAutocomplete(parser: ParserContext): void {
         });
     };
 
-    parser.addVariableLocation = (location: ParsedLocation, value: string): void => {
+    parser.addVariableLocation = (location: Location, value: string): void => {
         if (/\${[^}]*}/.test(value)) {
             parser.yy.locations.push({
                 type: LOCATION_TYPES.VARIABLE,
@@ -559,7 +565,7 @@ export function initSharedAutocomplete(parser: ParserContext): void {
     };
 
     parser.addUnknownLocation = (
-        location: ParsedLocation,
+        location: Location,
         identifierChain: IdentifierChainEntry[],
     ): IdentifierLocation => {
         const isVariable =
@@ -585,7 +591,7 @@ export function initSharedAutocomplete(parser: ParserContext): void {
     };
 
     parser.applyTypes = (
-        suggestion: FunctionsSuggestion | ColumnSuggestion,
+        suggestion: FunctionsSuggestion | ColumnsSuggestion,
         typeDetails: ValueExpression,
     ): void => {
         suggestion.types = typeDetails.types;
@@ -730,7 +736,7 @@ export function initSharedAutocomplete(parser: ParserContext): void {
         prioritizeSuggestions();
     };
 
-    parser.yy.parseError = function (message: string, error: ErrorLocation): string {
+    parser.yy.parseError = function (message: string, error: AutocompleteError): string {
         parser.yy.errors.push(error);
         return message;
     };
@@ -1023,7 +1029,7 @@ export function initSharedAutocomplete(parser: ParserContext): void {
                     location.identifierChain.length <= 2 &&
                     tablePrimaries
                 ) {
-                    let found: ParsedTable[] | SubQuery[] = tablePrimaries.filter((primary) => {
+                    let found: Table[] | SubQuery[] = tablePrimaries.filter((primary) => {
                         return (
                             equalIgnoreCase(primary.alias, location.identifierChain?.[0]?.name) ||
                             (primary.identifierChain &&
@@ -1395,7 +1401,7 @@ export function initSharedAutocomplete(parser: ParserContext): void {
         }
     };
 
-    const addCleanTablePrimary = function (tables: ParsedTable[], tablePrimary: ParsedTable): void {
+    const addCleanTablePrimary = function (tables: Table[], tablePrimary: Table): void {
         if (tablePrimary.alias) {
             tables.push({alias: tablePrimary.alias, identifierChain: tablePrimary.identifierChain});
         } else {
@@ -1428,7 +1434,7 @@ export function initSharedAutocomplete(parser: ParserContext): void {
         }
 
         if (identifierChain.length > 0 && identifierChain[identifierChain.length - 1]?.asterisk) {
-            const tables: ParsedTable[] = [];
+            const tables: Table[] = [];
             tablePrimaries.forEach((tablePrimary) => {
                 if (identifierChain.length > 1 && !tablePrimary.subQueryAlias) {
                     if (
@@ -1586,7 +1592,7 @@ export function initSharedAutocomplete(parser: ParserContext): void {
                 wrapper.tables = [];
             }
             tablePrimaries.forEach((tablePrimary) => {
-                const targetTable: ParsedTable = tablePrimary.subQueryAlias
+                const targetTable: Table = tablePrimary.subQueryAlias
                     ? {subQuery: tablePrimary.subQueryAlias}
                     : {identifierChain: tablePrimary.identifierChain};
                 if (tablePrimary.alias) {
@@ -1602,10 +1608,10 @@ export function initSharedAutocomplete(parser: ParserContext): void {
     };
 
     const filterTablePrimariesForOwner = function (
-        tablePrimaries: ParsedTable[],
+        tablePrimaries: Table[],
         owner?: string,
-    ): ParsedTable[] {
-        const result: ParsedTable[] = [];
+    ): Table[] {
+        const result: Table[] = [];
         tablePrimaries.forEach((primary) => {
             if (typeof owner === 'undefined' && typeof primary.owner === 'undefined') {
                 result.push(primary);
@@ -1616,12 +1622,12 @@ export function initSharedAutocomplete(parser: ParserContext): void {
         return result;
     };
 
-    const convertTablePrimariesToSuggestions = function (tablePrimaries: ParsedTable[]): void {
-        const tables: ParsedTable[] = [];
+    const convertTablePrimariesToSuggestions = function (tablePrimaries: Table[]): void {
+        const tables: Table[] = [];
         const identifiers: IdentifierSuggestion[] = [];
         tablePrimaries.forEach((tablePrimary) => {
             if (tablePrimary.identifierChain && tablePrimary.identifierChain.length > 0) {
-                const table: ParsedTable = {identifierChain: tablePrimary.identifierChain};
+                const table: Table = {identifierChain: tablePrimary.identifierChain};
                 if (tablePrimary.alias) {
                     table.alias = tablePrimary.alias;
                     identifiers.push({name: table.alias + '.', type: 'alias'});
@@ -1928,7 +1934,7 @@ export function initSharedAutocomplete(parser: ParserContext): void {
     };
 
     parser.suggestAggregateFunctions = function (): void {
-        const primaries: ParsedTable[] = [];
+        const primaries: Table[] = [];
         const aliases: Record<string, boolean> = {};
         parser.yy.latestTablePrimaries.forEach((primary) => {
             if (typeof primary.alias !== 'undefined') {
@@ -1989,7 +1995,7 @@ export function initSharedAutocomplete(parser: ParserContext): void {
         parser.yy.result.suggestTables = details || {};
     };
 
-    parser.firstDefined = function (...args): ParsedLocation | undefined {
+    parser.firstDefined = function (...args): Location | undefined {
         for (let i = 0; i + 1 < args.length; i += 2) {
             if (args[i]) {
                 return args[i + 1];

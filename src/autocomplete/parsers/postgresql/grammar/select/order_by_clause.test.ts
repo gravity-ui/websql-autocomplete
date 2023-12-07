@@ -1,10 +1,15 @@
 import {expect, test} from '@jest/globals';
 
-import {ColumnSuggestion, FunctionsSuggestion, parsePostgreSql} from '../../../../index';
-import {KeywordSuggestion, OrderBysSuggestion} from '../../../../lib/autocomplete-parse-result';
+import {
+    ColumnsSuggestion,
+    FunctionsSuggestion,
+    KeywordSuggestion,
+    OrderBysSuggestion,
+    parsePostgreSqlQuery,
+} from '../../../../index';
 
 test('should suggest ORDER BY', () => {
-    const parseResult = parsePostgreSql('SELECT * FROM test_table ORDER ', '');
+    const parseResult = parsePostgreSqlQuery('SELECT * FROM test_table ORDER ', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -27,7 +32,7 @@ test('should suggest ORDER BY', () => {
 });
 
 test('should suggest ORDER BY after WHERE', () => {
-    const parseResult = parsePostgreSql(
+    const parseResult = parsePostgreSqlQuery(
         'SELECT * FROM test_table WHERE test_column = "test" ORDER ',
         '',
     );
@@ -53,7 +58,7 @@ test('should suggest ORDER BY after WHERE', () => {
 });
 
 test('should suggest orderBys, columns, functions', () => {
-    const parseResult = parsePostgreSql('SELECT * FROM test_table ORDER BY ', '');
+    const parseResult = parsePostgreSqlQuery('SELECT * FROM test_table ORDER BY ', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -75,7 +80,7 @@ test('should suggest orderBys, columns, functions', () => {
     const functionsSuggestion: FunctionsSuggestion = {};
     expect(parseResult.suggestFunctions).toEqual(functionsSuggestion);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'order by',
         tables: [
             {
@@ -91,7 +96,10 @@ test('should suggest orderBys, columns, functions', () => {
 });
 
 test('should suggest orderBys, columns, functions with database name', () => {
-    const parseResult = parsePostgreSql('SELECT * FROM test_database.test_table ORDER BY ', '');
+    const parseResult = parsePostgreSqlQuery(
+        'SELECT * FROM test_database.test_table ORDER BY ',
+        '',
+    );
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -116,7 +124,7 @@ test('should suggest orderBys, columns, functions with database name', () => {
     const functionsSuggestion: FunctionsSuggestion = {};
     expect(parseResult.suggestFunctions).toEqual(functionsSuggestion);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'order by',
         tables: [
             {
@@ -135,7 +143,7 @@ test('should suggest orderBys, columns, functions with database name', () => {
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parsePostgreSql(
+    const parseResult = parsePostgreSqlQuery(
         'SELECT * FROM test_database.test_table ORDER BY test_column ',
         '',
     );
@@ -153,7 +161,7 @@ test('should suggest keywords', () => {
 });
 
 test('should suggest CASE, columns, functions after plus sign', () => {
-    const parseResult = parsePostgreSql(
+    const parseResult = parsePostgreSqlQuery(
         'SELECT * FROM test_database.test_table ORDER BY test_column + ',
         '',
     );
@@ -165,7 +173,7 @@ test('should suggest CASE, columns, functions after plus sign', () => {
     };
     expect(parseResult.suggestFunctions).toEqual(functionsSuggestion);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'order by',
         types: ['NUMBER'],
         tables: [
@@ -185,7 +193,7 @@ test('should suggest CASE, columns, functions after plus sign', () => {
 });
 
 test('should suggest CASE, columns, functions after comma', () => {
-    const parseResult = parsePostgreSql(
+    const parseResult = parsePostgreSqlQuery(
         'SELECT * FROM test_database.test_table ORDER BY test_column, ',
         '',
     );
@@ -197,7 +205,7 @@ test('should suggest CASE, columns, functions after comma', () => {
     const functionsSuggestion: FunctionsSuggestion = {};
     expect(parseResult.suggestFunctions).toEqual(functionsSuggestion);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'order by',
         tables: [
             {
@@ -216,7 +224,7 @@ test('should suggest CASE, columns, functions after comma', () => {
 });
 
 test('should suggest CASE, columns, functions after plus sign and ASC', () => {
-    const parseResult = parsePostgreSql(
+    const parseResult = parsePostgreSqlQuery(
         'SELECT * FROM test_database.test_table ORDER BY test_column_1 + test_column_2 ASC, ',
         '',
     );
@@ -228,7 +236,7 @@ test('should suggest CASE, columns, functions after plus sign and ASC', () => {
     const functionsSuggestion: FunctionsSuggestion = {};
     expect(parseResult.suggestFunctions).toEqual(functionsSuggestion);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'order by',
         tables: [
             {
@@ -247,7 +255,7 @@ test('should suggest CASE, columns, functions after plus sign and ASC', () => {
 });
 
 test('should suggest CASE, columns, functions after ASC', () => {
-    const parseResult = parsePostgreSql(
+    const parseResult = parsePostgreSqlQuery(
         'SELECT * FROM test_database.test_table ORDER BY test_column ASC, ',
         '',
     );
@@ -259,7 +267,7 @@ test('should suggest CASE, columns, functions after ASC', () => {
     const functionsSuggestion: FunctionsSuggestion = {};
     expect(parseResult.suggestFunctions).toEqual(functionsSuggestion);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'order by',
         tables: [
             {
@@ -278,7 +286,7 @@ test('should suggest CASE, columns, functions after ASC', () => {
 });
 
 test('should suggest keywords after DESC', () => {
-    const parseResult = parsePostgreSql(
+    const parseResult = parsePostgreSqlQuery(
         'SELECT * FROM test_database.test_table ORDER BY test_column_1 DESC, test_column_2 ',
         '',
     );
@@ -296,7 +304,7 @@ test('should suggest keywords after DESC', () => {
 });
 
 test('should suggest keywords after DESC midway', () => {
-    const parseResult = parsePostgreSql(
+    const parseResult = parsePostgreSqlQuery(
         'SELECT * FROM test_database.test_table ORDER BY test_column_1 DESC, test_column_2 ',
         ', test_column_3',
     );

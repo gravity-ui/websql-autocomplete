@@ -12,12 +12,15 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
-import {KeywordSuggestion, ParserContext} from '../../lib/autocomplete-parse-result';
+import {KeywordSuggestion} from '../../index';
+import {ParserContext} from '../../lib/parser-context';
 import {initSharedAutocomplete} from '../../lib/parsing';
 
 export const extendParser = function (parser: ParserContext): void {
     initSharedAutocomplete(parser);
 
+    // It's the legacy way of doing it, it's okay.
+    // eslint-disable-next-line
     parser.getTypeKeywords = function (): KeywordSuggestion[] {
         return [
             'IPv6',
@@ -86,6 +89,9 @@ export const extendParser = function (parser: ParserContext): void {
             'MultiPolygon',
         ];
     };
+
+    // It's the legacy way of doing it, it's okay.
+    // eslint-disable-next-line
     parser.suggestEngines = function (): void {
         const engines = ['Null', 'Set', 'Log', 'Memory', 'TinyLog', 'StripeLog'];
 
@@ -116,6 +122,8 @@ export const extendParser = function (parser: ParserContext): void {
             'PostgreSQL()',
         ];
 
+        // It's the legacy way of doing it, it's okay.
+        // eslint-disable-next-line
         parser.yy.result.suggestEngines = {
             engines,
             functionalEngines,
