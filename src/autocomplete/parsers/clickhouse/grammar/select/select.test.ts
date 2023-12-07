@@ -18,12 +18,12 @@ import {
     TablesSuggestion,
     UserDefinedFunctionArgumentPosition,
     ValuesSuggestion,
-    parseClickHouseSql,
-    parseClickHouseSqlWithoutCursor,
+    parseClickHouseQuery,
+    parseClickHouseQueryWithoutCursor,
 } from '../../../../index';
 
 test('should suggest keywords', () => {
-    const parseResult = parseClickHouseSql('', '');
+    const parseResult = parseClickHouseQuery('', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -32,7 +32,7 @@ test('should suggest keywords', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parseClickHouseSql(
+    const parseResult = parseClickHouseQuery(
         'SELECT test_column_1, test_column, ',
         ' FROM test_table',
     );
@@ -75,7 +75,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parseClickHouseSql(
+    const parseResult = parseClickHouseQuery(
         'SELECT test_column_1, test_column, SELECT, ',
         ' FROM test_table',
     );
@@ -115,7 +115,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest tables and databases', () => {
-    const parseResult = parseClickHouseSql('SELECT * ', '');
+    const parseResult = parseClickHouseQuery('SELECT * ', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -135,7 +135,7 @@ test('should suggest tables and databases', () => {
 });
 
 test('should suggest tables and databases', () => {
-    const parseResult = parseClickHouseSql('SELECT * \r\n', '');
+    const parseResult = parseClickHouseQuery('SELECT * \r\n', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -155,7 +155,7 @@ test('should suggest tables and databases', () => {
 });
 
 test('should not suggest anything', () => {
-    const parseResult = parseClickHouseSql('SELECT u.', '');
+    const parseResult = parseClickHouseQuery('SELECT u.', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -163,7 +163,7 @@ test('should not suggest anything', () => {
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parseClickHouseSql('SELECT test_column_1, test_column_2 ', '');
+    const parseResult = parseClickHouseQuery('SELECT test_column_1, test_column_2 ', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -188,7 +188,7 @@ test('should suggest keywords', () => {
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parseClickHouseSql('SELECT test_column_1 as tc1, test_column_2 ', '');
+    const parseResult = parseClickHouseQuery('SELECT test_column_1 as tc1, test_column_2 ', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -213,7 +213,7 @@ test('should suggest keywords', () => {
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parseClickHouseSql('SELECT * from test_table_1 as t1, test_table_2 ', '');
+    const parseResult = parseClickHouseQuery('SELECT * from test_table_1 as t1, test_table_2 ', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -288,7 +288,7 @@ test('should suggest keywords', () => {
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parseClickHouseSql('SELECT * FR', '');
+    const parseResult = parseClickHouseQuery('SELECT * FR', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -297,31 +297,31 @@ test('should suggest keywords', () => {
 });
 
 test('should not report errors', () => {
-    const parseResult = parseClickHouseSqlWithoutCursor('SELECT 4 / 2; ');
+    const parseResult = parseClickHouseQueryWithoutCursor('SELECT 4 / 2; ');
     expect(parseResult.errors).toBeUndefined();
 });
 
 test('should not report errors', () => {
-    const parseResult = parseClickHouseSqlWithoutCursor('SELECT 4 DIV 2; ');
+    const parseResult = parseClickHouseQueryWithoutCursor('SELECT 4 DIV 2; ');
     expect(parseResult.errors).toBeUndefined();
 });
 
 test('should not report errors', () => {
-    const parseResult = parseClickHouseSqlWithoutCursor(
+    const parseResult = parseClickHouseQueryWithoutCursor(
         "SELECT test_column_2 NOT RLIKE 'test', test_column_2 NOT REGEXP 'test_2' FROM test_table; ",
     );
     expect(parseResult.errors).toBeUndefined();
 });
 
 test('should not report errors', () => {
-    const parseResult = parseClickHouseSqlWithoutCursor(
+    const parseResult = parseClickHouseQueryWithoutCursor(
         'SELECT * FROM test_table limit ${limit=20}; ',
     );
     expect(parseResult.errors).toBeUndefined();
 });
 
 test('should suggest columns', () => {
-    const parseResult = parseClickHouseSql(
+    const parseResult = parseClickHouseQuery(
         'SELECT IF(test_column_1, test_column_2, test_column_2) AS b, ',
         ' FROM test_table',
     );
@@ -364,7 +364,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parseClickHouseSql(
+    const parseResult = parseClickHouseQuery(
         'SELECT IF(test_column_1 > 1, test_column_2, test_column_2) AS b, ',
         ' FROM test_table',
     );
@@ -407,7 +407,7 @@ test('should suggest columns', () => {
 });
 
 test('should not report errors', () => {
-    const parseResult = parseClickHouseSqlWithoutCursor(
+    const parseResult = parseClickHouseQueryWithoutCursor(
         'SELECT test_function(not test_column), cos(-1), sin(1+test_column) FROM test_table;',
     );
 
@@ -620,7 +620,7 @@ test('should not report errors', () => {
 });
 
 test('should not report errors', () => {
-    const parseResult = parseClickHouseSqlWithoutCursor(
+    const parseResult = parseClickHouseQueryWithoutCursor(
         'SELECT count(*), t.count, avg(id), avg FROM test_table t;',
     );
 
@@ -863,7 +863,7 @@ test('should not report errors', () => {
 });
 
 test('should suggest tables', () => {
-    const parseResult = parseClickHouseSql('SELECT ', '');
+    const parseResult = parseClickHouseQuery('SELECT ', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -910,7 +910,7 @@ test('should suggest tables', () => {
 });
 
 test('should suggest tables', () => {
-    const parseResult = parseClickHouseSql('SELECT ', ';\n\nSELECT * FROM test_table;');
+    const parseResult = parseClickHouseQuery('SELECT ', ';\n\nSELECT * FROM test_table;');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -957,7 +957,7 @@ test('should suggest tables', () => {
 });
 
 test('should suggest tables', () => {
-    const parseResult = parseClickHouseSql('SELECT * FROM test_table;\n\nSELECT ', ';');
+    const parseResult = parseClickHouseQuery('SELECT * FROM test_table;\n\nSELECT ', ';');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -1004,7 +1004,7 @@ test('should suggest tables', () => {
 });
 
 test('should suggest tables', () => {
-    const parseResult = parseClickHouseSql('SELECT ', ';\n\nSELECT * FROM test_table t;');
+    const parseResult = parseClickHouseQuery('SELECT ', ';\n\nSELECT * FROM test_table t;');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -1051,7 +1051,7 @@ test('should suggest tables', () => {
 });
 
 test('should suggest tables', () => {
-    const parseResult = parseClickHouseSql('SELECT * FROM test_table t;\n\nSELECT ', ';');
+    const parseResult = parseClickHouseQuery('SELECT * FROM test_table t;\n\nSELECT ', ';');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -1098,7 +1098,7 @@ test('should suggest tables', () => {
 });
 
 test('should suggest even with lower case', () => {
-    const parseResult = parseClickHouseSql('select ', ';');
+    const parseResult = parseClickHouseQuery('select ', ';');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -1145,7 +1145,7 @@ test('should suggest even with lower case', () => {
 });
 
 test('should suggest tables', () => {
-    const parseResult = parseClickHouseSql('SELECT ALL ', '');
+    const parseResult = parseClickHouseQuery('SELECT ALL ', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -1198,7 +1198,7 @@ test('should suggest tables', () => {
 });
 
 test('should suggest tables', () => {
-    const parseResult = parseClickHouseSql('SELECT DISTINCT ', '');
+    const parseResult = parseClickHouseQuery('SELECT DISTINCT ', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -1244,7 +1244,7 @@ test('should suggest tables', () => {
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parseClickHouseSql('SELECT ', ' FROM test_table');
+    const parseResult = parseClickHouseQuery('SELECT ', ' FROM test_table');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -1352,7 +1352,7 @@ test('should suggest keywords', () => {
 });
 
 test('should suggest tables', () => {
-    const parseResult = parseClickHouseSql('SELECT ', ' FROM test_table;');
+    const parseResult = parseClickHouseQuery('SELECT ', ' FROM test_table;');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -1400,7 +1400,7 @@ test('should suggest tables', () => {
 });
 
 test('should suggest tables', () => {
-    const parseResult = parseClickHouseSql('SELECT ', ' AS t FROM test_table;');
+    const parseResult = parseClickHouseQuery('SELECT ', ' AS t FROM test_table;');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -1432,7 +1432,7 @@ test('should suggest tables', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parseClickHouseSql('SELECT ', ' test_column FROM test_table;');
+    const parseResult = parseClickHouseQuery('SELECT ', ' test_column FROM test_table;');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -1480,7 +1480,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parseClickHouseSql('SELECT test_column_1', ' AS c FROM test_table;');
+    const parseResult = parseClickHouseQuery('SELECT test_column_1', ' AS c FROM test_table;');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -1514,7 +1514,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parseClickHouseSql(
+    const parseResult = parseClickHouseQuery(
         'SELECT (test_column_1',
         ' AND test_column_2) FROM test_table;',
     );
@@ -1542,7 +1542,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest aliases', () => {
-    const parseResult = parseClickHouseSql('SELECT ', ' FROM test_table_1 t1, test_table_2;');
+    const parseResult = parseClickHouseQuery('SELECT ', ' FROM test_table_1 t1, test_table_2;');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -1587,7 +1587,7 @@ test('should suggest aliases', () => {
 });
 
 test("should suggest columns even if alias case doesn't match", () => {
-    const parseResult = parseClickHouseSql('SELECT T1.', ' FROM test_table t1;');
+    const parseResult = parseClickHouseQuery('SELECT T1.', ' FROM test_table t1;');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -1607,7 +1607,7 @@ test("should suggest columns even if alias case doesn't match", () => {
 });
 
 test("should suggest columns even if alias case doesn't match", () => {
-    const parseResult = parseClickHouseSql('SELECT t1.', ' FROM test_table T1;');
+    const parseResult = parseClickHouseQuery('SELECT t1.', ' FROM test_table T1;');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -1627,7 +1627,7 @@ test("should suggest columns even if alias case doesn't match", () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parseClickHouseSql(
+    const parseResult = parseClickHouseQuery(
         'SELECT ',
         ' FROM test_database.test_table_1, test_database.test_table_2',
     );
@@ -1674,7 +1674,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parseClickHouseSql('SELECT test_column, ', ' FROM test_table');
+    const parseResult = parseClickHouseQuery('SELECT test_column, ', ' FROM test_table');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -1705,7 +1705,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parseClickHouseSql('SELECT test_column,', ' FROM test_table');
+    const parseResult = parseClickHouseQuery('SELECT test_column,', ' FROM test_table');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -1736,7 +1736,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parseClickHouseSql('SELECT *, ', ' FROM test_table');
+    const parseResult = parseClickHouseQuery('SELECT *, ', ' FROM test_table');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -1767,7 +1767,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parseClickHouseSql('SELECT *,', ' FROM test_table');
+    const parseResult = parseClickHouseQuery('SELECT *,', ' FROM test_table');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -1798,7 +1798,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parseClickHouseSql(
+    const parseResult = parseClickHouseQuery(
         'SELECT ',
         " test_column_1, cast(test_column_2 as int), test_column_3, test_column_4 FROM test_table WHERE test_column_1 = 'US' AND test_column_2 >= 998 ORDER BY test_column_3 DESC LIMIT 15",
     );
@@ -1832,7 +1832,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parseClickHouseSql('SELECT ', ' FROM ${test_variable};');
+    const parseResult = parseClickHouseQuery('SELECT ', ' FROM ${test_variable};');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -1863,7 +1863,10 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parseClickHouseSql('SELECT * FROM test_table WHERE ${some_variable} ', '');
+    const parseResult = parseClickHouseQuery(
+        'SELECT * FROM test_table WHERE ${some_variable} ',
+        '',
+    );
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -1891,7 +1894,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parseClickHouseSql(
+    const parseResult = parseClickHouseQuery(
         'SELECT * FROM test_table WHERE ${some_variable} + 1 = ',
         '',
     );
@@ -1920,28 +1923,28 @@ test('should suggest columns', () => {
 });
 
 test('should not report errors', () => {
-    const parseResult = parseClickHouseSqlWithoutCursor(
+    const parseResult = parseClickHouseQueryWithoutCursor(
         'SELECT row_number() OVER (PARTITION BY test_column) FROM test_table;',
     );
     expect(parseResult.errors).toBeUndefined();
 });
 
 test('should not report errors', () => {
-    const parseResult = parseClickHouseSqlWithoutCursor(
+    const parseResult = parseClickHouseQueryWithoutCursor(
         'SELECT COUNT(DISTINCT test_column_1) OVER (PARTITION by test_column_2) FROM test_table;',
     );
     expect(parseResult.errors).toBeUndefined();
 });
 
 test('should suggest analytical fun report errors', () => {
-    const parseResult = parseClickHouseSqlWithoutCursor(
+    const parseResult = parseClickHouseQueryWithoutCursor(
         'SELECT COUNT(DISTINCT test_column_1) OVER (PARTITION by test_column_2) FROM test_table;',
     );
     expect(parseResult.errors).toBeUndefined();
 });
 
 test('should suggest tables and databases', () => {
-    const parseResult = parseClickHouseSql('SELECT ', '');
+    const parseResult = parseClickHouseQuery('SELECT ', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -1970,7 +1973,7 @@ test('should suggest tables and databases', () => {
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parseClickHouseSql('SELECT row_number() ', '');
+    const parseResult = parseClickHouseQuery('SELECT row_number() ', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -1979,7 +1982,7 @@ test('should suggest keywords', () => {
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parseClickHouseSql('SELECT row_number() ', ' FROM testTable');
+    const parseResult = parseClickHouseQuery('SELECT row_number() ', ' FROM testTable');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -1988,7 +1991,7 @@ test('should suggest keywords', () => {
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parseClickHouseSql('SELECT row_number() ', ', b, c FROM testTable');
+    const parseResult = parseClickHouseQuery('SELECT row_number() ', ', b, c FROM testTable');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -1997,7 +2000,7 @@ test('should suggest keywords', () => {
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parseClickHouseSql('SELECT count(DISTINCT a) ', '');
+    const parseResult = parseClickHouseQuery('SELECT count(DISTINCT a) ', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -2017,7 +2020,7 @@ test('should suggest keywords', () => {
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parseClickHouseSql('SELECT count(DISTINCT a) ', ' FROM testTable');
+    const parseResult = parseClickHouseQuery('SELECT count(DISTINCT a) ', ' FROM testTable');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -2026,7 +2029,7 @@ test('should suggest keywords', () => {
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parseClickHouseSql('SELECT count(DISTINCT a) ', ', b, c FROM testTable');
+    const parseResult = parseClickHouseQuery('SELECT count(DISTINCT a) ', ', b, c FROM testTable');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -2035,14 +2038,14 @@ test('should suggest keywords', () => {
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parseClickHouseSql('SELECT row_number() OVER ( ', ' FROM testTable');
+    const parseResult = parseClickHouseQuery('SELECT row_number() OVER ( ', ' FROM testTable');
 
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'PARTITION BY', weight: 2}];
     expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(keywordSuggestions));
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parseClickHouseSql(
+    const parseResult = parseClickHouseQuery(
         'SELECT row_number() OVER (PARTITION ',
         ' FROM testTable',
     );
@@ -2052,7 +2055,7 @@ test('should suggest keywords', () => {
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parseClickHouseSql(
+    const parseResult = parseClickHouseQuery(
         'SELECT row_number() OVER (PARTITION BY a, b ORDER ',
         ' FROM testTable',
     );
@@ -2062,7 +2065,7 @@ test('should suggest keywords', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parseClickHouseSql(
+    const parseResult = parseClickHouseQuery(
         'SELECT row_number() OVER (ORDER BY ',
         ' FROM testTable',
     );
@@ -2094,7 +2097,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parseClickHouseSql(
+    const parseResult = parseClickHouseQuery(
         'SELECT row_number() OVER (ORDER BY ',
         ') FROM testTable',
     );
@@ -2128,7 +2131,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parseClickHouseSql(
+    const parseResult = parseClickHouseQuery(
         'SELECT row_number() OVER (ORDER BY a ',
         ') FROM testTable',
     );
@@ -2143,7 +2146,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parseClickHouseSql(
+    const parseResult = parseClickHouseQuery(
         'SELECT row_number() OVER (PARTITION BY ',
         ' FROM testTable',
     );
@@ -2175,7 +2178,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parseClickHouseSql(
+    const parseResult = parseClickHouseQuery(
         'SELECT row_number() OVER (PARTITION BY a, ',
         ' FROM testTable',
     );
@@ -2207,7 +2210,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parseClickHouseSql(
+    const parseResult = parseClickHouseQuery(
         'SELECT row_number() OVER (PARTITION BY a ORDER BY b ',
         '',
     );
@@ -2221,7 +2224,7 @@ test('should suggest keywords', () => {
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parseClickHouseSql(
+    const parseResult = parseClickHouseQuery(
         'SELECT row_number() OVER (PARTITION BY a ORDER BY b ROWS BETWEEN ',
         '',
     );
@@ -2234,7 +2237,7 @@ test('should suggest keywords', () => {
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parseClickHouseSql(
+    const parseResult = parseClickHouseQuery(
         'SELECT row_number() OVER (PARTITION BY a ORDER BY b ROWS BETWEEN 1 ',
         '',
     );
@@ -2244,7 +2247,7 @@ test('should suggest keywords', () => {
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parseClickHouseSql(
+    const parseResult = parseClickHouseQuery(
         'SELECT row_number() OVER (PARTITION BY a ORDER BY b ROWS BETWEEN UNBOUNDED ',
         '',
     );
@@ -2254,7 +2257,7 @@ test('should suggest keywords', () => {
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parseClickHouseSql(
+    const parseResult = parseClickHouseQuery(
         'SELECT row_number() OVER (PARTITION BY a ORDER BY b ROWS BETWEEN CURRENT ',
         '',
     );
@@ -2264,7 +2267,7 @@ test('should suggest keywords', () => {
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parseClickHouseSql(
+    const parseResult = parseClickHouseQuery(
         'SELECT row_number() OVER (PARTITION BY a ORDER BY b ROWS BETWEEN 1 PRECEDING ',
         '',
     );
@@ -2274,7 +2277,7 @@ test('should suggest keywords', () => {
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parseClickHouseSql(
+    const parseResult = parseClickHouseQuery(
         'SELECT row_number() OVER (PARTITION BY a ORDER BY b ROWS BETWEEN UNBOUNDED PRECEDING ',
         '',
     );
@@ -2284,7 +2287,7 @@ test('should suggest keywords', () => {
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parseClickHouseSql(
+    const parseResult = parseClickHouseQuery(
         'SELECT row_number() OVER (PARTITION BY a ORDER BY b ROWS BETWEEN CURRENT ROW ',
         '',
     );
@@ -2294,7 +2297,7 @@ test('should suggest keywords', () => {
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parseClickHouseSql(
+    const parseResult = parseClickHouseQuery(
         'SELECT row_number() OVER (PARTITION BY a ORDER BY b ROWS BETWEEN 1 PRECEDING AND ',
         '',
     );
@@ -2307,7 +2310,7 @@ test('should suggest keywords', () => {
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parseClickHouseSql(
+    const parseResult = parseClickHouseQuery(
         'SELECT row_number() OVER (PARTITION BY a ORDER BY b ROWS BETWEEN UNBOUNDED PRECEDING AND ',
         '',
     );
@@ -2320,7 +2323,7 @@ test('should suggest keywords', () => {
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parseClickHouseSql(
+    const parseResult = parseClickHouseQuery(
         'SELECT row_number() OVER (PARTITION BY a ORDER BY b ROWS BETWEEN CURRENT ROW AND ',
         '',
     );
@@ -2333,7 +2336,7 @@ test('should suggest keywords', () => {
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parseClickHouseSql(
+    const parseResult = parseClickHouseQuery(
         'SELECT row_number() OVER (PARTITION BY a ORDER BY b ROWS BETWEEN 1 PRECEDING AND CURRENT ',
         '',
     );
@@ -2343,7 +2346,7 @@ test('should suggest keywords', () => {
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parseClickHouseSql(
+    const parseResult = parseClickHouseQuery(
         'SELECT row_number() OVER (PARTITION BY a ORDER BY b ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED ',
         '',
     );
@@ -2353,7 +2356,7 @@ test('should suggest keywords', () => {
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parseClickHouseSql(
+    const parseResult = parseClickHouseQuery(
         'SELECT row_number() OVER (PARTITION BY a ORDER BY b ROWS BETWEEN CURRENT ROW AND 1 ',
         '',
     );
@@ -2363,7 +2366,7 @@ test('should suggest keywords', () => {
 });
 
 test('should suggest tables', () => {
-    const parseResult = parseClickHouseSql('SELECT COUNT(*) ', '');
+    const parseResult = parseClickHouseQuery('SELECT COUNT(*) ', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -2386,7 +2389,7 @@ test('should suggest tables', () => {
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parseClickHouseSql('SELECT COUNT(foo ', '');
+    const parseResult = parseClickHouseQuery('SELECT COUNT(foo ', '');
 
     const keywordSuggestions: KeywordSuggestion[] = [
         {value: 'AND', weight: -1},
@@ -2396,7 +2399,7 @@ test('should suggest keywords', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parseClickHouseSql('SELECT COUNT(foo, ', ') FROM bar;');
+    const parseResult = parseClickHouseQuery('SELECT COUNT(foo, ', ') FROM bar;');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -2422,7 +2425,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parseClickHouseSql('SELECT COUNT(foo, bl', ',bla) FROM bar;');
+    const parseResult = parseClickHouseQuery('SELECT COUNT(foo, bl', ',bla) FROM bar;');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -2448,7 +2451,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parseClickHouseSql('SELECT COUNT(foo ', ', bar)');
+    const parseResult = parseClickHouseQuery('SELECT COUNT(foo ', ', bar)');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -2460,7 +2463,7 @@ test('should suggest keywords', () => {
 });
 
 test('should suggest columns and values', () => {
-    const parseResult = parseClickHouseSql('SELECT COUNT(foo, bl = ', ',bla) FROM bar;');
+    const parseResult = parseClickHouseQuery('SELECT COUNT(foo, bl = ', ',bla) FROM bar;');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -2504,7 +2507,7 @@ test('should suggest columns and values', () => {
 });
 
 test('should suggest columns and values', () => {
-    const parseResult = parseClickHouseSql("SELECT bl = '", ' FROM bar;');
+    const parseResult = parseClickHouseQuery("SELECT bl = '", ' FROM bar;');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -2619,7 +2622,7 @@ test('should suggest columns and values', () => {
 });
 
 test('should suggest columns and values', () => {
-    const parseResult = parseClickHouseSql("SELECT bl = '", "' FROM bar;");
+    const parseResult = parseClickHouseQuery("SELECT bl = '", "' FROM bar;");
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -2734,7 +2737,7 @@ test('should suggest columns and values', () => {
 });
 
 test('should suggest columns and values', () => {
-    const parseResult = parseClickHouseSql("SELECT bl = 'bl", " bl' FROM bar;");
+    const parseResult = parseClickHouseQuery("SELECT bl = 'bl", " bl' FROM bar;");
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -2849,7 +2852,7 @@ test('should suggest columns and values', () => {
 });
 
 test('should suggest columns and values', () => {
-    const parseResult = parseClickHouseSql('SELECT bl = "', ' FROM bar;');
+    const parseResult = parseClickHouseQuery('SELECT bl = "', ' FROM bar;');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -2873,7 +2876,7 @@ test('should suggest columns and values', () => {
 });
 
 test('should suggest columns and values', () => {
-    const parseResult = parseClickHouseSql('SELECT bl = "', '" FROM bar;');
+    const parseResult = parseClickHouseQuery('SELECT bl = "', '" FROM bar;');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -2988,7 +2991,7 @@ test('should suggest columns and values', () => {
 });
 
 test('should suggest columns and values', () => {
-    const parseResult = parseClickHouseSql('SELECT bl = "bl', ' bl" FROM bar;');
+    const parseResult = parseClickHouseQuery('SELECT bl = "bl', ' bl" FROM bar;');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -3103,7 +3106,7 @@ test('should suggest columns and values', () => {
 });
 
 test('should suggest functions', () => {
-    const parseResult = parseClickHouseSql('SELECT CAST(', '');
+    const parseResult = parseClickHouseQuery('SELECT CAST(', '');
 
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'CASE', weight: 450}];
     expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(keywordSuggestions));
@@ -3113,31 +3116,7 @@ test('should suggest functions', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parseClickHouseSql('SELECT CAST(', ' FROM bar;');
-
-    const keywordSuggestions: KeywordSuggestion[] = [{value: 'CASE', weight: 450}];
-    expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(keywordSuggestions));
-
-    const functionsSuggestion: FunctionsSuggestion = {};
-    expect(parseResult.suggestFunctions).toEqual(functionsSuggestion);
-
-    const columnsSuggestion: ColumnsSuggestion = {
-        source: 'select',
-        tables: [
-            {
-                identifierChain: [
-                    {
-                        name: 'bar',
-                    },
-                ],
-            },
-        ],
-    };
-    expect(parseResult.suggestColumns).toEqual(columnsSuggestion);
-});
-
-test('should suggest columns', () => {
-    const parseResult = parseClickHouseSql('SELECT CAST(bla', ' FROM bar;');
+    const parseResult = parseClickHouseQuery('SELECT CAST(', ' FROM bar;');
 
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'CASE', weight: 450}];
     expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(keywordSuggestions));
@@ -3161,7 +3140,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parseClickHouseSql('SELECT CAST(', ' AS FROM bar;');
+    const parseResult = parseClickHouseQuery('SELECT CAST(bla', ' FROM bar;');
 
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'CASE', weight: 450}];
     expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(keywordSuggestions));
@@ -3185,7 +3164,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parseClickHouseSql('SELECT CAST(', ' AS INT FROM bar;');
+    const parseResult = parseClickHouseQuery('SELECT CAST(', ' AS FROM bar;');
 
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'CASE', weight: 450}];
     expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(keywordSuggestions));
@@ -3209,7 +3188,31 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parseClickHouseSql('SELECT CAST(', ' AS STRING) FROM bar;');
+    const parseResult = parseClickHouseQuery('SELECT CAST(', ' AS INT FROM bar;');
+
+    const keywordSuggestions: KeywordSuggestion[] = [{value: 'CASE', weight: 450}];
+    expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(keywordSuggestions));
+
+    const functionsSuggestion: FunctionsSuggestion = {};
+    expect(parseResult.suggestFunctions).toEqual(functionsSuggestion);
+
+    const columnsSuggestion: ColumnsSuggestion = {
+        source: 'select',
+        tables: [
+            {
+                identifierChain: [
+                    {
+                        name: 'bar',
+                    },
+                ],
+            },
+        ],
+    };
+    expect(parseResult.suggestColumns).toEqual(columnsSuggestion);
+});
+
+test('should suggest columns', () => {
+    const parseResult = parseClickHouseQuery('SELECT CAST(', ' AS STRING) FROM bar;');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -3235,7 +3238,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parseClickHouseSql('SELECT CAST(bla', ' AS STRING) FROM bar;');
+    const parseResult = parseClickHouseQuery('SELECT CAST(bla', ' AS STRING) FROM bar;');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -3261,7 +3264,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parseClickHouseSql('SELECT CAST(bla ', '');
+    const parseResult = parseClickHouseQuery('SELECT CAST(bla ', '');
 
     const keywordSuggestions: KeywordSuggestion[] = [
         {value: 'AS', weight: 2},
@@ -3271,7 +3274,7 @@ test('should suggest keywords', () => {
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parseClickHouseSql('SELECT CAST(bla ', ' FROM bar;');
+    const parseResult = parseClickHouseQuery('SELECT CAST(bla ', ' FROM bar;');
 
     const keywordSuggestions: KeywordSuggestion[] = [
         {value: 'AS', weight: 2},
@@ -3295,7 +3298,7 @@ test('should suggest keywords', () => {
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parseClickHouseSql('select cast(bla as ', '');
+    const parseResult = parseClickHouseQuery('select cast(bla as ', '');
 
     const keywordSuggestions: KeywordSuggestion[] = [
         {value: 'INT', weight: -1},
@@ -3305,7 +3308,7 @@ test('should suggest keywords', () => {
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parseClickHouseSql('SELECT CAST(bla AS ', ' FROM bar;');
+    const parseResult = parseClickHouseQuery('SELECT CAST(bla AS ', ' FROM bar;');
 
     const keywordSuggestions: KeywordSuggestion[] = [
         {value: 'INT', weight: -1},
@@ -3315,7 +3318,7 @@ test('should suggest keywords', () => {
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parseClickHouseSql('SELECT CAST(bla AS ST', ') FROM bar;');
+    const parseResult = parseClickHouseQuery('SELECT CAST(bla AS ST', ') FROM bar;');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -3327,7 +3330,7 @@ test('should suggest keywords', () => {
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parseClickHouseSql('SELECT CAST(AS ', '');
+    const parseResult = parseClickHouseQuery('SELECT CAST(AS ', '');
 
     const keywordSuggestions: KeywordSuggestion[] = [
         {value: 'INT', weight: -1},
@@ -3337,7 +3340,7 @@ test('should suggest keywords', () => {
 });
 
 test('should not report errors for', () => {
-    const parseResult = parseClickHouseSql('SELECT db.customUdf(col) FROM bar;', '');
+    const parseResult = parseClickHouseQuery('SELECT db.customUdf(col) FROM bar;', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -3496,7 +3499,7 @@ test('should not report errors for', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parseClickHouseSql('SELECT db.customUdf(', ' FROM bar;');
+    const parseResult = parseClickHouseQuery('SELECT db.customUdf(', ' FROM bar;');
 
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'CASE', weight: 450}];
     expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(keywordSuggestions));
@@ -3526,7 +3529,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parseClickHouseSql('SELECT db.customUdf(1, ', ' FROM bar;');
+    const parseResult = parseClickHouseQuery('SELECT db.customUdf(1, ', ' FROM bar;');
 
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'CASE', weight: 450}];
     expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(keywordSuggestions));
@@ -3556,7 +3559,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parseClickHouseSql('SELECT AVG(', ') FROM testTable');
+    const parseResult = parseClickHouseQuery('SELECT AVG(', ') FROM testTable');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -3591,7 +3594,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parseClickHouseSql('SELECT COUNT(', ') FROM testTable');
+    const parseResult = parseClickHouseQuery('SELECT COUNT(', ') FROM testTable');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -3621,7 +3624,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parseClickHouseSql('SELECT STDDEV_POP(', ') FROM testTable');
+    const parseResult = parseClickHouseQuery('SELECT STDDEV_POP(', ') FROM testTable');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -3656,7 +3659,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parseClickHouseSql('SELECT STDDEV_SAMP(', ') FROM testTable');
+    const parseResult = parseClickHouseQuery('SELECT STDDEV_SAMP(', ') FROM testTable');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -3691,7 +3694,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parseClickHouseSql('SELECT SUM(', ') FROM testTable');
+    const parseResult = parseClickHouseQuery('SELECT SUM(', ') FROM testTable');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -3726,7 +3729,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parseClickHouseSql('SELECT MAX(', ') FROM testTable');
+    const parseResult = parseClickHouseQuery('SELECT MAX(', ') FROM testTable');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -3761,7 +3764,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parseClickHouseSql('SELECT MIN(', ') FROM testTable');
+    const parseResult = parseClickHouseQuery('SELECT MIN(', ') FROM testTable');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -3796,7 +3799,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parseClickHouseSql('SELECT VAR_POP(', ') FROM testTable');
+    const parseResult = parseClickHouseQuery('SELECT VAR_POP(', ') FROM testTable');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -3831,7 +3834,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parseClickHouseSql('SELECT var_samp(', ') FROM testTable');
+    const parseResult = parseClickHouseQuery('SELECT var_samp(', ') FROM testTable');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -3866,7 +3869,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parseClickHouseSql('SELECT id, SUM(a * ', ' FROM testTable');
+    const parseResult = parseClickHouseQuery('SELECT id, SUM(a * ', ' FROM testTable');
 
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'CASE', weight: 450}];
     expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(keywordSuggestions));
@@ -3893,7 +3896,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parseClickHouseSql('SELECT CASE ', ' FROM testTable');
+    const parseResult = parseClickHouseQuery('SELECT CASE ', ' FROM testTable');
 
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'WHEN', weight: -1}];
     expect(parseResult.suggestKeywords).toEqual(keywordSuggestions);
@@ -3917,7 +3920,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parseClickHouseSql('SELECT CASE WHEN a = b AND ', ' THEN FROM testTable');
+    const parseResult = parseClickHouseQuery('SELECT CASE WHEN a = b AND ', ' THEN FROM testTable');
 
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'CASE', weight: 450}];
     expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(keywordSuggestions));
@@ -3941,7 +3944,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parseClickHouseSql('SELECT CASE a = b AND ', ' FROM testTable');
+    const parseResult = parseClickHouseQuery('SELECT CASE a = b AND ', ' FROM testTable');
 
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'CASE', weight: 450}];
     expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(keywordSuggestions));
@@ -3965,7 +3968,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parseClickHouseSql('SELECT CASE a = b ', ' FROM testTable');
+    const parseResult = parseClickHouseQuery('SELECT CASE a = b ', ' FROM testTable');
 
     const keywordSuggestions: KeywordSuggestion[] = [
         {value: 'WHEN', weight: -1},
@@ -3976,7 +3979,7 @@ test('should suggest keywords', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parseClickHouseSql(
+    const parseResult = parseClickHouseQuery(
         'SELECT CASE WHEN a = b OR ',
         ' THEN boo FROM testTable',
     );
@@ -4003,7 +4006,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parseClickHouseSql(
+    const parseResult = parseClickHouseQuery(
         'SELECT CASE WHEN a = b OR c THEN boo OR ',
         ' FROM testTable',
     );
@@ -4030,7 +4033,10 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parseClickHouseSql('SELECT CASE a =', ' WHEN c THEN d END FROM testTable');
+    const parseResult = parseClickHouseQuery(
+        'SELECT CASE a =',
+        ' WHEN c THEN d END FROM testTable',
+    );
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -4074,7 +4080,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parseClickHouseSql(
+    const parseResult = parseClickHouseQuery(
         'SELECT CASE a =',
         ' WHEN c THEN d ELSE e END FROM testTable',
     );
@@ -4121,7 +4127,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parseClickHouseSql('SELECT CASE a = c WHEN c THEN d ', ' FROM testTable');
+    const parseResult = parseClickHouseQuery('SELECT CASE a = c WHEN c THEN d ', ' FROM testTable');
 
     const keywordSuggestions: KeywordSuggestion[] = [
         {value: 'END', weight: 3},
@@ -4145,7 +4151,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parseClickHouseSql(
+    const parseResult = parseClickHouseQuery(
         'SELECT CASE a = c WHEN c THEN d=',
         ' ELSE FROM testTable',
     );
@@ -4190,7 +4196,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parseClickHouseSql(
+    const parseResult = parseClickHouseQuery(
         'SELECT CASE a = c WHEN c THEN d=1 ',
         ' bla=foo FROM testTable',
     );
@@ -4206,7 +4212,7 @@ test('should suggest keywords', () => {
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parseClickHouseSql(
+    const parseResult = parseClickHouseQuery(
         'SELECT CASE a = c WHEN c THEN d=1 ',
         ' bla=foo FROM testTable',
     );
@@ -4221,7 +4227,7 @@ test('should suggest keywords', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parseClickHouseSql(
+    const parseResult = parseClickHouseQuery(
         'SELECT CASE a = c WHEN c THEN d ELSE ',
         ' FROM testTable',
     );
@@ -4248,7 +4254,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parseClickHouseSql(
+    const parseResult = parseClickHouseQuery(
         'SELECT CASE a = c WHEN c THEN d ELSE e AND ',
         ' FROM testTable',
     );
@@ -4275,7 +4281,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parseClickHouseSql('SELECT CASE ELSE ', ' FROM testTable');
+    const parseResult = parseClickHouseQuery('SELECT CASE ELSE ', ' FROM testTable');
 
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'CASE', weight: 450}];
     expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(keywordSuggestions));
@@ -4299,7 +4305,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parseClickHouseSql('SELECT CASE ', ' ELSE a FROM testTable');
+    const parseResult = parseClickHouseQuery('SELECT CASE ', ' ELSE a FROM testTable');
 
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'WHEN', weight: -1}];
     expect(parseResult.suggestKeywords).toEqual(keywordSuggestions);
@@ -4323,7 +4329,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parseClickHouseSql('SELECT CASE ', ' ELSE FROM testTable');
+    const parseResult = parseClickHouseQuery('SELECT CASE ', ' ELSE FROM testTable');
 
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'WHEN', weight: -1}];
     expect(parseResult.suggestKeywords).toEqual(keywordSuggestions);
@@ -4347,7 +4353,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parseClickHouseSql(
+    const parseResult = parseClickHouseQuery(
         'SELECT CASE a = c WHEN c THEN d ELSE e ',
         ' FROM testTable',
     );
@@ -4376,7 +4382,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parseClickHouseSql('SELECT CASE WHEN THEN boo OR ', ' FROM testTable');
+    const parseResult = parseClickHouseQuery('SELECT CASE WHEN THEN boo OR ', ' FROM testTable');
 
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'CASE', weight: 450}];
     expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(keywordSuggestions));
@@ -4400,21 +4406,21 @@ test('should suggest columns', () => {
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parseClickHouseSql('SELECT CASE ', ' a = b THEN FROM testTable');
+    const parseResult = parseClickHouseQuery('SELECT CASE ', ' a = b THEN FROM testTable');
 
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'WHEN', weight: -1}];
     expect(parseResult.suggestKeywords).toEqual(keywordSuggestions);
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parseClickHouseSql('SELECT CASE ', ' a = b THEN boo FROM testTable');
+    const parseResult = parseClickHouseQuery('SELECT CASE ', ' a = b THEN boo FROM testTable');
 
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'WHEN', weight: -1}];
     expect(parseResult.suggestKeywords).toEqual(keywordSuggestions);
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parseClickHouseSql('SELECT CASE ', ' THEN boo FROM testTable');
+    const parseResult = parseClickHouseQuery('SELECT CASE ', ' THEN boo FROM testTable');
 
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'WHEN', weight: -1}];
     expect(parseResult.suggestKeywords).toEqual(keywordSuggestions);
@@ -4438,7 +4444,7 @@ test('should suggest keywords', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parseClickHouseSql('SELECT CASE WHEN ', ' boo FROM testTable');
+    const parseResult = parseClickHouseQuery('SELECT CASE WHEN ', ' boo FROM testTable');
 
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'THEN', weight: -1}];
     expect(parseResult.suggestKeywords).toEqual(keywordSuggestions);
@@ -4462,7 +4468,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parseClickHouseSql(
+    const parseResult = parseClickHouseQuery(
         'SELECT CASE WHEN bla',
         ' boo WHEN b THEN c END FROM testTable',
     );
@@ -4491,7 +4497,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parseClickHouseSql(
+    const parseResult = parseClickHouseQuery(
         'SELECT CASE a WHEN b THEN c WHEN ',
         ' boo ELSE c FROM testTable',
     );
@@ -4518,7 +4524,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parseClickHouseSql(
+    const parseResult = parseClickHouseQuery(
         'SELECT CASE a WHEN b THEN c WHEN ',
         ' boo WHEN d THEN e END FROM testTable',
     );
@@ -4547,7 +4553,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parseClickHouseSql(
+    const parseResult = parseClickHouseQuery(
         'SELECT CASE a WHEN b THEN c ',
         ' WHEN d THEN e END FROM testTable',
     );
@@ -4576,7 +4582,7 @@ test('should suggest keywords', () => {
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parseClickHouseSql('SELECT CASE a WHEN b THEN c ', ' FROM testTable');
+    const parseResult = parseClickHouseQuery('SELECT CASE a WHEN b THEN c ', ' FROM testTable');
 
     const keywordSuggestions: KeywordSuggestion[] = [
         {value: 'WHEN', weight: 1},
@@ -4600,7 +4606,7 @@ test('should suggest keywords', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parseClickHouseSql('SELECT CASE WHEN ', ' THEN FROM testTable');
+    const parseResult = parseClickHouseQuery('SELECT CASE WHEN ', ' THEN FROM testTable');
 
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'CASE', weight: 450}];
     expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(keywordSuggestions));
@@ -4624,7 +4630,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest values', () => {
-    const parseResult = parseClickHouseSql('SELECT CASE WHEN ', ' = a FROM testTable');
+    const parseResult = parseClickHouseQuery('SELECT CASE WHEN ', ' = a FROM testTable');
 
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'CASE', weight: 450}];
     expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(keywordSuggestions));
@@ -4666,7 +4672,7 @@ test('should suggest values', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parseClickHouseSql(
+    const parseResult = parseClickHouseQuery(
         'SELECT CASE WHEN ab',
         ' THEN bla ELSE foo FROM testTable',
     );
@@ -4693,7 +4699,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parseClickHouseSql(
+    const parseResult = parseClickHouseQuery(
         'SELECT CASE bla WHEN ab',
         ' THEN bla ELSE foo END FROM testTable',
     );
@@ -4722,7 +4728,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parseClickHouseSql('SELECT CASE WHEN ', ' FROM testTable');
+    const parseResult = parseClickHouseQuery('SELECT CASE WHEN ', ' FROM testTable');
 
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'CASE', weight: 450}];
     expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(keywordSuggestions));
@@ -4746,7 +4752,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parseClickHouseSql('SELECT CASE a WHEN ', ' FROM testTable');
+    const parseResult = parseClickHouseQuery('SELECT CASE a WHEN ', ' FROM testTable');
 
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'CASE', weight: 450}];
     expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(keywordSuggestions));
@@ -4770,7 +4776,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parseClickHouseSql('SELECT CASE WHEN a = ', ' FROM testTable');
+    const parseResult = parseClickHouseQuery('SELECT CASE WHEN a = ', ' FROM testTable');
 
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'CASE', weight: 450}];
     expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(keywordSuggestions));
@@ -4812,7 +4818,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parseClickHouseSql('SELECT CASE WHEN a = b ', ' FROM testTable');
+    const parseResult = parseClickHouseQuery('SELECT CASE WHEN a = b ', ' FROM testTable');
 
     const keywordSuggestions: KeywordSuggestion[] = [
         {value: 'AND', weight: -1},
@@ -4823,7 +4829,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parseClickHouseSql('SELECT CASE a = c WHEN c ', ' d FROM testTable');
+    const parseResult = parseClickHouseQuery('SELECT CASE a = c WHEN c ', ' d FROM testTable');
 
     const keywordSuggestions: KeywordSuggestion[] = [
         {value: 'THEN', weight: -1},
@@ -4847,7 +4853,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parseClickHouseSql('SELECT CASE a = c WHEN c THEN ', ' FROM testTable');
+    const parseResult = parseClickHouseQuery('SELECT CASE a = c WHEN c THEN ', ' FROM testTable');
 
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'CASE', weight: 450}];
     expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(keywordSuggestions));
@@ -4871,7 +4877,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parseClickHouseSql('SELECT CASE a = c WHEN c THEN ', ' g FROM testTable');
+    const parseResult = parseClickHouseQuery('SELECT CASE a = c WHEN c THEN ', ' g FROM testTable');
 
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'CASE', weight: 450}];
     expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(keywordSuggestions));
@@ -4895,7 +4901,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parseClickHouseSql('SELECT CASE WHEN THEN ', ' g FROM testTable');
+    const parseResult = parseClickHouseQuery('SELECT CASE WHEN THEN ', ' g FROM testTable');
 
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'CASE', weight: 450}];
     expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(keywordSuggestions));
@@ -4919,7 +4925,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parseClickHouseSql('SELECT CASE WHEN THEN ', ' FROM testTable');
+    const parseResult = parseClickHouseQuery('SELECT CASE WHEN THEN ', ' FROM testTable');
 
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'CASE', weight: 450}];
     expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(keywordSuggestions));
@@ -4943,7 +4949,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest functions', () => {
-    const parseResult = parseClickHouseSql('SELECT "boo \\" baa" = ', '');
+    const parseResult = parseClickHouseQuery('SELECT "boo \\" baa" = ', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -4957,7 +4963,7 @@ test('should suggest functions', () => {
 });
 
 test('should suggest identifiers', () => {
-    const parseResult = parseClickHouseSql(
+    const parseResult = parseClickHouseQuery(
         'SELECT 1 = ',
         ' OR false FROM tableOne boo, tableTwo baa;',
     );
@@ -5010,7 +5016,7 @@ test('should suggest identifiers', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parseClickHouseSql(
+    const parseResult = parseClickHouseQuery(
         'SELECT * FROM tbl1, tbl2 atbl2, tbl3 WHERE id = atbl2.',
         '',
     );
@@ -5034,7 +5040,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parseClickHouseSql(
+    const parseResult = parseClickHouseQuery(
         'SELECT * FROM tbl1, tbl2 atbl2, tbl3 WHERE id = atbl2.',
         '',
     );
@@ -5058,7 +5064,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest values', () => {
-    const parseResult = parseClickHouseSql('SELECT * FROM testTable WHERE id =', '');
+    const parseResult = parseClickHouseQuery('SELECT * FROM testTable WHERE id =', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -5102,7 +5108,7 @@ test('should suggest values', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parseClickHouseSql('SELECT * FROM testTable WHERE -', '');
+    const parseResult = parseClickHouseQuery('SELECT * FROM testTable WHERE -', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -5128,7 +5134,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parseClickHouseSql('SELECT -', ' FROM testTable WHERE id = 1;');
+    const parseResult = parseClickHouseQuery('SELECT -', ' FROM testTable WHERE id = 1;');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -5154,7 +5160,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parseClickHouseSql('SELECT 1 < ', ' FROM testTable WHERE id = 1;');
+    const parseResult = parseClickHouseQuery('SELECT 1 < ', ' FROM testTable WHERE id = 1;');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -5183,7 +5189,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parseClickHouseSql('select foo from tbl where ', ' % 2 = 0');
+    const parseResult = parseClickHouseQuery('select foo from tbl where ', ' % 2 = 0');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -5212,7 +5218,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest values', () => {
-    const parseResult = parseClickHouseSql('SELECT * FROM testTable WHERE -id = ', '');
+    const parseResult = parseClickHouseQuery('SELECT * FROM testTable WHERE -id = ', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -5256,7 +5262,7 @@ test('should suggest values', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parseClickHouseSql('SELECT greatest(1, 2, a, 4, ', ' FROM testTable');
+    const parseResult = parseClickHouseQuery('SELECT greatest(1, 2, a, 4, ', ' FROM testTable');
 
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'CASE', weight: 450}];
     expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(keywordSuggestions));
@@ -5286,7 +5292,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parseClickHouseSql('SELECT greatest(1, ', ', a, 4) FROM testTable');
+    const parseResult = parseClickHouseQuery('SELECT greatest(1, ', ', a, 4) FROM testTable');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -5318,7 +5324,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parseClickHouseSql('SELECT ', ' > id FROM testTable');
+    const parseResult = parseClickHouseQuery('SELECT ', ' > id FROM testTable');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -5362,7 +5368,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest values and columns', () => {
-    const parseResult = parseClickHouseSql('SELECT * FROM testTable WHERE ', ' = id');
+    const parseResult = parseClickHouseQuery('SELECT * FROM testTable WHERE ', ' = id');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -5406,7 +5412,7 @@ test('should suggest values and columns', () => {
 });
 
 test('should suggest values and columns', () => {
-    const parseResult = parseClickHouseSql('SELECT a, b, c FROM testTable WHERE d >= ', '');
+    const parseResult = parseClickHouseQuery('SELECT a, b, c FROM testTable WHERE d >= ', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -5450,7 +5456,7 @@ test('should suggest values and columns', () => {
 });
 
 test('should suggest values and columns', () => {
-    const parseResult = parseClickHouseSql('SELECT a, b, c FROM testTable WHERE d < ', '');
+    const parseResult = parseClickHouseQuery('SELECT a, b, c FROM testTable WHERE d < ', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -5494,7 +5500,7 @@ test('should suggest values and columns', () => {
 });
 
 test('should suggest values and columns', () => {
-    const parseResult = parseClickHouseSql('SELECT a, b, c FROM testTable WHERE d <= ', '');
+    const parseResult = parseClickHouseQuery('SELECT a, b, c FROM testTable WHERE d <= ', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -5538,7 +5544,7 @@ test('should suggest values and columns', () => {
 });
 
 test('should suggest values and columns', () => {
-    const parseResult = parseClickHouseSql('SELECT a, b, c FROM testTable WHERE d <=> ', '');
+    const parseResult = parseClickHouseQuery('SELECT a, b, c FROM testTable WHERE d <=> ', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -5582,7 +5588,7 @@ test('should suggest values and columns', () => {
 });
 
 test('should suggest values and columns', () => {
-    const parseResult = parseClickHouseSql('SELECT a, b, c FROM testTable WHERE d <> ', '');
+    const parseResult = parseClickHouseQuery('SELECT a, b, c FROM testTable WHERE d <> ', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -5626,7 +5632,7 @@ test('should suggest values and columns', () => {
 });
 
 test('should suggest values and columns', () => {
-    const parseResult = parseClickHouseSql('SELECT a, b, c FROM testTable WHERE d >= ', '');
+    const parseResult = parseClickHouseQuery('SELECT a, b, c FROM testTable WHERE d >= ', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -5670,7 +5676,7 @@ test('should suggest values and columns', () => {
 });
 
 test('should suggest values and columns', () => {
-    const parseResult = parseClickHouseSql('SELECT a, b, c FROM testTable WHERE d > ', '');
+    const parseResult = parseClickHouseQuery('SELECT a, b, c FROM testTable WHERE d > ', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -5714,7 +5720,7 @@ test('should suggest values and columns', () => {
 });
 
 test('should suggest values and columns', () => {
-    const parseResult = parseClickHouseSql('SELECT a, b, c FROM testTable WHERE d != ', '');
+    const parseResult = parseClickHouseQuery('SELECT a, b, c FROM testTable WHERE d != ', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -5758,7 +5764,7 @@ test('should suggest values and columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parseClickHouseSql('SELECT a, b, c FROM testTable WHERE d + 1 != ', '');
+    const parseResult = parseClickHouseQuery('SELECT a, b, c FROM testTable WHERE d + 1 != ', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -5787,7 +5793,10 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parseClickHouseSql('SELECT a, b, c FROM testTable WHERE bla', ' + 1 != 3');
+    const parseResult = parseClickHouseQuery(
+        'SELECT a, b, c FROM testTable WHERE bla',
+        ' + 1 != 3',
+    );
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -5816,7 +5825,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parseClickHouseSql('SELECT a, b, c FROM testTable WHERE d + ', '');
+    const parseResult = parseClickHouseQuery('SELECT a, b, c FROM testTable WHERE d + ', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -5845,7 +5854,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parseClickHouseSql('SELECT a, b, c FROM testTable WHERE d - ', '');
+    const parseResult = parseClickHouseQuery('SELECT a, b, c FROM testTable WHERE d - ', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -5874,7 +5883,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parseClickHouseSql('SELECT a, b, c FROM testTable WHERE d * ', '');
+    const parseResult = parseClickHouseQuery('SELECT a, b, c FROM testTable WHERE d * ', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -5903,7 +5912,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parseClickHouseSql('SELECT a, b, c FROM testTable WHERE d / ', '');
+    const parseResult = parseClickHouseQuery('SELECT a, b, c FROM testTable WHERE d / ', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -5932,7 +5941,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parseClickHouseSql('SELECT a, b, c FROM testTable WHERE d % ', '');
+    const parseResult = parseClickHouseQuery('SELECT a, b, c FROM testTable WHERE d % ', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -5961,7 +5970,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parseClickHouseSql('SELECT a, b, c FROM testTable WHERE d | ', '');
+    const parseResult = parseClickHouseQuery('SELECT a, b, c FROM testTable WHERE d | ', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -5990,7 +5999,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parseClickHouseSql('SELECT a, b, c FROM testTable WHERE d & ', '');
+    const parseResult = parseClickHouseQuery('SELECT a, b, c FROM testTable WHERE d & ', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -6019,7 +6028,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parseClickHouseSql('SELECT a, b, c FROM testTable WHERE d ^ ', '');
+    const parseResult = parseClickHouseQuery('SELECT a, b, c FROM testTable WHERE d ^ ', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -6048,7 +6057,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parseClickHouseSql('SELECT a, b, c FROM testTable WHERE ~', '');
+    const parseResult = parseClickHouseQuery('SELECT a, b, c FROM testTable WHERE ~', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -6071,7 +6080,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parseClickHouseSql('SELECT a, b, c FROM testTable WHERE -', '');
+    const parseResult = parseClickHouseQuery('SELECT a, b, c FROM testTable WHERE -', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -6097,7 +6106,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parseClickHouseSql(
+    const parseResult = parseClickHouseQuery(
         'SELECT a, b, c FROM testTable WHERE d ',
         " RLIKE 'bla bla'",
     );
@@ -6152,7 +6161,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parseClickHouseSql('SELECT bar FROM foo WHERE id = 1 ', '');
+    const parseResult = parseClickHouseQuery('SELECT bar FROM foo WHERE id = 1 ', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -6286,7 +6295,7 @@ test('should suggest keywords', () => {
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parseClickHouseSql('SELECT * FROM foo WHERE id <=> 1 ', '');
+    const parseResult = parseClickHouseQuery('SELECT * FROM foo WHERE id <=> 1 ', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -6420,7 +6429,7 @@ test('should suggest keywords', () => {
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parseClickHouseSql('SELECT * FROM foo WHERE id IS ', '');
+    const parseResult = parseClickHouseQuery('SELECT * FROM foo WHERE id IS ', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -6436,7 +6445,7 @@ test('should suggest keywords', () => {
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parseClickHouseSql('SELECT * FROM foo WHERE id IS NOT ', '');
+    const parseResult = parseClickHouseQuery('SELECT * FROM foo WHERE id IS NOT ', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -6449,7 +6458,7 @@ test('should suggest keywords', () => {
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parseClickHouseSql('SELECT * FROM foo WHERE id IS ', ' NULL');
+    const parseResult = parseClickHouseQuery('SELECT * FROM foo WHERE id IS ', ' NULL');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -6458,7 +6467,7 @@ test('should suggest keywords', () => {
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parseClickHouseSql('SELECT * FROM foo WHERE id IS ', ' FALSE');
+    const parseResult = parseClickHouseQuery('SELECT * FROM foo WHERE id IS ', ' FALSE');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -6467,7 +6476,7 @@ test('should suggest keywords', () => {
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parseClickHouseSql('SELECT * FROM foo WHERE id IS ', ' TRUE');
+    const parseResult = parseClickHouseQuery('SELECT * FROM foo WHERE id IS ', ' TRUE');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -6476,7 +6485,7 @@ test('should suggest keywords', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parseClickHouseSql('SELECT * FROM foo WHERE id LIKE ', '');
+    const parseResult = parseClickHouseQuery('SELECT * FROM foo WHERE id LIKE ', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -6502,7 +6511,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parseClickHouseSql("SELECT * FROM foo WHERE id LIKE ('bla bla') ", '');
+    const parseResult = parseClickHouseQuery("SELECT * FROM foo WHERE id LIKE ('bla bla') ", '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -6539,7 +6548,10 @@ test('should suggest keywords', () => {
 });
 
 test('should suggest identifiers', () => {
-    const parseResult = parseClickHouseSql('SELECT * FROM foo bla, bar WHERE id IS NULL AND ', '');
+    const parseResult = parseClickHouseQuery(
+        'SELECT * FROM foo bla, bar WHERE id IS NULL AND ',
+        '',
+    );
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -6606,7 +6618,7 @@ test('should suggest identifiers', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parseClickHouseSql('SELECT * FROM foo AS bla WHERE id IS NULL && ', '');
+    const parseResult = parseClickHouseQuery('SELECT * FROM foo AS bla WHERE id IS NULL && ', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -6655,7 +6667,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parseClickHouseSql(
+    const parseResult = parseClickHouseQuery(
         'SELECT * FROM foo AS bla WHERE id IS NULL OR ',
         ' AND 1 + 1 > 1',
     );
@@ -6707,7 +6719,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parseClickHouseSql('SELECT * FROM foo AS bla WHERE id IS NULL || ', '');
+    const parseResult = parseClickHouseQuery('SELECT * FROM foo AS bla WHERE id IS NULL || ', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -6756,7 +6768,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parseClickHouseSql('SELECT * FROM foo bar WHERE NOT ', '');
+    const parseResult = parseClickHouseQuery('SELECT * FROM foo bar WHERE NOT ', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -6791,7 +6803,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parseClickHouseSql('SELECT * FROM foo bar WHERE ! ', '');
+    const parseResult = parseClickHouseQuery('SELECT * FROM foo bar WHERE ! ', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -6826,7 +6838,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parseClickHouseSql('SELECT * FROM testTable WHERE ', '');
+    const parseResult = parseClickHouseQuery('SELECT * FROM testTable WHERE ', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -6868,7 +6880,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parseClickHouseSql('SELECT * FROM testTable WHERE a', '');
+    const parseResult = parseClickHouseQuery('SELECT * FROM testTable WHERE a', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -6910,7 +6922,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parseClickHouseSql('SELECT * FROM testTable WHERE baa = 1 AND ', '');
+    const parseResult = parseClickHouseQuery('SELECT * FROM testTable WHERE baa = 1 AND ', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -6954,7 +6966,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parseClickHouseSql('SELECT * FROM testTable WHERE ', ' AND baa = 1');
+    const parseResult = parseClickHouseQuery('SELECT * FROM testTable WHERE ', ' AND baa = 1');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -6998,7 +7010,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parseClickHouseSql('SELECT * FROM testTable WHERE baa = 1 OR ', '');
+    const parseResult = parseClickHouseQuery('SELECT * FROM testTable WHERE baa = 1 OR ', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -7042,7 +7054,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parseClickHouseSql('SELECT * FROM testTable WHERE ', ' OR baa = 1');
+    const parseResult = parseClickHouseQuery('SELECT * FROM testTable WHERE ', ' OR baa = 1');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -7086,7 +7098,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parseClickHouseSql('SELECT * FROM testTable WHERE NOT ', '');
+    const parseResult = parseClickHouseQuery('SELECT * FROM testTable WHERE NOT ', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -7112,7 +7124,7 @@ test('should suggest keywords', () => {
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parseClickHouseSql("SELECT * FROM testTable WHERE foo = 'bar' ", '');
+    const parseResult = parseClickHouseQuery("SELECT * FROM testTable WHERE foo = 'bar' ", '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -7152,7 +7164,7 @@ test('should suggest keywords', () => {
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parseClickHouseSql(
+    const parseResult = parseClickHouseQuery(
         'SELECT a, b, c, d, e FROM tableOne WHERE c >= 9998 an',
         '',
     );
@@ -7195,7 +7207,7 @@ test('should suggest keywords', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parseClickHouseSql("SELECT * FROM testTable WHERE foo = 'bar' AND ", '');
+    const parseResult = parseClickHouseQuery("SELECT * FROM testTable WHERE foo = 'bar' AND ", '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -7234,7 +7246,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parseClickHouseSql(
+    const parseResult = parseClickHouseQuery(
         'SELECT a, b, \nc, \nd, ',
         "\ng,\nf\nFROM testTable WHERE a > 1 AND b = 'b' ORDER BY c;",
     );
@@ -7281,7 +7293,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parseClickHouseSql('SELECT a,b, ', ' c FROM testTable');
+    const parseResult = parseClickHouseQuery('SELECT a,b, ', ' c FROM testTable');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -7322,7 +7334,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parseClickHouseSql('SELECT ', ' a, b, c FROM testTable');
+    const parseResult = parseClickHouseQuery('SELECT ', ' a, b, c FROM testTable');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -7367,7 +7379,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parseClickHouseSql('SELECT a ', ', b, c FROM testTable');
+    const parseResult = parseClickHouseQuery('SELECT a ', ', b, c FROM testTable');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -7393,7 +7405,7 @@ test('should suggest keywords', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parseClickHouseSql('SELECT * FROM testTable WHERE ', " = 'bar' AND ");
+    const parseResult = parseClickHouseQuery('SELECT * FROM testTable WHERE ', " = 'bar' AND ");
 
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'CASE', weight: 450}];
     expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(keywordSuggestions));
@@ -7420,7 +7432,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parseClickHouseSql('SELECT * FROM testTable WHERE a ', '');
+    const parseResult = parseClickHouseQuery('SELECT * FROM testTable WHERE a ', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -7474,7 +7486,7 @@ test('should suggest keywords', () => {
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parseClickHouseSql('SELECT * FROM testTable WHERE a NOT ', '');
+    const parseResult = parseClickHouseQuery('SELECT * FROM testTable WHERE a NOT ', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -7488,7 +7500,7 @@ test('should suggest keywords', () => {
 });
 
 test('should suggest values', () => {
-    const parseResult = parseClickHouseSql('SELECT * FROM testTable WHERE a BETWEEN ', '');
+    const parseResult = parseClickHouseQuery('SELECT * FROM testTable WHERE a BETWEEN ', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -7532,14 +7544,14 @@ test('should suggest values', () => {
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parseClickHouseSql('SELECT * FROM testTable WHERE a OR NOT EXISTS (', '');
+    const parseResult = parseClickHouseQuery('SELECT * FROM testTable WHERE a OR NOT EXISTS (', '');
 
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'SELECT', weight: -1}];
     expect(parseResult.suggestKeywords).toEqual(keywordSuggestions);
 });
 
 test('should suggest columns', () => {
-    const parseResult = parseClickHouseSql('SELECT testTable.', ' FROM testTable');
+    const parseResult = parseClickHouseQuery('SELECT testTable.', ' FROM testTable');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -7562,7 +7574,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parseClickHouseSql('SELECT tt.', ' FROM testTable tt');
+    const parseResult = parseClickHouseQuery('SELECT tt.', ' FROM testTable tt');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -7585,7 +7597,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parseClickHouseSql('SELECT tt.', ' FROM database_two.testTable tt');
+    const parseResult = parseClickHouseQuery('SELECT tt.', ' FROM database_two.testTable tt');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -7611,7 +7623,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parseClickHouseSql('SELECT tta.', ' FROM testTableA tta, testTableB ttb');
+    const parseResult = parseClickHouseQuery('SELECT tta.', ' FROM testTableA tta, testTableB ttb');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -7634,7 +7646,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parseClickHouseSql('SELECT ttb.', ' FROM testTableA tta, testTableB ttb');
+    const parseResult = parseClickHouseQuery('SELECT ttb.', ' FROM testTableA tta, testTableB ttb');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -7657,7 +7669,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parseClickHouseSql('SELECT * FROM testTable GROUP BY a ', ' LIMIT 10');
+    const parseResult = parseClickHouseQuery('SELECT * FROM testTable GROUP BY a ', ' LIMIT 10');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -7699,7 +7711,7 @@ test('should suggest keywords', () => {
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parseClickHouseSql('SELECT * FROM foo WHERE bar ', '');
+    const parseResult = parseClickHouseQuery('SELECT * FROM foo WHERE bar ', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -7753,7 +7765,7 @@ test('should suggest keywords', () => {
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parseClickHouseSql('SELECT * FROM foo WHERE bar NOT ', '');
+    const parseResult = parseClickHouseQuery('SELECT * FROM foo WHERE bar NOT ', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -7762,7 +7774,7 @@ test('should suggest keywords', () => {
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parseClickHouseSql('SELECT * FROM foo WHERE bar IN (', '');
+    const parseResult = parseClickHouseQuery('SELECT * FROM foo WHERE bar IN (', '');
 
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'SELECT', weight: -1}];
     expect(parseResult.suggestKeywords).toEqual(keywordSuggestions);
@@ -7804,7 +7816,7 @@ test('should suggest keywords', () => {
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parseClickHouseSql('select * from foo, bar where bar.bla in (', '');
+    const parseResult = parseClickHouseQuery('select * from foo, bar where bar.bla in (', '');
 
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'SELECT', weight: -1}];
     expect(parseResult.suggestKeywords).toEqual(keywordSuggestions);
@@ -7865,7 +7877,7 @@ test('should suggest keywords', () => {
 });
 
 test('should suggest values', () => {
-    const parseResult = parseClickHouseSql("select * from foo, bar where bar.bla in ('a', ", '');
+    const parseResult = parseClickHouseQuery("select * from foo, bar where bar.bla in ('a', ", '');
 
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'CASE', weight: 450}];
     expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(keywordSuggestions));
@@ -7926,7 +7938,7 @@ test('should suggest values', () => {
 });
 
 test('should suggest tables', () => {
-    const parseResult = parseClickHouseSql('SELECT * FROM foo WHERE bar IN (SELECT ', '');
+    const parseResult = parseClickHouseQuery('SELECT * FROM foo WHERE bar IN (SELECT ', '');
 
     const keywordSuggestions: KeywordSuggestion[] = [
         {value: '*', weight: 10000},
@@ -7960,7 +7972,7 @@ test('should suggest tables', () => {
 });
 
 test('should suggest tables', () => {
-    const parseResult = parseClickHouseSql('SELECT * FROM bar WHERE foo NOT IN (SELECT ', ')');
+    const parseResult = parseClickHouseQuery('SELECT * FROM bar WHERE foo NOT IN (SELECT ', ')');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -7996,28 +8008,28 @@ test('should suggest tables', () => {
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parseClickHouseSql('SELECT * FROM (', '');
+    const parseResult = parseClickHouseQuery('SELECT * FROM (', '');
 
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'SELECT', weight: -1}];
     expect(parseResult.suggestKeywords).toEqual(keywordSuggestions);
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parseClickHouseSql('select * from (', '');
+    const parseResult = parseClickHouseQuery('select * from (', '');
 
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'SELECT', weight: -1}];
     expect(parseResult.suggestKeywords).toEqual(keywordSuggestions);
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parseClickHouseSql('select foo.* from (', ') foo');
+    const parseResult = parseClickHouseQuery('select foo.* from (', ') foo');
 
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'SELECT', weight: -1}];
     expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(keywordSuggestions));
 });
 
 test('should suggest tables', () => {
-    const parseResult = parseClickHouseSql('SELECT * FROM (SELECT ', '');
+    const parseResult = parseClickHouseQuery('SELECT * FROM (SELECT ', '');
 
     const keywordSuggestions: KeywordSuggestion[] = [
         {value: '*', weight: 10000},
@@ -8051,7 +8063,7 @@ test('should suggest tables', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parseClickHouseSql(
+    const parseResult = parseClickHouseQuery(
         'SELECT "contains an even number" FROM t1, t2 AS ta2 WHERE EXISTS (SELECT t3.foo FROM t3 WHERE ',
         ' % 2 = 0',
     );
@@ -8304,7 +8316,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest identifiers', () => {
-    const parseResult = parseClickHouseSql(
+    const parseResult = parseClickHouseQuery(
         'SELECT ',
         ' FROM testTable tt, (SELECT bla FROM abc WHERE foo > 1) bar',
     );
@@ -8592,7 +8604,7 @@ test('should suggest identifiers', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parseClickHouseSql(
+    const parseResult = parseClickHouseQuery(
         'select ',
         ' from (select id i, name as n, bla from foo) bar',
     );
@@ -8684,7 +8696,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest sub-query columns', () => {
-    const parseResult = parseClickHouseSql(
+    const parseResult = parseClickHouseQuery(
         'SELECT bar.',
         ' FROM (SELECT col1, col2, (col3 + 1) col3alias FROM foo) bar',
     );
@@ -8745,7 +8757,7 @@ test('should suggest sub-query columns', () => {
 });
 
 test('should suggest sub-query columns', () => {
-    const parseResult = parseClickHouseSql(
+    const parseResult = parseClickHouseQuery(
         'SELECT bar.',
         ' FROM (SELECT b FROM foo) boo, (SELECT a FROM bla) bar',
     );
@@ -8807,7 +8819,7 @@ test('should suggest sub-query columns', () => {
 });
 
 test('should suggest identifiers', () => {
-    const parseResult = parseClickHouseSql(
+    const parseResult = parseClickHouseQuery(
         'SELECT cos(',
         ' FROM (SELECT b FROM foo) boo, (SELECT a FROM bla) bar',
     );
@@ -8895,7 +8907,7 @@ test('should suggest identifiers', () => {
 });
 
 test('should suggest tables', () => {
-    const parseResult = parseClickHouseSql('SELECT * FROM (SELECT ', ')');
+    const parseResult = parseClickHouseQuery('SELECT * FROM (SELECT ', ')');
 
     const keywordSuggestions: KeywordSuggestion[] = [
         {value: '*', weight: 10000},
@@ -8929,7 +8941,7 @@ test('should suggest tables', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parseClickHouseSql(
+    const parseResult = parseClickHouseQuery(
         'SELECT * FROM (SELECT ',
         ' FROM tableOne) subQueryOne, someDb.tableTwo talias, (SELECT * FROM t3 JOIN t4 ON t3.id = t4.id) AS subQueryTwo;',
     );
@@ -8975,7 +8987,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parseClickHouseSql(
+    const parseResult = parseClickHouseQuery(
         'SELECT ',
         ' FROM (SELECT * FROM (SELECT * FROM tableOne) subQueryOne) subQueryTwo',
     );
@@ -9061,7 +9073,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parseClickHouseSql(
+    const parseResult = parseClickHouseQuery(
         'SELECT ',
         ' FROM (SELECT * FROM (SELECT * FROM (SELECT * FROM tableOne) subQueryOne) subQueryTwo) subQueryThree',
     );
@@ -9165,7 +9177,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parseClickHouseSql(
+    const parseResult = parseClickHouseQuery(
         'SELECT * FROM (SELECT ',
         ' FROM (SELECT * FROM (SELECT * FROM tableOne) subQueryOne) subQueryTwo) subQueryThree',
     );
@@ -9251,7 +9263,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parseClickHouseSql(
+    const parseResult = parseClickHouseQuery(
         'SELECT * FROM (SELECT * FROM (SELECT ',
         ' FROM (SELECT * FROM tableOne) subQueryOne) subQueryTwo) subQueryThree',
     );
@@ -9319,7 +9331,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parseClickHouseSql(
+    const parseResult = parseClickHouseQuery(
         'SELECT s2.',
         ' FROM (SELECT a, bla FROM (SELECT a, b, abs(1) as bla FROM testTable) s1) s2;',
     );

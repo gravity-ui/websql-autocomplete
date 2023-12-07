@@ -1,9 +1,9 @@
 import {expect, test} from '@jest/globals';
 
-import {AutocompleteError, KeywordSuggestion, parsePostgreSql} from '../../../../index';
+import {AutocompleteError, KeywordSuggestion, parsePostgreSqlQuery} from '../../../../index';
 
 test('should suggest values', () => {
-    const parseResult = parsePostgreSql(
+    const parseResult = parsePostgreSqlQuery(
         'SELECT COUNT(*) AS test_count FROM test_table GROUP BY test_count LIMIT ',
         '',
     );
@@ -21,7 +21,7 @@ test('should suggest values', () => {
 });
 
 test('should contain LIMIT in suggestions', () => {
-    const parseResult = parsePostgreSql(
+    const parseResult = parsePostgreSqlQuery(
         'SELECT COUNT(*) AS test_count FROM test_table GROUP BY test_count OFFSET 10 ',
         '',
     );
@@ -33,7 +33,7 @@ test('should contain LIMIT in suggestions', () => {
 });
 
 test('should not allow to include offset after comma', () => {
-    const parseResult = parsePostgreSql(
+    const parseResult = parsePostgreSqlQuery(
         'SELECT COUNT(*) AS test_count FROM test_table GROUP BY test_count LIMIT 100, 100 ',
         '',
     );

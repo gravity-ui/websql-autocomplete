@@ -7,11 +7,11 @@ import {
     JoinsSuggestion,
     KeywordSuggestion,
     OrderBysSuggestion,
-    parsePostgreSql,
+    parsePostgreSqlQuery,
 } from '../../../../index';
 
 test('should suggest keywords, joins, filters, groupBys, orderBys', () => {
-    const parseResult = parsePostgreSql('SELECT * FROM test_table_1 tt1, test_table_2 ', '');
+    const parseResult = parsePostgreSqlQuery('SELECT * FROM test_table_1 tt1, test_table_2 ', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -117,7 +117,7 @@ test('should suggest keywords, joins, filters, groupBys, orderBys', () => {
 });
 
 test('should report VARIABLE_REFERENCE error', () => {
-    const parseResult = parsePostgreSql('SELECT * FROM test_table limit ${limit=20}; ', '');
+    const parseResult = parsePostgreSqlQuery('SELECT * FROM test_table limit ${limit=20}; ', '');
 
     const error: Partial<AutocompleteError> = {
         text: '${limit=20}',
@@ -135,7 +135,7 @@ test('should report VARIABLE_REFERENCE error', () => {
 });
 
 test('should suggest keywords, groupBys, orderBys after WHERE', () => {
-    const parseResult = parsePostgreSql(
+    const parseResult = parsePostgreSqlQuery(
         'SELECT test_column FROM test_table WHERE test_column = 1 ',
         '',
     );
@@ -201,7 +201,7 @@ test('should suggest keywords, groupBys, orderBys after WHERE', () => {
 });
 
 test('should suggest keywords, groupBys, orderBys after null safe WHERE', () => {
-    const parseResult = parsePostgreSql(
+    const parseResult = parsePostgreSqlQuery(
         'SELECT test_column FROM test_table WHERE test_column <=> 1 ',
         '',
     );
@@ -267,7 +267,7 @@ test('should suggest keywords, groupBys, orderBys after null safe WHERE', () => 
 });
 
 test('should suggest LIMIT, OFFSET, joins, filters, groupBys, orderBys', () => {
-    const parseResult = parsePostgreSql('SELECT * FROM test_table ', '');
+    const parseResult = parsePostgreSqlQuery('SELECT * FROM test_table ', '');
 
     expect(parseResult.errors).toBeUndefined();
 

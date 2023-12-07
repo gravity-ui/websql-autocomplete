@@ -18,12 +18,12 @@ import {
     TablesSuggestion,
     UserDefinedFunctionArgumentPosition,
     ValuesSuggestion,
-    parsePostgreSqlQuery,
-    parsePostgreSqlQueryWithoutCursor,
+    parseMySqlQuery,
+    parseMySqlQueryWithoutCursor,
 } from '../../../../index';
 
 test('should suggest keywords', () => {
-    const parseResult = parsePostgreSqlQuery('', '');
+    const parseResult = parseMySqlQuery('', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -32,10 +32,7 @@ test('should suggest keywords', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parsePostgreSqlQuery(
-        'SELECT test_column_1, test_column, ',
-        ' FROM test_table',
-    );
+    const parseResult = parseMySqlQuery('SELECT test_column_1, test_column, ', ' FROM test_table');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -75,7 +72,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parsePostgreSqlQuery(
+    const parseResult = parseMySqlQuery(
         'SELECT test_column_1, test_column, SELECT, ',
         ' FROM test_table',
     );
@@ -115,7 +112,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest tables and databases', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT * ', '');
+    const parseResult = parseMySqlQuery('SELECT * ', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -135,7 +132,7 @@ test('should suggest tables and databases', () => {
 });
 
 test('should suggest tables and databases', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT * \r\n', '');
+    const parseResult = parseMySqlQuery('SELECT * \r\n', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -155,7 +152,7 @@ test('should suggest tables and databases', () => {
 });
 
 test('should not suggest anything', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT u.', '');
+    const parseResult = parseMySqlQuery('SELECT u.', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -163,7 +160,7 @@ test('should not suggest anything', () => {
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT test_column_1, test_column_2 ', '');
+    const parseResult = parseMySqlQuery('SELECT test_column_1, test_column_2 ', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -188,7 +185,7 @@ test('should suggest keywords', () => {
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT test_column_1 as tc1, test_column_2 ', '');
+    const parseResult = parseMySqlQuery('SELECT test_column_1 as tc1, test_column_2 ', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -213,75 +210,26 @@ test('should suggest keywords', () => {
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT * from test_table_1 as t1, test_table_2 ', '');
+    const parseResult = parseMySqlQuery('SELECT * from test_table_1 as t1, test_table_2 ', '');
 
     expect(parseResult.errors).toBeUndefined();
 
     const keywordSuggestions: KeywordSuggestion[] = [
-        {
-            value: 'AS',
-            weight: 3,
-        },
-        {
-            value: 'WHERE',
-            weight: 2.7,
-        },
-        {
-            value: 'GROUP BY',
-            weight: 2.6,
-        },
-        {
-            value: 'HAVING',
-            weight: 2.5,
-        },
-        {
-            value: 'ORDER BY',
-            weight: 2.4,
-        },
-        {
-            value: 'LIMIT',
-            weight: 2.3,
-        },
-        {
-            value: 'OFFSET',
-            weight: 2.2,
-        },
-        {
-            value: 'UNION',
-            weight: 2.11,
-        },
-        {
-            value: 'FULL JOIN',
-            weight: 1,
-        },
-        {
-            value: 'FULL OUTER JOIN',
-            weight: 1,
-        },
-        {
-            value: 'INNER JOIN',
-            weight: 1,
-        },
-        {
-            value: 'JOIN',
-            weight: 1,
-        },
-        {
-            value: 'LEFT JOIN',
-            weight: 1,
-        },
-        {
-            value: 'LEFT OUTER JOIN',
-            weight: 1,
-        },
-        {
-            value: 'RIGHT JOIN',
-            weight: 1,
-        },
-        {
-            value: 'RIGHT OUTER JOIN',
-            weight: 1,
-        },
+        {value: 'AS', weight: 3},
+        {value: 'WHERE', weight: 2.7},
+        {value: 'GROUP BY', weight: 2.6},
+        {value: 'HAVING', weight: 2.5},
+        {value: 'ORDER BY', weight: 2.4},
+        {value: 'LIMIT', weight: 2.3},
+        {value: 'UNION', weight: 2.11},
+        {value: 'FULL JOIN', weight: 1},
+        {value: 'FULL OUTER JOIN', weight: 1},
+        {value: 'INNER JOIN', weight: 1},
+        {value: 'JOIN', weight: 1},
+        {value: 'LEFT JOIN', weight: 1},
+        {value: 'LEFT OUTER JOIN', weight: 1},
+        {value: 'RIGHT JOIN', weight: 1},
+        {value: 'RIGHT OUTER JOIN', weight: 1},
     ];
     expect(parseResult.suggestKeywords).toEqual(keywordSuggestions);
 
@@ -337,7 +285,7 @@ test('should suggest keywords', () => {
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT * FR', '');
+    const parseResult = parseMySqlQuery('SELECT * FR', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -346,24 +294,31 @@ test('should suggest keywords', () => {
 });
 
 test('should not report errors', () => {
-    const parseResult = parsePostgreSqlQueryWithoutCursor('SELECT 4 / 2; ');
+    const parseResult = parseMySqlQueryWithoutCursor('SELECT 4 / 2; ');
     expect(parseResult.errors).toBeUndefined();
 });
 
 test('should not report errors', () => {
-    const parseResult = parsePostgreSqlQueryWithoutCursor('SELECT 4 DIV 2; ');
+    const parseResult = parseMySqlQueryWithoutCursor('SELECT 4 DIV 2; ');
     expect(parseResult.errors).toBeUndefined();
 });
 
 test('should not report errors', () => {
-    const parseResult = parsePostgreSqlQueryWithoutCursor(
+    const parseResult = parseMySqlQueryWithoutCursor(
         "SELECT test_column_2 NOT RLIKE 'test', test_column_2 NOT REGEXP 'test_2' FROM test_table; ",
     );
     expect(parseResult.errors).toBeUndefined();
 });
 
+test('should not report errors', () => {
+    const parseResult = parseMySqlQueryWithoutCursor(
+        'SELECT * FROM test_table limit ${limit=20}; ',
+    );
+    expect(parseResult.errors).toBeUndefined();
+});
+
 test('should suggest columns', () => {
-    const parseResult = parsePostgreSqlQuery(
+    const parseResult = parseMySqlQuery(
         'SELECT IF(test_column_1, test_column_2, test_column_2) AS b, ',
         ' FROM test_table',
     );
@@ -406,7 +361,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parsePostgreSqlQuery(
+    const parseResult = parseMySqlQuery(
         'SELECT IF(test_column_1 > 1, test_column_2, test_column_2) AS b, ',
         ' FROM test_table',
     );
@@ -449,7 +404,7 @@ test('should suggest columns', () => {
 });
 
 test('should not report errors', () => {
-    const parseResult = parsePostgreSqlQueryWithoutCursor(
+    const parseResult = parseMySqlQueryWithoutCursor(
         'SELECT test_function(not test_column), cos(-1), sin(1+test_column) FROM test_table;',
     );
 
@@ -662,7 +617,7 @@ test('should not report errors', () => {
 });
 
 test('should not report errors', () => {
-    const parseResult = parsePostgreSqlQueryWithoutCursor(
+    const parseResult = parseMySqlQueryWithoutCursor(
         'SELECT count(*), t.count, avg(id), avg FROM test_table t;',
     );
 
@@ -905,7 +860,7 @@ test('should not report errors', () => {
 });
 
 test('should suggest tables', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT ', '');
+    const parseResult = parseMySqlQuery('SELECT ', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -952,7 +907,7 @@ test('should suggest tables', () => {
 });
 
 test('should suggest tables', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT ', ';\n\nSELECT * FROM test_table;');
+    const parseResult = parseMySqlQuery('SELECT ', ';\n\nSELECT * FROM test_table;');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -999,7 +954,7 @@ test('should suggest tables', () => {
 });
 
 test('should suggest tables', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT * FROM test_table;\n\nSELECT ', ';');
+    const parseResult = parseMySqlQuery('SELECT * FROM test_table;\n\nSELECT ', ';');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -1046,7 +1001,7 @@ test('should suggest tables', () => {
 });
 
 test('should suggest tables', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT ', ';\n\nSELECT * FROM test_table t;');
+    const parseResult = parseMySqlQuery('SELECT ', ';\n\nSELECT * FROM test_table t;');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -1093,7 +1048,7 @@ test('should suggest tables', () => {
 });
 
 test('should suggest tables', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT * FROM test_table t;\n\nSELECT ', ';');
+    const parseResult = parseMySqlQuery('SELECT * FROM test_table t;\n\nSELECT ', ';');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -1140,7 +1095,7 @@ test('should suggest tables', () => {
 });
 
 test('should suggest even with lower case', () => {
-    const parseResult = parsePostgreSqlQuery('select ', ';');
+    const parseResult = parseMySqlQuery('select ', ';');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -1187,7 +1142,7 @@ test('should suggest even with lower case', () => {
 });
 
 test('should suggest tables', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT ALL ', '');
+    const parseResult = parseMySqlQuery('SELECT ALL ', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -1240,7 +1195,7 @@ test('should suggest tables', () => {
 });
 
 test('should suggest tables', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT DISTINCT ', '');
+    const parseResult = parseMySqlQuery('SELECT DISTINCT ', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -1286,7 +1241,7 @@ test('should suggest tables', () => {
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT ', ' FROM test_table');
+    const parseResult = parseMySqlQuery('SELECT ', ' FROM test_table');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -1394,7 +1349,7 @@ test('should suggest keywords', () => {
 });
 
 test('should suggest tables', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT ', ' FROM test_table;');
+    const parseResult = parseMySqlQuery('SELECT ', ' FROM test_table;');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -1442,7 +1397,7 @@ test('should suggest tables', () => {
 });
 
 test('should suggest tables', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT ', ' AS t FROM test_table;');
+    const parseResult = parseMySqlQuery('SELECT ', ' AS t FROM test_table;');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -1474,7 +1429,7 @@ test('should suggest tables', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT ', ' test_column FROM test_table;');
+    const parseResult = parseMySqlQuery('SELECT ', ' test_column FROM test_table;');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -1522,7 +1477,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT test_column_1', ' AS c FROM test_table;');
+    const parseResult = parseMySqlQuery('SELECT test_column_1', ' AS c FROM test_table;');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -1556,7 +1511,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parsePostgreSqlQuery(
+    const parseResult = parseMySqlQuery(
         'SELECT (test_column_1',
         ' AND test_column_2) FROM test_table;',
     );
@@ -1584,7 +1539,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest aliases', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT ', ' FROM test_table_1 t1, test_table_2;');
+    const parseResult = parseMySqlQuery('SELECT ', ' FROM test_table_1 t1, test_table_2;');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -1629,7 +1584,7 @@ test('should suggest aliases', () => {
 });
 
 test("should suggest columns even if alias case doesn't match", () => {
-    const parseResult = parsePostgreSqlQuery('SELECT T1.', ' FROM test_table t1;');
+    const parseResult = parseMySqlQuery('SELECT T1.', ' FROM test_table t1;');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -1649,7 +1604,7 @@ test("should suggest columns even if alias case doesn't match", () => {
 });
 
 test("should suggest columns even if alias case doesn't match", () => {
-    const parseResult = parsePostgreSqlQuery('SELECT t1.', ' FROM test_table T1;');
+    const parseResult = parseMySqlQuery('SELECT t1.', ' FROM test_table T1;');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -1669,7 +1624,7 @@ test("should suggest columns even if alias case doesn't match", () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parsePostgreSqlQuery(
+    const parseResult = parseMySqlQuery(
         'SELECT ',
         ' FROM test_database.test_table_1, test_database.test_table_2',
     );
@@ -1716,7 +1671,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT test_column, ', ' FROM test_table');
+    const parseResult = parseMySqlQuery('SELECT test_column, ', ' FROM test_table');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -1747,7 +1702,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT test_column,', ' FROM test_table');
+    const parseResult = parseMySqlQuery('SELECT test_column,', ' FROM test_table');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -1778,7 +1733,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT *, ', ' FROM test_table');
+    const parseResult = parseMySqlQuery('SELECT *, ', ' FROM test_table');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -1809,7 +1764,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT *,', ' FROM test_table');
+    const parseResult = parseMySqlQuery('SELECT *,', ' FROM test_table');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -1840,7 +1795,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parsePostgreSqlQuery(
+    const parseResult = parseMySqlQuery(
         'SELECT ',
         " test_column_1, cast(test_column_2 as int), test_column_3, test_column_4 FROM test_table WHERE test_column_1 = 'US' AND test_column_2 >= 998 ORDER BY test_column_3 DESC LIMIT 15",
     );
@@ -1874,7 +1829,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT ', ' FROM ${test_variable};');
+    const parseResult = parseMySqlQuery('SELECT ', ' FROM ${test_variable};');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -1905,10 +1860,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parsePostgreSqlQuery(
-        'SELECT * FROM test_table WHERE ${some_variable} ',
-        '',
-    );
+    const parseResult = parseMySqlQuery('SELECT * FROM test_table WHERE ${some_variable} ', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -1936,7 +1888,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parsePostgreSqlQuery(
+    const parseResult = parseMySqlQuery(
         'SELECT * FROM test_table WHERE ${some_variable} + 1 = ',
         '',
     );
@@ -1965,28 +1917,28 @@ test('should suggest columns', () => {
 });
 
 test('should not report errors', () => {
-    const parseResult = parsePostgreSqlQueryWithoutCursor(
+    const parseResult = parseMySqlQueryWithoutCursor(
         'SELECT row_number() OVER (PARTITION BY test_column) FROM test_table;',
     );
     expect(parseResult.errors).toBeUndefined();
 });
 
 test('should not report errors', () => {
-    const parseResult = parsePostgreSqlQueryWithoutCursor(
+    const parseResult = parseMySqlQueryWithoutCursor(
         'SELECT COUNT(DISTINCT test_column_1) OVER (PARTITION by test_column_2) FROM test_table;',
     );
     expect(parseResult.errors).toBeUndefined();
 });
 
 test('should suggest analytical fun report errors', () => {
-    const parseResult = parsePostgreSqlQueryWithoutCursor(
+    const parseResult = parseMySqlQueryWithoutCursor(
         'SELECT COUNT(DISTINCT test_column_1) OVER (PARTITION by test_column_2) FROM test_table;',
     );
     expect(parseResult.errors).toBeUndefined();
 });
 
 test('should suggest tables and databases', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT ', '');
+    const parseResult = parseMySqlQuery('SELECT ', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -2015,7 +1967,7 @@ test('should suggest tables and databases', () => {
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT row_number() ', '');
+    const parseResult = parseMySqlQuery('SELECT row_number() ', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -2024,7 +1976,7 @@ test('should suggest keywords', () => {
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT row_number() ', ' FROM testTable');
+    const parseResult = parseMySqlQuery('SELECT row_number() ', ' FROM testTable');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -2033,7 +1985,7 @@ test('should suggest keywords', () => {
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT row_number() ', ', b, c FROM testTable');
+    const parseResult = parseMySqlQuery('SELECT row_number() ', ', b, c FROM testTable');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -2042,7 +1994,7 @@ test('should suggest keywords', () => {
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT count(DISTINCT a) ', '');
+    const parseResult = parseMySqlQuery('SELECT count(DISTINCT a) ', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -2062,7 +2014,7 @@ test('should suggest keywords', () => {
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT count(DISTINCT a) ', ' FROM testTable');
+    const parseResult = parseMySqlQuery('SELECT count(DISTINCT a) ', ' FROM testTable');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -2071,7 +2023,7 @@ test('should suggest keywords', () => {
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT count(DISTINCT a) ', ', b, c FROM testTable');
+    const parseResult = parseMySqlQuery('SELECT count(DISTINCT a) ', ', b, c FROM testTable');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -2080,24 +2032,21 @@ test('should suggest keywords', () => {
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT row_number() OVER ( ', ' FROM testTable');
+    const parseResult = parseMySqlQuery('SELECT row_number() OVER ( ', ' FROM testTable');
 
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'PARTITION BY', weight: 2}];
     expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(keywordSuggestions));
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parsePostgreSqlQuery(
-        'SELECT row_number() OVER (PARTITION ',
-        ' FROM testTable',
-    );
+    const parseResult = parseMySqlQuery('SELECT row_number() OVER (PARTITION ', ' FROM testTable');
 
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'BY', weight: -1}];
     expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(keywordSuggestions));
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parsePostgreSqlQuery(
+    const parseResult = parseMySqlQuery(
         'SELECT row_number() OVER (PARTITION BY a, b ORDER ',
         ' FROM testTable',
     );
@@ -2107,10 +2056,7 @@ test('should suggest keywords', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parsePostgreSqlQuery(
-        'SELECT row_number() OVER (ORDER BY ',
-        ' FROM testTable',
-    );
+    const parseResult = parseMySqlQuery('SELECT row_number() OVER (ORDER BY ', ' FROM testTable');
 
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'CASE', weight: 450}];
     expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(keywordSuggestions));
@@ -2139,10 +2085,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parsePostgreSqlQuery(
-        'SELECT row_number() OVER (ORDER BY ',
-        ') FROM testTable',
-    );
+    const parseResult = parseMySqlQuery('SELECT row_number() OVER (ORDER BY ', ') FROM testTable');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -2173,7 +2116,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parsePostgreSqlQuery(
+    const parseResult = parseMySqlQuery(
         'SELECT row_number() OVER (ORDER BY a ',
         ') FROM testTable',
     );
@@ -2188,7 +2131,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parsePostgreSqlQuery(
+    const parseResult = parseMySqlQuery(
         'SELECT row_number() OVER (PARTITION BY ',
         ' FROM testTable',
     );
@@ -2220,7 +2163,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parsePostgreSqlQuery(
+    const parseResult = parseMySqlQuery(
         'SELECT row_number() OVER (PARTITION BY a, ',
         ' FROM testTable',
     );
@@ -2252,10 +2195,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parsePostgreSqlQuery(
-        'SELECT row_number() OVER (PARTITION BY a ORDER BY b ',
-        '',
-    );
+    const parseResult = parseMySqlQuery('SELECT row_number() OVER (PARTITION BY a ORDER BY b ', '');
 
     const keywordSuggestions: KeywordSuggestion[] = [
         {value: 'ASC', weight: 2},
@@ -2266,7 +2206,7 @@ test('should suggest keywords', () => {
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parsePostgreSqlQuery(
+    const parseResult = parseMySqlQuery(
         'SELECT row_number() OVER (PARTITION BY a ORDER BY b ROWS BETWEEN ',
         '',
     );
@@ -2279,7 +2219,7 @@ test('should suggest keywords', () => {
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parsePostgreSqlQuery(
+    const parseResult = parseMySqlQuery(
         'SELECT row_number() OVER (PARTITION BY a ORDER BY b ROWS BETWEEN 1 ',
         '',
     );
@@ -2289,7 +2229,7 @@ test('should suggest keywords', () => {
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parsePostgreSqlQuery(
+    const parseResult = parseMySqlQuery(
         'SELECT row_number() OVER (PARTITION BY a ORDER BY b ROWS BETWEEN UNBOUNDED ',
         '',
     );
@@ -2299,7 +2239,7 @@ test('should suggest keywords', () => {
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parsePostgreSqlQuery(
+    const parseResult = parseMySqlQuery(
         'SELECT row_number() OVER (PARTITION BY a ORDER BY b ROWS BETWEEN CURRENT ',
         '',
     );
@@ -2309,7 +2249,7 @@ test('should suggest keywords', () => {
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parsePostgreSqlQuery(
+    const parseResult = parseMySqlQuery(
         'SELECT row_number() OVER (PARTITION BY a ORDER BY b ROWS BETWEEN 1 PRECEDING ',
         '',
     );
@@ -2319,7 +2259,7 @@ test('should suggest keywords', () => {
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parsePostgreSqlQuery(
+    const parseResult = parseMySqlQuery(
         'SELECT row_number() OVER (PARTITION BY a ORDER BY b ROWS BETWEEN UNBOUNDED PRECEDING ',
         '',
     );
@@ -2329,7 +2269,7 @@ test('should suggest keywords', () => {
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parsePostgreSqlQuery(
+    const parseResult = parseMySqlQuery(
         'SELECT row_number() OVER (PARTITION BY a ORDER BY b ROWS BETWEEN CURRENT ROW ',
         '',
     );
@@ -2339,7 +2279,7 @@ test('should suggest keywords', () => {
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parsePostgreSqlQuery(
+    const parseResult = parseMySqlQuery(
         'SELECT row_number() OVER (PARTITION BY a ORDER BY b ROWS BETWEEN 1 PRECEDING AND ',
         '',
     );
@@ -2352,7 +2292,7 @@ test('should suggest keywords', () => {
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parsePostgreSqlQuery(
+    const parseResult = parseMySqlQuery(
         'SELECT row_number() OVER (PARTITION BY a ORDER BY b ROWS BETWEEN UNBOUNDED PRECEDING AND ',
         '',
     );
@@ -2365,7 +2305,7 @@ test('should suggest keywords', () => {
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parsePostgreSqlQuery(
+    const parseResult = parseMySqlQuery(
         'SELECT row_number() OVER (PARTITION BY a ORDER BY b ROWS BETWEEN CURRENT ROW AND ',
         '',
     );
@@ -2378,7 +2318,7 @@ test('should suggest keywords', () => {
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parsePostgreSqlQuery(
+    const parseResult = parseMySqlQuery(
         'SELECT row_number() OVER (PARTITION BY a ORDER BY b ROWS BETWEEN 1 PRECEDING AND CURRENT ',
         '',
     );
@@ -2388,7 +2328,7 @@ test('should suggest keywords', () => {
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parsePostgreSqlQuery(
+    const parseResult = parseMySqlQuery(
         'SELECT row_number() OVER (PARTITION BY a ORDER BY b ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED ',
         '',
     );
@@ -2398,7 +2338,7 @@ test('should suggest keywords', () => {
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parsePostgreSqlQuery(
+    const parseResult = parseMySqlQuery(
         'SELECT row_number() OVER (PARTITION BY a ORDER BY b ROWS BETWEEN CURRENT ROW AND 1 ',
         '',
     );
@@ -2408,7 +2348,7 @@ test('should suggest keywords', () => {
 });
 
 test('should suggest tables', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT COUNT(*) ', '');
+    const parseResult = parseMySqlQuery('SELECT COUNT(*) ', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -2431,7 +2371,7 @@ test('should suggest tables', () => {
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT COUNT(foo ', '');
+    const parseResult = parseMySqlQuery('SELECT COUNT(foo ', '');
 
     const keywordSuggestions: KeywordSuggestion[] = [
         {value: 'AND', weight: -1},
@@ -2441,7 +2381,7 @@ test('should suggest keywords', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT COUNT(foo, ', ') FROM bar;');
+    const parseResult = parseMySqlQuery('SELECT COUNT(foo, ', ') FROM bar;');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -2467,7 +2407,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT COUNT(foo, bl', ',bla) FROM bar;');
+    const parseResult = parseMySqlQuery('SELECT COUNT(foo, bl', ',bla) FROM bar;');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -2493,7 +2433,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT COUNT(foo ', ', bar)');
+    const parseResult = parseMySqlQuery('SELECT COUNT(foo ', ', bar)');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -2505,7 +2445,7 @@ test('should suggest keywords', () => {
 });
 
 test('should suggest columns and values', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT COUNT(foo, bl = ', ',bla) FROM bar;');
+    const parseResult = parseMySqlQuery('SELECT COUNT(foo, bl = ', ',bla) FROM bar;');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -2549,7 +2489,7 @@ test('should suggest columns and values', () => {
 });
 
 test('should suggest columns and values', () => {
-    const parseResult = parsePostgreSqlQuery("SELECT bl = '", ' FROM bar;');
+    const parseResult = parseMySqlQuery("SELECT bl = '", ' FROM bar;');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -2664,7 +2604,7 @@ test('should suggest columns and values', () => {
 });
 
 test('should suggest columns and values', () => {
-    const parseResult = parsePostgreSqlQuery("SELECT bl = '", "' FROM bar;");
+    const parseResult = parseMySqlQuery("SELECT bl = '", "' FROM bar;");
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -2779,7 +2719,7 @@ test('should suggest columns and values', () => {
 });
 
 test('should suggest columns and values', () => {
-    const parseResult = parsePostgreSqlQuery("SELECT bl = 'bl", " bl' FROM bar;");
+    const parseResult = parseMySqlQuery("SELECT bl = 'bl", " bl' FROM bar;");
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -2894,7 +2834,7 @@ test('should suggest columns and values', () => {
 });
 
 test('should suggest columns and values', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT bl = "', ' FROM bar;');
+    const parseResult = parseMySqlQuery('SELECT bl = "', ' FROM bar;');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -2918,7 +2858,7 @@ test('should suggest columns and values', () => {
 });
 
 test('should suggest columns and values', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT bl = "', '" FROM bar;');
+    const parseResult = parseMySqlQuery('SELECT bl = "', '" FROM bar;');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -3033,7 +2973,7 @@ test('should suggest columns and values', () => {
 });
 
 test('should suggest columns and values', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT bl = "bl', ' bl" FROM bar;');
+    const parseResult = parseMySqlQuery('SELECT bl = "bl', ' bl" FROM bar;');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -3148,7 +3088,7 @@ test('should suggest columns and values', () => {
 });
 
 test('should suggest functions', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT CAST(', '');
+    const parseResult = parseMySqlQuery('SELECT CAST(', '');
 
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'CASE', weight: 450}];
     expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(keywordSuggestions));
@@ -3158,31 +3098,7 @@ test('should suggest functions', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT CAST(', ' FROM bar;');
-
-    const keywordSuggestions: KeywordSuggestion[] = [{value: 'CASE', weight: 450}];
-    expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(keywordSuggestions));
-
-    const functionsSuggestion: FunctionsSuggestion = {};
-    expect(parseResult.suggestFunctions).toEqual(functionsSuggestion);
-
-    const columnsSuggestion: ColumnsSuggestion = {
-        source: 'select',
-        tables: [
-            {
-                identifierChain: [
-                    {
-                        name: 'bar',
-                    },
-                ],
-            },
-        ],
-    };
-    expect(parseResult.suggestColumns).toEqual(columnsSuggestion);
-});
-
-test('should suggest columns', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT CAST(bla', ' FROM bar;');
+    const parseResult = parseMySqlQuery('SELECT CAST(', ' FROM bar;');
 
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'CASE', weight: 450}];
     expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(keywordSuggestions));
@@ -3206,7 +3122,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT CAST(', ' AS FROM bar;');
+    const parseResult = parseMySqlQuery('SELECT CAST(bla', ' FROM bar;');
 
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'CASE', weight: 450}];
     expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(keywordSuggestions));
@@ -3230,7 +3146,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT CAST(', ' AS INT FROM bar;');
+    const parseResult = parseMySqlQuery('SELECT CAST(', ' AS FROM bar;');
 
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'CASE', weight: 450}];
     expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(keywordSuggestions));
@@ -3254,7 +3170,31 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT CAST(', ' AS STRING) FROM bar;');
+    const parseResult = parseMySqlQuery('SELECT CAST(', ' AS INT FROM bar;');
+
+    const keywordSuggestions: KeywordSuggestion[] = [{value: 'CASE', weight: 450}];
+    expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(keywordSuggestions));
+
+    const functionsSuggestion: FunctionsSuggestion = {};
+    expect(parseResult.suggestFunctions).toEqual(functionsSuggestion);
+
+    const columnsSuggestion: ColumnsSuggestion = {
+        source: 'select',
+        tables: [
+            {
+                identifierChain: [
+                    {
+                        name: 'bar',
+                    },
+                ],
+            },
+        ],
+    };
+    expect(parseResult.suggestColumns).toEqual(columnsSuggestion);
+});
+
+test('should suggest columns', () => {
+    const parseResult = parseMySqlQuery('SELECT CAST(', ' AS STRING) FROM bar;');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -3280,7 +3220,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT CAST(bla', ' AS STRING) FROM bar;');
+    const parseResult = parseMySqlQuery('SELECT CAST(bla', ' AS STRING) FROM bar;');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -3306,7 +3246,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT CAST(bla ', '');
+    const parseResult = parseMySqlQuery('SELECT CAST(bla ', '');
 
     const keywordSuggestions: KeywordSuggestion[] = [
         {value: 'AS', weight: 2},
@@ -3316,7 +3256,7 @@ test('should suggest keywords', () => {
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT CAST(bla ', ' FROM bar;');
+    const parseResult = parseMySqlQuery('SELECT CAST(bla ', ' FROM bar;');
 
     const keywordSuggestions: KeywordSuggestion[] = [
         {value: 'AS', weight: 2},
@@ -3340,7 +3280,7 @@ test('should suggest keywords', () => {
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parsePostgreSqlQuery('select cast(bla as ', '');
+    const parseResult = parseMySqlQuery('select cast(bla as ', '');
 
     const keywordSuggestions: KeywordSuggestion[] = [
         {value: 'INT', weight: -1},
@@ -3350,7 +3290,7 @@ test('should suggest keywords', () => {
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT CAST(bla AS ', ' FROM bar;');
+    const parseResult = parseMySqlQuery('SELECT CAST(bla AS ', ' FROM bar;');
 
     const keywordSuggestions: KeywordSuggestion[] = [
         {value: 'INT', weight: -1},
@@ -3360,7 +3300,7 @@ test('should suggest keywords', () => {
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT CAST(bla AS ST', ') FROM bar;');
+    const parseResult = parseMySqlQuery('SELECT CAST(bla AS ST', ') FROM bar;');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -3372,7 +3312,7 @@ test('should suggest keywords', () => {
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT CAST(AS ', '');
+    const parseResult = parseMySqlQuery('SELECT CAST(AS ', '');
 
     const keywordSuggestions: KeywordSuggestion[] = [
         {value: 'INT', weight: -1},
@@ -3382,7 +3322,7 @@ test('should suggest keywords', () => {
 });
 
 test('should not report errors for', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT db.customUdf(col) FROM bar;', '');
+    const parseResult = parseMySqlQuery('SELECT db.customUdf(col) FROM bar;', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -3541,7 +3481,7 @@ test('should not report errors for', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT db.customUdf(', ' FROM bar;');
+    const parseResult = parseMySqlQuery('SELECT db.customUdf(', ' FROM bar;');
 
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'CASE', weight: 450}];
     expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(keywordSuggestions));
@@ -3571,7 +3511,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT db.customUdf(1, ', ' FROM bar;');
+    const parseResult = parseMySqlQuery('SELECT db.customUdf(1, ', ' FROM bar;');
 
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'CASE', weight: 450}];
     expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(keywordSuggestions));
@@ -3601,7 +3541,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT AVG(', ') FROM testTable');
+    const parseResult = parseMySqlQuery('SELECT AVG(', ') FROM testTable');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -3636,7 +3576,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT COUNT(', ') FROM testTable');
+    const parseResult = parseMySqlQuery('SELECT COUNT(', ') FROM testTable');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -3666,7 +3606,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT STDDEV_POP(', ') FROM testTable');
+    const parseResult = parseMySqlQuery('SELECT STDDEV_POP(', ') FROM testTable');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -3701,7 +3641,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT STDDEV_SAMP(', ') FROM testTable');
+    const parseResult = parseMySqlQuery('SELECT STDDEV_SAMP(', ') FROM testTable');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -3736,7 +3676,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT SUM(', ') FROM testTable');
+    const parseResult = parseMySqlQuery('SELECT SUM(', ') FROM testTable');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -3771,7 +3711,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT MAX(', ') FROM testTable');
+    const parseResult = parseMySqlQuery('SELECT MAX(', ') FROM testTable');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -3806,7 +3746,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT MIN(', ') FROM testTable');
+    const parseResult = parseMySqlQuery('SELECT MIN(', ') FROM testTable');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -3841,7 +3781,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT VAR_POP(', ') FROM testTable');
+    const parseResult = parseMySqlQuery('SELECT VAR_POP(', ') FROM testTable');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -3876,7 +3816,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT var_samp(', ') FROM testTable');
+    const parseResult = parseMySqlQuery('SELECT var_samp(', ') FROM testTable');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -3911,7 +3851,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT id, SUM(a * ', ' FROM testTable');
+    const parseResult = parseMySqlQuery('SELECT id, SUM(a * ', ' FROM testTable');
 
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'CASE', weight: 450}];
     expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(keywordSuggestions));
@@ -3938,7 +3878,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT CASE ', ' FROM testTable');
+    const parseResult = parseMySqlQuery('SELECT CASE ', ' FROM testTable');
 
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'WHEN', weight: -1}];
     expect(parseResult.suggestKeywords).toEqual(keywordSuggestions);
@@ -3962,7 +3902,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT CASE WHEN a = b AND ', ' THEN FROM testTable');
+    const parseResult = parseMySqlQuery('SELECT CASE WHEN a = b AND ', ' THEN FROM testTable');
 
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'CASE', weight: 450}];
     expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(keywordSuggestions));
@@ -3986,7 +3926,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT CASE a = b AND ', ' FROM testTable');
+    const parseResult = parseMySqlQuery('SELECT CASE a = b AND ', ' FROM testTable');
 
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'CASE', weight: 450}];
     expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(keywordSuggestions));
@@ -4010,7 +3950,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT CASE a = b ', ' FROM testTable');
+    const parseResult = parseMySqlQuery('SELECT CASE a = b ', ' FROM testTable');
 
     const keywordSuggestions: KeywordSuggestion[] = [
         {value: 'WHEN', weight: -1},
@@ -4021,10 +3961,7 @@ test('should suggest keywords', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parsePostgreSqlQuery(
-        'SELECT CASE WHEN a = b OR ',
-        ' THEN boo FROM testTable',
-    );
+    const parseResult = parseMySqlQuery('SELECT CASE WHEN a = b OR ', ' THEN boo FROM testTable');
 
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'CASE', weight: 450}];
     expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(keywordSuggestions));
@@ -4048,7 +3985,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parsePostgreSqlQuery(
+    const parseResult = parseMySqlQuery(
         'SELECT CASE WHEN a = b OR c THEN boo OR ',
         ' FROM testTable',
     );
@@ -4075,10 +4012,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parsePostgreSqlQuery(
-        'SELECT CASE a =',
-        ' WHEN c THEN d END FROM testTable',
-    );
+    const parseResult = parseMySqlQuery('SELECT CASE a =', ' WHEN c THEN d END FROM testTable');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -4122,7 +4056,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parsePostgreSqlQuery(
+    const parseResult = parseMySqlQuery(
         'SELECT CASE a =',
         ' WHEN c THEN d ELSE e END FROM testTable',
     );
@@ -4169,7 +4103,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT CASE a = c WHEN c THEN d ', ' FROM testTable');
+    const parseResult = parseMySqlQuery('SELECT CASE a = c WHEN c THEN d ', ' FROM testTable');
 
     const keywordSuggestions: KeywordSuggestion[] = [
         {value: 'END', weight: 3},
@@ -4193,10 +4127,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parsePostgreSqlQuery(
-        'SELECT CASE a = c WHEN c THEN d=',
-        ' ELSE FROM testTable',
-    );
+    const parseResult = parseMySqlQuery('SELECT CASE a = c WHEN c THEN d=', ' ELSE FROM testTable');
 
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'CASE', weight: 450}];
     expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(keywordSuggestions));
@@ -4238,7 +4169,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parsePostgreSqlQuery(
+    const parseResult = parseMySqlQuery(
         'SELECT CASE a = c WHEN c THEN d=1 ',
         ' bla=foo FROM testTable',
     );
@@ -4254,7 +4185,7 @@ test('should suggest keywords', () => {
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parsePostgreSqlQuery(
+    const parseResult = parseMySqlQuery(
         'SELECT CASE a = c WHEN c THEN d=1 ',
         ' bla=foo FROM testTable',
     );
@@ -4269,10 +4200,7 @@ test('should suggest keywords', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parsePostgreSqlQuery(
-        'SELECT CASE a = c WHEN c THEN d ELSE ',
-        ' FROM testTable',
-    );
+    const parseResult = parseMySqlQuery('SELECT CASE a = c WHEN c THEN d ELSE ', ' FROM testTable');
 
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'CASE', weight: 450}];
     expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(keywordSuggestions));
@@ -4296,7 +4224,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parsePostgreSqlQuery(
+    const parseResult = parseMySqlQuery(
         'SELECT CASE a = c WHEN c THEN d ELSE e AND ',
         ' FROM testTable',
     );
@@ -4323,7 +4251,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT CASE ELSE ', ' FROM testTable');
+    const parseResult = parseMySqlQuery('SELECT CASE ELSE ', ' FROM testTable');
 
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'CASE', weight: 450}];
     expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(keywordSuggestions));
@@ -4347,7 +4275,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT CASE ', ' ELSE a FROM testTable');
+    const parseResult = parseMySqlQuery('SELECT CASE ', ' ELSE a FROM testTable');
 
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'WHEN', weight: -1}];
     expect(parseResult.suggestKeywords).toEqual(keywordSuggestions);
@@ -4371,7 +4299,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT CASE ', ' ELSE FROM testTable');
+    const parseResult = parseMySqlQuery('SELECT CASE ', ' ELSE FROM testTable');
 
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'WHEN', weight: -1}];
     expect(parseResult.suggestKeywords).toEqual(keywordSuggestions);
@@ -4395,7 +4323,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parsePostgreSqlQuery(
+    const parseResult = parseMySqlQuery(
         'SELECT CASE a = c WHEN c THEN d ELSE e ',
         ' FROM testTable',
     );
@@ -4424,7 +4352,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT CASE WHEN THEN boo OR ', ' FROM testTable');
+    const parseResult = parseMySqlQuery('SELECT CASE WHEN THEN boo OR ', ' FROM testTable');
 
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'CASE', weight: 450}];
     expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(keywordSuggestions));
@@ -4448,21 +4376,21 @@ test('should suggest columns', () => {
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT CASE ', ' a = b THEN FROM testTable');
+    const parseResult = parseMySqlQuery('SELECT CASE ', ' a = b THEN FROM testTable');
 
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'WHEN', weight: -1}];
     expect(parseResult.suggestKeywords).toEqual(keywordSuggestions);
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT CASE ', ' a = b THEN boo FROM testTable');
+    const parseResult = parseMySqlQuery('SELECT CASE ', ' a = b THEN boo FROM testTable');
 
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'WHEN', weight: -1}];
     expect(parseResult.suggestKeywords).toEqual(keywordSuggestions);
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT CASE ', ' THEN boo FROM testTable');
+    const parseResult = parseMySqlQuery('SELECT CASE ', ' THEN boo FROM testTable');
 
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'WHEN', weight: -1}];
     expect(parseResult.suggestKeywords).toEqual(keywordSuggestions);
@@ -4486,7 +4414,7 @@ test('should suggest keywords', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT CASE WHEN ', ' boo FROM testTable');
+    const parseResult = parseMySqlQuery('SELECT CASE WHEN ', ' boo FROM testTable');
 
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'THEN', weight: -1}];
     expect(parseResult.suggestKeywords).toEqual(keywordSuggestions);
@@ -4510,7 +4438,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parsePostgreSqlQuery(
+    const parseResult = parseMySqlQuery(
         'SELECT CASE WHEN bla',
         ' boo WHEN b THEN c END FROM testTable',
     );
@@ -4539,7 +4467,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parsePostgreSqlQuery(
+    const parseResult = parseMySqlQuery(
         'SELECT CASE a WHEN b THEN c WHEN ',
         ' boo ELSE c FROM testTable',
     );
@@ -4566,7 +4494,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parsePostgreSqlQuery(
+    const parseResult = parseMySqlQuery(
         'SELECT CASE a WHEN b THEN c WHEN ',
         ' boo WHEN d THEN e END FROM testTable',
     );
@@ -4595,7 +4523,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parsePostgreSqlQuery(
+    const parseResult = parseMySqlQuery(
         'SELECT CASE a WHEN b THEN c ',
         ' WHEN d THEN e END FROM testTable',
     );
@@ -4624,7 +4552,7 @@ test('should suggest keywords', () => {
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT CASE a WHEN b THEN c ', ' FROM testTable');
+    const parseResult = parseMySqlQuery('SELECT CASE a WHEN b THEN c ', ' FROM testTable');
 
     const keywordSuggestions: KeywordSuggestion[] = [
         {value: 'WHEN', weight: 1},
@@ -4648,7 +4576,7 @@ test('should suggest keywords', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT CASE WHEN ', ' THEN FROM testTable');
+    const parseResult = parseMySqlQuery('SELECT CASE WHEN ', ' THEN FROM testTable');
 
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'CASE', weight: 450}];
     expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(keywordSuggestions));
@@ -4672,7 +4600,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest values', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT CASE WHEN ', ' = a FROM testTable');
+    const parseResult = parseMySqlQuery('SELECT CASE WHEN ', ' = a FROM testTable');
 
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'CASE', weight: 450}];
     expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(keywordSuggestions));
@@ -4714,10 +4642,7 @@ test('should suggest values', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parsePostgreSqlQuery(
-        'SELECT CASE WHEN ab',
-        ' THEN bla ELSE foo FROM testTable',
-    );
+    const parseResult = parseMySqlQuery('SELECT CASE WHEN ab', ' THEN bla ELSE foo FROM testTable');
 
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'CASE', weight: 450}];
     expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(keywordSuggestions));
@@ -4741,7 +4666,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parsePostgreSqlQuery(
+    const parseResult = parseMySqlQuery(
         'SELECT CASE bla WHEN ab',
         ' THEN bla ELSE foo END FROM testTable',
     );
@@ -4770,7 +4695,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT CASE WHEN ', ' FROM testTable');
+    const parseResult = parseMySqlQuery('SELECT CASE WHEN ', ' FROM testTable');
 
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'CASE', weight: 450}];
     expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(keywordSuggestions));
@@ -4794,7 +4719,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT CASE a WHEN ', ' FROM testTable');
+    const parseResult = parseMySqlQuery('SELECT CASE a WHEN ', ' FROM testTable');
 
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'CASE', weight: 450}];
     expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(keywordSuggestions));
@@ -4818,7 +4743,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT CASE WHEN a = ', ' FROM testTable');
+    const parseResult = parseMySqlQuery('SELECT CASE WHEN a = ', ' FROM testTable');
 
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'CASE', weight: 450}];
     expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(keywordSuggestions));
@@ -4860,7 +4785,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT CASE WHEN a = b ', ' FROM testTable');
+    const parseResult = parseMySqlQuery('SELECT CASE WHEN a = b ', ' FROM testTable');
 
     const keywordSuggestions: KeywordSuggestion[] = [
         {value: 'AND', weight: -1},
@@ -4871,7 +4796,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT CASE a = c WHEN c ', ' d FROM testTable');
+    const parseResult = parseMySqlQuery('SELECT CASE a = c WHEN c ', ' d FROM testTable');
 
     const keywordSuggestions: KeywordSuggestion[] = [
         {value: 'THEN', weight: -1},
@@ -4895,7 +4820,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT CASE a = c WHEN c THEN ', ' FROM testTable');
+    const parseResult = parseMySqlQuery('SELECT CASE a = c WHEN c THEN ', ' FROM testTable');
 
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'CASE', weight: 450}];
     expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(keywordSuggestions));
@@ -4919,7 +4844,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT CASE a = c WHEN c THEN ', ' g FROM testTable');
+    const parseResult = parseMySqlQuery('SELECT CASE a = c WHEN c THEN ', ' g FROM testTable');
 
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'CASE', weight: 450}];
     expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(keywordSuggestions));
@@ -4943,7 +4868,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT CASE WHEN THEN ', ' g FROM testTable');
+    const parseResult = parseMySqlQuery('SELECT CASE WHEN THEN ', ' g FROM testTable');
 
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'CASE', weight: 450}];
     expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(keywordSuggestions));
@@ -4967,7 +4892,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT CASE WHEN THEN ', ' FROM testTable');
+    const parseResult = parseMySqlQuery('SELECT CASE WHEN THEN ', ' FROM testTable');
 
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'CASE', weight: 450}];
     expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(keywordSuggestions));
@@ -4991,7 +4916,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest functions', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT "boo \\" baa" = ', '');
+    const parseResult = parseMySqlQuery('SELECT "boo \\" baa" = ', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -5005,7 +4930,7 @@ test('should suggest functions', () => {
 });
 
 test('should suggest identifiers', () => {
-    const parseResult = parsePostgreSqlQuery(
+    const parseResult = parseMySqlQuery(
         'SELECT 1 = ',
         ' OR false FROM tableOne boo, tableTwo baa;',
     );
@@ -5058,7 +4983,7 @@ test('should suggest identifiers', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parsePostgreSqlQuery(
+    const parseResult = parseMySqlQuery(
         'SELECT * FROM tbl1, tbl2 atbl2, tbl3 WHERE id = atbl2.',
         '',
     );
@@ -5082,7 +5007,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parsePostgreSqlQuery(
+    const parseResult = parseMySqlQuery(
         'SELECT * FROM tbl1, tbl2 atbl2, tbl3 WHERE id = atbl2.',
         '',
     );
@@ -5106,7 +5031,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest values', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT * FROM testTable WHERE id =', '');
+    const parseResult = parseMySqlQuery('SELECT * FROM testTable WHERE id =', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -5150,7 +5075,7 @@ test('should suggest values', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT * FROM testTable WHERE -', '');
+    const parseResult = parseMySqlQuery('SELECT * FROM testTable WHERE -', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -5176,7 +5101,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT -', ' FROM testTable WHERE id = 1;');
+    const parseResult = parseMySqlQuery('SELECT -', ' FROM testTable WHERE id = 1;');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -5202,7 +5127,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT 1 < ', ' FROM testTable WHERE id = 1;');
+    const parseResult = parseMySqlQuery('SELECT 1 < ', ' FROM testTable WHERE id = 1;');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -5231,7 +5156,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parsePostgreSqlQuery('select foo from tbl where ', ' % 2 = 0');
+    const parseResult = parseMySqlQuery('select foo from tbl where ', ' % 2 = 0');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -5260,7 +5185,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest values', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT * FROM testTable WHERE -id = ', '');
+    const parseResult = parseMySqlQuery('SELECT * FROM testTable WHERE -id = ', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -5304,7 +5229,7 @@ test('should suggest values', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT greatest(1, 2, a, 4, ', ' FROM testTable');
+    const parseResult = parseMySqlQuery('SELECT greatest(1, 2, a, 4, ', ' FROM testTable');
 
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'CASE', weight: 450}];
     expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(keywordSuggestions));
@@ -5334,7 +5259,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT greatest(1, ', ', a, 4) FROM testTable');
+    const parseResult = parseMySqlQuery('SELECT greatest(1, ', ', a, 4) FROM testTable');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -5366,7 +5291,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT ', ' > id FROM testTable');
+    const parseResult = parseMySqlQuery('SELECT ', ' > id FROM testTable');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -5410,7 +5335,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest values and columns', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT * FROM testTable WHERE ', ' = id');
+    const parseResult = parseMySqlQuery('SELECT * FROM testTable WHERE ', ' = id');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -5454,7 +5379,7 @@ test('should suggest values and columns', () => {
 });
 
 test('should suggest values and columns', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT a, b, c FROM testTable WHERE d >= ', '');
+    const parseResult = parseMySqlQuery('SELECT a, b, c FROM testTable WHERE d >= ', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -5498,7 +5423,7 @@ test('should suggest values and columns', () => {
 });
 
 test('should suggest values and columns', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT a, b, c FROM testTable WHERE d < ', '');
+    const parseResult = parseMySqlQuery('SELECT a, b, c FROM testTable WHERE d < ', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -5542,7 +5467,7 @@ test('should suggest values and columns', () => {
 });
 
 test('should suggest values and columns', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT a, b, c FROM testTable WHERE d <= ', '');
+    const parseResult = parseMySqlQuery('SELECT a, b, c FROM testTable WHERE d <= ', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -5586,7 +5511,7 @@ test('should suggest values and columns', () => {
 });
 
 test('should suggest values and columns', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT a, b, c FROM testTable WHERE d <=> ', '');
+    const parseResult = parseMySqlQuery('SELECT a, b, c FROM testTable WHERE d <=> ', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -5630,7 +5555,7 @@ test('should suggest values and columns', () => {
 });
 
 test('should suggest values and columns', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT a, b, c FROM testTable WHERE d <> ', '');
+    const parseResult = parseMySqlQuery('SELECT a, b, c FROM testTable WHERE d <> ', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -5674,7 +5599,7 @@ test('should suggest values and columns', () => {
 });
 
 test('should suggest values and columns', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT a, b, c FROM testTable WHERE d >= ', '');
+    const parseResult = parseMySqlQuery('SELECT a, b, c FROM testTable WHERE d >= ', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -5718,7 +5643,7 @@ test('should suggest values and columns', () => {
 });
 
 test('should suggest values and columns', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT a, b, c FROM testTable WHERE d > ', '');
+    const parseResult = parseMySqlQuery('SELECT a, b, c FROM testTable WHERE d > ', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -5762,7 +5687,7 @@ test('should suggest values and columns', () => {
 });
 
 test('should suggest values and columns', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT a, b, c FROM testTable WHERE d != ', '');
+    const parseResult = parseMySqlQuery('SELECT a, b, c FROM testTable WHERE d != ', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -5806,7 +5731,7 @@ test('should suggest values and columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT a, b, c FROM testTable WHERE d + 1 != ', '');
+    const parseResult = parseMySqlQuery('SELECT a, b, c FROM testTable WHERE d + 1 != ', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -5835,10 +5760,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parsePostgreSqlQuery(
-        'SELECT a, b, c FROM testTable WHERE bla',
-        ' + 1 != 3',
-    );
+    const parseResult = parseMySqlQuery('SELECT a, b, c FROM testTable WHERE bla', ' + 1 != 3');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -5867,7 +5789,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT a, b, c FROM testTable WHERE d + ', '');
+    const parseResult = parseMySqlQuery('SELECT a, b, c FROM testTable WHERE d + ', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -5896,7 +5818,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT a, b, c FROM testTable WHERE d - ', '');
+    const parseResult = parseMySqlQuery('SELECT a, b, c FROM testTable WHERE d - ', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -5925,7 +5847,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT a, b, c FROM testTable WHERE d * ', '');
+    const parseResult = parseMySqlQuery('SELECT a, b, c FROM testTable WHERE d * ', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -5954,7 +5876,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT a, b, c FROM testTable WHERE d / ', '');
+    const parseResult = parseMySqlQuery('SELECT a, b, c FROM testTable WHERE d / ', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -5983,7 +5905,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT a, b, c FROM testTable WHERE d % ', '');
+    const parseResult = parseMySqlQuery('SELECT a, b, c FROM testTable WHERE d % ', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -6012,7 +5934,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT a, b, c FROM testTable WHERE d | ', '');
+    const parseResult = parseMySqlQuery('SELECT a, b, c FROM testTable WHERE d | ', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -6041,7 +5963,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT a, b, c FROM testTable WHERE d & ', '');
+    const parseResult = parseMySqlQuery('SELECT a, b, c FROM testTable WHERE d & ', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -6070,7 +5992,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT a, b, c FROM testTable WHERE d ^ ', '');
+    const parseResult = parseMySqlQuery('SELECT a, b, c FROM testTable WHERE d ^ ', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -6099,7 +6021,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT a, b, c FROM testTable WHERE ~', '');
+    const parseResult = parseMySqlQuery('SELECT a, b, c FROM testTable WHERE ~', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -6122,7 +6044,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT a, b, c FROM testTable WHERE -', '');
+    const parseResult = parseMySqlQuery('SELECT a, b, c FROM testTable WHERE -', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -6148,7 +6070,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parsePostgreSqlQuery(
+    const parseResult = parseMySqlQuery(
         'SELECT a, b, c FROM testTable WHERE d ',
         " RLIKE 'bla bla'",
     );
@@ -6203,7 +6125,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT bar FROM foo WHERE id = 1 ', '');
+    const parseResult = parseMySqlQuery('SELECT bar FROM foo WHERE id = 1 ', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -6223,10 +6145,6 @@ test('should suggest keywords', () => {
         {
             value: 'LIMIT',
             weight: 2.3,
-        },
-        {
-            value: 'OFFSET',
-            weight: 2.2,
         },
         {
             value: 'UNION',
@@ -6341,7 +6259,7 @@ test('should suggest keywords', () => {
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT * FROM foo WHERE id <=> 1 ', '');
+    const parseResult = parseMySqlQuery('SELECT * FROM foo WHERE id <=> 1 ', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -6361,10 +6279,6 @@ test('should suggest keywords', () => {
         {
             value: 'LIMIT',
             weight: 2.3,
-        },
-        {
-            value: 'OFFSET',
-            weight: 2.2,
         },
         {
             value: 'UNION',
@@ -6479,7 +6393,7 @@ test('should suggest keywords', () => {
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT * FROM foo WHERE id IS ', '');
+    const parseResult = parseMySqlQuery('SELECT * FROM foo WHERE id IS ', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -6495,7 +6409,7 @@ test('should suggest keywords', () => {
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT * FROM foo WHERE id IS NOT ', '');
+    const parseResult = parseMySqlQuery('SELECT * FROM foo WHERE id IS NOT ', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -6508,7 +6422,7 @@ test('should suggest keywords', () => {
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT * FROM foo WHERE id IS ', ' NULL');
+    const parseResult = parseMySqlQuery('SELECT * FROM foo WHERE id IS ', ' NULL');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -6517,7 +6431,7 @@ test('should suggest keywords', () => {
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT * FROM foo WHERE id IS ', ' FALSE');
+    const parseResult = parseMySqlQuery('SELECT * FROM foo WHERE id IS ', ' FALSE');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -6526,7 +6440,7 @@ test('should suggest keywords', () => {
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT * FROM foo WHERE id IS ', ' TRUE');
+    const parseResult = parseMySqlQuery('SELECT * FROM foo WHERE id IS ', ' TRUE');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -6535,7 +6449,7 @@ test('should suggest keywords', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT * FROM foo WHERE id LIKE ', '');
+    const parseResult = parseMySqlQuery('SELECT * FROM foo WHERE id LIKE ', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -6561,7 +6475,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parsePostgreSqlQuery("SELECT * FROM foo WHERE id LIKE ('bla bla') ", '');
+    const parseResult = parseMySqlQuery("SELECT * FROM foo WHERE id LIKE ('bla bla') ", '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -6598,10 +6512,7 @@ test('should suggest keywords', () => {
 });
 
 test('should suggest identifiers', () => {
-    const parseResult = parsePostgreSqlQuery(
-        'SELECT * FROM foo bla, bar WHERE id IS NULL AND ',
-        '',
-    );
+    const parseResult = parseMySqlQuery('SELECT * FROM foo bla, bar WHERE id IS NULL AND ', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -6668,7 +6579,7 @@ test('should suggest identifiers', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT * FROM foo AS bla WHERE id IS NULL && ', '');
+    const parseResult = parseMySqlQuery('SELECT * FROM foo AS bla WHERE id IS NULL && ', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -6717,7 +6628,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parsePostgreSqlQuery(
+    const parseResult = parseMySqlQuery(
         'SELECT * FROM foo AS bla WHERE id IS NULL OR ',
         ' AND 1 + 1 > 1',
     );
@@ -6769,7 +6680,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT * FROM foo AS bla WHERE id IS NULL || ', '');
+    const parseResult = parseMySqlQuery('SELECT * FROM foo AS bla WHERE id IS NULL || ', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -6818,7 +6729,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT * FROM foo bar WHERE NOT ', '');
+    const parseResult = parseMySqlQuery('SELECT * FROM foo bar WHERE NOT ', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -6853,7 +6764,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT * FROM foo bar WHERE ! ', '');
+    const parseResult = parseMySqlQuery('SELECT * FROM foo bar WHERE ! ', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -6888,7 +6799,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT * FROM testTable WHERE ', '');
+    const parseResult = parseMySqlQuery('SELECT * FROM testTable WHERE ', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -6930,7 +6841,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT * FROM testTable WHERE a', '');
+    const parseResult = parseMySqlQuery('SELECT * FROM testTable WHERE a', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -6972,7 +6883,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT * FROM testTable WHERE baa = 1 AND ', '');
+    const parseResult = parseMySqlQuery('SELECT * FROM testTable WHERE baa = 1 AND ', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -7016,7 +6927,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT * FROM testTable WHERE ', ' AND baa = 1');
+    const parseResult = parseMySqlQuery('SELECT * FROM testTable WHERE ', ' AND baa = 1');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -7060,7 +6971,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT * FROM testTable WHERE baa = 1 OR ', '');
+    const parseResult = parseMySqlQuery('SELECT * FROM testTable WHERE baa = 1 OR ', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -7104,7 +7015,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT * FROM testTable WHERE ', ' OR baa = 1');
+    const parseResult = parseMySqlQuery('SELECT * FROM testTable WHERE ', ' OR baa = 1');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -7148,7 +7059,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT * FROM testTable WHERE NOT ', '');
+    const parseResult = parseMySqlQuery('SELECT * FROM testTable WHERE NOT ', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -7174,7 +7085,7 @@ test('should suggest keywords', () => {
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parsePostgreSqlQuery("SELECT * FROM testTable WHERE foo = 'bar' ", '');
+    const parseResult = parseMySqlQuery("SELECT * FROM testTable WHERE foo = 'bar' ", '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -7214,7 +7125,7 @@ test('should suggest keywords', () => {
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parsePostgreSqlQuery(
+    const parseResult = parseMySqlQuery(
         'SELECT a, b, c, d, e FROM tableOne WHERE c >= 9998 an',
         '',
     );
@@ -7257,7 +7168,7 @@ test('should suggest keywords', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parsePostgreSqlQuery("SELECT * FROM testTable WHERE foo = 'bar' AND ", '');
+    const parseResult = parseMySqlQuery("SELECT * FROM testTable WHERE foo = 'bar' AND ", '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -7296,7 +7207,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parsePostgreSqlQuery(
+    const parseResult = parseMySqlQuery(
         'SELECT a, b, \nc, \nd, ',
         "\ng,\nf\nFROM testTable WHERE a > 1 AND b = 'b' ORDER BY c;",
     );
@@ -7343,7 +7254,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT a,b, ', ' c FROM testTable');
+    const parseResult = parseMySqlQuery('SELECT a,b, ', ' c FROM testTable');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -7384,7 +7295,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT ', ' a, b, c FROM testTable');
+    const parseResult = parseMySqlQuery('SELECT ', ' a, b, c FROM testTable');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -7429,7 +7340,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT a ', ', b, c FROM testTable');
+    const parseResult = parseMySqlQuery('SELECT a ', ', b, c FROM testTable');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -7455,7 +7366,7 @@ test('should suggest keywords', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT * FROM testTable WHERE ', " = 'bar' AND ");
+    const parseResult = parseMySqlQuery('SELECT * FROM testTable WHERE ', " = 'bar' AND ");
 
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'CASE', weight: 450}];
     expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(keywordSuggestions));
@@ -7482,7 +7393,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT * FROM testTable WHERE a ', '');
+    const parseResult = parseMySqlQuery('SELECT * FROM testTable WHERE a ', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -7536,7 +7447,7 @@ test('should suggest keywords', () => {
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT * FROM testTable WHERE a NOT ', '');
+    const parseResult = parseMySqlQuery('SELECT * FROM testTable WHERE a NOT ', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -7550,7 +7461,7 @@ test('should suggest keywords', () => {
 });
 
 test('should suggest values', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT * FROM testTable WHERE a BETWEEN ', '');
+    const parseResult = parseMySqlQuery('SELECT * FROM testTable WHERE a BETWEEN ', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -7594,14 +7505,14 @@ test('should suggest values', () => {
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT * FROM testTable WHERE a OR NOT EXISTS (', '');
+    const parseResult = parseMySqlQuery('SELECT * FROM testTable WHERE a OR NOT EXISTS (', '');
 
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'SELECT', weight: -1}];
     expect(parseResult.suggestKeywords).toEqual(keywordSuggestions);
 });
 
 test('should suggest columns', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT testTable.', ' FROM testTable');
+    const parseResult = parseMySqlQuery('SELECT testTable.', ' FROM testTable');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -7624,7 +7535,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT tt.', ' FROM testTable tt');
+    const parseResult = parseMySqlQuery('SELECT tt.', ' FROM testTable tt');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -7647,7 +7558,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT tt.', ' FROM database_two.testTable tt');
+    const parseResult = parseMySqlQuery('SELECT tt.', ' FROM database_two.testTable tt');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -7673,7 +7584,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT tta.', ' FROM testTableA tta, testTableB ttb');
+    const parseResult = parseMySqlQuery('SELECT tta.', ' FROM testTableA tta, testTableB ttb');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -7696,7 +7607,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT ttb.', ' FROM testTableA tta, testTableB ttb');
+    const parseResult = parseMySqlQuery('SELECT ttb.', ' FROM testTableA tta, testTableB ttb');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -7719,7 +7630,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT * FROM testTable GROUP BY a ', ' LIMIT 10');
+    const parseResult = parseMySqlQuery('SELECT * FROM testTable GROUP BY a ', ' LIMIT 10');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -7761,7 +7672,7 @@ test('should suggest keywords', () => {
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT * FROM foo WHERE bar ', '');
+    const parseResult = parseMySqlQuery('SELECT * FROM foo WHERE bar ', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -7815,7 +7726,7 @@ test('should suggest keywords', () => {
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT * FROM foo WHERE bar NOT ', '');
+    const parseResult = parseMySqlQuery('SELECT * FROM foo WHERE bar NOT ', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -7824,7 +7735,7 @@ test('should suggest keywords', () => {
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT * FROM foo WHERE bar IN (', '');
+    const parseResult = parseMySqlQuery('SELECT * FROM foo WHERE bar IN (', '');
 
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'SELECT', weight: -1}];
     expect(parseResult.suggestKeywords).toEqual(keywordSuggestions);
@@ -7866,7 +7777,7 @@ test('should suggest keywords', () => {
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parsePostgreSqlQuery('select * from foo, bar where bar.bla in (', '');
+    const parseResult = parseMySqlQuery('select * from foo, bar where bar.bla in (', '');
 
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'SELECT', weight: -1}];
     expect(parseResult.suggestKeywords).toEqual(keywordSuggestions);
@@ -7927,7 +7838,7 @@ test('should suggest keywords', () => {
 });
 
 test('should suggest values', () => {
-    const parseResult = parsePostgreSqlQuery("select * from foo, bar where bar.bla in ('a', ", '');
+    const parseResult = parseMySqlQuery("select * from foo, bar where bar.bla in ('a', ", '');
 
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'CASE', weight: 450}];
     expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(keywordSuggestions));
@@ -7988,7 +7899,7 @@ test('should suggest values', () => {
 });
 
 test('should suggest tables', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT * FROM foo WHERE bar IN (SELECT ', '');
+    const parseResult = parseMySqlQuery('SELECT * FROM foo WHERE bar IN (SELECT ', '');
 
     const keywordSuggestions: KeywordSuggestion[] = [
         {value: '*', weight: 10000},
@@ -8022,7 +7933,7 @@ test('should suggest tables', () => {
 });
 
 test('should suggest tables', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT * FROM bar WHERE foo NOT IN (SELECT ', ')');
+    const parseResult = parseMySqlQuery('SELECT * FROM bar WHERE foo NOT IN (SELECT ', ')');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -8058,28 +7969,28 @@ test('should suggest tables', () => {
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT * FROM (', '');
+    const parseResult = parseMySqlQuery('SELECT * FROM (', '');
 
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'SELECT', weight: -1}];
     expect(parseResult.suggestKeywords).toEqual(keywordSuggestions);
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parsePostgreSqlQuery('select * from (', '');
+    const parseResult = parseMySqlQuery('select * from (', '');
 
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'SELECT', weight: -1}];
     expect(parseResult.suggestKeywords).toEqual(keywordSuggestions);
 });
 
 test('should suggest keywords', () => {
-    const parseResult = parsePostgreSqlQuery('select foo.* from (', ') foo');
+    const parseResult = parseMySqlQuery('select foo.* from (', ') foo');
 
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'SELECT', weight: -1}];
     expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(keywordSuggestions));
 });
 
 test('should suggest tables', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT * FROM (SELECT ', '');
+    const parseResult = parseMySqlQuery('SELECT * FROM (SELECT ', '');
 
     const keywordSuggestions: KeywordSuggestion[] = [
         {value: '*', weight: 10000},
@@ -8113,7 +8024,7 @@ test('should suggest tables', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parsePostgreSqlQuery(
+    const parseResult = parseMySqlQuery(
         'SELECT "contains an even number" FROM t1, t2 AS ta2 WHERE EXISTS (SELECT t3.foo FROM t3 WHERE ',
         ' % 2 = 0',
     );
@@ -8366,7 +8277,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest identifiers', () => {
-    const parseResult = parsePostgreSqlQuery(
+    const parseResult = parseMySqlQuery(
         'SELECT ',
         ' FROM testTable tt, (SELECT bla FROM abc WHERE foo > 1) bar',
     );
@@ -8654,7 +8565,7 @@ test('should suggest identifiers', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parsePostgreSqlQuery(
+    const parseResult = parseMySqlQuery(
         'select ',
         ' from (select id i, name as n, bla from foo) bar',
     );
@@ -8746,7 +8657,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest sub-query columns', () => {
-    const parseResult = parsePostgreSqlQuery(
+    const parseResult = parseMySqlQuery(
         'SELECT bar.',
         ' FROM (SELECT col1, col2, (col3 + 1) col3alias FROM foo) bar',
     );
@@ -8807,7 +8718,7 @@ test('should suggest sub-query columns', () => {
 });
 
 test('should suggest sub-query columns', () => {
-    const parseResult = parsePostgreSqlQuery(
+    const parseResult = parseMySqlQuery(
         'SELECT bar.',
         ' FROM (SELECT b FROM foo) boo, (SELECT a FROM bla) bar',
     );
@@ -8869,7 +8780,7 @@ test('should suggest sub-query columns', () => {
 });
 
 test('should suggest identifiers', () => {
-    const parseResult = parsePostgreSqlQuery(
+    const parseResult = parseMySqlQuery(
         'SELECT cos(',
         ' FROM (SELECT b FROM foo) boo, (SELECT a FROM bla) bar',
     );
@@ -8957,7 +8868,7 @@ test('should suggest identifiers', () => {
 });
 
 test('should suggest tables', () => {
-    const parseResult = parsePostgreSqlQuery('SELECT * FROM (SELECT ', ')');
+    const parseResult = parseMySqlQuery('SELECT * FROM (SELECT ', ')');
 
     const keywordSuggestions: KeywordSuggestion[] = [
         {value: '*', weight: 10000},
@@ -8991,7 +8902,7 @@ test('should suggest tables', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parsePostgreSqlQuery(
+    const parseResult = parseMySqlQuery(
         'SELECT * FROM (SELECT ',
         ' FROM tableOne) subQueryOne, someDb.tableTwo talias, (SELECT * FROM t3 JOIN t4 ON t3.id = t4.id) AS subQueryTwo;',
     );
@@ -9037,7 +8948,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parsePostgreSqlQuery(
+    const parseResult = parseMySqlQuery(
         'SELECT ',
         ' FROM (SELECT * FROM (SELECT * FROM tableOne) subQueryOne) subQueryTwo',
     );
@@ -9123,7 +9034,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parsePostgreSqlQuery(
+    const parseResult = parseMySqlQuery(
         'SELECT ',
         ' FROM (SELECT * FROM (SELECT * FROM (SELECT * FROM tableOne) subQueryOne) subQueryTwo) subQueryThree',
     );
@@ -9227,7 +9138,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parsePostgreSqlQuery(
+    const parseResult = parseMySqlQuery(
         'SELECT * FROM (SELECT ',
         ' FROM (SELECT * FROM (SELECT * FROM tableOne) subQueryOne) subQueryTwo) subQueryThree',
     );
@@ -9313,7 +9224,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parsePostgreSqlQuery(
+    const parseResult = parseMySqlQuery(
         'SELECT * FROM (SELECT * FROM (SELECT ',
         ' FROM (SELECT * FROM tableOne) subQueryOne) subQueryTwo) subQueryThree',
     );
@@ -9381,7 +9292,7 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parsePostgreSqlQuery(
+    const parseResult = parseMySqlQuery(
         'SELECT s2.',
         ' FROM (SELECT a, bla FROM (SELECT a, b, abs(1) as bla FROM testTable) s1) s2;',
     );

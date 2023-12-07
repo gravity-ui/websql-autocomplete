@@ -1,11 +1,11 @@
 import {expect, test} from '@jest/globals';
 
-import {KeywordSuggestion, parseClickHouseSql} from '../../../../index';
+import {KeywordSuggestion, parseClickHouseQuery} from '../../../../index';
 
 // Only Clickhouse specific tests
 
 test('should suggest type keywords after CAST ... AS', () => {
-    const parseResult = parseClickHouseSql('SELECT CAST(test AS ', '');
+    const parseResult = parseClickHouseQuery('SELECT CAST(test AS ', '');
 
     const stringSuggestion: KeywordSuggestion = {value: 'String', weight: -1};
     expect(parseResult.suggestKeywords).toContainEqual(stringSuggestion);
@@ -15,7 +15,7 @@ test('should suggest type keywords after CAST ... AS', () => {
 });
 
 test('should suggest type keywords after CAST ... AS ST', () => {
-    const parseResult = parseClickHouseSql('SELECT CAST(test AS ST', '');
+    const parseResult = parseClickHouseQuery('SELECT CAST(test AS ST', '');
 
     const stringSuggestion: KeywordSuggestion = {value: 'String', weight: -1};
     expect(parseResult.suggestKeywords).toContainEqual(stringSuggestion);
@@ -25,7 +25,7 @@ test('should suggest type keywords after CAST ... AS ST', () => {
 });
 
 test('should suggest type keywords after CAST(AS', () => {
-    const parseResult = parseClickHouseSql('SELECT CAST(AS ', '');
+    const parseResult = parseClickHouseQuery('SELECT CAST(AS ', '');
 
     const stringSuggestion: KeywordSuggestion = {value: 'String', weight: -1};
     expect(parseResult.suggestKeywords).toContainEqual(stringSuggestion);

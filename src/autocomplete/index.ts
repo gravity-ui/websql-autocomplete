@@ -1,11 +1,7 @@
 import {clickhouseAutocompleteParser} from './parsers/clickhouse/clickhouseAutocompleteParser';
-import {genericAutocompleteParser} from './parsers/generic/genericAutocompleteParser';
+import {mysqlAutocompleteParser} from './parsers/mysql/mysqlAutocompleteParser';
 import {postgresqlAutocompleteParser} from './parsers/postgresql/postgresqlAutocompleteParser';
 
-export * from './lib/parser-context';
-
-// This symbol might be used by the external code
-// noinspection JSUnusedGlobalSymbols
 export const cursorSymbol = '†';
 
 export interface AutocompleteParseResult {
@@ -297,19 +293,19 @@ abstract class Parser {
     abstract parseSql(beforeCursor: string, afterCursor: string): AutocompleteParseResult;
 }
 
-export function parseGenericSql(
+export function parseMySqlQuery(
     queryBeforeCursor: string,
     queryAfterCursor: string,
 ): AutocompleteParseResult {
-    const parser = genericAutocompleteParser as Parser;
+    const parser = mysqlAutocompleteParser as Parser;
     return parser.parseSql(queryBeforeCursor, queryAfterCursor);
 }
 
-export function parseGenericSqlWithoutCursor(query: string): AutocompleteParseResult {
-    return parseGenericSql(getFinishedQuery(query), '');
+export function parseMySqlQueryWithoutCursor(query: string): AutocompleteParseResult {
+    return parseMySqlQuery(getFinishedQuery(query), '');
 }
 
-export function parsePostgreSql(
+export function parsePostgreSqlQuery(
     queryBeforeCursor: string,
     queryAfterCursor: string,
 ): AutocompleteParseResult {
@@ -317,11 +313,11 @@ export function parsePostgreSql(
     return parser.parseSql(queryBeforeCursor, queryAfterCursor);
 }
 
-export function parsePostgreSqlWithoutCursor(query: string): AutocompleteParseResult {
-    return parsePostgreSql(getFinishedQuery(query), '');
+export function parsePostgreSqlQueryWithoutCursor(query: string): AutocompleteParseResult {
+    return parsePostgreSqlQuery(getFinishedQuery(query), '');
 }
 
-export function parseClickHouseSql(
+export function parseClickHouseQuery(
     queryBeforeCursor: string,
     queryAfterCursor: string,
 ): AutocompleteParseResult {
@@ -329,8 +325,8 @@ export function parseClickHouseSql(
     return parser.parseSql(queryBeforeCursor, queryAfterCursor);
 }
 
-export function parseClickHouseSqlWithoutCursor(query: string): AutocompleteParseResult {
-    return parseClickHouseSql(getFinishedQuery(query), '');
+export function parseClickHouseQueryWithoutCursor(query: string): AutocompleteParseResult {
+    return parseClickHouseQuery(getFinishedQuery(query), '');
 }
 
 function getFinishedQuery(query: string): string {

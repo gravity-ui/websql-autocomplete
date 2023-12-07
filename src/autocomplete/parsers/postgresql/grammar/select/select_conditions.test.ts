@@ -1,9 +1,9 @@
 import {expect, test} from '@jest/globals';
 
-import {KeywordSuggestion, parsePostgreSql} from '../../../../index';
+import {KeywordSuggestion, parsePostgreSqlQuery} from '../../../../index';
 
 test('should suggest keywords', () => {
-    const parseResult = parsePostgreSql(
+    const parseResult = parsePostgreSqlQuery(
         'SELECT * FROM test_table ORDER BY test_column_1, test_column_2, test_column_3, test_column_4 ',
         '',
     );

@@ -1,21 +1,21 @@
 import {expect, test} from '@jest/globals';
 
-import {AutocompleteError, KeywordSuggestion, parseClickHouseSql} from '../../../../index';
+import {AutocompleteError, KeywordSuggestion, parseClickHouseQuery} from '../../../../index';
 
 test('should not report errors on EXPLAIN SELECT statement', () => {
-    const parseResult = parseClickHouseSql('EXPLAIN SELECT * FROM test_table; ', '');
+    const parseResult = parseClickHouseQuery('EXPLAIN SELECT * FROM test_table; ', '');
 
     expect(parseResult.errors).toBeUndefined();
 });
 
 test('should not report errors on EXPLAIN DELETE statement', () => {
-    const parseResult = parseClickHouseSql('EXPLAIN DELETE FROM test_table; ', '');
+    const parseResult = parseClickHouseQuery('EXPLAIN DELETE FROM test_table; ', '');
 
     expect(parseResult.errors).toBeUndefined();
 });
 
 test('should not report errors on EXPLAIN CREATE statement', () => {
-    const parseResult = parseClickHouseSql(
+    const parseResult = parseClickHouseQuery(
         'EXPLAIN CREATE TABLE test_table (test_column int) ENGINE = Memory; ',
         '',
     );
@@ -24,7 +24,7 @@ test('should not report errors on EXPLAIN CREATE statement', () => {
 });
 
 test('should report error on double EXPLAIN statement', () => {
-    const parseResult = parseClickHouseSql('EXPLAIN EXPLAIN SELECT * FROM test_table ', '');
+    const parseResult = parseClickHouseQuery('EXPLAIN EXPLAIN SELECT * FROM test_table ', '');
 
     const error: Partial<AutocompleteError> = {
         text: 'EXPLAIN',
@@ -40,7 +40,7 @@ test('should report error on double EXPLAIN statement', () => {
 });
 
 test('should suggest EXPLAIN', () => {
-    const parseResult = parseClickHouseSql('', '');
+    const parseResult = parseClickHouseQuery('', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -49,7 +49,7 @@ test('should suggest EXPLAIN', () => {
 });
 
 test('should suggest query', () => {
-    const parseResult = parseClickHouseSql('EXPLAIN ', '');
+    const parseResult = parseClickHouseQuery('EXPLAIN ', '');
 
     expect(parseResult.errors).toBeUndefined();
 

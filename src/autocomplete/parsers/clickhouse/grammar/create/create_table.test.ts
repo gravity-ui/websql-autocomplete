@@ -4,11 +4,11 @@ import {
     AutocompleteError,
     EnginesSuggestion,
     KeywordSuggestion,
-    parseClickHouseSql,
+    parseClickHouseQuery,
 } from '../../../../index';
 
 test('should suggest TABLE', () => {
-    const parseResult = parseClickHouseSql('CREATE ', '');
+    const parseResult = parseClickHouseQuery('CREATE ', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -17,7 +17,7 @@ test('should suggest TABLE', () => {
 });
 
 test('should suggest IF NOT EXISTS', () => {
-    const parseResult = parseClickHouseSql('CREATE TABLE ', '');
+    const parseResult = parseClickHouseQuery('CREATE TABLE ', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -26,7 +26,7 @@ test('should suggest IF NOT EXISTS', () => {
 });
 
 test('should suggest NOT EXISTS', () => {
-    const parseResult = parseClickHouseSql('CREATE TABLE IF ', '');
+    const parseResult = parseClickHouseQuery('CREATE TABLE IF ', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -35,7 +35,7 @@ test('should suggest NOT EXISTS', () => {
 });
 
 test('should suggest EXISTS', () => {
-    const parseResult = parseClickHouseSql('CREATE TABLE IF NOT ', '');
+    const parseResult = parseClickHouseQuery('CREATE TABLE IF NOT ', '');
 
     expect(parseResult.errors).toBeUndefined();
 
@@ -44,14 +44,14 @@ test('should suggest EXISTS', () => {
 });
 
 test('should suggest DOUBLE', () => {
-    const parseResult = parseClickHouseSql('CREATE TABLE test_table (test_column ', '');
+    const parseResult = parseClickHouseQuery('CREATE TABLE test_table (test_column ', '');
 
     const suggestion: KeywordSuggestion = {value: 'DOUBLE', weight: -1};
     expect(parseResult.suggestKeywords).toContainEqual(suggestion);
 });
 
 test('should suggest DOUBLE for third column', () => {
-    const parseResult = parseClickHouseSql(
+    const parseResult = parseClickHouseQuery(
         'CREATE TABLE test_table (test_column_1 INT, test_column_2 FLOAT, test_column_3 ',
         '',
     );
@@ -61,7 +61,7 @@ test('should suggest DOUBLE for third column', () => {
 });
 
 test('should suggest ENGINE', () => {
-    const parseResult = parseClickHouseSql(
+    const parseResult = parseClickHouseQuery(
         'CREATE TABLE test_table (test_column_1 INT, test_column_2 FLOAT) ',
         '',
     );
@@ -71,7 +71,7 @@ test('should suggest ENGINE', () => {
 });
 
 test('should suggest equal sign', () => {
-    const parseResult = parseClickHouseSql(
+    const parseResult = parseClickHouseQuery(
         'CREATE TABLE test_table (test_column_1 INT, test_column_2 FLOAT) ENGINE ',
         '',
     );
@@ -81,7 +81,7 @@ test('should suggest equal sign', () => {
 });
 
 test('should suggest engines', () => {
-    const parseResult = parseClickHouseSql(
+    const parseResult = parseClickHouseQuery(
         'CREATE TABLE test_table (test_column_1 INT, test_column_2 FLOAT) ENGINE = ',
         '',
     );
@@ -119,7 +119,7 @@ test('should suggest engines', () => {
 });
 
 test('should not report error on statement with Memory engine', () => {
-    const parseResult = parseClickHouseSql(
+    const parseResult = parseClickHouseQuery(
         'CREATE TABLE test_table (test_column_1 INT, test_column_2 FLOAT) ENGINE = Memory; ',
         '',
     );
@@ -128,7 +128,7 @@ test('should not report error on statement with Memory engine', () => {
 });
 
 test('should report error because of missing ENGINE', () => {
-    const parseResult = parseClickHouseSql('CREATE TABLE test_table (test_column INT); ', '');
+    const parseResult = parseClickHouseQuery('CREATE TABLE test_table (test_column INT); ', '');
 
     const error: Partial<AutocompleteError> = {
         expected: ["'CURSOR'", "'PARTITION'", "'ENGINE'"],
@@ -142,7 +142,7 @@ test('should report error because of missing ENGINE', () => {
 });
 
 test('should not report error on statement with ReplacingMergeTree engine', () => {
-    const parseResult = parseClickHouseSql(
+    const parseResult = parseClickHouseQuery(
         'CREATE TABLE test_table (test_column_1 INT, test_column_2 FLOAT) ENGINE = ReplacingMergeTree(update_ts); ',
         '',
     );
@@ -151,7 +151,7 @@ test('should not report error on statement with ReplacingMergeTree engine', () =
 });
 
 test('should report error because of incomplete ReplacingMergeTree syntax', () => {
-    const parseResult = parseClickHouseSql(
+    const parseResult = parseClickHouseQuery(
         'CREATE TABLE test_table (test_column_1 UInt32, `test_column_2` Float64) ENGINE = ReplacingMergeTree(update_ts, ) ',
         '',
     );
@@ -167,7 +167,7 @@ test('should report error because of incomplete ReplacingMergeTree syntax', () =
 });
 
 test('should accept Enum', () => {
-    const parseResult = parseClickHouseSql(
+    const parseResult = parseClickHouseQuery(
         "CREATE TABLE test_table (test_column Enum8('string' = 1)) ENGINE = Memory; ",
         '',
     );
@@ -176,7 +176,7 @@ test('should accept Enum', () => {
 });
 
 test('should accept complex Enum', () => {
-    const parseResult = parseClickHouseSql(
+    const parseResult = parseClickHouseQuery(
         "CREATE TABLE test_table (test_column Enum8('string' = 1, 'string', 'string')) ENGINE = Memory; ",
         '',
     );
@@ -185,7 +185,7 @@ test('should accept complex Enum', () => {
 });
 
 test('should accept SimpleAggregateFunction', () => {
-    const parseResult = parseClickHouseSql(
+    const parseResult = parseClickHouseQuery(
         'CREATE TABLE test_table (test_column SimpleAggregateFunction(sum, String)) ENGINE = Memory; ',
         '',
     );
@@ -194,7 +194,7 @@ test('should accept SimpleAggregateFunction', () => {
 });
 
 test('should accept Decimal64', () => {
-    const parseResult = parseClickHouseSql(
+    const parseResult = parseClickHouseQuery(
         'CREATE TABLE test_table (test_column Decimal64(12)) ENGINE = Memory; ',
         '',
     );
@@ -203,7 +203,7 @@ test('should accept Decimal64', () => {
 });
 
 test('should accept Decimal', () => {
-    const parseResult = parseClickHouseSql(
+    const parseResult = parseClickHouseQuery(
         'CREATE TABLE test_table (test_column Decimal(12, 12)) ENGINE = Memory; ',
         '',
     );
@@ -212,7 +212,7 @@ test('should accept Decimal', () => {
 });
 
 test('should accept Nullable', () => {
-    const parseResult = parseClickHouseSql(
+    const parseResult = parseClickHouseQuery(
         'CREATE TABLE test_table (test_column Nullable(Decimal(12, 12))) ENGINE = Memory; ',
         '',
     );
@@ -221,7 +221,7 @@ test('should accept Nullable', () => {
 });
 
 test('should accept AggregateFunction', () => {
-    const parseResult = parseClickHouseSql(
+    const parseResult = parseClickHouseQuery(
         'CREATE TABLE test_table (test_column AggregateFunction(sum, String)) ENGINE = Memory; ',
         '',
     );
@@ -230,7 +230,7 @@ test('should accept AggregateFunction', () => {
 });
 
 test('should accept DateTime', () => {
-    const parseResult = parseClickHouseSql(
+    const parseResult = parseClickHouseQuery(
         "CREATE TABLE test_table (test_column DateTime('Some/Timezone')) ENGINE = Memory; ",
         '',
     );
@@ -239,7 +239,7 @@ test('should accept DateTime', () => {
 });
 
 test('should accept Tuple', () => {
-    const parseResult = parseClickHouseSql(
+    const parseResult = parseClickHouseQuery(
         'CREATE TABLE test_table (test_column Tuple(s String, i Int64)) ENGINE = Memory; ',
         '',
     );
@@ -248,7 +248,7 @@ test('should accept Tuple', () => {
 });
 
 test('should accept Nested', () => {
-    const parseResult = parseClickHouseSql(
+    const parseResult = parseClickHouseQuery(
         'CREATE TABLE test_table (test_column Nested(id String, data Int64)) ENGINE = Memory; ',
         '',
     );
@@ -257,7 +257,7 @@ test('should accept Nested', () => {
 });
 
 test('should accept Point', () => {
-    const parseResult = parseClickHouseSql(
+    const parseResult = parseClickHouseQuery(
         'CREATE TABLE test_table (test_column Point) ENGINE = Memory; ',
         '',
     );
@@ -266,7 +266,7 @@ test('should accept Point', () => {
 });
 
 test('should accept Ring', () => {
-    const parseResult = parseClickHouseSql(
+    const parseResult = parseClickHouseQuery(
         'CREATE TABLE test_table (test_column Ring) ENGINE = Memory; ',
         '',
     );
@@ -275,7 +275,7 @@ test('should accept Ring', () => {
 });
 
 test('should accept Polygon', () => {
-    const parseResult = parseClickHouseSql(
+    const parseResult = parseClickHouseQuery(
         'CREATE TABLE test_table (test_column Polygon) ENGINE = Memory; ',
         '',
     );
@@ -284,7 +284,7 @@ test('should accept Polygon', () => {
 });
 
 test('should accept BINARY', () => {
-    const parseResult = parseClickHouseSql(
+    const parseResult = parseClickHouseQuery(
         'CREATE TABLE test_table (test_column BINARY(12)) ENGINE = Memory; ',
         '',
     );
@@ -293,7 +293,7 @@ test('should accept BINARY', () => {
 });
 
 test('should accept BINARY(NULL)', () => {
-    const parseResult = parseClickHouseSql(
+    const parseResult = parseClickHouseQuery(
         'CREATE TABLE test_table (test_column BINARY(NULL)) ENGINE = Memory; ',
         '',
     );
@@ -302,7 +302,7 @@ test('should accept BINARY(NULL)', () => {
 });
 
 test('should accept MultiPolygon', () => {
-    const parseResult = parseClickHouseSql(
+    const parseResult = parseClickHouseQuery(
         'CREATE TABLE test_table (test_column MultiPolygon) ENGINE = Memory; ',
         '',
     );
@@ -311,7 +311,7 @@ test('should accept MultiPolygon', () => {
 });
 
 test('should accept LowCardinality', () => {
-    const parseResult = parseClickHouseSql(
+    const parseResult = parseClickHouseQuery(
         'CREATE TABLE test_table (test_column LowCardinality(String)) ENGINE = Memory; ',
         '',
     );
@@ -320,7 +320,7 @@ test('should accept LowCardinality', () => {
 });
 
 test('should accept Array', () => {
-    const parseResult = parseClickHouseSql(
+    const parseResult = parseClickHouseQuery(
         'CREATE TABLE test_table (test_column Array(Array(String))) ENGINE = Memory; ',
         '',
     );
@@ -329,7 +329,7 @@ test('should accept Array', () => {
 });
 
 test('should accept FixedString', () => {
-    const parseResult = parseClickHouseSql(
+    const parseResult = parseClickHouseQuery(
         'CREATE TABLE test_table (test_column FixedString(12)) ENGINE = Memory; ',
         '',
     );
@@ -338,7 +338,7 @@ test('should accept FixedString', () => {
 });
 
 test('should accept FixedString without arguments', () => {
-    const parseResult = parseClickHouseSql(
+    const parseResult = parseClickHouseQuery(
         'CREATE TABLE test_table (test_column FixedString) ENGINE = Memory; ',
         '',
     );
@@ -347,7 +347,7 @@ test('should accept FixedString without arguments', () => {
 });
 
 test('should accept TIMESTAMP', () => {
-    const parseResult = parseClickHouseSql(
+    const parseResult = parseClickHouseQuery(
         "CREATE TABLE test_table (test_column TIMESTAMP('data')) ENGINE = Memory; ",
         '',
     );
@@ -356,7 +356,7 @@ test('should accept TIMESTAMP', () => {
 });
 
 test('should accept TIMESTAMP(NULL)', () => {
-    const parseResult = parseClickHouseSql(
+    const parseResult = parseClickHouseQuery(
         'CREATE TABLE test_table (test_column TIMESTAMP(NULL)) ENGINE = Memory; ',
         '',
     );
@@ -365,7 +365,7 @@ test('should accept TIMESTAMP(NULL)', () => {
 });
 
 test('should accept all data types', () => {
-    const parseResult = parseClickHouseSql(
+    const parseResult = parseClickHouseQuery(
         "CREATE TABLE test_table (field IPv6, field IPv4, field LowCardinality(String), field Decimal(1, 2), field String, field Decimal64(1), field Decimal32(1), field Decimal128(1), field Float64, field Float32, field Int64, field SimpleAggregateFunction(sum, String), field AggregateFunction(sum, String), field Array(String), field Array(Array(String)), field Nothing, field UInt16, field Enum16('text', 'text' = 1), field Enum16('text', 'text' = -1), field UInt32, field Date, field Int8, field Int32, field Enum8('text', 'text' = 1), field Enum8('text', 'text' = -1), field UInt64, field IntervalSecond, field Int16, field DateTime('Country/Timezone'), field Enum('text', 'text' = 1), field Enum('text', 'text' = -1), field Tuple(text1 String, text2 String), field IntervalMonth, field Nested(field String), field IntervalMinute, field IntervalHour, field IntervalWeek, field IntervalDay, field UInt8, field IntervalQuarter, field UUID, field IntervalYear, field LONGBLOB, field LONGBLOB(12), field MEDIUMBLOB, field MEDIUMBLOB(12), field TINYBLOB, field TINYBLOB(12), field BIGINT, field SMALLINT, field TIMESTAMP(NULL), field TIMESTAMP('value'), field INTEGER, field INT, field DOUBLE, field MEDIUMTEXT, field MEDIUMTEXT(12), field TINYINT, field DEC(1, 2), field BINARY(NULL), field BINARY(12), field FLOAT, field CHAR, field CHAR(12), field VARCHAR, field VARCHAR(12), field TEXT, field TINYTEXT, field TINYTEXT(12), field LONGTEXT, field LONGTEXT(12), field BLOB, field BLOB(12), field Point, field Ring, field Polygon, field MultiPolygon, field Map(String, String)) ENGINE = Memory; ",
         '',
     );
@@ -374,7 +374,7 @@ test('should accept all data types', () => {
 });
 
 test('should suggest all data types', () => {
-    const parseResult = parseClickHouseSql(
+    const parseResult = parseClickHouseQuery(
         'CREATE TABLE test_table (test_column ',
         ') ENGINE = Memory; ',
     );
