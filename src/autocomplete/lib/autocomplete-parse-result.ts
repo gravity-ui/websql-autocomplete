@@ -171,6 +171,7 @@ export interface ColumnDetails {
     alias?: string;
     subQuery?: string;
     udfRef?: string;
+    tables?: ParsedTable[];
 }
 
 export type OrderBysSuggestion = {
@@ -386,7 +387,7 @@ export interface EnginesSuggestion {
 
 export interface ValuesSuggestion {
     missingEndQuote?: boolean;
-    partialQuote?: boolean;
+    partialQuote?: string;
 }
 
 export interface AggregateFunctionsSuggestion {
