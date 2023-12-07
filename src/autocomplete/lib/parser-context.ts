@@ -87,7 +87,6 @@ export interface ParserContext {
         locationsStack: IdentifierLocation[][];
         selectListAliasesStack: ColumnAliasDetails[][];
         subQueriesStack: SubQuery[][];
-        activeDialect: string;
         lowerCase: boolean;
         caseDetermined?: boolean;
         missingEndQuote: boolean;
