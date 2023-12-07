@@ -28,6 +28,9 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
+// It's the legacy file we can't refactor properly, so let's allow this old syntax there
+/* eslint-disable no-param-reassign, complexity, no-console, @typescript-eslint/no-use-before-define */
+
 // endsWith polyfill from hue_utils.js, needed as workers live in their own js environment
 import {
     AutocompleteParseResult,

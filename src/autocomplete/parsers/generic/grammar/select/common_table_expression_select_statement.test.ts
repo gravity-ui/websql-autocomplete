@@ -37,8 +37,6 @@ test('should suggest SELECT', () => {
 test('should suggest columns', () => {
     const parseResult = parseGenericSql('WITH t AS (SELECT * FROM test_table) SELECT ', '');
 
-    console.log(parseResult);
-
     expect(parseResult.errors).toBeUndefined();
 
     const tablesSuggestion: TablesSuggestion = {

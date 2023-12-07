@@ -28,6 +28,9 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
+// It's okay to run console statements to provide more information about the run
+/* eslint-disable no-console */
+
 import jisonCli, {JisonOptions} from 'jison/lib/cli.js';
 
 import {deleteFile, fileExists, listDir, readFile, writeFile} from './files';
