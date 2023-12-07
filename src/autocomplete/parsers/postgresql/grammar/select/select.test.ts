@@ -2,7 +2,7 @@ import {expect, test} from '@jest/globals';
 
 import {
     AggregateFunctionsSuggestion,
-    ColumnSuggestion,
+    ColumnsSuggestion,
     DatabasesSuggestion,
     DetailedColumnReference,
     FiltersSuggestion,
@@ -13,10 +13,10 @@ import {
     JoinsSuggestion,
     KeywordSuggestion,
     OrderBysSuggestion,
-    ParsedTable,
     SubQuery,
+    Table,
     TablesSuggestion,
-    UdfArgumentPosition,
+    UserDefinedFunctionArgumentPosition,
     ValuesSuggestion,
     parsePostgreSql,
     parsePostgreSqlWithoutCursor,
@@ -36,7 +36,7 @@ test('should suggest columns', () => {
 
     expect(parseResult.errors).toBeUndefined();
 
-    const tables: ParsedTable[] = [
+    const tables: Table[] = [
         {
             identifierChain: [
                 {
@@ -56,7 +56,7 @@ test('should suggest columns', () => {
 
     expect(parseResult.suggestAnalyticFunctions).toEqual(true);
 
-    const columnSuggestion: ColumnSuggestion = {
+    const columnSuggestion: ColumnsSuggestion = {
         source: 'select',
         tables: [
             {
@@ -77,7 +77,7 @@ test('should suggest columns', () => {
         ' FROM test_table',
     );
 
-    const tables: ParsedTable[] = [
+    const tables: Table[] = [
         {
             identifierChain: [
                 {
@@ -97,7 +97,7 @@ test('should suggest columns', () => {
 
     expect(parseResult.suggestAnalyticFunctions).toEqual(true);
 
-    const columnSuggestion: ColumnSuggestion = {
+    const columnSuggestion: ColumnsSuggestion = {
         tables: [
             {
                 identifierChain: [
@@ -282,7 +282,7 @@ test('should suggest keywords', () => {
     ];
     expect(parseResult.suggestKeywords).toEqual(keywordSuggestions);
 
-    const tables: ParsedTable[] = [
+    const tables: Table[] = [
         {
             alias: 't1',
             identifierChain: [
@@ -367,7 +367,7 @@ test('should suggest columns', () => {
 
     expect(parseResult.errors).toBeUndefined();
 
-    const tables: ParsedTable[] = [
+    const tables: Table[] = [
         {
             identifierChain: [
                 {
@@ -387,7 +387,7 @@ test('should suggest columns', () => {
 
     expect(parseResult.suggestAnalyticFunctions).toEqual(true);
 
-    const columnSuggestion: ColumnSuggestion = {
+    const columnSuggestion: ColumnsSuggestion = {
         source: 'select',
         tables: [
             {
@@ -410,7 +410,7 @@ test('should suggest columns', () => {
 
     expect(parseResult.errors).toBeUndefined();
 
-    const tables: ParsedTable[] = [
+    const tables: Table[] = [
         {
             identifierChain: [
                 {
@@ -430,7 +430,7 @@ test('should suggest columns', () => {
 
     expect(parseResult.suggestAnalyticFunctions).toEqual(true);
 
-    const columnSuggestion: ColumnSuggestion = {
+    const columnSuggestion: ColumnsSuggestion = {
         source: 'select',
         tables: [
             {
@@ -1300,7 +1300,7 @@ test('should suggest keywords', () => {
         },
     ];
 
-    const columnSuggestion: ColumnSuggestion = {
+    const columnSuggestion: ColumnsSuggestion = {
         source: 'select',
         tables,
     };
@@ -1405,7 +1405,7 @@ test('should suggest tables', () => {
         },
     ];
 
-    const columnSuggestion: ColumnSuggestion = {
+    const columnSuggestion: ColumnsSuggestion = {
         source: 'select',
         tables,
     };
@@ -1453,7 +1453,7 @@ test('should suggest tables', () => {
         },
     ];
 
-    const columnSuggestion: ColumnSuggestion = {
+    const columnSuggestion: ColumnsSuggestion = {
         source: 'select',
         tables,
     };
@@ -1495,7 +1495,7 @@ test('should suggest columns', () => {
 
     expect(parseResult.suggestAnalyticFunctions).toEqual(true);
 
-    const columnSuggestion: ColumnSuggestion = {
+    const columnSuggestion: ColumnsSuggestion = {
         source: 'select',
         tables,
     };
@@ -1543,7 +1543,7 @@ test('should suggest columns', () => {
 
     expect(parseResult.suggestAnalyticFunctions).toEqual(true);
 
-    const columnSuggestion: ColumnSuggestion = {
+    const columnSuggestion: ColumnsSuggestion = {
         source: 'select',
         tables,
     };
@@ -1573,7 +1573,7 @@ test('should suggest columns', () => {
         },
     ];
 
-    const columnSuggestion: ColumnSuggestion = {
+    const columnSuggestion: ColumnsSuggestion = {
         source: 'select',
         tables,
     };
@@ -1606,7 +1606,7 @@ test('should suggest aliases', () => {
         },
     ];
 
-    const columnSuggestion: ColumnSuggestion = {
+    const columnSuggestion: ColumnsSuggestion = {
         source: 'select',
         tables,
     };
@@ -1630,7 +1630,7 @@ test("should suggest columns even if alias case doesn't match", () => {
 
     expect(parseResult.errors).toBeUndefined();
 
-    const columnSuggestion: ColumnSuggestion = {
+    const columnSuggestion: ColumnsSuggestion = {
         source: 'select',
         tables: [
             {
@@ -1650,7 +1650,7 @@ test("should suggest columns even if alias case doesn't match", () => {
 
     expect(parseResult.errors).toBeUndefined();
 
-    const columnSuggestion: ColumnSuggestion = {
+    const columnSuggestion: ColumnsSuggestion = {
         source: 'select',
         tables: [
             {
@@ -1676,7 +1676,7 @@ test('should suggest columns', () => {
     const functionsSuggestions: FunctionsSuggestion = {};
     expect(parseResult.suggestFunctions).toEqual(functionsSuggestions);
 
-    const tables: ParsedTable[] = [
+    const tables: Table[] = [
         {
             identifierChain: [
                 {
@@ -1705,7 +1705,7 @@ test('should suggest columns', () => {
 
     expect(parseResult.suggestAnalyticFunctions).toEqual(true);
 
-    const columnSuggestion: ColumnSuggestion = {
+    const columnSuggestion: ColumnsSuggestion = {
         source: 'select',
         tables,
     };
@@ -1720,7 +1720,7 @@ test('should suggest columns', () => {
     const functionsSuggestions: FunctionsSuggestion = {};
     expect(parseResult.suggestFunctions).toEqual(functionsSuggestions);
 
-    const tables: ParsedTable[] = [
+    const tables: Table[] = [
         {
             identifierChain: [
                 {
@@ -1736,7 +1736,7 @@ test('should suggest columns', () => {
 
     expect(parseResult.suggestAnalyticFunctions).toEqual(true);
 
-    const columnSuggestion: ColumnSuggestion = {
+    const columnSuggestion: ColumnsSuggestion = {
         source: 'select',
         tables,
     };
@@ -1751,7 +1751,7 @@ test('should suggest columns', () => {
     const functionsSuggestions: FunctionsSuggestion = {};
     expect(parseResult.suggestFunctions).toEqual(functionsSuggestions);
 
-    const tables: ParsedTable[] = [
+    const tables: Table[] = [
         {
             identifierChain: [
                 {
@@ -1767,7 +1767,7 @@ test('should suggest columns', () => {
 
     expect(parseResult.suggestAnalyticFunctions).toEqual(true);
 
-    const columnSuggestion: ColumnSuggestion = {
+    const columnSuggestion: ColumnsSuggestion = {
         source: 'select',
         tables,
     };
@@ -1782,7 +1782,7 @@ test('should suggest columns', () => {
     const functionsSuggestions: FunctionsSuggestion = {};
     expect(parseResult.suggestFunctions).toEqual(functionsSuggestions);
 
-    const tables: ParsedTable[] = [
+    const tables: Table[] = [
         {
             identifierChain: [
                 {
@@ -1798,7 +1798,7 @@ test('should suggest columns', () => {
 
     expect(parseResult.suggestAnalyticFunctions).toEqual(true);
 
-    const columnSuggestion: ColumnSuggestion = {
+    const columnSuggestion: ColumnsSuggestion = {
         source: 'select',
         tables,
     };
@@ -1813,7 +1813,7 @@ test('should suggest columns', () => {
     const functionsSuggestions: FunctionsSuggestion = {};
     expect(parseResult.suggestFunctions).toEqual(functionsSuggestions);
 
-    const tables: ParsedTable[] = [
+    const tables: Table[] = [
         {
             identifierChain: [
                 {
@@ -1829,7 +1829,7 @@ test('should suggest columns', () => {
 
     expect(parseResult.suggestAnalyticFunctions).toEqual(true);
 
-    const columnSuggestion: ColumnSuggestion = {
+    const columnSuggestion: ColumnsSuggestion = {
         source: 'select',
         tables,
     };
@@ -1847,7 +1847,7 @@ test('should suggest columns', () => {
     const functionsSuggestions: FunctionsSuggestion = {};
     expect(parseResult.suggestFunctions).toEqual(functionsSuggestions);
 
-    const tables: ParsedTable[] = [
+    const tables: Table[] = [
         {
             identifierChain: [
                 {
@@ -1863,7 +1863,7 @@ test('should suggest columns', () => {
 
     expect(parseResult.suggestAnalyticFunctions).toEqual(true);
 
-    const columnSuggestion: ColumnSuggestion = {
+    const columnSuggestion: ColumnsSuggestion = {
         source: 'select',
         tables,
     };
@@ -1878,7 +1878,7 @@ test('should suggest columns', () => {
     const functionsSuggestions: FunctionsSuggestion = {};
     expect(parseResult.suggestFunctions).toEqual(functionsSuggestions);
 
-    const tables: ParsedTable[] = [
+    const tables: Table[] = [
         {
             identifierChain: [
                 {
@@ -1894,7 +1894,7 @@ test('should suggest columns', () => {
 
     expect(parseResult.suggestAnalyticFunctions).toEqual(true);
 
-    const columnSuggestion: ColumnSuggestion = {
+    const columnSuggestion: ColumnsSuggestion = {
         source: 'select',
         tables,
     };
@@ -1937,7 +1937,7 @@ test('should suggest columns', () => {
 
     expect(parseResult.errors).toBeUndefined();
 
-    const columnSuggestion: ColumnSuggestion = {
+    const columnSuggestion: ColumnsSuggestion = {
         source: 'where',
         tables: [
             {
@@ -2111,7 +2111,7 @@ test('should suggest columns', () => {
     };
     expect(parseResult.suggestAggregateFunctions).toEqual(aggregateFunctionsSuggestion);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'select',
         tables: [
             {
@@ -2142,7 +2142,7 @@ test('should suggest columns', () => {
     };
     expect(parseResult.suggestAggregateFunctions).toEqual(aggregateFunctionsSuggestion);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'select',
         tables: [
             {
@@ -2189,7 +2189,7 @@ test('should suggest columns', () => {
     };
     expect(parseResult.suggestAggregateFunctions).toEqual(aggregateFunctionsSuggestion);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'select',
         tables: [
             {
@@ -2221,7 +2221,7 @@ test('should suggest columns', () => {
     };
     expect(parseResult.suggestAggregateFunctions).toEqual(aggregateFunctionsSuggestion);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'select',
         tables: [
             {
@@ -2433,7 +2433,7 @@ test('should suggest columns', () => {
     const functionsSuggestion: FunctionsSuggestion = {};
     expect(parseResult.suggestFunctions).toEqual(functionsSuggestion);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'select',
         tables: [
             {
@@ -2459,7 +2459,7 @@ test('should suggest columns', () => {
     const functionsSuggestion: FunctionsSuggestion = {};
     expect(parseResult.suggestFunctions).toEqual(functionsSuggestion);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'select',
         tables: [
             {
@@ -2499,7 +2499,7 @@ test('should suggest columns and values', () => {
     };
     expect(parseResult.suggestFunctions).toEqual(functionsSuggestion);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'select',
         types: ['COLREF'],
         tables: [
@@ -3148,7 +3148,7 @@ test('should suggest columns', () => {
     const functionsSuggestion: FunctionsSuggestion = {};
     expect(parseResult.suggestFunctions).toEqual(functionsSuggestion);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'select',
         tables: [
             {
@@ -3172,7 +3172,7 @@ test('should suggest columns', () => {
     const functionsSuggestion: FunctionsSuggestion = {};
     expect(parseResult.suggestFunctions).toEqual(functionsSuggestion);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'select',
         tables: [
             {
@@ -3196,7 +3196,7 @@ test('should suggest columns', () => {
     const functionsSuggestion: FunctionsSuggestion = {};
     expect(parseResult.suggestFunctions).toEqual(functionsSuggestion);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'select',
         tables: [
             {
@@ -3220,7 +3220,7 @@ test('should suggest columns', () => {
     const functionsSuggestion: FunctionsSuggestion = {};
     expect(parseResult.suggestFunctions).toEqual(functionsSuggestion);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'select',
         tables: [
             {
@@ -3246,7 +3246,7 @@ test('should suggest columns', () => {
     const functionsSuggestion: FunctionsSuggestion = {};
     expect(parseResult.suggestFunctions).toEqual(functionsSuggestion);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'select',
         tables: [
             {
@@ -3272,7 +3272,7 @@ test('should suggest columns', () => {
     const functionsSuggestion: FunctionsSuggestion = {};
     expect(parseResult.suggestFunctions).toEqual(functionsSuggestion);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'select',
         tables: [
             {
@@ -3531,7 +3531,7 @@ test('should suggest columns', () => {
     const functionsSuggestion: FunctionsSuggestion = {};
     expect(parseResult.suggestFunctions).toEqual(functionsSuggestion);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'select',
         tables: [
             {
@@ -3545,7 +3545,7 @@ test('should suggest columns', () => {
     };
     expect(parseResult.suggestColumns).toEqual(columnsSuggestion);
 
-    const udfArgumentPosition: UdfArgumentPosition = {
+    const udfArgumentPosition: UserDefinedFunctionArgumentPosition = {
         name: 'customudf',
         position: 1,
     };
@@ -3561,7 +3561,7 @@ test('should suggest columns', () => {
     const functionsSuggestion: FunctionsSuggestion = {};
     expect(parseResult.suggestFunctions).toEqual(functionsSuggestion);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'select',
         tables: [
             {
@@ -3575,7 +3575,7 @@ test('should suggest columns', () => {
     };
     expect(parseResult.suggestColumns).toEqual(columnsSuggestion);
 
-    const udfArgumentPosition: UdfArgumentPosition = {
+    const udfArgumentPosition: UserDefinedFunctionArgumentPosition = {
         name: 'customudf',
         position: 2,
     };
@@ -3596,7 +3596,7 @@ test('should suggest columns', () => {
     const functionsSuggestion: FunctionsSuggestion = {};
     expect(parseResult.suggestFunctions).toEqual(functionsSuggestion);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'select',
         tables: [
             {
@@ -3610,7 +3610,7 @@ test('should suggest columns', () => {
     };
     expect(parseResult.suggestColumns).toEqual(columnsSuggestion);
 
-    const udfArgumentPosition: UdfArgumentPosition = {
+    const udfArgumentPosition: UserDefinedFunctionArgumentPosition = {
         name: 'avg',
         position: 1,
     };
@@ -3632,7 +3632,7 @@ test('should suggest columns', () => {
     const functionsSuggestion: FunctionsSuggestion = {};
     expect(parseResult.suggestFunctions).toEqual(functionsSuggestion);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'select',
         tables: [
             {
@@ -3661,7 +3661,7 @@ test('should suggest columns', () => {
     const functionsSuggestion: FunctionsSuggestion = {};
     expect(parseResult.suggestFunctions).toEqual(functionsSuggestion);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'select',
         tables: [
             {
@@ -3675,7 +3675,7 @@ test('should suggest columns', () => {
     };
     expect(parseResult.suggestColumns).toEqual(columnsSuggestion);
 
-    const udfArgumentPosition: UdfArgumentPosition = {
+    const udfArgumentPosition: UserDefinedFunctionArgumentPosition = {
         name: 'stddev_pop',
         position: 1,
     };
@@ -3696,7 +3696,7 @@ test('should suggest columns', () => {
     const functionsSuggestion: FunctionsSuggestion = {};
     expect(parseResult.suggestFunctions).toEqual(functionsSuggestion);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'select',
         tables: [
             {
@@ -3710,7 +3710,7 @@ test('should suggest columns', () => {
     };
     expect(parseResult.suggestColumns).toEqual(columnsSuggestion);
 
-    const udfArgumentPosition: UdfArgumentPosition = {
+    const udfArgumentPosition: UserDefinedFunctionArgumentPosition = {
         name: 'stddev_samp',
         position: 1,
     };
@@ -3731,7 +3731,7 @@ test('should suggest columns', () => {
     const functionsSuggestion: FunctionsSuggestion = {};
     expect(parseResult.suggestFunctions).toEqual(functionsSuggestion);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'select',
         tables: [
             {
@@ -3745,7 +3745,7 @@ test('should suggest columns', () => {
     };
     expect(parseResult.suggestColumns).toEqual(columnsSuggestion);
 
-    const udfArgumentPosition: UdfArgumentPosition = {
+    const udfArgumentPosition: UserDefinedFunctionArgumentPosition = {
         name: 'sum',
         position: 1,
     };
@@ -3766,7 +3766,7 @@ test('should suggest columns', () => {
     const functionsSuggestion: FunctionsSuggestion = {};
     expect(parseResult.suggestFunctions).toEqual(functionsSuggestion);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'select',
         tables: [
             {
@@ -3780,7 +3780,7 @@ test('should suggest columns', () => {
     };
     expect(parseResult.suggestColumns).toEqual(columnsSuggestion);
 
-    const udfArgumentPosition: UdfArgumentPosition = {
+    const udfArgumentPosition: UserDefinedFunctionArgumentPosition = {
         name: 'max',
         position: 1,
     };
@@ -3801,7 +3801,7 @@ test('should suggest columns', () => {
     const functionsSuggestion: FunctionsSuggestion = {};
     expect(parseResult.suggestFunctions).toEqual(functionsSuggestion);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'select',
         tables: [
             {
@@ -3815,7 +3815,7 @@ test('should suggest columns', () => {
     };
     expect(parseResult.suggestColumns).toEqual(columnsSuggestion);
 
-    const udfArgumentPosition: UdfArgumentPosition = {
+    const udfArgumentPosition: UserDefinedFunctionArgumentPosition = {
         name: 'min',
         position: 1,
     };
@@ -3836,7 +3836,7 @@ test('should suggest columns', () => {
     const functionsSuggestion: FunctionsSuggestion = {};
     expect(parseResult.suggestFunctions).toEqual(functionsSuggestion);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'select',
         tables: [
             {
@@ -3850,7 +3850,7 @@ test('should suggest columns', () => {
     };
     expect(parseResult.suggestColumns).toEqual(columnsSuggestion);
 
-    const udfArgumentPosition: UdfArgumentPosition = {
+    const udfArgumentPosition: UserDefinedFunctionArgumentPosition = {
         name: 'var_pop',
         position: 1,
     };
@@ -3871,7 +3871,7 @@ test('should suggest columns', () => {
     const functionsSuggestion: FunctionsSuggestion = {};
     expect(parseResult.suggestFunctions).toEqual(functionsSuggestion);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'select',
         tables: [
             {
@@ -3885,7 +3885,7 @@ test('should suggest columns', () => {
     };
     expect(parseResult.suggestColumns).toEqual(columnsSuggestion);
 
-    const udfArgumentPosition: UdfArgumentPosition = {
+    const udfArgumentPosition: UserDefinedFunctionArgumentPosition = {
         name: 'var_samp',
         position: 1,
     };
@@ -3903,7 +3903,7 @@ test('should suggest columns', () => {
     };
     expect(parseResult.suggestFunctions).toEqual(functionsSuggestion);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'select',
         types: ['NUMBER'],
         tables: [
@@ -3928,7 +3928,7 @@ test('should suggest columns', () => {
     const functionsSuggestion: FunctionsSuggestion = {};
     expect(parseResult.suggestFunctions).toEqual(functionsSuggestion);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'select',
         tables: [
             {
@@ -3952,7 +3952,7 @@ test('should suggest columns', () => {
     const functionsSuggestion: FunctionsSuggestion = {};
     expect(parseResult.suggestFunctions).toEqual(functionsSuggestion);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'select',
         tables: [
             {
@@ -3976,7 +3976,7 @@ test('should suggest columns', () => {
     const functionsSuggestion: FunctionsSuggestion = {};
     expect(parseResult.suggestFunctions).toEqual(functionsSuggestion);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'select',
         tables: [
             {
@@ -4011,7 +4011,7 @@ test('should suggest columns', () => {
     const functionsSuggestion: FunctionsSuggestion = {};
     expect(parseResult.suggestFunctions).toEqual(functionsSuggestion);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'select',
         tables: [
             {
@@ -4038,7 +4038,7 @@ test('should suggest columns', () => {
     const functionsSuggestion: FunctionsSuggestion = {};
     expect(parseResult.suggestFunctions).toEqual(functionsSuggestion);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'select',
         tables: [
             {
@@ -4066,7 +4066,7 @@ test('should suggest columns', () => {
     };
     expect(parseResult.suggestFunctions).toEqual(functionsSuggestion);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'select',
         types: ['COLREF'],
         tables: [
@@ -4113,7 +4113,7 @@ test('should suggest columns', () => {
     };
     expect(parseResult.suggestFunctions).toEqual(functionsSuggestion);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'select',
         types: ['COLREF'],
         tables: [
@@ -4179,7 +4179,7 @@ test('should suggest columns', () => {
     };
     expect(parseResult.suggestFunctions).toEqual(functionsSuggestion);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'select',
         types: ['COLREF'],
         tables: [
@@ -4250,7 +4250,7 @@ test('should suggest columns', () => {
     const functionsSuggestion: FunctionsSuggestion = {};
     expect(parseResult.suggestFunctions).toEqual(functionsSuggestion);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'select',
         tables: [
             {
@@ -4277,7 +4277,7 @@ test('should suggest columns', () => {
     const functionsSuggestion: FunctionsSuggestion = {};
     expect(parseResult.suggestFunctions).toEqual(functionsSuggestion);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'select',
         tables: [
             {
@@ -4301,7 +4301,7 @@ test('should suggest columns', () => {
     const functionsSuggestion: FunctionsSuggestion = {};
     expect(parseResult.suggestFunctions).toEqual(functionsSuggestion);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'select',
         tables: [
             {
@@ -4325,7 +4325,7 @@ test('should suggest columns', () => {
     const functionsSuggestion: FunctionsSuggestion = {};
     expect(parseResult.suggestFunctions).toEqual(functionsSuggestion);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'select',
         tables: [
             {
@@ -4349,7 +4349,7 @@ test('should suggest columns', () => {
     const functionsSuggestion: FunctionsSuggestion = {};
     expect(parseResult.suggestFunctions).toEqual(functionsSuggestion);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'select',
         tables: [
             {
@@ -4402,7 +4402,7 @@ test('should suggest columns', () => {
     const functionsSuggestion: FunctionsSuggestion = {};
     expect(parseResult.suggestFunctions).toEqual(functionsSuggestion);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'select',
         tables: [
             {
@@ -4440,7 +4440,7 @@ test('should suggest keywords', () => {
     const functionsSuggestion: FunctionsSuggestion = {};
     expect(parseResult.suggestFunctions).toEqual(functionsSuggestion);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'select',
         tables: [
             {
@@ -4464,7 +4464,7 @@ test('should suggest columns', () => {
     const functionsSuggestion: FunctionsSuggestion = {};
     expect(parseResult.suggestFunctions).toEqual(functionsSuggestion);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'select',
         tables: [
             {
@@ -4493,7 +4493,7 @@ test('should suggest columns', () => {
     const functionsSuggestion: FunctionsSuggestion = {};
     expect(parseResult.suggestFunctions).toEqual(functionsSuggestion);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'select',
         tables: [
             {
@@ -4520,7 +4520,7 @@ test('should suggest columns', () => {
     const functionsSuggestion: FunctionsSuggestion = {};
     expect(parseResult.suggestFunctions).toEqual(functionsSuggestion);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'select',
         tables: [
             {
@@ -4549,7 +4549,7 @@ test('should suggest columns', () => {
     const functionsSuggestion: FunctionsSuggestion = {};
     expect(parseResult.suggestFunctions).toEqual(functionsSuggestion);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'select',
         tables: [
             {
@@ -4626,7 +4626,7 @@ test('should suggest columns', () => {
     const functionsSuggestion: FunctionsSuggestion = {};
     expect(parseResult.suggestFunctions).toEqual(functionsSuggestion);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'select',
         tables: [
             {
@@ -4652,7 +4652,7 @@ test('should suggest values', () => {
     };
     expect(parseResult.suggestFunctions).toEqual(functionsSuggestion);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'select',
         types: ['COLREF'],
         tables: [
@@ -4692,7 +4692,7 @@ test('should suggest columns', () => {
     const functionsSuggestion: FunctionsSuggestion = {};
     expect(parseResult.suggestFunctions).toEqual(functionsSuggestion);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'select',
         tables: [
             {
@@ -4721,7 +4721,7 @@ test('should suggest columns', () => {
     const functionsSuggestion: FunctionsSuggestion = {};
     expect(parseResult.suggestFunctions).toEqual(functionsSuggestion);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'select',
         tables: [
             {
@@ -4745,7 +4745,7 @@ test('should suggest columns', () => {
     const functionsSuggestion: FunctionsSuggestion = {};
     expect(parseResult.suggestFunctions).toEqual(functionsSuggestion);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'select',
         tables: [
             {
@@ -4769,7 +4769,7 @@ test('should suggest columns', () => {
     const functionsSuggestion: FunctionsSuggestion = {};
     expect(parseResult.suggestFunctions).toEqual(functionsSuggestion);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'select',
         tables: [
             {
@@ -4795,7 +4795,7 @@ test('should suggest columns', () => {
     };
     expect(parseResult.suggestFunctions).toEqual(functionsSuggestion);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'select',
         types: ['COLREF'],
         tables: [
@@ -4870,7 +4870,7 @@ test('should suggest columns', () => {
     const functionsSuggestion: FunctionsSuggestion = {};
     expect(parseResult.suggestFunctions).toEqual(functionsSuggestion);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'select',
         tables: [
             {
@@ -4894,7 +4894,7 @@ test('should suggest columns', () => {
     const functionsSuggestion: FunctionsSuggestion = {};
     expect(parseResult.suggestFunctions).toEqual(functionsSuggestion);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'select',
         tables: [
             {
@@ -4918,7 +4918,7 @@ test('should suggest columns', () => {
     const functionsSuggestion: FunctionsSuggestion = {};
     expect(parseResult.suggestFunctions).toEqual(functionsSuggestion);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'select',
         tables: [
             {
@@ -4942,7 +4942,7 @@ test('should suggest columns', () => {
     const functionsSuggestion: FunctionsSuggestion = {};
     expect(parseResult.suggestFunctions).toEqual(functionsSuggestion);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'select',
         tables: [
             {
@@ -4987,7 +4987,7 @@ test('should suggest identifiers', () => {
     };
     expect(parseResult.suggestFunctions).toEqual(functionsSuggestion);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'select',
         types: ['NUMBER'],
         tables: [
@@ -5032,7 +5032,7 @@ test('should suggest columns', () => {
 
     expect(parseResult.errors).toBeUndefined();
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'where',
         types: ['T'],
         tables: [
@@ -5056,7 +5056,7 @@ test('should suggest columns', () => {
 
     expect(parseResult.errors).toBeUndefined();
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'where',
         types: ['T'],
         tables: [
@@ -5085,7 +5085,7 @@ test('should suggest values', () => {
     };
     expect(parseResult.suggestFunctions).toEqual(functionsSuggestion);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'where',
         types: ['COLREF'],
         tables: [
@@ -5126,7 +5126,7 @@ test('should suggest columns', () => {
     };
     expect(parseResult.suggestFunctions).toEqual(functionsSuggestion);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'where',
         types: ['NUMBER'],
         tables: [
@@ -5152,7 +5152,7 @@ test('should suggest columns', () => {
     };
     expect(parseResult.suggestFunctions).toEqual(functionsSuggestion);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'select',
         types: ['NUMBER'],
         tables: [
@@ -5181,7 +5181,7 @@ test('should suggest columns', () => {
     };
     expect(parseResult.suggestFunctions).toEqual(functionsSuggestion);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'select',
         types: ['NUMBER'],
         tables: [
@@ -5210,7 +5210,7 @@ test('should suggest columns', () => {
     };
     expect(parseResult.suggestFunctions).toEqual(functionsSuggestion);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'where',
         types: ['NUMBER'],
         tables: [
@@ -5239,7 +5239,7 @@ test('should suggest values', () => {
     };
     expect(parseResult.suggestFunctions).toEqual(functionsSuggestion);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'where',
         types: ['NUMBER'],
         tables: [
@@ -5279,7 +5279,7 @@ test('should suggest columns', () => {
     const functionsSuggestion: FunctionsSuggestion = {};
     expect(parseResult.suggestFunctions).toEqual(functionsSuggestion);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'select',
         tables: [
             {
@@ -5293,7 +5293,7 @@ test('should suggest columns', () => {
     };
     expect(parseResult.suggestColumns).toEqual(columnsSuggestion);
 
-    const udfArgumentPosition: UdfArgumentPosition = {
+    const udfArgumentPosition: UserDefinedFunctionArgumentPosition = {
         name: 'greatest',
         position: 5,
     };
@@ -5311,7 +5311,7 @@ test('should suggest columns', () => {
     const functionsSuggestion: FunctionsSuggestion = {};
     expect(parseResult.suggestFunctions).toEqual(functionsSuggestion);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'select',
         tables: [
             {
@@ -5325,7 +5325,7 @@ test('should suggest columns', () => {
     };
     expect(parseResult.suggestColumns).toEqual(columnsSuggestion);
 
-    const udfArgumentPosition: UdfArgumentPosition = {
+    const udfArgumentPosition: UserDefinedFunctionArgumentPosition = {
         name: 'greatest',
         position: 2,
     };
@@ -5345,7 +5345,7 @@ test('should suggest columns', () => {
     };
     expect(parseResult.suggestFunctions).toEqual(functionsSuggestion);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'select',
         types: ['COLREF'],
         tables: [
@@ -5389,7 +5389,7 @@ test('should suggest values and columns', () => {
     };
     expect(parseResult.suggestFunctions).toEqual(functionsSuggestion);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'where',
         types: ['COLREF'],
         tables: [
@@ -5433,7 +5433,7 @@ test('should suggest values and columns', () => {
     };
     expect(parseResult.suggestFunctions).toEqual(functionsSuggestion);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'where',
         types: ['COLREF'],
         tables: [
@@ -5477,7 +5477,7 @@ test('should suggest values and columns', () => {
     };
     expect(parseResult.suggestFunctions).toEqual(functionsSuggestion);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'where',
         types: ['COLREF'],
         tables: [
@@ -5521,7 +5521,7 @@ test('should suggest values and columns', () => {
     };
     expect(parseResult.suggestFunctions).toEqual(functionsSuggestion);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'where',
         types: ['COLREF'],
         tables: [
@@ -5565,7 +5565,7 @@ test('should suggest values and columns', () => {
     };
     expect(parseResult.suggestFunctions).toEqual(functionsSuggestion);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'where',
         types: ['COLREF'],
         tables: [
@@ -5609,7 +5609,7 @@ test('should suggest values and columns', () => {
     };
     expect(parseResult.suggestFunctions).toEqual(functionsSuggestion);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'where',
         types: ['COLREF'],
         tables: [
@@ -5653,7 +5653,7 @@ test('should suggest values and columns', () => {
     };
     expect(parseResult.suggestFunctions).toEqual(functionsSuggestion);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'where',
         types: ['COLREF'],
         tables: [
@@ -5697,7 +5697,7 @@ test('should suggest values and columns', () => {
     };
     expect(parseResult.suggestFunctions).toEqual(functionsSuggestion);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'where',
         types: ['COLREF'],
         tables: [
@@ -5741,7 +5741,7 @@ test('should suggest values and columns', () => {
     };
     expect(parseResult.suggestFunctions).toEqual(functionsSuggestion);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'where',
         types: ['COLREF'],
         tables: [
@@ -5785,7 +5785,7 @@ test('should suggest columns', () => {
     };
     expect(parseResult.suggestFunctions).toEqual(functionsSuggestion);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'where',
         types: ['NUMBER'],
         tables: [
@@ -5814,7 +5814,7 @@ test('should suggest columns', () => {
     };
     expect(parseResult.suggestFunctions).toEqual(functionsSuggestion);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'where',
         types: ['NUMBER'],
         tables: [
@@ -5843,7 +5843,7 @@ test('should suggest columns', () => {
     };
     expect(parseResult.suggestFunctions).toEqual(functionsSuggestion);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'where',
         types: ['NUMBER'],
         tables: [
@@ -5872,7 +5872,7 @@ test('should suggest columns', () => {
     };
     expect(parseResult.suggestFunctions).toEqual(functionsSuggestion);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'where',
         types: ['NUMBER'],
         tables: [
@@ -5901,7 +5901,7 @@ test('should suggest columns', () => {
     };
     expect(parseResult.suggestFunctions).toEqual(functionsSuggestion);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'where',
         types: ['NUMBER'],
         tables: [
@@ -5930,7 +5930,7 @@ test('should suggest columns', () => {
     };
     expect(parseResult.suggestFunctions).toEqual(functionsSuggestion);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'where',
         types: ['NUMBER'],
         tables: [
@@ -5959,7 +5959,7 @@ test('should suggest columns', () => {
     };
     expect(parseResult.suggestFunctions).toEqual(functionsSuggestion);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'where',
         types: ['NUMBER'],
         tables: [
@@ -5988,7 +5988,7 @@ test('should suggest columns', () => {
     };
     expect(parseResult.suggestFunctions).toEqual(functionsSuggestion);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'where',
         types: ['NUMBER'],
         tables: [
@@ -6017,7 +6017,7 @@ test('should suggest columns', () => {
     };
     expect(parseResult.suggestFunctions).toEqual(functionsSuggestion);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'where',
         types: ['NUMBER'],
         tables: [
@@ -6046,7 +6046,7 @@ test('should suggest columns', () => {
     };
     expect(parseResult.suggestFunctions).toEqual(functionsSuggestion);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'where',
         types: ['NUMBER'],
         tables: [
@@ -6070,7 +6070,7 @@ test('should suggest columns', () => {
     const functionsSuggestion: FunctionsSuggestion = {};
     expect(parseResult.suggestFunctions).toEqual(functionsSuggestion);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'where',
         tables: [
             {
@@ -6095,7 +6095,7 @@ test('should suggest columns', () => {
     };
     expect(parseResult.suggestFunctions).toEqual(functionsSuggestion);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'where',
         types: ['NUMBER'],
         tables: [
@@ -6508,7 +6508,7 @@ test('should suggest columns', () => {
     };
     expect(parseResult.suggestFunctions).toEqual(functionsSuggestion);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'where',
         types: ['STRING'],
         tables: [
@@ -6572,7 +6572,7 @@ test('should suggest identifiers', () => {
     const functionsSuggestion: FunctionsSuggestion = {};
     expect(parseResult.suggestFunctions).toEqual(functionsSuggestion);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'where',
         tables: [
             {
@@ -6639,7 +6639,7 @@ test('should suggest columns', () => {
     const functionsSuggestion: FunctionsSuggestion = {};
     expect(parseResult.suggestFunctions).toEqual(functionsSuggestion);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'where',
         tables: [
             {
@@ -6691,7 +6691,7 @@ test('should suggest columns', () => {
     const functionsSuggestion: FunctionsSuggestion = {};
     expect(parseResult.suggestFunctions).toEqual(functionsSuggestion);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'where',
         tables: [
             {
@@ -6740,7 +6740,7 @@ test('should suggest columns', () => {
     const functionsSuggestion: FunctionsSuggestion = {};
     expect(parseResult.suggestFunctions).toEqual(functionsSuggestion);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'where',
         tables: [
             {
@@ -6789,7 +6789,7 @@ test('should suggest columns', () => {
     const functionsSuggestion: FunctionsSuggestion = {};
     expect(parseResult.suggestFunctions).toEqual(functionsSuggestion);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'where',
         tables: [
             {
@@ -6823,7 +6823,7 @@ test('should suggest columns', () => {
     };
     expect(parseResult.suggestFunctions).toEqual(functionsSuggestion);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'where',
         types: ['BOOLEAN'],
         tables: [
@@ -6862,7 +6862,7 @@ test('should suggest columns', () => {
     const functionsSuggestion: FunctionsSuggestion = {};
     expect(parseResult.suggestFunctions).toEqual(functionsSuggestion);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'where',
         tables: [
             {
@@ -6904,7 +6904,7 @@ test('should suggest columns', () => {
     const functionsSuggestion: FunctionsSuggestion = {};
     expect(parseResult.suggestFunctions).toEqual(functionsSuggestion);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'where',
         tables: [
             {
@@ -6948,7 +6948,7 @@ test('should suggest columns', () => {
     const functionsSuggestion: FunctionsSuggestion = {};
     expect(parseResult.suggestFunctions).toEqual(functionsSuggestion);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'where',
         tables: [
             {
@@ -6992,7 +6992,7 @@ test('should suggest columns', () => {
     const functionsSuggestion: FunctionsSuggestion = {};
     expect(parseResult.suggestFunctions).toEqual(functionsSuggestion);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'where',
         tables: [
             {
@@ -7036,7 +7036,7 @@ test('should suggest columns', () => {
     const functionsSuggestion: FunctionsSuggestion = {};
     expect(parseResult.suggestFunctions).toEqual(functionsSuggestion);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'where',
         tables: [
             {
@@ -7080,7 +7080,7 @@ test('should suggest columns', () => {
     const functionsSuggestion: FunctionsSuggestion = {};
     expect(parseResult.suggestFunctions).toEqual(functionsSuggestion);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'where',
         tables: [
             {
@@ -7119,7 +7119,7 @@ test('should suggest keywords', () => {
     const functionsSuggestion: FunctionsSuggestion = {};
     expect(parseResult.suggestFunctions).toEqual(functionsSuggestion);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'where',
         tables: [
             {
@@ -7228,7 +7228,7 @@ test('should suggest columns', () => {
     const functionsSuggestion: FunctionsSuggestion = {};
     expect(parseResult.suggestFunctions).toEqual(functionsSuggestion);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'where',
         tables: [
             {
@@ -7288,7 +7288,7 @@ test('should suggest columns', () => {
 
     expect(parseResult.suggestAnalyticFunctions).toEqual(true);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'select',
         tables: [
             {
@@ -7329,7 +7329,7 @@ test('should suggest columns', () => {
 
     expect(parseResult.suggestAnalyticFunctions).toEqual(true);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'select',
         tables: [
             {
@@ -7374,7 +7374,7 @@ test('should suggest columns', () => {
 
     expect(parseResult.suggestAnalyticFunctions).toEqual(true);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'select',
         tables: [
             {
@@ -7426,7 +7426,7 @@ test('should suggest columns', () => {
     };
     expect(parseResult.suggestFunctions).toEqual(functionsSuggestion);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'where',
         types: ['STRING'],
         tables: [
@@ -7523,7 +7523,7 @@ test('should suggest values', () => {
     };
     expect(parseResult.suggestFunctions).toEqual(functionsSuggestion);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'where',
         types: ['COLREF'],
         tables: [
@@ -7569,7 +7569,7 @@ test('should suggest columns', () => {
     const keywordSuggestions: KeywordSuggestion[] = [{value: '*', weight: 10000}];
     expect(parseResult.suggestKeywords).toEqual(keywordSuggestions);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'select',
         tables: [
             {
@@ -7592,7 +7592,7 @@ test('should suggest columns', () => {
     const keywordSuggestions: KeywordSuggestion[] = [{value: '*', weight: 10000}];
     expect(parseResult.suggestKeywords).toEqual(keywordSuggestions);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'select',
         tables: [
             {
@@ -7615,7 +7615,7 @@ test('should suggest columns', () => {
     const keywordSuggestions: KeywordSuggestion[] = [{value: '*', weight: 10000}];
     expect(parseResult.suggestKeywords).toEqual(keywordSuggestions);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'select',
         tables: [
             {
@@ -7641,7 +7641,7 @@ test('should suggest columns', () => {
     const keywordSuggestions: KeywordSuggestion[] = [{value: '*', weight: 10000}];
     expect(parseResult.suggestKeywords).toEqual(keywordSuggestions);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'select',
         tables: [
             {
@@ -7664,7 +7664,7 @@ test('should suggest columns', () => {
     const keywordSuggestions: KeywordSuggestion[] = [{value: '*', weight: 10000}];
     expect(parseResult.suggestKeywords).toEqual(keywordSuggestions);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'select',
         tables: [
             {
@@ -7795,7 +7795,7 @@ test('should suggest keywords', () => {
     };
     expect(parseResult.suggestFunctions).toEqual(functionsSuggestion);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'where',
         types: ['COLREF'],
         tables: [
@@ -7837,7 +7837,7 @@ test('should suggest keywords', () => {
     };
     expect(parseResult.suggestFunctions).toEqual(functionsSuggestion);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'where',
         types: ['COLREF'],
         tables: [
@@ -7898,7 +7898,7 @@ test('should suggest values', () => {
     };
     expect(parseResult.suggestFunctions).toEqual(functionsSuggestion);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'where',
         types: ['COLREF'],
         tables: [
@@ -8087,7 +8087,7 @@ test('should suggest columns', () => {
     };
     expect(parseResult.suggestFunctions).toEqual(functionsSuggestion);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         types: ['NUMBER'],
         source: 'where',
         tables: [
@@ -8360,7 +8360,7 @@ test('should suggest identifiers', () => {
 
     expect(parseResult.suggestAnalyticFunctions).toEqual(true);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'select',
         tables: [
             {
@@ -8639,7 +8639,7 @@ test('should suggest columns', () => {
 
     expect(parseResult.suggestAnalyticFunctions).toEqual(true);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'select',
         tables: [
             {
@@ -8717,7 +8717,7 @@ test('should suggest sub-query columns', () => {
     const keywordSuggestions: KeywordSuggestion[] = [{value: '*', weight: 10000}];
     expect(parseResult.suggestKeywords).toEqual(keywordSuggestions);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'select',
         tables: [
             {
@@ -8778,7 +8778,7 @@ test('should suggest sub-query columns', () => {
     const keywordSuggestions: KeywordSuggestion[] = [{value: '*', weight: 10000}];
     expect(parseResult.suggestKeywords).toEqual(keywordSuggestions);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'select',
         tables: [
             {
@@ -8841,7 +8841,7 @@ test('should suggest identifiers', () => {
     const functionsSuggestion: FunctionsSuggestion = {};
     expect(parseResult.suggestFunctions).toEqual(functionsSuggestion);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'select',
         tables: [
             {
@@ -8874,7 +8874,7 @@ test('should suggest identifiers', () => {
     ];
     expect(parseResult.suggestIdentifiers).toEqual(identifiersSuggestion);
 
-    const udfArgumentPosition: UdfArgumentPosition = {
+    const udfArgumentPosition: UserDefinedFunctionArgumentPosition = {
         name: 'cos',
         position: 1,
     };
@@ -8982,7 +8982,7 @@ test('should suggest columns', () => {
 
     expect(parseResult.suggestAnalyticFunctions).toEqual(true);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'select',
         tables: [
             {
@@ -9022,7 +9022,7 @@ test('should suggest columns', () => {
 
     expect(parseResult.suggestAnalyticFunctions).toEqual(true);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'select',
         tables: [
             {
@@ -9108,7 +9108,7 @@ test('should suggest columns', () => {
 
     expect(parseResult.suggestAnalyticFunctions).toEqual(true);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'select',
         tables: [
             {
@@ -9212,7 +9212,7 @@ test('should suggest columns', () => {
 
     expect(parseResult.suggestAnalyticFunctions).toEqual(true);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'select',
         tables: [
             {
@@ -9298,7 +9298,7 @@ test('should suggest columns', () => {
 
     expect(parseResult.suggestAnalyticFunctions).toEqual(true);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'select',
         tables: [
             {
@@ -9350,7 +9350,7 @@ test('should suggest columns', () => {
     const keywordSuggestions: KeywordSuggestion[] = [{value: '*', weight: 10000}];
     expect(parseResult.suggestKeywords).toEqual(keywordSuggestions);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'select',
         tables: [
             {

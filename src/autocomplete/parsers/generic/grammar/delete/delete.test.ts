@@ -1,7 +1,7 @@
 import {expect, test} from '@jest/globals';
 
 import {
-    ColumnSuggestion,
+    ColumnsSuggestion,
     TablesSuggestion,
     parseGenericSql,
     parseGenericSqlWithoutCursor,
@@ -49,7 +49,7 @@ test('should suggest WHERE columns', () => {
 
     expect(parseResult.errors).toBeUndefined();
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         tables: [
             {
                 identifierChain: [
@@ -68,7 +68,7 @@ test('should suggest WHERE columns when some column conditions already exist', (
 
     expect(parseResult.errors).toBeUndefined();
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         tables: [
             {
                 identifierChain: [

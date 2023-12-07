@@ -28,7 +28,11 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
-import {TypeConversion} from '../../autocomplete-parse-result';
+export interface TypeConversion {
+    [attr: string]: {
+        [attr: string]: boolean;
+    };
+}
 
 export const TYPE_CONVERSION: TypeConversion = {
     BOOLEAN: {

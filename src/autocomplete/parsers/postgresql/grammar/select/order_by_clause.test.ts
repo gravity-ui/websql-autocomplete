@@ -1,6 +1,6 @@
 import {expect, test} from '@jest/globals';
 
-import {ColumnSuggestion, FunctionsSuggestion, parsePostgreSql} from '../../../../index';
+import {ColumnsSuggestion, FunctionsSuggestion, parsePostgreSql} from '../../../../index';
 import {KeywordSuggestion, OrderBysSuggestion} from '../../../../lib/autocomplete-parse-result';
 
 test('should suggest ORDER BY', () => {
@@ -75,7 +75,7 @@ test('should suggest orderBys, columns, functions', () => {
     const functionsSuggestion: FunctionsSuggestion = {};
     expect(parseResult.suggestFunctions).toEqual(functionsSuggestion);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'order by',
         tables: [
             {
@@ -116,7 +116,7 @@ test('should suggest orderBys, columns, functions with database name', () => {
     const functionsSuggestion: FunctionsSuggestion = {};
     expect(parseResult.suggestFunctions).toEqual(functionsSuggestion);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'order by',
         tables: [
             {
@@ -165,7 +165,7 @@ test('should suggest CASE, columns, functions after plus sign', () => {
     };
     expect(parseResult.suggestFunctions).toEqual(functionsSuggestion);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'order by',
         types: ['NUMBER'],
         tables: [
@@ -197,7 +197,7 @@ test('should suggest CASE, columns, functions after comma', () => {
     const functionsSuggestion: FunctionsSuggestion = {};
     expect(parseResult.suggestFunctions).toEqual(functionsSuggestion);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'order by',
         tables: [
             {
@@ -228,7 +228,7 @@ test('should suggest CASE, columns, functions after plus sign and ASC', () => {
     const functionsSuggestion: FunctionsSuggestion = {};
     expect(parseResult.suggestFunctions).toEqual(functionsSuggestion);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'order by',
         tables: [
             {
@@ -259,7 +259,7 @@ test('should suggest CASE, columns, functions after ASC', () => {
     const functionsSuggestion: FunctionsSuggestion = {};
     expect(parseResult.suggestFunctions).toEqual(functionsSuggestion);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'order by',
         tables: [
             {

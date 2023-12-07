@@ -1,6 +1,6 @@
 import {expect, test} from '@jest/globals';
 
-import {ColumnSuggestion, parseGenericSql, parseGenericSqlWithoutCursor} from '../../../../index';
+import {ColumnsSuggestion, parseGenericSql, parseGenericSqlWithoutCursor} from '../../../../index';
 
 test('should suggest columns', () => {
     const parseResult = parseGenericSql(
@@ -10,7 +10,7 @@ test('should suggest columns', () => {
 
     expect(parseResult.errors).toBeUndefined();
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         tables: [
             {
                 identifierChain: [

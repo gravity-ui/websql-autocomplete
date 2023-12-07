@@ -1,7 +1,7 @@
 import {expect, test} from '@jest/globals';
 
 import {
-    ColumnSuggestion,
+    ColumnsSuggestion,
     FunctionsSuggestion,
     KeywordSuggestion,
     OrderBysSuggestion,
@@ -63,7 +63,7 @@ test('should suggest columns', () => {
     const functionsSuggestions: FunctionsSuggestion = {};
     expect(parseResult.suggestFunctions).toEqual(functionsSuggestions);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'order by',
         tables: [
             {
@@ -113,7 +113,7 @@ test('should suggest columns', () => {
     };
     expect(parseResult.suggestFunctions).toEqual(functionsSuggestions);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'order by',
         tables: [
             {
@@ -137,7 +137,7 @@ test('should suggest columns', () => {
     const functionsSuggestions: FunctionsSuggestion = {};
     expect(parseResult.suggestFunctions).toEqual(functionsSuggestions);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'order by',
         tables: [
             {
@@ -163,7 +163,7 @@ test('should suggest columns', () => {
     const functionsSuggestions: FunctionsSuggestion = {};
     expect(parseResult.suggestFunctions).toEqual(functionsSuggestions);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'order by',
         tables: [
             {
@@ -186,7 +186,7 @@ test('should suggest columns', () => {
     const functionsSuggestions: FunctionsSuggestion = {};
     expect(parseResult.suggestFunctions).toEqual(functionsSuggestions);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'order by',
         tables: [
             {

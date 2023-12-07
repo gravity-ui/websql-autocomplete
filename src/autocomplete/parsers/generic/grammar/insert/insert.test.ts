@@ -1,7 +1,7 @@
 import {expect, test} from '@jest/globals';
 
 import {
-    ColumnSuggestion,
+    ColumnsSuggestion,
     DatabasesSuggestion,
     TablesSuggestion,
     parseGenericSql,
@@ -84,7 +84,7 @@ test('should suggest tables', () => {
 test('should suggest columns', () => {
     const parseResult = parseGenericSql('INSERT INTO test_table (', ')');
 
-    const columnSuggestion: ColumnSuggestion = {
+    const columnSuggestion: ColumnsSuggestion = {
         tables: [
             {
                 identifierChain: [
@@ -104,7 +104,7 @@ test('should suggest columns', () => {
         ') VALUES (test_value_1, test_value_2)',
     );
 
-    const columnSuggestion: ColumnSuggestion = {
+    const columnSuggestion: ColumnsSuggestion = {
         tables: [
             {
                 identifierChain: [
@@ -151,7 +151,7 @@ test('should suggest tables', () => {
 test('should suggest columns', () => {
     const parseResult = parseGenericSql('INSERT INTO test_table (', ') VALUES ()');
 
-    const columnSuggestion: ColumnSuggestion = {
+    const columnSuggestion: ColumnsSuggestion = {
         tables: [
             {
                 identifierChain: [

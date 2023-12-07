@@ -1,6 +1,6 @@
 import {expect, test} from '@jest/globals';
 
-import {ColumnSuggestion, FunctionsSuggestion, parseGenericSql} from '../../../../../index';
+import {ColumnsSuggestion, FunctionsSuggestion, parseGenericSql} from '../../../../../index';
 
 // TODO: move to other place
 test('should suggest columns', () => {
@@ -8,7 +8,7 @@ test('should suggest columns', () => {
 
     expect(parseResult.errors).toBeUndefined();
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'where',
         tables: [
             {

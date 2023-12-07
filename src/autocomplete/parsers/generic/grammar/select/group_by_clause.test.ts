@@ -1,11 +1,11 @@
 import {expect, test} from '@jest/globals';
 
 import {
-    ColumnSuggestion,
+    ColumnsSuggestion,
     GroupBysSuggestion,
     IdentifierSuggestion,
     KeywordSuggestion,
-    ParsedTable,
+    Table,
     parseGenericSql,
 } from '../../../../index';
 
@@ -96,7 +96,7 @@ test('should suggest databases or tables', () => {
     };
     expect(parseResult.suggestGroupBys).toEqual(groupBysSuggestions);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'group by',
         tables: [
             {
@@ -132,7 +132,7 @@ test('should suggest columns', () => {
     };
     expect(parseResult.suggestGroupBys).toEqual(groupBysSuggestions);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'group by',
         tables: [
             {
@@ -158,7 +158,7 @@ test('should suggest identifiers', () => {
 
     expect(parseResult.errors).toBeUndefined();
 
-    const tables: ParsedTable[] = [
+    const tables: Table[] = [
         {
             alias: 't1',
             identifierChain: [
@@ -181,7 +181,7 @@ test('should suggest identifiers', () => {
     };
     expect(parseResult.suggestGroupBys).toEqual(groupBysSuggestions);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'group by',
         tables,
     };
@@ -210,7 +210,7 @@ test('should suggest identifiers', () => {
 
     expect(parseResult.suggestGroupBys).toEqual(undefined);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'group by',
         tables: [
             {
@@ -255,7 +255,7 @@ test('should suggest identifiers', () => {
 
     expect(parseResult.suggestGroupBys).toEqual(undefined);
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         source: 'group by',
         types: ['NUMBER'],
         tables: [

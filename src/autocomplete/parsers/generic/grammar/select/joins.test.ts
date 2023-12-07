@@ -1,7 +1,7 @@
 import {expect, test} from '@jest/globals';
 
 import {
-    ColumnSuggestion,
+    ColumnsSuggestion,
     DatabasesSuggestion,
     FiltersSuggestion,
     GroupBysSuggestion,
@@ -10,7 +10,7 @@ import {
     JoinsSuggestion,
     KeywordSuggestion,
     OrderBysSuggestion,
-    ParsedTable,
+    Table,
     TablesSuggestion,
     parseGenericSql,
 } from '../../../../index';
@@ -23,7 +23,7 @@ test('should suggest columns', () => {
 
     expect(parseResult.errors).toBeUndefined();
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         tables: [
             {
                 identifierChain: [
@@ -45,7 +45,7 @@ test('should suggest columns', () => {
 
     expect(parseResult.errors).toBeUndefined();
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         tables: [
             {
                 identifierChain: [
@@ -242,7 +242,7 @@ test('should suggest join conditions', () => {
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'ON', weight: 3}];
     expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(keywordSuggestions));
 
-    const tables: ParsedTable[] = [
+    const tables: Table[] = [
         {
             identifierChain: [
                 {
@@ -292,7 +292,7 @@ test('should suggest join conditions', () => {
 
     expect(parseResult.errors).toBeUndefined();
 
-    const tables: ParsedTable[] = [
+    const tables: Table[] = [
         {
             identifierChain: [
                 {
@@ -309,7 +309,7 @@ test('should suggest join conditions', () => {
         },
     ];
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         tables,
     };
     expect(parseResult.suggestColumns).toEqual(columnsSuggestion);
@@ -339,7 +339,7 @@ test('should suggest columns', () => {
         '',
     );
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         tables: [
             {
                 identifierChain: [
@@ -378,7 +378,7 @@ test('should suggest columns', () => {
         '',
     );
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         tables: [
             {
                 identifierChain: [
@@ -417,7 +417,7 @@ test('should suggest columns', () => {
         ' AND test_table_1.test_column_1 = test_table_2.test_column_3',
     );
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         tables: [
             {
                 identifierChain: [
@@ -456,7 +456,7 @@ test('should suggest columns', () => {
         '',
     );
 
-    const columnsSuggestion: ColumnSuggestion = {
+    const columnsSuggestion: ColumnsSuggestion = {
         tables: [
             {
                 identifierChain: [
@@ -569,7 +569,7 @@ test('should suggest joins', () => {
 
     expect(parseResult.errors).toBeUndefined();
 
-    const tables: ParsedTable[] = [
+    const tables: Table[] = [
         {
             identifierChain: [
                 {

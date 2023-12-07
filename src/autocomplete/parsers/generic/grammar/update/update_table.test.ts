@@ -1,7 +1,7 @@
 import {expect, test} from '@jest/globals';
 
 import {
-    ColumnSuggestion,
+    ColumnsSuggestion,
     DatabasesSuggestion,
     ErrorLocation,
     FiltersSuggestion,
@@ -119,7 +119,7 @@ test('should suggest columns', () => {
 
     expect(parseResult.errors).toBeUndefined();
 
-    const columnSuggestion: ColumnSuggestion = {
+    const columnSuggestion: ColumnsSuggestion = {
         tables: [
             {
                 identifierChain: [
@@ -144,7 +144,7 @@ test('should suggest columns after comma', () => {
 
     expect(parseResult.errors).toBeUndefined();
 
-    const columnSuggestion: ColumnSuggestion = {
+    const columnSuggestion: ColumnsSuggestion = {
         tables: [
             {
                 identifierChain: [
@@ -169,7 +169,7 @@ test('should suggest columns, functions, filters, keywords after WHERE', () => {
 
     expect(parseResult.errors).toBeUndefined();
 
-    const columnSuggestion: ColumnSuggestion = {
+    const columnSuggestion: ColumnsSuggestion = {
         tables: [
             {
                 identifierChain: [
@@ -219,7 +219,7 @@ test('should suggest columns, functions, values, keywords, colRef after equal si
 
     expect(parseResult.errors).toBeUndefined();
 
-    const columnSuggestion: ColumnSuggestion = {
+    const columnSuggestion: ColumnsSuggestion = {
         types: ['COLREF'],
         tables: [
             {
@@ -269,7 +269,7 @@ test('should suggest columns, functions, filters after AND', () => {
 
     expect(parseResult.errors).toBeUndefined();
 
-    const columnSuggestion: ColumnSuggestion = {
+    const columnSuggestion: ColumnsSuggestion = {
         tables: [
             {
                 identifierChain: [
