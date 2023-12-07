@@ -1,5 +1,22 @@
 # Changelog
 
+## [3.0.0](https://github.com/gravity-ui/websql-autocomplete/compare/v2.1.0...v3.0.0) (2023-12-07)
+
+
+### ⚠ BREAKING CHANGES
+
+* remove activeDialect unused variable, move type-conversion ([#118](https://github.com/gravity-ui/websql-autocomplete/issues/118))
+
+### Features
+
+* remove activeDialect unused variable, move type-conversion ([#118](https://github.com/gravity-ui/websql-autocomplete/issues/118)) ([d43ebe9](https://github.com/gravity-ui/websql-autocomplete/commit/d43ebe99128d08f8181808634ec656104267aa4a))
+
+
+### Bug Fixes
+
+* make engine text reliable ([#109](https://github.com/gravity-ui/websql-autocomplete/issues/109)) ([ad88671](https://github.com/gravity-ui/websql-autocomplete/commit/ad88671e3a66c58cb9625427635987be5dac9fe8))
+* remove duplicate `SubQuery` interface ([#113](https://github.com/gravity-ui/websql-autocomplete/issues/113)) ([4510693](https://github.com/gravity-ui/websql-autocomplete/commit/451069325ad04db77dd9cef70c19d508e54a349c))
+
 ## [2.1.0](https://github.com/gravity-ui/websql-autocomplete/compare/v2.0.0...v2.1.0) (2023-12-05)
 
 
