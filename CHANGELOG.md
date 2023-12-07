@@ -5,12 +5,7 @@
 
 ### ⚠ BREAKING CHANGES
 
-* remove activeDialect unused variable, move type-conversion ([#118](https://github.com/gravity-ui/websql-autocomplete/issues/118))
-
-### Features
-
-* remove activeDialect unused variable, move type-conversion ([#118](https://github.com/gravity-ui/websql-autocomplete/issues/118)) ([d43ebe9](https://github.com/gravity-ui/websql-autocomplete/commit/d43ebe99128d08f8181808634ec656104267aa4a))
-
+* Update interfaces, rename generic sql parser to mysql ([#118](https://github.com/gravity-ui/websql-autocomplete/issues/118))
 
 ### Bug Fixes
 
