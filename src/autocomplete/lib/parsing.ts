@@ -887,13 +887,13 @@ export function initSharedAutocomplete(parser: ParserContext): void {
                 },
             };
         }
-        if (matchesType(parser.yy.activeDialect, ['BOOLEAN'], types)) {
+        if (matchesType(['BOOLEAN'], types)) {
             keywords = keywords.concat(['AND', 'OR']);
         }
-        if (matchesType(parser.yy.activeDialect, ['NUMBER'], types)) {
+        if (matchesType(['NUMBER'], types)) {
             keywords = keywords.concat(['+', '-', '*', '/', '%', 'DIV']);
         }
-        if (matchesType(parser.yy.activeDialect, ['STRING'], types)) {
+        if (matchesType(['STRING'], types)) {
             keywords = keywords.concat(['LIKE', 'NOT LIKE', 'REGEXP', 'RLIKE']);
         }
         return {suggestKeywords: keywords};
@@ -2120,7 +2120,6 @@ export function initSharedAutocomplete(parser: ParserContext): void {
         parser.yy.subQueries = [];
         parser.yy.errors = [];
         parser.yy.selectListAliases = [];
-        parser.yy.activeDialect = 'generic';
 
         parser.yy.locationsStack = [];
         parser.yy.primariesStack = [];

@@ -28,7 +28,7 @@
 // either express or implied. See the License for the specific language governing permissions
 // and limitations under the License.
 
-import {TYPE_CONVERSION as GENERIC_TYPE_CONVERSION} from './generic/type-conversion';
+import {TYPE_CONVERSION as GENERIC_TYPE_CONVERSION} from './type-conversion';
 
 function stripPrecision(types?: string[]): string[] {
     const result: string[] = [];
@@ -45,11 +45,7 @@ function stripPrecision(types?: string[]): string[] {
 }
 
 // Matches types based on implicit conversion i.e. if you expect a BIGINT then INT is ok but not BOOLEAN etc.
-export function matchesType(
-    _dialect: string,
-    expectedTypes: string[],
-    actualRawTypes?: string[],
-): boolean {
+export function matchesType(expectedTypes: string[], actualRawTypes?: string[]): boolean {
     if (expectedTypes.length === 1 && expectedTypes[0] === 'T') {
         return true;
     }
