@@ -4,6 +4,7 @@ import {
     AggregateFunctionsSuggestion,
     ColumnSuggestion,
     DatabasesSuggestion,
+    DetailedColumnReference,
     FiltersSuggestion,
     FunctionsSuggestion,
     GroupBysSuggestion,
@@ -13,13 +14,12 @@ import {
     KeywordSuggestion,
     OrderBysSuggestion,
     ParsedTable,
+    SubQuery,
     TablesSuggestion,
+    UdfArgumentPosition,
+    ValuesSuggestion,
     parseGenericSql,
     parseGenericSqlWithoutCursor,
-    ValuesSuggestion,
-    DetailedColumnReference,
-    UdfArgumentPosition,
-    SubQuery,
 } from '../../../../index';
 
 test('should suggest keywords', () => {
@@ -72,8 +72,10 @@ test('should suggest columns', () => {
 });
 
 test('should suggest columns', () => {
-    const parseResult = parseGenericSql('SELECT test_column_1, test_column, SELECT, ', ' FROM test_table');
-
+    const parseResult = parseGenericSql(
+        'SELECT test_column_1, test_column, SELECT, ',
+        ' FROM test_table',
+    );
 
     const tables: ParsedTable[] = [
         {
@@ -89,7 +91,7 @@ test('should suggest columns', () => {
     expect(parseResult.suggestFunctions).toEqual(functionsSuggestions);
 
     const aggregateFunctionsSuggestions: AggregateFunctionsSuggestion = {
-        tables: tables,
+        tables,
     };
     expect(parseResult.suggestAggregateFunctions).toEqual(aggregateFunctionsSuggestions);
 
@@ -2032,14 +2034,12 @@ test('should suggest keywords', () => {
 test('should suggest keywords', () => {
     const parseResult = parseGenericSql('SELECT row_number() OVER ( ', ' FROM testTable');
 
-
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'PARTITION BY', weight: 2}];
     expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(keywordSuggestions));
 });
 
 test('should suggest keywords', () => {
     const parseResult = parseGenericSql('SELECT row_number() OVER (PARTITION ', ' FROM testTable');
-
 
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'BY', weight: -1}];
     expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(keywordSuggestions));
@@ -2051,14 +2051,12 @@ test('should suggest keywords', () => {
         ' FROM testTable',
     );
 
-
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'BY', weight: -1}];
     expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(keywordSuggestions));
 });
 
 test('should suggest columns', () => {
     const parseResult = parseGenericSql('SELECT row_number() OVER (ORDER BY ', ' FROM testTable');
-
 
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'CASE', weight: 450}];
     expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(keywordSuggestions));
@@ -2138,7 +2136,6 @@ test('should suggest columns', () => {
         ' FROM testTable',
     );
 
-
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'CASE', weight: 450}];
     expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(keywordSuggestions));
 
@@ -2171,7 +2168,6 @@ test('should suggest columns', () => {
         ' FROM testTable',
     );
 
-
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'CASE', weight: 450}];
     expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(keywordSuggestions));
 
@@ -2201,7 +2197,6 @@ test('should suggest columns', () => {
 test('should suggest keywords', () => {
     const parseResult = parseGenericSql('SELECT row_number() OVER (PARTITION BY a ORDER BY b ', '');
 
-
     const keywordSuggestions: KeywordSuggestion[] = [
         {value: 'ASC', weight: 2},
         {value: 'ROWS BETWEEN', weight: 1},
@@ -2216,7 +2211,6 @@ test('should suggest keywords', () => {
         '',
     );
 
-
     const keywordSuggestions: KeywordSuggestion[] = [
         {value: 'CURRENT ROW', weight: -1},
         {value: 'UNBOUNDED PRECEDING', weight: -1},
@@ -2230,7 +2224,6 @@ test('should suggest keywords', () => {
         '',
     );
 
-
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'PRECEDING', weight: -1}];
     expect(parseResult.suggestKeywords).toEqual(keywordSuggestions);
 });
@@ -2240,7 +2233,6 @@ test('should suggest keywords', () => {
         'SELECT row_number() OVER (PARTITION BY a ORDER BY b ROWS BETWEEN UNBOUNDED ',
         '',
     );
-
 
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'PRECEDING', weight: -1}];
     expect(parseResult.suggestKeywords).toEqual(keywordSuggestions);
@@ -2252,7 +2244,6 @@ test('should suggest keywords', () => {
         '',
     );
 
-
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'ROW', weight: -1}];
     expect(parseResult.suggestKeywords).toEqual(keywordSuggestions);
 });
@@ -2262,7 +2253,6 @@ test('should suggest keywords', () => {
         'SELECT row_number() OVER (PARTITION BY a ORDER BY b ROWS BETWEEN 1 PRECEDING ',
         '',
     );
-
 
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'AND', weight: -1}];
     expect(parseResult.suggestKeywords).toEqual(keywordSuggestions);
@@ -2274,7 +2264,6 @@ test('should suggest keywords', () => {
         '',
     );
 
-
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'AND', weight: -1}];
     expect(parseResult.suggestKeywords).toEqual(keywordSuggestions);
 });
@@ -2285,7 +2274,6 @@ test('should suggest keywords', () => {
         '',
     );
 
-
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'AND', weight: -1}];
     expect(parseResult.suggestKeywords).toEqual(keywordSuggestions);
 });
@@ -2295,7 +2283,6 @@ test('should suggest keywords', () => {
         'SELECT row_number() OVER (PARTITION BY a ORDER BY b ROWS BETWEEN 1 PRECEDING AND ',
         '',
     );
-
 
     const keywordSuggestions: KeywordSuggestion[] = [
         {value: 'CURRENT ROW', weight: -1},
@@ -2310,7 +2297,6 @@ test('should suggest keywords', () => {
         '',
     );
 
-
     const keywordSuggestions: KeywordSuggestion[] = [
         {value: 'CURRENT ROW', weight: -1},
         {value: 'UNBOUNDED FOLLOWING', weight: -1},
@@ -2323,7 +2309,6 @@ test('should suggest keywords', () => {
         'SELECT row_number() OVER (PARTITION BY a ORDER BY b ROWS BETWEEN CURRENT ROW AND ',
         '',
     );
-
 
     const keywordSuggestions: KeywordSuggestion[] = [
         {value: 'CURRENT ROW', weight: -1},
@@ -2338,7 +2323,6 @@ test('should suggest keywords', () => {
         '',
     );
 
-
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'ROW', weight: -1}];
     expect(parseResult.suggestKeywords).toEqual(keywordSuggestions);
 });
@@ -2349,7 +2333,6 @@ test('should suggest keywords', () => {
         '',
     );
 
-
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'FOLLOWING', weight: -1}];
     expect(parseResult.suggestKeywords).toEqual(keywordSuggestions);
 });
@@ -2359,7 +2342,6 @@ test('should suggest keywords', () => {
         'SELECT row_number() OVER (PARTITION BY a ORDER BY b ROWS BETWEEN CURRENT ROW AND 1 ',
         '',
     );
-
 
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'FOLLOWING', weight: -1}];
     expect(parseResult.suggestKeywords).toEqual(keywordSuggestions);
@@ -2390,7 +2372,6 @@ test('should suggest tables', () => {
 
 test('should suggest keywords', () => {
     const parseResult = parseGenericSql('SELECT COUNT(foo ', '');
-
 
     const keywordSuggestions: KeywordSuggestion[] = [
         {value: 'AND', weight: -1},
@@ -3123,7 +3104,6 @@ test('should suggest columns and values', () => {
 test('should suggest functions', () => {
     const parseResult = parseGenericSql('SELECT CAST(', '');
 
-
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'CASE', weight: 450}];
     expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(keywordSuggestions));
 
@@ -3133,7 +3113,6 @@ test('should suggest functions', () => {
 
 test('should suggest columns', () => {
     const parseResult = parseGenericSql('SELECT CAST(', ' FROM bar;');
-
 
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'CASE', weight: 450}];
     expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(keywordSuggestions));
@@ -3159,7 +3138,6 @@ test('should suggest columns', () => {
 test('should suggest columns', () => {
     const parseResult = parseGenericSql('SELECT CAST(bla', ' FROM bar;');
 
-
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'CASE', weight: 450}];
     expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(keywordSuggestions));
 
@@ -3184,7 +3162,6 @@ test('should suggest columns', () => {
 test('should suggest columns', () => {
     const parseResult = parseGenericSql('SELECT CAST(', ' AS FROM bar;');
 
-
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'CASE', weight: 450}];
     expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(keywordSuggestions));
 
@@ -3208,7 +3185,6 @@ test('should suggest columns', () => {
 
 test('should suggest columns', () => {
     const parseResult = parseGenericSql('SELECT CAST(', ' AS INT FROM bar;');
-
 
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'CASE', weight: 450}];
     expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(keywordSuggestions));
@@ -3286,7 +3262,6 @@ test('should suggest columns', () => {
 test('should suggest keywords', () => {
     const parseResult = parseGenericSql('SELECT CAST(bla ', '');
 
-
     const keywordSuggestions: KeywordSuggestion[] = [
         {value: 'AS', weight: 2},
         {value: 'AND', weight: -1},
@@ -3296,7 +3271,6 @@ test('should suggest keywords', () => {
 
 test('should suggest keywords', () => {
     const parseResult = parseGenericSql('SELECT CAST(bla ', ' FROM bar;');
-
 
     const keywordSuggestions: KeywordSuggestion[] = [
         {value: 'AS', weight: 2},
@@ -3322,7 +3296,6 @@ test('should suggest keywords', () => {
 test('should suggest keywords', () => {
     const parseResult = parseGenericSql('select cast(bla as ', '');
 
-
     const keywordSuggestions: KeywordSuggestion[] = [
         {value: 'INT', weight: -1},
         {value: 'STRING', weight: -1},
@@ -3332,7 +3305,6 @@ test('should suggest keywords', () => {
 
 test('should suggest keywords', () => {
     const parseResult = parseGenericSql('SELECT CAST(bla AS ', ' FROM bar;');
-
 
     const keywordSuggestions: KeywordSuggestion[] = [
         {value: 'INT', weight: -1},
@@ -3355,7 +3327,6 @@ test('should suggest keywords', () => {
 
 test('should suggest keywords', () => {
     const parseResult = parseGenericSql('SELECT CAST(AS ', '');
-
 
     const keywordSuggestions: KeywordSuggestion[] = [
         {value: 'INT', weight: -1},
@@ -3526,7 +3497,6 @@ test('should not report errors for', () => {
 test('should suggest columns', () => {
     const parseResult = parseGenericSql('SELECT db.customUdf(', ' FROM bar;');
 
-
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'CASE', weight: 450}];
     expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(keywordSuggestions));
 
@@ -3556,7 +3526,6 @@ test('should suggest columns', () => {
 
 test('should suggest columns', () => {
     const parseResult = parseGenericSql('SELECT db.customUdf(1, ', ' FROM bar;');
-
 
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'CASE', weight: 450}];
     expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(keywordSuggestions));
@@ -3898,7 +3867,6 @@ test('should suggest columns', () => {
 test('should suggest columns', () => {
     const parseResult = parseGenericSql('SELECT id, SUM(a * ', ' FROM testTable');
 
-
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'CASE', weight: 450}];
     expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(keywordSuggestions));
 
@@ -3926,7 +3894,6 @@ test('should suggest columns', () => {
 test('should suggest columns', () => {
     const parseResult = parseGenericSql('SELECT CASE ', ' FROM testTable');
 
-
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'WHEN', weight: -1}];
     expect(parseResult.suggestKeywords).toEqual(keywordSuggestions);
 
@@ -3950,7 +3917,6 @@ test('should suggest columns', () => {
 
 test('should suggest columns', () => {
     const parseResult = parseGenericSql('SELECT CASE WHEN a = b AND ', ' THEN FROM testTable');
-
 
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'CASE', weight: 450}];
     expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(keywordSuggestions));
@@ -3976,7 +3942,6 @@ test('should suggest columns', () => {
 test('should suggest columns', () => {
     const parseResult = parseGenericSql('SELECT CASE a = b AND ', ' FROM testTable');
 
-
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'CASE', weight: 450}];
     expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(keywordSuggestions));
 
@@ -4001,7 +3966,6 @@ test('should suggest columns', () => {
 test('should suggest keywords', () => {
     const parseResult = parseGenericSql('SELECT CASE a = b ', ' FROM testTable');
 
-
     const keywordSuggestions: KeywordSuggestion[] = [
         {value: 'WHEN', weight: -1},
         {value: 'AND', weight: -1},
@@ -4012,7 +3976,6 @@ test('should suggest keywords', () => {
 
 test('should suggest columns', () => {
     const parseResult = parseGenericSql('SELECT CASE WHEN a = b OR ', ' THEN boo FROM testTable');
-
 
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'CASE', weight: 450}];
     expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(keywordSuggestions));
@@ -4040,7 +4003,6 @@ test('should suggest columns', () => {
         'SELECT CASE WHEN a = b OR c THEN boo OR ',
         ' FROM testTable',
     );
-
 
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'CASE', weight: 450}];
     expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(keywordSuggestions));
@@ -4157,7 +4119,6 @@ test('should suggest columns', () => {
 test('should suggest columns', () => {
     const parseResult = parseGenericSql('SELECT CASE a = c WHEN c THEN d ', ' FROM testTable');
 
-
     const keywordSuggestions: KeywordSuggestion[] = [
         {value: 'END', weight: 3},
         {value: '<>', weight: -1},
@@ -4181,7 +4142,6 @@ test('should suggest columns', () => {
 
 test('should suggest columns', () => {
     const parseResult = parseGenericSql('SELECT CASE a = c WHEN c THEN d=', ' ELSE FROM testTable');
-
 
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'CASE', weight: 450}];
     expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(keywordSuggestions));
@@ -4228,7 +4188,6 @@ test('should suggest keywords', () => {
         ' bla=foo FROM testTable',
     );
 
-
     const keywordSuggestions: KeywordSuggestion[] = [
         {value: 'AND', weight: -1},
         {value: 'WHEN', weight: 1},
@@ -4245,7 +4204,6 @@ test('should suggest keywords', () => {
         ' bla=foo FROM testTable',
     );
 
-
     const keywordSuggestions: KeywordSuggestion[] = [
         {value: 'AND', weight: -1},
         {value: 'WHEN', weight: 1},
@@ -4257,7 +4215,6 @@ test('should suggest keywords', () => {
 
 test('should suggest columns', () => {
     const parseResult = parseGenericSql('SELECT CASE a = c WHEN c THEN d ELSE ', ' FROM testTable');
-
 
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'CASE', weight: 450}];
     expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(keywordSuggestions));
@@ -4285,7 +4242,6 @@ test('should suggest columns', () => {
         'SELECT CASE a = c WHEN c THEN d ELSE e AND ',
         ' FROM testTable',
     );
-
 
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'CASE', weight: 450}];
     expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(keywordSuggestions));
@@ -4335,7 +4291,6 @@ test('should suggest columns', () => {
 test('should suggest columns', () => {
     const parseResult = parseGenericSql('SELECT CASE ', ' ELSE a FROM testTable');
 
-
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'WHEN', weight: -1}];
     expect(parseResult.suggestKeywords).toEqual(keywordSuggestions);
 
@@ -4360,7 +4315,6 @@ test('should suggest columns', () => {
 test('should suggest columns', () => {
     const parseResult = parseGenericSql('SELECT CASE ', ' ELSE FROM testTable');
 
-    
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'WHEN', weight: -1}];
     expect(parseResult.suggestKeywords).toEqual(keywordSuggestions);
 
@@ -4414,7 +4368,6 @@ test('should suggest columns', () => {
 test('should suggest columns', () => {
     const parseResult = parseGenericSql('SELECT CASE WHEN THEN boo OR ', ' FROM testTable');
 
-
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'CASE', weight: 450}];
     expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(keywordSuggestions));
 
@@ -4439,7 +4392,6 @@ test('should suggest columns', () => {
 test('should suggest keywords', () => {
     const parseResult = parseGenericSql('SELECT CASE ', ' a = b THEN FROM testTable');
 
-
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'WHEN', weight: -1}];
     expect(parseResult.suggestKeywords).toEqual(keywordSuggestions);
 });
@@ -4447,14 +4399,12 @@ test('should suggest keywords', () => {
 test('should suggest keywords', () => {
     const parseResult = parseGenericSql('SELECT CASE ', ' a = b THEN boo FROM testTable');
 
-
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'WHEN', weight: -1}];
     expect(parseResult.suggestKeywords).toEqual(keywordSuggestions);
 });
 
 test('should suggest keywords', () => {
     const parseResult = parseGenericSql('SELECT CASE ', ' THEN boo FROM testTable');
-
 
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'WHEN', weight: -1}];
     expect(parseResult.suggestKeywords).toEqual(keywordSuggestions);
@@ -4479,7 +4429,6 @@ test('should suggest keywords', () => {
 
 test('should suggest columns', () => {
     const parseResult = parseGenericSql('SELECT CASE WHEN ', ' boo FROM testTable');
-
 
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'THEN', weight: -1}];
     expect(parseResult.suggestKeywords).toEqual(keywordSuggestions);
@@ -4536,7 +4485,6 @@ test('should suggest columns', () => {
         'SELECT CASE a WHEN b THEN c WHEN ',
         ' boo ELSE c FROM testTable',
     );
-
 
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'THEN', weight: -1}];
     expect(parseResult.suggestKeywords).toEqual(keywordSuggestions);
@@ -4620,7 +4568,6 @@ test('should suggest keywords', () => {
 test('should suggest keywords', () => {
     const parseResult = parseGenericSql('SELECT CASE a WHEN b THEN c ', ' FROM testTable');
 
-
     const keywordSuggestions: KeywordSuggestion[] = [
         {value: 'WHEN', weight: 1},
         {value: '>', weight: -1},
@@ -4645,7 +4592,6 @@ test('should suggest keywords', () => {
 test('should suggest columns', () => {
     const parseResult = parseGenericSql('SELECT CASE WHEN ', ' THEN FROM testTable');
 
-
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'CASE', weight: 450}];
     expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(keywordSuggestions));
 
@@ -4669,7 +4615,6 @@ test('should suggest columns', () => {
 
 test('should suggest values', () => {
     const parseResult = parseGenericSql('SELECT CASE WHEN ', ' = a FROM testTable');
-
 
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'CASE', weight: 450}];
     expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(keywordSuggestions));
@@ -4712,7 +4657,6 @@ test('should suggest values', () => {
 
 test('should suggest columns', () => {
     const parseResult = parseGenericSql('SELECT CASE WHEN ab', ' THEN bla ELSE foo FROM testTable');
-
 
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'CASE', weight: 450}];
     expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(keywordSuggestions));
@@ -4767,7 +4711,6 @@ test('should suggest columns', () => {
 test('should suggest columns', () => {
     const parseResult = parseGenericSql('SELECT CASE WHEN ', ' FROM testTable');
 
-
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'CASE', weight: 450}];
     expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(keywordSuggestions));
 
@@ -4792,7 +4735,6 @@ test('should suggest columns', () => {
 test('should suggest columns', () => {
     const parseResult = parseGenericSql('SELECT CASE a WHEN ', ' FROM testTable');
 
-
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'CASE', weight: 450}];
     expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(keywordSuggestions));
 
@@ -4816,7 +4758,6 @@ test('should suggest columns', () => {
 
 test('should suggest columns', () => {
     const parseResult = parseGenericSql('SELECT CASE WHEN a = ', ' FROM testTable');
-
 
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'CASE', weight: 450}];
     expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(keywordSuggestions));
@@ -4860,7 +4801,6 @@ test('should suggest columns', () => {
 test('should suggest columns', () => {
     const parseResult = parseGenericSql('SELECT CASE WHEN a = b ', ' FROM testTable');
 
-
     const keywordSuggestions: KeywordSuggestion[] = [
         {value: 'AND', weight: -1},
         {value: 'THEN', weight: -1},
@@ -4871,7 +4811,6 @@ test('should suggest columns', () => {
 
 test('should suggest columns', () => {
     const parseResult = parseGenericSql('SELECT CASE a = c WHEN c ', ' d FROM testTable');
-
 
     const keywordSuggestions: KeywordSuggestion[] = [
         {value: 'THEN', weight: -1},
@@ -4897,7 +4836,6 @@ test('should suggest columns', () => {
 test('should suggest columns', () => {
     const parseResult = parseGenericSql('SELECT CASE a = c WHEN c THEN ', ' FROM testTable');
 
-
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'CASE', weight: 450}];
     expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(keywordSuggestions));
 
@@ -4921,7 +4859,6 @@ test('should suggest columns', () => {
 
 test('should suggest columns', () => {
     const parseResult = parseGenericSql('SELECT CASE a = c WHEN c THEN ', ' g FROM testTable');
-
 
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'CASE', weight: 450}];
     expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(keywordSuggestions));
@@ -4947,7 +4884,6 @@ test('should suggest columns', () => {
 test('should suggest columns', () => {
     const parseResult = parseGenericSql('SELECT CASE WHEN THEN ', ' g FROM testTable');
 
-
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'CASE', weight: 450}];
     expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(keywordSuggestions));
 
@@ -4971,7 +4907,6 @@ test('should suggest columns', () => {
 
 test('should suggest columns', () => {
     const parseResult = parseGenericSql('SELECT CASE WHEN THEN ', ' FROM testTable');
-
 
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'CASE', weight: 450}];
     expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(keywordSuggestions));
@@ -5309,7 +5244,6 @@ test('should suggest values', () => {
 
 test('should suggest columns', () => {
     const parseResult = parseGenericSql('SELECT greatest(1, 2, a, 4, ', ' FROM testTable');
-
 
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'CASE', weight: 450}];
     expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(keywordSuggestions));
@@ -6154,7 +6088,6 @@ test('should suggest columns', () => {
         'SELECT a, b, c FROM testTable WHERE d ',
         " RLIKE 'bla bla'",
     );
-
 
     const keywordSuggestions: KeywordSuggestion[] = [
         {value: '<', weight: 2},
@@ -7449,7 +7382,6 @@ test('should suggest keywords', () => {
 test('should suggest columns', () => {
     const parseResult = parseGenericSql('SELECT * FROM testTable WHERE ', " = 'bar' AND ");
 
-
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'CASE', weight: 450}];
     expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(keywordSuggestions));
 
@@ -7588,7 +7520,6 @@ test('should suggest values', () => {
 
 test('should suggest keywords', () => {
     const parseResult = parseGenericSql('SELECT * FROM testTable WHERE a OR NOT EXISTS (', '');
-
 
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'SELECT', weight: -1}];
     expect(parseResult.suggestKeywords).toEqual(keywordSuggestions);
@@ -7820,7 +7751,6 @@ test('should suggest keywords', () => {
 test('should suggest keywords', () => {
     const parseResult = parseGenericSql('SELECT * FROM foo WHERE bar IN (', '');
 
-
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'SELECT', weight: -1}];
     expect(parseResult.suggestKeywords).toEqual(keywordSuggestions);
 
@@ -7862,7 +7792,6 @@ test('should suggest keywords', () => {
 
 test('should suggest keywords', () => {
     const parseResult = parseGenericSql('select * from foo, bar where bar.bla in (', '');
-
 
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'SELECT', weight: -1}];
     expect(parseResult.suggestKeywords).toEqual(keywordSuggestions);
@@ -7925,7 +7854,6 @@ test('should suggest keywords', () => {
 test('should suggest values', () => {
     const parseResult = parseGenericSql("select * from foo, bar where bar.bla in ('a', ", '');
 
-
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'CASE', weight: 450}];
     expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(keywordSuggestions));
 
@@ -7986,7 +7914,6 @@ test('should suggest values', () => {
 
 test('should suggest tables', () => {
     const parseResult = parseGenericSql('SELECT * FROM foo WHERE bar IN (SELECT ', '');
-
 
     const keywordSuggestions: KeywordSuggestion[] = [
         {value: '*', weight: 10000},
@@ -8058,7 +7985,6 @@ test('should suggest tables', () => {
 test('should suggest keywords', () => {
     const parseResult = parseGenericSql('SELECT * FROM (', '');
 
-
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'SELECT', weight: -1}];
     expect(parseResult.suggestKeywords).toEqual(keywordSuggestions);
 });
@@ -8066,14 +7992,12 @@ test('should suggest keywords', () => {
 test('should suggest keywords', () => {
     const parseResult = parseGenericSql('select * from (', '');
 
-
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'SELECT', weight: -1}];
     expect(parseResult.suggestKeywords).toEqual(keywordSuggestions);
 });
 
 test('should suggest keywords', () => {
     const parseResult = parseGenericSql('select foo.* from (', ') foo');
-
 
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'SELECT', weight: -1}];
     expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(keywordSuggestions));
@@ -8118,7 +8042,6 @@ test('should suggest columns', () => {
         'SELECT "contains an even number" FROM t1, t2 AS ta2 WHERE EXISTS (SELECT t3.foo FROM t3 WHERE ',
         ' % 2 = 0',
     );
-
 
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'CASE', weight: 450}];
     expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(keywordSuggestions));
@@ -8876,7 +8799,6 @@ test('should suggest identifiers', () => {
         ' FROM (SELECT b FROM foo) boo, (SELECT a FROM bla) bar',
     );
 
-
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'CASE', weight: 450}];
     expect(parseResult.suggestKeywords).toEqual(expect.arrayContaining(keywordSuggestions));
 
@@ -8962,7 +8884,6 @@ test('should suggest identifiers', () => {
 test('should suggest tables', () => {
     const parseResult = parseGenericSql('SELECT * FROM (SELECT ', ')');
 
-
     const keywordSuggestions: KeywordSuggestion[] = [
         {value: '*', weight: 10000},
         {value: 'ALL', weight: 2},
@@ -8999,7 +8920,6 @@ test('should suggest columns', () => {
         'SELECT * FROM (SELECT ',
         ' FROM tableOne) subQueryOne, someDb.tableTwo talias, (SELECT * FROM t3 JOIN t4 ON t3.id = t4.id) AS subQueryTwo;',
     );
-
 
     const keywordSuggestions: KeywordSuggestion[] = [
         {value: '*', weight: 10000},
@@ -9390,7 +9310,6 @@ test('should suggest columns', () => {
         'SELECT s2.',
         ' FROM (SELECT a, bla FROM (SELECT a, b, abs(1) as bla FROM testTable) s1) s2;',
     );
-
 
     const keywordSuggestions: KeywordSuggestion[] = [{value: '*', weight: 10000}];
     expect(parseResult.suggestKeywords).toEqual(keywordSuggestions);

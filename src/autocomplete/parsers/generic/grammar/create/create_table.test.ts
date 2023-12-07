@@ -15,9 +15,6 @@ test('should suggest IF NOT EXISTS', () => {
 test('should suggest data types', () => {
     const parseResult = parseGenericSql('CREATE TABLE food (id ', '');
 
-    // TODO: fix unhandled error
-    // expect(parseResult.errors).toBeUndefined();
-
     const suggestions: KeywordSuggestion[] = [
         {value: 'BIGINT', weight: -1},
         {value: 'BOOLEAN', weight: -1},
@@ -32,9 +29,6 @@ test('should suggest data types', () => {
 
 test('should suggest data types when some types are already written', () => {
     const parseResult = parseGenericSql('CREATE TABLE food (id INT, age FLOAT, bar ', '');
-
-    // TODO: fix unhandled error
-    // expect(parseResult.errors).toBeUndefined();
 
     const suggestions: KeywordSuggestion[] = [
         {value: 'BIGINT', weight: -1},

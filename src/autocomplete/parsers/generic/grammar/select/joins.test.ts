@@ -144,9 +144,6 @@ test('should suggest keywords', () => {
 test('should suggest keywords', () => {
     const parseResult = parseGenericSql('SELECT * FROM test_table FULL ', '');
 
-    // TODO: fix unhandled error
-    // expect(parseResult.errors).toBeUndefined();
-
     const keywordSuggestions: KeywordSuggestion[] = [
         {value: 'JOIN', weight: -1},
         {value: 'OUTER JOIN', weight: -1},
@@ -166,9 +163,6 @@ test('should suggest keywords', () => {
 test('should suggest keywords', () => {
     const parseResult = parseGenericSql('SELECT * FROM test_table_1 LEFT ', '');
 
-    // TODO: fix unhandled error
-    // expect(parseResult.errors).toBeUndefined();
-
     const keywordSuggestions: KeywordSuggestion[] = [
         {value: 'JOIN', weight: -1},
         {value: 'OUTER JOIN', weight: -1},
@@ -187,9 +181,6 @@ test('should suggest keywords', () => {
 
 test('should suggest keywords', () => {
     const parseResult = parseGenericSql('SELECT * FROM test_table_1 RIGHT ', '');
-
-    // TODO: fix unhandled error
-    // expect(parseResult.errors).toBeUndefined();
 
     const keywordSuggestions: KeywordSuggestion[] = [
         {value: 'JOIN', weight: -1},
@@ -348,9 +339,6 @@ test('should suggest columns', () => {
         '',
     );
 
-    // TODO: fix unhandled error
-    // expect(parseResult.errors).toBeUndefined();
-
     const columnsSuggestion: ColumnSuggestion = {
         tables: [
             {
@@ -389,9 +377,6 @@ test('should suggest columns', () => {
         'SELECT test_table_1.* FROM test_table_1 JOIN test_table_2 ON (test_table_1.test_column_1 = test_table_2.test_column_3 AND ',
         '',
     );
-
-    // TODO: fix unhandled error
-    // expect(parseResult.errors).toBeUndefined();
 
     const columnsSuggestion: ColumnSuggestion = {
         tables: [
@@ -432,9 +417,6 @@ test('should suggest columns', () => {
         ' AND test_table_1.test_column_1 = test_table_2.test_column_3',
     );
 
-    // TODO: fix unhandled error
-    // expect(parseResult.errors).toBeUndefined();
-
     const columnsSuggestion: ColumnSuggestion = {
         tables: [
             {
@@ -473,9 +455,6 @@ test('should suggest columns', () => {
         'SELECT test_table_1.* FROM test_table_1 JOIN test_table_2 ON (test_table_1.test_column_1 = test_table_2.test_column_3 AND test_table_1.',
         '',
     );
-
-    // TODO: fix unhandled error
-    // expect(parseResult.errors).toBeUndefined();
 
     const columnsSuggestion: ColumnSuggestion = {
         tables: [

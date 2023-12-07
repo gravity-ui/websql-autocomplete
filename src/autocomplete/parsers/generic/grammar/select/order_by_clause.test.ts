@@ -37,9 +37,6 @@ test('should suggest columns', () => {
         '',
     );
 
-    // TODO: fix unhandled error
-    // expect(parseResult.errors).toBeUndefined();
-
     const keywordSuggestions: KeywordSuggestion[] = [{value: 'BY', weight: -1}];
     expect(parseResult.suggestKeywords).toEqual(keywordSuggestions);
 

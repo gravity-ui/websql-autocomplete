@@ -8,9 +8,6 @@ test('should suggest columns', () => {
         '',
     );
 
-    // TODO: fix unhandled error
-    // expect(parseResult.errors).toBeUndefined();
-
     const keywordSuggestions: KeywordSuggestion[] = [
         {value: 'LIMIT', weight: 2.3},
         {value: 'UNION', weight: 2.11},

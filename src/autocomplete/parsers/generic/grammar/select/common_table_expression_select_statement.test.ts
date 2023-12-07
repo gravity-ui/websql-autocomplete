@@ -21,9 +21,6 @@ test('should suggest alias', () => {
 test('should suggest SELECT', () => {
     const parseResult = parseGenericSql('WITH test_table AS ( ', '');
 
-    // TODO: fix unhandled error
-    // expect(parseResult.errors).toBeUndefined();
-
     const suggestion: KeywordSuggestion = {value: 'SELECT', weight: -1};
     expect(parseResult.suggestKeywords).toContainEqual(suggestion);
 });
@@ -235,9 +232,6 @@ test('should suggest keywords', () => {
         'WITH t1 AS (SELECT * FROM test_table), t2 AS (SELECT ',
         '',
     );
-
-    // TODO: fix unexpected error
-    // expect(parseResult.errors).toBeUndefined();
 
     const keywordsSuggestion: KeywordSuggestion[] = [
         {value: '*', weight: 10000},
