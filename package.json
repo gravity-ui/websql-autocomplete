@@ -27,13 +27,10 @@
     "@gravity-ui/eslint-config": "^3.1.1",
     "@gravity-ui/prettier-config": "^1.1.0",
     "@gravity-ui/tsconfig": "^1.0.0",
-    "antlr4ng-cli": "^1.0.7",
-    "antlr4ts-cli": "^0.5.0-alpha.4"
+    "antlr4ng-cli": "^1.0.7"
   },
   "dependencies": {
-    "antlr4": "4.13.1-patch-1",
     "antlr4-c3": "^3.3.5",
-    "antlr4ng": "^2.0.5",
-    "antlr4ts": "^0.5.0-alpha.4"
+    "antlr4ng": "^2.0.5"
   }
 }
