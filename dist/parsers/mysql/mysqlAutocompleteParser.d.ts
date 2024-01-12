@@ -2,10 +2,14 @@ interface CursorPosition {
     line: number;
     column: number;
 }
-interface ParserSyntaxError {
-    message: string;
+interface TokenPosition {
     startLine: number;
     startColumn: number;
+    endLine: number;
+    endColumn: number;
+}
+interface ParserSyntaxError extends TokenPosition {
+    message: string;
 }
 interface KeywordSuggestion {
     value: string;

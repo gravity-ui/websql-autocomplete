@@ -1,25 +1,28 @@
-import { CharStreams, CommonTokenStream } from 'antlr4ng';
+import { CharStreams, CommonTokenStream, } from 'antlr4ng';
 import * as c3 from 'antlr4-c3';
 import { MySqlLexer } from './generated/MySqlLexer.js';
 import { MySqlParser } from './generated/MySqlParser.js';
 const possibleIdentifierPrefix = /[\w]$/;
 const lineSeparator = /\n|\r|\r\n/g;
-function findCursorTokenIndex(tokenStream, cursor) {
+function getTokenPosition(token) {
     var _a, _b;
+    const startColumn = token.column;
+    const endColumn = token.column + (((_a = token.text) === null || _a === void 0 ? void 0 : _a.length) || 0);
+    const startLine = token.line;
+    const endLine = token.type !== MySqlLexer.SPACE || !token.text
+        ? startLine
+        : startLine + (((_b = token.text.match(lineSeparator)) === null || _b === void 0 ? void 0 : _b.length) || 0);
+    return { startColumn, startLine, endColumn, endLine };
+}
+function findCursorTokenIndex(tokenStream, cursor) {
     const cursorCol = cursor.column - 1;
     for (let i = 0; i < tokenStream.size; i++) {
-        const t = tokenStream.get(i);
-        const tokenStartCol = t.column;
-        const tokenEndCol = t.column + (((_a = t.text) === null || _a === void 0 ? void 0 : _a.length) || 0);
-        const tokenStartLine = t.line;
-        const tokenEndLine = t.type !== MySqlLexer.SPACE || !t.text
-            ? tokenStartLine
-            : tokenStartLine + (((_b = t.text.match(lineSeparator)) === null || _b === void 0 ? void 0 : _b.length) || 0);
-        if (tokenEndLine > cursor.line ||
-            (tokenStartLine === cursor.line && tokenEndCol > cursorCol)) {
+        const token = tokenStream.get(i);
+        const { startColumn, startLine, endColumn, endLine } = getTokenPosition(token);
+        if (endLine > cursor.line || (startLine === cursor.line && endColumn > cursorCol)) {
             if (i > 0 &&
-                tokenStartLine === cursor.line &&
-                tokenStartCol === cursorCol &&
+                startLine === cursor.line &&
+                startColumn === cursorCol &&
                 possibleIdentifierPrefix.test(tokenStream.get(i - 1).text || '')) {
                 return i - 1;
             }
@@ -35,8 +38,20 @@ class MySqlErrorListener {
     constructor() {
         this.errors = [];
     }
-    syntaxError(_recognizer, _offendingSymbol, startLine, startColumn, message) {
-        this.errors.push({ message, startLine, startColumn });
+    syntaxError(_recognizer, token, startLine, startColumn, message) {
+        if (token) {
+            const tokenPosition = getTokenPosition(token);
+            this.errors.push(Object.assign({ message }, tokenPosition));
+        }
+        else {
+            this.errors.push({
+                message,
+                startLine,
+                startColumn,
+                endLine: startLine,
+                endColumn: startColumn,
+            });
+        }
     }
     reportAmbiguity() { }
     reportAttemptingFullContext() { }

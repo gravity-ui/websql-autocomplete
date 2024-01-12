@@ -1,4 +1,12 @@
-import {CharStreams, CommonTokenStream, TokenStream, ANTLRErrorListener} from 'antlr4ng';
+import {
+    CharStreams,
+    CommonTokenStream,
+    TokenStream,
+    ANTLRErrorListener,
+    Token,
+    ATNSimulator,
+    Recognizer,
+} from 'antlr4ng';
 import * as c3 from 'antlr4-c3';
 
 import {MySqlLexer} from './generated/MySqlLexer.js';
@@ -10,10 +18,15 @@ interface CursorPosition {
     column: number;
 }
 
-interface ParserSyntaxError {
-    message: string;
+interface TokenPosition {
     startLine: number;
     startColumn: number;
+    endLine: number;
+    endColumn: number;
+}
+
+interface ParserSyntaxError extends TokenPosition {
+    message: string;
 }
 
 interface KeywordSuggestion {
@@ -33,32 +46,35 @@ interface KeywordSuggestion {
 const possibleIdentifierPrefix = /[\w]$/;
 const lineSeparator = /\n|\r|\r\n/g;
 
+function getTokenPosition(token: Token): TokenPosition {
+    const startColumn = token.column;
+    const endColumn = token.column + (token.text?.length || 0);
+    const startLine = token.line;
+    const endLine =
+        token.type !== MySqlLexer.SPACE || !token.text
+            ? startLine
+            : startLine + (token.text.match(lineSeparator)?.length || 0);
+
+    return {startColumn, startLine, endColumn, endLine};
+}
+
 function findCursorTokenIndex(
     tokenStream: TokenStream,
     cursor: CursorPosition,
 ): number | undefined {
     // Cursor position is 1-based, while token's charPositionInLine is 0-based
     const cursorCol = cursor.column - 1;
+
     for (let i = 0; i < tokenStream.size; i++) {
-        const t = tokenStream.get(i);
+        const token = tokenStream.get(i);
+        const {startColumn, startLine, endColumn, endLine} = getTokenPosition(token);
 
-        const tokenStartCol = t.column;
-        const tokenEndCol = t.column + (t.text?.length || 0);
-        const tokenStartLine = t.line;
-        const tokenEndLine =
-            t.type !== MySqlLexer.SPACE || !t.text
-                ? tokenStartLine
-                : tokenStartLine + (t.text.match(lineSeparator)?.length || 0);
-
-        // tokenEndCol makes sense only if tokenStartLine === tokenEndLine
-        if (
-            tokenEndLine > cursor.line ||
-            (tokenStartLine === cursor.line && tokenEndCol > cursorCol)
-        ) {
+        // endColumn makes sense only if startLine === endLine
+        if (endLine > cursor.line || (startLine === cursor.line && endColumn > cursorCol)) {
             if (
                 i > 0 &&
-                tokenStartLine === cursor.line &&
-                tokenStartCol === cursorCol &&
+                startLine === cursor.line &&
+                startColumn === cursorCol &&
                 // If previous token is an identifier (i.e. word, not a symbol),
                 // then we want to return previous token index
                 possibleIdentifierPrefix.test(tokenStream.get(i - 1).text || '')
@@ -70,6 +86,7 @@ function findCursorTokenIndex(
             return i;
         }
     }
+
     return undefined;
 }
 
@@ -80,14 +97,25 @@ class MySqlErrorListener implements ANTLRErrorListener {
         this.errors = [];
     }
 
-    syntaxError(
-        _recognizer: any,
-        _offendingSymbol: any,
+    syntaxError<S extends Token, T extends ATNSimulator>(
+        _recognizer: Recognizer<T>,
+        token: S | null,
         startLine: number,
         startColumn: number,
         message: string,
     ) {
-        this.errors.push({message, startLine, startColumn});
+        if (token) {
+            const tokenPosition = getTokenPosition(token);
+            this.errors.push({message, ...tokenPosition});
+        } else {
+            this.errors.push({
+                message,
+                startLine,
+                startColumn,
+                endLine: startLine,
+                endColumn: startColumn,
+            });
+        }
     }
 
     reportAmbiguity() {}
