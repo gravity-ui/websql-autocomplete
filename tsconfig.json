@@ -1,0 +1,18 @@
+{
+  "extends": "@gravity-ui/tsconfig",
+  "compilerOptions": {
+    "module": "ES2022",
+    "declaration": true,
+    "outDir": "dist",
+    "removeComments": true,
+    "noImplicitAny": true,
+    "sourceMap": true,
+    "inlineSources": true,
+    "isolatedModules": false,
+    "allowSyntheticDefaultImports": true,
+    "experimentalDecorators": true,
+    "strictNullChecks": true,
+    "noEmitOnError": false
+  },
+  "include": ["src/**/*"],
+}
