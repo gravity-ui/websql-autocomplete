@@ -7,7 +7,11 @@
     "url": "git+ssh://git@github.com/gravity-ui/websql-autocomplete-2"
   },
   "type": "module",
+  "files": [
+    "dist/*"
+  ],
   "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "engines": {
     "node": ">=16.0"
   },
