@@ -131,6 +131,7 @@ class MySqlErrorListener implements ANTLRErrorListener {
 
 function generateSuggestionsFromRules(
     rules: c3.CandidatesCollection['rules'],
+    cursorTokenIndex: number,
     previousToken?: Token,
 ): Partial<AutocompleteParseResult> {
     let suggestTables: AutocompleteParseResult['suggestTables'];
@@ -140,7 +141,10 @@ function generateSuggestionsFromRules(
     for (const [ruleId, ruleData] of rules) {
         switch (ruleId) {
             case MySqlParser.RULE_tableName: {
-                if (!ruleData.ruleList.includes(MySqlParser.RULE_createTable)) {
+                if (
+                    cursorTokenIndex === ruleData.startTokenIndex &&
+                    !ruleData.ruleList.includes(MySqlParser.RULE_createTable)
+                ) {
                     suggestTables = TableSuggestion.ALL;
                 }
                 break;
@@ -215,7 +219,11 @@ export function parseMySqlQuery(query: string, cursor: CursorPosition): Autocomp
         // Subtracting 2, because of whitespace token
         const previousToken = tokenStream.get(cursorTokenIndex - 2);
         const {tokens, rules} = core.collectCandidates(cursorTokenIndex);
-        const suggestionsFromRules = generateSuggestionsFromRules(rules, previousToken);
+        const suggestionsFromRules = generateSuggestionsFromRules(
+            rules,
+            cursorTokenIndex,
+            previousToken,
+        );
 
         result = {...result, ...suggestionsFromRules};
         tokens.forEach((_, tokenType) => {

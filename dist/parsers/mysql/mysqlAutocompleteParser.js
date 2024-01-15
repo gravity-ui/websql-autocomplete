@@ -69,7 +69,7 @@ class MySqlErrorListener {
     reportAttemptingFullContext() { }
     reportContextSensitivity() { }
 }
-function generateSuggestionsFromRules(rules, previousToken) {
+function generateSuggestionsFromRules(rules, cursorTokenIndex, previousToken) {
     var _a, _b;
     let suggestTables;
     let suggestAggregateFunctions = false;
@@ -77,7 +77,8 @@ function generateSuggestionsFromRules(rules, previousToken) {
     for (const [ruleId, ruleData] of rules) {
         switch (ruleId) {
             case MySqlParser.RULE_tableName: {
-                if (!ruleData.ruleList.includes(MySqlParser.RULE_createTable)) {
+                if (cursorTokenIndex === ruleData.startTokenIndex &&
+                    !ruleData.ruleList.includes(MySqlParser.RULE_createTable)) {
                     suggestTables = TableSuggestion.ALL;
                 }
                 break;
@@ -142,7 +143,7 @@ export function parseMySqlQuery(query, cursor) {
         // Subtracting 2, because of whitespace token
         const previousToken = tokenStream.get(cursorTokenIndex - 2);
         const { tokens, rules } = core.collectCandidates(cursorTokenIndex);
-        const suggestionsFromRules = generateSuggestionsFromRules(rules, previousToken);
+        const suggestionsFromRules = generateSuggestionsFromRules(rules, cursorTokenIndex, previousToken);
         result = Object.assign(Object.assign({}, result), suggestionsFromRules);
         tokens.forEach((_, tokenType) => {
             var _a;
