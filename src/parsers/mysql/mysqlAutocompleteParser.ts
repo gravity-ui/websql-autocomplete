@@ -11,7 +11,7 @@ import * as c3 from 'antlr4-c3';
 
 import {MySqlLexer} from './generated/MySqlLexer.js';
 import {MySqlParser} from './generated/MySqlParser.js';
-// import {MySqlParserVisitor} from './generated/MySqlParserVisitor.js';
+import {preferredRules} from './lib/preferredRules.js';
 
 interface CursorPosition {
     line: number;
@@ -33,18 +33,24 @@ interface KeywordSuggestion {
     value: string;
 }
 
-// class Visitor extends MySqlParserVisitor<{}> {
-//     constructor() {
-//         super();
-//     }
+enum TableSuggestion {
+    ALL = 'ALL',
+    TABLES = 'TABLES',
+    VIEWS = 'VIEWS',
+}
 
-//     visitCreateDatabase = (a) => {
-//         return {};
-//     };
-// }
+interface AutocompleteParseResult {
+    errors: ParserSyntaxError[];
+    suggestKeywords?: KeywordSuggestion[];
+    suggestTables?: TableSuggestion;
+    suggestTemplates?: boolean;
+    suggestAggregateFunctions?: boolean;
+    suggestFunctions?: boolean;
+}
 
-const possibleIdentifierPrefix = /[\w]$/;
-const lineSeparator = /\n|\r|\r\n/g;
+const possibleIdentifierPrefixRegex = /[\w]$/;
+const lineSeparatorRegex = /\n|\r|\r\n/g;
+const quotesRegex = /^'(.*)'$/;
 
 function getTokenPosition(token: Token): TokenPosition {
     const startColumn = token.column;
@@ -53,7 +59,7 @@ function getTokenPosition(token: Token): TokenPosition {
     const endLine =
         token.type !== MySqlLexer.SPACE || !token.text
             ? startLine
-            : startLine + (token.text.match(lineSeparator)?.length || 0);
+            : startLine + (token.text.match(lineSeparatorRegex)?.length || 0);
 
     return {startColumn, startLine, endColumn, endLine};
 }
@@ -77,7 +83,7 @@ function findCursorTokenIndex(
                 startColumn === cursorCol &&
                 // If previous token is an identifier (i.e. word, not a symbol),
                 // then we want to return previous token index
-                possibleIdentifierPrefix.test(tokenStream.get(i - 1).text || '')
+                possibleIdentifierPrefixRegex.test(tokenStream.get(i - 1).text || '')
             ) {
                 return i - 1;
             } else if (tokenStream.get(i).type === MySqlLexer.SPACE) {
@@ -119,13 +125,59 @@ class MySqlErrorListener implements ANTLRErrorListener {
     }
 
     reportAmbiguity() {}
-
     reportAttemptingFullContext() {}
-
     reportContextSensitivity() {}
 }
 
-export function parseMySqlQueryWithoutCursor(query: string): {errors: ParserSyntaxError[]} {
+function generateSuggestionsFromRules(
+    rules: c3.CandidatesCollection['rules'],
+    previousToken?: Token,
+): Partial<AutocompleteParseResult> {
+    let suggestTables: AutocompleteParseResult['suggestTables'];
+    let suggestAggregateFunctions = false;
+    let suggestFunctions = false;
+
+    for (const [ruleId, ruleData] of rules) {
+        switch (ruleId) {
+            case MySqlParser.RULE_tableName: {
+                if (!ruleData.ruleList.includes(MySqlParser.RULE_createTable)) {
+                    suggestTables = TableSuggestion.ALL;
+                }
+                break;
+            }
+            case MySqlParser.RULE_alterTable:
+            case MySqlParser.RULE_dropTable: {
+                const isPreviousTokenTable = previousToken?.text?.toLowerCase() === 'table';
+                if (isPreviousTokenTable) {
+                    suggestTables = TableSuggestion.TABLES;
+                }
+                break;
+            }
+            case MySqlParser.RULE_alterView:
+            case MySqlParser.RULE_dropView: {
+                const isPreviousTokenView = previousToken?.text?.toLowerCase() === 'view';
+                if (isPreviousTokenView) {
+                    suggestTables = TableSuggestion.VIEWS;
+                }
+                break;
+            }
+            case MySqlParser.RULE_aggregateWindowedFunction: {
+                suggestAggregateFunctions = true;
+                break;
+            }
+            case MySqlParser.RULE_scalarFunctionName: {
+                suggestFunctions = true;
+                break;
+            }
+        }
+    }
+
+    return {suggestTables, suggestAggregateFunctions, suggestFunctions};
+}
+
+export function parseMySqlQueryWithoutCursor(
+    query: string,
+): Pick<AutocompleteParseResult, 'errors'> {
     const inputStream = CharStreams.fromString(query);
     const lexer = new MySqlLexer(inputStream);
     const tokenStream = new CommonTokenStream(lexer);
@@ -139,10 +191,7 @@ export function parseMySqlQueryWithoutCursor(query: string): {errors: ParserSynt
     return {errors: errorListener.errors};
 }
 
-export function parseMySqlQuery(
-    query: string,
-    cursor: CursorPosition,
-): {errors: ParserSyntaxError[]; suggestKeywords: KeywordSuggestion[]} {
+export function parseMySqlQuery(query: string, cursor: CursorPosition): AutocompleteParseResult {
     const inputStream = CharStreams.fromString(query);
     const lexer = new MySqlLexer(inputStream);
     const tokenStream = new CommonTokenStream(lexer);
@@ -154,16 +203,37 @@ export function parseMySqlQuery(
     parser.root();
 
     const core = new c3.CodeCompletionCore(parser);
-    core.preferredRules = new Set([MySqlParser.RULE_tableName]);
-    const cursorPosition = findCursorTokenIndex(tokenStream, cursor);
+    core.ignoredTokens = new Set([]); // TODO
+    core.preferredRules = preferredRules;
+    const cursorTokenIndex = findCursorTokenIndex(tokenStream, cursor);
     const suggestKeywords: KeywordSuggestion[] = [];
+    let result: AutocompleteParseResult = {
+        errors: errorListener.errors,
+    };
 
-    if (cursorPosition !== undefined) {
-        const candidates = core.collectCandidates(cursorPosition);
-        candidates.tokens.forEach((_, k) =>
-            suggestKeywords.push({value: parser.vocabulary.getSymbolicName(k) || ''}),
-        );
+    if (cursorTokenIndex !== undefined) {
+        // Subtracting 2, because of whitespace token
+        const previousToken = tokenStream.get(cursorTokenIndex - 2);
+        const {tokens, rules} = core.collectCandidates(cursorTokenIndex);
+        const suggestionsFromRules = generateSuggestionsFromRules(rules, previousToken);
+
+        result = {...result, ...suggestionsFromRules};
+        tokens.forEach((_, tokenType) => {
+            // Literal keyword names are quoted
+            const name = parser.vocabulary.getLiteralName(tokenType)?.replace(quotesRegex, '$1');
+
+            if (name) {
+                suggestKeywords.push({
+                    value: name,
+                });
+            }
+        });
     }
 
-    return {errors: errorListener.errors, suggestKeywords};
+    const isDdlStatementStart = Boolean(suggestKeywords.find(({value}) => value === 'CREATE'));
+    const isDmlStatementStart = Boolean(suggestKeywords.find(({value}) => value === 'SELECT'));
+    const suggestTemplates = isDdlStatementStart || isDmlStatementStart;
+    result.suggestTemplates = suggestTemplates; // ???
+    result.suggestKeywords = suggestKeywords;
+    return result;
 }

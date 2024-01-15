@@ -1,3 +1,4 @@
+// Generated from src/parsers/mysql/grammar/MySqlParser.g4 by ANTLR 4.13.1
 import * as antlr from "antlr4ng";
 export class MySqlParser extends antlr.Parser {
     get grammarFileName() { return "MySqlParser.g4"; }
@@ -86614,4 +86615,3 @@ export class FunctionNameBaseContext extends antlr.ParserRuleContext {
         }
     }
 }
-//# sourceMappingURL=MySqlParser.js.map

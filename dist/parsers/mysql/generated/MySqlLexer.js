@@ -1,3 +1,4 @@
+// Generated from src/parsers/mysql/grammar/MySqlLexer.g4 by ANTLR 4.13.1
 import * as antlr from "antlr4ng";
 export class MySqlLexer extends antlr.Lexer {
     constructor(input) {
@@ -7215,4 +7216,3 @@ MySqlLexer._serializedATN = [
 ];
 MySqlLexer.vocabulary = new antlr.Vocabulary(MySqlLexer.literalNames, MySqlLexer.symbolicNames, []);
 MySqlLexer.decisionsToDFA = MySqlLexer._ATN.decisionToState.map((ds, index) => new antlr.DFA(ds, index));
-//# sourceMappingURL=MySqlLexer.js.map

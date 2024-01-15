@@ -14,11 +14,19 @@ interface ParserSyntaxError extends TokenPosition {
 interface KeywordSuggestion {
     value: string;
 }
-export declare function parseMySqlQueryWithoutCursor(query: string): {
+declare enum TableSuggestion {
+    ALL = "ALL",
+    TABLES = "TABLES",
+    VIEWS = "VIEWS"
+}
+interface AutocompleteParseResult {
     errors: ParserSyntaxError[];
-};
-export declare function parseMySqlQuery(query: string, cursor: CursorPosition): {
-    errors: ParserSyntaxError[];
-    suggestKeywords: KeywordSuggestion[];
-};
+    suggestKeywords?: KeywordSuggestion[];
+    suggestTables?: TableSuggestion;
+    suggestTemplates?: boolean;
+    suggestAggregateFunctions?: boolean;
+    suggestFunctions?: boolean;
+}
+export declare function parseMySqlQueryWithoutCursor(query: string): Pick<AutocompleteParseResult, 'errors'>;
+export declare function parseMySqlQuery(query: string, cursor: CursorPosition): AutocompleteParseResult;
 export {};

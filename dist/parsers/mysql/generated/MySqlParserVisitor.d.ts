@@ -617,623 +617,4021 @@ import { IntervalTypeBaseContext } from "./MySqlParser.js";
 import { DataTypeBaseContext } from "./MySqlParser.js";
 import { KeywordsCanBeIdContext } from "./MySqlParser.js";
 import { FunctionNameBaseContext } from "./MySqlParser.js";
+/**
+ * This interface defines a complete generic visitor for a parse tree produced
+ * by `MySqlParser`.
+ *
+ * @param <Result> The return type of the visit operation. Use `void` for
+ * operations with no return type.
+ */
 export declare class MySqlParserVisitor<Result> extends AbstractParseTreeVisitor<Result> {
+    /**
+     * Visit a parse tree produced by `MySqlParser.root`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitRoot?: (ctx: RootContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.sqlStatements`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitSqlStatements?: (ctx: SqlStatementsContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.sqlStatement`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitSqlStatement?: (ctx: SqlStatementContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.emptyStatement_`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitEmptyStatement_?: (ctx: EmptyStatement_Context) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.ddlStatement`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitDdlStatement?: (ctx: DdlStatementContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.dmlStatement`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitDmlStatement?: (ctx: DmlStatementContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.transactionStatement`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitTransactionStatement?: (ctx: TransactionStatementContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.replicationStatement`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitReplicationStatement?: (ctx: ReplicationStatementContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.preparedStatement`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitPreparedStatement?: (ctx: PreparedStatementContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.compoundStatement`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitCompoundStatement?: (ctx: CompoundStatementContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.administrationStatement`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitAdministrationStatement?: (ctx: AdministrationStatementContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.utilityStatement`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitUtilityStatement?: (ctx: UtilityStatementContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.createDatabase`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitCreateDatabase?: (ctx: CreateDatabaseContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.createEvent`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitCreateEvent?: (ctx: CreateEventContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.createIndex`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitCreateIndex?: (ctx: CreateIndexContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.createLogfileGroup`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitCreateLogfileGroup?: (ctx: CreateLogfileGroupContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.createProcedure`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitCreateProcedure?: (ctx: CreateProcedureContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.createFunction`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitCreateFunction?: (ctx: CreateFunctionContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.createRole`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitCreateRole?: (ctx: CreateRoleContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.createServer`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitCreateServer?: (ctx: CreateServerContext) => Result;
+    /**
+     * Visit a parse tree produced by the `copyCreateTable`
+     * labeled alternative in `MySqlParser.createTable`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitCopyCreateTable?: (ctx: CopyCreateTableContext) => Result;
+    /**
+     * Visit a parse tree produced by the `queryCreateTable`
+     * labeled alternative in `MySqlParser.createTable`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitQueryCreateTable?: (ctx: QueryCreateTableContext) => Result;
+    /**
+     * Visit a parse tree produced by the `columnCreateTable`
+     * labeled alternative in `MySqlParser.createTable`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitColumnCreateTable?: (ctx: ColumnCreateTableContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.createTablespaceInnodb`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitCreateTablespaceInnodb?: (ctx: CreateTablespaceInnodbContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.createTablespaceNdb`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitCreateTablespaceNdb?: (ctx: CreateTablespaceNdbContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.createTrigger`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitCreateTrigger?: (ctx: CreateTriggerContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.withClause`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitWithClause?: (ctx: WithClauseContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.commonTableExpressions`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitCommonTableExpressions?: (ctx: CommonTableExpressionsContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.cteName`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitCteName?: (ctx: CteNameContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.cteColumnName`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitCteColumnName?: (ctx: CteColumnNameContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.createView`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitCreateView?: (ctx: CreateViewContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.createDatabaseOption`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitCreateDatabaseOption?: (ctx: CreateDatabaseOptionContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.charSet`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitCharSet?: (ctx: CharSetContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.currentUserExpression`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitCurrentUserExpression?: (ctx: CurrentUserExpressionContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.ownerStatement`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitOwnerStatement?: (ctx: OwnerStatementContext) => Result;
+    /**
+     * Visit a parse tree produced by the `preciseSchedule`
+     * labeled alternative in `MySqlParser.scheduleExpression`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitPreciseSchedule?: (ctx: PreciseScheduleContext) => Result;
+    /**
+     * Visit a parse tree produced by the `intervalSchedule`
+     * labeled alternative in `MySqlParser.scheduleExpression`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitIntervalSchedule?: (ctx: IntervalScheduleContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.timestampValue`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitTimestampValue?: (ctx: TimestampValueContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.intervalExpr`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitIntervalExpr?: (ctx: IntervalExprContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.intervalType`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitIntervalType?: (ctx: IntervalTypeContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.enableType`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitEnableType?: (ctx: EnableTypeContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.indexType`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitIndexType?: (ctx: IndexTypeContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.indexOption`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitIndexOption?: (ctx: IndexOptionContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.procedureParameter`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitProcedureParameter?: (ctx: ProcedureParameterContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.functionParameter`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitFunctionParameter?: (ctx: FunctionParameterContext) => Result;
+    /**
+     * Visit a parse tree produced by the `routineComment`
+     * labeled alternative in `MySqlParser.routineOption`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitRoutineComment?: (ctx: RoutineCommentContext) => Result;
+    /**
+     * Visit a parse tree produced by the `routineLanguage`
+     * labeled alternative in `MySqlParser.routineOption`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitRoutineLanguage?: (ctx: RoutineLanguageContext) => Result;
+    /**
+     * Visit a parse tree produced by the `routineBehavior`
+     * labeled alternative in `MySqlParser.routineOption`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitRoutineBehavior?: (ctx: RoutineBehaviorContext) => Result;
+    /**
+     * Visit a parse tree produced by the `routineData`
+     * labeled alternative in `MySqlParser.routineOption`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitRoutineData?: (ctx: RoutineDataContext) => Result;
+    /**
+     * Visit a parse tree produced by the `routineSecurity`
+     * labeled alternative in `MySqlParser.routineOption`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitRoutineSecurity?: (ctx: RoutineSecurityContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.serverOption`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitServerOption?: (ctx: ServerOptionContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.createDefinitions`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitCreateDefinitions?: (ctx: CreateDefinitionsContext) => Result;
+    /**
+     * Visit a parse tree produced by the `columnDeclaration`
+     * labeled alternative in `MySqlParser.createDefinition`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitColumnDeclaration?: (ctx: ColumnDeclarationContext) => Result;
+    /**
+     * Visit a parse tree produced by the `constraintDeclaration`
+     * labeled alternative in `MySqlParser.createDefinition`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitConstraintDeclaration?: (ctx: ConstraintDeclarationContext) => Result;
+    /**
+     * Visit a parse tree produced by the `indexDeclaration`
+     * labeled alternative in `MySqlParser.createDefinition`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitIndexDeclaration?: (ctx: IndexDeclarationContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.columnDefinition`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitColumnDefinition?: (ctx: ColumnDefinitionContext) => Result;
+    /**
+     * Visit a parse tree produced by the `nullColumnConstraint`
+     * labeled alternative in `MySqlParser.columnConstraint`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitNullColumnConstraint?: (ctx: NullColumnConstraintContext) => Result;
+    /**
+     * Visit a parse tree produced by the `defaultColumnConstraint`
+     * labeled alternative in `MySqlParser.columnConstraint`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitDefaultColumnConstraint?: (ctx: DefaultColumnConstraintContext) => Result;
+    /**
+     * Visit a parse tree produced by the `visibilityColumnConstraint`
+     * labeled alternative in `MySqlParser.columnConstraint`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitVisibilityColumnConstraint?: (ctx: VisibilityColumnConstraintContext) => Result;
+    /**
+     * Visit a parse tree produced by the `invisibilityColumnConstraint`
+     * labeled alternative in `MySqlParser.columnConstraint`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitInvisibilityColumnConstraint?: (ctx: InvisibilityColumnConstraintContext) => Result;
+    /**
+     * Visit a parse tree produced by the `autoIncrementColumnConstraint`
+     * labeled alternative in `MySqlParser.columnConstraint`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitAutoIncrementColumnConstraint?: (ctx: AutoIncrementColumnConstraintContext) => Result;
+    /**
+     * Visit a parse tree produced by the `primaryKeyColumnConstraint`
+     * labeled alternative in `MySqlParser.columnConstraint`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitPrimaryKeyColumnConstraint?: (ctx: PrimaryKeyColumnConstraintContext) => Result;
+    /**
+     * Visit a parse tree produced by the `uniqueKeyColumnConstraint`
+     * labeled alternative in `MySqlParser.columnConstraint`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitUniqueKeyColumnConstraint?: (ctx: UniqueKeyColumnConstraintContext) => Result;
+    /**
+     * Visit a parse tree produced by the `commentColumnConstraint`
+     * labeled alternative in `MySqlParser.columnConstraint`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitCommentColumnConstraint?: (ctx: CommentColumnConstraintContext) => Result;
+    /**
+     * Visit a parse tree produced by the `formatColumnConstraint`
+     * labeled alternative in `MySqlParser.columnConstraint`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitFormatColumnConstraint?: (ctx: FormatColumnConstraintContext) => Result;
+    /**
+     * Visit a parse tree produced by the `storageColumnConstraint`
+     * labeled alternative in `MySqlParser.columnConstraint`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitStorageColumnConstraint?: (ctx: StorageColumnConstraintContext) => Result;
+    /**
+     * Visit a parse tree produced by the `referenceColumnConstraint`
+     * labeled alternative in `MySqlParser.columnConstraint`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitReferenceColumnConstraint?: (ctx: ReferenceColumnConstraintContext) => Result;
+    /**
+     * Visit a parse tree produced by the `collateColumnConstraint`
+     * labeled alternative in `MySqlParser.columnConstraint`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitCollateColumnConstraint?: (ctx: CollateColumnConstraintContext) => Result;
+    /**
+     * Visit a parse tree produced by the `generatedColumnConstraint`
+     * labeled alternative in `MySqlParser.columnConstraint`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitGeneratedColumnConstraint?: (ctx: GeneratedColumnConstraintContext) => Result;
+    /**
+     * Visit a parse tree produced by the `serialDefaultColumnConstraint`
+     * labeled alternative in `MySqlParser.columnConstraint`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitSerialDefaultColumnConstraint?: (ctx: SerialDefaultColumnConstraintContext) => Result;
+    /**
+     * Visit a parse tree produced by the `checkColumnConstraint`
+     * labeled alternative in `MySqlParser.columnConstraint`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitCheckColumnConstraint?: (ctx: CheckColumnConstraintContext) => Result;
+    /**
+     * Visit a parse tree produced by the `primaryKeyTableConstraint`
+     * labeled alternative in `MySqlParser.tableConstraint`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitPrimaryKeyTableConstraint?: (ctx: PrimaryKeyTableConstraintContext) => Result;
+    /**
+     * Visit a parse tree produced by the `uniqueKeyTableConstraint`
+     * labeled alternative in `MySqlParser.tableConstraint`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitUniqueKeyTableConstraint?: (ctx: UniqueKeyTableConstraintContext) => Result;
+    /**
+     * Visit a parse tree produced by the `foreignKeyTableConstraint`
+     * labeled alternative in `MySqlParser.tableConstraint`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitForeignKeyTableConstraint?: (ctx: ForeignKeyTableConstraintContext) => Result;
+    /**
+     * Visit a parse tree produced by the `checkTableConstraint`
+     * labeled alternative in `MySqlParser.tableConstraint`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitCheckTableConstraint?: (ctx: CheckTableConstraintContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.referenceDefinition`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitReferenceDefinition?: (ctx: ReferenceDefinitionContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.referenceAction`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitReferenceAction?: (ctx: ReferenceActionContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.referenceControlType`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitReferenceControlType?: (ctx: ReferenceControlTypeContext) => Result;
+    /**
+     * Visit a parse tree produced by the `simpleIndexDeclaration`
+     * labeled alternative in `MySqlParser.indexColumnDefinition`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitSimpleIndexDeclaration?: (ctx: SimpleIndexDeclarationContext) => Result;
+    /**
+     * Visit a parse tree produced by the `specialIndexDeclaration`
+     * labeled alternative in `MySqlParser.indexColumnDefinition`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitSpecialIndexDeclaration?: (ctx: SpecialIndexDeclarationContext) => Result;
+    /**
+     * Visit a parse tree produced by the `tableOptionEngine`
+     * labeled alternative in `MySqlParser.tableOption`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitTableOptionEngine?: (ctx: TableOptionEngineContext) => Result;
+    /**
+     * Visit a parse tree produced by the `tableOptionEngineAttribute`
+     * labeled alternative in `MySqlParser.tableOption`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitTableOptionEngineAttribute?: (ctx: TableOptionEngineAttributeContext) => Result;
+    /**
+     * Visit a parse tree produced by the `tableOptionAutoextendSize`
+     * labeled alternative in `MySqlParser.tableOption`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitTableOptionAutoextendSize?: (ctx: TableOptionAutoextendSizeContext) => Result;
+    /**
+     * Visit a parse tree produced by the `tableOptionAutoIncrement`
+     * labeled alternative in `MySqlParser.tableOption`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitTableOptionAutoIncrement?: (ctx: TableOptionAutoIncrementContext) => Result;
+    /**
+     * Visit a parse tree produced by the `tableOptionAverage`
+     * labeled alternative in `MySqlParser.tableOption`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitTableOptionAverage?: (ctx: TableOptionAverageContext) => Result;
+    /**
+     * Visit a parse tree produced by the `tableOptionCharset`
+     * labeled alternative in `MySqlParser.tableOption`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitTableOptionCharset?: (ctx: TableOptionCharsetContext) => Result;
+    /**
+     * Visit a parse tree produced by the `tableOptionChecksum`
+     * labeled alternative in `MySqlParser.tableOption`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitTableOptionChecksum?: (ctx: TableOptionChecksumContext) => Result;
+    /**
+     * Visit a parse tree produced by the `tableOptionCollate`
+     * labeled alternative in `MySqlParser.tableOption`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitTableOptionCollate?: (ctx: TableOptionCollateContext) => Result;
+    /**
+     * Visit a parse tree produced by the `tableOptionComment`
+     * labeled alternative in `MySqlParser.tableOption`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitTableOptionComment?: (ctx: TableOptionCommentContext) => Result;
+    /**
+     * Visit a parse tree produced by the `tableOptionCompression`
+     * labeled alternative in `MySqlParser.tableOption`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitTableOptionCompression?: (ctx: TableOptionCompressionContext) => Result;
+    /**
+     * Visit a parse tree produced by the `tableOptionConnection`
+     * labeled alternative in `MySqlParser.tableOption`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitTableOptionConnection?: (ctx: TableOptionConnectionContext) => Result;
+    /**
+     * Visit a parse tree produced by the `tableOptionDataDirectory`
+     * labeled alternative in `MySqlParser.tableOption`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitTableOptionDataDirectory?: (ctx: TableOptionDataDirectoryContext) => Result;
+    /**
+     * Visit a parse tree produced by the `tableOptionDelay`
+     * labeled alternative in `MySqlParser.tableOption`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitTableOptionDelay?: (ctx: TableOptionDelayContext) => Result;
+    /**
+     * Visit a parse tree produced by the `tableOptionEncryption`
+     * labeled alternative in `MySqlParser.tableOption`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitTableOptionEncryption?: (ctx: TableOptionEncryptionContext) => Result;
+    /**
+     * Visit a parse tree produced by the `tableOptionPageCompressed`
+     * labeled alternative in `MySqlParser.tableOption`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitTableOptionPageCompressed?: (ctx: TableOptionPageCompressedContext) => Result;
+    /**
+     * Visit a parse tree produced by the `tableOptionPageCompressionLevel`
+     * labeled alternative in `MySqlParser.tableOption`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitTableOptionPageCompressionLevel?: (ctx: TableOptionPageCompressionLevelContext) => Result;
+    /**
+     * Visit a parse tree produced by the `tableOptionEncryptionKeyId`
+     * labeled alternative in `MySqlParser.tableOption`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitTableOptionEncryptionKeyId?: (ctx: TableOptionEncryptionKeyIdContext) => Result;
+    /**
+     * Visit a parse tree produced by the `tableOptionIndexDirectory`
+     * labeled alternative in `MySqlParser.tableOption`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitTableOptionIndexDirectory?: (ctx: TableOptionIndexDirectoryContext) => Result;
+    /**
+     * Visit a parse tree produced by the `tableOptionInsertMethod`
+     * labeled alternative in `MySqlParser.tableOption`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitTableOptionInsertMethod?: (ctx: TableOptionInsertMethodContext) => Result;
+    /**
+     * Visit a parse tree produced by the `tableOptionKeyBlockSize`
+     * labeled alternative in `MySqlParser.tableOption`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitTableOptionKeyBlockSize?: (ctx: TableOptionKeyBlockSizeContext) => Result;
+    /**
+     * Visit a parse tree produced by the `tableOptionMaxRows`
+     * labeled alternative in `MySqlParser.tableOption`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitTableOptionMaxRows?: (ctx: TableOptionMaxRowsContext) => Result;
+    /**
+     * Visit a parse tree produced by the `tableOptionMinRows`
+     * labeled alternative in `MySqlParser.tableOption`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitTableOptionMinRows?: (ctx: TableOptionMinRowsContext) => Result;
+    /**
+     * Visit a parse tree produced by the `tableOptionPackKeys`
+     * labeled alternative in `MySqlParser.tableOption`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitTableOptionPackKeys?: (ctx: TableOptionPackKeysContext) => Result;
+    /**
+     * Visit a parse tree produced by the `tableOptionPassword`
+     * labeled alternative in `MySqlParser.tableOption`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitTableOptionPassword?: (ctx: TableOptionPasswordContext) => Result;
+    /**
+     * Visit a parse tree produced by the `tableOptionRowFormat`
+     * labeled alternative in `MySqlParser.tableOption`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitTableOptionRowFormat?: (ctx: TableOptionRowFormatContext) => Result;
+    /**
+     * Visit a parse tree produced by the `tableOptionStartTransaction`
+     * labeled alternative in `MySqlParser.tableOption`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitTableOptionStartTransaction?: (ctx: TableOptionStartTransactionContext) => Result;
+    /**
+     * Visit a parse tree produced by the `tableOptionSecondaryEngineAttribute`
+     * labeled alternative in `MySqlParser.tableOption`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitTableOptionSecondaryEngineAttribute?: (ctx: TableOptionSecondaryEngineAttributeContext) => Result;
+    /**
+     * Visit a parse tree produced by the `tableOptionRecalculation`
+     * labeled alternative in `MySqlParser.tableOption`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitTableOptionRecalculation?: (ctx: TableOptionRecalculationContext) => Result;
+    /**
+     * Visit a parse tree produced by the `tableOptionPersistent`
+     * labeled alternative in `MySqlParser.tableOption`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitTableOptionPersistent?: (ctx: TableOptionPersistentContext) => Result;
+    /**
+     * Visit a parse tree produced by the `tableOptionSamplePage`
+     * labeled alternative in `MySqlParser.tableOption`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitTableOptionSamplePage?: (ctx: TableOptionSamplePageContext) => Result;
+    /**
+     * Visit a parse tree produced by the `tableOptionTablespace`
+     * labeled alternative in `MySqlParser.tableOption`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitTableOptionTablespace?: (ctx: TableOptionTablespaceContext) => Result;
+    /**
+     * Visit a parse tree produced by the `tableOptionTableType`
+     * labeled alternative in `MySqlParser.tableOption`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitTableOptionTableType?: (ctx: TableOptionTableTypeContext) => Result;
+    /**
+     * Visit a parse tree produced by the `tableOptionTransactional`
+     * labeled alternative in `MySqlParser.tableOption`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitTableOptionTransactional?: (ctx: TableOptionTransactionalContext) => Result;
+    /**
+     * Visit a parse tree produced by the `tableOptionUnion`
+     * labeled alternative in `MySqlParser.tableOption`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitTableOptionUnion?: (ctx: TableOptionUnionContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.tableType`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitTableType?: (ctx: TableTypeContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.tablespaceStorage`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitTablespaceStorage?: (ctx: TablespaceStorageContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.partitionDefinitions`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitPartitionDefinitions?: (ctx: PartitionDefinitionsContext) => Result;
+    /**
+     * Visit a parse tree produced by the `partitionFunctionHash`
+     * labeled alternative in `MySqlParser.partitionFunctionDefinition`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitPartitionFunctionHash?: (ctx: PartitionFunctionHashContext) => Result;
+    /**
+     * Visit a parse tree produced by the `partitionFunctionKey`
+     * labeled alternative in `MySqlParser.partitionFunctionDefinition`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitPartitionFunctionKey?: (ctx: PartitionFunctionKeyContext) => Result;
+    /**
+     * Visit a parse tree produced by the `partitionFunctionRange`
+     * labeled alternative in `MySqlParser.partitionFunctionDefinition`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitPartitionFunctionRange?: (ctx: PartitionFunctionRangeContext) => Result;
+    /**
+     * Visit a parse tree produced by the `partitionFunctionList`
+     * labeled alternative in `MySqlParser.partitionFunctionDefinition`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitPartitionFunctionList?: (ctx: PartitionFunctionListContext) => Result;
+    /**
+     * Visit a parse tree produced by the `subPartitionFunctionHash`
+     * labeled alternative in `MySqlParser.subpartitionFunctionDefinition`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitSubPartitionFunctionHash?: (ctx: SubPartitionFunctionHashContext) => Result;
+    /**
+     * Visit a parse tree produced by the `subPartitionFunctionKey`
+     * labeled alternative in `MySqlParser.subpartitionFunctionDefinition`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitSubPartitionFunctionKey?: (ctx: SubPartitionFunctionKeyContext) => Result;
+    /**
+     * Visit a parse tree produced by the `partitionComparison`
+     * labeled alternative in `MySqlParser.partitionDefinition`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitPartitionComparison?: (ctx: PartitionComparisonContext) => Result;
+    /**
+     * Visit a parse tree produced by the `partitionListAtom`
+     * labeled alternative in `MySqlParser.partitionDefinition`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitPartitionListAtom?: (ctx: PartitionListAtomContext) => Result;
+    /**
+     * Visit a parse tree produced by the `partitionListVector`
+     * labeled alternative in `MySqlParser.partitionDefinition`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitPartitionListVector?: (ctx: PartitionListVectorContext) => Result;
+    /**
+     * Visit a parse tree produced by the `partitionSimple`
+     * labeled alternative in `MySqlParser.partitionDefinition`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitPartitionSimple?: (ctx: PartitionSimpleContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.partitionDefinerAtom`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitPartitionDefinerAtom?: (ctx: PartitionDefinerAtomContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.partitionDefinerVector`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitPartitionDefinerVector?: (ctx: PartitionDefinerVectorContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.subpartitionDefinition`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitSubpartitionDefinition?: (ctx: SubpartitionDefinitionContext) => Result;
+    /**
+     * Visit a parse tree produced by the `partitionOptionEngine`
+     * labeled alternative in `MySqlParser.partitionOption`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitPartitionOptionEngine?: (ctx: PartitionOptionEngineContext) => Result;
+    /**
+     * Visit a parse tree produced by the `partitionOptionComment`
+     * labeled alternative in `MySqlParser.partitionOption`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitPartitionOptionComment?: (ctx: PartitionOptionCommentContext) => Result;
+    /**
+     * Visit a parse tree produced by the `partitionOptionDataDirectory`
+     * labeled alternative in `MySqlParser.partitionOption`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitPartitionOptionDataDirectory?: (ctx: PartitionOptionDataDirectoryContext) => Result;
+    /**
+     * Visit a parse tree produced by the `partitionOptionIndexDirectory`
+     * labeled alternative in `MySqlParser.partitionOption`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitPartitionOptionIndexDirectory?: (ctx: PartitionOptionIndexDirectoryContext) => Result;
+    /**
+     * Visit a parse tree produced by the `partitionOptionMaxRows`
+     * labeled alternative in `MySqlParser.partitionOption`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitPartitionOptionMaxRows?: (ctx: PartitionOptionMaxRowsContext) => Result;
+    /**
+     * Visit a parse tree produced by the `partitionOptionMinRows`
+     * labeled alternative in `MySqlParser.partitionOption`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitPartitionOptionMinRows?: (ctx: PartitionOptionMinRowsContext) => Result;
+    /**
+     * Visit a parse tree produced by the `partitionOptionTablespace`
+     * labeled alternative in `MySqlParser.partitionOption`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitPartitionOptionTablespace?: (ctx: PartitionOptionTablespaceContext) => Result;
+    /**
+     * Visit a parse tree produced by the `partitionOptionNodeGroup`
+     * labeled alternative in `MySqlParser.partitionOption`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitPartitionOptionNodeGroup?: (ctx: PartitionOptionNodeGroupContext) => Result;
+    /**
+     * Visit a parse tree produced by the `alterSimpleDatabase`
+     * labeled alternative in `MySqlParser.alterDatabase`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitAlterSimpleDatabase?: (ctx: AlterSimpleDatabaseContext) => Result;
+    /**
+     * Visit a parse tree produced by the `alterUpgradeName`
+     * labeled alternative in `MySqlParser.alterDatabase`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitAlterUpgradeName?: (ctx: AlterUpgradeNameContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.alterEvent`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitAlterEvent?: (ctx: AlterEventContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.alterFunction`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitAlterFunction?: (ctx: AlterFunctionContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.alterInstance`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitAlterInstance?: (ctx: AlterInstanceContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.alterLogfileGroup`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitAlterLogfileGroup?: (ctx: AlterLogfileGroupContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.alterProcedure`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitAlterProcedure?: (ctx: AlterProcedureContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.alterServer`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitAlterServer?: (ctx: AlterServerContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.alterTable`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitAlterTable?: (ctx: AlterTableContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.alterTablespace`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitAlterTablespace?: (ctx: AlterTablespaceContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.alterView`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitAlterView?: (ctx: AlterViewContext) => Result;
+    /**
+     * Visit a parse tree produced by the `alterByTableOption`
+     * labeled alternative in `MySqlParser.alterSpecification`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitAlterByTableOption?: (ctx: AlterByTableOptionContext) => Result;
+    /**
+     * Visit a parse tree produced by the `alterByAddColumn`
+     * labeled alternative in `MySqlParser.alterSpecification`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitAlterByAddColumn?: (ctx: AlterByAddColumnContext) => Result;
+    /**
+     * Visit a parse tree produced by the `alterByAddColumns`
+     * labeled alternative in `MySqlParser.alterSpecification`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitAlterByAddColumns?: (ctx: AlterByAddColumnsContext) => Result;
+    /**
+     * Visit a parse tree produced by the `alterByAddIndex`
+     * labeled alternative in `MySqlParser.alterSpecification`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitAlterByAddIndex?: (ctx: AlterByAddIndexContext) => Result;
+    /**
+     * Visit a parse tree produced by the `alterByAddPrimaryKey`
+     * labeled alternative in `MySqlParser.alterSpecification`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitAlterByAddPrimaryKey?: (ctx: AlterByAddPrimaryKeyContext) => Result;
+    /**
+     * Visit a parse tree produced by the `alterByAddUniqueKey`
+     * labeled alternative in `MySqlParser.alterSpecification`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitAlterByAddUniqueKey?: (ctx: AlterByAddUniqueKeyContext) => Result;
+    /**
+     * Visit a parse tree produced by the `alterByAddSpecialIndex`
+     * labeled alternative in `MySqlParser.alterSpecification`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitAlterByAddSpecialIndex?: (ctx: AlterByAddSpecialIndexContext) => Result;
+    /**
+     * Visit a parse tree produced by the `alterByAddForeignKey`
+     * labeled alternative in `MySqlParser.alterSpecification`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitAlterByAddForeignKey?: (ctx: AlterByAddForeignKeyContext) => Result;
+    /**
+     * Visit a parse tree produced by the `alterByAddCheckTableConstraint`
+     * labeled alternative in `MySqlParser.alterSpecification`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitAlterByAddCheckTableConstraint?: (ctx: AlterByAddCheckTableConstraintContext) => Result;
+    /**
+     * Visit a parse tree produced by the `alterByAlterCheckTableConstraint`
+     * labeled alternative in `MySqlParser.alterSpecification`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitAlterByAlterCheckTableConstraint?: (ctx: AlterByAlterCheckTableConstraintContext) => Result;
+    /**
+     * Visit a parse tree produced by the `alterBySetAlgorithm`
+     * labeled alternative in `MySqlParser.alterSpecification`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitAlterBySetAlgorithm?: (ctx: AlterBySetAlgorithmContext) => Result;
+    /**
+     * Visit a parse tree produced by the `alterByChangeDefault`
+     * labeled alternative in `MySqlParser.alterSpecification`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitAlterByChangeDefault?: (ctx: AlterByChangeDefaultContext) => Result;
+    /**
+     * Visit a parse tree produced by the `alterByChangeColumn`
+     * labeled alternative in `MySqlParser.alterSpecification`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitAlterByChangeColumn?: (ctx: AlterByChangeColumnContext) => Result;
+    /**
+     * Visit a parse tree produced by the `alterByRenameColumn`
+     * labeled alternative in `MySqlParser.alterSpecification`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitAlterByRenameColumn?: (ctx: AlterByRenameColumnContext) => Result;
+    /**
+     * Visit a parse tree produced by the `alterByLock`
+     * labeled alternative in `MySqlParser.alterSpecification`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitAlterByLock?: (ctx: AlterByLockContext) => Result;
+    /**
+     * Visit a parse tree produced by the `alterByModifyColumn`
+     * labeled alternative in `MySqlParser.alterSpecification`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitAlterByModifyColumn?: (ctx: AlterByModifyColumnContext) => Result;
+    /**
+     * Visit a parse tree produced by the `alterByDropColumn`
+     * labeled alternative in `MySqlParser.alterSpecification`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitAlterByDropColumn?: (ctx: AlterByDropColumnContext) => Result;
+    /**
+     * Visit a parse tree produced by the `alterByDropConstraintCheck`
+     * labeled alternative in `MySqlParser.alterSpecification`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitAlterByDropConstraintCheck?: (ctx: AlterByDropConstraintCheckContext) => Result;
+    /**
+     * Visit a parse tree produced by the `alterByDropPrimaryKey`
+     * labeled alternative in `MySqlParser.alterSpecification`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitAlterByDropPrimaryKey?: (ctx: AlterByDropPrimaryKeyContext) => Result;
+    /**
+     * Visit a parse tree produced by the `alterByDropIndex`
+     * labeled alternative in `MySqlParser.alterSpecification`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitAlterByDropIndex?: (ctx: AlterByDropIndexContext) => Result;
+    /**
+     * Visit a parse tree produced by the `alterByRenameIndex`
+     * labeled alternative in `MySqlParser.alterSpecification`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitAlterByRenameIndex?: (ctx: AlterByRenameIndexContext) => Result;
+    /**
+     * Visit a parse tree produced by the `alterByAlterColumnDefault`
+     * labeled alternative in `MySqlParser.alterSpecification`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitAlterByAlterColumnDefault?: (ctx: AlterByAlterColumnDefaultContext) => Result;
+    /**
+     * Visit a parse tree produced by the `alterByAlterIndexVisibility`
+     * labeled alternative in `MySqlParser.alterSpecification`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitAlterByAlterIndexVisibility?: (ctx: AlterByAlterIndexVisibilityContext) => Result;
+    /**
+     * Visit a parse tree produced by the `alterByDropForeignKey`
+     * labeled alternative in `MySqlParser.alterSpecification`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitAlterByDropForeignKey?: (ctx: AlterByDropForeignKeyContext) => Result;
+    /**
+     * Visit a parse tree produced by the `alterByDisableKeys`
+     * labeled alternative in `MySqlParser.alterSpecification`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitAlterByDisableKeys?: (ctx: AlterByDisableKeysContext) => Result;
+    /**
+     * Visit a parse tree produced by the `alterByEnableKeys`
+     * labeled alternative in `MySqlParser.alterSpecification`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitAlterByEnableKeys?: (ctx: AlterByEnableKeysContext) => Result;
+    /**
+     * Visit a parse tree produced by the `alterByRename`
+     * labeled alternative in `MySqlParser.alterSpecification`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitAlterByRename?: (ctx: AlterByRenameContext) => Result;
+    /**
+     * Visit a parse tree produced by the `alterByOrder`
+     * labeled alternative in `MySqlParser.alterSpecification`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitAlterByOrder?: (ctx: AlterByOrderContext) => Result;
+    /**
+     * Visit a parse tree produced by the `alterByConvertCharset`
+     * labeled alternative in `MySqlParser.alterSpecification`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitAlterByConvertCharset?: (ctx: AlterByConvertCharsetContext) => Result;
+    /**
+     * Visit a parse tree produced by the `alterByDefaultCharset`
+     * labeled alternative in `MySqlParser.alterSpecification`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitAlterByDefaultCharset?: (ctx: AlterByDefaultCharsetContext) => Result;
+    /**
+     * Visit a parse tree produced by the `alterByDiscardTablespace`
+     * labeled alternative in `MySqlParser.alterSpecification`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitAlterByDiscardTablespace?: (ctx: AlterByDiscardTablespaceContext) => Result;
+    /**
+     * Visit a parse tree produced by the `alterByImportTablespace`
+     * labeled alternative in `MySqlParser.alterSpecification`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitAlterByImportTablespace?: (ctx: AlterByImportTablespaceContext) => Result;
+    /**
+     * Visit a parse tree produced by the `alterByForce`
+     * labeled alternative in `MySqlParser.alterSpecification`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitAlterByForce?: (ctx: AlterByForceContext) => Result;
+    /**
+     * Visit a parse tree produced by the `alterByValidate`
+     * labeled alternative in `MySqlParser.alterSpecification`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitAlterByValidate?: (ctx: AlterByValidateContext) => Result;
+    /**
+     * Visit a parse tree produced by the `alterByAddDefinitions`
+     * labeled alternative in `MySqlParser.alterSpecification`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitAlterByAddDefinitions?: (ctx: AlterByAddDefinitionsContext) => Result;
+    /**
+     * Visit a parse tree produced by the `alterPartition`
+     * labeled alternative in `MySqlParser.alterSpecification`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitAlterPartition?: (ctx: AlterPartitionContext) => Result;
+    /**
+     * Visit a parse tree produced by the `alterByAddPartition`
+     * labeled alternative in `MySqlParser.alterPartitionSpecification`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitAlterByAddPartition?: (ctx: AlterByAddPartitionContext) => Result;
+    /**
+     * Visit a parse tree produced by the `alterByDropPartition`
+     * labeled alternative in `MySqlParser.alterPartitionSpecification`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitAlterByDropPartition?: (ctx: AlterByDropPartitionContext) => Result;
+    /**
+     * Visit a parse tree produced by the `alterByDiscardPartition`
+     * labeled alternative in `MySqlParser.alterPartitionSpecification`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitAlterByDiscardPartition?: (ctx: AlterByDiscardPartitionContext) => Result;
+    /**
+     * Visit a parse tree produced by the `alterByImportPartition`
+     * labeled alternative in `MySqlParser.alterPartitionSpecification`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitAlterByImportPartition?: (ctx: AlterByImportPartitionContext) => Result;
+    /**
+     * Visit a parse tree produced by the `alterByTruncatePartition`
+     * labeled alternative in `MySqlParser.alterPartitionSpecification`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitAlterByTruncatePartition?: (ctx: AlterByTruncatePartitionContext) => Result;
+    /**
+     * Visit a parse tree produced by the `alterByCoalescePartition`
+     * labeled alternative in `MySqlParser.alterPartitionSpecification`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitAlterByCoalescePartition?: (ctx: AlterByCoalescePartitionContext) => Result;
+    /**
+     * Visit a parse tree produced by the `alterByReorganizePartition`
+     * labeled alternative in `MySqlParser.alterPartitionSpecification`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitAlterByReorganizePartition?: (ctx: AlterByReorganizePartitionContext) => Result;
+    /**
+     * Visit a parse tree produced by the `alterByExchangePartition`
+     * labeled alternative in `MySqlParser.alterPartitionSpecification`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitAlterByExchangePartition?: (ctx: AlterByExchangePartitionContext) => Result;
+    /**
+     * Visit a parse tree produced by the `alterByAnalyzePartition`
+     * labeled alternative in `MySqlParser.alterPartitionSpecification`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitAlterByAnalyzePartition?: (ctx: AlterByAnalyzePartitionContext) => Result;
+    /**
+     * Visit a parse tree produced by the `alterByCheckPartition`
+     * labeled alternative in `MySqlParser.alterPartitionSpecification`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitAlterByCheckPartition?: (ctx: AlterByCheckPartitionContext) => Result;
+    /**
+     * Visit a parse tree produced by the `alterByOptimizePartition`
+     * labeled alternative in `MySqlParser.alterPartitionSpecification`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitAlterByOptimizePartition?: (ctx: AlterByOptimizePartitionContext) => Result;
+    /**
+     * Visit a parse tree produced by the `alterByRebuildPartition`
+     * labeled alternative in `MySqlParser.alterPartitionSpecification`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitAlterByRebuildPartition?: (ctx: AlterByRebuildPartitionContext) => Result;
+    /**
+     * Visit a parse tree produced by the `alterByRepairPartition`
+     * labeled alternative in `MySqlParser.alterPartitionSpecification`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitAlterByRepairPartition?: (ctx: AlterByRepairPartitionContext) => Result;
+    /**
+     * Visit a parse tree produced by the `alterByRemovePartitioning`
+     * labeled alternative in `MySqlParser.alterPartitionSpecification`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitAlterByRemovePartitioning?: (ctx: AlterByRemovePartitioningContext) => Result;
+    /**
+     * Visit a parse tree produced by the `alterByUpgradePartitioning`
+     * labeled alternative in `MySqlParser.alterPartitionSpecification`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitAlterByUpgradePartitioning?: (ctx: AlterByUpgradePartitioningContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.dropDatabase`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitDropDatabase?: (ctx: DropDatabaseContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.dropEvent`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitDropEvent?: (ctx: DropEventContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.dropIndex`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitDropIndex?: (ctx: DropIndexContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.dropLogfileGroup`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitDropLogfileGroup?: (ctx: DropLogfileGroupContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.dropProcedure`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitDropProcedure?: (ctx: DropProcedureContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.dropFunction`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitDropFunction?: (ctx: DropFunctionContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.dropServer`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitDropServer?: (ctx: DropServerContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.dropTable`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitDropTable?: (ctx: DropTableContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.dropTablespace`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitDropTablespace?: (ctx: DropTablespaceContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.dropTrigger`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitDropTrigger?: (ctx: DropTriggerContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.dropView`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitDropView?: (ctx: DropViewContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.dropRole`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitDropRole?: (ctx: DropRoleContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.setRole`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitSetRole?: (ctx: SetRoleContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.renameTable`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitRenameTable?: (ctx: RenameTableContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.renameTableClause`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitRenameTableClause?: (ctx: RenameTableClauseContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.truncateTable`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitTruncateTable?: (ctx: TruncateTableContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.callStatement`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitCallStatement?: (ctx: CallStatementContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.deleteStatement`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitDeleteStatement?: (ctx: DeleteStatementContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.doStatement`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitDoStatement?: (ctx: DoStatementContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.handlerStatement`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitHandlerStatement?: (ctx: HandlerStatementContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.insertStatement`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitInsertStatement?: (ctx: InsertStatementContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.loadDataStatement`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitLoadDataStatement?: (ctx: LoadDataStatementContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.loadXmlStatement`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitLoadXmlStatement?: (ctx: LoadXmlStatementContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.replaceStatement`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitReplaceStatement?: (ctx: ReplaceStatementContext) => Result;
+    /**
+     * Visit a parse tree produced by the `simpleSelect`
+     * labeled alternative in `MySqlParser.selectStatement`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitSimpleSelect?: (ctx: SimpleSelectContext) => Result;
+    /**
+     * Visit a parse tree produced by the `parenthesisSelect`
+     * labeled alternative in `MySqlParser.selectStatement`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitParenthesisSelect?: (ctx: ParenthesisSelectContext) => Result;
+    /**
+     * Visit a parse tree produced by the `unionSelect`
+     * labeled alternative in `MySqlParser.selectStatement`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitUnionSelect?: (ctx: UnionSelectContext) => Result;
+    /**
+     * Visit a parse tree produced by the `unionParenthesisSelect`
+     * labeled alternative in `MySqlParser.selectStatement`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitUnionParenthesisSelect?: (ctx: UnionParenthesisSelectContext) => Result;
+    /**
+     * Visit a parse tree produced by the `withLateralStatement`
+     * labeled alternative in `MySqlParser.selectStatement`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitWithLateralStatement?: (ctx: WithLateralStatementContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.updateStatement`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitUpdateStatement?: (ctx: UpdateStatementContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.valuesStatement`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitValuesStatement?: (ctx: ValuesStatementContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.insertStatementValue`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitInsertStatementValue?: (ctx: InsertStatementValueContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.updatedElement`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitUpdatedElement?: (ctx: UpdatedElementContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.assignmentField`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitAssignmentField?: (ctx: AssignmentFieldContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.lockClause`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitLockClause?: (ctx: LockClauseContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.singleDeleteStatement`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitSingleDeleteStatement?: (ctx: SingleDeleteStatementContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.multipleDeleteStatement`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitMultipleDeleteStatement?: (ctx: MultipleDeleteStatementContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.handlerOpenStatement`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitHandlerOpenStatement?: (ctx: HandlerOpenStatementContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.handlerReadIndexStatement`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitHandlerReadIndexStatement?: (ctx: HandlerReadIndexStatementContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.handlerReadStatement`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitHandlerReadStatement?: (ctx: HandlerReadStatementContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.handlerCloseStatement`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitHandlerCloseStatement?: (ctx: HandlerCloseStatementContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.singleUpdateStatement`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitSingleUpdateStatement?: (ctx: SingleUpdateStatementContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.multipleUpdateStatement`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitMultipleUpdateStatement?: (ctx: MultipleUpdateStatementContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.orderByClause`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitOrderByClause?: (ctx: OrderByClauseContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.orderByExpression`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitOrderByExpression?: (ctx: OrderByExpressionContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.tableSources`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitTableSources?: (ctx: TableSourcesContext) => Result;
+    /**
+     * Visit a parse tree produced by the `tableSourceBase`
+     * labeled alternative in `MySqlParser.tableSource`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitTableSourceBase?: (ctx: TableSourceBaseContext) => Result;
+    /**
+     * Visit a parse tree produced by the `tableSourceNested`
+     * labeled alternative in `MySqlParser.tableSource`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitTableSourceNested?: (ctx: TableSourceNestedContext) => Result;
+    /**
+     * Visit a parse tree produced by the `tableJson`
+     * labeled alternative in `MySqlParser.tableSource`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitTableJson?: (ctx: TableJsonContext) => Result;
+    /**
+     * Visit a parse tree produced by the `atomTableItem`
+     * labeled alternative in `MySqlParser.tableSourceItem`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitAtomTableItem?: (ctx: AtomTableItemContext) => Result;
+    /**
+     * Visit a parse tree produced by the `subqueryTableItem`
+     * labeled alternative in `MySqlParser.tableSourceItem`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitSubqueryTableItem?: (ctx: SubqueryTableItemContext) => Result;
+    /**
+     * Visit a parse tree produced by the `tableSourcesItem`
+     * labeled alternative in `MySqlParser.tableSourceItem`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitTableSourcesItem?: (ctx: TableSourcesItemContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.indexHint`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitIndexHint?: (ctx: IndexHintContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.indexHintType`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitIndexHintType?: (ctx: IndexHintTypeContext) => Result;
+    /**
+     * Visit a parse tree produced by the `innerJoin`
+     * labeled alternative in `MySqlParser.joinPart`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitInnerJoin?: (ctx: InnerJoinContext) => Result;
+    /**
+     * Visit a parse tree produced by the `straightJoin`
+     * labeled alternative in `MySqlParser.joinPart`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitStraightJoin?: (ctx: StraightJoinContext) => Result;
+    /**
+     * Visit a parse tree produced by the `outerJoin`
+     * labeled alternative in `MySqlParser.joinPart`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitOuterJoin?: (ctx: OuterJoinContext) => Result;
+    /**
+     * Visit a parse tree produced by the `naturalJoin`
+     * labeled alternative in `MySqlParser.joinPart`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitNaturalJoin?: (ctx: NaturalJoinContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.joinSpec`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitJoinSpec?: (ctx: JoinSpecContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.queryExpression`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitQueryExpression?: (ctx: QueryExpressionContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.queryExpressionNointo`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitQueryExpressionNointo?: (ctx: QueryExpressionNointoContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.querySpecification`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitQuerySpecification?: (ctx: QuerySpecificationContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.querySpecificationNointo`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitQuerySpecificationNointo?: (ctx: QuerySpecificationNointoContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.unionParenthesis`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitUnionParenthesis?: (ctx: UnionParenthesisContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.unionStatement`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitUnionStatement?: (ctx: UnionStatementContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.lateralStatement`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitLateralStatement?: (ctx: LateralStatementContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.jsonTable`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitJsonTable?: (ctx: JsonTableContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.jsonColumnList`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitJsonColumnList?: (ctx: JsonColumnListContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.jsonColumn`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitJsonColumn?: (ctx: JsonColumnContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.jsonOnEmpty`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitJsonOnEmpty?: (ctx: JsonOnEmptyContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.jsonOnError`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitJsonOnError?: (ctx: JsonOnErrorContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.selectSpec`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitSelectSpec?: (ctx: SelectSpecContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.selectElements`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitSelectElements?: (ctx: SelectElementsContext) => Result;
+    /**
+     * Visit a parse tree produced by the `selectStarElement`
+     * labeled alternative in `MySqlParser.selectElement`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitSelectStarElement?: (ctx: SelectStarElementContext) => Result;
+    /**
+     * Visit a parse tree produced by the `selectColumnElement`
+     * labeled alternative in `MySqlParser.selectElement`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitSelectColumnElement?: (ctx: SelectColumnElementContext) => Result;
+    /**
+     * Visit a parse tree produced by the `selectFunctionElement`
+     * labeled alternative in `MySqlParser.selectElement`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitSelectFunctionElement?: (ctx: SelectFunctionElementContext) => Result;
+    /**
+     * Visit a parse tree produced by the `selectExpressionElement`
+     * labeled alternative in `MySqlParser.selectElement`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitSelectExpressionElement?: (ctx: SelectExpressionElementContext) => Result;
+    /**
+     * Visit a parse tree produced by the `selectIntoVariables`
+     * labeled alternative in `MySqlParser.selectIntoExpression`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitSelectIntoVariables?: (ctx: SelectIntoVariablesContext) => Result;
+    /**
+     * Visit a parse tree produced by the `selectIntoDumpFile`
+     * labeled alternative in `MySqlParser.selectIntoExpression`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitSelectIntoDumpFile?: (ctx: SelectIntoDumpFileContext) => Result;
+    /**
+     * Visit a parse tree produced by the `selectIntoTextFile`
+     * labeled alternative in `MySqlParser.selectIntoExpression`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitSelectIntoTextFile?: (ctx: SelectIntoTextFileContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.selectFieldsInto`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitSelectFieldsInto?: (ctx: SelectFieldsIntoContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.selectLinesInto`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitSelectLinesInto?: (ctx: SelectLinesIntoContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.fromClause`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitFromClause?: (ctx: FromClauseContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.groupByClause`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitGroupByClause?: (ctx: GroupByClauseContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.havingClause`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitHavingClause?: (ctx: HavingClauseContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.windowClause`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitWindowClause?: (ctx: WindowClauseContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.groupByItem`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitGroupByItem?: (ctx: GroupByItemContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.limitClause`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitLimitClause?: (ctx: LimitClauseContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.limitClauseAtom`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitLimitClauseAtom?: (ctx: LimitClauseAtomContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.startTransaction`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitStartTransaction?: (ctx: StartTransactionContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.beginWork`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitBeginWork?: (ctx: BeginWorkContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.commitWork`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitCommitWork?: (ctx: CommitWorkContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.rollbackWork`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitRollbackWork?: (ctx: RollbackWorkContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.savepointStatement`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitSavepointStatement?: (ctx: SavepointStatementContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.rollbackStatement`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitRollbackStatement?: (ctx: RollbackStatementContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.releaseStatement`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitReleaseStatement?: (ctx: ReleaseStatementContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.lockTables`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitLockTables?: (ctx: LockTablesContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.unlockTables`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitUnlockTables?: (ctx: UnlockTablesContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.setAutocommitStatement`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitSetAutocommitStatement?: (ctx: SetAutocommitStatementContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.setTransactionStatement`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitSetTransactionStatement?: (ctx: SetTransactionStatementContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.transactionMode`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitTransactionMode?: (ctx: TransactionModeContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.lockTableElement`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitLockTableElement?: (ctx: LockTableElementContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.lockAction`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitLockAction?: (ctx: LockActionContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.transactionOption`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitTransactionOption?: (ctx: TransactionOptionContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.transactionLevel`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitTransactionLevel?: (ctx: TransactionLevelContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.changeMaster`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitChangeMaster?: (ctx: ChangeMasterContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.changeReplicationFilter`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitChangeReplicationFilter?: (ctx: ChangeReplicationFilterContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.purgeBinaryLogs`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitPurgeBinaryLogs?: (ctx: PurgeBinaryLogsContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.resetMaster`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitResetMaster?: (ctx: ResetMasterContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.resetSlave`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitResetSlave?: (ctx: ResetSlaveContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.startSlave`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitStartSlave?: (ctx: StartSlaveContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.stopSlave`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitStopSlave?: (ctx: StopSlaveContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.startGroupReplication`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitStartGroupReplication?: (ctx: StartGroupReplicationContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.stopGroupReplication`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitStopGroupReplication?: (ctx: StopGroupReplicationContext) => Result;
+    /**
+     * Visit a parse tree produced by the `masterStringOption`
+     * labeled alternative in `MySqlParser.masterOption`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitMasterStringOption?: (ctx: MasterStringOptionContext) => Result;
+    /**
+     * Visit a parse tree produced by the `masterDecimalOption`
+     * labeled alternative in `MySqlParser.masterOption`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitMasterDecimalOption?: (ctx: MasterDecimalOptionContext) => Result;
+    /**
+     * Visit a parse tree produced by the `masterBoolOption`
+     * labeled alternative in `MySqlParser.masterOption`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitMasterBoolOption?: (ctx: MasterBoolOptionContext) => Result;
+    /**
+     * Visit a parse tree produced by the `masterRealOption`
+     * labeled alternative in `MySqlParser.masterOption`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitMasterRealOption?: (ctx: MasterRealOptionContext) => Result;
+    /**
+     * Visit a parse tree produced by the `masterUidListOption`
+     * labeled alternative in `MySqlParser.masterOption`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitMasterUidListOption?: (ctx: MasterUidListOptionContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.stringMasterOption`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitStringMasterOption?: (ctx: StringMasterOptionContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.decimalMasterOption`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitDecimalMasterOption?: (ctx: DecimalMasterOptionContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.boolMasterOption`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitBoolMasterOption?: (ctx: BoolMasterOptionContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.channelOption`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitChannelOption?: (ctx: ChannelOptionContext) => Result;
+    /**
+     * Visit a parse tree produced by the `doDbReplication`
+     * labeled alternative in `MySqlParser.replicationFilter`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitDoDbReplication?: (ctx: DoDbReplicationContext) => Result;
+    /**
+     * Visit a parse tree produced by the `ignoreDbReplication`
+     * labeled alternative in `MySqlParser.replicationFilter`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitIgnoreDbReplication?: (ctx: IgnoreDbReplicationContext) => Result;
+    /**
+     * Visit a parse tree produced by the `doTableReplication`
+     * labeled alternative in `MySqlParser.replicationFilter`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitDoTableReplication?: (ctx: DoTableReplicationContext) => Result;
+    /**
+     * Visit a parse tree produced by the `ignoreTableReplication`
+     * labeled alternative in `MySqlParser.replicationFilter`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitIgnoreTableReplication?: (ctx: IgnoreTableReplicationContext) => Result;
+    /**
+     * Visit a parse tree produced by the `wildDoTableReplication`
+     * labeled alternative in `MySqlParser.replicationFilter`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitWildDoTableReplication?: (ctx: WildDoTableReplicationContext) => Result;
+    /**
+     * Visit a parse tree produced by the `wildIgnoreTableReplication`
+     * labeled alternative in `MySqlParser.replicationFilter`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitWildIgnoreTableReplication?: (ctx: WildIgnoreTableReplicationContext) => Result;
+    /**
+     * Visit a parse tree produced by the `rewriteDbReplication`
+     * labeled alternative in `MySqlParser.replicationFilter`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitRewriteDbReplication?: (ctx: RewriteDbReplicationContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.tablePair`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitTablePair?: (ctx: TablePairContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.threadType`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitThreadType?: (ctx: ThreadTypeContext) => Result;
+    /**
+     * Visit a parse tree produced by the `gtidsUntilOption`
+     * labeled alternative in `MySqlParser.untilOption`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitGtidsUntilOption?: (ctx: GtidsUntilOptionContext) => Result;
+    /**
+     * Visit a parse tree produced by the `masterLogUntilOption`
+     * labeled alternative in `MySqlParser.untilOption`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitMasterLogUntilOption?: (ctx: MasterLogUntilOptionContext) => Result;
+    /**
+     * Visit a parse tree produced by the `relayLogUntilOption`
+     * labeled alternative in `MySqlParser.untilOption`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitRelayLogUntilOption?: (ctx: RelayLogUntilOptionContext) => Result;
+    /**
+     * Visit a parse tree produced by the `sqlGapsUntilOption`
+     * labeled alternative in `MySqlParser.untilOption`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitSqlGapsUntilOption?: (ctx: SqlGapsUntilOptionContext) => Result;
+    /**
+     * Visit a parse tree produced by the `userConnectionOption`
+     * labeled alternative in `MySqlParser.connectionOption`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitUserConnectionOption?: (ctx: UserConnectionOptionContext) => Result;
+    /**
+     * Visit a parse tree produced by the `passwordConnectionOption`
+     * labeled alternative in `MySqlParser.connectionOption`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitPasswordConnectionOption?: (ctx: PasswordConnectionOptionContext) => Result;
+    /**
+     * Visit a parse tree produced by the `defaultAuthConnectionOption`
+     * labeled alternative in `MySqlParser.connectionOption`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitDefaultAuthConnectionOption?: (ctx: DefaultAuthConnectionOptionContext) => Result;
+    /**
+     * Visit a parse tree produced by the `pluginDirConnectionOption`
+     * labeled alternative in `MySqlParser.connectionOption`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitPluginDirConnectionOption?: (ctx: PluginDirConnectionOptionContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.gtuidSet`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitGtuidSet?: (ctx: GtuidSetContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.xaStartTransaction`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitXaStartTransaction?: (ctx: XaStartTransactionContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.xaEndTransaction`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitXaEndTransaction?: (ctx: XaEndTransactionContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.xaPrepareStatement`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitXaPrepareStatement?: (ctx: XaPrepareStatementContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.xaCommitWork`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitXaCommitWork?: (ctx: XaCommitWorkContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.xaRollbackWork`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitXaRollbackWork?: (ctx: XaRollbackWorkContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.xaRecoverWork`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitXaRecoverWork?: (ctx: XaRecoverWorkContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.prepareStatement`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitPrepareStatement?: (ctx: PrepareStatementContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.executeStatement`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitExecuteStatement?: (ctx: ExecuteStatementContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.deallocatePrepare`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitDeallocatePrepare?: (ctx: DeallocatePrepareContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.routineBody`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitRoutineBody?: (ctx: RoutineBodyContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.blockStatement`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitBlockStatement?: (ctx: BlockStatementContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.caseStatement`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitCaseStatement?: (ctx: CaseStatementContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.ifStatement`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitIfStatement?: (ctx: IfStatementContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.iterateStatement`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitIterateStatement?: (ctx: IterateStatementContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.leaveStatement`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitLeaveStatement?: (ctx: LeaveStatementContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.loopStatement`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitLoopStatement?: (ctx: LoopStatementContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.repeatStatement`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitRepeatStatement?: (ctx: RepeatStatementContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.returnStatement`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitReturnStatement?: (ctx: ReturnStatementContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.whileStatement`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitWhileStatement?: (ctx: WhileStatementContext) => Result;
+    /**
+     * Visit a parse tree produced by the `CloseCursor`
+     * labeled alternative in `MySqlParser.cursorStatement`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitCloseCursor?: (ctx: CloseCursorContext) => Result;
+    /**
+     * Visit a parse tree produced by the `FetchCursor`
+     * labeled alternative in `MySqlParser.cursorStatement`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitFetchCursor?: (ctx: FetchCursorContext) => Result;
+    /**
+     * Visit a parse tree produced by the `OpenCursor`
+     * labeled alternative in `MySqlParser.cursorStatement`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitOpenCursor?: (ctx: OpenCursorContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.declareVariable`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitDeclareVariable?: (ctx: DeclareVariableContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.declareCondition`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitDeclareCondition?: (ctx: DeclareConditionContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.declareCursor`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitDeclareCursor?: (ctx: DeclareCursorContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.declareHandler`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitDeclareHandler?: (ctx: DeclareHandlerContext) => Result;
+    /**
+     * Visit a parse tree produced by the `handlerConditionCode`
+     * labeled alternative in `MySqlParser.handlerConditionValue`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitHandlerConditionCode?: (ctx: HandlerConditionCodeContext) => Result;
+    /**
+     * Visit a parse tree produced by the `handlerConditionState`
+     * labeled alternative in `MySqlParser.handlerConditionValue`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitHandlerConditionState?: (ctx: HandlerConditionStateContext) => Result;
+    /**
+     * Visit a parse tree produced by the `handlerConditionName`
+     * labeled alternative in `MySqlParser.handlerConditionValue`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitHandlerConditionName?: (ctx: HandlerConditionNameContext) => Result;
+    /**
+     * Visit a parse tree produced by the `handlerConditionWarning`
+     * labeled alternative in `MySqlParser.handlerConditionValue`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitHandlerConditionWarning?: (ctx: HandlerConditionWarningContext) => Result;
+    /**
+     * Visit a parse tree produced by the `handlerConditionNotfound`
+     * labeled alternative in `MySqlParser.handlerConditionValue`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitHandlerConditionNotfound?: (ctx: HandlerConditionNotfoundContext) => Result;
+    /**
+     * Visit a parse tree produced by the `handlerConditionException`
+     * labeled alternative in `MySqlParser.handlerConditionValue`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitHandlerConditionException?: (ctx: HandlerConditionExceptionContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.procedureSqlStatement`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitProcedureSqlStatement?: (ctx: ProcedureSqlStatementContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.caseAlternative`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitCaseAlternative?: (ctx: CaseAlternativeContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.elifAlternative`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitElifAlternative?: (ctx: ElifAlternativeContext) => Result;
+    /**
+     * Visit a parse tree produced by the `alterUserMysqlV56`
+     * labeled alternative in `MySqlParser.alterUser`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitAlterUserMysqlV56?: (ctx: AlterUserMysqlV56Context) => Result;
+    /**
+     * Visit a parse tree produced by the `alterUserMysqlV80`
+     * labeled alternative in `MySqlParser.alterUser`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitAlterUserMysqlV80?: (ctx: AlterUserMysqlV80Context) => Result;
+    /**
+     * Visit a parse tree produced by the `createUserMysqlV56`
+     * labeled alternative in `MySqlParser.createUser`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitCreateUserMysqlV56?: (ctx: CreateUserMysqlV56Context) => Result;
+    /**
+     * Visit a parse tree produced by the `createUserMysqlV80`
+     * labeled alternative in `MySqlParser.createUser`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitCreateUserMysqlV80?: (ctx: CreateUserMysqlV80Context) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.dropUser`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitDropUser?: (ctx: DropUserContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.grantStatement`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitGrantStatement?: (ctx: GrantStatementContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.roleOption`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitRoleOption?: (ctx: RoleOptionContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.grantProxy`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitGrantProxy?: (ctx: GrantProxyContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.renameUser`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitRenameUser?: (ctx: RenameUserContext) => Result;
+    /**
+     * Visit a parse tree produced by the `detailRevoke`
+     * labeled alternative in `MySqlParser.revokeStatement`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitDetailRevoke?: (ctx: DetailRevokeContext) => Result;
+    /**
+     * Visit a parse tree produced by the `shortRevoke`
+     * labeled alternative in `MySqlParser.revokeStatement`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitShortRevoke?: (ctx: ShortRevokeContext) => Result;
+    /**
+     * Visit a parse tree produced by the `roleRevoke`
+     * labeled alternative in `MySqlParser.revokeStatement`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitRoleRevoke?: (ctx: RoleRevokeContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.revokeProxy`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitRevokeProxy?: (ctx: RevokeProxyContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.setPasswordStatement`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitSetPasswordStatement?: (ctx: SetPasswordStatementContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.userSpecification`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitUserSpecification?: (ctx: UserSpecificationContext) => Result;
+    /**
+     * Visit a parse tree produced by the `hashAuthOption`
+     * labeled alternative in `MySqlParser.userAuthOption`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitHashAuthOption?: (ctx: HashAuthOptionContext) => Result;
+    /**
+     * Visit a parse tree produced by the `randomAuthOption`
+     * labeled alternative in `MySqlParser.userAuthOption`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitRandomAuthOption?: (ctx: RandomAuthOptionContext) => Result;
+    /**
+     * Visit a parse tree produced by the `stringAuthOption`
+     * labeled alternative in `MySqlParser.userAuthOption`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitStringAuthOption?: (ctx: StringAuthOptionContext) => Result;
+    /**
+     * Visit a parse tree produced by the `moduleAuthOption`
+     * labeled alternative in `MySqlParser.userAuthOption`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitModuleAuthOption?: (ctx: ModuleAuthOptionContext) => Result;
+    /**
+     * Visit a parse tree produced by the `simpleAuthOption`
+     * labeled alternative in `MySqlParser.userAuthOption`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitSimpleAuthOption?: (ctx: SimpleAuthOptionContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.authOptionClause`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitAuthOptionClause?: (ctx: AuthOptionClauseContext) => Result;
+    /**
+     * Visit a parse tree produced by the `module`
+     * labeled alternative in `MySqlParser.authenticationRule`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitModule?: (ctx: ModuleContext) => Result;
+    /**
+     * Visit a parse tree produced by the `passwordModuleOption`
+     * labeled alternative in `MySqlParser.authenticationRule`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitPasswordModuleOption?: (ctx: PasswordModuleOptionContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.tlsOption`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitTlsOption?: (ctx: TlsOptionContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.userResourceOption`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitUserResourceOption?: (ctx: UserResourceOptionContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.userPasswordOption`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitUserPasswordOption?: (ctx: UserPasswordOptionContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.userLockOption`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitUserLockOption?: (ctx: UserLockOptionContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.privelegeClause`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitPrivelegeClause?: (ctx: PrivelegeClauseContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.privilege`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitPrivilege?: (ctx: PrivilegeContext) => Result;
+    /**
+     * Visit a parse tree produced by the `currentSchemaPriviLevel`
+     * labeled alternative in `MySqlParser.privilegeLevel`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitCurrentSchemaPriviLevel?: (ctx: CurrentSchemaPriviLevelContext) => Result;
+    /**
+     * Visit a parse tree produced by the `globalPrivLevel`
+     * labeled alternative in `MySqlParser.privilegeLevel`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitGlobalPrivLevel?: (ctx: GlobalPrivLevelContext) => Result;
+    /**
+     * Visit a parse tree produced by the `definiteSchemaPrivLevel`
+     * labeled alternative in `MySqlParser.privilegeLevel`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitDefiniteSchemaPrivLevel?: (ctx: DefiniteSchemaPrivLevelContext) => Result;
+    /**
+     * Visit a parse tree produced by the `definiteFullTablePrivLevel`
+     * labeled alternative in `MySqlParser.privilegeLevel`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitDefiniteFullTablePrivLevel?: (ctx: DefiniteFullTablePrivLevelContext) => Result;
+    /**
+     * Visit a parse tree produced by the `definiteFullTablePrivLevel2`
+     * labeled alternative in `MySqlParser.privilegeLevel`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitDefiniteFullTablePrivLevel2?: (ctx: DefiniteFullTablePrivLevel2Context) => Result;
+    /**
+     * Visit a parse tree produced by the `definiteTablePrivLevel`
+     * labeled alternative in `MySqlParser.privilegeLevel`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitDefiniteTablePrivLevel?: (ctx: DefiniteTablePrivLevelContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.renameUserClause`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitRenameUserClause?: (ctx: RenameUserClauseContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.analyzeTable`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitAnalyzeTable?: (ctx: AnalyzeTableContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.checkTable`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitCheckTable?: (ctx: CheckTableContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.checksumTable`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitChecksumTable?: (ctx: ChecksumTableContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.optimizeTable`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitOptimizeTable?: (ctx: OptimizeTableContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.repairTable`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitRepairTable?: (ctx: RepairTableContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.checkTableOption`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitCheckTableOption?: (ctx: CheckTableOptionContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.createUdfunction`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitCreateUdfunction?: (ctx: CreateUdfunctionContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.installPlugin`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitInstallPlugin?: (ctx: InstallPluginContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.uninstallPlugin`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitUninstallPlugin?: (ctx: UninstallPluginContext) => Result;
+    /**
+     * Visit a parse tree produced by the `setVariable`
+     * labeled alternative in `MySqlParser.setStatement`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitSetVariable?: (ctx: SetVariableContext) => Result;
+    /**
+     * Visit a parse tree produced by the `setCharset`
+     * labeled alternative in `MySqlParser.setStatement`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitSetCharset?: (ctx: SetCharsetContext) => Result;
+    /**
+     * Visit a parse tree produced by the `setNames`
+     * labeled alternative in `MySqlParser.setStatement`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitSetNames?: (ctx: SetNamesContext) => Result;
+    /**
+     * Visit a parse tree produced by the `setPassword`
+     * labeled alternative in `MySqlParser.setStatement`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitSetPassword?: (ctx: SetPasswordContext) => Result;
+    /**
+     * Visit a parse tree produced by the `setTransaction`
+     * labeled alternative in `MySqlParser.setStatement`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitSetTransaction?: (ctx: SetTransactionContext) => Result;
+    /**
+     * Visit a parse tree produced by the `setAutocommit`
+     * labeled alternative in `MySqlParser.setStatement`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitSetAutocommit?: (ctx: SetAutocommitContext) => Result;
+    /**
+     * Visit a parse tree produced by the `setNewValueInsideTrigger`
+     * labeled alternative in `MySqlParser.setStatement`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitSetNewValueInsideTrigger?: (ctx: SetNewValueInsideTriggerContext) => Result;
+    /**
+     * Visit a parse tree produced by the `showMasterLogs`
+     * labeled alternative in `MySqlParser.showStatement`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitShowMasterLogs?: (ctx: ShowMasterLogsContext) => Result;
+    /**
+     * Visit a parse tree produced by the `showLogEvents`
+     * labeled alternative in `MySqlParser.showStatement`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitShowLogEvents?: (ctx: ShowLogEventsContext) => Result;
+    /**
+     * Visit a parse tree produced by the `showObjectFilter`
+     * labeled alternative in `MySqlParser.showStatement`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitShowObjectFilter?: (ctx: ShowObjectFilterContext) => Result;
+    /**
+     * Visit a parse tree produced by the `showColumns`
+     * labeled alternative in `MySqlParser.showStatement`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitShowColumns?: (ctx: ShowColumnsContext) => Result;
+    /**
+     * Visit a parse tree produced by the `showCreateDb`
+     * labeled alternative in `MySqlParser.showStatement`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitShowCreateDb?: (ctx: ShowCreateDbContext) => Result;
+    /**
+     * Visit a parse tree produced by the `showCreateFullIdObject`
+     * labeled alternative in `MySqlParser.showStatement`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitShowCreateFullIdObject?: (ctx: ShowCreateFullIdObjectContext) => Result;
+    /**
+     * Visit a parse tree produced by the `showCreateUser`
+     * labeled alternative in `MySqlParser.showStatement`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitShowCreateUser?: (ctx: ShowCreateUserContext) => Result;
+    /**
+     * Visit a parse tree produced by the `showEngine`
+     * labeled alternative in `MySqlParser.showStatement`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitShowEngine?: (ctx: ShowEngineContext) => Result;
+    /**
+     * Visit a parse tree produced by the `showGlobalInfo`
+     * labeled alternative in `MySqlParser.showStatement`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitShowGlobalInfo?: (ctx: ShowGlobalInfoContext) => Result;
+    /**
+     * Visit a parse tree produced by the `showErrors`
+     * labeled alternative in `MySqlParser.showStatement`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitShowErrors?: (ctx: ShowErrorsContext) => Result;
+    /**
+     * Visit a parse tree produced by the `showCountErrors`
+     * labeled alternative in `MySqlParser.showStatement`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitShowCountErrors?: (ctx: ShowCountErrorsContext) => Result;
+    /**
+     * Visit a parse tree produced by the `showSchemaFilter`
+     * labeled alternative in `MySqlParser.showStatement`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitShowSchemaFilter?: (ctx: ShowSchemaFilterContext) => Result;
+    /**
+     * Visit a parse tree produced by the `showRoutine`
+     * labeled alternative in `MySqlParser.showStatement`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitShowRoutine?: (ctx: ShowRoutineContext) => Result;
+    /**
+     * Visit a parse tree produced by the `showGrants`
+     * labeled alternative in `MySqlParser.showStatement`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitShowGrants?: (ctx: ShowGrantsContext) => Result;
+    /**
+     * Visit a parse tree produced by the `showIndexes`
+     * labeled alternative in `MySqlParser.showStatement`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitShowIndexes?: (ctx: ShowIndexesContext) => Result;
+    /**
+     * Visit a parse tree produced by the `showOpenTables`
+     * labeled alternative in `MySqlParser.showStatement`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitShowOpenTables?: (ctx: ShowOpenTablesContext) => Result;
+    /**
+     * Visit a parse tree produced by the `showProfile`
+     * labeled alternative in `MySqlParser.showStatement`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitShowProfile?: (ctx: ShowProfileContext) => Result;
+    /**
+     * Visit a parse tree produced by the `showSlaveStatus`
+     * labeled alternative in `MySqlParser.showStatement`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitShowSlaveStatus?: (ctx: ShowSlaveStatusContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.variableClause`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitVariableClause?: (ctx: VariableClauseContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.showCommonEntity`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitShowCommonEntity?: (ctx: ShowCommonEntityContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.showFilter`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitShowFilter?: (ctx: ShowFilterContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.showGlobalInfoClause`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitShowGlobalInfoClause?: (ctx: ShowGlobalInfoClauseContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.showSchemaEntity`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitShowSchemaEntity?: (ctx: ShowSchemaEntityContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.showProfileType`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitShowProfileType?: (ctx: ShowProfileTypeContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.binlogStatement`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitBinlogStatement?: (ctx: BinlogStatementContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.cacheIndexStatement`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitCacheIndexStatement?: (ctx: CacheIndexStatementContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.flushStatement`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitFlushStatement?: (ctx: FlushStatementContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.killStatement`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitKillStatement?: (ctx: KillStatementContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.loadIndexIntoCache`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitLoadIndexIntoCache?: (ctx: LoadIndexIntoCacheContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.resetStatement`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitResetStatement?: (ctx: ResetStatementContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.shutdownStatement`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitShutdownStatement?: (ctx: ShutdownStatementContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.tableIndexes`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitTableIndexes?: (ctx: TableIndexesContext) => Result;
+    /**
+     * Visit a parse tree produced by the `simpleFlushOption`
+     * labeled alternative in `MySqlParser.flushOption`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitSimpleFlushOption?: (ctx: SimpleFlushOptionContext) => Result;
+    /**
+     * Visit a parse tree produced by the `channelFlushOption`
+     * labeled alternative in `MySqlParser.flushOption`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitChannelFlushOption?: (ctx: ChannelFlushOptionContext) => Result;
+    /**
+     * Visit a parse tree produced by the `tableFlushOption`
+     * labeled alternative in `MySqlParser.flushOption`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitTableFlushOption?: (ctx: TableFlushOptionContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.flushTableOption`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitFlushTableOption?: (ctx: FlushTableOptionContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.loadedTableIndexes`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitLoadedTableIndexes?: (ctx: LoadedTableIndexesContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.simpleDescribeStatement`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitSimpleDescribeStatement?: (ctx: SimpleDescribeStatementContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.fullDescribeStatement`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitFullDescribeStatement?: (ctx: FullDescribeStatementContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.helpStatement`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitHelpStatement?: (ctx: HelpStatementContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.useStatement`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitUseStatement?: (ctx: UseStatementContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.signalStatement`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitSignalStatement?: (ctx: SignalStatementContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.resignalStatement`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitResignalStatement?: (ctx: ResignalStatementContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.signalConditionInformation`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitSignalConditionInformation?: (ctx: SignalConditionInformationContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.withStatement`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitWithStatement?: (ctx: WithStatementContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.tableStatement`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitTableStatement?: (ctx: TableStatementContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.diagnosticsStatement`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitDiagnosticsStatement?: (ctx: DiagnosticsStatementContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.diagnosticsConditionInformationName`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitDiagnosticsConditionInformationName?: (ctx: DiagnosticsConditionInformationNameContext) => Result;
+    /**
+     * Visit a parse tree produced by the `describeStatements`
+     * labeled alternative in `MySqlParser.describeObjectClause`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitDescribeStatements?: (ctx: DescribeStatementsContext) => Result;
+    /**
+     * Visit a parse tree produced by the `describeConnection`
+     * labeled alternative in `MySqlParser.describeObjectClause`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitDescribeConnection?: (ctx: DescribeConnectionContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.fullId`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitFullId?: (ctx: FullIdContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.tableName`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitTableName?: (ctx: TableNameContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.roleName`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitRoleName?: (ctx: RoleNameContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.fullColumnName`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitFullColumnName?: (ctx: FullColumnNameContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.indexColumnName`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitIndexColumnName?: (ctx: IndexColumnNameContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.simpleUserName`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitSimpleUserName?: (ctx: SimpleUserNameContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.hostName`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitHostName?: (ctx: HostNameContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.userName`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitUserName?: (ctx: UserNameContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.mysqlVariable`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitMysqlVariable?: (ctx: MysqlVariableContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.charsetName`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitCharsetName?: (ctx: CharsetNameContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.collationName`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitCollationName?: (ctx: CollationNameContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.engineName`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitEngineName?: (ctx: EngineNameContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.engineNameBase`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitEngineNameBase?: (ctx: EngineNameBaseContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.uuidSet`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitUuidSet?: (ctx: UuidSetContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.xid`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitXid?: (ctx: XidContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.xuidStringId`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitXuidStringId?: (ctx: XuidStringIdContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.authPlugin`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitAuthPlugin?: (ctx: AuthPluginContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.uid`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitUid?: (ctx: UidContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.simpleId`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitSimpleId?: (ctx: SimpleIdContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.dottedId`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitDottedId?: (ctx: DottedIdContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.decimalLiteral`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitDecimalLiteral?: (ctx: DecimalLiteralContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.fileSizeLiteral`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitFileSizeLiteral?: (ctx: FileSizeLiteralContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.stringLiteral`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitStringLiteral?: (ctx: StringLiteralContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.booleanLiteral`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitBooleanLiteral?: (ctx: BooleanLiteralContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.hexadecimalLiteral`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitHexadecimalLiteral?: (ctx: HexadecimalLiteralContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.nullNotnull`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitNullNotnull?: (ctx: NullNotnullContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.constant`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitConstant?: (ctx: ConstantContext) => Result;
+    /**
+     * Visit a parse tree produced by the `stringDataType`
+     * labeled alternative in `MySqlParser.dataType`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitStringDataType?: (ctx: StringDataTypeContext) => Result;
+    /**
+     * Visit a parse tree produced by the `nationalVaryingStringDataType`
+     * labeled alternative in `MySqlParser.dataType`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitNationalVaryingStringDataType?: (ctx: NationalVaryingStringDataTypeContext) => Result;
+    /**
+     * Visit a parse tree produced by the `nationalStringDataType`
+     * labeled alternative in `MySqlParser.dataType`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitNationalStringDataType?: (ctx: NationalStringDataTypeContext) => Result;
+    /**
+     * Visit a parse tree produced by the `dimensionDataType`
+     * labeled alternative in `MySqlParser.dataType`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitDimensionDataType?: (ctx: DimensionDataTypeContext) => Result;
+    /**
+     * Visit a parse tree produced by the `simpleDataType`
+     * labeled alternative in `MySqlParser.dataType`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitSimpleDataType?: (ctx: SimpleDataTypeContext) => Result;
+    /**
+     * Visit a parse tree produced by the `collectionDataType`
+     * labeled alternative in `MySqlParser.dataType`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitCollectionDataType?: (ctx: CollectionDataTypeContext) => Result;
+    /**
+     * Visit a parse tree produced by the `spatialDataType`
+     * labeled alternative in `MySqlParser.dataType`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitSpatialDataType?: (ctx: SpatialDataTypeContext) => Result;
+    /**
+     * Visit a parse tree produced by the `longVarcharDataType`
+     * labeled alternative in `MySqlParser.dataType`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitLongVarcharDataType?: (ctx: LongVarcharDataTypeContext) => Result;
+    /**
+     * Visit a parse tree produced by the `longVarbinaryDataType`
+     * labeled alternative in `MySqlParser.dataType`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitLongVarbinaryDataType?: (ctx: LongVarbinaryDataTypeContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.collectionOptions`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitCollectionOptions?: (ctx: CollectionOptionsContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.convertedDataType`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitConvertedDataType?: (ctx: ConvertedDataTypeContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.lengthOneDimension`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitLengthOneDimension?: (ctx: LengthOneDimensionContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.lengthTwoDimension`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitLengthTwoDimension?: (ctx: LengthTwoDimensionContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.lengthTwoOptionalDimension`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitLengthTwoOptionalDimension?: (ctx: LengthTwoOptionalDimensionContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.uidList`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitUidList?: (ctx: UidListContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.fullColumnNameList`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitFullColumnNameList?: (ctx: FullColumnNameListContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.tables`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitTables?: (ctx: TablesContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.indexColumnNames`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitIndexColumnNames?: (ctx: IndexColumnNamesContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.expressions`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitExpressions?: (ctx: ExpressionsContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.expressionsWithDefaults`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitExpressionsWithDefaults?: (ctx: ExpressionsWithDefaultsContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.constants`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitConstants?: (ctx: ConstantsContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.simpleStrings`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitSimpleStrings?: (ctx: SimpleStringsContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.userVariables`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitUserVariables?: (ctx: UserVariablesContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.defaultValue`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitDefaultValue?: (ctx: DefaultValueContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.currentTimestamp`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitCurrentTimestamp?: (ctx: CurrentTimestampContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.expressionOrDefault`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitExpressionOrDefault?: (ctx: ExpressionOrDefaultContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.ifExists`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitIfExists?: (ctx: IfExistsContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.ifNotExists`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitIfNotExists?: (ctx: IfNotExistsContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.orReplace`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitOrReplace?: (ctx: OrReplaceContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.waitNowaitClause`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitWaitNowaitClause?: (ctx: WaitNowaitClauseContext) => Result;
+    /**
+     * Visit a parse tree produced by the `specificFunctionCall`
+     * labeled alternative in `MySqlParser.functionCall`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitSpecificFunctionCall?: (ctx: SpecificFunctionCallContext) => Result;
+    /**
+     * Visit a parse tree produced by the `aggregateFunctionCall`
+     * labeled alternative in `MySqlParser.functionCall`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitAggregateFunctionCall?: (ctx: AggregateFunctionCallContext) => Result;
+    /**
+     * Visit a parse tree produced by the `nonAggregateFunctionCall`
+     * labeled alternative in `MySqlParser.functionCall`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitNonAggregateFunctionCall?: (ctx: NonAggregateFunctionCallContext) => Result;
+    /**
+     * Visit a parse tree produced by the `scalarFunctionCall`
+     * labeled alternative in `MySqlParser.functionCall`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitScalarFunctionCall?: (ctx: ScalarFunctionCallContext) => Result;
+    /**
+     * Visit a parse tree produced by the `udfFunctionCall`
+     * labeled alternative in `MySqlParser.functionCall`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitUdfFunctionCall?: (ctx: UdfFunctionCallContext) => Result;
+    /**
+     * Visit a parse tree produced by the `passwordFunctionCall`
+     * labeled alternative in `MySqlParser.functionCall`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitPasswordFunctionCall?: (ctx: PasswordFunctionCallContext) => Result;
+    /**
+     * Visit a parse tree produced by the `simpleFunctionCall`
+     * labeled alternative in `MySqlParser.specificFunction`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitSimpleFunctionCall?: (ctx: SimpleFunctionCallContext) => Result;
+    /**
+     * Visit a parse tree produced by the `currentUser`
+     * labeled alternative in `MySqlParser.specificFunction`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitCurrentUser?: (ctx: CurrentUserContext) => Result;
+    /**
+     * Visit a parse tree produced by the `dataTypeFunctionCall`
+     * labeled alternative in `MySqlParser.specificFunction`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitDataTypeFunctionCall?: (ctx: DataTypeFunctionCallContext) => Result;
+    /**
+     * Visit a parse tree produced by the `valuesFunctionCall`
+     * labeled alternative in `MySqlParser.specificFunction`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitValuesFunctionCall?: (ctx: ValuesFunctionCallContext) => Result;
+    /**
+     * Visit a parse tree produced by the `caseExpressionFunctionCall`
+     * labeled alternative in `MySqlParser.specificFunction`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitCaseExpressionFunctionCall?: (ctx: CaseExpressionFunctionCallContext) => Result;
+    /**
+     * Visit a parse tree produced by the `caseFunctionCall`
+     * labeled alternative in `MySqlParser.specificFunction`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitCaseFunctionCall?: (ctx: CaseFunctionCallContext) => Result;
+    /**
+     * Visit a parse tree produced by the `charFunctionCall`
+     * labeled alternative in `MySqlParser.specificFunction`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitCharFunctionCall?: (ctx: CharFunctionCallContext) => Result;
+    /**
+     * Visit a parse tree produced by the `positionFunctionCall`
+     * labeled alternative in `MySqlParser.specificFunction`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitPositionFunctionCall?: (ctx: PositionFunctionCallContext) => Result;
+    /**
+     * Visit a parse tree produced by the `substrFunctionCall`
+     * labeled alternative in `MySqlParser.specificFunction`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitSubstrFunctionCall?: (ctx: SubstrFunctionCallContext) => Result;
+    /**
+     * Visit a parse tree produced by the `trimFunctionCall`
+     * labeled alternative in `MySqlParser.specificFunction`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitTrimFunctionCall?: (ctx: TrimFunctionCallContext) => Result;
+    /**
+     * Visit a parse tree produced by the `weightFunctionCall`
+     * labeled alternative in `MySqlParser.specificFunction`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitWeightFunctionCall?: (ctx: WeightFunctionCallContext) => Result;
+    /**
+     * Visit a parse tree produced by the `extractFunctionCall`
+     * labeled alternative in `MySqlParser.specificFunction`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitExtractFunctionCall?: (ctx: ExtractFunctionCallContext) => Result;
+    /**
+     * Visit a parse tree produced by the `getFormatFunctionCall`
+     * labeled alternative in `MySqlParser.specificFunction`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitGetFormatFunctionCall?: (ctx: GetFormatFunctionCallContext) => Result;
+    /**
+     * Visit a parse tree produced by the `jsonValueFunctionCall`
+     * labeled alternative in `MySqlParser.specificFunction`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitJsonValueFunctionCall?: (ctx: JsonValueFunctionCallContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.caseFuncAlternative`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitCaseFuncAlternative?: (ctx: CaseFuncAlternativeContext) => Result;
+    /**
+     * Visit a parse tree produced by the `levelWeightList`
+     * labeled alternative in `MySqlParser.levelsInWeightString`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitLevelWeightList?: (ctx: LevelWeightListContext) => Result;
+    /**
+     * Visit a parse tree produced by the `levelWeightRange`
+     * labeled alternative in `MySqlParser.levelsInWeightString`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitLevelWeightRange?: (ctx: LevelWeightRangeContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.levelInWeightListElement`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitLevelInWeightListElement?: (ctx: LevelInWeightListElementContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.aggregateWindowedFunction`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitAggregateWindowedFunction?: (ctx: AggregateWindowedFunctionContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.nonAggregateWindowedFunction`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitNonAggregateWindowedFunction?: (ctx: NonAggregateWindowedFunctionContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.overClause`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitOverClause?: (ctx: OverClauseContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.windowSpec`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitWindowSpec?: (ctx: WindowSpecContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.windowName`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitWindowName?: (ctx: WindowNameContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.frameClause`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitFrameClause?: (ctx: FrameClauseContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.frameUnits`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitFrameUnits?: (ctx: FrameUnitsContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.frameExtent`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitFrameExtent?: (ctx: FrameExtentContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.frameBetween`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitFrameBetween?: (ctx: FrameBetweenContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.frameRange`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitFrameRange?: (ctx: FrameRangeContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.partitionClause`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitPartitionClause?: (ctx: PartitionClauseContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.scalarFunctionName`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitScalarFunctionName?: (ctx: ScalarFunctionNameContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.passwordFunctionClause`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitPasswordFunctionClause?: (ctx: PasswordFunctionClauseContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.functionArgs`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitFunctionArgs?: (ctx: FunctionArgsContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.functionArg`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitFunctionArg?: (ctx: FunctionArgContext) => Result;
+    /**
+     * Visit a parse tree produced by the `isExpression`
+     * labeled alternative in `MySqlParser.expression`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitIsExpression?: (ctx: IsExpressionContext) => Result;
+    /**
+     * Visit a parse tree produced by the `notExpression`
+     * labeled alternative in `MySqlParser.expression`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitNotExpression?: (ctx: NotExpressionContext) => Result;
+    /**
+     * Visit a parse tree produced by the `logicalExpression`
+     * labeled alternative in `MySqlParser.expression`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitLogicalExpression?: (ctx: LogicalExpressionContext) => Result;
+    /**
+     * Visit a parse tree produced by the `predicateExpression`
+     * labeled alternative in `MySqlParser.expression`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitPredicateExpression?: (ctx: PredicateExpressionContext) => Result;
+    /**
+     * Visit a parse tree produced by the `soundsLikePredicate`
+     * labeled alternative in `MySqlParser.predicate`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitSoundsLikePredicate?: (ctx: SoundsLikePredicateContext) => Result;
+    /**
+     * Visit a parse tree produced by the `expressionAtomPredicate`
+     * labeled alternative in `MySqlParser.predicate`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitExpressionAtomPredicate?: (ctx: ExpressionAtomPredicateContext) => Result;
+    /**
+     * Visit a parse tree produced by the `subqueryComparisonPredicate`
+     * labeled alternative in `MySqlParser.predicate`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitSubqueryComparisonPredicate?: (ctx: SubqueryComparisonPredicateContext) => Result;
+    /**
+     * Visit a parse tree produced by the `jsonMemberOfPredicate`
+     * labeled alternative in `MySqlParser.predicate`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitJsonMemberOfPredicate?: (ctx: JsonMemberOfPredicateContext) => Result;
+    /**
+     * Visit a parse tree produced by the `binaryComparisonPredicate`
+     * labeled alternative in `MySqlParser.predicate`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitBinaryComparisonPredicate?: (ctx: BinaryComparisonPredicateContext) => Result;
+    /**
+     * Visit a parse tree produced by the `inPredicate`
+     * labeled alternative in `MySqlParser.predicate`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitInPredicate?: (ctx: InPredicateContext) => Result;
+    /**
+     * Visit a parse tree produced by the `betweenPredicate`
+     * labeled alternative in `MySqlParser.predicate`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitBetweenPredicate?: (ctx: BetweenPredicateContext) => Result;
+    /**
+     * Visit a parse tree produced by the `isNullPredicate`
+     * labeled alternative in `MySqlParser.predicate`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitIsNullPredicate?: (ctx: IsNullPredicateContext) => Result;
+    /**
+     * Visit a parse tree produced by the `likePredicate`
+     * labeled alternative in `MySqlParser.predicate`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitLikePredicate?: (ctx: LikePredicateContext) => Result;
+    /**
+     * Visit a parse tree produced by the `regexpPredicate`
+     * labeled alternative in `MySqlParser.predicate`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitRegexpPredicate?: (ctx: RegexpPredicateContext) => Result;
+    /**
+     * Visit a parse tree produced by the `unaryExpressionAtom`
+     * labeled alternative in `MySqlParser.expressionAtom`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitUnaryExpressionAtom?: (ctx: UnaryExpressionAtomContext) => Result;
+    /**
+     * Visit a parse tree produced by the `collateExpressionAtom`
+     * labeled alternative in `MySqlParser.expressionAtom`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitCollateExpressionAtom?: (ctx: CollateExpressionAtomContext) => Result;
+    /**
+     * Visit a parse tree produced by the `variableAssignExpressionAtom`
+     * labeled alternative in `MySqlParser.expressionAtom`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitVariableAssignExpressionAtom?: (ctx: VariableAssignExpressionAtomContext) => Result;
+    /**
+     * Visit a parse tree produced by the `mysqlVariableExpressionAtom`
+     * labeled alternative in `MySqlParser.expressionAtom`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitMysqlVariableExpressionAtom?: (ctx: MysqlVariableExpressionAtomContext) => Result;
+    /**
+     * Visit a parse tree produced by the `nestedExpressionAtom`
+     * labeled alternative in `MySqlParser.expressionAtom`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitNestedExpressionAtom?: (ctx: NestedExpressionAtomContext) => Result;
+    /**
+     * Visit a parse tree produced by the `nestedRowExpressionAtom`
+     * labeled alternative in `MySqlParser.expressionAtom`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitNestedRowExpressionAtom?: (ctx: NestedRowExpressionAtomContext) => Result;
+    /**
+     * Visit a parse tree produced by the `mathExpressionAtom`
+     * labeled alternative in `MySqlParser.expressionAtom`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitMathExpressionAtom?: (ctx: MathExpressionAtomContext) => Result;
+    /**
+     * Visit a parse tree produced by the `existsExpressionAtom`
+     * labeled alternative in `MySqlParser.expressionAtom`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitExistsExpressionAtom?: (ctx: ExistsExpressionAtomContext) => Result;
+    /**
+     * Visit a parse tree produced by the `intervalExpressionAtom`
+     * labeled alternative in `MySqlParser.expressionAtom`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitIntervalExpressionAtom?: (ctx: IntervalExpressionAtomContext) => Result;
+    /**
+     * Visit a parse tree produced by the `jsonExpressionAtom`
+     * labeled alternative in `MySqlParser.expressionAtom`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitJsonExpressionAtom?: (ctx: JsonExpressionAtomContext) => Result;
+    /**
+     * Visit a parse tree produced by the `subqueryExpressionAtom`
+     * labeled alternative in `MySqlParser.expressionAtom`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitSubqueryExpressionAtom?: (ctx: SubqueryExpressionAtomContext) => Result;
+    /**
+     * Visit a parse tree produced by the `constantExpressionAtom`
+     * labeled alternative in `MySqlParser.expressionAtom`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitConstantExpressionAtom?: (ctx: ConstantExpressionAtomContext) => Result;
+    /**
+     * Visit a parse tree produced by the `functionCallExpressionAtom`
+     * labeled alternative in `MySqlParser.expressionAtom`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitFunctionCallExpressionAtom?: (ctx: FunctionCallExpressionAtomContext) => Result;
+    /**
+     * Visit a parse tree produced by the `binaryExpressionAtom`
+     * labeled alternative in `MySqlParser.expressionAtom`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitBinaryExpressionAtom?: (ctx: BinaryExpressionAtomContext) => Result;
+    /**
+     * Visit a parse tree produced by the `fullColumnNameExpressionAtom`
+     * labeled alternative in `MySqlParser.expressionAtom`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitFullColumnNameExpressionAtom?: (ctx: FullColumnNameExpressionAtomContext) => Result;
+    /**
+     * Visit a parse tree produced by the `bitExpressionAtom`
+     * labeled alternative in `MySqlParser.expressionAtom`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitBitExpressionAtom?: (ctx: BitExpressionAtomContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.unaryOperator`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitUnaryOperator?: (ctx: UnaryOperatorContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.comparisonOperator`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitComparisonOperator?: (ctx: ComparisonOperatorContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.logicalOperator`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitLogicalOperator?: (ctx: LogicalOperatorContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.bitOperator`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitBitOperator?: (ctx: BitOperatorContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.multOperator`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitMultOperator?: (ctx: MultOperatorContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.addOperator`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitAddOperator?: (ctx: AddOperatorContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.jsonOperator`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitJsonOperator?: (ctx: JsonOperatorContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.charsetNameBase`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitCharsetNameBase?: (ctx: CharsetNameBaseContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.transactionLevelBase`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitTransactionLevelBase?: (ctx: TransactionLevelBaseContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.privilegesBase`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitPrivilegesBase?: (ctx: PrivilegesBaseContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.intervalTypeBase`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitIntervalTypeBase?: (ctx: IntervalTypeBaseContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.dataTypeBase`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitDataTypeBase?: (ctx: DataTypeBaseContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.keywordsCanBeId`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitKeywordsCanBeId?: (ctx: KeywordsCanBeIdContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.functionNameBase`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
     visitFunctionNameBase?: (ctx: FunctionNameBaseContext) => Result;
 }
