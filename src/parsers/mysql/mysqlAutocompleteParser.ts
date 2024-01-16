@@ -12,6 +12,7 @@ import * as c3 from 'antlr4-c3';
 import {MySqlLexer} from './generated/MySqlLexer.js';
 import {MySqlParser} from './generated/MySqlParser.js';
 import {preferredRules} from './lib/preferredRules.js';
+import {ignoredTokens} from './lib/ignoredTokens.js';
 
 interface CursorPosition {
     line: number;
@@ -207,7 +208,7 @@ export function parseMySqlQuery(query: string, cursor: CursorPosition): Autocomp
     parser.root();
 
     const core = new c3.CodeCompletionCore(parser);
-    core.ignoredTokens = new Set([]); // TODO
+    core.ignoredTokens = ignoredTokens;
     core.preferredRules = preferredRules;
     const cursorTokenIndex = findCursorTokenIndex(tokenStream, cursor);
     const suggestKeywords: KeywordSuggestion[] = [];
@@ -218,7 +219,7 @@ export function parseMySqlQuery(query: string, cursor: CursorPosition): Autocomp
     if (cursorTokenIndex !== undefined) {
         // Subtracting 2, because of whitespace token
         const previousToken = tokenStream.get(cursorTokenIndex - 2);
-        const {tokens, rules} = core.collectCandidates(cursorTokenIndex);
+        const {tokens, rules} = core.collectCandidates(cursorTokenIndex, parser.alterTable());
         const suggestionsFromRules = generateSuggestionsFromRules(
             rules,
             cursorTokenIndex,
