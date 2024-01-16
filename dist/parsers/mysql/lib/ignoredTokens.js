@@ -15,6 +15,17 @@ function getIgnoredTokens() {
     for (let i = firstCharsetIndex; i <= lastCharsetIndex; i++) {
         tokens.push(i);
     }
+    // Ignoring functions for now, need custom logic for them later
+    const firstFunctionIndex = MySqlParser.AVG;
+    const lastFunctionIndex = MySqlParser.UTC_TIMESTAMP;
+    for (let i = firstFunctionIndex; i <= lastFunctionIndex; i++) {
+        tokens.push(i);
+    }
+    const firstCommonFunctionIndex = MySqlParser.ABS;
+    const lastCommonFunctionIndex = MySqlParser.X_FUNCTION;
+    for (let i = firstCommonFunctionIndex; i <= lastCommonFunctionIndex; i++) {
+        tokens.push(i);
+    }
     return tokens;
 }
 export const ignoredTokens = new Set(getIgnoredTokens());

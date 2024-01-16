@@ -6,6 +6,7 @@
     "type": "git",
     "url": "git+ssh://git@github.com/gravity-ui/websql-autocomplete-2"
   },
+  "license": "Apache-2.0",
   "type": "module",
   "files": [
     "dist/*"
@@ -21,8 +22,6 @@
     "autocomplete": "node dist/index.js",
     "parse": "npm run build ; npm run autocomplete"
   },
-  "author": "",
-  "license": "Apache-2.0",
   "devDependencies": {
     "@gravity-ui/eslint-config": "^3.1.1",
     "@gravity-ui/prettier-config": "^1.1.0",

@@ -1,0 +1,42 @@
+import {ANTLRErrorListener, Token, ATNSimulator, Recognizer} from 'antlr4ng';
+
+import {getTokenPosition, TokenPosition} from '../lib/tokenPosition.js';
+
+interface ParserSyntaxError extends TokenPosition {
+    message: string;
+}
+
+export class SqlErrorListener implements ANTLRErrorListener {
+    errors: ParserSyntaxError[];
+    whitespaceToken: number;
+
+    constructor(whitespaceToken: number) {
+        this.errors = [];
+        this.whitespaceToken = whitespaceToken;
+    }
+
+    syntaxError<S extends Token, T extends ATNSimulator>(
+        _recognizer: Recognizer<T>,
+        token: S | null,
+        startLine: number,
+        startColumn: number,
+        message: string,
+    ) {
+        if (token) {
+            const tokenPosition = getTokenPosition(token, this.whitespaceToken);
+            this.errors.push({message, ...tokenPosition});
+        } else {
+            this.errors.push({
+                message,
+                startLine,
+                startColumn,
+                endLine: startLine,
+                endColumn: startColumn,
+            });
+        }
+    }
+
+    reportAmbiguity() {}
+    reportAttemptingFullContext() {}
+    reportContextSensitivity() {}
+}

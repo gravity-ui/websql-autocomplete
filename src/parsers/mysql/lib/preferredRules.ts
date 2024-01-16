@@ -7,5 +7,6 @@ export const preferredRules = new Set([
     MySqlParser.RULE_alterView,
     MySqlParser.RULE_dropView,
     MySqlParser.RULE_aggregateWindowedFunction,
+    // Maybe also add nonAggregateWindowedFunction?
     MySqlParser.RULE_scalarFunctionName,
 ]);

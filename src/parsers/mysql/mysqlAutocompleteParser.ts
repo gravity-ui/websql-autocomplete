@@ -1,30 +1,13 @@
-import {
-    CharStreams,
-    CommonTokenStream,
-    TokenStream,
-    ANTLRErrorListener,
-    Token,
-    ATNSimulator,
-    Recognizer,
-} from 'antlr4ng';
+import {CharStreams, CommonTokenStream, Token} from 'antlr4ng';
 import * as c3 from 'antlr4-c3';
 
+import {findCursorTokenIndex, TokenPosition, CursorPosition} from '../lib/tokenPosition.js';
+import {SqlErrorListener} from '../lib/sqlErrorListener.js';
 import {MySqlLexer} from './generated/MySqlLexer.js';
-import {MySqlParser} from './generated/MySqlParser.js';
+import {MySqlParser, AtomTableItemContext} from './generated/MySqlParser.js';
+import {MySqlParserVisitor} from './generated/MySqlParserVisitor.js';
 import {preferredRules} from './lib/preferredRules.js';
 import {ignoredTokens} from './lib/ignoredTokens.js';
-
-interface CursorPosition {
-    line: number;
-    column: number;
-}
-
-interface TokenPosition {
-    startLine: number;
-    startColumn: number;
-    endLine: number;
-    endColumn: number;
-}
 
 interface ParserSyntaxError extends TokenPosition {
     message: string;
@@ -34,100 +17,60 @@ interface KeywordSuggestion {
     value: string;
 }
 
+interface ColumnSuggestion {
+    tables?: {name: string; alias?: string}[];
+}
+
 enum TableSuggestion {
     ALL = 'ALL',
     TABLES = 'TABLES',
     VIEWS = 'VIEWS',
 }
 
-interface AutocompleteParseResult {
+export interface AutocompleteParseResult {
     errors: ParserSyntaxError[];
     suggestKeywords?: KeywordSuggestion[];
     suggestTables?: TableSuggestion;
     suggestTemplates?: boolean;
     suggestAggregateFunctions?: boolean;
     suggestFunctions?: boolean;
+    suggestColumns?: ColumnSuggestion;
 }
 
-const possibleIdentifierPrefixRegex = /[\w]$/;
-const lineSeparatorRegex = /\n|\r|\r\n/g;
 const quotesRegex = /^'(.*)'$/;
 
-function getTokenPosition(token: Token): TokenPosition {
-    const startColumn = token.column;
-    const endColumn = token.column + (token.text?.length || 0);
-    const startLine = token.line;
-    const endLine =
-        token.type !== MySqlLexer.SPACE || !token.text
-            ? startLine
-            : startLine + (token.text.match(lineSeparatorRegex)?.length || 0);
+class TableSymbol extends c3.TypedSymbol {
+    public name: string;
+    public alias: string | undefined;
 
-    return {startColumn, startLine, endColumn, endLine};
-}
+    public constructor(name: string, alias?: string, type?: c3.IType) {
+        super(name, type);
 
-function findCursorTokenIndex(
-    tokenStream: TokenStream,
-    cursor: CursorPosition,
-): number | undefined {
-    // Cursor position is 1-based, while token's charPositionInLine is 0-based
-    const cursorCol = cursor.column - 1;
-
-    for (let i = 0; i < tokenStream.size; i++) {
-        const token = tokenStream.get(i);
-        const {startColumn, startLine, endColumn, endLine} = getTokenPosition(token);
-
-        // endColumn makes sense only if startLine === endLine
-        if (endLine > cursor.line || (startLine === cursor.line && endColumn > cursorCol)) {
-            if (
-                i > 0 &&
-                startLine === cursor.line &&
-                startColumn === cursorCol &&
-                // If previous token is an identifier (i.e. word, not a symbol),
-                // then we want to return previous token index
-                possibleIdentifierPrefixRegex.test(tokenStream.get(i - 1).text || '')
-            ) {
-                return i - 1;
-            } else if (tokenStream.get(i).type === MySqlLexer.SPACE) {
-                return i + 1;
-            }
-            return i;
-        }
+        this.name = name;
+        this.alias = alias;
     }
-
-    return undefined;
 }
 
-class MySqlErrorListener implements ANTLRErrorListener {
-    errors: ParserSyntaxError[];
+class SymbolTableVisitor extends MySqlParserVisitor<{}> {
+    symbolTable: c3.SymbolTable;
+    scope: c3.ScopedSymbol;
 
     constructor() {
-        this.errors = [];
+        super();
+        this.symbolTable = new c3.SymbolTable('', {});
+        this.scope = this.symbolTable.addNewSymbolOfType(c3.ScopedSymbol, undefined);
     }
 
-    syntaxError<S extends Token, T extends ATNSimulator>(
-        _recognizer: Recognizer<T>,
-        token: S | null,
-        startLine: number,
-        startColumn: number,
-        message: string,
-    ) {
-        if (token) {
-            const tokenPosition = getTokenPosition(token);
-            this.errors.push({message, ...tokenPosition});
-        } else {
-            this.errors.push({
-                message,
-                startLine,
-                startColumn,
-                endLine: startLine,
-                endColumn: startColumn,
-            });
-        }
-    }
+    visitAtomTableItem = (context: AtomTableItemContext): {} => {
+        this.symbolTable.addNewSymbolOfType(
+            TableSymbol,
+            this.scope,
+            context.tableName().getText(),
+            context.uid()?.getText(),
+        );
 
-    reportAmbiguity() {}
-    reportAttemptingFullContext() {}
-    reportContextSensitivity() {}
+        return this.visitChildren(context) as {};
+    };
 }
 
 function generateSuggestionsFromRules(
@@ -187,7 +130,7 @@ export function parseMySqlQueryWithoutCursor(
     const lexer = new MySqlLexer(inputStream);
     const tokenStream = new CommonTokenStream(lexer);
     const parser = new MySqlParser(tokenStream);
-    const errorListener = new MySqlErrorListener();
+    const errorListener = new SqlErrorListener(MySqlLexer.SPACE);
 
     parser.removeErrorListeners();
     parser.addErrorListener(errorListener);
@@ -201,16 +144,19 @@ export function parseMySqlQuery(query: string, cursor: CursorPosition): Autocomp
     const lexer = new MySqlLexer(inputStream);
     const tokenStream = new CommonTokenStream(lexer);
     const parser = new MySqlParser(tokenStream);
-    const errorListener = new MySqlErrorListener();
+    const errorListener = new SqlErrorListener(MySqlLexer.SPACE);
 
     parser.removeErrorListeners();
     parser.addErrorListener(errorListener);
-    parser.root();
+
+    const parseTree = parser.root();
+    const visitor = new SymbolTableVisitor();
+    visitor.visit(parseTree);
 
     const core = new c3.CodeCompletionCore(parser);
     core.ignoredTokens = ignoredTokens;
     core.preferredRules = preferredRules;
-    const cursorTokenIndex = findCursorTokenIndex(tokenStream, cursor);
+    const cursorTokenIndex = findCursorTokenIndex(tokenStream, cursor, MySqlLexer.SPACE);
     const suggestKeywords: KeywordSuggestion[] = [];
     let result: AutocompleteParseResult = {
         errors: errorListener.errors,
@@ -239,10 +185,21 @@ export function parseMySqlQuery(query: string, cursor: CursorPosition): Autocomp
         });
     }
 
+    const tables = visitor.symbolTable.getNestedSymbolsOfTypeSync(TableSymbol);
+    if (tables.length) {
+        result.suggestColumns = {
+            tables: tables.map((tableSymbol) => ({
+                name: tableSymbol.name,
+                alias: tableSymbol.alias,
+            })),
+        };
+    }
+
     const isDdlStatementStart = Boolean(suggestKeywords.find(({value}) => value === 'CREATE'));
     const isDmlStatementStart = Boolean(suggestKeywords.find(({value}) => value === 'SELECT'));
+    // Doesn't work as expected
     const suggestTemplates = isDdlStatementStart || isDmlStatementStart;
-    result.suggestTemplates = suggestTemplates; // ???
+    result.suggestTemplates = suggestTemplates;
     result.suggestKeywords = suggestKeywords;
     return result;
 }

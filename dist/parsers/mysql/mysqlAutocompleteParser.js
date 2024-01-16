@@ -1,7 +1,10 @@
-import { CharStreams, CommonTokenStream, } from 'antlr4ng';
+import { CharStreams, CommonTokenStream } from 'antlr4ng';
 import * as c3 from 'antlr4-c3';
+import { findCursorTokenIndex } from '../lib/tokenPosition.js';
+import { SqlErrorListener } from '../lib/sqlErrorListener.js';
 import { MySqlLexer } from './generated/MySqlLexer.js';
 import { MySqlParser } from './generated/MySqlParser.js';
+import { MySqlParserVisitor } from './generated/MySqlParserVisitor.js';
 import { preferredRules } from './lib/preferredRules.js';
 import { ignoredTokens } from './lib/ignoredTokens.js';
 var TableSuggestion;
@@ -10,65 +13,25 @@ var TableSuggestion;
     TableSuggestion["TABLES"] = "TABLES";
     TableSuggestion["VIEWS"] = "VIEWS";
 })(TableSuggestion || (TableSuggestion = {}));
-const possibleIdentifierPrefixRegex = /[\w]$/;
-const lineSeparatorRegex = /\n|\r|\r\n/g;
 const quotesRegex = /^'(.*)'$/;
-function getTokenPosition(token) {
-    var _a, _b;
-    const startColumn = token.column;
-    const endColumn = token.column + (((_a = token.text) === null || _a === void 0 ? void 0 : _a.length) || 0);
-    const startLine = token.line;
-    const endLine = token.type !== MySqlLexer.SPACE || !token.text
-        ? startLine
-        : startLine + (((_b = token.text.match(lineSeparatorRegex)) === null || _b === void 0 ? void 0 : _b.length) || 0);
-    return { startColumn, startLine, endColumn, endLine };
-}
-function findCursorTokenIndex(tokenStream, cursor) {
-    // Cursor position is 1-based, while token's charPositionInLine is 0-based
-    const cursorCol = cursor.column - 1;
-    for (let i = 0; i < tokenStream.size; i++) {
-        const token = tokenStream.get(i);
-        const { startColumn, startLine, endColumn, endLine } = getTokenPosition(token);
-        // endColumn makes sense only if startLine === endLine
-        if (endLine > cursor.line || (startLine === cursor.line && endColumn > cursorCol)) {
-            if (i > 0 &&
-                startLine === cursor.line &&
-                startColumn === cursorCol &&
-                // If previous token is an identifier (i.e. word, not a symbol),
-                // then we want to return previous token index
-                possibleIdentifierPrefixRegex.test(tokenStream.get(i - 1).text || '')) {
-                return i - 1;
-            }
-            else if (tokenStream.get(i).type === MySqlLexer.SPACE) {
-                return i + 1;
-            }
-            return i;
-        }
+class TableSymbol extends c3.TypedSymbol {
+    constructor(name, alias, type) {
+        super(name, type);
+        this.name = name;
+        this.alias = alias;
     }
-    return undefined;
 }
-class MySqlErrorListener {
+class SymbolTableVisitor extends MySqlParserVisitor {
     constructor() {
-        this.errors = [];
+        super();
+        this.visitAtomTableItem = (context) => {
+            var _a;
+            this.symbolTable.addNewSymbolOfType(TableSymbol, this.scope, context.tableName().getText(), (_a = context.uid()) === null || _a === void 0 ? void 0 : _a.getText());
+            return this.visitChildren(context);
+        };
+        this.symbolTable = new c3.SymbolTable('', {});
+        this.scope = this.symbolTable.addNewSymbolOfType(c3.ScopedSymbol, undefined);
     }
-    syntaxError(_recognizer, token, startLine, startColumn, message) {
-        if (token) {
-            const tokenPosition = getTokenPosition(token);
-            this.errors.push(Object.assign({ message }, tokenPosition));
-        }
-        else {
-            this.errors.push({
-                message,
-                startLine,
-                startColumn,
-                endLine: startLine,
-                endColumn: startColumn,
-            });
-        }
-    }
-    reportAmbiguity() { }
-    reportAttemptingFullContext() { }
-    reportContextSensitivity() { }
 }
 function generateSuggestionsFromRules(rules, cursorTokenIndex, previousToken) {
     var _a, _b;
@@ -117,7 +80,7 @@ export function parseMySqlQueryWithoutCursor(query) {
     const lexer = new MySqlLexer(inputStream);
     const tokenStream = new CommonTokenStream(lexer);
     const parser = new MySqlParser(tokenStream);
-    const errorListener = new MySqlErrorListener();
+    const errorListener = new SqlErrorListener(MySqlLexer.SPACE);
     parser.removeErrorListeners();
     parser.addErrorListener(errorListener);
     parser.root();
@@ -128,14 +91,16 @@ export function parseMySqlQuery(query, cursor) {
     const lexer = new MySqlLexer(inputStream);
     const tokenStream = new CommonTokenStream(lexer);
     const parser = new MySqlParser(tokenStream);
-    const errorListener = new MySqlErrorListener();
+    const errorListener = new SqlErrorListener(MySqlLexer.SPACE);
     parser.removeErrorListeners();
     parser.addErrorListener(errorListener);
-    parser.root();
+    const parseTree = parser.root();
+    const visitor = new SymbolTableVisitor();
+    visitor.visit(parseTree);
     const core = new c3.CodeCompletionCore(parser);
     core.ignoredTokens = ignoredTokens;
     core.preferredRules = preferredRules;
-    const cursorTokenIndex = findCursorTokenIndex(tokenStream, cursor);
+    const cursorTokenIndex = findCursorTokenIndex(tokenStream, cursor, MySqlLexer.SPACE);
     const suggestKeywords = [];
     let result = {
         errors: errorListener.errors,
@@ -157,10 +122,20 @@ export function parseMySqlQuery(query, cursor) {
             }
         });
     }
+    const tables = visitor.symbolTable.getNestedSymbolsOfTypeSync(TableSymbol);
+    if (tables.length) {
+        result.suggestColumns = {
+            tables: tables.map((tableSymbol) => ({
+                name: tableSymbol.name,
+                alias: tableSymbol.alias,
+            })),
+        };
+    }
     const isDdlStatementStart = Boolean(suggestKeywords.find(({ value }) => value === 'CREATE'));
     const isDmlStatementStart = Boolean(suggestKeywords.find(({ value }) => value === 'SELECT'));
+    // Doesn't work as expected
     const suggestTemplates = isDdlStatementStart || isDmlStatementStart;
-    result.suggestTemplates = suggestTemplates; // ???
+    result.suggestTemplates = suggestTemplates;
     result.suggestKeywords = suggestKeywords;
     return result;
 }

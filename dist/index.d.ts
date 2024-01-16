@@ -1,1 +1,1 @@
-export { parseMySqlQueryWithoutCursor, parseMySqlQuery, } from './parsers/mysql/mysqlAutocompleteParser.js';
+export { parseMySqlQueryWithoutCursor, parseMySqlQuery, AutocompleteParseResult, } from './parsers/mysql/mysqlAutocompleteParser.js';
