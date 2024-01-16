@@ -219,7 +219,7 @@ export function parseMySqlQuery(query: string, cursor: CursorPosition): Autocomp
     if (cursorTokenIndex !== undefined) {
         // Subtracting 2, because of whitespace token
         const previousToken = tokenStream.get(cursorTokenIndex - 2);
-        const {tokens, rules} = core.collectCandidates(cursorTokenIndex, parser.alterTable());
+        const {tokens, rules} = core.collectCandidates(cursorTokenIndex);
         const suggestionsFromRules = generateSuggestionsFromRules(
             rules,
             cursorTokenIndex,
