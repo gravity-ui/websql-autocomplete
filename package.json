@@ -18,7 +18,8 @@
   },
   "scripts": {
     "generate": "antlr4ng -Dlanguage=TypeScript -o src/parsers/mysql/generated/ -visitor -listener -Xexact-output-dir src/parsers/mysql/grammar/MySqlLexer.g4 src/parsers/mysql/grammar/MySqlParser.g4",
-    "build": "tsc -p tsconfig.build.json",
+    "build": "rimraf dist && tsc -p tsconfig.build.json",
+    "prepublishOnly": "npm run build",
     "autocomplete": "node dist/index.js",
     "parse": "npm run build ; npm run autocomplete"
   },
@@ -26,7 +27,8 @@
     "@gravity-ui/eslint-config": "^3.1.1",
     "@gravity-ui/prettier-config": "^1.1.0",
     "@gravity-ui/tsconfig": "^1.0.0",
-    "antlr4ng-cli": "^1.0.7"
+    "antlr4ng-cli": "^1.0.7",
+    "rimraf": "^5.0.5"
   },
   "dependencies": {
     "antlr4-c3": "^3.3.5",
