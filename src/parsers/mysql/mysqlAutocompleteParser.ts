@@ -77,10 +77,11 @@ function generateSuggestionsFromRules(
     rules: c3.CandidatesCollection['rules'],
     cursorTokenIndex: number,
     previousToken?: Token,
-): Partial<AutocompleteParseResult> {
+): Partial<AutocompleteParseResult> & {suggestColumns?: boolean} {
     let suggestTables: AutocompleteParseResult['suggestTables'];
     let suggestAggregateFunctions = false;
     let suggestFunctions = false;
+    let suggestColumns = false;
 
     for (const [ruleId, ruleData] of rules) {
         switch (ruleId) {
@@ -117,10 +118,17 @@ function generateSuggestionsFromRules(
                 suggestFunctions = true;
                 break;
             }
+            case MySqlParser.RULE_fullColumnName:
+            case MySqlParser.RULE_indexColumnName: {
+                if (cursorTokenIndex === ruleData.startTokenIndex) {
+                    suggestColumns = true;
+                }
+                break;
+            }
         }
     }
 
-    return {suggestTables, suggestAggregateFunctions, suggestFunctions};
+    return {suggestTables, suggestAggregateFunctions, suggestFunctions, suggestColumns};
 }
 
 export function parseMySqlQueryWithoutCursor(
@@ -166,7 +174,7 @@ export function parseMySqlQuery(query: string, cursor: CursorPosition): Autocomp
         // Subtracting 2, because of whitespace token
         const previousToken = tokenStream.get(cursorTokenIndex - 2);
         const {tokens, rules} = core.collectCandidates(cursorTokenIndex);
-        const suggestionsFromRules = generateSuggestionsFromRules(
+        const {suggestColumns, ...suggestionsFromRules} = generateSuggestionsFromRules(
             rules,
             cursorTokenIndex,
             previousToken,
@@ -183,16 +191,18 @@ export function parseMySqlQuery(query: string, cursor: CursorPosition): Autocomp
                 });
             }
         });
-    }
 
-    const tables = visitor.symbolTable.getNestedSymbolsOfTypeSync(TableSymbol);
-    if (tables.length) {
-        result.suggestColumns = {
-            tables: tables.map((tableSymbol) => ({
-                name: tableSymbol.name,
-                alias: tableSymbol.alias,
-            })),
-        };
+        if (suggestColumns) {
+            const tables = visitor.symbolTable.getNestedSymbolsOfTypeSync(TableSymbol);
+            if (tables.length) {
+                result.suggestColumns = {
+                    tables: tables.map((tableSymbol) => ({
+                        name: tableSymbol.name,
+                        alias: tableSymbol.alias,
+                    })),
+                };
+            }
+        }
     }
 
     const isDdlStatementStart = Boolean(suggestKeywords.find(({value}) => value === 'CREATE'));

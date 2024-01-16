@@ -9,4 +9,6 @@ export const preferredRules = new Set([
     MySqlParser.RULE_aggregateWindowedFunction,
     // Maybe also add nonAggregateWindowedFunction?
     MySqlParser.RULE_scalarFunctionName,
+    MySqlParser.RULE_fullColumnName,
+    MySqlParser.RULE_indexColumnName,
 ]);
