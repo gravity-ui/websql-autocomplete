@@ -62,3 +62,49 @@ export function findCursorTokenIndex(
 
     return undefined;
 }
+
+function isCursorInTheMiddle(query: string, cursor: CursorPosition): boolean {
+    const lines = query.split(lineSeparatorRegex);
+    const text = lines[cursor.line - 1];
+
+    if (!text) {
+        throw new Error(`Could not find text on line ${cursor.line}`);
+    }
+
+    if (cursor.column - 1 === text.length) {
+        return false;
+    }
+
+    const symbolBefore = text.slice(cursor.column - 2, cursor.column - 1);
+    const symbolAfter = text.slice(cursor.column - 1, cursor.column);
+
+    if (symbolBefore === ' ' && symbolAfter === ' ') {
+        return true;
+    }
+
+    return false;
+}
+
+export function modifyInvalidQuery(query: string, cursor: CursorPosition): string {
+    if (!isCursorInTheMiddle(query, cursor)) {
+        return query;
+    }
+
+    let lines = query.split(lineSeparatorRegex);
+    const text = lines[cursor.line - 1];
+
+    if (!text) {
+        throw new Error(`Could not find text on line ${cursor.line}`);
+    }
+
+    const modifiedQuery = text.slice(0, cursor.column - 1) + 'a' + text.slice(cursor.column - 1);
+    const separatorMatch = query.match(lineSeparatorRegex);
+
+    if (!separatorMatch) {
+        return modifiedQuery;
+    }
+
+    const separator = separatorMatch.length === 2 ? '\r\n' : separatorMatch[0];
+    lines[cursor.line - 1] = modifiedQuery;
+    return lines.join(separator);
+}

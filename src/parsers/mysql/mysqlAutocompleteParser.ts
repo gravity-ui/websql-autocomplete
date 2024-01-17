@@ -1,7 +1,12 @@
 import {CharStreams, CommonTokenStream, Token} from 'antlr4ng';
 import * as c3 from 'antlr4-c3';
 
-import {findCursorTokenIndex, TokenPosition, CursorPosition} from '../lib/tokenPosition.js';
+import {
+    findCursorTokenIndex,
+    TokenPosition,
+    CursorPosition,
+    modifyInvalidQuery,
+} from '../lib/tokenPosition.js';
 import {SqlErrorListener} from '../lib/sqlErrorListener.js';
 import {MySqlLexer} from './generated/MySqlLexer.js';
 import {MySqlParser, AtomTableItemContext} from './generated/MySqlParser.js';
@@ -148,7 +153,11 @@ export function parseMySqlQueryWithoutCursor(
 }
 
 export function parseMySqlQuery(query: string, cursor: CursorPosition): AutocompleteParseResult {
-    const inputStream = CharStreams.fromString(query);
+    // Parser can't produce middle suggestions for incorrect query
+    // This is required for column name suggestions
+    let modifiedQuery = modifyInvalidQuery(query, cursor);
+
+    const inputStream = CharStreams.fromString(modifiedQuery);
     const lexer = new MySqlLexer(inputStream);
     const tokenStream = new CommonTokenStream(lexer);
     const parser = new MySqlParser(tokenStream);
