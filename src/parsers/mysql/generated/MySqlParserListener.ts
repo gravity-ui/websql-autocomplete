@@ -1,3 +1,4 @@
+// @ts-nocheck
 // Generated from src/parsers/mysql/grammar/MySqlParser.g4 by ANTLR 4.13.1
 
 import { ErrorNode, ParseTreeListener, ParserRuleContext, TerminalNode } from "antlr4ng";
