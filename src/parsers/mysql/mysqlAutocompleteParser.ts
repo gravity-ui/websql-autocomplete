@@ -5,10 +5,9 @@ import {
     findCursorTokenIndex,
     TokenPosition,
     CursorPosition,
-    modifyInvalidQuery,
-    getCurrentStatement,
     getCursorIndex,
 } from '../lib/cursor.js';
+import {modifyInvalidQuery, getCurrentStatement} from '../lib/query.js';
 import {TableSymbol} from '../lib/symbolTable.js';
 import {SqlErrorListener} from '../lib/sqlErrorListener.js';
 import {MySqlLexer} from './generated/MySqlLexer.js';
