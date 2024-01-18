@@ -96,7 +96,11 @@ function shouldSuggestTemplates(statement: string, cursorIndex: number): boolean
 
     return !!(
         cursorIndex === 0 ||
+        // Empty statement
         currentStatementBeforeCursor.replace(spaceSymbolsRegex, '').length === 0 ||
+        // First keyword in statement
+        !currentStatementBeforeCursor.match(/\s+$/) ||
+        // Explain statement
         currentStatementBeforeCursor.match(explainRegex)
     );
 }
