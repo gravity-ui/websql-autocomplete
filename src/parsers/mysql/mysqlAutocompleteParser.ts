@@ -7,7 +7,12 @@ import {
     CursorPosition,
     getCursorIndex,
 } from '../lib/cursor.js';
-import {modifyInvalidQuery, getCurrentStatement} from '../lib/query.js';
+import {
+    modifyInvalidQuery,
+    getCurrentStatement,
+    spaceSymbolsRegex,
+    explainRegex,
+} from '../lib/query.js';
 import {TableSymbol} from '../lib/symbolTable.js';
 import {SqlErrorListener} from '../lib/sqlErrorListener.js';
 import {MySqlLexer} from './generated/MySqlLexer.js';
@@ -84,6 +89,16 @@ class SymbolTableVisitor extends MySqlParserVisitor<{}> {
 
         return this.visitChildren(context) as {};
     };
+}
+
+function shouldSuggestTemplates(statement: string, cursorIndex: number): boolean {
+    const currentStatementBeforeCursor = statement.slice(0, cursorIndex).toLowerCase();
+
+    return !!(
+        cursorIndex === 0 ||
+        currentStatementBeforeCursor.replace(spaceSymbolsRegex, '').length === 0 ||
+        currentStatementBeforeCursor.match(explainRegex)
+    );
 }
 
 function generateSuggestionsFromRules(
@@ -234,13 +249,13 @@ export function parseMySqlQuery(query: string, cursor: CursorPosition): Autocomp
                 };
             }
         }
+
+        result.suggestTemplates = shouldSuggestTemplates(
+            currentStatement.statement,
+            currentStatement.cursorIndex,
+        );
     }
 
-    const isDdlStatementStart = Boolean(suggestKeywords.find(({value}) => value === 'CREATE'));
-    const isDmlStatementStart = Boolean(suggestKeywords.find(({value}) => value === 'SELECT'));
-    // Doesn't work as expected
-    const suggestTemplates = isDdlStatementStart || isDmlStatementStart;
-    result.suggestTemplates = suggestTemplates;
     result.suggestKeywords = suggestKeywords;
     return result;
 }

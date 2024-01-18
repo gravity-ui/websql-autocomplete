@@ -19,6 +19,9 @@ export function getCurrentStatement(
 }
 
 const spaceSymbols = '(\\s|\r\n|\n|\r)+';
+export const spaceSymbolsRegex = new RegExp(`${spaceSymbols}`);
+export const explainRegex = new RegExp(`^(${spaceSymbols})?explain${spaceSymbols}$`);
+
 const whereRegex = new RegExp(`${spaceSymbols}where${spaceSymbols}`);
 const setRegex = new RegExp(`${spaceSymbols}set${spaceSymbols}`);
 const insertRegex = new RegExp(`^(${spaceSymbols})?insert${spaceSymbols}.+\\(`);
