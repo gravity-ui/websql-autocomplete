@@ -87,7 +87,7 @@ class SymbolTableVisitor extends MySqlParserVisitor<{}> {
 }
 
 const explainRegex = new RegExp(`^(${spaceSymbols})?explain${spaceSymbols}$`);
-const multipleKeywordsRegex = new RegExp(`${spaceSymbols}.+${spaceSymbols}`);
+const multipleKeywordsRegex = new RegExp(`^(${spaceSymbols})?.+${spaceSymbols}`);
 
 function shouldSuggestTemplates(statement: string, cursorIndex: number): boolean {
     const currentStatementBeforeCursor = statement.slice(0, cursorIndex).toLowerCase();
