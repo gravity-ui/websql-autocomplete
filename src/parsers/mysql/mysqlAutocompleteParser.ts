@@ -7,12 +7,7 @@ import {
     CursorPosition,
     getCursorIndex,
 } from '../lib/cursor.js';
-import {
-    modifyInvalidQuery,
-    getCurrentStatement,
-    spaceSymbolsRegex,
-    explainRegex,
-} from '../lib/query.js';
+import {modifyInvalidQuery, getCurrentStatement, spaceSymbols} from '../lib/query.js';
 import {TableSymbol} from '../lib/symbolTable.js';
 import {SqlErrorListener} from '../lib/sqlErrorListener.js';
 import {MySqlLexer} from './generated/MySqlLexer.js';
@@ -91,15 +86,16 @@ class SymbolTableVisitor extends MySqlParserVisitor<{}> {
     };
 }
 
+const explainRegex = new RegExp(`^(${spaceSymbols})?explain${spaceSymbols}$`);
+const multipleKeywordsRegex = new RegExp(`${spaceSymbols}.+${spaceSymbols}`);
+
 function shouldSuggestTemplates(statement: string, cursorIndex: number): boolean {
     const currentStatementBeforeCursor = statement.slice(0, cursorIndex).toLowerCase();
 
     return !!(
         cursorIndex === 0 ||
-        // Empty statement
-        currentStatementBeforeCursor.replace(spaceSymbolsRegex, '').length === 0 ||
         // First keyword in statement
-        !currentStatementBeforeCursor.match(/\s+$/) ||
+        !currentStatementBeforeCursor.match(multipleKeywordsRegex) ||
         // Explain statement
         currentStatementBeforeCursor.match(explainRegex)
     );
@@ -180,10 +176,6 @@ export function parseMySqlQueryWithoutCursor(
 }
 
 export function parseMySqlQuery(query: string, cursor: CursorPosition): AutocompleteParseResult {
-    // ParserVisitor doesn't work for incorrect query
-    // This is required for column name suggestions
-    // let modifiedQuery = modifyInvalidQuery(query, cursor);
-
     const inputStream = CharStreams.fromString(query);
     const lexer = new MySqlLexer(inputStream);
     const tokenStream = new CommonTokenStream(lexer);
