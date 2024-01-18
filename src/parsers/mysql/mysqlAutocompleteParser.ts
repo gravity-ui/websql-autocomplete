@@ -6,10 +6,13 @@ import {
     TokenPosition,
     CursorPosition,
     modifyInvalidQuery,
-} from '../lib/tokenPosition.js';
+    getCurrentStatement,
+    getCursorIndex,
+} from '../lib/cursor.js';
+import {TableSymbol} from '../lib/symbolTable.js';
 import {SqlErrorListener} from '../lib/sqlErrorListener.js';
 import {MySqlLexer} from './generated/MySqlLexer.js';
-import {MySqlParser, AtomTableItemContext} from './generated/MySqlParser.js';
+import {MySqlParser, AtomTableItemContext, TableNameContext} from './generated/MySqlParser.js';
 import {MySqlParserVisitor} from './generated/MySqlParserVisitor.js';
 import {preferredRules} from './lib/preferredRules.js';
 import {ignoredTokens} from './lib/ignoredTokens.js';
@@ -44,18 +47,6 @@ export interface AutocompleteParseResult {
 
 const quotesRegex = /^'(.*)'$/;
 
-class TableSymbol extends c3.TypedSymbol {
-    public name: string;
-    public alias: string | undefined;
-
-    public constructor(name: string, alias?: string, type?: c3.IType) {
-        super(name, type);
-
-        this.name = name;
-        this.alias = alias;
-    }
-}
-
 class SymbolTableVisitor extends MySqlParserVisitor<{}> {
     symbolTable: c3.SymbolTable;
     scope: c3.ScopedSymbol;
@@ -66,13 +57,31 @@ class SymbolTableVisitor extends MySqlParserVisitor<{}> {
         this.scope = this.symbolTable.addNewSymbolOfType(c3.ScopedSymbol, undefined);
     }
 
+    visitTableName = (context: TableNameContext): {} => {
+        try {
+            this.symbolTable.addNewSymbolOfType(TableSymbol, this.scope, context.getText());
+        } catch (error) {
+            if (!(error instanceof c3.DuplicateSymbolError)) {
+                throw error;
+            }
+        }
+
+        return this.visitChildren(context) as {};
+    };
+
     visitAtomTableItem = (context: AtomTableItemContext): {} => {
-        this.symbolTable.addNewSymbolOfType(
-            TableSymbol,
-            this.scope,
-            context.tableName().getText(),
-            context.uid()?.getText(),
-        );
+        try {
+            this.symbolTable.addNewSymbolOfType(
+                TableSymbol,
+                this.scope,
+                context.tableName().getText(),
+                context.uid()?.getText(),
+            );
+        } catch (error) {
+            if (!(error instanceof c3.DuplicateSymbolError)) {
+                throw error;
+            }
+        }
 
         return this.visitChildren(context) as {};
     };
@@ -153,11 +162,11 @@ export function parseMySqlQueryWithoutCursor(
 }
 
 export function parseMySqlQuery(query: string, cursor: CursorPosition): AutocompleteParseResult {
-    // Parser can't produce middle suggestions for incorrect query
+    // ParserVisitor doesn't work for incorrect query
     // This is required for column name suggestions
-    let modifiedQuery = modifyInvalidQuery(query, cursor);
+    // let modifiedQuery = modifyInvalidQuery(query, cursor);
 
-    const inputStream = CharStreams.fromString(modifiedQuery);
+    const inputStream = CharStreams.fromString(query);
     const lexer = new MySqlLexer(inputStream);
     const tokenStream = new CommonTokenStream(lexer);
     const parser = new MySqlParser(tokenStream);
@@ -165,10 +174,7 @@ export function parseMySqlQuery(query: string, cursor: CursorPosition): Autocomp
 
     parser.removeErrorListeners();
     parser.addErrorListener(errorListener);
-
-    const parseTree = parser.root();
-    const visitor = new SymbolTableVisitor();
-    visitor.visit(parseTree);
+    parser.root();
 
     const core = new c3.CodeCompletionCore(parser);
     core.ignoredTokens = ignoredTokens;
@@ -202,7 +208,21 @@ export function parseMySqlQuery(query: string, cursor: CursorPosition): Autocomp
         });
 
         if (suggestColumns) {
+            const cursorIndex = getCursorIndex(query, cursor);
+            const currentStatement = getCurrentStatement(query, cursorIndex);
+            const modifiedQuery = modifyInvalidQuery(currentStatement, cursorIndex);
+
+            const inputStream = CharStreams.fromString(modifiedQuery);
+            const lexer = new MySqlLexer(inputStream);
+            const tokenStream = new CommonTokenStream(lexer);
+            const parser = new MySqlParser(tokenStream);
+
+            parser.removeErrorListeners();
+            const parseTree = parser.root();
+            const visitor = new SymbolTableVisitor();
+            visitor.visit(parseTree);
             const tables = visitor.symbolTable.getNestedSymbolsOfTypeSync(TableSymbol);
+
             if (tables.length) {
                 result.suggestColumns = {
                     tables: tables.map((tableSymbol) => ({

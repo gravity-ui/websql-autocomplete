@@ -1,6 +1,6 @@
 import {ANTLRErrorListener, Token, ATNSimulator, Recognizer} from 'antlr4ng';
 
-import {getTokenPosition, TokenPosition} from '../lib/tokenPosition.js';
+import {getTokenPosition, TokenPosition} from './cursor.js';
 
 interface ParserSyntaxError extends TokenPosition {
     message: string;
