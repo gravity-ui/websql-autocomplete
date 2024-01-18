@@ -206,11 +206,14 @@ export function parseMySqlQuery(query: string, cursor: CursorPosition): Autocomp
             }
         });
 
-        if (suggestColumns) {
-            const cursorIndex = getCursorIndex(query, cursor);
-            const currentStatement = getCurrentStatement(query, cursorIndex);
-            const modifiedQuery = modifyInvalidQuery(currentStatement, cursorIndex);
+        const cursorIndex = getCursorIndex(query, cursor);
+        const currentStatement = getCurrentStatement(query, cursorIndex);
 
+        if (suggestColumns) {
+            const modifiedQuery = modifyInvalidQuery(
+                currentStatement.statement,
+                currentStatement.cursorIndex,
+            );
             const inputStream = CharStreams.fromString(modifiedQuery);
             const lexer = new MySqlLexer(inputStream);
             const tokenStream = new CommonTokenStream(lexer);

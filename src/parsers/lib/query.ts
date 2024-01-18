@@ -1,4 +1,7 @@
-export function getCurrentStatement(query: string, cursorIndex: number): string {
+export function getCurrentStatement(
+    query: string,
+    cursorIndex: number,
+): {statement: string; cursorIndex: number} {
     const textBeforeCursor = query.slice(0, cursorIndex - 1);
     const textAfterCursor = query.slice(cursorIndex - 1);
 
@@ -9,7 +12,10 @@ export function getCurrentStatement(query: string, cursorIndex: number): string 
     const statementEndIndex =
         semiColonAfterIndex > -1 ? semiColonAfterIndex + textBeforeCursor.length : query.length;
 
-    return query.slice(statementStartIndex, statementEndIndex);
+    const statement = query.slice(statementStartIndex, statementEndIndex);
+    const newCursorIndex = cursorIndex - statementStartIndex;
+
+    return {statement, cursorIndex: newCursorIndex};
 }
 
 const spaceSymbols = '(\\s|\r\n|\n|\r)+';
