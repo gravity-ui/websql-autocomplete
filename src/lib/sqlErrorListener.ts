@@ -1,6 +1,6 @@
-import {ANTLRErrorListener, Token, ATNSimulator, Recognizer} from 'antlr4ng';
+import {ANTLRErrorListener, ATNSimulator, Recognizer, Token} from 'antlr4ng';
 
-import {getTokenPosition, TokenPosition} from './cursor.js';
+import {TokenPosition, getTokenPosition} from './cursor.js';
 
 interface ParserSyntaxError extends TokenPosition {
     message: string;
@@ -21,7 +21,7 @@ export class SqlErrorListener implements ANTLRErrorListener {
         startLine: number,
         startColumn: number,
         message: string,
-    ) {
+    ): void {
         if (token) {
             const tokenPosition = getTokenPosition(token, this.whitespaceToken);
             this.errors.push({message, ...tokenPosition});
@@ -36,7 +36,7 @@ export class SqlErrorListener implements ANTLRErrorListener {
         }
     }
 
-    reportAmbiguity() {}
-    reportAttemptingFullContext() {}
-    reportContextSensitivity() {}
+    reportAmbiguity(): void {}
+    reportAttemptingFullContext(): void {}
+    reportContextSensitivity(): void {}
 }

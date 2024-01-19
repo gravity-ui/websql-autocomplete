@@ -1,4 +1,4 @@
-import {TokenStream, Token} from 'antlr4ng';
+import {Token, TokenStream} from 'antlr4ng';
 
 export interface CursorPosition {
     line: number;
@@ -63,7 +63,7 @@ export function findCursorTokenIndex(
     return undefined;
 }
 
-export function getCursorIndex(query: string, cursor: CursorPosition) {
+export function getCursorIndex(query: string, cursor: CursorPosition): number {
     const lines = query.split(lineSeparatorRegex);
     const separatorMatch = query.match(lineSeparatorRegex);
     let separator = '';

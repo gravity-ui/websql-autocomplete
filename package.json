@@ -1,6 +1,6 @@
 {
   "name": "websql-autocomplete-2",
-  "version": "0.3.16",
+  "version": "0.3.17",
   "description": "A library that provides autocompletion and errors highlighting for various database dialects",
   "repository": {
     "type": "git",
@@ -17,6 +17,15 @@
     "node": ">=16.0"
   },
   "scripts": {
+    "prepare": "husky install",
+    "lint": "run-p lint:*",
+    "lint:js": "eslint --ext .js,.ts src",
+    "lint:other": "npm run prettier -- --check ",
+    "fix": "run-p fix:*",
+    "fix:js": "npm run lint:js -- --fix",
+    "fix:other": "npm run prettier -- --write ",
+    "prettier": "prettier \"**/*.{md,yaml,yml,json}\"",
+    "typecheck": "tsc --noEmit",
     "generate": "antlr4ng -Dlanguage=TypeScript -o src/parsers/mysql/generated/ -visitor -listener -Xexact-output-dir src/parsers/mysql/grammar/MySqlLexer.g4 src/parsers/mysql/grammar/MySqlParser.g4",
     "build": "rimraf dist && tsc -p tsconfig.build.json",
     "prepublishOnly": "npm run build",
@@ -28,10 +37,21 @@
     "@gravity-ui/prettier-config": "^1.1.0",
     "@gravity-ui/tsconfig": "^1.0.0",
     "antlr4ng-cli": "^1.0.7",
+    "husky": "^8.0.3",
+    "nano-staged": "^0.8.0",
+    "npm-run-all": "^4.1.5",
     "rimraf": "^5.0.5"
   },
   "dependencies": {
     "antlr4-c3": "^3.3.5",
     "antlr4ng": "^2.0.5"
+  },
+  "nano-staged": {
+    "*.{md,yaml,yml,json}": [
+      "prettier --write"
+    ],
+    "*.{js,ts}": [
+      "eslint src --fix"
+    ]
   }
 }

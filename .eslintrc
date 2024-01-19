@@ -4,6 +4,8 @@
       "@gravity-ui/eslint-config",
       "@gravity-ui/eslint-config/prettier"
   ],
+  // These files are generated, so they don't have to be linted
+  "ignorePatterns": ["src/parsers/*/generated/**/*"],
   "rules": {
       "array-callback-return": "off",
       "consistent-return": "off",

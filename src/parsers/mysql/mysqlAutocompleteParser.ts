@@ -2,16 +2,16 @@ import {CharStreams, CommonTokenStream, Token} from 'antlr4ng';
 import * as c3 from 'antlr4-c3';
 
 import {
-    findCursorTokenIndex,
-    TokenPosition,
     CursorPosition,
+    TokenPosition,
+    findCursorTokenIndex,
     getCursorIndex,
-} from '../lib/cursor.js';
-import {modifyInvalidQuery, getCurrentStatement, spaceSymbols} from '../lib/query.js';
-import {TableSymbol} from '../lib/symbolTable.js';
-import {SqlErrorListener} from '../lib/sqlErrorListener.js';
+} from '../../lib/cursor.js';
+import {getCurrentStatement, modifyInvalidQuery, spaceSymbols} from '../../lib/query.js';
+import {TableSymbol} from '../../lib/symbolTable.js';
+import {SqlErrorListener} from '../../lib/sqlErrorListener.js';
 import {MySqlLexer} from './generated/MySqlLexer.js';
-import {MySqlParser, AtomTableItemContext, TableNameContext} from './generated/MySqlParser.js';
+import {AtomTableItemContext, MySqlParser, TableNameContext} from './generated/MySqlParser.js';
 import {MySqlParserVisitor} from './generated/MySqlParserVisitor.js';
 import {preferredRules} from './lib/preferredRules.js';
 import {ignoredTokens} from './lib/ignoredTokens.js';
@@ -97,12 +97,12 @@ const multipleKeywordsRegex = new RegExp(`^(${spaceSymbols})?\\S+${spaceSymbols}
 function shouldSuggestTemplates(statement: string, cursorIndex: number): boolean {
     const currentStatementBeforeCursor = statement.slice(0, cursorIndex).toLowerCase();
 
-    return !!(
+    return Boolean(
         cursorIndex === 0 ||
-        // First keyword in statement
-        !currentStatementBeforeCursor.match(multipleKeywordsRegex) ||
-        // Explain statement
-        currentStatementBeforeCursor.match(explainRegex)
+            // First keyword in statement
+            !currentStatementBeforeCursor.match(multipleKeywordsRegex) ||
+            // Explain statement
+            currentStatementBeforeCursor.match(explainRegex),
     );
 }
 

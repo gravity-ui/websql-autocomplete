@@ -11,7 +11,7 @@
     "strictNullChecks": true,
     "noImplicitAny": true,
     "checkJs": false,
-    "declaration": true,
+    "declaration": true
   },
-  "include": ["src/**/*"],
+  "include": ["src/**/*"]
 }
