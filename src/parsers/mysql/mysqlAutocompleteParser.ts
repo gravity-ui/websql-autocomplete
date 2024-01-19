@@ -70,11 +70,16 @@ class SymbolTableVisitor extends MySqlParserVisitor<{}> {
 
     visitAtomTableItem = (context: AtomTableItemContext): {} => {
         try {
+            const rawAlias = context.uid()?.getText();
+            // For some reason LEFT | RIGHT keyword gets confused with alias
+            const isAliasPartOfJoinStatement =
+                rawAlias?.toLowerCase() === 'left' || rawAlias?.toLowerCase() === 'right';
+
             this.symbolTable.addNewSymbolOfType(
                 TableSymbol,
                 this.scope,
                 context.tableName().getText(),
-                context.uid()?.getText(),
+                isAliasPartOfJoinStatement ? undefined : rawAlias,
             );
         } catch (error) {
             if (!(error instanceof c3.DuplicateSymbolError)) {
