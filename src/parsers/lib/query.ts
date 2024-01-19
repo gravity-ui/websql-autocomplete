@@ -29,7 +29,6 @@ const fromRegex = new RegExp(
 
 export function modifyInvalidQuery(query: string, cursorIndex: number): string {
     const queryBeforeCursor = query.slice(0, cursorIndex).toLowerCase();
-    const queryAfterCursor = query.slice(cursorIndex).toLowerCase();
 
     const whereMatch = queryBeforeCursor.match(whereRegex);
     if (whereMatch && whereMatch.index !== undefined) {
@@ -51,7 +50,7 @@ export function modifyInvalidQuery(query: string, cursorIndex: number): string {
         return queryBeforeCursor + ' a = b';
     }
 
-    const fromMatch = queryAfterCursor.match(fromRegex);
+    const fromMatch = query.toLowerCase().match(fromRegex);
     if (fromMatch && fromMatch.index !== undefined) {
         const tableName = fromMatch[3];
         return `SELECT * FROM ${tableName}`;
