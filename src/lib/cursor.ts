@@ -31,6 +31,7 @@ export function findCursorTokenIndex(
     tokenStream: TokenStream,
     cursor: CursorPosition,
     whitespaceToken: number,
+    realIndex?: boolean,
 ): number | undefined {
     // Cursor position is 1-based, while token's charPositionInLine is 0-based
     const cursorCol = cursor.column - 1;
@@ -44,6 +45,10 @@ export function findCursorTokenIndex(
 
         // endColumn makes sense only if startLine === endLine
         if (endLine > cursor.line || (startLine === cursor.line && endColumn > cursorCol)) {
+            if (realIndex) {
+                return i;
+            }
+
             if (
                 i > 0 &&
                 startLine === cursor.line &&

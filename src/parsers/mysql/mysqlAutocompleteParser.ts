@@ -1,4 +1,4 @@
-import {CharStreams, CommonTokenStream, Token} from 'antlr4ng';
+import {CharStreams, CommonTokenStream, ParseTree, Token, TokenStream} from 'antlr4ng';
 import * as c3 from 'antlr4-c3';
 
 import {
@@ -7,7 +7,7 @@ import {
     findCursorTokenIndex,
     getCursorIndex,
 } from '../../lib/cursor.js';
-import {getCurrentStatement, modifyInvalidQuery, spaceSymbols} from '../../lib/query.js';
+import {getCurrentStatement} from '../../lib/query.js';
 import {TableSymbol} from '../../lib/symbolTable.js';
 import {SqlErrorListener} from '../../lib/sqlErrorListener.js';
 import {MySqlLexer} from './generated/MySqlLexer.js';
@@ -15,6 +15,7 @@ import {AtomTableItemContext, MySqlParser, TableNameContext} from './generated/M
 import {MySqlParserVisitor} from './generated/MySqlParserVisitor.js';
 import {preferredRules} from './lib/preferredRules.js';
 import {ignoredTokens} from './lib/ignoredTokens.js';
+import {TableQueryPosition, TokenDictionary, getTableQueryPosition} from '../../lib/tables.js';
 
 interface ParserSyntaxError extends TokenPosition {
     message: string;
@@ -45,6 +46,15 @@ export interface AutocompleteParseResult {
 }
 
 const quotesRegex = /^'(.*)'$/;
+
+const tokenDictionary: TokenDictionary = {
+    FROM: MySqlParser.FROM,
+    OPENING_BRACKET: MySqlParser.LR_BRACKET,
+    CLOSING_BRACKET: MySqlParser.RR_BRACKET,
+    ALTER: MySqlParser.ALTER,
+    INSERT: MySqlParser.INSERT,
+    UPDATE: MySqlParser.UPDATE,
+};
 
 class SymbolTableVisitor extends MySqlParserVisitor<{}> {
     symbolTable: c3.SymbolTable;
@@ -91,6 +101,7 @@ class SymbolTableVisitor extends MySqlParserVisitor<{}> {
     };
 }
 
+const spaceSymbols = '(\\s|\r\n|\n|\r)+';
 const explainRegex = new RegExp(`^(${spaceSymbols})?explain${spaceSymbols}$`);
 const multipleKeywordsRegex = new RegExp(`^(${spaceSymbols})?\\S+${spaceSymbols}`);
 
@@ -164,6 +175,71 @@ function generateSuggestionsFromRules(
     return {suggestTables, suggestAggregateFunctions, suggestFunctions, suggestColumns};
 }
 
+function getParseTree(parser: MySqlParser, type: TableQueryPosition['type']): ParseTree {
+    switch (type) {
+        case 'from':
+            return parser.fromClause();
+        case 'alter':
+            return parser.alterTable();
+        case 'insert':
+            return parser.insertStatement();
+        case 'update':
+            return parser.multipleUpdateStatement();
+    }
+}
+
+function getColumnSuggestions(
+    initialTokenStream: TokenStream,
+    cursor: CursorPosition,
+    currentStatement: string,
+): ColumnSuggestion | undefined {
+    const realCursorTokenIndex = findCursorTokenIndex(
+        initialTokenStream,
+        cursor,
+        MySqlLexer.SPACE,
+        true,
+    );
+
+    if (!realCursorTokenIndex) {
+        throw new Error(
+            `Could not find realCursorTokenIndex at Ln ${cursor.line}, Col ${cursor.column}`,
+        );
+    }
+
+    const tableQueryPosition = getTableQueryPosition(
+        initialTokenStream,
+        realCursorTokenIndex,
+        tokenDictionary,
+    );
+
+    if (tableQueryPosition) {
+        const query = currentStatement.slice(tableQueryPosition.start, tableQueryPosition.end);
+
+        const inputStream = CharStreams.fromString(query);
+        const lexer = new MySqlLexer(inputStream);
+        const tokenStream = new CommonTokenStream(lexer);
+        const parser = new MySqlParser(tokenStream);
+
+        parser.removeErrorListeners();
+        const parseTree = getParseTree(parser, tableQueryPosition.type);
+        const visitor = new SymbolTableVisitor();
+
+        visitor.visit(parseTree);
+        const tables = visitor.symbolTable.getNestedSymbolsOfTypeSync(TableSymbol);
+
+        if (tables.length) {
+            return {
+                tables: tables.map((tableSymbol) => ({
+                    name: tableSymbol.name,
+                    alias: tableSymbol.alias,
+                })),
+            };
+        }
+    }
+
+    return undefined;
+}
+
 export function parseMySqlQueryWithoutCursor(
     query: string,
 ): Pick<AutocompleteParseResult, 'errors'> {
@@ -226,29 +302,11 @@ export function parseMySqlQuery(query: string, cursor: CursorPosition): Autocomp
         const currentStatement = getCurrentStatement(query, cursorIndex);
 
         if (suggestColumns) {
-            const modifiedQuery = modifyInvalidQuery(
+            result.suggestColumns = getColumnSuggestions(
+                tokenStream,
+                cursor,
                 currentStatement.statement,
-                currentStatement.cursorIndex,
             );
-            const inputStream = CharStreams.fromString(modifiedQuery);
-            const lexer = new MySqlLexer(inputStream);
-            const tokenStream = new CommonTokenStream(lexer);
-            const parser = new MySqlParser(tokenStream);
-
-            parser.removeErrorListeners();
-            const parseTree = parser.root();
-            const visitor = new SymbolTableVisitor();
-            visitor.visit(parseTree);
-            const tables = visitor.symbolTable.getNestedSymbolsOfTypeSync(TableSymbol);
-
-            if (tables.length) {
-                result.suggestColumns = {
-                    tables: tables.map((tableSymbol) => ({
-                        name: tableSymbol.name,
-                        alias: tableSymbol.alias,
-                    })),
-                };
-            }
         }
 
         result.suggestTemplates = shouldSuggestTemplates(
