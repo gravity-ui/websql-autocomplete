@@ -52,33 +52,6 @@ export function getTableQueryPosition(
     while (currentIndex >= 0 && currentIndex < tokenStream.size) {
         const token = tokenStream.get(currentIndex);
 
-        // Doesn't work for now because suggestColumns is false for this case
-        // In parser this is not fullColumnName but is uid
-        if (token.type === dictionary.ALTER) {
-            return {
-                start: token.start,
-                end,
-                type: 'alter',
-            };
-        }
-
-        // Doesn't work for now because we quit on opening bracket
-        if (token.type === dictionary.INSERT) {
-            return {
-                start: token.start,
-                end,
-                type: 'insert',
-            };
-        }
-
-        if (token.type === dictionary.UPDATE) {
-            return {
-                start: token.start,
-                end,
-                type: 'update',
-            };
-        }
-
         // We don't want to check nested statement
         if (
             token.type === dictionary.OPENING_BRACKET ||
@@ -117,6 +90,40 @@ export function getTableQueryPosition(
             currentIndex = tokenIndex;
             isAscending = true;
         }
+    }
+
+    // Could not find FROM, so we look for other keywords
+    currentIndex = tokenIndex;
+    while (currentIndex >= 0) {
+        const token = tokenStream.get(currentIndex);
+
+        // Doesn't work for now because suggestColumns is false for this case
+        // In parser this is not fullColumnName but is uid
+        if (token.type === dictionary.ALTER) {
+            return {
+                start: token.start,
+                end,
+                type: 'alter',
+            };
+        }
+
+        if (token.type === dictionary.INSERT) {
+            return {
+                start: token.start,
+                end,
+                type: 'insert',
+            };
+        }
+
+        if (token.type === dictionary.UPDATE) {
+            return {
+                start: token.start,
+                end,
+                type: 'update',
+            };
+        }
+
+        currentIndex--;
     }
 
     return undefined;
