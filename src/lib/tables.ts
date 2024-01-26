@@ -7,6 +7,7 @@ export interface TableQueryPosition {
 }
 
 export interface TokenDictionary {
+    SPACE: number;
     FROM: number;
     OPENING_BRACKET: number;
     CLOSING_BRACKET: number;

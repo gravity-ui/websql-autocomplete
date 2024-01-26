@@ -17,3 +17,19 @@ export function getCurrentStatement(
 
     return {statement, cursorIndex: newCursorIndex};
 }
+
+const spaceSymbols = '(\\s|\r\n|\n|\r)+';
+const explainRegex = new RegExp(`^(${spaceSymbols})?explain${spaceSymbols}$`);
+const multipleKeywordsRegex = new RegExp(`^(${spaceSymbols})?\\S+${spaceSymbols}`);
+
+export function shouldSuggestTemplates(statement: string, cursorIndex: number): boolean {
+    const currentStatementBeforeCursor = statement.slice(0, cursorIndex).toLowerCase();
+
+    return Boolean(
+        cursorIndex === 0 ||
+            // First keyword in statement
+            !currentStatementBeforeCursor.match(multipleKeywordsRegex) ||
+            // Explain statement
+            currentStatementBeforeCursor.match(explainRegex),
+    );
+}
