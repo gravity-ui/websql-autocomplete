@@ -4,6 +4,7 @@ export interface TableQueryPosition {
     start: number;
     end: number;
     type: 'from' | 'alter' | 'insert' | 'update';
+    joinTableQueryPosition?: Omit<TableQueryPosition, 'joinTableQueryPosition' | 'type'>;
 }
 
 export interface TokenDictionary {
@@ -14,6 +15,7 @@ export interface TokenDictionary {
     ALTER: number;
     INSERT: number;
     UPDATE: number;
+    JOIN: number;
 }
 
 function getClosingBracketIndex(
@@ -73,10 +75,19 @@ export function getTableQueryPosition(
                 break;
             }
 
+            const joinIndex = getJoinIndex(tokenStream, currentIndex, dictionary);
+            const joinTableQueryPosition = joinIndex
+                ? ({
+                      start: joinIndex,
+                      end: closingBracketIndex,
+                  } as const)
+                : undefined;
+
             return {
                 start: token.start,
                 end: closingBracketIndex,
                 type: 'from',
+                joinTableQueryPosition,
             };
         }
 
@@ -99,7 +110,8 @@ export function getTableQueryPosition(
         const token = tokenStream.get(currentIndex);
 
         // Doesn't work for now because suggestColumns is false for this case
-        // In parser this is not fullColumnName but is uid
+        // In MySqlParser this is not fullColumnName but is uid
+        // and also higher order rules (e.g. alterStatement) have precedence
         if (token.type === dictionary.ALTER) {
             return {
                 start: token.start,
@@ -125,6 +137,26 @@ export function getTableQueryPosition(
         }
 
         currentIndex--;
+    }
+
+    return undefined;
+}
+
+function getJoinIndex(
+    tokenStream: TokenStream,
+    tokenIndex: number,
+    dictionary: TokenDictionary,
+): number | undefined {
+    let currentIndex = tokenIndex;
+
+    while (currentIndex < tokenStream.size) {
+        const token = tokenStream.get(currentIndex);
+
+        if (token.type === dictionary.JOIN) {
+            return token.stop + 1;
+        }
+
+        currentIndex++;
     }
 
     return undefined;

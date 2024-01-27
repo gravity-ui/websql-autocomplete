@@ -5,13 +5,14 @@
       "@gravity-ui/eslint-config/prettier"
   ],
   // These files are generated, so they don't have to be linted
-  "ignorePatterns": ["src/parsers/*/generated/**/*"],
+  "ignorePatterns": ["src/parsers/*/generated/**/*", "src/parsers/*/grammar/**/*"],
   "rules": {
       "array-callback-return": "off",
       "consistent-return": "off",
       "no-negated-condition": "off",
       "@typescript-eslint/explicit-function-return-type": "error",
       "object-shorthand": "error",
-      "no-implicit-globals": "off"
+      "no-implicit-globals": "off",
+      "camelcase": "off"
   }
 }
