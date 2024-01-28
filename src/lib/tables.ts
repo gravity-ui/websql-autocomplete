@@ -75,7 +75,12 @@ export function getTableQueryPosition(
                 break;
             }
 
-            const joinIndex = getJoinIndex(tokenStream, currentIndex, dictionary);
+            const joinIndex = getJoinIndex(
+                tokenStream,
+                currentIndex,
+                closingBracketIndex,
+                dictionary,
+            );
             const joinTableQueryPosition = joinIndex
                 ? ({
                       start: joinIndex,
@@ -144,12 +149,13 @@ export function getTableQueryPosition(
 
 function getJoinIndex(
     tokenStream: TokenStream,
-    tokenIndex: number,
+    startIndex: number,
+    endIndex: number,
     dictionary: TokenDictionary,
 ): number | undefined {
-    let currentIndex = tokenIndex;
+    let currentIndex = startIndex;
 
-    while (currentIndex < tokenStream.size) {
+    while (currentIndex < endIndex) {
         const token = tokenStream.get(currentIndex);
 
         if (token.type === dictionary.JOIN) {
