@@ -3057,70 +3057,70 @@ export class ClickHouseParser extends antlr.Parser {
                                 case 1:
                                     {
                                         this.state = 746;
-                                        if (!!localContext.attrs.count('default')) {
+                                        if (!!localContext.attrs.has('default')) {
                                             throw this.createFailedPredicateException(
-                                                '!$attrs.count("default")',
+                                                '!$attrs.has("default")',
                                             );
                                         }
                                         this.state = 747;
                                         this.match(ClickHouseParser.DEFAULT);
                                         this.state = 748;
                                         this.literal();
-                                        localContext.attrs.insert('default');
+                                        localContext.attrs.add('default');
                                     }
                                     break;
                                 case 2:
                                     {
                                         this.state = 751;
-                                        if (!!localContext.attrs.count('expression')) {
+                                        if (!!localContext.attrs.has('expression')) {
                                             throw this.createFailedPredicateException(
-                                                '!$attrs.count("expression")',
+                                                '!$attrs.has("expression")',
                                             );
                                         }
                                         this.state = 752;
                                         this.match(ClickHouseParser.EXPRESSION);
                                         this.state = 753;
                                         this.columnExpr(0);
-                                        localContext.attrs.insert('expression');
+                                        localContext.attrs.add('expression');
                                     }
                                     break;
                                 case 3:
                                     {
                                         this.state = 756;
-                                        if (!!localContext.attrs.count('hierarchical')) {
+                                        if (!!localContext.attrs.has('hierarchical')) {
                                             throw this.createFailedPredicateException(
-                                                '!$attrs.count("hierarchical")',
+                                                '!$attrs.has("hierarchical")',
                                             );
                                         }
                                         this.state = 757;
                                         this.match(ClickHouseParser.HIERARCHICAL);
-                                        localContext.attrs.insert('hierarchical');
+                                        localContext.attrs.add('hierarchical');
                                     }
                                     break;
                                 case 4:
                                     {
                                         this.state = 759;
-                                        if (!!localContext.attrs.count('injective')) {
+                                        if (!!localContext.attrs.has('injective')) {
                                             throw this.createFailedPredicateException(
-                                                '!$attrs.count("injective")',
+                                                '!$attrs.has("injective")',
                                             );
                                         }
                                         this.state = 760;
                                         this.match(ClickHouseParser.INJECTIVE);
-                                        localContext.attrs.insert('injective');
+                                        localContext.attrs.add('injective');
                                     }
                                     break;
                                 case 5:
                                     {
                                         this.state = 762;
-                                        if (!!localContext.attrs.count('is_object_id')) {
+                                        if (!!localContext.attrs.has('is_object_id')) {
                                             throw this.createFailedPredicateException(
-                                                '!$attrs.count("is_object_id")',
+                                                '!$attrs.has("is_object_id")',
                                             );
                                         }
                                         this.state = 763;
                                         this.match(ClickHouseParser.IS_OBJECT_ID);
-                                        localContext.attrs.insert('is_object_id');
+                                        localContext.attrs.add('is_object_id');
                                     }
                                     break;
                             }
@@ -3179,66 +3179,66 @@ export class ClickHouseParser extends antlr.Parser {
                                 case 1:
                                     {
                                         this.state = 773;
-                                        if (!!localContext.clauses.count('source')) {
+                                        if (!!localContext.clauses.has('source')) {
                                             throw this.createFailedPredicateException(
-                                                '!$clauses.count("source")',
+                                                '!$clauses.has("source")',
                                             );
                                         }
                                         this.state = 774;
                                         this.sourceClause();
-                                        localContext.clauses.insert('source');
+                                        localContext.clauses.add('source');
                                     }
                                     break;
                                 case 2:
                                     {
                                         this.state = 777;
-                                        if (!!localContext.clauses.count('lifetime')) {
+                                        if (!!localContext.clauses.has('lifetime')) {
                                             throw this.createFailedPredicateException(
-                                                '!$clauses.count("lifetime")',
+                                                '!$clauses.has("lifetime")',
                                             );
                                         }
                                         this.state = 778;
                                         this.lifetimeClause();
-                                        localContext.clauses.insert('lifetime');
+                                        localContext.clauses.add('lifetime');
                                     }
                                     break;
                                 case 3:
                                     {
                                         this.state = 781;
-                                        if (!!localContext.clauses.count('layout')) {
+                                        if (!!localContext.clauses.has('layout')) {
                                             throw this.createFailedPredicateException(
-                                                '!$clauses.count("layout")',
+                                                '!$clauses.has("layout")',
                                             );
                                         }
                                         this.state = 782;
                                         this.layoutClause();
-                                        localContext.clauses.insert('layout');
+                                        localContext.clauses.add('layout');
                                     }
                                     break;
                                 case 4:
                                     {
                                         this.state = 785;
-                                        if (!!localContext.clauses.count('range')) {
+                                        if (!!localContext.clauses.has('range')) {
                                             throw this.createFailedPredicateException(
-                                                '!$clauses.count("range")',
+                                                '!$clauses.has("range")',
                                             );
                                         }
                                         this.state = 786;
                                         this.rangeClause();
-                                        localContext.clauses.insert('range');
+                                        localContext.clauses.add('range');
                                     }
                                     break;
                                 case 5:
                                     {
                                         this.state = 789;
-                                        if (!!localContext.clauses.count('settings')) {
+                                        if (!!localContext.clauses.has('settings')) {
                                             throw this.createFailedPredicateException(
-                                                '!$clauses.count("settings")',
+                                                '!$clauses.has("settings")',
                                             );
                                         }
                                         this.state = 790;
                                         this.dictionarySettingsClause();
-                                        localContext.clauses.insert('settings');
+                                        localContext.clauses.add('settings');
                                     }
                                     break;
                             }
@@ -4187,79 +4187,79 @@ export class ClickHouseParser extends antlr.Parser {
                                 case 1:
                                     {
                                         this.state = 906;
-                                        if (!!localContext.clauses.count('orderByClause')) {
+                                        if (!!localContext.clauses.has('orderByClause')) {
                                             throw this.createFailedPredicateException(
-                                                '!$clauses.count("orderByClause")',
+                                                '!$clauses.has("orderByClause")',
                                             );
                                         }
                                         this.state = 907;
                                         this.orderByClause();
-                                        localContext.clauses.insert('orderByClause');
+                                        localContext.clauses.add('orderByClause');
                                     }
                                     break;
                                 case 2:
                                     {
                                         this.state = 910;
-                                        if (!!localContext.clauses.count('partitionByClause')) {
+                                        if (!!localContext.clauses.has('partitionByClause')) {
                                             throw this.createFailedPredicateException(
-                                                '!$clauses.count("partitionByClause")',
+                                                '!$clauses.has("partitionByClause")',
                                             );
                                         }
                                         this.state = 911;
                                         this.partitionByClause();
-                                        localContext.clauses.insert('partitionByClause');
+                                        localContext.clauses.add('partitionByClause');
                                     }
                                     break;
                                 case 3:
                                     {
                                         this.state = 914;
-                                        if (!!localContext.clauses.count('primaryKeyClause')) {
+                                        if (!!localContext.clauses.has('primaryKeyClause')) {
                                             throw this.createFailedPredicateException(
-                                                '!$clauses.count("primaryKeyClause")',
+                                                '!$clauses.has("primaryKeyClause")',
                                             );
                                         }
                                         this.state = 915;
                                         this.primaryKeyClause();
-                                        localContext.clauses.insert('primaryKeyClause');
+                                        localContext.clauses.add('primaryKeyClause');
                                     }
                                     break;
                                 case 4:
                                     {
                                         this.state = 918;
-                                        if (!!localContext.clauses.count('sampleByClause')) {
+                                        if (!!localContext.clauses.has('sampleByClause')) {
                                             throw this.createFailedPredicateException(
-                                                '!$clauses.count("sampleByClause")',
+                                                '!$clauses.has("sampleByClause")',
                                             );
                                         }
                                         this.state = 919;
                                         this.sampleByClause();
-                                        localContext.clauses.insert('sampleByClause');
+                                        localContext.clauses.add('sampleByClause');
                                     }
                                     break;
                                 case 5:
                                     {
                                         this.state = 922;
-                                        if (!!localContext.clauses.count('ttlClause')) {
+                                        if (!!localContext.clauses.has('ttlClause')) {
                                             throw this.createFailedPredicateException(
-                                                '!$clauses.count("ttlClause")',
+                                                '!$clauses.has("ttlClause")',
                                             );
                                         }
                                         this.state = 923;
                                         this.ttlClause();
-                                        localContext.clauses.insert('ttlClause');
+                                        localContext.clauses.add('ttlClause');
                                     }
                                     break;
                                 case 6:
                                     {
                                         this.state = 926;
-                                        if (!!localContext.clauses.count('settingsClause')) {
+                                        if (!!localContext.clauses.has('settingsClause')) {
                                             throw this.createFailedPredicateException(
-                                                '!$clauses.count("settingsClause")',
+                                                '!$clauses.has("settingsClause")',
                                             );
                                         }
                                         this.state = 927;
                                         this.settingsClause();
-                                        localContext.clauses.insert('settingsClause');
+                                        localContext.clauses.add('settingsClause');
                                     }
                                     break;
                             }
@@ -10861,15 +10861,15 @@ export class ClickHouseParser extends antlr.Parser {
     ): boolean {
         switch (predIndex) {
             case 0:
-                return !localContext.attrs.count('default');
+                return !localContext?.attrs?.has('default');
             case 1:
-                return !localContext.attrs.count('expression');
+                return !localContext?.attrs?.has('expression');
             case 2:
-                return !localContext.attrs.count('hierarchical');
+                return !localContext?.attrs?.has('hierarchical');
             case 3:
-                return !localContext.attrs.count('injective');
+                return !localContext?.attrs?.has('injective');
             case 4:
-                return !localContext.attrs.count('is_object_id');
+                return !localContext?.attrs?.has('is_object_id');
         }
         return true;
     }
@@ -10879,15 +10879,15 @@ export class ClickHouseParser extends antlr.Parser {
     ): boolean {
         switch (predIndex) {
             case 5:
-                return !localContext.clauses.count('source');
+                return !localContext?.clauses?.has('source');
             case 6:
-                return !localContext.clauses.count('lifetime');
+                return !localContext?.clauses?.has('lifetime');
             case 7:
-                return !localContext.clauses.count('layout');
+                return !localContext?.clauses?.has('layout');
             case 8:
-                return !localContext.clauses.count('range');
+                return !localContext?.clauses?.has('range');
             case 9:
-                return !localContext.clauses.count('settings');
+                return !localContext?.clauses?.has('settings');
         }
         return true;
     }
@@ -10897,17 +10897,17 @@ export class ClickHouseParser extends antlr.Parser {
     ): boolean {
         switch (predIndex) {
             case 10:
-                return !localContext.clauses.count('orderByClause');
+                return !localContext?.clauses?.has('orderByClause');
             case 11:
-                return !localContext.clauses.count('partitionByClause');
+                return !localContext?.clauses?.has('partitionByClause');
             case 12:
-                return !localContext.clauses.count('primaryKeyClause');
+                return !localContext?.clauses?.has('primaryKeyClause');
             case 13:
-                return !localContext.clauses.count('sampleByClause');
+                return !localContext?.clauses?.has('sampleByClause');
             case 14:
-                return !localContext.clauses.count('ttlClause');
+                return !localContext?.clauses?.has('ttlClause');
             case 15:
-                return !localContext.clauses.count('settingsClause');
+                return !localContext?.clauses?.has('settingsClause');
         }
         return true;
     }
@@ -13509,7 +13509,7 @@ export class DictionarySchemaClauseContext extends antlr.ParserRuleContext {
 }
 
 export class DictionaryAttrDfntContext extends antlr.ParserRuleContext {
-    public attrs: Set<string>;
+    public attrs: Set<string> = new Set();
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
@@ -13595,7 +13595,7 @@ export class DictionaryAttrDfntContext extends antlr.ParserRuleContext {
 }
 
 export class DictionaryEngineClauseContext extends antlr.ParserRuleContext {
-    public clauses: Set<string>;
+    public clauses: Set<string> = new Set();
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
@@ -14114,7 +14114,7 @@ export class SchemaDescriptionClauseContext extends TableSchemaClauseContext {
 }
 
 export class EngineClauseContext extends antlr.ParserRuleContext {
-    public clauses: Set<string>;
+    public clauses: Set<string> = new Set();
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }

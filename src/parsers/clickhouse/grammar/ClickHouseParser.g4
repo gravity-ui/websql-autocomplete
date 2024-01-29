@@ -149,22 +149,22 @@ createStmt: (ATTACH | CREATE) DATABASE (IF NOT EXISTS)? databaseIdentifier clust
 dictionarySchemaClause:
 	LPAREN dictionaryAttrDfnt (COMMA dictionaryAttrDfnt)* RPAREN;
 dictionaryAttrDfnt
-	locals[std::set<std::string> attrs]:
+	locals[Set<string> attrs = new Set()]:
 	identifier columnTypeExpr (
-		{!$attrs.count("default")}? DEFAULT literal {$attrs.insert("default");}
-		| {!$attrs.count("expression")}? EXPRESSION columnExpr {$attrs.insert("expression");}
-		| {!$attrs.count("hierarchical")}? HIERARCHICAL {$attrs.insert("hierarchical");}
-		| {!$attrs.count("injective")}? INJECTIVE {$attrs.insert("injective");}
-		| {!$attrs.count("is_object_id")}? IS_OBJECT_ID {$attrs.insert("is_object_id");}
+		{!$attrs.has("default")}? DEFAULT literal {$attrs.add("default");}
+		| {!$attrs.has("expression")}? EXPRESSION columnExpr {$attrs.add("expression");}
+		| {!$attrs.has("hierarchical")}? HIERARCHICAL {$attrs.add("hierarchical");}
+		| {!$attrs.has("injective")}? INJECTIVE {$attrs.add("injective");}
+		| {!$attrs.has("is_object_id")}? IS_OBJECT_ID {$attrs.add("is_object_id");}
 	)*;
 dictionaryEngineClause
-	locals[std::set<std::string> clauses]:
+	locals[Set<string> clauses = new Set()]:
 	dictionaryPrimaryKeyClause? (
-		{!$clauses.count("source")}? sourceClause {$clauses.insert("source");}
-		| {!$clauses.count("lifetime")}? lifetimeClause {$clauses.insert("lifetime");}
-		| {!$clauses.count("layout")}? layoutClause {$clauses.insert("layout");}
-		| {!$clauses.count("range")}? rangeClause {$clauses.insert("range");}
-		| {!$clauses.count("settings")}? dictionarySettingsClause {$clauses.insert("settings");}
+		{!$clauses.has("source")}? sourceClause {$clauses.add("source");}
+		| {!$clauses.has("lifetime")}? lifetimeClause {$clauses.add("lifetime");}
+		| {!$clauses.has("layout")}? layoutClause {$clauses.add("layout");}
+		| {!$clauses.has("range")}? rangeClause {$clauses.add("range");}
+		| {!$clauses.has("settings")}? dictionarySettingsClause {$clauses.add("settings");}
 	)*;
 dictionaryPrimaryKeyClause: PRIMARY KEY columnExprList;
 dictionaryArgExpr:
@@ -196,16 +196,16 @@ tableSchemaClause:
 	| AS tableIdentifier										# SchemaAsTableClause
 	| AS tableFunctionExpr										# SchemaAsFunctionClause;
 engineClause
-	locals[std::set<std::string> clauses]:
+	locals[Set<string> clauses = new Set()]:
 	engineExpr (
-		{!$clauses.count("orderByClause")}? orderByClause {$clauses.insert("orderByClause");}
-		| {!$clauses.count("partitionByClause")}? partitionByClause {$clauses.insert("partitionByClause");
+		{!$clauses.has("orderByClause")}? orderByClause {$clauses.add("orderByClause");}
+		| {!$clauses.has("partitionByClause")}? partitionByClause {$clauses.add("partitionByClause");
 			}
-		| {!$clauses.count("primaryKeyClause")}? primaryKeyClause {$clauses.insert("primaryKeyClause");
+		| {!$clauses.has("primaryKeyClause")}? primaryKeyClause {$clauses.add("primaryKeyClause");
 			}
-		| {!$clauses.count("sampleByClause")}? sampleByClause {$clauses.insert("sampleByClause");}
-		| {!$clauses.count("ttlClause")}? ttlClause {$clauses.insert("ttlClause");}
-		| {!$clauses.count("settingsClause")}? settingsClause {$clauses.insert("settingsClause");}
+		| {!$clauses.has("sampleByClause")}? sampleByClause {$clauses.add("sampleByClause");}
+		| {!$clauses.has("ttlClause")}? ttlClause {$clauses.add("ttlClause");}
+		| {!$clauses.has("settingsClause")}? settingsClause {$clauses.add("settingsClause");}
 	)*;
 partitionByClause: PARTITION BY columnExpr;
 primaryKeyClause: PRIMARY KEY columnExpr;
