@@ -161,9 +161,10 @@ function getParseTree(parser: PostgreSqlParser, type?: TableQueryPosition['type'
             return parser.non_ansi_join();
         case 'alter':
             return parser.altertablestmt();
+        // INSERT doesn't work for now, for some reason any INSERT statement throws error
         case 'insert':
             return parser.insert_target();
-        // UPDATE doesn't work for now, for some reason any UPDATE statement throws error
+        // UPDATE does work with suggestions but throws error for some reason
         case 'update':
             return parser.updatestmt();
     }

@@ -26,6 +26,7 @@ import {
 } from './types.js';
 import {mySqlParserData} from './parsers/mysql/mySqlParserData.js';
 import {postgreSqlParserData} from './parsers/postgresql/postgreSqlParserData.js';
+import {clickHouseParserData} from './parsers/clickhouse/clickHouseParserData.js';
 
 export {AutocompleteParseResult};
 
@@ -275,6 +276,37 @@ export function parsePostgreSqlQuery(
         postgreSqlParserData.explicitlyParseJoin,
         postgreSqlParserData.getParseTree,
         postgreSqlParserData.generateSuggestionsFromRules,
+        query,
+        cursor,
+    );
+}
+
+export function parseClickHouseQueryWithoutCursor(
+    query: string,
+): Pick<AutocompleteParseResult, 'errors'> {
+    return parseQueryWithoutCursor(
+        clickHouseParserData.Lexer,
+        clickHouseParserData.Parser,
+        clickHouseParserData.tokenDictionary,
+        clickHouseParserData.getParseTree,
+        query,
+    );
+}
+
+export function parseClickHouseQuery(
+    query: string,
+    cursor: CursorPosition,
+): AutocompleteParseResult {
+    return parseQuery(
+        clickHouseParserData.Lexer,
+        clickHouseParserData.Parser,
+        clickHouseParserData.SymbolTableVisitor,
+        clickHouseParserData.tokenDictionary,
+        clickHouseParserData.ignoredTokens,
+        clickHouseParserData.preferredRules,
+        clickHouseParserData.explicitlyParseJoin,
+        clickHouseParserData.getParseTree,
+        clickHouseParserData.generateSuggestionsFromRules,
         query,
         cursor,
     );
