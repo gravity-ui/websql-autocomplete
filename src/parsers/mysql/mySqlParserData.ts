@@ -16,6 +16,7 @@ const tokenDictionary: TokenDictionary = {
     ALTER: MySqlParser.ALTER,
     INSERT: MySqlParser.INSERT,
     UPDATE: MySqlParser.UPDATE,
+    JOIN: MySqlParser.JOIN,
 };
 
 // These are keywords that we do not want to show in autocomplete
@@ -195,6 +196,7 @@ export const mySqlParserData = {
     tokenDictionary,
     ignoredTokens,
     preferredRules,
+    explicitlyParseJoin: false,
     getParseTree,
     generateSuggestionsFromRules,
 };

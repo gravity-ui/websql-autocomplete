@@ -25,6 +25,7 @@ import {
     SymbolTableVisitorConstructor,
 } from './types.js';
 import {mySqlParserData} from './parsers/mysql/mySqlParserData.js';
+import {postgreSqlParserData} from './parsers/postgresql/postgreSqlParserData.js';
 
 export {AutocompleteParseResult};
 
@@ -58,6 +59,7 @@ function getColumnSuggestions<
     Parser: ParserConstructor<P>,
     SymbolTableVisitor: SymbolTableVisitorConstructor<S>,
     tokenDictionary: TokenDictionary,
+    explicitlyParseJoin: boolean,
     getParseTree: GetParseTree<P>,
     initialTokenStream: TokenStream,
     cursor: CursorPosition,
@@ -95,6 +97,22 @@ function getColumnSuggestions<
         const visitor = new SymbolTableVisitor();
 
         visitor.visit(parseTree);
+
+        if (explicitlyParseJoin && tableQueryPosition.joinTableQueryPosition) {
+            const joinTableQuery = currentStatement.slice(
+                tableQueryPosition.joinTableQueryPosition.start,
+                tableQueryPosition.joinTableQueryPosition.end,
+            );
+            const joinInputStream = CharStreams.fromString(joinTableQuery);
+            const joinLexer = new Lexer(joinInputStream);
+            const joinTokenStream = new CommonTokenStream(joinLexer);
+            const joinParser = new Parser(joinTokenStream);
+
+            joinParser.removeErrorListeners();
+            const joinParseTree = getParseTree(joinParser, 'from');
+            visitor.visit(joinParseTree);
+        }
+
         const tables = visitor.symbolTable.getNestedSymbolsOfTypeSync(TableSymbol);
 
         if (tables.length) {
@@ -124,6 +142,7 @@ export function parseQuery<
     tokenDictionary: TokenDictionary,
     ignoredTokens: Set<number>,
     preferredRules: Set<number>,
+    explicitlyParseJoin: boolean,
     getParseTree: GetParseTree<P>,
     generateSuggestionsFromRules: GenerateSuggestionsFromRules,
     query: string,
@@ -141,7 +160,6 @@ export function parseQuery<
 
     const core = new c3.CodeCompletionCore(parser);
     core.ignoredTokens = ignoredTokens;
-    core.preferredRules = preferredRules;
     const cursorTokenIndex = findCursorTokenIndex(tokenStream, cursor, tokenDictionary.SPACE);
     const suggestKeywords: KeywordSuggestion[] = [];
     let result: AutocompleteParseResult = {
@@ -151,7 +169,13 @@ export function parseQuery<
     if (cursorTokenIndex !== undefined) {
         // Subtracting 2, because of whitespace token
         const previousToken = tokenStream.get(cursorTokenIndex - 2);
-        const {tokens, rules} = core.collectCandidates(cursorTokenIndex);
+        const {tokens} = core.collectCandidates(cursorTokenIndex);
+        // When c3 comes across a preferred rule, it doesn't suggest tokens inside that rule in
+        // tokens map (suggestKeywords), that's why we need to collect candidates for rules separately
+        const coreForRules = new c3.CodeCompletionCore(parser);
+        coreForRules.preferredRules = preferredRules;
+        const {rules} = coreForRules.collectCandidates(cursorTokenIndex);
+
         const {suggestColumns, ...suggestionsFromRules} = generateSuggestionsFromRules(
             rules,
             cursorTokenIndex,
@@ -179,6 +203,7 @@ export function parseQuery<
                 Parser,
                 SymbolTableVisitor,
                 tokenDictionary,
+                explicitlyParseJoin,
                 getParseTree,
                 tokenStream,
                 cursor,
@@ -216,8 +241,40 @@ export function parseMySqlQuery(query: string, cursor: CursorPosition): Autocomp
         mySqlParserData.tokenDictionary,
         mySqlParserData.ignoredTokens,
         mySqlParserData.preferredRules,
+        mySqlParserData.explicitlyParseJoin,
         mySqlParserData.getParseTree,
         mySqlParserData.generateSuggestionsFromRules,
+        query,
+        cursor,
+    );
+}
+
+export function parsePostgreSqlQueryWithoutCursor(
+    query: string,
+): Pick<AutocompleteParseResult, 'errors'> {
+    return parseQueryWithoutCursor(
+        postgreSqlParserData.Lexer,
+        postgreSqlParserData.Parser,
+        postgreSqlParserData.tokenDictionary,
+        postgreSqlParserData.getParseTree,
+        query,
+    );
+}
+
+export function parsePostgreSqlQuery(
+    query: string,
+    cursor: CursorPosition,
+): AutocompleteParseResult {
+    return parseQuery(
+        postgreSqlParserData.Lexer,
+        postgreSqlParserData.Parser,
+        postgreSqlParserData.SymbolTableVisitor,
+        postgreSqlParserData.tokenDictionary,
+        postgreSqlParserData.ignoredTokens,
+        postgreSqlParserData.preferredRules,
+        postgreSqlParserData.explicitlyParseJoin,
+        postgreSqlParserData.getParseTree,
+        postgreSqlParserData.generateSuggestionsFromRules,
         query,
         cursor,
     );
