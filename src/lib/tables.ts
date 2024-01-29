@@ -22,14 +22,14 @@ function getClosingBracketIndex(
     tokenStream: TokenStream,
     tokenIndex: number,
     dictionary: TokenDictionary,
-): number | undefined {
+): {cursorIndex: number; tokenIndex: number} | undefined {
     let currentIndex = tokenIndex;
 
     while (currentIndex < tokenStream.size) {
         const token = tokenStream.get(currentIndex);
 
         if (token.type === dictionary.CLOSING_BRACKET) {
-            return token.start;
+            return {cursorIndex: token.start, tokenIndex: currentIndex};
         }
 
         if (token.type === dictionary.OPENING_BRACKET) {
@@ -39,7 +39,8 @@ function getClosingBracketIndex(
         currentIndex++;
     }
 
-    return tokenStream.get(tokenStream.size - 1).start;
+    const lastIndex = tokenStream.size - 1;
+    return {cursorIndex: tokenStream.get(lastIndex).start, tokenIndex: lastIndex};
 }
 
 export function getTableQueryPosition(
@@ -78,19 +79,19 @@ export function getTableQueryPosition(
             const joinIndex = getJoinIndex(
                 tokenStream,
                 currentIndex,
-                closingBracketIndex,
+                closingBracketIndex.tokenIndex,
                 dictionary,
             );
             const joinTableQueryPosition = joinIndex
                 ? ({
                       start: joinIndex,
-                      end: closingBracketIndex,
+                      end: closingBracketIndex.cursorIndex,
                   } as const)
                 : undefined;
 
             return {
                 start: token.start,
-                end: closingBracketIndex,
+                end: closingBracketIndex.cursorIndex,
                 type: 'from',
                 joinTableQueryPosition,
             };
