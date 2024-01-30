@@ -6,7 +6,7 @@ options {
 
 // Top-level statements
 
-root: (queryStmt)*;
+root: (queryStmt)* EOF;
 
 queryStmt:
 	query (INTO OUTFILE STRING_LITERAL)? (

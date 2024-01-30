@@ -1,6 +1,6 @@
 {
   "name": "websql-autocomplete-2",
-  "version": "0.5.1",
+  "version": "0.5.2",
   "description": "A library that provides autocompletion and errors highlighting for various database dialects",
   "repository": {
     "type": "git",
@@ -30,7 +30,7 @@
     "generate:mysql": "rimraf src/parsers/mysql/generated && antlr4ng -Dlanguage=TypeScript -o src/parsers/mysql/generated/ -visitor -no-listener -Xexact-output-dir src/parsers/mysql/grammar/MySqlLexer.g4 src/parsers/mysql/grammar/MySqlParser.g4",
     "generate:postgresql": "rimraf src/parsers/postgresql/generated && antlr4ng -Dlanguage=TypeScript -o src/parsers/postgresql/generated/ -visitor -no-listener -Xexact-output-dir src/parsers/postgresql/grammar/PostgreSqlLexer.g4 src/parsers/postgresql/grammar/PostgreSqlParser.g4",
     "generate:clickhouse": "rimraf src/parsers/clickhouse/generated && antlr4ng -Dlanguage=TypeScript -o src/parsers/clickhouse/generated/ -visitor -no-listener -Xexact-output-dir src/parsers/clickhouse/grammar/ClickHouseLexer.g4 src/parsers/clickhouse/grammar/ClickHouseParser.g4",
-    "build": "rimraf dist && node build.js",
+    "build": "rimraf dist && node build.js && tsc -p tsconfig.build.json",
     "prepublishOnly": "npm run build",
     "autocomplete": "node dist/index.js",
     "parse": "npm run build ; npm run autocomplete"
@@ -43,7 +43,6 @@
     "esbuild": "^0.20.0",
     "husky": "^8.0.3",
     "nano-staged": "^0.8.0",
-    "npm-dts": "^1.3.12",
     "npm-run-all": "^4.1.5",
     "rimraf": "^5.0.5"
   },
