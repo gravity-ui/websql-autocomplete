@@ -22,6 +22,11 @@ export enum TableSuggestion {
     VIEWS = 'VIEWS',
 }
 
+export interface EngineSuggestion {
+    engines: string[];
+    functionalEngines: string[];
+}
+
 export interface AutocompleteParseResult {
     errors: ParserSyntaxError[];
     suggestKeywords?: KeywordSuggestion[];
@@ -30,6 +35,7 @@ export interface AutocompleteParseResult {
     suggestAggregateFunctions?: boolean;
     suggestFunctions?: boolean;
     suggestColumns?: ColumnSuggestion;
+    suggestEngines?: EngineSuggestion;
 }
 
 export type LexerConstructor<T> = new (input: CharStream) => T;
