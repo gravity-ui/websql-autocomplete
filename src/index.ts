@@ -23,12 +23,13 @@ import {
     LexerConstructor,
     ParserConstructor,
     SymbolTableVisitorConstructor,
+    TableSuggestion,
 } from './types.js';
 import {mySqlParserData} from './parsers/mysql/mySqlParserData.js';
 import {postgreSqlParserData} from './parsers/postgresql/postgreSqlParserData.js';
 import {clickHouseParserData} from './parsers/clickhouse/clickHouseParserData.js';
 
-export {AutocompleteParseResult};
+export {AutocompleteParseResult, TableSuggestion};
 
 function parseQueryWithoutCursor<L extends LexerType, P extends ParserType>(
     Lexer: LexerConstructor<L>,
@@ -66,6 +67,7 @@ function getColumnSuggestions<
     cursor: CursorPosition,
     currentStatement: string,
 ): ColumnSuggestion | undefined {
+    // Here we need the actual token index, without special logic for spaces
     const realCursorTokenIndex = findCursorTokenIndex(
         initialTokenStream,
         cursor,
@@ -167,6 +169,7 @@ export function parseQuery<
         errors: errorListener.errors,
     };
 
+    // TODO Maybe throw error here
     if (cursorTokenIndex !== undefined) {
         // Subtracting 2, because of whitespace token
         const previousToken = tokenStream.get(cursorTokenIndex - 2);
@@ -186,8 +189,13 @@ export function parseQuery<
         result = {...result, ...suggestionsFromRules};
         tokens.forEach((_, tokenType) => {
             // Literal keyword names are quoted
-            const name = parser.vocabulary.getLiteralName(tokenType)?.replace(quotesRegex, '$1');
+            const literalName = parser.vocabulary
+                .getLiteralName(tokenType)
+                ?.replace(quotesRegex, '$1');
+            // ClickHouse Parser does not give out literal names
+            const name = literalName || parser.vocabulary.getSymbolicName(tokenType);
 
+            // TODO Maybe throw error here
             if (name) {
                 suggestKeywords.push({
                     value: name,
@@ -196,6 +204,7 @@ export function parseQuery<
         });
 
         const cursorIndex = getCursorIndex(query, cursor);
+        // We can get this by token instead of splitting the string
         const currentStatement = getCurrentStatement(query, cursorIndex);
 
         if (suggestColumns) {

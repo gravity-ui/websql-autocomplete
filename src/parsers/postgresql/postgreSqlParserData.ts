@@ -140,9 +140,8 @@ function generateSuggestionsFromRules(
                 break;
             }
             case PostgreSqlParser.RULE_colid: {
-                if (cursorTokenIndex === ruleData.startTokenIndex) {
-                    suggestColumns = true;
-                }
+                // Don't need to check cursorTokenIndex here, because colid is too specific already
+                suggestColumns = true;
                 break;
             }
         }
