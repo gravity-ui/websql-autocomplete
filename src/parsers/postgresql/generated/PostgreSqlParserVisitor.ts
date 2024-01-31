@@ -5,8 +5,7 @@
 // We don't really want to check types in generated code
 // @ts-nocheck
 
-import PostgreSqlParserBase from '../grammar/PostgreSqlParserBase.js';
-import PostgreSqlLexerBase from '../grammar/PostgreSqlLexerBase.js';
+
 
 // Generated from src/parsers/postgresql/grammar/PostgreSqlParser.g4 by ANTLR 4.13.1
 
