@@ -1,4 +1,6 @@
+// We don't really want to check types in generated code
 // @ts-nocheck
+
 // Generated from src/parsers/mysql/grammar/MySqlLexer.g4 by ANTLR 4.13.1
 
 import * as antlr from "antlr4ng";
