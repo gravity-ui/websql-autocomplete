@@ -41,6 +41,10 @@ do
   then
     ECHO_TEXT="$ECHO_TEXT\n\nimport PostgreSqlParserBase from '../grammar/PostgreSqlParserBase.js';"
     ECHO_TEXT="$ECHO_TEXT\nimport PostgreSqlLexerBase from '../grammar/PostgreSqlLexerBase.js';"
+
+    # Fix missing package reference
+    # -i'\n\ is provided instead of just -i, because on mac -i treats -e as the backup file extension https://stackoverflow.com/questions/4247068/sed-command-with-i-option-failing-on-mac-but-works-on-linux
+    sed -i'\n' -e 's/ ParserRuleContext/ antlr.ParserRuleContext/g' src/parsers/postgresql/generated/PostgreSqlParser.ts
   fi
 
   # Add file contents
