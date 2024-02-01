@@ -1,5 +1,4 @@
 DIALECT=$1
-SECOND_ARG=$2
 
 # Check that dialect is correct
 if [ "$DIALECT" != "mysql" ] && [ "$DIALECT" != "postgresql" ] && [ "$DIALECT" != "clickhouse" ]
@@ -36,8 +35,7 @@ do
   # Add header
   ECHO_TEXT=$HEADER
 
-  # Add extra postgresql patches if asked
-  if ! [ -z "$SECOND_ARG" ] && [ $SECOND_ARG = "--extra-postgresql-patches" ]
+  if [ "$DIALECT" == "postgresql" ]
   then
     if [[ $FILE == *Parser.ts* ]]
     then

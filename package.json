@@ -28,7 +28,7 @@
     "typecheck": "tsc --noEmit",
     "generate": "run-p generate:*",
     "generate:mysql": "rimraf src/parsers/mysql/generated && antlr4ng -Dlanguage=TypeScript -o src/parsers/mysql/generated/ -visitor -no-listener -Xexact-output-dir src/parsers/mysql/grammar/MySqlLexer.g4 src/parsers/mysql/grammar/MySqlParser.g4 && bash src/parsers/patch-generated.sh mysql",
-    "generate:postgresql": "rimraf src/parsers/postgresql/generated && antlr4ng -Dlanguage=TypeScript -o src/parsers/postgresql/generated/ -visitor -no-listener -Xexact-output-dir src/parsers/postgresql/grammar/PostgreSqlLexer.g4 src/parsers/postgresql/grammar/PostgreSqlParser.g4 && bash src/parsers/patch-generated.sh postgresql --extra-postgresql-patches",
+    "generate:postgresql": "rimraf src/parsers/postgresql/generated && antlr4ng -Dlanguage=TypeScript -o src/parsers/postgresql/generated/ -visitor -no-listener -Xexact-output-dir src/parsers/postgresql/grammar/PostgreSqlLexer.g4 src/parsers/postgresql/grammar/PostgreSqlParser.g4 && bash src/parsers/patch-generated.sh postgresql",
     "generate:clickhouse": "rimraf src/parsers/clickhouse/generated && antlr4ng -Dlanguage=TypeScript -o src/parsers/clickhouse/generated/ -visitor -no-listener -Xexact-output-dir src/parsers/clickhouse/grammar/ClickHouseLexer.g4 src/parsers/clickhouse/grammar/ClickHouseParser.g4 && bash src/parsers/patch-generated.sh clickhouse",
     "test": "node --experimental-vm-modules ./node_modules/.bin/jest src",
     "build": "rimraf dist && node build.js && tsc -p tsconfig.build.json",
