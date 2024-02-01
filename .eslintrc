@@ -13,6 +13,7 @@
       "@typescript-eslint/explicit-function-return-type": "error",
       "object-shorthand": "error",
       "no-implicit-globals": "off",
-      "camelcase": "off"
+      "camelcase": "off",
+      "complexity": "off"
   }
 }

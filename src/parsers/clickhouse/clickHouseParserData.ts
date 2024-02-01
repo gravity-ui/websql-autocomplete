@@ -1,4 +1,4 @@
-import {ParseTree, Token} from 'antlr4ng';
+import {ParseTree, TokenStream} from 'antlr4ng';
 import * as c3 from 'antlr4-c3';
 
 import {TableSymbol} from '../../lib/symbolTable.js';
@@ -10,7 +10,7 @@ import {
     TableIdentifierContext,
 } from './generated/ClickHouseParser.js';
 import {ClickHouseParserVisitor} from './generated/ClickHouseParserVisitor.js';
-import {TableQueryPosition, TokenDictionary} from '../../lib/tables.js';
+import {TableQueryPosition, TokenDictionary, hasPreviousToken} from '../../lib/tables.js';
 
 const engines = ['Null', 'Set', 'Log', 'Memory', 'TinyLog', 'StripeLog'];
 
@@ -78,8 +78,6 @@ const ignoredTokens = new Set(getIgnoredTokens());
 
 const preferredRules = new Set([
     ClickHouseParser.RULE_tableIdentifier,
-    ClickHouseParser.RULE_alterStmt,
-    ClickHouseParser.RULE_dropStmt,
     ClickHouseParser.RULE_identifier,
     ClickHouseParser.RULE_columnIdentifier,
     ClickHouseParser.RULE_identifierOrNull,
@@ -131,7 +129,7 @@ class ClickHouseSymbolTableVisitor
 function generateSuggestionsFromRules(
     rules: c3.CandidatesCollection['rules'],
     cursorTokenIndex: number,
-    previousToken?: Token,
+    tokenStream: TokenStream,
 ): Partial<AutocompleteParseResult> & {suggestColumns?: boolean} {
     let suggestTables: AutocompleteParseResult['suggestTables'];
     let suggestAggregateFunctions = false;
@@ -147,23 +145,15 @@ function generateSuggestionsFromRules(
                     !ruleData.ruleList.includes(ClickHouseParser.RULE_createStmt) &&
                     !ruleData.ruleList.includes(ClickHouseParser.RULE_columnsExpr)
                 ) {
-                    suggestTables = TableSuggestion.ALL;
-                }
-                break;
-            }
-            case ClickHouseParser.RULE_alterStmt: {
-                const isPreviousTokenTable = previousToken?.text?.toLowerCase() === 'table';
-                if (isPreviousTokenTable) {
-                    suggestTables = TableSuggestion.TABLES;
-                }
-                break;
-            }
-            case ClickHouseParser.RULE_dropStmt: {
-                const previousTokenText = previousToken?.text?.toLowerCase();
-                if (previousTokenText === 'table') {
-                    suggestTables = TableSuggestion.TABLES;
-                } else if (previousTokenText === 'view') {
-                    suggestTables = TableSuggestion.VIEWS;
+                    if (hasPreviousToken(tokenStream, cursorTokenIndex, ClickHouseParser.VIEW)) {
+                        suggestTables = TableSuggestion.VIEWS;
+                    } else if (
+                        hasPreviousToken(tokenStream, cursorTokenIndex, ClickHouseParser.TABLE)
+                    ) {
+                        suggestTables = TableSuggestion.TABLES;
+                    } else {
+                        suggestTables = TableSuggestion.ALL;
+                    }
                 }
                 break;
             }
@@ -172,6 +162,9 @@ function generateSuggestionsFromRules(
                     suggestFunctions = true;
                     // TODO Not sure yet how to specifically find aggregate functions
                     suggestAggregateFunctions = true;
+                }
+                if (ruleData.ruleList.includes(ClickHouseParser.RULE_alterTableClause)) {
+                    suggestColumns = true;
                 }
                 break;
             }

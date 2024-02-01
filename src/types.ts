@@ -1,4 +1,4 @@
-import {CharStream, CommonTokenStream, ParseTree, Token} from 'antlr4ng';
+import {CharStream, CommonTokenStream, ParseTree, TokenStream} from 'antlr4ng';
 import * as c3 from 'antlr4-c3';
 
 import {TokenPosition} from './lib/cursor';
@@ -54,5 +54,5 @@ export type GetParseTree<P> = (parser: P, type?: TableQueryPosition['type']) => 
 export type GenerateSuggestionsFromRules = (
     rules: c3.CandidatesCollection['rules'],
     cursorTokenIndex: number,
-    previousToken?: Token,
+    tokenStream: TokenStream,
 ) => Partial<AutocompleteParseResult> & {suggestColumns?: boolean};

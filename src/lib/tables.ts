@@ -115,9 +115,6 @@ export function getTableQueryPosition(
     while (currentIndex >= 0) {
         const token = tokenStream.get(currentIndex);
 
-        // Doesn't work for now because suggestColumns is false for this case
-        // In MySqlParser this is not fullColumnName but is uid
-        // and also higher order rules (e.g. alterStatement) have precedence
         if (token.type === dictionary.ALTER) {
             return {
                 start: token.start,
@@ -167,4 +164,24 @@ function getJoinIndex(
     }
 
     return undefined;
+}
+
+export function hasPreviousToken(
+    tokenStream: TokenStream,
+    tokenIndex: number,
+    tokenType: number,
+): boolean {
+    let currentIndex = tokenIndex;
+
+    while (currentIndex > -1) {
+        const token = tokenStream.get(currentIndex);
+
+        if (token.type === tokenType) {
+            return true;
+        }
+
+        currentIndex--;
+    }
+
+    return false;
 }

@@ -1,4 +1,4 @@
-import {ParseTree, Token} from 'antlr4ng';
+import {ParseTree, TokenStream} from 'antlr4ng';
 import * as c3 from 'antlr4-c3';
 
 import {TableSymbol} from '../../lib/symbolTable.js';
@@ -6,7 +6,7 @@ import {AutocompleteParseResult, ISymbolTableVisitor, TableSuggestion} from '../
 import {MySqlLexer} from './generated/MySqlLexer.js';
 import {AtomTableItemContext, MySqlParser, TableNameContext} from './generated/MySqlParser.js';
 import {MySqlParserVisitor} from './generated/MySqlParserVisitor.js';
-import {TableQueryPosition, TokenDictionary} from '../../lib/tables.js';
+import {TableQueryPosition, TokenDictionary, hasPreviousToken} from '../../lib/tables.js';
 
 const tokenDictionary: TokenDictionary = {
     SPACE: MySqlParser.SPACE,
@@ -58,15 +58,13 @@ const ignoredTokens = new Set(getIgnoredTokens());
 
 const preferredRules = new Set([
     MySqlParser.RULE_tableName,
-    MySqlParser.RULE_alterTable,
-    MySqlParser.RULE_dropTable,
-    MySqlParser.RULE_alterView,
-    MySqlParser.RULE_dropView,
+    MySqlParser.RULE_fullId,
     MySqlParser.RULE_aggregateWindowedFunction,
     // Maybe also add nonAggregateWindowedFunction?
     MySqlParser.RULE_scalarFunctionName,
     MySqlParser.RULE_fullColumnName,
     MySqlParser.RULE_indexColumnName,
+    MySqlParser.RULE_uid,
 ]);
 
 class MySqlSymbolTableVisitor extends MySqlParserVisitor<{}> implements ISymbolTableVisitor {
@@ -117,7 +115,7 @@ class MySqlSymbolTableVisitor extends MySqlParserVisitor<{}> implements ISymbolT
 function generateSuggestionsFromRules(
     rules: c3.CandidatesCollection['rules'],
     cursorTokenIndex: number,
-    previousToken?: Token,
+    tokenStream: TokenStream,
 ): Partial<AutocompleteParseResult> & {suggestColumns?: boolean} {
     let suggestTables: AutocompleteParseResult['suggestTables'];
     let suggestAggregateFunctions = false;
@@ -131,22 +129,23 @@ function generateSuggestionsFromRules(
                     cursorTokenIndex === ruleData.startTokenIndex &&
                     !ruleData.ruleList.includes(MySqlParser.RULE_createTable)
                 ) {
-                    suggestTables = TableSuggestion.ALL;
+                    if (hasPreviousToken(tokenStream, cursorTokenIndex, MySqlParser.VIEW)) {
+                        suggestTables = TableSuggestion.VIEWS;
+                    } else if (hasPreviousToken(tokenStream, cursorTokenIndex, MySqlParser.TABLE)) {
+                        suggestTables = TableSuggestion.TABLES;
+                    } else {
+                        suggestTables = TableSuggestion.ALL;
+                    }
                 }
                 break;
             }
-            case MySqlParser.RULE_alterTable:
-            case MySqlParser.RULE_dropTable: {
-                const isPreviousTokenTable = previousToken?.text?.toLowerCase() === 'table';
-                if (isPreviousTokenTable) {
-                    suggestTables = TableSuggestion.TABLES;
-                }
-                break;
-            }
-            case MySqlParser.RULE_alterView:
-            case MySqlParser.RULE_dropView: {
-                const isPreviousTokenView = previousToken?.text?.toLowerCase() === 'view';
-                if (isPreviousTokenView) {
+            case MySqlParser.RULE_fullId: {
+                if (
+                    cursorTokenIndex === ruleData.startTokenIndex &&
+                    hasPreviousToken(tokenStream, cursorTokenIndex, MySqlParser.VIEW) &&
+                    (ruleData.ruleList.includes(MySqlParser.RULE_alterView) ||
+                        ruleData.ruleList.includes(MySqlParser.RULE_dropView))
+                ) {
                     suggestTables = TableSuggestion.VIEWS;
                 }
                 break;
@@ -162,6 +161,16 @@ function generateSuggestionsFromRules(
             case MySqlParser.RULE_fullColumnName:
             case MySqlParser.RULE_indexColumnName: {
                 if (cursorTokenIndex === ruleData.startTokenIndex) {
+                    suggestColumns = true;
+                }
+                break;
+            }
+            case MySqlParser.RULE_uid: {
+                if (
+                    cursorTokenIndex === ruleData.startTokenIndex &&
+                    ruleData.ruleList.includes(MySqlParser.RULE_alterSpecification) &&
+                    !hasPreviousToken(tokenStream, cursorTokenIndex, MySqlParser.ADD)
+                ) {
                     suggestColumns = true;
                 }
                 break;

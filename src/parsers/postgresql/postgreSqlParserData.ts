@@ -1,4 +1,4 @@
-import {ParseTree, Token} from 'antlr4ng';
+import {ParseTree, TokenStream} from 'antlr4ng';
 import * as c3 from 'antlr4-c3';
 
 import {TableSymbol} from '../../lib/symbolTable.js';
@@ -10,7 +10,7 @@ import {
     Table_refContext,
 } from './generated/PostgreSqlParser.js';
 import {PostgreSqlParserVisitor} from './generated/PostgreSqlParserVisitor.js';
-import {TableQueryPosition, TokenDictionary} from '../../lib/tables.js';
+import {TableQueryPosition, TokenDictionary, hasPreviousToken} from '../../lib/tables.js';
 
 const tokenDictionary: TokenDictionary = {
     SPACE: PostgreSqlParser.Whitespace,
@@ -51,8 +51,6 @@ const ignoredTokens = new Set(getIgnoredTokens());
 const preferredRules = new Set([
     PostgreSqlParser.RULE_relation_expr,
     PostgreSqlParser.RULE_insert_target,
-    PostgreSqlParser.RULE_altertablestmt,
-    PostgreSqlParser.RULE_dropstmt,
     PostgreSqlParser.RULE_builtin_function_name,
     PostgreSqlParser.RULE_colid,
 ]);
@@ -107,7 +105,7 @@ class PostgreSqlSymbolTableVisitor
 function generateSuggestionsFromRules(
     rules: c3.CandidatesCollection['rules'],
     cursorTokenIndex: number,
-    previousToken?: Token,
+    tokenStream: TokenStream,
 ): Partial<AutocompleteParseResult> & {suggestColumns?: boolean} {
     let suggestTables: AutocompleteParseResult['suggestTables'];
     let suggestAggregateFunctions = false;
@@ -118,18 +116,15 @@ function generateSuggestionsFromRules(
         switch (ruleId) {
             case PostgreSqlParser.RULE_relation_expr:
             case PostgreSqlParser.RULE_insert_target: {
-                if (cursorTokenIndex === ruleData.startTokenIndex) {
-                    suggestTables = TableSuggestion.ALL;
-                }
-                break;
-            }
-            case PostgreSqlParser.RULE_altertablestmt:
-            case PostgreSqlParser.RULE_dropstmt: {
-                const previousTokenText = previousToken?.text?.toLowerCase();
-                if (previousTokenText === 'table') {
-                    suggestTables = TableSuggestion.TABLES;
-                } else if (previousTokenText === 'view') {
-                    suggestTables = TableSuggestion.VIEWS;
+                if (
+                    cursorTokenIndex === ruleData.startTokenIndex &&
+                    !ruleData.ruleList.includes(PostgreSqlParser.RULE_createstmt)
+                ) {
+                    if (hasPreviousToken(tokenStream, cursorTokenIndex, PostgreSqlParser.TABLE)) {
+                        suggestTables = TableSuggestion.TABLES;
+                    } else {
+                        suggestTables = TableSuggestion.ALL;
+                    }
                 }
                 break;
             }
@@ -141,7 +136,27 @@ function generateSuggestionsFromRules(
             }
             case PostgreSqlParser.RULE_colid: {
                 // Don't need to check cursorTokenIndex here, because colid is too specific already
-                suggestColumns = true;
+                if (
+                    hasPreviousToken(tokenStream, cursorTokenIndex, PostgreSqlParser.VIEW) &&
+                    // Table name is the first identifier, so if we found one before,
+                    // then this is not a table name
+                    !hasPreviousToken(tokenStream, cursorTokenIndex, PostgreSqlParser.Identifier) &&
+                    (ruleData.ruleList.includes(PostgreSqlParser.RULE_altertablestmt) ||
+                        ruleData.ruleList.includes(PostgreSqlParser.RULE_refreshmatviewstmt) ||
+                        ruleData.ruleList.includes(PostgreSqlParser.RULE_renamestmt) ||
+                        ruleData.ruleList.includes(PostgreSqlParser.RULE_alterobjectdependsstmt) ||
+                        ruleData.ruleList.includes(PostgreSqlParser.RULE_alterobjectschemastmt) ||
+                        ruleData.ruleList.includes(PostgreSqlParser.RULE_dropstmt))
+                ) {
+                    suggestTables = TableSuggestion.VIEWS;
+                } else if (
+                    hasPreviousToken(tokenStream, cursorTokenIndex, PostgreSqlParser.TABLE) &&
+                    ruleData.ruleList.includes(PostgreSqlParser.RULE_dropstmt)
+                ) {
+                    suggestTables = TableSuggestion.TABLES;
+                } else {
+                    suggestColumns = true;
+                }
                 break;
             }
         }

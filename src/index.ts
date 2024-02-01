@@ -171,8 +171,6 @@ export function parseQuery<
 
     // TODO Maybe throw error here
     if (cursorTokenIndex !== undefined) {
-        // Subtracting 2, because of whitespace token
-        const previousToken = tokenStream.get(cursorTokenIndex - 2);
         const {tokens} = core.collectCandidates(cursorTokenIndex);
         // When c3 comes across a preferred rule, it doesn't suggest tokens inside that rule in
         // tokens map (suggestKeywords), that's why we need to collect candidates for rules separately
@@ -183,7 +181,7 @@ export function parseQuery<
         const {suggestColumns, ...suggestionsFromRules} = generateSuggestionsFromRules(
             rules,
             cursorTokenIndex,
-            previousToken,
+            tokenStream,
         );
 
         result = {...result, ...suggestionsFromRules};
