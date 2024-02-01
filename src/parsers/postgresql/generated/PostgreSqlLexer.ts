@@ -1131,7 +1131,7 @@ export class PostgreSqlLexer extends PostgreSqlLexerBase {
         switch (actionIndex) {
         case 0:
 
-                HandleLessLessGreaterGreater();
+                this.HandleLessLessGreaterGreater();
                
             break;
         }
@@ -1139,14 +1139,14 @@ export class PostgreSqlLexer extends PostgreSqlLexerBase {
     private BeginDollarStringConstant_action(localContext: antlr.RuleContext | null, actionIndex: number): void {
         switch (actionIndex) {
         case 1:
-            pushTag();
+            this.pushTag();
             break;
         }
     }
     private NumericFail_action(localContext: antlr.RuleContext | null, actionIndex: number): void {
         switch (actionIndex) {
         case 2:
-            HandleNumericFail();
+            this.HandleNumericFail();
             break;
         }
     }
@@ -1154,7 +1154,7 @@ export class PostgreSqlLexer extends PostgreSqlLexerBase {
         switch (actionIndex) {
         case 3:
 
-                        UnterminatedBlockCommentDebugAssert();
+                        this.UnterminatedBlockCommentDebugAssert();
                
             break;
         }
@@ -1174,7 +1174,7 @@ export class PostgreSqlLexer extends PostgreSqlLexerBase {
     private EndDollarStringConstant_action(localContext: antlr.RuleContext | null, actionIndex: number): void {
         switch (actionIndex) {
         case 6:
-            popTag();
+            this.popTag();
             break;
         }
     }
@@ -1194,32 +1194,32 @@ export class PostgreSqlLexer extends PostgreSqlLexerBase {
     private Operator_sempred(localContext: antlr.RuleContext | null, predIndex: number): boolean {
         switch (predIndex) {
         case 0:
-            return checkLA('-');
+            return this.checkLA('-');
         case 1:
-            return checkLA('*');
+            return this.checkLA('*');
         case 2:
-            return checkLA('*');
+            return this.checkLA('*');
         }
         return true;
     }
     private OperatorEndingWithPlusMinus_sempred(localContext: antlr.RuleContext | null, predIndex: number): boolean {
         switch (predIndex) {
         case 3:
-            return checkLA('-');
+            return this.checkLA('-');
         case 4:
-            return checkLA('*');
+            return this.checkLA('*');
         case 5:
-            return checkLA('-');
+            return this.checkLA('-');
         }
         return true;
     }
     private IdentifierStartChar_sempred(localContext: antlr.RuleContext | null, predIndex: number): boolean {
         switch (predIndex) {
         case 6:
-            return charIsLetter();
+            return this.charIsLetter();
         case 7:
             return 
-            CheckIfUtf32Letter()
+            this.CheckIfUtf32Letter()
            ;
         }
         return true;
@@ -1227,7 +1227,7 @@ export class PostgreSqlLexer extends PostgreSqlLexerBase {
     private EndDollarStringConstant_sempred(localContext: antlr.RuleContext | null, predIndex: number): boolean {
         switch (predIndex) {
         case 8:
-            return isTag();
+            return this.isTag();
         }
         return true;
     }
