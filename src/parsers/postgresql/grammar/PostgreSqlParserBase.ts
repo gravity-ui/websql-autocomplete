@@ -1,4 +1,4 @@
-import {CharStreams, CommonTokenStream, Parser, ParserRuleContext} from 'antlr4ng';
+import {CharStreams, CommonTokenStream, Parser} from 'antlr4ng';
 
 import {
     Createfunc_opt_listContext,
@@ -8,12 +8,6 @@ import {
 import {PostgreSqlLexer} from '../generated/PostgreSqlLexer.js';
 
 abstract class PostgreSqlParserBase extends Parser {
-    GetParsedSqlTree(script: string): ParserRuleContext {
-        const ph = this.getPostgreSQLParser(script);
-        const result = ph.root();
-        return result;
-    }
-
     ParseRoutineBody(_localctx: Createfunc_opt_listContext): void {
         let lang = null;
         for (const coi of _localctx.createfunc_opt_item()) {
@@ -66,7 +60,7 @@ abstract class PostgreSqlParserBase extends Parser {
         }
     }
 
-    unquote(s: string): string {
+    private unquote(s: string): string {
         const slength = s.length;
         let r = '';
         let i = 0;
@@ -79,7 +73,7 @@ abstract class PostgreSqlParserBase extends Parser {
         return r;
     }
 
-    GetRoutineBodyString(rule: SconstContext): string {
+    private GetRoutineBodyString(rule: SconstContext): string {
         const anysconst = rule.anysconst();
         const StringConstant = anysconst.StringConstant();
         if (null !== StringConstant) return this.unquote(this.TrimQuotes(StringConstant.getText()));
@@ -96,7 +90,7 @@ abstract class PostgreSqlParserBase extends Parser {
         return result;
     }
 
-    getPostgreSQLParser(script: string): PostgreSqlParser {
+    private getPostgreSQLParser(script: string): PostgreSqlParser {
         const charStream = CharStreams.fromString(script);
         const lexer = new PostgreSqlLexer(charStream);
         const tokens = new CommonTokenStream(lexer);
