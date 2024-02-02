@@ -1,8 +1,16 @@
-import {CharStream, CommonTokenStream, ParseTree, TokenStream} from 'antlr4ng';
+import {
+    AbstractParseTreeVisitor,
+    CharStream,
+    CommonTokenStream,
+    Lexer as LexerType,
+    Parser as ParserType,
+    ParseTree,
+    TokenStream
+} from 'antlr4ng';
 import * as c3 from 'antlr4-c3';
 
 import {TokenPosition} from './lib/cursor';
-import {TableQueryPosition} from './lib/tables';
+import {TableQueryPosition, TokenDictionary} from './lib/tables';
 
 export interface ParserSyntaxError extends TokenPosition {
     message: string;
@@ -56,3 +64,19 @@ export type GenerateSuggestionsFromRules = (
     cursorTokenIndex: number,
     tokenStream: TokenStream,
 ) => Partial<AutocompleteParseResult> & {suggestColumns?: boolean};
+
+export interface ParserData<
+    L extends LexerType,
+    P extends ParserType,
+    S extends ISymbolTableVisitor & AbstractParseTreeVisitor<{}>,
+> {
+    Lexer: LexerConstructor<L>,
+    Parser: ParserConstructor<P>,
+    SymbolTableVisitor: SymbolTableVisitorConstructor<S>,
+    getParseTree: GetParseTree<P>,
+    tokenDictionary: TokenDictionary,
+    generateSuggestionsFromRules: GenerateSuggestionsFromRules,
+    ignoredTokens: Set<number>,
+    preferredRules: Set<number>,
+    explicitlyParseJoin: boolean,
+}

@@ -2,7 +2,12 @@ import {ParseTree, TokenStream} from 'antlr4ng';
 import * as c3 from 'antlr4-c3';
 
 import {TableSymbol} from '../../lib/symbolTable.js';
-import {AutocompleteParseResult, ISymbolTableVisitor, TableSuggestion} from '../../types.js';
+import {
+    AutocompleteParseResult,
+    ISymbolTableVisitor,
+    ParserData,
+    TableSuggestion
+} from '../../types.js';
 import {ClickHouseLexer} from './generated/ClickHouseLexer.js';
 import {
     ClickHouseParser,
@@ -208,7 +213,7 @@ function getParseTree(parser: ClickHouseParser, type?: TableQueryPosition['type'
     }
 }
 
-export const clickHouseParserData = {
+export const clickHouseParserData: ParserData<ClickHouseLexer, ClickHouseParser, ClickHouseSymbolTableVisitor> = {
     Lexer: ClickHouseLexer,
     Parser: ClickHouseParser,
     SymbolTableVisitor: ClickHouseSymbolTableVisitor,

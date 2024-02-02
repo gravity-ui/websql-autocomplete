@@ -54,8 +54,7 @@ function parseQueryWithoutCursor<L extends LexerType, P extends ParserType>(
 function getColumnSuggestions<
     L extends LexerType,
     P extends ParserType,
-    V extends AbstractParseTreeVisitor<{}>,
-    S extends ISymbolTableVisitor & V,
+    S extends ISymbolTableVisitor & AbstractParseTreeVisitor<{}>,
 >(
     Lexer: LexerConstructor<L>,
     Parser: ParserConstructor<P>,
@@ -136,8 +135,7 @@ const quotesRegex = /^'(.*)'$/;
 export function parseQuery<
     L extends LexerType,
     P extends ParserType,
-    V extends AbstractParseTreeVisitor<{}>,
-    S extends ISymbolTableVisitor & V,
+    S extends ISymbolTableVisitor & AbstractParseTreeVisitor<{}>,
 >(
     Lexer: LexerConstructor<L>,
     Parser: ParserConstructor<P>,

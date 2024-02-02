@@ -2,11 +2,16 @@ import {ParseTree, TokenStream} from 'antlr4ng';
 import * as c3 from 'antlr4-c3';
 
 import {TableSymbol} from '../../lib/symbolTable.js';
-import {AutocompleteParseResult, ISymbolTableVisitor, TableSuggestion} from '../../types.js';
+import {
+    AutocompleteParseResult,
+    ISymbolTableVisitor,
+    ParserData,
+    TableSuggestion
+} from '../../types.js';
 import {MySqlLexer} from './generated/MySqlLexer.js';
 import {AtomTableItemContext, MySqlParser, TableNameContext} from './generated/MySqlParser.js';
 import {MySqlParserVisitor} from './generated/MySqlParserVisitor.js';
-import {TableQueryPosition, TokenDictionary, hasPreviousToken} from '../../lib/tables.js';
+import {hasPreviousToken, TableQueryPosition, TokenDictionary} from '../../lib/tables.js';
 
 const tokenDictionary: TokenDictionary = {
     SPACE: MySqlParser.SPACE,
@@ -198,7 +203,7 @@ function getParseTree(parser: MySqlParser, type?: TableQueryPosition['type']): P
     }
 }
 
-export const mySqlParserData = {
+export const mySqlParserData: ParserData<MySqlLexer, MySqlParser, MySqlSymbolTableVisitor> = {
     Lexer: MySqlLexer,
     Parser: MySqlParser,
     SymbolTableVisitor: MySqlSymbolTableVisitor,

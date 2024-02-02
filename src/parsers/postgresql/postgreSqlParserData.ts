@@ -2,7 +2,12 @@ import {ParseTree, TokenStream} from 'antlr4ng';
 import * as c3 from 'antlr4-c3';
 
 import {TableSymbol} from '../../lib/symbolTable.js';
-import {AutocompleteParseResult, ISymbolTableVisitor, TableSuggestion} from '../../types.js';
+import {
+    AutocompleteParseResult,
+    ISymbolTableVisitor,
+    ParserData,
+    TableSuggestion
+} from '../../types.js';
 import {PostgreSqlLexer} from './generated/PostgreSqlLexer.js';
 import {
     PostgreSqlParser,
@@ -184,7 +189,7 @@ function getParseTree(parser: PostgreSqlParser, type?: TableQueryPosition['type'
     }
 }
 
-export const postgreSqlParserData = {
+export const postgreSqlParserData: ParserData<PostgreSqlLexer, PostgreSqlParser, PostgreSqlSymbolTableVisitor> = {
     Lexer: PostgreSqlLexer,
     Parser: PostgreSqlParser,
     SymbolTableVisitor: PostgreSqlSymbolTableVisitor,
