@@ -5,7 +5,7 @@ import {TableSymbol} from '../../lib/symbolTable.js';
 import {
     AutocompleteParseResult,
     ISymbolTableVisitor,
-    ParserData,
+    AutocompleteData,
     TableSuggestion
 } from '../../types.js';
 import {ClickHouseLexer} from './generated/ClickHouseLexer.js';
@@ -213,7 +213,7 @@ function getParseTree(parser: ClickHouseParser, type?: TableQueryPosition['type'
     }
 }
 
-export const clickHouseParserData: ParserData<ClickHouseLexer, ClickHouseParser, ClickHouseSymbolTableVisitor> = {
+export const clickHouseAutocompleteData: AutocompleteData<ClickHouseLexer, ClickHouseParser, ClickHouseSymbolTableVisitor> = {
     Lexer: ClickHouseLexer,
     Parser: ClickHouseParser,
     SymbolTableVisitor: ClickHouseSymbolTableVisitor,

@@ -25,9 +25,9 @@ import {
     SymbolTableVisitorConstructor,
     TableSuggestion,
 } from './types.js';
-import {mySqlParserData} from './parsers/mysql/mySqlParserData.js';
-import {postgreSqlParserData} from './parsers/postgresql/postgreSqlParserData.js';
-import {clickHouseParserData} from './parsers/clickhouse/clickHouseParserData.js';
+import {mySqlAutocompleteData} from './parsers/mysql/mySqlAutocomplete.js';
+import {postgreSqlAutocompleteData} from './parsers/postgresql/postgreSqlAutocomplete.js';
+import {clickHouseAutocompleteData} from './parsers/clickhouse/clickHouseAutocomplete.js';
 
 export {AutocompleteParseResult, TableSuggestion};
 
@@ -231,25 +231,25 @@ export function parseMySqlQueryWithoutCursor(
     query: string,
 ): Pick<AutocompleteParseResult, 'errors'> {
     return parseQueryWithoutCursor(
-        mySqlParserData.Lexer,
-        mySqlParserData.Parser,
-        mySqlParserData.tokenDictionary,
-        mySqlParserData.getParseTree,
+        mySqlAutocompleteData.Lexer,
+        mySqlAutocompleteData.Parser,
+        mySqlAutocompleteData.tokenDictionary,
+        mySqlAutocompleteData.getParseTree,
         query,
     );
 }
 
 export function parseMySqlQuery(query: string, cursor: CursorPosition): AutocompleteParseResult {
     return parseQuery(
-        mySqlParserData.Lexer,
-        mySqlParserData.Parser,
-        mySqlParserData.SymbolTableVisitor,
-        mySqlParserData.tokenDictionary,
-        mySqlParserData.ignoredTokens,
-        mySqlParserData.preferredRules,
-        mySqlParserData.explicitlyParseJoin,
-        mySqlParserData.getParseTree,
-        mySqlParserData.generateSuggestionsFromRules,
+        mySqlAutocompleteData.Lexer,
+        mySqlAutocompleteData.Parser,
+        mySqlAutocompleteData.SymbolTableVisitor,
+        mySqlAutocompleteData.tokenDictionary,
+        mySqlAutocompleteData.ignoredTokens,
+        mySqlAutocompleteData.preferredRules,
+        mySqlAutocompleteData.explicitlyParseJoin,
+        mySqlAutocompleteData.getParseTree,
+        mySqlAutocompleteData.generateSuggestionsFromRules,
         query,
         cursor,
     );
@@ -259,10 +259,10 @@ export function parsePostgreSqlQueryWithoutCursor(
     query: string,
 ): Pick<AutocompleteParseResult, 'errors'> {
     return parseQueryWithoutCursor(
-        postgreSqlParserData.Lexer,
-        postgreSqlParserData.Parser,
-        postgreSqlParserData.tokenDictionary,
-        postgreSqlParserData.getParseTree,
+        postgreSqlAutocompleteData.Lexer,
+        postgreSqlAutocompleteData.Parser,
+        postgreSqlAutocompleteData.tokenDictionary,
+        postgreSqlAutocompleteData.getParseTree,
         query,
     );
 }
@@ -272,15 +272,15 @@ export function parsePostgreSqlQuery(
     cursor: CursorPosition,
 ): AutocompleteParseResult {
     return parseQuery(
-        postgreSqlParserData.Lexer,
-        postgreSqlParserData.Parser,
-        postgreSqlParserData.SymbolTableVisitor,
-        postgreSqlParserData.tokenDictionary,
-        postgreSqlParserData.ignoredTokens,
-        postgreSqlParserData.preferredRules,
-        postgreSqlParserData.explicitlyParseJoin,
-        postgreSqlParserData.getParseTree,
-        postgreSqlParserData.generateSuggestionsFromRules,
+        postgreSqlAutocompleteData.Lexer,
+        postgreSqlAutocompleteData.Parser,
+        postgreSqlAutocompleteData.SymbolTableVisitor,
+        postgreSqlAutocompleteData.tokenDictionary,
+        postgreSqlAutocompleteData.ignoredTokens,
+        postgreSqlAutocompleteData.preferredRules,
+        postgreSqlAutocompleteData.explicitlyParseJoin,
+        postgreSqlAutocompleteData.getParseTree,
+        postgreSqlAutocompleteData.generateSuggestionsFromRules,
         query,
         cursor,
     );
@@ -290,10 +290,10 @@ export function parseClickHouseQueryWithoutCursor(
     query: string,
 ): Pick<AutocompleteParseResult, 'errors'> {
     return parseQueryWithoutCursor(
-        clickHouseParserData.Lexer,
-        clickHouseParserData.Parser,
-        clickHouseParserData.tokenDictionary,
-        clickHouseParserData.getParseTree,
+        clickHouseAutocompleteData.Lexer,
+        clickHouseAutocompleteData.Parser,
+        clickHouseAutocompleteData.tokenDictionary,
+        clickHouseAutocompleteData.getParseTree,
         query,
     );
 }
@@ -303,15 +303,15 @@ export function parseClickHouseQuery(
     cursor: CursorPosition,
 ): AutocompleteParseResult {
     return parseQuery(
-        clickHouseParserData.Lexer,
-        clickHouseParserData.Parser,
-        clickHouseParserData.SymbolTableVisitor,
-        clickHouseParserData.tokenDictionary,
-        clickHouseParserData.ignoredTokens,
-        clickHouseParserData.preferredRules,
-        clickHouseParserData.explicitlyParseJoin,
-        clickHouseParserData.getParseTree,
-        clickHouseParserData.generateSuggestionsFromRules,
+        clickHouseAutocompleteData.Lexer,
+        clickHouseAutocompleteData.Parser,
+        clickHouseAutocompleteData.SymbolTableVisitor,
+        clickHouseAutocompleteData.tokenDictionary,
+        clickHouseAutocompleteData.ignoredTokens,
+        clickHouseAutocompleteData.preferredRules,
+        clickHouseAutocompleteData.explicitlyParseJoin,
+        clickHouseAutocompleteData.getParseTree,
+        clickHouseAutocompleteData.generateSuggestionsFromRules,
         query,
         cursor,
     );

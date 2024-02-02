@@ -5,7 +5,7 @@ import {TableSymbol} from '../../lib/symbolTable.js';
 import {
     AutocompleteParseResult,
     ISymbolTableVisitor,
-    ParserData,
+    AutocompleteData,
     TableSuggestion
 } from '../../types.js';
 import {MySqlLexer} from './generated/MySqlLexer.js';
@@ -203,7 +203,7 @@ function getParseTree(parser: MySqlParser, type?: TableQueryPosition['type']): P
     }
 }
 
-export const mySqlParserData: ParserData<MySqlLexer, MySqlParser, MySqlSymbolTableVisitor> = {
+export const mySqlAutocompleteData: AutocompleteData<MySqlLexer, MySqlParser, MySqlSymbolTableVisitor> = {
     Lexer: MySqlLexer,
     Parser: MySqlParser,
     SymbolTableVisitor: MySqlSymbolTableVisitor,

@@ -65,7 +65,7 @@ export type GenerateSuggestionsFromRules = (
     tokenStream: TokenStream,
 ) => Partial<AutocompleteParseResult> & {suggestColumns?: boolean};
 
-export interface ParserData<
+export interface AutocompleteData<
     L extends LexerType,
     P extends ParserType,
     S extends ISymbolTableVisitor & AbstractParseTreeVisitor<{}>,

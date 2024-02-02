@@ -5,7 +5,7 @@ import {TableSymbol} from '../../lib/symbolTable.js';
 import {
     AutocompleteParseResult,
     ISymbolTableVisitor,
-    ParserData,
+    AutocompleteData,
     TableSuggestion
 } from '../../types.js';
 import {PostgreSqlLexer} from './generated/PostgreSqlLexer.js';
@@ -189,7 +189,7 @@ function getParseTree(parser: PostgreSqlParser, type?: TableQueryPosition['type'
     }
 }
 
-export const postgreSqlParserData: ParserData<PostgreSqlLexer, PostgreSqlParser, PostgreSqlSymbolTableVisitor> = {
+export const postgreSqlAutocompleteData: AutocompleteData<PostgreSqlLexer, PostgreSqlParser, PostgreSqlSymbolTableVisitor> = {
     Lexer: PostgreSqlLexer,
     Parser: PostgreSqlParser,
     SymbolTableVisitor: PostgreSqlSymbolTableVisitor,
