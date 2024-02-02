@@ -6,7 +6,7 @@ import {
     AutocompleteParseResult,
     ISymbolTableVisitor,
     AutocompleteData,
-    TableSuggestion
+    TableOrViewSuggestion
 } from '../../types.js';
 import {PostgreSqlLexer} from './generated/PostgreSqlLexer.js';
 import {
@@ -112,7 +112,7 @@ function generateSuggestionsFromRules(
     cursorTokenIndex: number,
     tokenStream: TokenStream,
 ): Partial<AutocompleteParseResult> & {suggestColumns?: boolean} {
-    let suggestTables: AutocompleteParseResult['suggestTables'];
+    let suggestViewsOrTables: AutocompleteParseResult['suggestViewsOrTables'];
     let suggestAggregateFunctions = false;
     let suggestFunctions = false;
     let suggestColumns = false;
@@ -126,9 +126,9 @@ function generateSuggestionsFromRules(
                     !ruleData.ruleList.includes(PostgreSqlParser.RULE_createstmt)
                 ) {
                     if (hasPreviousToken(tokenStream, cursorTokenIndex, PostgreSqlParser.TABLE)) {
-                        suggestTables = TableSuggestion.TABLES;
+                        suggestViewsOrTables = TableOrViewSuggestion.TABLES;
                     } else {
-                        suggestTables = TableSuggestion.ALL;
+                        suggestViewsOrTables = TableOrViewSuggestion.ALL;
                     }
                 }
                 break;
@@ -153,12 +153,12 @@ function generateSuggestionsFromRules(
                         ruleData.ruleList.includes(PostgreSqlParser.RULE_alterobjectschemastmt) ||
                         ruleData.ruleList.includes(PostgreSqlParser.RULE_dropstmt))
                 ) {
-                    suggestTables = TableSuggestion.VIEWS;
+                    suggestViewsOrTables = TableOrViewSuggestion.VIEWS;
                 } else if (
                     hasPreviousToken(tokenStream, cursorTokenIndex, PostgreSqlParser.TABLE) &&
                     ruleData.ruleList.includes(PostgreSqlParser.RULE_dropstmt)
                 ) {
-                    suggestTables = TableSuggestion.TABLES;
+                    suggestViewsOrTables = TableOrViewSuggestion.TABLES;
                 } else {
                     suggestColumns = true;
                 }
@@ -167,7 +167,7 @@ function generateSuggestionsFromRules(
         }
     }
 
-    return {suggestTables, suggestAggregateFunctions, suggestFunctions, suggestColumns};
+    return {suggestViewsOrTables, suggestAggregateFunctions, suggestFunctions, suggestColumns};
 }
 
 function getParseTree(parser: PostgreSqlParser, type?: TableQueryPosition['type']): ParseTree {

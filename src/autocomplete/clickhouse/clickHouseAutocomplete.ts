@@ -6,7 +6,7 @@ import {
     AutocompleteParseResult,
     ISymbolTableVisitor,
     AutocompleteData,
-    TableSuggestion
+    TableOrViewSuggestion
 } from '../../types.js';
 import {ClickHouseLexer} from './generated/ClickHouseLexer.js';
 import {
@@ -136,7 +136,7 @@ function generateSuggestionsFromRules(
     cursorTokenIndex: number,
     tokenStream: TokenStream,
 ): Partial<AutocompleteParseResult> & {suggestColumns?: boolean} {
-    let suggestTables: AutocompleteParseResult['suggestTables'];
+    let suggestViewsOrTables: AutocompleteParseResult['suggestViewsOrTables'];
     let suggestAggregateFunctions = false;
     let suggestFunctions = false;
     let suggestColumns = false;
@@ -151,13 +151,13 @@ function generateSuggestionsFromRules(
                     !ruleData.ruleList.includes(ClickHouseParser.RULE_columnsExpr)
                 ) {
                     if (hasPreviousToken(tokenStream, cursorTokenIndex, ClickHouseParser.VIEW)) {
-                        suggestTables = TableSuggestion.VIEWS;
+                        suggestViewsOrTables = TableOrViewSuggestion.VIEWS;
                     } else if (
                         hasPreviousToken(tokenStream, cursorTokenIndex, ClickHouseParser.TABLE)
                     ) {
-                        suggestTables = TableSuggestion.TABLES;
+                        suggestViewsOrTables = TableOrViewSuggestion.TABLES;
                     } else {
-                        suggestTables = TableSuggestion.ALL;
+                        suggestViewsOrTables = TableOrViewSuggestion.ALL;
                     }
                 }
                 break;
@@ -188,7 +188,7 @@ function generateSuggestionsFromRules(
     }
 
     return {
-        suggestTables,
+        suggestViewsOrTables,
         suggestAggregateFunctions,
         suggestFunctions,
         suggestColumns,

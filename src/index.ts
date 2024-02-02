@@ -25,7 +25,7 @@ import {
     ParserConstructor,
     ParserSyntaxError,
     SymbolTableVisitorConstructor,
-    TableSuggestion,
+    TableOrViewSuggestion,
 } from './types.js';
 import {mySqlAutocompleteData} from './autocomplete/mysql/mySqlAutocomplete.js';
 import {postgreSqlAutocompleteData} from './autocomplete/postgresql/postgreSqlAutocomplete.js';
@@ -34,7 +34,7 @@ import {clickHouseAutocompleteData} from './autocomplete/clickhouse/clickHouseAu
 export {CursorPosition} from './lib/cursor.js';
 export {
     AutocompleteParseResult,
-    TableSuggestion,
+    TableOrViewSuggestion,
     KeywordSuggestion,
     ParserSyntaxError,
     ColumnSuggestion,

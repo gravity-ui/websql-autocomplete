@@ -24,7 +24,7 @@ export interface ColumnSuggestion {
     tables?: {name: string; alias?: string}[];
 }
 
-export enum TableSuggestion {
+export enum TableOrViewSuggestion {
     ALL = 'ALL',
     TABLES = 'TABLES',
     VIEWS = 'VIEWS',
@@ -38,7 +38,7 @@ export interface EngineSuggestion {
 export interface AutocompleteParseResult {
     errors: ParserSyntaxError[];
     suggestKeywords?: KeywordSuggestion[];
-    suggestTables?: TableSuggestion;
+    suggestViewsOrTables?: TableOrViewSuggestion;
     suggestTemplates?: boolean;
     suggestAggregateFunctions?: boolean;
     suggestFunctions?: boolean;

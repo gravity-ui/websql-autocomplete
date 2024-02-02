@@ -6,7 +6,7 @@ import {
     AutocompleteParseResult,
     ISymbolTableVisitor,
     AutocompleteData,
-    TableSuggestion
+    TableOrViewSuggestion
 } from '../../types.js';
 import {MySqlLexer} from './generated/MySqlLexer.js';
 import {AtomTableItemContext, MySqlParser, TableNameContext} from './generated/MySqlParser.js';
@@ -122,7 +122,7 @@ function generateSuggestionsFromRules(
     cursorTokenIndex: number,
     tokenStream: TokenStream,
 ): Partial<AutocompleteParseResult> & {suggestColumns?: boolean} {
-    let suggestTables: AutocompleteParseResult['suggestTables'];
+    let suggestViewsOrTables: AutocompleteParseResult['suggestViewsOrTables'];
     let suggestAggregateFunctions = false;
     let suggestFunctions = false;
     let suggestColumns = false;
@@ -135,11 +135,11 @@ function generateSuggestionsFromRules(
                     !ruleData.ruleList.includes(MySqlParser.RULE_createTable)
                 ) {
                     if (hasPreviousToken(tokenStream, cursorTokenIndex, MySqlParser.VIEW)) {
-                        suggestTables = TableSuggestion.VIEWS;
+                        suggestViewsOrTables = TableOrViewSuggestion.VIEWS;
                     } else if (hasPreviousToken(tokenStream, cursorTokenIndex, MySqlParser.TABLE)) {
-                        suggestTables = TableSuggestion.TABLES;
+                        suggestViewsOrTables = TableOrViewSuggestion.TABLES;
                     } else {
-                        suggestTables = TableSuggestion.ALL;
+                        suggestViewsOrTables = TableOrViewSuggestion.ALL;
                     }
                 }
                 break;
@@ -151,7 +151,7 @@ function generateSuggestionsFromRules(
                     (ruleData.ruleList.includes(MySqlParser.RULE_alterView) ||
                         ruleData.ruleList.includes(MySqlParser.RULE_dropView))
                 ) {
-                    suggestTables = TableSuggestion.VIEWS;
+                    suggestViewsOrTables = TableOrViewSuggestion.VIEWS;
                 }
                 break;
             }
@@ -183,7 +183,7 @@ function generateSuggestionsFromRules(
         }
     }
 
-    return {suggestTables, suggestAggregateFunctions, suggestFunctions, suggestColumns};
+    return {suggestViewsOrTables, suggestAggregateFunctions, suggestFunctions, suggestColumns};
 }
 
 function getParseTree(parser: MySqlParser, type?: TableQueryPosition['type']): ParseTree {
