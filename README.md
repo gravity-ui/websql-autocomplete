@@ -21,3 +21,4 @@ Resources to research:
 # Main scripts
 
 - `npm run generate` - Generate parsers
+- `npm run test` - Run tests

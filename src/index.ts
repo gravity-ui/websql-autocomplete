@@ -16,12 +16,14 @@ import {TokenDictionary, getTableQueryPosition} from './lib/tables.js';
 import {
     AutocompleteParseResult,
     ColumnSuggestion,
+    EngineSuggestion,
     GenerateSuggestionsFromRules,
     GetParseTree,
     ISymbolTableVisitor,
     KeywordSuggestion,
     LexerConstructor,
     ParserConstructor,
+    ParserSyntaxError,
     SymbolTableVisitorConstructor,
     TableSuggestion,
 } from './types.js';
@@ -29,7 +31,15 @@ import {mySqlParserData} from './parsers/mysql/mySqlParserData.js';
 import {postgreSqlParserData} from './parsers/postgresql/postgreSqlParserData.js';
 import {clickHouseParserData} from './parsers/clickhouse/clickHouseParserData.js';
 
-export {AutocompleteParseResult, TableSuggestion};
+export {CursorPosition} from './lib/cursor.js';
+export {
+    AutocompleteParseResult,
+    TableSuggestion,
+    KeywordSuggestion,
+    ParserSyntaxError,
+    ColumnSuggestion,
+    EngineSuggestion,
+};
 
 function parseQueryWithoutCursor<L extends LexerType, P extends ParserType>(
     Lexer: LexerConstructor<L>,
