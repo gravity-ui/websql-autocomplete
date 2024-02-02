@@ -20,4 +20,5 @@ Resources to research:
 
 # Main scripts
 
-- `npm run generate` - Generate autocomplete tools
+- `npm run generate` - Generate parsers and lexers
+- `npm run test` - Run tests
