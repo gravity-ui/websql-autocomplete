@@ -1752,15 +1752,15 @@ uninstallPlugin
 //    Set and show statements
 
 setStatement
-    : SET variableClause (EQUAL_SYMBOL | ':=') (expression | ON) (
-        COMMA variableClause (EQUAL_SYMBOL | ':=') (expression | ON)
+    : SET variableClause (EQUAL_SYMBOL | VAR_ASSIGN) (expression | ON) (
+        COMMA variableClause (EQUAL_SYMBOL | VAR_ASSIGN) (expression | ON)
     )*                                                                         # setVariable
     | SET charSet (charsetName | DEFAULT)                                      # setCharset
     | SET NAMES (charsetName (COLLATE collationName)? | DEFAULT)               # setNames
     | setPasswordStatement                                                     # setPassword
     | setTransactionStatement                                                  # setTransaction
     | setAutocommitStatement                                                   # setAutocommit
-    | SET fullId (EQUAL_SYMBOL | ':=') expression (COMMA fullId (EQUAL_SYMBOL | ':=') expression)* # setNewValueInsideTrigger
+    | SET fullId (EQUAL_SYMBOL | VAR_ASSIGN) expression (COMMA fullId (EQUAL_SYMBOL | VAR_ASSIGN) expression)* # setNewValueInsideTrigger
     ;
 
 showStatement
@@ -1799,7 +1799,7 @@ showStatement
 variableClause
     : LOCAL_ID
     | GLOBAL_ID
-    | ( ('@' '@')? (GLOBAL | SESSION | LOCAL))? uid
+    | ( (AT_SIGN AT_SIGN)? (GLOBAL | SESSION | LOCAL))? uid
     ;
 
 showCommonEntity
@@ -2038,7 +2038,7 @@ simpleUserName
     ;
 
 hostName
-    : (LOCAL_ID | HOST_IP_ADDRESS | '@')
+    : (LOCAL_ID | HOST_IP_ADDRESS | AT_SIGN)
     ;
 
 userName
@@ -2560,7 +2560,7 @@ expressionAtom
 
 unaryOperator
     : EXCLAMATION_SYMBOL
-    | '~'
+    | BIT_NOT_OP
     | PLUS
     | MINUS
     | NOT
