@@ -2579,24 +2579,24 @@ comparisonOperator
 
 logicalOperator
     : AND
-    | '&' '&'
+    | BIT_AND_OP BIT_AND_OP
     | XOR
     | OR
-    | '|' '|'
+    | BIT_OR_OP BIT_OR_OP
     ;
 
 bitOperator
     : LESS_SYMBOL LESS_SYMBOL
     | GREATER_SYMBOL GREATER_SYMBOL
-    | '&'
-    | '^'
-    | '|'
+    | BIT_AND_OP
+    | BIT_XOR_OP
+    | BIT_OR_OP
     ;
 
 multOperator
     : STAR
-    | '/'
-    | '%'
+    | DIVIDE
+    | MODULE
     | DIV
     | MOD
     ;
