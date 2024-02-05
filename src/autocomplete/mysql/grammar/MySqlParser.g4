@@ -353,7 +353,7 @@ timestampValue
     ;
 
 intervalExpr
-    : '+' INTERVAL (decimalLiteral | expression) intervalType
+    : PLUS INTERVAL (decimalLiteral | expression) intervalType
     ;
 
 intervalType
@@ -486,15 +486,15 @@ tableOption
     | AUTO_INCREMENT EQUAL_SYMBOL? decimalLiteral                            # tableOptionAutoIncrement
     | AVG_ROW_LENGTH EQUAL_SYMBOL? decimalLiteral                            # tableOptionAverage
     | DEFAULT? charSet EQUAL_SYMBOL? (charsetName | DEFAULT)                 # tableOptionCharset
-    | (CHECKSUM | PAGE_CHECKSUM) EQUAL_SYMBOL? boolValue = ('0' | '1')       # tableOptionChecksum
+    | (CHECKSUM | PAGE_CHECKSUM) EQUAL_SYMBOL? boolValue = (ZERO_DECIMAL | ONE_DECIMAL)       # tableOptionChecksum
     | DEFAULT? COLLATE EQUAL_SYMBOL? collationName                           # tableOptionCollate
     | COMMENT EQUAL_SYMBOL? STRING_LITERAL                                   # tableOptionComment
     | COMPRESSION EQUAL_SYMBOL? (STRING_LITERAL | ID)                        # tableOptionCompression
     | CONNECTION EQUAL_SYMBOL? STRING_LITERAL                                # tableOptionConnection
     | (DATA | INDEX) DIRECTORY EQUAL_SYMBOL? STRING_LITERAL                  # tableOptionDataDirectory
-    | DELAY_KEY_WRITE EQUAL_SYMBOL? boolValue = ('0' | '1')                  # tableOptionDelay
+    | DELAY_KEY_WRITE EQUAL_SYMBOL? boolValue = (ZERO_DECIMAL | ONE_DECIMAL)                  # tableOptionDelay
     | ENCRYPTION EQUAL_SYMBOL? STRING_LITERAL                                # tableOptionEncryption
-    | (PAGE_COMPRESSED | STRING_LITERAL) EQUAL_SYMBOL? ('0' | '1')           # tableOptionPageCompressed
+    | (PAGE_COMPRESSED | STRING_LITERAL) EQUAL_SYMBOL? (ZERO_DECIMAL | ONE_DECIMAL)           # tableOptionPageCompressed
     | (PAGE_COMPRESSION_LEVEL | STRING_LITERAL) EQUAL_SYMBOL? decimalLiteral # tableOptionPageCompressionLevel
     | ENCRYPTION_KEY_ID EQUAL_SYMBOL? decimalLiteral                         # tableOptionEncryptionKeyId
     | INDEX DIRECTORY EQUAL_SYMBOL? STRING_LITERAL                           # tableOptionIndexDirectory
@@ -502,7 +502,7 @@ tableOption
     | KEY_BLOCK_SIZE EQUAL_SYMBOL? fileSizeLiteral                           # tableOptionKeyBlockSize
     | MAX_ROWS EQUAL_SYMBOL? decimalLiteral                                  # tableOptionMaxRows
     | MIN_ROWS EQUAL_SYMBOL? decimalLiteral                                  # tableOptionMinRows
-    | PACK_KEYS EQUAL_SYMBOL? extBoolValue = ('0' | '1' | DEFAULT)           # tableOptionPackKeys
+    | PACK_KEYS EQUAL_SYMBOL? extBoolValue = (ZERO_DECIMAL | ONE_DECIMAL | DEFAULT)           # tableOptionPackKeys
     | PASSWORD EQUAL_SYMBOL? STRING_LITERAL                                  # tableOptionPassword
     | ROW_FORMAT EQUAL_SYMBOL? rowFormat = (
         DEFAULT
@@ -515,13 +515,13 @@ tableOption
     )                                                             # tableOptionRowFormat
     | START TRANSACTION                                           # tableOptionStartTransaction
     | SECONDARY_ENGINE_ATTRIBUTE EQUAL_SYMBOL? STRING_LITERAL              # tableOptionSecondaryEngineAttribute
-    | STATS_AUTO_RECALC EQUAL_SYMBOL? extBoolValue = (DEFAULT | '0' | '1') # tableOptionRecalculation
-    | STATS_PERSISTENT EQUAL_SYMBOL? extBoolValue = (DEFAULT | '0' | '1')  # tableOptionPersistent
+    | STATS_AUTO_RECALC EQUAL_SYMBOL? extBoolValue = (DEFAULT | ZERO_DECIMAL | ONE_DECIMAL) # tableOptionRecalculation
+    | STATS_PERSISTENT EQUAL_SYMBOL? extBoolValue = (DEFAULT | ZERO_DECIMAL | ONE_DECIMAL)  # tableOptionPersistent
     | STATS_SAMPLE_PAGES EQUAL_SYMBOL? (DEFAULT | decimalLiteral)          # tableOptionSamplePage
     | TABLESPACE uid tablespaceStorage?                           # tableOptionTablespace
     | TABLE_TYPE EQUAL_SYMBOL tableType                                    # tableOptionTableType
     | tablespaceStorage                                           # tableOptionTablespace
-    | TRANSACTIONAL EQUAL_SYMBOL? ('0' | '1')                              # tableOptionTransactional
+    | TRANSACTIONAL EQUAL_SYMBOL? (ZERO_DECIMAL | ONE_DECIMAL)                              # tableOptionTransactional
     | UNION EQUAL_SYMBOL? LR_BRACKET tables RR_BRACKET                                   # tableOptionUnion
     ;
 
@@ -542,14 +542,14 @@ partitionDefinitions
 
 partitionFunctionDefinition
     : LINEAR? HASH LR_BRACKET expression RR_BRACKET                                     # partitionFunctionHash
-    | LINEAR? KEY (ALGORITHM EQUAL_SYMBOL algType = ('1' | '2'))? LR_BRACKET uidList? RR_BRACKET # partitionFunctionKey // Optional uidList for MySQL only
+    | LINEAR? KEY (ALGORITHM EQUAL_SYMBOL algType = (ONE_DECIMAL | '2'))? LR_BRACKET uidList? RR_BRACKET # partitionFunctionKey // Optional uidList for MySQL only
     | RANGE (LR_BRACKET expression RR_BRACKET | COLUMNS LR_BRACKET uidList RR_BRACKET)                # partitionFunctionRange
     | LIST (LR_BRACKET expression RR_BRACKET | COLUMNS LR_BRACKET uidList RR_BRACKET)                 # partitionFunctionList
     ;
 
 subpartitionFunctionDefinition
     : LINEAR? HASH LR_BRACKET expression RR_BRACKET                                    # subPartitionFunctionHash
-    | LINEAR? KEY (ALGORITHM EQUAL_SYMBOL algType = ('1' | '2'))? LR_BRACKET uidList RR_BRACKET # subPartitionFunctionKey
+    | LINEAR? KEY (ALGORITHM EQUAL_SYMBOL algType = (ONE_DECIMAL | '2'))? LR_BRACKET uidList RR_BRACKET # subPartitionFunctionKey
     ;
 
 partitionDefinition
@@ -1176,7 +1176,7 @@ unlockTables
 // details
 
 setAutocommitStatement
-    : SET AUTOCOMMIT EQUAL_SYMBOL autocommitValue = ('0' | '1')
+    : SET AUTOCOMMIT EQUAL_SYMBOL autocommitValue = (ZERO_DECIMAL | ONE_DECIMAL)
     ;
 
 setTransactionStatement
@@ -1261,7 +1261,7 @@ stopGroupReplication
 masterOption
     : stringMasterOption EQUAL_SYMBOL STRING_LITERAL           # masterStringOption
     | decimalMasterOption EQUAL_SYMBOL decimalLiteral          # masterDecimalOption
-    | boolMasterOption EQUAL_SYMBOL boolVal = ('0' | '1')      # masterBoolOption
+    | boolMasterOption EQUAL_SYMBOL boolVal = (ZERO_DECIMAL | ONE_DECIMAL)      # masterBoolOption
     | MASTER_HEARTBEAT_PERIOD EQUAL_SYMBOL REAL_LITERAL        # masterRealOption
     | IGNORE_SERVER_IDS EQUAL_SYMBOL LR_BRACKET (uid (COMMA uid)*)? RR_BRACKET # masterUidListOption
     ;
@@ -2087,8 +2087,8 @@ engineNameBase
     ;
 
 uuidSet
-    : decimalLiteral '-' decimalLiteral '-' decimalLiteral '-' decimalLiteral '-' decimalLiteral (
-        ':' decimalLiteral '-' decimalLiteral
+    : decimalLiteral MINUS decimalLiteral MINUS decimalLiteral MINUS decimalLiteral MINUS decimalLiteral (
+        ':' decimalLiteral MINUS decimalLiteral
     )+
     ;
 
@@ -2168,7 +2168,7 @@ nullNotnull
 constant
     : stringLiteral
     | decimalLiteral
-    | '-' decimalLiteral
+    | MINUS decimalLiteral
     | hexadecimalLiteral
     | booleanLiteral
     | REAL_LITERAL
@@ -2391,7 +2391,7 @@ caseFuncAlternative
 
 levelsInWeightString
     : LEVEL levelInWeightListElement (COMMA levelInWeightListElement)*   # levelWeightList
-    | LEVEL firstLevel = decimalLiteral '-' lastLevel = decimalLiteral # levelWeightRange
+    | LEVEL firstLevel = decimalLiteral MINUS lastLevel = decimalLiteral # levelWeightRange
     ;
 
 levelInWeightListElement
@@ -2518,7 +2518,7 @@ functionArg
 
 // Simplified approach for expression
 expression
-    : notOperator = (NOT | '!') expression                   # notExpression
+    : notOperator = (NOT | EXCLAMATION_SYMBOL) expression                   # notExpression
     | expression logicalOperator expression                  # logicalExpression
     | predicate IS NOT? testValue = (TRUE | FALSE | UNKNOWN) # isExpression
     | predicate                                              # predicateExpression
@@ -2559,10 +2559,10 @@ expressionAtom
     ;
 
 unaryOperator
-    : '!'
+    : EXCLAMATION_SYMBOL
     | '~'
-    | '+'
-    | '-'
+    | PLUS
+    | MINUS
     | NOT
     ;
 
@@ -2573,7 +2573,7 @@ comparisonOperator
     | '<' EQUAL_SYMBOL
     | '>' EQUAL_SYMBOL
     | '<' '>'
-    | '!' EQUAL_SYMBOL
+    | EXCLAMATION_SYMBOL EQUAL_SYMBOL
     | '<' EQUAL_SYMBOL '>'
     ;
 
@@ -2602,13 +2602,13 @@ multOperator
     ;
 
 addOperator
-    : '+'
-    | '-'
+    : PLUS
+    | MINUS
     ;
 
 jsonOperator
-    : '-' '>'
-    | '-' '>' '>'
+    : MINUS '>'
+    | MINUS '>' '>'
     ;
 
 //    Simple id sets
