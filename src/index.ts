@@ -171,6 +171,7 @@ export function parseQuery<
 
     const core = new c3.CodeCompletionCore(parser);
     core.ignoredTokens = ignoredTokens;
+    core.preferredRules = preferredRules;
     const cursorTokenIndex = findCursorTokenIndex(tokenStream, cursor, tokenDictionary.SPACE);
     const suggestKeywords: KeywordSuggestion[] = [];
     let result: AutocompleteParseResult = {
@@ -179,13 +180,7 @@ export function parseQuery<
 
     // TODO Maybe throw error here
     if (cursorTokenIndex !== undefined) {
-        const {tokens} = core.collectCandidates(cursorTokenIndex);
-        // When c3 comes across a preferred rule, it doesn't suggest tokens inside that rule in
-        // tokens map (suggestKeywords), that's why we need to collect candidates for rules separately
-        const coreForRules = new c3.CodeCompletionCore(parser);
-        coreForRules.preferredRules = preferredRules;
-        const {rules} = coreForRules.collectCandidates(cursorTokenIndex);
-
+        const {tokens, rules} = core.collectCandidates(cursorTokenIndex);
         const {suggestColumns, ...suggestionsFromRules} = generateSuggestionsFromRules(
             rules,
             cursorTokenIndex,

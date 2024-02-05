@@ -3,15 +3,15 @@ import * as c3 from 'antlr4-c3';
 
 import {TableSymbol} from '../../lib/symbolTable.js';
 import {
+    AutocompleteData,
     AutocompleteParseResult,
     ISymbolTableVisitor,
-    AutocompleteData,
-    TableOrViewSuggestion
+    TableOrViewSuggestion,
 } from '../../types.js';
 import {MySqlLexer} from './generated/MySqlLexer.js';
 import {AtomTableItemContext, MySqlParser, TableNameContext} from './generated/MySqlParser.js';
 import {MySqlParserVisitor} from './generated/MySqlParserVisitor.js';
-import {hasPreviousToken, TableQueryPosition, TokenDictionary} from '../../lib/tables.js';
+import {TableQueryPosition, TokenDictionary, hasPreviousToken} from '../../lib/tables.js';
 
 const tokenDictionary: TokenDictionary = {
     SPACE: MySqlParser.SPACE,
@@ -29,7 +29,7 @@ function getIgnoredTokens(): number[] {
     const tokens = [];
 
     const firstOperatorIndex = MySqlParser.VAR_ASSIGN;
-    const lastOperatorIndex = MySqlParser.GLOBAL_ID;
+    const lastOperatorIndex = MySqlParser.ERROR_RECONGNIGION;
     for (let i = firstOperatorIndex; i <= lastOperatorIndex; i++) {
         // We actually want Star to appear in autocomplete
         if (i !== MySqlParser.STAR) {
@@ -68,7 +68,6 @@ const preferredRules = new Set([
     // Maybe also add nonAggregateWindowedFunction?
     MySqlParser.RULE_scalarFunctionName,
     MySqlParser.RULE_fullColumnName,
-    MySqlParser.RULE_indexColumnName,
     MySqlParser.RULE_uid,
 ]);
 
@@ -173,8 +172,9 @@ function generateSuggestionsFromRules(
             case MySqlParser.RULE_uid: {
                 if (
                     cursorTokenIndex === ruleData.startTokenIndex &&
-                    ruleData.ruleList.includes(MySqlParser.RULE_alterSpecification) &&
-                    !hasPreviousToken(tokenStream, cursorTokenIndex, MySqlParser.ADD)
+                    ((ruleData.ruleList.includes(MySqlParser.RULE_alterSpecification) &&
+                        !hasPreviousToken(tokenStream, cursorTokenIndex, MySqlParser.ADD)) ||
+                        ruleData.ruleList.includes(MySqlParser.RULE_indexColumnName))
                 ) {
                     suggestColumns = true;
                 }
@@ -203,7 +203,11 @@ function getParseTree(parser: MySqlParser, type?: TableQueryPosition['type']): P
     }
 }
 
-export const mySqlAutocompleteData: AutocompleteData<MySqlLexer, MySqlParser, MySqlSymbolTableVisitor> = {
+export const mySqlAutocompleteData: AutocompleteData<
+    MySqlLexer,
+    MySqlParser,
+    MySqlSymbolTableVisitor
+> = {
     Lexer: MySqlLexer,
     Parser: MySqlParser,
     SymbolTableVisitor: MySqlSymbolTableVisitor,

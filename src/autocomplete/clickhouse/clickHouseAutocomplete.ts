@@ -3,10 +3,10 @@ import * as c3 from 'antlr4-c3';
 
 import {TableSymbol} from '../../lib/symbolTable.js';
 import {
+    AutocompleteData,
     AutocompleteParseResult,
     ISymbolTableVisitor,
-    AutocompleteData,
-    TableOrViewSuggestion
+    TableOrViewSuggestion,
 } from '../../types.js';
 import {ClickHouseLexer} from './generated/ClickHouseLexer.js';
 import {
@@ -61,19 +61,13 @@ const tokenDictionary: TokenDictionary = {
 function getIgnoredTokens(): number[] {
     const tokens = [];
 
-    const firstOperatorIndex = ClickHouseParser.ARROW;
-    const lastOperatorIndex = ClickHouseParser.UNDERSCORE;
+    const firstOperatorIndex = ClickHouseParser.JSON_FALSE;
+    const lastOperatorIndex = ClickHouseParser.WHITESPACE;
     for (let i = firstOperatorIndex; i <= lastOperatorIndex; i++) {
         // We actually want Star to appear in autocomplete
         if (i !== ClickHouseParser.ASTERISK) {
             tokens.push(i);
         }
-    }
-
-    const firstBooleanIndex = ClickHouseParser.JSON_FALSE;
-    const lastBooleanIndex = ClickHouseParser.JSON_TRUE;
-    for (let i = firstBooleanIndex; i <= lastBooleanIndex; i++) {
-        tokens.push(i);
     }
 
     return tokens;
@@ -213,7 +207,11 @@ function getParseTree(parser: ClickHouseParser, type?: TableQueryPosition['type'
     }
 }
 
-export const clickHouseAutocompleteData: AutocompleteData<ClickHouseLexer, ClickHouseParser, ClickHouseSymbolTableVisitor> = {
+export const clickHouseAutocompleteData: AutocompleteData<
+    ClickHouseLexer,
+    ClickHouseParser,
+    ClickHouseSymbolTableVisitor
+> = {
     Lexer: ClickHouseLexer,
     Parser: ClickHouseParser,
     SymbolTableVisitor: ClickHouseSymbolTableVisitor,

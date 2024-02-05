@@ -3,10 +3,10 @@ import * as c3 from 'antlr4-c3';
 
 import {TableSymbol} from '../../lib/symbolTable.js';
 import {
+    AutocompleteData,
     AutocompleteParseResult,
     ISymbolTableVisitor,
-    AutocompleteData,
-    TableOrViewSuggestion
+    TableOrViewSuggestion,
 } from '../../types.js';
 import {PostgreSqlLexer} from './generated/PostgreSqlLexer.js';
 import {
@@ -43,7 +43,7 @@ function getIgnoredTokens(): number[] {
 
     // Ignoring functions for now, need custom logic for them later
     const firstFunctionIndex = PostgreSqlParser.ABS;
-    const lastFunctionIndex = PostgreSqlParser.TO_NUMBER;
+    const lastFunctionIndex = PostgreSqlParser.AfterEscapeStringConstantWithNewlineMode_Continued;
     for (let i = firstFunctionIndex; i <= lastFunctionIndex; i++) {
         tokens.push(i);
     }
@@ -54,8 +54,6 @@ function getIgnoredTokens(): number[] {
 const ignoredTokens = new Set(getIgnoredTokens());
 
 const preferredRules = new Set([
-    PostgreSqlParser.RULE_relation_expr,
-    PostgreSqlParser.RULE_insert_target,
     PostgreSqlParser.RULE_builtin_function_name,
     PostgreSqlParser.RULE_colid,
 ]);
@@ -119,20 +117,6 @@ function generateSuggestionsFromRules(
 
     for (const [ruleId, ruleData] of rules) {
         switch (ruleId) {
-            case PostgreSqlParser.RULE_relation_expr:
-            case PostgreSqlParser.RULE_insert_target: {
-                if (
-                    cursorTokenIndex === ruleData.startTokenIndex &&
-                    !ruleData.ruleList.includes(PostgreSqlParser.RULE_createstmt)
-                ) {
-                    if (hasPreviousToken(tokenStream, cursorTokenIndex, PostgreSqlParser.TABLE)) {
-                        suggestViewsOrTables = TableOrViewSuggestion.TABLES;
-                    } else {
-                        suggestViewsOrTables = TableOrViewSuggestion.ALL;
-                    }
-                }
-                break;
-            }
             case PostgreSqlParser.RULE_builtin_function_name: {
                 suggestFunctions = true;
                 // TODO Not sure yet how to specifically find aggregate functions
@@ -140,6 +124,15 @@ function generateSuggestionsFromRules(
                 break;
             }
             case PostgreSqlParser.RULE_colid: {
+                const isInsideQualifiedName =
+                    ruleData.ruleList.includes(PostgreSqlParser.RULE_qualified_name) &&
+                    (ruleData.ruleList.includes(PostgreSqlParser.RULE_insert_target) ||
+                        ruleData.ruleList.includes(PostgreSqlParser.RULE_relation_expr));
+                const canSuggestTables =
+                    !ruleData.ruleList.includes(PostgreSqlParser.RULE_createstmt) &&
+                    (isInsideQualifiedName ||
+                        ruleData.ruleList.includes(PostgreSqlParser.RULE_func_table));
+
                 // Don't need to check cursorTokenIndex here, because colid is too specific already
                 if (
                     hasPreviousToken(tokenStream, cursorTokenIndex, PostgreSqlParser.VIEW) &&
@@ -156,9 +149,11 @@ function generateSuggestionsFromRules(
                     suggestViewsOrTables = TableOrViewSuggestion.VIEWS;
                 } else if (
                     hasPreviousToken(tokenStream, cursorTokenIndex, PostgreSqlParser.TABLE) &&
-                    ruleData.ruleList.includes(PostgreSqlParser.RULE_dropstmt)
+                    (ruleData.ruleList.includes(PostgreSqlParser.RULE_dropstmt) || canSuggestTables)
                 ) {
                     suggestViewsOrTables = TableOrViewSuggestion.TABLES;
+                } else if (canSuggestTables) {
+                    suggestViewsOrTables = TableOrViewSuggestion.ALL;
                 } else {
                     suggestColumns = true;
                 }
@@ -189,7 +184,11 @@ function getParseTree(parser: PostgreSqlParser, type?: TableQueryPosition['type'
     }
 }
 
-export const postgreSqlAutocompleteData: AutocompleteData<PostgreSqlLexer, PostgreSqlParser, PostgreSqlSymbolTableVisitor> = {
+export const postgreSqlAutocompleteData: AutocompleteData<
+    PostgreSqlLexer,
+    PostgreSqlParser,
+    PostgreSqlSymbolTableVisitor
+> = {
     Lexer: PostgreSqlLexer,
     Parser: PostgreSqlParser,
     SymbolTableVisitor: PostgreSqlSymbolTableVisitor,
