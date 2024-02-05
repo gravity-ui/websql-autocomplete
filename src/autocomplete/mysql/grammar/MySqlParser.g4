@@ -542,14 +542,14 @@ partitionDefinitions
 
 partitionFunctionDefinition
     : LINEAR? HASH LR_BRACKET expression RR_BRACKET                                     # partitionFunctionHash
-    | LINEAR? KEY (ALGORITHM EQUAL_SYMBOL algType = (ONE_DECIMAL | '2'))? LR_BRACKET uidList? RR_BRACKET # partitionFunctionKey // Optional uidList for MySQL only
+    | LINEAR? KEY (ALGORITHM EQUAL_SYMBOL algType = (ONE_DECIMAL | TWO_DECIMAL))? LR_BRACKET uidList? RR_BRACKET # partitionFunctionKey // Optional uidList for MySQL only
     | RANGE (LR_BRACKET expression RR_BRACKET | COLUMNS LR_BRACKET uidList RR_BRACKET)                # partitionFunctionRange
     | LIST (LR_BRACKET expression RR_BRACKET | COLUMNS LR_BRACKET uidList RR_BRACKET)                 # partitionFunctionList
     ;
 
 subpartitionFunctionDefinition
     : LINEAR? HASH LR_BRACKET expression RR_BRACKET                                    # subPartitionFunctionHash
-    | LINEAR? KEY (ALGORITHM EQUAL_SYMBOL algType = (ONE_DECIMAL | '2'))? LR_BRACKET uidList RR_BRACKET # subPartitionFunctionKey
+    | LINEAR? KEY (ALGORITHM EQUAL_SYMBOL algType = (ONE_DECIMAL | TWO_DECIMAL))? LR_BRACKET uidList RR_BRACKET # subPartitionFunctionKey
     ;
 
 partitionDefinition
@@ -840,7 +840,7 @@ loadXmlStatement
         REPLACE
         | IGNORE
     )? INTO TABLE tableName (CHARACTER SET charset = charsetName)? (
-        ROWS IDENTIFIED BY '<' tag = STRING_LITERAL '>'
+        ROWS IDENTIFIED BY LESS_SYMBOL tag = STRING_LITERAL GREATER_SYMBOL
     )? (IGNORE decimalLiteral linesFormat = (LINES | ROWS))? (
         LR_BRACKET assignmentField (COMMA assignmentField)* RR_BRACKET
     )? (SET updatedElement (COMMA updatedElement)*)?
@@ -909,8 +909,8 @@ singleDeleteStatement
 
 multipleDeleteStatement
     : DELETE priority = LOW_PRIORITY? QUICK? IGNORE? (
-        tableName ('.' '*')? ( COMMA tableName ('.' '*')?)* FROM tableSources
-        | FROM tableName ('.' '*')? ( COMMA tableName ('.' '*')?)* USING tableSources
+        tableName (DOT STAR)? ( COMMA tableName (DOT STAR)?)* FROM tableSources
+        | FROM tableName (DOT STAR)? ( COMMA tableName (DOT STAR)?)* USING tableSources
     ) (WHERE expression)?
     ;
 
@@ -1071,11 +1071,11 @@ selectSpec
     ;
 
 selectElements
-    : (star = '*' | selectElement) (COMMA selectElement)*
+    : (star = STAR | selectElement) (COMMA selectElement)*
     ;
 
 selectElement
-    : fullId '.' '*'                               # selectStarElement
+    : fullId DOT STAR                               # selectStarElement
     | fullColumnName (AS? uid)?                    # selectColumnElement
     | functionCall (AS? uid)?                      # selectFunctionElement
     | (LOCAL_ID VAR_ASSIGN)? expression (AS? uid)? # selectExpressionElement
@@ -1390,7 +1390,7 @@ routineBody
 // details
 
 blockStatement
-    : (uid ':')? BEGIN (declareVariable SEMI)* (declareCondition SEMI)* (declareCursor SEMI)* (
+    : (uid COLON_SYMB)? BEGIN (declareVariable SEMI)* (declareCondition SEMI)* (declareCursor SEMI)* (
         declareHandler SEMI
     )* procedureSqlStatement* END uid?
     ;
@@ -1414,11 +1414,11 @@ leaveStatement
     ;
 
 loopStatement
-    : (uid ':')? LOOP procedureSqlStatement+ END LOOP uid?
+    : (uid COLON_SYMB)? LOOP procedureSqlStatement+ END LOOP uid?
     ;
 
 repeatStatement
-    : (uid ':')? REPEAT procedureSqlStatement+ UNTIL expression END REPEAT uid?
+    : (uid COLON_SYMB)? REPEAT procedureSqlStatement+ UNTIL expression END REPEAT uid?
     ;
 
 returnStatement
@@ -1426,7 +1426,7 @@ returnStatement
     ;
 
 whileStatement
-    : (uid ':')? WHILE expression DO procedureSqlStatement+ END WHILE uid?
+    : (uid COLON_SYMB)? WHILE expression DO procedureSqlStatement+ END WHILE uid?
     ;
 
 cursorStatement
@@ -1683,10 +1683,10 @@ privilege
     ;
 
 privilegeLevel
-    : '*'          # currentSchemaPriviLevel
-    | '*' '.' '*'  # globalPrivLevel
-    | uid '.' '*'  # definiteSchemaPrivLevel
-    | uid '.' uid  # definiteFullTablePrivLevel
+    : STAR          # currentSchemaPriviLevel
+    | STAR DOT STAR  # globalPrivLevel
+    | uid DOT STAR  # definiteSchemaPrivLevel
+    | uid DOT uid  # definiteFullTablePrivLevel
     | uid dottedId # definiteFullTablePrivLevel2
     | uid          # definiteTablePrivLevel
     ;
@@ -1780,7 +1780,7 @@ showStatement
     | SHOW errorFormat = (ERRORS | WARNINGS) (
         LIMIT (offset = decimalLiteral COMMA)? rowCount = decimalLiteral
     )?                                                                    # showErrors
-    | SHOW COUNT LR_BRACKET '*' RR_BRACKET errorFormat = (ERRORS | WARNINGS)            # showCountErrors
+    | SHOW COUNT LR_BRACKET STAR RR_BRACKET errorFormat = (ERRORS | WARNINGS)            # showCountErrors
     | SHOW showSchemaEntity (schemaFormat = (FROM | IN) uid)? showFilter? # showSchemaFilter
     | SHOW routine = (FUNCTION | PROCEDURE) CODE fullId                   # showRoutine
     | SHOW GRANTS (FOR userName)?                                         # showGrants
@@ -2009,7 +2009,7 @@ describeObjectClause
 //    DB Objects
 
 fullId
-    : uid (DOT_ID | '.' uid)?
+    : uid (DOT_ID | DOT uid)?
     ;
 
 tableName
@@ -2088,7 +2088,7 @@ engineNameBase
 
 uuidSet
     : decimalLiteral MINUS decimalLiteral MINUS decimalLiteral MINUS decimalLiteral MINUS decimalLiteral (
-        ':' decimalLiteral MINUS decimalLiteral
+        COLON_SYMB decimalLiteral MINUS decimalLiteral
     )+
     ;
 
@@ -2129,7 +2129,7 @@ simpleId
 
 dottedId
     : DOT_ID
-    | '.' uid
+    | DOT uid
     ;
 
 //    Literals
@@ -2401,7 +2401,7 @@ levelInWeightListElement
 aggregateWindowedFunction
     : (AVG | MAX | MIN | SUM) LR_BRACKET aggregator = (ALL | DISTINCT)? functionArg RR_BRACKET overClause?
     | COUNT LR_BRACKET (
-        starArg = '*'
+        starArg = STAR
         | aggregator = ALL? functionArg
         | aggregator = DISTINCT functionArgs
     ) RR_BRACKET overClause?
@@ -2568,13 +2568,13 @@ unaryOperator
 
 comparisonOperator
     : EQUAL_SYMBOL
-    | '>'
-    | '<'
-    | '<' EQUAL_SYMBOL
-    | '>' EQUAL_SYMBOL
-    | '<' '>'
+    | GREATER_SYMBOL
+    | LESS_SYMBOL
+    | LESS_SYMBOL EQUAL_SYMBOL
+    | GREATER_SYMBOL EQUAL_SYMBOL
+    | LESS_SYMBOL GREATER_SYMBOL
     | EXCLAMATION_SYMBOL EQUAL_SYMBOL
-    | '<' EQUAL_SYMBOL '>'
+    | LESS_SYMBOL EQUAL_SYMBOL GREATER_SYMBOL
     ;
 
 logicalOperator
@@ -2586,15 +2586,15 @@ logicalOperator
     ;
 
 bitOperator
-    : '<' '<'
-    | '>' '>'
+    : LESS_SYMBOL LESS_SYMBOL
+    | GREATER_SYMBOL GREATER_SYMBOL
     | '&'
     | '^'
     | '|'
     ;
 
 multOperator
-    : '*'
+    : STAR
     | '/'
     | '%'
     | DIV
@@ -2607,8 +2607,8 @@ addOperator
     ;
 
 jsonOperator
-    : MINUS '>'
-    | MINUS '>' '>'
+    : MINUS GREATER_SYMBOL
+    | MINUS GREATER_SYMBOL GREATER_SYMBOL
     ;
 
 //    Simple id sets
