@@ -1,4 +1,4 @@
-import {KeywordSuggestion, TableSuggestion} from '../../..';
+import {KeywordSuggestion, TableOrViewSuggestion} from '../../..';
 import {groupParseSqlWithCursor} from '../lib';
 
 test('should suggest FROM', () => {
@@ -31,7 +31,7 @@ test('should suggest FROM after newline', () => {
 test('should suggest ALL tables', () => {
     const parseResults = groupParseSqlWithCursor('SELECT * FROM |');
 
-    parseResults.forEach(({suggestTables}) => {
-        expect(suggestTables).toEqual(TableSuggestion.ALL);
+    parseResults.forEach(({suggestViewsOrTables}) => {
+        expect(suggestViewsOrTables).toEqual(TableOrViewSuggestion.ALL);
     });
 });

@@ -1,8 +1,16 @@
-import {CharStream, CommonTokenStream, ParseTree, TokenStream} from 'antlr4ng';
+import {
+    AbstractParseTreeVisitor,
+    CharStream,
+    CommonTokenStream,
+    Lexer as LexerType,
+    Parser as ParserType,
+    ParseTree,
+    TokenStream
+} from 'antlr4ng';
 import * as c3 from 'antlr4-c3';
 
 import {TokenPosition} from './lib/cursor';
-import {TableQueryPosition} from './lib/tables';
+import {TableQueryPosition, TokenDictionary} from './lib/tables';
 
 export interface ParserSyntaxError extends TokenPosition {
     message: string;
@@ -16,7 +24,7 @@ export interface ColumnSuggestion {
     tables?: {name: string; alias?: string}[];
 }
 
-export enum TableSuggestion {
+export enum TableOrViewSuggestion {
     ALL = 'ALL',
     TABLES = 'TABLES',
     VIEWS = 'VIEWS',
@@ -30,7 +38,7 @@ export interface EngineSuggestion {
 export interface AutocompleteParseResult {
     errors: ParserSyntaxError[];
     suggestKeywords?: KeywordSuggestion[];
-    suggestTables?: TableSuggestion;
+    suggestViewsOrTables?: TableOrViewSuggestion;
     suggestTemplates?: boolean;
     suggestAggregateFunctions?: boolean;
     suggestFunctions?: boolean;
@@ -56,3 +64,19 @@ export type GenerateSuggestionsFromRules = (
     cursorTokenIndex: number,
     tokenStream: TokenStream,
 ) => Partial<AutocompleteParseResult> & {suggestColumns?: boolean};
+
+export interface AutocompleteData<
+    L extends LexerType,
+    P extends ParserType,
+    S extends ISymbolTableVisitor & AbstractParseTreeVisitor<{}>,
+> {
+    Lexer: LexerConstructor<L>,
+    Parser: ParserConstructor<P>,
+    SymbolTableVisitor: SymbolTableVisitorConstructor<S>,
+    getParseTree: GetParseTree<P>,
+    tokenDictionary: TokenDictionary,
+    generateSuggestionsFromRules: GenerateSuggestionsFromRules,
+    ignoredTokens: Set<number>,
+    preferredRules: Set<number>,
+    explicitlyParseJoin: boolean,
+}

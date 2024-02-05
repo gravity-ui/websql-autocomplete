@@ -2,7 +2,7 @@
 
 A tool that provides autocompletion for various sql dialects.
 
-# Parser theory
+# Autocomplete theory
 
 In order to parse any language, you need a [lexer](https://en.wikipedia.org/wiki/Lexical_analysis) (tokenizer) and a [parser](https://en.wikipedia.org/wiki/Parsing#Parser) (ast builder)
 
@@ -13,12 +13,12 @@ Resources to research:
 
 # How everything works
 
-1. ANTLR4 grammar and lexer for different `{dialect}` are defined in `src/parsers/{dialect}/grammar` directories.
-2. Actual parsers for different `{dialect}` are generated into `src/parsers/{dialect}/generated` directories.
-3. Dialect specific code, which is required for the core logic to work, is put in `src/parser/{dialect}/{dialect}ParserData.ts` files.
+1. ANTLR4 grammar and lexer for different `{dialect}` are defined in `src/autocomplete/{dialect}/grammar` directories.
+2. Actual parsers and lexers for different `{dialect}` are generated into `src/autocomplete/{dialect}/generated` directories.
+3. Dialect specific code, which is required for the core logic to work, is put in `src/autocomplete/{dialect}/{dialect}Autocomplete.ts` files.
 4. The core logic is inside `src/index.ts` file. It uses dialect specific helpers to generate autocomplete suggestions based on current cursor position.
 
 # Main scripts
 
-- `npm run generate` - Generate parsers
+- `npm run generate` - Generate parsers and lexers
 - `npm run test` - Run tests

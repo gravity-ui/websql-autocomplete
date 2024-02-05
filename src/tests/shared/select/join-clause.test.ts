@@ -1,4 +1,4 @@
-import {ColumnSuggestion, KeywordSuggestion, TableSuggestion} from '../../..';
+import {ColumnSuggestion, KeywordSuggestion, TableOrViewSuggestion} from '../../..';
 import {
     DatabaseType,
     groupParseSql,
@@ -147,8 +147,8 @@ test('should suggest JOIN after FULL OUTER', () => {
 test('should suggest tables after JOIN', () => {
     const parseResults = groupParseSqlWithCursor('SELECT * FROM test_table JOIN |');
 
-    parseResults.forEach(({suggestTables}) => {
-        expect(suggestTables).toEqual(TableSuggestion.ALL);
+    parseResults.forEach(({suggestViewsOrTables}) => {
+        expect(suggestViewsOrTables).toEqual(TableOrViewSuggestion.ALL);
     });
 });
 
