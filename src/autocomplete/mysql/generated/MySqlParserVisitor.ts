@@ -15,7 +15,6 @@ import { AbstractParseTreeVisitor } from "antlr4ng";
 import { RootContext } from "./MySqlParser.js";
 import { SqlStatementsContext } from "./MySqlParser.js";
 import { SqlStatementContext } from "./MySqlParser.js";
-import { EmptyStatement_Context } from "./MySqlParser.js";
 import { DdlStatementContext } from "./MySqlParser.js";
 import { DmlStatementContext } from "./MySqlParser.js";
 import { TransactionStatementContext } from "./MySqlParser.js";
@@ -658,12 +657,6 @@ export class MySqlParserVisitor<Result> extends AbstractParseTreeVisitor<Result>
      * @return the visitor result
      */
     visitSqlStatement?: (ctx: SqlStatementContext) => Result;
-    /**
-     * Visit a parse tree produced by `MySqlParser.emptyStatement_`.
-     * @param ctx the parse tree
-     * @return the visitor result
-     */
-    visitEmptyStatement_?: (ctx: EmptyStatement_Context) => Result;
     /**
      * Visit a parse tree produced by `MySqlParser.ddlStatement`.
      * @param ctx the parse tree

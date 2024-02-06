@@ -57,19 +57,30 @@ function getIgnoredTokens(): number[] {
         tokens.push(i);
     }
 
+    tokens.push(MySqlParser.EOF);
+
     return tokens;
 }
 
 const ignoredTokens = new Set(getIgnoredTokens());
 
 const preferredRules = new Set([
-    MySqlParser.RULE_tableName,
-    MySqlParser.RULE_fullId,
-    MySqlParser.RULE_aggregateWindowedFunction,
-    // Maybe also add nonAggregateWindowedFunction?
-    MySqlParser.RULE_scalarFunctionName,
+    // We don't need to go inside of it, we already know that this is a column
     MySqlParser.RULE_fullColumnName,
+    // We don't need to go inside of it, we already know that this is a table name
+    MySqlParser.RULE_tableName,
+    // TODO: merge with uid???
+    // We don't need to go inside of next rules, we already know that this is identifier of sorts.
+    // There are multiple ids, because different rules use different ids, and we want to stop propagation at each of them, otherwise lots of tokens are getting suggested
+    MySqlParser.RULE_fullId,
+    MySqlParser.RULE_simpleId,
     MySqlParser.RULE_uid,
+    // We don't need to go inside of those rules, we already know that this is a function call
+    MySqlParser.RULE_aggregateWindowedFunction,
+    MySqlParser.RULE_scalarFunctionName, // Maybe also add nonAggregateWindowedFunction?
+    // These functions are very specific, we don't want to suggest them
+    MySqlParser.RULE_specificFunction,
+    MySqlParser.RULE_passwordFunctionClause,
 ]);
 
 class MySqlSymbolTableVisitor extends MySqlParserVisitor<{}> implements ISymbolTableVisitor {

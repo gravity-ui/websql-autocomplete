@@ -31,14 +31,14 @@ options {
 // Top Level Description
 
 root
-    : sqlStatements? (MINUS MINUS)? EOF
+    : sqlStatements? EOF
     ;
 
+// We can omit statement semicolon only if it's the last statement
 sqlStatements
-    : (sqlStatement (MINUS MINUS)? SEMI? | emptyStatement_)* (
-        sqlStatement ((MINUS MINUS)? SEMI)?
-        | emptyStatement_
-    )
+    : sqlStatement SEMI?
+    | sqlStatement SEMI sqlStatements
+    |
     ;
 
 sqlStatement
@@ -49,10 +49,6 @@ sqlStatement
     | preparedStatement
     | administrationStatement
     | utilityStatement
-    ;
-
-emptyStatement_
-    : SEMI
     ;
 
 ddlStatement
@@ -967,7 +963,7 @@ tableSource
 
 tableSourceItem
     : tableName (PARTITION LR_BRACKET uidList RR_BRACKET)? (AS? alias = uid)? (indexHint (COMMA indexHint)*)? # atomTableItem
-    | (selectStatement | LR_BRACKET parenthesisSubquery = selectStatement RR_BRACKET) AS? alias = uid       # subqueryTableItem
+    | (LR_BRACKET parenthesisSubquery = selectStatement RR_BRACKET) AS? alias = uid       # subqueryTableItem
     | LR_BRACKET tableSources RR_BRACKET                                                                    # tableSourcesItem
     ;
 
