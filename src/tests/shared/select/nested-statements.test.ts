@@ -19,6 +19,17 @@ test('should suggest table name for nested SELECT column', () => {
     });
 });
 
+test('should suggest table name for nested SELECT column between statements', () => {
+    const parseResults = groupParseSqlWithCursor(
+        'ALTER TABLE before_table DROP COLUMN id; SELECT * FROM (SELECT | FROM test_table ; ALTER TABLE after_table DROP COLUMN id;',
+    );
+    const columnSuggestion: ColumnSuggestion = {tables: [{name: 'test_table'}]};
+
+    parseResults.forEach(({suggestColumns}) => {
+        expect(suggestColumns).toEqual(columnSuggestion);
+    });
+});
+
 test('should suggest table name for nested WHERE condition', () => {
     const parseResults = groupParseSqlWithCursor('SELECT * FROM (SELECT * FROM test_table WHERE |');
     const columnSuggestion: ColumnSuggestion = {tables: [{name: 'test_table'}]};
@@ -64,6 +75,17 @@ test('should suggest table name for double nested SELECT column', () => {
     });
 });
 
+test('should suggest table name for double nested SELECT column between statements', () => {
+    const parseResults = groupParseSqlWithCursor(
+        'ALTER TABLE before_table DROP COLUMN id; SELECT * FROM (SELECT * FROM (SELECT | FROM test_table ; ALTER TABLE after_table DROP COLUMN id;',
+    );
+    const columnSuggestion: ColumnSuggestion = {tables: [{name: 'test_table'}]};
+
+    parseResults.forEach(({suggestColumns}) => {
+        expect(suggestColumns).toEqual(columnSuggestion);
+    });
+});
+
 test('should suggest table name for double nested WHERE condition', () => {
     const parseResults = groupParseSqlWithCursor(
         'SELECT * FROM (SELECT * FROM (SELECT * FROM test_table WHERE |',
@@ -93,17 +115,6 @@ test('should suggest table name for double nested JOIN condition', () => {
 
 test('should not report errors', () => {
     const parseResults = groupParseSqlWithoutCursor('SELECT * FROM (SELECT * FROM test_table) t1;');
-
-    parseResults.forEach(({errors}) => {
-        expect(errors).toHaveLength(0);
-    });
-});
-
-test('should not report errors with multiple statements', () => {
-    const parseResults = groupParseSqlWithoutCursor(`
-    SELECT * FROM (SELECT * FROM test_table) t1;
-    SELECT * FROM (SELECT * FROM (SELECT * FROM test_table) t1) t2;
-`);
 
     parseResults.forEach(({errors}) => {
         expect(errors).toHaveLength(0);

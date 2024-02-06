@@ -3,6 +3,6 @@
   "include": ["src/index.ts"],
   "exclude": ["node_modules"],
   "compilerOptions": {
-    "emitDeclarationOnly": true,
+    "emitDeclarationOnly": true
   }
 }

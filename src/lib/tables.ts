@@ -16,6 +16,7 @@ export interface TokenDictionary {
     INSERT: number;
     UPDATE: number;
     JOIN: number;
+    SEMICOLON: number;
 }
 
 function getClosingBracketIndex(
@@ -28,7 +29,7 @@ function getClosingBracketIndex(
     while (currentIndex < tokenStream.size) {
         const token = tokenStream.get(currentIndex);
 
-        if (token.type === dictionary.CLOSING_BRACKET) {
+        if (token.type === dictionary.CLOSING_BRACKET || token.type === dictionary.SEMICOLON) {
             return {cursorIndex: token.start, tokenIndex: currentIndex};
         }
 
@@ -59,7 +60,8 @@ export function getTableQueryPosition(
         // We don't want to check nested statement
         if (
             token.type === dictionary.OPENING_BRACKET ||
-            token.type === dictionary.CLOSING_BRACKET
+            token.type === dictionary.CLOSING_BRACKET ||
+            token.type === dictionary.SEMICOLON
         ) {
             if (isAscending) {
                 break;
@@ -115,12 +117,27 @@ export function getTableQueryPosition(
     while (currentIndex >= 0) {
         const token = tokenStream.get(currentIndex);
 
+        if (token.type === dictionary.SEMICOLON) {
+            return undefined;
+        }
+
         if (token.type === dictionary.ALTER) {
-            return {
-                start: token.start,
-                end,
-                type: 'alter',
-            };
+            // If we find another ALTER before, it means that this is ALTER COLUMN
+            // and we don't want to exit here
+            const hasPreviousAlter = hasPreviousToken(
+                tokenStream,
+                dictionary,
+                currentIndex,
+                dictionary.ALTER,
+            );
+
+            if (!hasPreviousAlter) {
+                return {
+                    start: token.start,
+                    end,
+                    type: 'alter',
+                };
+            }
         }
 
         if (token.type === dictionary.INSERT) {
@@ -168,13 +185,19 @@ function getJoinIndex(
 
 export function hasPreviousToken(
     tokenStream: TokenStream,
+    dictionary: TokenDictionary,
     tokenIndex: number,
     tokenType: number,
 ): boolean {
-    let currentIndex = tokenIndex;
+    let currentIndex = tokenIndex - 1;
 
     while (currentIndex > -1) {
         const token = tokenStream.get(currentIndex);
+
+        // This is the end of previous statement, so we want to exit
+        if (token.type === dictionary.SEMICOLON) {
+            return false;
+        }
 
         if (token.type === tokenType) {
             return true;

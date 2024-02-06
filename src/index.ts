@@ -74,7 +74,7 @@ function getColumnSuggestions<
     getParseTree: GetParseTree<P>,
     initialTokenStream: TokenStream,
     cursor: CursorPosition,
-    currentStatement: string,
+    initialQuery: string,
 ): ColumnSuggestion | undefined {
     // Here we need the actual token index, without special logic for spaces
     const realCursorTokenIndex = findCursorTokenIndex(
@@ -97,7 +97,7 @@ function getColumnSuggestions<
     );
 
     if (tableQueryPosition) {
-        const query = currentStatement.slice(tableQueryPosition.start, tableQueryPosition.end);
+        const query = initialQuery.slice(tableQueryPosition.start, tableQueryPosition.end);
 
         const inputStream = CharStreams.fromString(query);
         const lexer = new Lexer(inputStream);
@@ -111,7 +111,7 @@ function getColumnSuggestions<
         visitor.visit(parseTree);
 
         if (explicitlyParseJoin && tableQueryPosition.joinTableQueryPosition) {
-            const joinTableQuery = currentStatement.slice(
+            const joinTableQuery = initialQuery.slice(
                 tableQueryPosition.joinTableQueryPosition.start,
                 tableQueryPosition.joinTableQueryPosition.end,
             );
@@ -218,7 +218,7 @@ export function parseQuery<
                 getParseTree,
                 tokenStream,
                 cursor,
-                currentStatement.statement,
+                query,
             );
         }
 

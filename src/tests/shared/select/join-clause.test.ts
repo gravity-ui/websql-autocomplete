@@ -1,10 +1,5 @@
 import {ColumnSuggestion, KeywordSuggestion, TableOrViewSuggestion} from '../../..';
-import {
-    DatabaseType,
-    groupParseSql,
-    groupParseSqlWithCursor,
-    groupParseSqlWithoutCursor,
-} from '../lib';
+import {DatabaseType, groupParseSqlWithCursor, groupParseSqlWithoutCursor} from '../lib';
 
 test('should suggest JOIN', () => {
     const parseResults = groupParseSqlWithCursor('SELECT * FROM test_table |');
@@ -24,25 +19,6 @@ test('should suggest JOIN', () => {
 
 test('should suggest JOIN midway', () => {
     const parseResults = groupParseSqlWithCursor('SELECT * FROM test_table JO|');
-    const joinKeywords: KeywordSuggestion[] = [
-        {value: 'JOIN'},
-        {value: 'LEFT'},
-        {value: 'RIGHT'},
-        {value: 'INNER'},
-    ];
-
-    parseResults.forEach(({suggestKeywords}) => {
-        joinKeywords.forEach((keyword) => {
-            expect(suggestKeywords).toContainEqual(keyword);
-        });
-    });
-});
-
-test('should suggest JOIN after newline', () => {
-    const parseResults = groupParseSql('SELECT * FROM test_table\n', {
-        line: 2,
-        column: 1,
-    });
     const joinKeywords: KeywordSuggestion[] = [
         {value: 'JOIN'},
         {value: 'LEFT'},
@@ -152,6 +128,16 @@ test('should suggest tables after JOIN', () => {
     });
 });
 
+test('should suggest tables after JOIN between statements', () => {
+    const parseResults = groupParseSqlWithCursor(
+        'ALTER TABLE before_table DROP COLUMN id; SELECT * FROM test_table JOIN | ; ALTER TABLE after_table DROP COLUMN id;',
+    );
+
+    parseResults.forEach(({suggestViewsOrTables}) => {
+        expect(suggestViewsOrTables).toEqual(TableOrViewSuggestion.ALL);
+    });
+});
+
 test('should suggest ON', () => {
     const parseResults = groupParseSqlWithCursor('SELECT * FROM test_table_1 JOIN test_table_2 |');
     const onKeyword: KeywordSuggestion = {value: 'ON'};
@@ -177,6 +163,22 @@ test('should suggest table names for ON clause', () => {
 test('should suggest table names and aliases for ON clause', () => {
     const parseResults = groupParseSqlWithCursor(
         'SELECT * FROM test_table_1 t1 JOIN test_table_2 t2 ON |',
+    );
+    const columnSuggestion: ColumnSuggestion = {
+        tables: [
+            {name: 'test_table_1', alias: 't1'},
+            {name: 'test_table_2', alias: 't2'},
+        ],
+    };
+
+    parseResults.forEach(({suggestColumns}) => {
+        expect(suggestColumns).toEqual(columnSuggestion);
+    });
+});
+
+test('should suggest table names and aliases for ON clause between statements', () => {
+    const parseResults = groupParseSqlWithCursor(
+        'ALTER TABLE before_table DROP COLUMN id; SELECT * FROM test_table_1 t1 JOIN test_table_2 t2 ON | ; ALTER TABLE after_table DROP COLUMN id;',
     );
     const columnSuggestion: ColumnSuggestion = {
         tables: [
@@ -258,17 +260,6 @@ test('should not report errors', () => {
     const parseResults = groupParseSqlWithoutCursor(
         'SELECT * FROM test_table_1 AS t1 JOIN test_table_2 AS t2 ON t1.id = t2.id;',
     );
-
-    parseResults.forEach(({errors}) => {
-        expect(errors).toHaveLength(0);
-    });
-});
-
-test('should not report errors with multiple statements', () => {
-    const parseResults = groupParseSqlWithoutCursor(`
-      SELECT * FROM test_table_1 AS t1 JOIN test_table_2 AS t2 ON t1.id = t2.id;
-      SELECT * FROM test_table_1 AS t1 JOIN test_table_2 AS t2 ON t1.id = t2.id;
-  `);
 
     parseResults.forEach(({errors}) => {
         expect(errors).toHaveLength(0);

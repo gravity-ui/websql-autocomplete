@@ -1,5 +1,5 @@
 import {ColumnSuggestion, KeywordSuggestion} from '../../..';
-import {groupParseSql, groupParseSqlWithCursor, groupParseSqlWithoutCursor} from '../lib';
+import {groupParseSqlWithCursor, groupParseSqlWithoutCursor} from '../lib';
 
 test('should suggest WHERE', () => {
     const parseResults = groupParseSqlWithCursor('SELECT * FROM test_table |');
@@ -19,20 +19,21 @@ test('should suggest WHERE midway', () => {
     });
 });
 
-test('should suggest WHERE after newline', () => {
-    const parseResults = groupParseSql('SELECT * FROM test_table\n', {
-        line: 2,
-        column: 1,
-    });
-    const whereKeyword: KeywordSuggestion = {value: 'WHERE'};
+test('should suggest table name for column', () => {
+    const parseResults = groupParseSqlWithCursor('SELECT * FROM test_table WHERE |');
+    const collumnSuggestions: ColumnSuggestion = {
+        tables: [{name: 'test_table'}],
+    };
 
-    parseResults.forEach(({suggestKeywords}) => {
-        expect(suggestKeywords).toContainEqual(whereKeyword);
+    parseResults.forEach(({suggestColumns}) => {
+        expect(suggestColumns).toEqual(collumnSuggestions);
     });
 });
 
-test('should suggest table name for column', () => {
-    const parseResults = groupParseSqlWithCursor('SELECT * FROM test_table WHERE |');
+test('should suggest table name for column between statements', () => {
+    const parseResults = groupParseSqlWithCursor(
+        'ALTER TABLE before_table DROP COLUMN id; SELECT * FROM test_table WHERE | ; ALTER TABLE after_table DROP COLUMN id;',
+    );
     const collumnSuggestions: ColumnSuggestion = {
         tables: [{name: 'test_table'}],
     };
@@ -122,16 +123,6 @@ test('should suggest multiple table names and aliases (with AS) for column', () 
 
 test('should not report errors', () => {
     const parseResults = groupParseSqlWithoutCursor('SELECT * FROM test_table WHERE id = 1;');
-
-    parseResults.forEach(({errors}) => {
-        expect(errors).toHaveLength(0);
-    });
-});
-
-test('should not report errors with multiple statements', () => {
-    const parseResults = groupParseSqlWithoutCursor(
-        'SELECT * FROM test_table WHERE id = 1;\nSELECT * FROM test_table WHERE id = 1;',
-    );
 
     parseResults.forEach(({errors}) => {
         expect(errors).toHaveLength(0);

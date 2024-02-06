@@ -19,17 +19,18 @@ test('should suggest FROM midway', () => {
     });
 });
 
-test('should suggest FROM after newline', () => {
-    const parseResults = groupParseSqlWithCursor('SELECT * |');
-    const fromKeyword: KeywordSuggestion = {value: 'FROM'};
+test('should suggest ALL tables', () => {
+    const parseResults = groupParseSqlWithCursor('SELECT * FROM |');
 
-    parseResults.forEach(({suggestKeywords}) => {
-        expect(suggestKeywords).toContainEqual(fromKeyword);
+    parseResults.forEach(({suggestViewsOrTables}) => {
+        expect(suggestViewsOrTables).toEqual(TableOrViewSuggestion.ALL);
     });
 });
 
-test('should suggest ALL tables', () => {
-    const parseResults = groupParseSqlWithCursor('SELECT * FROM |');
+test('should suggest ALL tables between statements', () => {
+    const parseResults = groupParseSqlWithCursor(
+        'ALTER TABLE before_table DROP COLUMN id; SELECT * FROM | ; ALTER TABLE after_table DROP COLUMN id;',
+    );
 
     parseResults.forEach(({suggestViewsOrTables}) => {
         expect(suggestViewsOrTables).toEqual(TableOrViewSuggestion.ALL);

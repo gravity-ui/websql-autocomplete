@@ -55,6 +55,7 @@ const tokenDictionary: TokenDictionary = {
     INSERT: ClickHouseParser.INSERT,
     UPDATE: ClickHouseParser.UPDATE,
     JOIN: ClickHouseParser.JOIN,
+    SEMICOLON: ClickHouseParser.SEMICOLON,
 };
 
 // These are keywords that we do not want to show in autocomplete
@@ -144,10 +145,22 @@ function generateSuggestionsFromRules(
                     !ruleData.ruleList.includes(ClickHouseParser.RULE_createStmt) &&
                     !ruleData.ruleList.includes(ClickHouseParser.RULE_columnsExpr)
                 ) {
-                    if (hasPreviousToken(tokenStream, cursorTokenIndex, ClickHouseParser.VIEW)) {
+                    if (
+                        hasPreviousToken(
+                            tokenStream,
+                            tokenDictionary,
+                            cursorTokenIndex,
+                            ClickHouseParser.VIEW,
+                        )
+                    ) {
                         suggestViewsOrTables = TableOrViewSuggestion.VIEWS;
                     } else if (
-                        hasPreviousToken(tokenStream, cursorTokenIndex, ClickHouseParser.TABLE)
+                        hasPreviousToken(
+                            tokenStream,
+                            tokenDictionary,
+                            cursorTokenIndex,
+                            ClickHouseParser.TABLE,
+                        )
                     ) {
                         suggestViewsOrTables = TableOrViewSuggestion.TABLES;
                     } else {

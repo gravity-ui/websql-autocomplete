@@ -26,6 +26,7 @@ const tokenDictionary: TokenDictionary = {
     INSERT: PostgreSqlParser.INSERT,
     UPDATE: PostgreSqlParser.UPDATE,
     JOIN: PostgreSqlParser.JOIN,
+    SEMICOLON: PostgreSqlParser.SEMI,
 };
 
 // These are keywords that we do not want to show in autocomplete
@@ -135,10 +136,20 @@ function generateSuggestionsFromRules(
 
                 // Don't need to check cursorTokenIndex here, because colid is too specific already
                 if (
-                    hasPreviousToken(tokenStream, cursorTokenIndex, PostgreSqlParser.VIEW) &&
+                    hasPreviousToken(
+                        tokenStream,
+                        tokenDictionary,
+                        cursorTokenIndex,
+                        PostgreSqlParser.VIEW,
+                    ) &&
                     // Table name is the first identifier, so if we found one before,
                     // then this is not a table name
-                    !hasPreviousToken(tokenStream, cursorTokenIndex, PostgreSqlParser.Identifier) &&
+                    !hasPreviousToken(
+                        tokenStream,
+                        tokenDictionary,
+                        cursorTokenIndex,
+                        PostgreSqlParser.Identifier,
+                    ) &&
                     (ruleData.ruleList.includes(PostgreSqlParser.RULE_altertablestmt) ||
                         ruleData.ruleList.includes(PostgreSqlParser.RULE_refreshmatviewstmt) ||
                         ruleData.ruleList.includes(PostgreSqlParser.RULE_renamestmt) ||
@@ -148,7 +159,12 @@ function generateSuggestionsFromRules(
                 ) {
                     suggestViewsOrTables = TableOrViewSuggestion.VIEWS;
                 } else if (
-                    hasPreviousToken(tokenStream, cursorTokenIndex, PostgreSqlParser.TABLE) &&
+                    hasPreviousToken(
+                        tokenStream,
+                        tokenDictionary,
+                        cursorTokenIndex,
+                        PostgreSqlParser.TABLE,
+                    ) &&
                     (ruleData.ruleList.includes(PostgreSqlParser.RULE_dropstmt) || canSuggestTables)
                 ) {
                     suggestViewsOrTables = TableOrViewSuggestion.TABLES;

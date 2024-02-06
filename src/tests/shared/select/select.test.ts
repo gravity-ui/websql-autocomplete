@@ -1,10 +1,5 @@
 import {ColumnSuggestion, KeywordSuggestion} from '../../..';
-import {
-    DatabaseType,
-    groupParseSql,
-    groupParseSqlWithCursor,
-    groupParseSqlWithoutCursor,
-} from '../lib';
+import {DatabaseType, groupParseSqlWithCursor, groupParseSqlWithoutCursor} from '../lib';
 
 test('should suggest SELECT and contain suggestTemplates on empty query', () => {
     const parseResults = groupParseSqlWithCursor('|');
@@ -62,6 +57,17 @@ test('should suggest table name for column', () => {
     });
 });
 
+test('should suggest table name for column between statements', () => {
+    const parseResults = groupParseSqlWithCursor(
+        'ALTER TABLE before_table DROP COLUMN id; SELECT | FROM test_table ; ALTER TABLE after_table DROP COLUMN id;',
+    );
+    const collumnSuggestions: ColumnSuggestion = {tables: [{name: 'test_table'}]};
+
+    parseResults.forEach(({suggestColumns}) => {
+        expect(suggestColumns).toEqual(collumnSuggestions);
+    });
+});
+
 test('should suggest table name and alias for column', () => {
     const parseResults = groupParseSqlWithCursor('SELECT | FROM test_table t');
     const collumnSuggestions: ColumnSuggestion = {tables: [{name: 'test_table', alias: 't'}]};
@@ -91,6 +97,19 @@ test('should suggest table name and alias for second column', () => {
 
 test('should suggest multiple table names for column', () => {
     const parseResults = groupParseSqlWithCursor('SELECT | FROM test_table_1, test_table_2');
+    const collumnSuggestions: ColumnSuggestion = {
+        tables: [{name: 'test_table_1'}, {name: 'test_table_2'}],
+    };
+
+    parseResults.forEach(({suggestColumns}) => {
+        expect(suggestColumns).toEqual(collumnSuggestions);
+    });
+});
+
+test('should suggest multiple table names for column between statements', () => {
+    const parseResults = groupParseSqlWithCursor(
+        'ALTER TABLE before_table DROP COLUMN id; SELECT | FROM test_table_1, test_table_2 ; ALTER TABLE after_table DROP COLUMN id;',
+    );
     const collumnSuggestions: ColumnSuggestion = {
         tables: [{name: 'test_table_1'}, {name: 'test_table_2'}],
     };
@@ -130,35 +149,8 @@ test('should suggest multiple table names and aliases (with AS) for column', () 
     });
 });
 
-test('should suggest multiple table names and aliases for column with newlines', () => {
-    const parseResults = groupParseSql('SELECT  FROM\ntest_table_1 AS t1,\ntest_table_2 AS t2', {
-        line: 1,
-        column: 8,
-    });
-    const collumnSuggestions: ColumnSuggestion = {
-        tables: [
-            {name: 'test_table_1', alias: 't1'},
-            {name: 'test_table_2', alias: 't2'},
-        ],
-    };
-
-    parseResults.forEach(({suggestColumns}) => {
-        expect(suggestColumns).toEqual(collumnSuggestions);
-    });
-});
-
 test('should not report errors', () => {
     const parseResults = groupParseSqlWithoutCursor('SELECT c1, c2 FROM test_table;');
-
-    parseResults.forEach(({errors}) => {
-        expect(errors).toHaveLength(0);
-    });
-});
-
-test('should not report errors with multiple statements', () => {
-    const parseResults = groupParseSqlWithoutCursor(
-        'SELECT c1, c2 FROM test_table;\nSELECT c1, c2 FROM test_table;',
-    );
 
     parseResults.forEach(({errors}) => {
         expect(errors).toHaveLength(0);

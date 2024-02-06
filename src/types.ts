@@ -3,9 +3,9 @@ import {
     CharStream,
     CommonTokenStream,
     Lexer as LexerType,
-    Parser as ParserType,
     ParseTree,
-    TokenStream
+    Parser as ParserType,
+    TokenStream,
 } from 'antlr4ng';
 import * as c3 from 'antlr4-c3';
 
@@ -70,13 +70,13 @@ export interface AutocompleteData<
     P extends ParserType,
     S extends ISymbolTableVisitor & AbstractParseTreeVisitor<{}>,
 > {
-    Lexer: LexerConstructor<L>,
-    Parser: ParserConstructor<P>,
-    SymbolTableVisitor: SymbolTableVisitorConstructor<S>,
-    getParseTree: GetParseTree<P>,
-    tokenDictionary: TokenDictionary,
-    generateSuggestionsFromRules: GenerateSuggestionsFromRules,
-    ignoredTokens: Set<number>,
-    preferredRules: Set<number>,
-    explicitlyParseJoin: boolean,
+    Lexer: LexerConstructor<L>;
+    Parser: ParserConstructor<P>;
+    SymbolTableVisitor: SymbolTableVisitorConstructor<S>;
+    getParseTree: GetParseTree<P>;
+    tokenDictionary: TokenDictionary;
+    generateSuggestionsFromRules: GenerateSuggestionsFromRules;
+    ignoredTokens: Set<number>;
+    preferredRules: Set<number>;
+    explicitlyParseJoin: boolean;
 }

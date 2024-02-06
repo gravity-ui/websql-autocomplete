@@ -1,7 +1,7 @@
 import {KeywordSuggestion} from '../../..';
 import {parseClickHouseQueryWithCursor} from '../../shared/lib';
 
-// TODO This doesn't work because ClickHouse grammar doesn't have PLAN and PIPELAN
+// TODO This doesn't work because ClickHouse grammar doesn't have PLAN and PIPELINE
 // TODO Also current ClickHouse suggestTemplates with EXPLAIN autocomplete is broken
 test.skip('should suggest keywords after EXPLAIN', () => {
     const parseResults = parseClickHouseQueryWithCursor('EXPLAIN |');

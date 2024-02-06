@@ -22,6 +22,7 @@ const tokenDictionary: TokenDictionary = {
     INSERT: MySqlParser.INSERT,
     UPDATE: MySqlParser.UPDATE,
     JOIN: MySqlParser.JOIN,
+    SEMICOLON: MySqlParser.SEMI,
 };
 
 // These are keywords that we do not want to show in autocomplete
@@ -133,9 +134,23 @@ function generateSuggestionsFromRules(
                     cursorTokenIndex === ruleData.startTokenIndex &&
                     !ruleData.ruleList.includes(MySqlParser.RULE_createTable)
                 ) {
-                    if (hasPreviousToken(tokenStream, cursorTokenIndex, MySqlParser.VIEW)) {
+                    if (
+                        hasPreviousToken(
+                            tokenStream,
+                            tokenDictionary,
+                            cursorTokenIndex,
+                            MySqlParser.VIEW,
+                        )
+                    ) {
                         suggestViewsOrTables = TableOrViewSuggestion.VIEWS;
-                    } else if (hasPreviousToken(tokenStream, cursorTokenIndex, MySqlParser.TABLE)) {
+                    } else if (
+                        hasPreviousToken(
+                            tokenStream,
+                            tokenDictionary,
+                            cursorTokenIndex,
+                            MySqlParser.TABLE,
+                        )
+                    ) {
                         suggestViewsOrTables = TableOrViewSuggestion.TABLES;
                     } else {
                         suggestViewsOrTables = TableOrViewSuggestion.ALL;
@@ -146,7 +161,12 @@ function generateSuggestionsFromRules(
             case MySqlParser.RULE_fullId: {
                 if (
                     cursorTokenIndex === ruleData.startTokenIndex &&
-                    hasPreviousToken(tokenStream, cursorTokenIndex, MySqlParser.VIEW) &&
+                    hasPreviousToken(
+                        tokenStream,
+                        tokenDictionary,
+                        cursorTokenIndex,
+                        MySqlParser.VIEW,
+                    ) &&
                     (ruleData.ruleList.includes(MySqlParser.RULE_alterView) ||
                         ruleData.ruleList.includes(MySqlParser.RULE_dropView))
                 ) {
@@ -173,7 +193,12 @@ function generateSuggestionsFromRules(
                 if (
                     cursorTokenIndex === ruleData.startTokenIndex &&
                     ((ruleData.ruleList.includes(MySqlParser.RULE_alterSpecification) &&
-                        !hasPreviousToken(tokenStream, cursorTokenIndex, MySqlParser.ADD)) ||
+                        !hasPreviousToken(
+                            tokenStream,
+                            tokenDictionary,
+                            cursorTokenIndex,
+                            MySqlParser.ADD,
+                        )) ||
                         ruleData.ruleList.includes(MySqlParser.RULE_indexColumnName))
                 ) {
                     suggestColumns = true;
