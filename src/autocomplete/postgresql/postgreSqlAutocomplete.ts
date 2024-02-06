@@ -134,7 +134,11 @@ function generateSuggestionsFromRules(
                     (isInsideQualifiedName ||
                         ruleData.ruleList.includes(PostgreSqlParser.RULE_func_table));
 
-                // Don't need to check cursorTokenIndex here, because colid is too specific already
+                // We need to check cursorTokenIndex here, because colid -> identifier might have multiple tokens
+                if (cursorTokenIndex !== ruleData.startTokenIndex) {
+                    break;
+                }
+
                 if (
                     hasPreviousToken(
                         tokenStream,

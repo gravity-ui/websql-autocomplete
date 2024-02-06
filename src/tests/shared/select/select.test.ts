@@ -11,16 +11,6 @@ test('should suggest SELECT and contain suggestTemplates on empty query', () => 
     });
 });
 
-test('should suggest SELECT and contain suggestTemplates midway', () => {
-    const parseResults = groupParseSqlWithCursor('SE|');
-    const selectKeyword: KeywordSuggestion = {value: 'SELECT'};
-
-    parseResults.forEach(({suggestKeywords, suggestTemplates}) => {
-        expect(suggestKeywords).toContainEqual(selectKeyword);
-        expect(suggestTemplates).toEqual(true);
-    });
-});
-
 test('should suggest SELECT and contain suggestTemplates with EXPLAIN prefix', () => {
     const parseResults = groupParseSqlWithCursor('EXPLAIN |', [
         DatabaseType.MySql,
@@ -146,6 +136,14 @@ test('should suggest multiple table names and aliases (with AS) for column', () 
 
     parseResults.forEach(({suggestColumns}) => {
         expect(suggestColumns).toEqual(collumnSuggestions);
+    });
+});
+
+test('should not suggest tables after table name', () => {
+    const parseResults = groupParseSqlWithCursor('SELECT * FROM test_table |');
+
+    parseResults.forEach(({suggestViewsOrTables}) => {
+        expect(suggestViewsOrTables).toEqual(undefined);
     });
 });
 

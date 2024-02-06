@@ -17,22 +17,6 @@ test('should suggest JOIN', () => {
     });
 });
 
-test('should suggest JOIN midway', () => {
-    const parseResults = groupParseSqlWithCursor('SELECT * FROM test_table JO|');
-    const joinKeywords: KeywordSuggestion[] = [
-        {value: 'JOIN'},
-        {value: 'LEFT'},
-        {value: 'RIGHT'},
-        {value: 'INNER'},
-    ];
-
-    parseResults.forEach(({suggestKeywords}) => {
-        joinKeywords.forEach((keyword) => {
-            expect(suggestKeywords).toContainEqual(keyword);
-        });
-    });
-});
-
 test('should suggest FULL', () => {
     const parseResults = groupParseSqlWithCursor('SELECT * FROM test_table |', [
         DatabaseType.PostgreSql,

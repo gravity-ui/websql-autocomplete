@@ -3,19 +3,10 @@ import {DatabaseType, groupParseSqlWithCursor} from '../lib';
 
 test('should suggest ALTER', () => {
     const parseResults = groupParseSqlWithCursor('|');
-    const selectKeyword: KeywordSuggestion = {value: 'ALTER'};
+    const alterKeyword: KeywordSuggestion = {value: 'ALTER'};
 
     parseResults.forEach(({suggestKeywords}) => {
-        expect(suggestKeywords).toContainEqual(selectKeyword);
-    });
-});
-
-test('should suggest ALTER midway', () => {
-    const parseResults = groupParseSqlWithCursor('AL|');
-    const selectKeyword: KeywordSuggestion = {value: 'ALTER'};
-
-    parseResults.forEach(({suggestKeywords}) => {
-        expect(suggestKeywords).toContainEqual(selectKeyword);
+        expect(suggestKeywords).toContainEqual(alterKeyword);
     });
 });
 

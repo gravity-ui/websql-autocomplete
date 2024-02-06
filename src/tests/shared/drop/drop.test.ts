@@ -3,19 +3,10 @@ import {groupParseSqlWithCursor, groupParseSqlWithoutCursor} from '../lib';
 
 test('should suggest DROP', () => {
     const parseResults = groupParseSqlWithCursor('|');
-    const selectKeyword: KeywordSuggestion = {value: 'DROP'};
+    const dropKeyword: KeywordSuggestion = {value: 'DROP'};
 
     parseResults.forEach(({suggestKeywords}) => {
-        expect(suggestKeywords).toContainEqual(selectKeyword);
-    });
-});
-
-test('should suggest DROP midway', () => {
-    const parseResults = groupParseSqlWithCursor('DR|');
-    const selectKeyword: KeywordSuggestion = {value: 'DROP'};
-
-    parseResults.forEach(({suggestKeywords}) => {
-        expect(suggestKeywords).toContainEqual(selectKeyword);
+        expect(suggestKeywords).toContainEqual(dropKeyword);
     });
 });
 

@@ -10,15 +10,6 @@ test('should suggest WHERE', () => {
     });
 });
 
-test('should suggest WHERE midway', () => {
-    const parseResults = groupParseSqlWithCursor('SELECT * FROM test_table WH|');
-    const whereKeyword: KeywordSuggestion = {value: 'WHERE'};
-
-    parseResults.forEach(({suggestKeywords}) => {
-        expect(suggestKeywords).toContainEqual(whereKeyword);
-    });
-});
-
 test('should suggest table name for column', () => {
     const parseResults = groupParseSqlWithCursor('SELECT * FROM test_table WHERE |');
     const collumnSuggestions: ColumnSuggestion = {

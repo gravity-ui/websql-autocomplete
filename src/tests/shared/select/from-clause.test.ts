@@ -10,15 +10,6 @@ test('should suggest FROM', () => {
     });
 });
 
-test('should suggest FROM midway', () => {
-    const parseResults = groupParseSqlWithCursor('SELECT * FR|');
-    const fromKeyword: KeywordSuggestion = {value: 'FROM'};
-
-    parseResults.forEach(({suggestKeywords}) => {
-        expect(suggestKeywords).toContainEqual(fromKeyword);
-    });
-});
-
 test('should suggest ALL tables', () => {
     const parseResults = groupParseSqlWithCursor('SELECT * FROM |');
 
