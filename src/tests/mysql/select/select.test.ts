@@ -118,10 +118,26 @@ test('should suggest properly after ORDER', () => {
     expect(parseResults.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
+// TODO: fix expression rule, should only suggest columns
+test.skip('should suggest properly after ORDER BY', () => {
+    const parseResults = parseMySqlQueryWithCursor('SELECT * FROM test_table as t ORDER BY |');
+
+    const keywordsSuggestion: KeywordSuggestion[] = [];
+    expect(parseResults.suggestKeywords).toEqual(keywordsSuggestion);
+});
+
 test('should suggest properly after GROUP', () => {
     const parseResults = parseMySqlQueryWithCursor('SELECT * FROM test_table as t GROUP |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [{value: 'BY'}];
+    expect(parseResults.suggestKeywords).toEqual(keywordsSuggestion);
+});
+
+// TODO: fix expression rule, should only suggest columns
+test.skip('should suggest properly after GROUP BY', () => {
+    const parseResults = parseMySqlQueryWithCursor('SELECT * FROM test_table as t GROUP BY |');
+
+    const keywordsSuggestion: KeywordSuggestion[] = [];
     expect(parseResults.suggestKeywords).toEqual(keywordsSuggestion);
 });
 

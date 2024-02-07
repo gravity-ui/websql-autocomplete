@@ -936,7 +936,7 @@ singleUpdateStatement
     ;
 
 multipleUpdateStatement
-    : UPDATE priority = LOW_PRIORITY? IGNORE? tableSources SET updatedElement (COMMA updatedElement)* (
+    : UPDATE priority = LOW_PRIORITY? IGNORE? tableNames SET updatedElement (COMMA updatedElement)* (
         WHERE expression
     )?
     ;
@@ -2010,6 +2010,10 @@ fullId
 
 tableName
     : fullId
+    ;
+
+tableNames
+    : tableName (COMMA tableName)*
     ;
 
 roleName
