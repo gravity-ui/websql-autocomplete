@@ -10,6 +10,7 @@ import {
 } from '../../types.js';
 import {PostgreSqlLexer} from './generated/PostgreSqlLexer.js';
 import {
+    Insert_targetContext,
     PostgreSqlParser,
     Relation_exprContext,
     Table_refContext,
@@ -49,14 +50,27 @@ function getIgnoredTokens(): number[] {
         tokens.push(i);
     }
 
+    tokens.push(PostgreSqlParser.EOF);
+
     return tokens;
 }
 
 const ignoredTokens = new Set(getIgnoredTokens());
 
 const preferredRules = new Set([
-    PostgreSqlParser.RULE_builtin_function_name,
     PostgreSqlParser.RULE_colid,
+    PostgreSqlParser.RULE_func_name,
+    PostgreSqlParser.RULE_func_expr_common_subexpr,
+
+    // All of these are identifier names, we don't want to suggest them
+    PostgreSqlParser.RULE_identifier,
+    PostgreSqlParser.RULE_plsqlvariablename,
+    PostgreSqlParser.RULE_consttypename,
+    PostgreSqlParser.RULE_col_name_keyword,
+    PostgreSqlParser.RULE_unreserved_keyword,
+    PostgreSqlParser.RULE_plsql_unreserved_keyword,
+    PostgreSqlParser.RULE_type_func_name_keyword,
+    PostgreSqlParser.RULE_reserved_keyword,
 ]);
 
 class PostgreSqlSymbolTableVisitor
@@ -104,6 +118,23 @@ class PostgreSqlSymbolTableVisitor
 
         return this.visitChildren(context) as {};
     };
+
+    visitInsert_target = (context: Insert_targetContext): {} => {
+        try {
+            this.symbolTable.addNewSymbolOfType(
+                TableSymbol,
+                this.scope,
+                context.qualified_name()?.getText() || '',
+                context.colid()?.getText(),
+            );
+        } catch (error) {
+            if (!(error instanceof c3.DuplicateSymbolError)) {
+                throw error;
+            }
+        }
+
+        return this.visitChildren(context) as {};
+    };
 }
 
 function generateSuggestionsFromRules(
@@ -118,10 +149,13 @@ function generateSuggestionsFromRules(
 
     for (const [ruleId, ruleData] of rules) {
         switch (ruleId) {
-            case PostgreSqlParser.RULE_builtin_function_name: {
-                suggestFunctions = true;
-                // TODO Not sure yet how to specifically find aggregate functions
-                suggestAggregateFunctions = true;
+            case PostgreSqlParser.RULE_func_expr_common_subexpr:
+            case PostgreSqlParser.RULE_func_name: {
+                if (cursorTokenIndex === ruleData.startTokenIndex) {
+                    suggestFunctions = true;
+                    // TODO Not sure yet how to specifically find aggregate functions
+                    suggestAggregateFunctions = true;
+                }
                 break;
             }
             case PostgreSqlParser.RULE_colid: {
@@ -174,7 +208,10 @@ function generateSuggestionsFromRules(
                     suggestViewsOrTables = TableOrViewSuggestion.TABLES;
                 } else if (canSuggestTables) {
                     suggestViewsOrTables = TableOrViewSuggestion.ALL;
-                } else {
+                } else if (
+                    !ruleData.ruleList.includes(PostgreSqlParser.RULE_select_limit_value) &&
+                    !ruleData.ruleList.includes(PostgreSqlParser.RULE_select_offset_value)
+                ) {
                     suggestColumns = true;
                 }
                 break;
@@ -195,10 +232,8 @@ function getParseTree(parser: PostgreSqlParser, type?: TableQueryPosition['type'
             return parser.non_ansi_join();
         case 'alter':
             return parser.altertablestmt();
-        // INSERT doesn't work for now, for some reason any INSERT statement throws error
         case 'insert':
-            return parser.insert_target();
-        // UPDATE does work with suggestions but throws error for some reason
+            return parser.insertstmt();
         case 'update':
             return parser.updatestmt();
     }

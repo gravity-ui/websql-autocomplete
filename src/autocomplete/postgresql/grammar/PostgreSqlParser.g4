@@ -1,23 +1,17 @@
 /*
-PostgreSQL grammar.
-The MIT License (MIT).
-Copyright (c) 2021-2023, Oleksii Kovalov (Oleksii.Kovalov@outlook.com).
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
-*/
+ PostgreSQL grammar. The MIT License (MIT). Copyright (c) 2021-2023, Oleksii Kovalov
+ (Oleksii.Kovalov@outlook.com). Permission is hereby granted, free of charge, to any person
+ obtaining a copy of this software and associated documentation files (the "Software"), to deal in
+ the Software without restriction, including without limitation the rights to use, copy, modify,
+ merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons
+ to whom the Software is furnished to do so, subject to the following conditions: The above
+ copyright notice and this permission notice shall be included in all copies or substantial portions
+ of the Software. THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR
+ PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+ FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ */
 
 // $antlr-format alignTrailingComments true, columnLimit 150, minEmptyLines 1, maxEmptyLinesToKeep 1, reflowComments false, useTab false
 // $antlr-format allowShortRulesOnASingleLine false, allowShortBlocksOnASingleLine true, alignSemicolons hanging, alignColons hanging
@@ -36,19 +30,16 @@ options {
 }
 
 root
-    : stmtblock EOF
+    : stmtmulti? EOF
     ;
 
 plsqlroot
     : pl_function
     ;
 
-stmtblock
-    : stmtmulti
-    ;
-
 stmtmulti
-    : (stmt SEMI?)*
+    : stmt SEMI?
+    | stmt SEMI stmtmulti
     ;
 
 stmt
@@ -2800,7 +2791,7 @@ deallocatestmt
     ;
 
 insertstmt
-    : opt_with_clause INSERT INTO insert_target insert_rest opt_on_conflict returning_clause
+    : with_clause? INSERT INTO insert_target insert_rest opt_on_conflict returning_clause
     ;
 
 insert_target
@@ -2864,7 +2855,7 @@ merge_delete_clause
     ;
 
 deletestmt
-    : opt_with_clause DELETE_P FROM relation_expr_opt_alias using_clause where_or_current_clause returning_clause
+    : with_clause? DELETE_P FROM relation_expr_opt_alias using_clause where_or_current_clause returning_clause
     ;
 
 using_clause
@@ -2900,7 +2891,7 @@ opt_nowait_or_skip
     ;
 
 updatestmt
-    : opt_with_clause UPDATE relation_expr_opt_alias SET set_clause_list from_clause where_or_current_clause returning_clause
+    : with_clause? UPDATE relation_expr_opt_alias SET set_clause_list from_clause where_or_current_clause returning_clause
     ;
 
 set_clause_list
@@ -2976,11 +2967,15 @@ simple_select_intersect
     : simple_select_pramary (INTERSECT all_or_distinct simple_select_pramary)*
     ;
 
+simple_select_start
+    : target_list into_clause?
+    | all_clause opt_target_list into_clause?
+    | distinct_clause target_list into_clause?
+    | into_clause
+    ;
+
 simple_select_pramary
-    : (
-        SELECT (opt_all_clause into_clause opt_target_list | distinct_clause target_list) into_clause from_clause where_clause group_clause
-            having_clause window_clause
-    )
+    : SELECT simple_select_start from_clause where_clause group_clause having_clause window_clause
     | values_clause
     | TABLE relation_expr
     | select_with_parens
@@ -3004,14 +2999,8 @@ opt_materialized
     |
     ;
 
-opt_with_clause
-    : with_clause
-    |
-    ;
-
 into_clause
     : INTO (opt_strict opttempTableName | into_target)
-    |
     ;
 
 opt_strict
@@ -3041,9 +3030,8 @@ distinct_clause
     : DISTINCT (ON OPEN_PAREN expr_list CLOSE_PAREN)?
     ;
 
-opt_all_clause
+all_clause
     : ALL
-    |
     ;
 
 opt_sort_clause
@@ -4098,8 +4086,8 @@ target_list
     ;
 
 target_el
-    : a_expr (AS collabel | identifier |) # target_label
-    | STAR                                # target_star
+    : STAR                                # target_star
+    | a_expr (AS collabel | identifier |) # target_label
     ;
 
 qualified_name_list
@@ -5555,7 +5543,7 @@ plsql_unreserved_keyword
     ;
 
 sql_expression
-    : opt_target_list into_clause from_clause where_clause group_clause having_clause window_clause
+    : opt_target_list into_clause? from_clause where_clause group_clause having_clause window_clause
     ;
 
 expr_until_then

@@ -122,8 +122,7 @@ test('should suggest table name for column after WHERE between statements', () =
 test('should not report errors', () => {
     const parseResults = groupParseSqlWithoutCursor('UPDATE test_table SET id = 1 WHERE id = 1;', [
         DatabaseType.MySql,
-        // TODO PostgreSQL for some reason throws error on update statement
-        // DatabaseType.PostgreSql,
+        DatabaseType.PostgreSql,
     ]);
 
     parseResults.forEach(({errors}) => {
