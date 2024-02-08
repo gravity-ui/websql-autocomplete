@@ -69,6 +69,8 @@ const preferredRules = new Set([
     MySqlParser.RULE_fullColumnName,
     // We don't need to go inside of it, we already know that this is a table name
     MySqlParser.RULE_tableName,
+    // We don't need to go inside of it, we already know that this is a username and it can be anything
+    MySqlParser.RULE_simpleUserName,
     // TODO: merge with uid???
     // We don't need to go inside of next rules, we already know that this is identifier of sorts.
     // There are multiple ids, because different rules use different ids, and we want to stop propagation at each of them, otherwise lots of tokens are getting suggested
