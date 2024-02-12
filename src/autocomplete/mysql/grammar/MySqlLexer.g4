@@ -19,7 +19,8 @@
  OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-// $antlr-format alignTrailingComments true, columnLimit 150, maxEmptyLinesToKeep 1, reflowComments false, useTab false
+
+// $antlr-format alignTrailingComments true, columnLimit 500, maxEmptyLinesToKeep 1, reflowComments false, useTab false
 // $antlr-format allowShortRulesOnASingleLine true, allowShortBlocksOnASingleLine true, minEmptyLines 0, alignSemicolons ownLine
 // $antlr-format alignColons trailing, singleLineOverrulesHangingColon true, alignLexerCommands true, alignLabels true, alignTrailers true
 
@@ -36,12 +37,10 @@ channels {
 
 // SKIP
 
-SPACE              : [ \t\r\n]+     -> channel(HIDDEN);
-SPEC_MYSQL_COMMENT : '/*!' .+? '*/' -> channel(MYSQLCOMMENT);
-COMMENT_INPUT      : '/*' .*? '*/'  -> channel(HIDDEN);
-LINE_COMMENT:
-    (('--' [ \t]* | '#') ~[\r\n]* ('\r'? '\n' | EOF) | '--' ('\r'? '\n' | EOF)) -> channel(HIDDEN)
-;
+SPACE              : [ \t\r\n]+                                                                  -> channel(HIDDEN);
+SPEC_MYSQL_COMMENT : '/*!' .+? '*/'                                                              -> channel(MYSQLCOMMENT);
+COMMENT_INPUT      : '/*' .*? '*/'                                                               -> channel(HIDDEN);
+LINE_COMMENT       : (('--' [ \t]* | '#') ~[\r\n]* ('\r'? '\n' | EOF) | '--' ('\r'? '\n' | EOF)) -> channel(HIDDEN);
 
 // Keywords
 // Common Keywords
@@ -1262,12 +1261,7 @@ STRING_LITERAL                : DQUOTA_STRING | SQUOTA_STRING | BQUOTA_STRING;
 DECIMAL_LITERAL               : DEC_DIGIT+;
 HEXADECIMAL_LITERAL           : 'X' '\'' (HEX_DIGIT HEX_DIGIT)+ '\'' | '0X' HEX_DIGIT+;
 
-REAL_LITERAL:
-    DEC_DIGIT* '.' DEC_DIGIT+
-    | DEC_DIGIT+ '.' EXPONENT_NUM_PART
-    | DEC_DIGIT* '.' (DEC_DIGIT+ EXPONENT_NUM_PART)
-    | DEC_DIGIT+ EXPONENT_NUM_PART
-;
+REAL_LITERAL        : DEC_DIGIT* '.' DEC_DIGIT+ | DEC_DIGIT+ '.' EXPONENT_NUM_PART | DEC_DIGIT* '.' (DEC_DIGIT+ EXPONENT_NUM_PART) | DEC_DIGIT+ EXPONENT_NUM_PART;
 NULL_SPEC_LITERAL   : '\\' 'N';
 BIT_STRING          : BIT_STRING_L;
 STRING_CHARSET_NAME : '_' CHARSET_NAME;

@@ -24,7 +24,8 @@
  * Laboratories, LLC.
  */
 
-// $antlr-format alignTrailingComments true, columnLimit 150, maxEmptyLinesToKeep 1, reflowComments false, useTab false
+
+// $antlr-format alignTrailingComments true, columnLimit 500, maxEmptyLinesToKeep 1, reflowComments false, useTab false
 // $antlr-format allowShortRulesOnASingleLine true, allowShortBlocksOnASingleLine true, minEmptyLines 0, alignSemicolons ownLine
 // $antlr-format alignColons trailing, singleLineOverrulesHangingColon true, alignLexerCommands true, alignLabels true, alignTrailers true
 
@@ -120,12 +121,8 @@ PARAM: '$' ([0-9])+;
 
 Operator:
     (
-        (
-            OperatorCharacter
-            | ('+' | '-' {this.checkLA('-')}?)+ (OperatorCharacter | '/' {this.checkLA('*')}?)
-            | '/'        {this.checkLA('*')}?
-        )+
-        | // special handling for the single-character operators + and -
+        ( OperatorCharacter | ('+' | '-' {this.checkLA('-')}?)+ (OperatorCharacter | '/' {this.checkLA('*')}?) | '/' {this.checkLA('*')}?)+
+        |                                // special handling for the single-character operators + and -
         [+-]
     )
     //TODO somehow rewrite this part without using Actions
@@ -144,12 +141,7 @@ Operator:
  *   4. A suffix sequence of + and - characters.
  */
 
-OperatorEndingWithPlusMinus:
-    (OperatorCharacterNotAllowPlusMinusAtEnd | '-' {this.checkLA('-')}? | '/' {this.checkLA('*')}?)* OperatorCharacterAllowPlusMinusAtEnd Operator? (
-        '+'
-        | '-' {this.checkLA('-')}?
-    )+        -> type (Operator)
-;
+OperatorEndingWithPlusMinus: (OperatorCharacterNotAllowPlusMinusAtEnd | '-' {this.checkLA('-')}? | '/' {this.checkLA('*')}?)* OperatorCharacterAllowPlusMinusAtEnd Operator? ( '+' | '-' {this.checkLA('-')}?)+ -> type (Operator);
 // Each of the following fragment rules omits the +, -, and / characters, which must always be handled in a special way
 
 // by the operator rules above.
@@ -1526,13 +1518,7 @@ Integral: Digits;
 
 NumericFail: Digits '..' {this.HandleNumericFail();};
 
-Numeric:
-    Digits '.' Digits? /*? replaced with + to solve problem with DOT_DOT .. but this surely must be rewriten */ (
-        'E' [+-]? Digits
-    )?
-    | '.' Digits ('E' [+-]? Digits)?
-    | Digits 'E' [+-]? Digits
-;
+Numeric: Digits '.' Digits? /*? replaced with + to solve problem with DOT_DOT .. but this surely must be rewriten */ ( 'E' [+-]? Digits)? | '.' Digits ('E' [+-]? Digits)? | Digits 'E' [+-]? Digits;
 
 fragment Digits: [0-9]+;
 
@@ -1556,9 +1542,7 @@ Newline: ('\r' '\n'? | '\n') -> channel (HIDDEN);
 
 LineComment: '--' ~ [\r\n]* -> channel (HIDDEN);
 
-BlockComment:
-    ('/*' ('/'* BlockComment | ~ [/*] | '/'+ ~ [/*] | '*'+ ~ [/*])* '*'* '*/') -> channel (HIDDEN)
-;
+BlockComment: ('/*' ('/'* BlockComment | ~ [/*] | '/'+ ~ [/*] | '*'+ ~ [/*])* '*'* '*/') -> channel (HIDDEN);
 
 UnterminatedBlockComment:
     '/*' (
@@ -1640,9 +1624,7 @@ fragment InvalidEscapeStringText: ('\'\'' | '\\' . | ~ ['\\])*;
 mode AfterEscapeStringConstantMode;
 AfterEscapeStringConstantMode_Whitespace: Whitespace -> type (Whitespace), channel (HIDDEN);
 
-AfterEscapeStringConstantMode_Newline:
-    Newline -> type (Newline), channel (HIDDEN), mode (AfterEscapeStringConstantWithNewlineMode)
-;
+AfterEscapeStringConstantMode_Newline: Newline -> type (Newline), channel (HIDDEN), mode (AfterEscapeStringConstantWithNewlineMode);
 
 AfterEscapeStringConstantMode_NotContinued:
      {} // intentionally empty
@@ -1650,15 +1632,11 @@ AfterEscapeStringConstantMode_NotContinued:
 ;
 
 mode AfterEscapeStringConstantWithNewlineMode;
-AfterEscapeStringConstantWithNewlineMode_Whitespace:
-    Whitespace -> type (Whitespace), channel (HIDDEN)
-;
+AfterEscapeStringConstantWithNewlineMode_Whitespace: Whitespace -> type (Whitespace), channel (HIDDEN);
 
 AfterEscapeStringConstantWithNewlineMode_Newline: Newline -> type (Newline), channel (HIDDEN);
 
-AfterEscapeStringConstantWithNewlineMode_Continued:
-    '\'' -> more, mode (EscapeStringConstantMode)
-;
+AfterEscapeStringConstantWithNewlineMode_Continued: '\'' -> more, mode (EscapeStringConstantMode);
 
 AfterEscapeStringConstantWithNewlineMode_NotContinued:
      {} // intentionally empty
