@@ -19,7 +19,6 @@
  OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-
 // $antlr-format alignTrailingComments true, columnLimit 500, maxEmptyLinesToKeep 1, reflowComments false, useTab false
 // $antlr-format allowShortRulesOnASingleLine true, allowShortBlocksOnASingleLine true, minEmptyLines 0, alignSemicolons ownLine
 // $antlr-format alignColons trailing, singleLineOverrulesHangingColon true, alignLexerCommands true, alignLabels true, alignTrailers true
@@ -38,9 +37,9 @@ channels {
 // SKIP
 
 SPACE              : [ \t\r\n]+                                                                  -> channel(HIDDEN);
-SPEC_MYSQL_COMMENT : '/*!' .+? '*/'                                                              -> channel(MYSQLCOMMENT);
-COMMENT_INPUT      : '/*' .*? '*/'                                                               -> channel(HIDDEN);
-LINE_COMMENT       : (('--' [ \t]* | '#') ~[\r\n]* ('\r'? '\n' | EOF) | '--' ('\r'? '\n' | EOF)) -> channel(HIDDEN);
+SPEC_MYSQL_COMMENT : '/*!' .+? '*/'                                                              -> skip;
+COMMENT_INPUT      : '/*' .*? '*/'                                                               -> skip;
+LINE_COMMENT       : (('--' [ \t]* | '#') ~[\r\n]* ('\r'? '\n' | EOF) | '--' ('\r'? '\n' | EOF)) -> skip;
 
 // Keywords
 // Common Keywords

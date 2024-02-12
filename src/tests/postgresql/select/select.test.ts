@@ -1,5 +1,5 @@
 import {parsePostgreSqlQueryWithCursor} from '../../shared/lib';
-import {KeywordSuggestion} from '../../../types';
+import {KeywordSuggestion, TableOrViewSuggestion} from '../../../types';
 
 // TODO: check other fields, not only suggestKeywords
 
@@ -59,6 +59,22 @@ test('should suggest properly after FROM', () => {
         {value: 'LATERAL'},
     ];
     expect(parseResult.suggestKeywords).toEqual(keywordsSuggestion);
+});
+
+test('should suggest tables with inline comment', () => {
+    const parseResult = parsePostgreSqlQueryWithCursor(
+        'SELECT * FROM | --SELECT * FROM test_table',
+    );
+
+    expect(parseResult.suggestViewsOrTables).toEqual(TableOrViewSuggestion.ALL);
+});
+
+test('should suggest tables with multiline comment', () => {
+    const parseResult = parsePostgreSqlQueryWithCursor(
+        'SELECT * FROM | /*SELECT * FROM test_table*/',
+    );
+
+    expect(parseResult.suggestViewsOrTables).toEqual(TableOrViewSuggestion.ALL);
 });
 
 test('should suggest properly after table name', () => {

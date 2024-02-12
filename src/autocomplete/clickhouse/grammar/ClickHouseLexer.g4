@@ -1,4 +1,3 @@
-
 // $antlr-format alignTrailingComments true, columnLimit 500, maxEmptyLinesToKeep 1, reflowComments false, useTab false
 // $antlr-format allowShortRulesOnASingleLine true, allowShortBlocksOnASingleLine true, minEmptyLines 0, alignSemicolons ownLine
 // $antlr-format alignColons trailing, singleLineOverrulesHangingColon true, alignLexerCommands true, alignLabels true, alignTrailers true
@@ -280,6 +279,6 @@ UNDERSCORE   : '_';
 
 // Comments and whitespace
 
-MULTI_LINE_COMMENT  : '/*' .*? '*/'                            -> channel(HIDDEN);
-SINGLE_LINE_COMMENT : '--' ~('\n' | '\r')* ('\n' | '\r' | EOF) -> channel(HIDDEN);
+MULTI_LINE_COMMENT  : '/*' .*? '*/'                            -> skip;
+SINGLE_LINE_COMMENT : '--' ~('\n' | '\r')* ('\n' | '\r' | EOF) -> skip;
 WHITESPACE          : [ \u000B\u000C\t\r\n]                    -> channel(HIDDEN); // '\n' can be part of multiline single query

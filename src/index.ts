@@ -178,56 +178,57 @@ export function parseQuery<
         errors: errorListener.errors,
     };
 
-    // TODO Maybe throw error here
-    if (cursorTokenIndex !== undefined) {
-        const {tokens, rules} = core.collectCandidates(cursorTokenIndex);
-        const {suggestColumns, ...suggestionsFromRules} = generateSuggestionsFromRules(
-            rules,
-            cursorTokenIndex,
-            tokenStream,
-        );
-
-        result = {...result, ...suggestionsFromRules};
-        tokens.forEach((_, tokenType) => {
-            // Literal keyword names are quoted
-            const literalName = parser.vocabulary
-                .getLiteralName(tokenType)
-                ?.replace(quotesRegex, '$1');
-            // ClickHouse Parser does not give out literal names
-            const name = literalName || parser.vocabulary.getSymbolicName(tokenType);
-
-            // TODO Maybe throw error here
-            if (name) {
-                suggestKeywords.push({
-                    value: name,
-                });
-            }
-        });
-
-        const cursorIndex = getCursorIndex(query, cursor);
-        // We can get this by token instead of splitting the string
-        const currentStatement = getCurrentStatement(query, cursorIndex);
-
-        if (suggestColumns) {
-            result.suggestColumns = getColumnSuggestions(
-                Lexer,
-                Parser,
-                SymbolTableVisitor,
-                tokenDictionary,
-                explicitlyParseJoin,
-                getParseTree,
-                tokenStream,
-                cursor,
-                query,
-            );
-        }
-
-        result.suggestTemplates = shouldSuggestTemplates(
-            currentStatement.statement,
-            currentStatement.cursorIndex,
+    if (cursorTokenIndex === undefined) {
+        throw new Error(
+            `Could not find cursor token index for line: ${cursor.line}, column: ${cursor.column}`,
         );
     }
 
+    const {tokens, rules} = core.collectCandidates(cursorTokenIndex);
+    const {suggestColumns, ...suggestionsFromRules} = generateSuggestionsFromRules(
+        rules,
+        cursorTokenIndex,
+        tokenStream,
+    );
+
+    result = {...result, ...suggestionsFromRules};
+    tokens.forEach((_, tokenType) => {
+        // Literal keyword names are quoted
+        const literalName = parser.vocabulary.getLiteralName(tokenType)?.replace(quotesRegex, '$1');
+        // ClickHouse Parser does not give out literal names
+        const name = literalName || parser.vocabulary.getSymbolicName(tokenType);
+
+        if (!name) {
+            throw new Error(`Could not get name for token ${tokenType}`);
+        }
+
+        suggestKeywords.push({
+            value: name,
+        });
+    });
+
+    const cursorIndex = getCursorIndex(query, cursor);
+    // We can get this by token instead of splitting the string
+    const currentStatement = getCurrentStatement(query, cursorIndex);
+
+    if (suggestColumns) {
+        result.suggestColumns = getColumnSuggestions(
+            Lexer,
+            Parser,
+            SymbolTableVisitor,
+            tokenDictionary,
+            explicitlyParseJoin,
+            getParseTree,
+            tokenStream,
+            cursor,
+            query,
+        );
+    }
+
+    result.suggestTemplates = shouldSuggestTemplates(
+        currentStatement.statement,
+        currentStatement.cursorIndex,
+    );
     result.suggestKeywords = suggestKeywords;
     return result;
 }
