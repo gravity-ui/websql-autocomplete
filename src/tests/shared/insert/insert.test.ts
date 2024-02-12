@@ -39,7 +39,7 @@ test('should suggest tables after INSERT INTO between statements', () => {
 
 test('should suggest table name for column', () => {
     const parseResults = groupParseSqlWithCursor('INSERT INTO test_table(|', [
-        // TODO ClickHouse throw error on insert statement for some reason
+        DatabaseType.ClickHouse,
         DatabaseType.MySql,
         DatabaseType.PostgreSql,
     ]);
@@ -53,11 +53,7 @@ test('should suggest table name for column', () => {
 test('should suggest table name for column between statements', () => {
     const parseResults = groupParseSqlWithCursor(
         'ALTER TABLE before_table DROP COLUMN id; INSERT INTO test_table(| ; ALTER TABLE after_table DROP COLUMN id',
-        [
-            // TODO ClickHouse throw error on insert statement for some reason
-            DatabaseType.MySql,
-            DatabaseType.PostgreSql,
-        ],
+        [DatabaseType.ClickHouse, DatabaseType.MySql, DatabaseType.PostgreSql],
     );
     const columnSuggestion: ColumnSuggestion = {tables: [{name: 'test_table'}]};
 
@@ -77,7 +73,7 @@ test('should suggest VALUES', () => {
 
 test('should not report errors', () => {
     const parseResults = groupParseSqlWithoutCursor('INSERT INTO test_table(id) VALUES(1);', [
-        // TODO ClickHouse throw error on insert statement for some reason
+        DatabaseType.ClickHouse,
         DatabaseType.MySql,
         DatabaseType.PostgreSql,
     ]);

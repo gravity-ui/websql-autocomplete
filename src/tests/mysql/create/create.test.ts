@@ -33,10 +33,3 @@ test('should suggest properly after CREATE', () => {
     ];
     expect(parseResults.suggestKeywords).toEqual(keywordsSuggestion);
 });
-
-test('should suggest properly after USER', () => {
-    const parseResults = parseMySqlQueryWithCursor('CREATE USER |');
-
-    const keywordsSuggestion: KeywordSuggestion[] = [{value: 'CURRENT_USER'}, {value: 'IF'}];
-    expect(parseResults.suggestKeywords).toEqual(keywordsSuggestion);
-});

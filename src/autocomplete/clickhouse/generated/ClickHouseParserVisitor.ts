@@ -13,8 +13,9 @@ import { AbstractParseTreeVisitor } from "antlr4ng";
 
 
 import { RootContext } from "./ClickHouseParser.js";
-import { QueryStmtContext } from "./ClickHouseParser.js";
-import { QueryContext } from "./ClickHouseParser.js";
+import { StatementsContext } from "./ClickHouseParser.js";
+import { StatementContext } from "./ClickHouseParser.js";
+import { NotInsertStatementContext } from "./ClickHouseParser.js";
 import { CtesContext } from "./ClickHouseParser.js";
 import { NamedQueryContext } from "./ClickHouseParser.js";
 import { ColumnAliasesContext } from "./ClickHouseParser.js";
@@ -53,12 +54,14 @@ import { TableColumnPropertyTypeContext } from "./ClickHouseParser.js";
 import { PartitionClauseContext } from "./ClickHouseParser.js";
 import { AttachDictionaryStmtContext } from "./ClickHouseParser.js";
 import { CheckStmtContext } from "./ClickHouseParser.js";
-import { CreateDatabaseStmtContext } from "./ClickHouseParser.js";
-import { CreateDictionaryStmtContext } from "./ClickHouseParser.js";
-import { CreateLiveViewStmtContext } from "./ClickHouseParser.js";
-import { CreateMaterializedViewStmtContext } from "./ClickHouseParser.js";
-import { CreateTableStmtContext } from "./ClickHouseParser.js";
-import { CreateViewStmtContext } from "./ClickHouseParser.js";
+import { DeleteStatementContext } from "./ClickHouseParser.js";
+import { CreateTableStatementContext } from "./ClickHouseParser.js";
+import { CreateDatabaseStatementContext } from "./ClickHouseParser.js";
+import { CreateDictionaryStatementContext } from "./ClickHouseParser.js";
+import { CreateLiveViewStatementContext } from "./ClickHouseParser.js";
+import { CreateMaterializedViewStatementContext } from "./ClickHouseParser.js";
+import { CreateViewStatementContext } from "./ClickHouseParser.js";
+import { CreateStmtContext } from "./ClickHouseParser.js";
 import { DictionarySchemaClauseContext } from "./ClickHouseParser.js";
 import { DictionaryAttrDfntContext } from "./ClickHouseParser.js";
 import { DictionaryEngineClauseContext } from "./ClickHouseParser.js";
@@ -98,13 +101,19 @@ import { DropDatabaseStmtContext } from "./ClickHouseParser.js";
 import { DropTableStmtContext } from "./ClickHouseParser.js";
 import { ExistsDatabaseStmtContext } from "./ClickHouseParser.js";
 import { ExistsTableStmtContext } from "./ClickHouseParser.js";
+import { ExplainDefaultStmtContext } from "./ClickHouseParser.js";
 import { ExplainASTStmtContext } from "./ClickHouseParser.js";
 import { ExplainSyntaxStmtContext } from "./ClickHouseParser.js";
+import { ExplainPipelineStmtContext } from "./ClickHouseParser.js";
+import { ExplainPlanStmtContext } from "./ClickHouseParser.js";
+import { ExplainQueryTreeStmtContext } from "./ClickHouseParser.js";
+import { ExplainEstimateStmtContext } from "./ClickHouseParser.js";
 import { InsertStmtContext } from "./ClickHouseParser.js";
 import { ColumnsClauseContext } from "./ClickHouseParser.js";
 import { DataClauseFormatContext } from "./ClickHouseParser.js";
 import { DataClauseValuesContext } from "./ClickHouseParser.js";
 import { DataClauseSelectContext } from "./ClickHouseParser.js";
+import { ValuesStatementContext } from "./ClickHouseParser.js";
 import { KillMutationStmtContext } from "./ClickHouseParser.js";
 import { OptimizeStmtContext } from "./ClickHouseParser.js";
 import { RenameStmtContext } from "./ClickHouseParser.js";
@@ -204,7 +213,6 @@ import { ColumnArgListContext } from "./ClickHouseParser.js";
 import { ColumnArgExprContext } from "./ClickHouseParser.js";
 import { ColumnLambdaExprContext } from "./ClickHouseParser.js";
 import { ColumnIdentifierContext } from "./ClickHouseParser.js";
-import { NestedIdentifierContext } from "./ClickHouseParser.js";
 import { TableExprIdentifierContext } from "./ClickHouseParser.js";
 import { TableExprSubqueryContext } from "./ClickHouseParser.js";
 import { TableExprAliasContext } from "./ClickHouseParser.js";
@@ -241,17 +249,23 @@ export class ClickHouseParserVisitor<Result> extends AbstractParseTreeVisitor<Re
      */
     visitRoot?: (ctx: RootContext) => Result;
     /**
-     * Visit a parse tree produced by `ClickHouseParser.queryStmt`.
+     * Visit a parse tree produced by `ClickHouseParser.statements`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitQueryStmt?: (ctx: QueryStmtContext) => Result;
+    visitStatements?: (ctx: StatementsContext) => Result;
     /**
-     * Visit a parse tree produced by `ClickHouseParser.query`.
+     * Visit a parse tree produced by `ClickHouseParser.statement`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitQuery?: (ctx: QueryContext) => Result;
+    visitStatement?: (ctx: StatementContext) => Result;
+    /**
+     * Visit a parse tree produced by `ClickHouseParser.notInsertStatement`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitNotInsertStatement?: (ctx: NotInsertStatementContext) => Result;
     /**
      * Visit a parse tree produced by `ClickHouseParser.ctes`.
      * @param ctx the parse tree
@@ -511,47 +525,53 @@ export class ClickHouseParserVisitor<Result> extends AbstractParseTreeVisitor<Re
      */
     visitCheckStmt?: (ctx: CheckStmtContext) => Result;
     /**
-     * Visit a parse tree produced by the `CreateDatabaseStmt`
-     * labeled alternative in `ClickHouseParser.createStmt`.
+     * Visit a parse tree produced by `ClickHouseParser.deleteStatement`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitCreateDatabaseStmt?: (ctx: CreateDatabaseStmtContext) => Result;
+    visitDeleteStatement?: (ctx: DeleteStatementContext) => Result;
     /**
-     * Visit a parse tree produced by the `CreateDictionaryStmt`
-     * labeled alternative in `ClickHouseParser.createStmt`.
+     * Visit a parse tree produced by `ClickHouseParser.createTableStatement`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitCreateDictionaryStmt?: (ctx: CreateDictionaryStmtContext) => Result;
+    visitCreateTableStatement?: (ctx: CreateTableStatementContext) => Result;
     /**
-     * Visit a parse tree produced by the `CreateLiveViewStmt`
-     * labeled alternative in `ClickHouseParser.createStmt`.
+     * Visit a parse tree produced by `ClickHouseParser.createDatabaseStatement`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitCreateLiveViewStmt?: (ctx: CreateLiveViewStmtContext) => Result;
+    visitCreateDatabaseStatement?: (ctx: CreateDatabaseStatementContext) => Result;
     /**
-     * Visit a parse tree produced by the `CreateMaterializedViewStmt`
-     * labeled alternative in `ClickHouseParser.createStmt`.
+     * Visit a parse tree produced by `ClickHouseParser.createDictionaryStatement`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitCreateMaterializedViewStmt?: (ctx: CreateMaterializedViewStmtContext) => Result;
+    visitCreateDictionaryStatement?: (ctx: CreateDictionaryStatementContext) => Result;
     /**
-     * Visit a parse tree produced by the `CreateTableStmt`
-     * labeled alternative in `ClickHouseParser.createStmt`.
+     * Visit a parse tree produced by `ClickHouseParser.createLiveViewStatement`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitCreateTableStmt?: (ctx: CreateTableStmtContext) => Result;
+    visitCreateLiveViewStatement?: (ctx: CreateLiveViewStatementContext) => Result;
     /**
-     * Visit a parse tree produced by the `CreateViewStmt`
-     * labeled alternative in `ClickHouseParser.createStmt`.
+     * Visit a parse tree produced by `ClickHouseParser.createMaterializedViewStatement`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitCreateViewStmt?: (ctx: CreateViewStmtContext) => Result;
+    visitCreateMaterializedViewStatement?: (ctx: CreateMaterializedViewStatementContext) => Result;
+    /**
+     * Visit a parse tree produced by `ClickHouseParser.createViewStatement`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitCreateViewStatement?: (ctx: CreateViewStatementContext) => Result;
+    /**
+     * Visit a parse tree produced by `ClickHouseParser.createStmt`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitCreateStmt?: (ctx: CreateStmtContext) => Result;
     /**
      * Visit a parse tree produced by `ClickHouseParser.dictionarySchemaClause`.
      * @param ctx the parse tree
@@ -798,6 +818,13 @@ export class ClickHouseParserVisitor<Result> extends AbstractParseTreeVisitor<Re
      */
     visitExistsTableStmt?: (ctx: ExistsTableStmtContext) => Result;
     /**
+     * Visit a parse tree produced by the `ExplainDefaultStmt`
+     * labeled alternative in `ClickHouseParser.explainStmt`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitExplainDefaultStmt?: (ctx: ExplainDefaultStmtContext) => Result;
+    /**
      * Visit a parse tree produced by the `ExplainASTStmt`
      * labeled alternative in `ClickHouseParser.explainStmt`.
      * @param ctx the parse tree
@@ -811,6 +838,34 @@ export class ClickHouseParserVisitor<Result> extends AbstractParseTreeVisitor<Re
      * @return the visitor result
      */
     visitExplainSyntaxStmt?: (ctx: ExplainSyntaxStmtContext) => Result;
+    /**
+     * Visit a parse tree produced by the `ExplainPipelineStmt`
+     * labeled alternative in `ClickHouseParser.explainStmt`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitExplainPipelineStmt?: (ctx: ExplainPipelineStmtContext) => Result;
+    /**
+     * Visit a parse tree produced by the `ExplainPlanStmt`
+     * labeled alternative in `ClickHouseParser.explainStmt`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitExplainPlanStmt?: (ctx: ExplainPlanStmtContext) => Result;
+    /**
+     * Visit a parse tree produced by the `ExplainQueryTreeStmt`
+     * labeled alternative in `ClickHouseParser.explainStmt`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitExplainQueryTreeStmt?: (ctx: ExplainQueryTreeStmtContext) => Result;
+    /**
+     * Visit a parse tree produced by the `ExplainEstimateStmt`
+     * labeled alternative in `ClickHouseParser.explainStmt`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitExplainEstimateStmt?: (ctx: ExplainEstimateStmtContext) => Result;
     /**
      * Visit a parse tree produced by `ClickHouseParser.insertStmt`.
      * @param ctx the parse tree
@@ -844,6 +899,12 @@ export class ClickHouseParserVisitor<Result> extends AbstractParseTreeVisitor<Re
      * @return the visitor result
      */
     visitDataClauseSelect?: (ctx: DataClauseSelectContext) => Result;
+    /**
+     * Visit a parse tree produced by `ClickHouseParser.valuesStatement`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitValuesStatement?: (ctx: ValuesStatementContext) => Result;
     /**
      * Visit a parse tree produced by the `KillMutationStmt`
      * labeled alternative in `ClickHouseParser.killStmt`.
@@ -1493,12 +1554,6 @@ export class ClickHouseParserVisitor<Result> extends AbstractParseTreeVisitor<Re
      * @return the visitor result
      */
     visitColumnIdentifier?: (ctx: ColumnIdentifierContext) => Result;
-    /**
-     * Visit a parse tree produced by `ClickHouseParser.nestedIdentifier`.
-     * @param ctx the parse tree
-     * @return the visitor result
-     */
-    visitNestedIdentifier?: (ctx: NestedIdentifierContext) => Result;
     /**
      * Visit a parse tree produced by the `TableExprIdentifier`
      * labeled alternative in `ClickHouseParser.tableExpr`.

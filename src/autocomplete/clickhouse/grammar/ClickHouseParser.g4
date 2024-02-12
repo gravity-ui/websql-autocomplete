@@ -11,20 +11,26 @@ options {
 // Top-level statements
 
 root
-    : (queryStmt)* EOF
+    : statements? EOF
     ;
 
-queryStmt
-    : query (INTO OUTFILE STRING_LITERAL)? (FORMAT identifierOrNull)? (SEMICOLON)?
+statements
+    : statement SEMICOLON?
+    | statement SEMICOLON statements
+    ;
+
+statement
+    : notInsertStatement (INTO OUTFILE STRING_LITERAL)? (FORMAT identifierOrNull)? (SEMICOLON)?
     | insertStmt
     ;
 
-query
+notInsertStatement
     : alterStmt  // DDL
     | attachStmt // DDL
     | checkStmt
     | createStmt // DDL
     | describeStmt
+    | deleteStatement // DDL
     | dropStmt // DDL
     | existsStmt
     | explainStmt
@@ -47,7 +53,7 @@ ctes
     ;
 
 namedQuery
-    : name = identifier (columnAliases)? AS '(' query ')'
+    : name = identifier (columnAliases)? AS '(' notInsertStatement ')'
     ;
 
 columnAliases
@@ -61,32 +67,32 @@ alterStmt
     ;
 
 alterTableClause
-    : ADD COLUMN (IF NOT EXISTS)? tableColumnDfnt (AFTER nestedIdentifier)?                                # AlterTableClauseAddColumn
-    | ADD INDEX (IF NOT EXISTS)? tableIndexDfnt ( AFTER nestedIdentifier)?                                 # AlterTableClauseAddIndex
-    | ADD PROJECTION (IF NOT EXISTS)? tableProjectionDfnt ( AFTER nestedIdentifier)?                       # AlterTableClauseAddProjection
+    : ADD COLUMN (IF NOT EXISTS)? tableColumnDfnt (AFTER columnIdentifier)?                                # AlterTableClauseAddColumn
+    | ADD INDEX (IF NOT EXISTS)? tableIndexDfnt ( AFTER columnIdentifier)?                                 # AlterTableClauseAddIndex
+    | ADD PROJECTION (IF NOT EXISTS)? tableProjectionDfnt ( AFTER columnIdentifier)?                       # AlterTableClauseAddProjection
     | ATTACH partitionClause (FROM tableIdentifier)?                                                       # AlterTableClauseAttach
-    | CLEAR COLUMN (IF EXISTS)? nestedIdentifier ( IN partitionClause)?                                    # AlterTableClauseClearColumn
-    | CLEAR INDEX (IF EXISTS)? nestedIdentifier ( IN partitionClause)?                                     # AlterTableClauseClearIndex
-    | CLEAR PROJECTION (IF EXISTS)? nestedIdentifier ( IN partitionClause)?                                # AlterTableClauseClearProjection
-    | COMMENT COLUMN (IF EXISTS)? nestedIdentifier STRING_LITERAL                                          # AlterTableClauseComment
+    | CLEAR COLUMN (IF EXISTS)? columnIdentifier ( IN partitionClause)?                                    # AlterTableClauseClearColumn
+    | CLEAR INDEX (IF EXISTS)? columnIdentifier ( IN partitionClause)?                                     # AlterTableClauseClearIndex
+    | CLEAR PROJECTION (IF EXISTS)? columnIdentifier ( IN partitionClause)?                                # AlterTableClauseClearProjection
+    | COMMENT COLUMN (IF EXISTS)? columnIdentifier STRING_LITERAL                                          # AlterTableClauseComment
     | DELETE WHERE columnExpr                                                                              # AlterTableClauseDelete
     | DETACH partitionClause                                                                               # AlterTableClauseDetach
-    | DROP COLUMN (IF EXISTS)? nestedIdentifier                                                            # AlterTableClauseDropColumn
-    | DROP INDEX (IF EXISTS)? nestedIdentifier                                                             # AlterTableClauseDropIndex
-    | DROP PROJECTION (IF EXISTS)? nestedIdentifier                                                        # AlterTableClauseDropProjection
+    | DROP COLUMN (IF EXISTS)? columnIdentifier                                                            # AlterTableClauseDropColumn
+    | DROP INDEX (IF EXISTS)? columnIdentifier                                                             # AlterTableClauseDropIndex
+    | DROP PROJECTION (IF EXISTS)? columnIdentifier                                                        # AlterTableClauseDropProjection
     | DROP partitionClause                                                                                 # AlterTableClauseDropPartition
     | FREEZE partitionClause?                                                                              # AlterTableClauseFreezePartition
-    | MATERIALIZE INDEX (IF EXISTS)? nestedIdentifier ( IN partitionClause)?                               # AlterTableClauseMaterializeIndex
-    | MATERIALIZE PROJECTION (IF EXISTS)? nestedIdentifier ( IN partitionClause)?                          # AlterTableClauseMaterializeProjection
-    | MODIFY COLUMN (IF EXISTS)? nestedIdentifier codecExpr                                                # AlterTableClauseModifyCodec
-    | MODIFY COLUMN (IF EXISTS)? nestedIdentifier COMMENT STRING_LITERAL                                   # AlterTableClauseModifyComment
-    | MODIFY COLUMN (IF EXISTS)? nestedIdentifier REMOVE tableColumnPropertyType                           # AlterTableClauseModifyRemove
+    | MATERIALIZE INDEX (IF EXISTS)? columnIdentifier ( IN partitionClause)?                               # AlterTableClauseMaterializeIndex
+    | MATERIALIZE PROJECTION (IF EXISTS)? columnIdentifier ( IN partitionClause)?                          # AlterTableClauseMaterializeProjection
+    | MODIFY COLUMN (IF EXISTS)? columnIdentifier codecExpr                                                # AlterTableClauseModifyCodec
+    | MODIFY COLUMN (IF EXISTS)? columnIdentifier COMMENT STRING_LITERAL                                   # AlterTableClauseModifyComment
+    | MODIFY COLUMN (IF EXISTS)? columnIdentifier REMOVE tableColumnPropertyType                           # AlterTableClauseModifyRemove
     | MODIFY COLUMN (IF EXISTS)? tableColumnDfnt                                                           # AlterTableClauseModify
     | MODIFY ORDER BY columnExpr                                                                           # AlterTableClauseModifyOrderBy
     | MODIFY ttlClause                                                                                     # AlterTableClauseModifyTTL
     | MOVE partitionClause ( TO DISK STRING_LITERAL | TO VOLUME STRING_LITERAL | TO TABLE tableIdentifier) # AlterTableClauseMovePartition
     | REMOVE TTL                                                                                           # AlterTableClauseRemoveTTL
-    | RENAME COLUMN (IF EXISTS)? nestedIdentifier TO nestedIdentifier                                      # AlterTableClauseRename
+    | RENAME COLUMN (IF EXISTS)? columnIdentifier TO columnIdentifier                                      # AlterTableClauseRename
     | REPLACE partitionClause FROM tableIdentifier                                                         # AlterTableClauseReplace
     | UPDATE assignmentExprList whereClause                                                                # AlterTableClauseUpdate
     ;
@@ -96,7 +102,7 @@ assignmentExprList
     ;
 
 assignmentExpr
-    : nestedIdentifier EQ_SINGLE columnExpr
+    : columnIdentifier EQ_SINGLE columnExpr
     ;
 
 tableColumnPropertyType
@@ -124,15 +130,45 @@ checkStmt
     : CHECK TABLE tableIdentifier partitionClause?
     ;
 
+// DELETE statement
+
+deleteStatement
+    : DELETE FROM tableIdentifier clusterClause? whereClause?
+    ;
+
 // CREATE statement
 
+createTableStatement
+    : (ATTACH | CREATE (OR REPLACE)? | REPLACE) TEMPORARY? TABLE (IF NOT EXISTS)? tableIdentifier uuidClause? clusterClause? tableSchemaClause? engineClause? subqueryClause?
+    ;
+
+createDatabaseStatement
+    : (ATTACH | CREATE) DATABASE (IF NOT EXISTS)? databaseIdentifier clusterClause? engineExpr
+    ;
+
+createDictionaryStatement
+    : (ATTACH | CREATE (OR REPLACE)? | REPLACE) DICTIONARY (IF NOT EXISTS)? tableIdentifier uuidClause? clusterClause? dictionarySchemaClause dictionaryEngineClause
+    ;
+
+createLiveViewStatement
+    : (ATTACH | CREATE) LIVE VIEW (IF NOT EXISTS)? tableIdentifier uuidClause? clusterClause? (WITH TIMEOUT DECIMAL_LITERAL?)? destinationClause? tableSchemaClause? subqueryClause
+    ;
+
+createMaterializedViewStatement
+    : (ATTACH | CREATE) MATERIALIZED VIEW (IF NOT EXISTS)? tableIdentifier uuidClause? clusterClause? tableSchemaClause? (destinationClause | engineClause POPULATE?) subqueryClause
+    ;
+
+createViewStatement
+    : (ATTACH | CREATE) (OR REPLACE)? VIEW (IF NOT EXISTS)? tableIdentifier uuidClause? clusterClause? tableSchemaClause? subqueryClause
+    ;
+
 createStmt
-    : (ATTACH | CREATE) DATABASE (IF NOT EXISTS)? databaseIdentifier clusterClause? engineExpr?                                                                                       # CreateDatabaseStmt
-    | (ATTACH | CREATE (OR REPLACE)? | REPLACE) DICTIONARY ( IF NOT EXISTS)? tableIdentifier uuidClause? clusterClause? dictionarySchemaClause dictionaryEngineClause                 # CreateDictionaryStmt
-    | (ATTACH | CREATE) LIVE VIEW (IF NOT EXISTS)? tableIdentifier uuidClause? clusterClause? ( WITH TIMEOUT DECIMAL_LITERAL?)? destinationClause? tableSchemaClause? subqueryClause  # CreateLiveViewStmt
-    | (ATTACH | CREATE) MATERIALIZED VIEW (IF NOT EXISTS)? tableIdentifier uuidClause? clusterClause? tableSchemaClause? ( destinationClause | engineClause POPULATE?) subqueryClause # CreateMaterializedViewStmt
-    | (ATTACH | CREATE (OR REPLACE)? | REPLACE) TEMPORARY? TABLE ( IF NOT EXISTS)? tableIdentifier uuidClause? clusterClause? tableSchemaClause? engineClause? subqueryClause?        # CreateTableStmt
-    | (ATTACH | CREATE) (OR REPLACE)? VIEW (IF NOT EXISTS)? tableIdentifier uuidClause? clusterClause? tableSchemaClause? subqueryClause                                              # CreateViewStmt
+    : createDatabaseStatement
+    | createDictionaryStatement
+    | createLiveViewStatement
+    | createMaterializedViewStatement
+    | createTableStatement
+    | createViewStatement
     ;
 
 dictionarySchemaClause
@@ -241,8 +277,8 @@ tableElementExpr
     ;
 
 tableColumnDfnt
-    : nestedIdentifier columnTypeExpr tableColumnPropertyExpr? (COMMENT STRING_LITERAL)? codecExpr? (TTL columnExpr)?
-    | nestedIdentifier columnTypeExpr? tableColumnPropertyExpr ( COMMENT STRING_LITERAL)? codecExpr? (TTL columnExpr)?
+    : columnIdentifier columnTypeExpr tableColumnPropertyExpr? (COMMENT STRING_LITERAL)? codecExpr? (TTL columnExpr)?
+    | columnIdentifier columnTypeExpr? tableColumnPropertyExpr ( COMMENT STRING_LITERAL)? codecExpr? (TTL columnExpr)?
     ;
 
 tableColumnPropertyExpr
@@ -250,11 +286,11 @@ tableColumnPropertyExpr
     ;
 
 tableIndexDfnt
-    : nestedIdentifier columnExpr TYPE columnTypeExpr GRANULARITY DECIMAL_LITERAL
+    : columnIdentifier columnExpr TYPE columnTypeExpr GRANULARITY DECIMAL_LITERAL
     ;
 
 tableProjectionDfnt
-    : nestedIdentifier projectionSelectStmt
+    : columnIdentifier projectionSelectStmt
     ;
 
 codecExpr
@@ -292,8 +328,13 @@ existsStmt
 // EXPLAIN statement
 
 explainStmt
-    : EXPLAIN AST query    # ExplainASTStmt
-    | EXPLAIN SYNTAX query # ExplainSyntaxStmt
+    : EXPLAIN notInsertStatement            # ExplainDefaultStmt
+    | EXPLAIN AST notInsertStatement        # ExplainASTStmt
+    | EXPLAIN SYNTAX notInsertStatement     # ExplainSyntaxStmt
+    | EXPLAIN PIPELINE notInsertStatement   # ExplainPipelineStmt
+    | EXPLAIN PLAN notInsertStatement       # ExplainPlanStmt
+    | EXPLAIN QUERY TREE notInsertStatement # ExplainQueryTreeStmt
+    | EXPLAIN ESTIMATE notInsertStatement   # ExplainEstimateStmt
     ;
 
 // INSERT statement
@@ -303,13 +344,18 @@ insertStmt
     ;
 
 columnsClause
-    : LPAREN nestedIdentifier (COMMA nestedIdentifier)* RPAREN
+    : LPAREN columnIdentifier (COMMA columnIdentifier)* RPAREN
     ;
 
 dataClause
     : FORMAT identifier              # DataClauseFormat
-    | VALUES                         # DataClauseValues
+    | valuesStatement                # DataClauseValues
     | selectUnionStmt SEMICOLON? EOF # DataClauseSelect
+    ;
+
+valuesStatement
+    // Todo: support expressions instead of literals
+    : VALUES LPAREN literal? RPAREN (COMMA LPAREN literal? RPAREN)*
     ;
 
 // KILL statement
@@ -600,7 +646,7 @@ columnExpr
     | columnExpr OR columnExpr    # ColumnExprOr
     // TODO(ilezhankin): `BETWEEN a AND b AND c` is parsed in a wrong way: `BETWEEN (a AND b) AND c`
     | columnExpr NOT? BETWEEN columnExpr AND columnExpr            # ColumnExprBetween
-    | <assoc = right> columnExpr QUERY columnExpr COLON columnExpr # ColumnExprTernaryOp
+    | <assoc = right> columnExpr QUESTIONMARK columnExpr COLON columnExpr # ColumnExprTernaryOp
     | columnExpr (alias | AS identifier)                           # ColumnExprAlias
     | (tableIdentifier DOT)? ASTERISK                              # ColumnExprAsterisk // single-column only
     | LPAREN selectUnionStmt RPAREN                                # ColumnExprSubquery // single-column only
@@ -624,11 +670,7 @@ columnLambdaExpr
     ;
 
 columnIdentifier
-    : (tableIdentifier DOT)? nestedIdentifier
-    ;
-
-nestedIdentifier
-    : identifier (DOT identifier)?
+    : (tableIdentifier DOT)? identifier (DOT identifier)?
     ;
 
 // Tables
@@ -653,7 +695,7 @@ tableArgList
     ;
 
 tableArgExpr
-    : nestedIdentifier
+    : columnIdentifier
     | tableFunctionExpr
     | literal
     ;

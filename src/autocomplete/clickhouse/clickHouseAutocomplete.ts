@@ -71,6 +71,9 @@ function getIgnoredTokens(): number[] {
         }
     }
 
+    tokens.push(ClickHouseParser.EOF);
+    tokens.push(ClickHouseParser.QUESTIONMARK);
+
     return tokens;
 }
 
@@ -81,6 +84,7 @@ const preferredRules = new Set([
     ClickHouseParser.RULE_identifier,
     ClickHouseParser.RULE_columnIdentifier,
     ClickHouseParser.RULE_identifierOrNull,
+    ClickHouseParser.RULE_literal,
 ]);
 
 class ClickHouseSymbolTableVisitor
