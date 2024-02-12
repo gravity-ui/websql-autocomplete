@@ -1,6 +1,6 @@
 {
   "name": "websql-autocomplete-2",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "A library that provides autocompletion and errors highlighting for various database dialects",
   "repository": {
     "type": "git",
@@ -56,7 +56,7 @@
   },
   "dependencies": {
     "antlr4-c3": "^3.3.5",
-    "antlr4ng": "2.0.5"
+    "antlr4ng": "^2.0.10"
   },
   "nano-staged": {
     "*.{md,yaml,yml,json}": [
