@@ -1,6 +1,6 @@
 # Changelog
 
-## [4.0.0](https://github.com/gravity-ui/websql-autocomplete/compare/v4.0.0...v3.1.0) (2024-02-13)
+## [4.0.0](https://github.com/gravity-ui/websql-autocomplete/compare/v3.0.0...v4.0.0) (2024-02-13)
 
 
 ### ⚠ BREAKING CHANGES
