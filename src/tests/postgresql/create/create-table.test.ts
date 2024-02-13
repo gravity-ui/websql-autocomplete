@@ -1,4 +1,4 @@
-import {parsePostgreSqlQueryWithCursor} from '../../shared/lib';
+import {parsePostgreSqlQueryWithCursor} from '../../lib';
 import {KeywordSuggestion} from '../../../types';
 
 test('should suggest properly after TABLE', () => {

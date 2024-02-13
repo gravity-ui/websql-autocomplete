@@ -1,8 +1,9 @@
-import {parseMySqlQueryWithCursor} from '../../shared/lib';
-import {KeywordSuggestion} from '../../../types';
+import {parseMySqlQueryWithCursor} from '../../lib';
+import {ColumnSuggestion, KeywordSuggestion, TableOrViewSuggestion} from '../../../types';
+import {parseMySqlQueryWithoutCursor} from '../../..';
 
 test('should suggest properly after INSERT', () => {
-    const parseResults = parseMySqlQueryWithCursor('INSERT |');
+    const parseResult = parseMySqlQueryWithCursor('INSERT |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [
         {value: 'INTO'},
@@ -11,18 +12,27 @@ test('should suggest properly after INSERT', () => {
         {value: 'HIGH_PRIORITY'},
         {value: 'LOW_PRIORITY'},
     ];
-    expect(parseResults.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(parseResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
 test('should suggest properly after INTO', () => {
-    const parseResults = parseMySqlQueryWithCursor('INSERT INTO |');
+    const parseResult = parseMySqlQueryWithCursor('INSERT INTO |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [];
-    expect(parseResults.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(parseResult.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(parseResult.suggestViewsOrTables).toEqual(TableOrViewSuggestion.ALL);
+});
+
+test('should suggest tables after INSERT INTO between statements', () => {
+    const parseResult = parseMySqlQueryWithCursor(
+        'ALTER TABLE before_table DROP COLUMN id; INSERT INTO | ; ALTER TABLE after_table DROP COLUMN id;',
+    );
+
+    expect(parseResult.suggestViewsOrTables).toEqual(TableOrViewSuggestion.ALL);
 });
 
 test('should suggest properly after table name', () => {
-    const parseResults = parseMySqlQueryWithCursor('INSERT INTO test_table |');
+    const parseResult = parseMySqlQueryWithCursor('INSERT INTO test_table |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [
         {value: 'SET'},
@@ -31,25 +41,25 @@ test('should suggest properly after table name', () => {
         {value: 'VALUE'},
         {value: 'PARTITION'},
     ];
-    expect(parseResults.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(parseResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
 test('should suggest properly after VALUES', () => {
-    const parseResults = parseMySqlQueryWithCursor('INSERT INTO test_table VALUES |');
+    const parseResult = parseMySqlQueryWithCursor('INSERT INTO test_table VALUES |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [];
-    expect(parseResults.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(parseResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
 test('should suggest properly after VALUE', () => {
-    const parseResults = parseMySqlQueryWithCursor('INSERT INTO test_table VALUE |');
+    const parseResult = parseMySqlQueryWithCursor('INSERT INTO test_table VALUE |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [];
-    expect(parseResults.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(parseResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
 test('should suggest properly after VALUES with a bracket', () => {
-    const parseResults = parseMySqlQueryWithCursor('INSERT INTO test_table VALUES ( |');
+    const parseResult = parseMySqlQueryWithCursor('INSERT INTO test_table VALUES ( |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [
         {value: 'NOT'},
@@ -62,11 +72,11 @@ test('should suggest properly after VALUES with a bracket', () => {
         {value: 'INTERVAL'},
         {value: 'DEFAULT'},
     ];
-    expect(parseResults.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(parseResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
 test('should suggest properly after VALUES with a bracket after a content', () => {
-    const parseResults = parseMySqlQueryWithCursor('INSERT INTO test_table VALUES ("test", |');
+    const parseResult = parseMySqlQueryWithCursor('INSERT INTO test_table VALUES ("test", |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [
         {value: 'NOT'},
@@ -79,37 +89,54 @@ test('should suggest properly after VALUES with a bracket after a content', () =
         {value: 'INTERVAL'},
         {value: 'DEFAULT'},
     ];
-    expect(parseResults.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(parseResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
 test('should suggest properly after values contents', () => {
-    const parseResults = parseMySqlQueryWithCursor('INSERT INTO test_table VALUES ("test") | ');
+    const parseResult = parseMySqlQueryWithCursor('INSERT INTO test_table VALUES ("test") | ');
 
     const keywordsSuggestion: KeywordSuggestion[] = [{value: 'ON'}, {value: 'AS'}];
-    expect(parseResults.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(parseResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
 test('should suggest properly after table name with a bracket', () => {
-    const parseResults = parseMySqlQueryWithCursor('INSERT INTO test_table( | ');
+    const parseResult = parseMySqlQueryWithCursor('INSERT INTO test_table( | ');
+    const columnSuggestion: ColumnSuggestion = {tables: [{name: 'test_table'}]};
 
     const keywordsSuggestion: KeywordSuggestion[] = [{value: 'SELECT'}];
-    expect(parseResults.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(parseResult.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(parseResult.suggestColumns).toEqual(columnSuggestion);
+});
+
+test('should suggest table name for column between statements', () => {
+    const parseResult = parseMySqlQueryWithCursor(
+        'ALTER TABLE before_table DROP COLUMN id; INSERT INTO test_table(| ; ALTER TABLE after_table DROP COLUMN id',
+    );
+    const columnSuggestion: ColumnSuggestion = {tables: [{name: 'test_table'}]};
+
+    expect(parseResult.suggestColumns).toEqual(columnSuggestion);
 });
 
 test('should suggest properly after the first column', () => {
-    const parseResults = parseMySqlQueryWithCursor('INSERT INTO test_table(test_column, | ');
+    const parseResult = parseMySqlQueryWithCursor('INSERT INTO test_table(test_column, | ');
 
     const keywordsSuggestion: KeywordSuggestion[] = [];
-    expect(parseResults.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(parseResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
 test('should suggest properly after table with columns', () => {
-    const parseResults = parseMySqlQueryWithCursor('INSERT INTO test_table(test_column) | ');
+    const parseResult = parseMySqlQueryWithCursor('INSERT INTO test_table(test_column) | ');
 
     const keywordsSuggestion: KeywordSuggestion[] = [
         {value: 'SELECT'},
         {value: 'VALUES'},
         {value: 'VALUE'},
     ];
-    expect(parseResults.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(parseResult.suggestKeywords).toEqual(keywordsSuggestion);
+});
+
+test('should not report errors', () => {
+    const parseResult = parseMySqlQueryWithoutCursor('INSERT INTO test_table(id) VALUES(1);');
+
+    expect(parseResult.errors).toHaveLength(0);
 });

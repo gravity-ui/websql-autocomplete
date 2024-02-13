@@ -1,10 +1,8 @@
 import {KeywordSuggestion} from '../../types';
-import {parseClickHouseQueryWithCursor} from '../shared/lib';
-
-// TODO: check other fields, not only suggestKeywords
+import {parseClickHouseQueryWithCursor} from '../lib';
 
 test('should suggest properly for an empty query', () => {
-    const parseResults = parseClickHouseQueryWithCursor('|');
+    const parseResult = parseClickHouseQueryWithCursor('|');
 
     const keywordsSuggestion: KeywordSuggestion[] = [
         {value: 'ALTER'},
@@ -32,5 +30,6 @@ test('should suggest properly for an empty query', () => {
         {value: 'WATCH'},
         {value: 'INSERT'},
     ];
-    expect(parseResults.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(parseResult.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(parseResult.suggestTemplates).toEqual(true);
 });

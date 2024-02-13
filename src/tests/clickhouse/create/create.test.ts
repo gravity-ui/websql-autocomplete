@@ -1,5 +1,5 @@
 import {KeywordSuggestion} from '../../../types';
-import {parseClickHouseQueryWithCursor} from '../../shared/lib';
+import {parseClickHouseQueryWithCursor} from '../../lib';
 
 test('should suggest properly after CREATE', () => {
     const parseResults = parseClickHouseQueryWithCursor('CREATE |');

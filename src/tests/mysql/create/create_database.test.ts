@@ -1,4 +1,4 @@
-import {parseMySqlQueryWithCursor} from '../../shared/lib';
+import {parseMySqlQueryWithCursor} from '../../lib';
 import {KeywordSuggestion} from '../../../types';
 
 test('should suggest properly after DATABASE', () => {

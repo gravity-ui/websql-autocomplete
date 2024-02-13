@@ -1,38 +1,58 @@
-// TODO: check other fields, not only suggestKeywords
-
-import {parseMySqlQueryWithCursor} from '../../shared/lib';
-import {KeywordSuggestion} from '../../../types';
+import {parseMySqlQueryWithCursor} from '../../lib';
+import {ColumnSuggestion, KeywordSuggestion, TableOrViewSuggestion} from '../../../types';
+import {parseMySqlQueryWithoutCursor} from '../../..';
 
 test('should suggest properly after UPDATE', () => {
-    const parseResults = parseMySqlQueryWithCursor('UPDATE |');
+    const parseResult = parseMySqlQueryWithCursor('UPDATE |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [{value: 'IGNORE'}, {value: 'LOW_PRIORITY'}];
-    expect(parseResults.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(parseResult.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(parseResult.suggestViewsOrTables).toEqual(TableOrViewSuggestion.ALL);
+});
+
+test('should suggest tables after UPDATE between statements', () => {
+    const parseResult = parseMySqlQueryWithCursor(
+        'ALTER TABLE before_table DROP COLUMN id; UPDATE | ; ALTER TABLE after_table DROP COLUMN id;',
+    );
+
+    expect(parseResult.suggestViewsOrTables).toEqual(TableOrViewSuggestion.ALL);
 });
 
 test('should suggest properly after table name', () => {
-    const parseResults = parseMySqlQueryWithCursor('UPDATE test_table |');
+    const parseResult = parseMySqlQueryWithCursor('UPDATE test_table |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [{value: 'SET'}, {value: 'AS'}];
-    expect(parseResults.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(parseResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
 test('should suggest properly after SET', () => {
-    const parseResults = parseMySqlQueryWithCursor('UPDATE test_table SET |');
+    const parseResult = parseMySqlQueryWithCursor('UPDATE test_table SET |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [];
-    expect(parseResults.suggestKeywords).toEqual(keywordsSuggestion);
+    const columnSuggestion: ColumnSuggestion = {tables: [{name: 'test_table'}]};
+
+    expect(parseResult.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(parseResult.suggestColumns).toEqual(columnSuggestion);
+});
+
+test('should suggest table name for column after SET between statements', () => {
+    const parseResult = parseMySqlQueryWithCursor(
+        'ALTER TABLE before_table DROP COLUMN id; UPDATE test_table SET | ; ALTER TABLE after_table DROP COLUMN id;',
+    );
+    const columnSuggestion: ColumnSuggestion = {tables: [{name: 'test_table'}]};
+
+    expect(parseResult.suggestColumns).toEqual(columnSuggestion);
 });
 
 test('should suggest properly after column', () => {
-    const parseResults = parseMySqlQueryWithCursor('UPDATE test_table SET test_column |');
+    const parseResult = parseMySqlQueryWithCursor('UPDATE test_table SET test_column |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [];
-    expect(parseResults.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(parseResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
 test('should suggest properly after column equals', () => {
-    const parseResults = parseMySqlQueryWithCursor('UPDATE test_table SET test_column = |');
+    const parseResult = parseMySqlQueryWithCursor('UPDATE test_table SET test_column = |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [
         {value: 'DEFAULT'},
@@ -45,11 +65,11 @@ test('should suggest properly after column equals', () => {
         {value: 'EXISTS'},
         {value: 'INTERVAL'},
     ];
-    expect(parseResults.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(parseResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
 test('should suggest properly after the first column', () => {
-    const parseResults = parseMySqlQueryWithCursor('UPDATE test_table SET test_column = "test" |');
+    const parseResult = parseMySqlQueryWithCursor('UPDATE test_table SET test_column = "test" |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [
         {value: 'COLLATE'},
@@ -70,11 +90,27 @@ test('should suggest properly after the first column', () => {
         {value: 'LIMIT'},
         {value: 'ORDER'},
     ];
-    expect(parseResults.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(parseResult.suggestKeywords).toEqual(keywordsSuggestion);
+});
+
+test('should suggest table name for second column after SET', () => {
+    const parseResult = parseMySqlQueryWithCursor('UPDATE test_table SET id = 1, |');
+    const columnSuggestion: ColumnSuggestion = {tables: [{name: 'test_table'}]};
+
+    expect(parseResult.suggestColumns).toEqual(columnSuggestion);
+});
+
+test('should suggest table name for second column after SET between statements', () => {
+    const parseResult = parseMySqlQueryWithCursor(
+        'ALTER TABLE before_table DROP COLUMN id; UPDATE test_table SET id = 1, | ; ALTER TABLE after_table DROP COLUMN id;',
+    );
+    const columnSuggestion: ColumnSuggestion = {tables: [{name: 'test_table'}]};
+
+    expect(parseResult.suggestColumns).toEqual(columnSuggestion);
 });
 
 test('should suggest properly after WHERE', () => {
-    const parseResults = parseMySqlQueryWithCursor(
+    const parseResult = parseMySqlQueryWithCursor(
         'UPDATE test_table SET test_column = "test" WHERE |',
     );
 
@@ -88,24 +124,41 @@ test('should suggest properly after WHERE', () => {
         {value: 'EXISTS'},
         {value: 'INTERVAL'},
     ];
-    expect(parseResults.suggestKeywords).toEqual(keywordsSuggestion);
+    const columnSuggestion: ColumnSuggestion = {tables: [{name: 'test_table'}]};
+    expect(parseResult.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(parseResult.suggestColumns).toEqual(columnSuggestion);
+});
+
+test('should suggest table name for column after WHERE between statements', () => {
+    const parseResult = parseMySqlQueryWithCursor(
+        'ALTER TABLE before_table DROP COLUMN id; UPDATE test_table SET id = 1 WHERE | ; ALTER TABLE after_table DROP COLUMN id;',
+    );
+    const columnSuggestion: ColumnSuggestion = {tables: [{name: 'test_table'}]};
+
+    expect(parseResult.suggestColumns).toEqual(columnSuggestion);
 });
 
 test('should suggest properly after LIMIT', () => {
-    const parseResults = parseMySqlQueryWithCursor(
+    const parseResult = parseMySqlQueryWithCursor(
         'UPDATE test_table SET test_column = "test" LIMIT |',
     );
 
     const keywordsSuggestion: KeywordSuggestion[] = [];
-    expect(parseResults.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(parseResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
 // TODO: fix expression rule, it should only suggest columns
 test.skip('should suggest properly after ORDER', () => {
-    const parseResults = parseMySqlQueryWithCursor(
+    const parseResult = parseMySqlQueryWithCursor(
         'UPDATE test_table SET test_column = "test" ORDER BY |',
     );
 
     const keywordsSuggestion: KeywordSuggestion[] = [];
-    expect(parseResults.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(parseResult.suggestKeywords).toEqual(keywordsSuggestion);
+});
+
+test('should not report errors', () => {
+    const parseResult = parseMySqlQueryWithoutCursor('UPDATE test_table SET id = 1 WHERE id = 1;');
+
+    expect(parseResult.errors).toHaveLength(0);
 });

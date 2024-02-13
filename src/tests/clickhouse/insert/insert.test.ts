@@ -1,23 +1,32 @@
-import {parseClickHouseQueryWithCursor} from '../../shared/lib';
-import {KeywordSuggestion} from '../../../types';
+import {parseClickHouseQueryWithCursor} from '../../lib';
+import {ColumnSuggestion, KeywordSuggestion, TableOrViewSuggestion} from '../../../types';
+import {parseClickHouseQueryWithoutCursor} from '../../..';
 
 test('should suggest properly after INSERT', () => {
-    const parseResults = parseClickHouseQueryWithCursor('INSERT |');
+    const parseResult = parseClickHouseQueryWithCursor('INSERT |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [{value: 'INTO'}];
-    expect(parseResults.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(parseResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
 test('should suggest properly after INTO', () => {
-    const parseResults = parseClickHouseQueryWithCursor('INSERT INTO |');
+    const parseResult = parseClickHouseQueryWithCursor('INSERT INTO |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [{value: 'FUNCTION'}, {value: 'TABLE'}];
-    expect(parseResults.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(parseResult.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(parseResult.suggestViewsOrTables).toEqual(TableOrViewSuggestion.ALL);
 });
 
-// TODO: support columns suggestion
+test('should suggest tables after INSERT INTO between statements', () => {
+    const parseResult = parseClickHouseQueryWithCursor(
+        'ALTER TABLE before_table DROP COLUMN id; INSERT INTO | ; ALTER TABLE after_table DROP COLUMN id;',
+    );
+
+    expect(parseResult.suggestViewsOrTables).toEqual(TableOrViewSuggestion.ALL);
+});
+
 test('should suggest properly after table name', () => {
-    const parseResults = parseClickHouseQueryWithCursor('INSERT INTO test_table |');
+    const parseResult = parseClickHouseQueryWithCursor('INSERT INTO test_table |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [
         {value: 'FORMAT'},
@@ -25,11 +34,29 @@ test('should suggest properly after table name', () => {
         {value: 'WITH'},
         {value: 'SELECT'},
     ];
-    expect(parseResults.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(parseResult.suggestKeywords).toEqual(keywordsSuggestion);
+});
+
+test('should suggest properly after table name with a bracket', () => {
+    const parseResult = parseClickHouseQueryWithCursor('INSERT INTO test_table( | ');
+
+    const keywordsSuggestion: KeywordSuggestion[] = [{value: 'WITH'}, {value: 'SELECT'}];
+    const columnSuggestion: ColumnSuggestion = {tables: [{name: 'test_table'}]};
+    expect(parseResult.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(parseResult.suggestColumns).toEqual(columnSuggestion);
+});
+
+test('should suggest table name for column between statements', () => {
+    const parseResult = parseClickHouseQueryWithCursor(
+        'ALTER TABLE before_table DROP COLUMN id; INSERT INTO test_table(| ; ALTER TABLE after_table DROP COLUMN id',
+    );
+    const columnSuggestion: ColumnSuggestion = {tables: [{name: 'test_table'}]};
+
+    expect(parseResult.suggestColumns).toEqual(columnSuggestion);
 });
 
 test('should suggest properly after table name', () => {
-    const parseResults = parseClickHouseQueryWithCursor(
+    const parseResult = parseClickHouseQueryWithCursor(
         'INSERT INTO test_table(test_column_1, test_column_2) |',
     );
 
@@ -39,29 +66,29 @@ test('should suggest properly after table name', () => {
         {value: 'WITH'},
         {value: 'SELECT'},
     ];
-    expect(parseResults.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(parseResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
 test('should suggest properly after VALUES', () => {
-    const parseResults = parseClickHouseQueryWithCursor(
+    const parseResult = parseClickHouseQueryWithCursor(
         'INSERT INTO test_table(test_column_1, test_column_2) VALUES (|',
     );
 
     const keywordsSuggestion: KeywordSuggestion[] = [];
-    expect(parseResults.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(parseResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
 test('should suggest properly after values', () => {
-    const parseResults = parseClickHouseQueryWithCursor(
+    const parseResult = parseClickHouseQueryWithCursor(
         'INSERT INTO test_table(test_column_1, test_column_2) VALUES (123, 321) |',
     );
 
     const keywordsSuggestion: KeywordSuggestion[] = [];
-    expect(parseResults.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(parseResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
 test('should suggest properly after SELECT', () => {
-    const parseResults = parseClickHouseQueryWithCursor(
+    const parseResult = parseClickHouseQueryWithCursor(
         'INSERT INTO test_table(test_column_1, test_column_2) SELECT |',
     );
 
@@ -79,5 +106,11 @@ test('should suggest properly after SELECT', () => {
         {value: 'TOP'},
         {value: 'DISTINCT'},
     ];
-    expect(parseResults.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(parseResult.suggestKeywords).toEqual(keywordsSuggestion);
+});
+
+test('should not report errors', () => {
+    const parseResult = parseClickHouseQueryWithoutCursor('INSERT INTO test_table(id) VALUES(1);');
+
+    expect(parseResult.errors).toHaveLength(0);
 });

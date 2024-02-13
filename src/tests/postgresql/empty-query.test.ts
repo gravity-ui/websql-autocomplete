@@ -1,7 +1,5 @@
-import {parsePostgreSqlQueryWithCursor} from '../shared/lib';
+import {parsePostgreSqlQueryWithCursor} from '../lib';
 import {KeywordSuggestion} from '../../types';
-
-// TODO: check other fields, not only suggestKeywords
 
 test('should suggest properly for an empty query', () => {
     const parseResult = parsePostgreSqlQueryWithCursor('|');
@@ -62,4 +60,5 @@ test('should suggest properly for an empty query', () => {
         {value: 'SHOW'},
     ];
     expect(parseResult.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(parseResult.suggestTemplates).toEqual(true);
 });

@@ -1,4 +1,4 @@
-import {parsePostgreSqlQueryWithCursor} from '../../shared/lib';
+import {parsePostgreSqlQueryWithCursor} from '../../lib';
 import {KeywordSuggestion} from '../../../types';
 
 // TODO Grammar is not full?

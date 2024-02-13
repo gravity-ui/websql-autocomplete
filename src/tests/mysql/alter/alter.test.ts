@@ -1,5 +1,5 @@
-import {KeywordSuggestion} from '../../..';
-import {parseMySqlQueryWithCursor} from '../../shared/lib';
+import {KeywordSuggestion, TableOrViewSuggestion} from '../../..';
+import {parseMySqlQueryWithCursor} from '../../lib';
 
 test('should suggest keywords after ALTER', () => {
     const parseResult = parseMySqlQueryWithCursor('ALTER |');
@@ -32,6 +32,15 @@ test('should suggest keywords after TABLE', () => {
 
     const keywords: KeywordSuggestion[] = [];
     expect(parseResult.suggestKeywords).toEqual(keywords);
+    expect(parseResult.suggestViewsOrTables).toEqual(TableOrViewSuggestion.TABLES);
+});
+
+test('should suggest tables after ALTER TABLE between statements', () => {
+    const parseResult = parseMySqlQueryWithCursor(
+        'DROP VIEW before_view; ALTER TABLE | ; DROP VIEW after_view;',
+    );
+
+    expect(parseResult.suggestViewsOrTables).toEqual(TableOrViewSuggestion.TABLES);
 });
 
 test('should suggest keywords after TABLE', () => {
@@ -107,4 +116,20 @@ test('should suggest keywords after TABLE', () => {
         {value: 'NOWAIT'},
     ];
     expect(parseResult.suggestKeywords).toEqual(keywords);
+});
+
+test('should suggest tables after ALTER VIEW', () => {
+    const parseResult = parseMySqlQueryWithCursor('ALTER VIEW |');
+
+    const keywords: KeywordSuggestion[] = [];
+    expect(parseResult.suggestKeywords).toEqual(keywords);
+    expect(parseResult.suggestViewsOrTables).toEqual(TableOrViewSuggestion.VIEWS);
+});
+
+test('should suggest tables after ALTER VIEW between statements', () => {
+    const parseResult = parseMySqlQueryWithCursor(
+        'ALTER TABLE before_table DROP COLUMN id; ALTER VIEW | ; ALTER TABLE after_table DROP COLUMN id;',
+    );
+
+    expect(parseResult.suggestViewsOrTables).toEqual(TableOrViewSuggestion.VIEWS);
 });

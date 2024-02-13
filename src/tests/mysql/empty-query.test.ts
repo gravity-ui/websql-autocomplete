@@ -1,10 +1,8 @@
-import {parseMySqlQueryWithCursor} from '../shared/lib';
+import {parseMySqlQueryWithCursor} from '../lib';
 import {KeywordSuggestion} from '../../types';
 
-// TODO: check other fields, not only suggestKeywords
-
 test('should suggest properly for an empty query', () => {
-    const parseResults = parseMySqlQueryWithCursor('|');
+    const parseResult = parseMySqlQueryWithCursor('|');
 
     const keywordsSuggestion: KeywordSuggestion[] = [
         {value: 'CREATE'},
@@ -65,5 +63,6 @@ test('should suggest properly for an empty query', () => {
         {value: 'RESIGNAL'},
         {value: 'GET'},
     ];
-    expect(parseResults.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(parseResult.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(parseResult.suggestTemplates).toEqual(true);
 });

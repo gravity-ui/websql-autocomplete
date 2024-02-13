@@ -1,5 +1,5 @@
 import {KeywordSuggestion} from '../../..';
-import {parseClickHouseQueryWithCursor} from '../../shared/lib';
+import {parseClickHouseQueryWithCursor} from '../../lib';
 
 test('should suggest keywords after EXPLAIN', () => {
     const parseResults = parseClickHouseQueryWithCursor('EXPLAIN |');

@@ -1,5 +1,5 @@
 import {KeywordSuggestion} from '../../../types';
-import {parseClickHouseQueryWithCursor} from '../../shared/lib';
+import {parseClickHouseQueryWithCursor} from '../../lib';
 
 test('should suggest properly after DATABASE', () => {
     const parseResults = parseClickHouseQueryWithCursor('CREATE DATABASE |');

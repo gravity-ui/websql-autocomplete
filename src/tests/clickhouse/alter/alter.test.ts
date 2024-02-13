@@ -1,5 +1,5 @@
-import {KeywordSuggestion} from '../../..';
-import {parseClickHouseQueryWithCursor} from '../../shared/lib';
+import {KeywordSuggestion, TableOrViewSuggestion} from '../../..';
+import {parseClickHouseQueryWithCursor} from '../../lib';
 
 test('should suggest keywords after ALTER', () => {
     const parseResult = parseClickHouseQueryWithCursor('ALTER |');
@@ -13,6 +13,15 @@ test('should suggest keywords after TABLE', () => {
 
     const keywords: KeywordSuggestion[] = [];
     expect(parseResult.suggestKeywords).toEqual(keywords);
+    expect(parseResult.suggestViewsOrTables).toEqual(TableOrViewSuggestion.TABLES);
+});
+
+test('should suggest tables after ALTER TABLE between statements', () => {
+    const parseResult = parseClickHouseQueryWithCursor(
+        'DROP VIEW before_view; ALTER TABLE | ; DROP VIEW after_view;',
+    );
+
+    expect(parseResult.suggestViewsOrTables).toEqual(TableOrViewSuggestion.TABLES);
 });
 
 test('should suggest keywords after table name', () => {

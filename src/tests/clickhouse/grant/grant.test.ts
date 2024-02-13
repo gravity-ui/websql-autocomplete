@@ -1,4 +1,4 @@
-import {parseClickHouseQueryWithCursor} from '../../shared/lib';
+import {parseClickHouseQueryWithCursor} from '../../lib';
 
 // TODO: support grant statement
 test.skip('should suggest keywords after GRANT', () => {

@@ -1,5 +1,6 @@
-import {parsePostgreSqlQueryWithCursor} from '../../shared/lib';
-import {KeywordSuggestion} from '../../../types';
+import {parsePostgreSqlQueryWithCursor} from '../../lib';
+import {ColumnSuggestion, KeywordSuggestion, TableOrViewSuggestion} from '../../../types';
+import {parsePostgreSqlQueryWithoutCursor} from '../../..';
 
 test('should suggest properly after INSERT', () => {
     const parseResult = parsePostgreSqlQueryWithCursor('INSERT |');
@@ -13,6 +14,15 @@ test('should suggest properly after INTO', () => {
 
     const keywordsSuggestion: KeywordSuggestion[] = [];
     expect(parseResult.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(parseResult.suggestViewsOrTables).toEqual(TableOrViewSuggestion.ALL);
+});
+
+test('should suggest tables after INSERT INTO between statements', () => {
+    const parseResult = parsePostgreSqlQueryWithCursor(
+        'ALTER TABLE before_table DROP COLUMN id; INSERT INTO | ; ALTER TABLE after_table DROP COLUMN id;',
+    );
+
+    expect(parseResult.suggestViewsOrTables).toEqual(TableOrViewSuggestion.ALL);
 });
 
 test('should suggest properly after table name', () => {
@@ -104,7 +114,18 @@ test('should suggest properly after table name with a bracket', () => {
         {value: 'TABLE'},
         {value: 'WITH'},
     ];
+    const columnSuggestion: ColumnSuggestion = {tables: [{name: 'test_table'}]};
     expect(parseResult.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(parseResult.suggestColumns).toEqual(columnSuggestion);
+});
+
+test('should suggest table name for column between statements', () => {
+    const parseResult = parsePostgreSqlQueryWithCursor(
+        'ALTER TABLE before_table DROP COLUMN id; INSERT INTO test_table(| ; ALTER TABLE after_table DROP COLUMN id',
+    );
+    const columnSuggestion: ColumnSuggestion = {tables: [{name: 'test_table'}]};
+
+    expect(parseResult.suggestColumns).toEqual(columnSuggestion);
 });
 
 test('should suggest properly after the first column', () => {
@@ -125,4 +146,10 @@ test('should suggest properly after table with columns', () => {
         {value: 'OVERRIDING'},
     ];
     expect(parseResult.suggestKeywords).toEqual(keywordsSuggestion);
+});
+
+test('should not report errors', () => {
+    const parseResult = parsePostgreSqlQueryWithoutCursor('INSERT INTO test_table(id) VALUES(1);');
+
+    expect(parseResult.errors).toHaveLength(0);
 });

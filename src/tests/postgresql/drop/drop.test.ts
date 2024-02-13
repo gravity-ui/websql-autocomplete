@@ -1,5 +1,9 @@
-import {KeywordSuggestion, TableOrViewSuggestion} from '../../..';
-import {parsePostgreSqlQueryWithCursor} from '../../shared/lib';
+import {
+    KeywordSuggestion,
+    TableOrViewSuggestion,
+    parsePostgreSqlQueryWithoutCursor,
+} from '../../..';
+import {parsePostgreSqlQueryWithCursor} from '../../lib';
 
 test('should suggest keywords after DROP', () => {
     const parseResult = parsePostgreSqlQueryWithCursor('DROP |');
@@ -57,4 +61,40 @@ test('should suggest views after DROP MATERIALIZED VIEW', () => {
     const parseResult = parsePostgreSqlQueryWithCursor('DROP MATERIALIZED VIEW |');
 
     expect(parseResult.suggestViewsOrTables).toEqual(TableOrViewSuggestion.VIEWS);
+});
+
+test('should suggest tables after DROP TABLE', () => {
+    const parseResult = parsePostgreSqlQueryWithCursor('DROP TABLE |');
+
+    expect(parseResult.suggestViewsOrTables).toEqual(TableOrViewSuggestion.TABLES);
+});
+
+test('should suggest views after DROP VIEW', () => {
+    const parseResult = parsePostgreSqlQueryWithCursor('DROP VIEW |');
+
+    expect(parseResult.suggestViewsOrTables).toEqual(TableOrViewSuggestion.VIEWS);
+});
+
+test('should suggest tables after multiple drop statements', () => {
+    const parseResult = parsePostgreSqlQueryWithCursor('DROP VIEW test_view; DROP TABLE |');
+
+    expect(parseResult.suggestViewsOrTables).toEqual(TableOrViewSuggestion.TABLES);
+});
+
+test('should suggest views after multiple drop statements', () => {
+    const parseResult = parsePostgreSqlQueryWithCursor('DROP TABLE test_table; DROP VIEW |');
+
+    expect(parseResult.suggestViewsOrTables).toEqual(TableOrViewSuggestion.VIEWS);
+});
+
+test('should not report error on DROP TABLE', () => {
+    const parseResult = parsePostgreSqlQueryWithoutCursor('DROP TABLE test_table;');
+
+    expect(parseResult.errors).toHaveLength(0);
+});
+
+test('should not report error on DROP VIEW', () => {
+    const parseResult = parsePostgreSqlQueryWithoutCursor('DROP VIEW test_view;');
+
+    expect(parseResult.errors).toHaveLength(0);
 });
