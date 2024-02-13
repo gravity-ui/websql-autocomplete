@@ -1,5 +1,12 @@
 # Changelog
 
+## [4.0.1](https://github.com/gravity-ui/websql-autocomplete/compare/v4.0.0...v4.0.1) (2024-02-13)
+
+
+### Bug Fixes
+
+* package name ([#124](https://github.com/gravity-ui/websql-autocomplete/issues/124)) ([a754194](https://github.com/gravity-ui/websql-autocomplete/commit/a754194f668a8e415daf432d5cf3faf21e2333a9))
+
 ## [4.0.0](https://github.com/gravity-ui/websql-autocomplete/compare/v3.0.0...v4.0.0) (2024-02-13)
 
 
