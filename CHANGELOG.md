@@ -1,5 +1,12 @@
 # Changelog
 
+## [4.0.0](https://github.com/gravity-ui/websql-autocomplete/compare/v3.0.0...v4.0.0) (2024-02-13)
+
+
+### ⚠ BREAKING CHANGES
+
+* New version of autocomplete based on code completion on ANTLR4 grammars
+
 ## [3.0.0](https://github.com/gravity-ui/websql-autocomplete/compare/v2.1.0...v3.0.0) (2023-12-07)
 
 
