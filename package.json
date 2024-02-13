@@ -1,10 +1,10 @@
 {
-  "name": "websql-autocomplete-2",
+  "name": "websql-autocomplete",
   "version": "4.0.0",
   "description": "A library that provides autocompletion and errors highlighting for various database dialects",
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/gravity-ui/websql-autocomplete-2"
+    "url": "git+ssh://git@github.com/gravity-ui/websql-autocomplete"
   },
   "license": "Apache-2.0",
   "type": "module",
