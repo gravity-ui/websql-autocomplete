@@ -1,57 +1,24 @@
 # WebSQL autocomplete
 
-![ci_badge](https://img.shields.io/github/actions/workflow/status/gravity-ui/websql-autocomplete/ci.yml)
-![npm_package_version_badge](https://img.shields.io/npm/v/websql-autocomplete)
-![last_commit_badge](https://img.shields.io/github/last-commit/gravity-ui/websql-autocomplete)
-![license_badge](https://img.shields.io/github/license/gravity-ui/websql-autocomplete)
-
 A tool that provides autocompletion for various sql dialects.
 
-# Parser theory
+# Autocomplete theory
 
 In order to parse any language, you need a [lexer](https://en.wikipedia.org/wiki/Lexical_analysis) (tokenizer) and a [parser](https://en.wikipedia.org/wiki/Parsing#Parser) (ast builder)
 
 Resources to research:
 
-- Bison grammar specification: https://www.gnu.org/software/bison/manual/html_node/Rules-Syntax.html
-- Playlist with the explanation on how parser and lexer work together: https://www.youtube.com/playlist?list=PLIrl0f9NJZy4oOOAVPU6MyRdFjJFGtceu
+- The ANTLR Mega Tutorial: https://tomassetti.me/antlr-mega-tutorial/
+- Code Completion with ANTLR4-c3: https://tomassetti.me/code-completion-with-antlr4-c3/
 
 # How everything works
 
-1. Autocomplete parser source code for different `{dialect}` are defined in `src/autocomplete/parsers/{dialect}` directories.
-2. Lexer configuration is specified in `src/autocomplete/parsers/{dialect}/grammar/sql.jisonlex` file.
-3. SQL grammar is specified in `src/autocomplete/parsers/{dialect}/grammar/**/*.jison`. It is placed in multiple files for easier understanding. Test files in the format `*.test.ts` are placed nearby. Jison is basically bison, but for javascript.
-4. `src/autocomplete/parsers/{dialect}/grammar/structure.json` specifies paths to a lexer, and to all the grammar files.
-5. Parser extension (basically the autocomplete features) is specified in `src/autocomplete/parsers/{dialect}/parser-extension.ts`.
-6. `src/generator/main.ts` concatenates all the jison files into a single big jison file, and runs the jison tool with the specified lexer, then wires everything up with the `parser-extension.ts`, generating `src/autocomplete/parsers/{dialect}/{dialect}AutocompleteParser.js`.
-7. The generated file is in plain javascript, so we create a convenient typescript wrapper in `src/autocomplete/index.ts` with all the types and functions. Our users should include this file in their own projects.
+1. ANTLR4 grammar and lexer for different `{dialect}` are defined in `src/autocomplete/{dialect}/grammar` directories.
+2. Actual parsers and lexers for different `{dialect}` are generated into `src/autocomplete/{dialect}/generated` directories.
+3. Dialect specific code, which is required for the core logic to work, is put in `src/autocomplete/{dialect}/{dialect}Autocomplete.ts` files.
+4. The core logic is inside `src/index.ts` file. It uses dialect specific helpers to generate autocomplete suggestions based on current cursor position.
 
 # Main scripts
 
-- `npm run generate` - Generate parsers
+- `npm run generate` - Generate parsers and lexers
 - `npm run test` - Run tests
-
-# Contributing
-
-- When adding a new file, just add Yandex copyright header
-- When editing a file that has not Yandex copyright, add Yandex copyright header underneath the existent copyright from Cloudera, and update changed files list in [NOTICE.txt](NOTICE.txt) at the bottom
-- Delete and move files freely
-- You should name your pull requests and commits in [conventional commits](https://www.conventionalcommits.org/en/v1.0.0/) naming. We update release version based on the commits
-
-Yandex copyright:
-
-```text
-// Please note that the code below is the modified code distributed on the terms, mentioned below.
-// The copyright for the changes belongs to YANDEX LLC.
-//
-// Copyright 2023 YANDEX LLC
-//
-// Licensed under the Apache License, Version 2.0 (the "License")
-// You may not use this file except in compliance with the License.
-// You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software distributed under
-// the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
-// either express or implied. See the License for the specific language governing permissions
-// and limitations under the License.
-```

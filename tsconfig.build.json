@@ -1,5 +1,8 @@
 {
   "extends": "./tsconfig.json",
-  "include": ["src/autocomplete/*"],
-  "exclude": ["src/autocomplete/test/*"]
+  "include": ["src/index.ts"],
+  "exclude": ["node_modules"],
+  "compilerOptions": {
+    "emitDeclarationOnly": true
+  }
 }

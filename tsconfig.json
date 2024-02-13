@@ -1,7 +1,9 @@
 {
   "extends": "@gravity-ui/tsconfig",
   "compilerOptions": {
-    "target": "ES2020",
+    "module": "ES2022",
+    "outDir": "dist",
+    "noEmitOnError": false,
     "noErrorTruncation": true,
     "resolveJsonModule": true,
     "noUncheckedIndexedAccess": true,
@@ -9,8 +11,7 @@
     "strictNullChecks": true,
     "noImplicitAny": true,
     "checkJs": false,
-    "declaration": true,
-    "outDir": "dist"
+    "declaration": true
   },
   "include": ["src/**/*"]
 }

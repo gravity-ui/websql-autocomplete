@@ -8,3 +8,4 @@ node_modules
 # Artifacts
 dist
 
+.ds_store
