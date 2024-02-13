@@ -1,5 +1,10 @@
 # WebSQL autocomplete
 
+![ci_badge](https://img.shields.io/github/actions/workflow/status/gravity-ui/websql-autocomplete/ci.yml)
+![npm_package_version_badge](https://img.shields.io/npm/v/websql-autocomplete)
+![last_commit_badge](https://img.shields.io/github/last-commit/gravity-ui/websql-autocomplete)
+![license_badge](https://img.shields.io/github/license/gravity-ui/websql-autocomplete)
+
 A tool that provides autocompletion for various sql dialects.
 
 # Autocomplete theory
