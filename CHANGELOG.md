@@ -1,19 +1,11 @@
 # Changelog
 
-## [3.1.0](https://github.com/gravity-ui/websql-autocomplete/compare/v3.0.0...v3.1.0) (2024-02-13)
+## [4.0.0](https://github.com/gravity-ui/websql-autocomplete/compare/v4.0.0...v3.1.0) (2024-02-13)
 
 
-### Features
+### ⚠ BREAKING CHANGES
 
-* fix alter suggestions; fix table and column suggestions with multiple statements; add alter, drop tests; separate newline tests; add commit and ci checks ([#14](https://github.com/gravity-ui/websql-autocomplete/issues/14)) ([fcbe16a](https://github.com/gravity-ui/websql-autocomplete/commit/fcbe16acda6bf98f2f33905d32f1bd373af22ae5))
-* fix columns being suggested in LIMIT, OFFSET clause; fix insert grammar and table handling in psql; fix grammar for select statements; psql tests for empty-query, select, delete, insert, update ([#20](https://github.com/gravity-ui/websql-autocomplete/issues/20)) ([1b2b84e](https://github.com/gravity-ui/websql-autocomplete/commit/1b2b84e33398a763b3958e4c4c35121232993e68))
-* fix psql suggesting tables after table name; insert and update tests; findCursorTokenIndex tests ([#16](https://github.com/gravity-ui/websql-autocomplete/issues/16)) ([41022e3](https://github.com/gravity-ui/websql-autocomplete/commit/41022e389e46c5b926e30d113c5bb2d74059aaa6))
-
-
-### Bug Fixes
-
-* fixed antlr4ng version ([#21](https://github.com/gravity-ui/websql-autocomplete/issues/21)) ([69bfc7e](https://github.com/gravity-ui/websql-autocomplete/commit/69bfc7e2abec768d5c5b3e28611bde5b87fe63ae))
-* skip comments in lexers; write tests for table names with comments; throw errors in certain places ([#27](https://github.com/gravity-ui/websql-autocomplete/issues/27)) ([6dab76f](https://github.com/gravity-ui/websql-autocomplete/commit/6dab76f792e711116833221d03e5c9649c5fc024))
+* New version of autocomplete based on code completion on ANTLR4 grammars
 
 ## [3.0.0](https://github.com/gravity-ui/websql-autocomplete/compare/v2.1.0...v3.0.0) (2023-12-07)
 
