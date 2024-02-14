@@ -11,3 +11,13 @@ export class TableSymbol extends c3.TypedSymbol {
         this.alias = alias;
     }
 }
+
+export class ColumnAliasSymbol extends c3.TypedSymbol {
+    name: string;
+
+    constructor(name: string, type?: c3.IType) {
+        super(name, type);
+
+        this.name = name;
+    }
+}

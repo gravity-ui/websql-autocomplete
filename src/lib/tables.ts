@@ -1,10 +1,14 @@
-import {TokenStream} from 'antlr4ng';
+import {Token, TokenStream} from 'antlr4ng';
 
-export interface TableQueryPosition {
+interface TableQueryPositionBase {
     start: number;
     end: number;
+}
+
+export interface TableQueryPosition extends TableQueryPositionBase {
     type: 'from' | 'alter' | 'insert' | 'update';
-    joinTableQueryPosition?: Omit<TableQueryPosition, 'joinTableQueryPosition' | 'type'>;
+    joinTableQueryPosition?: TableQueryPositionBase;
+    selectTableQueryPosition?: TableQueryPositionBase;
 }
 
 export interface TokenDictionary {
@@ -17,6 +21,7 @@ export interface TokenDictionary {
     UPDATE: number;
     JOIN: number;
     SEMICOLON: number;
+    SELECT: number;
 }
 
 function getClosingBracketIndex(
@@ -91,11 +96,25 @@ export function getTableQueryPosition(
                   } as const)
                 : undefined;
 
+            const selectToken = getPreviousToken(
+                tokenStream,
+                dictionary,
+                closingBracketIndex.tokenIndex,
+                dictionary.SELECT,
+            );
+            const selectTableQueryPosition = selectToken
+                ? ({
+                      start: selectToken.start,
+                      end: closingBracketIndex.cursorIndex,
+                  } as const)
+                : undefined;
+
             return {
                 start: token.start,
                 end: closingBracketIndex.cursorIndex,
                 type: 'from',
                 joinTableQueryPosition,
+                selectTableQueryPosition,
             };
         }
 
@@ -124,11 +143,8 @@ export function getTableQueryPosition(
         if (token.type === dictionary.ALTER) {
             // If we find another ALTER before, it means that this is ALTER COLUMN
             // and we don't want to exit here
-            const hasPreviousAlter = hasPreviousToken(
-                tokenStream,
-                dictionary,
-                currentIndex,
-                dictionary.ALTER,
+            const hasPreviousAlter = Boolean(
+                getPreviousToken(tokenStream, dictionary, currentIndex, dictionary.ALTER),
             );
 
             if (!hasPreviousAlter) {
@@ -183,12 +199,12 @@ function getJoinIndex(
     return undefined;
 }
 
-export function hasPreviousToken(
+export function getPreviousToken(
     tokenStream: TokenStream,
     dictionary: TokenDictionary,
     tokenIndex: number,
     tokenType: number,
-): boolean {
+): Token | undefined {
     let currentIndex = tokenIndex - 1;
 
     while (currentIndex > -1) {
@@ -196,15 +212,15 @@ export function hasPreviousToken(
 
         // This is the end of previous statement, so we want to exit
         if (token.type === dictionary.SEMICOLON) {
-            return false;
+            return undefined;
         }
 
         if (token.type === tokenType) {
-            return true;
+            return token;
         }
 
         currentIndex--;
     }
 
-    return false;
+    return undefined;
 }
