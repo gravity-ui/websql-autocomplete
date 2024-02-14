@@ -950,11 +950,15 @@ selectElements
     : (star = STAR | selectElement) (COMMA selectElement)*
     ;
 
+selectElementAlias
+    : AS? uid
+    ;
+
 selectElement
-    : fullId DOT STAR                              # selectStarElement
-    | fullColumnName (AS? uid)?                    # selectColumnElement
-    | functionCall (AS? uid)?                      # selectFunctionElement
-    | (LOCAL_ID VAR_ASSIGN)? expression (AS? uid)? # selectExpressionElement
+    : fullId DOT STAR                                       # selectStarElement
+    | fullColumnName selectElementAlias?                    # selectColumnElement
+    | functionCall selectElementAlias?                      # selectFunctionElement
+    | (LOCAL_ID VAR_ASSIGN)? expression selectElementAlias? # selectExpressionElement
     ;
 
 selectIntoExpression

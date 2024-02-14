@@ -284,6 +284,7 @@ import { JsonOnEmptyContext } from "./MySqlParser.js";
 import { JsonOnErrorContext } from "./MySqlParser.js";
 import { SelectSpecContext } from "./MySqlParser.js";
 import { SelectElementsContext } from "./MySqlParser.js";
+import { SelectElementAliasContext } from "./MySqlParser.js";
 import { SelectStarElementContext } from "./MySqlParser.js";
 import { SelectColumnElementContext } from "./MySqlParser.js";
 import { SelectFunctionElementContext } from "./MySqlParser.js";
@@ -2426,6 +2427,12 @@ export class MySqlParserVisitor<Result> extends AbstractParseTreeVisitor<Result>
      * @return the visitor result
      */
     visitSelectElements?: (ctx: SelectElementsContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.selectElementAlias`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitSelectElementAlias?: (ctx: SelectElementAliasContext) => Result;
     /**
      * Visit a parse tree produced by the `selectStarElement`
      * labeled alternative in `MySqlParser.selectElement`.

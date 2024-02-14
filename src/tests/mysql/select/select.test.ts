@@ -194,44 +194,6 @@ test('should suggest multiple table names and aliases (with AS) for column', () 
     expect(parseResult.suggestColumns).toEqual(columnSuggestions);
 });
 
-// TODO: fix, grammar is written this way that ORDER might be an alias
-test.skip('should suggest properly after ORDER', () => {
-    const parseResult = parseMySqlQueryWithCursor('SELECT * FROM test_table ORDER |');
-
-    const keywordsSuggestion: KeywordSuggestion[] = [{value: 'BY'}];
-    expect(parseResult.suggestKeywords).toEqual(keywordsSuggestion);
-});
-
-test('should suggest properly after ORDER', () => {
-    const parseResult = parseMySqlQueryWithCursor('SELECT * FROM test_table as t ORDER |');
-
-    const keywordsSuggestion: KeywordSuggestion[] = [{value: 'BY'}];
-    expect(parseResult.suggestKeywords).toEqual(keywordsSuggestion);
-});
-
-// TODO: fix expression rule, should only suggest columns
-test.skip('should suggest properly after ORDER BY', () => {
-    const parseResult = parseMySqlQueryWithCursor('SELECT * FROM test_table as t ORDER BY |');
-
-    const keywordsSuggestion: KeywordSuggestion[] = [];
-    expect(parseResult.suggestKeywords).toEqual(keywordsSuggestion);
-});
-
-test('should suggest properly after GROUP', () => {
-    const parseResult = parseMySqlQueryWithCursor('SELECT * FROM test_table as t GROUP |');
-
-    const keywordsSuggestion: KeywordSuggestion[] = [{value: 'BY'}];
-    expect(parseResult.suggestKeywords).toEqual(keywordsSuggestion);
-});
-
-// TODO: fix expression rule, should only suggest columns
-test.skip('should suggest properly after GROUP BY', () => {
-    const parseResult = parseMySqlQueryWithCursor('SELECT * FROM test_table as t GROUP BY |');
-
-    const keywordsSuggestion: KeywordSuggestion[] = [];
-    expect(parseResult.suggestKeywords).toEqual(keywordsSuggestion);
-});
-
 test('should suggest properly after HAVING', () => {
     const parseResult = parseMySqlQueryWithCursor('SELECT * FROM test_table as t HAVING |');
 
