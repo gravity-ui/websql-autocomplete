@@ -1,33 +1,33 @@
 import {CharStreams, CommonTokenStream, Parser} from 'antlr4ng';
 
 import {
-    Createfunc_opt_listContext,
+    CreateFunctionOptionListContext,
     PostgreSqlParser,
     SconstContext,
 } from '../generated/PostgreSqlParser.js';
 import {PostgreSqlLexer} from '../generated/PostgreSqlLexer.js';
 
 abstract class PostgreSqlParserBase extends Parser {
-    ParseRoutineBody(_localctx: Createfunc_opt_listContext): void {
+    ParseRoutineBody(_localctx: CreateFunctionOptionListContext): void {
         let lang = null;
-        for (const coi of _localctx.createfunc_opt_item()) {
+        for (const coi of _localctx.createFunctionOptionItem()) {
             if (coi.LANGUAGE() !== null) {
-                if (coi.nonreservedword_or_sconst() !== null)
-                    if (coi.nonreservedword_or_sconst()?.nonreservedword() !== null)
+                if (coi.nonReservedWordOrSconst() !== null)
+                    if (coi.nonReservedWordOrSconst()?.nonReservedWord() !== null)
                         if (
-                            coi.nonreservedword_or_sconst()?.nonreservedword()?.identifier() !==
+                            coi.nonReservedWordOrSconst()?.nonReservedWord()?.identifier() !==
                             null
                         )
                             if (
                                 coi
-                                    .nonreservedword_or_sconst()
-                                    ?.nonreservedword()
+                                    .nonReservedWordOrSconst()
+                                    ?.nonReservedWord()
                                     ?.identifier()
                                     ?.Identifier() !== null
                             ) {
                                 lang = coi
-                                    .nonreservedword_or_sconst()
-                                    ?.nonreservedword()
+                                    .nonReservedWordOrSconst()
+                                    ?.nonReservedWord()
                                     ?.identifier()
                                     ?.Identifier()
                                     ?.getText();
@@ -37,8 +37,8 @@ abstract class PostgreSqlParserBase extends Parser {
         }
         if (null === lang) return;
         let func_as = null;
-        for (const a of _localctx.createfunc_opt_item()) {
-            if (a.func_as() !== null) {
+        for (const a of _localctx.createFunctionOptionItem()) {
+            if (a.functionAs() !== null) {
                 func_as = a;
                 break;
             }
@@ -74,7 +74,7 @@ abstract class PostgreSqlParserBase extends Parser {
     }
 
     private GetRoutineBodyString(rule: SconstContext): string {
-        const anysconst = rule.anysconst();
+        const anysconst = rule.anySconst();
         const StringConstant = anysconst.StringConstant();
         if (null !== StringConstant) return this.unquote(this.TrimQuotes(StringConstant.getText()));
         const UnicodeEscapeStringConstant = anysconst.UnicodeEscapeStringConstant();

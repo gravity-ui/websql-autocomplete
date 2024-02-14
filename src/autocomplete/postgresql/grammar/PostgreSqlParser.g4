@@ -31,425 +31,425 @@ options {
 }
 
 root
-    : stmtmulti? EOF
+    : statements? EOF
     ;
 
-plsqlroot
-    : pl_function
+plsqlRoot
+    : plsqlFunction
     ;
 
-stmtmulti
-    : stmt SEMI?
-    | stmt SEMI stmtmulti
+statements
+    : statement SEMI?
+    | statement SEMI statements
     ;
 
-stmt
-    : altereventtrigstmt
-    | altercollationstmt
-    | alterdatabasestmt
-    | alterdatabasesetstmt
-    | alterdefaultprivilegesstmt
-    | alterdomainstmt
-    | alterenumstmt
-    | alterextensionstmt
-    | alterextensioncontentsstmt
-    | alterfdwstmt
-    | alterforeignserverstmt
-    | alterfunctionstmt
-    | altergroupstmt
-    | alterobjectdependsstmt
-    | alterobjectschemastmt
-    | alterownerstmt
-    | alteroperatorstmt
-    | altertypestmt
-    | alterpolicystmt
-    | alterseqstmt
-    | altersystemstmt
-    | altertablestmt
-    | altertblspcstmt
-    | altercompositetypestmt
-    | alterpublicationstmt
-    | alterrolesetstmt
-    | alterrolestmt
-    | altersubscriptionstmt
-    | alterstatsstmt
-    | altertsconfigurationstmt
-    | altertsdictionarystmt
-    | alterusermappingstmt
-    | analyzestmt
-    | callstmt
-    | checkpointstmt
-    | closeportalstmt
-    | clusterstmt
-    | commentstmt
-    | constraintssetstmt
-    | copystmt
-    | createamstmt
-    | createasstmt
-    | createassertionstmt
-    | createcaststmt
-    | createconversionstmt
-    | createdomainstmt
-    | createextensionstmt
-    | createfdwstmt
-    | createforeignserverstmt
-    | createforeigntablestmt
-    | createfunctionstmt
-    | creategroupstmt
-    | creatematviewstmt
-    | createopclassstmt
-    | createopfamilystmt
-    | createpublicationstmt
-    | alteropfamilystmt
-    | createpolicystmt
-    | createplangstmt
-    | createschemastmt
-    | createseqstmt
-    | createstmt
-    | createsubscriptionstmt
-    | createstatsstmt
-    | createtablespacestmt
-    | createtransformstmt
-    | createtrigstmt
-    | createeventtrigstmt
-    | createrolestmt
-    | createuserstmt
-    | createusermappingstmt
-    | createdbstmt
-    | deallocatestmt
-    | declarecursorstmt
-    | definestmt
-    | deletestmt
-    | discardstmt
-    | dostmt
-    | dropcaststmt
-    | dropopclassstmt
-    | dropopfamilystmt
-    | dropownedstmt
-    | dropstmt
-    | dropsubscriptionstmt
-    | droptablespacestmt
-    | droptransformstmt
-    | droprolestmt
-    | dropusermappingstmt
-    | dropdbstmt
-    | executestmt
-    | explainstmt
-    | fetchstmt
-    | grantstmt
-    | grantrolestmt
-    | importforeignschemastmt
-    | indexstmt
-    | insertstmt
-    | mergestmt
-    | listenstmt
-    | refreshmatviewstmt
-    | loadstmt
-    | lockstmt
-    | notifystmt
-    | preparestmt
-    | reassignownedstmt
-    | reindexstmt
-    | removeaggrstmt
-    | removefuncstmt
-    | removeoperstmt
-    | renamestmt
-    | revokestmt
-    | revokerolestmt
-    | rulestmt
-    | seclabelstmt
-    | selectstmt
-    | transactionstmt
-    | truncatestmt
-    | unlistenstmt
-    | updatestmt
-    | vacuumstmt
-    | variableresetstmt
-    | variablesetstmt
-    | variableshowstmt
-    | viewstmt
-    | plsqlconsolecommand
+statement
+    : alterEventTriggerStatement
+    | alterCollationStatement
+    | alterDatabaseStatement
+    | alterDatabaseSetStatement
+    | alterDefaultPrivilegesStatement
+    | alterDomainStatement
+    | alterEnumStatement
+    | alterExtensionStatement
+    | alterExtensionContentsStatement
+    | alterForeignDataWrapperStatement
+    | alterForeignServerStatement
+    | alterFunctionStatement
+    | alterGroupStatement
+    | alterObjectDependsStatement
+    | alterObjectSchemaStatement
+    | alterOwnerStatement
+    | alterOperatorStatement
+    | alterTypeStatement
+    | alterPolicyStatement
+    | alterSequenceStatement
+    | alterSystemStatement
+    | alterTableStatement
+    | alterTablespaceStatement
+    | alterCompositeTypeStatement
+    | alterPublicationStatement
+    | alterRoleSetStatement
+    | alterRoleStatement
+    | alterSubscriptionStatement
+    | alterStatsStatement
+    | altertsConfigurationStatement
+    | altertsDictionaryStatement
+    | alterUserMappingStatement
+    | analyzeStatement
+    | callStatement
+    | checkpointStatement
+    | closePortalStatement
+    | clusterStatement
+    | commentStatement
+    | setConstraintsStatement
+    | copyStatement
+    | createAccessMethodStatement
+    | createAsStatement
+    | createAssertionStatement
+    | createCastStatement
+    | createConversionStatement
+    | createDomainStatement
+    | createExtensionStatement
+    | createForeignDataWrapperStatement
+    | createForeignServerStatement
+    | createForeignTableStatement
+    | createFunctionStatement
+    | createGroupStatement
+    | createMaterializedViewStatement
+    | createOperatorClassStatement
+    | createOperatorFamilyStatement
+    | createPublicationStatement
+    | alterOperatorFamilyStatement
+    | createPolicyStatement
+    | createProcedureLangStatement
+    | createSchemaStatement
+    | createSequenceStatement
+    | createStatement
+    | createSubscriptionStatement
+    | createStatsStatement
+    | createTablespaceStatement
+    | createTransformStatement
+    | createTriggerStatement
+    | createEventTriggerStatement
+    | createRoleStatement
+    | createUserStatement
+    | createUserMappingStatement
+    | createDatabaseStatement
+    | deallocateStatement
+    | declareCursorStatement
+    | defineStatement
+    | deleteStatement
+    | discardStatement
+    | doStatement
+    | dropCastStatement
+    | dropOperatorClassStatement
+    | dropOperatorFamilyStatement
+    | dropOwnedStatement
+    | dropStatement
+    | dropSubscriptionStatement
+    | dropTablespaceStatement
+    | dropTransformStatement
+    | dropRoleStatement
+    | dropUserMappingStatement
+    | dropDatabaseStatement
+    | executeStatement
+    | explainStatement
+    | fetchStatement
+    | grantStatement
+    | grantRoleStatement
+    | importForeignSchemaStatement
+    | indexStatement
+    | insertStatement
+    | mergeStatement
+    | listenStatement
+    | refreshMaterializedViewStatement
+    | loadStatement
+    | lockStatement
+    | notifyStatement
+    | prepareStatement
+    | reassignOwnedStatement
+    | reindexStatement
+    | removeAggregateStatement
+    | removeFunctionStatement
+    | removeOperatorStatement
+    | renameStatement
+    | revokeStatement
+    | revokeRoleStatement
+    | ruleStatement
+    | securityLabelStatement
+    | selectStatement
+    | transactionStatement
+    | truncateStatement
+    | unlistenStatement
+    | updateStatement
+    | vacuumStatement
+    | variableResetStatement
+    | variableSetStatement
+    | variableShowStatement
+    | viewStatement
+    | plsqlConsoleCommand
     ;
 
-plsqlconsolecommand
+plsqlConsoleCommand
     : MetaCommand EndMetaCommand?
     ;
 
-callstmt
-    : CALL func_application
+callStatement
+    : CALL functionApplication
     ;
 
-createrolestmt
-    : CREATE ROLE roleid opt_with optrolelist
+createRoleStatement
+    : CREATE ROLE roleId optionalWith optionalRoleList
     ;
 
-opt_with
+optionalWith
     : WITH
     //| WITH_LA
     |
     ;
 
-optrolelist
-    : createoptroleelem*
+optionalRoleList
+    : createRoleElement*
     ;
 
-alteroptrolelist
-    : alteroptroleelem*
+alterOptionalRoleList
+    : alterRoleElemement*
     ;
 
-alteroptroleelem
+alterRoleElemement
     : PASSWORD (sconst | NULL_P)
     | (ENCRYPTED | UNENCRYPTED) PASSWORD sconst
     | INHERIT
-    | CONNECTION LIMIT signediconst
+    | CONNECTION LIMIT signedIconst
     | VALID UNTIL sconst
-    | USER role_list
+    | USER roleList
     | identifier
     ;
 
-createoptroleelem
-    : alteroptroleelem
+createRoleElement
+    : alterRoleElemement
     | SYSID iconst
-    | ADMIN role_list
-    | ROLE role_list
-    | IN_P (ROLE | GROUP_P) role_list
+    | ADMIN roleList
+    | ROLE roleList
+    | IN_P (ROLE | GROUP_P) roleList
     ;
 
-createuserstmt
-    : CREATE USER roleid opt_with optrolelist
+createUserStatement
+    : CREATE USER roleId optionalWith optionalRoleList
     ;
 
-alterrolestmt
-    : ALTER (ROLE | USER) rolespec opt_with alteroptrolelist
+alterRoleStatement
+    : ALTER (ROLE | USER) roleSpecification optionalWith alterOptionalRoleList
     ;
 
-opt_in_database
+optionalInDatabase
     :
     | IN_P DATABASE name
     ;
 
-alterrolesetstmt
-    : ALTER (ROLE | USER) ALL? rolespec opt_in_database setresetclause
+alterRoleSetStatement
+    : ALTER (ROLE | USER) ALL? roleSpecification optionalInDatabase setResetClause
     ;
 
-droprolestmt
-    : DROP (ROLE | USER | GROUP_P) (IF_P EXISTS)? role_list
+dropRoleStatement
+    : DROP (ROLE | USER | GROUP_P) (IF_P EXISTS)? roleList
     ;
 
-creategroupstmt
-    : CREATE GROUP_P roleid opt_with optrolelist
+createGroupStatement
+    : CREATE GROUP_P roleId optionalWith optionalRoleList
     ;
 
-altergroupstmt
-    : ALTER GROUP_P rolespec add_drop USER role_list
+alterGroupStatement
+    : ALTER GROUP_P roleSpecification addOrDrop USER roleList
     ;
 
-add_drop
+addOrDrop
     : ADD_P
     | DROP
     ;
 
-createschemastmt
-    : CREATE SCHEMA (IF_P NOT EXISTS)? (optschemaname AUTHORIZATION rolespec | colid) optschemaeltlist
+createSchemaStatement
+    : CREATE SCHEMA (IF_P NOT EXISTS)? (optionalSchemaName AUTHORIZATION roleSpecification | columnId) optionalSchemaList
     ;
 
-optschemaname
-    : colid
+optionalSchemaName
+    : columnId
     |
     ;
 
-optschemaeltlist
-    : schema_stmt*
+optionalSchemaList
+    : schemaStatement*
     ;
 
-schema_stmt
-    : createstmt
-    | indexstmt
-    | createseqstmt
-    | createtrigstmt
-    | grantstmt
-    | viewstmt
+schemaStatement
+    : createStatement
+    | indexStatement
+    | createSequenceStatement
+    | createTriggerStatement
+    | grantStatement
+    | viewStatement
     ;
 
-variablesetstmt
-    : SET (LOCAL | SESSION)? set_rest
+variableSetStatement
+    : SET (LOCAL | SESSION)? setStatementEnding
     ;
 
-set_rest
-    : TRANSACTION transaction_mode_list
-    | SESSION CHARACTERISTICS AS TRANSACTION transaction_mode_list
-    | set_rest_more
+setStatementEnding
+    : TRANSACTION transactionModeList
+    | SESSION CHARACTERISTICS AS TRANSACTION transactionModeList
+    | setStatementMore
     ;
 
-generic_set
-    : var_name (TO | EQUAL) var_list
+genericSetClause
+    : variableName (TO | EQUAL) variableList
     ;
 
-set_rest_more
-    : generic_set
-    | var_name FROM CURRENT_P
-    | TIME ZONE zone_value
+setStatementMore
+    : genericSetClause
+    | variableName FROM CURRENT_P
+    | TIME ZONE zoneValue
     | CATALOG sconst
     | SCHEMA sconst
-    | NAMES opt_encoding
-    | ROLE nonreservedword_or_sconst
-    | SESSION AUTHORIZATION nonreservedword_or_sconst
-    | XML_P OPTION document_or_content
+    | NAMES optionalEncoding
+    | ROLE nonReservedWordOrSconst
+    | SESSION AUTHORIZATION nonReservedWordOrSconst
+    | XML_P OPTION documentOrContent
     | TRANSACTION SNAPSHOT sconst
     ;
 
-var_name
-    : colid (DOT colid)*
+variableName
+    : columnId (DOT columnId)*
     ;
 
-var_list
-    : var_value (COMMA var_value)*
+variableList
+    : variableValue (COMMA variableValue)*
     ;
 
-var_value
-    : opt_boolean_or_string
-    | numericonly
+variableValue
+    : booleanOrString
+    | numericOnly
     ;
 
-iso_level
+isoLevel
     : READ (UNCOMMITTED | COMMITTED)
     | REPEATABLE READ
     | SERIALIZABLE
     ;
 
-opt_boolean_or_string
+booleanOrString
     : TRUE_P
     | FALSE_P
     | ON
-    | nonreservedword_or_sconst
+    | nonReservedWordOrSconst
     ;
 
-zone_value
+zoneValue
     : sconst
     | identifier
-    | constinterval sconst opt_interval
-    | constinterval OPEN_PAREN iconst CLOSE_PAREN sconst
-    | numericonly
+    | constInterval sconst optionalInterval
+    | constInterval OPEN_PAREN iconst CLOSE_PAREN sconst
+    | numericOnly
     | DEFAULT
     | LOCAL
     ;
 
-opt_encoding
+optionalEncoding
     : sconst
     | DEFAULT
     |
     ;
 
-nonreservedword_or_sconst
-    : nonreservedword
+nonReservedWordOrSconst
+    : nonReservedWord
     | sconst
     ;
 
-variableresetstmt
-    : RESET reset_rest
+variableResetStatement
+    : RESET resetClauseRest
     ;
 
-reset_rest
-    : generic_reset
+resetClauseRest
+    : genericResetClause
     | TIME ZONE
     | TRANSACTION ISOLATION LEVEL
     | SESSION AUTHORIZATION
     ;
 
-generic_reset
-    : var_name
+genericResetClause
+    : variableName
     | ALL
     ;
 
-setresetclause
-    : SET set_rest
-    | variableresetstmt
+setResetClause
+    : SET setStatementEnding
+    | variableResetStatement
     ;
 
-functionsetresetclause
-    : SET set_rest_more
-    | variableresetstmt
+functionSetResetClause
+    : SET setStatementMore
+    | variableResetStatement
     ;
 
-variableshowstmt
-    : SHOW (var_name | TIME ZONE | TRANSACTION ISOLATION LEVEL | SESSION AUTHORIZATION | ALL)
+variableShowStatement
+    : SHOW (variableName | TIME ZONE | TRANSACTION ISOLATION LEVEL | SESSION AUTHORIZATION | ALL)
     ;
 
-constraintssetstmt
-    : SET CONSTRAINTS constraints_set_list constraints_set_mode
+setConstraintsStatement
+    : SET CONSTRAINTS constraintsSetList constraintsSetMode
     ;
 
-constraints_set_list
+constraintsSetList
     : ALL
-    | qualified_name_list
+    | qualifiedNameList
     ;
 
-constraints_set_mode
+constraintsSetMode
     : DEFERRED
     | IMMEDIATE
     ;
 
-checkpointstmt
+checkpointStatement
     : CHECKPOINT
     ;
 
-discardstmt
+discardStatement
     : DISCARD (ALL | TEMP | TEMPORARY | PLANS | SEQUENCES)
     ;
 
-altertablestmt
-    : ALTER TABLE (IF_P EXISTS)? relation_expr (alter_table_cmds | partition_cmd)
-    | ALTER TABLE ALL IN_P TABLESPACE name (OWNED BY role_list)? SET TABLESPACE name opt_nowait
-    | ALTER INDEX (IF_P EXISTS)? qualified_name (alter_table_cmds | index_partition_cmd)
-    | ALTER INDEX ALL IN_P TABLESPACE name (OWNED BY role_list)? SET TABLESPACE name opt_nowait
-    | ALTER SEQUENCE (IF_P EXISTS)? qualified_name alter_table_cmds
-    | ALTER VIEW (IF_P EXISTS)? qualified_name alter_table_cmds
-    | ALTER MATERIALIZED VIEW (IF_P EXISTS)? qualified_name alter_table_cmds
-    | ALTER MATERIALIZED VIEW ALL IN_P TABLESPACE name (OWNED BY role_list)? SET TABLESPACE name opt_nowait
-    | ALTER FOREIGN TABLE (IF_P EXISTS)? relation_expr alter_table_cmds
+alterTableStatement
+    : ALTER TABLE (IF_P EXISTS)? relationExpression (alterTableCommands | partitionCommand)
+    | ALTER TABLE ALL IN_P TABLESPACE name (OWNED BY roleList)? SET TABLESPACE name optionalNowait
+    | ALTER INDEX (IF_P EXISTS)? qualifiedName (alterTableCommands | indexPartitionCommand)
+    | ALTER INDEX ALL IN_P TABLESPACE name (OWNED BY roleList)? SET TABLESPACE name optionalNowait
+    | ALTER SEQUENCE (IF_P EXISTS)? qualifiedName alterTableCommands
+    | ALTER VIEW (IF_P EXISTS)? qualifiedName alterTableCommands
+    | ALTER MATERIALIZED VIEW (IF_P EXISTS)? qualifiedName alterTableCommands
+    | ALTER MATERIALIZED VIEW ALL IN_P TABLESPACE name (OWNED BY roleList)? SET TABLESPACE name optionalNowait
+    | ALTER FOREIGN TABLE (IF_P EXISTS)? relationExpression alterTableCommands
     ;
 
-alter_table_cmds
-    : alter_table_cmd (COMMA alter_table_cmd)*
+alterTableCommands
+    : alterTableCommand (COMMA alterTableCommand)*
     ;
 
-partition_cmd
-    : ATTACH PARTITION qualified_name partitionboundspec
-    | DETACH PARTITION qualified_name
+partitionCommand
+    : ATTACH PARTITION qualifiedName partitionBoundSpecification
+    | DETACH PARTITION qualifiedName
     ;
 
-index_partition_cmd
-    : ATTACH PARTITION qualified_name
+indexPartitionCommand
+    : ATTACH PARTITION qualifiedName
     ;
 
-alter_table_cmd
-    : ADD_P columnDef
-    | ADD_P IF_P NOT EXISTS columnDef
-    | ADD_P COLUMN columnDef
-    | ADD_P COLUMN IF_P NOT EXISTS columnDef
-    | ALTER opt_column colid alter_column_default
-    | ALTER opt_column colid DROP NOT NULL_P
-    | ALTER opt_column colid SET NOT NULL_P
-    | ALTER opt_column colid DROP EXPRESSION
-    | ALTER opt_column colid DROP EXPRESSION IF_P EXISTS
-    | ALTER opt_column colid SET STATISTICS signediconst
-    | ALTER opt_column iconst SET STATISTICS signediconst
-    | ALTER opt_column colid SET reloptions
-    | ALTER opt_column colid RESET reloptions
-    | ALTER opt_column colid SET STORAGE colid
-    | ALTER opt_column colid ADD_P GENERATED generated_when AS IDENTITY_P optparenthesizedseqoptlist
-    | ALTER opt_column colid alter_identity_column_option_list
-    | ALTER opt_column colid DROP IDENTITY_P
-    | ALTER opt_column colid DROP IDENTITY_P IF_P EXISTS
-    | DROP opt_column IF_P EXISTS colid opt_drop_behavior
-    | DROP opt_column colid opt_drop_behavior
-    | ALTER opt_column colid opt_set_data TYPE_P typename opt_collate_clause alter_using
-    | ALTER opt_column colid alter_generic_options
-    | ADD_P tableconstraint
-    | ALTER CONSTRAINT name constraintattributespec
+alterTableCommand
+    : ADD_P columnDefinition
+    | ADD_P IF_P NOT EXISTS columnDefinition
+    | ADD_P COLUMN columnDefinition
+    | ADD_P COLUMN IF_P NOT EXISTS columnDefinition
+    | ALTER optionalColumn columnId alterColumnDefault
+    | ALTER optionalColumn columnId DROP NOT NULL_P
+    | ALTER optionalColumn columnId SET NOT NULL_P
+    | ALTER optionalColumn columnId DROP EXPRESSION
+    | ALTER optionalColumn columnId DROP EXPRESSION IF_P EXISTS
+    | ALTER optionalColumn columnId SET STATISTICS signedIconst
+    | ALTER optionalColumn iconst SET STATISTICS signedIconst
+    | ALTER optionalColumn columnId SET relOptions
+    | ALTER optionalColumn columnId RESET relOptions
+    | ALTER optionalColumn columnId SET STORAGE columnId
+    | ALTER optionalColumn columnId ADD_P GENERATED generatedWhen AS IDENTITY_P optionalParenthesizedSeqOptionsList
+    | ALTER optionalColumn columnId alterIdentityColumnOptionList
+    | ALTER optionalColumn columnId DROP IDENTITY_P
+    | ALTER optionalColumn columnId DROP IDENTITY_P IF_P EXISTS
+    | DROP optionalColumn IF_P EXISTS columnId optionalDropBehavior
+    | DROP optionalColumn columnId optionalDropBehavior
+    | ALTER optionalColumn columnId optionalSetData TYPE_P typeName optionalCollateClause alterUsing
+    | ALTER optionalColumn columnId alterGenericOptions
+    | ADD_P tableConstraint
+    | ALTER CONSTRAINT name constraintAttributeSpecification
     | VALIDATE CONSTRAINT name
-    | DROP CONSTRAINT IF_P EXISTS name opt_drop_behavior
-    | DROP CONSTRAINT name opt_drop_behavior
+    | DROP CONSTRAINT IF_P EXISTS name optionalDropBehavior
+    | DROP CONSTRAINT name optionalDropBehavior
     | SET WITHOUT OIDS
     | CLUSTER ON name
     | SET WITHOUT CLUSTER
@@ -467,203 +467,176 @@ alter_table_cmd
     | ENABLE_P ALWAYS RULE name
     | ENABLE_P REPLICA RULE name
     | DISABLE_P RULE name
-    | INHERIT qualified_name
-    | NO INHERIT qualified_name
-    | OF any_name
+    | INHERIT qualifiedName
+    | NO INHERIT qualifiedName
+    | OF anyName
     | NOT OF
-    | OWNER TO rolespec
+    | OWNER TO roleSpecification
     | SET TABLESPACE name
-    | SET reloptions
-    | RESET reloptions
-    | REPLICA IDENTITY_P replica_identity
+    | SET relOptions
+    | RESET relOptions
+    | REPLICA IDENTITY_P replicaIdentity
     | ENABLE_P ROW LEVEL SECURITY
     | DISABLE_P ROW LEVEL SECURITY
     | FORCE ROW LEVEL SECURITY
     | NO FORCE ROW LEVEL SECURITY
-    | alter_generic_options
+    | alterGenericOptions
     ;
 
-alter_column_default
-    : SET DEFAULT a_expr
+alterColumnDefault
+    : SET DEFAULT expression1
     | DROP DEFAULT
     ;
 
-opt_drop_behavior
+optionalDropBehavior
     : CASCADE
     | RESTRICT
     |
     ;
 
-opt_collate_clause
-    : COLLATE any_name
+optionalCollateClause
+    : COLLATE anyName
     |
     ;
 
-alter_using
-    : USING a_expr
+alterUsing
+    : USING expression1
     |
     ;
 
-replica_identity
+replicaIdentity
     : NOTHING
     | FULL
     | DEFAULT
     | USING INDEX name
     ;
 
-reloptions
-    : OPEN_PAREN reloption_list CLOSE_PAREN
+relOptions
+    : OPEN_PAREN relOptionList CLOSE_PAREN
     ;
 
-opt_reloptions
-    : WITH reloptions
+optionalRelOptions
+    : WITH relOptions
     |
     ;
 
-reloption_list
-    : reloption_elem (COMMA reloption_elem)*
+relOptionList
+    : relOptionElem (COMMA relOptionElem)*
     ;
 
-reloption_elem
-    : collabel (EQUAL def_arg | DOT collabel (EQUAL def_arg)?)?
+relOptionElem
+    : columnLabel (EQUAL definitionArgument | DOT columnLabel (EQUAL definitionArgument)?)?
     ;
 
-alter_identity_column_option_list
-    : alter_identity_column_option+
+alterIdentityColumnOptionList
+    : alterIdentityColumnOption+
     ;
 
-alter_identity_column_option
-    : RESTART (opt_with numericonly)?
-    | SET (seqoptelem | GENERATED generated_when)
+alterIdentityColumnOption
+    : RESTART (optionalWith numericOnly)?
+    | SET (sequenceOptionItem | GENERATED generatedWhen)
     ;
 
-partitionboundspec
-    : FOR VALUES WITH OPEN_PAREN hash_partbound CLOSE_PAREN
-    | FOR VALUES IN_P OPEN_PAREN expr_list CLOSE_PAREN
-    | FOR VALUES FROM OPEN_PAREN expr_list CLOSE_PAREN TO OPEN_PAREN expr_list CLOSE_PAREN
+partitionBoundSpecification
+    : FOR VALUES WITH OPEN_PAREN hashPartitionBound CLOSE_PAREN
+    | FOR VALUES IN_P OPEN_PAREN expressionList CLOSE_PAREN
+    | FOR VALUES FROM OPEN_PAREN expressionList CLOSE_PAREN TO OPEN_PAREN expressionList CLOSE_PAREN
     | DEFAULT
     ;
 
-hash_partbound_elem
-    : nonreservedword iconst
+hashPartitionBoundElement
+    : nonReservedWord iconst
     ;
 
-hash_partbound
-    : hash_partbound_elem (COMMA hash_partbound_elem)*
+hashPartitionBound
+    : hashPartitionBoundElement (COMMA hashPartitionBoundElement)*
     ;
 
-altercompositetypestmt
-    : ALTER TYPE_P any_name alter_type_cmds
+alterCompositeTypeStatement
+    : ALTER TYPE_P anyName alterTypeCommands
     ;
 
-alter_type_cmds
-    : alter_type_cmd (COMMA alter_type_cmd)*
+alterTypeCommands
+    : alterTypeCommand (COMMA alterTypeCommand)*
     ;
 
-alter_type_cmd
-    : ADD_P ATTRIBUTE tablefuncelement opt_drop_behavior
-    | DROP ATTRIBUTE (IF_P EXISTS)? colid opt_drop_behavior
-    | ALTER ATTRIBUTE colid opt_set_data TYPE_P typename opt_collate_clause opt_drop_behavior
+alterTypeCommand
+    : ADD_P ATTRIBUTE tableFunctionElement optionalDropBehavior
+    | DROP ATTRIBUTE (IF_P EXISTS)? columnId optionalDropBehavior
+    | ALTER ATTRIBUTE columnId optionalSetData TYPE_P typeName optionalCollateClause optionalDropBehavior
     ;
 
-closeportalstmt
-    : CLOSE (cursor_name | ALL)
+closePortalStatement
+    : CLOSE (cursorName | ALL)
     ;
 
-copystmt
-    : COPY opt_binary qualified_name opt_column_list copy_from opt_program copy_file_name copy_delimiter opt_with copy_options where_clause
-    | COPY OPEN_PAREN preparablestmt CLOSE_PAREN TO opt_program copy_file_name opt_with copy_options
+copyStatement
+    : COPY BINARY? qualifiedName columnListWithParentheses fromOrTo PROGRAM? copyFileName copyDelimiter optionalWith copyOptions whereClause
+    | COPY OPEN_PAREN preparableStatement CLOSE_PAREN TO PROGRAM? copyFileName optionalWith copyOptions
     ;
 
-copy_from
+fromOrTo
     : FROM
     | TO
     ;
 
-opt_program
-    : PROGRAM
-    |
-    ;
-
-copy_file_name
+copyFileName
     : sconst
     | STDIN
     | STDOUT
     ;
 
-copy_options
-    : copy_opt_list
-    | OPEN_PAREN copy_generic_opt_list CLOSE_PAREN
+copyOptions
+    : copyOptionsItem*
+    | OPEN_PAREN copyGenericOptionList CLOSE_PAREN
     ;
 
-copy_opt_list
-    : copy_opt_item*
-    ;
-
-copy_opt_item
+copyOptionsItem
     : BINARY
     | FREEZE
-    | DELIMITER opt_as sconst
-    | NULL_P opt_as sconst
+    | DELIMITER optionalAs sconst
+    | NULL_P optionalAs sconst
     | CSV
     | HEADER_P
-    | QUOTE opt_as sconst
-    | ESCAPE opt_as sconst
-    | FORCE QUOTE columnlist
+    | QUOTE optionalAs sconst
+    | ESCAPE optionalAs sconst
+    | FORCE QUOTE columnList
     | FORCE QUOTE STAR
-    | FORCE NOT NULL_P columnlist
-    | FORCE NULL_P columnlist
+    | FORCE NOT NULL_P columnList
+    | FORCE NULL_P columnList
     | ENCODING sconst
     ;
 
-opt_binary
-    : BINARY
+copyDelimiter
+    : USING? DELIMITERS sconst
     |
     ;
 
-copy_delimiter
-    : opt_using DELIMITERS sconst
-    |
+copyGenericOptionList
+    : copyGenericOptionElem (COMMA copyGenericOptionElem)*
     ;
 
-opt_using
-    : USING
-    |
+copyGenericOptionElem
+    : columnLabel copyGenericOptionArgument
     ;
 
-copy_generic_opt_list
-    : copy_generic_opt_elem (COMMA copy_generic_opt_elem)*
-    ;
-
-copy_generic_opt_elem
-    : collabel copy_generic_opt_arg
-    ;
-
-copy_generic_opt_arg
-    : opt_boolean_or_string
-    | numericonly
+copyGenericOptionArgument
+    : booleanOrString
+    | numericOnly
     | STAR
-    | OPEN_PAREN copy_generic_opt_arg_list CLOSE_PAREN
+    | OPEN_PAREN booleanOrString (COMMA booleanOrString)* CLOSE_PAREN
     |
     ;
 
-copy_generic_opt_arg_list
-    : copy_generic_opt_arg_list_item (COMMA copy_generic_opt_arg_list_item)*
-    ;
-
-copy_generic_opt_arg_list_item
-    : opt_boolean_or_string
-    ;
-
-createstmt
-    : CREATE opttemp TABLE (IF_P NOT EXISTS)? qualified_name (
-        OPEN_PAREN opttableelementlist CLOSE_PAREN optinherit optpartitionspec table_access_method_clause optwith oncommitoption opttablespace
-        | OF any_name opttypedtableelementlist optpartitionspec table_access_method_clause optwith oncommitoption opttablespace
-        | PARTITION OF qualified_name opttypedtableelementlist partitionboundspec optpartitionspec table_access_method_clause optwith oncommitoption opttablespace
+createStatement
+    : CREATE temporaryOption TABLE (IF_P NOT EXISTS)? qualifiedName (
+        OPEN_PAREN optionalTableElementList CLOSE_PAREN inheritClause optionalPartitionSpecification optionalTableAccessMethodClause with onCommitOption optionalTablespace
+        | OF anyName optionalTypedTableElementList optionalPartitionSpecification optionalTableAccessMethodClause with onCommitOption optionalTablespace
+        | PARTITION OF qualifiedName optionalTypedTableElementList partitionBoundSpecification optionalPartitionSpecification optionalTableAccessMethodClause with onCommitOption optionalTablespace
     )
     ;
 
-opttemp
+temporaryOption
     : TEMPORARY
     | TEMP
     | LOCAL (TEMPORARY | TEMP)
@@ -672,85 +645,85 @@ opttemp
     |
     ;
 
-opttableelementlist
-    : tableelementlist
+optionalTableElementList
+    : tableElementList
     |
     ;
 
-opttypedtableelementlist
-    : OPEN_PAREN typedtableelementlist CLOSE_PAREN
+optionalTypedTableElementList
+    : OPEN_PAREN typedTableElementList CLOSE_PAREN
     |
     ;
 
-tableelementlist
-    : tableelement (COMMA tableelement)*
+tableElementList
+    : tableElement (COMMA tableElement)*
     ;
 
-typedtableelementlist
-    : typedtableelement (COMMA typedtableelement)*
+typedTableElementList
+    : typedTableElement (COMMA typedTableElement)*
     ;
 
-tableelement
-    : tableconstraint
-    | tablelikeclause
-    | columnDef
+tableElement
+    : tableConstraint
+    | tableLikeClause
+    | columnDefinition
     ;
 
-typedtableelement
+typedTableElement
     : columnOptions
-    | tableconstraint
+    | tableConstraint
     ;
 
-columnDef
-    : colid typename create_generic_options colquallist
+columnDefinition
+    : columnId typeName createGenericOptions columnQualifierList
     ;
 
 columnOptions
-    : colid (WITH OPTIONS)? colquallist
+    : columnId (WITH OPTIONS)? columnQualifierList
     ;
 
-colquallist
-    : colconstraint*
+columnQualifierList
+    : columnConstraint*
     ;
 
-colconstraint
-    : CONSTRAINT name colconstraintelem
-    | colconstraintelem
-    | constraintattr
-    | COLLATE any_name
+columnConstraint
+    : CONSTRAINT name columnConstraintElement
+    | columnConstraintElement
+    | constraintAttribute
+    | COLLATE anyName
     ;
 
-colconstraintelem
+columnConstraintElement
     : NOT NULL_P
     | NULL_P
-    | UNIQUE opt_definition optconstablespace
-    | PRIMARY KEY opt_definition optconstablespace
-    | CHECK OPEN_PAREN a_expr CLOSE_PAREN opt_no_inherit
-    | DEFAULT b_expr
-    | GENERATED generated_when AS ( IDENTITY_P optparenthesizedseqoptlist | OPEN_PAREN a_expr CLOSE_PAREN STORED)
-    | REFERENCES qualified_name opt_column_list key_match key_actions
+    | UNIQUE optionalDefinition usingIndexTablespace
+    | PRIMARY KEY optionalDefinition usingIndexTablespace
+    | CHECK OPEN_PAREN expression1 CLOSE_PAREN (NO INHERIT)?
+    | DEFAULT expression2
+    | GENERATED generatedWhen AS ( IDENTITY_P optionalParenthesizedSeqOptionsList | OPEN_PAREN expression1 CLOSE_PAREN STORED)
+    | REFERENCES qualifiedName columnListWithParentheses matchClause keyActions
     ;
 
-generated_when
+generatedWhen
     : ALWAYS
     | BY DEFAULT
     ;
 
-constraintattr
+constraintAttribute
     : DEFERRABLE
     | NOT DEFERRABLE
     | INITIALLY (DEFERRED | IMMEDIATE)
     ;
 
-tablelikeclause
-    : LIKE qualified_name tablelikeoptionlist
+tableLikeClause
+    : LIKE qualifiedName tableLikeOptionList
     ;
 
-tablelikeoptionlist
-    : ((INCLUDING | EXCLUDING) tablelikeoption)*
+tableLikeOptionList
+    : ((INCLUDING | EXCLUDING) tableLikeOption)*
     ;
 
-tablelikeoption
+tableLikeOption
     : COMMENTS
     | CONSTRAINTS
     | DEFAULTS
@@ -762,479 +735,431 @@ tablelikeoption
     | ALL
     ;
 
-tableconstraint
-    : CONSTRAINT name constraintelem
-    | constraintelem
+tableConstraint
+    : CONSTRAINT name constraintElement
+    | constraintElement
     ;
 
-constraintelem
-    : CHECK OPEN_PAREN a_expr CLOSE_PAREN constraintattributespec
-    | UNIQUE ( OPEN_PAREN columnlist CLOSE_PAREN opt_c_include opt_definition optconstablespace constraintattributespec | existingindex constraintattributespec)
-    | PRIMARY KEY ( OPEN_PAREN columnlist CLOSE_PAREN opt_c_include opt_definition optconstablespace constraintattributespec | existingindex constraintattributespec)
-    | EXCLUDE access_method_clause OPEN_PAREN exclusionconstraintlist CLOSE_PAREN opt_c_include opt_definition optconstablespace exclusionwhereclause constraintattributespec
-    | FOREIGN KEY OPEN_PAREN columnlist CLOSE_PAREN REFERENCES qualified_name opt_column_list key_match key_actions constraintattributespec
+constraintElement
+    : CHECK OPEN_PAREN expression1 CLOSE_PAREN constraintAttributeSpecification
+    | UNIQUE ( OPEN_PAREN columnList CLOSE_PAREN optionalColumnListInclude optionalDefinition usingIndexTablespace constraintAttributeSpecification | existingIndex constraintAttributeSpecification)
+    | PRIMARY KEY ( OPEN_PAREN columnList CLOSE_PAREN optionalColumnListInclude optionalDefinition usingIndexTablespace constraintAttributeSpecification | existingIndex constraintAttributeSpecification)
+    | EXCLUDE optionalAccessMethodClause OPEN_PAREN exclusionConstraintList CLOSE_PAREN optionalColumnListInclude optionalDefinition usingIndexTablespace exclusionWhereClause constraintAttributeSpecification
+    | FOREIGN KEY OPEN_PAREN columnList CLOSE_PAREN REFERENCES qualifiedName columnListWithParentheses matchClause keyActions constraintAttributeSpecification
     ;
 
-opt_no_inherit
-    : NO INHERIT
+columnListWithParentheses
+    : OPEN_PAREN columnList CLOSE_PAREN
     |
     ;
 
-opt_column_list
-    : OPEN_PAREN columnlist CLOSE_PAREN
+columnList
+    : columnElement (COMMA columnElement)*
+    ;
+
+columnElement
+    : columnId
+    ;
+
+optionalColumnListInclude
+    : INCLUDE OPEN_PAREN columnList CLOSE_PAREN
     |
     ;
 
-columnlist
-    : columnElem (COMMA columnElem)*
-    ;
-
-columnElem
-    : colid
-    ;
-
-opt_c_include
-    : INCLUDE OPEN_PAREN columnlist CLOSE_PAREN
-    |
-    ;
-
-key_match
+matchClause
     : MATCH (FULL | PARTIAL | SIMPLE)
     |
     ;
 
-exclusionconstraintlist
-    : exclusionconstraintelem (COMMA exclusionconstraintelem)*
+exclusionConstraintList
+    : exclusionConstraintElement (COMMA exclusionConstraintElement)*
     ;
 
-exclusionconstraintelem
-    : index_elem WITH (any_operator | OPERATOR OPEN_PAREN any_operator CLOSE_PAREN)
+exclusionConstraintElement
+    : indexElement WITH (anyOperator | OPERATOR OPEN_PAREN anyOperator CLOSE_PAREN)
     ;
 
-exclusionwhereclause
-    : WHERE OPEN_PAREN a_expr CLOSE_PAREN
+exclusionWhereClause
+    : WHERE OPEN_PAREN expression1 CLOSE_PAREN
     |
     ;
 
-key_actions
-    : key_update
-    | key_delete
-    | key_update key_delete
-    | key_delete key_update
+keyActions
+    : onKeyUpdateClause
+    | onKeyDeleteClause
+    | onKeyUpdateClause onKeyDeleteClause
+    | onKeyDeleteClause onKeyUpdateClause
     |
     ;
 
-key_update
-    : ON UPDATE key_action
+onKeyUpdateClause
+    : ON UPDATE keyAction
     ;
 
-key_delete
-    : ON DELETE_P key_action
+onKeyDeleteClause
+    : ON DELETE_P keyAction
     ;
 
-key_action
+keyAction
     : NO ACTION
     | RESTRICT
     | CASCADE
     | SET (NULL_P | DEFAULT)
     ;
 
-optinherit
-    : INHERITS OPEN_PAREN qualified_name_list CLOSE_PAREN
+inheritClause
+    : INHERITS OPEN_PAREN qualifiedNameList CLOSE_PAREN
     |
     ;
 
-optpartitionspec
-    : partitionspec
+optionalPartitionSpecification
+    : partitionSpecification
     |
     ;
 
-partitionspec
-    : PARTITION BY colid OPEN_PAREN part_params CLOSE_PAREN
+partitionSpecification
+    : PARTITION BY columnId OPEN_PAREN partitionElements CLOSE_PAREN
     ;
 
-part_params
-    : part_elem (COMMA part_elem)*
+partitionElements
+    : partitionElement (COMMA partitionElement)*
     ;
 
-part_elem
-    : colid opt_collate opt_class
-    | func_expr_windowless opt_collate opt_class
-    | OPEN_PAREN a_expr CLOSE_PAREN opt_collate opt_class
+partitionElement
+    : columnId optionalCollate optionalClass
+    | functionExpressionWindowless optionalCollate optionalClass
+    | OPEN_PAREN expression1 CLOSE_PAREN optionalCollate optionalClass
     ;
 
-table_access_method_clause
+optionalTableAccessMethodClause
     : USING name
     |
     ;
 
-optwith
-    : WITH reloptions
+with
+    : WITH relOptions
     | WITHOUT OIDS
     |
     ;
 
-oncommitoption
+onCommitOption
     : ON COMMIT (DROP | DELETE_P ROWS | PRESERVE ROWS)
     |
     ;
 
-opttablespace
+optionalTablespace
     : TABLESPACE name
     |
     ;
 
-optconstablespace
+usingIndexTablespace
     : USING INDEX TABLESPACE name
     |
     ;
 
-existingindex
+existingIndex
     : USING INDEX name
     ;
 
-createstatsstmt
-    : CREATE STATISTICS (IF_P NOT EXISTS)? any_name opt_name_list ON expr_list FROM from_list
+createStatsStatement
+    : CREATE STATISTICS (IF_P NOT EXISTS)? anyName optionalNameList ON expressionList FROM fromList
     ;
 
-alterstatsstmt
-    : ALTER STATISTICS (IF_P EXISTS)? any_name SET STATISTICS signediconst
+alterStatsStatement
+    : ALTER STATISTICS (IF_P EXISTS)? anyName SET STATISTICS signedIconst
     ;
 
-createasstmt
-    : CREATE opttemp TABLE (IF_P NOT EXISTS)? create_as_target AS selectstmt opt_with_data
+createAsStatement
+    : CREATE temporaryOption TABLE (IF_P NOT EXISTS)? createAsTarget AS selectStatement withData
     ;
 
-create_as_target
-    : qualified_name opt_column_list table_access_method_clause optwith oncommitoption opttablespace
+createAsTarget
+    : qualifiedName columnListWithParentheses optionalTableAccessMethodClause with onCommitOption optionalTablespace
     ;
 
-opt_with_data
+withData
     : WITH (DATA_P | NO DATA_P)
     |
     ;
 
-creatematviewstmt
-    : CREATE optnolog MATERIALIZED VIEW (IF_P NOT EXISTS)? create_mv_target AS selectstmt opt_with_data
+createMaterializedViewStatement
+    : CREATE UNLOGGED? MATERIALIZED VIEW (IF_P NOT EXISTS)? createMaterializedViewTarget AS selectStatement withData
     ;
 
-create_mv_target
-    : qualified_name opt_column_list table_access_method_clause opt_reloptions opttablespace
+createMaterializedViewTarget
+    : qualifiedName columnListWithParentheses optionalTableAccessMethodClause optionalRelOptions optionalTablespace
     ;
 
-optnolog
-    : UNLOGGED
+refreshMaterializedViewStatement
+    : REFRESH MATERIALIZED VIEW optionalConcurrently qualifiedName withData
+    ;
+
+createSequenceStatement
+    : CREATE temporaryOption SEQUENCE (IF_P NOT EXISTS)? qualifiedName sequenceOptionList?
+    ;
+
+alterSequenceStatement
+    : ALTER SEQUENCE (IF_P EXISTS)? qualifiedName sequenceOptionList
+    ;
+
+optionalParenthesizedSeqOptionsList
+    : OPEN_PAREN sequenceOptionList CLOSE_PAREN
     |
     ;
 
-refreshmatviewstmt
-    : REFRESH MATERIALIZED VIEW opt_concurrently qualified_name opt_with_data
+sequenceOptionList
+    : sequenceOptionItem+
     ;
 
-createseqstmt
-    : CREATE opttemp SEQUENCE (IF_P NOT EXISTS)? qualified_name optseqoptlist
-    ;
-
-alterseqstmt
-    : ALTER SEQUENCE (IF_P EXISTS)? qualified_name seqoptlist
-    ;
-
-optseqoptlist
-    : seqoptlist
-    |
-    ;
-
-optparenthesizedseqoptlist
-    : OPEN_PAREN seqoptlist CLOSE_PAREN
-    |
-    ;
-
-seqoptlist
-    : seqoptelem+
-    ;
-
-seqoptelem
-    : AS simpletypename
-    | CACHE numericonly
+sequenceOptionItem
+    : AS simpleTypeName
+    | CACHE numericOnly
     | CYCLE
-    | INCREMENT opt_by numericonly
-    | MAXVALUE numericonly
-    | MINVALUE numericonly
+    | INCREMENT BY? numericOnly
+    | MAXVALUE numericOnly
+    | MINVALUE numericOnly
     | NO (MAXVALUE | MINVALUE | CYCLE)
-    | OWNED BY any_name
-    | SEQUENCE NAME_P any_name
-    | START opt_with numericonly
-    | RESTART opt_with numericonly?
+    | OWNED BY anyName
+    | SEQUENCE NAME_P anyName
+    | START optionalWith numericOnly
+    | RESTART optionalWith numericOnly?
     ;
 
-opt_by
-    : BY
-    |
-    ;
-
-numericonly
+numericOnly
     : fconst
     | PLUS fconst
     | MINUS fconst
-    | signediconst
+    | signedIconst
     ;
 
-numericonly_list
-    : numericonly (COMMA numericonly)*
+numericOnlyList
+    : numericOnly (COMMA numericOnly)*
     ;
 
-createplangstmt
-    : CREATE opt_or_replace opt_trusted opt_procedural LANGUAGE name (HANDLER handler_name opt_inline_handler opt_validator)?
+createProcedureLangStatement
+    : CREATE optionalOrReplace TRUSTED? optionalProcedural LANGUAGE name (HANDLER handlerName optionalInlineHandler validatorClause?)?
     ;
 
-opt_trusted
-    : TRUSTED
+handlerName
+    : name attributes?
+    ;
+
+optionalInlineHandler
+    : INLINE_P handlerName
     |
     ;
 
-handler_name
-    : name attrs?
-    ;
-
-opt_inline_handler
-    : INLINE_P handler_name
-    |
-    ;
-
-validator_clause
-    : VALIDATOR handler_name
+validatorClause
+    : VALIDATOR handlerName
     | NO VALIDATOR
     ;
 
-opt_validator
-    : validator_clause
-    |
-    ;
-
-opt_procedural
+optionalProcedural
     : PROCEDURAL
     |
     ;
 
-createtablespacestmt
-    : CREATE TABLESPACE name opttablespaceowner LOCATION sconst opt_reloptions
+createTablespaceStatement
+    : CREATE TABLESPACE name optionalTablespaceOwner LOCATION sconst optionalRelOptions
     ;
 
-opttablespaceowner
-    : OWNER rolespec
+optionalTablespaceOwner
+    : OWNER roleSpecification
     |
     ;
 
-droptablespacestmt
+dropTablespaceStatement
     : DROP TABLESPACE (IF_P EXISTS)? name
     ;
 
-createextensionstmt
-    : CREATE EXTENSION (IF_P NOT EXISTS)? name opt_with create_extension_opt_list
+createExtensionStatement
+    : CREATE EXTENSION (IF_P NOT EXISTS)? name optionalWith createExtensionOptionItem*
     ;
 
-create_extension_opt_list
-    : create_extension_opt_item*
-    ;
-
-create_extension_opt_item
+createExtensionOptionItem
     : SCHEMA name
-    | VERSION_P nonreservedword_or_sconst
-    | FROM nonreservedword_or_sconst
+    | VERSION_P nonReservedWordOrSconst
+    | FROM nonReservedWordOrSconst
     | CASCADE
     ;
 
-alterextensionstmt
-    : ALTER EXTENSION name UPDATE alter_extension_opt_list
+alterExtensionStatement
+    : ALTER EXTENSION name UPDATE alterExtensionOptionItem*
     ;
 
-alter_extension_opt_list
-    : alter_extension_opt_item*
+alterExtensionOptionItem
+    : TO nonReservedWordOrSconst
     ;
 
-alter_extension_opt_item
-    : TO nonreservedword_or_sconst
+alterExtensionContentsStatement
+    : ALTER EXTENSION name addOrDrop objectTypeName name
+    | ALTER EXTENSION name addOrDrop objectTypeAnyName anyName
+    | ALTER EXTENSION name addOrDrop AGGREGATE aggregateWithArgumentTypes
+    | ALTER EXTENSION name addOrDrop CAST OPEN_PAREN typeName AS typeName CLOSE_PAREN
+    | ALTER EXTENSION name addOrDrop DOMAIN_P typeName
+    | ALTER EXTENSION name addOrDrop FUNCTION functionWithArgumentTypes
+    | ALTER EXTENSION name addOrDrop OPERATOR operatorWithArgumentTypes
+    | ALTER EXTENSION name addOrDrop OPERATOR CLASS anyName USING name
+    | ALTER EXTENSION name addOrDrop OPERATOR FAMILY anyName USING name
+    | ALTER EXTENSION name addOrDrop PROCEDURE functionWithArgumentTypes
+    | ALTER EXTENSION name addOrDrop ROUTINE functionWithArgumentTypes
+    | ALTER EXTENSION name addOrDrop TRANSFORM FOR typeName LANGUAGE name
+    | ALTER EXTENSION name addOrDrop TYPE_P typeName
     ;
 
-alterextensioncontentsstmt
-    : ALTER EXTENSION name add_drop object_type_name name
-    | ALTER EXTENSION name add_drop object_type_any_name any_name
-    | ALTER EXTENSION name add_drop AGGREGATE aggregate_with_argtypes
-    | ALTER EXTENSION name add_drop CAST OPEN_PAREN typename AS typename CLOSE_PAREN
-    | ALTER EXTENSION name add_drop DOMAIN_P typename
-    | ALTER EXTENSION name add_drop FUNCTION function_with_argtypes
-    | ALTER EXTENSION name add_drop OPERATOR operator_with_argtypes
-    | ALTER EXTENSION name add_drop OPERATOR CLASS any_name USING name
-    | ALTER EXTENSION name add_drop OPERATOR FAMILY any_name USING name
-    | ALTER EXTENSION name add_drop PROCEDURE function_with_argtypes
-    | ALTER EXTENSION name add_drop ROUTINE function_with_argtypes
-    | ALTER EXTENSION name add_drop TRANSFORM FOR typename LANGUAGE name
-    | ALTER EXTENSION name add_drop TYPE_P typename
+createForeignDataWrapperStatement
+    : CREATE FOREIGN DATA_P WRAPPER name forwardOptions? createGenericOptions
     ;
 
-createfdwstmt
-    : CREATE FOREIGN DATA_P WRAPPER name opt_fdw_options create_generic_options
-    ;
-
-fdw_option
-    : HANDLER handler_name
+forwardOption
+    : HANDLER handlerName
     | NO HANDLER
-    | VALIDATOR handler_name
+    | VALIDATOR handlerName
     | NO VALIDATOR
     ;
 
-fdw_options
-    : fdw_option+
+forwardOptions
+    : forwardOption+
     ;
 
-opt_fdw_options
-    : fdw_options
+alterForeignDataWrapperStatement
+    : ALTER FOREIGN DATA_P WRAPPER name forwardOptions? alterGenericOptions
+    | ALTER FOREIGN DATA_P WRAPPER name forwardOptions
+    ;
+
+createGenericOptions
+    : OPTIONS OPEN_PAREN genericOptionList CLOSE_PAREN
     |
     ;
 
-alterfdwstmt
-    : ALTER FOREIGN DATA_P WRAPPER name opt_fdw_options alter_generic_options
-    | ALTER FOREIGN DATA_P WRAPPER name fdw_options
+genericOptionList
+    : genericOptionElement (COMMA genericOptionElement)*
     ;
 
-create_generic_options
-    : OPTIONS OPEN_PAREN generic_option_list CLOSE_PAREN
-    |
+alterGenericOptions
+    : OPTIONS OPEN_PAREN alterGenericOptionList CLOSE_PAREN
     ;
 
-generic_option_list
-    : generic_option_elem (COMMA generic_option_elem)*
+alterGenericOptionList
+    : alterGenericOptionElem (COMMA alterGenericOptionElem)*
     ;
 
-alter_generic_options
-    : OPTIONS OPEN_PAREN alter_generic_option_list CLOSE_PAREN
+alterGenericOptionElem
+    : genericOptionElement
+    | SET genericOptionElement
+    | ADD_P genericOptionElement
+    | DROP genericOptionName
     ;
 
-alter_generic_option_list
-    : alter_generic_option_elem (COMMA alter_generic_option_elem)*
+genericOptionElement
+    : genericOptionName genericOptionArgument
     ;
 
-alter_generic_option_elem
-    : generic_option_elem
-    | SET generic_option_elem
-    | ADD_P generic_option_elem
-    | DROP generic_option_name
+genericOptionName
+    : columnLabel
     ;
 
-generic_option_elem
-    : generic_option_name generic_option_arg
-    ;
-
-generic_option_name
-    : collabel
-    ;
-
-generic_option_arg
+genericOptionArgument
     : sconst
     ;
 
-createforeignserverstmt
-    : CREATE SERVER name opt_type opt_foreign_server_version FOREIGN DATA_P WRAPPER name create_generic_options
-    | CREATE SERVER IF_P NOT EXISTS name opt_type opt_foreign_server_version FOREIGN DATA_P WRAPPER name create_generic_options
+createForeignServerStatement
+    : CREATE SERVER name optionalType foreignServerVersion? FOREIGN DATA_P WRAPPER name createGenericOptions
+    | CREATE SERVER IF_P NOT EXISTS name optionalType foreignServerVersion? FOREIGN DATA_P WRAPPER name createGenericOptions
     ;
 
-opt_type
+optionalType
     : TYPE_P sconst
     |
     ;
 
-foreign_server_version
+foreignServerVersion
     : VERSION_P (sconst | NULL_P)
     ;
 
-opt_foreign_server_version
-    : foreign_server_version
-    |
+alterForeignServerStatement
+    : ALTER SERVER name (alterGenericOptions | foreignServerVersion alterGenericOptions?)
     ;
 
-alterforeignserverstmt
-    : ALTER SERVER name (alter_generic_options | foreign_server_version alter_generic_options?)
+createForeignTableStatement
+    : CREATE FOREIGN TABLE qualifiedName OPEN_PAREN optionalTableElementList CLOSE_PAREN inheritClause SERVER name createGenericOptions
+    | CREATE FOREIGN TABLE IF_P NOT EXISTS qualifiedName OPEN_PAREN optionalTableElementList CLOSE_PAREN inheritClause SERVER name createGenericOptions
+    | CREATE FOREIGN TABLE qualifiedName PARTITION OF qualifiedName optionalTypedTableElementList partitionBoundSpecification SERVER name createGenericOptions
+    | CREATE FOREIGN TABLE IF_P NOT EXISTS qualifiedName PARTITION OF qualifiedName optionalTypedTableElementList partitionBoundSpecification SERVER name createGenericOptions
     ;
 
-createforeigntablestmt
-    : CREATE FOREIGN TABLE qualified_name OPEN_PAREN opttableelementlist CLOSE_PAREN optinherit SERVER name create_generic_options
-    | CREATE FOREIGN TABLE IF_P NOT EXISTS qualified_name OPEN_PAREN opttableelementlist CLOSE_PAREN optinherit SERVER name create_generic_options
-    | CREATE FOREIGN TABLE qualified_name PARTITION OF qualified_name opttypedtableelementlist partitionboundspec SERVER name create_generic_options
-    | CREATE FOREIGN TABLE IF_P NOT EXISTS qualified_name PARTITION OF qualified_name opttypedtableelementlist partitionboundspec SERVER name create_generic_options
+importForeignSchemaStatement
+    : IMPORT_P FOREIGN SCHEMA name importQualification FROM SERVER name INTO name createGenericOptions
     ;
 
-importforeignschemastmt
-    : IMPORT_P FOREIGN SCHEMA name import_qualification FROM SERVER name INTO name create_generic_options
-    ;
-
-import_qualification_type
+importQualificationType
     : LIMIT TO
     | EXCEPT
     ;
 
-import_qualification
-    : import_qualification_type OPEN_PAREN relation_expr_list CLOSE_PAREN
+importQualification
+    : importQualificationType OPEN_PAREN relationExpressionList CLOSE_PAREN
     |
     ;
 
-createusermappingstmt
-    : CREATE USER MAPPING FOR auth_ident SERVER name create_generic_options
-    | CREATE USER MAPPING IF_P NOT EXISTS FOR auth_ident SERVER name create_generic_options
+createUserMappingStatement
+    : CREATE USER MAPPING FOR authIdentifier SERVER name createGenericOptions
+    | CREATE USER MAPPING IF_P NOT EXISTS FOR authIdentifier SERVER name createGenericOptions
     ;
 
-auth_ident
-    : rolespec
+authIdentifier
+    : roleSpecification
     | USER
     ;
 
-dropusermappingstmt
-    : DROP USER MAPPING FOR auth_ident SERVER name
-    | DROP USER MAPPING IF_P EXISTS FOR auth_ident SERVER name
+dropUserMappingStatement
+    : DROP USER MAPPING FOR authIdentifier SERVER name
+    | DROP USER MAPPING IF_P EXISTS FOR authIdentifier SERVER name
     ;
 
-alterusermappingstmt
-    : ALTER USER MAPPING FOR auth_ident SERVER name alter_generic_options
+alterUserMappingStatement
+    : ALTER USER MAPPING FOR authIdentifier SERVER name alterGenericOptions
     ;
 
-createpolicystmt
-    : CREATE POLICY name ON qualified_name rowsecuritydefaultpermissive rowsecuritydefaultforcmd rowsecuritydefaulttorole rowsecurityoptionalexpr rowsecurityoptionalwithcheck
+createPolicyStatement
+    : CREATE POLICY name ON qualifiedName rowSecurityDefaultPermissive rowSecurityDefaultForCmd rowSecurityDefaultToRole rowSecurityOptionalExpression rowSecurityOptionalWithCheck
     ;
 
-alterpolicystmt
-    : ALTER POLICY name ON qualified_name rowsecurityoptionaltorole rowsecurityoptionalexpr rowsecurityoptionalwithcheck
+alterPolicyStatement
+    : ALTER POLICY name ON qualifiedName rowSecurityOptionalToRole rowSecurityOptionalExpression rowSecurityOptionalWithCheck
     ;
 
-rowsecurityoptionalexpr
-    : USING OPEN_PAREN a_expr CLOSE_PAREN
+rowSecurityOptionalExpression
+    : USING OPEN_PAREN expression1 CLOSE_PAREN
     |
     ;
 
-rowsecurityoptionalwithcheck
-    : WITH CHECK OPEN_PAREN a_expr CLOSE_PAREN
+rowSecurityOptionalWithCheck
+    : WITH CHECK OPEN_PAREN expression1 CLOSE_PAREN
     |
     ;
 
-rowsecuritydefaulttorole
-    : TO role_list
+rowSecurityDefaultToRole
+    : TO roleList
     |
     ;
 
-rowsecurityoptionaltorole
-    : TO role_list
+rowSecurityOptionalToRole
+    : TO roleList
     |
     ;
 
-rowsecuritydefaultpermissive
+rowSecurityDefaultPermissive
     : AS identifier
     |
     ;
 
-rowsecuritydefaultforcmd
-    : FOR row_security_cmd
+rowSecurityDefaultForCmd
+    : FOR rowSecurityCommand
     |
     ;
 
-row_security_cmd
+rowSecurityCommand
     : ALL
     | SELECT
     | INSERT
@@ -1242,111 +1167,106 @@ row_security_cmd
     | DELETE_P
     ;
 
-createamstmt
-    : CREATE ACCESS METHOD name TYPE_P am_type HANDLER handler_name
+createAccessMethodStatement
+    : CREATE ACCESS METHOD name TYPE_P accessMethodType HANDLER handlerName
     ;
 
-am_type
+accessMethodType
     : INDEX
     | TABLE
     ;
 
-createtrigstmt
-    : CREATE TRIGGER name triggeractiontime triggerevents ON qualified_name triggerreferencing triggerforspec triggerwhen EXECUTE function_or_procedure func_name OPEN_PAREN triggerfuncargs CLOSE_PAREN
-    | CREATE CONSTRAINT TRIGGER name AFTER triggerevents ON qualified_name optconstrfromtable constraintattributespec FOR EACH ROW triggerwhen EXECUTE function_or_procedure func_name OPEN_PAREN triggerfuncargs CLOSE_PAREN
+createTriggerStatement
+    : CREATE TRIGGER name triggerActionTime triggerEvents ON qualifiedName triggerReferencing triggerForSpec triggerWhen EXECUTE functionOrProcedure functionName OPEN_PAREN triggerFunctionArguments CLOSE_PAREN
+    | CREATE CONSTRAINT TRIGGER name AFTER triggerEvents ON qualifiedName optionalConstraintFromTable constraintAttributeSpecification FOR EACH ROW triggerWhen EXECUTE functionOrProcedure functionName OPEN_PAREN triggerFunctionArguments CLOSE_PAREN
     ;
 
-triggeractiontime
+triggerActionTime
     : BEFORE
     | AFTER
     | INSTEAD OF
     ;
 
-triggerevents
-    : triggeroneevent (OR triggeroneevent)*
+triggerEvents
+    : triggerOneEvent (OR triggerOneEvent)*
     ;
 
-triggeroneevent
+triggerOneEvent
     : INSERT
     | DELETE_P
     | UPDATE
-    | UPDATE OF columnlist
+    | UPDATE OF columnList
     | TRUNCATE
     ;
 
-triggerreferencing
-    : REFERENCING triggertransitions
+triggerReferencing
+    : REFERENCING triggerTransitions
     |
     ;
 
-triggertransitions
-    : triggertransition+
+triggerTransitions
+    : triggerTransition+
     ;
 
-triggertransition
-    : transitionoldornew transitionrowortable opt_as transitionrelname
+triggerTransition
+    : transitionOldOrNew transitionRowOrTable optionalAs transitionRelName
     ;
 
-transitionoldornew
+transitionOldOrNew
     : NEW
     | OLD
     ;
 
-transitionrowortable
+transitionRowOrTable
     : TABLE
     | ROW
     ;
 
-transitionrelname
-    : colid
+transitionRelName
+    : columnId
     ;
 
-triggerforspec
-    : FOR triggerforopteach triggerfortype
+triggerForSpec
+    : FOR EACH? triggerForType
     |
     ;
 
-triggerforopteach
-    : EACH
-    |
-    ;
-
-triggerfortype
+triggerForType
     : ROW
     | STATEMENT
     ;
 
-triggerwhen
-    : WHEN OPEN_PAREN a_expr CLOSE_PAREN
+triggerWhen
+    : WHEN OPEN_PAREN expression1 CLOSE_PAREN
     |
     ;
 
-function_or_procedure
+functionOrProcedure
     : FUNCTION
     | PROCEDURE
     ;
 
-triggerfuncargs
-    : (triggerfuncarg |) (COMMA triggerfuncarg)*
+triggerFunctionArguments
+    : (triggerFunctionArgument |) (COMMA triggerFunctionArgument)*
     ;
 
-triggerfuncarg
+triggerFunctionArgument
     : iconst
     | fconst
     | sconst
-    | collabel
+    | columnLabel
     ;
 
-optconstrfromtable
-    : FROM qualified_name
+optionalConstraintFromTable
+    : FROM qualifiedName
     |
     ;
 
-constraintattributespec
-    : constraintattributeElem*
+constraintAttributeSpecification
+    : constraintAttributeElement*
     ;
 
-constraintattributeElem
+constraintAttributeElement
     : NOT DEFERRABLE
     | DEFERRABLE
     | INITIALLY IMMEDIATE
@@ -1355,200 +1275,177 @@ constraintattributeElem
     | NO INHERIT
     ;
 
-createeventtrigstmt
-    : CREATE EVENT TRIGGER name ON collabel EXECUTE function_or_procedure func_name OPEN_PAREN CLOSE_PAREN
-    | CREATE EVENT TRIGGER name ON collabel WHEN event_trigger_when_list EXECUTE function_or_procedure func_name OPEN_PAREN CLOSE_PAREN
+createEventTriggerStatement
+    : CREATE EVENT TRIGGER name ON columnLabel EXECUTE functionOrProcedure functionName OPEN_PAREN CLOSE_PAREN
+    | CREATE EVENT TRIGGER name ON columnLabel WHEN eventTriggerWhenList EXECUTE functionOrProcedure functionName OPEN_PAREN CLOSE_PAREN
     ;
 
-event_trigger_when_list
-    : event_trigger_when_item (AND event_trigger_when_item)*
+eventTriggerWhenList
+    : eventTriggerWhenItem (AND eventTriggerWhenItem)*
     ;
 
-event_trigger_when_item
-    : colid IN_P OPEN_PAREN event_trigger_value_list CLOSE_PAREN
+eventTriggerWhenItem
+    : columnId IN_P OPEN_PAREN eventTriggerValueList CLOSE_PAREN
     ;
 
-event_trigger_value_list
+eventTriggerValueList
     : sconst (COMMA sconst)*
     ;
 
-altereventtrigstmt
-    : ALTER EVENT TRIGGER name enable_trigger
+alterEventTriggerStatement
+    : ALTER EVENT TRIGGER name enableTrigger
     ;
 
-enable_trigger
+enableTrigger
     : ENABLE_P
     | ENABLE_P REPLICA
     | ENABLE_P ALWAYS
     | DISABLE_P
     ;
 
-createassertionstmt
-    : CREATE ASSERTION any_name CHECK OPEN_PAREN a_expr CLOSE_PAREN constraintattributespec
+createAssertionStatement
+    : CREATE ASSERTION anyName CHECK OPEN_PAREN expression1 CLOSE_PAREN constraintAttributeSpecification
     ;
 
-definestmt
-    : CREATE opt_or_replace AGGREGATE func_name aggr_args definition
-    | CREATE opt_or_replace AGGREGATE func_name old_aggr_definition
-    | CREATE OPERATOR any_operator definition
-    | CREATE TYPE_P any_name definition
-    | CREATE TYPE_P any_name
-    | CREATE TYPE_P any_name AS OPEN_PAREN opttablefuncelementlist CLOSE_PAREN
-    | CREATE TYPE_P any_name AS ENUM_P OPEN_PAREN opt_enum_val_list CLOSE_PAREN
-    | CREATE TYPE_P any_name AS RANGE definition
-    | CREATE TEXT_P SEARCH PARSER any_name definition
-    | CREATE TEXT_P SEARCH DICTIONARY any_name definition
-    | CREATE TEXT_P SEARCH TEMPLATE any_name definition
-    | CREATE TEXT_P SEARCH CONFIGURATION any_name definition
-    | CREATE COLLATION any_name definition
-    | CREATE COLLATION IF_P NOT EXISTS any_name definition
-    | CREATE COLLATION any_name FROM any_name
-    | CREATE COLLATION IF_P NOT EXISTS any_name FROM any_name
+defineStatement
+    : CREATE optionalOrReplace AGGREGATE functionName aggregateArguments definition
+    | CREATE optionalOrReplace AGGREGATE functionName oldAggregateDefinition
+    | CREATE OPERATOR anyOperator definition
+    | CREATE TYPE_P anyName definition
+    | CREATE TYPE_P anyName
+    | CREATE TYPE_P anyName AS OPEN_PAREN optionalTableFunctionElementList CLOSE_PAREN
+    | CREATE TYPE_P anyName AS ENUM_P OPEN_PAREN enumValueList? CLOSE_PAREN
+    | CREATE TYPE_P anyName AS RANGE definition
+    | CREATE TEXT_P SEARCH PARSER anyName definition
+    | CREATE TEXT_P SEARCH DICTIONARY anyName definition
+    | CREATE TEXT_P SEARCH TEMPLATE anyName definition
+    | CREATE TEXT_P SEARCH CONFIGURATION anyName definition
+    | CREATE COLLATION anyName definition
+    | CREATE COLLATION IF_P NOT EXISTS anyName definition
+    | CREATE COLLATION anyName FROM anyName
+    | CREATE COLLATION IF_P NOT EXISTS anyName FROM anyName
     ;
 
 definition
-    : OPEN_PAREN def_list CLOSE_PAREN
+    : OPEN_PAREN definitionElement (COMMA definitionElement)* CLOSE_PAREN
     ;
 
-def_list
-    : def_elem (COMMA def_elem)*
+definitionElement
+    : columnLabel (EQUAL definitionArgument)?
     ;
 
-def_elem
-    : collabel (EQUAL def_arg)?
-    ;
-
-def_arg
-    : func_type
-    | reserved_keyword
-    | qual_all_op
-    | numericonly
+definitionArgument
+    : functionType
+    | reservedKeyword
+    | allOperatorQualifier
+    | numericOnly
     | sconst
     | NONE
     ;
 
-old_aggr_definition
-    : OPEN_PAREN old_aggr_list CLOSE_PAREN
+oldAggregateDefinition
+    : OPEN_PAREN oldAggregateElement (COMMA oldAggregateElement)* CLOSE_PAREN
     ;
 
-old_aggr_list
-    : old_aggr_elem (COMMA old_aggr_elem)*
+oldAggregateElement
+    : identifier EQUAL definitionArgument
     ;
 
-old_aggr_elem
-    : identifier EQUAL def_arg
-    ;
-
-opt_enum_val_list
-    : enum_val_list
-    |
-    ;
-
-enum_val_list
+enumValueList
     : sconst (COMMA sconst)*
     ;
 
-alterenumstmt
-    : ALTER TYPE_P any_name ADD_P VALUE_P opt_if_not_exists sconst
-    | ALTER TYPE_P any_name ADD_P VALUE_P opt_if_not_exists sconst BEFORE sconst
-    | ALTER TYPE_P any_name ADD_P VALUE_P opt_if_not_exists sconst AFTER sconst
-    | ALTER TYPE_P any_name RENAME VALUE_P sconst TO sconst
+alterEnumStatement
+    : ALTER TYPE_P anyName ADD_P VALUE_P optionalIfNotExists sconst
+    | ALTER TYPE_P anyName ADD_P VALUE_P optionalIfNotExists sconst BEFORE sconst
+    | ALTER TYPE_P anyName ADD_P VALUE_P optionalIfNotExists sconst AFTER sconst
+    | ALTER TYPE_P anyName RENAME VALUE_P sconst TO sconst
     ;
 
-opt_if_not_exists
+optionalIfNotExists
     : IF_P NOT EXISTS
     |
     ;
 
-createopclassstmt
-    : CREATE OPERATOR CLASS any_name opt_default FOR TYPE_P typename USING name opt_opfamily AS opclass_item_list
+createOperatorClassStatement
+    : CREATE OPERATOR CLASS anyName DEFAULT? FOR TYPE_P typeName USING name optionalOperatorFamily AS operatorClassItemList
     ;
 
-opclass_item_list
-    : opclass_item (COMMA opclass_item)*
+operatorClassItemList
+    : operatorClassItem (COMMA operatorClassItem)*
     ;
 
-opclass_item
-    : OPERATOR iconst any_operator opclass_purpose opt_recheck
-    | OPERATOR iconst operator_with_argtypes opclass_purpose opt_recheck
-    | FUNCTION iconst function_with_argtypes
-    | FUNCTION iconst OPEN_PAREN type_list CLOSE_PAREN function_with_argtypes
-    | STORAGE typename
+operatorClassItem
+    : OPERATOR iconst anyOperator operatorClassPurpose RECHECK?
+    | OPERATOR iconst operatorWithArgumentTypes operatorClassPurpose RECHECK?
+    | FUNCTION iconst functionWithArgumentTypes
+    | FUNCTION iconst OPEN_PAREN typeList CLOSE_PAREN functionWithArgumentTypes
+    | STORAGE typeName
     ;
 
-opt_default
-    : DEFAULT
+optionalOperatorFamily
+    : FAMILY anyName
     |
     ;
 
-opt_opfamily
-    : FAMILY any_name
-    |
-    ;
-
-opclass_purpose
+operatorClassPurpose
     : FOR SEARCH
-    | FOR ORDER BY any_name
+    | FOR ORDER BY anyName
     |
     ;
 
-opt_recheck
-    : RECHECK
-    |
+createOperatorFamilyStatement
+    : CREATE OPERATOR FAMILY anyName USING name
     ;
 
-createopfamilystmt
-    : CREATE OPERATOR FAMILY any_name USING name
+alterOperatorFamilyStatement
+    : ALTER OPERATOR FAMILY anyName USING name ADD_P operatorClassItemList
+    | ALTER OPERATOR FAMILY anyName USING name DROP operatorClassDropList
     ;
 
-alteropfamilystmt
-    : ALTER OPERATOR FAMILY any_name USING name ADD_P opclass_item_list
-    | ALTER OPERATOR FAMILY any_name USING name DROP opclass_drop_list
+operatorClassDropList
+    : operatorClassDrop (COMMA operatorClassDrop)*
     ;
 
-opclass_drop_list
-    : opclass_drop (COMMA opclass_drop)*
+operatorClassDrop
+    : OPERATOR iconst OPEN_PAREN typeList CLOSE_PAREN
+    | FUNCTION iconst OPEN_PAREN typeList CLOSE_PAREN
     ;
 
-opclass_drop
-    : OPERATOR iconst OPEN_PAREN type_list CLOSE_PAREN
-    | FUNCTION iconst OPEN_PAREN type_list CLOSE_PAREN
+dropOperatorClassStatement
+    : DROP OPERATOR CLASS anyName USING name optionalDropBehavior
+    | DROP OPERATOR CLASS IF_P EXISTS anyName USING name optionalDropBehavior
     ;
 
-dropopclassstmt
-    : DROP OPERATOR CLASS any_name USING name opt_drop_behavior
-    | DROP OPERATOR CLASS IF_P EXISTS any_name USING name opt_drop_behavior
+dropOperatorFamilyStatement
+    : DROP OPERATOR FAMILY anyName USING name optionalDropBehavior
+    | DROP OPERATOR FAMILY IF_P EXISTS anyName USING name optionalDropBehavior
     ;
 
-dropopfamilystmt
-    : DROP OPERATOR FAMILY any_name USING name opt_drop_behavior
-    | DROP OPERATOR FAMILY IF_P EXISTS any_name USING name opt_drop_behavior
+dropOwnedStatement
+    : DROP OWNED BY roleList optionalDropBehavior
     ;
 
-dropownedstmt
-    : DROP OWNED BY role_list opt_drop_behavior
+reassignOwnedStatement
+    : REASSIGN OWNED BY roleList TO roleSpecification
     ;
 
-reassignownedstmt
-    : REASSIGN OWNED BY role_list TO rolespec
+dropStatement
+    : DROP objectTypeAnyName IF_P EXISTS anyNameList optionalDropBehavior
+    | DROP objectTypeAnyName anyNameList optionalDropBehavior
+    | DROP dropTypeName IF_P EXISTS nameList optionalDropBehavior
+    | DROP dropTypeName nameList optionalDropBehavior
+    | DROP objectTypeNameOnAnyName name ON anyName optionalDropBehavior
+    | DROP objectTypeNameOnAnyName IF_P EXISTS name ON anyName optionalDropBehavior
+    | DROP TYPE_P typeNameList optionalDropBehavior
+    | DROP TYPE_P IF_P EXISTS typeNameList optionalDropBehavior
+    | DROP DOMAIN_P typeNameList optionalDropBehavior
+    | DROP DOMAIN_P IF_P EXISTS typeNameList optionalDropBehavior
+    | DROP INDEX CONCURRENTLY anyNameList optionalDropBehavior
+    | DROP INDEX CONCURRENTLY IF_P EXISTS anyNameList optionalDropBehavior
     ;
 
-dropstmt
-    : DROP object_type_any_name IF_P EXISTS any_name_list opt_drop_behavior
-    | DROP object_type_any_name any_name_list opt_drop_behavior
-    | DROP drop_type_name IF_P EXISTS name_list opt_drop_behavior
-    | DROP drop_type_name name_list opt_drop_behavior
-    | DROP object_type_name_on_any_name name ON any_name opt_drop_behavior
-    | DROP object_type_name_on_any_name IF_P EXISTS name ON any_name opt_drop_behavior
-    | DROP TYPE_P type_name_list opt_drop_behavior
-    | DROP TYPE_P IF_P EXISTS type_name_list opt_drop_behavior
-    | DROP DOMAIN_P type_name_list opt_drop_behavior
-    | DROP DOMAIN_P IF_P EXISTS type_name_list opt_drop_behavior
-    | DROP INDEX CONCURRENTLY any_name_list opt_drop_behavior
-    | DROP INDEX CONCURRENTLY IF_P EXISTS any_name_list opt_drop_behavior
-    ;
-
-object_type_any_name
+objectTypeAnyName
     : TABLE
     | SEQUENCE
     | VIEW
@@ -1564,245 +1461,241 @@ object_type_any_name
     | TEXT_P SEARCH CONFIGURATION
     ;
 
-object_type_name
-    : drop_type_name
+objectTypeName
+    : dropTypeName
     | DATABASE
     | ROLE
     | SUBSCRIPTION
     | TABLESPACE
     ;
 
-drop_type_name
+dropTypeName
     : ACCESS METHOD
     | EVENT TRIGGER
     | EXTENSION
     | FOREIGN DATA_P WRAPPER
-    | opt_procedural LANGUAGE
+    | optionalProcedural LANGUAGE
     | PUBLICATION
     | SCHEMA
     | SERVER
     ;
 
-object_type_name_on_any_name
+objectTypeNameOnAnyName
     : POLICY
     | RULE
     | TRIGGER
     ;
 
-any_name_list
-    : any_name (COMMA any_name)*
+anyNameList
+    : anyName (COMMA anyName)*
     ;
 
-any_name
-    : colid attrs?
+anyName
+    : columnId attributes?
     ;
 
-attrs
-    : (DOT attr_name)+
+attributes
+    : (DOT attributeName)+
     ;
 
-type_name_list
-    : typename (COMMA typename)*
+typeNameList
+    : typeName (COMMA typeName)*
     ;
 
-truncatestmt
-    : TRUNCATE opt_table relation_expr_list opt_restart_seqs opt_drop_behavior
+truncateStatement
+    : TRUNCATE optionalTable relationExpressionList optionalRestartSequences optionalDropBehavior
     ;
 
-opt_restart_seqs
+optionalRestartSequences
     : CONTINUE_P IDENTITY_P
     | RESTART IDENTITY_P
     |
     ;
 
-commentstmt
-    : COMMENT ON object_type_any_name any_name IS comment_text
-    | COMMENT ON COLUMN any_name IS comment_text
-    | COMMENT ON object_type_name name IS comment_text
-    | COMMENT ON TYPE_P typename IS comment_text
-    | COMMENT ON DOMAIN_P typename IS comment_text
-    | COMMENT ON AGGREGATE aggregate_with_argtypes IS comment_text
-    | COMMENT ON FUNCTION function_with_argtypes IS comment_text
-    | COMMENT ON OPERATOR operator_with_argtypes IS comment_text
-    | COMMENT ON CONSTRAINT name ON any_name IS comment_text
-    | COMMENT ON CONSTRAINT name ON DOMAIN_P any_name IS comment_text
-    | COMMENT ON object_type_name_on_any_name name ON any_name IS comment_text
-    | COMMENT ON PROCEDURE function_with_argtypes IS comment_text
-    | COMMENT ON ROUTINE function_with_argtypes IS comment_text
-    | COMMENT ON TRANSFORM FOR typename LANGUAGE name IS comment_text
-    | COMMENT ON OPERATOR CLASS any_name USING name IS comment_text
-    | COMMENT ON OPERATOR FAMILY any_name USING name IS comment_text
-    | COMMENT ON LARGE_P OBJECT_P numericonly IS comment_text
-    | COMMENT ON CAST OPEN_PAREN typename AS typename CLOSE_PAREN IS comment_text
+commentStatement
+    : COMMENT ON objectTypeAnyName anyName IS commentText
+    | COMMENT ON COLUMN anyName IS commentText
+    | COMMENT ON objectTypeName name IS commentText
+    | COMMENT ON TYPE_P typeName IS commentText
+    | COMMENT ON DOMAIN_P typeName IS commentText
+    | COMMENT ON AGGREGATE aggregateWithArgumentTypes IS commentText
+    | COMMENT ON FUNCTION functionWithArgumentTypes IS commentText
+    | COMMENT ON OPERATOR operatorWithArgumentTypes IS commentText
+    | COMMENT ON CONSTRAINT name ON anyName IS commentText
+    | COMMENT ON CONSTRAINT name ON DOMAIN_P anyName IS commentText
+    | COMMENT ON objectTypeNameOnAnyName name ON anyName IS commentText
+    | COMMENT ON PROCEDURE functionWithArgumentTypes IS commentText
+    | COMMENT ON ROUTINE functionWithArgumentTypes IS commentText
+    | COMMENT ON TRANSFORM FOR typeName LANGUAGE name IS commentText
+    | COMMENT ON OPERATOR CLASS anyName USING name IS commentText
+    | COMMENT ON OPERATOR FAMILY anyName USING name IS commentText
+    | COMMENT ON LARGE_P OBJECT_P numericOnly IS commentText
+    | COMMENT ON CAST OPEN_PAREN typeName AS typeName CLOSE_PAREN IS commentText
     ;
 
-comment_text
+commentText
     : sconst
     | NULL_P
     ;
 
-seclabelstmt
-    : SECURITY LABEL opt_provider ON object_type_any_name any_name IS security_label
-    | SECURITY LABEL opt_provider ON COLUMN any_name IS security_label
-    | SECURITY LABEL opt_provider ON object_type_name name IS security_label
-    | SECURITY LABEL opt_provider ON TYPE_P typename IS security_label
-    | SECURITY LABEL opt_provider ON DOMAIN_P typename IS security_label
-    | SECURITY LABEL opt_provider ON AGGREGATE aggregate_with_argtypes IS security_label
-    | SECURITY LABEL opt_provider ON FUNCTION function_with_argtypes IS security_label
-    | SECURITY LABEL opt_provider ON LARGE_P OBJECT_P numericonly IS security_label
-    | SECURITY LABEL opt_provider ON PROCEDURE function_with_argtypes IS security_label
-    | SECURITY LABEL opt_provider ON ROUTINE function_with_argtypes IS security_label
+securityLabelStatement
+    : SECURITY LABEL optionalProvider ON objectTypeAnyName anyName IS securityLabel
+    | SECURITY LABEL optionalProvider ON COLUMN anyName IS securityLabel
+    | SECURITY LABEL optionalProvider ON objectTypeName name IS securityLabel
+    | SECURITY LABEL optionalProvider ON TYPE_P typeName IS securityLabel
+    | SECURITY LABEL optionalProvider ON DOMAIN_P typeName IS securityLabel
+    | SECURITY LABEL optionalProvider ON AGGREGATE aggregateWithArgumentTypes IS securityLabel
+    | SECURITY LABEL optionalProvider ON FUNCTION functionWithArgumentTypes IS securityLabel
+    | SECURITY LABEL optionalProvider ON LARGE_P OBJECT_P numericOnly IS securityLabel
+    | SECURITY LABEL optionalProvider ON PROCEDURE functionWithArgumentTypes IS securityLabel
+    | SECURITY LABEL optionalProvider ON ROUTINE functionWithArgumentTypes IS securityLabel
     ;
 
-opt_provider
-    : FOR nonreservedword_or_sconst
+optionalProvider
+    : FOR nonReservedWordOrSconst
     |
     ;
 
-security_label
+securityLabel
     : sconst
     | NULL_P
     ;
 
-fetchstmt
-    : FETCH fetch_args
-    | MOVE fetch_args
+fetchStatement
+    : FETCH fetchArguments
+    | MOVE fetchArguments
     ;
 
-fetch_args
-    : cursor_name
-    | from_in cursor_name
-    | NEXT opt_from_in cursor_name
-    | PRIOR opt_from_in cursor_name
-    | FIRST_P opt_from_in cursor_name
-    | LAST_P opt_from_in cursor_name
-    | ABSOLUTE_P signediconst opt_from_in cursor_name
-    | RELATIVE_P signediconst opt_from_in cursor_name
-    | signediconst opt_from_in cursor_name
-    | ALL opt_from_in cursor_name
-    | FORWARD opt_from_in cursor_name
-    | FORWARD signediconst opt_from_in cursor_name
-    | FORWARD ALL opt_from_in cursor_name
-    | BACKWARD opt_from_in cursor_name
-    | BACKWARD signediconst opt_from_in cursor_name
-    | BACKWARD ALL opt_from_in cursor_name
+fetchArguments
+    : cursorName
+    | fromOrIn cursorName
+    | NEXT optionalFromOrIn cursorName
+    | PRIOR optionalFromOrIn cursorName
+    | FIRST_P optionalFromOrIn cursorName
+    | LAST_P optionalFromOrIn cursorName
+    | ABSOLUTE_P signedIconst optionalFromOrIn cursorName
+    | RELATIVE_P signedIconst optionalFromOrIn cursorName
+    | signedIconst optionalFromOrIn cursorName
+    | ALL optionalFromOrIn cursorName
+    | FORWARD optionalFromOrIn cursorName
+    | FORWARD signedIconst optionalFromOrIn cursorName
+    | FORWARD ALL optionalFromOrIn cursorName
+    | BACKWARD optionalFromOrIn cursorName
+    | BACKWARD signedIconst optionalFromOrIn cursorName
+    | BACKWARD ALL optionalFromOrIn cursorName
     ;
 
-from_in
+fromOrIn
     : FROM
     | IN_P
     ;
 
-opt_from_in
-    : from_in
+optionalFromOrIn
+    : fromOrIn
     |
     ;
 
-grantstmt
-    : GRANT privileges ON privilege_target TO grantee_list opt_grant_grant_option
+grantStatement
+    : GRANT privileges ON privilegeTarget TO granteeList optionalWithGrantOption
     ;
 
-revokestmt
-    : REVOKE privileges ON privilege_target FROM grantee_list opt_drop_behavior
-    | REVOKE GRANT OPTION FOR privileges ON privilege_target FROM grantee_list opt_drop_behavior
+revokeStatement
+    : REVOKE privileges ON privilegeTarget FROM granteeList optionalDropBehavior
+    | REVOKE GRANT OPTION FOR privileges ON privilegeTarget FROM granteeList optionalDropBehavior
     ;
 
 privileges
-    : privilege_list
+    : privilegeList
     | ALL
     | ALL PRIVILEGES
-    | ALL OPEN_PAREN columnlist CLOSE_PAREN
-    | ALL PRIVILEGES OPEN_PAREN columnlist CLOSE_PAREN
+    | ALL OPEN_PAREN columnList CLOSE_PAREN
+    | ALL PRIVILEGES OPEN_PAREN columnList CLOSE_PAREN
     ;
 
-privilege_list
+privilegeList
     : privilege (COMMA privilege)*
     ;
 
 privilege
-    : SELECT opt_column_list
-    | REFERENCES opt_column_list
-    | CREATE opt_column_list
-    | colid opt_column_list
+    : SELECT columnListWithParentheses
+    | REFERENCES columnListWithParentheses
+    | CREATE columnListWithParentheses
+    | columnId columnListWithParentheses
     ;
 
-privilege_target
-    : qualified_name_list
-    | TABLE qualified_name_list
-    | SEQUENCE qualified_name_list
-    | FOREIGN DATA_P WRAPPER name_list
-    | FOREIGN SERVER name_list
-    | FUNCTION function_with_argtypes_list
-    | PROCEDURE function_with_argtypes_list
-    | ROUTINE function_with_argtypes_list
-    | DATABASE name_list
-    | DOMAIN_P any_name_list
-    | LANGUAGE name_list
-    | LARGE_P OBJECT_P numericonly_list
-    | SCHEMA name_list
-    | TABLESPACE name_list
-    | TYPE_P any_name_list
-    | ALL TABLES IN_P SCHEMA name_list
-    | ALL SEQUENCES IN_P SCHEMA name_list
-    | ALL FUNCTIONS IN_P SCHEMA name_list
-    | ALL PROCEDURES IN_P SCHEMA name_list
-    | ALL ROUTINES IN_P SCHEMA name_list
+privilegeTarget
+    : qualifiedNameList
+    | TABLE qualifiedNameList
+    | SEQUENCE qualifiedNameList
+    | FOREIGN DATA_P WRAPPER nameList
+    | FOREIGN SERVER nameList
+    | FUNCTION functionWithArgumentTypesList
+    | PROCEDURE functionWithArgumentTypesList
+    | ROUTINE functionWithArgumentTypesList
+    | DATABASE nameList
+    | DOMAIN_P anyNameList
+    | LANGUAGE nameList
+    | LARGE_P OBJECT_P numericOnlyList
+    | SCHEMA nameList
+    | TABLESPACE nameList
+    | TYPE_P anyNameList
+    | ALL TABLES IN_P SCHEMA nameList
+    | ALL SEQUENCES IN_P SCHEMA nameList
+    | ALL FUNCTIONS IN_P SCHEMA nameList
+    | ALL PROCEDURES IN_P SCHEMA nameList
+    | ALL ROUTINES IN_P SCHEMA nameList
     ;
 
-grantee_list
+granteeList
     : grantee (COMMA grantee)*
     ;
 
 grantee
-    : rolespec
-    | GROUP_P rolespec
+    : roleSpecification
+    | GROUP_P roleSpecification
     ;
 
-opt_grant_grant_option
+optionalWithGrantOption
     : WITH GRANT OPTION
     |
     ;
 
-grantrolestmt
-    : GRANT privilege_list TO role_list opt_grant_admin_option opt_granted_by
+grantRoleStatement
+    : GRANT privilegeList TO roleList optionalGrantAdminOption optionalGrantedBy
     ;
 
-revokerolestmt
-    : REVOKE privilege_list FROM role_list opt_granted_by opt_drop_behavior
-    | REVOKE ADMIN OPTION FOR privilege_list FROM role_list opt_granted_by opt_drop_behavior
+revokeRoleStatement
+    : REVOKE privilegeList FROM roleList optionalGrantedBy optionalDropBehavior
+    | REVOKE ADMIN OPTION FOR privilegeList FROM roleList optionalGrantedBy optionalDropBehavior
     ;
 
-opt_grant_admin_option
+optionalGrantAdminOption
     : WITH ADMIN OPTION
     |
     ;
 
-opt_granted_by
-    : GRANTED BY rolespec
+optionalGrantedBy
+    : GRANTED BY roleSpecification
     |
     ;
 
-alterdefaultprivilegesstmt
-    : ALTER DEFAULT PRIVILEGES defacloptionlist defaclaction
+alterDefaultPrivilegesStatement
+    : ALTER DEFAULT PRIVILEGES defultPrivilegeOption* defaultPrivelegeAction
     ;
 
-defacloptionlist
-    : defacloption*
+defultPrivilegeOption
+    : IN_P SCHEMA nameList
+    | FOR ROLE roleList
+    | FOR USER roleList
     ;
 
-defacloption
-    : IN_P SCHEMA name_list
-    | FOR ROLE role_list
-    | FOR USER role_list
+defaultPrivelegeAction
+    : GRANT privileges ON defultPrivilegeTarget TO granteeList optionalWithGrantOption
+    | REVOKE privileges ON defultPrivilegeTarget FROM granteeList optionalDropBehavior
+    | REVOKE GRANT OPTION FOR privileges ON defultPrivilegeTarget FROM granteeList optionalDropBehavior
     ;
 
-defaclaction
-    : GRANT privileges ON defacl_privilege_target TO grantee_list opt_grant_grant_option
-    | REVOKE privileges ON defacl_privilege_target FROM grantee_list opt_drop_behavior
-    | REVOKE GRANT OPTION FOR privileges ON defacl_privilege_target FROM grantee_list opt_drop_behavior
-    ;
-
-defacl_privilege_target
+defultPrivilegeTarget
     : TABLES
     | FUNCTIONS
     | ROUTINES
@@ -1813,66 +1706,52 @@ defacl_privilege_target
 
 //create index
 
-indexstmt
-    : CREATE opt_unique INDEX opt_concurrently opt_index_name ON relation_expr access_method_clause OPEN_PAREN index_params CLOSE_PAREN opt_include opt_reloptions opttablespace where_clause
-    | CREATE opt_unique INDEX opt_concurrently IF_P NOT EXISTS name ON relation_expr access_method_clause OPEN_PAREN index_params CLOSE_PAREN opt_include opt_reloptions opttablespace where_clause
+indexStatement
+    : CREATE UNIQUE? INDEX optionalConcurrently name? ON relationExpression optionalAccessMethodClause OPEN_PAREN indexParameters CLOSE_PAREN optionalInclude optionalRelOptions optionalTablespace whereClause
+    | CREATE UNIQUE? INDEX optionalConcurrently IF_P NOT EXISTS name ON relationExpression optionalAccessMethodClause OPEN_PAREN indexParameters CLOSE_PAREN optionalInclude optionalRelOptions optionalTablespace whereClause
     ;
 
-opt_unique
-    : UNIQUE
-    |
-    ;
-
-opt_concurrently
+optionalConcurrently
     : CONCURRENTLY
     |
     ;
 
-opt_index_name
-    : name
-    |
-    ;
-
-access_method_clause
+optionalAccessMethodClause
     : USING name
     |
     ;
 
-index_params
-    : index_elem (COMMA index_elem)*
+indexParameters
+    : indexElement (COMMA indexElement)*
     ;
 
-index_elem_options
-    : opt_collate opt_class opt_asc_desc opt_nulls_order
-    | opt_collate any_name reloptions opt_asc_desc opt_nulls_order
+indexElemOptions
+    : optionalCollate optionalClass optionalAscOrDesc optionalNullsOrder
+    | optionalCollate anyName relOptions optionalAscOrDesc optionalNullsOrder
     ;
 
-index_elem
-    : colid index_elem_options
-    | func_expr_windowless index_elem_options
-    | OPEN_PAREN a_expr CLOSE_PAREN index_elem_options
+indexElement
+    : columnId indexElemOptions
+    | functionExpressionWindowless indexElemOptions
+    | OPEN_PAREN expression1 CLOSE_PAREN indexElemOptions
     ;
 
-opt_include
-    : INCLUDE OPEN_PAREN index_including_params CLOSE_PAREN
+optionalInclude
+    : INCLUDE OPEN_PAREN indexElement (COMMA indexElement)* CLOSE_PAREN
     |
     ;
 
-index_including_params
-    : index_elem (COMMA index_elem)*
-    ;
-
-opt_collate
-    : COLLATE any_name
+optionalCollate
+    : COLLATE anyName
     |
     ;
 
-opt_class
-    : any_name
+optionalClass
+    : anyName
     |
     ;
 
-opt_asc_desc
+optionalAscOrDesc
     : ASC
     | DESC
     |
@@ -1880,108 +1759,96 @@ opt_asc_desc
 
 //TOD NULLS_LA was used
 
-opt_nulls_order
+optionalNullsOrder
     : NULLS_P FIRST_P
     | NULLS_P LAST_P
     |
     ;
 
-createfunctionstmt
-    : CREATE opt_or_replace (FUNCTION | PROCEDURE) func_name func_args_with_defaults (RETURNS (func_return | TABLE OPEN_PAREN table_func_column_list CLOSE_PAREN))? createfunc_opt_list
+createFunctionStatement
+    : CREATE optionalOrReplace (FUNCTION | PROCEDURE) functionName OPEN_PAREN functionArgumentsWithDefaultsList? CLOSE_PAREN (RETURNS (functionReturn | TABLE OPEN_PAREN tableFunctionColumnList CLOSE_PAREN))? createFunctionOptionList
     ;
 
-opt_or_replace
+optionalOrReplace
     : OR REPLACE
     |
     ;
 
-func_args
-    : OPEN_PAREN func_args_list? CLOSE_PAREN
+functionArgumentsList
+    : functionArgument (COMMA functionArgument)*
     ;
 
-func_args_list
-    : func_arg (COMMA func_arg)*
+functionWithArgumentTypesList
+    : functionWithArgumentTypes (COMMA functionWithArgumentTypes)*
     ;
 
-function_with_argtypes_list
-    : function_with_argtypes (COMMA function_with_argtypes)*
+functionWithArgumentTypes
+    : functionName OPEN_PAREN functionArgumentsList? CLOSE_PAREN
+    | typeFunctionNameKeyword
+    | columnId indirection?
     ;
 
-function_with_argtypes
-    : func_name func_args
-    | type_func_name_keyword
-    | colid indirection?
+functionArgumentsWithDefaultsList
+    : functionArgumentWithDefault (COMMA functionArgumentWithDefault)*
     ;
 
-func_args_with_defaults
-    : OPEN_PAREN func_args_with_defaults_list? CLOSE_PAREN
+functionArgumentWithDefault
+    : functionArgument ((DEFAULT | EQUAL) expression1)?
     ;
 
-func_args_with_defaults_list
-    : func_arg_with_default (COMMA func_arg_with_default)*
+functionArgument
+    : argumentClass parameterName? functionType
+    | parameterName argumentClass? functionType
+    | functionType
     ;
 
-func_arg
-    : arg_class param_name? func_type
-    | param_name arg_class? func_type
-    | func_type
-    ;
-
-arg_class
+argumentClass
     : IN_P OUT_P?
     | OUT_P
     | INOUT
     | VARIADIC
     ;
 
-param_name
-    : type_function_name
-    | builtin_function_name
+parameterName
+    : typeFunctionName
+    | builtinFunctionName
     | LEFT
     | RIGHT
     ;
 
-func_return
-    : func_type
+functionReturn
+    : functionType
     ;
 
-func_type
-    : typename
-    | SETOF? (builtin_function_name | type_function_name | LEFT | RIGHT) attrs PERCENT TYPE_P
+functionType
+    : typeName
+    | SETOF? (builtinFunctionName | typeFunctionName | LEFT | RIGHT) attributes PERCENT TYPE_P
     ;
 
-func_arg_with_default
-    : func_arg ((DEFAULT | EQUAL) a_expr)?
+aggregateArguments
+    : OPEN_PAREN (STAR | aggregateArgumentsList | ORDER BY aggregateArgumentsList | aggregateArgumentsList ORDER BY aggregateArgumentsList) CLOSE_PAREN
     ;
 
-aggr_arg
-    : func_arg
+aggregateArgumentsList
+    : functionArgument (COMMA functionArgument)*
     ;
 
-aggr_args
-    : OPEN_PAREN (STAR | aggr_args_list | ORDER BY aggr_args_list | aggr_args_list ORDER BY aggr_args_list) CLOSE_PAREN
+aggregateWithArgumentTypes
+    : functionName aggregateArguments
     ;
 
-aggr_args_list
-    : aggr_arg (COMMA aggr_arg)*
+aggregateWithArgumentTypesList
+    : aggregateWithArgumentTypes (COMMA aggregateWithArgumentTypes)*
     ;
 
-aggregate_with_argtypes
-    : func_name aggr_args
-    ;
-
-aggregate_with_argtypes_list
-    : aggregate_with_argtypes (COMMA aggregate_with_argtypes)*
-    ;
-
-createfunc_opt_list
-    : createfunc_opt_item+ {
+createFunctionOptionList
+    : createFunctionOptionItem+ {
                 this.ParseRoutineBody(_localctx);
             }
     //                    | createfunc_opt_list createfunc_opt_item
     ;
 
-common_func_opt_item
+commonFunctionOptionItem
     : CALLED ON NULL_P INPUT_P
     | RETURNS NULL_P ON NULL_P INPUT_P
     | STRICT_P
@@ -1994,19 +1861,19 @@ common_func_opt_item
     | SECURITY INVOKER
     | LEAKPROOF
     | NOT LEAKPROOF
-    | COST numericonly
-    | ROWS numericonly
-    | SUPPORT any_name
-    | functionsetresetclause
-    | PARALLEL colid
+    | COST numericOnly
+    | ROWS numericOnly
+    | SUPPORT anyName
+    | functionSetResetClause
+    | PARALLEL columnId
     ;
 
-createfunc_opt_item
-    : AS func_as
-    | LANGUAGE nonreservedword_or_sconst
-    | TRANSFORM transform_type_list
+createFunctionOptionItem
+    : AS functionAs
+    | LANGUAGE nonReservedWordOrSconst
+    | TRANSFORM transformTypeList
     | WINDOW
-    | common_func_opt_item
+    | commonFunctionOptionItem
     ;
 
 //https://www.postgresql.org/docs/9.1/sql-createfunction.html
@@ -2015,7 +1882,7 @@ createfunc_opt_item
 
 //    | AS 'obj_file', 'link_symbol'
 
-func_as
+functionAs
     locals[ParserRuleContext Definition]
     :
     /* |AS 'definition'*/ def = sconst
@@ -2023,131 +1890,122 @@ func_as
     | sconst COMMA sconst
     ;
 
-transform_type_list
-    : FOR TYPE_P typename (COMMA FOR TYPE_P typename)*
+transformTypeList
+    : FOR TYPE_P typeName (COMMA FOR TYPE_P typeName)*
     ;
 
-opt_definition
+optionalDefinition
     : WITH definition
     |
     ;
 
-table_func_column
-    : param_name func_type
+tableFunctionColumn
+    : parameterName functionType
     ;
 
-table_func_column_list
-    : table_func_column (COMMA table_func_column)*
+tableFunctionColumnList
+    : tableFunctionColumn (COMMA tableFunctionColumn)*
     ;
 
-alterfunctionstmt
-    : ALTER (FUNCTION | PROCEDURE | ROUTINE) function_with_argtypes alterfunc_opt_list opt_restrict
+alterFunctionStatement
+    : ALTER (FUNCTION | PROCEDURE | ROUTINE) functionWithArgumentTypes commonFunctionOptionItem+ RESTRICT?
     ;
 
-alterfunc_opt_list
-    : common_func_opt_item+
+removeFunctionStatement
+    : DROP FUNCTION functionWithArgumentTypesList optionalDropBehavior
+    | DROP FUNCTION IF_P EXISTS functionWithArgumentTypesList optionalDropBehavior
+    | DROP PROCEDURE functionWithArgumentTypesList optionalDropBehavior
+    | DROP PROCEDURE IF_P EXISTS functionWithArgumentTypesList optionalDropBehavior
+    | DROP ROUTINE functionWithArgumentTypesList optionalDropBehavior
+    | DROP ROUTINE IF_P EXISTS functionWithArgumentTypesList optionalDropBehavior
     ;
 
-opt_restrict
-    : RESTRICT
-    |
+removeAggregateStatement
+    : DROP AGGREGATE aggregateWithArgumentTypesList optionalDropBehavior
+    | DROP AGGREGATE IF_P EXISTS aggregateWithArgumentTypesList optionalDropBehavior
     ;
 
-removefuncstmt
-    : DROP FUNCTION function_with_argtypes_list opt_drop_behavior
-    | DROP FUNCTION IF_P EXISTS function_with_argtypes_list opt_drop_behavior
-    | DROP PROCEDURE function_with_argtypes_list opt_drop_behavior
-    | DROP PROCEDURE IF_P EXISTS function_with_argtypes_list opt_drop_behavior
-    | DROP ROUTINE function_with_argtypes_list opt_drop_behavior
-    | DROP ROUTINE IF_P EXISTS function_with_argtypes_list opt_drop_behavior
+removeOperatorStatement
+    : DROP OPERATOR operatorWithArgumentTypesList optionalDropBehavior
+    | DROP OPERATOR IF_P EXISTS operatorWithArgumentTypesList optionalDropBehavior
     ;
 
-removeaggrstmt
-    : DROP AGGREGATE aggregate_with_argtypes_list opt_drop_behavior
-    | DROP AGGREGATE IF_P EXISTS aggregate_with_argtypes_list opt_drop_behavior
+operatorArgumentTypes
+    : OPEN_PAREN typeName CLOSE_PAREN
+    | OPEN_PAREN typeName COMMA typeName CLOSE_PAREN
+    | OPEN_PAREN NONE COMMA typeName CLOSE_PAREN
+    | OPEN_PAREN typeName COMMA NONE CLOSE_PAREN
     ;
 
-removeoperstmt
-    : DROP OPERATOR operator_with_argtypes_list opt_drop_behavior
-    | DROP OPERATOR IF_P EXISTS operator_with_argtypes_list opt_drop_behavior
+anyOperator
+    : (columnId DOT)* allOperator
     ;
 
-oper_argtypes
-    : OPEN_PAREN typename CLOSE_PAREN
-    | OPEN_PAREN typename COMMA typename CLOSE_PAREN
-    | OPEN_PAREN NONE COMMA typename CLOSE_PAREN
-    | OPEN_PAREN typename COMMA NONE CLOSE_PAREN
+operatorWithArgumentTypesList
+    : operatorWithArgumentTypes (COMMA operatorWithArgumentTypes)*
     ;
 
-any_operator
-    : (colid DOT)* all_op
+operatorWithArgumentTypes
+    : anyOperator operatorArgumentTypes
     ;
 
-operator_with_argtypes_list
-    : operator_with_argtypes (COMMA operator_with_argtypes)*
+doStatement
+    : DO doStatementOptionsList
     ;
 
-operator_with_argtypes
-    : any_operator oper_argtypes
+doStatementOptionsList
+    : doStatementOptionItem+
     ;
 
-dostmt
-    : DO dostmt_opt_list
-    ;
-
-dostmt_opt_list
-    : dostmt_opt_item+
-    ;
-
-dostmt_opt_item
+doStatementOptionItem
     : sconst
-    | LANGUAGE nonreservedword_or_sconst
+    | LANGUAGE nonReservedWordOrSconst
     ;
 
-createcaststmt
-    : CREATE CAST OPEN_PAREN typename AS typename CLOSE_PAREN WITH FUNCTION function_with_argtypes cast_context
-    | CREATE CAST OPEN_PAREN typename AS typename CLOSE_PAREN WITHOUT FUNCTION cast_context
-    | CREATE CAST OPEN_PAREN typename AS typename CLOSE_PAREN WITH INOUT cast_context
+createCastStatement
+    : CREATE CAST OPEN_PAREN typeName AS typeName CLOSE_PAREN WITH FUNCTION functionWithArgumentTypes castContext
+    | CREATE CAST OPEN_PAREN typeName AS typeName CLOSE_PAREN WITHOUT FUNCTION castContext
+    | CREATE CAST OPEN_PAREN typeName AS typeName CLOSE_PAREN WITH INOUT castContext
     ;
 
-cast_context
+castContext
     : AS IMPLICIT_P
     | AS ASSIGNMENT
     |
     ;
 
-dropcaststmt
-    : DROP CAST opt_if_exists OPEN_PAREN typename AS typename CLOSE_PAREN opt_drop_behavior
+dropCastStatement
+    : DROP CAST optionalIfExists OPEN_PAREN typeName AS typeName CLOSE_PAREN optionalDropBehavior
     ;
 
-opt_if_exists
+optionalIfExists
     : IF_P EXISTS
     |
     ;
 
-createtransformstmt
-    : CREATE opt_or_replace TRANSFORM FOR typename LANGUAGE name OPEN_PAREN transform_element_list CLOSE_PAREN
+createTransformStatement
+    : CREATE optionalOrReplace TRANSFORM FOR typeName LANGUAGE name OPEN_PAREN transformElementList CLOSE_PAREN
     ;
 
-transform_element_list
-    : FROM SQL_P WITH FUNCTION function_with_argtypes COMMA TO SQL_P WITH FUNCTION function_with_argtypes
-    | TO SQL_P WITH FUNCTION function_with_argtypes COMMA FROM SQL_P WITH FUNCTION function_with_argtypes
-    | FROM SQL_P WITH FUNCTION function_with_argtypes
-    | TO SQL_P WITH FUNCTION function_with_argtypes
+transformElementList
+    : FROM SQL_P WITH FUNCTION functionWithArgumentTypes COMMA TO SQL_P WITH FUNCTION functionWithArgumentTypes
+    | TO SQL_P WITH FUNCTION functionWithArgumentTypes COMMA FROM SQL_P WITH FUNCTION functionWithArgumentTypes
+    | FROM SQL_P WITH FUNCTION functionWithArgumentTypes
+    | TO SQL_P WITH FUNCTION functionWithArgumentTypes
     ;
 
-droptransformstmt
-    : DROP TRANSFORM opt_if_exists FOR typename LANGUAGE name opt_drop_behavior
+dropTransformStatement
+    : DROP TRANSFORM optionalIfExists FOR typeName LANGUAGE name optionalDropBehavior
     ;
 
-reindexstmt
-    : REINDEX reindex_target_type opt_concurrently qualified_name
-    | REINDEX reindex_target_multitable opt_concurrently name
-    | REINDEX OPEN_PAREN reindex_option_list CLOSE_PAREN reindex_target_type opt_concurrently qualified_name
-    | REINDEX OPEN_PAREN reindex_option_list CLOSE_PAREN reindex_target_multitable opt_concurrently name
+reindexStatement
+    : REINDEX reindexTargetType optionalConcurrently qualifiedName
+    | REINDEX reindexTargetMultiTable optionalConcurrently name
+    | REINDEX OPEN_PAREN reindexOptionList CLOSE_PAREN reindexTargetType optionalConcurrently qualifiedName
+    | REINDEX OPEN_PAREN reindexOptionList CLOSE_PAREN reindexTargetMultiTable optionalConcurrently name
     ;
 
-reindex_target_type
+reindexTargetType
     : INDEX
     | TABLE
     | SCHEMA
@@ -2155,262 +2013,257 @@ reindex_target_type
     | SYSTEM_P
     ;
 
-reindex_target_multitable
+reindexTargetMultiTable
     : SCHEMA
     | SYSTEM_P
     | DATABASE
     ;
 
-reindex_option_list
-    : reindex_option_elem (COMMA reindex_option_elem)*
+reindexOptionList
+    : reindexOptionElement (COMMA reindexOptionElement)*
     ;
 
-reindex_option_elem
+reindexOptionElement
     : VERBOSE
     | TABLESPACE
     | CONCURRENTLY
     ;
 
-altertblspcstmt
-    : ALTER TABLESPACE name SET reloptions
-    | ALTER TABLESPACE name RESET reloptions
+alterTablespaceStatement
+    : ALTER TABLESPACE name SET relOptions
+    | ALTER TABLESPACE name RESET relOptions
     ;
 
-renamestmt
-    : ALTER AGGREGATE aggregate_with_argtypes RENAME TO name
-    | ALTER COLLATION any_name RENAME TO name
-    | ALTER CONVERSION_P any_name RENAME TO name
+renameStatement
+    : ALTER AGGREGATE aggregateWithArgumentTypes RENAME TO name
+    | ALTER COLLATION anyName RENAME TO name
+    | ALTER CONVERSION_P anyName RENAME TO name
     | ALTER DATABASE name RENAME TO name
-    | ALTER DOMAIN_P any_name RENAME TO name
-    | ALTER DOMAIN_P any_name RENAME CONSTRAINT name TO name
+    | ALTER DOMAIN_P anyName RENAME TO name
+    | ALTER DOMAIN_P anyName RENAME CONSTRAINT name TO name
     | ALTER FOREIGN DATA_P WRAPPER name RENAME TO name
-    | ALTER FUNCTION function_with_argtypes RENAME TO name
-    | ALTER GROUP_P roleid RENAME TO roleid
-    | ALTER opt_procedural LANGUAGE name RENAME TO name
-    | ALTER OPERATOR CLASS any_name USING name RENAME TO name
-    | ALTER OPERATOR FAMILY any_name USING name RENAME TO name
-    | ALTER POLICY name ON qualified_name RENAME TO name
-    | ALTER POLICY IF_P EXISTS name ON qualified_name RENAME TO name
-    | ALTER PROCEDURE function_with_argtypes RENAME TO name
+    | ALTER FUNCTION functionWithArgumentTypes RENAME TO name
+    | ALTER GROUP_P roleId RENAME TO roleId
+    | ALTER optionalProcedural LANGUAGE name RENAME TO name
+    | ALTER OPERATOR CLASS anyName USING name RENAME TO name
+    | ALTER OPERATOR FAMILY anyName USING name RENAME TO name
+    | ALTER POLICY name ON qualifiedName RENAME TO name
+    | ALTER POLICY IF_P EXISTS name ON qualifiedName RENAME TO name
+    | ALTER PROCEDURE functionWithArgumentTypes RENAME TO name
     | ALTER PUBLICATION name RENAME TO name
-    | ALTER ROUTINE function_with_argtypes RENAME TO name
+    | ALTER ROUTINE functionWithArgumentTypes RENAME TO name
     | ALTER SCHEMA name RENAME TO name
     | ALTER SERVER name RENAME TO name
     | ALTER SUBSCRIPTION name RENAME TO name
-    | ALTER TABLE relation_expr RENAME TO name
-    | ALTER TABLE IF_P EXISTS relation_expr RENAME TO name
-    | ALTER SEQUENCE qualified_name RENAME TO name
-    | ALTER SEQUENCE IF_P EXISTS qualified_name RENAME TO name
-    | ALTER VIEW qualified_name RENAME TO name
-    | ALTER VIEW IF_P EXISTS qualified_name RENAME TO name
-    | ALTER MATERIALIZED VIEW qualified_name RENAME TO name
-    | ALTER MATERIALIZED VIEW IF_P EXISTS qualified_name RENAME TO name
-    | ALTER INDEX qualified_name RENAME TO name
-    | ALTER INDEX IF_P EXISTS qualified_name RENAME TO name
-    | ALTER FOREIGN TABLE relation_expr RENAME TO name
-    | ALTER FOREIGN TABLE IF_P EXISTS relation_expr RENAME TO name
-    | ALTER TABLE relation_expr RENAME opt_column name TO name
-    | ALTER TABLE IF_P EXISTS relation_expr RENAME opt_column name TO name
-    | ALTER VIEW qualified_name RENAME opt_column name TO name
-    | ALTER VIEW IF_P EXISTS qualified_name RENAME opt_column name TO name
-    | ALTER MATERIALIZED VIEW qualified_name RENAME opt_column name TO name
-    | ALTER MATERIALIZED VIEW IF_P EXISTS qualified_name RENAME opt_column name TO name
-    | ALTER TABLE relation_expr RENAME CONSTRAINT name TO name
-    | ALTER TABLE IF_P EXISTS relation_expr RENAME CONSTRAINT name TO name
-    | ALTER FOREIGN TABLE relation_expr RENAME opt_column name TO name
-    | ALTER FOREIGN TABLE IF_P EXISTS relation_expr RENAME opt_column name TO name
-    | ALTER RULE name ON qualified_name RENAME TO name
-    | ALTER TRIGGER name ON qualified_name RENAME TO name
+    | ALTER TABLE relationExpression RENAME TO name
+    | ALTER TABLE IF_P EXISTS relationExpression RENAME TO name
+    | ALTER SEQUENCE qualifiedName RENAME TO name
+    | ALTER SEQUENCE IF_P EXISTS qualifiedName RENAME TO name
+    | ALTER VIEW qualifiedName RENAME TO name
+    | ALTER VIEW IF_P EXISTS qualifiedName RENAME TO name
+    | ALTER MATERIALIZED VIEW qualifiedName RENAME TO name
+    | ALTER MATERIALIZED VIEW IF_P EXISTS qualifiedName RENAME TO name
+    | ALTER INDEX qualifiedName RENAME TO name
+    | ALTER INDEX IF_P EXISTS qualifiedName RENAME TO name
+    | ALTER FOREIGN TABLE relationExpression RENAME TO name
+    | ALTER FOREIGN TABLE IF_P EXISTS relationExpression RENAME TO name
+    | ALTER TABLE relationExpression RENAME optionalColumn name TO name
+    | ALTER TABLE IF_P EXISTS relationExpression RENAME optionalColumn name TO name
+    | ALTER VIEW qualifiedName RENAME optionalColumn name TO name
+    | ALTER VIEW IF_P EXISTS qualifiedName RENAME optionalColumn name TO name
+    | ALTER MATERIALIZED VIEW qualifiedName RENAME optionalColumn name TO name
+    | ALTER MATERIALIZED VIEW IF_P EXISTS qualifiedName RENAME optionalColumn name TO name
+    | ALTER TABLE relationExpression RENAME CONSTRAINT name TO name
+    | ALTER TABLE IF_P EXISTS relationExpression RENAME CONSTRAINT name TO name
+    | ALTER FOREIGN TABLE relationExpression RENAME optionalColumn name TO name
+    | ALTER FOREIGN TABLE IF_P EXISTS relationExpression RENAME optionalColumn name TO name
+    | ALTER RULE name ON qualifiedName RENAME TO name
+    | ALTER TRIGGER name ON qualifiedName RENAME TO name
     | ALTER EVENT TRIGGER name RENAME TO name
-    | ALTER ROLE roleid RENAME TO roleid
-    | ALTER USER roleid RENAME TO roleid
+    | ALTER ROLE roleId RENAME TO roleId
+    | ALTER USER roleId RENAME TO roleId
     | ALTER TABLESPACE name RENAME TO name
-    | ALTER STATISTICS any_name RENAME TO name
-    | ALTER TEXT_P SEARCH PARSER any_name RENAME TO name
-    | ALTER TEXT_P SEARCH DICTIONARY any_name RENAME TO name
-    | ALTER TEXT_P SEARCH TEMPLATE any_name RENAME TO name
-    | ALTER TEXT_P SEARCH CONFIGURATION any_name RENAME TO name
-    | ALTER TYPE_P any_name RENAME TO name
-    | ALTER TYPE_P any_name RENAME ATTRIBUTE name TO name opt_drop_behavior
+    | ALTER STATISTICS anyName RENAME TO name
+    | ALTER TEXT_P SEARCH PARSER anyName RENAME TO name
+    | ALTER TEXT_P SEARCH DICTIONARY anyName RENAME TO name
+    | ALTER TEXT_P SEARCH TEMPLATE anyName RENAME TO name
+    | ALTER TEXT_P SEARCH CONFIGURATION anyName RENAME TO name
+    | ALTER TYPE_P anyName RENAME TO name
+    | ALTER TYPE_P anyName RENAME ATTRIBUTE name TO name optionalDropBehavior
     ;
 
-opt_column
+optionalColumn
     : COLUMN
     |
     ;
 
-opt_set_data
+optionalSetData
     : SET DATA_P
     |
     ;
 
-alterobjectdependsstmt
-    : ALTER FUNCTION function_with_argtypes opt_no DEPENDS ON EXTENSION name
-    | ALTER PROCEDURE function_with_argtypes opt_no DEPENDS ON EXTENSION name
-    | ALTER ROUTINE function_with_argtypes opt_no DEPENDS ON EXTENSION name
-    | ALTER TRIGGER name ON qualified_name opt_no DEPENDS ON EXTENSION name
-    | ALTER MATERIALIZED VIEW qualified_name opt_no DEPENDS ON EXTENSION name
-    | ALTER INDEX qualified_name opt_no DEPENDS ON EXTENSION name
+alterObjectDependsStatement
+    : ALTER FUNCTION functionWithArgumentTypes NO? DEPENDS ON EXTENSION name
+    | ALTER PROCEDURE functionWithArgumentTypes NO? DEPENDS ON EXTENSION name
+    | ALTER ROUTINE functionWithArgumentTypes NO? DEPENDS ON EXTENSION name
+    | ALTER TRIGGER name ON qualifiedName NO? DEPENDS ON EXTENSION name
+    | ALTER MATERIALIZED VIEW qualifiedName NO? DEPENDS ON EXTENSION name
+    | ALTER INDEX qualifiedName NO? DEPENDS ON EXTENSION name
     ;
 
-opt_no
-    : NO
-    |
-    ;
-
-alterobjectschemastmt
-    : ALTER AGGREGATE aggregate_with_argtypes SET SCHEMA name
-    | ALTER COLLATION any_name SET SCHEMA name
-    | ALTER CONVERSION_P any_name SET SCHEMA name
-    | ALTER DOMAIN_P any_name SET SCHEMA name
+alterObjectSchemaStatement
+    : ALTER AGGREGATE aggregateWithArgumentTypes SET SCHEMA name
+    | ALTER COLLATION anyName SET SCHEMA name
+    | ALTER CONVERSION_P anyName SET SCHEMA name
+    | ALTER DOMAIN_P anyName SET SCHEMA name
     | ALTER EXTENSION name SET SCHEMA name
-    | ALTER FUNCTION function_with_argtypes SET SCHEMA name
-    | ALTER OPERATOR operator_with_argtypes SET SCHEMA name
-    | ALTER OPERATOR CLASS any_name USING name SET SCHEMA name
-    | ALTER OPERATOR FAMILY any_name USING name SET SCHEMA name
-    | ALTER PROCEDURE function_with_argtypes SET SCHEMA name
-    | ALTER ROUTINE function_with_argtypes SET SCHEMA name
-    | ALTER TABLE relation_expr SET SCHEMA name
-    | ALTER TABLE IF_P EXISTS relation_expr SET SCHEMA name
-    | ALTER STATISTICS any_name SET SCHEMA name
-    | ALTER TEXT_P SEARCH PARSER any_name SET SCHEMA name
-    | ALTER TEXT_P SEARCH DICTIONARY any_name SET SCHEMA name
-    | ALTER TEXT_P SEARCH TEMPLATE any_name SET SCHEMA name
-    | ALTER TEXT_P SEARCH CONFIGURATION any_name SET SCHEMA name
-    | ALTER SEQUENCE qualified_name SET SCHEMA name
-    | ALTER SEQUENCE IF_P EXISTS qualified_name SET SCHEMA name
-    | ALTER VIEW qualified_name SET SCHEMA name
-    | ALTER VIEW IF_P EXISTS qualified_name SET SCHEMA name
-    | ALTER MATERIALIZED VIEW qualified_name SET SCHEMA name
-    | ALTER MATERIALIZED VIEW IF_P EXISTS qualified_name SET SCHEMA name
-    | ALTER FOREIGN TABLE relation_expr SET SCHEMA name
-    | ALTER FOREIGN TABLE IF_P EXISTS relation_expr SET SCHEMA name
-    | ALTER TYPE_P any_name SET SCHEMA name
+    | ALTER FUNCTION functionWithArgumentTypes SET SCHEMA name
+    | ALTER OPERATOR operatorWithArgumentTypes SET SCHEMA name
+    | ALTER OPERATOR CLASS anyName USING name SET SCHEMA name
+    | ALTER OPERATOR FAMILY anyName USING name SET SCHEMA name
+    | ALTER PROCEDURE functionWithArgumentTypes SET SCHEMA name
+    | ALTER ROUTINE functionWithArgumentTypes SET SCHEMA name
+    | ALTER TABLE relationExpression SET SCHEMA name
+    | ALTER TABLE IF_P EXISTS relationExpression SET SCHEMA name
+    | ALTER STATISTICS anyName SET SCHEMA name
+    | ALTER TEXT_P SEARCH PARSER anyName SET SCHEMA name
+    | ALTER TEXT_P SEARCH DICTIONARY anyName SET SCHEMA name
+    | ALTER TEXT_P SEARCH TEMPLATE anyName SET SCHEMA name
+    | ALTER TEXT_P SEARCH CONFIGURATION anyName SET SCHEMA name
+    | ALTER SEQUENCE qualifiedName SET SCHEMA name
+    | ALTER SEQUENCE IF_P EXISTS qualifiedName SET SCHEMA name
+    | ALTER VIEW qualifiedName SET SCHEMA name
+    | ALTER VIEW IF_P EXISTS qualifiedName SET SCHEMA name
+    | ALTER MATERIALIZED VIEW qualifiedName SET SCHEMA name
+    | ALTER MATERIALIZED VIEW IF_P EXISTS qualifiedName SET SCHEMA name
+    | ALTER FOREIGN TABLE relationExpression SET SCHEMA name
+    | ALTER FOREIGN TABLE IF_P EXISTS relationExpression SET SCHEMA name
+    | ALTER TYPE_P anyName SET SCHEMA name
     ;
 
-alteroperatorstmt
-    : ALTER OPERATOR operator_with_argtypes SET OPEN_PAREN operator_def_list CLOSE_PAREN
+alterOperatorStatement
+    : ALTER OPERATOR operatorWithArgumentTypes SET OPEN_PAREN operatorDefinitionList CLOSE_PAREN
     ;
 
-operator_def_list
-    : operator_def_elem (COMMA operator_def_elem)*
+operatorDefinitionList
+    : operatorDefinitionElement (COMMA operatorDefinitionElement)*
     ;
 
-operator_def_elem
-    : collabel EQUAL NONE
-    | collabel EQUAL operator_def_arg
+operatorDefinitionElement
+    : columnLabel EQUAL NONE
+    | columnLabel EQUAL operatorDefinitionArgument
     ;
 
-operator_def_arg
-    : func_type
-    | reserved_keyword
-    | qual_all_op
-    | numericonly
+operatorDefinitionArgument
+    : functionType
+    | reservedKeyword
+    | allOperatorQualifier
+    | numericOnly
     | sconst
     ;
 
-altertypestmt
-    : ALTER TYPE_P any_name SET OPEN_PAREN operator_def_list CLOSE_PAREN
+alterTypeStatement
+    : ALTER TYPE_P anyName SET OPEN_PAREN operatorDefinitionList CLOSE_PAREN
     ;
 
-alterownerstmt
-    : ALTER AGGREGATE aggregate_with_argtypes OWNER TO rolespec
-    | ALTER COLLATION any_name OWNER TO rolespec
-    | ALTER CONVERSION_P any_name OWNER TO rolespec
-    | ALTER DATABASE name OWNER TO rolespec
-    | ALTER DOMAIN_P any_name OWNER TO rolespec
-    | ALTER FUNCTION function_with_argtypes OWNER TO rolespec
-    | ALTER opt_procedural LANGUAGE name OWNER TO rolespec
-    | ALTER LARGE_P OBJECT_P numericonly OWNER TO rolespec
-    | ALTER OPERATOR operator_with_argtypes OWNER TO rolespec
-    | ALTER OPERATOR CLASS any_name USING name OWNER TO rolespec
-    | ALTER OPERATOR FAMILY any_name USING name OWNER TO rolespec
-    | ALTER PROCEDURE function_with_argtypes OWNER TO rolespec
-    | ALTER ROUTINE function_with_argtypes OWNER TO rolespec
-    | ALTER SCHEMA name OWNER TO rolespec
-    | ALTER TYPE_P any_name OWNER TO rolespec
-    | ALTER TABLESPACE name OWNER TO rolespec
-    | ALTER STATISTICS any_name OWNER TO rolespec
-    | ALTER TEXT_P SEARCH DICTIONARY any_name OWNER TO rolespec
-    | ALTER TEXT_P SEARCH CONFIGURATION any_name OWNER TO rolespec
-    | ALTER FOREIGN DATA_P WRAPPER name OWNER TO rolespec
-    | ALTER SERVER name OWNER TO rolespec
-    | ALTER EVENT TRIGGER name OWNER TO rolespec
-    | ALTER PUBLICATION name OWNER TO rolespec
-    | ALTER SUBSCRIPTION name OWNER TO rolespec
+alterOwnerStatement
+    : ALTER AGGREGATE aggregateWithArgumentTypes OWNER TO roleSpecification
+    | ALTER COLLATION anyName OWNER TO roleSpecification
+    | ALTER CONVERSION_P anyName OWNER TO roleSpecification
+    | ALTER DATABASE name OWNER TO roleSpecification
+    | ALTER DOMAIN_P anyName OWNER TO roleSpecification
+    | ALTER FUNCTION functionWithArgumentTypes OWNER TO roleSpecification
+    | ALTER optionalProcedural LANGUAGE name OWNER TO roleSpecification
+    | ALTER LARGE_P OBJECT_P numericOnly OWNER TO roleSpecification
+    | ALTER OPERATOR operatorWithArgumentTypes OWNER TO roleSpecification
+    | ALTER OPERATOR CLASS anyName USING name OWNER TO roleSpecification
+    | ALTER OPERATOR FAMILY anyName USING name OWNER TO roleSpecification
+    | ALTER PROCEDURE functionWithArgumentTypes OWNER TO roleSpecification
+    | ALTER ROUTINE functionWithArgumentTypes OWNER TO roleSpecification
+    | ALTER SCHEMA name OWNER TO roleSpecification
+    | ALTER TYPE_P anyName OWNER TO roleSpecification
+    | ALTER TABLESPACE name OWNER TO roleSpecification
+    | ALTER STATISTICS anyName OWNER TO roleSpecification
+    | ALTER TEXT_P SEARCH DICTIONARY anyName OWNER TO roleSpecification
+    | ALTER TEXT_P SEARCH CONFIGURATION anyName OWNER TO roleSpecification
+    | ALTER FOREIGN DATA_P WRAPPER name OWNER TO roleSpecification
+    | ALTER SERVER name OWNER TO roleSpecification
+    | ALTER EVENT TRIGGER name OWNER TO roleSpecification
+    | ALTER PUBLICATION name OWNER TO roleSpecification
+    | ALTER SUBSCRIPTION name OWNER TO roleSpecification
     ;
 
-createpublicationstmt
-    : CREATE PUBLICATION name opt_publication_for_tables opt_definition
+createPublicationStatement
+    : CREATE PUBLICATION name optionalPublicationForTables optionalDefinition
     ;
 
-opt_publication_for_tables
-    : publication_for_tables
+optionalPublicationForTables
+    : publicationForTables
     |
     ;
 
-publication_for_tables
-    : FOR TABLE relation_expr_list
+publicationForTables
+    : FOR TABLE relationExpressionList
     | FOR ALL TABLES
     ;
 
-alterpublicationstmt
+alterPublicationStatement
     : ALTER PUBLICATION name SET definition
-    | ALTER PUBLICATION name ADD_P TABLE relation_expr_list
-    | ALTER PUBLICATION name SET TABLE relation_expr_list
-    | ALTER PUBLICATION name DROP TABLE relation_expr_list
+    | ALTER PUBLICATION name ADD_P TABLE relationExpressionList
+    | ALTER PUBLICATION name SET TABLE relationExpressionList
+    | ALTER PUBLICATION name DROP TABLE relationExpressionList
     ;
 
-createsubscriptionstmt
-    : CREATE SUBSCRIPTION name CONNECTION sconst PUBLICATION publication_name_list opt_definition
+createSubscriptionStatement
+    : CREATE SUBSCRIPTION name CONNECTION sconst PUBLICATION publicationNameList optionalDefinition
     ;
 
-publication_name_list
-    : publication_name_item (COMMA publication_name_item)*
+publicationNameList
+    : publicationNameItem (COMMA publicationNameItem)*
     ;
 
-publication_name_item
-    : collabel
+publicationNameItem
+    : columnLabel
     ;
 
-altersubscriptionstmt
+alterSubscriptionStatement
     : ALTER SUBSCRIPTION name SET definition
     | ALTER SUBSCRIPTION name CONNECTION sconst
-    | ALTER SUBSCRIPTION name REFRESH PUBLICATION opt_definition
-    | ALTER SUBSCRIPTION name SET PUBLICATION publication_name_list opt_definition
+    | ALTER SUBSCRIPTION name REFRESH PUBLICATION optionalDefinition
+    | ALTER SUBSCRIPTION name SET PUBLICATION publicationNameList optionalDefinition
     | ALTER SUBSCRIPTION name ENABLE_P
     | ALTER SUBSCRIPTION name DISABLE_P
     ;
 
-dropsubscriptionstmt
-    : DROP SUBSCRIPTION name opt_drop_behavior
-    | DROP SUBSCRIPTION IF_P EXISTS name opt_drop_behavior
+dropSubscriptionStatement
+    : DROP SUBSCRIPTION name optionalDropBehavior
+    | DROP SUBSCRIPTION IF_P EXISTS name optionalDropBehavior
     ;
 
-rulestmt
-    : CREATE opt_or_replace RULE name AS ON event TO qualified_name where_clause DO opt_instead ruleactionlist
+ruleStatement
+    : CREATE optionalOrReplace RULE name AS ON event TO qualifiedName whereClause DO optionalInstead ruleActionList
     ;
 
-ruleactionlist
+ruleActionList
     : NOTHING
-    | ruleactionstmt
-    | OPEN_PAREN ruleactionmulti CLOSE_PAREN
+    | ruleActionStatement
+    | OPEN_PAREN ruleActionMulti CLOSE_PAREN
     ;
 
-ruleactionmulti
-    : ruleactionstmtOrEmpty (SEMI ruleactionstmtOrEmpty)*
+ruleActionMulti
+    : ruleActionStatementOrEmpty (SEMI ruleActionStatementOrEmpty)*
     ;
 
-ruleactionstmt
-    : selectstmt
-    | insertstmt
-    | updatestmt
-    | deletestmt
-    | notifystmt
+ruleActionStatement
+    : selectStatement
+    | insertStatement
+    | updateStatement
+    | deleteStatement
+    | notifyStatement
     ;
 
-ruleactionstmtOrEmpty
-    : ruleactionstmt
+ruleActionStatementOrEmpty
+    : ruleActionStatement
     |
     ;
 
@@ -2421,106 +2274,97 @@ event
     | INSERT
     ;
 
-opt_instead
+optionalInstead
     : INSTEAD
     | ALSO
     |
     ;
 
-notifystmt
-    : NOTIFY colid notify_payload
+notifyStatement
+    : NOTIFY columnId notifyPayload
     ;
 
-notify_payload
+notifyPayload
     : COMMA sconst
     |
     ;
 
-listenstmt
-    : LISTEN colid
+listenStatement
+    : LISTEN columnId
     ;
 
-unlistenstmt
-    : UNLISTEN colid
+unlistenStatement
+    : UNLISTEN columnId
     | UNLISTEN STAR
     ;
 
-transactionstmt
-    : ABORT_P opt_transaction opt_transaction_chain
-    | BEGIN_P opt_transaction transaction_mode_list_or_empty
-    | START TRANSACTION transaction_mode_list_or_empty
-    | COMMIT opt_transaction opt_transaction_chain
-    | END_P opt_transaction opt_transaction_chain
-    | ROLLBACK opt_transaction opt_transaction_chain
-    | SAVEPOINT colid
-    | RELEASE SAVEPOINT colid
-    | RELEASE colid
-    | ROLLBACK opt_transaction TO SAVEPOINT colid
-    | ROLLBACK opt_transaction TO colid
+transactionStatement
+    : ABORT_P optionalTransaction optionalTransactionChain
+    | BEGIN_P optionalTransaction transactionModeList?
+    | START TRANSACTION transactionModeList?
+    | COMMIT optionalTransaction optionalTransactionChain
+    | END_P optionalTransaction optionalTransactionChain
+    | ROLLBACK optionalTransaction optionalTransactionChain
+    | SAVEPOINT columnId
+    | RELEASE SAVEPOINT columnId
+    | RELEASE columnId
+    | ROLLBACK optionalTransaction TO SAVEPOINT columnId
+    | ROLLBACK optionalTransaction TO columnId
     | PREPARE TRANSACTION sconst
     | COMMIT PREPARED sconst
     | ROLLBACK PREPARED sconst
     ;
 
-opt_transaction
+optionalTransaction
     : WORK
     | TRANSACTION
     |
     ;
 
-transaction_mode_item
-    : ISOLATION LEVEL iso_level
+transactionModeItem
+    : ISOLATION LEVEL isoLevel
     | READ ONLY
     | READ WRITE
     | DEFERRABLE
     | NOT DEFERRABLE
     ;
 
-transaction_mode_list
-    : transaction_mode_item (COMMA? transaction_mode_item)*
+transactionModeList
+    : transactionModeItem (COMMA? transactionModeItem)*
     ;
 
-transaction_mode_list_or_empty
-    : transaction_mode_list
-    |
-    ;
-
-opt_transaction_chain
+optionalTransactionChain
     : AND NO? CHAIN
     |
     ;
 
-viewstmt
-    : CREATE (OR REPLACE)? opttemp (VIEW qualified_name opt_column_list opt_reloptions | RECURSIVE VIEW qualified_name OPEN_PAREN columnlist CLOSE_PAREN opt_reloptions) AS selectstmt opt_check_option
+viewStatement
+    : CREATE (OR REPLACE)? temporaryOption (VIEW qualifiedName columnListWithParentheses optionalRelOptions | RECURSIVE VIEW qualifiedName OPEN_PAREN columnList CLOSE_PAREN optionalRelOptions) AS selectStatement optionalCheckOption
     ;
 
-opt_check_option
+optionalCheckOption
     : WITH (CASCADED | LOCAL)? CHECK OPTION
     |
     ;
 
-loadstmt
-    : LOAD file_name
+loadStatement
+    : LOAD fileName
     ;
 
-createdbstmt
-    : CREATE DATABASE name opt_with createdb_opt_list
+createDatabaseStatement
+    : CREATE DATABASE name optionalWith createDatabaseOptionList
     ;
 
-createdb_opt_list
-    : createdb_opt_items
+createDatabaseOptionList
+    : createDatabaseOptionItem+
     |
     ;
 
-createdb_opt_items
-    : createdb_opt_item+
+createDatabaseOptionItem
+    : createDatabaseOptionName EQUAL? (signedIconst | booleanOrString | DEFAULT)
     ;
 
-createdb_opt_item
-    : createdb_opt_name opt_equal (signediconst | opt_boolean_or_string | DEFAULT)
-    ;
-
-createdb_opt_name
+createDatabaseOptionName
     : identifier
     | CONNECTION LIMIT
     | ENCODING
@@ -2530,362 +2374,311 @@ createdb_opt_name
     | TEMPLATE
     ;
 
-opt_equal
-    : EQUAL
-    |
+alterDatabaseStatement
+    : ALTER DATABASE name (WITH createDatabaseOptionList | createDatabaseOptionList | SET TABLESPACE name)
     ;
 
-alterdatabasestmt
-    : ALTER DATABASE name (WITH createdb_opt_list | createdb_opt_list | SET TABLESPACE name)
+alterDatabaseSetStatement
+    : ALTER DATABASE name setResetClause
     ;
 
-alterdatabasesetstmt
-    : ALTER DATABASE name setresetclause
+dropDatabaseStatement
+    : DROP DATABASE (IF_P EXISTS)? name (optionalWith OPEN_PAREN FORCE (COMMA FORCE)* CLOSE_PAREN)?
     ;
 
-dropdbstmt
-    : DROP DATABASE (IF_P EXISTS)? name (opt_with OPEN_PAREN drop_option_list CLOSE_PAREN)?
+alterCollationStatement
+    : ALTER COLLATION anyName REFRESH VERSION_P
     ;
 
-drop_option_list
-    : drop_option (COMMA drop_option)*
+alterSystemStatement
+    : ALTER SYSTEM_P (SET | RESET) genericSetClause
     ;
 
-drop_option
-    : FORCE
+createDomainStatement
+    : CREATE DOMAIN_P anyName optionalAs typeName columnQualifierList
     ;
 
-altercollationstmt
-    : ALTER COLLATION any_name REFRESH VERSION_P
+alterDomainStatement
+    : ALTER DOMAIN_P anyName (alterColumnDefault | DROP NOT NULL_P | SET NOT NULL_P | ADD_P tableConstraint | DROP CONSTRAINT (IF_P EXISTS)? name optionalDropBehavior | VALIDATE CONSTRAINT name)
     ;
 
-altersystemstmt
-    : ALTER SYSTEM_P (SET | RESET) generic_set
-    ;
-
-createdomainstmt
-    : CREATE DOMAIN_P any_name opt_as typename colquallist
-    ;
-
-alterdomainstmt
-    : ALTER DOMAIN_P any_name (alter_column_default | DROP NOT NULL_P | SET NOT NULL_P | ADD_P tableconstraint | DROP CONSTRAINT (IF_P EXISTS)? name opt_drop_behavior | VALIDATE CONSTRAINT name)
-    ;
-
-opt_as
+optionalAs
     : AS
     |
     ;
 
-altertsdictionarystmt
-    : ALTER TEXT_P SEARCH DICTIONARY any_name definition
+altertsDictionaryStatement
+    : ALTER TEXT_P SEARCH DICTIONARY anyName definition
     ;
 
-altertsconfigurationstmt
-    : ALTER TEXT_P SEARCH CONFIGURATION any_name ADD_P MAPPING FOR name_list any_with any_name_list
-    | ALTER TEXT_P SEARCH CONFIGURATION any_name ALTER MAPPING FOR name_list any_with any_name_list
-    | ALTER TEXT_P SEARCH CONFIGURATION any_name ALTER MAPPING REPLACE any_name any_with any_name
-    | ALTER TEXT_P SEARCH CONFIGURATION any_name ALTER MAPPING FOR name_list REPLACE any_name any_with any_name
-    | ALTER TEXT_P SEARCH CONFIGURATION any_name DROP MAPPING FOR name_list
-    | ALTER TEXT_P SEARCH CONFIGURATION any_name DROP MAPPING IF_P EXISTS FOR name_list
+altertsConfigurationStatement
+    : ALTER TEXT_P SEARCH CONFIGURATION anyName ADD_P MAPPING FOR nameList WITH anyNameList
+    | ALTER TEXT_P SEARCH CONFIGURATION anyName ALTER MAPPING FOR nameList WITH anyNameList
+    | ALTER TEXT_P SEARCH CONFIGURATION anyName ALTER MAPPING REPLACE anyName WITH anyName
+    | ALTER TEXT_P SEARCH CONFIGURATION anyName ALTER MAPPING FOR nameList REPLACE anyName WITH anyName
+    | ALTER TEXT_P SEARCH CONFIGURATION anyName DROP MAPPING FOR nameList
+    | ALTER TEXT_P SEARCH CONFIGURATION anyName DROP MAPPING IF_P EXISTS FOR nameList
     ;
 
-any_with
-    : WITH
-    //TODO
-
-    //         | WITH_LA
+createConversionStatement
+    : CREATE DEFAULT? CONVERSION_P anyName FOR sconst TO sconst FROM anyName
     ;
 
-createconversionstmt
-    : CREATE opt_default CONVERSION_P any_name FOR sconst TO sconst FROM any_name
+clusterStatement
+    : CLUSTER optionalVerbose qualifiedName clusterIndexSpecification
+    | CLUSTER optionalVerbose
+    | CLUSTER optionalVerbose name ON qualifiedName
     ;
 
-clusterstmt
-    : CLUSTER opt_verbose qualified_name cluster_index_specification
-    | CLUSTER opt_verbose
-    | CLUSTER opt_verbose name ON qualified_name
-    ;
-
-cluster_index_specification
+clusterIndexSpecification
     : USING name
     |
     ;
 
-vacuumstmt
-    : VACUUM opt_full opt_freeze opt_verbose opt_analyze opt_vacuum_relation_list
-    | VACUUM OPEN_PAREN vac_analyze_option_list CLOSE_PAREN opt_vacuum_relation_list
+vacuumStatement
+    : VACUUM FULL? FREEZE? optionalVerbose analyzeKeyword? optionalVacuumRelationList
+    | VACUUM OPEN_PAREN vacuumAnalyzeOptionList CLOSE_PAREN optionalVacuumRelationList
     ;
 
-analyzestmt
-    : analyze_keyword opt_verbose opt_vacuum_relation_list
-    | analyze_keyword OPEN_PAREN vac_analyze_option_list CLOSE_PAREN opt_vacuum_relation_list
+analyzeStatement
+    : analyzeKeyword optionalVerbose optionalVacuumRelationList
+    | analyzeKeyword OPEN_PAREN vacuumAnalyzeOptionList CLOSE_PAREN optionalVacuumRelationList
     ;
 
-vac_analyze_option_list
-    : vac_analyze_option_elem (COMMA vac_analyze_option_elem)*
+vacuumAnalyzeOptionList
+    : vacuumAnalyzeOptionElement (COMMA vacuumAnalyzeOptionElement)*
     ;
 
-analyze_keyword
+analyzeKeyword
     : ANALYZE
     | ANALYSE
     ;
 
-vac_analyze_option_elem
-    : vac_analyze_option_name vac_analyze_option_arg
+vacuumAnalyzeOptionElement
+    : vacuumAnalyzeOptionName vacuumAnalyzeOptionArgument
     ;
 
-vac_analyze_option_name
-    : nonreservedword
-    | analyze_keyword
+vacuumAnalyzeOptionName
+    : nonReservedWord
+    | analyzeKeyword
     ;
 
-vac_analyze_option_arg
-    : opt_boolean_or_string
-    | numericonly
+vacuumAnalyzeOptionArgument
+    : booleanOrString
+    | numericOnly
     |
     ;
 
-opt_analyze
-    : analyze_keyword
-    |
-    ;
-
-opt_verbose
+optionalVerbose
     : VERBOSE
     |
     ;
 
-opt_full
-    : FULL
+optionalNameList
+    : OPEN_PAREN nameList CLOSE_PAREN
     |
     ;
 
-opt_freeze
-    : FREEZE
+vacuumRelation
+    : qualifiedName optionalNameList
+    ;
+
+optionalVacuumRelationList
+    : vacuumRelation (COMMA vacuumRelation)*
     |
     ;
 
-opt_name_list
-    : OPEN_PAREN name_list CLOSE_PAREN
+explainStatement
+    : EXPLAIN explainableStatement
+    | EXPLAIN analyzeKeyword optionalVerbose explainableStatement
+    | EXPLAIN VERBOSE explainableStatement
+    | EXPLAIN OPEN_PAREN explainOptionElement (COMMA explainOptionElement)* CLOSE_PAREN explainableStatement
+    ;
+
+explainableStatement
+    : selectStatement
+    | insertStatement
+    | updateStatement
+    | deleteStatement
+    | declareCursorStatement
+    | createAsStatement
+    | createMaterializedViewStatement
+    | refreshMaterializedViewStatement
+    | executeStatement
+    ;
+
+explainOptionElement
+    : explainOptionName explainOptionArgument
+    ;
+
+explainOptionName
+    : nonReservedWord
+    | analyzeKeyword
+    ;
+
+explainOptionArgument
+    : booleanOrString
+    | numericOnly
     |
     ;
 
-vacuum_relation
-    : qualified_name opt_name_list
+prepareStatement
+    : PREPARE name prepareTypeClause AS preparableStatement
     ;
 
-vacuum_relation_list
-    : vacuum_relation (COMMA vacuum_relation)*
-    ;
-
-opt_vacuum_relation_list
-    : vacuum_relation_list
+prepareTypeClause
+    : OPEN_PAREN typeList CLOSE_PAREN
     |
     ;
 
-explainstmt
-    : EXPLAIN explainablestmt
-    | EXPLAIN analyze_keyword opt_verbose explainablestmt
-    | EXPLAIN VERBOSE explainablestmt
-    | EXPLAIN OPEN_PAREN explain_option_list CLOSE_PAREN explainablestmt
+preparableStatement
+    : selectStatement
+    | insertStatement
+    | updateStatement
+    | deleteStatement
     ;
 
-explainablestmt
-    : selectstmt
-    | insertstmt
-    | updatestmt
-    | deletestmt
-    | declarecursorstmt
-    | createasstmt
-    | creatematviewstmt
-    | refreshmatviewstmt
-    | executestmt
+executeStatement
+    : EXECUTE name executeParameterClause
+    | CREATE temporaryOption TABLE createAsTarget AS EXECUTE name executeParameterClause withData
+    | CREATE temporaryOption TABLE IF_P NOT EXISTS createAsTarget AS EXECUTE name executeParameterClause withData
     ;
 
-explain_option_list
-    : explain_option_elem (COMMA explain_option_elem)*
-    ;
-
-explain_option_elem
-    : explain_option_name explain_option_arg
-    ;
-
-explain_option_name
-    : nonreservedword
-    | analyze_keyword
-    ;
-
-explain_option_arg
-    : opt_boolean_or_string
-    | numericonly
+executeParameterClause
+    : OPEN_PAREN expressionList CLOSE_PAREN
     |
     ;
 
-preparestmt
-    : PREPARE name prep_type_clause AS preparablestmt
-    ;
-
-prep_type_clause
-    : OPEN_PAREN type_list CLOSE_PAREN
-    |
-    ;
-
-preparablestmt
-    : selectstmt
-    | insertstmt
-    | updatestmt
-    | deletestmt
-    ;
-
-executestmt
-    : EXECUTE name execute_param_clause
-    | CREATE opttemp TABLE create_as_target AS EXECUTE name execute_param_clause opt_with_data
-    | CREATE opttemp TABLE IF_P NOT EXISTS create_as_target AS EXECUTE name execute_param_clause opt_with_data
-    ;
-
-execute_param_clause
-    : OPEN_PAREN expr_list CLOSE_PAREN
-    |
-    ;
-
-deallocatestmt
+deallocateStatement
     : DEALLOCATE name
     | DEALLOCATE PREPARE name
     | DEALLOCATE ALL
     | DEALLOCATE PREPARE ALL
     ;
 
-insertstmt
-    : with_clause? INSERT INTO insert_target insert_rest opt_on_conflict returning_clause
+insertStatement
+    : withClause? INSERT INTO insertTarget insertRest optionalOnConflict returningClause
     ;
 
-insert_target
-    : qualified_name (AS colid)?
+insertTarget
+    : qualifiedName (AS columnId)?
     ;
 
-insert_rest
-    : selectstmt
-    | OVERRIDING override_kind VALUE_P selectstmt
-    | OPEN_PAREN insert_column_list CLOSE_PAREN (OVERRIDING override_kind VALUE_P)? selectstmt
+insertRest
+    : selectStatement
+    | OVERRIDING overrideKind VALUE_P selectStatement
+    | OPEN_PAREN insertColumnList CLOSE_PAREN (OVERRIDING overrideKind VALUE_P)? selectStatement
     | DEFAULT VALUES
     ;
 
-override_kind
+overrideKind
     : USER
     | SYSTEM_P
     ;
 
-insert_column_list
-    : insert_column_item (COMMA insert_column_item)*
+insertColumnList
+    : insertColumnItem (COMMA insertColumnItem)*
     ;
 
-insert_column_item
-    : colid opt_indirection
+insertColumnItem
+    : columnId optionalIndirection
     ;
 
-opt_on_conflict
-    : ON CONFLICT opt_conf_expr DO (UPDATE SET set_clause_list where_clause | NOTHING)
+optionalOnConflict
+    : ON CONFLICT optionalConflictExpr DO (UPDATE SET setClauseList whereClause | NOTHING)
     |
     ;
 
-opt_conf_expr
-    : OPEN_PAREN index_params CLOSE_PAREN where_clause
+optionalConflictExpr
+    : OPEN_PAREN indexParameters CLOSE_PAREN whereClause
     | ON CONSTRAINT name
     |
     ;
 
-returning_clause
-    : RETURNING target_list
+returningClause
+    : RETURNING targetList
     |
     ;
 
 // https://www.postgresql.org/docs/current/sql-merge.html
-mergestmt
-    : MERGE INTO? qualified_name alias_clause? USING (select_with_parens | qualified_name) alias_clause? ON a_expr (merge_insert_clause merge_update_clause? | merge_update_clause merge_insert_clause?) merge_delete_clause?
+mergeStatement
+    : MERGE INTO? qualifiedName aliasClause? USING (selectWithParenthesis | qualifiedName) aliasClause? ON expression1 (mergeInsertClause mergeUpdateClause? | mergeUpdateClause mergeInsertClause?) mergeDeleteClause?
     ;
 
-merge_insert_clause
-    : WHEN NOT MATCHED (AND a_expr)? THEN? INSERT (OPEN_PAREN insert_column_list CLOSE_PAREN)? values_clause
+mergeInsertClause
+    : WHEN NOT MATCHED (AND expression1)? THEN? INSERT (OPEN_PAREN insertColumnList CLOSE_PAREN)? valuesClause
     ;
 
-merge_update_clause
-    : WHEN MATCHED (AND a_expr)? THEN? UPDATE SET set_clause_list
+mergeUpdateClause
+    : WHEN MATCHED (AND expression1)? THEN? UPDATE SET setClauseList
     ;
 
-merge_delete_clause
+mergeDeleteClause
     : WHEN MATCHED THEN? DELETE_P
     ;
 
-deletestmt
-    : with_clause? DELETE_P FROM relation_expr_opt_alias using_clause where_or_current_clause returning_clause
+deleteStatement
+    : withClause? DELETE_P FROM relationExpressionOptionalAlias usingClause whereOrCurrentClause returningClause
     ;
 
-using_clause
-    : USING from_list
+usingClause
+    : USING fromList
     |
     ;
 
-lockstmt
-    : LOCK_P opt_table relation_expr_list opt_lock opt_nowait
+lockStatement
+    : LOCK_P optionalTable relationExpressionList optionalLock optionalNowait
     ;
 
-opt_lock
-    : IN_P lock_type MODE
+optionalLock
+    : IN_P lockType MODE
     |
     ;
 
-lock_type
+lockType
     : ACCESS (SHARE | EXCLUSIVE)
     | ROW (SHARE | EXCLUSIVE)
     | SHARE (UPDATE EXCLUSIVE | ROW EXCLUSIVE)?
     | EXCLUSIVE
     ;
 
-opt_nowait
+optionalNowait
     : NOWAIT
     |
     ;
 
-opt_nowait_or_skip
+optionalNowaitOrSkip
     : NOWAIT
     | SKIP_P LOCKED
     |
     ;
 
-updatestmt
-    : with_clause? UPDATE relation_expr_opt_alias SET set_clause_list from_clause where_or_current_clause returning_clause
+updateStatement
+    : withClause? UPDATE relationExpressionOptionalAlias SET setClauseList fromClause whereOrCurrentClause returningClause
     ;
 
-set_clause_list
-    : set_clause (COMMA set_clause)*
+setClauseList
+    : setClause (COMMA setClause)*
     ;
 
-set_clause
-    : set_target EQUAL a_expr
-    | OPEN_PAREN set_target_list CLOSE_PAREN EQUAL a_expr
+setClause
+    : setTarget EQUAL expression1
+    | OPEN_PAREN setTarget (COMMA setTarget)* CLOSE_PAREN EQUAL expression1
     ;
 
-set_target
-    : colid opt_indirection
+setTarget
+    : columnId optionalIndirection
     ;
 
-set_target_list
-    : set_target (COMMA set_target)*
+declareCursorStatement
+    : DECLARE cursorName (NO SCROLL | SCROLL | BINARY | INSENSITIVE)* CURSOR optionalHold FOR selectStatement
     ;
 
-declarecursorstmt
-    : DECLARE cursor_name cursor_options CURSOR opt_hold FOR selectstmt
-    ;
-
-cursor_name
+cursorName
     : name
     ;
 
-cursor_options
-    : (NO SCROLL | SCROLL | BINARY | INSENSITIVE)*
-    ;
-
-opt_hold
+optionalHold
     :
     | WITH HOLD
     | WITHOUT HOLD
@@ -2893,424 +2686,373 @@ opt_hold
 
 /*
 TODO: why select_with_parens alternative is needed at all?
-i guess it because original byson grammar can choose selectstmt(2)->select_with_parens on only OPEN_PARENT/SELECT kewords at the begining of statement;
+i guess it because original byson grammar can choose selectStatement(2)->select_with_parens on only OPEN_PARENT/SELECT kewords at the begining of statement;
 (select * from tab);
-parse can go through selectstmt( )->select_no_parens(1)->select_clause(2)->select_with_parens(1)->select_no_parens(1)->select_clause(1)->simple_select
-instead of           selectstmt(1)->select_no_parens(1)->select_clause(2)->select_with_parens(1)->select_no_parens(1)->select_clause(1)->simple_select
+parse can go through selectStatement( )->select_no_parens(1)->select_clause(2)->select_with_parens(1)->select_no_parens(1)->select_clause(1)->simple_select
+instead of           selectStatement(1)->select_no_parens(1)->select_clause(2)->select_with_parens(1)->select_no_parens(1)->select_clause(1)->simple_select
 all standard tests passed on both variants
 */
 
-selectstmt
-    : select_no_parens
-    | select_with_parens
+selectStatement
+    : selectWithoutParenthesis
+    | selectWithParenthesis
     ;
 
-select_with_parens
-    : OPEN_PAREN select_no_parens CLOSE_PAREN
-    | OPEN_PAREN select_with_parens CLOSE_PAREN
+selectWithParenthesis
+    : OPEN_PAREN selectWithoutParenthesis CLOSE_PAREN
+    | OPEN_PAREN selectWithParenthesis CLOSE_PAREN
     ;
 
-select_no_parens
-    : select_clause opt_sort_clause (for_locking_clause opt_select_limit | select_limit opt_for_locking_clause)?
-    | with_clause select_clause opt_sort_clause ( for_locking_clause opt_select_limit | select_limit opt_for_locking_clause)?
+selectWithoutParenthesis
+    : selectClause optionalSortClause (forLockingClause optionalSelectLimit | selectLimit forLockingClause?)?
+    | withClause selectClause optionalSortClause ( forLockingClause optionalSelectLimit | selectLimit forLockingClause?)?
     ;
 
-select_clause
-    : simple_select_intersect ((UNION | EXCEPT) all_or_distinct simple_select_intersect)*
+selectClause
+    : simpleSelectIntersect ((UNION | EXCEPT) allOrDistinct simpleSelectIntersect)*
     ;
 
-simple_select_intersect
-    : simple_select_pramary (INTERSECT all_or_distinct simple_select_pramary)*
+simpleSelectIntersect
+    : simpleSelectPramary (INTERSECT allOrDistinct simpleSelectPramary)*
     ;
 
-simple_select_start
-    : target_list into_clause?
-    | all_clause opt_target_list into_clause?
-    | distinct_clause target_list into_clause?
-    | into_clause
+simpleSelectStart
+    : targetList intoClause?
+    | allClause optionalTargetList intoClause?
+    | distinctClause targetList intoClause?
+    | intoClause
     ;
 
-simple_select_pramary
-    : SELECT simple_select_start from_clause where_clause group_clause having_clause window_clause
-    | values_clause
-    | TABLE relation_expr
-    | select_with_parens
+simpleSelectPramary
+    : SELECT simpleSelectStart fromClause whereClause groupClause havingClause windowClause
+    | valuesClause
+    | TABLE relationExpression
+    | selectWithParenthesis
     ;
 
-with_clause
-    : WITH RECURSIVE? cte_list
+withClause
+    : WITH RECURSIVE? commonTableExpression (COMMA commonTableExpression)*
     ;
 
-cte_list
-    : common_table_expr (COMMA common_table_expr)*
+commonTableExpression
+    : name optionalNameList AS optionalMaterialized OPEN_PAREN preparableStatement CLOSE_PAREN
     ;
 
-common_table_expr
-    : name opt_name_list AS opt_materialized OPEN_PAREN preparablestmt CLOSE_PAREN
-    ;
-
-opt_materialized
+optionalMaterialized
     : MATERIALIZED
     | NOT MATERIALIZED
     |
     ;
 
-into_clause
-    : INTO (opt_strict opttempTableName | into_target)
+intoClause
+    : INTO (STRICT_P? optionalTemporaryTableName | intoTarget)
     ;
 
-opt_strict
-    :
-    | STRICT_P
+optionalTemporaryTableName
+    : (LOCAL | GLOBAL)? (TEMPORARY | TEMP) optionalTable qualifiedName
+    | UNLOGGED optionalTable qualifiedName
+    | TABLE qualifiedName
+    | qualifiedName
     ;
 
-opttempTableName
-    : (LOCAL | GLOBAL)? (TEMPORARY | TEMP) opt_table qualified_name
-    | UNLOGGED opt_table qualified_name
-    | TABLE qualified_name
-    | qualified_name
-    ;
-
-opt_table
+optionalTable
     : TABLE
     |
     ;
 
-all_or_distinct
+allOrDistinct
     : ALL
     | DISTINCT
     |
     ;
 
-distinct_clause
-    : DISTINCT (ON OPEN_PAREN expr_list CLOSE_PAREN)?
+distinctClause
+    : DISTINCT (ON OPEN_PAREN expressionList CLOSE_PAREN)?
     ;
 
-all_clause
+allClause
     : ALL
     ;
 
-opt_sort_clause
-    : sort_clause
+optionalSortClause
+    : sortClause
     |
     ;
 
-sort_clause
-    : ORDER BY sortby_list
+sortClause
+    : ORDER BY sortByList
     ;
 
-sortby_list
-    : sortby (COMMA sortby)*
+sortByList
+    : sortBy (COMMA sortBy)*
     ;
 
-sortby
-    : a_expr (USING qual_all_op | opt_asc_desc) opt_nulls_order
+sortBy
+    : expression1 (USING allOperatorQualifier | optionalAscOrDesc) optionalNullsOrder
     ;
 
-select_limit
-    : limit_clause offset_clause?
-    | offset_clause limit_clause?
+selectLimit
+    : limitClause offsetClause?
+    | offsetClause limitClause?
     ;
 
-opt_select_limit
-    : select_limit
+optionalSelectLimit
+    : selectLimit
     |
     ;
 
-limit_clause
-    : LIMIT select_limit_value (COMMA select_offset_value)?
-    | FETCH first_or_next ( select_fetch_first_value row_or_rows (ONLY | WITH TIES) | row_or_rows (ONLY | WITH TIES))
+limitClause
+    : LIMIT selectLimitValue (COMMA selectOffsetValue)?
+    | FETCH firstOrNext ( selectFetchFirstValue rowOrRows (ONLY | WITH TIES) | rowOrRows (ONLY | WITH TIES))
     ;
 
-offset_clause
-    : OFFSET (select_offset_value | select_fetch_first_value row_or_rows)
+offsetClause
+    : OFFSET (selectOffsetValue | selectFetchFirstValue rowOrRows)
     ;
 
-select_limit_value
-    : a_expr
+selectLimitValue
+    : expression1
     | ALL
     ;
 
-select_offset_value
-    : a_expr
+selectOffsetValue
+    : expression1
     ;
 
-select_fetch_first_value
-    : c_expr
-    | PLUS i_or_f_const
-    | MINUS i_or_f_const
+selectFetchFirstValue
+    : expression3
+    | PLUS anyConst
+    | MINUS anyConst
     ;
 
-i_or_f_const
+anyConst
     : iconst
     | fconst
     ;
 
-row_or_rows
+rowOrRows
     : ROW
     | ROWS
     ;
 
-first_or_next
+firstOrNext
     : FIRST_P
     | NEXT
     ;
 
-group_clause
-    : GROUP_P BY group_by_list
+groupClause
+    : GROUP_P BY groupByList
     |
     ;
 
-group_by_list
-    : group_by_item (COMMA group_by_item)*
+groupByList
+    : groupByItem (COMMA groupByItem)*
     ;
 
-group_by_item
-    : a_expr
-    | empty_grouping_set
-    | cube_clause
-    | rollup_clause
-    | grouping_sets_clause
+groupByItem
+    : expression1
+    | OPEN_PAREN CLOSE_PAREN
+    | CUBE OPEN_PAREN expressionList CLOSE_PAREN
+    | ROLLUP OPEN_PAREN expressionList CLOSE_PAREN
+    | GROUPING SETS OPEN_PAREN groupByList CLOSE_PAREN
     ;
 
-empty_grouping_set
-    : OPEN_PAREN CLOSE_PAREN
-    ;
-
-rollup_clause
-    : ROLLUP OPEN_PAREN expr_list CLOSE_PAREN
-    ;
-
-cube_clause
-    : CUBE OPEN_PAREN expr_list CLOSE_PAREN
-    ;
-
-grouping_sets_clause
-    : GROUPING SETS OPEN_PAREN group_by_list CLOSE_PAREN
-    ;
-
-having_clause
-    : HAVING a_expr
+havingClause
+    : HAVING expression1
     |
     ;
 
-for_locking_clause
-    : for_locking_items
+forLockingClause
+    : forLockingItem+
     | FOR READ ONLY
     ;
 
-opt_for_locking_clause
-    : for_locking_clause
-    |
+forLockingItem
+    : forLockingStrength lockedRelationsList optionalNowaitOrSkip
     ;
 
-for_locking_items
-    : for_locking_item+
-    ;
-
-for_locking_item
-    : for_locking_strength locked_rels_list opt_nowait_or_skip
-    ;
-
-for_locking_strength
+forLockingStrength
     : FOR ((NO KEY)? UPDATE | KEY? SHARE)
     ;
 
-locked_rels_list
-    : OF qualified_name_list
+lockedRelationsList
+    : OF qualifiedNameList
     |
     ;
 
-values_clause
-    : VALUES OPEN_PAREN expr_list CLOSE_PAREN (COMMA OPEN_PAREN expr_list CLOSE_PAREN)*
+valuesClause
+    : VALUES OPEN_PAREN expressionList CLOSE_PAREN (COMMA OPEN_PAREN expressionList CLOSE_PAREN)*
     ;
 
-from_clause
-    : FROM from_list
+fromClause
+    : FROM fromList
     |
     ;
 
-from_list
-    : non_ansi_join
-    | table_ref (COMMA table_ref)*
+fromList
+    : nonAnsiJoin
+    | tableReference (COMMA tableReference)*
     ;
 
-non_ansi_join
-    : table_ref (COMMA table_ref)+
+nonAnsiJoin
+    : tableReference (COMMA tableReference)+
     ;
 
-table_ref
+tableReference
     : (
-        relation_expr opt_alias_clause tablesample_clause?
-        | func_table func_alias_clause
-        | xmltable opt_alias_clause
-        | select_with_parens opt_alias_clause
-        | LATERAL_P ( xmltable opt_alias_clause | func_table func_alias_clause | select_with_parens opt_alias_clause)
-        | OPEN_PAREN table_ref ( CROSS JOIN table_ref | NATURAL join_type? JOIN table_ref | join_type? JOIN table_ref join_qual)? CLOSE_PAREN opt_alias_clause
-    ) (CROSS JOIN table_ref | NATURAL join_type? JOIN table_ref | join_type? JOIN table_ref join_qual)*
+        relationExpression optionalAliasClause tableSampleClause?
+        | functionTable functionAliasClause
+        | xmlTable optionalAliasClause
+        | selectWithParenthesis optionalAliasClause
+        | LATERAL_P ( xmlTable optionalAliasClause | functionTable functionAliasClause | selectWithParenthesis optionalAliasClause)
+        | OPEN_PAREN tableReference ( CROSS JOIN tableReference | NATURAL joinType? JOIN tableReference | joinType? JOIN tableReference joinQualifier)? CLOSE_PAREN optionalAliasClause
+    ) (CROSS JOIN tableReference | NATURAL joinType? JOIN tableReference | joinType? JOIN tableReference joinQualifier)*
     ;
 
-alias_clause
-    : AS? colid (OPEN_PAREN name_list CLOSE_PAREN)?
+aliasClause
+    : AS? columnId (OPEN_PAREN nameList CLOSE_PAREN)?
     ;
 
-opt_alias_clause
-    : table_alias_clause
+optionalAliasClause
+    : tableAliasClause
     |
     ;
 
-table_alias_clause
-    : AS? table_alias (OPEN_PAREN name_list CLOSE_PAREN)?
+tableAliasClause
+    : AS? tableAlias (OPEN_PAREN nameList CLOSE_PAREN)?
     ;
 
-func_alias_clause
-    : alias_clause
-    | (AS colid? | colid) OPEN_PAREN tablefuncelementlist CLOSE_PAREN
+functionAliasClause
+    : aliasClause
+    | (AS columnId? | columnId) OPEN_PAREN tableFunctionElementList CLOSE_PAREN
     |
     ;
 
-join_type
+joinType
     : (FULL | LEFT | RIGHT | INNER_P) OUTER_P?
     ;
 
-join_qual
-    : USING OPEN_PAREN name_list CLOSE_PAREN
-    | ON a_expr
+joinQualifier
+    : USING OPEN_PAREN nameList CLOSE_PAREN
+    | ON expression1
     ;
 
-relation_expr
-    : qualified_name STAR?
-    | ONLY (qualified_name | OPEN_PAREN qualified_name CLOSE_PAREN)
+relationExpression
+    : qualifiedName STAR?
+    | ONLY (qualifiedName | OPEN_PAREN qualifiedName CLOSE_PAREN)
     ;
 
-relation_expr_list
-    : relation_expr (COMMA relation_expr)*
+relationExpressionList
+    : relationExpression (COMMA relationExpression)*
     ;
 
-relation_expr_opt_alias
-    : relation_expr (AS? colid)?
+relationExpressionOptionalAlias
+    : relationExpression (AS? columnId)?
     ;
 
-tablesample_clause
-    : TABLESAMPLE func_name OPEN_PAREN expr_list CLOSE_PAREN opt_repeatable_clause
+tableSampleClause
+    : TABLESAMPLE functionName OPEN_PAREN expressionList CLOSE_PAREN REPEATABLE OPEN_PAREN expression1 CLOSE_PAREN
     ;
 
-opt_repeatable_clause
-    : REPEATABLE OPEN_PAREN a_expr CLOSE_PAREN
-    |
+functionTable
+    : functionExpressionWindowless optionalOrdinality
+    | ROWS FROM OPEN_PAREN rowsFromItem (COMMA rowsFromItem)* CLOSE_PAREN optionalOrdinality
     ;
 
-func_table
-    : func_expr_windowless opt_ordinality
-    | ROWS FROM OPEN_PAREN rowsfrom_list CLOSE_PAREN opt_ordinality
+rowsFromItem
+    : functionExpressionWindowless optionalColumnDefinitionList
     ;
 
-rowsfrom_item
-    : func_expr_windowless opt_col_def_list
-    ;
-
-rowsfrom_list
-    : rowsfrom_item (COMMA rowsfrom_item)*
-    ;
-
-opt_col_def_list
-    : AS OPEN_PAREN tablefuncelementlist CLOSE_PAREN
+optionalColumnDefinitionList
+    : AS OPEN_PAREN tableFunctionElementList CLOSE_PAREN
     |
     ;
 
 //TODO WITH_LA was used
 
-opt_ordinality
+optionalOrdinality
     : WITH ORDINALITY
     |
     ;
 
-where_clause
-    : WHERE a_expr
+whereClause
+    : WHERE expression1
     |
     ;
 
-where_or_current_clause
-    : WHERE (CURRENT_P OF cursor_name | a_expr)
+whereOrCurrentClause
+    : WHERE (CURRENT_P OF cursorName | expression1)
     |
     ;
 
-opttablefuncelementlist
-    : tablefuncelementlist
+optionalTableFunctionElementList
+    : tableFunctionElementList
     |
     ;
 
-tablefuncelementlist
-    : tablefuncelement (COMMA tablefuncelement)*
+tableFunctionElementList
+    : tableFunctionElement (COMMA tableFunctionElement)*
     ;
 
-tablefuncelement
-    : colid typename opt_collate_clause
+tableFunctionElement
+    : columnId typeName optionalCollateClause
     ;
 
-xmltable
-    : XMLTABLE OPEN_PAREN (c_expr xmlexists_argument COLUMNS xmltable_column_list | XMLNAMESPACES OPEN_PAREN xml_namespace_list CLOSE_PAREN COMMA c_expr xmlexists_argument COLUMNS xmltable_column_list) CLOSE_PAREN
+xmlTable
+    : XMLTABLE OPEN_PAREN (expression3 xmlExistsArgument COLUMNS xmlTableColumnElement (COMMA xmlTableColumnElement)* | XMLNAMESPACES OPEN_PAREN xmlNamespaceList CLOSE_PAREN COMMA expression3 xmlExistsArgument COLUMNS xmlTableColumnElement (COMMA xmlTableColumnElement)*) CLOSE_PAREN
     ;
 
-xmltable_column_list
-    : xmltable_column_el (COMMA xmltable_column_el)*
+xmlTableColumnElement
+    : columnId (typeName xmlTableColumnOptionList? | FOR ORDINALITY)
     ;
 
-xmltable_column_el
-    : colid (typename xmltable_column_option_list? | FOR ORDINALITY)
+xmlTableColumnOptionList
+    : xmlTableColumnOptionElement+
     ;
 
-xmltable_column_option_list
-    : xmltable_column_option_el+
-    ;
-
-xmltable_column_option_el
-    : DEFAULT a_expr
-    | identifier a_expr
+xmlTableColumnOptionElement
+    : DEFAULT expression1
+    | identifier expression1
     | NOT NULL_P
     | NULL_P
     ;
 
-xml_namespace_list
-    : xml_namespace_el (COMMA xml_namespace_el)*
+xmlNamespaceList
+    : xmlNamespaceElement (COMMA xmlNamespaceElement)*
     ;
 
-xml_namespace_el
-    : b_expr AS collabel
-    | DEFAULT b_expr
+xmlNamespaceElement
+    : expression2 AS columnLabel
+    | DEFAULT expression2
     ;
 
-typename
-    : SETOF? simpletypename (opt_array_bounds | ARRAY (OPEN_BRACKET iconst CLOSE_BRACKET)?)
-    | qualified_name PERCENT (ROWTYPE | TYPE_P)
+typeName
+    : SETOF? simpleTypeName ((OPEN_BRACKET iconst? CLOSE_BRACKET)* | ARRAY (OPEN_BRACKET iconst CLOSE_BRACKET)?)
+    | qualifiedName PERCENT (ROWTYPE | TYPE_P)
     ;
 
-opt_array_bounds
-    : (OPEN_BRACKET iconst? CLOSE_BRACKET)*
-    ;
-
-simpletypename
-    : generictype
+simpleTypeName
+    : genericType
     | numeric
     | bit
     | character
-    | constdatetime
-    | constinterval (opt_interval | OPEN_PAREN iconst CLOSE_PAREN)
+    | constDateTime
+    | constInterval (optionalInterval | OPEN_PAREN iconst CLOSE_PAREN)
     ;
 
-consttypename
+constTypeName
     : numeric
-    | constbit
-    | constcharacter
-    | constdatetime
+    | constBit
+    | constCharacter
+    | constDateTime
     ;
 
-generictype
-    : (builtin_function_name | type_function_name | LEFT | RIGHT) attrs? opt_type_modifiers
+genericType
+    : (builtinFunctionName | typeFunctionName | LEFT | RIGHT) attributes? optionalTypeModifiers
     ;
 
-opt_type_modifiers
-    : OPEN_PAREN expr_list CLOSE_PAREN
+optionalTypeModifiers
+    : OPEN_PAREN expressionList CLOSE_PAREN
     |
     ;
 
@@ -3320,15 +3062,15 @@ numeric
     | SMALLINT
     | BIGINT
     | REAL
-    | FLOAT_P opt_float
+    | FLOAT_P optionalFloat
     | DOUBLE_P PRECISION
-    | DECIMAL_P opt_type_modifiers
-    | DEC opt_type_modifiers
-    | NUMERIC opt_type_modifiers
+    | DECIMAL_P optionalTypeModifiers
+    | DEC optionalTypeModifiers
+    | NUMERIC optionalTypeModifiers
     | BOOLEAN_P
     ;
 
-opt_float
+optionalFloat
     : OPEN_PAREN iconst CLOSE_PAREN
     |
     ;
@@ -3336,78 +3078,78 @@ opt_float
 //todo: merge alts
 
 bit
-    : bitwithlength
-    | bitwithoutlength
+    : bitWithLength
+    | bitWithoutLength
     ;
 
-constbit
-    : bitwithlength
-    | bitwithoutlength
+constBit
+    : bitWithLength
+    | bitWithoutLength
     ;
 
-bitwithlength
-    : BIT opt_varying OPEN_PAREN expr_list CLOSE_PAREN
+bitWithLength
+    : BIT optionalVarying OPEN_PAREN expressionList CLOSE_PAREN
     ;
 
-bitwithoutlength
-    : BIT opt_varying
+bitWithoutLength
+    : BIT optionalVarying
     ;
 
 character
-    : character_c (OPEN_PAREN iconst CLOSE_PAREN)?
+    : characterChar (OPEN_PAREN iconst CLOSE_PAREN)?
     ;
 
-constcharacter
-    : character_c (OPEN_PAREN iconst CLOSE_PAREN)?
+constCharacter
+    : characterChar (OPEN_PAREN iconst CLOSE_PAREN)?
     ;
 
-character_c
-    : (CHARACTER | CHAR_P | NCHAR) opt_varying
+characterChar
+    : (CHARACTER | CHAR_P | NCHAR) optionalVarying
     | VARCHAR
-    | NATIONAL (CHARACTER | CHAR_P) opt_varying
+    | NATIONAL (CHARACTER | CHAR_P) optionalVarying
     ;
 
-opt_varying
+optionalVarying
     : VARYING
     |
     ;
 
-constdatetime
-    : (TIMESTAMP | TIME) (OPEN_PAREN iconst CLOSE_PAREN)? opt_timezone
+constDateTime
+    : (TIMESTAMP | TIME) (OPEN_PAREN iconst CLOSE_PAREN)? optionalTimezone
     ;
 
-constinterval
+constInterval
     : INTERVAL
     ;
 
 //TODO with_la was used
 
-opt_timezone
+optionalTimezone
     : WITH TIME ZONE
     | WITHOUT TIME ZONE
     |
     ;
 
-opt_interval
+optionalInterval
     : YEAR_P
     | MONTH_P
     | DAY_P
     | HOUR_P
     | MINUTE_P
-    | interval_second
+    | intervalSecond
     | YEAR_P TO MONTH_P
-    | DAY_P TO (HOUR_P | MINUTE_P | interval_second)
-    | HOUR_P TO (MINUTE_P | interval_second)
-    | MINUTE_P TO interval_second
+    | DAY_P TO (HOUR_P | MINUTE_P | intervalSecond)
+    | HOUR_P TO (MINUTE_P | intervalSecond)
+    | MINUTE_P TO intervalSecond
     |
     ;
 
-interval_second
+intervalSecond
     : SECOND_P (OPEN_PAREN iconst CLOSE_PAREN)?
     ;
 
-opt_escape
-    : ESCAPE a_expr
+optionalEscape
+    : ESCAPE expression1
     |
     ;
 
@@ -3466,8 +3208,8 @@ original version of a_expr, for info
 ;
 */
 
-a_expr
-    : a_expr_qual
+expression1
+    : expression1Qualifier
     ;
 
 /*23*/
@@ -3480,44 +3222,44 @@ a_expr
 
 /*19*/
 
-a_expr_qual
-    : a_expr_lessless qual_op?
+expression1Qualifier
+    : expression1LessLess operatorQualifier?
     ;
 
 /*18*/
 
-a_expr_lessless
-    : a_expr_or ((LESS_LESS | GREATER_GREATER) a_expr_or)*
+expression1LessLess
+    : expression1Or ((LESS_LESS | GREATER_GREATER) expression1Or)*
     ;
 
 /*17*/
 
-a_expr_or
-    : a_expr_and (OR a_expr_and)*
+expression1Or
+    : expression1And (OR expression1And)*
     ;
 
 /*16*/
 
-a_expr_and
-    : a_expr_between (AND a_expr_between)*
+expression1And
+    : expression1Between (AND expression1Between)*
     ;
 
 /*21*/
 
-a_expr_between
-    : a_expr_in (NOT? BETWEEN SYMMETRIC? a_expr_in AND a_expr_in)?
+expression1Between
+    : expression1In (NOT? BETWEEN SYMMETRIC? expression1In AND expression1In)?
     ;
 
 /*20*/
 
-a_expr_in
-    : a_expr_unary_not (NOT? IN_P in_expr)?
+expression1In
+    : expression1UnaryNot (NOT? IN_P inExpression)?
     ;
 
 /*15*/
 
-a_expr_unary_not
-    : NOT? a_expr_isnull
+expression1UnaryNot
+    : NOT? expression1IsNull
     ;
 
 /*14*/
@@ -3526,141 +3268,141 @@ a_expr_unary_not
 
 /*13*/
 
-a_expr_isnull
-    : a_expr_is_not (ISNULL | NOTNULL)?
+expression1IsNull
+    : expression1IsNot (ISNULL | NOTNULL)?
     ;
 
 /*12*/
 
-a_expr_is_not
-    : a_expr_compare (IS NOT? ( NULL_P | TRUE_P | FALSE_P | UNKNOWN | DISTINCT FROM a_expr | OF OPEN_PAREN type_list CLOSE_PAREN | DOCUMENT_P | unicode_normal_form? NORMALIZED))?
+expression1IsNot
+    : expression1Compare (IS NOT? ( NULL_P | TRUE_P | FALSE_P | UNKNOWN | DISTINCT FROM expression1 | OF OPEN_PAREN typeList CLOSE_PAREN | DOCUMENT_P | unicodeNormalForm? NORMALIZED))?
     ;
 
 /*11*/
 
-a_expr_compare
-    : a_expr_like ((LT | GT | EQUAL | LESS_EQUALS | GREATER_EQUALS | NOT_EQUALS) a_expr_like | subquery_Op sub_type (select_with_parens | OPEN_PAREN a_expr CLOSE_PAREN) /*21*/)?
+expression1Compare
+    : expression1Like ((LT | GT | EQUAL | LESS_EQUALS | GREATER_EQUALS | NOT_EQUALS) expression1Like | subqueryOperator subType (selectWithParenthesis | OPEN_PAREN expression1 CLOSE_PAREN) /*21*/)?
     ;
 
 /*10*/
 
-a_expr_like
-    : a_expr_qual_op (NOT? (LIKE | ILIKE | SIMILAR TO) a_expr_qual_op opt_escape)?
+expression1Like
+    : expression1qualifierOperator (NOT? (LIKE | ILIKE | SIMILAR TO) expression1qualifierOperator optionalEscape)?
     ;
 
 /* 8*/
 
-a_expr_qual_op
-    : a_expr_unary_qualop (qual_op a_expr_unary_qualop)*
+expression1qualifierOperator
+    : expression1UnaryQualifierOperator (operatorQualifier expression1UnaryQualifierOperator)*
     ;
 
 /* 9*/
 
-a_expr_unary_qualop
-    : qual_op? a_expr_add
+expression1UnaryQualifierOperator
+    : operatorQualifier? expression1Add
     ;
 
 /* 7*/
 
-a_expr_add
-    : a_expr_mul ((MINUS | PLUS) a_expr_mul)*
+expression1Add
+    : expressionMultiply ((MINUS | PLUS) expressionMultiply)*
     ;
 
 /* 6*/
 
-a_expr_mul
-    : a_expr_caret ((STAR | SLASH | PERCENT) a_expr_caret)*
+expressionMultiply
+    : expression1Caret ((STAR | SLASH | PERCENT) expression1Caret)*
     ;
 
 /* 5*/
 
-a_expr_caret
-    : a_expr_unary_sign (CARET a_expr)?
+expression1Caret
+    : expression1UnarySign (CARET expression1)?
     ;
 
 /* 4*/
 
-a_expr_unary_sign
-    : (MINUS | PLUS)? a_expr_at_time_zone /* */
+expression1UnarySign
+    : (MINUS | PLUS)? expression1AtTimeZone /* */
     ;
 
 /* 3*/
 
-a_expr_at_time_zone
-    : a_expr_collate (AT TIME ZONE a_expr)?
+expression1AtTimeZone
+    : expression1Collate (AT TIME ZONE expression1)?
     ;
 
 /* 2*/
 
-a_expr_collate
-    : a_expr_typecast (COLLATE any_name)?
+expression1Collate
+    : expression1Typecast (COLLATE anyName)?
     ;
 
 /* 1*/
 
-a_expr_typecast
-    : c_expr (TYPECAST typename)*
+expression1Typecast
+    : expression3 (TYPECAST typeName)*
     ;
 
-b_expr
-    : c_expr
-    | b_expr TYPECAST typename
+expression2
+    : expression3
+    | expression2 TYPECAST typeName
     //right	unary plus, unary minus
-    | (PLUS | MINUS) b_expr
+    | (PLUS | MINUS) expression2
     //^	left	exponentiation
-    | b_expr CARET b_expr
+    | expression2 CARET expression2
     //* / %	left	multiplication, division, modulo
-    | b_expr (STAR | SLASH | PERCENT) b_expr
+    | expression2 (STAR | SLASH | PERCENT) expression2
     //+ -	left	addition, subtraction
-    | b_expr (PLUS | MINUS) b_expr
+    | expression2 (PLUS | MINUS) expression2
     //(any other operator)	left	all other native and user-defined operators
-    | b_expr qual_op b_expr
+    | expression2 operatorQualifier expression2
     //< > = <= >= <>	 	comparison operators
-    | b_expr (LT | GT | EQUAL | LESS_EQUALS | GREATER_EQUALS | NOT_EQUALS) b_expr
-    | qual_op b_expr
-    | b_expr qual_op
+    | expression2 (LT | GT | EQUAL | LESS_EQUALS | GREATER_EQUALS | NOT_EQUALS) expression2
+    | operatorQualifier expression2
+    | expression2 operatorQualifier
     //S ISNULL NOTNULL	 	IS TRUE, IS FALSE, IS NULL, IS DISTINCT FROM, etc
-    | b_expr IS NOT? (DISTINCT FROM b_expr | OF OPEN_PAREN type_list CLOSE_PAREN | DOCUMENT_P)
+    | expression2 IS NOT? (DISTINCT FROM expression2 | OF OPEN_PAREN typeList CLOSE_PAREN | DOCUMENT_P)
     ;
 
-c_expr
-    : EXISTS select_with_parens                                        # c_expr_exists
-    | ARRAY (select_with_parens | array_expr)                          # c_expr_expr
-    | PARAM opt_indirection                                            # c_expr_expr
-    | GROUPING OPEN_PAREN expr_list CLOSE_PAREN                        # c_expr_expr
-    | /*22*/ UNIQUE select_with_parens                                 # c_expr_expr
-    | columnref                                                        # c_expr_expr
-    | aexprconst                                                       # c_expr_expr
-    | plsqlvariablename                                                # c_expr_expr
-    | OPEN_PAREN a_expr_in_parens = a_expr CLOSE_PAREN opt_indirection # c_expr_expr
-    | case_expr                                                        # c_expr_case
-    | func_expr                                                        # c_expr_expr
-    | select_with_parens indirection?                                  # c_expr_expr
-    | explicit_row                                                     # c_expr_expr
-    | implicit_row                                                     # c_expr_expr
-    | row OVERLAPS row /* 14*/                                         # c_expr_expr
+expression3
+    : EXISTS selectWithParenthesis                                              # c_expr_exists
+    | ARRAY (selectWithParenthesis | arrayExpression)                           # c_expr_expr
+    | PARAM optionalIndirection                                                 # c_expr_expr
+    | GROUPING OPEN_PAREN expressionList CLOSE_PAREN                            # c_expr_expr
+    | /*22*/ UNIQUE selectWithParenthesis                                       # c_expr_expr
+    | columnReference                                                           # c_expr_expr
+    | aExpressionConst                                                          # c_expr_expr
+    | plsqlVariableName                                                         # c_expr_expr
+    | OPEN_PAREN a_expr_in_parens = expression1 CLOSE_PAREN optionalIndirection # c_expr_expr
+    | caseExpression                                                            # c_expr_case
+    | functionExpression                                                        # c_expr_expr
+    | selectWithParenthesis indirection?                                        # c_expr_expr
+    | explicitRow                                                               # c_expr_expr
+    | implicitRow                                                               # c_expr_expr
+    | row OVERLAPS row /* 14*/                                                  # c_expr_expr
     ;
 
-plsqlvariablename
+plsqlVariableName
     : PLSQLVARIABLENAME
     ;
 
-func_application
-    : func_name OPEN_PAREN (func_arg_list (COMMA VARIADIC func_arg_expr)? opt_sort_clause | VARIADIC func_arg_expr opt_sort_clause | (ALL | DISTINCT) func_arg_list opt_sort_clause | STAR |) CLOSE_PAREN
+functionApplication
+    : functionName OPEN_PAREN (functionArgumentList (COMMA VARIADIC functionArgumentExpression)? optionalSortClause | VARIADIC functionArgumentExpression optionalSortClause | (ALL | DISTINCT) functionArgumentList optionalSortClause | STAR |) CLOSE_PAREN
     ;
 
-func_expr
-    : func_application within_group_clause filter_clause over_clause
-    | func_expr_common_subexpr
+functionExpression
+    : functionApplication withinGroupClause filterClause overClause
+    | functionExpressionCommonSubexpr
     ;
 
-func_expr_windowless
-    : func_application
-    | func_expr_common_subexpr
+functionExpressionWindowless
+    : functionApplication
+    | functionExpressionCommonSubexpr
     ;
 
-func_expr_common_subexpr
-    : COLLATION FOR OPEN_PAREN a_expr CLOSE_PAREN
+functionExpressionCommonSubexpr
+    : COLLATION FOR OPEN_PAREN expression1 CLOSE_PAREN
     | CURRENT_DATE
     | CURRENT_TIME (OPEN_PAREN iconst CLOSE_PAREN)?
     | CURRENT_TIMESTAMP (OPEN_PAREN iconst CLOSE_PAREN)?
@@ -3672,146 +3414,146 @@ func_expr_common_subexpr
     | USER
     | CURRENT_CATALOG
     | CURRENT_SCHEMA
-    | CAST OPEN_PAREN a_expr AS typename CLOSE_PAREN
-    | EXTRACT OPEN_PAREN extract_list CLOSE_PAREN
-    | NORMALIZE OPEN_PAREN a_expr (COMMA unicode_normal_form)? CLOSE_PAREN
-    | OVERLAY OPEN_PAREN overlay_list CLOSE_PAREN
-    | POSITION OPEN_PAREN position_list CLOSE_PAREN
-    | SUBSTRING OPEN_PAREN substr_list CLOSE_PAREN
-    | TREAT OPEN_PAREN a_expr AS typename CLOSE_PAREN
-    | TRIM OPEN_PAREN (BOTH | LEADING | TRAILING)? trim_list CLOSE_PAREN
-    | NULLIF OPEN_PAREN a_expr COMMA a_expr CLOSE_PAREN
-    | COALESCE OPEN_PAREN expr_list CLOSE_PAREN
-    | GREATEST OPEN_PAREN expr_list CLOSE_PAREN
-    | LEAST OPEN_PAREN expr_list CLOSE_PAREN
-    | XMLCONCAT OPEN_PAREN expr_list CLOSE_PAREN
-    | XMLELEMENT OPEN_PAREN NAME_P collabel (COMMA (xml_attributes | expr_list))? CLOSE_PAREN
-    | XMLEXISTS OPEN_PAREN c_expr xmlexists_argument CLOSE_PAREN
-    | XMLFOREST OPEN_PAREN xml_attribute_list CLOSE_PAREN
-    | XMLPARSE OPEN_PAREN document_or_content a_expr xml_whitespace_option CLOSE_PAREN
-    | XMLPI OPEN_PAREN NAME_P collabel (COMMA a_expr)? CLOSE_PAREN
-    | XMLROOT OPEN_PAREN XML_P a_expr COMMA xml_root_version opt_xml_root_standalone CLOSE_PAREN
-    | XMLSERIALIZE OPEN_PAREN document_or_content a_expr AS simpletypename CLOSE_PAREN
+    | CAST OPEN_PAREN expression1 AS typeName CLOSE_PAREN
+    | EXTRACT OPEN_PAREN extractList CLOSE_PAREN
+    | NORMALIZE OPEN_PAREN expression1 (COMMA unicodeNormalForm)? CLOSE_PAREN
+    | OVERLAY OPEN_PAREN overlayList CLOSE_PAREN
+    | POSITION OPEN_PAREN positionList CLOSE_PAREN
+    | SUBSTRING OPEN_PAREN substrList CLOSE_PAREN
+    | TREAT OPEN_PAREN expression1 AS typeName CLOSE_PAREN
+    | TRIM OPEN_PAREN (BOTH | LEADING | TRAILING)? trimList CLOSE_PAREN
+    | NULLIF OPEN_PAREN expression1 COMMA expression1 CLOSE_PAREN
+    | COALESCE OPEN_PAREN expressionList CLOSE_PAREN
+    | GREATEST OPEN_PAREN expressionList CLOSE_PAREN
+    | LEAST OPEN_PAREN expressionList CLOSE_PAREN
+    | XMLCONCAT OPEN_PAREN expressionList CLOSE_PAREN
+    | XMLELEMENT OPEN_PAREN NAME_P columnLabel (COMMA (xmlAttributes | expressionList))? CLOSE_PAREN
+    | XMLEXISTS OPEN_PAREN expression3 xmlExistsArgument CLOSE_PAREN
+    | XMLFOREST OPEN_PAREN xmlAttributeList CLOSE_PAREN
+    | XMLPARSE OPEN_PAREN documentOrContent expression1 xmlWhitespaceOption CLOSE_PAREN
+    | XMLPI OPEN_PAREN NAME_P columnLabel (COMMA expression1)? CLOSE_PAREN
+    | XMLROOT OPEN_PAREN XML_P expression1 COMMA xmlRootVersion optionalXmlRootStandalone CLOSE_PAREN
+    | XMLSERIALIZE OPEN_PAREN documentOrContent expression1 AS simpleTypeName CLOSE_PAREN
     ;
 
-xml_root_version
-    : VERSION_P a_expr
+xmlRootVersion
+    : VERSION_P expression1
     | VERSION_P NO VALUE_P
     ;
 
-opt_xml_root_standalone
+optionalXmlRootStandalone
     : COMMA STANDALONE_P YES_P
     | COMMA STANDALONE_P NO
     | COMMA STANDALONE_P NO VALUE_P
     |
     ;
 
-xml_attributes
-    : XMLATTRIBUTES OPEN_PAREN xml_attribute_list CLOSE_PAREN
+xmlAttributes
+    : XMLATTRIBUTES OPEN_PAREN xmlAttributeList CLOSE_PAREN
     ;
 
-xml_attribute_list
-    : xml_attribute_el (COMMA xml_attribute_el)*
+xmlAttributeList
+    : xmlAttributeElement (COMMA xmlAttributeElement)*
     ;
 
-xml_attribute_el
-    : a_expr (AS collabel)?
+xmlAttributeElement
+    : expression1 (AS columnLabel)?
     ;
 
-document_or_content
+documentOrContent
     : DOCUMENT_P
     | CONTENT_P
     ;
 
-xml_whitespace_option
+xmlWhitespaceOption
     : PRESERVE WHITESPACE_P
     | STRIP_P WHITESPACE_P
     |
     ;
 
-xmlexists_argument
-    : PASSING c_expr
-    | PASSING c_expr xml_passing_mech
-    | PASSING xml_passing_mech c_expr
-    | PASSING xml_passing_mech c_expr xml_passing_mech
+xmlExistsArgument
+    : PASSING expression3
+    | PASSING expression3 xmlPassingMech
+    | PASSING xmlPassingMech expression3
+    | PASSING xmlPassingMech expression3 xmlPassingMech
     ;
 
-xml_passing_mech
+xmlPassingMech
     : BY (REF | VALUE_P)
     ;
 
-within_group_clause
-    : WITHIN GROUP_P OPEN_PAREN sort_clause CLOSE_PAREN
+withinGroupClause
+    : WITHIN GROUP_P OPEN_PAREN sortClause CLOSE_PAREN
     |
     ;
 
-filter_clause
-    : FILTER OPEN_PAREN WHERE a_expr CLOSE_PAREN
+filterClause
+    : FILTER OPEN_PAREN WHERE expression1 CLOSE_PAREN
     |
     ;
 
-window_clause
-    : WINDOW window_definition_list
+windowClause
+    : WINDOW windowDefinitionList
     |
     ;
 
-window_definition_list
-    : window_definition (COMMA window_definition)*
+windowDefinitionList
+    : windowDefinition (COMMA windowDefinition)*
     ;
 
-window_definition
-    : colid AS window_specification
+windowDefinition
+    : columnId AS windowSpecification
     ;
 
-over_clause
-    : OVER (window_specification | colid)
+overClause
+    : OVER (windowSpecification | columnId)
     |
     ;
 
-window_specification
-    : OPEN_PAREN opt_existing_window_name opt_partition_clause opt_sort_clause opt_frame_clause CLOSE_PAREN
+windowSpecification
+    : OPEN_PAREN optionalExistingWindowName optionalPartitionClause optionalSortClause optionalFrameClause CLOSE_PAREN
     ;
 
-opt_existing_window_name
-    : colid
+optionalExistingWindowName
+    : columnId
     |
     ;
 
-opt_partition_clause
-    : PARTITION BY expr_list
+optionalPartitionClause
+    : PARTITION BY expressionList
     |
     ;
 
-opt_frame_clause
-    : RANGE frame_extent opt_window_exclusion_clause
-    | ROWS frame_extent opt_window_exclusion_clause
-    | GROUPS frame_extent opt_window_exclusion_clause
+optionalFrameClause
+    : RANGE frameExtent optionalWindowExclusionClause
+    | ROWS frameExtent optionalWindowExclusionClause
+    | GROUPS frameExtent optionalWindowExclusionClause
     |
     ;
 
-frame_extent
-    : frame_bound
-    | BETWEEN frame_bound AND frame_bound
+frameExtent
+    : frameBound
+    | BETWEEN frameBound AND frameBound
     ;
 
-frame_bound
+frameBound
     : UNBOUNDED (PRECEDING | FOLLOWING)
     | CURRENT_P ROW
-    | a_expr (PRECEDING | FOLLOWING)
+    | expression1 (PRECEDING | FOLLOWING)
     ;
 
-opt_window_exclusion_clause
+optionalWindowExclusionClause
     : EXCLUDE (CURRENT_P ROW | GROUP_P | TIES | NO OTHERS)
     |
     ;
 
 row
-    : ROW OPEN_PAREN expr_list? CLOSE_PAREN
-    | OPEN_PAREN expr_list COMMA a_expr CLOSE_PAREN
+    : ROW OPEN_PAREN expressionList? CLOSE_PAREN
+    | OPEN_PAREN expressionList COMMA expression1 CLOSE_PAREN
     ;
 
-explicit_row
-    : ROW OPEN_PAREN expr_list? CLOSE_PAREN
+explicitRow
+    : ROW OPEN_PAREN expressionList? CLOSE_PAREN
     ;
 
 /*
@@ -3824,22 +3566,22 @@ while looks like they are almost the same, except v2 requieres at least 2 items 
 while v1 allows single item in list
 */
 
-implicit_row
-    : OPEN_PAREN expr_list COMMA a_expr CLOSE_PAREN
+implicitRow
+    : OPEN_PAREN expressionList COMMA expression1 CLOSE_PAREN
     ;
 
-sub_type
+subType
     : ANY
     | SOME
     | ALL
     ;
 
-all_op
+allOperator
     : Operator
-    | mathop
+    | mathOperator
     ;
 
-mathop
+mathOperator
     : PLUS
     | MINUS
     | STAR
@@ -3854,56 +3596,56 @@ mathop
     | NOT_EQUALS
     ;
 
-qual_op
+operatorQualifier
     : Operator
-    | OPERATOR OPEN_PAREN any_operator CLOSE_PAREN
+    | OPERATOR OPEN_PAREN anyOperator CLOSE_PAREN
     ;
 
-qual_all_op
-    : all_op
-    | OPERATOR OPEN_PAREN any_operator CLOSE_PAREN
+allOperatorQualifier
+    : allOperator
+    | OPERATOR OPEN_PAREN anyOperator CLOSE_PAREN
     ;
 
-subquery_Op
-    : all_op
-    | OPERATOR OPEN_PAREN any_operator CLOSE_PAREN
+subqueryOperator
+    : allOperator
+    | OPERATOR OPEN_PAREN anyOperator CLOSE_PAREN
     | LIKE
     | NOT LIKE
     | ILIKE
     | NOT ILIKE
     ;
 
-expr_list
-    : a_expr (COMMA a_expr)*
+expressionList
+    : expression1 (COMMA expression1)*
     ;
 
-func_arg_list
-    : func_arg_expr (COMMA func_arg_expr)*
+functionArgumentList
+    : functionArgumentExpression (COMMA functionArgumentExpression)*
     ;
 
-func_arg_expr
-    : a_expr
-    | param_name (COLON_EQUALS | EQUALS_GREATER) a_expr
+functionArgumentExpression
+    : expression1
+    | parameterName (COLON_EQUALS | EQUALS_GREATER) expression1
     ;
 
-type_list
-    : typename (COMMA typename)*
+typeList
+    : typeName (COMMA typeName)*
     ;
 
-array_expr
-    : OPEN_BRACKET (expr_list | array_expr_list)? CLOSE_BRACKET
+arrayExpression
+    : OPEN_BRACKET (expressionList | arrayExpressionList)? CLOSE_BRACKET
     ;
 
-array_expr_list
-    : array_expr (COMMA array_expr)*
+arrayExpressionList
+    : arrayExpression (COMMA arrayExpression)*
     ;
 
-extract_list
-    : extract_arg FROM a_expr
+extractList
+    : extractArgument FROM expression1
     |
     ;
 
-extract_arg
+extractArgument
     : identifier
     | YEAR_P
     | MONTH_P
@@ -3914,141 +3656,136 @@ extract_arg
     | sconst
     ;
 
-unicode_normal_form
+unicodeNormalForm
     : NFC
     | NFD
     | NFKC
     | NFKD
     ;
 
-overlay_list
-    : a_expr PLACING a_expr FROM a_expr (FOR a_expr)?
+overlayList
+    : expression1 PLACING expression1 FROM expression1 (FOR expression1)?
     ;
 
-position_list
-    : b_expr IN_P b_expr
+positionList
+    : expression2 IN_P expression2
     |
     ;
 
-substr_list
-    : a_expr FROM a_expr FOR a_expr
-    | a_expr FOR a_expr FROM a_expr
-    | a_expr FROM a_expr
-    | a_expr FOR a_expr
-    | a_expr SIMILAR a_expr ESCAPE a_expr
-    | expr_list
+substrList
+    : expression1 FROM expression1 FOR expression1
+    | expression1 FOR expression1 FROM expression1
+    | expression1 FROM expression1
+    | expression1 FOR expression1
+    | expression1 SIMILAR expression1 ESCAPE expression1
+    | expressionList
     ;
 
-trim_list
-    : a_expr FROM expr_list
-    | FROM expr_list
-    | expr_list
+trimList
+    : expression1 FROM expressionList
+    | FROM expressionList
+    | expressionList
     ;
 
-in_expr
-    : select_with_parens               # in_expr_select
-    | OPEN_PAREN expr_list CLOSE_PAREN # in_expr_list
+inExpression
+    : selectWithParenthesis                 # in_expr_select
+    | OPEN_PAREN expressionList CLOSE_PAREN # in_expr_list
     ;
 
-case_expr
-    : CASE case_arg when_clause_list case_default END_P
+caseExpression
+    : CASE caseArg whenClauseList caseDefault END_P
     ;
 
-when_clause_list
-    : when_clause+
+whenClauseList
+    : whenClause+
     ;
 
-when_clause
-    : WHEN a_expr THEN a_expr
+whenClause
+    : WHEN expression1 THEN expression1
     ;
 
-case_default
-    : ELSE a_expr
+caseDefault
+    : ELSE expression1
     |
     ;
 
-case_arg
-    : a_expr
+caseArg
+    : expression1
     |
     ;
 
-columnref
-    : colid indirection?
+columnReference
+    : columnId indirection?
     ;
 
-indirection_el
-    : DOT (attr_name | STAR)
-    | OPEN_BRACKET (a_expr | opt_slice_bound COLON opt_slice_bound) CLOSE_BRACKET
-    ;
-
-opt_slice_bound
-    : a_expr
-    |
+indirectionElement
+    : DOT (attributeName | STAR)
+    | OPEN_BRACKET (expression1 | expression1? COLON expression1?) CLOSE_BRACKET
     ;
 
 indirection
-    : indirection_el+
+    : indirectionElement+
     ;
 
-opt_indirection
-    : indirection_el*
+optionalIndirection
+    : indirectionElement*
     ;
 
-opt_target_list
-    : target_list
+optionalTargetList
+    : targetList
     |
     ;
 
-target_list
-    : target_el (COMMA target_el)*
+targetList
+    : targetElement (COMMA targetElement)*
     ;
 
-target_el
-    : STAR                                # target_star
-    | a_expr (AS collabel | identifier |) # target_label
+targetElement
+    : STAR                                        # target_star
+    | expression1 (AS columnLabel | identifier |) # target_label
     ;
 
-qualified_name_list
-    : qualified_name (COMMA qualified_name)*
+qualifiedNameList
+    : qualifiedName (COMMA qualifiedName)*
     ;
 
-qualified_name
-    : colid indirection?
+qualifiedName
+    : columnId indirection?
     ;
 
-name_list
+nameList
     : name (COMMA name)*
     ;
 
 name
-    : colid
+    : columnId
     ;
 
-attr_name
-    : collabel
+attributeName
+    : columnLabel
     ;
 
-file_name
+fileName
     : sconst
     ;
 
-func_name
-    : builtin_function_name
-    | type_function_name
-    | colid indirection
+functionName
+    : builtinFunctionName
+    | typeFunctionName
+    | columnId indirection
     | LEFT
     | RIGHT
     ;
 
-aexprconst
+aExpressionConst
     : iconst
     | fconst
     | sconst
     | bconst
     | xconst
-    | func_name (sconst | OPEN_PAREN func_arg_list opt_sort_clause CLOSE_PAREN sconst)
-    | consttypename sconst
-    | constinterval (sconst opt_interval | OPEN_PAREN iconst CLOSE_PAREN sconst)
+    | functionName (sconst | OPEN_PAREN functionArgumentList optionalSortClause CLOSE_PAREN sconst)
+    | constTypeName sconst
+    | constInterval (sconst optionalInterval | OPEN_PAREN iconst CLOSE_PAREN sconst)
     | TRUE_P
     | FALSE_P
     | NULL_P
@@ -4071,94 +3808,94 @@ iconst
     ;
 
 sconst
-    : anysconst opt_uescape
+    : anySconst optionalUescape
     ;
 
-anysconst
+anySconst
     : StringConstant
     | UnicodeEscapeStringConstant
     | BeginDollarStringConstant DollarText* EndDollarStringConstant
     | EscapeStringConstant
     ;
 
-opt_uescape
-    : UESCAPE anysconst
+optionalUescape
+    : UESCAPE anySconst
     |
     ;
 
-signediconst
+signedIconst
     : iconst
     | PLUS iconst
     | MINUS iconst
     ;
 
-roleid
-    : rolespec
+roleId
+    : roleSpecification
     ;
 
-rolespec
-    : nonreservedword
+roleSpecification
+    : nonReservedWord
     | CURRENT_USER
     | SESSION_USER
     ;
 
-role_list
-    : rolespec (COMMA rolespec)*
+roleList
+    : roleSpecification (COMMA roleSpecification)*
     ;
 
-colid
+columnId
     : identifier
-    | unreserved_keyword
-    | col_name_keyword
-    | plsql_unreserved_keyword
+    | unreservedKeyword
+    | columnNameKeyword
+    | plsqlUnreservedKeyword
     | LEFT
     | RIGHT
     ;
 
-table_alias
+tableAlias
     : identifier
-    | unreserved_keyword
-    | col_name_keyword
-    | plsql_unreserved_keyword
+    | unreservedKeyword
+    | columnNameKeyword
+    | plsqlUnreservedKeyword
     ;
 
-type_function_name
+typeFunctionName
     : identifier
-    | unreserved_keyword
-    | plsql_unreserved_keyword
-    | type_func_name_keyword
+    | unreservedKeyword
+    | plsqlUnreservedKeyword
+    | typeFunctionNameKeyword
     ;
 
-nonreservedword
+nonReservedWord
     : identifier
-    | unreserved_keyword
-    | col_name_keyword
-    | type_func_name_keyword
+    | unreservedKeyword
+    | columnNameKeyword
+    | typeFunctionNameKeyword
     ;
 
-collabel
+columnLabel
     : identifier
-    | plsql_unreserved_keyword
-    | unreserved_keyword
-    | col_name_keyword
-    | type_func_name_keyword
-    | reserved_keyword
+    | plsqlUnreservedKeyword
+    | unreservedKeyword
+    | columnNameKeyword
+    | typeFunctionNameKeyword
+    | reservedKeyword
     ;
 
 identifier
-    : Identifier opt_uescape
+    : Identifier optionalUescape
     | QuotedIdentifier
     | UnicodeQuotedIdentifier
-    | plsqlvariablename
-    | plsqlidentifier
-    | plsql_unreserved_keyword
+    | plsqlVariableName
+    | plsqlIdentifier
+    | plsqlUnreservedKeyword
     ;
 
-plsqlidentifier
+plsqlIdentifier
     : PLSQLIDENTIFIER
     ;
 
-unreserved_keyword
+unreservedKeyword
     : ABORT_P
     | ABSOLUTE_P
     | ACCESS
@@ -4459,7 +4196,7 @@ unreserved_keyword
     | ZONE
     ;
 
-col_name_keyword
+columnNameKeyword
     : BETWEEN
     | BIGINT
     | bit
@@ -4511,10 +4248,10 @@ col_name_keyword
     | XMLROOT
     | XMLSERIALIZE
     | XMLTABLE
-    | builtin_function_name
+    | builtinFunctionName
     ;
 
-type_func_name_keyword
+typeFunctionNameKeyword
     : AUTHORIZATION
     | BINARY
     | COLLATION
@@ -4538,7 +4275,7 @@ type_func_name_keyword
     | VERBOSE
     ;
 
-reserved_keyword
+reservedKeyword
     : ALL
     | ANALYSE
     | ANALYZE
@@ -4624,7 +4361,7 @@ from pl_gram.y, line ~2982
     | WITH
     ;
 
-builtin_function_name
+builtinFunctionName
     : XMLCOMMENT
     | XML_IS_WELL_FORMED
     | XML_IS_WELL_FORMED_DOCUMENT
@@ -4761,17 +4498,17 @@ builtin_function_name
 /*PLSQL grammar */
 
 /************************************************************************************************************************************************************/
-pl_function
-    : comp_options pl_block opt_semi
+plsqlFunction
+    : computeOptions plsqlBlock optionalSemi
     ;
 
-comp_options
-    : comp_option*
+computeOptions
+    : computeOption*
     ;
 
-comp_option
+computeOption
     : sharp OPTION DUMP
-    | sharp PRINT_STRICT_PARAMS option_value
+    | sharp PRINT_STRICT_PARAMS optionValue
     | sharp VARIABLE_CONFLICT ERROR
     | sharp VARIABLE_CONFLICT USE_VARIABLE
     | sharp VARIABLE_CONFLICT USE_COLUMN
@@ -4781,305 +4518,305 @@ sharp
     : Operator
     ;
 
-option_value
+optionValue
     : sconst
-    | reserved_keyword
-    | plsql_unreserved_keyword
-    | unreserved_keyword
+    | reservedKeyword
+    | plsqlUnreservedKeyword
+    | unreservedKeyword
     ;
 
-opt_semi
+optionalSemi
     :
     | SEMI
     ;
 
 // exception_sect means opt_exception_sect in original grammar, don't be confused!
 
-pl_block
-    : decl_sect BEGIN_P proc_sect exception_sect END_P opt_label
+plsqlBlock
+    : declareSection BEGIN_P procedureSection exceptionSection END_P optionalLabel
     ;
 
-decl_sect
-    : opt_block_label (decl_start decl_stmts?)?
+declareSection
+    : optionalBlockLabel (declareStart declareStatements?)?
     ;
 
-decl_start
+declareStart
     : DECLARE
     ;
 
-decl_stmts
-    : decl_stmt+
+declareStatements
+    : declareStatement+
     ;
 
-label_decl
-    : LESS_LESS any_identifier GREATER_GREATER
+labelDeclaration
+    : LESS_LESS anyIdentifier GREATER_GREATER
     ;
 
-decl_stmt
-    : decl_statement
+declareStatement
+    : declareStatement2
     | DECLARE
-    | label_decl
+    | labelDeclaration
     ;
 
-decl_statement
-    : decl_varname (ALIAS FOR decl_aliasitem | decl_const decl_datatype decl_collate decl_notnull decl_defval | opt_scrollable CURSOR decl_cursor_args decl_is_for decl_cursor_query) SEMI
+declareStatement2
+    : declareVarname (ALIAS FOR declareAliasItem | declareConst declareDatatype declareCollate declareNotNull declareDefaultValue | optionalScrollable CURSOR declareCursorArgs declareIsOrFor declareCursorQuery) SEMI
     ;
 
-opt_scrollable
+optionalScrollable
     :
     | NO SCROLL
     | SCROLL
     ;
 
-decl_cursor_query
-    : selectstmt
+declareCursorQuery
+    : selectStatement
     ;
 
-decl_cursor_args
+declareCursorArgs
     :
-    | OPEN_PAREN decl_cursor_arglist CLOSE_PAREN
+    | OPEN_PAREN declareCursorArglist CLOSE_PAREN
     ;
 
-decl_cursor_arglist
-    : decl_cursor_arg (COMMA decl_cursor_arg)*
+declareCursorArglist
+    : declareCursorArg (COMMA declareCursorArg)*
     ;
 
-decl_cursor_arg
-    : decl_varname decl_datatype
+declareCursorArg
+    : declareVarname declareDatatype
     ;
 
-decl_is_for
+declareIsOrFor
     : IS
     | FOR
     ;
 
-decl_aliasitem
+declareAliasItem
     : PARAM
-    | colid
+    | columnId
     ;
 
-decl_varname
-    : any_identifier
+declareVarname
+    : anyIdentifier
     ;
 
-decl_const
+declareConst
     :
     | CONSTANT
     ;
 
-decl_datatype
-    : typename
+declareDatatype
+    : typeName
     ; //TODO: $$ = read_datatype(yychar);
 
-decl_collate
+declareCollate
     :
-    | COLLATE any_name
+    | COLLATE anyName
     ;
 
-decl_notnull
+declareNotNull
     :
     | NOT NULL_P
     ;
 
-decl_defval
+declareDefaultValue
     :
-    | decl_defkey sql_expression
+    | declareDefaultKey sqlExpression
     ;
 
-decl_defkey
-    : assign_operator
+declareDefaultKey
+    : assignOperator
     | DEFAULT
     ;
 
-assign_operator
+assignOperator
     : EQUAL
     | COLON_EQUALS
     ;
 
-proc_sect
-    : proc_stmt*
+procedureSection
+    : proceduralStatement*
     ;
 
-proc_stmt
-    : pl_block SEMI
-    | stmt_return
-    | stmt_raise
-    | stmt_assign
-    | stmt_if
-    | stmt_case
-    | stmt_loop
-    | stmt_while
-    | stmt_for
-    | stmt_foreach_a
-    | stmt_exit
-    | stmt_assert
-    | stmt_execsql
-    | stmt_dynexecute
-    | stmt_perform
-    | stmt_call
-    | stmt_getdiag
-    | stmt_open
-    | stmt_fetch
-    | stmt_move
-    | stmt_close
-    | stmt_null
-    | stmt_commit
-    | stmt_rollback
-    | stmt_set
+proceduralStatement
+    : plsqlBlock SEMI
+    | statementReturn
+    | statementRaise
+    | statementAssign
+    | statementIf
+    | statementCase
+    | statementLoop
+    | statementWhile
+    | statementFor
+    | statementForeachA
+    | statementExit
+    | statementAssert
+    | statementExecSql
+    | statementDynExecute
+    | statementPerform
+    | statementCall
+    | statementGetDiagram
+    | statementOpen
+    | statementFetch
+    | statementMove
+    | statementClose
+    | statementNull
+    | statementCommit
+    | statementRollback
+    | statementSet
     ;
 
-stmt_perform
-    : PERFORM expr_until_semi SEMI
+statementPerform
+    : PERFORM expressionUntilSemi SEMI
     ;
 
-stmt_call
-    : CALL any_identifier OPEN_PAREN opt_expr_list CLOSE_PAREN SEMI
-    | DO any_identifier OPEN_PAREN opt_expr_list CLOSE_PAREN SEMI
+statementCall
+    : CALL anyIdentifier OPEN_PAREN optionalExpressionList CLOSE_PAREN SEMI
+    | DO anyIdentifier OPEN_PAREN optionalExpressionList CLOSE_PAREN SEMI
     ;
 
-opt_expr_list
+optionalExpressionList
     :
-    | expr_list
+    | expressionList
     ;
 
-stmt_assign
-    : assign_var assign_operator sql_expression SEMI
+statementAssign
+    : assignVariable assignOperator sqlExpression SEMI
     ;
 
-stmt_getdiag
-    : GET getdiag_area_opt DIAGNOSTICS getdiag_list SEMI
+statementGetDiagram
+    : GET optionalGetDiagramArea DIAGNOSTICS getDiagramList SEMI
     ;
 
-getdiag_area_opt
+optionalGetDiagramArea
     :
     | CURRENT_P
     | STACKED
     ;
 
-getdiag_list
-    : getdiag_list_item (COMMA getdiag_list_item)*
+getDiagramList
+    : getDiagramListItem (COMMA getDiagramListItem)*
     ;
 
-getdiag_list_item
-    : getdiag_target assign_operator getdiag_item
+getDiagramListItem
+    : getDiagramTarget assignOperator getDiagramItem
     ;
 
-getdiag_item
-    : colid
+getDiagramItem
+    : columnId
     ;
 
-getdiag_target
-    : assign_var
+getDiagramTarget
+    : assignVariable
     ;
 
-assign_var
-    : (any_name | PARAM) (OPEN_BRACKET expr_until_rightbracket CLOSE_BRACKET)*
+assignVariable
+    : (anyName | PARAM) (OPEN_BRACKET expressionUntilRightbracket CLOSE_BRACKET)*
     ;
 
-stmt_if
-    : IF_P expr_until_then THEN proc_sect stmt_elsifs stmt_else END_P IF_P SEMI
+statementIf
+    : IF_P expressionUntilThen THEN procedureSection statementElsifs statementElse END_P IF_P SEMI
     ;
 
-stmt_elsifs
-    : (ELSIF a_expr THEN proc_sect)*
+statementElsifs
+    : (ELSIF expression1 THEN procedureSection)*
     ;
 
-stmt_else
+statementElse
     :
-    | ELSE proc_sect
+    | ELSE procedureSection
     ;
 
-stmt_case
-    : CASE opt_expr_until_when case_when_list opt_case_else END_P CASE SEMI
+statementCase
+    : CASE optionalExpressionUntilWhen caseWhenList optionalCaseElse END_P CASE SEMI
     ;
 
-opt_expr_until_when
+optionalExpressionUntilWhen
     :
-    | sql_expression
+    | sqlExpression
     ;
 
-case_when_list
-    : case_when+
+caseWhenList
+    : caseWhen+
     ;
 
-case_when
-    : WHEN expr_list THEN proc_sect
+caseWhen
+    : WHEN expressionList THEN procedureSection
     ;
 
-opt_case_else
+optionalCaseElse
     :
-    | ELSE proc_sect
+    | ELSE procedureSection
     ;
 
-stmt_loop
-    : opt_loop_label loop_body
+statementLoop
+    : optionalLoopLabel loopBody
     ;
 
-stmt_while
-    : opt_loop_label WHILE expr_until_loop loop_body
+statementWhile
+    : optionalLoopLabel WHILE expressionUntilLoop loopBody
     ;
 
-stmt_for
-    : opt_loop_label FOR for_control loop_body
+statementFor
+    : optionalLoopLabel FOR forControl loopBody
     ;
 
 //TODO: rewrite using read_sql_expression logic?
 
-for_control
-    : for_variable IN_P (cursor_name opt_cursor_parameters | selectstmt | explainstmt | EXECUTE a_expr opt_for_using_expression | opt_reverse a_expr DOT_DOT a_expr opt_by_expression)
+forControl
+    : forVariable IN_P (cursorName optionalCursorParameters | selectStatement | explainStatement | EXECUTE expression1 optionalForUsingExpression | optionalReverse expression1 DOT_DOT expression1 optionalByExpression)
     ;
 
-opt_for_using_expression
+optionalForUsingExpression
     :
-    | USING expr_list
+    | USING expressionList
     ;
 
-opt_cursor_parameters
+optionalCursorParameters
     :
-    | OPEN_PAREN a_expr (COMMA a_expr)* CLOSE_PAREN
+    | OPEN_PAREN expression1 (COMMA expression1)* CLOSE_PAREN
     ;
 
-opt_reverse
+optionalReverse
     :
     | REVERSE
     ;
 
-opt_by_expression
+optionalByExpression
     :
-    | BY a_expr
+    | BY expression1
     ;
 
-for_variable
-    : any_name_list
+forVariable
+    : anyNameList
     ;
 
-stmt_foreach_a
-    : opt_loop_label FOREACH for_variable foreach_slice IN_P ARRAY a_expr loop_body
+statementForeachA
+    : optionalLoopLabel FOREACH forVariable foreachSlice IN_P ARRAY expression1 loopBody
     ;
 
-foreach_slice
+foreachSlice
     :
     | SLICE iconst
     ;
 
-stmt_exit
-    : exit_type opt_label opt_exitcond SEMI
+statementExit
+    : exitType optionalLabel optionalExitCondition SEMI
     ;
 
-exit_type
+exitType
     : EXIT
     | CONTINUE_P
     ;
 
 //todo implement RETURN statement according to initial grammar line 1754
 
-stmt_return
-    : RETURN (NEXT sql_expression | QUERY (EXECUTE a_expr opt_for_using_expression | selectstmt) | opt_return_result) SEMI
+statementReturn
+    : RETURN (NEXT sqlExpression | QUERY (EXECUTE expression1 optionalForUsingExpression | selectStatement) | optionalReturnResult) SEMI
     ;
 
-opt_return_result
+optionalReturnResult
     :
-    | sql_expression
+    | sqlExpression
     ;
 
 //https://www.postgresql.org/docs/current/plpgsql-errors-and-messages.html
@@ -5094,15 +4831,15 @@ opt_return_result
 
 //RAISE ;
 
-stmt_raise
-    : RAISE opt_stmt_raise_level sconst opt_raise_list opt_raise_using SEMI
-    | RAISE opt_stmt_raise_level identifier opt_raise_using SEMI
-    | RAISE opt_stmt_raise_level SQLSTATE sconst opt_raise_using SEMI
-    | RAISE opt_stmt_raise_level opt_raise_using SEMI
+statementRaise
+    : RAISE optionalStatementRaiseLevel sconst optionalRaiseList optionalRaiseUsing SEMI
+    | RAISE optionalStatementRaiseLevel identifier optionalRaiseUsing SEMI
+    | RAISE optionalStatementRaiseLevel SQLSTATE sconst optionalRaiseUsing SEMI
+    | RAISE optionalStatementRaiseLevel optionalRaiseUsing SEMI
     | RAISE
     ;
 
-opt_stmt_raise_level
+optionalStatementRaiseLevel
     :
     |
     | DEBUG
@@ -5113,45 +4850,41 @@ opt_stmt_raise_level
     | EXCEPTION
     ;
 
-opt_raise_list
+optionalRaiseList
     :
-    | (COMMA a_expr)+
+    | (COMMA expression1)+
     ;
 
-opt_raise_using
+optionalRaiseUsing
     :
-    | USING opt_raise_using_elem_list
+    | USING optionalRaiseUsingElement (COMMA optionalRaiseUsingElement)*
     ;
 
-opt_raise_using_elem
-    : identifier EQUAL a_expr
-    ;
-
-opt_raise_using_elem_list
-    : opt_raise_using_elem (COMMA opt_raise_using_elem)*
+optionalRaiseUsingElement
+    : identifier EQUAL expression1
     ;
 
 //todo imnplement
 
-stmt_assert
-    : ASSERT sql_expression opt_stmt_assert_message SEMI
+statementAssert
+    : ASSERT sqlExpression optionalStatementAssertMessage SEMI
     ;
 
-opt_stmt_assert_message
+optionalStatementAssertMessage
     :
-    | COMMA sql_expression
+    | COMMA sqlExpression
     ;
 
-loop_body
-    : LOOP proc_sect END_P LOOP opt_label SEMI
+loopBody
+    : LOOP procedureSection END_P LOOP optionalLabel SEMI
     ;
 
 //TODO: looks like all other statements like INSERT/SELECT/UPDATE/DELETE are handled here;
 
 //pls take a look at original grammar
 
-stmt_execsql
-    : make_execsql_stmt SEMI
+statementExecSql
+    : makeExecuteSqlStatement SEMI
     /*K_IMPORT
             | K_INSERT
             | t_word
@@ -5163,23 +4896,23 @@ stmt_execsql
 
 //EXECUTE command-string [ INTO [STRICT] target ] [ USING expression [, ... ] ];
 
-stmt_dynexecute
-    : EXECUTE a_expr (
-/*this is silly, but i have to time to find nice way to code */ opt_execute_into opt_execute_using | opt_execute_using opt_execute_into |) SEMI
+statementDynExecute
+    : EXECUTE expression1 (
+/*this is silly, but i have to time to find nice way to code */ optionalExecuteInto optionalExecuteUsing | optionalExecuteUsing optionalExecuteInto |) SEMI
     ;
 
-opt_execute_using
+optionalExecuteUsing
     :
-    | USING opt_execute_using_list
+    | USING optionalExecuteUsingList
     ;
 
-opt_execute_using_list
-    : a_expr (COMMA a_expr)*
+optionalExecuteUsingList
+    : expression1 (COMMA expression1)*
     ;
 
-opt_execute_into
+optionalExecuteInto
     :
-    | INTO STRICT_P? into_target
+    | INTO STRICT_P? intoTarget
     ;
 
 //https://www.postgresql.org/docs/current/plpgsql-cursors.html#PLPGSQL-CURSOR-OPENING
@@ -5192,124 +4925,105 @@ opt_execute_into
 
 //OPEN bound_cursorvar [ ( [ argument_name := ] argument_value [, ...] ) ];
 
-stmt_open
-    : OPEN (cursor_variable opt_scroll_option FOR (selectstmt | EXECUTE sql_expression opt_open_using) | colid (OPEN_PAREN opt_open_bound_list CLOSE_PAREN)?) SEMI
+statementOpen
+    : OPEN (cursorVariable NO? SCROLL FOR (selectStatement | EXECUTE sqlExpression USING expressionList) | columnId (OPEN_PAREN optionalOpenBoundListItem (COMMA optionalOpenBoundListItem)* CLOSE_PAREN)?) SEMI
     ;
 
-opt_open_bound_list_item
-    : colid COLON_EQUALS a_expr
-    | a_expr
-    ;
-
-opt_open_bound_list
-    : opt_open_bound_list_item (COMMA opt_open_bound_list_item)*
-    ;
-
-opt_open_using
-    :
-    | USING expr_list
-    ;
-
-opt_scroll_option
-    :
-    | opt_scroll_option_no SCROLL
-    ;
-
-opt_scroll_option_no
-    :
-    | NO
+optionalOpenBoundListItem
+    : columnId COLON_EQUALS expression1
+    | expression1
     ;
 
 //https://www.postgresql.org/docs/current/plpgsql-cursors.html#PLPGSQL-CURSOR-OPENING
 
 //FETCH [ direction { FROM | IN } ] cursor INTO target;
 
-stmt_fetch
-    : FETCH direction = opt_fetch_direction opt_cursor_from cursor_variable INTO into_target SEMI
+statementFetch
+    : FETCH direction = optionalFetchDirection optionalCursorFrom cursorVariable INTO intoTarget SEMI
     ;
 
-into_target
-    : expr_list
+intoTarget
+    : expressionList
     ;
 
-opt_cursor_from
+optionalCursorFrom
     :
     | FROM
     | IN_P
     ;
 
-opt_fetch_direction
+optionalFetchDirection
     :
     |
     | NEXT
     | PRIOR
     | FIRST_P
     | LAST_P
-    | ABSOLUTE_P a_expr
-    | RELATIVE_P a_expr
-    | a_expr
+    | ABSOLUTE_P expression1
+    | RELATIVE_P expression1
+    | expression1
     | ALL
-    | (FORWARD | BACKWARD) (a_expr | ALL)?
+    | (FORWARD | BACKWARD) (expression1 | ALL)?
     ;
 
 //https://www.postgresql.org/docs/current/plpgsql-cursors.html#PLPGSQL-CURSOR-OPENING
 
 //MOVE [ direction { FROM | IN } ] cursor;
 
-stmt_move
-    : MOVE opt_fetch_direction cursor_variable SEMI
+statementMove
+    : MOVE optionalFetchDirection cursorVariable SEMI
     ;
 
-stmt_close
-    : CLOSE cursor_variable SEMI
+statementClose
+    : CLOSE cursorVariable SEMI
     ;
 
-stmt_null
+statementNull
     : NULL_P SEMI
     ;
 
-stmt_commit
-    : COMMIT plsql_opt_transaction_chain SEMI
+statementCommit
+    : COMMIT plsqlOptionalTransactionChain SEMI
     ;
 
-stmt_rollback
-    : ROLLBACK plsql_opt_transaction_chain SEMI
+statementRollback
+    : ROLLBACK plsqlOptionalTransactionChain SEMI
     ;
 
-plsql_opt_transaction_chain
+plsqlOptionalTransactionChain
     : AND NO? CHAIN
     |
     ;
 
-stmt_set
-    : SET any_name TO DEFAULT SEMI
-    | RESET (any_name | ALL) SEMI
+statementSet
+    : SET anyName TO DEFAULT SEMI
+    | RESET (anyName | ALL) SEMI
     ;
 
-cursor_variable
-    : colid
+cursorVariable
+    : columnId
     | PARAM
     ;
 
-exception_sect
+exceptionSection
     :
-    | EXCEPTION proc_exceptions
+    | EXCEPTION procedureExceptions
     ;
 
-proc_exceptions
-    : proc_exception+
+procedureExceptions
+    : procedureException+
     ;
 
-proc_exception
-    : WHEN proc_conditions THEN proc_sect
+procedureException
+    : WHEN procedureConditions THEN procedureSection
     ;
 
-proc_conditions
-    : proc_condition (OR proc_condition)*
+procedureConditions
+    : procedureCondition (OR procedureCondition)*
     ;
 
-proc_condition
-    : any_identifier
+procedureCondition
+    : anyIdentifier
     | SQLSTATE sconst
     ;
 
@@ -5325,32 +5039,32 @@ proc_condition
 
 //;
 
-opt_block_label
+optionalBlockLabel
     :
-    | label_decl
+    | labelDeclaration
     ;
 
-opt_loop_label
+optionalLoopLabel
     :
-    | label_decl
+    | labelDeclaration
     ;
 
-opt_label
+optionalLabel
     :
-    | any_identifier
+    | anyIdentifier
     ;
 
-opt_exitcond
-    : WHEN expr_until_semi
+optionalExitCondition
+    : WHEN expressionUntilSemi
     |
     ;
 
-any_identifier
-    : colid
-    | plsql_unreserved_keyword
+anyIdentifier
+    : columnId
+    | plsqlUnreservedKeyword
     ;
 
-plsql_unreserved_keyword
+plsqlUnreservedKeyword
     : ABSOLUTE_P
     | ALIAS
     | AND
@@ -5440,31 +5154,31 @@ plsql_unreserved_keyword
     | OUTER_P
     ;
 
-sql_expression
-    : opt_target_list into_clause? from_clause where_clause group_clause having_clause window_clause
+sqlExpression
+    : optionalTargetList intoClause? fromClause whereClause groupClause havingClause windowClause
     ;
 
-expr_until_then
-    : sql_expression
+expressionUntilThen
+    : sqlExpression
     ;
 
-expr_until_semi
-    : sql_expression
+expressionUntilSemi
+    : sqlExpression
     ;
 
-expr_until_rightbracket
-    : a_expr
+expressionUntilRightbracket
+    : expression1
     ;
 
-expr_until_loop
-    : a_expr
+expressionUntilLoop
+    : expression1
     ;
 
-make_execsql_stmt
-    : stmt opt_returning_clause_into
+makeExecuteSqlStatement
+    : statement optionalReturningClauseInto
     ;
 
-opt_returning_clause_into
-    : INTO opt_strict into_target
+optionalReturningClauseInto
+    : INTO STRICT_P? intoTarget
     |
     ;
