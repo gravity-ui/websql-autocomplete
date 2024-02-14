@@ -1,21 +1,23 @@
 import {ParseTree, TokenStream} from 'antlr4ng';
 import * as c3 from 'antlr4-c3';
 
-import {TableSymbol} from '../../lib/symbolTable.js';
+import {ColumnAliasSymbol, TableSymbol} from '../../lib/symbolTable.js';
 import {
     AutocompleteData,
     AutocompleteParseResult,
+    GenerateSuggestionsFromRulesReturnType,
     ISymbolTableVisitor,
     TableOrViewSuggestion,
 } from '../../types.js';
 import {ClickHouseLexer} from './generated/ClickHouseLexer.js';
 import {
     ClickHouseParser,
+    ColumnExprAliasContext,
     TableExprAliasContext,
     TableIdentifierContext,
 } from './generated/ClickHouseParser.js';
 import {ClickHouseParserVisitor} from './generated/ClickHouseParserVisitor.js';
-import {TableQueryPosition, TokenDictionary, hasPreviousToken} from '../../lib/tables.js';
+import {TableQueryPosition, TokenDictionary, getPreviousToken} from '../../lib/tables.js';
 
 const engines = ['Null', 'Set', 'Log', 'Memory', 'TinyLog', 'StripeLog'];
 
@@ -56,6 +58,7 @@ const tokenDictionary: TokenDictionary = {
     UPDATE: ClickHouseParser.UPDATE,
     JOIN: ClickHouseParser.JOIN,
     SEMICOLON: ClickHouseParser.SEMICOLON,
+    SELECT: ClickHouseParser.SELECT,
 };
 
 // These are keywords that we do not want to show in autocomplete
@@ -128,17 +131,34 @@ class ClickHouseSymbolTableVisitor
 
         return this.visitChildren(context) as {};
     };
+
+    visitColumnExprAlias = (context: ColumnExprAliasContext): {} => {
+        try {
+            const alias = context.alias()?.getText() || context.identifier()?.getText();
+
+            if (alias) {
+                this.symbolTable.addNewSymbolOfType(ColumnAliasSymbol, this.scope, alias);
+            }
+        } catch (error) {
+            if (!(error instanceof c3.DuplicateSymbolError)) {
+                throw error;
+            }
+        }
+
+        return this.visitChildren(context) as {};
+    };
 }
 
 function generateSuggestionsFromRules(
     rules: c3.CandidatesCollection['rules'],
     cursorTokenIndex: number,
     tokenStream: TokenStream,
-): Partial<AutocompleteParseResult> & {suggestColumns?: boolean} {
+): GenerateSuggestionsFromRulesReturnType {
     let suggestViewsOrTables: AutocompleteParseResult['suggestViewsOrTables'];
     let suggestAggregateFunctions = false;
     let suggestFunctions = false;
-    let suggestColumns = false;
+    let shouldSuggestColumns = false;
+    let shouldSuggestColumnAliases = false;
     let suggestEngines;
 
     for (const [ruleId, ruleData] of rules) {
@@ -150,7 +170,7 @@ function generateSuggestionsFromRules(
                     !ruleData.ruleList.includes(ClickHouseParser.RULE_columnsExpr)
                 ) {
                     if (
-                        hasPreviousToken(
+                        getPreviousToken(
                             tokenStream,
                             tokenDictionary,
                             cursorTokenIndex,
@@ -159,7 +179,7 @@ function generateSuggestionsFromRules(
                     ) {
                         suggestViewsOrTables = TableOrViewSuggestion.VIEWS;
                     } else if (
-                        hasPreviousToken(
+                        getPreviousToken(
                             tokenStream,
                             tokenDictionary,
                             cursorTokenIndex,
@@ -180,13 +200,19 @@ function generateSuggestionsFromRules(
                     suggestAggregateFunctions = true;
                 }
                 if (ruleData.ruleList.includes(ClickHouseParser.RULE_alterTableClause)) {
-                    suggestColumns = true;
+                    shouldSuggestColumns = true;
                 }
                 break;
             }
             case ClickHouseParser.RULE_columnIdentifier: {
                 if (cursorTokenIndex === ruleData.startTokenIndex) {
-                    suggestColumns = true;
+                    shouldSuggestColumns = true;
+                    if (
+                        ruleData.ruleList.includes(ClickHouseParser.RULE_orderExpr) ||
+                        ruleData.ruleList.includes(ClickHouseParser.RULE_groupByClause)
+                    ) {
+                        shouldSuggestColumnAliases = true;
+                    }
                 }
                 break;
             }
@@ -202,12 +228,16 @@ function generateSuggestionsFromRules(
         suggestViewsOrTables,
         suggestAggregateFunctions,
         suggestFunctions,
-        suggestColumns,
+        shouldSuggestColumns,
         suggestEngines,
+        shouldSuggestColumnAliases,
     };
 }
 
-function getParseTree(parser: ClickHouseParser, type?: TableQueryPosition['type']): ParseTree {
+function getParseTree(
+    parser: ClickHouseParser,
+    type?: TableQueryPosition['type'] | 'select',
+): ParseTree {
     // ClickHouse does not have UPDATE statement
     if (!type || type === 'update') {
         return parser.root();
@@ -221,6 +251,8 @@ function getParseTree(parser: ClickHouseParser, type?: TableQueryPosition['type'
         case 'insert':
             // INSERT doesn't work for now: for some reason any INSERT statement throws error
             return parser.insertStmt();
+        case 'select':
+            return parser.selectStmt();
     }
 }
 

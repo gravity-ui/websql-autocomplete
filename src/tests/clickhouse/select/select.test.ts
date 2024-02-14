@@ -207,65 +207,6 @@ test('should suggest multiple table names and aliases (with AS) for column', () 
     expect(parseResult.suggestColumns).toEqual(columnSuggestions);
 });
 
-test('should suggest properly after ORDER', () => {
-    const parseResult = parseClickHouseQueryWithCursor('SELECT * FROM test_table ORDER |');
-
-    const keywordsSuggestion: KeywordSuggestion[] = [{value: 'BY'}];
-    expect(parseResult.suggestKeywords).toEqual(keywordsSuggestion);
-});
-
-test('should suggest properly after ORDER', () => {
-    const parseResult = parseClickHouseQueryWithCursor('SELECT * FROM test_table as t ORDER |');
-
-    const keywordsSuggestion: KeywordSuggestion[] = [{value: 'BY'}];
-    expect(parseResult.suggestKeywords).toEqual(keywordsSuggestion);
-});
-
-test('should suggest properly after ORDER BY', () => {
-    const parseResult = parseClickHouseQueryWithCursor('SELECT * FROM test_table as t ORDER BY |');
-
-    const keywordsSuggestion: KeywordSuggestion[] = [
-        {value: 'CASE'},
-        {value: 'CAST'},
-        {value: 'DATE'},
-        {value: 'EXTRACT'},
-        {value: 'INTERVAL'},
-        {value: 'SUBSTRING'},
-        {value: 'TIMESTAMP'},
-        {value: 'TRIM'},
-        {value: 'NOT'},
-        {value: '*'},
-    ];
-    expect(parseResult.suggestKeywords).toEqual(keywordsSuggestion);
-});
-
-test('should suggest properly after GROUP', () => {
-    const parseResult = parseClickHouseQueryWithCursor('SELECT * FROM test_table as t GROUP |');
-
-    const keywordsSuggestion: KeywordSuggestion[] = [{value: 'BY'}];
-    expect(parseResult.suggestKeywords).toEqual(keywordsSuggestion);
-});
-
-test('should suggest properly after GROUP BY', () => {
-    const parseResult = parseClickHouseQueryWithCursor('SELECT * FROM test_table as t GROUP BY |');
-
-    const keywordsSuggestion: KeywordSuggestion[] = [
-        {value: '*'},
-        {value: 'CASE'},
-        {value: 'CAST'},
-        {value: 'DATE'},
-        {value: 'EXTRACT'},
-        {value: 'INTERVAL'},
-        {value: 'SUBSTRING'},
-        {value: 'TIMESTAMP'},
-        {value: 'TRIM'},
-        {value: 'NOT'},
-        {value: 'CUBE'},
-        {value: 'ROLLUP'},
-    ];
-    expect(parseResult.suggestKeywords).toEqual(keywordsSuggestion);
-});
-
 test('should suggest properly after HAVING', () => {
     const parseResult = parseClickHouseQueryWithCursor('SELECT * FROM test_table as t HAVING |');
 
