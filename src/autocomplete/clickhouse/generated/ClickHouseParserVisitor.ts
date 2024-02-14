@@ -16,10 +16,10 @@ import { RootContext } from "./ClickHouseParser.js";
 import { StatementsContext } from "./ClickHouseParser.js";
 import { StatementContext } from "./ClickHouseParser.js";
 import { NotInsertStatementContext } from "./ClickHouseParser.js";
-import { CtesContext } from "./ClickHouseParser.js";
+import { CommonTableExpressionStatementContext } from "./ClickHouseParser.js";
 import { NamedQueryContext } from "./ClickHouseParser.js";
 import { ColumnAliasesContext } from "./ClickHouseParser.js";
-import { AlterTableStmtContext } from "./ClickHouseParser.js";
+import { AlterTableStatementContext } from "./ClickHouseParser.js";
 import { AlterTableClauseAddColumnContext } from "./ClickHouseParser.js";
 import { AlterTableClauseAddIndexContext } from "./ClickHouseParser.js";
 import { AlterTableClauseAddProjectionContext } from "./ClickHouseParser.js";
@@ -48,12 +48,12 @@ import { AlterTableClauseRemoveTTLContext } from "./ClickHouseParser.js";
 import { AlterTableClauseRenameContext } from "./ClickHouseParser.js";
 import { AlterTableClauseReplaceContext } from "./ClickHouseParser.js";
 import { AlterTableClauseUpdateContext } from "./ClickHouseParser.js";
-import { AssignmentExprListContext } from "./ClickHouseParser.js";
-import { AssignmentExprContext } from "./ClickHouseParser.js";
+import { AssignmentExpressionListContext } from "./ClickHouseParser.js";
+import { AssignmentExpressionContext } from "./ClickHouseParser.js";
 import { TableColumnPropertyTypeContext } from "./ClickHouseParser.js";
 import { PartitionClauseContext } from "./ClickHouseParser.js";
-import { AttachDictionaryStmtContext } from "./ClickHouseParser.js";
-import { CheckStmtContext } from "./ClickHouseParser.js";
+import { AttachDictionaryStatementContext } from "./ClickHouseParser.js";
+import { CheckStatementContext } from "./ClickHouseParser.js";
 import { DeleteStatementContext } from "./ClickHouseParser.js";
 import { CreateTableStatementContext } from "./ClickHouseParser.js";
 import { CreateDatabaseStatementContext } from "./ClickHouseParser.js";
@@ -61,12 +61,12 @@ import { CreateDictionaryStatementContext } from "./ClickHouseParser.js";
 import { CreateLiveViewStatementContext } from "./ClickHouseParser.js";
 import { CreateMaterializedViewStatementContext } from "./ClickHouseParser.js";
 import { CreateViewStatementContext } from "./ClickHouseParser.js";
-import { CreateStmtContext } from "./ClickHouseParser.js";
+import { CreateStatementContext } from "./ClickHouseParser.js";
 import { DictionarySchemaClauseContext } from "./ClickHouseParser.js";
-import { DictionaryAttrDfntContext } from "./ClickHouseParser.js";
+import { DictionaryAttributeDefinitionContext } from "./ClickHouseParser.js";
 import { DictionaryEngineClauseContext } from "./ClickHouseParser.js";
 import { DictionaryPrimaryKeyClauseContext } from "./ClickHouseParser.js";
-import { DictionaryArgExprContext } from "./ClickHouseParser.js";
+import { DictionaryArgumentExpressionContext } from "./ClickHouseParser.js";
 import { SourceClauseContext } from "./ClickHouseParser.js";
 import { LifetimeClauseContext } from "./ClickHouseParser.js";
 import { LayoutClauseContext } from "./ClickHouseParser.js";
@@ -84,43 +84,43 @@ import { PartitionByClauseContext } from "./ClickHouseParser.js";
 import { PrimaryKeyClauseContext } from "./ClickHouseParser.js";
 import { SampleByClauseContext } from "./ClickHouseParser.js";
 import { TtlClauseContext } from "./ClickHouseParser.js";
-import { EngineExprContext } from "./ClickHouseParser.js";
-import { TableElementExprColumnContext } from "./ClickHouseParser.js";
-import { TableElementExprConstraintContext } from "./ClickHouseParser.js";
-import { TableElementExprIndexContext } from "./ClickHouseParser.js";
-import { TableElementExprProjectionContext } from "./ClickHouseParser.js";
-import { TableColumnDfntContext } from "./ClickHouseParser.js";
-import { TableColumnPropertyExprContext } from "./ClickHouseParser.js";
-import { TableIndexDfntContext } from "./ClickHouseParser.js";
-import { TableProjectionDfntContext } from "./ClickHouseParser.js";
-import { CodecExprContext } from "./ClickHouseParser.js";
-import { CodecArgExprContext } from "./ClickHouseParser.js";
-import { TtlExprContext } from "./ClickHouseParser.js";
-import { DescribeStmtContext } from "./ClickHouseParser.js";
-import { DropDatabaseStmtContext } from "./ClickHouseParser.js";
-import { DropTableStmtContext } from "./ClickHouseParser.js";
-import { ExistsDatabaseStmtContext } from "./ClickHouseParser.js";
-import { ExistsTableStmtContext } from "./ClickHouseParser.js";
-import { ExplainDefaultStmtContext } from "./ClickHouseParser.js";
-import { ExplainASTStmtContext } from "./ClickHouseParser.js";
-import { ExplainSyntaxStmtContext } from "./ClickHouseParser.js";
-import { ExplainPipelineStmtContext } from "./ClickHouseParser.js";
-import { ExplainPlanStmtContext } from "./ClickHouseParser.js";
-import { ExplainQueryTreeStmtContext } from "./ClickHouseParser.js";
-import { ExplainEstimateStmtContext } from "./ClickHouseParser.js";
-import { InsertStmtContext } from "./ClickHouseParser.js";
+import { EngineExpressionContext } from "./ClickHouseParser.js";
+import { TableElementExpressionColumnContext } from "./ClickHouseParser.js";
+import { TableElementExpressionConstraintContext } from "./ClickHouseParser.js";
+import { TableElementExpressionIndexContext } from "./ClickHouseParser.js";
+import { TableElementExpressionProjectionContext } from "./ClickHouseParser.js";
+import { TableColumnDefinitionContext } from "./ClickHouseParser.js";
+import { TableColumnPropertyExpressionContext } from "./ClickHouseParser.js";
+import { TableIndexDefinitionContext } from "./ClickHouseParser.js";
+import { TableProjectionDefinitionContext } from "./ClickHouseParser.js";
+import { CodecExpressionContext } from "./ClickHouseParser.js";
+import { CodecArgExpressionContext } from "./ClickHouseParser.js";
+import { TtlExpressionContext } from "./ClickHouseParser.js";
+import { DescribeStatementContext } from "./ClickHouseParser.js";
+import { DropDatabaseStatementContext } from "./ClickHouseParser.js";
+import { DropTableStatementContext } from "./ClickHouseParser.js";
+import { ExistsDatabaseStatementContext } from "./ClickHouseParser.js";
+import { ExistsTableStatementContext } from "./ClickHouseParser.js";
+import { ExplainDefaultStatementContext } from "./ClickHouseParser.js";
+import { ExplainASTStatementContext } from "./ClickHouseParser.js";
+import { ExplainSyntaxStatementContext } from "./ClickHouseParser.js";
+import { ExplainPipelineStatementContext } from "./ClickHouseParser.js";
+import { ExplainPlanStatementContext } from "./ClickHouseParser.js";
+import { ExplainQueryTreeStatementContext } from "./ClickHouseParser.js";
+import { ExplainEstimateStatementContext } from "./ClickHouseParser.js";
+import { InsertStatementContext } from "./ClickHouseParser.js";
 import { ColumnsClauseContext } from "./ClickHouseParser.js";
 import { DataClauseFormatContext } from "./ClickHouseParser.js";
 import { DataClauseValuesContext } from "./ClickHouseParser.js";
 import { DataClauseSelectContext } from "./ClickHouseParser.js";
 import { ValuesStatementContext } from "./ClickHouseParser.js";
-import { KillMutationStmtContext } from "./ClickHouseParser.js";
-import { OptimizeStmtContext } from "./ClickHouseParser.js";
-import { RenameStmtContext } from "./ClickHouseParser.js";
-import { ProjectionSelectStmtContext } from "./ClickHouseParser.js";
-import { SelectUnionStmtContext } from "./ClickHouseParser.js";
-import { SelectStmtWithParensContext } from "./ClickHouseParser.js";
-import { SelectStmtContext } from "./ClickHouseParser.js";
+import { KillMutationStatementContext } from "./ClickHouseParser.js";
+import { OptimizeStatementContext } from "./ClickHouseParser.js";
+import { RenameStatementContext } from "./ClickHouseParser.js";
+import { ProjectionSelectStatementContext } from "./ClickHouseParser.js";
+import { SelectUnionStatementContext } from "./ClickHouseParser.js";
+import { SelectStatementWithParenthesesContext } from "./ClickHouseParser.js";
+import { SelectStatementContext } from "./ClickHouseParser.js";
 import { WithClauseContext } from "./ClickHouseParser.js";
 import { TopClauseContext } from "./ClickHouseParser.js";
 import { FromClauseContext } from "./ClickHouseParser.js";
@@ -135,92 +135,92 @@ import { ProjectionOrderByClauseContext } from "./ClickHouseParser.js";
 import { LimitByClauseContext } from "./ClickHouseParser.js";
 import { LimitClauseContext } from "./ClickHouseParser.js";
 import { SettingsClauseContext } from "./ClickHouseParser.js";
-import { JoinExprOpContext } from "./ClickHouseParser.js";
-import { JoinExprTableContext } from "./ClickHouseParser.js";
-import { JoinExprParensContext } from "./ClickHouseParser.js";
-import { JoinExprCrossOpContext } from "./ClickHouseParser.js";
+import { JoinExpressionParensContext } from "./ClickHouseParser.js";
+import { JoinExpressionTableContext } from "./ClickHouseParser.js";
+import { JoinExpressionCrossOpContext } from "./ClickHouseParser.js";
+import { JoinExpressionOpContext } from "./ClickHouseParser.js";
 import { JoinOpInnerContext } from "./ClickHouseParser.js";
 import { JoinOpLeftRightContext } from "./ClickHouseParser.js";
 import { JoinOpFullContext } from "./ClickHouseParser.js";
-import { JoinOpCrossContext } from "./ClickHouseParser.js";
+import { JoinOperatorCrossContext } from "./ClickHouseParser.js";
 import { JoinConstraintClauseContext } from "./ClickHouseParser.js";
 import { SampleClauseContext } from "./ClickHouseParser.js";
-import { LimitExprContext } from "./ClickHouseParser.js";
-import { OrderExprListContext } from "./ClickHouseParser.js";
-import { OrderExprContext } from "./ClickHouseParser.js";
-import { RatioExprContext } from "./ClickHouseParser.js";
-import { SettingExprListContext } from "./ClickHouseParser.js";
-import { SettingExprContext } from "./ClickHouseParser.js";
-import { WindowExprContext } from "./ClickHouseParser.js";
-import { WinPartitionByClauseContext } from "./ClickHouseParser.js";
-import { WinOrderByClauseContext } from "./ClickHouseParser.js";
-import { WinFrameClauseContext } from "./ClickHouseParser.js";
+import { LimitExpressionContext } from "./ClickHouseParser.js";
+import { OrderExpressionListContext } from "./ClickHouseParser.js";
+import { OrderExpressionContext } from "./ClickHouseParser.js";
+import { RatioExpressionContext } from "./ClickHouseParser.js";
+import { SettingExpressionListContext } from "./ClickHouseParser.js";
+import { SettingExpressionContext } from "./ClickHouseParser.js";
+import { WindowExpressionContext } from "./ClickHouseParser.js";
+import { WindowPartitionByClauseContext } from "./ClickHouseParser.js";
+import { WindowOrderByClauseContext } from "./ClickHouseParser.js";
+import { WindowFrameClauseContext } from "./ClickHouseParser.js";
 import { FrameStartContext } from "./ClickHouseParser.js";
 import { FrameBetweenContext } from "./ClickHouseParser.js";
-import { WinFrameBoundContext } from "./ClickHouseParser.js";
-import { SetStmtContext } from "./ClickHouseParser.js";
-import { ShowCreateDatabaseStmtContext } from "./ClickHouseParser.js";
-import { ShowCreateDictionaryStmtContext } from "./ClickHouseParser.js";
-import { ShowCreateTableStmtContext } from "./ClickHouseParser.js";
-import { ShowDatabasesStmtContext } from "./ClickHouseParser.js";
-import { ShowDictionariesStmtContext } from "./ClickHouseParser.js";
-import { ShowTablesStmtContext } from "./ClickHouseParser.js";
-import { SystemStmtContext } from "./ClickHouseParser.js";
-import { TruncateStmtContext } from "./ClickHouseParser.js";
-import { UseStmtContext } from "./ClickHouseParser.js";
-import { WatchStmtContext } from "./ClickHouseParser.js";
-import { ColumnTypeExprSimpleContext } from "./ClickHouseParser.js";
-import { ColumnTypeExprNestedContext } from "./ClickHouseParser.js";
-import { ColumnTypeExprEnumContext } from "./ClickHouseParser.js";
-import { ColumnTypeExprComplexContext } from "./ClickHouseParser.js";
-import { ColumnTypeExprParamContext } from "./ClickHouseParser.js";
-import { ColumnExprListContext } from "./ClickHouseParser.js";
-import { ColumnsExprAsteriskContext } from "./ClickHouseParser.js";
-import { ColumnsExprSubqueryContext } from "./ClickHouseParser.js";
-import { ColumnsExprColumnContext } from "./ClickHouseParser.js";
-import { ColumnExprTernaryOpContext } from "./ClickHouseParser.js";
-import { ColumnExprAliasContext } from "./ClickHouseParser.js";
-import { ColumnExprExtractContext } from "./ClickHouseParser.js";
-import { ColumnExprNegateContext } from "./ClickHouseParser.js";
-import { ColumnExprSubqueryContext } from "./ClickHouseParser.js";
-import { ColumnExprLiteralContext } from "./ClickHouseParser.js";
-import { ColumnExprArrayContext } from "./ClickHouseParser.js";
-import { ColumnExprSubstringContext } from "./ClickHouseParser.js";
-import { ColumnExprCastContext } from "./ClickHouseParser.js";
-import { ColumnExprOrContext } from "./ClickHouseParser.js";
-import { ColumnExprPrecedence1Context } from "./ClickHouseParser.js";
-import { ColumnExprPrecedence2Context } from "./ClickHouseParser.js";
-import { ColumnExprPrecedence3Context } from "./ClickHouseParser.js";
-import { ColumnExprIntervalContext } from "./ClickHouseParser.js";
-import { ColumnExprIsNullContext } from "./ClickHouseParser.js";
-import { ColumnExprWinFunctionTargetContext } from "./ClickHouseParser.js";
-import { ColumnExprTrimContext } from "./ClickHouseParser.js";
-import { ColumnExprTupleContext } from "./ClickHouseParser.js";
-import { ColumnExprArrayAccessContext } from "./ClickHouseParser.js";
-import { ColumnExprBetweenContext } from "./ClickHouseParser.js";
-import { ColumnExprParensContext } from "./ClickHouseParser.js";
-import { ColumnExprTimestampContext } from "./ClickHouseParser.js";
-import { ColumnExprAndContext } from "./ClickHouseParser.js";
-import { ColumnExprTupleAccessContext } from "./ClickHouseParser.js";
-import { ColumnExprCaseContext } from "./ClickHouseParser.js";
-import { ColumnExprDateContext } from "./ClickHouseParser.js";
-import { ColumnExprNotContext } from "./ClickHouseParser.js";
-import { ColumnExprWinFunctionContext } from "./ClickHouseParser.js";
-import { ColumnExprIdentifierContext } from "./ClickHouseParser.js";
-import { ColumnExprFunctionContext } from "./ClickHouseParser.js";
-import { ColumnExprAsteriskContext } from "./ClickHouseParser.js";
-import { ColumnArgListContext } from "./ClickHouseParser.js";
-import { ColumnArgExprContext } from "./ClickHouseParser.js";
-import { ColumnLambdaExprContext } from "./ClickHouseParser.js";
+import { WindowFrameBoundContext } from "./ClickHouseParser.js";
+import { SetStatementContext } from "./ClickHouseParser.js";
+import { ShowCreateDatabaseStatementContext } from "./ClickHouseParser.js";
+import { ShowCreateDictionaryStatementContext } from "./ClickHouseParser.js";
+import { ShowCreateTableStatementContext } from "./ClickHouseParser.js";
+import { ShowDatabasesStatementContext } from "./ClickHouseParser.js";
+import { ShowDictionariesStatementContext } from "./ClickHouseParser.js";
+import { ShowTablesStatementContext } from "./ClickHouseParser.js";
+import { SystemStatementContext } from "./ClickHouseParser.js";
+import { TruncateStatementContext } from "./ClickHouseParser.js";
+import { UseStatementContext } from "./ClickHouseParser.js";
+import { WatchStatementContext } from "./ClickHouseParser.js";
+import { ColumnTypeExpressionSimpleContext } from "./ClickHouseParser.js";
+import { ColumnTypeExpressionNestedContext } from "./ClickHouseParser.js";
+import { ColumnTypeExpressionEnumContext } from "./ClickHouseParser.js";
+import { ColumnTypeExpressionComplexContext } from "./ClickHouseParser.js";
+import { ColumnTypeExpressionParamContext } from "./ClickHouseParser.js";
+import { ColumnExpressionListContext } from "./ClickHouseParser.js";
+import { ColumnsExpressionAsteriskContext } from "./ClickHouseParser.js";
+import { ColumnsExpressionSubqueryContext } from "./ClickHouseParser.js";
+import { ColumnsExpressionColumnContext } from "./ClickHouseParser.js";
+import { ColumnExpressionIsNullContext } from "./ClickHouseParser.js";
+import { ColumnExpressionTupleContext } from "./ClickHouseParser.js";
+import { ColumnExpressionAndContext } from "./ClickHouseParser.js";
+import { ColumnExpressionDateContext } from "./ClickHouseParser.js";
+import { ColumnExpressionBetweenContext } from "./ClickHouseParser.js";
+import { ColumnExpressionTrimContext } from "./ClickHouseParser.js";
+import { ColumnExpressionNotContext } from "./ClickHouseParser.js";
+import { ColumnExpressionSubstringContext } from "./ClickHouseParser.js";
+import { ColumnExpressionCaseContext } from "./ClickHouseParser.js";
+import { ColumnExpressionIdentifierContext } from "./ClickHouseParser.js";
+import { ColumnExpressionArrayAccessContext } from "./ClickHouseParser.js";
+import { ColumnExpressionFunctionContext } from "./ClickHouseParser.js";
+import { ColumnExpressionAsteriskContext } from "./ClickHouseParser.js";
+import { ColumnExpressionLiteralContext } from "./ClickHouseParser.js";
+import { ColumnExpressionWinFunctionContext } from "./ClickHouseParser.js";
+import { ColumnExpressionTernaryOpContext } from "./ClickHouseParser.js";
+import { ColumnExpressionArrayContext } from "./ClickHouseParser.js";
+import { ColumnExpressionTupleAccessContext } from "./ClickHouseParser.js";
+import { ColumnExpressionParensContext } from "./ClickHouseParser.js";
+import { ColumnExpressionWinFunctionTargetContext } from "./ClickHouseParser.js";
+import { ColumnExpressionAliasContext } from "./ClickHouseParser.js";
+import { ColumnExpressionPrecedence3Context } from "./ClickHouseParser.js";
+import { ColumnExpressionTimestampContext } from "./ClickHouseParser.js";
+import { ColumnExpressionPrecedence2Context } from "./ClickHouseParser.js";
+import { ColumnExpressionPrecedence1Context } from "./ClickHouseParser.js";
+import { ColumnExpressionIntervalContext } from "./ClickHouseParser.js";
+import { ColumnExpressionSubqueryContext } from "./ClickHouseParser.js";
+import { ColumnExpressionNegateContext } from "./ClickHouseParser.js";
+import { ColumnExpressionExtractContext } from "./ClickHouseParser.js";
+import { ColumnExpressionCastContext } from "./ClickHouseParser.js";
+import { ColumnExpressionOrContext } from "./ClickHouseParser.js";
+import { ColumnArgumentListContext } from "./ClickHouseParser.js";
+import { ColumnArgumentExpressionContext } from "./ClickHouseParser.js";
+import { ColumnLambdaExpressionContext } from "./ClickHouseParser.js";
 import { ColumnIdentifierContext } from "./ClickHouseParser.js";
-import { TableExprIdentifierContext } from "./ClickHouseParser.js";
-import { TableExprSubqueryContext } from "./ClickHouseParser.js";
-import { TableExprAliasContext } from "./ClickHouseParser.js";
-import { TableExprFunctionContext } from "./ClickHouseParser.js";
-import { TableFunctionExprContext } from "./ClickHouseParser.js";
+import { TableExpressionFunctionContext } from "./ClickHouseParser.js";
+import { TableExpressionIdentifierContext } from "./ClickHouseParser.js";
+import { TableExpressionAliasContext } from "./ClickHouseParser.js";
+import { TableExpressionSubqueryContext } from "./ClickHouseParser.js";
+import { TableFunctionExpressionContext } from "./ClickHouseParser.js";
 import { TableIdentifierContext } from "./ClickHouseParser.js";
 import { TableArgListContext } from "./ClickHouseParser.js";
-import { TableArgExprContext } from "./ClickHouseParser.js";
+import { TableArgExpressionContext } from "./ClickHouseParser.js";
 import { DatabaseIdentifierContext } from "./ClickHouseParser.js";
 import { FloatingLiteralContext } from "./ClickHouseParser.js";
 import { NumberLiteralContext } from "./ClickHouseParser.js";
@@ -267,11 +267,11 @@ export class ClickHouseParserVisitor<Result> extends AbstractParseTreeVisitor<Re
      */
     visitNotInsertStatement?: (ctx: NotInsertStatementContext) => Result;
     /**
-     * Visit a parse tree produced by `ClickHouseParser.ctes`.
+     * Visit a parse tree produced by `ClickHouseParser.commonTableExpressionStatement`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitCtes?: (ctx: CtesContext) => Result;
+    visitCommonTableExpressionStatement?: (ctx: CommonTableExpressionStatementContext) => Result;
     /**
      * Visit a parse tree produced by `ClickHouseParser.namedQuery`.
      * @param ctx the parse tree
@@ -285,12 +285,12 @@ export class ClickHouseParserVisitor<Result> extends AbstractParseTreeVisitor<Re
      */
     visitColumnAliases?: (ctx: ColumnAliasesContext) => Result;
     /**
-     * Visit a parse tree produced by the `AlterTableStmt`
-     * labeled alternative in `ClickHouseParser.alterStmt`.
+     * Visit a parse tree produced by the `AlterTableStatement`
+     * labeled alternative in `ClickHouseParser.alterStatement`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitAlterTableStmt?: (ctx: AlterTableStmtContext) => Result;
+    visitAlterTableStatement?: (ctx: AlterTableStatementContext) => Result;
     /**
      * Visit a parse tree produced by the `AlterTableClauseAddColumn`
      * labeled alternative in `ClickHouseParser.alterTableClause`.
@@ -488,17 +488,17 @@ export class ClickHouseParserVisitor<Result> extends AbstractParseTreeVisitor<Re
      */
     visitAlterTableClauseUpdate?: (ctx: AlterTableClauseUpdateContext) => Result;
     /**
-     * Visit a parse tree produced by `ClickHouseParser.assignmentExprList`.
+     * Visit a parse tree produced by `ClickHouseParser.assignmentExpressionList`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitAssignmentExprList?: (ctx: AssignmentExprListContext) => Result;
+    visitAssignmentExpressionList?: (ctx: AssignmentExpressionListContext) => Result;
     /**
-     * Visit a parse tree produced by `ClickHouseParser.assignmentExpr`.
+     * Visit a parse tree produced by `ClickHouseParser.assignmentExpression`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitAssignmentExpr?: (ctx: AssignmentExprContext) => Result;
+    visitAssignmentExpression?: (ctx: AssignmentExpressionContext) => Result;
     /**
      * Visit a parse tree produced by `ClickHouseParser.tableColumnPropertyType`.
      * @param ctx the parse tree
@@ -512,18 +512,18 @@ export class ClickHouseParserVisitor<Result> extends AbstractParseTreeVisitor<Re
      */
     visitPartitionClause?: (ctx: PartitionClauseContext) => Result;
     /**
-     * Visit a parse tree produced by the `AttachDictionaryStmt`
-     * labeled alternative in `ClickHouseParser.attachStmt`.
+     * Visit a parse tree produced by the `AttachDictionaryStatement`
+     * labeled alternative in `ClickHouseParser.attachStatement`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitAttachDictionaryStmt?: (ctx: AttachDictionaryStmtContext) => Result;
+    visitAttachDictionaryStatement?: (ctx: AttachDictionaryStatementContext) => Result;
     /**
-     * Visit a parse tree produced by `ClickHouseParser.checkStmt`.
+     * Visit a parse tree produced by `ClickHouseParser.checkStatement`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitCheckStmt?: (ctx: CheckStmtContext) => Result;
+    visitCheckStatement?: (ctx: CheckStatementContext) => Result;
     /**
      * Visit a parse tree produced by `ClickHouseParser.deleteStatement`.
      * @param ctx the parse tree
@@ -567,11 +567,11 @@ export class ClickHouseParserVisitor<Result> extends AbstractParseTreeVisitor<Re
      */
     visitCreateViewStatement?: (ctx: CreateViewStatementContext) => Result;
     /**
-     * Visit a parse tree produced by `ClickHouseParser.createStmt`.
+     * Visit a parse tree produced by `ClickHouseParser.createStatement`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitCreateStmt?: (ctx: CreateStmtContext) => Result;
+    visitCreateStatement?: (ctx: CreateStatementContext) => Result;
     /**
      * Visit a parse tree produced by `ClickHouseParser.dictionarySchemaClause`.
      * @param ctx the parse tree
@@ -579,11 +579,11 @@ export class ClickHouseParserVisitor<Result> extends AbstractParseTreeVisitor<Re
      */
     visitDictionarySchemaClause?: (ctx: DictionarySchemaClauseContext) => Result;
     /**
-     * Visit a parse tree produced by `ClickHouseParser.dictionaryAttrDfnt`.
+     * Visit a parse tree produced by `ClickHouseParser.dictionaryAttributeDefinition`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitDictionaryAttrDfnt?: (ctx: DictionaryAttrDfntContext) => Result;
+    visitDictionaryAttributeDefinition?: (ctx: DictionaryAttributeDefinitionContext) => Result;
     /**
      * Visit a parse tree produced by `ClickHouseParser.dictionaryEngineClause`.
      * @param ctx the parse tree
@@ -597,11 +597,11 @@ export class ClickHouseParserVisitor<Result> extends AbstractParseTreeVisitor<Re
      */
     visitDictionaryPrimaryKeyClause?: (ctx: DictionaryPrimaryKeyClauseContext) => Result;
     /**
-     * Visit a parse tree produced by `ClickHouseParser.dictionaryArgExpr`.
+     * Visit a parse tree produced by `ClickHouseParser.dictionaryArgumentExpression`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitDictionaryArgExpr?: (ctx: DictionaryArgExprContext) => Result;
+    visitDictionaryArgumentExpression?: (ctx: DictionaryArgumentExpressionContext) => Result;
     /**
      * Visit a parse tree produced by `ClickHouseParser.sourceClause`.
      * @param ctx the parse tree
@@ -708,170 +708,170 @@ export class ClickHouseParserVisitor<Result> extends AbstractParseTreeVisitor<Re
      */
     visitTtlClause?: (ctx: TtlClauseContext) => Result;
     /**
-     * Visit a parse tree produced by `ClickHouseParser.engineExpr`.
+     * Visit a parse tree produced by `ClickHouseParser.engineExpression`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitEngineExpr?: (ctx: EngineExprContext) => Result;
+    visitEngineExpression?: (ctx: EngineExpressionContext) => Result;
     /**
-     * Visit a parse tree produced by the `TableElementExprColumn`
-     * labeled alternative in `ClickHouseParser.tableElementExpr`.
+     * Visit a parse tree produced by the `TableElementExpressionColumn`
+     * labeled alternative in `ClickHouseParser.tableElementExpression`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitTableElementExprColumn?: (ctx: TableElementExprColumnContext) => Result;
+    visitTableElementExpressionColumn?: (ctx: TableElementExpressionColumnContext) => Result;
     /**
-     * Visit a parse tree produced by the `TableElementExprConstraint`
-     * labeled alternative in `ClickHouseParser.tableElementExpr`.
+     * Visit a parse tree produced by the `TableElementExpressionConstraint`
+     * labeled alternative in `ClickHouseParser.tableElementExpression`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitTableElementExprConstraint?: (ctx: TableElementExprConstraintContext) => Result;
+    visitTableElementExpressionConstraint?: (ctx: TableElementExpressionConstraintContext) => Result;
     /**
-     * Visit a parse tree produced by the `TableElementExprIndex`
-     * labeled alternative in `ClickHouseParser.tableElementExpr`.
+     * Visit a parse tree produced by the `TableElementExpressionIndex`
+     * labeled alternative in `ClickHouseParser.tableElementExpression`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitTableElementExprIndex?: (ctx: TableElementExprIndexContext) => Result;
+    visitTableElementExpressionIndex?: (ctx: TableElementExpressionIndexContext) => Result;
     /**
-     * Visit a parse tree produced by the `TableElementExprProjection`
-     * labeled alternative in `ClickHouseParser.tableElementExpr`.
+     * Visit a parse tree produced by the `TableElementExpressionProjection`
+     * labeled alternative in `ClickHouseParser.tableElementExpression`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitTableElementExprProjection?: (ctx: TableElementExprProjectionContext) => Result;
+    visitTableElementExpressionProjection?: (ctx: TableElementExpressionProjectionContext) => Result;
     /**
-     * Visit a parse tree produced by `ClickHouseParser.tableColumnDfnt`.
+     * Visit a parse tree produced by `ClickHouseParser.tableColumnDefinition`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitTableColumnDfnt?: (ctx: TableColumnDfntContext) => Result;
+    visitTableColumnDefinition?: (ctx: TableColumnDefinitionContext) => Result;
     /**
-     * Visit a parse tree produced by `ClickHouseParser.tableColumnPropertyExpr`.
+     * Visit a parse tree produced by `ClickHouseParser.tableColumnPropertyExpression`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitTableColumnPropertyExpr?: (ctx: TableColumnPropertyExprContext) => Result;
+    visitTableColumnPropertyExpression?: (ctx: TableColumnPropertyExpressionContext) => Result;
     /**
-     * Visit a parse tree produced by `ClickHouseParser.tableIndexDfnt`.
+     * Visit a parse tree produced by `ClickHouseParser.tableIndexDefinition`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitTableIndexDfnt?: (ctx: TableIndexDfntContext) => Result;
+    visitTableIndexDefinition?: (ctx: TableIndexDefinitionContext) => Result;
     /**
-     * Visit a parse tree produced by `ClickHouseParser.tableProjectionDfnt`.
+     * Visit a parse tree produced by `ClickHouseParser.tableProjectionDefinition`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitTableProjectionDfnt?: (ctx: TableProjectionDfntContext) => Result;
+    visitTableProjectionDefinition?: (ctx: TableProjectionDefinitionContext) => Result;
     /**
-     * Visit a parse tree produced by `ClickHouseParser.codecExpr`.
+     * Visit a parse tree produced by `ClickHouseParser.codecExpression`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitCodecExpr?: (ctx: CodecExprContext) => Result;
+    visitCodecExpression?: (ctx: CodecExpressionContext) => Result;
     /**
-     * Visit a parse tree produced by `ClickHouseParser.codecArgExpr`.
+     * Visit a parse tree produced by `ClickHouseParser.codecArgExpression`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitCodecArgExpr?: (ctx: CodecArgExprContext) => Result;
+    visitCodecArgExpression?: (ctx: CodecArgExpressionContext) => Result;
     /**
-     * Visit a parse tree produced by `ClickHouseParser.ttlExpr`.
+     * Visit a parse tree produced by `ClickHouseParser.ttlExpression`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitTtlExpr?: (ctx: TtlExprContext) => Result;
+    visitTtlExpression?: (ctx: TtlExpressionContext) => Result;
     /**
-     * Visit a parse tree produced by `ClickHouseParser.describeStmt`.
+     * Visit a parse tree produced by `ClickHouseParser.describeStatement`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitDescribeStmt?: (ctx: DescribeStmtContext) => Result;
+    visitDescribeStatement?: (ctx: DescribeStatementContext) => Result;
     /**
-     * Visit a parse tree produced by the `DropDatabaseStmt`
-     * labeled alternative in `ClickHouseParser.dropStmt`.
+     * Visit a parse tree produced by the `DropDatabaseStatement`
+     * labeled alternative in `ClickHouseParser.dropStatement`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitDropDatabaseStmt?: (ctx: DropDatabaseStmtContext) => Result;
+    visitDropDatabaseStatement?: (ctx: DropDatabaseStatementContext) => Result;
     /**
-     * Visit a parse tree produced by the `DropTableStmt`
-     * labeled alternative in `ClickHouseParser.dropStmt`.
+     * Visit a parse tree produced by the `DropTableStatement`
+     * labeled alternative in `ClickHouseParser.dropStatement`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitDropTableStmt?: (ctx: DropTableStmtContext) => Result;
+    visitDropTableStatement?: (ctx: DropTableStatementContext) => Result;
     /**
-     * Visit a parse tree produced by the `ExistsDatabaseStmt`
-     * labeled alternative in `ClickHouseParser.existsStmt`.
+     * Visit a parse tree produced by the `ExistsDatabaseStatement`
+     * labeled alternative in `ClickHouseParser.existsStatement`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitExistsDatabaseStmt?: (ctx: ExistsDatabaseStmtContext) => Result;
+    visitExistsDatabaseStatement?: (ctx: ExistsDatabaseStatementContext) => Result;
     /**
-     * Visit a parse tree produced by the `ExistsTableStmt`
-     * labeled alternative in `ClickHouseParser.existsStmt`.
+     * Visit a parse tree produced by the `ExistsTableStatement`
+     * labeled alternative in `ClickHouseParser.existsStatement`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitExistsTableStmt?: (ctx: ExistsTableStmtContext) => Result;
+    visitExistsTableStatement?: (ctx: ExistsTableStatementContext) => Result;
     /**
-     * Visit a parse tree produced by the `ExplainDefaultStmt`
-     * labeled alternative in `ClickHouseParser.explainStmt`.
+     * Visit a parse tree produced by the `ExplainDefaultStatement`
+     * labeled alternative in `ClickHouseParser.explainStatement`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitExplainDefaultStmt?: (ctx: ExplainDefaultStmtContext) => Result;
+    visitExplainDefaultStatement?: (ctx: ExplainDefaultStatementContext) => Result;
     /**
-     * Visit a parse tree produced by the `ExplainASTStmt`
-     * labeled alternative in `ClickHouseParser.explainStmt`.
+     * Visit a parse tree produced by the `ExplainASTStatement`
+     * labeled alternative in `ClickHouseParser.explainStatement`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitExplainASTStmt?: (ctx: ExplainASTStmtContext) => Result;
+    visitExplainASTStatement?: (ctx: ExplainASTStatementContext) => Result;
     /**
-     * Visit a parse tree produced by the `ExplainSyntaxStmt`
-     * labeled alternative in `ClickHouseParser.explainStmt`.
+     * Visit a parse tree produced by the `ExplainSyntaxStatement`
+     * labeled alternative in `ClickHouseParser.explainStatement`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitExplainSyntaxStmt?: (ctx: ExplainSyntaxStmtContext) => Result;
+    visitExplainSyntaxStatement?: (ctx: ExplainSyntaxStatementContext) => Result;
     /**
-     * Visit a parse tree produced by the `ExplainPipelineStmt`
-     * labeled alternative in `ClickHouseParser.explainStmt`.
+     * Visit a parse tree produced by the `ExplainPipelineStatement`
+     * labeled alternative in `ClickHouseParser.explainStatement`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitExplainPipelineStmt?: (ctx: ExplainPipelineStmtContext) => Result;
+    visitExplainPipelineStatement?: (ctx: ExplainPipelineStatementContext) => Result;
     /**
-     * Visit a parse tree produced by the `ExplainPlanStmt`
-     * labeled alternative in `ClickHouseParser.explainStmt`.
+     * Visit a parse tree produced by the `ExplainPlanStatement`
+     * labeled alternative in `ClickHouseParser.explainStatement`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitExplainPlanStmt?: (ctx: ExplainPlanStmtContext) => Result;
+    visitExplainPlanStatement?: (ctx: ExplainPlanStatementContext) => Result;
     /**
-     * Visit a parse tree produced by the `ExplainQueryTreeStmt`
-     * labeled alternative in `ClickHouseParser.explainStmt`.
+     * Visit a parse tree produced by the `ExplainQueryTreeStatement`
+     * labeled alternative in `ClickHouseParser.explainStatement`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitExplainQueryTreeStmt?: (ctx: ExplainQueryTreeStmtContext) => Result;
+    visitExplainQueryTreeStatement?: (ctx: ExplainQueryTreeStatementContext) => Result;
     /**
-     * Visit a parse tree produced by the `ExplainEstimateStmt`
-     * labeled alternative in `ClickHouseParser.explainStmt`.
+     * Visit a parse tree produced by the `ExplainEstimateStatement`
+     * labeled alternative in `ClickHouseParser.explainStatement`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitExplainEstimateStmt?: (ctx: ExplainEstimateStmtContext) => Result;
+    visitExplainEstimateStatement?: (ctx: ExplainEstimateStatementContext) => Result;
     /**
-     * Visit a parse tree produced by `ClickHouseParser.insertStmt`.
+     * Visit a parse tree produced by `ClickHouseParser.insertStatement`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitInsertStmt?: (ctx: InsertStmtContext) => Result;
+    visitInsertStatement?: (ctx: InsertStatementContext) => Result;
     /**
      * Visit a parse tree produced by `ClickHouseParser.columnsClause`.
      * @param ctx the parse tree
@@ -906,48 +906,48 @@ export class ClickHouseParserVisitor<Result> extends AbstractParseTreeVisitor<Re
      */
     visitValuesStatement?: (ctx: ValuesStatementContext) => Result;
     /**
-     * Visit a parse tree produced by the `KillMutationStmt`
-     * labeled alternative in `ClickHouseParser.killStmt`.
+     * Visit a parse tree produced by the `KillMutationStatement`
+     * labeled alternative in `ClickHouseParser.killStatement`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitKillMutationStmt?: (ctx: KillMutationStmtContext) => Result;
+    visitKillMutationStatement?: (ctx: KillMutationStatementContext) => Result;
     /**
-     * Visit a parse tree produced by `ClickHouseParser.optimizeStmt`.
+     * Visit a parse tree produced by `ClickHouseParser.optimizeStatement`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitOptimizeStmt?: (ctx: OptimizeStmtContext) => Result;
+    visitOptimizeStatement?: (ctx: OptimizeStatementContext) => Result;
     /**
-     * Visit a parse tree produced by `ClickHouseParser.renameStmt`.
+     * Visit a parse tree produced by `ClickHouseParser.renameStatement`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitRenameStmt?: (ctx: RenameStmtContext) => Result;
+    visitRenameStatement?: (ctx: RenameStatementContext) => Result;
     /**
-     * Visit a parse tree produced by `ClickHouseParser.projectionSelectStmt`.
+     * Visit a parse tree produced by `ClickHouseParser.projectionSelectStatement`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitProjectionSelectStmt?: (ctx: ProjectionSelectStmtContext) => Result;
+    visitProjectionSelectStatement?: (ctx: ProjectionSelectStatementContext) => Result;
     /**
-     * Visit a parse tree produced by `ClickHouseParser.selectUnionStmt`.
+     * Visit a parse tree produced by `ClickHouseParser.selectUnionStatement`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitSelectUnionStmt?: (ctx: SelectUnionStmtContext) => Result;
+    visitSelectUnionStatement?: (ctx: SelectUnionStatementContext) => Result;
     /**
-     * Visit a parse tree produced by `ClickHouseParser.selectStmtWithParens`.
+     * Visit a parse tree produced by `ClickHouseParser.selectStatementWithParentheses`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitSelectStmtWithParens?: (ctx: SelectStmtWithParensContext) => Result;
+    visitSelectStatementWithParentheses?: (ctx: SelectStatementWithParenthesesContext) => Result;
     /**
-     * Visit a parse tree produced by `ClickHouseParser.selectStmt`.
+     * Visit a parse tree produced by `ClickHouseParser.selectStatement`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitSelectStmt?: (ctx: SelectStmtContext) => Result;
+    visitSelectStatement?: (ctx: SelectStatementContext) => Result;
     /**
      * Visit a parse tree produced by `ClickHouseParser.withClause`.
      * @param ctx the parse tree
@@ -1033,60 +1033,60 @@ export class ClickHouseParserVisitor<Result> extends AbstractParseTreeVisitor<Re
      */
     visitSettingsClause?: (ctx: SettingsClauseContext) => Result;
     /**
-     * Visit a parse tree produced by the `JoinExprOp`
-     * labeled alternative in `ClickHouseParser.joinExpr`.
+     * Visit a parse tree produced by the `JoinExpressionParens`
+     * labeled alternative in `ClickHouseParser.joinExpression`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitJoinExprOp?: (ctx: JoinExprOpContext) => Result;
+    visitJoinExpressionParens?: (ctx: JoinExpressionParensContext) => Result;
     /**
-     * Visit a parse tree produced by the `JoinExprTable`
-     * labeled alternative in `ClickHouseParser.joinExpr`.
+     * Visit a parse tree produced by the `JoinExpressionTable`
+     * labeled alternative in `ClickHouseParser.joinExpression`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitJoinExprTable?: (ctx: JoinExprTableContext) => Result;
+    visitJoinExpressionTable?: (ctx: JoinExpressionTableContext) => Result;
     /**
-     * Visit a parse tree produced by the `JoinExprParens`
-     * labeled alternative in `ClickHouseParser.joinExpr`.
+     * Visit a parse tree produced by the `JoinExpressionCrossOp`
+     * labeled alternative in `ClickHouseParser.joinExpression`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitJoinExprParens?: (ctx: JoinExprParensContext) => Result;
+    visitJoinExpressionCrossOp?: (ctx: JoinExpressionCrossOpContext) => Result;
     /**
-     * Visit a parse tree produced by the `JoinExprCrossOp`
-     * labeled alternative in `ClickHouseParser.joinExpr`.
+     * Visit a parse tree produced by the `JoinExpressionOp`
+     * labeled alternative in `ClickHouseParser.joinExpression`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitJoinExprCrossOp?: (ctx: JoinExprCrossOpContext) => Result;
+    visitJoinExpressionOp?: (ctx: JoinExpressionOpContext) => Result;
     /**
      * Visit a parse tree produced by the `JoinOpInner`
-     * labeled alternative in `ClickHouseParser.joinOp`.
+     * labeled alternative in `ClickHouseParser.joinOperator`.
      * @param ctx the parse tree
      * @return the visitor result
      */
     visitJoinOpInner?: (ctx: JoinOpInnerContext) => Result;
     /**
      * Visit a parse tree produced by the `JoinOpLeftRight`
-     * labeled alternative in `ClickHouseParser.joinOp`.
+     * labeled alternative in `ClickHouseParser.joinOperator`.
      * @param ctx the parse tree
      * @return the visitor result
      */
     visitJoinOpLeftRight?: (ctx: JoinOpLeftRightContext) => Result;
     /**
      * Visit a parse tree produced by the `JoinOpFull`
-     * labeled alternative in `ClickHouseParser.joinOp`.
+     * labeled alternative in `ClickHouseParser.joinOperator`.
      * @param ctx the parse tree
      * @return the visitor result
      */
     visitJoinOpFull?: (ctx: JoinOpFullContext) => Result;
     /**
-     * Visit a parse tree produced by `ClickHouseParser.joinOpCross`.
+     * Visit a parse tree produced by `ClickHouseParser.joinOperatorCross`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitJoinOpCross?: (ctx: JoinOpCrossContext) => Result;
+    visitJoinOperatorCross?: (ctx: JoinOperatorCrossContext) => Result;
     /**
      * Visit a parse tree produced by `ClickHouseParser.joinConstraintClause`.
      * @param ctx the parse tree
@@ -1100,454 +1100,454 @@ export class ClickHouseParserVisitor<Result> extends AbstractParseTreeVisitor<Re
      */
     visitSampleClause?: (ctx: SampleClauseContext) => Result;
     /**
-     * Visit a parse tree produced by `ClickHouseParser.limitExpr`.
+     * Visit a parse tree produced by `ClickHouseParser.limitExpression`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitLimitExpr?: (ctx: LimitExprContext) => Result;
+    visitLimitExpression?: (ctx: LimitExpressionContext) => Result;
     /**
-     * Visit a parse tree produced by `ClickHouseParser.orderExprList`.
+     * Visit a parse tree produced by `ClickHouseParser.orderExpressionList`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitOrderExprList?: (ctx: OrderExprListContext) => Result;
+    visitOrderExpressionList?: (ctx: OrderExpressionListContext) => Result;
     /**
-     * Visit a parse tree produced by `ClickHouseParser.orderExpr`.
+     * Visit a parse tree produced by `ClickHouseParser.orderExpression`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitOrderExpr?: (ctx: OrderExprContext) => Result;
+    visitOrderExpression?: (ctx: OrderExpressionContext) => Result;
     /**
-     * Visit a parse tree produced by `ClickHouseParser.ratioExpr`.
+     * Visit a parse tree produced by `ClickHouseParser.ratioExpression`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitRatioExpr?: (ctx: RatioExprContext) => Result;
+    visitRatioExpression?: (ctx: RatioExpressionContext) => Result;
     /**
-     * Visit a parse tree produced by `ClickHouseParser.settingExprList`.
+     * Visit a parse tree produced by `ClickHouseParser.settingExpressionList`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitSettingExprList?: (ctx: SettingExprListContext) => Result;
+    visitSettingExpressionList?: (ctx: SettingExpressionListContext) => Result;
     /**
-     * Visit a parse tree produced by `ClickHouseParser.settingExpr`.
+     * Visit a parse tree produced by `ClickHouseParser.settingExpression`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitSettingExpr?: (ctx: SettingExprContext) => Result;
+    visitSettingExpression?: (ctx: SettingExpressionContext) => Result;
     /**
-     * Visit a parse tree produced by `ClickHouseParser.windowExpr`.
+     * Visit a parse tree produced by `ClickHouseParser.windowExpression`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitWindowExpr?: (ctx: WindowExprContext) => Result;
+    visitWindowExpression?: (ctx: WindowExpressionContext) => Result;
     /**
-     * Visit a parse tree produced by `ClickHouseParser.winPartitionByClause`.
+     * Visit a parse tree produced by `ClickHouseParser.windowPartitionByClause`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitWinPartitionByClause?: (ctx: WinPartitionByClauseContext) => Result;
+    visitWindowPartitionByClause?: (ctx: WindowPartitionByClauseContext) => Result;
     /**
-     * Visit a parse tree produced by `ClickHouseParser.winOrderByClause`.
+     * Visit a parse tree produced by `ClickHouseParser.windowOrderByClause`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitWinOrderByClause?: (ctx: WinOrderByClauseContext) => Result;
+    visitWindowOrderByClause?: (ctx: WindowOrderByClauseContext) => Result;
     /**
-     * Visit a parse tree produced by `ClickHouseParser.winFrameClause`.
+     * Visit a parse tree produced by `ClickHouseParser.windowFrameClause`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitWinFrameClause?: (ctx: WinFrameClauseContext) => Result;
+    visitWindowFrameClause?: (ctx: WindowFrameClauseContext) => Result;
     /**
      * Visit a parse tree produced by the `frameStart`
-     * labeled alternative in `ClickHouseParser.winFrameExtend`.
+     * labeled alternative in `ClickHouseParser.windowFrameExtend`.
      * @param ctx the parse tree
      * @return the visitor result
      */
     visitFrameStart?: (ctx: FrameStartContext) => Result;
     /**
      * Visit a parse tree produced by the `frameBetween`
-     * labeled alternative in `ClickHouseParser.winFrameExtend`.
+     * labeled alternative in `ClickHouseParser.windowFrameExtend`.
      * @param ctx the parse tree
      * @return the visitor result
      */
     visitFrameBetween?: (ctx: FrameBetweenContext) => Result;
     /**
-     * Visit a parse tree produced by `ClickHouseParser.winFrameBound`.
+     * Visit a parse tree produced by `ClickHouseParser.windowFrameBound`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitWinFrameBound?: (ctx: WinFrameBoundContext) => Result;
+    visitWindowFrameBound?: (ctx: WindowFrameBoundContext) => Result;
     /**
-     * Visit a parse tree produced by `ClickHouseParser.setStmt`.
+     * Visit a parse tree produced by `ClickHouseParser.setStatement`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitSetStmt?: (ctx: SetStmtContext) => Result;
+    visitSetStatement?: (ctx: SetStatementContext) => Result;
     /**
-     * Visit a parse tree produced by the `showCreateDatabaseStmt`
-     * labeled alternative in `ClickHouseParser.showStmt`.
+     * Visit a parse tree produced by the `showCreateDatabaseStatement`
+     * labeled alternative in `ClickHouseParser.showStatement`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitShowCreateDatabaseStmt?: (ctx: ShowCreateDatabaseStmtContext) => Result;
+    visitShowCreateDatabaseStatement?: (ctx: ShowCreateDatabaseStatementContext) => Result;
     /**
-     * Visit a parse tree produced by the `showCreateDictionaryStmt`
-     * labeled alternative in `ClickHouseParser.showStmt`.
+     * Visit a parse tree produced by the `showCreateDictionaryStatement`
+     * labeled alternative in `ClickHouseParser.showStatement`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitShowCreateDictionaryStmt?: (ctx: ShowCreateDictionaryStmtContext) => Result;
+    visitShowCreateDictionaryStatement?: (ctx: ShowCreateDictionaryStatementContext) => Result;
     /**
-     * Visit a parse tree produced by the `showCreateTableStmt`
-     * labeled alternative in `ClickHouseParser.showStmt`.
+     * Visit a parse tree produced by the `showCreateTableStatement`
+     * labeled alternative in `ClickHouseParser.showStatement`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitShowCreateTableStmt?: (ctx: ShowCreateTableStmtContext) => Result;
+    visitShowCreateTableStatement?: (ctx: ShowCreateTableStatementContext) => Result;
     /**
-     * Visit a parse tree produced by the `showDatabasesStmt`
-     * labeled alternative in `ClickHouseParser.showStmt`.
+     * Visit a parse tree produced by the `showDatabasesStatement`
+     * labeled alternative in `ClickHouseParser.showStatement`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitShowDatabasesStmt?: (ctx: ShowDatabasesStmtContext) => Result;
+    visitShowDatabasesStatement?: (ctx: ShowDatabasesStatementContext) => Result;
     /**
-     * Visit a parse tree produced by the `showDictionariesStmt`
-     * labeled alternative in `ClickHouseParser.showStmt`.
+     * Visit a parse tree produced by the `showDictionariesStatement`
+     * labeled alternative in `ClickHouseParser.showStatement`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitShowDictionariesStmt?: (ctx: ShowDictionariesStmtContext) => Result;
+    visitShowDictionariesStatement?: (ctx: ShowDictionariesStatementContext) => Result;
     /**
-     * Visit a parse tree produced by the `showTablesStmt`
-     * labeled alternative in `ClickHouseParser.showStmt`.
+     * Visit a parse tree produced by the `showTablesStatement`
+     * labeled alternative in `ClickHouseParser.showStatement`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitShowTablesStmt?: (ctx: ShowTablesStmtContext) => Result;
+    visitShowTablesStatement?: (ctx: ShowTablesStatementContext) => Result;
     /**
-     * Visit a parse tree produced by `ClickHouseParser.systemStmt`.
+     * Visit a parse tree produced by `ClickHouseParser.systemStatement`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitSystemStmt?: (ctx: SystemStmtContext) => Result;
+    visitSystemStatement?: (ctx: SystemStatementContext) => Result;
     /**
-     * Visit a parse tree produced by `ClickHouseParser.truncateStmt`.
+     * Visit a parse tree produced by `ClickHouseParser.truncateStatement`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitTruncateStmt?: (ctx: TruncateStmtContext) => Result;
+    visitTruncateStatement?: (ctx: TruncateStatementContext) => Result;
     /**
-     * Visit a parse tree produced by `ClickHouseParser.useStmt`.
+     * Visit a parse tree produced by `ClickHouseParser.useStatement`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitUseStmt?: (ctx: UseStmtContext) => Result;
+    visitUseStatement?: (ctx: UseStatementContext) => Result;
     /**
-     * Visit a parse tree produced by `ClickHouseParser.watchStmt`.
+     * Visit a parse tree produced by `ClickHouseParser.watchStatement`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitWatchStmt?: (ctx: WatchStmtContext) => Result;
+    visitWatchStatement?: (ctx: WatchStatementContext) => Result;
     /**
-     * Visit a parse tree produced by the `ColumnTypeExprSimple`
-     * labeled alternative in `ClickHouseParser.columnTypeExpr`.
+     * Visit a parse tree produced by the `ColumnTypeExpressionSimple`
+     * labeled alternative in `ClickHouseParser.columnTypeExpression`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitColumnTypeExprSimple?: (ctx: ColumnTypeExprSimpleContext) => Result;
+    visitColumnTypeExpressionSimple?: (ctx: ColumnTypeExpressionSimpleContext) => Result;
     /**
-     * Visit a parse tree produced by the `ColumnTypeExprNested`
-     * labeled alternative in `ClickHouseParser.columnTypeExpr`.
+     * Visit a parse tree produced by the `ColumnTypeExpressionNested`
+     * labeled alternative in `ClickHouseParser.columnTypeExpression`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitColumnTypeExprNested?: (ctx: ColumnTypeExprNestedContext) => Result;
+    visitColumnTypeExpressionNested?: (ctx: ColumnTypeExpressionNestedContext) => Result;
     /**
-     * Visit a parse tree produced by the `ColumnTypeExprEnum`
-     * labeled alternative in `ClickHouseParser.columnTypeExpr`.
+     * Visit a parse tree produced by the `ColumnTypeExpressionEnum`
+     * labeled alternative in `ClickHouseParser.columnTypeExpression`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitColumnTypeExprEnum?: (ctx: ColumnTypeExprEnumContext) => Result;
+    visitColumnTypeExpressionEnum?: (ctx: ColumnTypeExpressionEnumContext) => Result;
     /**
-     * Visit a parse tree produced by the `ColumnTypeExprComplex`
-     * labeled alternative in `ClickHouseParser.columnTypeExpr`.
+     * Visit a parse tree produced by the `ColumnTypeExpressionComplex`
+     * labeled alternative in `ClickHouseParser.columnTypeExpression`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitColumnTypeExprComplex?: (ctx: ColumnTypeExprComplexContext) => Result;
+    visitColumnTypeExpressionComplex?: (ctx: ColumnTypeExpressionComplexContext) => Result;
     /**
-     * Visit a parse tree produced by the `ColumnTypeExprParam`
-     * labeled alternative in `ClickHouseParser.columnTypeExpr`.
+     * Visit a parse tree produced by the `ColumnTypeExpressionParam`
+     * labeled alternative in `ClickHouseParser.columnTypeExpression`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitColumnTypeExprParam?: (ctx: ColumnTypeExprParamContext) => Result;
+    visitColumnTypeExpressionParam?: (ctx: ColumnTypeExpressionParamContext) => Result;
     /**
-     * Visit a parse tree produced by `ClickHouseParser.columnExprList`.
+     * Visit a parse tree produced by `ClickHouseParser.columnExpressionList`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitColumnExprList?: (ctx: ColumnExprListContext) => Result;
+    visitColumnExpressionList?: (ctx: ColumnExpressionListContext) => Result;
     /**
-     * Visit a parse tree produced by the `ColumnsExprAsterisk`
-     * labeled alternative in `ClickHouseParser.columnsExpr`.
+     * Visit a parse tree produced by the `ColumnsExpressionAsterisk`
+     * labeled alternative in `ClickHouseParser.columnsExpression`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitColumnsExprAsterisk?: (ctx: ColumnsExprAsteriskContext) => Result;
+    visitColumnsExpressionAsterisk?: (ctx: ColumnsExpressionAsteriskContext) => Result;
     /**
-     * Visit a parse tree produced by the `ColumnsExprSubquery`
-     * labeled alternative in `ClickHouseParser.columnsExpr`.
+     * Visit a parse tree produced by the `ColumnsExpressionSubquery`
+     * labeled alternative in `ClickHouseParser.columnsExpression`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitColumnsExprSubquery?: (ctx: ColumnsExprSubqueryContext) => Result;
+    visitColumnsExpressionSubquery?: (ctx: ColumnsExpressionSubqueryContext) => Result;
     /**
-     * Visit a parse tree produced by the `ColumnsExprColumn`
-     * labeled alternative in `ClickHouseParser.columnsExpr`.
+     * Visit a parse tree produced by the `ColumnsExpressionColumn`
+     * labeled alternative in `ClickHouseParser.columnsExpression`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitColumnsExprColumn?: (ctx: ColumnsExprColumnContext) => Result;
+    visitColumnsExpressionColumn?: (ctx: ColumnsExpressionColumnContext) => Result;
     /**
-     * Visit a parse tree produced by the `ColumnExprTernaryOp`
-     * labeled alternative in `ClickHouseParser.columnExpr`.
+     * Visit a parse tree produced by the `ColumnExpressionIsNull`
+     * labeled alternative in `ClickHouseParser.columnExpression`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitColumnExprTernaryOp?: (ctx: ColumnExprTernaryOpContext) => Result;
+    visitColumnExpressionIsNull?: (ctx: ColumnExpressionIsNullContext) => Result;
     /**
-     * Visit a parse tree produced by the `ColumnExprAlias`
-     * labeled alternative in `ClickHouseParser.columnExpr`.
+     * Visit a parse tree produced by the `ColumnExpressionTuple`
+     * labeled alternative in `ClickHouseParser.columnExpression`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitColumnExprAlias?: (ctx: ColumnExprAliasContext) => Result;
+    visitColumnExpressionTuple?: (ctx: ColumnExpressionTupleContext) => Result;
     /**
-     * Visit a parse tree produced by the `ColumnExprExtract`
-     * labeled alternative in `ClickHouseParser.columnExpr`.
+     * Visit a parse tree produced by the `ColumnExpressionAnd`
+     * labeled alternative in `ClickHouseParser.columnExpression`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitColumnExprExtract?: (ctx: ColumnExprExtractContext) => Result;
+    visitColumnExpressionAnd?: (ctx: ColumnExpressionAndContext) => Result;
     /**
-     * Visit a parse tree produced by the `ColumnExprNegate`
-     * labeled alternative in `ClickHouseParser.columnExpr`.
+     * Visit a parse tree produced by the `ColumnExpressionDate`
+     * labeled alternative in `ClickHouseParser.columnExpression`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitColumnExprNegate?: (ctx: ColumnExprNegateContext) => Result;
+    visitColumnExpressionDate?: (ctx: ColumnExpressionDateContext) => Result;
     /**
-     * Visit a parse tree produced by the `ColumnExprSubquery`
-     * labeled alternative in `ClickHouseParser.columnExpr`.
+     * Visit a parse tree produced by the `ColumnExpressionBetween`
+     * labeled alternative in `ClickHouseParser.columnExpression`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitColumnExprSubquery?: (ctx: ColumnExprSubqueryContext) => Result;
+    visitColumnExpressionBetween?: (ctx: ColumnExpressionBetweenContext) => Result;
     /**
-     * Visit a parse tree produced by the `ColumnExprLiteral`
-     * labeled alternative in `ClickHouseParser.columnExpr`.
+     * Visit a parse tree produced by the `ColumnExpressionTrim`
+     * labeled alternative in `ClickHouseParser.columnExpression`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitColumnExprLiteral?: (ctx: ColumnExprLiteralContext) => Result;
+    visitColumnExpressionTrim?: (ctx: ColumnExpressionTrimContext) => Result;
     /**
-     * Visit a parse tree produced by the `ColumnExprArray`
-     * labeled alternative in `ClickHouseParser.columnExpr`.
+     * Visit a parse tree produced by the `ColumnExpressionNot`
+     * labeled alternative in `ClickHouseParser.columnExpression`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitColumnExprArray?: (ctx: ColumnExprArrayContext) => Result;
+    visitColumnExpressionNot?: (ctx: ColumnExpressionNotContext) => Result;
     /**
-     * Visit a parse tree produced by the `ColumnExprSubstring`
-     * labeled alternative in `ClickHouseParser.columnExpr`.
+     * Visit a parse tree produced by the `ColumnExpressionSubstring`
+     * labeled alternative in `ClickHouseParser.columnExpression`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitColumnExprSubstring?: (ctx: ColumnExprSubstringContext) => Result;
+    visitColumnExpressionSubstring?: (ctx: ColumnExpressionSubstringContext) => Result;
     /**
-     * Visit a parse tree produced by the `ColumnExprCast`
-     * labeled alternative in `ClickHouseParser.columnExpr`.
+     * Visit a parse tree produced by the `ColumnExpressionCase`
+     * labeled alternative in `ClickHouseParser.columnExpression`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitColumnExprCast?: (ctx: ColumnExprCastContext) => Result;
+    visitColumnExpressionCase?: (ctx: ColumnExpressionCaseContext) => Result;
     /**
-     * Visit a parse tree produced by the `ColumnExprOr`
-     * labeled alternative in `ClickHouseParser.columnExpr`.
+     * Visit a parse tree produced by the `ColumnExpressionIdentifier`
+     * labeled alternative in `ClickHouseParser.columnExpression`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitColumnExprOr?: (ctx: ColumnExprOrContext) => Result;
+    visitColumnExpressionIdentifier?: (ctx: ColumnExpressionIdentifierContext) => Result;
     /**
-     * Visit a parse tree produced by the `ColumnExprPrecedence1`
-     * labeled alternative in `ClickHouseParser.columnExpr`.
+     * Visit a parse tree produced by the `ColumnExpressionArrayAccess`
+     * labeled alternative in `ClickHouseParser.columnExpression`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitColumnExprPrecedence1?: (ctx: ColumnExprPrecedence1Context) => Result;
+    visitColumnExpressionArrayAccess?: (ctx: ColumnExpressionArrayAccessContext) => Result;
     /**
-     * Visit a parse tree produced by the `ColumnExprPrecedence2`
-     * labeled alternative in `ClickHouseParser.columnExpr`.
+     * Visit a parse tree produced by the `ColumnExpressionFunction`
+     * labeled alternative in `ClickHouseParser.columnExpression`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitColumnExprPrecedence2?: (ctx: ColumnExprPrecedence2Context) => Result;
+    visitColumnExpressionFunction?: (ctx: ColumnExpressionFunctionContext) => Result;
     /**
-     * Visit a parse tree produced by the `ColumnExprPrecedence3`
-     * labeled alternative in `ClickHouseParser.columnExpr`.
+     * Visit a parse tree produced by the `ColumnExpressionAsterisk`
+     * labeled alternative in `ClickHouseParser.columnExpression`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitColumnExprPrecedence3?: (ctx: ColumnExprPrecedence3Context) => Result;
+    visitColumnExpressionAsterisk?: (ctx: ColumnExpressionAsteriskContext) => Result;
     /**
-     * Visit a parse tree produced by the `ColumnExprInterval`
-     * labeled alternative in `ClickHouseParser.columnExpr`.
+     * Visit a parse tree produced by the `ColumnExpressionLiteral`
+     * labeled alternative in `ClickHouseParser.columnExpression`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitColumnExprInterval?: (ctx: ColumnExprIntervalContext) => Result;
+    visitColumnExpressionLiteral?: (ctx: ColumnExpressionLiteralContext) => Result;
     /**
-     * Visit a parse tree produced by the `ColumnExprIsNull`
-     * labeled alternative in `ClickHouseParser.columnExpr`.
+     * Visit a parse tree produced by the `ColumnExpressionWinFunction`
+     * labeled alternative in `ClickHouseParser.columnExpression`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitColumnExprIsNull?: (ctx: ColumnExprIsNullContext) => Result;
+    visitColumnExpressionWinFunction?: (ctx: ColumnExpressionWinFunctionContext) => Result;
     /**
-     * Visit a parse tree produced by the `ColumnExprWinFunctionTarget`
-     * labeled alternative in `ClickHouseParser.columnExpr`.
+     * Visit a parse tree produced by the `ColumnExpressionTernaryOp`
+     * labeled alternative in `ClickHouseParser.columnExpression`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitColumnExprWinFunctionTarget?: (ctx: ColumnExprWinFunctionTargetContext) => Result;
+    visitColumnExpressionTernaryOp?: (ctx: ColumnExpressionTernaryOpContext) => Result;
     /**
-     * Visit a parse tree produced by the `ColumnExprTrim`
-     * labeled alternative in `ClickHouseParser.columnExpr`.
+     * Visit a parse tree produced by the `ColumnExpressionArray`
+     * labeled alternative in `ClickHouseParser.columnExpression`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitColumnExprTrim?: (ctx: ColumnExprTrimContext) => Result;
+    visitColumnExpressionArray?: (ctx: ColumnExpressionArrayContext) => Result;
     /**
-     * Visit a parse tree produced by the `ColumnExprTuple`
-     * labeled alternative in `ClickHouseParser.columnExpr`.
+     * Visit a parse tree produced by the `ColumnExpressionTupleAccess`
+     * labeled alternative in `ClickHouseParser.columnExpression`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitColumnExprTuple?: (ctx: ColumnExprTupleContext) => Result;
+    visitColumnExpressionTupleAccess?: (ctx: ColumnExpressionTupleAccessContext) => Result;
     /**
-     * Visit a parse tree produced by the `ColumnExprArrayAccess`
-     * labeled alternative in `ClickHouseParser.columnExpr`.
+     * Visit a parse tree produced by the `ColumnExpressionParens`
+     * labeled alternative in `ClickHouseParser.columnExpression`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitColumnExprArrayAccess?: (ctx: ColumnExprArrayAccessContext) => Result;
+    visitColumnExpressionParens?: (ctx: ColumnExpressionParensContext) => Result;
     /**
-     * Visit a parse tree produced by the `ColumnExprBetween`
-     * labeled alternative in `ClickHouseParser.columnExpr`.
+     * Visit a parse tree produced by the `ColumnExpressionWinFunctionTarget`
+     * labeled alternative in `ClickHouseParser.columnExpression`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitColumnExprBetween?: (ctx: ColumnExprBetweenContext) => Result;
+    visitColumnExpressionWinFunctionTarget?: (ctx: ColumnExpressionWinFunctionTargetContext) => Result;
     /**
-     * Visit a parse tree produced by the `ColumnExprParens`
-     * labeled alternative in `ClickHouseParser.columnExpr`.
+     * Visit a parse tree produced by the `ColumnExpressionAlias`
+     * labeled alternative in `ClickHouseParser.columnExpression`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitColumnExprParens?: (ctx: ColumnExprParensContext) => Result;
+    visitColumnExpressionAlias?: (ctx: ColumnExpressionAliasContext) => Result;
     /**
-     * Visit a parse tree produced by the `ColumnExprTimestamp`
-     * labeled alternative in `ClickHouseParser.columnExpr`.
+     * Visit a parse tree produced by the `ColumnExpressionPrecedence3`
+     * labeled alternative in `ClickHouseParser.columnExpression`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitColumnExprTimestamp?: (ctx: ColumnExprTimestampContext) => Result;
+    visitColumnExpressionPrecedence3?: (ctx: ColumnExpressionPrecedence3Context) => Result;
     /**
-     * Visit a parse tree produced by the `ColumnExprAnd`
-     * labeled alternative in `ClickHouseParser.columnExpr`.
+     * Visit a parse tree produced by the `ColumnExpressionTimestamp`
+     * labeled alternative in `ClickHouseParser.columnExpression`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitColumnExprAnd?: (ctx: ColumnExprAndContext) => Result;
+    visitColumnExpressionTimestamp?: (ctx: ColumnExpressionTimestampContext) => Result;
     /**
-     * Visit a parse tree produced by the `ColumnExprTupleAccess`
-     * labeled alternative in `ClickHouseParser.columnExpr`.
+     * Visit a parse tree produced by the `ColumnExpressionPrecedence2`
+     * labeled alternative in `ClickHouseParser.columnExpression`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitColumnExprTupleAccess?: (ctx: ColumnExprTupleAccessContext) => Result;
+    visitColumnExpressionPrecedence2?: (ctx: ColumnExpressionPrecedence2Context) => Result;
     /**
-     * Visit a parse tree produced by the `ColumnExprCase`
-     * labeled alternative in `ClickHouseParser.columnExpr`.
+     * Visit a parse tree produced by the `ColumnExpressionPrecedence1`
+     * labeled alternative in `ClickHouseParser.columnExpression`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitColumnExprCase?: (ctx: ColumnExprCaseContext) => Result;
+    visitColumnExpressionPrecedence1?: (ctx: ColumnExpressionPrecedence1Context) => Result;
     /**
-     * Visit a parse tree produced by the `ColumnExprDate`
-     * labeled alternative in `ClickHouseParser.columnExpr`.
+     * Visit a parse tree produced by the `ColumnExpressionInterval`
+     * labeled alternative in `ClickHouseParser.columnExpression`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitColumnExprDate?: (ctx: ColumnExprDateContext) => Result;
+    visitColumnExpressionInterval?: (ctx: ColumnExpressionIntervalContext) => Result;
     /**
-     * Visit a parse tree produced by the `ColumnExprNot`
-     * labeled alternative in `ClickHouseParser.columnExpr`.
+     * Visit a parse tree produced by the `ColumnExpressionSubquery`
+     * labeled alternative in `ClickHouseParser.columnExpression`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitColumnExprNot?: (ctx: ColumnExprNotContext) => Result;
+    visitColumnExpressionSubquery?: (ctx: ColumnExpressionSubqueryContext) => Result;
     /**
-     * Visit a parse tree produced by the `ColumnExprWinFunction`
-     * labeled alternative in `ClickHouseParser.columnExpr`.
+     * Visit a parse tree produced by the `ColumnExpressionNegate`
+     * labeled alternative in `ClickHouseParser.columnExpression`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitColumnExprWinFunction?: (ctx: ColumnExprWinFunctionContext) => Result;
+    visitColumnExpressionNegate?: (ctx: ColumnExpressionNegateContext) => Result;
     /**
-     * Visit a parse tree produced by the `ColumnExprIdentifier`
-     * labeled alternative in `ClickHouseParser.columnExpr`.
+     * Visit a parse tree produced by the `ColumnExpressionExtract`
+     * labeled alternative in `ClickHouseParser.columnExpression`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitColumnExprIdentifier?: (ctx: ColumnExprIdentifierContext) => Result;
+    visitColumnExpressionExtract?: (ctx: ColumnExpressionExtractContext) => Result;
     /**
-     * Visit a parse tree produced by the `ColumnExprFunction`
-     * labeled alternative in `ClickHouseParser.columnExpr`.
+     * Visit a parse tree produced by the `ColumnExpressionCast`
+     * labeled alternative in `ClickHouseParser.columnExpression`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitColumnExprFunction?: (ctx: ColumnExprFunctionContext) => Result;
+    visitColumnExpressionCast?: (ctx: ColumnExpressionCastContext) => Result;
     /**
-     * Visit a parse tree produced by the `ColumnExprAsterisk`
-     * labeled alternative in `ClickHouseParser.columnExpr`.
+     * Visit a parse tree produced by the `ColumnExpressionOr`
+     * labeled alternative in `ClickHouseParser.columnExpression`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitColumnExprAsterisk?: (ctx: ColumnExprAsteriskContext) => Result;
+    visitColumnExpressionOr?: (ctx: ColumnExpressionOrContext) => Result;
     /**
-     * Visit a parse tree produced by `ClickHouseParser.columnArgList`.
+     * Visit a parse tree produced by `ClickHouseParser.columnArgumentList`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitColumnArgList?: (ctx: ColumnArgListContext) => Result;
+    visitColumnArgumentList?: (ctx: ColumnArgumentListContext) => Result;
     /**
-     * Visit a parse tree produced by `ClickHouseParser.columnArgExpr`.
+     * Visit a parse tree produced by `ClickHouseParser.columnArgumentExpression`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitColumnArgExpr?: (ctx: ColumnArgExprContext) => Result;
+    visitColumnArgumentExpression?: (ctx: ColumnArgumentExpressionContext) => Result;
     /**
-     * Visit a parse tree produced by `ClickHouseParser.columnLambdaExpr`.
+     * Visit a parse tree produced by `ClickHouseParser.columnLambdaExpression`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitColumnLambdaExpr?: (ctx: ColumnLambdaExprContext) => Result;
+    visitColumnLambdaExpression?: (ctx: ColumnLambdaExpressionContext) => Result;
     /**
      * Visit a parse tree produced by `ClickHouseParser.columnIdentifier`.
      * @param ctx the parse tree
@@ -1555,39 +1555,39 @@ export class ClickHouseParserVisitor<Result> extends AbstractParseTreeVisitor<Re
      */
     visitColumnIdentifier?: (ctx: ColumnIdentifierContext) => Result;
     /**
-     * Visit a parse tree produced by the `TableExprIdentifier`
-     * labeled alternative in `ClickHouseParser.tableExpr`.
+     * Visit a parse tree produced by the `TableExpressionFunction`
+     * labeled alternative in `ClickHouseParser.tableExpression`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitTableExprIdentifier?: (ctx: TableExprIdentifierContext) => Result;
+    visitTableExpressionFunction?: (ctx: TableExpressionFunctionContext) => Result;
     /**
-     * Visit a parse tree produced by the `TableExprSubquery`
-     * labeled alternative in `ClickHouseParser.tableExpr`.
+     * Visit a parse tree produced by the `TableExpressionIdentifier`
+     * labeled alternative in `ClickHouseParser.tableExpression`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitTableExprSubquery?: (ctx: TableExprSubqueryContext) => Result;
+    visitTableExpressionIdentifier?: (ctx: TableExpressionIdentifierContext) => Result;
     /**
-     * Visit a parse tree produced by the `TableExprAlias`
-     * labeled alternative in `ClickHouseParser.tableExpr`.
+     * Visit a parse tree produced by the `TableExpressionAlias`
+     * labeled alternative in `ClickHouseParser.tableExpression`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitTableExprAlias?: (ctx: TableExprAliasContext) => Result;
+    visitTableExpressionAlias?: (ctx: TableExpressionAliasContext) => Result;
     /**
-     * Visit a parse tree produced by the `TableExprFunction`
-     * labeled alternative in `ClickHouseParser.tableExpr`.
+     * Visit a parse tree produced by the `TableExpressionSubquery`
+     * labeled alternative in `ClickHouseParser.tableExpression`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitTableExprFunction?: (ctx: TableExprFunctionContext) => Result;
+    visitTableExpressionSubquery?: (ctx: TableExpressionSubqueryContext) => Result;
     /**
-     * Visit a parse tree produced by `ClickHouseParser.tableFunctionExpr`.
+     * Visit a parse tree produced by `ClickHouseParser.tableFunctionExpression`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitTableFunctionExpr?: (ctx: TableFunctionExprContext) => Result;
+    visitTableFunctionExpression?: (ctx: TableFunctionExpressionContext) => Result;
     /**
      * Visit a parse tree produced by `ClickHouseParser.tableIdentifier`.
      * @param ctx the parse tree
@@ -1601,11 +1601,11 @@ export class ClickHouseParserVisitor<Result> extends AbstractParseTreeVisitor<Re
      */
     visitTableArgList?: (ctx: TableArgListContext) => Result;
     /**
-     * Visit a parse tree produced by `ClickHouseParser.tableArgExpr`.
+     * Visit a parse tree produced by `ClickHouseParser.tableArgExpression`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitTableArgExpr?: (ctx: TableArgExprContext) => Result;
+    visitTableArgExpression?: (ctx: TableArgExpressionContext) => Result;
     /**
      * Visit a parse tree produced by `ClickHouseParser.databaseIdentifier`.
      * @param ctx the parse tree
