@@ -400,7 +400,7 @@ discardStatement
 alterTableStatement
     : ALTER TABLE (IF_P EXISTS)? relationExpression (alterTableCommands | partitionCommand)
     | ALTER TABLE ALL IN_P TABLESPACE name (OWNED BY roleList)? SET TABLESPACE name optionalNowait
-    | ALTER INDEX (IF_P EXISTS)? qualifiedName (alterTableCommands | indexPartitionCommand)
+    | ALTER INDEX (IF_P EXISTS)? indexName (alterTableCommands | indexPartitionCommand)
     | ALTER INDEX ALL IN_P TABLESPACE name (OWNED BY roleList)? SET TABLESPACE name optionalNowait
     | ALTER SEQUENCE (IF_P EXISTS)? qualifiedName alterTableCommands
     | ALTER VIEW (IF_P EXISTS)? qualifiedName alterTableCommands
@@ -508,7 +508,7 @@ replicaIdentity
     : NOTHING
     | FULL
     | DEFAULT
-    | USING INDEX name
+    | USING INDEX indexName
     ;
 
 relOptions
@@ -858,7 +858,7 @@ usingIndexTablespace
     ;
 
 existingIndex
-    : USING INDEX name
+    : USING INDEX indexName
     ;
 
 createStatsStatement
@@ -993,6 +993,7 @@ alterExtensionOptionItem
 
 alterExtensionContentsStatement
     : ALTER EXTENSION name addOrDrop objectTypeName name
+    | ALTER EXTENSION name addOrDrop INDEX indexName
     | ALTER EXTENSION name addOrDrop objectTypeAnyName anyName
     | ALTER EXTENSION name addOrDrop AGGREGATE aggregateWithArgumentTypes
     | ALTER EXTENSION name addOrDrop CAST OPEN_PAREN typeName AS typeName CLOSE_PAREN
@@ -1431,8 +1432,8 @@ reassignOwnedStatement
     ;
 
 dropStatement
-    : DROP objectTypeAnyName IF_P EXISTS anyNameList optionalDropBehavior
-    | DROP objectTypeAnyName anyNameList optionalDropBehavior
+    : DROP objectTypeAnyName (IF_P EXISTS)? anyNameList optionalDropBehavior
+    | DROP INDEX (IF_P EXISTS)? indexNameList optionalDropBehavior
     | DROP dropTypeName IF_P EXISTS nameList optionalDropBehavior
     | DROP dropTypeName nameList optionalDropBehavior
     | DROP objectTypeNameOnAnyName name ON anyName optionalDropBehavior
@@ -1441,16 +1442,16 @@ dropStatement
     | DROP TYPE_P IF_P EXISTS typeNameList optionalDropBehavior
     | DROP DOMAIN_P typeNameList optionalDropBehavior
     | DROP DOMAIN_P IF_P EXISTS typeNameList optionalDropBehavior
-    | DROP INDEX CONCURRENTLY anyNameList optionalDropBehavior
-    | DROP INDEX CONCURRENTLY IF_P EXISTS anyNameList optionalDropBehavior
+    | DROP INDEX CONCURRENTLY indexName optionalDropBehavior
+    | DROP INDEX CONCURRENTLY IF_P EXISTS indexName optionalDropBehavior
     ;
 
+// INDEX isn't there because we want index-specific suggestions
 objectTypeAnyName
     : TABLE
     | SEQUENCE
     | VIEW
     | MATERIALIZED VIEW
-    | INDEX
     | FOREIGN TABLE
     | COLLATION
     | CONVERSION_P
@@ -1514,6 +1515,7 @@ optionalRestartSequences
 
 commentStatement
     : COMMENT ON objectTypeAnyName anyName IS commentText
+    | COMMENT ON INDEX indexName IS commentText
     | COMMENT ON COLUMN anyName IS commentText
     | COMMENT ON objectTypeName name IS commentText
     | COMMENT ON TYPE_P typeName IS commentText
@@ -1540,6 +1542,7 @@ commentText
 
 securityLabelStatement
     : SECURITY LABEL optionalProvider ON objectTypeAnyName anyName IS securityLabel
+    | SECURITY LABEL optionalProvider ON INDEX indexName IS securityLabel
     | SECURITY LABEL optionalProvider ON COLUMN anyName IS securityLabel
     | SECURITY LABEL optionalProvider ON objectTypeName name IS securityLabel
     | SECURITY LABEL optionalProvider ON TYPE_P typeName IS securityLabel
@@ -1711,6 +1714,7 @@ indexStatement
     | CREATE UNIQUE? INDEX optionalConcurrently IF_P NOT EXISTS name ON relationExpression optionalAccessMethodClause OPEN_PAREN indexParameters CLOSE_PAREN optionalInclude optionalRelOptions optionalTablespace whereClause
     ;
 
+// TODO: replace with ?
 optionalConcurrently
     : CONCURRENTLY
     |
@@ -2000,14 +2004,16 @@ dropTransformStatement
 
 reindexStatement
     : REINDEX reindexTargetType optionalConcurrently qualifiedName
+    | REINDEX INDEX optionalConcurrently indexName
     | REINDEX reindexTargetMultiTable optionalConcurrently name
+    | REINDEX OPEN_PAREN reindexOptionList CLOSE_PAREN INDEX optionalConcurrently indexName
     | REINDEX OPEN_PAREN reindexOptionList CLOSE_PAREN reindexTargetType optionalConcurrently qualifiedName
     | REINDEX OPEN_PAREN reindexOptionList CLOSE_PAREN reindexTargetMultiTable optionalConcurrently name
     ;
 
+// Doesn't include INDEX, because we want to make suggestions based on it
 reindexTargetType
-    : INDEX
-    | TABLE
+    : TABLE
     | SCHEMA
     | DATABASE
     | SYSTEM_P
@@ -2063,8 +2069,7 @@ renameStatement
     | ALTER VIEW IF_P EXISTS qualifiedName RENAME TO name
     | ALTER MATERIALIZED VIEW qualifiedName RENAME TO name
     | ALTER MATERIALIZED VIEW IF_P EXISTS qualifiedName RENAME TO name
-    | ALTER INDEX qualifiedName RENAME TO name
-    | ALTER INDEX IF_P EXISTS qualifiedName RENAME TO name
+    | ALTER INDEX (IF_P EXISTS)? indexName RENAME TO name
     | ALTER FOREIGN TABLE relationExpression RENAME TO name
     | ALTER FOREIGN TABLE IF_P EXISTS relationExpression RENAME TO name
     | ALTER TABLE relationExpression RENAME optionalColumn name TO name
@@ -2108,7 +2113,7 @@ alterObjectDependsStatement
     | ALTER ROUTINE functionWithArgumentTypes NO? DEPENDS ON EXTENSION name
     | ALTER TRIGGER name ON qualifiedName NO? DEPENDS ON EXTENSION name
     | ALTER MATERIALIZED VIEW qualifiedName NO? DEPENDS ON EXTENSION name
-    | ALTER INDEX qualifiedName NO? DEPENDS ON EXTENSION name
+    | ALTER INDEX indexName NO? DEPENDS ON EXTENSION name
     ;
 
 alterObjectSchemaStatement
@@ -3747,6 +3752,14 @@ targetElement
 
 qualifiedNameList
     : qualifiedName (COMMA qualifiedName)*
+    ;
+
+indexName
+    : qualifiedName
+    ;
+
+indexNameList
+    : indexName (COMMA indexName)*
     ;
 
 qualifiedName
