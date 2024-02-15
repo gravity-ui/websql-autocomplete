@@ -1843,7 +1843,7 @@ aggregateWithArgumentTypesList
 
 createFunctionOptionList
     : createFunctionOptionItem+ {
-                this.ParseRoutineBody(_localctx);
+                this.ParseRoutineBody(localContext);
             }
     //                    | createfunc_opt_list createfunc_opt_item
     ;

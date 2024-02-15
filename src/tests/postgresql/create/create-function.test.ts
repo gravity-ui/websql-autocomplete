@@ -1,5 +1,6 @@
 import {parsePostgreSqlQueryWithCursor} from '../../lib';
 import {KeywordSuggestion} from '../../../types';
+import {parsePostgreSqlQueryWithoutCursor} from '../../..';
 
 test('should suggest properly after FUNCTION', () => {
     const parseResult = parsePostgreSqlQueryWithCursor('CREATE FUNCTION |');
@@ -168,4 +169,12 @@ test('should suggest properly after RETURNS and a type', () => {
         {value: 'PARALLEL'},
     ];
     expect(parseResult.suggestKeywords).toEqual(keywordsSuggestion);
+});
+
+test('should not report errors', () => {
+    const parseResult = parsePostgreSqlQueryWithoutCursor(
+        'CREATE FUNCTION test_function (test_argument CHARACTER) RETURNS TEXT LANGUAGE PLPGSQL AS $$ BEGIN RETURN "test" END; $$;',
+    );
+
+    expect(parseResult.errors).toHaveLength(0);
 });
