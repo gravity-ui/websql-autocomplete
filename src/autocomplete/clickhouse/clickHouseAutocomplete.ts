@@ -11,7 +11,7 @@ import {
 import {ClickHouseLexer} from './generated/ClickHouseLexer.js';
 import {
     ClickHouseParser,
-    TableExprAliasContext,
+    TableExpressionAliasContext,
     TableIdentifierContext,
 } from './generated/ClickHouseParser.js';
 import {ClickHouseParserVisitor} from './generated/ClickHouseParserVisitor.js';
@@ -112,12 +112,12 @@ class ClickHouseSymbolTableVisitor
         return this.visitChildren(context) as {};
     };
 
-    visitTableExprAlias = (context: TableExprAliasContext): {} => {
+    visitTableExpressionAlias = (context: TableExpressionAliasContext): {} => {
         try {
             this.symbolTable.addNewSymbolOfType(
                 TableSymbol,
                 this.scope,
-                context.tableExpr()?.getText(),
+                context.tableExpression()?.getText(),
                 context.alias()?.getText() || context.identifier()?.getText() || undefined,
             );
         } catch (error) {
@@ -146,8 +146,8 @@ function generateSuggestionsFromRules(
             case ClickHouseParser.RULE_tableIdentifier: {
                 if (
                     cursorTokenIndex === ruleData.startTokenIndex &&
-                    !ruleData.ruleList.includes(ClickHouseParser.RULE_createStmt) &&
-                    !ruleData.ruleList.includes(ClickHouseParser.RULE_columnsExpr)
+                    !ruleData.ruleList.includes(ClickHouseParser.RULE_createStatement) &&
+                    !ruleData.ruleList.includes(ClickHouseParser.RULE_columnsExpression)
                 ) {
                     if (
                         hasPreviousToken(
@@ -174,7 +174,7 @@ function generateSuggestionsFromRules(
                 break;
             }
             case ClickHouseParser.RULE_identifier: {
-                if (ruleData.ruleList.includes(ClickHouseParser.RULE_columnExpr)) {
+                if (ruleData.ruleList.includes(ClickHouseParser.RULE_columnExpression)) {
                     suggestFunctions = true;
                     // TODO Not sure yet how to specifically find aggregate functions
                     suggestAggregateFunctions = true;
@@ -217,10 +217,10 @@ function getParseTree(parser: ClickHouseParser, type?: TableQueryPosition['type'
         case 'from':
             return parser.fromClause();
         case 'alter':
-            return parser.alterStmt();
+            return parser.alterStatement();
         case 'insert':
             // INSERT doesn't work for now: for some reason any INSERT statement throws error
-            return parser.insertStmt();
+            return parser.insertStatement();
     }
 }
 

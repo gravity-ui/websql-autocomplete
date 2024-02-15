@@ -259,17 +259,17 @@ export class ClickHouseParser extends antlr.Parser {
     public static readonly RULE_statements = 1;
     public static readonly RULE_statement = 2;
     public static readonly RULE_notInsertStatement = 3;
-    public static readonly RULE_ctes = 4;
+    public static readonly RULE_commonTableExpressionStatement = 4;
     public static readonly RULE_namedQuery = 5;
     public static readonly RULE_columnAliases = 6;
-    public static readonly RULE_alterStmt = 7;
+    public static readonly RULE_alterStatement = 7;
     public static readonly RULE_alterTableClause = 8;
-    public static readonly RULE_assignmentExprList = 9;
-    public static readonly RULE_assignmentExpr = 10;
+    public static readonly RULE_assignmentExpressionList = 9;
+    public static readonly RULE_assignmentExpression = 10;
     public static readonly RULE_tableColumnPropertyType = 11;
     public static readonly RULE_partitionClause = 12;
-    public static readonly RULE_attachStmt = 13;
-    public static readonly RULE_checkStmt = 14;
+    public static readonly RULE_attachStatement = 13;
+    public static readonly RULE_checkStatement = 14;
     public static readonly RULE_deleteStatement = 15;
     public static readonly RULE_createTableStatement = 16;
     public static readonly RULE_createDatabaseStatement = 17;
@@ -277,12 +277,12 @@ export class ClickHouseParser extends antlr.Parser {
     public static readonly RULE_createLiveViewStatement = 19;
     public static readonly RULE_createMaterializedViewStatement = 20;
     public static readonly RULE_createViewStatement = 21;
-    public static readonly RULE_createStmt = 22;
+    public static readonly RULE_createStatement = 22;
     public static readonly RULE_dictionarySchemaClause = 23;
-    public static readonly RULE_dictionaryAttrDfnt = 24;
+    public static readonly RULE_dictionaryAttributeDefinition = 24;
     public static readonly RULE_dictionaryEngineClause = 25;
     public static readonly RULE_dictionaryPrimaryKeyClause = 26;
-    public static readonly RULE_dictionaryArgExpr = 27;
+    public static readonly RULE_dictionaryArgumentExpression = 27;
     public static readonly RULE_sourceClause = 28;
     public static readonly RULE_lifetimeClause = 29;
     public static readonly RULE_layoutClause = 30;
@@ -298,30 +298,30 @@ export class ClickHouseParser extends antlr.Parser {
     public static readonly RULE_primaryKeyClause = 40;
     public static readonly RULE_sampleByClause = 41;
     public static readonly RULE_ttlClause = 42;
-    public static readonly RULE_engineExpr = 43;
-    public static readonly RULE_tableElementExpr = 44;
-    public static readonly RULE_tableColumnDfnt = 45;
-    public static readonly RULE_tableColumnPropertyExpr = 46;
-    public static readonly RULE_tableIndexDfnt = 47;
-    public static readonly RULE_tableProjectionDfnt = 48;
-    public static readonly RULE_codecExpr = 49;
-    public static readonly RULE_codecArgExpr = 50;
-    public static readonly RULE_ttlExpr = 51;
-    public static readonly RULE_describeStmt = 52;
-    public static readonly RULE_dropStmt = 53;
-    public static readonly RULE_existsStmt = 54;
-    public static readonly RULE_explainStmt = 55;
-    public static readonly RULE_insertStmt = 56;
+    public static readonly RULE_engineExpression = 43;
+    public static readonly RULE_tableElementExpression = 44;
+    public static readonly RULE_tableColumnDefinition = 45;
+    public static readonly RULE_tableColumnPropertyExpression = 46;
+    public static readonly RULE_tableIndexDefinition = 47;
+    public static readonly RULE_tableProjectionDefinition = 48;
+    public static readonly RULE_codecExpression = 49;
+    public static readonly RULE_codecArgExpression = 50;
+    public static readonly RULE_ttlExpression = 51;
+    public static readonly RULE_describeStatement = 52;
+    public static readonly RULE_dropStatement = 53;
+    public static readonly RULE_existsStatement = 54;
+    public static readonly RULE_explainStatement = 55;
+    public static readonly RULE_insertStatement = 56;
     public static readonly RULE_columnsClause = 57;
     public static readonly RULE_dataClause = 58;
     public static readonly RULE_valuesStatement = 59;
-    public static readonly RULE_killStmt = 60;
-    public static readonly RULE_optimizeStmt = 61;
-    public static readonly RULE_renameStmt = 62;
-    public static readonly RULE_projectionSelectStmt = 63;
-    public static readonly RULE_selectUnionStmt = 64;
-    public static readonly RULE_selectStmtWithParens = 65;
-    public static readonly RULE_selectStmt = 66;
+    public static readonly RULE_killStatement = 60;
+    public static readonly RULE_optimizeStatement = 61;
+    public static readonly RULE_renameStatement = 62;
+    public static readonly RULE_projectionSelectStatement = 63;
+    public static readonly RULE_selectUnionStatement = 64;
+    public static readonly RULE_selectStatementWithParentheses = 65;
+    public static readonly RULE_selectStatement = 66;
     public static readonly RULE_withClause = 67;
     public static readonly RULE_topClause = 68;
     public static readonly RULE_fromClause = 69;
@@ -336,42 +336,42 @@ export class ClickHouseParser extends antlr.Parser {
     public static readonly RULE_limitByClause = 78;
     public static readonly RULE_limitClause = 79;
     public static readonly RULE_settingsClause = 80;
-    public static readonly RULE_joinExpr = 81;
-    public static readonly RULE_joinOp = 82;
-    public static readonly RULE_joinOpCross = 83;
+    public static readonly RULE_joinExpression = 81;
+    public static readonly RULE_joinOperator = 82;
+    public static readonly RULE_joinOperatorCross = 83;
     public static readonly RULE_joinConstraintClause = 84;
     public static readonly RULE_sampleClause = 85;
-    public static readonly RULE_limitExpr = 86;
-    public static readonly RULE_orderExprList = 87;
-    public static readonly RULE_orderExpr = 88;
-    public static readonly RULE_ratioExpr = 89;
-    public static readonly RULE_settingExprList = 90;
-    public static readonly RULE_settingExpr = 91;
-    public static readonly RULE_windowExpr = 92;
-    public static readonly RULE_winPartitionByClause = 93;
-    public static readonly RULE_winOrderByClause = 94;
-    public static readonly RULE_winFrameClause = 95;
-    public static readonly RULE_winFrameExtend = 96;
-    public static readonly RULE_winFrameBound = 97;
-    public static readonly RULE_setStmt = 98;
-    public static readonly RULE_showStmt = 99;
-    public static readonly RULE_systemStmt = 100;
-    public static readonly RULE_truncateStmt = 101;
-    public static readonly RULE_useStmt = 102;
-    public static readonly RULE_watchStmt = 103;
-    public static readonly RULE_columnTypeExpr = 104;
-    public static readonly RULE_columnExprList = 105;
-    public static readonly RULE_columnsExpr = 106;
-    public static readonly RULE_columnExpr = 107;
-    public static readonly RULE_columnArgList = 108;
-    public static readonly RULE_columnArgExpr = 109;
-    public static readonly RULE_columnLambdaExpr = 110;
+    public static readonly RULE_limitExpression = 86;
+    public static readonly RULE_orderExpressionList = 87;
+    public static readonly RULE_orderExpression = 88;
+    public static readonly RULE_ratioExpression = 89;
+    public static readonly RULE_settingExpressionList = 90;
+    public static readonly RULE_settingExpression = 91;
+    public static readonly RULE_windowExpression = 92;
+    public static readonly RULE_windowPartitionByClause = 93;
+    public static readonly RULE_windowOrderByClause = 94;
+    public static readonly RULE_windowFrameClause = 95;
+    public static readonly RULE_windowFrameExtend = 96;
+    public static readonly RULE_windowFrameBound = 97;
+    public static readonly RULE_setStatement = 98;
+    public static readonly RULE_showStatement = 99;
+    public static readonly RULE_systemStatement = 100;
+    public static readonly RULE_truncateStatement = 101;
+    public static readonly RULE_useStatement = 102;
+    public static readonly RULE_watchStatement = 103;
+    public static readonly RULE_columnTypeExpression = 104;
+    public static readonly RULE_columnExpressionList = 105;
+    public static readonly RULE_columnsExpression = 106;
+    public static readonly RULE_columnExpression = 107;
+    public static readonly RULE_columnArgumentList = 108;
+    public static readonly RULE_columnArgumentExpression = 109;
+    public static readonly RULE_columnLambdaExpression = 110;
     public static readonly RULE_columnIdentifier = 111;
-    public static readonly RULE_tableExpr = 112;
-    public static readonly RULE_tableFunctionExpr = 113;
+    public static readonly RULE_tableExpression = 112;
+    public static readonly RULE_tableFunctionExpression = 113;
     public static readonly RULE_tableIdentifier = 114;
     public static readonly RULE_tableArgList = 115;
-    public static readonly RULE_tableArgExpr = 116;
+    public static readonly RULE_tableArgExpression = 116;
     public static readonly RULE_databaseIdentifier = 117;
     public static readonly RULE_floatingLiteral = 118;
     public static readonly RULE_numberLiteral = 119;
@@ -447,37 +447,41 @@ export class ClickHouseParser extends antlr.Parser {
         "MULTI_LINE_COMMENT", "SINGLE_LINE_COMMENT", "WHITESPACE"
     ];
     public static readonly ruleNames = [
-        "root", "statements", "statement", "notInsertStatement", "ctes", 
-        "namedQuery", "columnAliases", "alterStmt", "alterTableClause", 
-        "assignmentExprList", "assignmentExpr", "tableColumnPropertyType", 
-        "partitionClause", "attachStmt", "checkStmt", "deleteStatement", 
+        "root", "statements", "statement", "notInsertStatement", "commonTableExpressionStatement", 
+        "namedQuery", "columnAliases", "alterStatement", "alterTableClause", 
+        "assignmentExpressionList", "assignmentExpression", "tableColumnPropertyType", 
+        "partitionClause", "attachStatement", "checkStatement", "deleteStatement", 
         "createTableStatement", "createDatabaseStatement", "createDictionaryStatement", 
         "createLiveViewStatement", "createMaterializedViewStatement", "createViewStatement", 
-        "createStmt", "dictionarySchemaClause", "dictionaryAttrDfnt", "dictionaryEngineClause", 
-        "dictionaryPrimaryKeyClause", "dictionaryArgExpr", "sourceClause", 
-        "lifetimeClause", "layoutClause", "rangeClause", "dictionarySettingsClause", 
-        "clusterClause", "uuidClause", "destinationClause", "subqueryClause", 
-        "tableSchemaClause", "engineClause", "partitionByClause", "primaryKeyClause", 
-        "sampleByClause", "ttlClause", "engineExpr", "tableElementExpr", 
-        "tableColumnDfnt", "tableColumnPropertyExpr", "tableIndexDfnt", 
-        "tableProjectionDfnt", "codecExpr", "codecArgExpr", "ttlExpr", "describeStmt", 
-        "dropStmt", "existsStmt", "explainStmt", "insertStmt", "columnsClause", 
-        "dataClause", "valuesStatement", "killStmt", "optimizeStmt", "renameStmt", 
-        "projectionSelectStmt", "selectUnionStmt", "selectStmtWithParens", 
-        "selectStmt", "withClause", "topClause", "fromClause", "arrayJoinClause", 
-        "windowClause", "prewhereClause", "whereClause", "groupByClause", 
-        "havingClause", "orderByClause", "projectionOrderByClause", "limitByClause", 
-        "limitClause", "settingsClause", "joinExpr", "joinOp", "joinOpCross", 
-        "joinConstraintClause", "sampleClause", "limitExpr", "orderExprList", 
-        "orderExpr", "ratioExpr", "settingExprList", "settingExpr", "windowExpr", 
-        "winPartitionByClause", "winOrderByClause", "winFrameClause", "winFrameExtend", 
-        "winFrameBound", "setStmt", "showStmt", "systemStmt", "truncateStmt", 
-        "useStmt", "watchStmt", "columnTypeExpr", "columnExprList", "columnsExpr", 
-        "columnExpr", "columnArgList", "columnArgExpr", "columnLambdaExpr", 
-        "columnIdentifier", "tableExpr", "tableFunctionExpr", "tableIdentifier", 
-        "tableArgList", "tableArgExpr", "databaseIdentifier", "floatingLiteral", 
-        "numberLiteral", "literal", "interval", "keyword", "keywordForAlias", 
-        "alias", "identifier", "identifierOrNull", "enumValue",
+        "createStatement", "dictionarySchemaClause", "dictionaryAttributeDefinition", 
+        "dictionaryEngineClause", "dictionaryPrimaryKeyClause", "dictionaryArgumentExpression", 
+        "sourceClause", "lifetimeClause", "layoutClause", "rangeClause", 
+        "dictionarySettingsClause", "clusterClause", "uuidClause", "destinationClause", 
+        "subqueryClause", "tableSchemaClause", "engineClause", "partitionByClause", 
+        "primaryKeyClause", "sampleByClause", "ttlClause", "engineExpression", 
+        "tableElementExpression", "tableColumnDefinition", "tableColumnPropertyExpression", 
+        "tableIndexDefinition", "tableProjectionDefinition", "codecExpression", 
+        "codecArgExpression", "ttlExpression", "describeStatement", "dropStatement", 
+        "existsStatement", "explainStatement", "insertStatement", "columnsClause", 
+        "dataClause", "valuesStatement", "killStatement", "optimizeStatement", 
+        "renameStatement", "projectionSelectStatement", "selectUnionStatement", 
+        "selectStatementWithParentheses", "selectStatement", "withClause", 
+        "topClause", "fromClause", "arrayJoinClause", "windowClause", "prewhereClause", 
+        "whereClause", "groupByClause", "havingClause", "orderByClause", 
+        "projectionOrderByClause", "limitByClause", "limitClause", "settingsClause", 
+        "joinExpression", "joinOperator", "joinOperatorCross", "joinConstraintClause", 
+        "sampleClause", "limitExpression", "orderExpressionList", "orderExpression", 
+        "ratioExpression", "settingExpressionList", "settingExpression", 
+        "windowExpression", "windowPartitionByClause", "windowOrderByClause", 
+        "windowFrameClause", "windowFrameExtend", "windowFrameBound", "setStatement", 
+        "showStatement", "systemStatement", "truncateStatement", "useStatement", 
+        "watchStatement", "columnTypeExpression", "columnExpressionList", 
+        "columnsExpression", "columnExpression", "columnArgumentList", "columnArgumentExpression", 
+        "columnLambdaExpression", "columnIdentifier", "tableExpression", 
+        "tableFunctionExpression", "tableIdentifier", "tableArgList", "tableArgExpression", 
+        "databaseIdentifier", "floatingLiteral", "numberLiteral", "literal", 
+        "interval", "keyword", "keywordForAlias", "alias", "identifier", 
+        "identifierOrNull", "enumValue",
     ];
 
     public get grammarFileName(): string { return "ClickHouseParser.g4"; }
@@ -659,7 +663,7 @@ export class ClickHouseParser extends antlr.Parser {
                 this.enterOuterAlt(localContext, 2);
                 {
                 this.state = 284;
-                this.insertStmt();
+                this.insertStatement();
                 }
                 break;
             default:
@@ -691,35 +695,35 @@ export class ClickHouseParser extends antlr.Parser {
                 this.enterOuterAlt(localContext, 1);
                 {
                 this.state = 287;
-                this.alterStmt();
+                this.alterStatement();
                 }
                 break;
             case 2:
                 this.enterOuterAlt(localContext, 2);
                 {
                 this.state = 288;
-                this.attachStmt();
+                this.attachStatement();
                 }
                 break;
             case 3:
                 this.enterOuterAlt(localContext, 3);
                 {
                 this.state = 289;
-                this.checkStmt();
+                this.checkStatement();
                 }
                 break;
             case 4:
                 this.enterOuterAlt(localContext, 4);
                 {
                 this.state = 290;
-                this.createStmt();
+                this.createStatement();
                 }
                 break;
             case 5:
                 this.enterOuterAlt(localContext, 5);
                 {
                 this.state = 291;
-                this.describeStmt();
+                this.describeStatement();
                 }
                 break;
             case 6:
@@ -733,91 +737,91 @@ export class ClickHouseParser extends antlr.Parser {
                 this.enterOuterAlt(localContext, 7);
                 {
                 this.state = 293;
-                this.dropStmt();
+                this.dropStatement();
                 }
                 break;
             case 8:
                 this.enterOuterAlt(localContext, 8);
                 {
                 this.state = 294;
-                this.existsStmt();
+                this.existsStatement();
                 }
                 break;
             case 9:
                 this.enterOuterAlt(localContext, 9);
                 {
                 this.state = 295;
-                this.explainStmt();
+                this.explainStatement();
                 }
                 break;
             case 10:
                 this.enterOuterAlt(localContext, 10);
                 {
                 this.state = 296;
-                this.killStmt();
+                this.killStatement();
                 }
                 break;
             case 11:
                 this.enterOuterAlt(localContext, 11);
                 {
                 this.state = 297;
-                this.optimizeStmt();
+                this.optimizeStatement();
                 }
                 break;
             case 12:
                 this.enterOuterAlt(localContext, 12);
                 {
                 this.state = 298;
-                this.renameStmt();
+                this.renameStatement();
                 }
                 break;
             case 13:
                 this.enterOuterAlt(localContext, 13);
                 {
                 this.state = 299;
-                this.selectUnionStmt();
+                this.selectUnionStatement();
                 }
                 break;
             case 14:
                 this.enterOuterAlt(localContext, 14);
                 {
                 this.state = 300;
-                this.setStmt();
+                this.setStatement();
                 }
                 break;
             case 15:
                 this.enterOuterAlt(localContext, 15);
                 {
                 this.state = 301;
-                this.showStmt();
+                this.showStatement();
                 }
                 break;
             case 16:
                 this.enterOuterAlt(localContext, 16);
                 {
                 this.state = 302;
-                this.systemStmt();
+                this.systemStatement();
                 }
                 break;
             case 17:
                 this.enterOuterAlt(localContext, 17);
                 {
                 this.state = 303;
-                this.truncateStmt();
+                this.truncateStatement();
                 }
                 break;
             case 18:
                 this.enterOuterAlt(localContext, 18);
                 {
                 this.state = 304;
-                this.useStmt();
+                this.useStatement();
                 }
                 break;
             case 19:
                 this.enterOuterAlt(localContext, 19);
                 {
                 this.state = 305;
-                this.watchStmt();
+                this.watchStatement();
                 }
                 break;
             case 20:
@@ -829,12 +833,12 @@ export class ClickHouseParser extends antlr.Parser {
                 case 1:
                     {
                     this.state = 306;
-                    this.ctes();
+                    this.commonTableExpressionStatement();
                     }
                     break;
                 }
                 this.state = 309;
-                this.selectStmt();
+                this.selectStatement();
                 }
                 break;
             }
@@ -853,9 +857,9 @@ export class ClickHouseParser extends antlr.Parser {
         }
         return localContext;
     }
-    public ctes(): CtesContext {
-        let localContext = new CtesContext(this.context, this.state);
-        this.enterRule(localContext, 8, ClickHouseParser.RULE_ctes);
+    public commonTableExpressionStatement(): CommonTableExpressionStatementContext {
+        let localContext = new CommonTableExpressionStatementContext(this.context, this.state);
+        this.enterRule(localContext, 8, ClickHouseParser.RULE_commonTableExpressionStatement);
         let _la: number;
         try {
             this.enterOuterAlt(localContext, 1);
@@ -984,12 +988,12 @@ export class ClickHouseParser extends antlr.Parser {
         }
         return localContext;
     }
-    public alterStmt(): AlterStmtContext {
-        let localContext = new AlterStmtContext(this.context, this.state);
-        this.enterRule(localContext, 14, ClickHouseParser.RULE_alterStmt);
+    public alterStatement(): AlterStatementContext {
+        let localContext = new AlterStatementContext(this.context, this.state);
+        this.enterRule(localContext, 14, ClickHouseParser.RULE_alterStatement);
         let _la: number;
         try {
-            localContext = new AlterTableStmtContext(localContext);
+            localContext = new AlterTableStatementContext(localContext);
             this.enterOuterAlt(localContext, 1);
             {
             this.state = 341;
@@ -1073,7 +1077,7 @@ export class ClickHouseParser extends antlr.Parser {
                     break;
                 }
                 this.state = 362;
-                this.tableColumnDfnt();
+                this.tableColumnDefinition();
                 this.state = 365;
                 this.errorHandler.sync(this);
                 _la = this.tokenStream.LA(1);
@@ -1111,7 +1115,7 @@ export class ClickHouseParser extends antlr.Parser {
                     break;
                 }
                 this.state = 374;
-                this.tableIndexDfnt();
+                this.tableIndexDefinition();
                 this.state = 377;
                 this.errorHandler.sync(this);
                 _la = this.tokenStream.LA(1);
@@ -1149,7 +1153,7 @@ export class ClickHouseParser extends antlr.Parser {
                     break;
                 }
                 this.state = 386;
-                this.tableProjectionDfnt();
+                this.tableProjectionDefinition();
                 this.state = 389;
                 this.errorHandler.sync(this);
                 _la = this.tokenStream.LA(1);
@@ -1329,7 +1333,7 @@ export class ClickHouseParser extends antlr.Parser {
                 this.state = 440;
                 this.match(ClickHouseParser.WHERE);
                 this.state = 441;
-                this.columnExpr(0);
+                this.columnExpression(0);
                 }
                 break;
             case 10:
@@ -1537,7 +1541,7 @@ export class ClickHouseParser extends antlr.Parser {
                 this.state = 499;
                 this.columnIdentifier();
                 this.state = 500;
-                this.codecExpr();
+                this.codecExpression();
                 }
                 break;
             case 19:
@@ -1617,7 +1621,7 @@ export class ClickHouseParser extends antlr.Parser {
                     break;
                 }
                 this.state = 528;
-                this.tableColumnDfnt();
+                this.tableColumnDefinition();
                 }
                 break;
             case 22:
@@ -1631,7 +1635,7 @@ export class ClickHouseParser extends antlr.Parser {
                 this.state = 531;
                 this.match(ClickHouseParser.BY);
                 this.state = 532;
-                this.columnExpr(0);
+                this.columnExpression(0);
                 }
                 break;
             case 23:
@@ -1747,7 +1751,7 @@ export class ClickHouseParser extends antlr.Parser {
                 this.state = 565;
                 this.match(ClickHouseParser.UPDATE);
                 this.state = 566;
-                this.assignmentExprList();
+                this.assignmentExpressionList();
                 this.state = 567;
                 this.whereClause();
                 }
@@ -1768,15 +1772,15 @@ export class ClickHouseParser extends antlr.Parser {
         }
         return localContext;
     }
-    public assignmentExprList(): AssignmentExprListContext {
-        let localContext = new AssignmentExprListContext(this.context, this.state);
-        this.enterRule(localContext, 18, ClickHouseParser.RULE_assignmentExprList);
+    public assignmentExpressionList(): AssignmentExpressionListContext {
+        let localContext = new AssignmentExpressionListContext(this.context, this.state);
+        this.enterRule(localContext, 18, ClickHouseParser.RULE_assignmentExpressionList);
         let _la: number;
         try {
             this.enterOuterAlt(localContext, 1);
             {
             this.state = 571;
-            this.assignmentExpr();
+            this.assignmentExpression();
             this.state = 576;
             this.errorHandler.sync(this);
             _la = this.tokenStream.LA(1);
@@ -1786,7 +1790,7 @@ export class ClickHouseParser extends antlr.Parser {
                 this.state = 572;
                 this.match(ClickHouseParser.COMMA);
                 this.state = 573;
-                this.assignmentExpr();
+                this.assignmentExpression();
                 }
                 }
                 this.state = 578;
@@ -1809,9 +1813,9 @@ export class ClickHouseParser extends antlr.Parser {
         }
         return localContext;
     }
-    public assignmentExpr(): AssignmentExprContext {
-        let localContext = new AssignmentExprContext(this.context, this.state);
-        this.enterRule(localContext, 20, ClickHouseParser.RULE_assignmentExpr);
+    public assignmentExpression(): AssignmentExpressionContext {
+        let localContext = new AssignmentExpressionContext(this.context, this.state);
+        this.enterRule(localContext, 20, ClickHouseParser.RULE_assignmentExpression);
         try {
             this.enterOuterAlt(localContext, 1);
             {
@@ -1820,7 +1824,7 @@ export class ClickHouseParser extends antlr.Parser {
             this.state = 580;
             this.match(ClickHouseParser.EQ_SINGLE);
             this.state = 581;
-            this.columnExpr(0);
+            this.columnExpression(0);
             }
         }
         catch (re) {
@@ -1882,7 +1886,7 @@ export class ClickHouseParser extends antlr.Parser {
                 this.state = 585;
                 this.match(ClickHouseParser.PARTITION);
                 this.state = 586;
-                this.columnExpr(0);
+                this.columnExpression(0);
                 }
                 break;
             case 2:
@@ -1912,12 +1916,12 @@ export class ClickHouseParser extends antlr.Parser {
         }
         return localContext;
     }
-    public attachStmt(): AttachStmtContext {
-        let localContext = new AttachStmtContext(this.context, this.state);
-        this.enterRule(localContext, 26, ClickHouseParser.RULE_attachStmt);
+    public attachStatement(): AttachStatementContext {
+        let localContext = new AttachStatementContext(this.context, this.state);
+        this.enterRule(localContext, 26, ClickHouseParser.RULE_attachStatement);
         let _la: number;
         try {
-            localContext = new AttachDictionaryStmtContext(localContext);
+            localContext = new AttachDictionaryStatementContext(localContext);
             this.enterOuterAlt(localContext, 1);
             {
             this.state = 592;
@@ -1952,9 +1956,9 @@ export class ClickHouseParser extends antlr.Parser {
         }
         return localContext;
     }
-    public checkStmt(): CheckStmtContext {
-        let localContext = new CheckStmtContext(this.context, this.state);
-        this.enterRule(localContext, 28, ClickHouseParser.RULE_checkStmt);
+    public checkStatement(): CheckStatementContext {
+        let localContext = new CheckStatementContext(this.context, this.state);
+        this.enterRule(localContext, 28, ClickHouseParser.RULE_checkStatement);
         let _la: number;
         try {
             this.enterOuterAlt(localContext, 1);
@@ -2222,7 +2226,7 @@ export class ClickHouseParser extends antlr.Parser {
             }
 
             this.state = 658;
-            this.engineExpr();
+            this.engineExpression();
             }
         }
         catch (re) {
@@ -2662,9 +2666,9 @@ export class ClickHouseParser extends antlr.Parser {
         }
         return localContext;
     }
-    public createStmt(): CreateStmtContext {
-        let localContext = new CreateStmtContext(this.context, this.state);
-        this.enterRule(localContext, 44, ClickHouseParser.RULE_createStmt);
+    public createStatement(): CreateStatementContext {
+        let localContext = new CreateStatementContext(this.context, this.state);
+        this.enterRule(localContext, 44, ClickHouseParser.RULE_createStatement);
         try {
             this.state = 771;
             this.errorHandler.sync(this);
@@ -2737,7 +2741,7 @@ export class ClickHouseParser extends antlr.Parser {
             this.state = 773;
             this.match(ClickHouseParser.LPAREN);
             this.state = 774;
-            this.dictionaryAttrDfnt();
+            this.dictionaryAttributeDefinition();
             this.state = 779;
             this.errorHandler.sync(this);
             _la = this.tokenStream.LA(1);
@@ -2747,7 +2751,7 @@ export class ClickHouseParser extends antlr.Parser {
                 this.state = 775;
                 this.match(ClickHouseParser.COMMA);
                 this.state = 776;
-                this.dictionaryAttrDfnt();
+                this.dictionaryAttributeDefinition();
                 }
                 }
                 this.state = 781;
@@ -2772,9 +2776,9 @@ export class ClickHouseParser extends antlr.Parser {
         }
         return localContext;
     }
-    public dictionaryAttrDfnt(): DictionaryAttrDfntContext {
-        let localContext = new DictionaryAttrDfntContext(this.context, this.state);
-        this.enterRule(localContext, 48, ClickHouseParser.RULE_dictionaryAttrDfnt);
+    public dictionaryAttributeDefinition(): DictionaryAttributeDefinitionContext {
+        let localContext = new DictionaryAttributeDefinitionContext(this.context, this.state);
+        this.enterRule(localContext, 48, ClickHouseParser.RULE_dictionaryAttributeDefinition);
         try {
             let alternative: number;
             this.enterOuterAlt(localContext, 1);
@@ -2782,7 +2786,7 @@ export class ClickHouseParser extends antlr.Parser {
             this.state = 784;
             this.identifier();
             this.state = 785;
-            this.columnTypeExpr();
+            this.columnTypeExpression();
             this.state = 807;
             this.errorHandler.sync(this);
             alternative = this.interpreter.adaptivePredict(this.tokenStream, 86, this.context);
@@ -2814,7 +2818,7 @@ export class ClickHouseParser extends antlr.Parser {
                         this.state = 792;
                         this.match(ClickHouseParser.EXPRESSION);
                         this.state = 793;
-                        this.columnExpr(0);
+                        this.columnExpression(0);
                         localContext.attrs.add("expression");
                         }
                         break;
@@ -2989,7 +2993,7 @@ export class ClickHouseParser extends antlr.Parser {
             this.state = 839;
             this.match(ClickHouseParser.KEY);
             this.state = 840;
-            this.columnExprList();
+            this.columnExpressionList();
             }
         }
         catch (re) {
@@ -3006,9 +3010,9 @@ export class ClickHouseParser extends antlr.Parser {
         }
         return localContext;
     }
-    public dictionaryArgExpr(): DictionaryArgExprContext {
-        let localContext = new DictionaryArgExprContext(this.context, this.state);
-        this.enterRule(localContext, 54, ClickHouseParser.RULE_dictionaryArgExpr);
+    public dictionaryArgumentExpression(): DictionaryArgumentExpressionContext {
+        let localContext = new DictionaryArgumentExpressionContext(this.context, this.state);
+        this.enterRule(localContext, 54, ClickHouseParser.RULE_dictionaryArgumentExpression);
         let _la: number;
         try {
             this.enterOuterAlt(localContext, 1);
@@ -3279,7 +3283,7 @@ export class ClickHouseParser extends antlr.Parser {
                 {
                 {
                 this.state = 855;
-                this.dictionaryArgExpr();
+                this.dictionaryArgumentExpression();
                 }
                 }
                 this.state = 860;
@@ -3392,7 +3396,7 @@ export class ClickHouseParser extends antlr.Parser {
                 {
                 {
                 this.state = 883;
-                this.dictionaryArgExpr();
+                this.dictionaryArgumentExpression();
                 }
                 }
                 this.state = 888;
@@ -3488,7 +3492,7 @@ export class ClickHouseParser extends antlr.Parser {
             this.state = 909;
             this.match(ClickHouseParser.LPAREN);
             this.state = 910;
-            this.settingExprList();
+            this.settingExpressionList();
             this.state = 911;
             this.match(ClickHouseParser.RPAREN);
             }
@@ -3798,7 +3802,7 @@ export class ClickHouseParser extends antlr.Parser {
             this.state = 925;
             this.match(ClickHouseParser.AS);
             this.state = 926;
-            this.selectUnionStmt();
+            this.selectUnionStatement();
             }
         }
         catch (re) {
@@ -3830,7 +3834,7 @@ export class ClickHouseParser extends antlr.Parser {
                 this.state = 928;
                 this.match(ClickHouseParser.LPAREN);
                 this.state = 929;
-                this.tableElementExpr();
+                this.tableElementExpression();
                 this.state = 934;
                 this.errorHandler.sync(this);
                 _la = this.tokenStream.LA(1);
@@ -3840,7 +3844,7 @@ export class ClickHouseParser extends antlr.Parser {
                     this.state = 930;
                     this.match(ClickHouseParser.COMMA);
                     this.state = 931;
-                    this.tableElementExpr();
+                    this.tableElementExpression();
                     }
                     }
                     this.state = 936;
@@ -3868,7 +3872,7 @@ export class ClickHouseParser extends antlr.Parser {
                 this.state = 941;
                 this.match(ClickHouseParser.AS);
                 this.state = 942;
-                this.tableFunctionExpr();
+                this.tableFunctionExpression();
                 }
                 break;
             }
@@ -3895,7 +3899,7 @@ export class ClickHouseParser extends antlr.Parser {
             this.enterOuterAlt(localContext, 1);
             {
             this.state = 945;
-            this.engineExpr();
+            this.engineExpression();
             this.state = 972;
             this.errorHandler.sync(this);
             alternative = this.interpreter.adaptivePredict(this.tokenStream, 100, this.context);
@@ -4007,7 +4011,7 @@ export class ClickHouseParser extends antlr.Parser {
             this.state = 976;
             this.match(ClickHouseParser.BY);
             this.state = 977;
-            this.columnExpr(0);
+            this.columnExpression(0);
             }
         }
         catch (re) {
@@ -4035,7 +4039,7 @@ export class ClickHouseParser extends antlr.Parser {
             this.state = 980;
             this.match(ClickHouseParser.KEY);
             this.state = 981;
-            this.columnExpr(0);
+            this.columnExpression(0);
             }
         }
         catch (re) {
@@ -4063,7 +4067,7 @@ export class ClickHouseParser extends antlr.Parser {
             this.state = 984;
             this.match(ClickHouseParser.BY);
             this.state = 985;
-            this.columnExpr(0);
+            this.columnExpression(0);
             }
         }
         catch (re) {
@@ -4090,7 +4094,7 @@ export class ClickHouseParser extends antlr.Parser {
             this.state = 987;
             this.match(ClickHouseParser.TTL);
             this.state = 988;
-            this.ttlExpr();
+            this.ttlExpression();
             this.state = 993;
             this.errorHandler.sync(this);
             alternative = this.interpreter.adaptivePredict(this.tokenStream, 101, this.context);
@@ -4101,7 +4105,7 @@ export class ClickHouseParser extends antlr.Parser {
                     this.state = 989;
                     this.match(ClickHouseParser.COMMA);
                     this.state = 990;
-                    this.ttlExpr();
+                    this.ttlExpression();
                     }
                     }
                 }
@@ -4125,9 +4129,9 @@ export class ClickHouseParser extends antlr.Parser {
         }
         return localContext;
     }
-    public engineExpr(): EngineExprContext {
-        let localContext = new EngineExprContext(this.context, this.state);
-        this.enterRule(localContext, 86, ClickHouseParser.RULE_engineExpr);
+    public engineExpression(): EngineExpressionContext {
+        let localContext = new EngineExpressionContext(this.context, this.state);
+        this.enterRule(localContext, 86, ClickHouseParser.RULE_engineExpression);
         let _la: number;
         try {
             this.enterOuterAlt(localContext, 1);
@@ -4159,7 +4163,7 @@ export class ClickHouseParser extends antlr.Parser {
                 if ((((_la) & ~0x1F) === 0 && ((1 << _la) & 4294967292) !== 0) || ((((_la - 32)) & ~0x1F) === 0 && ((1 << (_la - 32)) & 4290772991) !== 0) || ((((_la - 64)) & ~0x1F) === 0 && ((1 << (_la - 64)) & 4294967295) !== 0) || ((((_la - 96)) & ~0x1F) === 0 && ((1 << (_la - 96)) & 2147483647) !== 0) || ((((_la - 129)) & ~0x1F) === 0 && ((1 << (_la - 129)) & 4294967215) !== 0) || ((((_la - 161)) & ~0x1F) === 0 && ((1 << (_la - 161)) & 4294950911) !== 0) || ((((_la - 193)) & ~0x1F) === 0 && ((1 << (_la - 193)) & 1158024191) !== 0)) {
                     {
                     this.state = 1002;
-                    this.columnExprList();
+                    this.columnExpressionList();
                     }
                 }
 
@@ -4184,23 +4188,23 @@ export class ClickHouseParser extends antlr.Parser {
         }
         return localContext;
     }
-    public tableElementExpr(): TableElementExprContext {
-        let localContext = new TableElementExprContext(this.context, this.state);
-        this.enterRule(localContext, 88, ClickHouseParser.RULE_tableElementExpr);
+    public tableElementExpression(): TableElementExpressionContext {
+        let localContext = new TableElementExpressionContext(this.context, this.state);
+        this.enterRule(localContext, 88, ClickHouseParser.RULE_tableElementExpression);
         try {
             this.state = 1018;
             this.errorHandler.sync(this);
             switch (this.interpreter.adaptivePredict(this.tokenStream, 105, this.context) ) {
             case 1:
-                localContext = new TableElementExprColumnContext(localContext);
+                localContext = new TableElementExpressionColumnContext(localContext);
                 this.enterOuterAlt(localContext, 1);
                 {
                 this.state = 1008;
-                this.tableColumnDfnt();
+                this.tableColumnDefinition();
                 }
                 break;
             case 2:
-                localContext = new TableElementExprConstraintContext(localContext);
+                localContext = new TableElementExpressionConstraintContext(localContext);
                 this.enterOuterAlt(localContext, 2);
                 {
                 this.state = 1009;
@@ -4210,27 +4214,27 @@ export class ClickHouseParser extends antlr.Parser {
                 this.state = 1011;
                 this.match(ClickHouseParser.CHECK);
                 this.state = 1012;
-                this.columnExpr(0);
+                this.columnExpression(0);
                 }
                 break;
             case 3:
-                localContext = new TableElementExprIndexContext(localContext);
+                localContext = new TableElementExpressionIndexContext(localContext);
                 this.enterOuterAlt(localContext, 3);
                 {
                 this.state = 1014;
                 this.match(ClickHouseParser.INDEX);
                 this.state = 1015;
-                this.tableIndexDfnt();
+                this.tableIndexDefinition();
                 }
                 break;
             case 4:
-                localContext = new TableElementExprProjectionContext(localContext);
+                localContext = new TableElementExpressionProjectionContext(localContext);
                 this.enterOuterAlt(localContext, 4);
                 {
                 this.state = 1016;
                 this.match(ClickHouseParser.PROJECTION);
                 this.state = 1017;
-                this.tableProjectionDfnt();
+                this.tableProjectionDefinition();
                 }
                 break;
             }
@@ -4249,9 +4253,9 @@ export class ClickHouseParser extends antlr.Parser {
         }
         return localContext;
     }
-    public tableColumnDfnt(): TableColumnDfntContext {
-        let localContext = new TableColumnDfntContext(this.context, this.state);
-        this.enterRule(localContext, 90, ClickHouseParser.RULE_tableColumnDfnt);
+    public tableColumnDefinition(): TableColumnDefinitionContext {
+        let localContext = new TableColumnDefinitionContext(this.context, this.state);
+        this.enterRule(localContext, 90, ClickHouseParser.RULE_tableColumnDefinition);
         let _la: number;
         try {
             this.state = 1052;
@@ -4263,14 +4267,14 @@ export class ClickHouseParser extends antlr.Parser {
                 this.state = 1020;
                 this.columnIdentifier();
                 this.state = 1021;
-                this.columnTypeExpr();
+                this.columnTypeExpression();
                 this.state = 1023;
                 this.errorHandler.sync(this);
                 _la = this.tokenStream.LA(1);
                 if (_la === 3 || _la === 38 || _la === 104) {
                     {
                     this.state = 1022;
-                    this.tableColumnPropertyExpr();
+                    this.tableColumnPropertyExpression();
                     }
                 }
 
@@ -4292,7 +4296,7 @@ export class ClickHouseParser extends antlr.Parser {
                 if (_la === 24) {
                     {
                     this.state = 1029;
-                    this.codecExpr();
+                    this.codecExpression();
                     }
                 }
 
@@ -4304,7 +4308,7 @@ export class ClickHouseParser extends antlr.Parser {
                     this.state = 1032;
                     this.match(ClickHouseParser.TTL);
                     this.state = 1033;
-                    this.columnExpr(0);
+                    this.columnExpression(0);
                     }
                 }
 
@@ -4321,12 +4325,12 @@ export class ClickHouseParser extends antlr.Parser {
                 case 1:
                     {
                     this.state = 1037;
-                    this.columnTypeExpr();
+                    this.columnTypeExpression();
                     }
                     break;
                 }
                 this.state = 1040;
-                this.tableColumnPropertyExpr();
+                this.tableColumnPropertyExpression();
                 this.state = 1043;
                 this.errorHandler.sync(this);
                 _la = this.tokenStream.LA(1);
@@ -4345,7 +4349,7 @@ export class ClickHouseParser extends antlr.Parser {
                 if (_la === 24) {
                     {
                     this.state = 1045;
-                    this.codecExpr();
+                    this.codecExpression();
                     }
                 }
 
@@ -4357,7 +4361,7 @@ export class ClickHouseParser extends antlr.Parser {
                     this.state = 1048;
                     this.match(ClickHouseParser.TTL);
                     this.state = 1049;
-                    this.columnExpr(0);
+                    this.columnExpression(0);
                     }
                 }
 
@@ -4379,9 +4383,9 @@ export class ClickHouseParser extends antlr.Parser {
         }
         return localContext;
     }
-    public tableColumnPropertyExpr(): TableColumnPropertyExprContext {
-        let localContext = new TableColumnPropertyExprContext(this.context, this.state);
-        this.enterRule(localContext, 92, ClickHouseParser.RULE_tableColumnPropertyExpr);
+    public tableColumnPropertyExpression(): TableColumnPropertyExpressionContext {
+        let localContext = new TableColumnPropertyExpressionContext(this.context, this.state);
+        this.enterRule(localContext, 92, ClickHouseParser.RULE_tableColumnPropertyExpression);
         let _la: number;
         try {
             this.enterOuterAlt(localContext, 1);
@@ -4396,7 +4400,7 @@ export class ClickHouseParser extends antlr.Parser {
                 this.consume();
             }
             this.state = 1055;
-            this.columnExpr(0);
+            this.columnExpression(0);
             }
         }
         catch (re) {
@@ -4413,20 +4417,20 @@ export class ClickHouseParser extends antlr.Parser {
         }
         return localContext;
     }
-    public tableIndexDfnt(): TableIndexDfntContext {
-        let localContext = new TableIndexDfntContext(this.context, this.state);
-        this.enterRule(localContext, 94, ClickHouseParser.RULE_tableIndexDfnt);
+    public tableIndexDefinition(): TableIndexDefinitionContext {
+        let localContext = new TableIndexDefinitionContext(this.context, this.state);
+        this.enterRule(localContext, 94, ClickHouseParser.RULE_tableIndexDefinition);
         try {
             this.enterOuterAlt(localContext, 1);
             {
             this.state = 1057;
             this.columnIdentifier();
             this.state = 1058;
-            this.columnExpr(0);
+            this.columnExpression(0);
             this.state = 1059;
             this.match(ClickHouseParser.TYPE);
             this.state = 1060;
-            this.columnTypeExpr();
+            this.columnTypeExpression();
             this.state = 1061;
             this.match(ClickHouseParser.GRANULARITY);
             this.state = 1062;
@@ -4447,16 +4451,16 @@ export class ClickHouseParser extends antlr.Parser {
         }
         return localContext;
     }
-    public tableProjectionDfnt(): TableProjectionDfntContext {
-        let localContext = new TableProjectionDfntContext(this.context, this.state);
-        this.enterRule(localContext, 96, ClickHouseParser.RULE_tableProjectionDfnt);
+    public tableProjectionDefinition(): TableProjectionDefinitionContext {
+        let localContext = new TableProjectionDefinitionContext(this.context, this.state);
+        this.enterRule(localContext, 96, ClickHouseParser.RULE_tableProjectionDefinition);
         try {
             this.enterOuterAlt(localContext, 1);
             {
             this.state = 1064;
             this.columnIdentifier();
             this.state = 1065;
-            this.projectionSelectStmt();
+            this.projectionSelectStatement();
             }
         }
         catch (re) {
@@ -4473,9 +4477,9 @@ export class ClickHouseParser extends antlr.Parser {
         }
         return localContext;
     }
-    public codecExpr(): CodecExprContext {
-        let localContext = new CodecExprContext(this.context, this.state);
-        this.enterRule(localContext, 98, ClickHouseParser.RULE_codecExpr);
+    public codecExpression(): CodecExpressionContext {
+        let localContext = new CodecExpressionContext(this.context, this.state);
+        this.enterRule(localContext, 98, ClickHouseParser.RULE_codecExpression);
         let _la: number;
         try {
             this.enterOuterAlt(localContext, 1);
@@ -4485,7 +4489,7 @@ export class ClickHouseParser extends antlr.Parser {
             this.state = 1068;
             this.match(ClickHouseParser.LPAREN);
             this.state = 1069;
-            this.codecArgExpr();
+            this.codecArgExpression();
             this.state = 1074;
             this.errorHandler.sync(this);
             _la = this.tokenStream.LA(1);
@@ -4495,7 +4499,7 @@ export class ClickHouseParser extends antlr.Parser {
                 this.state = 1070;
                 this.match(ClickHouseParser.COMMA);
                 this.state = 1071;
-                this.codecArgExpr();
+                this.codecArgExpression();
                 }
                 }
                 this.state = 1076;
@@ -4520,9 +4524,9 @@ export class ClickHouseParser extends antlr.Parser {
         }
         return localContext;
     }
-    public codecArgExpr(): CodecArgExprContext {
-        let localContext = new CodecArgExprContext(this.context, this.state);
-        this.enterRule(localContext, 100, ClickHouseParser.RULE_codecArgExpr);
+    public codecArgExpression(): CodecArgExpressionContext {
+        let localContext = new CodecArgExpressionContext(this.context, this.state);
+        this.enterRule(localContext, 100, ClickHouseParser.RULE_codecArgExpression);
         let _la: number;
         try {
             this.enterOuterAlt(localContext, 1);
@@ -4542,7 +4546,7 @@ export class ClickHouseParser extends antlr.Parser {
                 if ((((_la) & ~0x1F) === 0 && ((1 << _la) & 4294967292) !== 0) || ((((_la - 32)) & ~0x1F) === 0 && ((1 << (_la - 32)) & 4290772991) !== 0) || ((((_la - 64)) & ~0x1F) === 0 && ((1 << (_la - 64)) & 4294967295) !== 0) || ((((_la - 96)) & ~0x1F) === 0 && ((1 << (_la - 96)) & 2147483647) !== 0) || ((((_la - 129)) & ~0x1F) === 0 && ((1 << (_la - 129)) & 4294967215) !== 0) || ((((_la - 161)) & ~0x1F) === 0 && ((1 << (_la - 161)) & 4294950911) !== 0) || ((((_la - 193)) & ~0x1F) === 0 && ((1 << (_la - 193)) & 1158024191) !== 0)) {
                     {
                     this.state = 1081;
-                    this.columnExprList();
+                    this.columnExpressionList();
                     }
                 }
 
@@ -4567,14 +4571,14 @@ export class ClickHouseParser extends antlr.Parser {
         }
         return localContext;
     }
-    public ttlExpr(): TtlExprContext {
-        let localContext = new TtlExprContext(this.context, this.state);
-        this.enterRule(localContext, 102, ClickHouseParser.RULE_ttlExpr);
+    public ttlExpression(): TtlExpressionContext {
+        let localContext = new TtlExpressionContext(this.context, this.state);
+        this.enterRule(localContext, 102, ClickHouseParser.RULE_ttlExpression);
         try {
             this.enterOuterAlt(localContext, 1);
             {
             this.state = 1087;
-            this.columnExpr(0);
+            this.columnExpression(0);
             this.state = 1095;
             this.errorHandler.sync(this);
             switch (this.interpreter.adaptivePredict(this.tokenStream, 118, this.context) ) {
@@ -4621,9 +4625,9 @@ export class ClickHouseParser extends antlr.Parser {
         }
         return localContext;
     }
-    public describeStmt(): DescribeStmtContext {
-        let localContext = new DescribeStmtContext(this.context, this.state);
-        this.enterRule(localContext, 104, ClickHouseParser.RULE_describeStmt);
+    public describeStatement(): DescribeStatementContext {
+        let localContext = new DescribeStatementContext(this.context, this.state);
+        this.enterRule(localContext, 104, ClickHouseParser.RULE_describeStatement);
         let _la: number;
         try {
             this.enterOuterAlt(localContext, 1);
@@ -4648,7 +4652,7 @@ export class ClickHouseParser extends antlr.Parser {
                 break;
             }
             this.state = 1101;
-            this.tableExpr(0);
+            this.tableExpression(0);
             }
         }
         catch (re) {
@@ -4665,16 +4669,16 @@ export class ClickHouseParser extends antlr.Parser {
         }
         return localContext;
     }
-    public dropStmt(): DropStmtContext {
-        let localContext = new DropStmtContext(this.context, this.state);
-        this.enterRule(localContext, 106, ClickHouseParser.RULE_dropStmt);
+    public dropStatement(): DropStatementContext {
+        let localContext = new DropStatementContext(this.context, this.state);
+        this.enterRule(localContext, 106, ClickHouseParser.RULE_dropStatement);
         let _la: number;
         try {
             this.state = 1134;
             this.errorHandler.sync(this);
             switch (this.interpreter.adaptivePredict(this.tokenStream, 127, this.context) ) {
             case 1:
-                localContext = new DropDatabaseStmtContext(localContext);
+                localContext = new DropDatabaseStatementContext(localContext);
                 this.enterOuterAlt(localContext, 1);
                 {
                 this.state = 1103;
@@ -4715,7 +4719,7 @@ export class ClickHouseParser extends antlr.Parser {
                 }
                 break;
             case 2:
-                localContext = new DropTableStmtContext(localContext);
+                localContext = new DropTableStatementContext(localContext);
                 this.enterOuterAlt(localContext, 2);
                 {
                 this.state = 1113;
@@ -4816,16 +4820,16 @@ export class ClickHouseParser extends antlr.Parser {
         }
         return localContext;
     }
-    public existsStmt(): ExistsStmtContext {
-        let localContext = new ExistsStmtContext(this.context, this.state);
-        this.enterRule(localContext, 108, ClickHouseParser.RULE_existsStmt);
+    public existsStatement(): ExistsStatementContext {
+        let localContext = new ExistsStatementContext(this.context, this.state);
+        this.enterRule(localContext, 108, ClickHouseParser.RULE_existsStatement);
         let _la: number;
         try {
             this.state = 1149;
             this.errorHandler.sync(this);
             switch (this.interpreter.adaptivePredict(this.tokenStream, 130, this.context) ) {
             case 1:
-                localContext = new ExistsDatabaseStmtContext(localContext);
+                localContext = new ExistsDatabaseStatementContext(localContext);
                 this.enterOuterAlt(localContext, 1);
                 {
                 this.state = 1136;
@@ -4837,7 +4841,7 @@ export class ClickHouseParser extends antlr.Parser {
                 }
                 break;
             case 2:
-                localContext = new ExistsTableStmtContext(localContext);
+                localContext = new ExistsTableStatementContext(localContext);
                 this.enterOuterAlt(localContext, 2);
                 {
                 this.state = 1139;
@@ -4894,15 +4898,15 @@ export class ClickHouseParser extends antlr.Parser {
         }
         return localContext;
     }
-    public explainStmt(): ExplainStmtContext {
-        let localContext = new ExplainStmtContext(this.context, this.state);
-        this.enterRule(localContext, 110, ClickHouseParser.RULE_explainStmt);
+    public explainStatement(): ExplainStatementContext {
+        let localContext = new ExplainStatementContext(this.context, this.state);
+        this.enterRule(localContext, 110, ClickHouseParser.RULE_explainStatement);
         try {
             this.state = 1172;
             this.errorHandler.sync(this);
             switch (this.interpreter.adaptivePredict(this.tokenStream, 131, this.context) ) {
             case 1:
-                localContext = new ExplainDefaultStmtContext(localContext);
+                localContext = new ExplainDefaultStatementContext(localContext);
                 this.enterOuterAlt(localContext, 1);
                 {
                 this.state = 1151;
@@ -4912,7 +4916,7 @@ export class ClickHouseParser extends antlr.Parser {
                 }
                 break;
             case 2:
-                localContext = new ExplainASTStmtContext(localContext);
+                localContext = new ExplainASTStatementContext(localContext);
                 this.enterOuterAlt(localContext, 2);
                 {
                 this.state = 1153;
@@ -4924,7 +4928,7 @@ export class ClickHouseParser extends antlr.Parser {
                 }
                 break;
             case 3:
-                localContext = new ExplainSyntaxStmtContext(localContext);
+                localContext = new ExplainSyntaxStatementContext(localContext);
                 this.enterOuterAlt(localContext, 3);
                 {
                 this.state = 1156;
@@ -4936,7 +4940,7 @@ export class ClickHouseParser extends antlr.Parser {
                 }
                 break;
             case 4:
-                localContext = new ExplainPipelineStmtContext(localContext);
+                localContext = new ExplainPipelineStatementContext(localContext);
                 this.enterOuterAlt(localContext, 4);
                 {
                 this.state = 1159;
@@ -4948,7 +4952,7 @@ export class ClickHouseParser extends antlr.Parser {
                 }
                 break;
             case 5:
-                localContext = new ExplainPlanStmtContext(localContext);
+                localContext = new ExplainPlanStatementContext(localContext);
                 this.enterOuterAlt(localContext, 5);
                 {
                 this.state = 1162;
@@ -4960,7 +4964,7 @@ export class ClickHouseParser extends antlr.Parser {
                 }
                 break;
             case 6:
-                localContext = new ExplainQueryTreeStmtContext(localContext);
+                localContext = new ExplainQueryTreeStatementContext(localContext);
                 this.enterOuterAlt(localContext, 6);
                 {
                 this.state = 1165;
@@ -4974,7 +4978,7 @@ export class ClickHouseParser extends antlr.Parser {
                 }
                 break;
             case 7:
-                localContext = new ExplainEstimateStmtContext(localContext);
+                localContext = new ExplainEstimateStatementContext(localContext);
                 this.enterOuterAlt(localContext, 7);
                 {
                 this.state = 1169;
@@ -5001,9 +5005,9 @@ export class ClickHouseParser extends antlr.Parser {
         }
         return localContext;
     }
-    public insertStmt(): InsertStmtContext {
-        let localContext = new InsertStmtContext(this.context, this.state);
-        this.enterRule(localContext, 112, ClickHouseParser.RULE_insertStmt);
+    public insertStatement(): InsertStatementContext {
+        let localContext = new InsertStatementContext(this.context, this.state);
+        this.enterRule(localContext, 112, ClickHouseParser.RULE_insertStatement);
         try {
             this.enterOuterAlt(localContext, 1);
             {
@@ -5035,7 +5039,7 @@ export class ClickHouseParser extends antlr.Parser {
                 this.state = 1180;
                 this.match(ClickHouseParser.FUNCTION);
                 this.state = 1181;
-                this.tableFunctionExpr();
+                this.tableFunctionExpression();
                 }
                 break;
             }
@@ -5145,7 +5149,7 @@ export class ClickHouseParser extends antlr.Parser {
                 this.enterOuterAlt(localContext, 3);
                 {
                 this.state = 1203;
-                this.selectUnionStmt();
+                this.selectUnionStatement();
                 this.state = 1205;
                 this.errorHandler.sync(this);
                 _la = this.tokenStream.LA(1);
@@ -5245,12 +5249,12 @@ export class ClickHouseParser extends antlr.Parser {
         }
         return localContext;
     }
-    public killStmt(): KillStmtContext {
-        let localContext = new KillStmtContext(this.context, this.state);
-        this.enterRule(localContext, 120, ClickHouseParser.RULE_killStmt);
+    public killStatement(): KillStatementContext {
+        let localContext = new KillStatementContext(this.context, this.state);
+        this.enterRule(localContext, 120, ClickHouseParser.RULE_killStatement);
         let _la: number;
         try {
-            localContext = new KillMutationStmtContext(localContext);
+            localContext = new KillMutationStatementContext(localContext);
             this.enterOuterAlt(localContext, 1);
             {
             this.state = 1228;
@@ -5302,9 +5306,9 @@ export class ClickHouseParser extends antlr.Parser {
         }
         return localContext;
     }
-    public optimizeStmt(): OptimizeStmtContext {
-        let localContext = new OptimizeStmtContext(this.context, this.state);
-        this.enterRule(localContext, 122, ClickHouseParser.RULE_optimizeStmt);
+    public optimizeStatement(): OptimizeStatementContext {
+        let localContext = new OptimizeStatementContext(this.context, this.state);
+        this.enterRule(localContext, 122, ClickHouseParser.RULE_optimizeStatement);
         let _la: number;
         try {
             this.enterOuterAlt(localContext, 1);
@@ -5371,9 +5375,9 @@ export class ClickHouseParser extends antlr.Parser {
         }
         return localContext;
     }
-    public renameStmt(): RenameStmtContext {
-        let localContext = new RenameStmtContext(this.context, this.state);
-        this.enterRule(localContext, 124, ClickHouseParser.RULE_renameStmt);
+    public renameStatement(): RenameStatementContext {
+        let localContext = new RenameStatementContext(this.context, this.state);
+        this.enterRule(localContext, 124, ClickHouseParser.RULE_renameStatement);
         let _la: number;
         try {
             this.enterOuterAlt(localContext, 1);
@@ -5434,9 +5438,9 @@ export class ClickHouseParser extends antlr.Parser {
         }
         return localContext;
     }
-    public projectionSelectStmt(): ProjectionSelectStmtContext {
-        let localContext = new ProjectionSelectStmtContext(this.context, this.state);
-        this.enterRule(localContext, 126, ClickHouseParser.RULE_projectionSelectStmt);
+    public projectionSelectStatement(): ProjectionSelectStatementContext {
+        let localContext = new ProjectionSelectStatementContext(this.context, this.state);
+        this.enterRule(localContext, 126, ClickHouseParser.RULE_projectionSelectStatement);
         let _la: number;
         try {
             this.enterOuterAlt(localContext, 1);
@@ -5456,7 +5460,7 @@ export class ClickHouseParser extends antlr.Parser {
             this.state = 1274;
             this.match(ClickHouseParser.SELECT);
             this.state = 1275;
-            this.columnExprList();
+            this.columnExpressionList();
             this.state = 1277;
             this.errorHandler.sync(this);
             _la = this.tokenStream.LA(1);
@@ -5495,15 +5499,15 @@ export class ClickHouseParser extends antlr.Parser {
         }
         return localContext;
     }
-    public selectUnionStmt(): SelectUnionStmtContext {
-        let localContext = new SelectUnionStmtContext(this.context, this.state);
-        this.enterRule(localContext, 128, ClickHouseParser.RULE_selectUnionStmt);
+    public selectUnionStatement(): SelectUnionStatementContext {
+        let localContext = new SelectUnionStatementContext(this.context, this.state);
+        this.enterRule(localContext, 128, ClickHouseParser.RULE_selectUnionStatement);
         let _la: number;
         try {
             this.enterOuterAlt(localContext, 1);
             {
             this.state = 1284;
-            this.selectStmtWithParens();
+            this.selectStatementWithParentheses();
             this.state = 1290;
             this.errorHandler.sync(this);
             _la = this.tokenStream.LA(1);
@@ -5515,7 +5519,7 @@ export class ClickHouseParser extends antlr.Parser {
                 this.state = 1286;
                 this.match(ClickHouseParser.ALL);
                 this.state = 1287;
-                this.selectStmtWithParens();
+                this.selectStatementWithParentheses();
                 }
                 }
                 this.state = 1292;
@@ -5538,9 +5542,9 @@ export class ClickHouseParser extends antlr.Parser {
         }
         return localContext;
     }
-    public selectStmtWithParens(): SelectStmtWithParensContext {
-        let localContext = new SelectStmtWithParensContext(this.context, this.state);
-        this.enterRule(localContext, 130, ClickHouseParser.RULE_selectStmtWithParens);
+    public selectStatementWithParentheses(): SelectStatementWithParenthesesContext {
+        let localContext = new SelectStatementWithParenthesesContext(this.context, this.state);
+        this.enterRule(localContext, 130, ClickHouseParser.RULE_selectStatementWithParentheses);
         try {
             this.state = 1298;
             this.errorHandler.sync(this);
@@ -5550,7 +5554,7 @@ export class ClickHouseParser extends antlr.Parser {
                 this.enterOuterAlt(localContext, 1);
                 {
                 this.state = 1293;
-                this.selectStmt();
+                this.selectStatement();
                 }
                 break;
             case ClickHouseParser.LPAREN:
@@ -5559,7 +5563,7 @@ export class ClickHouseParser extends antlr.Parser {
                 this.state = 1294;
                 this.match(ClickHouseParser.LPAREN);
                 this.state = 1295;
-                this.selectUnionStmt();
+                this.selectUnionStatement();
                 this.state = 1296;
                 this.match(ClickHouseParser.RPAREN);
                 }
@@ -5582,9 +5586,9 @@ export class ClickHouseParser extends antlr.Parser {
         }
         return localContext;
     }
-    public selectStmt(): SelectStmtContext {
-        let localContext = new SelectStmtContext(this.context, this.state);
-        this.enterRule(localContext, 132, ClickHouseParser.RULE_selectStmt);
+    public selectStatement(): SelectStatementContext {
+        let localContext = new SelectStatementContext(this.context, this.state);
+        this.enterRule(localContext, 132, ClickHouseParser.RULE_selectStatement);
         let _la: number;
         try {
             this.enterOuterAlt(localContext, 1);
@@ -5622,7 +5626,7 @@ export class ClickHouseParser extends antlr.Parser {
                 break;
             }
             this.state = 1310;
-            this.columnExprList();
+            this.columnExpressionList();
             this.state = 1312;
             this.errorHandler.sync(this);
             _la = this.tokenStream.LA(1);
@@ -5789,7 +5793,7 @@ export class ClickHouseParser extends antlr.Parser {
             this.state = 1352;
             this.match(ClickHouseParser.WITH);
             this.state = 1353;
-            this.columnExprList();
+            this.columnExpressionList();
             }
         }
         catch (re) {
@@ -5853,7 +5857,7 @@ export class ClickHouseParser extends antlr.Parser {
             this.state = 1361;
             this.match(ClickHouseParser.FROM);
             this.state = 1362;
-            this.joinExpr(0);
+            this.joinExpression(0);
             }
         }
         catch (re) {
@@ -5899,7 +5903,7 @@ export class ClickHouseParser extends antlr.Parser {
             this.state = 1368;
             this.match(ClickHouseParser.JOIN);
             this.state = 1369;
-            this.columnExprList();
+            this.columnExpressionList();
             }
         }
         catch (re) {
@@ -5931,7 +5935,7 @@ export class ClickHouseParser extends antlr.Parser {
             this.state = 1374;
             this.match(ClickHouseParser.LPAREN);
             this.state = 1375;
-            this.windowExpr();
+            this.windowExpression();
             this.state = 1376;
             this.match(ClickHouseParser.RPAREN);
             }
@@ -5959,7 +5963,7 @@ export class ClickHouseParser extends antlr.Parser {
             this.state = 1378;
             this.match(ClickHouseParser.PREWHERE);
             this.state = 1379;
-            this.columnExpr(0);
+            this.columnExpression(0);
             }
         }
         catch (re) {
@@ -5985,7 +5989,7 @@ export class ClickHouseParser extends antlr.Parser {
             this.state = 1381;
             this.match(ClickHouseParser.WHERE);
             this.state = 1382;
-            this.columnExpr(0);
+            this.columnExpression(0);
             }
         }
         catch (re) {
@@ -6030,7 +6034,7 @@ export class ClickHouseParser extends antlr.Parser {
                 this.state = 1387;
                 this.match(ClickHouseParser.LPAREN);
                 this.state = 1388;
-                this.columnExprList();
+                this.columnExpressionList();
                 this.state = 1389;
                 this.match(ClickHouseParser.RPAREN);
                 }
@@ -6038,7 +6042,7 @@ export class ClickHouseParser extends antlr.Parser {
             case 2:
                 {
                 this.state = 1391;
-                this.columnExprList();
+                this.columnExpressionList();
                 }
                 break;
             }
@@ -6067,7 +6071,7 @@ export class ClickHouseParser extends antlr.Parser {
             this.state = 1394;
             this.match(ClickHouseParser.HAVING);
             this.state = 1395;
-            this.columnExpr(0);
+            this.columnExpression(0);
             }
         }
         catch (re) {
@@ -6095,7 +6099,7 @@ export class ClickHouseParser extends antlr.Parser {
             this.state = 1398;
             this.match(ClickHouseParser.BY);
             this.state = 1399;
-            this.orderExprList();
+            this.orderExpressionList();
             }
         }
         catch (re) {
@@ -6123,7 +6127,7 @@ export class ClickHouseParser extends antlr.Parser {
             this.state = 1402;
             this.match(ClickHouseParser.BY);
             this.state = 1403;
-            this.columnExprList();
+            this.columnExpressionList();
             }
         }
         catch (re) {
@@ -6149,11 +6153,11 @@ export class ClickHouseParser extends antlr.Parser {
             this.state = 1405;
             this.match(ClickHouseParser.LIMIT);
             this.state = 1406;
-            this.limitExpr();
+            this.limitExpression();
             this.state = 1407;
             this.match(ClickHouseParser.BY);
             this.state = 1408;
-            this.columnExprList();
+            this.columnExpressionList();
             }
         }
         catch (re) {
@@ -6180,7 +6184,7 @@ export class ClickHouseParser extends antlr.Parser {
             this.state = 1410;
             this.match(ClickHouseParser.LIMIT);
             this.state = 1411;
-            this.limitExpr();
+            this.limitExpression();
             this.state = 1414;
             this.errorHandler.sync(this);
             _la = this.tokenStream.LA(1);
@@ -6218,7 +6222,7 @@ export class ClickHouseParser extends antlr.Parser {
             this.state = 1416;
             this.match(ClickHouseParser.SETTINGS);
             this.state = 1417;
-            this.settingExprList();
+            this.settingExpressionList();
             }
         }
         catch (re) {
@@ -6236,19 +6240,19 @@ export class ClickHouseParser extends antlr.Parser {
         return localContext;
     }
 
-    public joinExpr(): JoinExprContext;
-    public joinExpr(_p: number): JoinExprContext;
-    public joinExpr(_p?: number): JoinExprContext {
+    public joinExpression(): JoinExpressionContext;
+    public joinExpression(_p: number): JoinExpressionContext;
+    public joinExpression(_p?: number): JoinExpressionContext {
         if (_p === undefined) {
             _p = 0;
         }
 
         let parentContext = this.context;
         let parentState = this.state;
-        let localContext = new JoinExprContext(this.context, parentState);
+        let localContext = new JoinExpressionContext(this.context, parentState);
         let previousContext = localContext;
         let _startState = 162;
-        this.enterRecursionRule(localContext, 162, ClickHouseParser.RULE_joinExpr, _p);
+        this.enterRecursionRule(localContext, 162, ClickHouseParser.RULE_joinExpression, _p);
         let _la: number;
         try {
             let alternative: number;
@@ -6259,12 +6263,12 @@ export class ClickHouseParser extends antlr.Parser {
             switch (this.interpreter.adaptivePredict(this.tokenStream, 176, this.context) ) {
             case 1:
                 {
-                localContext = new JoinExprTableContext(localContext);
+                localContext = new JoinExpressionTableContext(localContext);
                 this.context = localContext;
                 previousContext = localContext;
 
                 this.state = 1420;
-                this.tableExpr(0);
+                this.tableExpression(0);
                 this.state = 1422;
                 this.errorHandler.sync(this);
                 switch (this.interpreter.adaptivePredict(this.tokenStream, 174, this.context) ) {
@@ -6289,13 +6293,13 @@ export class ClickHouseParser extends antlr.Parser {
                 break;
             case 2:
                 {
-                localContext = new JoinExprParensContext(localContext);
+                localContext = new JoinExpressionParensContext(localContext);
                 this.context = localContext;
                 previousContext = localContext;
                 this.state = 1427;
                 this.match(ClickHouseParser.LPAREN);
                 this.state = 1428;
-                this.joinExpr(0);
+                this.joinExpression(0);
                 this.state = 1429;
                 this.match(ClickHouseParser.RPAREN);
                 }
@@ -6317,22 +6321,22 @@ export class ClickHouseParser extends antlr.Parser {
                     switch (this.interpreter.adaptivePredict(this.tokenStream, 179, this.context) ) {
                     case 1:
                         {
-                        localContext = new JoinExprCrossOpContext(new JoinExprContext(parentContext, parentState));
-                        this.pushNewRecursionContext(localContext, _startState, ClickHouseParser.RULE_joinExpr);
+                        localContext = new JoinExpressionCrossOpContext(new JoinExpressionContext(parentContext, parentState));
+                        this.pushNewRecursionContext(localContext, _startState, ClickHouseParser.RULE_joinExpression);
                         this.state = 1433;
                         if (!(this.precpred(this.context, 3))) {
                             throw this.createFailedPredicateException("this.precpred(this.context, 3)");
                         }
                         this.state = 1434;
-                        this.joinOpCross();
+                        this.joinOperatorCross();
                         this.state = 1435;
-                        this.joinExpr(4);
+                        this.joinExpression(4);
                         }
                         break;
                     case 2:
                         {
-                        localContext = new JoinExprOpContext(new JoinExprContext(parentContext, parentState));
-                        this.pushNewRecursionContext(localContext, _startState, ClickHouseParser.RULE_joinExpr);
+                        localContext = new JoinExpressionOpContext(new JoinExpressionContext(parentContext, parentState));
+                        this.pushNewRecursionContext(localContext, _startState, ClickHouseParser.RULE_joinExpression);
                         this.state = 1437;
                         if (!(this.precpred(this.context, 4))) {
                             throw this.createFailedPredicateException("this.precpred(this.context, 4)");
@@ -6360,14 +6364,14 @@ export class ClickHouseParser extends antlr.Parser {
                         if ((((_la) & ~0x1F) === 0 && ((1 << _la) & 4496) !== 0) || ((((_la - 69)) & ~0x1F) === 0 && ((1 << (_la - 69)) & 134250497) !== 0) || _la === 143 || _la === 150) {
                             {
                             this.state = 1441;
-                            this.joinOp();
+                            this.joinOperator();
                             }
                         }
 
                         this.state = 1444;
                         this.match(ClickHouseParser.JOIN);
                         this.state = 1445;
-                        this.joinExpr(0);
+                        this.joinExpression(0);
                         this.state = 1446;
                         this.joinConstraintClause();
                         }
@@ -6395,9 +6399,9 @@ export class ClickHouseParser extends antlr.Parser {
         }
         return localContext;
     }
-    public joinOp(): JoinOpContext {
-        let localContext = new JoinOpContext(this.context, this.state);
-        this.enterRule(localContext, 164, ClickHouseParser.RULE_joinOp);
+    public joinOperator(): JoinOperatorContext {
+        let localContext = new JoinOperatorContext(this.context, this.state);
+        this.enterRule(localContext, 164, ClickHouseParser.RULE_joinOperator);
         let _la: number;
         try {
             this.state = 1496;
@@ -6654,9 +6658,9 @@ export class ClickHouseParser extends antlr.Parser {
         }
         return localContext;
     }
-    public joinOpCross(): JoinOpCrossContext {
-        let localContext = new JoinOpCrossContext(this.context, this.state);
-        this.enterRule(localContext, 166, ClickHouseParser.RULE_joinOpCross);
+    public joinOperatorCross(): JoinOperatorCrossContext {
+        let localContext = new JoinOperatorCrossContext(this.context, this.state);
+        this.enterRule(localContext, 166, ClickHouseParser.RULE_joinOperatorCross);
         let _la: number;
         try {
             this.state = 1504;
@@ -6728,7 +6732,7 @@ export class ClickHouseParser extends antlr.Parser {
                 this.state = 1506;
                 this.match(ClickHouseParser.ON);
                 this.state = 1507;
-                this.columnExprList();
+                this.columnExpressionList();
                 }
                 break;
             case 2:
@@ -6739,7 +6743,7 @@ export class ClickHouseParser extends antlr.Parser {
                 this.state = 1509;
                 this.match(ClickHouseParser.LPAREN);
                 this.state = 1510;
-                this.columnExprList();
+                this.columnExpressionList();
                 this.state = 1511;
                 this.match(ClickHouseParser.RPAREN);
                 }
@@ -6750,7 +6754,7 @@ export class ClickHouseParser extends antlr.Parser {
                 this.state = 1513;
                 this.match(ClickHouseParser.USING);
                 this.state = 1514;
-                this.columnExprList();
+                this.columnExpressionList();
                 }
                 break;
             }
@@ -6778,7 +6782,7 @@ export class ClickHouseParser extends antlr.Parser {
             this.state = 1517;
             this.match(ClickHouseParser.SAMPLE);
             this.state = 1518;
-            this.ratioExpr();
+            this.ratioExpression();
             this.state = 1521;
             this.errorHandler.sync(this);
             switch (this.interpreter.adaptivePredict(this.tokenStream, 198, this.context) ) {
@@ -6787,7 +6791,7 @@ export class ClickHouseParser extends antlr.Parser {
                 this.state = 1519;
                 this.match(ClickHouseParser.OFFSET);
                 this.state = 1520;
-                this.ratioExpr();
+                this.ratioExpression();
                 }
                 break;
             }
@@ -6807,15 +6811,15 @@ export class ClickHouseParser extends antlr.Parser {
         }
         return localContext;
     }
-    public limitExpr(): LimitExprContext {
-        let localContext = new LimitExprContext(this.context, this.state);
-        this.enterRule(localContext, 172, ClickHouseParser.RULE_limitExpr);
+    public limitExpression(): LimitExpressionContext {
+        let localContext = new LimitExpressionContext(this.context, this.state);
+        this.enterRule(localContext, 172, ClickHouseParser.RULE_limitExpression);
         let _la: number;
         try {
             this.enterOuterAlt(localContext, 1);
             {
             this.state = 1523;
-            this.columnExpr(0);
+            this.columnExpression(0);
             this.state = 1526;
             this.errorHandler.sync(this);
             _la = this.tokenStream.LA(1);
@@ -6831,7 +6835,7 @@ export class ClickHouseParser extends antlr.Parser {
                     this.consume();
                 }
                 this.state = 1525;
-                this.columnExpr(0);
+                this.columnExpression(0);
                 }
             }
 
@@ -6851,15 +6855,15 @@ export class ClickHouseParser extends antlr.Parser {
         }
         return localContext;
     }
-    public orderExprList(): OrderExprListContext {
-        let localContext = new OrderExprListContext(this.context, this.state);
-        this.enterRule(localContext, 174, ClickHouseParser.RULE_orderExprList);
+    public orderExpressionList(): OrderExpressionListContext {
+        let localContext = new OrderExpressionListContext(this.context, this.state);
+        this.enterRule(localContext, 174, ClickHouseParser.RULE_orderExpressionList);
         try {
             let alternative: number;
             this.enterOuterAlt(localContext, 1);
             {
             this.state = 1528;
-            this.orderExpr();
+            this.orderExpression();
             this.state = 1533;
             this.errorHandler.sync(this);
             alternative = this.interpreter.adaptivePredict(this.tokenStream, 200, this.context);
@@ -6870,7 +6874,7 @@ export class ClickHouseParser extends antlr.Parser {
                     this.state = 1529;
                     this.match(ClickHouseParser.COMMA);
                     this.state = 1530;
-                    this.orderExpr();
+                    this.orderExpression();
                     }
                     }
                 }
@@ -6894,15 +6898,15 @@ export class ClickHouseParser extends antlr.Parser {
         }
         return localContext;
     }
-    public orderExpr(): OrderExprContext {
-        let localContext = new OrderExprContext(this.context, this.state);
-        this.enterRule(localContext, 176, ClickHouseParser.RULE_orderExpr);
+    public orderExpression(): OrderExpressionContext {
+        let localContext = new OrderExpressionContext(this.context, this.state);
+        this.enterRule(localContext, 176, ClickHouseParser.RULE_orderExpression);
         let _la: number;
         try {
             this.enterOuterAlt(localContext, 1);
             {
             this.state = 1536;
-            this.columnExpr(0);
+            this.columnExpression(0);
             this.state = 1538;
             this.errorHandler.sync(this);
             switch (this.interpreter.adaptivePredict(this.tokenStream, 201, this.context) ) {
@@ -6967,9 +6971,9 @@ export class ClickHouseParser extends antlr.Parser {
         }
         return localContext;
     }
-    public ratioExpr(): RatioExprContext {
-        let localContext = new RatioExprContext(this.context, this.state);
-        this.enterRule(localContext, 178, ClickHouseParser.RULE_ratioExpr);
+    public ratioExpression(): RatioExpressionContext {
+        let localContext = new RatioExpressionContext(this.context, this.state);
+        this.enterRule(localContext, 178, ClickHouseParser.RULE_ratioExpression);
         try {
             this.enterOuterAlt(localContext, 1);
             {
@@ -7003,15 +7007,15 @@ export class ClickHouseParser extends antlr.Parser {
         }
         return localContext;
     }
-    public settingExprList(): SettingExprListContext {
-        let localContext = new SettingExprListContext(this.context, this.state);
-        this.enterRule(localContext, 180, ClickHouseParser.RULE_settingExprList);
+    public settingExpressionList(): SettingExpressionListContext {
+        let localContext = new SettingExpressionListContext(this.context, this.state);
+        this.enterRule(localContext, 180, ClickHouseParser.RULE_settingExpressionList);
         try {
             let alternative: number;
             this.enterOuterAlt(localContext, 1);
             {
             this.state = 1553;
-            this.settingExpr();
+            this.settingExpression();
             this.state = 1558;
             this.errorHandler.sync(this);
             alternative = this.interpreter.adaptivePredict(this.tokenStream, 205, this.context);
@@ -7022,7 +7026,7 @@ export class ClickHouseParser extends antlr.Parser {
                     this.state = 1554;
                     this.match(ClickHouseParser.COMMA);
                     this.state = 1555;
-                    this.settingExpr();
+                    this.settingExpression();
                     }
                     }
                 }
@@ -7046,9 +7050,9 @@ export class ClickHouseParser extends antlr.Parser {
         }
         return localContext;
     }
-    public settingExpr(): SettingExprContext {
-        let localContext = new SettingExprContext(this.context, this.state);
-        this.enterRule(localContext, 182, ClickHouseParser.RULE_settingExpr);
+    public settingExpression(): SettingExpressionContext {
+        let localContext = new SettingExpressionContext(this.context, this.state);
+        this.enterRule(localContext, 182, ClickHouseParser.RULE_settingExpression);
         try {
             this.enterOuterAlt(localContext, 1);
             {
@@ -7074,9 +7078,9 @@ export class ClickHouseParser extends antlr.Parser {
         }
         return localContext;
     }
-    public windowExpr(): WindowExprContext {
-        let localContext = new WindowExprContext(this.context, this.state);
-        this.enterRule(localContext, 184, ClickHouseParser.RULE_windowExpr);
+    public windowExpression(): WindowExpressionContext {
+        let localContext = new WindowExpressionContext(this.context, this.state);
+        this.enterRule(localContext, 184, ClickHouseParser.RULE_windowExpression);
         let _la: number;
         try {
             this.enterOuterAlt(localContext, 1);
@@ -7087,7 +7091,7 @@ export class ClickHouseParser extends antlr.Parser {
             if (_la === 126) {
                 {
                 this.state = 1565;
-                this.winPartitionByClause();
+                this.windowPartitionByClause();
                 }
             }
 
@@ -7097,7 +7101,7 @@ export class ClickHouseParser extends antlr.Parser {
             if (_la === 122) {
                 {
                 this.state = 1568;
-                this.winOrderByClause();
+                this.windowOrderByClause();
                 }
             }
 
@@ -7107,7 +7111,7 @@ export class ClickHouseParser extends antlr.Parser {
             if (_la === 136 || _la === 146) {
                 {
                 this.state = 1571;
-                this.winFrameClause();
+                this.windowFrameClause();
                 }
             }
 
@@ -7127,9 +7131,9 @@ export class ClickHouseParser extends antlr.Parser {
         }
         return localContext;
     }
-    public winPartitionByClause(): WinPartitionByClauseContext {
-        let localContext = new WinPartitionByClauseContext(this.context, this.state);
-        this.enterRule(localContext, 186, ClickHouseParser.RULE_winPartitionByClause);
+    public windowPartitionByClause(): WindowPartitionByClauseContext {
+        let localContext = new WindowPartitionByClauseContext(this.context, this.state);
+        this.enterRule(localContext, 186, ClickHouseParser.RULE_windowPartitionByClause);
         try {
             this.enterOuterAlt(localContext, 1);
             {
@@ -7138,7 +7142,7 @@ export class ClickHouseParser extends antlr.Parser {
             this.state = 1575;
             this.match(ClickHouseParser.BY);
             this.state = 1576;
-            this.columnExprList();
+            this.columnExpressionList();
             }
         }
         catch (re) {
@@ -7155,9 +7159,9 @@ export class ClickHouseParser extends antlr.Parser {
         }
         return localContext;
     }
-    public winOrderByClause(): WinOrderByClauseContext {
-        let localContext = new WinOrderByClauseContext(this.context, this.state);
-        this.enterRule(localContext, 188, ClickHouseParser.RULE_winOrderByClause);
+    public windowOrderByClause(): WindowOrderByClauseContext {
+        let localContext = new WindowOrderByClauseContext(this.context, this.state);
+        this.enterRule(localContext, 188, ClickHouseParser.RULE_windowOrderByClause);
         try {
             this.enterOuterAlt(localContext, 1);
             {
@@ -7166,7 +7170,7 @@ export class ClickHouseParser extends antlr.Parser {
             this.state = 1579;
             this.match(ClickHouseParser.BY);
             this.state = 1580;
-            this.orderExprList();
+            this.orderExpressionList();
             }
         }
         catch (re) {
@@ -7183,9 +7187,9 @@ export class ClickHouseParser extends antlr.Parser {
         }
         return localContext;
     }
-    public winFrameClause(): WinFrameClauseContext {
-        let localContext = new WinFrameClauseContext(this.context, this.state);
-        this.enterRule(localContext, 190, ClickHouseParser.RULE_winFrameClause);
+    public windowFrameClause(): WindowFrameClauseContext {
+        let localContext = new WindowFrameClauseContext(this.context, this.state);
+        this.enterRule(localContext, 190, ClickHouseParser.RULE_windowFrameClause);
         let _la: number;
         try {
             this.enterOuterAlt(localContext, 1);
@@ -7200,7 +7204,7 @@ export class ClickHouseParser extends antlr.Parser {
                 this.consume();
             }
             this.state = 1583;
-            this.winFrameExtend();
+            this.windowFrameExtend();
             }
         }
         catch (re) {
@@ -7217,9 +7221,9 @@ export class ClickHouseParser extends antlr.Parser {
         }
         return localContext;
     }
-    public winFrameExtend(): WinFrameExtendContext {
-        let localContext = new WinFrameExtendContext(this.context, this.state);
-        this.enterRule(localContext, 192, ClickHouseParser.RULE_winFrameExtend);
+    public windowFrameExtend(): WindowFrameExtendContext {
+        let localContext = new WindowFrameExtendContext(this.context, this.state);
+        this.enterRule(localContext, 192, ClickHouseParser.RULE_windowFrameExtend);
         try {
             this.state = 1591;
             this.errorHandler.sync(this);
@@ -7239,7 +7243,7 @@ export class ClickHouseParser extends antlr.Parser {
                 this.enterOuterAlt(localContext, 1);
                 {
                 this.state = 1585;
-                this.winFrameBound();
+                this.windowFrameBound();
                 }
                 break;
             case ClickHouseParser.BETWEEN:
@@ -7249,11 +7253,11 @@ export class ClickHouseParser extends antlr.Parser {
                 this.state = 1586;
                 this.match(ClickHouseParser.BETWEEN);
                 this.state = 1587;
-                this.winFrameBound();
+                this.windowFrameBound();
                 this.state = 1588;
                 this.match(ClickHouseParser.AND);
                 this.state = 1589;
-                this.winFrameBound();
+                this.windowFrameBound();
                 }
                 break;
             default:
@@ -7274,9 +7278,9 @@ export class ClickHouseParser extends antlr.Parser {
         }
         return localContext;
     }
-    public winFrameBound(): WinFrameBoundContext {
-        let localContext = new WinFrameBoundContext(this.context, this.state);
-        this.enterRule(localContext, 194, ClickHouseParser.RULE_winFrameBound);
+    public windowFrameBound(): WindowFrameBoundContext {
+        let localContext = new WindowFrameBoundContext(this.context, this.state);
+        this.enterRule(localContext, 194, ClickHouseParser.RULE_windowFrameBound);
         try {
             this.enterOuterAlt(localContext, 1);
             {
@@ -7340,16 +7344,16 @@ export class ClickHouseParser extends antlr.Parser {
         }
         return localContext;
     }
-    public setStmt(): SetStmtContext {
-        let localContext = new SetStmtContext(this.context, this.state);
-        this.enterRule(localContext, 196, ClickHouseParser.RULE_setStmt);
+    public setStatement(): SetStatementContext {
+        let localContext = new SetStatementContext(this.context, this.state);
+        this.enterRule(localContext, 196, ClickHouseParser.RULE_setStatement);
         try {
             this.enterOuterAlt(localContext, 1);
             {
             this.state = 1607;
             this.match(ClickHouseParser.SET);
             this.state = 1608;
-            this.settingExprList();
+            this.settingExpressionList();
             }
         }
         catch (re) {
@@ -7366,16 +7370,16 @@ export class ClickHouseParser extends antlr.Parser {
         }
         return localContext;
     }
-    public showStmt(): ShowStmtContext {
-        let localContext = new ShowStmtContext(this.context, this.state);
-        this.enterRule(localContext, 198, ClickHouseParser.RULE_showStmt);
+    public showStatement(): ShowStatementContext {
+        let localContext = new ShowStatementContext(this.context, this.state);
+        this.enterRule(localContext, 198, ClickHouseParser.RULE_showStatement);
         let _la: number;
         try {
             this.state = 1652;
             this.errorHandler.sync(this);
             switch (this.interpreter.adaptivePredict(this.tokenStream, 218, this.context) ) {
             case 1:
-                localContext = new ShowCreateDatabaseStmtContext(localContext);
+                localContext = new ShowCreateDatabaseStatementContext(localContext);
                 this.enterOuterAlt(localContext, 1);
                 {
                 this.state = 1610;
@@ -7389,7 +7393,7 @@ export class ClickHouseParser extends antlr.Parser {
                 }
                 break;
             case 2:
-                localContext = new ShowCreateDictionaryStmtContext(localContext);
+                localContext = new ShowCreateDictionaryStatementContext(localContext);
                 this.enterOuterAlt(localContext, 2);
                 {
                 this.state = 1614;
@@ -7403,7 +7407,7 @@ export class ClickHouseParser extends antlr.Parser {
                 }
                 break;
             case 3:
-                localContext = new ShowCreateTableStmtContext(localContext);
+                localContext = new ShowCreateTableStatementContext(localContext);
                 this.enterOuterAlt(localContext, 3);
                 {
                 this.state = 1618;
@@ -7435,7 +7439,7 @@ export class ClickHouseParser extends antlr.Parser {
                 }
                 break;
             case 4:
-                localContext = new ShowDatabasesStmtContext(localContext);
+                localContext = new ShowDatabasesStatementContext(localContext);
                 this.enterOuterAlt(localContext, 4);
                 {
                 this.state = 1627;
@@ -7445,7 +7449,7 @@ export class ClickHouseParser extends antlr.Parser {
                 }
                 break;
             case 5:
-                localContext = new ShowDictionariesStmtContext(localContext);
+                localContext = new ShowDictionariesStatementContext(localContext);
                 this.enterOuterAlt(localContext, 5);
                 {
                 this.state = 1629;
@@ -7467,7 +7471,7 @@ export class ClickHouseParser extends antlr.Parser {
                 }
                 break;
             case 6:
-                localContext = new ShowTablesStmtContext(localContext);
+                localContext = new ShowTablesStatementContext(localContext);
                 this.enterOuterAlt(localContext, 6);
                 {
                 this.state = 1635;
@@ -7558,9 +7562,9 @@ export class ClickHouseParser extends antlr.Parser {
         }
         return localContext;
     }
-    public systemStmt(): SystemStmtContext {
-        let localContext = new SystemStmtContext(this.context, this.state);
-        this.enterRule(localContext, 200, ClickHouseParser.RULE_systemStmt);
+    public systemStatement(): SystemStatementContext {
+        let localContext = new SystemStatementContext(this.context, this.state);
+        this.enterRule(localContext, 200, ClickHouseParser.RULE_systemStatement);
         let _la: number;
         try {
             this.state = 1688;
@@ -7718,9 +7722,9 @@ export class ClickHouseParser extends antlr.Parser {
         }
         return localContext;
     }
-    public truncateStmt(): TruncateStmtContext {
-        let localContext = new TruncateStmtContext(this.context, this.state);
-        this.enterRule(localContext, 202, ClickHouseParser.RULE_truncateStmt);
+    public truncateStatement(): TruncateStatementContext {
+        let localContext = new TruncateStatementContext(this.context, this.state);
+        this.enterRule(localContext, 202, ClickHouseParser.RULE_truncateStatement);
         let _la: number;
         try {
             this.enterOuterAlt(localContext, 1);
@@ -7787,9 +7791,9 @@ export class ClickHouseParser extends antlr.Parser {
         }
         return localContext;
     }
-    public useStmt(): UseStmtContext {
-        let localContext = new UseStmtContext(this.context, this.state);
-        this.enterRule(localContext, 204, ClickHouseParser.RULE_useStmt);
+    public useStatement(): UseStatementContext {
+        let localContext = new UseStatementContext(this.context, this.state);
+        this.enterRule(localContext, 204, ClickHouseParser.RULE_useStatement);
         try {
             this.enterOuterAlt(localContext, 1);
             {
@@ -7813,9 +7817,9 @@ export class ClickHouseParser extends antlr.Parser {
         }
         return localContext;
     }
-    public watchStmt(): WatchStmtContext {
-        let localContext = new WatchStmtContext(this.context, this.state);
-        this.enterRule(localContext, 206, ClickHouseParser.RULE_watchStmt);
+    public watchStatement(): WatchStatementContext {
+        let localContext = new WatchStatementContext(this.context, this.state);
+        this.enterRule(localContext, 206, ClickHouseParser.RULE_watchStatement);
         let _la: number;
         try {
             this.enterOuterAlt(localContext, 1);
@@ -7862,16 +7866,16 @@ export class ClickHouseParser extends antlr.Parser {
         }
         return localContext;
     }
-    public columnTypeExpr(): ColumnTypeExprContext {
-        let localContext = new ColumnTypeExprContext(this.context, this.state);
-        this.enterRule(localContext, 208, ClickHouseParser.RULE_columnTypeExpr);
+    public columnTypeExpression(): ColumnTypeExpressionContext {
+        let localContext = new ColumnTypeExpressionContext(this.context, this.state);
+        this.enterRule(localContext, 208, ClickHouseParser.RULE_columnTypeExpression);
         let _la: number;
         try {
             this.state = 1764;
             this.errorHandler.sync(this);
             switch (this.interpreter.adaptivePredict(this.tokenStream, 232, this.context) ) {
             case 1:
-                localContext = new ColumnTypeExprSimpleContext(localContext);
+                localContext = new ColumnTypeExpressionSimpleContext(localContext);
                 this.enterOuterAlt(localContext, 1);
                 {
                 this.state = 1717;
@@ -7879,7 +7883,7 @@ export class ClickHouseParser extends antlr.Parser {
                 }
                 break;
             case 2:
-                localContext = new ColumnTypeExprNestedContext(localContext);
+                localContext = new ColumnTypeExpressionNestedContext(localContext);
                 this.enterOuterAlt(localContext, 2);
                 {
                 this.state = 1718;
@@ -7889,7 +7893,7 @@ export class ClickHouseParser extends antlr.Parser {
                 this.state = 1720;
                 this.identifier();
                 this.state = 1721;
-                this.columnTypeExpr();
+                this.columnTypeExpression();
                 this.state = 1728;
                 this.errorHandler.sync(this);
                 _la = this.tokenStream.LA(1);
@@ -7901,7 +7905,7 @@ export class ClickHouseParser extends antlr.Parser {
                     this.state = 1723;
                     this.identifier();
                     this.state = 1724;
-                    this.columnTypeExpr();
+                    this.columnTypeExpression();
                     }
                     }
                     this.state = 1730;
@@ -7913,7 +7917,7 @@ export class ClickHouseParser extends antlr.Parser {
                 }
                 break;
             case 3:
-                localContext = new ColumnTypeExprEnumContext(localContext);
+                localContext = new ColumnTypeExpressionEnumContext(localContext);
                 this.enterOuterAlt(localContext, 3);
                 {
                 this.state = 1733;
@@ -7943,7 +7947,7 @@ export class ClickHouseParser extends antlr.Parser {
                 }
                 break;
             case 4:
-                localContext = new ColumnTypeExprComplexContext(localContext);
+                localContext = new ColumnTypeExpressionComplexContext(localContext);
                 this.enterOuterAlt(localContext, 4);
                 {
                 this.state = 1745;
@@ -7951,7 +7955,7 @@ export class ClickHouseParser extends antlr.Parser {
                 this.state = 1746;
                 this.match(ClickHouseParser.LPAREN);
                 this.state = 1747;
-                this.columnTypeExpr();
+                this.columnTypeExpression();
                 this.state = 1752;
                 this.errorHandler.sync(this);
                 _la = this.tokenStream.LA(1);
@@ -7961,7 +7965,7 @@ export class ClickHouseParser extends antlr.Parser {
                     this.state = 1748;
                     this.match(ClickHouseParser.COMMA);
                     this.state = 1749;
-                    this.columnTypeExpr();
+                    this.columnTypeExpression();
                     }
                     }
                     this.state = 1754;
@@ -7973,7 +7977,7 @@ export class ClickHouseParser extends antlr.Parser {
                 }
                 break;
             case 5:
-                localContext = new ColumnTypeExprParamContext(localContext);
+                localContext = new ColumnTypeExpressionParamContext(localContext);
                 this.enterOuterAlt(localContext, 5);
                 {
                 this.state = 1757;
@@ -7986,7 +7990,7 @@ export class ClickHouseParser extends antlr.Parser {
                 if ((((_la) & ~0x1F) === 0 && ((1 << _la) & 4294967292) !== 0) || ((((_la - 32)) & ~0x1F) === 0 && ((1 << (_la - 32)) & 4290772991) !== 0) || ((((_la - 64)) & ~0x1F) === 0 && ((1 << (_la - 64)) & 4294967295) !== 0) || ((((_la - 96)) & ~0x1F) === 0 && ((1 << (_la - 96)) & 2147483647) !== 0) || ((((_la - 129)) & ~0x1F) === 0 && ((1 << (_la - 129)) & 4294967215) !== 0) || ((((_la - 161)) & ~0x1F) === 0 && ((1 << (_la - 161)) & 4294950911) !== 0) || ((((_la - 193)) & ~0x1F) === 0 && ((1 << (_la - 193)) & 1158024191) !== 0)) {
                     {
                     this.state = 1759;
-                    this.columnExprList();
+                    this.columnExpressionList();
                     }
                 }
 
@@ -8010,15 +8014,15 @@ export class ClickHouseParser extends antlr.Parser {
         }
         return localContext;
     }
-    public columnExprList(): ColumnExprListContext {
-        let localContext = new ColumnExprListContext(this.context, this.state);
-        this.enterRule(localContext, 210, ClickHouseParser.RULE_columnExprList);
+    public columnExpressionList(): ColumnExpressionListContext {
+        let localContext = new ColumnExpressionListContext(this.context, this.state);
+        this.enterRule(localContext, 210, ClickHouseParser.RULE_columnExpressionList);
         try {
             let alternative: number;
             this.enterOuterAlt(localContext, 1);
             {
             this.state = 1766;
-            this.columnsExpr();
+            this.columnsExpression();
             this.state = 1771;
             this.errorHandler.sync(this);
             alternative = this.interpreter.adaptivePredict(this.tokenStream, 233, this.context);
@@ -8029,7 +8033,7 @@ export class ClickHouseParser extends antlr.Parser {
                     this.state = 1767;
                     this.match(ClickHouseParser.COMMA);
                     this.state = 1768;
-                    this.columnsExpr();
+                    this.columnsExpression();
                     }
                     }
                 }
@@ -8053,16 +8057,16 @@ export class ClickHouseParser extends antlr.Parser {
         }
         return localContext;
     }
-    public columnsExpr(): ColumnsExprContext {
-        let localContext = new ColumnsExprContext(this.context, this.state);
-        this.enterRule(localContext, 212, ClickHouseParser.RULE_columnsExpr);
+    public columnsExpression(): ColumnsExpressionContext {
+        let localContext = new ColumnsExpressionContext(this.context, this.state);
+        this.enterRule(localContext, 212, ClickHouseParser.RULE_columnsExpression);
         let _la: number;
         try {
             this.state = 1785;
             this.errorHandler.sync(this);
             switch (this.interpreter.adaptivePredict(this.tokenStream, 235, this.context) ) {
             case 1:
-                localContext = new ColumnsExprAsteriskContext(localContext);
+                localContext = new ColumnsExpressionAsteriskContext(localContext);
                 this.enterOuterAlt(localContext, 1);
                 {
                 this.state = 1777;
@@ -8082,23 +8086,23 @@ export class ClickHouseParser extends antlr.Parser {
                 }
                 break;
             case 2:
-                localContext = new ColumnsExprSubqueryContext(localContext);
+                localContext = new ColumnsExpressionSubqueryContext(localContext);
                 this.enterOuterAlt(localContext, 2);
                 {
                 this.state = 1780;
                 this.match(ClickHouseParser.LPAREN);
                 this.state = 1781;
-                this.selectUnionStmt();
+                this.selectUnionStatement();
                 this.state = 1782;
                 this.match(ClickHouseParser.RPAREN);
                 }
                 break;
             case 3:
-                localContext = new ColumnsExprColumnContext(localContext);
+                localContext = new ColumnsExpressionColumnContext(localContext);
                 this.enterOuterAlt(localContext, 3);
                 {
                 this.state = 1784;
-                this.columnExpr(0);
+                this.columnExpression(0);
                 }
                 break;
             }
@@ -8118,19 +8122,19 @@ export class ClickHouseParser extends antlr.Parser {
         return localContext;
     }
 
-    public columnExpr(): ColumnExprContext;
-    public columnExpr(_p: number): ColumnExprContext;
-    public columnExpr(_p?: number): ColumnExprContext {
+    public columnExpression(): ColumnExpressionContext;
+    public columnExpression(_p: number): ColumnExpressionContext;
+    public columnExpression(_p?: number): ColumnExpressionContext {
         if (_p === undefined) {
             _p = 0;
         }
 
         let parentContext = this.context;
         let parentState = this.state;
-        let localContext = new ColumnExprContext(this.context, parentState);
+        let localContext = new ColumnExpressionContext(this.context, parentState);
         let previousContext = localContext;
         let _startState = 214;
-        this.enterRecursionRule(localContext, 214, ClickHouseParser.RULE_columnExpr, _p);
+        this.enterRecursionRule(localContext, 214, ClickHouseParser.RULE_columnExpression, _p);
         let _la: number;
         try {
             let alternative: number;
@@ -8141,7 +8145,7 @@ export class ClickHouseParser extends antlr.Parser {
             switch (this.interpreter.adaptivePredict(this.tokenStream, 248, this.context) ) {
             case 1:
                 {
-                localContext = new ColumnExprCaseContext(localContext);
+                localContext = new ColumnExpressionCaseContext(localContext);
                 this.context = localContext;
                 previousContext = localContext;
 
@@ -8153,7 +8157,7 @@ export class ClickHouseParser extends antlr.Parser {
                 case 1:
                     {
                     this.state = 1789;
-                    this.columnExpr(0);
+                    this.columnExpression(0);
                     }
                     break;
                 }
@@ -8166,11 +8170,11 @@ export class ClickHouseParser extends antlr.Parser {
                     this.state = 1792;
                     this.match(ClickHouseParser.WHEN);
                     this.state = 1793;
-                    this.columnExpr(0);
+                    this.columnExpression(0);
                     this.state = 1794;
                     this.match(ClickHouseParser.THEN);
                     this.state = 1795;
-                    this.columnExpr(0);
+                    this.columnExpression(0);
                     }
                     }
                     this.state = 1799;
@@ -8185,7 +8189,7 @@ export class ClickHouseParser extends antlr.Parser {
                     this.state = 1801;
                     this.match(ClickHouseParser.ELSE);
                     this.state = 1802;
-                    this.columnExpr(0);
+                    this.columnExpression(0);
                     }
                 }
 
@@ -8195,7 +8199,7 @@ export class ClickHouseParser extends antlr.Parser {
                 break;
             case 2:
                 {
-                localContext = new ColumnExprCastContext(localContext);
+                localContext = new ColumnExpressionCastContext(localContext);
                 this.context = localContext;
                 previousContext = localContext;
                 this.state = 1807;
@@ -8203,18 +8207,18 @@ export class ClickHouseParser extends antlr.Parser {
                 this.state = 1808;
                 this.match(ClickHouseParser.LPAREN);
                 this.state = 1809;
-                this.columnExpr(0);
+                this.columnExpression(0);
                 this.state = 1810;
                 this.match(ClickHouseParser.AS);
                 this.state = 1811;
-                this.columnTypeExpr();
+                this.columnTypeExpression();
                 this.state = 1812;
                 this.match(ClickHouseParser.RPAREN);
                 }
                 break;
             case 3:
                 {
-                localContext = new ColumnExprDateContext(localContext);
+                localContext = new ColumnExpressionDateContext(localContext);
                 this.context = localContext;
                 previousContext = localContext;
                 this.state = 1814;
@@ -8225,7 +8229,7 @@ export class ClickHouseParser extends antlr.Parser {
                 break;
             case 4:
                 {
-                localContext = new ColumnExprExtractContext(localContext);
+                localContext = new ColumnExpressionExtractContext(localContext);
                 this.context = localContext;
                 previousContext = localContext;
                 this.state = 1816;
@@ -8237,27 +8241,27 @@ export class ClickHouseParser extends antlr.Parser {
                 this.state = 1819;
                 this.match(ClickHouseParser.FROM);
                 this.state = 1820;
-                this.columnExpr(0);
+                this.columnExpression(0);
                 this.state = 1821;
                 this.match(ClickHouseParser.RPAREN);
                 }
                 break;
             case 5:
                 {
-                localContext = new ColumnExprIntervalContext(localContext);
+                localContext = new ColumnExpressionIntervalContext(localContext);
                 this.context = localContext;
                 previousContext = localContext;
                 this.state = 1823;
                 this.match(ClickHouseParser.INTERVAL);
                 this.state = 1824;
-                this.columnExpr(0);
+                this.columnExpression(0);
                 this.state = 1825;
                 this.interval();
                 }
                 break;
             case 6:
                 {
-                localContext = new ColumnExprSubstringContext(localContext);
+                localContext = new ColumnExpressionSubstringContext(localContext);
                 this.context = localContext;
                 previousContext = localContext;
                 this.state = 1827;
@@ -8265,11 +8269,11 @@ export class ClickHouseParser extends antlr.Parser {
                 this.state = 1828;
                 this.match(ClickHouseParser.LPAREN);
                 this.state = 1829;
-                this.columnExpr(0);
+                this.columnExpression(0);
                 this.state = 1830;
                 this.match(ClickHouseParser.FROM);
                 this.state = 1831;
-                this.columnExpr(0);
+                this.columnExpression(0);
                 this.state = 1834;
                 this.errorHandler.sync(this);
                 _la = this.tokenStream.LA(1);
@@ -8278,7 +8282,7 @@ export class ClickHouseParser extends antlr.Parser {
                     this.state = 1832;
                     this.match(ClickHouseParser.FOR);
                     this.state = 1833;
-                    this.columnExpr(0);
+                    this.columnExpression(0);
                     }
                 }
 
@@ -8288,7 +8292,7 @@ export class ClickHouseParser extends antlr.Parser {
                 break;
             case 7:
                 {
-                localContext = new ColumnExprTimestampContext(localContext);
+                localContext = new ColumnExpressionTimestampContext(localContext);
                 this.context = localContext;
                 previousContext = localContext;
                 this.state = 1838;
@@ -8299,7 +8303,7 @@ export class ClickHouseParser extends antlr.Parser {
                 break;
             case 8:
                 {
-                localContext = new ColumnExprTrimContext(localContext);
+                localContext = new ColumnExpressionTrimContext(localContext);
                 this.context = localContext;
                 previousContext = localContext;
                 this.state = 1840;
@@ -8320,14 +8324,14 @@ export class ClickHouseParser extends antlr.Parser {
                 this.state = 1844;
                 this.match(ClickHouseParser.FROM);
                 this.state = 1845;
-                this.columnExpr(0);
+                this.columnExpression(0);
                 this.state = 1846;
                 this.match(ClickHouseParser.RPAREN);
                 }
                 break;
             case 9:
                 {
-                localContext = new ColumnExprWinFunctionContext(localContext);
+                localContext = new ColumnExpressionWinFunctionContext(localContext);
                 this.context = localContext;
                 previousContext = localContext;
                 this.state = 1848;
@@ -8341,7 +8345,7 @@ export class ClickHouseParser extends antlr.Parser {
                 if ((((_la) & ~0x1F) === 0 && ((1 << _la) & 4294967292) !== 0) || ((((_la - 32)) & ~0x1F) === 0 && ((1 << (_la - 32)) & 4290772991) !== 0) || ((((_la - 64)) & ~0x1F) === 0 && ((1 << (_la - 64)) & 4294967295) !== 0) || ((((_la - 96)) & ~0x1F) === 0 && ((1 << (_la - 96)) & 2147483647) !== 0) || ((((_la - 129)) & ~0x1F) === 0 && ((1 << (_la - 129)) & 4294967215) !== 0) || ((((_la - 161)) & ~0x1F) === 0 && ((1 << (_la - 161)) & 4294950911) !== 0) || ((((_la - 193)) & ~0x1F) === 0 && ((1 << (_la - 193)) & 1158024191) !== 0)) {
                     {
                     this.state = 1850;
-                    this.columnExprList();
+                    this.columnExpressionList();
                     }
                 }
 
@@ -8353,14 +8357,14 @@ export class ClickHouseParser extends antlr.Parser {
                 this.state = 1856;
                 this.match(ClickHouseParser.LPAREN);
                 this.state = 1857;
-                this.windowExpr();
+                this.windowExpression();
                 this.state = 1858;
                 this.match(ClickHouseParser.RPAREN);
                 }
                 break;
             case 10:
                 {
-                localContext = new ColumnExprWinFunctionTargetContext(localContext);
+                localContext = new ColumnExpressionWinFunctionTargetContext(localContext);
                 this.context = localContext;
                 previousContext = localContext;
                 this.state = 1860;
@@ -8374,7 +8378,7 @@ export class ClickHouseParser extends antlr.Parser {
                 if ((((_la) & ~0x1F) === 0 && ((1 << _la) & 4294967292) !== 0) || ((((_la - 32)) & ~0x1F) === 0 && ((1 << (_la - 32)) & 4290772991) !== 0) || ((((_la - 64)) & ~0x1F) === 0 && ((1 << (_la - 64)) & 4294967295) !== 0) || ((((_la - 96)) & ~0x1F) === 0 && ((1 << (_la - 96)) & 2147483647) !== 0) || ((((_la - 129)) & ~0x1F) === 0 && ((1 << (_la - 129)) & 4294967215) !== 0) || ((((_la - 161)) & ~0x1F) === 0 && ((1 << (_la - 161)) & 4294950911) !== 0) || ((((_la - 193)) & ~0x1F) === 0 && ((1 << (_la - 193)) & 1158024191) !== 0)) {
                     {
                     this.state = 1862;
-                    this.columnExprList();
+                    this.columnExpressionList();
                     }
                 }
 
@@ -8389,7 +8393,7 @@ export class ClickHouseParser extends antlr.Parser {
                 break;
             case 11:
                 {
-                localContext = new ColumnExprFunctionContext(localContext);
+                localContext = new ColumnExpressionFunctionContext(localContext);
                 this.context = localContext;
                 previousContext = localContext;
                 this.state = 1870;
@@ -8407,7 +8411,7 @@ export class ClickHouseParser extends antlr.Parser {
                     if ((((_la) & ~0x1F) === 0 && ((1 << _la) & 4294967292) !== 0) || ((((_la - 32)) & ~0x1F) === 0 && ((1 << (_la - 32)) & 4290772991) !== 0) || ((((_la - 64)) & ~0x1F) === 0 && ((1 << (_la - 64)) & 4294967295) !== 0) || ((((_la - 96)) & ~0x1F) === 0 && ((1 << (_la - 96)) & 2147483647) !== 0) || ((((_la - 129)) & ~0x1F) === 0 && ((1 << (_la - 129)) & 4294967215) !== 0) || ((((_la - 161)) & ~0x1F) === 0 && ((1 << (_la - 161)) & 4294950911) !== 0) || ((((_la - 193)) & ~0x1F) === 0 && ((1 << (_la - 193)) & 1158024191) !== 0)) {
                         {
                         this.state = 1872;
-                        this.columnExprList();
+                        this.columnExpressionList();
                         }
                     }
 
@@ -8434,7 +8438,7 @@ export class ClickHouseParser extends antlr.Parser {
                 if ((((_la) & ~0x1F) === 0 && ((1 << _la) & 4294967292) !== 0) || ((((_la - 32)) & ~0x1F) === 0 && ((1 << (_la - 32)) & 4290772991) !== 0) || ((((_la - 64)) & ~0x1F) === 0 && ((1 << (_la - 64)) & 4294967295) !== 0) || ((((_la - 96)) & ~0x1F) === 0 && ((1 << (_la - 96)) & 2147483647) !== 0) || ((((_la - 129)) & ~0x1F) === 0 && ((1 << (_la - 129)) & 4294967215) !== 0) || ((((_la - 161)) & ~0x1F) === 0 && ((1 << (_la - 161)) & 4294950911) !== 0) || ((((_la - 193)) & ~0x1F) === 0 && ((1 << (_la - 193)) & 1158024191) !== 0)) {
                     {
                     this.state = 1882;
-                    this.columnArgList();
+                    this.columnArgumentList();
                     }
                 }
 
@@ -8444,7 +8448,7 @@ export class ClickHouseParser extends antlr.Parser {
                 break;
             case 12:
                 {
-                localContext = new ColumnExprLiteralContext(localContext);
+                localContext = new ColumnExpressionLiteralContext(localContext);
                 this.context = localContext;
                 previousContext = localContext;
                 this.state = 1887;
@@ -8453,29 +8457,29 @@ export class ClickHouseParser extends antlr.Parser {
                 break;
             case 13:
                 {
-                localContext = new ColumnExprNegateContext(localContext);
+                localContext = new ColumnExpressionNegateContext(localContext);
                 this.context = localContext;
                 previousContext = localContext;
                 this.state = 1888;
                 this.match(ClickHouseParser.DASH);
                 this.state = 1889;
-                this.columnExpr(17);
+                this.columnExpression(17);
                 }
                 break;
             case 14:
                 {
-                localContext = new ColumnExprNotContext(localContext);
+                localContext = new ColumnExpressionNotContext(localContext);
                 this.context = localContext;
                 previousContext = localContext;
                 this.state = 1890;
                 this.match(ClickHouseParser.NOT);
                 this.state = 1891;
-                this.columnExpr(12);
+                this.columnExpression(12);
                 }
                 break;
             case 15:
                 {
-                localContext = new ColumnExprAsteriskContext(localContext);
+                localContext = new ColumnExpressionAsteriskContext(localContext);
                 this.context = localContext;
                 previousContext = localContext;
                 this.state = 1895;
@@ -8496,46 +8500,46 @@ export class ClickHouseParser extends antlr.Parser {
                 break;
             case 16:
                 {
-                localContext = new ColumnExprSubqueryContext(localContext);
+                localContext = new ColumnExpressionSubqueryContext(localContext);
                 this.context = localContext;
                 previousContext = localContext;
                 this.state = 1898;
                 this.match(ClickHouseParser.LPAREN);
                 this.state = 1899;
-                this.selectUnionStmt();
+                this.selectUnionStatement();
                 this.state = 1900;
                 this.match(ClickHouseParser.RPAREN);
                 }
                 break;
             case 17:
                 {
-                localContext = new ColumnExprParensContext(localContext);
+                localContext = new ColumnExpressionParensContext(localContext);
                 this.context = localContext;
                 previousContext = localContext;
                 this.state = 1902;
                 this.match(ClickHouseParser.LPAREN);
                 this.state = 1903;
-                this.columnExpr(0);
+                this.columnExpression(0);
                 this.state = 1904;
                 this.match(ClickHouseParser.RPAREN);
                 }
                 break;
             case 18:
                 {
-                localContext = new ColumnExprTupleContext(localContext);
+                localContext = new ColumnExpressionTupleContext(localContext);
                 this.context = localContext;
                 previousContext = localContext;
                 this.state = 1906;
                 this.match(ClickHouseParser.LPAREN);
                 this.state = 1907;
-                this.columnExprList();
+                this.columnExpressionList();
                 this.state = 1908;
                 this.match(ClickHouseParser.RPAREN);
                 }
                 break;
             case 19:
                 {
-                localContext = new ColumnExprArrayContext(localContext);
+                localContext = new ColumnExpressionArrayContext(localContext);
                 this.context = localContext;
                 previousContext = localContext;
                 this.state = 1910;
@@ -8546,7 +8550,7 @@ export class ClickHouseParser extends antlr.Parser {
                 if ((((_la) & ~0x1F) === 0 && ((1 << _la) & 4294967292) !== 0) || ((((_la - 32)) & ~0x1F) === 0 && ((1 << (_la - 32)) & 4290772991) !== 0) || ((((_la - 64)) & ~0x1F) === 0 && ((1 << (_la - 64)) & 4294967295) !== 0) || ((((_la - 96)) & ~0x1F) === 0 && ((1 << (_la - 96)) & 2147483647) !== 0) || ((((_la - 129)) & ~0x1F) === 0 && ((1 << (_la - 129)) & 4294967215) !== 0) || ((((_la - 161)) & ~0x1F) === 0 && ((1 << (_la - 161)) & 4294950911) !== 0) || ((((_la - 193)) & ~0x1F) === 0 && ((1 << (_la - 193)) & 1158024191) !== 0)) {
                     {
                     this.state = 1911;
-                    this.columnExprList();
+                    this.columnExpressionList();
                     }
                 }
 
@@ -8556,7 +8560,7 @@ export class ClickHouseParser extends antlr.Parser {
                 break;
             case 20:
                 {
-                localContext = new ColumnExprIdentifierContext(localContext);
+                localContext = new ColumnExpressionIdentifierContext(localContext);
                 this.context = localContext;
                 previousContext = localContext;
                 this.state = 1915;
@@ -8580,8 +8584,8 @@ export class ClickHouseParser extends antlr.Parser {
                     switch (this.interpreter.adaptivePredict(this.tokenStream, 256, this.context) ) {
                     case 1:
                         {
-                        localContext = new ColumnExprPrecedence1Context(new ColumnExprContext(parentContext, parentState));
-                        this.pushNewRecursionContext(localContext, _startState, ClickHouseParser.RULE_columnExpr);
+                        localContext = new ColumnExpressionPrecedence1Context(new ColumnExpressionContext(parentContext, parentState));
+                        this.pushNewRecursionContext(localContext, _startState, ClickHouseParser.RULE_columnExpression);
                         this.state = 1918;
                         if (!(this.precpred(this.context, 16))) {
                             throw this.createFailedPredicateException("this.precpred(this.context, 16)");
@@ -8596,13 +8600,13 @@ export class ClickHouseParser extends antlr.Parser {
                             this.consume();
                         }
                         this.state = 1920;
-                        this.columnExpr(17);
+                        this.columnExpression(17);
                         }
                         break;
                     case 2:
                         {
-                        localContext = new ColumnExprPrecedence2Context(new ColumnExprContext(parentContext, parentState));
-                        this.pushNewRecursionContext(localContext, _startState, ClickHouseParser.RULE_columnExpr);
+                        localContext = new ColumnExpressionPrecedence2Context(new ColumnExpressionContext(parentContext, parentState));
+                        this.pushNewRecursionContext(localContext, _startState, ClickHouseParser.RULE_columnExpression);
                         this.state = 1921;
                         if (!(this.precpred(this.context, 15))) {
                             throw this.createFailedPredicateException("this.precpred(this.context, 15)");
@@ -8617,13 +8621,13 @@ export class ClickHouseParser extends antlr.Parser {
                             this.consume();
                         }
                         this.state = 1923;
-                        this.columnExpr(16);
+                        this.columnExpression(16);
                         }
                         break;
                     case 3:
                         {
-                        localContext = new ColumnExprPrecedence3Context(new ColumnExprContext(parentContext, parentState));
-                        this.pushNewRecursionContext(localContext, _startState, ClickHouseParser.RULE_columnExpr);
+                        localContext = new ColumnExpressionPrecedence3Context(new ColumnExpressionContext(parentContext, parentState));
+                        this.pushNewRecursionContext(localContext, _startState, ClickHouseParser.RULE_columnExpression);
                         this.state = 1924;
                         if (!(this.precpred(this.context, 14))) {
                             throw this.createFailedPredicateException("this.precpred(this.context, 14)");
@@ -8724,13 +8728,13 @@ export class ClickHouseParser extends antlr.Parser {
                             break;
                         }
                         this.state = 1945;
-                        this.columnExpr(15);
+                        this.columnExpression(15);
                         }
                         break;
                     case 4:
                         {
-                        localContext = new ColumnExprAndContext(new ColumnExprContext(parentContext, parentState));
-                        this.pushNewRecursionContext(localContext, _startState, ClickHouseParser.RULE_columnExpr);
+                        localContext = new ColumnExpressionAndContext(new ColumnExpressionContext(parentContext, parentState));
+                        this.pushNewRecursionContext(localContext, _startState, ClickHouseParser.RULE_columnExpression);
                         this.state = 1946;
                         if (!(this.precpred(this.context, 11))) {
                             throw this.createFailedPredicateException("this.precpred(this.context, 11)");
@@ -8738,13 +8742,13 @@ export class ClickHouseParser extends antlr.Parser {
                         this.state = 1947;
                         this.match(ClickHouseParser.AND);
                         this.state = 1948;
-                        this.columnExpr(12);
+                        this.columnExpression(12);
                         }
                         break;
                     case 5:
                         {
-                        localContext = new ColumnExprOrContext(new ColumnExprContext(parentContext, parentState));
-                        this.pushNewRecursionContext(localContext, _startState, ClickHouseParser.RULE_columnExpr);
+                        localContext = new ColumnExpressionOrContext(new ColumnExpressionContext(parentContext, parentState));
+                        this.pushNewRecursionContext(localContext, _startState, ClickHouseParser.RULE_columnExpression);
                         this.state = 1949;
                         if (!(this.precpred(this.context, 10))) {
                             throw this.createFailedPredicateException("this.precpred(this.context, 10)");
@@ -8752,13 +8756,13 @@ export class ClickHouseParser extends antlr.Parser {
                         this.state = 1950;
                         this.match(ClickHouseParser.OR);
                         this.state = 1951;
-                        this.columnExpr(11);
+                        this.columnExpression(11);
                         }
                         break;
                     case 6:
                         {
-                        localContext = new ColumnExprBetweenContext(new ColumnExprContext(parentContext, parentState));
-                        this.pushNewRecursionContext(localContext, _startState, ClickHouseParser.RULE_columnExpr);
+                        localContext = new ColumnExpressionBetweenContext(new ColumnExpressionContext(parentContext, parentState));
+                        this.pushNewRecursionContext(localContext, _startState, ClickHouseParser.RULE_columnExpression);
                         this.state = 1952;
                         if (!(this.precpred(this.context, 9))) {
                             throw this.createFailedPredicateException("this.precpred(this.context, 9)");
@@ -8776,17 +8780,17 @@ export class ClickHouseParser extends antlr.Parser {
                         this.state = 1956;
                         this.match(ClickHouseParser.BETWEEN);
                         this.state = 1957;
-                        this.columnExpr(0);
+                        this.columnExpression(0);
                         this.state = 1958;
                         this.match(ClickHouseParser.AND);
                         this.state = 1959;
-                        this.columnExpr(10);
+                        this.columnExpression(10);
                         }
                         break;
                     case 7:
                         {
-                        localContext = new ColumnExprTernaryOpContext(new ColumnExprContext(parentContext, parentState));
-                        this.pushNewRecursionContext(localContext, _startState, ClickHouseParser.RULE_columnExpr);
+                        localContext = new ColumnExpressionTernaryOpContext(new ColumnExpressionContext(parentContext, parentState));
+                        this.pushNewRecursionContext(localContext, _startState, ClickHouseParser.RULE_columnExpression);
                         this.state = 1961;
                         if (!(this.precpred(this.context, 8))) {
                             throw this.createFailedPredicateException("this.precpred(this.context, 8)");
@@ -8794,17 +8798,17 @@ export class ClickHouseParser extends antlr.Parser {
                         this.state = 1962;
                         this.match(ClickHouseParser.QUESTIONMARK);
                         this.state = 1963;
-                        this.columnExpr(0);
+                        this.columnExpression(0);
                         this.state = 1964;
                         this.match(ClickHouseParser.COLON);
                         this.state = 1965;
-                        this.columnExpr(8);
+                        this.columnExpression(8);
                         }
                         break;
                     case 8:
                         {
-                        localContext = new ColumnExprArrayAccessContext(new ColumnExprContext(parentContext, parentState));
-                        this.pushNewRecursionContext(localContext, _startState, ClickHouseParser.RULE_columnExpr);
+                        localContext = new ColumnExpressionArrayAccessContext(new ColumnExpressionContext(parentContext, parentState));
+                        this.pushNewRecursionContext(localContext, _startState, ClickHouseParser.RULE_columnExpression);
                         this.state = 1967;
                         if (!(this.precpred(this.context, 19))) {
                             throw this.createFailedPredicateException("this.precpred(this.context, 19)");
@@ -8812,15 +8816,15 @@ export class ClickHouseParser extends antlr.Parser {
                         this.state = 1968;
                         this.match(ClickHouseParser.LBRACKET);
                         this.state = 1969;
-                        this.columnExpr(0);
+                        this.columnExpression(0);
                         this.state = 1970;
                         this.match(ClickHouseParser.RBRACKET);
                         }
                         break;
                     case 9:
                         {
-                        localContext = new ColumnExprTupleAccessContext(new ColumnExprContext(parentContext, parentState));
-                        this.pushNewRecursionContext(localContext, _startState, ClickHouseParser.RULE_columnExpr);
+                        localContext = new ColumnExpressionTupleAccessContext(new ColumnExpressionContext(parentContext, parentState));
+                        this.pushNewRecursionContext(localContext, _startState, ClickHouseParser.RULE_columnExpression);
                         this.state = 1972;
                         if (!(this.precpred(this.context, 18))) {
                             throw this.createFailedPredicateException("this.precpred(this.context, 18)");
@@ -8833,8 +8837,8 @@ export class ClickHouseParser extends antlr.Parser {
                         break;
                     case 10:
                         {
-                        localContext = new ColumnExprIsNullContext(new ColumnExprContext(parentContext, parentState));
-                        this.pushNewRecursionContext(localContext, _startState, ClickHouseParser.RULE_columnExpr);
+                        localContext = new ColumnExpressionIsNullContext(new ColumnExpressionContext(parentContext, parentState));
+                        this.pushNewRecursionContext(localContext, _startState, ClickHouseParser.RULE_columnExpression);
                         this.state = 1975;
                         if (!(this.precpred(this.context, 13))) {
                             throw this.createFailedPredicateException("this.precpred(this.context, 13)");
@@ -8857,8 +8861,8 @@ export class ClickHouseParser extends antlr.Parser {
                         break;
                     case 11:
                         {
-                        localContext = new ColumnExprAliasContext(new ColumnExprContext(parentContext, parentState));
-                        this.pushNewRecursionContext(localContext, _startState, ClickHouseParser.RULE_columnExpr);
+                        localContext = new ColumnExpressionAliasContext(new ColumnExpressionContext(parentContext, parentState));
+                        this.pushNewRecursionContext(localContext, _startState, ClickHouseParser.RULE_columnExpression);
                         this.state = 1981;
                         if (!(this.precpred(this.context, 7))) {
                             throw this.createFailedPredicateException("this.precpred(this.context, 7)");
@@ -8912,15 +8916,15 @@ export class ClickHouseParser extends antlr.Parser {
         }
         return localContext;
     }
-    public columnArgList(): ColumnArgListContext {
-        let localContext = new ColumnArgListContext(this.context, this.state);
-        this.enterRule(localContext, 216, ClickHouseParser.RULE_columnArgList);
+    public columnArgumentList(): ColumnArgumentListContext {
+        let localContext = new ColumnArgumentListContext(this.context, this.state);
+        this.enterRule(localContext, 216, ClickHouseParser.RULE_columnArgumentList);
         let _la: number;
         try {
             this.enterOuterAlt(localContext, 1);
             {
             this.state = 1992;
-            this.columnArgExpr();
+            this.columnArgumentExpression();
             this.state = 1997;
             this.errorHandler.sync(this);
             _la = this.tokenStream.LA(1);
@@ -8930,7 +8934,7 @@ export class ClickHouseParser extends antlr.Parser {
                 this.state = 1993;
                 this.match(ClickHouseParser.COMMA);
                 this.state = 1994;
-                this.columnArgExpr();
+                this.columnArgumentExpression();
                 }
                 }
                 this.state = 1999;
@@ -8953,9 +8957,9 @@ export class ClickHouseParser extends antlr.Parser {
         }
         return localContext;
     }
-    public columnArgExpr(): ColumnArgExprContext {
-        let localContext = new ColumnArgExprContext(this.context, this.state);
-        this.enterRule(localContext, 218, ClickHouseParser.RULE_columnArgExpr);
+    public columnArgumentExpression(): ColumnArgumentExpressionContext {
+        let localContext = new ColumnArgumentExpressionContext(this.context, this.state);
+        this.enterRule(localContext, 218, ClickHouseParser.RULE_columnArgumentExpression);
         try {
             this.state = 2002;
             this.errorHandler.sync(this);
@@ -8964,14 +8968,14 @@ export class ClickHouseParser extends antlr.Parser {
                 this.enterOuterAlt(localContext, 1);
                 {
                 this.state = 2000;
-                this.columnLambdaExpr();
+                this.columnLambdaExpression();
                 }
                 break;
             case 2:
                 this.enterOuterAlt(localContext, 2);
                 {
                 this.state = 2001;
-                this.columnExpr(0);
+                this.columnExpression(0);
                 }
                 break;
             }
@@ -8990,9 +8994,9 @@ export class ClickHouseParser extends antlr.Parser {
         }
         return localContext;
     }
-    public columnLambdaExpr(): ColumnLambdaExprContext {
-        let localContext = new ColumnLambdaExprContext(this.context, this.state);
-        this.enterRule(localContext, 220, ClickHouseParser.RULE_columnLambdaExpr);
+    public columnLambdaExpression(): ColumnLambdaExpressionContext {
+        let localContext = new ColumnLambdaExpressionContext(this.context, this.state);
+        this.enterRule(localContext, 220, ClickHouseParser.RULE_columnLambdaExpression);
         let _la: number;
         try {
             this.enterOuterAlt(localContext, 1);
@@ -9240,7 +9244,7 @@ export class ClickHouseParser extends antlr.Parser {
             this.state = 2025;
             this.match(ClickHouseParser.ARROW);
             this.state = 2026;
-            this.columnExpr(0);
+            this.columnExpression(0);
             }
         }
         catch (re) {
@@ -9306,19 +9310,19 @@ export class ClickHouseParser extends antlr.Parser {
         return localContext;
     }
 
-    public tableExpr(): TableExprContext;
-    public tableExpr(_p: number): TableExprContext;
-    public tableExpr(_p?: number): TableExprContext {
+    public tableExpression(): TableExpressionContext;
+    public tableExpression(_p: number): TableExpressionContext;
+    public tableExpression(_p?: number): TableExpressionContext {
         if (_p === undefined) {
             _p = 0;
         }
 
         let parentContext = this.context;
         let parentState = this.state;
-        let localContext = new TableExprContext(this.context, parentState);
+        let localContext = new TableExpressionContext(this.context, parentState);
         let previousContext = localContext;
         let _startState = 224;
-        this.enterRecursionRule(localContext, 224, ClickHouseParser.RULE_tableExpr, _p);
+        this.enterRecursionRule(localContext, 224, ClickHouseParser.RULE_tableExpression, _p);
         try {
             let alternative: number;
             this.enterOuterAlt(localContext, 1);
@@ -9328,7 +9332,7 @@ export class ClickHouseParser extends antlr.Parser {
             switch (this.interpreter.adaptivePredict(this.tokenStream, 265, this.context) ) {
             case 1:
                 {
-                localContext = new TableExprIdentifierContext(localContext);
+                localContext = new TableExpressionIdentifierContext(localContext);
                 this.context = localContext;
                 previousContext = localContext;
 
@@ -9338,22 +9342,22 @@ export class ClickHouseParser extends antlr.Parser {
                 break;
             case 2:
                 {
-                localContext = new TableExprFunctionContext(localContext);
+                localContext = new TableExpressionFunctionContext(localContext);
                 this.context = localContext;
                 previousContext = localContext;
                 this.state = 2040;
-                this.tableFunctionExpr();
+                this.tableFunctionExpression();
                 }
                 break;
             case 3:
                 {
-                localContext = new TableExprSubqueryContext(localContext);
+                localContext = new TableExpressionSubqueryContext(localContext);
                 this.context = localContext;
                 previousContext = localContext;
                 this.state = 2041;
                 this.match(ClickHouseParser.LPAREN);
                 this.state = 2042;
-                this.selectUnionStmt();
+                this.selectUnionStatement();
                 this.state = 2043;
                 this.match(ClickHouseParser.RPAREN);
                 }
@@ -9371,8 +9375,8 @@ export class ClickHouseParser extends antlr.Parser {
                     previousContext = localContext;
                     {
                     {
-                    localContext = new TableExprAliasContext(new TableExprContext(parentContext, parentState));
-                    this.pushNewRecursionContext(localContext, _startState, ClickHouseParser.RULE_tableExpr);
+                    localContext = new TableExpressionAliasContext(new TableExpressionContext(parentContext, parentState));
+                    this.pushNewRecursionContext(localContext, _startState, ClickHouseParser.RULE_tableExpression);
                     this.state = 2047;
                     if (!(this.precpred(this.context, 1))) {
                         throw this.createFailedPredicateException("this.precpred(this.context, 1)");
@@ -9424,9 +9428,9 @@ export class ClickHouseParser extends antlr.Parser {
         }
         return localContext;
     }
-    public tableFunctionExpr(): TableFunctionExprContext {
-        let localContext = new TableFunctionExprContext(this.context, this.state);
-        this.enterRule(localContext, 226, ClickHouseParser.RULE_tableFunctionExpr);
+    public tableFunctionExpression(): TableFunctionExpressionContext {
+        let localContext = new TableFunctionExpressionContext(this.context, this.state);
+        this.enterRule(localContext, 226, ClickHouseParser.RULE_tableFunctionExpression);
         let _la: number;
         try {
             this.enterOuterAlt(localContext, 1);
@@ -9507,7 +9511,7 @@ export class ClickHouseParser extends antlr.Parser {
             this.enterOuterAlt(localContext, 1);
             {
             this.state = 2072;
-            this.tableArgExpr();
+            this.tableArgExpression();
             this.state = 2077;
             this.errorHandler.sync(this);
             _la = this.tokenStream.LA(1);
@@ -9517,7 +9521,7 @@ export class ClickHouseParser extends antlr.Parser {
                 this.state = 2073;
                 this.match(ClickHouseParser.COMMA);
                 this.state = 2074;
-                this.tableArgExpr();
+                this.tableArgExpression();
                 }
                 }
                 this.state = 2079;
@@ -9540,9 +9544,9 @@ export class ClickHouseParser extends antlr.Parser {
         }
         return localContext;
     }
-    public tableArgExpr(): TableArgExprContext {
-        let localContext = new TableArgExprContext(this.context, this.state);
-        this.enterRule(localContext, 232, ClickHouseParser.RULE_tableArgExpr);
+    public tableArgExpression(): TableArgExpressionContext {
+        let localContext = new TableArgExpressionContext(this.context, this.state);
+        this.enterRule(localContext, 232, ClickHouseParser.RULE_tableArgExpression);
         try {
             this.state = 2083;
             this.errorHandler.sync(this);
@@ -9558,7 +9562,7 @@ export class ClickHouseParser extends antlr.Parser {
                 this.enterOuterAlt(localContext, 2);
                 {
                 this.state = 2081;
-                this.tableFunctionExpr();
+                this.tableFunctionExpression();
                 }
                 break;
             case 3:
@@ -10442,21 +10446,21 @@ export class ClickHouseParser extends antlr.Parser {
     public override sempred(localContext: antlr.RuleContext | null, ruleIndex: number, predIndex: number): boolean {
         switch (ruleIndex) {
         case 24:
-            return this.dictionaryAttrDfnt_sempred(localContext as DictionaryAttrDfntContext, predIndex);
+            return this.dictionaryAttributeDefinition_sempred(localContext as DictionaryAttributeDefinitionContext, predIndex);
         case 25:
             return this.dictionaryEngineClause_sempred(localContext as DictionaryEngineClauseContext, predIndex);
         case 38:
             return this.engineClause_sempred(localContext as EngineClauseContext, predIndex);
         case 81:
-            return this.joinExpr_sempred(localContext as JoinExprContext, predIndex);
+            return this.joinExpression_sempred(localContext as JoinExpressionContext, predIndex);
         case 107:
-            return this.columnExpr_sempred(localContext as ColumnExprContext, predIndex);
+            return this.columnExpression_sempred(localContext as ColumnExpressionContext, predIndex);
         case 112:
-            return this.tableExpr_sempred(localContext as TableExprContext, predIndex);
+            return this.tableExpression_sempred(localContext as TableExpressionContext, predIndex);
         }
         return true;
     }
-    private dictionaryAttrDfnt_sempred(localContext: DictionaryAttrDfntContext | null, predIndex: number): boolean {
+    private dictionaryAttributeDefinition_sempred(localContext: DictionaryAttributeDefinitionContext | null, predIndex: number): boolean {
         switch (predIndex) {
         case 0:
             return !localContext.attrs.has("default");
@@ -10503,7 +10507,7 @@ export class ClickHouseParser extends antlr.Parser {
         }
         return true;
     }
-    private joinExpr_sempred(localContext: JoinExprContext | null, predIndex: number): boolean {
+    private joinExpression_sempred(localContext: JoinExpressionContext | null, predIndex: number): boolean {
         switch (predIndex) {
         case 16:
             return this.precpred(this.context, 3);
@@ -10512,7 +10516,7 @@ export class ClickHouseParser extends antlr.Parser {
         }
         return true;
     }
-    private columnExpr_sempred(localContext: ColumnExprContext | null, predIndex: number): boolean {
+    private columnExpression_sempred(localContext: ColumnExpressionContext | null, predIndex: number): boolean {
         switch (predIndex) {
         case 18:
             return this.precpred(this.context, 16);
@@ -10539,7 +10543,7 @@ export class ClickHouseParser extends antlr.Parser {
         }
         return true;
     }
-    private tableExpr_sempred(localContext: TableExprContext | null, predIndex: number): boolean {
+    private tableExpression_sempred(localContext: TableExpressionContext | null, predIndex: number): boolean {
         switch (predIndex) {
         case 29:
             return this.precpred(this.context, 1);
@@ -11544,8 +11548,8 @@ export class StatementContext extends antlr.ParserRuleContext {
     public SEMICOLON(): antlr.TerminalNode | null {
         return this.getToken(ClickHouseParser.SEMICOLON, 0);
     }
-    public insertStmt(): InsertStmtContext | null {
-        return this.getRuleContext(0, InsertStmtContext);
+    public insertStatement(): InsertStatementContext | null {
+        return this.getRuleContext(0, InsertStatementContext);
     }
     public override get ruleIndex(): number {
         return ClickHouseParser.RULE_statement;
@@ -11564,68 +11568,68 @@ export class NotInsertStatementContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
-    public alterStmt(): AlterStmtContext | null {
-        return this.getRuleContext(0, AlterStmtContext);
+    public alterStatement(): AlterStatementContext | null {
+        return this.getRuleContext(0, AlterStatementContext);
     }
-    public attachStmt(): AttachStmtContext | null {
-        return this.getRuleContext(0, AttachStmtContext);
+    public attachStatement(): AttachStatementContext | null {
+        return this.getRuleContext(0, AttachStatementContext);
     }
-    public checkStmt(): CheckStmtContext | null {
-        return this.getRuleContext(0, CheckStmtContext);
+    public checkStatement(): CheckStatementContext | null {
+        return this.getRuleContext(0, CheckStatementContext);
     }
-    public createStmt(): CreateStmtContext | null {
-        return this.getRuleContext(0, CreateStmtContext);
+    public createStatement(): CreateStatementContext | null {
+        return this.getRuleContext(0, CreateStatementContext);
     }
-    public describeStmt(): DescribeStmtContext | null {
-        return this.getRuleContext(0, DescribeStmtContext);
+    public describeStatement(): DescribeStatementContext | null {
+        return this.getRuleContext(0, DescribeStatementContext);
     }
     public deleteStatement(): DeleteStatementContext | null {
         return this.getRuleContext(0, DeleteStatementContext);
     }
-    public dropStmt(): DropStmtContext | null {
-        return this.getRuleContext(0, DropStmtContext);
+    public dropStatement(): DropStatementContext | null {
+        return this.getRuleContext(0, DropStatementContext);
     }
-    public existsStmt(): ExistsStmtContext | null {
-        return this.getRuleContext(0, ExistsStmtContext);
+    public existsStatement(): ExistsStatementContext | null {
+        return this.getRuleContext(0, ExistsStatementContext);
     }
-    public explainStmt(): ExplainStmtContext | null {
-        return this.getRuleContext(0, ExplainStmtContext);
+    public explainStatement(): ExplainStatementContext | null {
+        return this.getRuleContext(0, ExplainStatementContext);
     }
-    public killStmt(): KillStmtContext | null {
-        return this.getRuleContext(0, KillStmtContext);
+    public killStatement(): KillStatementContext | null {
+        return this.getRuleContext(0, KillStatementContext);
     }
-    public optimizeStmt(): OptimizeStmtContext | null {
-        return this.getRuleContext(0, OptimizeStmtContext);
+    public optimizeStatement(): OptimizeStatementContext | null {
+        return this.getRuleContext(0, OptimizeStatementContext);
     }
-    public renameStmt(): RenameStmtContext | null {
-        return this.getRuleContext(0, RenameStmtContext);
+    public renameStatement(): RenameStatementContext | null {
+        return this.getRuleContext(0, RenameStatementContext);
     }
-    public selectUnionStmt(): SelectUnionStmtContext | null {
-        return this.getRuleContext(0, SelectUnionStmtContext);
+    public selectUnionStatement(): SelectUnionStatementContext | null {
+        return this.getRuleContext(0, SelectUnionStatementContext);
     }
-    public setStmt(): SetStmtContext | null {
-        return this.getRuleContext(0, SetStmtContext);
+    public setStatement(): SetStatementContext | null {
+        return this.getRuleContext(0, SetStatementContext);
     }
-    public showStmt(): ShowStmtContext | null {
-        return this.getRuleContext(0, ShowStmtContext);
+    public showStatement(): ShowStatementContext | null {
+        return this.getRuleContext(0, ShowStatementContext);
     }
-    public systemStmt(): SystemStmtContext | null {
-        return this.getRuleContext(0, SystemStmtContext);
+    public systemStatement(): SystemStatementContext | null {
+        return this.getRuleContext(0, SystemStatementContext);
     }
-    public truncateStmt(): TruncateStmtContext | null {
-        return this.getRuleContext(0, TruncateStmtContext);
+    public truncateStatement(): TruncateStatementContext | null {
+        return this.getRuleContext(0, TruncateStatementContext);
     }
-    public useStmt(): UseStmtContext | null {
-        return this.getRuleContext(0, UseStmtContext);
+    public useStatement(): UseStatementContext | null {
+        return this.getRuleContext(0, UseStatementContext);
     }
-    public watchStmt(): WatchStmtContext | null {
-        return this.getRuleContext(0, WatchStmtContext);
+    public watchStatement(): WatchStatementContext | null {
+        return this.getRuleContext(0, WatchStatementContext);
     }
-    public selectStmt(): SelectStmtContext | null {
-        return this.getRuleContext(0, SelectStmtContext);
+    public selectStatement(): SelectStatementContext | null {
+        return this.getRuleContext(0, SelectStatementContext);
     }
-    public ctes(): CtesContext | null {
-        return this.getRuleContext(0, CtesContext);
+    public commonTableExpressionStatement(): CommonTableExpressionStatementContext | null {
+        return this.getRuleContext(0, CommonTableExpressionStatementContext);
     }
     public override get ruleIndex(): number {
         return ClickHouseParser.RULE_notInsertStatement;
@@ -11640,7 +11644,7 @@ export class NotInsertStatementContext extends antlr.ParserRuleContext {
 }
 
 
-export class CtesContext extends antlr.ParserRuleContext {
+export class CommonTableExpressionStatementContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
@@ -11666,11 +11670,11 @@ export class CtesContext extends antlr.ParserRuleContext {
     	}
     }
     public override get ruleIndex(): number {
-        return ClickHouseParser.RULE_ctes;
+        return ClickHouseParser.RULE_commonTableExpressionStatement;
     }
     public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
-        if (visitor.visitCtes) {
-            return visitor.visitCtes(this);
+        if (visitor.visitCommonTableExpressionStatement) {
+            return visitor.visitCommonTableExpressionStatement(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -11755,19 +11759,19 @@ export class ColumnAliasesContext extends antlr.ParserRuleContext {
 }
 
 
-export class AlterStmtContext extends antlr.ParserRuleContext {
+export class AlterStatementContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
     public override get ruleIndex(): number {
-        return ClickHouseParser.RULE_alterStmt;
+        return ClickHouseParser.RULE_alterStatement;
     }
-    public override copyFrom(ctx: AlterStmtContext): void {
+    public override copyFrom(ctx: AlterStatementContext): void {
         super.copyFrom(ctx);
     }
 }
-export class AlterTableStmtContext extends AlterStmtContext {
-    public constructor(ctx: AlterStmtContext) {
+export class AlterTableStatementContext extends AlterStatementContext {
+    public constructor(ctx: AlterStatementContext) {
         super(ctx.parent, ctx.invokingState);
         super.copyFrom(ctx);
     }
@@ -11802,8 +11806,8 @@ export class AlterTableStmtContext extends AlterStmtContext {
     	}
     }
     public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
-        if (visitor.visitAlterTableStmt) {
-            return visitor.visitAlterTableStmt(this);
+        if (visitor.visitAlterTableStatement) {
+            return visitor.visitAlterTableStatement(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -11861,8 +11865,8 @@ export class AlterTableClauseModifyOrderByContext extends AlterTableClauseContex
     public BY(): antlr.TerminalNode {
         return this.getToken(ClickHouseParser.BY, 0)!;
     }
-    public columnExpr(): ColumnExprContext {
-        return this.getRuleContext(0, ColumnExprContext)!;
+    public columnExpression(): ColumnExpressionContext {
+        return this.getRuleContext(0, ColumnExpressionContext)!;
     }
     public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
         if (visitor.visitAlterTableClauseModifyOrderBy) {
@@ -11880,8 +11884,8 @@ export class AlterTableClauseUpdateContext extends AlterTableClauseContext {
     public UPDATE(): antlr.TerminalNode {
         return this.getToken(ClickHouseParser.UPDATE, 0)!;
     }
-    public assignmentExprList(): AssignmentExprListContext {
-        return this.getRuleContext(0, AssignmentExprListContext)!;
+    public assignmentExpressionList(): AssignmentExpressionListContext {
+        return this.getRuleContext(0, AssignmentExpressionListContext)!;
     }
     public whereClause(): WhereClauseContext {
         return this.getRuleContext(0, WhereClauseContext)!;
@@ -11973,8 +11977,8 @@ export class AlterTableClauseDeleteContext extends AlterTableClauseContext {
     public WHERE(): antlr.TerminalNode {
         return this.getToken(ClickHouseParser.WHERE, 0)!;
     }
-    public columnExpr(): ColumnExprContext {
-        return this.getRuleContext(0, ColumnExprContext)!;
+    public columnExpression(): ColumnExpressionContext {
+        return this.getRuleContext(0, ColumnExpressionContext)!;
     }
     public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
         if (visitor.visitAlterTableClauseDelete) {
@@ -12073,8 +12077,8 @@ export class AlterTableClauseAddIndexContext extends AlterTableClauseContext {
     public INDEX(): antlr.TerminalNode {
         return this.getToken(ClickHouseParser.INDEX, 0)!;
     }
-    public tableIndexDfnt(): TableIndexDfntContext {
-        return this.getRuleContext(0, TableIndexDfntContext)!;
+    public tableIndexDefinition(): TableIndexDefinitionContext {
+        return this.getRuleContext(0, TableIndexDefinitionContext)!;
     }
     public IF(): antlr.TerminalNode | null {
         return this.getToken(ClickHouseParser.IF, 0);
@@ -12324,8 +12328,8 @@ export class AlterTableClauseModifyContext extends AlterTableClauseContext {
     public COLUMN(): antlr.TerminalNode {
         return this.getToken(ClickHouseParser.COLUMN, 0)!;
     }
-    public tableColumnDfnt(): TableColumnDfntContext {
-        return this.getRuleContext(0, TableColumnDfntContext)!;
+    public tableColumnDefinition(): TableColumnDefinitionContext {
+        return this.getRuleContext(0, TableColumnDefinitionContext)!;
     }
     public IF(): antlr.TerminalNode | null {
         return this.getToken(ClickHouseParser.IF, 0);
@@ -12408,8 +12412,8 @@ export class AlterTableClauseModifyCodecContext extends AlterTableClauseContext 
     public columnIdentifier(): ColumnIdentifierContext {
         return this.getRuleContext(0, ColumnIdentifierContext)!;
     }
-    public codecExpr(): CodecExprContext {
-        return this.getRuleContext(0, CodecExprContext)!;
+    public codecExpression(): CodecExpressionContext {
+        return this.getRuleContext(0, CodecExpressionContext)!;
     }
     public IF(): antlr.TerminalNode | null {
         return this.getToken(ClickHouseParser.IF, 0);
@@ -12570,8 +12574,8 @@ export class AlterTableClauseAddProjectionContext extends AlterTableClauseContex
     public PROJECTION(): antlr.TerminalNode {
         return this.getToken(ClickHouseParser.PROJECTION, 0)!;
     }
-    public tableProjectionDfnt(): TableProjectionDfntContext {
-        return this.getRuleContext(0, TableProjectionDfntContext)!;
+    public tableProjectionDefinition(): TableProjectionDefinitionContext {
+        return this.getRuleContext(0, TableProjectionDefinitionContext)!;
     }
     public IF(): antlr.TerminalNode | null {
         return this.getToken(ClickHouseParser.IF, 0);
@@ -12607,8 +12611,8 @@ export class AlterTableClauseAddColumnContext extends AlterTableClauseContext {
     public COLUMN(): antlr.TerminalNode {
         return this.getToken(ClickHouseParser.COLUMN, 0)!;
     }
-    public tableColumnDfnt(): TableColumnDfntContext {
-        return this.getRuleContext(0, TableColumnDfntContext)!;
+    public tableColumnDefinition(): TableColumnDefinitionContext {
+        return this.getRuleContext(0, TableColumnDefinitionContext)!;
     }
     public IF(): antlr.TerminalNode | null {
         return this.getToken(ClickHouseParser.IF, 0);
@@ -12635,18 +12639,18 @@ export class AlterTableClauseAddColumnContext extends AlterTableClauseContext {
 }
 
 
-export class AssignmentExprListContext extends antlr.ParserRuleContext {
+export class AssignmentExpressionListContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
-    public assignmentExpr(): AssignmentExprContext[];
-    public assignmentExpr(i: number): AssignmentExprContext | null;
-    public assignmentExpr(i?: number): AssignmentExprContext[] | AssignmentExprContext | null {
+    public assignmentExpression(): AssignmentExpressionContext[];
+    public assignmentExpression(i: number): AssignmentExpressionContext | null;
+    public assignmentExpression(i?: number): AssignmentExpressionContext[] | AssignmentExpressionContext | null {
         if (i === undefined) {
-            return this.getRuleContexts(AssignmentExprContext);
+            return this.getRuleContexts(AssignmentExpressionContext);
         }
 
-        return this.getRuleContext(i, AssignmentExprContext);
+        return this.getRuleContext(i, AssignmentExpressionContext);
     }
     public COMMA(): antlr.TerminalNode[];
     public COMMA(i: number): antlr.TerminalNode | null;
@@ -12658,11 +12662,11 @@ export class AssignmentExprListContext extends antlr.ParserRuleContext {
     	}
     }
     public override get ruleIndex(): number {
-        return ClickHouseParser.RULE_assignmentExprList;
+        return ClickHouseParser.RULE_assignmentExpressionList;
     }
     public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
-        if (visitor.visitAssignmentExprList) {
-            return visitor.visitAssignmentExprList(this);
+        if (visitor.visitAssignmentExpressionList) {
+            return visitor.visitAssignmentExpressionList(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -12670,7 +12674,7 @@ export class AssignmentExprListContext extends antlr.ParserRuleContext {
 }
 
 
-export class AssignmentExprContext extends antlr.ParserRuleContext {
+export class AssignmentExpressionContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
@@ -12680,15 +12684,15 @@ export class AssignmentExprContext extends antlr.ParserRuleContext {
     public EQ_SINGLE(): antlr.TerminalNode {
         return this.getToken(ClickHouseParser.EQ_SINGLE, 0)!;
     }
-    public columnExpr(): ColumnExprContext {
-        return this.getRuleContext(0, ColumnExprContext)!;
+    public columnExpression(): ColumnExpressionContext {
+        return this.getRuleContext(0, ColumnExpressionContext)!;
     }
     public override get ruleIndex(): number {
-        return ClickHouseParser.RULE_assignmentExpr;
+        return ClickHouseParser.RULE_assignmentExpression;
     }
     public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
-        if (visitor.visitAssignmentExpr) {
-            return visitor.visitAssignmentExpr(this);
+        if (visitor.visitAssignmentExpression) {
+            return visitor.visitAssignmentExpression(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -12738,8 +12742,8 @@ export class PartitionClauseContext extends antlr.ParserRuleContext {
     public PARTITION(): antlr.TerminalNode {
         return this.getToken(ClickHouseParser.PARTITION, 0)!;
     }
-    public columnExpr(): ColumnExprContext | null {
-        return this.getRuleContext(0, ColumnExprContext);
+    public columnExpression(): ColumnExpressionContext | null {
+        return this.getRuleContext(0, ColumnExpressionContext);
     }
     public ID(): antlr.TerminalNode | null {
         return this.getToken(ClickHouseParser.ID, 0);
@@ -12760,19 +12764,19 @@ export class PartitionClauseContext extends antlr.ParserRuleContext {
 }
 
 
-export class AttachStmtContext extends antlr.ParserRuleContext {
+export class AttachStatementContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
     public override get ruleIndex(): number {
-        return ClickHouseParser.RULE_attachStmt;
+        return ClickHouseParser.RULE_attachStatement;
     }
-    public override copyFrom(ctx: AttachStmtContext): void {
+    public override copyFrom(ctx: AttachStatementContext): void {
         super.copyFrom(ctx);
     }
 }
-export class AttachDictionaryStmtContext extends AttachStmtContext {
-    public constructor(ctx: AttachStmtContext) {
+export class AttachDictionaryStatementContext extends AttachStatementContext {
+    public constructor(ctx: AttachStatementContext) {
         super(ctx.parent, ctx.invokingState);
         super.copyFrom(ctx);
     }
@@ -12789,8 +12793,8 @@ export class AttachDictionaryStmtContext extends AttachStmtContext {
         return this.getRuleContext(0, ClusterClauseContext);
     }
     public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
-        if (visitor.visitAttachDictionaryStmt) {
-            return visitor.visitAttachDictionaryStmt(this);
+        if (visitor.visitAttachDictionaryStatement) {
+            return visitor.visitAttachDictionaryStatement(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -12798,7 +12802,7 @@ export class AttachDictionaryStmtContext extends AttachStmtContext {
 }
 
 
-export class CheckStmtContext extends antlr.ParserRuleContext {
+export class CheckStatementContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
@@ -12815,11 +12819,11 @@ export class CheckStmtContext extends antlr.ParserRuleContext {
         return this.getRuleContext(0, PartitionClauseContext);
     }
     public override get ruleIndex(): number {
-        return ClickHouseParser.RULE_checkStmt;
+        return ClickHouseParser.RULE_checkStatement;
     }
     public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
-        if (visitor.visitCheckStmt) {
-            return visitor.visitCheckStmt(this);
+        if (visitor.visitCheckStatement) {
+            return visitor.visitCheckStatement(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -12931,8 +12935,8 @@ export class CreateDatabaseStatementContext extends antlr.ParserRuleContext {
     public databaseIdentifier(): DatabaseIdentifierContext {
         return this.getRuleContext(0, DatabaseIdentifierContext)!;
     }
-    public engineExpr(): EngineExprContext {
-        return this.getRuleContext(0, EngineExprContext)!;
+    public engineExpression(): EngineExpressionContext {
+        return this.getRuleContext(0, EngineExpressionContext)!;
     }
     public ATTACH(): antlr.TerminalNode | null {
         return this.getToken(ClickHouseParser.ATTACH, 0);
@@ -13204,7 +13208,7 @@ export class CreateViewStatementContext extends antlr.ParserRuleContext {
 }
 
 
-export class CreateStmtContext extends antlr.ParserRuleContext {
+export class CreateStatementContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
@@ -13227,11 +13231,11 @@ export class CreateStmtContext extends antlr.ParserRuleContext {
         return this.getRuleContext(0, CreateViewStatementContext);
     }
     public override get ruleIndex(): number {
-        return ClickHouseParser.RULE_createStmt;
+        return ClickHouseParser.RULE_createStatement;
     }
     public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
-        if (visitor.visitCreateStmt) {
-            return visitor.visitCreateStmt(this);
+        if (visitor.visitCreateStatement) {
+            return visitor.visitCreateStatement(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -13246,14 +13250,14 @@ export class DictionarySchemaClauseContext extends antlr.ParserRuleContext {
     public LPAREN(): antlr.TerminalNode {
         return this.getToken(ClickHouseParser.LPAREN, 0)!;
     }
-    public dictionaryAttrDfnt(): DictionaryAttrDfntContext[];
-    public dictionaryAttrDfnt(i: number): DictionaryAttrDfntContext | null;
-    public dictionaryAttrDfnt(i?: number): DictionaryAttrDfntContext[] | DictionaryAttrDfntContext | null {
+    public dictionaryAttributeDefinition(): DictionaryAttributeDefinitionContext[];
+    public dictionaryAttributeDefinition(i: number): DictionaryAttributeDefinitionContext | null;
+    public dictionaryAttributeDefinition(i?: number): DictionaryAttributeDefinitionContext[] | DictionaryAttributeDefinitionContext | null {
         if (i === undefined) {
-            return this.getRuleContexts(DictionaryAttrDfntContext);
+            return this.getRuleContexts(DictionaryAttributeDefinitionContext);
         }
 
-        return this.getRuleContext(i, DictionaryAttrDfntContext);
+        return this.getRuleContext(i, DictionaryAttributeDefinitionContext);
     }
     public RPAREN(): antlr.TerminalNode {
         return this.getToken(ClickHouseParser.RPAREN, 0)!;
@@ -13280,7 +13284,7 @@ export class DictionarySchemaClauseContext extends antlr.ParserRuleContext {
 }
 
 
-export class DictionaryAttrDfntContext extends antlr.ParserRuleContext {
+export class DictionaryAttributeDefinitionContext extends antlr.ParserRuleContext {
     public attrs: Set<string> = new Set();
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
@@ -13288,8 +13292,8 @@ export class DictionaryAttrDfntContext extends antlr.ParserRuleContext {
     public identifier(): IdentifierContext {
         return this.getRuleContext(0, IdentifierContext)!;
     }
-    public columnTypeExpr(): ColumnTypeExprContext {
-        return this.getRuleContext(0, ColumnTypeExprContext)!;
+    public columnTypeExpression(): ColumnTypeExpressionContext {
+        return this.getRuleContext(0, ColumnTypeExpressionContext)!;
     }
     public DEFAULT(): antlr.TerminalNode[];
     public DEFAULT(i: number): antlr.TerminalNode | null;
@@ -13318,14 +13322,14 @@ export class DictionaryAttrDfntContext extends antlr.ParserRuleContext {
     		return this.getToken(ClickHouseParser.EXPRESSION, i);
     	}
     }
-    public columnExpr(): ColumnExprContext[];
-    public columnExpr(i: number): ColumnExprContext | null;
-    public columnExpr(i?: number): ColumnExprContext[] | ColumnExprContext | null {
+    public columnExpression(): ColumnExpressionContext[];
+    public columnExpression(i: number): ColumnExpressionContext | null;
+    public columnExpression(i?: number): ColumnExpressionContext[] | ColumnExpressionContext | null {
         if (i === undefined) {
-            return this.getRuleContexts(ColumnExprContext);
+            return this.getRuleContexts(ColumnExpressionContext);
         }
 
-        return this.getRuleContext(i, ColumnExprContext);
+        return this.getRuleContext(i, ColumnExpressionContext);
     }
     public HIERARCHICAL(): antlr.TerminalNode[];
     public HIERARCHICAL(i: number): antlr.TerminalNode | null;
@@ -13355,11 +13359,11 @@ export class DictionaryAttrDfntContext extends antlr.ParserRuleContext {
     	}
     }
     public override get ruleIndex(): number {
-        return ClickHouseParser.RULE_dictionaryAttrDfnt;
+        return ClickHouseParser.RULE_dictionaryAttributeDefinition;
     }
     public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
-        if (visitor.visitDictionaryAttrDfnt) {
-            return visitor.visitDictionaryAttrDfnt(this);
+        if (visitor.visitDictionaryAttributeDefinition) {
+            return visitor.visitDictionaryAttributeDefinition(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -13443,8 +13447,8 @@ export class DictionaryPrimaryKeyClauseContext extends antlr.ParserRuleContext {
     public KEY(): antlr.TerminalNode {
         return this.getToken(ClickHouseParser.KEY, 0)!;
     }
-    public columnExprList(): ColumnExprListContext {
-        return this.getRuleContext(0, ColumnExprListContext)!;
+    public columnExpressionList(): ColumnExpressionListContext {
+        return this.getRuleContext(0, ColumnExpressionListContext)!;
     }
     public override get ruleIndex(): number {
         return ClickHouseParser.RULE_dictionaryPrimaryKeyClause;
@@ -13459,7 +13463,7 @@ export class DictionaryPrimaryKeyClauseContext extends antlr.ParserRuleContext {
 }
 
 
-export class DictionaryArgExprContext extends antlr.ParserRuleContext {
+export class DictionaryArgumentExpressionContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
@@ -13482,11 +13486,11 @@ export class DictionaryArgExprContext extends antlr.ParserRuleContext {
         return this.getToken(ClickHouseParser.RPAREN, 0);
     }
     public override get ruleIndex(): number {
-        return ClickHouseParser.RULE_dictionaryArgExpr;
+        return ClickHouseParser.RULE_dictionaryArgumentExpression;
     }
     public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
-        if (visitor.visitDictionaryArgExpr) {
-            return visitor.visitDictionaryArgExpr(this);
+        if (visitor.visitDictionaryArgumentExpression) {
+            return visitor.visitDictionaryArgumentExpression(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -13522,14 +13526,14 @@ export class SourceClauseContext extends antlr.ParserRuleContext {
     		return this.getToken(ClickHouseParser.RPAREN, i);
     	}
     }
-    public dictionaryArgExpr(): DictionaryArgExprContext[];
-    public dictionaryArgExpr(i: number): DictionaryArgExprContext | null;
-    public dictionaryArgExpr(i?: number): DictionaryArgExprContext[] | DictionaryArgExprContext | null {
+    public dictionaryArgumentExpression(): DictionaryArgumentExpressionContext[];
+    public dictionaryArgumentExpression(i: number): DictionaryArgumentExpressionContext | null;
+    public dictionaryArgumentExpression(i?: number): DictionaryArgumentExpressionContext[] | DictionaryArgumentExpressionContext | null {
         if (i === undefined) {
-            return this.getRuleContexts(DictionaryArgExprContext);
+            return this.getRuleContexts(DictionaryArgumentExpressionContext);
         }
 
-        return this.getRuleContext(i, DictionaryArgExprContext);
+        return this.getRuleContext(i, DictionaryArgumentExpressionContext);
     }
     public override get ruleIndex(): number {
         return ClickHouseParser.RULE_sourceClause;
@@ -13613,14 +13617,14 @@ export class LayoutClauseContext extends antlr.ParserRuleContext {
     		return this.getToken(ClickHouseParser.RPAREN, i);
     	}
     }
-    public dictionaryArgExpr(): DictionaryArgExprContext[];
-    public dictionaryArgExpr(i: number): DictionaryArgExprContext | null;
-    public dictionaryArgExpr(i?: number): DictionaryArgExprContext[] | DictionaryArgExprContext | null {
+    public dictionaryArgumentExpression(): DictionaryArgumentExpressionContext[];
+    public dictionaryArgumentExpression(i: number): DictionaryArgumentExpressionContext | null;
+    public dictionaryArgumentExpression(i?: number): DictionaryArgumentExpressionContext[] | DictionaryArgumentExpressionContext | null {
         if (i === undefined) {
-            return this.getRuleContexts(DictionaryArgExprContext);
+            return this.getRuleContexts(DictionaryArgumentExpressionContext);
         }
 
-        return this.getRuleContext(i, DictionaryArgExprContext);
+        return this.getRuleContext(i, DictionaryArgumentExpressionContext);
     }
     public override get ruleIndex(): number {
         return ClickHouseParser.RULE_layoutClause;
@@ -13686,8 +13690,8 @@ export class DictionarySettingsClauseContext extends antlr.ParserRuleContext {
     public LPAREN(): antlr.TerminalNode {
         return this.getToken(ClickHouseParser.LPAREN, 0)!;
     }
-    public settingExprList(): SettingExprListContext {
-        return this.getRuleContext(0, SettingExprListContext)!;
+    public settingExpressionList(): SettingExpressionListContext {
+        return this.getRuleContext(0, SettingExpressionListContext)!;
     }
     public RPAREN(): antlr.TerminalNode {
         return this.getToken(ClickHouseParser.RPAREN, 0)!;
@@ -13787,8 +13791,8 @@ export class SubqueryClauseContext extends antlr.ParserRuleContext {
     public AS(): antlr.TerminalNode {
         return this.getToken(ClickHouseParser.AS, 0)!;
     }
-    public selectUnionStmt(): SelectUnionStmtContext {
-        return this.getRuleContext(0, SelectUnionStmtContext)!;
+    public selectUnionStatement(): SelectUnionStatementContext {
+        return this.getRuleContext(0, SelectUnionStatementContext)!;
     }
     public override get ruleIndex(): number {
         return ClickHouseParser.RULE_subqueryClause;
@@ -13841,8 +13845,8 @@ export class SchemaAsFunctionClauseContext extends TableSchemaClauseContext {
     public AS(): antlr.TerminalNode {
         return this.getToken(ClickHouseParser.AS, 0)!;
     }
-    public tableFunctionExpr(): TableFunctionExprContext {
-        return this.getRuleContext(0, TableFunctionExprContext)!;
+    public tableFunctionExpression(): TableFunctionExpressionContext {
+        return this.getRuleContext(0, TableFunctionExpressionContext)!;
     }
     public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
         if (visitor.visitSchemaAsFunctionClause) {
@@ -13860,14 +13864,14 @@ export class SchemaDescriptionClauseContext extends TableSchemaClauseContext {
     public LPAREN(): antlr.TerminalNode {
         return this.getToken(ClickHouseParser.LPAREN, 0)!;
     }
-    public tableElementExpr(): TableElementExprContext[];
-    public tableElementExpr(i: number): TableElementExprContext | null;
-    public tableElementExpr(i?: number): TableElementExprContext[] | TableElementExprContext | null {
+    public tableElementExpression(): TableElementExpressionContext[];
+    public tableElementExpression(i: number): TableElementExpressionContext | null;
+    public tableElementExpression(i?: number): TableElementExpressionContext[] | TableElementExpressionContext | null {
         if (i === undefined) {
-            return this.getRuleContexts(TableElementExprContext);
+            return this.getRuleContexts(TableElementExpressionContext);
         }
 
-        return this.getRuleContext(i, TableElementExprContext);
+        return this.getRuleContext(i, TableElementExpressionContext);
     }
     public RPAREN(): antlr.TerminalNode {
         return this.getToken(ClickHouseParser.RPAREN, 0)!;
@@ -13896,8 +13900,8 @@ export class EngineClauseContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
-    public engineExpr(): EngineExprContext {
-        return this.getRuleContext(0, EngineExprContext)!;
+    public engineExpression(): EngineExpressionContext {
+        return this.getRuleContext(0, EngineExpressionContext)!;
     }
     public orderByClause(): OrderByClauseContext[];
     public orderByClause(i: number): OrderByClauseContext | null;
@@ -13976,8 +13980,8 @@ export class PartitionByClauseContext extends antlr.ParserRuleContext {
     public BY(): antlr.TerminalNode {
         return this.getToken(ClickHouseParser.BY, 0)!;
     }
-    public columnExpr(): ColumnExprContext {
-        return this.getRuleContext(0, ColumnExprContext)!;
+    public columnExpression(): ColumnExpressionContext {
+        return this.getRuleContext(0, ColumnExpressionContext)!;
     }
     public override get ruleIndex(): number {
         return ClickHouseParser.RULE_partitionByClause;
@@ -14002,8 +14006,8 @@ export class PrimaryKeyClauseContext extends antlr.ParserRuleContext {
     public KEY(): antlr.TerminalNode {
         return this.getToken(ClickHouseParser.KEY, 0)!;
     }
-    public columnExpr(): ColumnExprContext {
-        return this.getRuleContext(0, ColumnExprContext)!;
+    public columnExpression(): ColumnExpressionContext {
+        return this.getRuleContext(0, ColumnExpressionContext)!;
     }
     public override get ruleIndex(): number {
         return ClickHouseParser.RULE_primaryKeyClause;
@@ -14028,8 +14032,8 @@ export class SampleByClauseContext extends antlr.ParserRuleContext {
     public BY(): antlr.TerminalNode {
         return this.getToken(ClickHouseParser.BY, 0)!;
     }
-    public columnExpr(): ColumnExprContext {
-        return this.getRuleContext(0, ColumnExprContext)!;
+    public columnExpression(): ColumnExpressionContext {
+        return this.getRuleContext(0, ColumnExpressionContext)!;
     }
     public override get ruleIndex(): number {
         return ClickHouseParser.RULE_sampleByClause;
@@ -14051,14 +14055,14 @@ export class TtlClauseContext extends antlr.ParserRuleContext {
     public TTL(): antlr.TerminalNode {
         return this.getToken(ClickHouseParser.TTL, 0)!;
     }
-    public ttlExpr(): TtlExprContext[];
-    public ttlExpr(i: number): TtlExprContext | null;
-    public ttlExpr(i?: number): TtlExprContext[] | TtlExprContext | null {
+    public ttlExpression(): TtlExpressionContext[];
+    public ttlExpression(i: number): TtlExpressionContext | null;
+    public ttlExpression(i?: number): TtlExpressionContext[] | TtlExpressionContext | null {
         if (i === undefined) {
-            return this.getRuleContexts(TtlExprContext);
+            return this.getRuleContexts(TtlExpressionContext);
         }
 
-        return this.getRuleContext(i, TtlExprContext);
+        return this.getRuleContext(i, TtlExpressionContext);
     }
     public COMMA(): antlr.TerminalNode[];
     public COMMA(i: number): antlr.TerminalNode | null;
@@ -14082,7 +14086,7 @@ export class TtlClauseContext extends antlr.ParserRuleContext {
 }
 
 
-export class EngineExprContext extends antlr.ParserRuleContext {
+export class EngineExpressionContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
@@ -14101,15 +14105,15 @@ export class EngineExprContext extends antlr.ParserRuleContext {
     public RPAREN(): antlr.TerminalNode | null {
         return this.getToken(ClickHouseParser.RPAREN, 0);
     }
-    public columnExprList(): ColumnExprListContext | null {
-        return this.getRuleContext(0, ColumnExprListContext);
+    public columnExpressionList(): ColumnExpressionListContext | null {
+        return this.getRuleContext(0, ColumnExpressionListContext);
     }
     public override get ruleIndex(): number {
-        return ClickHouseParser.RULE_engineExpr;
+        return ClickHouseParser.RULE_engineExpression;
     }
     public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
-        if (visitor.visitEngineExpr) {
-            return visitor.visitEngineExpr(this);
+        if (visitor.visitEngineExpression) {
+            return visitor.visitEngineExpression(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -14117,38 +14121,35 @@ export class EngineExprContext extends antlr.ParserRuleContext {
 }
 
 
-export class TableElementExprContext extends antlr.ParserRuleContext {
+export class TableElementExpressionContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
     public override get ruleIndex(): number {
-        return ClickHouseParser.RULE_tableElementExpr;
+        return ClickHouseParser.RULE_tableElementExpression;
     }
-    public override copyFrom(ctx: TableElementExprContext): void {
+    public override copyFrom(ctx: TableElementExpressionContext): void {
         super.copyFrom(ctx);
     }
 }
-export class TableElementExprProjectionContext extends TableElementExprContext {
-    public constructor(ctx: TableElementExprContext) {
+export class TableElementExpressionColumnContext extends TableElementExpressionContext {
+    public constructor(ctx: TableElementExpressionContext) {
         super(ctx.parent, ctx.invokingState);
         super.copyFrom(ctx);
     }
-    public PROJECTION(): antlr.TerminalNode {
-        return this.getToken(ClickHouseParser.PROJECTION, 0)!;
-    }
-    public tableProjectionDfnt(): TableProjectionDfntContext {
-        return this.getRuleContext(0, TableProjectionDfntContext)!;
+    public tableColumnDefinition(): TableColumnDefinitionContext {
+        return this.getRuleContext(0, TableColumnDefinitionContext)!;
     }
     public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
-        if (visitor.visitTableElementExprProjection) {
-            return visitor.visitTableElementExprProjection(this);
+        if (visitor.visitTableElementExpressionColumn) {
+            return visitor.visitTableElementExpressionColumn(this);
         } else {
             return visitor.visitChildren(this);
         }
     }
 }
-export class TableElementExprConstraintContext extends TableElementExprContext {
-    public constructor(ctx: TableElementExprContext) {
+export class TableElementExpressionConstraintContext extends TableElementExpressionContext {
+    public constructor(ctx: TableElementExpressionContext) {
         super(ctx.parent, ctx.invokingState);
         super.copyFrom(ctx);
     }
@@ -14161,47 +14162,50 @@ export class TableElementExprConstraintContext extends TableElementExprContext {
     public CHECK(): antlr.TerminalNode {
         return this.getToken(ClickHouseParser.CHECK, 0)!;
     }
-    public columnExpr(): ColumnExprContext {
-        return this.getRuleContext(0, ColumnExprContext)!;
+    public columnExpression(): ColumnExpressionContext {
+        return this.getRuleContext(0, ColumnExpressionContext)!;
     }
     public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
-        if (visitor.visitTableElementExprConstraint) {
-            return visitor.visitTableElementExprConstraint(this);
+        if (visitor.visitTableElementExpressionConstraint) {
+            return visitor.visitTableElementExpressionConstraint(this);
         } else {
             return visitor.visitChildren(this);
         }
     }
 }
-export class TableElementExprColumnContext extends TableElementExprContext {
-    public constructor(ctx: TableElementExprContext) {
-        super(ctx.parent, ctx.invokingState);
-        super.copyFrom(ctx);
-    }
-    public tableColumnDfnt(): TableColumnDfntContext {
-        return this.getRuleContext(0, TableColumnDfntContext)!;
-    }
-    public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
-        if (visitor.visitTableElementExprColumn) {
-            return visitor.visitTableElementExprColumn(this);
-        } else {
-            return visitor.visitChildren(this);
-        }
-    }
-}
-export class TableElementExprIndexContext extends TableElementExprContext {
-    public constructor(ctx: TableElementExprContext) {
+export class TableElementExpressionIndexContext extends TableElementExpressionContext {
+    public constructor(ctx: TableElementExpressionContext) {
         super(ctx.parent, ctx.invokingState);
         super.copyFrom(ctx);
     }
     public INDEX(): antlr.TerminalNode {
         return this.getToken(ClickHouseParser.INDEX, 0)!;
     }
-    public tableIndexDfnt(): TableIndexDfntContext {
-        return this.getRuleContext(0, TableIndexDfntContext)!;
+    public tableIndexDefinition(): TableIndexDefinitionContext {
+        return this.getRuleContext(0, TableIndexDefinitionContext)!;
     }
     public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
-        if (visitor.visitTableElementExprIndex) {
-            return visitor.visitTableElementExprIndex(this);
+        if (visitor.visitTableElementExpressionIndex) {
+            return visitor.visitTableElementExpressionIndex(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
+}
+export class TableElementExpressionProjectionContext extends TableElementExpressionContext {
+    public constructor(ctx: TableElementExpressionContext) {
+        super(ctx.parent, ctx.invokingState);
+        super.copyFrom(ctx);
+    }
+    public PROJECTION(): antlr.TerminalNode {
+        return this.getToken(ClickHouseParser.PROJECTION, 0)!;
+    }
+    public tableProjectionDefinition(): TableProjectionDefinitionContext {
+        return this.getRuleContext(0, TableProjectionDefinitionContext)!;
+    }
+    public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
+        if (visitor.visitTableElementExpressionProjection) {
+            return visitor.visitTableElementExpressionProjection(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -14209,18 +14213,18 @@ export class TableElementExprIndexContext extends TableElementExprContext {
 }
 
 
-export class TableColumnDfntContext extends antlr.ParserRuleContext {
+export class TableColumnDefinitionContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
     public columnIdentifier(): ColumnIdentifierContext {
         return this.getRuleContext(0, ColumnIdentifierContext)!;
     }
-    public columnTypeExpr(): ColumnTypeExprContext | null {
-        return this.getRuleContext(0, ColumnTypeExprContext);
+    public columnTypeExpression(): ColumnTypeExpressionContext | null {
+        return this.getRuleContext(0, ColumnTypeExpressionContext);
     }
-    public tableColumnPropertyExpr(): TableColumnPropertyExprContext | null {
-        return this.getRuleContext(0, TableColumnPropertyExprContext);
+    public tableColumnPropertyExpression(): TableColumnPropertyExpressionContext | null {
+        return this.getRuleContext(0, TableColumnPropertyExpressionContext);
     }
     public COMMENT(): antlr.TerminalNode | null {
         return this.getToken(ClickHouseParser.COMMENT, 0);
@@ -14228,21 +14232,21 @@ export class TableColumnDfntContext extends antlr.ParserRuleContext {
     public STRING_LITERAL(): antlr.TerminalNode | null {
         return this.getToken(ClickHouseParser.STRING_LITERAL, 0);
     }
-    public codecExpr(): CodecExprContext | null {
-        return this.getRuleContext(0, CodecExprContext);
+    public codecExpression(): CodecExpressionContext | null {
+        return this.getRuleContext(0, CodecExpressionContext);
     }
     public TTL(): antlr.TerminalNode | null {
         return this.getToken(ClickHouseParser.TTL, 0);
     }
-    public columnExpr(): ColumnExprContext | null {
-        return this.getRuleContext(0, ColumnExprContext);
+    public columnExpression(): ColumnExpressionContext | null {
+        return this.getRuleContext(0, ColumnExpressionContext);
     }
     public override get ruleIndex(): number {
-        return ClickHouseParser.RULE_tableColumnDfnt;
+        return ClickHouseParser.RULE_tableColumnDefinition;
     }
     public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
-        if (visitor.visitTableColumnDfnt) {
-            return visitor.visitTableColumnDfnt(this);
+        if (visitor.visitTableColumnDefinition) {
+            return visitor.visitTableColumnDefinition(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -14250,12 +14254,12 @@ export class TableColumnDfntContext extends antlr.ParserRuleContext {
 }
 
 
-export class TableColumnPropertyExprContext extends antlr.ParserRuleContext {
+export class TableColumnPropertyExpressionContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
-    public columnExpr(): ColumnExprContext {
-        return this.getRuleContext(0, ColumnExprContext)!;
+    public columnExpression(): ColumnExpressionContext {
+        return this.getRuleContext(0, ColumnExpressionContext)!;
     }
     public DEFAULT(): antlr.TerminalNode | null {
         return this.getToken(ClickHouseParser.DEFAULT, 0);
@@ -14267,11 +14271,11 @@ export class TableColumnPropertyExprContext extends antlr.ParserRuleContext {
         return this.getToken(ClickHouseParser.ALIAS, 0);
     }
     public override get ruleIndex(): number {
-        return ClickHouseParser.RULE_tableColumnPropertyExpr;
+        return ClickHouseParser.RULE_tableColumnPropertyExpression;
     }
     public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
-        if (visitor.visitTableColumnPropertyExpr) {
-            return visitor.visitTableColumnPropertyExpr(this);
+        if (visitor.visitTableColumnPropertyExpression) {
+            return visitor.visitTableColumnPropertyExpression(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -14279,21 +14283,21 @@ export class TableColumnPropertyExprContext extends antlr.ParserRuleContext {
 }
 
 
-export class TableIndexDfntContext extends antlr.ParserRuleContext {
+export class TableIndexDefinitionContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
     public columnIdentifier(): ColumnIdentifierContext {
         return this.getRuleContext(0, ColumnIdentifierContext)!;
     }
-    public columnExpr(): ColumnExprContext {
-        return this.getRuleContext(0, ColumnExprContext)!;
+    public columnExpression(): ColumnExpressionContext {
+        return this.getRuleContext(0, ColumnExpressionContext)!;
     }
     public TYPE(): antlr.TerminalNode {
         return this.getToken(ClickHouseParser.TYPE, 0)!;
     }
-    public columnTypeExpr(): ColumnTypeExprContext {
-        return this.getRuleContext(0, ColumnTypeExprContext)!;
+    public columnTypeExpression(): ColumnTypeExpressionContext {
+        return this.getRuleContext(0, ColumnTypeExpressionContext)!;
     }
     public GRANULARITY(): antlr.TerminalNode {
         return this.getToken(ClickHouseParser.GRANULARITY, 0)!;
@@ -14302,11 +14306,11 @@ export class TableIndexDfntContext extends antlr.ParserRuleContext {
         return this.getToken(ClickHouseParser.DECIMAL_LITERAL, 0)!;
     }
     public override get ruleIndex(): number {
-        return ClickHouseParser.RULE_tableIndexDfnt;
+        return ClickHouseParser.RULE_tableIndexDefinition;
     }
     public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
-        if (visitor.visitTableIndexDfnt) {
-            return visitor.visitTableIndexDfnt(this);
+        if (visitor.visitTableIndexDefinition) {
+            return visitor.visitTableIndexDefinition(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -14314,22 +14318,22 @@ export class TableIndexDfntContext extends antlr.ParserRuleContext {
 }
 
 
-export class TableProjectionDfntContext extends antlr.ParserRuleContext {
+export class TableProjectionDefinitionContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
     public columnIdentifier(): ColumnIdentifierContext {
         return this.getRuleContext(0, ColumnIdentifierContext)!;
     }
-    public projectionSelectStmt(): ProjectionSelectStmtContext {
-        return this.getRuleContext(0, ProjectionSelectStmtContext)!;
+    public projectionSelectStatement(): ProjectionSelectStatementContext {
+        return this.getRuleContext(0, ProjectionSelectStatementContext)!;
     }
     public override get ruleIndex(): number {
-        return ClickHouseParser.RULE_tableProjectionDfnt;
+        return ClickHouseParser.RULE_tableProjectionDefinition;
     }
     public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
-        if (visitor.visitTableProjectionDfnt) {
-            return visitor.visitTableProjectionDfnt(this);
+        if (visitor.visitTableProjectionDefinition) {
+            return visitor.visitTableProjectionDefinition(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -14337,7 +14341,7 @@ export class TableProjectionDfntContext extends antlr.ParserRuleContext {
 }
 
 
-export class CodecExprContext extends antlr.ParserRuleContext {
+export class CodecExpressionContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
@@ -14347,14 +14351,14 @@ export class CodecExprContext extends antlr.ParserRuleContext {
     public LPAREN(): antlr.TerminalNode {
         return this.getToken(ClickHouseParser.LPAREN, 0)!;
     }
-    public codecArgExpr(): CodecArgExprContext[];
-    public codecArgExpr(i: number): CodecArgExprContext | null;
-    public codecArgExpr(i?: number): CodecArgExprContext[] | CodecArgExprContext | null {
+    public codecArgExpression(): CodecArgExpressionContext[];
+    public codecArgExpression(i: number): CodecArgExpressionContext | null;
+    public codecArgExpression(i?: number): CodecArgExpressionContext[] | CodecArgExpressionContext | null {
         if (i === undefined) {
-            return this.getRuleContexts(CodecArgExprContext);
+            return this.getRuleContexts(CodecArgExpressionContext);
         }
 
-        return this.getRuleContext(i, CodecArgExprContext);
+        return this.getRuleContext(i, CodecArgExpressionContext);
     }
     public RPAREN(): antlr.TerminalNode {
         return this.getToken(ClickHouseParser.RPAREN, 0)!;
@@ -14369,11 +14373,11 @@ export class CodecExprContext extends antlr.ParserRuleContext {
     	}
     }
     public override get ruleIndex(): number {
-        return ClickHouseParser.RULE_codecExpr;
+        return ClickHouseParser.RULE_codecExpression;
     }
     public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
-        if (visitor.visitCodecExpr) {
-            return visitor.visitCodecExpr(this);
+        if (visitor.visitCodecExpression) {
+            return visitor.visitCodecExpression(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -14381,7 +14385,7 @@ export class CodecExprContext extends antlr.ParserRuleContext {
 }
 
 
-export class CodecArgExprContext extends antlr.ParserRuleContext {
+export class CodecArgExpressionContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
@@ -14394,15 +14398,15 @@ export class CodecArgExprContext extends antlr.ParserRuleContext {
     public RPAREN(): antlr.TerminalNode | null {
         return this.getToken(ClickHouseParser.RPAREN, 0);
     }
-    public columnExprList(): ColumnExprListContext | null {
-        return this.getRuleContext(0, ColumnExprListContext);
+    public columnExpressionList(): ColumnExpressionListContext | null {
+        return this.getRuleContext(0, ColumnExpressionListContext);
     }
     public override get ruleIndex(): number {
-        return ClickHouseParser.RULE_codecArgExpr;
+        return ClickHouseParser.RULE_codecArgExpression;
     }
     public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
-        if (visitor.visitCodecArgExpr) {
-            return visitor.visitCodecArgExpr(this);
+        if (visitor.visitCodecArgExpression) {
+            return visitor.visitCodecArgExpression(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -14410,12 +14414,12 @@ export class CodecArgExprContext extends antlr.ParserRuleContext {
 }
 
 
-export class TtlExprContext extends antlr.ParserRuleContext {
+export class TtlExpressionContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
-    public columnExpr(): ColumnExprContext {
-        return this.getRuleContext(0, ColumnExprContext)!;
+    public columnExpression(): ColumnExpressionContext {
+        return this.getRuleContext(0, ColumnExpressionContext)!;
     }
     public DELETE(): antlr.TerminalNode | null {
         return this.getToken(ClickHouseParser.DELETE, 0);
@@ -14433,11 +14437,11 @@ export class TtlExprContext extends antlr.ParserRuleContext {
         return this.getToken(ClickHouseParser.VOLUME, 0);
     }
     public override get ruleIndex(): number {
-        return ClickHouseParser.RULE_ttlExpr;
+        return ClickHouseParser.RULE_ttlExpression;
     }
     public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
-        if (visitor.visitTtlExpr) {
-            return visitor.visitTtlExpr(this);
+        if (visitor.visitTtlExpression) {
+            return visitor.visitTtlExpression(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -14445,12 +14449,12 @@ export class TtlExprContext extends antlr.ParserRuleContext {
 }
 
 
-export class DescribeStmtContext extends antlr.ParserRuleContext {
+export class DescribeStatementContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
-    public tableExpr(): TableExprContext {
-        return this.getRuleContext(0, TableExprContext)!;
+    public tableExpression(): TableExpressionContext {
+        return this.getRuleContext(0, TableExpressionContext)!;
     }
     public DESCRIBE(): antlr.TerminalNode | null {
         return this.getToken(ClickHouseParser.DESCRIBE, 0);
@@ -14462,11 +14466,11 @@ export class DescribeStmtContext extends antlr.ParserRuleContext {
         return this.getToken(ClickHouseParser.TABLE, 0);
     }
     public override get ruleIndex(): number {
-        return ClickHouseParser.RULE_describeStmt;
+        return ClickHouseParser.RULE_describeStatement;
     }
     public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
-        if (visitor.visitDescribeStmt) {
-            return visitor.visitDescribeStmt(this);
+        if (visitor.visitDescribeStatement) {
+            return visitor.visitDescribeStatement(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -14474,19 +14478,19 @@ export class DescribeStmtContext extends antlr.ParserRuleContext {
 }
 
 
-export class DropStmtContext extends antlr.ParserRuleContext {
+export class DropStatementContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
     public override get ruleIndex(): number {
-        return ClickHouseParser.RULE_dropStmt;
+        return ClickHouseParser.RULE_dropStatement;
     }
-    public override copyFrom(ctx: DropStmtContext): void {
+    public override copyFrom(ctx: DropStatementContext): void {
         super.copyFrom(ctx);
     }
 }
-export class DropDatabaseStmtContext extends DropStmtContext {
-    public constructor(ctx: DropStmtContext) {
+export class DropDatabaseStatementContext extends DropStatementContext {
+    public constructor(ctx: DropStatementContext) {
         super(ctx.parent, ctx.invokingState);
         super.copyFrom(ctx);
     }
@@ -14512,15 +14516,15 @@ export class DropDatabaseStmtContext extends DropStmtContext {
         return this.getRuleContext(0, ClusterClauseContext);
     }
     public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
-        if (visitor.visitDropDatabaseStmt) {
-            return visitor.visitDropDatabaseStmt(this);
+        if (visitor.visitDropDatabaseStatement) {
+            return visitor.visitDropDatabaseStatement(this);
         } else {
             return visitor.visitChildren(this);
         }
     }
 }
-export class DropTableStmtContext extends DropStmtContext {
-    public constructor(ctx: DropStmtContext) {
+export class DropTableStatementContext extends DropStatementContext {
+    public constructor(ctx: DropStatementContext) {
         super(ctx.parent, ctx.invokingState);
         super.copyFrom(ctx);
     }
@@ -14561,8 +14565,8 @@ export class DropTableStmtContext extends DropStmtContext {
         return this.getToken(ClickHouseParser.TEMPORARY, 0);
     }
     public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
-        if (visitor.visitDropTableStmt) {
-            return visitor.visitDropTableStmt(this);
+        if (visitor.visitDropTableStatement) {
+            return visitor.visitDropTableStatement(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -14570,19 +14574,41 @@ export class DropTableStmtContext extends DropStmtContext {
 }
 
 
-export class ExistsStmtContext extends antlr.ParserRuleContext {
+export class ExistsStatementContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
     public override get ruleIndex(): number {
-        return ClickHouseParser.RULE_existsStmt;
+        return ClickHouseParser.RULE_existsStatement;
     }
-    public override copyFrom(ctx: ExistsStmtContext): void {
+    public override copyFrom(ctx: ExistsStatementContext): void {
         super.copyFrom(ctx);
     }
 }
-export class ExistsTableStmtContext extends ExistsStmtContext {
-    public constructor(ctx: ExistsStmtContext) {
+export class ExistsDatabaseStatementContext extends ExistsStatementContext {
+    public constructor(ctx: ExistsStatementContext) {
+        super(ctx.parent, ctx.invokingState);
+        super.copyFrom(ctx);
+    }
+    public EXISTS(): antlr.TerminalNode {
+        return this.getToken(ClickHouseParser.EXISTS, 0)!;
+    }
+    public DATABASE(): antlr.TerminalNode {
+        return this.getToken(ClickHouseParser.DATABASE, 0)!;
+    }
+    public databaseIdentifier(): DatabaseIdentifierContext {
+        return this.getRuleContext(0, DatabaseIdentifierContext)!;
+    }
+    public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
+        if (visitor.visitExistsDatabaseStatement) {
+            return visitor.visitExistsDatabaseStatement(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
+}
+export class ExistsTableStatementContext extends ExistsStatementContext {
+    public constructor(ctx: ExistsStatementContext) {
         super(ctx.parent, ctx.invokingState);
         super.copyFrom(ctx);
     }
@@ -14605,30 +14631,8 @@ export class ExistsTableStmtContext extends ExistsStmtContext {
         return this.getToken(ClickHouseParser.TEMPORARY, 0);
     }
     public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
-        if (visitor.visitExistsTableStmt) {
-            return visitor.visitExistsTableStmt(this);
-        } else {
-            return visitor.visitChildren(this);
-        }
-    }
-}
-export class ExistsDatabaseStmtContext extends ExistsStmtContext {
-    public constructor(ctx: ExistsStmtContext) {
-        super(ctx.parent, ctx.invokingState);
-        super.copyFrom(ctx);
-    }
-    public EXISTS(): antlr.TerminalNode {
-        return this.getToken(ClickHouseParser.EXISTS, 0)!;
-    }
-    public DATABASE(): antlr.TerminalNode {
-        return this.getToken(ClickHouseParser.DATABASE, 0)!;
-    }
-    public databaseIdentifier(): DatabaseIdentifierContext {
-        return this.getRuleContext(0, DatabaseIdentifierContext)!;
-    }
-    public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
-        if (visitor.visitExistsDatabaseStmt) {
-            return visitor.visitExistsDatabaseStmt(this);
+        if (visitor.visitExistsTableStatement) {
+            return visitor.visitExistsTableStatement(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -14636,63 +14640,19 @@ export class ExistsDatabaseStmtContext extends ExistsStmtContext {
 }
 
 
-export class ExplainStmtContext extends antlr.ParserRuleContext {
+export class ExplainStatementContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
     public override get ruleIndex(): number {
-        return ClickHouseParser.RULE_explainStmt;
+        return ClickHouseParser.RULE_explainStatement;
     }
-    public override copyFrom(ctx: ExplainStmtContext): void {
+    public override copyFrom(ctx: ExplainStatementContext): void {
         super.copyFrom(ctx);
     }
 }
-export class ExplainPlanStmtContext extends ExplainStmtContext {
-    public constructor(ctx: ExplainStmtContext) {
-        super(ctx.parent, ctx.invokingState);
-        super.copyFrom(ctx);
-    }
-    public EXPLAIN(): antlr.TerminalNode {
-        return this.getToken(ClickHouseParser.EXPLAIN, 0)!;
-    }
-    public PLAN(): antlr.TerminalNode {
-        return this.getToken(ClickHouseParser.PLAN, 0)!;
-    }
-    public notInsertStatement(): NotInsertStatementContext {
-        return this.getRuleContext(0, NotInsertStatementContext)!;
-    }
-    public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
-        if (visitor.visitExplainPlanStmt) {
-            return visitor.visitExplainPlanStmt(this);
-        } else {
-            return visitor.visitChildren(this);
-        }
-    }
-}
-export class ExplainSyntaxStmtContext extends ExplainStmtContext {
-    public constructor(ctx: ExplainStmtContext) {
-        super(ctx.parent, ctx.invokingState);
-        super.copyFrom(ctx);
-    }
-    public EXPLAIN(): antlr.TerminalNode {
-        return this.getToken(ClickHouseParser.EXPLAIN, 0)!;
-    }
-    public SYNTAX(): antlr.TerminalNode {
-        return this.getToken(ClickHouseParser.SYNTAX, 0)!;
-    }
-    public notInsertStatement(): NotInsertStatementContext {
-        return this.getRuleContext(0, NotInsertStatementContext)!;
-    }
-    public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
-        if (visitor.visitExplainSyntaxStmt) {
-            return visitor.visitExplainSyntaxStmt(this);
-        } else {
-            return visitor.visitChildren(this);
-        }
-    }
-}
-export class ExplainASTStmtContext extends ExplainStmtContext {
-    public constructor(ctx: ExplainStmtContext) {
+export class ExplainASTStatementContext extends ExplainStatementContext {
+    public constructor(ctx: ExplainStatementContext) {
         super(ctx.parent, ctx.invokingState);
         super.copyFrom(ctx);
     }
@@ -14706,15 +14666,15 @@ export class ExplainASTStmtContext extends ExplainStmtContext {
         return this.getRuleContext(0, NotInsertStatementContext)!;
     }
     public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
-        if (visitor.visitExplainASTStmt) {
-            return visitor.visitExplainASTStmt(this);
+        if (visitor.visitExplainASTStatement) {
+            return visitor.visitExplainASTStatement(this);
         } else {
             return visitor.visitChildren(this);
         }
     }
 }
-export class ExplainQueryTreeStmtContext extends ExplainStmtContext {
-    public constructor(ctx: ExplainStmtContext) {
+export class ExplainQueryTreeStatementContext extends ExplainStatementContext {
+    public constructor(ctx: ExplainStatementContext) {
         super(ctx.parent, ctx.invokingState);
         super.copyFrom(ctx);
     }
@@ -14731,15 +14691,56 @@ export class ExplainQueryTreeStmtContext extends ExplainStmtContext {
         return this.getRuleContext(0, NotInsertStatementContext)!;
     }
     public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
-        if (visitor.visitExplainQueryTreeStmt) {
-            return visitor.visitExplainQueryTreeStmt(this);
+        if (visitor.visitExplainQueryTreeStatement) {
+            return visitor.visitExplainQueryTreeStatement(this);
         } else {
             return visitor.visitChildren(this);
         }
     }
 }
-export class ExplainEstimateStmtContext extends ExplainStmtContext {
-    public constructor(ctx: ExplainStmtContext) {
+export class ExplainPlanStatementContext extends ExplainStatementContext {
+    public constructor(ctx: ExplainStatementContext) {
+        super(ctx.parent, ctx.invokingState);
+        super.copyFrom(ctx);
+    }
+    public EXPLAIN(): antlr.TerminalNode {
+        return this.getToken(ClickHouseParser.EXPLAIN, 0)!;
+    }
+    public PLAN(): antlr.TerminalNode {
+        return this.getToken(ClickHouseParser.PLAN, 0)!;
+    }
+    public notInsertStatement(): NotInsertStatementContext {
+        return this.getRuleContext(0, NotInsertStatementContext)!;
+    }
+    public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
+        if (visitor.visitExplainPlanStatement) {
+            return visitor.visitExplainPlanStatement(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
+}
+export class ExplainDefaultStatementContext extends ExplainStatementContext {
+    public constructor(ctx: ExplainStatementContext) {
+        super(ctx.parent, ctx.invokingState);
+        super.copyFrom(ctx);
+    }
+    public EXPLAIN(): antlr.TerminalNode {
+        return this.getToken(ClickHouseParser.EXPLAIN, 0)!;
+    }
+    public notInsertStatement(): NotInsertStatementContext {
+        return this.getRuleContext(0, NotInsertStatementContext)!;
+    }
+    public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
+        if (visitor.visitExplainDefaultStatement) {
+            return visitor.visitExplainDefaultStatement(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
+}
+export class ExplainEstimateStatementContext extends ExplainStatementContext {
+    public constructor(ctx: ExplainStatementContext) {
         super(ctx.parent, ctx.invokingState);
         super.copyFrom(ctx);
     }
@@ -14753,15 +14754,37 @@ export class ExplainEstimateStmtContext extends ExplainStmtContext {
         return this.getRuleContext(0, NotInsertStatementContext)!;
     }
     public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
-        if (visitor.visitExplainEstimateStmt) {
-            return visitor.visitExplainEstimateStmt(this);
+        if (visitor.visitExplainEstimateStatement) {
+            return visitor.visitExplainEstimateStatement(this);
         } else {
             return visitor.visitChildren(this);
         }
     }
 }
-export class ExplainPipelineStmtContext extends ExplainStmtContext {
-    public constructor(ctx: ExplainStmtContext) {
+export class ExplainSyntaxStatementContext extends ExplainStatementContext {
+    public constructor(ctx: ExplainStatementContext) {
+        super(ctx.parent, ctx.invokingState);
+        super.copyFrom(ctx);
+    }
+    public EXPLAIN(): antlr.TerminalNode {
+        return this.getToken(ClickHouseParser.EXPLAIN, 0)!;
+    }
+    public SYNTAX(): antlr.TerminalNode {
+        return this.getToken(ClickHouseParser.SYNTAX, 0)!;
+    }
+    public notInsertStatement(): NotInsertStatementContext {
+        return this.getRuleContext(0, NotInsertStatementContext)!;
+    }
+    public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
+        if (visitor.visitExplainSyntaxStatement) {
+            return visitor.visitExplainSyntaxStatement(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
+}
+export class ExplainPipelineStatementContext extends ExplainStatementContext {
+    public constructor(ctx: ExplainStatementContext) {
         super(ctx.parent, ctx.invokingState);
         super.copyFrom(ctx);
     }
@@ -14775,27 +14798,8 @@ export class ExplainPipelineStmtContext extends ExplainStmtContext {
         return this.getRuleContext(0, NotInsertStatementContext)!;
     }
     public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
-        if (visitor.visitExplainPipelineStmt) {
-            return visitor.visitExplainPipelineStmt(this);
-        } else {
-            return visitor.visitChildren(this);
-        }
-    }
-}
-export class ExplainDefaultStmtContext extends ExplainStmtContext {
-    public constructor(ctx: ExplainStmtContext) {
-        super(ctx.parent, ctx.invokingState);
-        super.copyFrom(ctx);
-    }
-    public EXPLAIN(): antlr.TerminalNode {
-        return this.getToken(ClickHouseParser.EXPLAIN, 0)!;
-    }
-    public notInsertStatement(): NotInsertStatementContext {
-        return this.getRuleContext(0, NotInsertStatementContext)!;
-    }
-    public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
-        if (visitor.visitExplainDefaultStmt) {
-            return visitor.visitExplainDefaultStmt(this);
+        if (visitor.visitExplainPipelineStatement) {
+            return visitor.visitExplainPipelineStatement(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -14803,7 +14807,7 @@ export class ExplainDefaultStmtContext extends ExplainStmtContext {
 }
 
 
-export class InsertStmtContext extends antlr.ParserRuleContext {
+export class InsertStatementContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
@@ -14822,8 +14826,8 @@ export class InsertStmtContext extends antlr.ParserRuleContext {
     public FUNCTION(): antlr.TerminalNode | null {
         return this.getToken(ClickHouseParser.FUNCTION, 0);
     }
-    public tableFunctionExpr(): TableFunctionExprContext | null {
-        return this.getRuleContext(0, TableFunctionExprContext);
+    public tableFunctionExpression(): TableFunctionExpressionContext | null {
+        return this.getRuleContext(0, TableFunctionExpressionContext);
     }
     public TABLE(): antlr.TerminalNode | null {
         return this.getToken(ClickHouseParser.TABLE, 0);
@@ -14832,11 +14836,11 @@ export class InsertStmtContext extends antlr.ParserRuleContext {
         return this.getRuleContext(0, ColumnsClauseContext);
     }
     public override get ruleIndex(): number {
-        return ClickHouseParser.RULE_insertStmt;
+        return ClickHouseParser.RULE_insertStatement;
     }
     public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
-        if (visitor.visitInsertStmt) {
-            return visitor.visitInsertStmt(this);
+        if (visitor.visitInsertStatement) {
+            return visitor.visitInsertStatement(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -14936,8 +14940,8 @@ export class DataClauseSelectContext extends DataClauseContext {
         super(ctx.parent, ctx.invokingState);
         super.copyFrom(ctx);
     }
-    public selectUnionStmt(): SelectUnionStmtContext {
-        return this.getRuleContext(0, SelectUnionStmtContext)!;
+    public selectUnionStatement(): SelectUnionStatementContext {
+        return this.getRuleContext(0, SelectUnionStatementContext)!;
     }
     public EOF(): antlr.TerminalNode {
         return this.getToken(ClickHouseParser.EOF, 0)!;
@@ -15011,19 +15015,19 @@ export class ValuesStatementContext extends antlr.ParserRuleContext {
 }
 
 
-export class KillStmtContext extends antlr.ParserRuleContext {
+export class KillStatementContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
     public override get ruleIndex(): number {
-        return ClickHouseParser.RULE_killStmt;
+        return ClickHouseParser.RULE_killStatement;
     }
-    public override copyFrom(ctx: KillStmtContext): void {
+    public override copyFrom(ctx: KillStatementContext): void {
         super.copyFrom(ctx);
     }
 }
-export class KillMutationStmtContext extends KillStmtContext {
-    public constructor(ctx: KillStmtContext) {
+export class KillMutationStatementContext extends KillStatementContext {
+    public constructor(ctx: KillStatementContext) {
         super(ctx.parent, ctx.invokingState);
         super.copyFrom(ctx);
     }
@@ -15049,8 +15053,8 @@ export class KillMutationStmtContext extends KillStmtContext {
         return this.getToken(ClickHouseParser.TEST, 0);
     }
     public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
-        if (visitor.visitKillMutationStmt) {
-            return visitor.visitKillMutationStmt(this);
+        if (visitor.visitKillMutationStatement) {
+            return visitor.visitKillMutationStatement(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -15058,7 +15062,7 @@ export class KillMutationStmtContext extends KillStmtContext {
 }
 
 
-export class OptimizeStmtContext extends antlr.ParserRuleContext {
+export class OptimizeStatementContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
@@ -15084,11 +15088,11 @@ export class OptimizeStmtContext extends antlr.ParserRuleContext {
         return this.getToken(ClickHouseParser.DEDUPLICATE, 0);
     }
     public override get ruleIndex(): number {
-        return ClickHouseParser.RULE_optimizeStmt;
+        return ClickHouseParser.RULE_optimizeStatement;
     }
     public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
-        if (visitor.visitOptimizeStmt) {
-            return visitor.visitOptimizeStmt(this);
+        if (visitor.visitOptimizeStatement) {
+            return visitor.visitOptimizeStatement(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -15096,7 +15100,7 @@ export class OptimizeStmtContext extends antlr.ParserRuleContext {
 }
 
 
-export class RenameStmtContext extends antlr.ParserRuleContext {
+export class RenameStatementContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
@@ -15137,11 +15141,11 @@ export class RenameStmtContext extends antlr.ParserRuleContext {
         return this.getRuleContext(0, ClusterClauseContext);
     }
     public override get ruleIndex(): number {
-        return ClickHouseParser.RULE_renameStmt;
+        return ClickHouseParser.RULE_renameStatement;
     }
     public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
-        if (visitor.visitRenameStmt) {
-            return visitor.visitRenameStmt(this);
+        if (visitor.visitRenameStatement) {
+            return visitor.visitRenameStatement(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -15149,7 +15153,7 @@ export class RenameStmtContext extends antlr.ParserRuleContext {
 }
 
 
-export class ProjectionSelectStmtContext extends antlr.ParserRuleContext {
+export class ProjectionSelectStatementContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
@@ -15159,8 +15163,8 @@ export class ProjectionSelectStmtContext extends antlr.ParserRuleContext {
     public SELECT(): antlr.TerminalNode {
         return this.getToken(ClickHouseParser.SELECT, 0)!;
     }
-    public columnExprList(): ColumnExprListContext {
-        return this.getRuleContext(0, ColumnExprListContext)!;
+    public columnExpressionList(): ColumnExpressionListContext {
+        return this.getRuleContext(0, ColumnExpressionListContext)!;
     }
     public RPAREN(): antlr.TerminalNode {
         return this.getToken(ClickHouseParser.RPAREN, 0)!;
@@ -15175,11 +15179,11 @@ export class ProjectionSelectStmtContext extends antlr.ParserRuleContext {
         return this.getRuleContext(0, ProjectionOrderByClauseContext);
     }
     public override get ruleIndex(): number {
-        return ClickHouseParser.RULE_projectionSelectStmt;
+        return ClickHouseParser.RULE_projectionSelectStatement;
     }
     public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
-        if (visitor.visitProjectionSelectStmt) {
-            return visitor.visitProjectionSelectStmt(this);
+        if (visitor.visitProjectionSelectStatement) {
+            return visitor.visitProjectionSelectStatement(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -15187,18 +15191,18 @@ export class ProjectionSelectStmtContext extends antlr.ParserRuleContext {
 }
 
 
-export class SelectUnionStmtContext extends antlr.ParserRuleContext {
+export class SelectUnionStatementContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
-    public selectStmtWithParens(): SelectStmtWithParensContext[];
-    public selectStmtWithParens(i: number): SelectStmtWithParensContext | null;
-    public selectStmtWithParens(i?: number): SelectStmtWithParensContext[] | SelectStmtWithParensContext | null {
+    public selectStatementWithParentheses(): SelectStatementWithParenthesesContext[];
+    public selectStatementWithParentheses(i: number): SelectStatementWithParenthesesContext | null;
+    public selectStatementWithParentheses(i?: number): SelectStatementWithParenthesesContext[] | SelectStatementWithParenthesesContext | null {
         if (i === undefined) {
-            return this.getRuleContexts(SelectStmtWithParensContext);
+            return this.getRuleContexts(SelectStatementWithParenthesesContext);
         }
 
-        return this.getRuleContext(i, SelectStmtWithParensContext);
+        return this.getRuleContext(i, SelectStatementWithParenthesesContext);
     }
     public UNION(): antlr.TerminalNode[];
     public UNION(i: number): antlr.TerminalNode | null;
@@ -15219,11 +15223,11 @@ export class SelectUnionStmtContext extends antlr.ParserRuleContext {
     	}
     }
     public override get ruleIndex(): number {
-        return ClickHouseParser.RULE_selectUnionStmt;
+        return ClickHouseParser.RULE_selectUnionStatement;
     }
     public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
-        if (visitor.visitSelectUnionStmt) {
-            return visitor.visitSelectUnionStmt(this);
+        if (visitor.visitSelectUnionStatement) {
+            return visitor.visitSelectUnionStatement(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -15231,28 +15235,28 @@ export class SelectUnionStmtContext extends antlr.ParserRuleContext {
 }
 
 
-export class SelectStmtWithParensContext extends antlr.ParserRuleContext {
+export class SelectStatementWithParenthesesContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
-    public selectStmt(): SelectStmtContext | null {
-        return this.getRuleContext(0, SelectStmtContext);
+    public selectStatement(): SelectStatementContext | null {
+        return this.getRuleContext(0, SelectStatementContext);
     }
     public LPAREN(): antlr.TerminalNode | null {
         return this.getToken(ClickHouseParser.LPAREN, 0);
     }
-    public selectUnionStmt(): SelectUnionStmtContext | null {
-        return this.getRuleContext(0, SelectUnionStmtContext);
+    public selectUnionStatement(): SelectUnionStatementContext | null {
+        return this.getRuleContext(0, SelectUnionStatementContext);
     }
     public RPAREN(): antlr.TerminalNode | null {
         return this.getToken(ClickHouseParser.RPAREN, 0);
     }
     public override get ruleIndex(): number {
-        return ClickHouseParser.RULE_selectStmtWithParens;
+        return ClickHouseParser.RULE_selectStatementWithParentheses;
     }
     public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
-        if (visitor.visitSelectStmtWithParens) {
-            return visitor.visitSelectStmtWithParens(this);
+        if (visitor.visitSelectStatementWithParentheses) {
+            return visitor.visitSelectStatementWithParentheses(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -15260,15 +15264,15 @@ export class SelectStmtWithParensContext extends antlr.ParserRuleContext {
 }
 
 
-export class SelectStmtContext extends antlr.ParserRuleContext {
+export class SelectStatementContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
     public SELECT(): antlr.TerminalNode {
         return this.getToken(ClickHouseParser.SELECT, 0)!;
     }
-    public columnExprList(): ColumnExprListContext {
-        return this.getRuleContext(0, ColumnExprListContext)!;
+    public columnExpressionList(): ColumnExpressionListContext {
+        return this.getRuleContext(0, ColumnExpressionListContext)!;
     }
     public withClause(): WithClauseContext | null {
         return this.getRuleContext(0, WithClauseContext);
@@ -15331,11 +15335,11 @@ export class SelectStmtContext extends antlr.ParserRuleContext {
         return this.getToken(ClickHouseParser.ROLLUP, 0);
     }
     public override get ruleIndex(): number {
-        return ClickHouseParser.RULE_selectStmt;
+        return ClickHouseParser.RULE_selectStatement;
     }
     public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
-        if (visitor.visitSelectStmt) {
-            return visitor.visitSelectStmt(this);
+        if (visitor.visitSelectStatement) {
+            return visitor.visitSelectStatement(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -15350,8 +15354,8 @@ export class WithClauseContext extends antlr.ParserRuleContext {
     public WITH(): antlr.TerminalNode {
         return this.getToken(ClickHouseParser.WITH, 0)!;
     }
-    public columnExprList(): ColumnExprListContext {
-        return this.getRuleContext(0, ColumnExprListContext)!;
+    public columnExpressionList(): ColumnExpressionListContext {
+        return this.getRuleContext(0, ColumnExpressionListContext)!;
     }
     public override get ruleIndex(): number {
         return ClickHouseParser.RULE_withClause;
@@ -15402,8 +15406,8 @@ export class FromClauseContext extends antlr.ParserRuleContext {
     public FROM(): antlr.TerminalNode {
         return this.getToken(ClickHouseParser.FROM, 0)!;
     }
-    public joinExpr(): JoinExprContext {
-        return this.getRuleContext(0, JoinExprContext)!;
+    public joinExpression(): JoinExpressionContext {
+        return this.getRuleContext(0, JoinExpressionContext)!;
     }
     public override get ruleIndex(): number {
         return ClickHouseParser.RULE_fromClause;
@@ -15428,8 +15432,8 @@ export class ArrayJoinClauseContext extends antlr.ParserRuleContext {
     public JOIN(): antlr.TerminalNode {
         return this.getToken(ClickHouseParser.JOIN, 0)!;
     }
-    public columnExprList(): ColumnExprListContext {
-        return this.getRuleContext(0, ColumnExprListContext)!;
+    public columnExpressionList(): ColumnExpressionListContext {
+        return this.getRuleContext(0, ColumnExpressionListContext)!;
     }
     public LEFT(): antlr.TerminalNode | null {
         return this.getToken(ClickHouseParser.LEFT, 0);
@@ -15466,8 +15470,8 @@ export class WindowClauseContext extends antlr.ParserRuleContext {
     public LPAREN(): antlr.TerminalNode {
         return this.getToken(ClickHouseParser.LPAREN, 0)!;
     }
-    public windowExpr(): WindowExprContext {
-        return this.getRuleContext(0, WindowExprContext)!;
+    public windowExpression(): WindowExpressionContext {
+        return this.getRuleContext(0, WindowExpressionContext)!;
     }
     public RPAREN(): antlr.TerminalNode {
         return this.getToken(ClickHouseParser.RPAREN, 0)!;
@@ -15492,8 +15496,8 @@ export class PrewhereClauseContext extends antlr.ParserRuleContext {
     public PREWHERE(): antlr.TerminalNode {
         return this.getToken(ClickHouseParser.PREWHERE, 0)!;
     }
-    public columnExpr(): ColumnExprContext {
-        return this.getRuleContext(0, ColumnExprContext)!;
+    public columnExpression(): ColumnExpressionContext {
+        return this.getRuleContext(0, ColumnExpressionContext)!;
     }
     public override get ruleIndex(): number {
         return ClickHouseParser.RULE_prewhereClause;
@@ -15515,8 +15519,8 @@ export class WhereClauseContext extends antlr.ParserRuleContext {
     public WHERE(): antlr.TerminalNode {
         return this.getToken(ClickHouseParser.WHERE, 0)!;
     }
-    public columnExpr(): ColumnExprContext {
-        return this.getRuleContext(0, ColumnExprContext)!;
+    public columnExpression(): ColumnExpressionContext {
+        return this.getRuleContext(0, ColumnExpressionContext)!;
     }
     public override get ruleIndex(): number {
         return ClickHouseParser.RULE_whereClause;
@@ -15544,8 +15548,8 @@ export class GroupByClauseContext extends antlr.ParserRuleContext {
     public LPAREN(): antlr.TerminalNode | null {
         return this.getToken(ClickHouseParser.LPAREN, 0);
     }
-    public columnExprList(): ColumnExprListContext | null {
-        return this.getRuleContext(0, ColumnExprListContext);
+    public columnExpressionList(): ColumnExpressionListContext | null {
+        return this.getRuleContext(0, ColumnExpressionListContext);
     }
     public RPAREN(): antlr.TerminalNode | null {
         return this.getToken(ClickHouseParser.RPAREN, 0);
@@ -15576,8 +15580,8 @@ export class HavingClauseContext extends antlr.ParserRuleContext {
     public HAVING(): antlr.TerminalNode {
         return this.getToken(ClickHouseParser.HAVING, 0)!;
     }
-    public columnExpr(): ColumnExprContext {
-        return this.getRuleContext(0, ColumnExprContext)!;
+    public columnExpression(): ColumnExpressionContext {
+        return this.getRuleContext(0, ColumnExpressionContext)!;
     }
     public override get ruleIndex(): number {
         return ClickHouseParser.RULE_havingClause;
@@ -15602,8 +15606,8 @@ export class OrderByClauseContext extends antlr.ParserRuleContext {
     public BY(): antlr.TerminalNode {
         return this.getToken(ClickHouseParser.BY, 0)!;
     }
-    public orderExprList(): OrderExprListContext {
-        return this.getRuleContext(0, OrderExprListContext)!;
+    public orderExpressionList(): OrderExpressionListContext {
+        return this.getRuleContext(0, OrderExpressionListContext)!;
     }
     public override get ruleIndex(): number {
         return ClickHouseParser.RULE_orderByClause;
@@ -15628,8 +15632,8 @@ export class ProjectionOrderByClauseContext extends antlr.ParserRuleContext {
     public BY(): antlr.TerminalNode {
         return this.getToken(ClickHouseParser.BY, 0)!;
     }
-    public columnExprList(): ColumnExprListContext {
-        return this.getRuleContext(0, ColumnExprListContext)!;
+    public columnExpressionList(): ColumnExpressionListContext {
+        return this.getRuleContext(0, ColumnExpressionListContext)!;
     }
     public override get ruleIndex(): number {
         return ClickHouseParser.RULE_projectionOrderByClause;
@@ -15651,14 +15655,14 @@ export class LimitByClauseContext extends antlr.ParserRuleContext {
     public LIMIT(): antlr.TerminalNode {
         return this.getToken(ClickHouseParser.LIMIT, 0)!;
     }
-    public limitExpr(): LimitExprContext {
-        return this.getRuleContext(0, LimitExprContext)!;
+    public limitExpression(): LimitExpressionContext {
+        return this.getRuleContext(0, LimitExpressionContext)!;
     }
     public BY(): antlr.TerminalNode {
         return this.getToken(ClickHouseParser.BY, 0)!;
     }
-    public columnExprList(): ColumnExprListContext {
-        return this.getRuleContext(0, ColumnExprListContext)!;
+    public columnExpressionList(): ColumnExpressionListContext {
+        return this.getRuleContext(0, ColumnExpressionListContext)!;
     }
     public override get ruleIndex(): number {
         return ClickHouseParser.RULE_limitByClause;
@@ -15680,8 +15684,8 @@ export class LimitClauseContext extends antlr.ParserRuleContext {
     public LIMIT(): antlr.TerminalNode {
         return this.getToken(ClickHouseParser.LIMIT, 0)!;
     }
-    public limitExpr(): LimitExprContext {
-        return this.getRuleContext(0, LimitExprContext)!;
+    public limitExpression(): LimitExpressionContext {
+        return this.getRuleContext(0, LimitExpressionContext)!;
     }
     public WITH(): antlr.TerminalNode | null {
         return this.getToken(ClickHouseParser.WITH, 0);
@@ -15709,8 +15713,8 @@ export class SettingsClauseContext extends antlr.ParserRuleContext {
     public SETTINGS(): antlr.TerminalNode {
         return this.getToken(ClickHouseParser.SETTINGS, 0)!;
     }
-    public settingExprList(): SettingExprListContext {
-        return this.getRuleContext(0, SettingExprListContext)!;
+    public settingExpressionList(): SettingExpressionListContext {
+        return this.getRuleContext(0, SettingExpressionListContext)!;
     }
     public override get ruleIndex(): number {
         return ClickHouseParser.RULE_settingsClause;
@@ -15725,61 +15729,46 @@ export class SettingsClauseContext extends antlr.ParserRuleContext {
 }
 
 
-export class JoinExprContext extends antlr.ParserRuleContext {
+export class JoinExpressionContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
     public override get ruleIndex(): number {
-        return ClickHouseParser.RULE_joinExpr;
+        return ClickHouseParser.RULE_joinExpression;
     }
-    public override copyFrom(ctx: JoinExprContext): void {
+    public override copyFrom(ctx: JoinExpressionContext): void {
         super.copyFrom(ctx);
     }
 }
-export class JoinExprOpContext extends JoinExprContext {
-    public constructor(ctx: JoinExprContext) {
+export class JoinExpressionParensContext extends JoinExpressionContext {
+    public constructor(ctx: JoinExpressionContext) {
         super(ctx.parent, ctx.invokingState);
         super.copyFrom(ctx);
     }
-    public joinExpr(): JoinExprContext[];
-    public joinExpr(i: number): JoinExprContext | null;
-    public joinExpr(i?: number): JoinExprContext[] | JoinExprContext | null {
-        if (i === undefined) {
-            return this.getRuleContexts(JoinExprContext);
-        }
-
-        return this.getRuleContext(i, JoinExprContext);
+    public LPAREN(): antlr.TerminalNode {
+        return this.getToken(ClickHouseParser.LPAREN, 0)!;
     }
-    public JOIN(): antlr.TerminalNode {
-        return this.getToken(ClickHouseParser.JOIN, 0)!;
+    public joinExpression(): JoinExpressionContext {
+        return this.getRuleContext(0, JoinExpressionContext)!;
     }
-    public joinConstraintClause(): JoinConstraintClauseContext {
-        return this.getRuleContext(0, JoinConstraintClauseContext)!;
-    }
-    public joinOp(): JoinOpContext | null {
-        return this.getRuleContext(0, JoinOpContext);
-    }
-    public GLOBAL(): antlr.TerminalNode | null {
-        return this.getToken(ClickHouseParser.GLOBAL, 0);
-    }
-    public LOCAL(): antlr.TerminalNode | null {
-        return this.getToken(ClickHouseParser.LOCAL, 0);
+    public RPAREN(): antlr.TerminalNode {
+        return this.getToken(ClickHouseParser.RPAREN, 0)!;
     }
     public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
-        if (visitor.visitJoinExprOp) {
-            return visitor.visitJoinExprOp(this);
+        if (visitor.visitJoinExpressionParens) {
+            return visitor.visitJoinExpressionParens(this);
         } else {
             return visitor.visitChildren(this);
         }
     }
 }
-export class JoinExprTableContext extends JoinExprContext {
-    public constructor(ctx: JoinExprContext) {
+export class JoinExpressionTableContext extends JoinExpressionContext {
+    public constructor(ctx: JoinExpressionContext) {
         super(ctx.parent, ctx.invokingState);
         super.copyFrom(ctx);
     }
-    public tableExpr(): TableExprContext {
-        return this.getRuleContext(0, TableExprContext)!;
+    public tableExpression(): TableExpressionContext {
+        return this.getRuleContext(0, TableExpressionContext)!;
     }
     public FINAL(): antlr.TerminalNode | null {
         return this.getToken(ClickHouseParser.FINAL, 0);
@@ -15788,55 +15777,70 @@ export class JoinExprTableContext extends JoinExprContext {
         return this.getRuleContext(0, SampleClauseContext);
     }
     public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
-        if (visitor.visitJoinExprTable) {
-            return visitor.visitJoinExprTable(this);
+        if (visitor.visitJoinExpressionTable) {
+            return visitor.visitJoinExpressionTable(this);
         } else {
             return visitor.visitChildren(this);
         }
     }
 }
-export class JoinExprParensContext extends JoinExprContext {
-    public constructor(ctx: JoinExprContext) {
+export class JoinExpressionCrossOpContext extends JoinExpressionContext {
+    public constructor(ctx: JoinExpressionContext) {
         super(ctx.parent, ctx.invokingState);
         super.copyFrom(ctx);
     }
-    public LPAREN(): antlr.TerminalNode {
-        return this.getToken(ClickHouseParser.LPAREN, 0)!;
-    }
-    public joinExpr(): JoinExprContext {
-        return this.getRuleContext(0, JoinExprContext)!;
-    }
-    public RPAREN(): antlr.TerminalNode {
-        return this.getToken(ClickHouseParser.RPAREN, 0)!;
-    }
-    public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
-        if (visitor.visitJoinExprParens) {
-            return visitor.visitJoinExprParens(this);
-        } else {
-            return visitor.visitChildren(this);
-        }
-    }
-}
-export class JoinExprCrossOpContext extends JoinExprContext {
-    public constructor(ctx: JoinExprContext) {
-        super(ctx.parent, ctx.invokingState);
-        super.copyFrom(ctx);
-    }
-    public joinExpr(): JoinExprContext[];
-    public joinExpr(i: number): JoinExprContext | null;
-    public joinExpr(i?: number): JoinExprContext[] | JoinExprContext | null {
+    public joinExpression(): JoinExpressionContext[];
+    public joinExpression(i: number): JoinExpressionContext | null;
+    public joinExpression(i?: number): JoinExpressionContext[] | JoinExpressionContext | null {
         if (i === undefined) {
-            return this.getRuleContexts(JoinExprContext);
+            return this.getRuleContexts(JoinExpressionContext);
         }
 
-        return this.getRuleContext(i, JoinExprContext);
+        return this.getRuleContext(i, JoinExpressionContext);
     }
-    public joinOpCross(): JoinOpCrossContext {
-        return this.getRuleContext(0, JoinOpCrossContext)!;
+    public joinOperatorCross(): JoinOperatorCrossContext {
+        return this.getRuleContext(0, JoinOperatorCrossContext)!;
     }
     public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
-        if (visitor.visitJoinExprCrossOp) {
-            return visitor.visitJoinExprCrossOp(this);
+        if (visitor.visitJoinExpressionCrossOp) {
+            return visitor.visitJoinExpressionCrossOp(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
+}
+export class JoinExpressionOpContext extends JoinExpressionContext {
+    public constructor(ctx: JoinExpressionContext) {
+        super(ctx.parent, ctx.invokingState);
+        super.copyFrom(ctx);
+    }
+    public joinExpression(): JoinExpressionContext[];
+    public joinExpression(i: number): JoinExpressionContext | null;
+    public joinExpression(i?: number): JoinExpressionContext[] | JoinExpressionContext | null {
+        if (i === undefined) {
+            return this.getRuleContexts(JoinExpressionContext);
+        }
+
+        return this.getRuleContext(i, JoinExpressionContext);
+    }
+    public JOIN(): antlr.TerminalNode {
+        return this.getToken(ClickHouseParser.JOIN, 0)!;
+    }
+    public joinConstraintClause(): JoinConstraintClauseContext {
+        return this.getRuleContext(0, JoinConstraintClauseContext)!;
+    }
+    public joinOperator(): JoinOperatorContext | null {
+        return this.getRuleContext(0, JoinOperatorContext);
+    }
+    public GLOBAL(): antlr.TerminalNode | null {
+        return this.getToken(ClickHouseParser.GLOBAL, 0);
+    }
+    public LOCAL(): antlr.TerminalNode | null {
+        return this.getToken(ClickHouseParser.LOCAL, 0);
+    }
+    public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
+        if (visitor.visitJoinExpressionOp) {
+            return visitor.visitJoinExpressionOp(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -15844,19 +15848,19 @@ export class JoinExprCrossOpContext extends JoinExprContext {
 }
 
 
-export class JoinOpContext extends antlr.ParserRuleContext {
+export class JoinOperatorContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
     public override get ruleIndex(): number {
-        return ClickHouseParser.RULE_joinOp;
+        return ClickHouseParser.RULE_joinOperator;
     }
-    public override copyFrom(ctx: JoinOpContext): void {
+    public override copyFrom(ctx: JoinOperatorContext): void {
         super.copyFrom(ctx);
     }
 }
-export class JoinOpFullContext extends JoinOpContext {
-    public constructor(ctx: JoinOpContext) {
+export class JoinOpFullContext extends JoinOperatorContext {
+    public constructor(ctx: JoinOperatorContext) {
         super(ctx.parent, ctx.invokingState);
         super.copyFrom(ctx);
     }
@@ -15880,8 +15884,8 @@ export class JoinOpFullContext extends JoinOpContext {
         }
     }
 }
-export class JoinOpInnerContext extends JoinOpContext {
-    public constructor(ctx: JoinOpContext) {
+export class JoinOpInnerContext extends JoinOperatorContext {
+    public constructor(ctx: JoinOperatorContext) {
         super(ctx.parent, ctx.invokingState);
         super.copyFrom(ctx);
     }
@@ -15905,8 +15909,8 @@ export class JoinOpInnerContext extends JoinOpContext {
         }
     }
 }
-export class JoinOpLeftRightContext extends JoinOpContext {
-    public constructor(ctx: JoinOpContext) {
+export class JoinOpLeftRightContext extends JoinOperatorContext {
+    public constructor(ctx: JoinOperatorContext) {
         super(ctx.parent, ctx.invokingState);
         super.copyFrom(ctx);
     }
@@ -15944,7 +15948,7 @@ export class JoinOpLeftRightContext extends JoinOpContext {
 }
 
 
-export class JoinOpCrossContext extends antlr.ParserRuleContext {
+export class JoinOperatorCrossContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
@@ -15964,11 +15968,11 @@ export class JoinOpCrossContext extends antlr.ParserRuleContext {
         return this.getToken(ClickHouseParser.COMMA, 0);
     }
     public override get ruleIndex(): number {
-        return ClickHouseParser.RULE_joinOpCross;
+        return ClickHouseParser.RULE_joinOperatorCross;
     }
     public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
-        if (visitor.visitJoinOpCross) {
-            return visitor.visitJoinOpCross(this);
+        if (visitor.visitJoinOperatorCross) {
+            return visitor.visitJoinOperatorCross(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -15983,8 +15987,8 @@ export class JoinConstraintClauseContext extends antlr.ParserRuleContext {
     public ON(): antlr.TerminalNode | null {
         return this.getToken(ClickHouseParser.ON, 0);
     }
-    public columnExprList(): ColumnExprListContext {
-        return this.getRuleContext(0, ColumnExprListContext)!;
+    public columnExpressionList(): ColumnExpressionListContext {
+        return this.getRuleContext(0, ColumnExpressionListContext)!;
     }
     public USING(): antlr.TerminalNode | null {
         return this.getToken(ClickHouseParser.USING, 0);
@@ -16015,14 +16019,14 @@ export class SampleClauseContext extends antlr.ParserRuleContext {
     public SAMPLE(): antlr.TerminalNode {
         return this.getToken(ClickHouseParser.SAMPLE, 0)!;
     }
-    public ratioExpr(): RatioExprContext[];
-    public ratioExpr(i: number): RatioExprContext | null;
-    public ratioExpr(i?: number): RatioExprContext[] | RatioExprContext | null {
+    public ratioExpression(): RatioExpressionContext[];
+    public ratioExpression(i: number): RatioExpressionContext | null;
+    public ratioExpression(i?: number): RatioExpressionContext[] | RatioExpressionContext | null {
         if (i === undefined) {
-            return this.getRuleContexts(RatioExprContext);
+            return this.getRuleContexts(RatioExpressionContext);
         }
 
-        return this.getRuleContext(i, RatioExprContext);
+        return this.getRuleContext(i, RatioExpressionContext);
     }
     public OFFSET(): antlr.TerminalNode | null {
         return this.getToken(ClickHouseParser.OFFSET, 0);
@@ -16040,18 +16044,18 @@ export class SampleClauseContext extends antlr.ParserRuleContext {
 }
 
 
-export class LimitExprContext extends antlr.ParserRuleContext {
+export class LimitExpressionContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
-    public columnExpr(): ColumnExprContext[];
-    public columnExpr(i: number): ColumnExprContext | null;
-    public columnExpr(i?: number): ColumnExprContext[] | ColumnExprContext | null {
+    public columnExpression(): ColumnExpressionContext[];
+    public columnExpression(i: number): ColumnExpressionContext | null;
+    public columnExpression(i?: number): ColumnExpressionContext[] | ColumnExpressionContext | null {
         if (i === undefined) {
-            return this.getRuleContexts(ColumnExprContext);
+            return this.getRuleContexts(ColumnExpressionContext);
         }
 
-        return this.getRuleContext(i, ColumnExprContext);
+        return this.getRuleContext(i, ColumnExpressionContext);
     }
     public COMMA(): antlr.TerminalNode | null {
         return this.getToken(ClickHouseParser.COMMA, 0);
@@ -16060,11 +16064,11 @@ export class LimitExprContext extends antlr.ParserRuleContext {
         return this.getToken(ClickHouseParser.OFFSET, 0);
     }
     public override get ruleIndex(): number {
-        return ClickHouseParser.RULE_limitExpr;
+        return ClickHouseParser.RULE_limitExpression;
     }
     public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
-        if (visitor.visitLimitExpr) {
-            return visitor.visitLimitExpr(this);
+        if (visitor.visitLimitExpression) {
+            return visitor.visitLimitExpression(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -16072,18 +16076,18 @@ export class LimitExprContext extends antlr.ParserRuleContext {
 }
 
 
-export class OrderExprListContext extends antlr.ParserRuleContext {
+export class OrderExpressionListContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
-    public orderExpr(): OrderExprContext[];
-    public orderExpr(i: number): OrderExprContext | null;
-    public orderExpr(i?: number): OrderExprContext[] | OrderExprContext | null {
+    public orderExpression(): OrderExpressionContext[];
+    public orderExpression(i: number): OrderExpressionContext | null;
+    public orderExpression(i?: number): OrderExpressionContext[] | OrderExpressionContext | null {
         if (i === undefined) {
-            return this.getRuleContexts(OrderExprContext);
+            return this.getRuleContexts(OrderExpressionContext);
         }
 
-        return this.getRuleContext(i, OrderExprContext);
+        return this.getRuleContext(i, OrderExpressionContext);
     }
     public COMMA(): antlr.TerminalNode[];
     public COMMA(i: number): antlr.TerminalNode | null;
@@ -16095,11 +16099,11 @@ export class OrderExprListContext extends antlr.ParserRuleContext {
     	}
     }
     public override get ruleIndex(): number {
-        return ClickHouseParser.RULE_orderExprList;
+        return ClickHouseParser.RULE_orderExpressionList;
     }
     public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
-        if (visitor.visitOrderExprList) {
-            return visitor.visitOrderExprList(this);
+        if (visitor.visitOrderExpressionList) {
+            return visitor.visitOrderExpressionList(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -16107,12 +16111,12 @@ export class OrderExprListContext extends antlr.ParserRuleContext {
 }
 
 
-export class OrderExprContext extends antlr.ParserRuleContext {
+export class OrderExpressionContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
-    public columnExpr(): ColumnExprContext {
-        return this.getRuleContext(0, ColumnExprContext)!;
+    public columnExpression(): ColumnExpressionContext {
+        return this.getRuleContext(0, ColumnExpressionContext)!;
     }
     public NULLS(): antlr.TerminalNode | null {
         return this.getToken(ClickHouseParser.NULLS, 0);
@@ -16139,11 +16143,11 @@ export class OrderExprContext extends antlr.ParserRuleContext {
         return this.getToken(ClickHouseParser.LAST, 0);
     }
     public override get ruleIndex(): number {
-        return ClickHouseParser.RULE_orderExpr;
+        return ClickHouseParser.RULE_orderExpression;
     }
     public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
-        if (visitor.visitOrderExpr) {
-            return visitor.visitOrderExpr(this);
+        if (visitor.visitOrderExpression) {
+            return visitor.visitOrderExpression(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -16151,7 +16155,7 @@ export class OrderExprContext extends antlr.ParserRuleContext {
 }
 
 
-export class RatioExprContext extends antlr.ParserRuleContext {
+export class RatioExpressionContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
@@ -16168,11 +16172,11 @@ export class RatioExprContext extends antlr.ParserRuleContext {
         return this.getToken(ClickHouseParser.SLASH, 0);
     }
     public override get ruleIndex(): number {
-        return ClickHouseParser.RULE_ratioExpr;
+        return ClickHouseParser.RULE_ratioExpression;
     }
     public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
-        if (visitor.visitRatioExpr) {
-            return visitor.visitRatioExpr(this);
+        if (visitor.visitRatioExpression) {
+            return visitor.visitRatioExpression(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -16180,18 +16184,18 @@ export class RatioExprContext extends antlr.ParserRuleContext {
 }
 
 
-export class SettingExprListContext extends antlr.ParserRuleContext {
+export class SettingExpressionListContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
-    public settingExpr(): SettingExprContext[];
-    public settingExpr(i: number): SettingExprContext | null;
-    public settingExpr(i?: number): SettingExprContext[] | SettingExprContext | null {
+    public settingExpression(): SettingExpressionContext[];
+    public settingExpression(i: number): SettingExpressionContext | null;
+    public settingExpression(i?: number): SettingExpressionContext[] | SettingExpressionContext | null {
         if (i === undefined) {
-            return this.getRuleContexts(SettingExprContext);
+            return this.getRuleContexts(SettingExpressionContext);
         }
 
-        return this.getRuleContext(i, SettingExprContext);
+        return this.getRuleContext(i, SettingExpressionContext);
     }
     public COMMA(): antlr.TerminalNode[];
     public COMMA(i: number): antlr.TerminalNode | null;
@@ -16203,11 +16207,11 @@ export class SettingExprListContext extends antlr.ParserRuleContext {
     	}
     }
     public override get ruleIndex(): number {
-        return ClickHouseParser.RULE_settingExprList;
+        return ClickHouseParser.RULE_settingExpressionList;
     }
     public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
-        if (visitor.visitSettingExprList) {
-            return visitor.visitSettingExprList(this);
+        if (visitor.visitSettingExpressionList) {
+            return visitor.visitSettingExpressionList(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -16215,7 +16219,7 @@ export class SettingExprListContext extends antlr.ParserRuleContext {
 }
 
 
-export class SettingExprContext extends antlr.ParserRuleContext {
+export class SettingExpressionContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
@@ -16229,11 +16233,11 @@ export class SettingExprContext extends antlr.ParserRuleContext {
         return this.getRuleContext(0, LiteralContext)!;
     }
     public override get ruleIndex(): number {
-        return ClickHouseParser.RULE_settingExpr;
+        return ClickHouseParser.RULE_settingExpression;
     }
     public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
-        if (visitor.visitSettingExpr) {
-            return visitor.visitSettingExpr(this);
+        if (visitor.visitSettingExpression) {
+            return visitor.visitSettingExpression(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -16241,25 +16245,25 @@ export class SettingExprContext extends antlr.ParserRuleContext {
 }
 
 
-export class WindowExprContext extends antlr.ParserRuleContext {
+export class WindowExpressionContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
-    public winPartitionByClause(): WinPartitionByClauseContext | null {
-        return this.getRuleContext(0, WinPartitionByClauseContext);
+    public windowPartitionByClause(): WindowPartitionByClauseContext | null {
+        return this.getRuleContext(0, WindowPartitionByClauseContext);
     }
-    public winOrderByClause(): WinOrderByClauseContext | null {
-        return this.getRuleContext(0, WinOrderByClauseContext);
+    public windowOrderByClause(): WindowOrderByClauseContext | null {
+        return this.getRuleContext(0, WindowOrderByClauseContext);
     }
-    public winFrameClause(): WinFrameClauseContext | null {
-        return this.getRuleContext(0, WinFrameClauseContext);
+    public windowFrameClause(): WindowFrameClauseContext | null {
+        return this.getRuleContext(0, WindowFrameClauseContext);
     }
     public override get ruleIndex(): number {
-        return ClickHouseParser.RULE_windowExpr;
+        return ClickHouseParser.RULE_windowExpression;
     }
     public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
-        if (visitor.visitWindowExpr) {
-            return visitor.visitWindowExpr(this);
+        if (visitor.visitWindowExpression) {
+            return visitor.visitWindowExpression(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -16267,7 +16271,7 @@ export class WindowExprContext extends antlr.ParserRuleContext {
 }
 
 
-export class WinPartitionByClauseContext extends antlr.ParserRuleContext {
+export class WindowPartitionByClauseContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
@@ -16277,15 +16281,15 @@ export class WinPartitionByClauseContext extends antlr.ParserRuleContext {
     public BY(): antlr.TerminalNode {
         return this.getToken(ClickHouseParser.BY, 0)!;
     }
-    public columnExprList(): ColumnExprListContext {
-        return this.getRuleContext(0, ColumnExprListContext)!;
+    public columnExpressionList(): ColumnExpressionListContext {
+        return this.getRuleContext(0, ColumnExpressionListContext)!;
     }
     public override get ruleIndex(): number {
-        return ClickHouseParser.RULE_winPartitionByClause;
+        return ClickHouseParser.RULE_windowPartitionByClause;
     }
     public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
-        if (visitor.visitWinPartitionByClause) {
-            return visitor.visitWinPartitionByClause(this);
+        if (visitor.visitWindowPartitionByClause) {
+            return visitor.visitWindowPartitionByClause(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -16293,7 +16297,7 @@ export class WinPartitionByClauseContext extends antlr.ParserRuleContext {
 }
 
 
-export class WinOrderByClauseContext extends antlr.ParserRuleContext {
+export class WindowOrderByClauseContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
@@ -16303,15 +16307,15 @@ export class WinOrderByClauseContext extends antlr.ParserRuleContext {
     public BY(): antlr.TerminalNode {
         return this.getToken(ClickHouseParser.BY, 0)!;
     }
-    public orderExprList(): OrderExprListContext {
-        return this.getRuleContext(0, OrderExprListContext)!;
+    public orderExpressionList(): OrderExpressionListContext {
+        return this.getRuleContext(0, OrderExpressionListContext)!;
     }
     public override get ruleIndex(): number {
-        return ClickHouseParser.RULE_winOrderByClause;
+        return ClickHouseParser.RULE_windowOrderByClause;
     }
     public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
-        if (visitor.visitWinOrderByClause) {
-            return visitor.visitWinOrderByClause(this);
+        if (visitor.visitWindowOrderByClause) {
+            return visitor.visitWindowOrderByClause(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -16319,12 +16323,12 @@ export class WinOrderByClauseContext extends antlr.ParserRuleContext {
 }
 
 
-export class WinFrameClauseContext extends antlr.ParserRuleContext {
+export class WindowFrameClauseContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
-    public winFrameExtend(): WinFrameExtendContext {
-        return this.getRuleContext(0, WinFrameExtendContext)!;
+    public windowFrameExtend(): WindowFrameExtendContext {
+        return this.getRuleContext(0, WindowFrameExtendContext)!;
     }
     public ROWS(): antlr.TerminalNode | null {
         return this.getToken(ClickHouseParser.ROWS, 0);
@@ -16333,11 +16337,11 @@ export class WinFrameClauseContext extends antlr.ParserRuleContext {
         return this.getToken(ClickHouseParser.RANGE, 0);
     }
     public override get ruleIndex(): number {
-        return ClickHouseParser.RULE_winFrameClause;
+        return ClickHouseParser.RULE_windowFrameClause;
     }
     public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
-        if (visitor.visitWinFrameClause) {
-            return visitor.visitWinFrameClause(this);
+        if (visitor.visitWindowFrameClause) {
+            return visitor.visitWindowFrameClause(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -16345,24 +16349,24 @@ export class WinFrameClauseContext extends antlr.ParserRuleContext {
 }
 
 
-export class WinFrameExtendContext extends antlr.ParserRuleContext {
+export class WindowFrameExtendContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
     public override get ruleIndex(): number {
-        return ClickHouseParser.RULE_winFrameExtend;
+        return ClickHouseParser.RULE_windowFrameExtend;
     }
-    public override copyFrom(ctx: WinFrameExtendContext): void {
+    public override copyFrom(ctx: WindowFrameExtendContext): void {
         super.copyFrom(ctx);
     }
 }
-export class FrameStartContext extends WinFrameExtendContext {
-    public constructor(ctx: WinFrameExtendContext) {
+export class FrameStartContext extends WindowFrameExtendContext {
+    public constructor(ctx: WindowFrameExtendContext) {
         super(ctx.parent, ctx.invokingState);
         super.copyFrom(ctx);
     }
-    public winFrameBound(): WinFrameBoundContext {
-        return this.getRuleContext(0, WinFrameBoundContext)!;
+    public windowFrameBound(): WindowFrameBoundContext {
+        return this.getRuleContext(0, WindowFrameBoundContext)!;
     }
     public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
         if (visitor.visitFrameStart) {
@@ -16372,22 +16376,22 @@ export class FrameStartContext extends WinFrameExtendContext {
         }
     }
 }
-export class FrameBetweenContext extends WinFrameExtendContext {
-    public constructor(ctx: WinFrameExtendContext) {
+export class FrameBetweenContext extends WindowFrameExtendContext {
+    public constructor(ctx: WindowFrameExtendContext) {
         super(ctx.parent, ctx.invokingState);
         super.copyFrom(ctx);
     }
     public BETWEEN(): antlr.TerminalNode {
         return this.getToken(ClickHouseParser.BETWEEN, 0)!;
     }
-    public winFrameBound(): WinFrameBoundContext[];
-    public winFrameBound(i: number): WinFrameBoundContext | null;
-    public winFrameBound(i?: number): WinFrameBoundContext[] | WinFrameBoundContext | null {
+    public windowFrameBound(): WindowFrameBoundContext[];
+    public windowFrameBound(i: number): WindowFrameBoundContext | null;
+    public windowFrameBound(i?: number): WindowFrameBoundContext[] | WindowFrameBoundContext | null {
         if (i === undefined) {
-            return this.getRuleContexts(WinFrameBoundContext);
+            return this.getRuleContexts(WindowFrameBoundContext);
         }
 
-        return this.getRuleContext(i, WinFrameBoundContext);
+        return this.getRuleContext(i, WindowFrameBoundContext);
     }
     public AND(): antlr.TerminalNode {
         return this.getToken(ClickHouseParser.AND, 0)!;
@@ -16402,7 +16406,7 @@ export class FrameBetweenContext extends WinFrameExtendContext {
 }
 
 
-export class WinFrameBoundContext extends antlr.ParserRuleContext {
+export class WindowFrameBoundContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
@@ -16425,11 +16429,11 @@ export class WinFrameBoundContext extends antlr.ParserRuleContext {
         return this.getRuleContext(0, NumberLiteralContext);
     }
     public override get ruleIndex(): number {
-        return ClickHouseParser.RULE_winFrameBound;
+        return ClickHouseParser.RULE_windowFrameBound;
     }
     public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
-        if (visitor.visitWinFrameBound) {
-            return visitor.visitWinFrameBound(this);
+        if (visitor.visitWindowFrameBound) {
+            return visitor.visitWindowFrameBound(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -16437,22 +16441,22 @@ export class WinFrameBoundContext extends antlr.ParserRuleContext {
 }
 
 
-export class SetStmtContext extends antlr.ParserRuleContext {
+export class SetStatementContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
     public SET(): antlr.TerminalNode {
         return this.getToken(ClickHouseParser.SET, 0)!;
     }
-    public settingExprList(): SettingExprListContext {
-        return this.getRuleContext(0, SettingExprListContext)!;
+    public settingExpressionList(): SettingExpressionListContext {
+        return this.getRuleContext(0, SettingExpressionListContext)!;
     }
     public override get ruleIndex(): number {
-        return ClickHouseParser.RULE_setStmt;
+        return ClickHouseParser.RULE_setStatement;
     }
     public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
-        if (visitor.visitSetStmt) {
-            return visitor.visitSetStmt(this);
+        if (visitor.visitSetStatement) {
+            return visitor.visitSetStatement(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -16460,63 +16464,19 @@ export class SetStmtContext extends antlr.ParserRuleContext {
 }
 
 
-export class ShowStmtContext extends antlr.ParserRuleContext {
+export class ShowStatementContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
     public override get ruleIndex(): number {
-        return ClickHouseParser.RULE_showStmt;
+        return ClickHouseParser.RULE_showStatement;
     }
-    public override copyFrom(ctx: ShowStmtContext): void {
+    public override copyFrom(ctx: ShowStatementContext): void {
         super.copyFrom(ctx);
     }
 }
-export class ShowCreateDatabaseStmtContext extends ShowStmtContext {
-    public constructor(ctx: ShowStmtContext) {
-        super(ctx.parent, ctx.invokingState);
-        super.copyFrom(ctx);
-    }
-    public SHOW(): antlr.TerminalNode {
-        return this.getToken(ClickHouseParser.SHOW, 0)!;
-    }
-    public CREATE(): antlr.TerminalNode {
-        return this.getToken(ClickHouseParser.CREATE, 0)!;
-    }
-    public DATABASE(): antlr.TerminalNode {
-        return this.getToken(ClickHouseParser.DATABASE, 0)!;
-    }
-    public databaseIdentifier(): DatabaseIdentifierContext {
-        return this.getRuleContext(0, DatabaseIdentifierContext)!;
-    }
-    public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
-        if (visitor.visitShowCreateDatabaseStmt) {
-            return visitor.visitShowCreateDatabaseStmt(this);
-        } else {
-            return visitor.visitChildren(this);
-        }
-    }
-}
-export class ShowDatabasesStmtContext extends ShowStmtContext {
-    public constructor(ctx: ShowStmtContext) {
-        super(ctx.parent, ctx.invokingState);
-        super.copyFrom(ctx);
-    }
-    public SHOW(): antlr.TerminalNode {
-        return this.getToken(ClickHouseParser.SHOW, 0)!;
-    }
-    public DATABASES(): antlr.TerminalNode {
-        return this.getToken(ClickHouseParser.DATABASES, 0)!;
-    }
-    public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
-        if (visitor.visitShowDatabasesStmt) {
-            return visitor.visitShowDatabasesStmt(this);
-        } else {
-            return visitor.visitChildren(this);
-        }
-    }
-}
-export class ShowCreateTableStmtContext extends ShowStmtContext {
-    public constructor(ctx: ShowStmtContext) {
+export class ShowCreateTableStatementContext extends ShowStatementContext {
+    public constructor(ctx: ShowStatementContext) {
         super(ctx.parent, ctx.invokingState);
         super.copyFrom(ctx);
     }
@@ -16536,15 +16496,40 @@ export class ShowCreateTableStmtContext extends ShowStmtContext {
         return this.getToken(ClickHouseParser.TABLE, 0);
     }
     public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
-        if (visitor.visitShowCreateTableStmt) {
-            return visitor.visitShowCreateTableStmt(this);
+        if (visitor.visitShowCreateTableStatement) {
+            return visitor.visitShowCreateTableStatement(this);
         } else {
             return visitor.visitChildren(this);
         }
     }
 }
-export class ShowTablesStmtContext extends ShowStmtContext {
-    public constructor(ctx: ShowStmtContext) {
+export class ShowCreateDictionaryStatementContext extends ShowStatementContext {
+    public constructor(ctx: ShowStatementContext) {
+        super(ctx.parent, ctx.invokingState);
+        super.copyFrom(ctx);
+    }
+    public SHOW(): antlr.TerminalNode {
+        return this.getToken(ClickHouseParser.SHOW, 0)!;
+    }
+    public CREATE(): antlr.TerminalNode {
+        return this.getToken(ClickHouseParser.CREATE, 0)!;
+    }
+    public DICTIONARY(): antlr.TerminalNode {
+        return this.getToken(ClickHouseParser.DICTIONARY, 0)!;
+    }
+    public tableIdentifier(): TableIdentifierContext {
+        return this.getRuleContext(0, TableIdentifierContext)!;
+    }
+    public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
+        if (visitor.visitShowCreateDictionaryStatement) {
+            return visitor.visitShowCreateDictionaryStatement(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
+}
+export class ShowTablesStatementContext extends ShowStatementContext {
+    public constructor(ctx: ShowStatementContext) {
         super(ctx.parent, ctx.invokingState);
         super.copyFrom(ctx);
     }
@@ -16579,15 +16564,15 @@ export class ShowTablesStmtContext extends ShowStmtContext {
         return this.getToken(ClickHouseParser.IN, 0);
     }
     public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
-        if (visitor.visitShowTablesStmt) {
-            return visitor.visitShowTablesStmt(this);
+        if (visitor.visitShowTablesStatement) {
+            return visitor.visitShowTablesStatement(this);
         } else {
             return visitor.visitChildren(this);
         }
     }
 }
-export class ShowDictionariesStmtContext extends ShowStmtContext {
-    public constructor(ctx: ShowStmtContext) {
+export class ShowDictionariesStatementContext extends ShowStatementContext {
+    public constructor(ctx: ShowStatementContext) {
         super(ctx.parent, ctx.invokingState);
         super.copyFrom(ctx);
     }
@@ -16604,15 +16589,15 @@ export class ShowDictionariesStmtContext extends ShowStmtContext {
         return this.getRuleContext(0, DatabaseIdentifierContext);
     }
     public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
-        if (visitor.visitShowDictionariesStmt) {
-            return visitor.visitShowDictionariesStmt(this);
+        if (visitor.visitShowDictionariesStatement) {
+            return visitor.visitShowDictionariesStatement(this);
         } else {
             return visitor.visitChildren(this);
         }
     }
 }
-export class ShowCreateDictionaryStmtContext extends ShowStmtContext {
-    public constructor(ctx: ShowStmtContext) {
+export class ShowCreateDatabaseStatementContext extends ShowStatementContext {
+    public constructor(ctx: ShowStatementContext) {
         super(ctx.parent, ctx.invokingState);
         super.copyFrom(ctx);
     }
@@ -16622,15 +16607,34 @@ export class ShowCreateDictionaryStmtContext extends ShowStmtContext {
     public CREATE(): antlr.TerminalNode {
         return this.getToken(ClickHouseParser.CREATE, 0)!;
     }
-    public DICTIONARY(): antlr.TerminalNode {
-        return this.getToken(ClickHouseParser.DICTIONARY, 0)!;
+    public DATABASE(): antlr.TerminalNode {
+        return this.getToken(ClickHouseParser.DATABASE, 0)!;
     }
-    public tableIdentifier(): TableIdentifierContext {
-        return this.getRuleContext(0, TableIdentifierContext)!;
+    public databaseIdentifier(): DatabaseIdentifierContext {
+        return this.getRuleContext(0, DatabaseIdentifierContext)!;
     }
     public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
-        if (visitor.visitShowCreateDictionaryStmt) {
-            return visitor.visitShowCreateDictionaryStmt(this);
+        if (visitor.visitShowCreateDatabaseStatement) {
+            return visitor.visitShowCreateDatabaseStatement(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
+}
+export class ShowDatabasesStatementContext extends ShowStatementContext {
+    public constructor(ctx: ShowStatementContext) {
+        super(ctx.parent, ctx.invokingState);
+        super.copyFrom(ctx);
+    }
+    public SHOW(): antlr.TerminalNode {
+        return this.getToken(ClickHouseParser.SHOW, 0)!;
+    }
+    public DATABASES(): antlr.TerminalNode {
+        return this.getToken(ClickHouseParser.DATABASES, 0)!;
+    }
+    public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
+        if (visitor.visitShowDatabasesStatement) {
+            return visitor.visitShowDatabasesStatement(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -16638,7 +16642,7 @@ export class ShowCreateDictionaryStmtContext extends ShowStmtContext {
 }
 
 
-export class SystemStmtContext extends antlr.ParserRuleContext {
+export class SystemStatementContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
@@ -16694,11 +16698,11 @@ export class SystemStmtContext extends antlr.ParserRuleContext {
         return this.getToken(ClickHouseParser.REPLICA, 0);
     }
     public override get ruleIndex(): number {
-        return ClickHouseParser.RULE_systemStmt;
+        return ClickHouseParser.RULE_systemStatement;
     }
     public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
-        if (visitor.visitSystemStmt) {
-            return visitor.visitSystemStmt(this);
+        if (visitor.visitSystemStatement) {
+            return visitor.visitSystemStatement(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -16706,7 +16710,7 @@ export class SystemStmtContext extends antlr.ParserRuleContext {
 }
 
 
-export class TruncateStmtContext extends antlr.ParserRuleContext {
+export class TruncateStatementContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
@@ -16732,11 +16736,11 @@ export class TruncateStmtContext extends antlr.ParserRuleContext {
         return this.getRuleContext(0, ClusterClauseContext);
     }
     public override get ruleIndex(): number {
-        return ClickHouseParser.RULE_truncateStmt;
+        return ClickHouseParser.RULE_truncateStatement;
     }
     public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
-        if (visitor.visitTruncateStmt) {
-            return visitor.visitTruncateStmt(this);
+        if (visitor.visitTruncateStatement) {
+            return visitor.visitTruncateStatement(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -16744,7 +16748,7 @@ export class TruncateStmtContext extends antlr.ParserRuleContext {
 }
 
 
-export class UseStmtContext extends antlr.ParserRuleContext {
+export class UseStatementContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
@@ -16755,11 +16759,11 @@ export class UseStmtContext extends antlr.ParserRuleContext {
         return this.getRuleContext(0, DatabaseIdentifierContext)!;
     }
     public override get ruleIndex(): number {
-        return ClickHouseParser.RULE_useStmt;
+        return ClickHouseParser.RULE_useStatement;
     }
     public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
-        if (visitor.visitUseStmt) {
-            return visitor.visitUseStmt(this);
+        if (visitor.visitUseStatement) {
+            return visitor.visitUseStatement(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -16767,7 +16771,7 @@ export class UseStmtContext extends antlr.ParserRuleContext {
 }
 
 
-export class WatchStmtContext extends antlr.ParserRuleContext {
+export class WatchStatementContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
@@ -16787,11 +16791,11 @@ export class WatchStmtContext extends antlr.ParserRuleContext {
         return this.getToken(ClickHouseParser.DECIMAL_LITERAL, 0);
     }
     public override get ruleIndex(): number {
-        return ClickHouseParser.RULE_watchStmt;
+        return ClickHouseParser.RULE_watchStatement;
     }
     public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
-        if (visitor.visitWatchStmt) {
-            return visitor.visitWatchStmt(this);
+        if (visitor.visitWatchStatement) {
+            return visitor.visitWatchStatement(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -16799,42 +16803,36 @@ export class WatchStmtContext extends antlr.ParserRuleContext {
 }
 
 
-export class ColumnTypeExprContext extends antlr.ParserRuleContext {
+export class ColumnTypeExpressionContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
     public override get ruleIndex(): number {
-        return ClickHouseParser.RULE_columnTypeExpr;
+        return ClickHouseParser.RULE_columnTypeExpression;
     }
-    public override copyFrom(ctx: ColumnTypeExprContext): void {
+    public override copyFrom(ctx: ColumnTypeExpressionContext): void {
         super.copyFrom(ctx);
     }
 }
-export class ColumnTypeExprNestedContext extends ColumnTypeExprContext {
-    public constructor(ctx: ColumnTypeExprContext) {
+export class ColumnTypeExpressionComplexContext extends ColumnTypeExpressionContext {
+    public constructor(ctx: ColumnTypeExpressionContext) {
         super(ctx.parent, ctx.invokingState);
         super.copyFrom(ctx);
     }
-    public identifier(): IdentifierContext[];
-    public identifier(i: number): IdentifierContext | null;
-    public identifier(i?: number): IdentifierContext[] | IdentifierContext | null {
-        if (i === undefined) {
-            return this.getRuleContexts(IdentifierContext);
-        }
-
-        return this.getRuleContext(i, IdentifierContext);
+    public identifier(): IdentifierContext {
+        return this.getRuleContext(0, IdentifierContext)!;
     }
     public LPAREN(): antlr.TerminalNode {
         return this.getToken(ClickHouseParser.LPAREN, 0)!;
     }
-    public columnTypeExpr(): ColumnTypeExprContext[];
-    public columnTypeExpr(i: number): ColumnTypeExprContext | null;
-    public columnTypeExpr(i?: number): ColumnTypeExprContext[] | ColumnTypeExprContext | null {
+    public columnTypeExpression(): ColumnTypeExpressionContext[];
+    public columnTypeExpression(i: number): ColumnTypeExpressionContext | null;
+    public columnTypeExpression(i?: number): ColumnTypeExpressionContext[] | ColumnTypeExpressionContext | null {
         if (i === undefined) {
-            return this.getRuleContexts(ColumnTypeExprContext);
+            return this.getRuleContexts(ColumnTypeExpressionContext);
         }
 
-        return this.getRuleContext(i, ColumnTypeExprContext);
+        return this.getRuleContext(i, ColumnTypeExpressionContext);
     }
     public RPAREN(): antlr.TerminalNode {
         return this.getToken(ClickHouseParser.RPAREN, 0)!;
@@ -16849,96 +16847,15 @@ export class ColumnTypeExprNestedContext extends ColumnTypeExprContext {
     	}
     }
     public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
-        if (visitor.visitColumnTypeExprNested) {
-            return visitor.visitColumnTypeExprNested(this);
+        if (visitor.visitColumnTypeExpressionComplex) {
+            return visitor.visitColumnTypeExpressionComplex(this);
         } else {
             return visitor.visitChildren(this);
         }
     }
 }
-export class ColumnTypeExprParamContext extends ColumnTypeExprContext {
-    public constructor(ctx: ColumnTypeExprContext) {
-        super(ctx.parent, ctx.invokingState);
-        super.copyFrom(ctx);
-    }
-    public identifier(): IdentifierContext {
-        return this.getRuleContext(0, IdentifierContext)!;
-    }
-    public LPAREN(): antlr.TerminalNode {
-        return this.getToken(ClickHouseParser.LPAREN, 0)!;
-    }
-    public RPAREN(): antlr.TerminalNode {
-        return this.getToken(ClickHouseParser.RPAREN, 0)!;
-    }
-    public columnExprList(): ColumnExprListContext | null {
-        return this.getRuleContext(0, ColumnExprListContext);
-    }
-    public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
-        if (visitor.visitColumnTypeExprParam) {
-            return visitor.visitColumnTypeExprParam(this);
-        } else {
-            return visitor.visitChildren(this);
-        }
-    }
-}
-export class ColumnTypeExprSimpleContext extends ColumnTypeExprContext {
-    public constructor(ctx: ColumnTypeExprContext) {
-        super(ctx.parent, ctx.invokingState);
-        super.copyFrom(ctx);
-    }
-    public identifier(): IdentifierContext {
-        return this.getRuleContext(0, IdentifierContext)!;
-    }
-    public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
-        if (visitor.visitColumnTypeExprSimple) {
-            return visitor.visitColumnTypeExprSimple(this);
-        } else {
-            return visitor.visitChildren(this);
-        }
-    }
-}
-export class ColumnTypeExprComplexContext extends ColumnTypeExprContext {
-    public constructor(ctx: ColumnTypeExprContext) {
-        super(ctx.parent, ctx.invokingState);
-        super.copyFrom(ctx);
-    }
-    public identifier(): IdentifierContext {
-        return this.getRuleContext(0, IdentifierContext)!;
-    }
-    public LPAREN(): antlr.TerminalNode {
-        return this.getToken(ClickHouseParser.LPAREN, 0)!;
-    }
-    public columnTypeExpr(): ColumnTypeExprContext[];
-    public columnTypeExpr(i: number): ColumnTypeExprContext | null;
-    public columnTypeExpr(i?: number): ColumnTypeExprContext[] | ColumnTypeExprContext | null {
-        if (i === undefined) {
-            return this.getRuleContexts(ColumnTypeExprContext);
-        }
-
-        return this.getRuleContext(i, ColumnTypeExprContext);
-    }
-    public RPAREN(): antlr.TerminalNode {
-        return this.getToken(ClickHouseParser.RPAREN, 0)!;
-    }
-    public COMMA(): antlr.TerminalNode[];
-    public COMMA(i: number): antlr.TerminalNode | null;
-    public COMMA(i?: number): antlr.TerminalNode | null | antlr.TerminalNode[] {
-    	if (i === undefined) {
-    		return this.getTokens(ClickHouseParser.COMMA);
-    	} else {
-    		return this.getToken(ClickHouseParser.COMMA, i);
-    	}
-    }
-    public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
-        if (visitor.visitColumnTypeExprComplex) {
-            return visitor.visitColumnTypeExprComplex(this);
-        } else {
-            return visitor.visitChildren(this);
-        }
-    }
-}
-export class ColumnTypeExprEnumContext extends ColumnTypeExprContext {
-    public constructor(ctx: ColumnTypeExprContext) {
+export class ColumnTypeExpressionEnumContext extends ColumnTypeExpressionContext {
+    public constructor(ctx: ColumnTypeExpressionContext) {
         super(ctx.parent, ctx.invokingState);
         super.copyFrom(ctx);
     }
@@ -16970,8 +16887,95 @@ export class ColumnTypeExprEnumContext extends ColumnTypeExprContext {
     	}
     }
     public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
-        if (visitor.visitColumnTypeExprEnum) {
-            return visitor.visitColumnTypeExprEnum(this);
+        if (visitor.visitColumnTypeExpressionEnum) {
+            return visitor.visitColumnTypeExpressionEnum(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
+}
+export class ColumnTypeExpressionNestedContext extends ColumnTypeExpressionContext {
+    public constructor(ctx: ColumnTypeExpressionContext) {
+        super(ctx.parent, ctx.invokingState);
+        super.copyFrom(ctx);
+    }
+    public identifier(): IdentifierContext[];
+    public identifier(i: number): IdentifierContext | null;
+    public identifier(i?: number): IdentifierContext[] | IdentifierContext | null {
+        if (i === undefined) {
+            return this.getRuleContexts(IdentifierContext);
+        }
+
+        return this.getRuleContext(i, IdentifierContext);
+    }
+    public LPAREN(): antlr.TerminalNode {
+        return this.getToken(ClickHouseParser.LPAREN, 0)!;
+    }
+    public columnTypeExpression(): ColumnTypeExpressionContext[];
+    public columnTypeExpression(i: number): ColumnTypeExpressionContext | null;
+    public columnTypeExpression(i?: number): ColumnTypeExpressionContext[] | ColumnTypeExpressionContext | null {
+        if (i === undefined) {
+            return this.getRuleContexts(ColumnTypeExpressionContext);
+        }
+
+        return this.getRuleContext(i, ColumnTypeExpressionContext);
+    }
+    public RPAREN(): antlr.TerminalNode {
+        return this.getToken(ClickHouseParser.RPAREN, 0)!;
+    }
+    public COMMA(): antlr.TerminalNode[];
+    public COMMA(i: number): antlr.TerminalNode | null;
+    public COMMA(i?: number): antlr.TerminalNode | null | antlr.TerminalNode[] {
+    	if (i === undefined) {
+    		return this.getTokens(ClickHouseParser.COMMA);
+    	} else {
+    		return this.getToken(ClickHouseParser.COMMA, i);
+    	}
+    }
+    public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
+        if (visitor.visitColumnTypeExpressionNested) {
+            return visitor.visitColumnTypeExpressionNested(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
+}
+export class ColumnTypeExpressionParamContext extends ColumnTypeExpressionContext {
+    public constructor(ctx: ColumnTypeExpressionContext) {
+        super(ctx.parent, ctx.invokingState);
+        super.copyFrom(ctx);
+    }
+    public identifier(): IdentifierContext {
+        return this.getRuleContext(0, IdentifierContext)!;
+    }
+    public LPAREN(): antlr.TerminalNode {
+        return this.getToken(ClickHouseParser.LPAREN, 0)!;
+    }
+    public RPAREN(): antlr.TerminalNode {
+        return this.getToken(ClickHouseParser.RPAREN, 0)!;
+    }
+    public columnExpressionList(): ColumnExpressionListContext | null {
+        return this.getRuleContext(0, ColumnExpressionListContext);
+    }
+    public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
+        if (visitor.visitColumnTypeExpressionParam) {
+            return visitor.visitColumnTypeExpressionParam(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
+}
+export class ColumnTypeExpressionSimpleContext extends ColumnTypeExpressionContext {
+    public constructor(ctx: ColumnTypeExpressionContext) {
+        super(ctx.parent, ctx.invokingState);
+        super.copyFrom(ctx);
+    }
+    public identifier(): IdentifierContext {
+        return this.getRuleContext(0, IdentifierContext)!;
+    }
+    public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
+        if (visitor.visitColumnTypeExpressionSimple) {
+            return visitor.visitColumnTypeExpressionSimple(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -16979,18 +16983,18 @@ export class ColumnTypeExprEnumContext extends ColumnTypeExprContext {
 }
 
 
-export class ColumnExprListContext extends antlr.ParserRuleContext {
+export class ColumnExpressionListContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
-    public columnsExpr(): ColumnsExprContext[];
-    public columnsExpr(i: number): ColumnsExprContext | null;
-    public columnsExpr(i?: number): ColumnsExprContext[] | ColumnsExprContext | null {
+    public columnsExpression(): ColumnsExpressionContext[];
+    public columnsExpression(i: number): ColumnsExpressionContext | null;
+    public columnsExpression(i?: number): ColumnsExpressionContext[] | ColumnsExpressionContext | null {
         if (i === undefined) {
-            return this.getRuleContexts(ColumnsExprContext);
+            return this.getRuleContexts(ColumnsExpressionContext);
         }
 
-        return this.getRuleContext(i, ColumnsExprContext);
+        return this.getRuleContext(i, ColumnsExpressionContext);
     }
     public COMMA(): antlr.TerminalNode[];
     public COMMA(i: number): antlr.TerminalNode | null;
@@ -17002,11 +17006,11 @@ export class ColumnExprListContext extends antlr.ParserRuleContext {
     	}
     }
     public override get ruleIndex(): number {
-        return ClickHouseParser.RULE_columnExprList;
+        return ClickHouseParser.RULE_columnExpressionList;
     }
     public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
-        if (visitor.visitColumnExprList) {
-            return visitor.visitColumnExprList(this);
+        if (visitor.visitColumnExpressionList) {
+            return visitor.visitColumnExpressionList(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -17014,35 +17018,19 @@ export class ColumnExprListContext extends antlr.ParserRuleContext {
 }
 
 
-export class ColumnsExprContext extends antlr.ParserRuleContext {
+export class ColumnsExpressionContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
     public override get ruleIndex(): number {
-        return ClickHouseParser.RULE_columnsExpr;
+        return ClickHouseParser.RULE_columnsExpression;
     }
-    public override copyFrom(ctx: ColumnsExprContext): void {
+    public override copyFrom(ctx: ColumnsExpressionContext): void {
         super.copyFrom(ctx);
     }
 }
-export class ColumnsExprColumnContext extends ColumnsExprContext {
-    public constructor(ctx: ColumnsExprContext) {
-        super(ctx.parent, ctx.invokingState);
-        super.copyFrom(ctx);
-    }
-    public columnExpr(): ColumnExprContext {
-        return this.getRuleContext(0, ColumnExprContext)!;
-    }
-    public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
-        if (visitor.visitColumnsExprColumn) {
-            return visitor.visitColumnsExprColumn(this);
-        } else {
-            return visitor.visitChildren(this);
-        }
-    }
-}
-export class ColumnsExprAsteriskContext extends ColumnsExprContext {
-    public constructor(ctx: ColumnsExprContext) {
+export class ColumnsExpressionAsteriskContext extends ColumnsExpressionContext {
+    public constructor(ctx: ColumnsExpressionContext) {
         super(ctx.parent, ctx.invokingState);
         super.copyFrom(ctx);
     }
@@ -17056,30 +17044,46 @@ export class ColumnsExprAsteriskContext extends ColumnsExprContext {
         return this.getToken(ClickHouseParser.DOT, 0);
     }
     public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
-        if (visitor.visitColumnsExprAsterisk) {
-            return visitor.visitColumnsExprAsterisk(this);
+        if (visitor.visitColumnsExpressionAsterisk) {
+            return visitor.visitColumnsExpressionAsterisk(this);
         } else {
             return visitor.visitChildren(this);
         }
     }
 }
-export class ColumnsExprSubqueryContext extends ColumnsExprContext {
-    public constructor(ctx: ColumnsExprContext) {
+export class ColumnsExpressionSubqueryContext extends ColumnsExpressionContext {
+    public constructor(ctx: ColumnsExpressionContext) {
         super(ctx.parent, ctx.invokingState);
         super.copyFrom(ctx);
     }
     public LPAREN(): antlr.TerminalNode {
         return this.getToken(ClickHouseParser.LPAREN, 0)!;
     }
-    public selectUnionStmt(): SelectUnionStmtContext {
-        return this.getRuleContext(0, SelectUnionStmtContext)!;
+    public selectUnionStatement(): SelectUnionStatementContext {
+        return this.getRuleContext(0, SelectUnionStatementContext)!;
     }
     public RPAREN(): antlr.TerminalNode {
         return this.getToken(ClickHouseParser.RPAREN, 0)!;
     }
     public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
-        if (visitor.visitColumnsExprSubquery) {
-            return visitor.visitColumnsExprSubquery(this);
+        if (visitor.visitColumnsExpressionSubquery) {
+            return visitor.visitColumnsExpressionSubquery(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
+}
+export class ColumnsExpressionColumnContext extends ColumnsExpressionContext {
+    public constructor(ctx: ColumnsExpressionContext) {
+        super(ctx.parent, ctx.invokingState);
+        super.copyFrom(ctx);
+    }
+    public columnExpression(): ColumnExpressionContext {
+        return this.getRuleContext(0, ColumnExpressionContext)!;
+    }
+    public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
+        if (visitor.visitColumnsExpressionColumn) {
+            return visitor.visitColumnsExpressionColumn(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -17087,182 +17091,200 @@ export class ColumnsExprSubqueryContext extends ColumnsExprContext {
 }
 
 
-export class ColumnExprContext extends antlr.ParserRuleContext {
+export class ColumnExpressionContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
     public override get ruleIndex(): number {
-        return ClickHouseParser.RULE_columnExpr;
+        return ClickHouseParser.RULE_columnExpression;
     }
-    public override copyFrom(ctx: ColumnExprContext): void {
+    public override copyFrom(ctx: ColumnExpressionContext): void {
         super.copyFrom(ctx);
     }
 }
-export class ColumnExprTernaryOpContext extends ColumnExprContext {
-    public constructor(ctx: ColumnExprContext) {
+export class ColumnExpressionIsNullContext extends ColumnExpressionContext {
+    public constructor(ctx: ColumnExpressionContext) {
         super(ctx.parent, ctx.invokingState);
         super.copyFrom(ctx);
     }
-    public columnExpr(): ColumnExprContext[];
-    public columnExpr(i: number): ColumnExprContext | null;
-    public columnExpr(i?: number): ColumnExprContext[] | ColumnExprContext | null {
-        if (i === undefined) {
-            return this.getRuleContexts(ColumnExprContext);
-        }
-
-        return this.getRuleContext(i, ColumnExprContext);
+    public columnExpression(): ColumnExpressionContext {
+        return this.getRuleContext(0, ColumnExpressionContext)!;
     }
-    public QUESTIONMARK(): antlr.TerminalNode {
-        return this.getToken(ClickHouseParser.QUESTIONMARK, 0)!;
+    public IS(): antlr.TerminalNode {
+        return this.getToken(ClickHouseParser.IS, 0)!;
     }
-    public COLON(): antlr.TerminalNode {
-        return this.getToken(ClickHouseParser.COLON, 0)!;
+    public NULL_SQL(): antlr.TerminalNode {
+        return this.getToken(ClickHouseParser.NULL_SQL, 0)!;
+    }
+    public NOT(): antlr.TerminalNode | null {
+        return this.getToken(ClickHouseParser.NOT, 0);
     }
     public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
-        if (visitor.visitColumnExprTernaryOp) {
-            return visitor.visitColumnExprTernaryOp(this);
+        if (visitor.visitColumnExpressionIsNull) {
+            return visitor.visitColumnExpressionIsNull(this);
         } else {
             return visitor.visitChildren(this);
         }
     }
 }
-export class ColumnExprAliasContext extends ColumnExprContext {
-    public constructor(ctx: ColumnExprContext) {
+export class ColumnExpressionTupleContext extends ColumnExpressionContext {
+    public constructor(ctx: ColumnExpressionContext) {
         super(ctx.parent, ctx.invokingState);
         super.copyFrom(ctx);
-    }
-    public columnExpr(): ColumnExprContext {
-        return this.getRuleContext(0, ColumnExprContext)!;
-    }
-    public alias(): AliasContext | null {
-        return this.getRuleContext(0, AliasContext);
-    }
-    public AS(): antlr.TerminalNode | null {
-        return this.getToken(ClickHouseParser.AS, 0);
-    }
-    public identifier(): IdentifierContext | null {
-        return this.getRuleContext(0, IdentifierContext);
-    }
-    public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
-        if (visitor.visitColumnExprAlias) {
-            return visitor.visitColumnExprAlias(this);
-        } else {
-            return visitor.visitChildren(this);
-        }
-    }
-}
-export class ColumnExprExtractContext extends ColumnExprContext {
-    public constructor(ctx: ColumnExprContext) {
-        super(ctx.parent, ctx.invokingState);
-        super.copyFrom(ctx);
-    }
-    public EXTRACT(): antlr.TerminalNode {
-        return this.getToken(ClickHouseParser.EXTRACT, 0)!;
     }
     public LPAREN(): antlr.TerminalNode {
         return this.getToken(ClickHouseParser.LPAREN, 0)!;
     }
-    public interval(): IntervalContext {
-        return this.getRuleContext(0, IntervalContext)!;
+    public columnExpressionList(): ColumnExpressionListContext {
+        return this.getRuleContext(0, ColumnExpressionListContext)!;
+    }
+    public RPAREN(): antlr.TerminalNode {
+        return this.getToken(ClickHouseParser.RPAREN, 0)!;
+    }
+    public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
+        if (visitor.visitColumnExpressionTuple) {
+            return visitor.visitColumnExpressionTuple(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
+}
+export class ColumnExpressionAndContext extends ColumnExpressionContext {
+    public constructor(ctx: ColumnExpressionContext) {
+        super(ctx.parent, ctx.invokingState);
+        super.copyFrom(ctx);
+    }
+    public columnExpression(): ColumnExpressionContext[];
+    public columnExpression(i: number): ColumnExpressionContext | null;
+    public columnExpression(i?: number): ColumnExpressionContext[] | ColumnExpressionContext | null {
+        if (i === undefined) {
+            return this.getRuleContexts(ColumnExpressionContext);
+        }
+
+        return this.getRuleContext(i, ColumnExpressionContext);
+    }
+    public AND(): antlr.TerminalNode {
+        return this.getToken(ClickHouseParser.AND, 0)!;
+    }
+    public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
+        if (visitor.visitColumnExpressionAnd) {
+            return visitor.visitColumnExpressionAnd(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
+}
+export class ColumnExpressionDateContext extends ColumnExpressionContext {
+    public constructor(ctx: ColumnExpressionContext) {
+        super(ctx.parent, ctx.invokingState);
+        super.copyFrom(ctx);
+    }
+    public DATE(): antlr.TerminalNode {
+        return this.getToken(ClickHouseParser.DATE, 0)!;
+    }
+    public STRING_LITERAL(): antlr.TerminalNode {
+        return this.getToken(ClickHouseParser.STRING_LITERAL, 0)!;
+    }
+    public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
+        if (visitor.visitColumnExpressionDate) {
+            return visitor.visitColumnExpressionDate(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
+}
+export class ColumnExpressionBetweenContext extends ColumnExpressionContext {
+    public constructor(ctx: ColumnExpressionContext) {
+        super(ctx.parent, ctx.invokingState);
+        super.copyFrom(ctx);
+    }
+    public columnExpression(): ColumnExpressionContext[];
+    public columnExpression(i: number): ColumnExpressionContext | null;
+    public columnExpression(i?: number): ColumnExpressionContext[] | ColumnExpressionContext | null {
+        if (i === undefined) {
+            return this.getRuleContexts(ColumnExpressionContext);
+        }
+
+        return this.getRuleContext(i, ColumnExpressionContext);
+    }
+    public BETWEEN(): antlr.TerminalNode {
+        return this.getToken(ClickHouseParser.BETWEEN, 0)!;
+    }
+    public AND(): antlr.TerminalNode {
+        return this.getToken(ClickHouseParser.AND, 0)!;
+    }
+    public NOT(): antlr.TerminalNode | null {
+        return this.getToken(ClickHouseParser.NOT, 0);
+    }
+    public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
+        if (visitor.visitColumnExpressionBetween) {
+            return visitor.visitColumnExpressionBetween(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
+}
+export class ColumnExpressionTrimContext extends ColumnExpressionContext {
+    public constructor(ctx: ColumnExpressionContext) {
+        super(ctx.parent, ctx.invokingState);
+        super.copyFrom(ctx);
+    }
+    public TRIM(): antlr.TerminalNode {
+        return this.getToken(ClickHouseParser.TRIM, 0)!;
+    }
+    public LPAREN(): antlr.TerminalNode {
+        return this.getToken(ClickHouseParser.LPAREN, 0)!;
+    }
+    public STRING_LITERAL(): antlr.TerminalNode {
+        return this.getToken(ClickHouseParser.STRING_LITERAL, 0)!;
     }
     public FROM(): antlr.TerminalNode {
         return this.getToken(ClickHouseParser.FROM, 0)!;
     }
-    public columnExpr(): ColumnExprContext {
-        return this.getRuleContext(0, ColumnExprContext)!;
+    public columnExpression(): ColumnExpressionContext {
+        return this.getRuleContext(0, ColumnExpressionContext)!;
     }
     public RPAREN(): antlr.TerminalNode {
         return this.getToken(ClickHouseParser.RPAREN, 0)!;
     }
+    public BOTH(): antlr.TerminalNode | null {
+        return this.getToken(ClickHouseParser.BOTH, 0);
+    }
+    public LEADING(): antlr.TerminalNode | null {
+        return this.getToken(ClickHouseParser.LEADING, 0);
+    }
+    public TRAILING(): antlr.TerminalNode | null {
+        return this.getToken(ClickHouseParser.TRAILING, 0);
+    }
     public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
-        if (visitor.visitColumnExprExtract) {
-            return visitor.visitColumnExprExtract(this);
+        if (visitor.visitColumnExpressionTrim) {
+            return visitor.visitColumnExpressionTrim(this);
         } else {
             return visitor.visitChildren(this);
         }
     }
 }
-export class ColumnExprNegateContext extends ColumnExprContext {
-    public constructor(ctx: ColumnExprContext) {
+export class ColumnExpressionNotContext extends ColumnExpressionContext {
+    public constructor(ctx: ColumnExpressionContext) {
         super(ctx.parent, ctx.invokingState);
         super.copyFrom(ctx);
     }
-    public DASH(): antlr.TerminalNode {
-        return this.getToken(ClickHouseParser.DASH, 0)!;
+    public NOT(): antlr.TerminalNode {
+        return this.getToken(ClickHouseParser.NOT, 0)!;
     }
-    public columnExpr(): ColumnExprContext {
-        return this.getRuleContext(0, ColumnExprContext)!;
+    public columnExpression(): ColumnExpressionContext {
+        return this.getRuleContext(0, ColumnExpressionContext)!;
     }
     public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
-        if (visitor.visitColumnExprNegate) {
-            return visitor.visitColumnExprNegate(this);
+        if (visitor.visitColumnExpressionNot) {
+            return visitor.visitColumnExpressionNot(this);
         } else {
             return visitor.visitChildren(this);
         }
     }
 }
-export class ColumnExprSubqueryContext extends ColumnExprContext {
-    public constructor(ctx: ColumnExprContext) {
-        super(ctx.parent, ctx.invokingState);
-        super.copyFrom(ctx);
-    }
-    public LPAREN(): antlr.TerminalNode {
-        return this.getToken(ClickHouseParser.LPAREN, 0)!;
-    }
-    public selectUnionStmt(): SelectUnionStmtContext {
-        return this.getRuleContext(0, SelectUnionStmtContext)!;
-    }
-    public RPAREN(): antlr.TerminalNode {
-        return this.getToken(ClickHouseParser.RPAREN, 0)!;
-    }
-    public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
-        if (visitor.visitColumnExprSubquery) {
-            return visitor.visitColumnExprSubquery(this);
-        } else {
-            return visitor.visitChildren(this);
-        }
-    }
-}
-export class ColumnExprLiteralContext extends ColumnExprContext {
-    public constructor(ctx: ColumnExprContext) {
-        super(ctx.parent, ctx.invokingState);
-        super.copyFrom(ctx);
-    }
-    public literal(): LiteralContext {
-        return this.getRuleContext(0, LiteralContext)!;
-    }
-    public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
-        if (visitor.visitColumnExprLiteral) {
-            return visitor.visitColumnExprLiteral(this);
-        } else {
-            return visitor.visitChildren(this);
-        }
-    }
-}
-export class ColumnExprArrayContext extends ColumnExprContext {
-    public constructor(ctx: ColumnExprContext) {
-        super(ctx.parent, ctx.invokingState);
-        super.copyFrom(ctx);
-    }
-    public LBRACKET(): antlr.TerminalNode {
-        return this.getToken(ClickHouseParser.LBRACKET, 0)!;
-    }
-    public RBRACKET(): antlr.TerminalNode {
-        return this.getToken(ClickHouseParser.RBRACKET, 0)!;
-    }
-    public columnExprList(): ColumnExprListContext | null {
-        return this.getRuleContext(0, ColumnExprListContext);
-    }
-    public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
-        if (visitor.visitColumnExprArray) {
-            return visitor.visitColumnExprArray(this);
-        } else {
-            return visitor.visitChildren(this);
-        }
-    }
-}
-export class ColumnExprSubstringContext extends ColumnExprContext {
-    public constructor(ctx: ColumnExprContext) {
+export class ColumnExpressionSubstringContext extends ColumnExpressionContext {
+    public constructor(ctx: ColumnExpressionContext) {
         super(ctx.parent, ctx.invokingState);
         super.copyFrom(ctx);
     }
@@ -17272,14 +17294,14 @@ export class ColumnExprSubstringContext extends ColumnExprContext {
     public LPAREN(): antlr.TerminalNode {
         return this.getToken(ClickHouseParser.LPAREN, 0)!;
     }
-    public columnExpr(): ColumnExprContext[];
-    public columnExpr(i: number): ColumnExprContext | null;
-    public columnExpr(i?: number): ColumnExprContext[] | ColumnExprContext | null {
+    public columnExpression(): ColumnExpressionContext[];
+    public columnExpression(i: number): ColumnExpressionContext | null;
+    public columnExpression(i?: number): ColumnExpressionContext[] | ColumnExpressionContext | null {
         if (i === undefined) {
-            return this.getRuleContexts(ColumnExprContext);
+            return this.getRuleContexts(ColumnExpressionContext);
         }
 
-        return this.getRuleContext(i, ColumnExprContext);
+        return this.getRuleContext(i, ColumnExpressionContext);
     }
     public FROM(): antlr.TerminalNode {
         return this.getToken(ClickHouseParser.FROM, 0)!;
@@ -17291,144 +17313,396 @@ export class ColumnExprSubstringContext extends ColumnExprContext {
         return this.getToken(ClickHouseParser.FOR, 0);
     }
     public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
-        if (visitor.visitColumnExprSubstring) {
-            return visitor.visitColumnExprSubstring(this);
+        if (visitor.visitColumnExpressionSubstring) {
+            return visitor.visitColumnExpressionSubstring(this);
         } else {
             return visitor.visitChildren(this);
         }
     }
 }
-export class ColumnExprCastContext extends ColumnExprContext {
-    public constructor(ctx: ColumnExprContext) {
+export class ColumnExpressionCaseContext extends ColumnExpressionContext {
+    public constructor(ctx: ColumnExpressionContext) {
         super(ctx.parent, ctx.invokingState);
         super.copyFrom(ctx);
     }
-    public CAST(): antlr.TerminalNode {
-        return this.getToken(ClickHouseParser.CAST, 0)!;
+    public CASE(): antlr.TerminalNode {
+        return this.getToken(ClickHouseParser.CASE, 0)!;
+    }
+    public END(): antlr.TerminalNode {
+        return this.getToken(ClickHouseParser.END, 0)!;
+    }
+    public columnExpression(): ColumnExpressionContext[];
+    public columnExpression(i: number): ColumnExpressionContext | null;
+    public columnExpression(i?: number): ColumnExpressionContext[] | ColumnExpressionContext | null {
+        if (i === undefined) {
+            return this.getRuleContexts(ColumnExpressionContext);
+        }
+
+        return this.getRuleContext(i, ColumnExpressionContext);
+    }
+    public WHEN(): antlr.TerminalNode[];
+    public WHEN(i: number): antlr.TerminalNode | null;
+    public WHEN(i?: number): antlr.TerminalNode | null | antlr.TerminalNode[] {
+    	if (i === undefined) {
+    		return this.getTokens(ClickHouseParser.WHEN);
+    	} else {
+    		return this.getToken(ClickHouseParser.WHEN, i);
+    	}
+    }
+    public THEN(): antlr.TerminalNode[];
+    public THEN(i: number): antlr.TerminalNode | null;
+    public THEN(i?: number): antlr.TerminalNode | null | antlr.TerminalNode[] {
+    	if (i === undefined) {
+    		return this.getTokens(ClickHouseParser.THEN);
+    	} else {
+    		return this.getToken(ClickHouseParser.THEN, i);
+    	}
+    }
+    public ELSE(): antlr.TerminalNode | null {
+        return this.getToken(ClickHouseParser.ELSE, 0);
+    }
+    public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
+        if (visitor.visitColumnExpressionCase) {
+            return visitor.visitColumnExpressionCase(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
+}
+export class ColumnExpressionIdentifierContext extends ColumnExpressionContext {
+    public constructor(ctx: ColumnExpressionContext) {
+        super(ctx.parent, ctx.invokingState);
+        super.copyFrom(ctx);
+    }
+    public columnIdentifier(): ColumnIdentifierContext {
+        return this.getRuleContext(0, ColumnIdentifierContext)!;
+    }
+    public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
+        if (visitor.visitColumnExpressionIdentifier) {
+            return visitor.visitColumnExpressionIdentifier(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
+}
+export class ColumnExpressionArrayAccessContext extends ColumnExpressionContext {
+    public constructor(ctx: ColumnExpressionContext) {
+        super(ctx.parent, ctx.invokingState);
+        super.copyFrom(ctx);
+    }
+    public columnExpression(): ColumnExpressionContext[];
+    public columnExpression(i: number): ColumnExpressionContext | null;
+    public columnExpression(i?: number): ColumnExpressionContext[] | ColumnExpressionContext | null {
+        if (i === undefined) {
+            return this.getRuleContexts(ColumnExpressionContext);
+        }
+
+        return this.getRuleContext(i, ColumnExpressionContext);
+    }
+    public LBRACKET(): antlr.TerminalNode {
+        return this.getToken(ClickHouseParser.LBRACKET, 0)!;
+    }
+    public RBRACKET(): antlr.TerminalNode {
+        return this.getToken(ClickHouseParser.RBRACKET, 0)!;
+    }
+    public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
+        if (visitor.visitColumnExpressionArrayAccess) {
+            return visitor.visitColumnExpressionArrayAccess(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
+}
+export class ColumnExpressionFunctionContext extends ColumnExpressionContext {
+    public constructor(ctx: ColumnExpressionContext) {
+        super(ctx.parent, ctx.invokingState);
+        super.copyFrom(ctx);
+    }
+    public identifier(): IdentifierContext {
+        return this.getRuleContext(0, IdentifierContext)!;
+    }
+    public LPAREN(): antlr.TerminalNode[];
+    public LPAREN(i: number): antlr.TerminalNode | null;
+    public LPAREN(i?: number): antlr.TerminalNode | null | antlr.TerminalNode[] {
+    	if (i === undefined) {
+    		return this.getTokens(ClickHouseParser.LPAREN);
+    	} else {
+    		return this.getToken(ClickHouseParser.LPAREN, i);
+    	}
+    }
+    public RPAREN(): antlr.TerminalNode[];
+    public RPAREN(i: number): antlr.TerminalNode | null;
+    public RPAREN(i?: number): antlr.TerminalNode | null | antlr.TerminalNode[] {
+    	if (i === undefined) {
+    		return this.getTokens(ClickHouseParser.RPAREN);
+    	} else {
+    		return this.getToken(ClickHouseParser.RPAREN, i);
+    	}
+    }
+    public DISTINCT(): antlr.TerminalNode | null {
+        return this.getToken(ClickHouseParser.DISTINCT, 0);
+    }
+    public columnArgumentList(): ColumnArgumentListContext | null {
+        return this.getRuleContext(0, ColumnArgumentListContext);
+    }
+    public columnExpressionList(): ColumnExpressionListContext | null {
+        return this.getRuleContext(0, ColumnExpressionListContext);
+    }
+    public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
+        if (visitor.visitColumnExpressionFunction) {
+            return visitor.visitColumnExpressionFunction(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
+}
+export class ColumnExpressionAsteriskContext extends ColumnExpressionContext {
+    public constructor(ctx: ColumnExpressionContext) {
+        super(ctx.parent, ctx.invokingState);
+        super.copyFrom(ctx);
+    }
+    public ASTERISK(): antlr.TerminalNode {
+        return this.getToken(ClickHouseParser.ASTERISK, 0)!;
+    }
+    public tableIdentifier(): TableIdentifierContext | null {
+        return this.getRuleContext(0, TableIdentifierContext);
+    }
+    public DOT(): antlr.TerminalNode | null {
+        return this.getToken(ClickHouseParser.DOT, 0);
+    }
+    public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
+        if (visitor.visitColumnExpressionAsterisk) {
+            return visitor.visitColumnExpressionAsterisk(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
+}
+export class ColumnExpressionLiteralContext extends ColumnExpressionContext {
+    public constructor(ctx: ColumnExpressionContext) {
+        super(ctx.parent, ctx.invokingState);
+        super.copyFrom(ctx);
+    }
+    public literal(): LiteralContext {
+        return this.getRuleContext(0, LiteralContext)!;
+    }
+    public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
+        if (visitor.visitColumnExpressionLiteral) {
+            return visitor.visitColumnExpressionLiteral(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
+}
+export class ColumnExpressionWinFunctionContext extends ColumnExpressionContext {
+    public constructor(ctx: ColumnExpressionContext) {
+        super(ctx.parent, ctx.invokingState);
+        super.copyFrom(ctx);
+    }
+    public identifier(): IdentifierContext {
+        return this.getRuleContext(0, IdentifierContext)!;
+    }
+    public OVER(): antlr.TerminalNode {
+        return this.getToken(ClickHouseParser.OVER, 0)!;
+    }
+    public LPAREN(): antlr.TerminalNode[];
+    public LPAREN(i: number): antlr.TerminalNode | null;
+    public LPAREN(i?: number): antlr.TerminalNode | null | antlr.TerminalNode[] {
+    	if (i === undefined) {
+    		return this.getTokens(ClickHouseParser.LPAREN);
+    	} else {
+    		return this.getToken(ClickHouseParser.LPAREN, i);
+    	}
+    }
+    public windowExpression(): WindowExpressionContext {
+        return this.getRuleContext(0, WindowExpressionContext)!;
+    }
+    public RPAREN(): antlr.TerminalNode[];
+    public RPAREN(i: number): antlr.TerminalNode | null;
+    public RPAREN(i?: number): antlr.TerminalNode | null | antlr.TerminalNode[] {
+    	if (i === undefined) {
+    		return this.getTokens(ClickHouseParser.RPAREN);
+    	} else {
+    		return this.getToken(ClickHouseParser.RPAREN, i);
+    	}
+    }
+    public columnExpressionList(): ColumnExpressionListContext | null {
+        return this.getRuleContext(0, ColumnExpressionListContext);
+    }
+    public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
+        if (visitor.visitColumnExpressionWinFunction) {
+            return visitor.visitColumnExpressionWinFunction(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
+}
+export class ColumnExpressionTernaryOpContext extends ColumnExpressionContext {
+    public constructor(ctx: ColumnExpressionContext) {
+        super(ctx.parent, ctx.invokingState);
+        super.copyFrom(ctx);
+    }
+    public columnExpression(): ColumnExpressionContext[];
+    public columnExpression(i: number): ColumnExpressionContext | null;
+    public columnExpression(i?: number): ColumnExpressionContext[] | ColumnExpressionContext | null {
+        if (i === undefined) {
+            return this.getRuleContexts(ColumnExpressionContext);
+        }
+
+        return this.getRuleContext(i, ColumnExpressionContext);
+    }
+    public QUESTIONMARK(): antlr.TerminalNode {
+        return this.getToken(ClickHouseParser.QUESTIONMARK, 0)!;
+    }
+    public COLON(): antlr.TerminalNode {
+        return this.getToken(ClickHouseParser.COLON, 0)!;
+    }
+    public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
+        if (visitor.visitColumnExpressionTernaryOp) {
+            return visitor.visitColumnExpressionTernaryOp(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
+}
+export class ColumnExpressionArrayContext extends ColumnExpressionContext {
+    public constructor(ctx: ColumnExpressionContext) {
+        super(ctx.parent, ctx.invokingState);
+        super.copyFrom(ctx);
+    }
+    public LBRACKET(): antlr.TerminalNode {
+        return this.getToken(ClickHouseParser.LBRACKET, 0)!;
+    }
+    public RBRACKET(): antlr.TerminalNode {
+        return this.getToken(ClickHouseParser.RBRACKET, 0)!;
+    }
+    public columnExpressionList(): ColumnExpressionListContext | null {
+        return this.getRuleContext(0, ColumnExpressionListContext);
+    }
+    public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
+        if (visitor.visitColumnExpressionArray) {
+            return visitor.visitColumnExpressionArray(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
+}
+export class ColumnExpressionTupleAccessContext extends ColumnExpressionContext {
+    public constructor(ctx: ColumnExpressionContext) {
+        super(ctx.parent, ctx.invokingState);
+        super.copyFrom(ctx);
+    }
+    public columnExpression(): ColumnExpressionContext {
+        return this.getRuleContext(0, ColumnExpressionContext)!;
+    }
+    public DOT(): antlr.TerminalNode {
+        return this.getToken(ClickHouseParser.DOT, 0)!;
+    }
+    public DECIMAL_LITERAL(): antlr.TerminalNode {
+        return this.getToken(ClickHouseParser.DECIMAL_LITERAL, 0)!;
+    }
+    public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
+        if (visitor.visitColumnExpressionTupleAccess) {
+            return visitor.visitColumnExpressionTupleAccess(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
+}
+export class ColumnExpressionParensContext extends ColumnExpressionContext {
+    public constructor(ctx: ColumnExpressionContext) {
+        super(ctx.parent, ctx.invokingState);
+        super.copyFrom(ctx);
     }
     public LPAREN(): antlr.TerminalNode {
         return this.getToken(ClickHouseParser.LPAREN, 0)!;
     }
-    public columnExpr(): ColumnExprContext {
-        return this.getRuleContext(0, ColumnExprContext)!;
-    }
-    public AS(): antlr.TerminalNode {
-        return this.getToken(ClickHouseParser.AS, 0)!;
-    }
-    public columnTypeExpr(): ColumnTypeExprContext {
-        return this.getRuleContext(0, ColumnTypeExprContext)!;
+    public columnExpression(): ColumnExpressionContext {
+        return this.getRuleContext(0, ColumnExpressionContext)!;
     }
     public RPAREN(): antlr.TerminalNode {
         return this.getToken(ClickHouseParser.RPAREN, 0)!;
     }
     public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
-        if (visitor.visitColumnExprCast) {
-            return visitor.visitColumnExprCast(this);
+        if (visitor.visitColumnExpressionParens) {
+            return visitor.visitColumnExpressionParens(this);
         } else {
             return visitor.visitChildren(this);
         }
     }
 }
-export class ColumnExprOrContext extends ColumnExprContext {
-    public constructor(ctx: ColumnExprContext) {
+export class ColumnExpressionWinFunctionTargetContext extends ColumnExpressionContext {
+    public constructor(ctx: ColumnExpressionContext) {
         super(ctx.parent, ctx.invokingState);
         super.copyFrom(ctx);
     }
-    public columnExpr(): ColumnExprContext[];
-    public columnExpr(i: number): ColumnExprContext | null;
-    public columnExpr(i?: number): ColumnExprContext[] | ColumnExprContext | null {
+    public identifier(): IdentifierContext[];
+    public identifier(i: number): IdentifierContext | null;
+    public identifier(i?: number): IdentifierContext[] | IdentifierContext | null {
         if (i === undefined) {
-            return this.getRuleContexts(ColumnExprContext);
+            return this.getRuleContexts(IdentifierContext);
         }
 
-        return this.getRuleContext(i, ColumnExprContext);
+        return this.getRuleContext(i, IdentifierContext);
     }
-    public OR(): antlr.TerminalNode {
-        return this.getToken(ClickHouseParser.OR, 0)!;
+    public OVER(): antlr.TerminalNode {
+        return this.getToken(ClickHouseParser.OVER, 0)!;
+    }
+    public LPAREN(): antlr.TerminalNode | null {
+        return this.getToken(ClickHouseParser.LPAREN, 0);
+    }
+    public RPAREN(): antlr.TerminalNode | null {
+        return this.getToken(ClickHouseParser.RPAREN, 0);
+    }
+    public columnExpressionList(): ColumnExpressionListContext | null {
+        return this.getRuleContext(0, ColumnExpressionListContext);
     }
     public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
-        if (visitor.visitColumnExprOr) {
-            return visitor.visitColumnExprOr(this);
+        if (visitor.visitColumnExpressionWinFunctionTarget) {
+            return visitor.visitColumnExpressionWinFunctionTarget(this);
         } else {
             return visitor.visitChildren(this);
         }
     }
 }
-export class ColumnExprPrecedence1Context extends ColumnExprContext {
-    public constructor(ctx: ColumnExprContext) {
+export class ColumnExpressionAliasContext extends ColumnExpressionContext {
+    public constructor(ctx: ColumnExpressionContext) {
         super(ctx.parent, ctx.invokingState);
         super.copyFrom(ctx);
     }
-    public columnExpr(): ColumnExprContext[];
-    public columnExpr(i: number): ColumnExprContext | null;
-    public columnExpr(i?: number): ColumnExprContext[] | ColumnExprContext | null {
-        if (i === undefined) {
-            return this.getRuleContexts(ColumnExprContext);
-        }
-
-        return this.getRuleContext(i, ColumnExprContext);
+    public columnExpression(): ColumnExpressionContext {
+        return this.getRuleContext(0, ColumnExpressionContext)!;
     }
-    public ASTERISK(): antlr.TerminalNode | null {
-        return this.getToken(ClickHouseParser.ASTERISK, 0);
+    public alias(): AliasContext | null {
+        return this.getRuleContext(0, AliasContext);
     }
-    public SLASH(): antlr.TerminalNode | null {
-        return this.getToken(ClickHouseParser.SLASH, 0);
+    public AS(): antlr.TerminalNode | null {
+        return this.getToken(ClickHouseParser.AS, 0);
     }
-    public PERCENT(): antlr.TerminalNode | null {
-        return this.getToken(ClickHouseParser.PERCENT, 0);
+    public identifier(): IdentifierContext | null {
+        return this.getRuleContext(0, IdentifierContext);
     }
     public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
-        if (visitor.visitColumnExprPrecedence1) {
-            return visitor.visitColumnExprPrecedence1(this);
+        if (visitor.visitColumnExpressionAlias) {
+            return visitor.visitColumnExpressionAlias(this);
         } else {
             return visitor.visitChildren(this);
         }
     }
 }
-export class ColumnExprPrecedence2Context extends ColumnExprContext {
-    public constructor(ctx: ColumnExprContext) {
+export class ColumnExpressionPrecedence3Context extends ColumnExpressionContext {
+    public constructor(ctx: ColumnExpressionContext) {
         super(ctx.parent, ctx.invokingState);
         super.copyFrom(ctx);
     }
-    public columnExpr(): ColumnExprContext[];
-    public columnExpr(i: number): ColumnExprContext | null;
-    public columnExpr(i?: number): ColumnExprContext[] | ColumnExprContext | null {
+    public columnExpression(): ColumnExpressionContext[];
+    public columnExpression(i: number): ColumnExpressionContext | null;
+    public columnExpression(i?: number): ColumnExpressionContext[] | ColumnExpressionContext | null {
         if (i === undefined) {
-            return this.getRuleContexts(ColumnExprContext);
+            return this.getRuleContexts(ColumnExpressionContext);
         }
 
-        return this.getRuleContext(i, ColumnExprContext);
-    }
-    public PLUS(): antlr.TerminalNode | null {
-        return this.getToken(ClickHouseParser.PLUS, 0);
-    }
-    public DASH(): antlr.TerminalNode | null {
-        return this.getToken(ClickHouseParser.DASH, 0);
-    }
-    public CONCAT(): antlr.TerminalNode | null {
-        return this.getToken(ClickHouseParser.CONCAT, 0);
-    }
-    public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
-        if (visitor.visitColumnExprPrecedence2) {
-            return visitor.visitColumnExprPrecedence2(this);
-        } else {
-            return visitor.visitChildren(this);
-        }
-    }
-}
-export class ColumnExprPrecedence3Context extends ColumnExprContext {
-    public constructor(ctx: ColumnExprContext) {
-        super(ctx.parent, ctx.invokingState);
-        super.copyFrom(ctx);
-    }
-    public columnExpr(): ColumnExprContext[];
-    public columnExpr(i: number): ColumnExprContext | null;
-    public columnExpr(i?: number): ColumnExprContext[] | ColumnExprContext | null {
-        if (i === undefined) {
-            return this.getRuleContexts(ColumnExprContext);
-        }
-
-        return this.getRuleContext(i, ColumnExprContext);
+        return this.getRuleContext(i, ColumnExpressionContext);
     }
     public EQ_DOUBLE(): antlr.TerminalNode | null {
         return this.getToken(ClickHouseParser.EQ_DOUBLE, 0);
@@ -17467,239 +17741,15 @@ export class ColumnExprPrecedence3Context extends ColumnExprContext {
         return this.getToken(ClickHouseParser.NOT, 0);
     }
     public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
-        if (visitor.visitColumnExprPrecedence3) {
-            return visitor.visitColumnExprPrecedence3(this);
+        if (visitor.visitColumnExpressionPrecedence3) {
+            return visitor.visitColumnExpressionPrecedence3(this);
         } else {
             return visitor.visitChildren(this);
         }
     }
 }
-export class ColumnExprIntervalContext extends ColumnExprContext {
-    public constructor(ctx: ColumnExprContext) {
-        super(ctx.parent, ctx.invokingState);
-        super.copyFrom(ctx);
-    }
-    public INTERVAL(): antlr.TerminalNode {
-        return this.getToken(ClickHouseParser.INTERVAL, 0)!;
-    }
-    public columnExpr(): ColumnExprContext {
-        return this.getRuleContext(0, ColumnExprContext)!;
-    }
-    public interval(): IntervalContext {
-        return this.getRuleContext(0, IntervalContext)!;
-    }
-    public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
-        if (visitor.visitColumnExprInterval) {
-            return visitor.visitColumnExprInterval(this);
-        } else {
-            return visitor.visitChildren(this);
-        }
-    }
-}
-export class ColumnExprIsNullContext extends ColumnExprContext {
-    public constructor(ctx: ColumnExprContext) {
-        super(ctx.parent, ctx.invokingState);
-        super.copyFrom(ctx);
-    }
-    public columnExpr(): ColumnExprContext {
-        return this.getRuleContext(0, ColumnExprContext)!;
-    }
-    public IS(): antlr.TerminalNode {
-        return this.getToken(ClickHouseParser.IS, 0)!;
-    }
-    public NULL_SQL(): antlr.TerminalNode {
-        return this.getToken(ClickHouseParser.NULL_SQL, 0)!;
-    }
-    public NOT(): antlr.TerminalNode | null {
-        return this.getToken(ClickHouseParser.NOT, 0);
-    }
-    public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
-        if (visitor.visitColumnExprIsNull) {
-            return visitor.visitColumnExprIsNull(this);
-        } else {
-            return visitor.visitChildren(this);
-        }
-    }
-}
-export class ColumnExprWinFunctionTargetContext extends ColumnExprContext {
-    public constructor(ctx: ColumnExprContext) {
-        super(ctx.parent, ctx.invokingState);
-        super.copyFrom(ctx);
-    }
-    public identifier(): IdentifierContext[];
-    public identifier(i: number): IdentifierContext | null;
-    public identifier(i?: number): IdentifierContext[] | IdentifierContext | null {
-        if (i === undefined) {
-            return this.getRuleContexts(IdentifierContext);
-        }
-
-        return this.getRuleContext(i, IdentifierContext);
-    }
-    public OVER(): antlr.TerminalNode {
-        return this.getToken(ClickHouseParser.OVER, 0)!;
-    }
-    public LPAREN(): antlr.TerminalNode | null {
-        return this.getToken(ClickHouseParser.LPAREN, 0);
-    }
-    public RPAREN(): antlr.TerminalNode | null {
-        return this.getToken(ClickHouseParser.RPAREN, 0);
-    }
-    public columnExprList(): ColumnExprListContext | null {
-        return this.getRuleContext(0, ColumnExprListContext);
-    }
-    public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
-        if (visitor.visitColumnExprWinFunctionTarget) {
-            return visitor.visitColumnExprWinFunctionTarget(this);
-        } else {
-            return visitor.visitChildren(this);
-        }
-    }
-}
-export class ColumnExprTrimContext extends ColumnExprContext {
-    public constructor(ctx: ColumnExprContext) {
-        super(ctx.parent, ctx.invokingState);
-        super.copyFrom(ctx);
-    }
-    public TRIM(): antlr.TerminalNode {
-        return this.getToken(ClickHouseParser.TRIM, 0)!;
-    }
-    public LPAREN(): antlr.TerminalNode {
-        return this.getToken(ClickHouseParser.LPAREN, 0)!;
-    }
-    public STRING_LITERAL(): antlr.TerminalNode {
-        return this.getToken(ClickHouseParser.STRING_LITERAL, 0)!;
-    }
-    public FROM(): antlr.TerminalNode {
-        return this.getToken(ClickHouseParser.FROM, 0)!;
-    }
-    public columnExpr(): ColumnExprContext {
-        return this.getRuleContext(0, ColumnExprContext)!;
-    }
-    public RPAREN(): antlr.TerminalNode {
-        return this.getToken(ClickHouseParser.RPAREN, 0)!;
-    }
-    public BOTH(): antlr.TerminalNode | null {
-        return this.getToken(ClickHouseParser.BOTH, 0);
-    }
-    public LEADING(): antlr.TerminalNode | null {
-        return this.getToken(ClickHouseParser.LEADING, 0);
-    }
-    public TRAILING(): antlr.TerminalNode | null {
-        return this.getToken(ClickHouseParser.TRAILING, 0);
-    }
-    public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
-        if (visitor.visitColumnExprTrim) {
-            return visitor.visitColumnExprTrim(this);
-        } else {
-            return visitor.visitChildren(this);
-        }
-    }
-}
-export class ColumnExprTupleContext extends ColumnExprContext {
-    public constructor(ctx: ColumnExprContext) {
-        super(ctx.parent, ctx.invokingState);
-        super.copyFrom(ctx);
-    }
-    public LPAREN(): antlr.TerminalNode {
-        return this.getToken(ClickHouseParser.LPAREN, 0)!;
-    }
-    public columnExprList(): ColumnExprListContext {
-        return this.getRuleContext(0, ColumnExprListContext)!;
-    }
-    public RPAREN(): antlr.TerminalNode {
-        return this.getToken(ClickHouseParser.RPAREN, 0)!;
-    }
-    public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
-        if (visitor.visitColumnExprTuple) {
-            return visitor.visitColumnExprTuple(this);
-        } else {
-            return visitor.visitChildren(this);
-        }
-    }
-}
-export class ColumnExprArrayAccessContext extends ColumnExprContext {
-    public constructor(ctx: ColumnExprContext) {
-        super(ctx.parent, ctx.invokingState);
-        super.copyFrom(ctx);
-    }
-    public columnExpr(): ColumnExprContext[];
-    public columnExpr(i: number): ColumnExprContext | null;
-    public columnExpr(i?: number): ColumnExprContext[] | ColumnExprContext | null {
-        if (i === undefined) {
-            return this.getRuleContexts(ColumnExprContext);
-        }
-
-        return this.getRuleContext(i, ColumnExprContext);
-    }
-    public LBRACKET(): antlr.TerminalNode {
-        return this.getToken(ClickHouseParser.LBRACKET, 0)!;
-    }
-    public RBRACKET(): antlr.TerminalNode {
-        return this.getToken(ClickHouseParser.RBRACKET, 0)!;
-    }
-    public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
-        if (visitor.visitColumnExprArrayAccess) {
-            return visitor.visitColumnExprArrayAccess(this);
-        } else {
-            return visitor.visitChildren(this);
-        }
-    }
-}
-export class ColumnExprBetweenContext extends ColumnExprContext {
-    public constructor(ctx: ColumnExprContext) {
-        super(ctx.parent, ctx.invokingState);
-        super.copyFrom(ctx);
-    }
-    public columnExpr(): ColumnExprContext[];
-    public columnExpr(i: number): ColumnExprContext | null;
-    public columnExpr(i?: number): ColumnExprContext[] | ColumnExprContext | null {
-        if (i === undefined) {
-            return this.getRuleContexts(ColumnExprContext);
-        }
-
-        return this.getRuleContext(i, ColumnExprContext);
-    }
-    public BETWEEN(): antlr.TerminalNode {
-        return this.getToken(ClickHouseParser.BETWEEN, 0)!;
-    }
-    public AND(): antlr.TerminalNode {
-        return this.getToken(ClickHouseParser.AND, 0)!;
-    }
-    public NOT(): antlr.TerminalNode | null {
-        return this.getToken(ClickHouseParser.NOT, 0);
-    }
-    public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
-        if (visitor.visitColumnExprBetween) {
-            return visitor.visitColumnExprBetween(this);
-        } else {
-            return visitor.visitChildren(this);
-        }
-    }
-}
-export class ColumnExprParensContext extends ColumnExprContext {
-    public constructor(ctx: ColumnExprContext) {
-        super(ctx.parent, ctx.invokingState);
-        super.copyFrom(ctx);
-    }
-    public LPAREN(): antlr.TerminalNode {
-        return this.getToken(ClickHouseParser.LPAREN, 0)!;
-    }
-    public columnExpr(): ColumnExprContext {
-        return this.getRuleContext(0, ColumnExprContext)!;
-    }
-    public RPAREN(): antlr.TerminalNode {
-        return this.getToken(ClickHouseParser.RPAREN, 0)!;
-    }
-    public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
-        if (visitor.visitColumnExprParens) {
-            return visitor.visitColumnExprParens(this);
-        } else {
-            return visitor.visitChildren(this);
-        }
-    }
-}
-export class ColumnExprTimestampContext extends ColumnExprContext {
-    public constructor(ctx: ColumnExprContext) {
+export class ColumnExpressionTimestampContext extends ColumnExpressionContext {
+    public constructor(ctx: ColumnExpressionContext) {
         super(ctx.parent, ctx.invokingState);
         super.copyFrom(ctx);
     }
@@ -17710,266 +17760,220 @@ export class ColumnExprTimestampContext extends ColumnExprContext {
         return this.getToken(ClickHouseParser.STRING_LITERAL, 0)!;
     }
     public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
-        if (visitor.visitColumnExprTimestamp) {
-            return visitor.visitColumnExprTimestamp(this);
+        if (visitor.visitColumnExpressionTimestamp) {
+            return visitor.visitColumnExpressionTimestamp(this);
         } else {
             return visitor.visitChildren(this);
         }
     }
 }
-export class ColumnExprAndContext extends ColumnExprContext {
-    public constructor(ctx: ColumnExprContext) {
+export class ColumnExpressionPrecedence2Context extends ColumnExpressionContext {
+    public constructor(ctx: ColumnExpressionContext) {
         super(ctx.parent, ctx.invokingState);
         super.copyFrom(ctx);
     }
-    public columnExpr(): ColumnExprContext[];
-    public columnExpr(i: number): ColumnExprContext | null;
-    public columnExpr(i?: number): ColumnExprContext[] | ColumnExprContext | null {
+    public columnExpression(): ColumnExpressionContext[];
+    public columnExpression(i: number): ColumnExpressionContext | null;
+    public columnExpression(i?: number): ColumnExpressionContext[] | ColumnExpressionContext | null {
         if (i === undefined) {
-            return this.getRuleContexts(ColumnExprContext);
+            return this.getRuleContexts(ColumnExpressionContext);
         }
 
-        return this.getRuleContext(i, ColumnExprContext);
+        return this.getRuleContext(i, ColumnExpressionContext);
     }
-    public AND(): antlr.TerminalNode {
-        return this.getToken(ClickHouseParser.AND, 0)!;
+    public PLUS(): antlr.TerminalNode | null {
+        return this.getToken(ClickHouseParser.PLUS, 0);
+    }
+    public DASH(): antlr.TerminalNode | null {
+        return this.getToken(ClickHouseParser.DASH, 0);
+    }
+    public CONCAT(): antlr.TerminalNode | null {
+        return this.getToken(ClickHouseParser.CONCAT, 0);
     }
     public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
-        if (visitor.visitColumnExprAnd) {
-            return visitor.visitColumnExprAnd(this);
+        if (visitor.visitColumnExpressionPrecedence2) {
+            return visitor.visitColumnExpressionPrecedence2(this);
         } else {
             return visitor.visitChildren(this);
         }
     }
 }
-export class ColumnExprTupleAccessContext extends ColumnExprContext {
-    public constructor(ctx: ColumnExprContext) {
+export class ColumnExpressionPrecedence1Context extends ColumnExpressionContext {
+    public constructor(ctx: ColumnExpressionContext) {
         super(ctx.parent, ctx.invokingState);
         super.copyFrom(ctx);
     }
-    public columnExpr(): ColumnExprContext {
-        return this.getRuleContext(0, ColumnExprContext)!;
-    }
-    public DOT(): antlr.TerminalNode {
-        return this.getToken(ClickHouseParser.DOT, 0)!;
-    }
-    public DECIMAL_LITERAL(): antlr.TerminalNode {
-        return this.getToken(ClickHouseParser.DECIMAL_LITERAL, 0)!;
-    }
-    public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
-        if (visitor.visitColumnExprTupleAccess) {
-            return visitor.visitColumnExprTupleAccess(this);
-        } else {
-            return visitor.visitChildren(this);
-        }
-    }
-}
-export class ColumnExprCaseContext extends ColumnExprContext {
-    public constructor(ctx: ColumnExprContext) {
-        super(ctx.parent, ctx.invokingState);
-        super.copyFrom(ctx);
-    }
-    public CASE(): antlr.TerminalNode {
-        return this.getToken(ClickHouseParser.CASE, 0)!;
-    }
-    public END(): antlr.TerminalNode {
-        return this.getToken(ClickHouseParser.END, 0)!;
-    }
-    public columnExpr(): ColumnExprContext[];
-    public columnExpr(i: number): ColumnExprContext | null;
-    public columnExpr(i?: number): ColumnExprContext[] | ColumnExprContext | null {
+    public columnExpression(): ColumnExpressionContext[];
+    public columnExpression(i: number): ColumnExpressionContext | null;
+    public columnExpression(i?: number): ColumnExpressionContext[] | ColumnExpressionContext | null {
         if (i === undefined) {
-            return this.getRuleContexts(ColumnExprContext);
+            return this.getRuleContexts(ColumnExpressionContext);
         }
 
-        return this.getRuleContext(i, ColumnExprContext);
+        return this.getRuleContext(i, ColumnExpressionContext);
     }
-    public WHEN(): antlr.TerminalNode[];
-    public WHEN(i: number): antlr.TerminalNode | null;
-    public WHEN(i?: number): antlr.TerminalNode | null | antlr.TerminalNode[] {
-    	if (i === undefined) {
-    		return this.getTokens(ClickHouseParser.WHEN);
-    	} else {
-    		return this.getToken(ClickHouseParser.WHEN, i);
-    	}
+    public ASTERISK(): antlr.TerminalNode | null {
+        return this.getToken(ClickHouseParser.ASTERISK, 0);
     }
-    public THEN(): antlr.TerminalNode[];
-    public THEN(i: number): antlr.TerminalNode | null;
-    public THEN(i?: number): antlr.TerminalNode | null | antlr.TerminalNode[] {
-    	if (i === undefined) {
-    		return this.getTokens(ClickHouseParser.THEN);
-    	} else {
-    		return this.getToken(ClickHouseParser.THEN, i);
-    	}
+    public SLASH(): antlr.TerminalNode | null {
+        return this.getToken(ClickHouseParser.SLASH, 0);
     }
-    public ELSE(): antlr.TerminalNode | null {
-        return this.getToken(ClickHouseParser.ELSE, 0);
+    public PERCENT(): antlr.TerminalNode | null {
+        return this.getToken(ClickHouseParser.PERCENT, 0);
     }
     public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
-        if (visitor.visitColumnExprCase) {
-            return visitor.visitColumnExprCase(this);
+        if (visitor.visitColumnExpressionPrecedence1) {
+            return visitor.visitColumnExpressionPrecedence1(this);
         } else {
             return visitor.visitChildren(this);
         }
     }
 }
-export class ColumnExprDateContext extends ColumnExprContext {
-    public constructor(ctx: ColumnExprContext) {
+export class ColumnExpressionIntervalContext extends ColumnExpressionContext {
+    public constructor(ctx: ColumnExpressionContext) {
         super(ctx.parent, ctx.invokingState);
         super.copyFrom(ctx);
     }
-    public DATE(): antlr.TerminalNode {
-        return this.getToken(ClickHouseParser.DATE, 0)!;
+    public INTERVAL(): antlr.TerminalNode {
+        return this.getToken(ClickHouseParser.INTERVAL, 0)!;
     }
-    public STRING_LITERAL(): antlr.TerminalNode {
-        return this.getToken(ClickHouseParser.STRING_LITERAL, 0)!;
+    public columnExpression(): ColumnExpressionContext {
+        return this.getRuleContext(0, ColumnExpressionContext)!;
+    }
+    public interval(): IntervalContext {
+        return this.getRuleContext(0, IntervalContext)!;
     }
     public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
-        if (visitor.visitColumnExprDate) {
-            return visitor.visitColumnExprDate(this);
+        if (visitor.visitColumnExpressionInterval) {
+            return visitor.visitColumnExpressionInterval(this);
         } else {
             return visitor.visitChildren(this);
         }
     }
 }
-export class ColumnExprNotContext extends ColumnExprContext {
-    public constructor(ctx: ColumnExprContext) {
+export class ColumnExpressionSubqueryContext extends ColumnExpressionContext {
+    public constructor(ctx: ColumnExpressionContext) {
         super(ctx.parent, ctx.invokingState);
         super.copyFrom(ctx);
     }
-    public NOT(): antlr.TerminalNode {
-        return this.getToken(ClickHouseParser.NOT, 0)!;
+    public LPAREN(): antlr.TerminalNode {
+        return this.getToken(ClickHouseParser.LPAREN, 0)!;
     }
-    public columnExpr(): ColumnExprContext {
-        return this.getRuleContext(0, ColumnExprContext)!;
+    public selectUnionStatement(): SelectUnionStatementContext {
+        return this.getRuleContext(0, SelectUnionStatementContext)!;
+    }
+    public RPAREN(): antlr.TerminalNode {
+        return this.getToken(ClickHouseParser.RPAREN, 0)!;
     }
     public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
-        if (visitor.visitColumnExprNot) {
-            return visitor.visitColumnExprNot(this);
+        if (visitor.visitColumnExpressionSubquery) {
+            return visitor.visitColumnExpressionSubquery(this);
         } else {
             return visitor.visitChildren(this);
         }
     }
 }
-export class ColumnExprWinFunctionContext extends ColumnExprContext {
-    public constructor(ctx: ColumnExprContext) {
+export class ColumnExpressionNegateContext extends ColumnExpressionContext {
+    public constructor(ctx: ColumnExpressionContext) {
         super(ctx.parent, ctx.invokingState);
         super.copyFrom(ctx);
     }
-    public identifier(): IdentifierContext {
-        return this.getRuleContext(0, IdentifierContext)!;
+    public DASH(): antlr.TerminalNode {
+        return this.getToken(ClickHouseParser.DASH, 0)!;
     }
-    public OVER(): antlr.TerminalNode {
-        return this.getToken(ClickHouseParser.OVER, 0)!;
-    }
-    public LPAREN(): antlr.TerminalNode[];
-    public LPAREN(i: number): antlr.TerminalNode | null;
-    public LPAREN(i?: number): antlr.TerminalNode | null | antlr.TerminalNode[] {
-    	if (i === undefined) {
-    		return this.getTokens(ClickHouseParser.LPAREN);
-    	} else {
-    		return this.getToken(ClickHouseParser.LPAREN, i);
-    	}
-    }
-    public windowExpr(): WindowExprContext {
-        return this.getRuleContext(0, WindowExprContext)!;
-    }
-    public RPAREN(): antlr.TerminalNode[];
-    public RPAREN(i: number): antlr.TerminalNode | null;
-    public RPAREN(i?: number): antlr.TerminalNode | null | antlr.TerminalNode[] {
-    	if (i === undefined) {
-    		return this.getTokens(ClickHouseParser.RPAREN);
-    	} else {
-    		return this.getToken(ClickHouseParser.RPAREN, i);
-    	}
-    }
-    public columnExprList(): ColumnExprListContext | null {
-        return this.getRuleContext(0, ColumnExprListContext);
+    public columnExpression(): ColumnExpressionContext {
+        return this.getRuleContext(0, ColumnExpressionContext)!;
     }
     public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
-        if (visitor.visitColumnExprWinFunction) {
-            return visitor.visitColumnExprWinFunction(this);
+        if (visitor.visitColumnExpressionNegate) {
+            return visitor.visitColumnExpressionNegate(this);
         } else {
             return visitor.visitChildren(this);
         }
     }
 }
-export class ColumnExprIdentifierContext extends ColumnExprContext {
-    public constructor(ctx: ColumnExprContext) {
+export class ColumnExpressionExtractContext extends ColumnExpressionContext {
+    public constructor(ctx: ColumnExpressionContext) {
         super(ctx.parent, ctx.invokingState);
         super.copyFrom(ctx);
     }
-    public columnIdentifier(): ColumnIdentifierContext {
-        return this.getRuleContext(0, ColumnIdentifierContext)!;
+    public EXTRACT(): antlr.TerminalNode {
+        return this.getToken(ClickHouseParser.EXTRACT, 0)!;
+    }
+    public LPAREN(): antlr.TerminalNode {
+        return this.getToken(ClickHouseParser.LPAREN, 0)!;
+    }
+    public interval(): IntervalContext {
+        return this.getRuleContext(0, IntervalContext)!;
+    }
+    public FROM(): antlr.TerminalNode {
+        return this.getToken(ClickHouseParser.FROM, 0)!;
+    }
+    public columnExpression(): ColumnExpressionContext {
+        return this.getRuleContext(0, ColumnExpressionContext)!;
+    }
+    public RPAREN(): antlr.TerminalNode {
+        return this.getToken(ClickHouseParser.RPAREN, 0)!;
     }
     public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
-        if (visitor.visitColumnExprIdentifier) {
-            return visitor.visitColumnExprIdentifier(this);
+        if (visitor.visitColumnExpressionExtract) {
+            return visitor.visitColumnExpressionExtract(this);
         } else {
             return visitor.visitChildren(this);
         }
     }
 }
-export class ColumnExprFunctionContext extends ColumnExprContext {
-    public constructor(ctx: ColumnExprContext) {
+export class ColumnExpressionCastContext extends ColumnExpressionContext {
+    public constructor(ctx: ColumnExpressionContext) {
         super(ctx.parent, ctx.invokingState);
         super.copyFrom(ctx);
     }
-    public identifier(): IdentifierContext {
-        return this.getRuleContext(0, IdentifierContext)!;
+    public CAST(): antlr.TerminalNode {
+        return this.getToken(ClickHouseParser.CAST, 0)!;
     }
-    public LPAREN(): antlr.TerminalNode[];
-    public LPAREN(i: number): antlr.TerminalNode | null;
-    public LPAREN(i?: number): antlr.TerminalNode | null | antlr.TerminalNode[] {
-    	if (i === undefined) {
-    		return this.getTokens(ClickHouseParser.LPAREN);
-    	} else {
-    		return this.getToken(ClickHouseParser.LPAREN, i);
-    	}
+    public LPAREN(): antlr.TerminalNode {
+        return this.getToken(ClickHouseParser.LPAREN, 0)!;
     }
-    public RPAREN(): antlr.TerminalNode[];
-    public RPAREN(i: number): antlr.TerminalNode | null;
-    public RPAREN(i?: number): antlr.TerminalNode | null | antlr.TerminalNode[] {
-    	if (i === undefined) {
-    		return this.getTokens(ClickHouseParser.RPAREN);
-    	} else {
-    		return this.getToken(ClickHouseParser.RPAREN, i);
-    	}
+    public columnExpression(): ColumnExpressionContext {
+        return this.getRuleContext(0, ColumnExpressionContext)!;
     }
-    public DISTINCT(): antlr.TerminalNode | null {
-        return this.getToken(ClickHouseParser.DISTINCT, 0);
+    public AS(): antlr.TerminalNode {
+        return this.getToken(ClickHouseParser.AS, 0)!;
     }
-    public columnArgList(): ColumnArgListContext | null {
-        return this.getRuleContext(0, ColumnArgListContext);
+    public columnTypeExpression(): ColumnTypeExpressionContext {
+        return this.getRuleContext(0, ColumnTypeExpressionContext)!;
     }
-    public columnExprList(): ColumnExprListContext | null {
-        return this.getRuleContext(0, ColumnExprListContext);
+    public RPAREN(): antlr.TerminalNode {
+        return this.getToken(ClickHouseParser.RPAREN, 0)!;
     }
     public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
-        if (visitor.visitColumnExprFunction) {
-            return visitor.visitColumnExprFunction(this);
+        if (visitor.visitColumnExpressionCast) {
+            return visitor.visitColumnExpressionCast(this);
         } else {
             return visitor.visitChildren(this);
         }
     }
 }
-export class ColumnExprAsteriskContext extends ColumnExprContext {
-    public constructor(ctx: ColumnExprContext) {
+export class ColumnExpressionOrContext extends ColumnExpressionContext {
+    public constructor(ctx: ColumnExpressionContext) {
         super(ctx.parent, ctx.invokingState);
         super.copyFrom(ctx);
     }
-    public ASTERISK(): antlr.TerminalNode {
-        return this.getToken(ClickHouseParser.ASTERISK, 0)!;
+    public columnExpression(): ColumnExpressionContext[];
+    public columnExpression(i: number): ColumnExpressionContext | null;
+    public columnExpression(i?: number): ColumnExpressionContext[] | ColumnExpressionContext | null {
+        if (i === undefined) {
+            return this.getRuleContexts(ColumnExpressionContext);
+        }
+
+        return this.getRuleContext(i, ColumnExpressionContext);
     }
-    public tableIdentifier(): TableIdentifierContext | null {
-        return this.getRuleContext(0, TableIdentifierContext);
-    }
-    public DOT(): antlr.TerminalNode | null {
-        return this.getToken(ClickHouseParser.DOT, 0);
+    public OR(): antlr.TerminalNode {
+        return this.getToken(ClickHouseParser.OR, 0)!;
     }
     public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
-        if (visitor.visitColumnExprAsterisk) {
-            return visitor.visitColumnExprAsterisk(this);
+        if (visitor.visitColumnExpressionOr) {
+            return visitor.visitColumnExpressionOr(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -17977,18 +17981,18 @@ export class ColumnExprAsteriskContext extends ColumnExprContext {
 }
 
 
-export class ColumnArgListContext extends antlr.ParserRuleContext {
+export class ColumnArgumentListContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
-    public columnArgExpr(): ColumnArgExprContext[];
-    public columnArgExpr(i: number): ColumnArgExprContext | null;
-    public columnArgExpr(i?: number): ColumnArgExprContext[] | ColumnArgExprContext | null {
+    public columnArgumentExpression(): ColumnArgumentExpressionContext[];
+    public columnArgumentExpression(i: number): ColumnArgumentExpressionContext | null;
+    public columnArgumentExpression(i?: number): ColumnArgumentExpressionContext[] | ColumnArgumentExpressionContext | null {
         if (i === undefined) {
-            return this.getRuleContexts(ColumnArgExprContext);
+            return this.getRuleContexts(ColumnArgumentExpressionContext);
         }
 
-        return this.getRuleContext(i, ColumnArgExprContext);
+        return this.getRuleContext(i, ColumnArgumentExpressionContext);
     }
     public COMMA(): antlr.TerminalNode[];
     public COMMA(i: number): antlr.TerminalNode | null;
@@ -18000,11 +18004,11 @@ export class ColumnArgListContext extends antlr.ParserRuleContext {
     	}
     }
     public override get ruleIndex(): number {
-        return ClickHouseParser.RULE_columnArgList;
+        return ClickHouseParser.RULE_columnArgumentList;
     }
     public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
-        if (visitor.visitColumnArgList) {
-            return visitor.visitColumnArgList(this);
+        if (visitor.visitColumnArgumentList) {
+            return visitor.visitColumnArgumentList(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -18012,22 +18016,22 @@ export class ColumnArgListContext extends antlr.ParserRuleContext {
 }
 
 
-export class ColumnArgExprContext extends antlr.ParserRuleContext {
+export class ColumnArgumentExpressionContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
-    public columnLambdaExpr(): ColumnLambdaExprContext | null {
-        return this.getRuleContext(0, ColumnLambdaExprContext);
+    public columnLambdaExpression(): ColumnLambdaExpressionContext | null {
+        return this.getRuleContext(0, ColumnLambdaExpressionContext);
     }
-    public columnExpr(): ColumnExprContext | null {
-        return this.getRuleContext(0, ColumnExprContext);
+    public columnExpression(): ColumnExpressionContext | null {
+        return this.getRuleContext(0, ColumnExpressionContext);
     }
     public override get ruleIndex(): number {
-        return ClickHouseParser.RULE_columnArgExpr;
+        return ClickHouseParser.RULE_columnArgumentExpression;
     }
     public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
-        if (visitor.visitColumnArgExpr) {
-            return visitor.visitColumnArgExpr(this);
+        if (visitor.visitColumnArgumentExpression) {
+            return visitor.visitColumnArgumentExpression(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -18035,15 +18039,15 @@ export class ColumnArgExprContext extends antlr.ParserRuleContext {
 }
 
 
-export class ColumnLambdaExprContext extends antlr.ParserRuleContext {
+export class ColumnLambdaExpressionContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
     public ARROW(): antlr.TerminalNode {
         return this.getToken(ClickHouseParser.ARROW, 0)!;
     }
-    public columnExpr(): ColumnExprContext {
-        return this.getRuleContext(0, ColumnExprContext)!;
+    public columnExpression(): ColumnExpressionContext {
+        return this.getRuleContext(0, ColumnExpressionContext)!;
     }
     public LPAREN(): antlr.TerminalNode | null {
         return this.getToken(ClickHouseParser.LPAREN, 0);
@@ -18070,11 +18074,11 @@ export class ColumnLambdaExprContext extends antlr.ParserRuleContext {
     	}
     }
     public override get ruleIndex(): number {
-        return ClickHouseParser.RULE_columnLambdaExpr;
+        return ClickHouseParser.RULE_columnLambdaExpression;
     }
     public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
-        if (visitor.visitColumnLambdaExpr) {
-            return visitor.visitColumnLambdaExpr(this);
+        if (visitor.visitColumnLambdaExpression) {
+            return visitor.visitColumnLambdaExpression(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -18120,19 +18124,35 @@ export class ColumnIdentifierContext extends antlr.ParserRuleContext {
 }
 
 
-export class TableExprContext extends antlr.ParserRuleContext {
+export class TableExpressionContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
     public override get ruleIndex(): number {
-        return ClickHouseParser.RULE_tableExpr;
+        return ClickHouseParser.RULE_tableExpression;
     }
-    public override copyFrom(ctx: TableExprContext): void {
+    public override copyFrom(ctx: TableExpressionContext): void {
         super.copyFrom(ctx);
     }
 }
-export class TableExprIdentifierContext extends TableExprContext {
-    public constructor(ctx: TableExprContext) {
+export class TableExpressionFunctionContext extends TableExpressionContext {
+    public constructor(ctx: TableExpressionContext) {
+        super(ctx.parent, ctx.invokingState);
+        super.copyFrom(ctx);
+    }
+    public tableFunctionExpression(): TableFunctionExpressionContext {
+        return this.getRuleContext(0, TableFunctionExpressionContext)!;
+    }
+    public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
+        if (visitor.visitTableExpressionFunction) {
+            return visitor.visitTableExpressionFunction(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
+}
+export class TableExpressionIdentifierContext extends TableExpressionContext {
+    public constructor(ctx: TableExpressionContext) {
         super(ctx.parent, ctx.invokingState);
         super.copyFrom(ctx);
     }
@@ -18140,42 +18160,20 @@ export class TableExprIdentifierContext extends TableExprContext {
         return this.getRuleContext(0, TableIdentifierContext)!;
     }
     public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
-        if (visitor.visitTableExprIdentifier) {
-            return visitor.visitTableExprIdentifier(this);
+        if (visitor.visitTableExpressionIdentifier) {
+            return visitor.visitTableExpressionIdentifier(this);
         } else {
             return visitor.visitChildren(this);
         }
     }
 }
-export class TableExprSubqueryContext extends TableExprContext {
-    public constructor(ctx: TableExprContext) {
+export class TableExpressionAliasContext extends TableExpressionContext {
+    public constructor(ctx: TableExpressionContext) {
         super(ctx.parent, ctx.invokingState);
         super.copyFrom(ctx);
     }
-    public LPAREN(): antlr.TerminalNode {
-        return this.getToken(ClickHouseParser.LPAREN, 0)!;
-    }
-    public selectUnionStmt(): SelectUnionStmtContext {
-        return this.getRuleContext(0, SelectUnionStmtContext)!;
-    }
-    public RPAREN(): antlr.TerminalNode {
-        return this.getToken(ClickHouseParser.RPAREN, 0)!;
-    }
-    public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
-        if (visitor.visitTableExprSubquery) {
-            return visitor.visitTableExprSubquery(this);
-        } else {
-            return visitor.visitChildren(this);
-        }
-    }
-}
-export class TableExprAliasContext extends TableExprContext {
-    public constructor(ctx: TableExprContext) {
-        super(ctx.parent, ctx.invokingState);
-        super.copyFrom(ctx);
-    }
-    public tableExpr(): TableExprContext {
-        return this.getRuleContext(0, TableExprContext)!;
+    public tableExpression(): TableExpressionContext {
+        return this.getRuleContext(0, TableExpressionContext)!;
     }
     public alias(): AliasContext | null {
         return this.getRuleContext(0, AliasContext);
@@ -18187,24 +18185,30 @@ export class TableExprAliasContext extends TableExprContext {
         return this.getRuleContext(0, IdentifierContext);
     }
     public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
-        if (visitor.visitTableExprAlias) {
-            return visitor.visitTableExprAlias(this);
+        if (visitor.visitTableExpressionAlias) {
+            return visitor.visitTableExpressionAlias(this);
         } else {
             return visitor.visitChildren(this);
         }
     }
 }
-export class TableExprFunctionContext extends TableExprContext {
-    public constructor(ctx: TableExprContext) {
+export class TableExpressionSubqueryContext extends TableExpressionContext {
+    public constructor(ctx: TableExpressionContext) {
         super(ctx.parent, ctx.invokingState);
         super.copyFrom(ctx);
     }
-    public tableFunctionExpr(): TableFunctionExprContext {
-        return this.getRuleContext(0, TableFunctionExprContext)!;
+    public LPAREN(): antlr.TerminalNode {
+        return this.getToken(ClickHouseParser.LPAREN, 0)!;
+    }
+    public selectUnionStatement(): SelectUnionStatementContext {
+        return this.getRuleContext(0, SelectUnionStatementContext)!;
+    }
+    public RPAREN(): antlr.TerminalNode {
+        return this.getToken(ClickHouseParser.RPAREN, 0)!;
     }
     public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
-        if (visitor.visitTableExprFunction) {
-            return visitor.visitTableExprFunction(this);
+        if (visitor.visitTableExpressionSubquery) {
+            return visitor.visitTableExpressionSubquery(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -18212,7 +18216,7 @@ export class TableExprFunctionContext extends TableExprContext {
 }
 
 
-export class TableFunctionExprContext extends antlr.ParserRuleContext {
+export class TableFunctionExpressionContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
@@ -18229,11 +18233,11 @@ export class TableFunctionExprContext extends antlr.ParserRuleContext {
         return this.getRuleContext(0, TableArgListContext);
     }
     public override get ruleIndex(): number {
-        return ClickHouseParser.RULE_tableFunctionExpr;
+        return ClickHouseParser.RULE_tableFunctionExpression;
     }
     public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
-        if (visitor.visitTableFunctionExpr) {
-            return visitor.visitTableFunctionExpr(this);
+        if (visitor.visitTableFunctionExpression) {
+            return visitor.visitTableFunctionExpression(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -18271,14 +18275,14 @@ export class TableArgListContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
-    public tableArgExpr(): TableArgExprContext[];
-    public tableArgExpr(i: number): TableArgExprContext | null;
-    public tableArgExpr(i?: number): TableArgExprContext[] | TableArgExprContext | null {
+    public tableArgExpression(): TableArgExpressionContext[];
+    public tableArgExpression(i: number): TableArgExpressionContext | null;
+    public tableArgExpression(i?: number): TableArgExpressionContext[] | TableArgExpressionContext | null {
         if (i === undefined) {
-            return this.getRuleContexts(TableArgExprContext);
+            return this.getRuleContexts(TableArgExpressionContext);
         }
 
-        return this.getRuleContext(i, TableArgExprContext);
+        return this.getRuleContext(i, TableArgExpressionContext);
     }
     public COMMA(): antlr.TerminalNode[];
     public COMMA(i: number): antlr.TerminalNode | null;
@@ -18302,25 +18306,25 @@ export class TableArgListContext extends antlr.ParserRuleContext {
 }
 
 
-export class TableArgExprContext extends antlr.ParserRuleContext {
+export class TableArgExpressionContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
     public columnIdentifier(): ColumnIdentifierContext | null {
         return this.getRuleContext(0, ColumnIdentifierContext);
     }
-    public tableFunctionExpr(): TableFunctionExprContext | null {
-        return this.getRuleContext(0, TableFunctionExprContext);
+    public tableFunctionExpression(): TableFunctionExpressionContext | null {
+        return this.getRuleContext(0, TableFunctionExpressionContext);
     }
     public literal(): LiteralContext | null {
         return this.getRuleContext(0, LiteralContext);
     }
     public override get ruleIndex(): number {
-        return ClickHouseParser.RULE_tableArgExpr;
+        return ClickHouseParser.RULE_tableArgExpression;
     }
     public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
-        if (visitor.visitTableArgExpr) {
-            return visitor.visitTableArgExpr(this);
+        if (visitor.visitTableArgExpression) {
+            return visitor.visitTableArgExpression(this);
         } else {
             return visitor.visitChildren(this);
         }

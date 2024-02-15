@@ -21,61 +21,60 @@ statements
 
 statement
     : notInsertStatement (INTO OUTFILE STRING_LITERAL)? (FORMAT identifierOrNull)? (SEMICOLON)?
-    | insertStmt
+    | insertStatement
     ;
 
 notInsertStatement
-    : alterStmt  // DDL
-    | attachStmt // DDL
-    | checkStmt
-    | createStmt // DDL
-    | describeStmt
+    : alterStatement  // DDL
+    | attachStatement // DDL
+    | checkStatement
+    | createStatement // DDL
+    | describeStatement
     | deleteStatement // DDL
-    | dropStmt // DDL
-    | existsStmt
-    | explainStmt
-    | killStmt     // DDL
-    | optimizeStmt // DDL
-    | renameStmt   // DDL
-    | selectUnionStmt
-    | setStmt
-    | showStmt
-    | systemStmt
-    | truncateStmt // DDL
-    | useStmt
-    | watchStmt
-    | ctes? selectStmt
+    | dropStatement   // DDL
+    | existsStatement
+    | explainStatement
+    | killStatement     // DDL
+    | optimizeStatement // DDL
+    | renameStatement   // DDL
+    | selectUnionStatement
+    | setStatement
+    | showStatement
+    | systemStatement
+    | truncateStatement // DDL
+    | useStatement
+    | watchStatement
+    | commonTableExpressionStatement? selectStatement
     ;
 
-// CTE statement
-ctes
-    : WITH namedQuery (',' namedQuery)*
+commonTableExpressionStatement
+    : WITH namedQuery (COMMA namedQuery)*
     ;
 
 namedQuery
-    : name = identifier (columnAliases)? AS '(' notInsertStatement ')'
+    : name = identifier (columnAliases)? AS LPAREN notInsertStatement RPAREN
     ;
 
 columnAliases
-    : '(' identifier (',' identifier)* ')'
+    : LPAREN identifier (COMMA identifier)* RPAREN
     ;
 
 // ALTER statement
 
-alterStmt
-    : ALTER TABLE tableIdentifier clusterClause? alterTableClause (COMMA alterTableClause)* # AlterTableStmt
+alterStatement
+    : ALTER TABLE tableIdentifier clusterClause? alterTableClause (COMMA alterTableClause)* # AlterTableStatement
     ;
 
 alterTableClause
-    : ADD COLUMN (IF NOT EXISTS)? tableColumnDfnt (AFTER columnIdentifier)?                                # AlterTableClauseAddColumn
-    | ADD INDEX (IF NOT EXISTS)? tableIndexDfnt ( AFTER columnIdentifier)?                                 # AlterTableClauseAddIndex
-    | ADD PROJECTION (IF NOT EXISTS)? tableProjectionDfnt ( AFTER columnIdentifier)?                       # AlterTableClauseAddProjection
+    : ADD COLUMN (IF NOT EXISTS)? tableColumnDefinition (AFTER columnIdentifier)?                          # AlterTableClauseAddColumn
+    | ADD INDEX (IF NOT EXISTS)? tableIndexDefinition ( AFTER columnIdentifier)?                           # AlterTableClauseAddIndex
+    | ADD PROJECTION (IF NOT EXISTS)? tableProjectionDefinition ( AFTER columnIdentifier)?                 # AlterTableClauseAddProjection
     | ATTACH partitionClause (FROM tableIdentifier)?                                                       # AlterTableClauseAttach
     | CLEAR COLUMN (IF EXISTS)? columnIdentifier ( IN partitionClause)?                                    # AlterTableClauseClearColumn
     | CLEAR INDEX (IF EXISTS)? columnIdentifier ( IN partitionClause)?                                     # AlterTableClauseClearIndex
     | CLEAR PROJECTION (IF EXISTS)? columnIdentifier ( IN partitionClause)?                                # AlterTableClauseClearProjection
     | COMMENT COLUMN (IF EXISTS)? columnIdentifier STRING_LITERAL                                          # AlterTableClauseComment
-    | DELETE WHERE columnExpr                                                                              # AlterTableClauseDelete
+    | DELETE WHERE columnExpression                                                                        # AlterTableClauseDelete
     | DETACH partitionClause                                                                               # AlterTableClauseDetach
     | DROP COLUMN (IF EXISTS)? columnIdentifier                                                            # AlterTableClauseDropColumn
     | DROP INDEX (IF EXISTS)? columnIdentifier                                                             # AlterTableClauseDropIndex
@@ -84,25 +83,25 @@ alterTableClause
     | FREEZE partitionClause?                                                                              # AlterTableClauseFreezePartition
     | MATERIALIZE INDEX (IF EXISTS)? columnIdentifier ( IN partitionClause)?                               # AlterTableClauseMaterializeIndex
     | MATERIALIZE PROJECTION (IF EXISTS)? columnIdentifier ( IN partitionClause)?                          # AlterTableClauseMaterializeProjection
-    | MODIFY COLUMN (IF EXISTS)? columnIdentifier codecExpr                                                # AlterTableClauseModifyCodec
+    | MODIFY COLUMN (IF EXISTS)? columnIdentifier codecExpression                                          # AlterTableClauseModifyCodec
     | MODIFY COLUMN (IF EXISTS)? columnIdentifier COMMENT STRING_LITERAL                                   # AlterTableClauseModifyComment
     | MODIFY COLUMN (IF EXISTS)? columnIdentifier REMOVE tableColumnPropertyType                           # AlterTableClauseModifyRemove
-    | MODIFY COLUMN (IF EXISTS)? tableColumnDfnt                                                           # AlterTableClauseModify
-    | MODIFY ORDER BY columnExpr                                                                           # AlterTableClauseModifyOrderBy
+    | MODIFY COLUMN (IF EXISTS)? tableColumnDefinition                                                     # AlterTableClauseModify
+    | MODIFY ORDER BY columnExpression                                                                     # AlterTableClauseModifyOrderBy
     | MODIFY ttlClause                                                                                     # AlterTableClauseModifyTTL
     | MOVE partitionClause ( TO DISK STRING_LITERAL | TO VOLUME STRING_LITERAL | TO TABLE tableIdentifier) # AlterTableClauseMovePartition
     | REMOVE TTL                                                                                           # AlterTableClauseRemoveTTL
     | RENAME COLUMN (IF EXISTS)? columnIdentifier TO columnIdentifier                                      # AlterTableClauseRename
     | REPLACE partitionClause FROM tableIdentifier                                                         # AlterTableClauseReplace
-    | UPDATE assignmentExprList whereClause                                                                # AlterTableClauseUpdate
+    | UPDATE assignmentExpressionList whereClause                                                          # AlterTableClauseUpdate
     ;
 
-assignmentExprList
-    : assignmentExpr (COMMA assignmentExpr)*
+assignmentExpressionList
+    : assignmentExpression (COMMA assignmentExpression)*
     ;
 
-assignmentExpr
-    : columnIdentifier EQ_SINGLE columnExpr
+assignmentExpression
+    : columnIdentifier EQ_SINGLE columnExpression
     ;
 
 tableColumnPropertyType
@@ -115,18 +114,18 @@ tableColumnPropertyType
     ;
 
 partitionClause
-    : PARTITION columnExpr // actually we expect here any form of tuple of literals
+    : PARTITION columnExpression // actually we expect here any form of tuple of literals
     | PARTITION ID STRING_LITERAL
     ;
 
 // ATTACH statement
-attachStmt
-    : ATTACH DICTIONARY tableIdentifier clusterClause? # AttachDictionaryStmt
+attachStatement
+    : ATTACH DICTIONARY tableIdentifier clusterClause? # AttachDictionaryStatement
     ;
 
 // CHECK statement
 
-checkStmt
+checkStatement
     : CHECK TABLE tableIdentifier partitionClause?
     ;
 
@@ -143,7 +142,7 @@ createTableStatement
     ;
 
 createDatabaseStatement
-    : (ATTACH | CREATE) DATABASE (IF NOT EXISTS)? databaseIdentifier clusterClause? engineExpr
+    : (ATTACH | CREATE) DATABASE (IF NOT EXISTS)? databaseIdentifier clusterClause? engineExpression
     ;
 
 createDictionaryStatement
@@ -162,7 +161,7 @@ createViewStatement
     : (ATTACH | CREATE) (OR REPLACE)? VIEW (IF NOT EXISTS)? tableIdentifier uuidClause? clusterClause? tableSchemaClause? subqueryClause
     ;
 
-createStmt
+createStatement
     : createDatabaseStatement
     | createDictionaryStatement
     | createLiveViewStatement
@@ -172,12 +171,12 @@ createStmt
     ;
 
 dictionarySchemaClause
-    : LPAREN dictionaryAttrDfnt (COMMA dictionaryAttrDfnt)* RPAREN
+    : LPAREN dictionaryAttributeDefinition (COMMA dictionaryAttributeDefinition)* RPAREN
     ;
 
-dictionaryAttrDfnt
+dictionaryAttributeDefinition
     locals[Set<string> attrs = new Set()]
-    : identifier columnTypeExpr ({!$attrs.has("default")}? DEFAULT literal {$attrs.add("default");} | {!$attrs.has("expression")}? EXPRESSION columnExpr {$attrs.add("expression");} | {!$attrs.has("hierarchical")}? HIERARCHICAL {$attrs.add("hierarchical");} | {!$attrs.has("injective")}? INJECTIVE {$attrs.add("injective");} | {!$attrs.has("is_object_id")}? IS_OBJECT_ID {$attrs.add("is_object_id");})*
+    : identifier columnTypeExpression ({!$attrs.has("default")}? DEFAULT literal {$attrs.add("default");} | {!$attrs.has("expression")}? EXPRESSION columnExpression {$attrs.add("expression");} | {!$attrs.has("hierarchical")}? HIERARCHICAL {$attrs.add("hierarchical");} | {!$attrs.has("injective")}? INJECTIVE {$attrs.add("injective");} | {!$attrs.has("is_object_id")}? IS_OBJECT_ID {$attrs.add("is_object_id");})*
     ;
 
 dictionaryEngineClause
@@ -186,15 +185,15 @@ dictionaryEngineClause
     ;
 
 dictionaryPrimaryKeyClause
-    : PRIMARY KEY columnExprList
+    : PRIMARY KEY columnExpressionList
     ;
 
-dictionaryArgExpr
+dictionaryArgumentExpression
     : identifier (identifier (LPAREN RPAREN)? | literal)
     ;
 
 sourceClause
-    : SOURCE LPAREN identifier LPAREN dictionaryArgExpr* RPAREN RPAREN
+    : SOURCE LPAREN identifier LPAREN dictionaryArgumentExpression* RPAREN RPAREN
     ;
 
 lifetimeClause
@@ -202,7 +201,7 @@ lifetimeClause
     ;
 
 layoutClause
-    : LAYOUT LPAREN identifier LPAREN dictionaryArgExpr* RPAREN RPAREN
+    : LAYOUT LPAREN identifier LPAREN dictionaryArgumentExpression* RPAREN RPAREN
     ;
 
 rangeClause
@@ -210,7 +209,7 @@ rangeClause
     ;
 
 dictionarySettingsClause
-    : SETTINGS LPAREN settingExprList RPAREN
+    : SETTINGS LPAREN settingExpressionList RPAREN
     ;
 
 clusterClause
@@ -226,18 +225,18 @@ destinationClause
     ;
 
 subqueryClause
-    : AS selectUnionStmt
+    : AS selectUnionStatement
     ;
 
 tableSchemaClause
-    : LPAREN tableElementExpr (COMMA tableElementExpr)* RPAREN # SchemaDescriptionClause
-    | AS tableIdentifier                                       # SchemaAsTableClause
-    | AS tableFunctionExpr                                     # SchemaAsFunctionClause
+    : LPAREN tableElementExpression (COMMA tableElementExpression)* RPAREN # SchemaDescriptionClause
+    | AS tableIdentifier                                                   # SchemaAsTableClause
+    | AS tableFunctionExpression                                           # SchemaAsFunctionClause
     ;
 
 engineClause
     locals[Set<string> clauses = new Set()]
-    : engineExpr (
+    : engineExpression (
         {!$clauses.has("orderByClause")}? orderByClause {$clauses.add("orderByClause");}
         | {!$clauses.has("partitionByClause")}? partitionByClause {$clauses.add("partitionByClause");
 			}
@@ -250,97 +249,97 @@ engineClause
     ;
 
 partitionByClause
-    : PARTITION BY columnExpr
+    : PARTITION BY columnExpression
     ;
 
 primaryKeyClause
-    : PRIMARY KEY columnExpr
+    : PRIMARY KEY columnExpression
     ;
 
 sampleByClause
-    : SAMPLE BY columnExpr
+    : SAMPLE BY columnExpression
     ;
 
 ttlClause
-    : TTL ttlExpr (COMMA ttlExpr)*
+    : TTL ttlExpression (COMMA ttlExpression)*
     ;
 
-engineExpr
-    : ENGINE EQ_SINGLE? identifierOrNull (LPAREN columnExprList? RPAREN)?
+engineExpression
+    : ENGINE EQ_SINGLE? identifierOrNull (LPAREN columnExpressionList? RPAREN)?
     ;
 
-tableElementExpr
-    : tableColumnDfnt                        # TableElementExprColumn
-    | CONSTRAINT identifier CHECK columnExpr # TableElementExprConstraint
-    | INDEX tableIndexDfnt                   # TableElementExprIndex
-    | PROJECTION tableProjectionDfnt         # TableElementExprProjection
+tableElementExpression
+    : tableColumnDefinition                        # TableElementExpressionColumn
+    | CONSTRAINT identifier CHECK columnExpression # TableElementExpressionConstraint
+    | INDEX tableIndexDefinition                   # TableElementExpressionIndex
+    | PROJECTION tableProjectionDefinition         # TableElementExpressionProjection
     ;
 
-tableColumnDfnt
-    : columnIdentifier columnTypeExpr tableColumnPropertyExpr? (COMMENT STRING_LITERAL)? codecExpr? (TTL columnExpr)?
-    | columnIdentifier columnTypeExpr? tableColumnPropertyExpr ( COMMENT STRING_LITERAL)? codecExpr? (TTL columnExpr)?
+tableColumnDefinition
+    : columnIdentifier columnTypeExpression tableColumnPropertyExpression? (COMMENT STRING_LITERAL)? codecExpression? (TTL columnExpression)?
+    | columnIdentifier columnTypeExpression? tableColumnPropertyExpression ( COMMENT STRING_LITERAL)? codecExpression? (TTL columnExpression)?
     ;
 
-tableColumnPropertyExpr
-    : (DEFAULT | MATERIALIZED | ALIAS) columnExpr
+tableColumnPropertyExpression
+    : (DEFAULT | MATERIALIZED | ALIAS) columnExpression
     ;
 
-tableIndexDfnt
-    : columnIdentifier columnExpr TYPE columnTypeExpr GRANULARITY DECIMAL_LITERAL
+tableIndexDefinition
+    : columnIdentifier columnExpression TYPE columnTypeExpression GRANULARITY DECIMAL_LITERAL
     ;
 
-tableProjectionDfnt
-    : columnIdentifier projectionSelectStmt
+tableProjectionDefinition
+    : columnIdentifier projectionSelectStatement
     ;
 
-codecExpr
-    : CODEC LPAREN codecArgExpr (COMMA codecArgExpr)* RPAREN
+codecExpression
+    : CODEC LPAREN codecArgExpression (COMMA codecArgExpression)* RPAREN
     ;
 
-codecArgExpr
-    : identifier (LPAREN columnExprList? RPAREN)?
+codecArgExpression
+    : identifier (LPAREN columnExpressionList? RPAREN)?
     ;
 
-ttlExpr
-    : columnExpr (DELETE | TO DISK STRING_LITERAL | TO VOLUME STRING_LITERAL)?
+ttlExpression
+    : columnExpression (DELETE | TO DISK STRING_LITERAL | TO VOLUME STRING_LITERAL)?
     ;
 
 // DESCRIBE statement
 
-describeStmt
-    : (DESCRIBE | DESC) TABLE? tableExpr
+describeStatement
+    : (DESCRIBE | DESC) TABLE? tableExpression
     ;
 
 // DROP statement
 
-dropStmt
-    : (DETACH | DROP) DATABASE (IF EXISTS)? databaseIdentifier clusterClause?                                         # DropDatabaseStmt
-    | (DETACH | DROP) (DICTIONARY | TEMPORARY? TABLE | VIEW) ( IF EXISTS)? tableIdentifier clusterClause? (NO DELAY)? # DropTableStmt
+dropStatement
+    : (DETACH | DROP) DATABASE (IF EXISTS)? databaseIdentifier clusterClause?                                         # DropDatabaseStatement
+    | (DETACH | DROP) (DICTIONARY | TEMPORARY? TABLE | VIEW) ( IF EXISTS)? tableIdentifier clusterClause? (NO DELAY)? # DropTableStatement
     ;
 
 // EXISTS statement
 
-existsStmt
-    : EXISTS DATABASE databaseIdentifier                             # ExistsDatabaseStmt
-    | EXISTS (DICTIONARY | TEMPORARY? TABLE | VIEW)? tableIdentifier # ExistsTableStmt
+existsStatement
+    : EXISTS DATABASE databaseIdentifier                             # ExistsDatabaseStatement
+    | EXISTS (DICTIONARY | TEMPORARY? TABLE | VIEW)? tableIdentifier # ExistsTableStatement
     ;
 
 // EXPLAIN statement
 
-explainStmt
-    : EXPLAIN notInsertStatement            # ExplainDefaultStmt
-    | EXPLAIN AST notInsertStatement        # ExplainASTStmt
-    | EXPLAIN SYNTAX notInsertStatement     # ExplainSyntaxStmt
-    | EXPLAIN PIPELINE notInsertStatement   # ExplainPipelineStmt
-    | EXPLAIN PLAN notInsertStatement       # ExplainPlanStmt
-    | EXPLAIN QUERY TREE notInsertStatement # ExplainQueryTreeStmt
-    | EXPLAIN ESTIMATE notInsertStatement   # ExplainEstimateStmt
+explainStatement
+    : EXPLAIN notInsertStatement            # ExplainDefaultStatement
+    | EXPLAIN AST notInsertStatement        # ExplainASTStatement
+    | EXPLAIN SYNTAX notInsertStatement     # ExplainSyntaxStatement
+    | EXPLAIN PIPELINE notInsertStatement   # ExplainPipelineStatement
+    | EXPLAIN PLAN notInsertStatement       # ExplainPlanStatement
+    | EXPLAIN QUERY TREE notInsertStatement # ExplainQueryTreeStatement
+    | EXPLAIN ESTIMATE notInsertStatement   # ExplainEstimateStatement
     ;
 
 // INSERT statement
 
-insertStmt
-    : INSERT INTO TABLE? (tableIdentifier | FUNCTION tableFunctionExpr) columnsClause? dataClause
+insertStatement
+    : INSERT INTO TABLE? (tableIdentifier | FUNCTION tableFunctionExpression) columnsClause? dataClause
     ;
 
 columnsClause
@@ -348,9 +347,9 @@ columnsClause
     ;
 
 dataClause
-    : FORMAT identifier              # DataClauseFormat
-    | valuesStatement                # DataClauseValues
-    | selectUnionStmt SEMICOLON? EOF # DataClauseSelect
+    : FORMAT identifier                   # DataClauseFormat
+    | valuesStatement                     # DataClauseValues
+    | selectUnionStatement SEMICOLON? EOF # DataClauseSelect
     ;
 
 valuesStatement
@@ -360,45 +359,45 @@ valuesStatement
 
 // KILL statement
 
-killStmt
-    : KILL MUTATION clusterClause? whereClause (SYNC | ASYNC | TEST)? # KillMutationStmt
+killStatement
+    : KILL MUTATION clusterClause? whereClause (SYNC | ASYNC | TEST)? # KillMutationStatement
     ;
 
 // OPTIMIZE statement
 
-optimizeStmt
+optimizeStatement
     : OPTIMIZE TABLE tableIdentifier clusterClause? partitionClause? FINAL? DEDUPLICATE?
     ;
 
 // RENAME statement
 
-renameStmt
+renameStatement
     : RENAME TABLE tableIdentifier TO tableIdentifier (COMMA tableIdentifier TO tableIdentifier)* clusterClause?
     ;
 
 // PROJECTION SELECT statement
 
-projectionSelectStmt
-    : LPAREN withClause? SELECT columnExprList groupByClause? projectionOrderByClause? RPAREN
+projectionSelectStatement
+    : LPAREN withClause? SELECT columnExpressionList groupByClause? projectionOrderByClause? RPAREN
     ;
 
 // SELECT statement
 
-selectUnionStmt
-    : selectStmtWithParens (UNION ALL selectStmtWithParens)*
+selectUnionStatement
+    : selectStatementWithParentheses (UNION ALL selectStatementWithParentheses)*
     ;
 
-selectStmtWithParens
-    : selectStmt
-    | LPAREN selectUnionStmt RPAREN
+selectStatementWithParentheses
+    : selectStatement
+    | LPAREN selectUnionStatement RPAREN
     ;
 
-selectStmt
-    : withClause? SELECT DISTINCT? topClause? columnExprList fromClause? arrayJoinClause? windowClause? prewhereClause? whereClause? groupByClause? (WITH (CUBE | ROLLUP))? (WITH TOTALS)? havingClause? orderByClause? limitByClause? limitClause? settingsClause?
+selectStatement
+    : withClause? SELECT DISTINCT? topClause? columnExpressionList fromClause? arrayJoinClause? windowClause? prewhereClause? whereClause? groupByClause? (WITH (CUBE | ROLLUP))? (WITH TOTALS)? havingClause? orderByClause? limitByClause? limitClause? settingsClause?
     ;
 
 withClause
-    : WITH columnExprList
+    : WITH columnExpressionList
     ;
 
 topClause
@@ -406,127 +405,127 @@ topClause
     ;
 
 fromClause
-    : FROM joinExpr
+    : FROM joinExpression
     ;
 
 arrayJoinClause
-    : (LEFT | INNER)? ARRAY JOIN columnExprList
+    : (LEFT | INNER)? ARRAY JOIN columnExpressionList
     ;
 
 windowClause
-    : WINDOW identifier AS LPAREN windowExpr RPAREN
+    : WINDOW identifier AS LPAREN windowExpression RPAREN
     ;
 
 prewhereClause
-    : PREWHERE columnExpr
+    : PREWHERE columnExpression
     ;
 
 whereClause
-    : WHERE columnExpr
+    : WHERE columnExpression
     ;
 
 groupByClause
-    : GROUP BY ((CUBE | ROLLUP) LPAREN columnExprList RPAREN | columnExprList)
+    : GROUP BY ((CUBE | ROLLUP) LPAREN columnExpressionList RPAREN | columnExpressionList)
     ;
 
 havingClause
-    : HAVING columnExpr
+    : HAVING columnExpression
     ;
 
 orderByClause
-    : ORDER BY orderExprList
+    : ORDER BY orderExpressionList
     ;
 
 projectionOrderByClause
-    : ORDER BY columnExprList
+    : ORDER BY columnExpressionList
     ;
 
 limitByClause
-    : LIMIT limitExpr BY columnExprList
+    : LIMIT limitExpression BY columnExpressionList
     ;
 
 limitClause
-    : LIMIT limitExpr (WITH TIES)?
+    : LIMIT limitExpression (WITH TIES)?
     ;
 
 settingsClause
-    : SETTINGS settingExprList
+    : SETTINGS settingExpressionList
     ;
 
-joinExpr
-    : joinExpr (GLOBAL | LOCAL)? joinOp? JOIN joinExpr joinConstraintClause # JoinExprOp
-    | joinExpr joinOpCross joinExpr                                         # JoinExprCrossOp
-    | tableExpr FINAL? sampleClause?                                        # JoinExprTable
-    | LPAREN joinExpr RPAREN                                                # JoinExprParens
+joinExpression
+    : joinExpression (GLOBAL | LOCAL)? joinOperator? JOIN joinExpression joinConstraintClause # JoinExpressionOp
+    | joinExpression joinOperatorCross joinExpression                                         # JoinExpressionCrossOp
+    | tableExpression FINAL? sampleClause?                                                    # JoinExpressionTable
+    | LPAREN joinExpression RPAREN                                                            # JoinExpressionParens
     ;
 
-joinOp
+joinOperator
     : ((ALL | ANY | ASOF)? INNER | INNER (ALL | ANY | ASOF)? | (ALL | ANY | ASOF))                                         # JoinOpInner
     | ( (SEMI | ALL | ANTI | ANY | ASOF)? (LEFT | RIGHT) OUTER? | (LEFT | RIGHT) OUTER? (SEMI | ALL | ANTI | ANY | ASOF)?) # JoinOpLeftRight
     | ((ALL | ANY)? FULL OUTER? | FULL OUTER? (ALL | ANY)?)                                                                # JoinOpFull
     ;
 
-joinOpCross
+joinOperatorCross
     : (GLOBAL | LOCAL)? CROSS JOIN
     | COMMA
     ;
 
 joinConstraintClause
-    : ON columnExprList
-    | USING LPAREN columnExprList RPAREN
-    | USING columnExprList
+    : ON columnExpressionList
+    | USING LPAREN columnExpressionList RPAREN
+    | USING columnExpressionList
     ;
 
 sampleClause
-    : SAMPLE ratioExpr (OFFSET ratioExpr)?
+    : SAMPLE ratioExpression (OFFSET ratioExpression)?
     ;
 
-limitExpr
-    : columnExpr ((COMMA | OFFSET) columnExpr)?
+limitExpression
+    : columnExpression ((COMMA | OFFSET) columnExpression)?
     ;
 
-orderExprList
-    : orderExpr (COMMA orderExpr)*
+orderExpressionList
+    : orderExpression (COMMA orderExpression)*
     ;
 
-orderExpr
-    : columnExpr (ASCENDING | DESCENDING | DESC)? (NULLS (FIRST | LAST))? (COLLATE STRING_LITERAL)?
+orderExpression
+    : columnExpression (ASCENDING | DESCENDING | DESC)? (NULLS (FIRST | LAST))? (COLLATE STRING_LITERAL)?
     ;
 
-ratioExpr
+ratioExpression
     : numberLiteral (SLASH numberLiteral)?
     ;
 
-settingExprList
-    : settingExpr (COMMA settingExpr)*
+settingExpressionList
+    : settingExpression (COMMA settingExpression)*
     ;
 
-settingExpr
+settingExpression
     : identifier EQ_SINGLE literal
     ;
 
-windowExpr
-    : winPartitionByClause? winOrderByClause? winFrameClause?
+windowExpression
+    : windowPartitionByClause? windowOrderByClause? windowFrameClause?
     ;
 
-winPartitionByClause
-    : PARTITION BY columnExprList
+windowPartitionByClause
+    : PARTITION BY columnExpressionList
     ;
 
-winOrderByClause
-    : ORDER BY orderExprList
+windowOrderByClause
+    : ORDER BY orderExpressionList
     ;
 
-winFrameClause
-    : (ROWS | RANGE) winFrameExtend
+windowFrameClause
+    : (ROWS | RANGE) windowFrameExtend
     ;
 
-winFrameExtend
-    : winFrameBound                           # frameStart
-    | BETWEEN winFrameBound AND winFrameBound # frameBetween
+windowFrameExtend
+    : windowFrameBound                              # frameStart
+    | BETWEEN windowFrameBound AND windowFrameBound # frameBetween
     ;
 
-winFrameBound
+windowFrameBound
     : (CURRENT ROW | UNBOUNDED PRECEDING | UNBOUNDED FOLLOWING | numberLiteral PRECEDING | numberLiteral FOLLOWING)
     ;
 
@@ -534,24 +533,24 @@ winFrameBound
 
 // SET statement
 
-setStmt
-    : SET settingExprList
+setStatement
+    : SET settingExpressionList
     ;
 
 // SHOW statements
 
-showStmt
-    : SHOW CREATE DATABASE databaseIdentifier                                                                     # showCreateDatabaseStmt
-    | SHOW CREATE DICTIONARY tableIdentifier                                                                      # showCreateDictionaryStmt
-    | SHOW CREATE TEMPORARY? TABLE? tableIdentifier                                                               # showCreateTableStmt
-    | SHOW DATABASES                                                                                              # showDatabasesStmt
-    | SHOW DICTIONARIES (FROM databaseIdentifier)?                                                                # showDictionariesStmt
-    | SHOW TEMPORARY? TABLES ((FROM | IN) databaseIdentifier)? ( LIKE STRING_LITERAL | whereClause)? limitClause? # showTablesStmt
+showStatement
+    : SHOW CREATE DATABASE databaseIdentifier                                                                     # showCreateDatabaseStatement
+    | SHOW CREATE DICTIONARY tableIdentifier                                                                      # showCreateDictionaryStatement
+    | SHOW CREATE TEMPORARY? TABLE? tableIdentifier                                                               # showCreateTableStatement
+    | SHOW DATABASES                                                                                              # showDatabasesStatement
+    | SHOW DICTIONARIES (FROM databaseIdentifier)?                                                                # showDictionariesStatement
+    | SHOW TEMPORARY? TABLES ((FROM | IN) databaseIdentifier)? ( LIKE STRING_LITERAL | whereClause)? limitClause? # showTablesStatement
     ;
 
 // SYSTEM statements
 
-systemStmt
+systemStatement
     : SYSTEM FLUSH DISTRIBUTED tableIdentifier
     | SYSTEM FLUSH LOGS
     | SYSTEM RELOAD DICTIONARIES
@@ -563,73 +562,73 @@ systemStmt
 
 // TRUNCATE statements
 
-truncateStmt
+truncateStatement
     : TRUNCATE TEMPORARY? TABLE? (IF EXISTS)? tableIdentifier clusterClause?
     ;
 
 // USE statement
 
-useStmt
+useStatement
     : USE databaseIdentifier
     ;
 
 // WATCH statement
 
-watchStmt
+watchStatement
     : WATCH tableIdentifier EVENTS? (LIMIT DECIMAL_LITERAL)?
     ;
 
 // Columns
 
-columnTypeExpr
-    : identifier                                                                            # ColumnTypeExprSimple // UInt64
-    | identifier LPAREN identifier columnTypeExpr (COMMA identifier columnTypeExpr)* RPAREN # ColumnTypeExprNested // Nested
-    | identifier LPAREN enumValue (COMMA enumValue)* RPAREN                                 # ColumnTypeExprEnum   // Enum
-    | identifier LPAREN columnTypeExpr (COMMA columnTypeExpr)* RPAREN                       # ColumnTypeExprComplex
+columnTypeExpression
+    : identifier                                                                                        # ColumnTypeExpressionSimple // UInt64
+    | identifier LPAREN identifier columnTypeExpression (COMMA identifier columnTypeExpression)* RPAREN # ColumnTypeExpressionNested // Nested
+    | identifier LPAREN enumValue (COMMA enumValue)* RPAREN                                             # ColumnTypeExpressionEnum   // Enum
+    | identifier LPAREN columnTypeExpression (COMMA columnTypeExpression)* RPAREN                       # ColumnTypeExpressionComplex
     // Array, Tuple
-    | identifier LPAREN columnExprList? RPAREN # ColumnTypeExprParam
+    | identifier LPAREN columnExpressionList? RPAREN # ColumnTypeExpressionParam
     ; // FixedString(N)
 
-columnExprList
-    : columnsExpr (COMMA columnsExpr)*
+columnExpressionList
+    : columnsExpression (COMMA columnsExpression)*
     ;
 
-columnsExpr
-    : (tableIdentifier DOT)? ASTERISK # ColumnsExprAsterisk
-    | LPAREN selectUnionStmt RPAREN   # ColumnsExprSubquery
-    // NOTE: asterisk and subquery goes before |columnExpr| so that we can mark them as multi-column expressions.
-    | columnExpr # ColumnsExprColumn
+columnsExpression
+    : (tableIdentifier DOT)? ASTERISK    # ColumnsExpressionAsterisk
+    | LPAREN selectUnionStatement RPAREN # ColumnsExpressionSubquery
+    // NOTE: asterisk and subquery goes before |columnExpression| so that we can mark them as multi-column expressions.
+    | columnExpression # ColumnsExpressionColumn
     ;
 
-columnExpr
-    : CASE columnExpr? (WHEN columnExpr THEN columnExpr)+ (ELSE columnExpr)? END         # ColumnExprCase
-    | CAST LPAREN columnExpr AS columnTypeExpr RPAREN                                    # ColumnExprCast
-    | DATE STRING_LITERAL                                                                # ColumnExprDate
-    | EXTRACT LPAREN interval FROM columnExpr RPAREN                                     # ColumnExprExtract
-    | INTERVAL columnExpr interval                                                       # ColumnExprInterval
-    | SUBSTRING LPAREN columnExpr FROM columnExpr ( FOR columnExpr)? RPAREN              # ColumnExprSubstring
-    | TIMESTAMP STRING_LITERAL                                                           # ColumnExprTimestamp
-    | TRIM LPAREN (BOTH | LEADING | TRAILING) STRING_LITERAL FROM columnExpr RPAREN      # ColumnExprTrim
-    | identifier (LPAREN columnExprList? RPAREN) OVER LPAREN windowExpr RPAREN           # ColumnExprWinFunction
-    | identifier (LPAREN columnExprList? RPAREN) OVER identifier                         # ColumnExprWinFunctionTarget
-    | identifier (LPAREN columnExprList? RPAREN)? LPAREN DISTINCT? columnArgList? RPAREN # ColumnExprFunction
-    | literal                                                                            # ColumnExprLiteral
+columnExpression
+    : CASE columnExpression? (WHEN columnExpression THEN columnExpression)+ (ELSE columnExpression)? END # ColumnExpressionCase
+    | CAST LPAREN columnExpression AS columnTypeExpression RPAREN                                        # ColumnExpressionCast
+    | DATE STRING_LITERAL                                                                                # ColumnExpressionDate
+    | EXTRACT LPAREN interval FROM columnExpression RPAREN                                               # ColumnExpressionExtract
+    | INTERVAL columnExpression interval                                                                 # ColumnExpressionInterval
+    | SUBSTRING LPAREN columnExpression FROM columnExpression ( FOR columnExpression)? RPAREN            # ColumnExpressionSubstring
+    | TIMESTAMP STRING_LITERAL                                                                           # ColumnExpressionTimestamp
+    | TRIM LPAREN (BOTH | LEADING | TRAILING) STRING_LITERAL FROM columnExpression RPAREN                # ColumnExpressionTrim
+    | identifier (LPAREN columnExpressionList? RPAREN) OVER LPAREN windowExpression RPAREN               # ColumnExpressionWinFunction
+    | identifier (LPAREN columnExpressionList? RPAREN) OVER identifier                                   # ColumnExpressionWinFunctionTarget
+    | identifier (LPAREN columnExpressionList? RPAREN)? LPAREN DISTINCT? columnArgumentList? RPAREN      # ColumnExpressionFunction
+    | literal                                                                                            # ColumnExpressionLiteral
 
     // FIXME(ilezhankin): this part looks very ugly, maybe there is another way to express it
-    | columnExpr LBRACKET columnExpr RBRACKET # ColumnExprArrayAccess
-    | columnExpr DOT DECIMAL_LITERAL          # ColumnExprTupleAccess
-    | DASH columnExpr                         # ColumnExprNegate
-    | columnExpr (
+    | columnExpression LBRACKET columnExpression RBRACKET # ColumnExpressionArrayAccess
+    | columnExpression DOT DECIMAL_LITERAL                # ColumnExpressionTupleAccess
+    | DASH columnExpression                               # ColumnExpressionNegate
+    | columnExpression (
         ASTERISK  // multiply
         | SLASH   // divide
         | PERCENT // modulo
-    ) columnExpr # ColumnExprPrecedence1
-    | columnExpr (
+    ) columnExpression # ColumnExpressionPrecedence1
+    | columnExpression (
         PLUS     // plus
         | DASH   // minus
         | CONCAT // concat
-    ) columnExpr # ColumnExprPrecedence2
-    | columnExpr (
+    ) columnExpression # ColumnExpressionPrecedence2
+    | columnExpression (
         EQ_DOUBLE             // equals
         | EQ_SINGLE           // equals
         | NOT_EQ              // notEquals
@@ -639,34 +638,34 @@ columnExpr
         | GT                  // greater
         | GLOBAL? NOT? IN     // in, notIn, globalIn, globalNotIn
         | NOT? (LIKE | ILIKE) // like, notLike, ilike, notILike
-    ) columnExpr                  # ColumnExprPrecedence3
-    | columnExpr IS NOT? NULL_SQL # ColumnExprIsNull
-    | NOT columnExpr              # ColumnExprNot
-    | columnExpr AND columnExpr   # ColumnExprAnd
-    | columnExpr OR columnExpr    # ColumnExprOr
+    ) columnExpression                      # ColumnExpressionPrecedence3
+    | columnExpression IS NOT? NULL_SQL     # ColumnExpressionIsNull
+    | NOT columnExpression                  # ColumnExpressionNot
+    | columnExpression AND columnExpression # ColumnExpressionAnd
+    | columnExpression OR columnExpression  # ColumnExpressionOr
     // TODO(ilezhankin): `BETWEEN a AND b AND c` is parsed in a wrong way: `BETWEEN (a AND b) AND c`
-    | columnExpr NOT? BETWEEN columnExpr AND columnExpr            # ColumnExprBetween
-    | <assoc = right> columnExpr QUESTIONMARK columnExpr COLON columnExpr # ColumnExprTernaryOp
-    | columnExpr (alias | AS identifier)                           # ColumnExprAlias
-    | (tableIdentifier DOT)? ASTERISK                              # ColumnExprAsterisk // single-column only
-    | LPAREN selectUnionStmt RPAREN                                # ColumnExprSubquery // single-column only
-    | LPAREN columnExpr RPAREN                                     # ColumnExprParens   // single-column only
-    | LPAREN columnExprList RPAREN                                 # ColumnExprTuple
-    | LBRACKET columnExprList? RBRACKET                            # ColumnExprArray
-    | columnIdentifier                                             # ColumnExprIdentifier
+    | columnExpression NOT? BETWEEN columnExpression AND columnExpression                   # ColumnExpressionBetween
+    | <assoc = right> columnExpression QUESTIONMARK columnExpression COLON columnExpression # ColumnExpressionTernaryOp
+    | columnExpression (alias | AS identifier)                                              # ColumnExpressionAlias
+    | (tableIdentifier DOT)? ASTERISK                                                       # ColumnExpressionAsterisk // single-column only
+    | LPAREN selectUnionStatement RPAREN                                                    # ColumnExpressionSubquery // single-column only
+    | LPAREN columnExpression RPAREN                                                        # ColumnExpressionParens   // single-column only
+    | LPAREN columnExpressionList RPAREN                                                    # ColumnExpressionTuple
+    | LBRACKET columnExpressionList? RBRACKET                                               # ColumnExpressionArray
+    | columnIdentifier                                                                      # ColumnExpressionIdentifier
     ;
 
-columnArgList
-    : columnArgExpr (COMMA columnArgExpr)*
+columnArgumentList
+    : columnArgumentExpression (COMMA columnArgumentExpression)*
     ;
 
-columnArgExpr
-    : columnLambdaExpr
-    | columnExpr
+columnArgumentExpression
+    : columnLambdaExpression
+    | columnExpression
     ;
 
-columnLambdaExpr
-    : (LPAREN identifier (COMMA identifier)* RPAREN | identifier (COMMA identifier)*) ARROW columnExpr
+columnLambdaExpression
+    : (LPAREN identifier (COMMA identifier)* RPAREN | identifier (COMMA identifier)*) ARROW columnExpression
     ;
 
 columnIdentifier
@@ -675,14 +674,14 @@ columnIdentifier
 
 // Tables
 
-tableExpr
-    : tableIdentifier                   # TableExprIdentifier
-    | tableFunctionExpr                 # TableExprFunction
-    | LPAREN selectUnionStmt RPAREN     # TableExprSubquery
-    | tableExpr (alias | AS identifier) # TableExprAlias
+tableExpression
+    : tableIdentifier                         # TableExpressionIdentifier
+    | tableFunctionExpression                 # TableExpressionFunction
+    | LPAREN selectUnionStatement RPAREN      # TableExpressionSubquery
+    | tableExpression (alias | AS identifier) # TableExpressionAlias
     ;
 
-tableFunctionExpr
+tableFunctionExpression
     : identifier LPAREN tableArgList? RPAREN
     ;
 
@@ -691,12 +690,12 @@ tableIdentifier
     ;
 
 tableArgList
-    : tableArgExpr (COMMA tableArgExpr)*
+    : tableArgExpression (COMMA tableArgExpression)*
     ;
 
-tableArgExpr
+tableArgExpression
     : columnIdentifier
-    | tableFunctionExpr
+    | tableFunctionExpression
     | literal
     ;
 
