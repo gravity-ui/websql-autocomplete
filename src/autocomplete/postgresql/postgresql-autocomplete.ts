@@ -16,6 +16,7 @@ import {
     RelationExpressionContext,
     TableReferenceContext,
     Target_labelContext,
+    ViewNameContext,
 } from './generated/PostgreSqlParser.js';
 import {PostgreSqlParserVisitor} from './generated/PostgreSqlParserVisitor.js';
 import {TableQueryPosition, TokenDictionary, getPreviousToken} from '../../lib/tables.js';
@@ -146,6 +147,18 @@ class PostgreSqlSymbolTableVisitor
             if (alias) {
                 this.symbolTable.addNewSymbolOfType(ColumnAliasSymbol, this.scope, alias);
             }
+        } catch (error) {
+            if (!(error instanceof c3.DuplicateSymbolError)) {
+                throw error;
+            }
+        }
+
+        return this.visitChildren(context) as {};
+    };
+
+    visitViewName = (context: ViewNameContext): {} => {
+        try {
+            this.symbolTable.addNewSymbolOfType(TableSymbol, this.scope, context.getText());
         } catch (error) {
             if (!(error instanceof c3.DuplicateSymbolError)) {
                 throw error;
