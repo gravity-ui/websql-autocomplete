@@ -8,8 +8,8 @@ import {
 } from 'antlr4ng';
 import * as c3 from 'antlr4-c3';
 
-import {ColumnAliasSymbol, TableSymbol} from './lib/symbolTable.js';
-import {SqlErrorListener} from './lib/sqlErrorListener.js';
+import {ColumnAliasSymbol, TableSymbol} from './lib/symbol-table.js';
+import {SqlErrorListener} from './lib/sql-error-listener.js';
 import {getCurrentStatement, shouldSuggestTemplates} from './lib/query.js';
 import {CursorPosition, findCursorTokenIndex, getCursorIndex} from './lib/cursor.js';
 import {TokenDictionary, getTableQueryPosition} from './lib/tables.js';
@@ -28,9 +28,9 @@ import {
     SymbolTableVisitorConstructor,
     TableOrViewSuggestion,
 } from './types.js';
-import {mySqlAutocompleteData} from './autocomplete/mysql/mySqlAutocomplete.js';
-import {postgreSqlAutocompleteData} from './autocomplete/postgresql/postgreSqlAutocomplete.js';
-import {clickHouseAutocompleteData} from './autocomplete/clickhouse/clickHouseAutocomplete.js';
+import {mySqlAutocompleteData} from './autocomplete/mysql/mysql-autocomplete.js';
+import {postgreSqlAutocompleteData} from './autocomplete/postgresql/postgresql-autocomplete.js';
+import {clickHouseAutocompleteData} from './autocomplete/clickhouse/clickhouse-autocomplete.js';
 
 export {CursorPosition} from './lib/cursor.js';
 export {
