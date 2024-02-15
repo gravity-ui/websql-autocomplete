@@ -13,8 +13,8 @@ import { AbstractParseTreeVisitor } from "antlr4ng";
 
 
 import { RootContext } from "./MySqlParser.js";
-import { SqlStatementsContext } from "./MySqlParser.js";
-import { SqlStatementContext } from "./MySqlParser.js";
+import { StatementsContext } from "./MySqlParser.js";
+import { StatementContext } from "./MySqlParser.js";
 import { DdlStatementContext } from "./MySqlParser.js";
 import { DmlStatementContext } from "./MySqlParser.js";
 import { TransactionStatementContext } from "./MySqlParser.js";
@@ -648,17 +648,17 @@ export class MySqlParserVisitor<Result> extends AbstractParseTreeVisitor<Result>
      */
     visitRoot?: (ctx: RootContext) => Result;
     /**
-     * Visit a parse tree produced by `MySqlParser.sqlStatements`.
+     * Visit a parse tree produced by `MySqlParser.statements`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitSqlStatements?: (ctx: SqlStatementsContext) => Result;
+    visitStatements?: (ctx: StatementsContext) => Result;
     /**
-     * Visit a parse tree produced by `MySqlParser.sqlStatement`.
+     * Visit a parse tree produced by `MySqlParser.statement`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitSqlStatement?: (ctx: SqlStatementContext) => Result;
+    visitStatement?: (ctx: StatementContext) => Result;
     /**
      * Visit a parse tree produced by `MySqlParser.ddlStatement`.
      * @param ctx the parse tree

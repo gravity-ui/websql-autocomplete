@@ -32,17 +32,16 @@ options {
 // Top Level Description
 
 root
-    : sqlStatements? EOF
+    : statements? EOF
     ;
 
 // We can omit statement semicolon only if it's the last statement
-sqlStatements
-    : sqlStatement SEMI?
-    | sqlStatement SEMI sqlStatements
-    |
+statements
+    : statement SEMI?
+    | statement SEMI statements
     ;
 
-sqlStatement
+statement
     : ddlStatement
     | dmlStatement
     | transactionStatement
@@ -1252,7 +1251,7 @@ deallocatePrepare
 
 routineBody
     : blockStatement
-    | sqlStatement
+    | statement
     ;
 
 // details
@@ -1327,7 +1326,7 @@ handlerConditionValue
     ;
 
 procedureSqlStatement
-    : (compoundStatement | sqlStatement) SEMI
+    : (compoundStatement | statement) SEMI
     ;
 
 caseAlternative

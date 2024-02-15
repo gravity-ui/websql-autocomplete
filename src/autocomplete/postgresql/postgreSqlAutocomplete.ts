@@ -11,10 +11,10 @@ import {
 } from '../../types.js';
 import {PostgreSqlLexer} from './generated/PostgreSqlLexer.js';
 import {
-    Insert_targetContext,
+    InsertTargetContext,
     PostgreSqlParser,
-    Relation_exprContext,
-    Table_refContext,
+    RelationExpressionContext,
+    TableReferenceContext,
     Target_labelContext,
 } from './generated/PostgreSqlParser.js';
 import {PostgreSqlParserVisitor} from './generated/PostgreSqlParserVisitor.js';
@@ -61,19 +61,19 @@ function getIgnoredTokens(): number[] {
 const ignoredTokens = new Set(getIgnoredTokens());
 
 const preferredRules = new Set([
-    PostgreSqlParser.RULE_colid,
-    PostgreSqlParser.RULE_func_name,
-    PostgreSqlParser.RULE_func_expr_common_subexpr,
+    PostgreSqlParser.RULE_columnId,
+    PostgreSqlParser.RULE_functionName,
+    PostgreSqlParser.RULE_functionExpressionCommonSubexpr,
 
     // All of these are identifier names, we don't want to suggest them
     PostgreSqlParser.RULE_identifier,
-    PostgreSqlParser.RULE_plsqlvariablename,
-    PostgreSqlParser.RULE_consttypename,
-    PostgreSqlParser.RULE_col_name_keyword,
-    PostgreSqlParser.RULE_unreserved_keyword,
-    PostgreSqlParser.RULE_plsql_unreserved_keyword,
-    PostgreSqlParser.RULE_type_func_name_keyword,
-    PostgreSqlParser.RULE_reserved_keyword,
+    PostgreSqlParser.RULE_plsqlVariableName,
+    PostgreSqlParser.RULE_constTypeName,
+    PostgreSqlParser.RULE_columnNameKeyword,
+    PostgreSqlParser.RULE_unreservedKeyword,
+    PostgreSqlParser.RULE_plsqlUnreservedKeyword,
+    PostgreSqlParser.RULE_typeFunctionNameKeyword,
+    PostgreSqlParser.RULE_reservedKeyword,
 ]);
 
 class PostgreSqlSymbolTableVisitor
@@ -89,12 +89,12 @@ class PostgreSqlSymbolTableVisitor
         this.scope = this.symbolTable.addNewSymbolOfType(c3.ScopedSymbol, undefined);
     }
 
-    visitRelation_expr = (context: Relation_exprContext): {} => {
+    visitRelationExpression = (context: RelationExpressionContext): {} => {
         try {
             this.symbolTable.addNewSymbolOfType(
                 TableSymbol,
                 this.scope,
-                context.qualified_name()?.getText() || '',
+                context.qualifiedName()?.getText() || '',
             );
         } catch (error) {
             if (!(error instanceof c3.DuplicateSymbolError)) {
@@ -105,13 +105,13 @@ class PostgreSqlSymbolTableVisitor
         return this.visitChildren(context) as {};
     };
 
-    visitTable_ref = (context: Table_refContext): {} => {
+    visitTableReference = (context: TableReferenceContext): {} => {
         try {
             this.symbolTable.addNewSymbolOfType(
                 TableSymbol,
                 this.scope,
-                context.relation_expr()?.qualified_name()?.getText() || '',
-                context.opt_alias_clause()?.table_alias_clause()?.table_alias()?.getText(),
+                context.relationExpression()?.qualifiedName()?.getText() || '',
+                context.optionalAliasClause()?.tableAliasClause()?.tableAlias()?.getText(),
             );
         } catch (error) {
             if (!(error instanceof c3.DuplicateSymbolError)) {
@@ -122,13 +122,13 @@ class PostgreSqlSymbolTableVisitor
         return this.visitChildren(context) as {};
     };
 
-    visitInsert_target = (context: Insert_targetContext): {} => {
+    visitInsertTarget = (context: InsertTargetContext): {} => {
         try {
             this.symbolTable.addNewSymbolOfType(
                 TableSymbol,
                 this.scope,
-                context.qualified_name()?.getText() || '',
-                context.colid()?.getText(),
+                context.qualifiedName()?.getText() || '',
+                context.columnId()?.getText(),
             );
         } catch (error) {
             if (!(error instanceof c3.DuplicateSymbolError)) {
@@ -141,7 +141,7 @@ class PostgreSqlSymbolTableVisitor
 
     visitTarget_label = (context: Target_labelContext): {} => {
         try {
-            const alias = context.collabel()?.getText() || context.identifier()?.getText();
+            const alias = context.columnLabel()?.getText() || context.identifier()?.getText();
 
             if (alias) {
                 this.symbolTable.addNewSymbolOfType(ColumnAliasSymbol, this.scope, alias);
@@ -169,8 +169,8 @@ function generateSuggestionsFromRules(
 
     for (const [ruleId, ruleData] of rules) {
         switch (ruleId) {
-            case PostgreSqlParser.RULE_func_expr_common_subexpr:
-            case PostgreSqlParser.RULE_func_name: {
+            case PostgreSqlParser.RULE_functionExpressionCommonSubexpr:
+            case PostgreSqlParser.RULE_functionName: {
                 if (cursorTokenIndex === ruleData.startTokenIndex) {
                     suggestFunctions = true;
                     // TODO Not sure yet how to specifically find aggregate functions
@@ -178,15 +178,15 @@ function generateSuggestionsFromRules(
                 }
                 break;
             }
-            case PostgreSqlParser.RULE_colid: {
+            case PostgreSqlParser.RULE_columnId: {
                 const isInsideQualifiedName =
-                    ruleData.ruleList.includes(PostgreSqlParser.RULE_qualified_name) &&
-                    (ruleData.ruleList.includes(PostgreSqlParser.RULE_insert_target) ||
-                        ruleData.ruleList.includes(PostgreSqlParser.RULE_relation_expr));
+                    ruleData.ruleList.includes(PostgreSqlParser.RULE_qualifiedName) &&
+                    (ruleData.ruleList.includes(PostgreSqlParser.RULE_insertTarget) ||
+                        ruleData.ruleList.includes(PostgreSqlParser.RULE_relationExpression));
                 const canSuggestTables =
-                    !ruleData.ruleList.includes(PostgreSqlParser.RULE_createstmt) &&
+                    !ruleData.ruleList.includes(PostgreSqlParser.RULE_createStatement) &&
                     (isInsideQualifiedName ||
-                        ruleData.ruleList.includes(PostgreSqlParser.RULE_func_table));
+                        ruleData.ruleList.includes(PostgreSqlParser.RULE_functionTable));
 
                 // We need to check cursorTokenIndex here, because colid -> identifier might have multiple tokens
                 if (cursorTokenIndex !== ruleData.startTokenIndex) {
@@ -208,12 +208,18 @@ function generateSuggestionsFromRules(
                         cursorTokenIndex,
                         PostgreSqlParser.Identifier,
                     ) &&
-                    (ruleData.ruleList.includes(PostgreSqlParser.RULE_altertablestmt) ||
-                        ruleData.ruleList.includes(PostgreSqlParser.RULE_refreshmatviewstmt) ||
-                        ruleData.ruleList.includes(PostgreSqlParser.RULE_renamestmt) ||
-                        ruleData.ruleList.includes(PostgreSqlParser.RULE_alterobjectdependsstmt) ||
-                        ruleData.ruleList.includes(PostgreSqlParser.RULE_alterobjectschemastmt) ||
-                        ruleData.ruleList.includes(PostgreSqlParser.RULE_dropstmt))
+                    (ruleData.ruleList.includes(PostgreSqlParser.RULE_alterTableStatement) ||
+                        ruleData.ruleList.includes(
+                            PostgreSqlParser.RULE_refreshMaterializedViewStatement,
+                        ) ||
+                        ruleData.ruleList.includes(PostgreSqlParser.RULE_renameStatement) ||
+                        ruleData.ruleList.includes(
+                            PostgreSqlParser.RULE_alterObjectDependsStatement,
+                        ) ||
+                        ruleData.ruleList.includes(
+                            PostgreSqlParser.RULE_alterObjectSchemaStatement,
+                        ) ||
+                        ruleData.ruleList.includes(PostgreSqlParser.RULE_dropStatement))
                 ) {
                     suggestViewsOrTables = TableOrViewSuggestion.VIEWS;
                 } else if (
@@ -223,19 +229,20 @@ function generateSuggestionsFromRules(
                         cursorTokenIndex,
                         PostgreSqlParser.TABLE,
                     ) &&
-                    (ruleData.ruleList.includes(PostgreSqlParser.RULE_dropstmt) || canSuggestTables)
+                    (ruleData.ruleList.includes(PostgreSqlParser.RULE_dropStatement) ||
+                        canSuggestTables)
                 ) {
                     suggestViewsOrTables = TableOrViewSuggestion.TABLES;
                 } else if (canSuggestTables) {
                     suggestViewsOrTables = TableOrViewSuggestion.ALL;
                 } else if (
-                    !ruleData.ruleList.includes(PostgreSqlParser.RULE_select_limit_value) &&
-                    !ruleData.ruleList.includes(PostgreSqlParser.RULE_select_offset_value)
+                    !ruleData.ruleList.includes(PostgreSqlParser.RULE_selectLimitValue) &&
+                    !ruleData.ruleList.includes(PostgreSqlParser.RULE_selectOffsetValue)
                 ) {
                     shouldSuggestColumns = true;
                     if (
-                        ruleData.ruleList.includes(PostgreSqlParser.RULE_group_by_item) ||
-                        ruleData.ruleList.includes(PostgreSqlParser.RULE_sortby)
+                        ruleData.ruleList.includes(PostgreSqlParser.RULE_groupByItem) ||
+                        ruleData.ruleList.includes(PostgreSqlParser.RULE_sortBy)
                     ) {
                         shouldSuggestColumnAliases = true;
                     }
@@ -264,15 +271,15 @@ function getParseTree(
 
     switch (type) {
         case 'from':
-            return parser.non_ansi_join();
+            return parser.nonAnsiJoin();
         case 'alter':
-            return parser.altertablestmt();
+            return parser.alterTableStatement();
         case 'insert':
-            return parser.insertstmt();
+            return parser.insertStatement();
         case 'update':
-            return parser.updatestmt();
+            return parser.updateStatement();
         case 'select':
-            return parser.selectstmt();
+            return parser.selectStatement();
     }
 }
 
