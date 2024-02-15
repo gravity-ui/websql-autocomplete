@@ -285,7 +285,6 @@ import { DefultPrivilegeOptionContext } from "./PostgreSqlParser.js";
 import { DefaultPrivelegeActionContext } from "./PostgreSqlParser.js";
 import { DefultPrivilegeTargetContext } from "./PostgreSqlParser.js";
 import { IndexStatementContext } from "./PostgreSqlParser.js";
-import { OptionalConcurrentlyContext } from "./PostgreSqlParser.js";
 import { OptionalAccessMethodClauseContext } from "./PostgreSqlParser.js";
 import { IndexParametersContext } from "./PostgreSqlParser.js";
 import { IndexElemOptionsContext } from "./PostgreSqlParser.js";
@@ -2404,12 +2403,6 @@ export class PostgreSqlParserVisitor<Result> extends AbstractParseTreeVisitor<Re
      * @return the visitor result
      */
     visitIndexStatement?: (ctx: IndexStatementContext) => Result;
-    /**
-     * Visit a parse tree produced by `PostgreSqlParser.optionalConcurrently`.
-     * @param ctx the parse tree
-     * @return the visitor result
-     */
-    visitOptionalConcurrently?: (ctx: OptionalConcurrentlyContext) => Result;
     /**
      * Visit a parse tree produced by `PostgreSqlParser.optionalAccessMethodClause`.
      * @param ctx the parse tree

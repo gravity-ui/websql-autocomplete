@@ -891,7 +891,7 @@ createMaterializedViewTarget
     ;
 
 refreshMaterializedViewStatement
-    : REFRESH MATERIALIZED VIEW optionalConcurrently qualifiedName withData
+    : REFRESH MATERIALIZED VIEW CONCURRENTLY? qualifiedName withData
     ;
 
 createSequenceStatement
@@ -1710,14 +1710,8 @@ defultPrivilegeTarget
 //create index
 
 indexStatement
-    : CREATE UNIQUE? INDEX optionalConcurrently name? ON relationExpression optionalAccessMethodClause OPEN_PAREN indexParameters CLOSE_PAREN optionalInclude optionalRelOptions optionalTablespace whereClause
-    | CREATE UNIQUE? INDEX optionalConcurrently IF_P NOT EXISTS name ON relationExpression optionalAccessMethodClause OPEN_PAREN indexParameters CLOSE_PAREN optionalInclude optionalRelOptions optionalTablespace whereClause
-    ;
-
-// TODO: replace with ?
-optionalConcurrently
-    : CONCURRENTLY
-    |
+    : CREATE UNIQUE? INDEX CONCURRENTLY? name? ON relationExpression optionalAccessMethodClause OPEN_PAREN indexParameters CLOSE_PAREN optionalInclude optionalRelOptions optionalTablespace whereClause
+    | CREATE UNIQUE? INDEX CONCURRENTLY? IF_P NOT EXISTS name ON relationExpression optionalAccessMethodClause OPEN_PAREN indexParameters CLOSE_PAREN optionalInclude optionalRelOptions optionalTablespace whereClause
     ;
 
 optionalAccessMethodClause
@@ -2003,12 +1997,12 @@ dropTransformStatement
     ;
 
 reindexStatement
-    : REINDEX reindexTargetType optionalConcurrently qualifiedName
-    | REINDEX INDEX optionalConcurrently indexName
-    | REINDEX reindexTargetMultiTable optionalConcurrently name
-    | REINDEX OPEN_PAREN reindexOptionList CLOSE_PAREN INDEX optionalConcurrently indexName
-    | REINDEX OPEN_PAREN reindexOptionList CLOSE_PAREN reindexTargetType optionalConcurrently qualifiedName
-    | REINDEX OPEN_PAREN reindexOptionList CLOSE_PAREN reindexTargetMultiTable optionalConcurrently name
+    : REINDEX reindexTargetType CONCURRENTLY? qualifiedName
+    | REINDEX INDEX CONCURRENTLY? indexName
+    | REINDEX reindexTargetMultiTable CONCURRENTLY? name
+    | REINDEX OPEN_PAREN reindexOptionList CLOSE_PAREN INDEX CONCURRENTLY? indexName
+    | REINDEX OPEN_PAREN reindexOptionList CLOSE_PAREN reindexTargetType CONCURRENTLY? qualifiedName
+    | REINDEX OPEN_PAREN reindexOptionList CLOSE_PAREN reindexTargetMultiTable CONCURRENTLY? name
     ;
 
 // Doesn't include INDEX, because we want to make suggestions based on it
