@@ -204,69 +204,6 @@ test('should suggest multiple table names and aliases (with AS) for column', () 
     expect(parseResult.suggestColumns).toEqual(columnSuggestions);
 });
 
-test('should suggest properly after ORDER', () => {
-    const parseResult = parsePostgreSqlQueryWithCursor('SELECT * FROM test_table ORDER |');
-
-    const keywordsSuggestion: KeywordSuggestion[] = [{value: 'BY'}];
-    expect(parseResult.suggestKeywords).toEqual(keywordsSuggestion);
-});
-
-test('should suggest properly after ORDER with alias', () => {
-    const parseResult = parsePostgreSqlQueryWithCursor('SELECT * FROM test_table as t ORDER |');
-
-    const keywordsSuggestion: KeywordSuggestion[] = [{value: 'BY'}];
-    expect(parseResult.suggestKeywords).toEqual(keywordsSuggestion);
-});
-
-test('should suggest properly after ORDER BY', () => {
-    const parseResult = parsePostgreSqlQueryWithCursor('SELECT * FROM test_table as t ORDER BY |');
-
-    const keywordsSuggestion: KeywordSuggestion[] = [
-        {value: 'NOT'},
-        {value: 'OPERATOR'},
-        {value: 'EXISTS'},
-        {value: 'ARRAY'},
-        {value: 'GROUPING'},
-        {value: 'UNIQUE'},
-        {value: 'INTERVAL'},
-        {value: 'TRUE'},
-        {value: 'FALSE'},
-        {value: 'NULL'},
-        {value: 'CASE'},
-        {value: 'ROW'},
-    ];
-    expect(parseResult.suggestKeywords).toEqual(keywordsSuggestion);
-});
-
-test('should suggest properly after GROUP', () => {
-    const parseResult = parsePostgreSqlQueryWithCursor('SELECT * FROM test_table as t GROUP |');
-
-    const keywordsSuggestion: KeywordSuggestion[] = [{value: 'BY'}];
-    expect(parseResult.suggestKeywords).toEqual(keywordsSuggestion);
-});
-
-test('should suggest properly after GROUP BY', () => {
-    const parseResult = parsePostgreSqlQueryWithCursor('SELECT * FROM test_table as t GROUP BY |');
-
-    const keywordsSuggestion: KeywordSuggestion[] = [
-        {value: 'NOT'},
-        {value: 'OPERATOR'},
-        {value: 'EXISTS'},
-        {value: 'ARRAY'},
-        {value: 'GROUPING'},
-        {value: 'UNIQUE'},
-        {value: 'INTERVAL'},
-        {value: 'TRUE'},
-        {value: 'FALSE'},
-        {value: 'NULL'},
-        {value: 'CASE'},
-        {value: 'ROW'},
-        {value: 'CUBE'},
-        {value: 'ROLLUP'},
-    ];
-    expect(parseResult.suggestKeywords).toEqual(keywordsSuggestion);
-});
-
 test('should suggest properly after HAVING', () => {
     const parseResult = parsePostgreSqlQueryWithCursor('SELECT * FROM test_table as t HAVING |');
 

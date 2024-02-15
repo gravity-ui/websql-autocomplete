@@ -1,10 +1,11 @@
 import {ParseTree, TokenStream} from 'antlr4ng';
 import * as c3 from 'antlr4-c3';
 
-import {TableSymbol} from '../../lib/symbolTable.js';
+import {ColumnAliasSymbol, TableSymbol} from '../../lib/symbolTable.js';
 import {
     AutocompleteData,
     AutocompleteParseResult,
+    GenerateSuggestionsFromRulesResult,
     ISymbolTableVisitor,
     TableOrViewSuggestion,
 } from '../../types.js';
@@ -14,9 +15,10 @@ import {
     PostgreSqlParser,
     RelationExpressionContext,
     TableReferenceContext,
+    Target_labelContext,
 } from './generated/PostgreSqlParser.js';
 import {PostgreSqlParserVisitor} from './generated/PostgreSqlParserVisitor.js';
-import {TableQueryPosition, TokenDictionary, hasPreviousToken} from '../../lib/tables.js';
+import {TableQueryPosition, TokenDictionary, getPreviousToken} from '../../lib/tables.js';
 
 const tokenDictionary: TokenDictionary = {
     SPACE: PostgreSqlParser.Whitespace,
@@ -28,6 +30,7 @@ const tokenDictionary: TokenDictionary = {
     UPDATE: PostgreSqlParser.UPDATE,
     JOIN: PostgreSqlParser.JOIN,
     SEMICOLON: PostgreSqlParser.SEMI,
+    SELECT: PostgreSqlParser.SELECT,
 };
 
 // These are keywords that we do not want to show in autocomplete
@@ -135,17 +138,34 @@ class PostgreSqlSymbolTableVisitor
 
         return this.visitChildren(context) as {};
     };
+
+    visitTarget_label = (context: Target_labelContext): {} => {
+        try {
+            const alias = context.columnLabel()?.getText() || context.identifier()?.getText();
+
+            if (alias) {
+                this.symbolTable.addNewSymbolOfType(ColumnAliasSymbol, this.scope, alias);
+            }
+        } catch (error) {
+            if (!(error instanceof c3.DuplicateSymbolError)) {
+                throw error;
+            }
+        }
+
+        return this.visitChildren(context) as {};
+    };
 }
 
 function generateSuggestionsFromRules(
     rules: c3.CandidatesCollection['rules'],
     cursorTokenIndex: number,
     tokenStream: TokenStream,
-): Partial<AutocompleteParseResult> & {suggestColumns?: boolean} {
+): GenerateSuggestionsFromRulesResult {
     let suggestViewsOrTables: AutocompleteParseResult['suggestViewsOrTables'];
     let suggestAggregateFunctions = false;
     let suggestFunctions = false;
-    let suggestColumns = false;
+    let shouldSuggestColumns = false;
+    let shouldSuggestColumnAliases = false;
 
     for (const [ruleId, ruleData] of rules) {
         switch (ruleId) {
@@ -174,7 +194,7 @@ function generateSuggestionsFromRules(
                 }
 
                 if (
-                    hasPreviousToken(
+                    getPreviousToken(
                         tokenStream,
                         tokenDictionary,
                         cursorTokenIndex,
@@ -182,7 +202,7 @@ function generateSuggestionsFromRules(
                     ) &&
                     // Table name is the first identifier, so if we found one before,
                     // then this is not a table name
-                    !hasPreviousToken(
+                    !getPreviousToken(
                         tokenStream,
                         tokenDictionary,
                         cursorTokenIndex,
@@ -203,7 +223,7 @@ function generateSuggestionsFromRules(
                 ) {
                     suggestViewsOrTables = TableOrViewSuggestion.VIEWS;
                 } else if (
-                    hasPreviousToken(
+                    getPreviousToken(
                         tokenStream,
                         tokenDictionary,
                         cursorTokenIndex,
@@ -219,17 +239,32 @@ function generateSuggestionsFromRules(
                     !ruleData.ruleList.includes(PostgreSqlParser.RULE_selectLimitValue) &&
                     !ruleData.ruleList.includes(PostgreSqlParser.RULE_selectOffsetValue)
                 ) {
-                    suggestColumns = true;
+                    shouldSuggestColumns = true;
+                    if (
+                        ruleData.ruleList.includes(PostgreSqlParser.RULE_groupByItem) ||
+                        ruleData.ruleList.includes(PostgreSqlParser.RULE_sortBy)
+                    ) {
+                        shouldSuggestColumnAliases = true;
+                    }
                 }
                 break;
             }
         }
     }
 
-    return {suggestViewsOrTables, suggestAggregateFunctions, suggestFunctions, suggestColumns};
+    return {
+        suggestViewsOrTables,
+        suggestAggregateFunctions,
+        suggestFunctions,
+        shouldSuggestColumns,
+        shouldSuggestColumnAliases,
+    };
 }
 
-function getParseTree(parser: PostgreSqlParser, type?: TableQueryPosition['type']): ParseTree {
+function getParseTree(
+    parser: PostgreSqlParser,
+    type?: TableQueryPosition['type'] | 'select',
+): ParseTree {
     if (!type) {
         return parser.root();
     }
@@ -243,6 +278,8 @@ function getParseTree(parser: PostgreSqlParser, type?: TableQueryPosition['type'
             return parser.insertStatement();
         case 'update':
             return parser.updateStatement();
+        case 'select':
+            return parser.selectStatement();
     }
 }
 

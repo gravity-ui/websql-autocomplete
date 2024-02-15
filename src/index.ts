@@ -8,13 +8,14 @@ import {
 } from 'antlr4ng';
 import * as c3 from 'antlr4-c3';
 
-import {TableSymbol} from './lib/symbolTable.js';
+import {ColumnAliasSymbol, TableSymbol} from './lib/symbolTable.js';
 import {SqlErrorListener} from './lib/sqlErrorListener.js';
 import {getCurrentStatement, shouldSuggestTemplates} from './lib/query.js';
 import {CursorPosition, findCursorTokenIndex, getCursorIndex} from './lib/cursor.js';
 import {TokenDictionary, getTableQueryPosition} from './lib/tables.js';
 import {
     AutocompleteParseResult,
+    ColumnAliasSuggestion,
     ColumnSuggestion,
     EngineSuggestion,
     GenerateSuggestionsFromRules,
@@ -38,6 +39,7 @@ export {
     KeywordSuggestion,
     ParserSyntaxError,
     ColumnSuggestion,
+    ColumnAliasSuggestion,
     EngineSuggestion,
 };
 
@@ -75,7 +77,8 @@ function getColumnSuggestions<
     initialTokenStream: TokenStream,
     cursor: CursorPosition,
     initialQuery: string,
-): ColumnSuggestion | undefined {
+    shouldSuggestColumnAliases?: boolean,
+): Pick<AutocompleteParseResult, 'suggestColumns' | 'suggestColumnAliases'> {
     // Here we need the actual token index, without special logic for spaces
     const realCursorTokenIndex = findCursorTokenIndex(
         initialTokenStream,
@@ -95,6 +98,7 @@ function getColumnSuggestions<
         realCursorTokenIndex,
         tokenDictionary,
     );
+    const result: Pick<AutocompleteParseResult, 'suggestColumns' | 'suggestColumnAliases'> = {};
 
     if (tableQueryPosition) {
         const query = initialQuery.slice(tableQueryPosition.start, tableQueryPosition.end);
@@ -125,19 +129,38 @@ function getColumnSuggestions<
             visitor.visit(joinParseTree);
         }
 
-        const tables = visitor.symbolTable.getNestedSymbolsOfTypeSync(TableSymbol);
+        if (shouldSuggestColumnAliases && tableQueryPosition.selectTableQueryPosition) {
+            const selectTableQuery = initialQuery.slice(
+                tableQueryPosition.selectTableQueryPosition.start,
+                tableQueryPosition.selectTableQueryPosition.end,
+            );
+            const selectInputStream = CharStreams.fromString(selectTableQuery);
+            const selectLexer = new Lexer(selectInputStream);
+            const selectTokenStream = new CommonTokenStream(selectLexer);
+            const selectParser = new Parser(selectTokenStream);
 
+            selectParser.removeErrorListeners();
+            const selectParseTree = getParseTree(selectParser, 'select');
+            visitor.visit(selectParseTree);
+        }
+
+        const tables = visitor.symbolTable.getNestedSymbolsOfTypeSync(TableSymbol);
         if (tables.length) {
-            return {
+            result.suggestColumns = {
                 tables: tables.map((tableSymbol) => ({
                     name: tableSymbol.name,
                     alias: tableSymbol.alias,
                 })),
             };
         }
+
+        const columnAliases = visitor.symbolTable.getNestedSymbolsOfTypeSync(ColumnAliasSymbol);
+        if (columnAliases.length) {
+            result.suggestColumnAliases = columnAliases.map(({name}) => ({name}));
+        }
     }
 
-    return undefined;
+    return result;
 }
 
 const quotesRegex = /^'(.*)'$/;
@@ -185,12 +208,8 @@ export function parseQuery<
     }
 
     const {tokens, rules} = core.collectCandidates(cursorTokenIndex);
-    const {suggestColumns, ...suggestionsFromRules} = generateSuggestionsFromRules(
-        rules,
-        cursorTokenIndex,
-        tokenStream,
-    );
-
+    const {shouldSuggestColumns, shouldSuggestColumnAliases, ...suggestionsFromRules} =
+        generateSuggestionsFromRules(rules, cursorTokenIndex, tokenStream);
     result = {...result, ...suggestionsFromRules};
     tokens.forEach((_, tokenType) => {
         // Literal keyword names are quoted
@@ -211,8 +230,8 @@ export function parseQuery<
     // We can get this by token instead of splitting the string
     const currentStatement = getCurrentStatement(query, cursorIndex);
 
-    if (suggestColumns) {
-        result.suggestColumns = getColumnSuggestions(
+    if (shouldSuggestColumns) {
+        const {suggestColumns, suggestColumnAliases} = getColumnSuggestions(
             Lexer,
             Parser,
             SymbolTableVisitor,
@@ -222,7 +241,10 @@ export function parseQuery<
             tokenStream,
             cursor,
             query,
+            shouldSuggestColumnAliases,
         );
+        result.suggestColumns = suggestColumns;
+        result.suggestColumnAliases = suggestColumnAliases;
     }
 
     result.suggestTemplates = shouldSuggestTemplates(

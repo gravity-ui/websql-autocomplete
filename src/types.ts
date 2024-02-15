@@ -35,6 +35,10 @@ export interface EngineSuggestion {
     functionalEngines: string[];
 }
 
+export interface ColumnAliasSuggestion {
+    name: string;
+}
+
 export interface AutocompleteParseResult {
     errors: ParserSyntaxError[];
     suggestKeywords?: KeywordSuggestion[];
@@ -43,6 +47,7 @@ export interface AutocompleteParseResult {
     suggestAggregateFunctions?: boolean;
     suggestFunctions?: boolean;
     suggestColumns?: ColumnSuggestion;
+    suggestColumnAliases?: ColumnAliasSuggestion[];
     suggestEngines?: EngineSuggestion;
 }
 
@@ -57,13 +62,20 @@ export interface ISymbolTableVisitor {
     scope: c3.ScopedSymbol;
 }
 
-export type GetParseTree<P> = (parser: P, type?: TableQueryPosition['type']) => ParseTree;
+export type GetParseTree<P> = (
+    parser: P,
+    type?: TableQueryPosition['type'] | 'select',
+) => ParseTree;
 
+export type GenerateSuggestionsFromRulesResult = Partial<AutocompleteParseResult> & {
+    shouldSuggestColumns?: boolean;
+    shouldSuggestColumnAliases?: boolean;
+};
 export type GenerateSuggestionsFromRules = (
     rules: c3.CandidatesCollection['rules'],
     cursorTokenIndex: number,
     tokenStream: TokenStream,
-) => Partial<AutocompleteParseResult> & {suggestColumns?: boolean};
+) => GenerateSuggestionsFromRulesResult;
 
 export interface AutocompleteData<
     L extends LexerType,
