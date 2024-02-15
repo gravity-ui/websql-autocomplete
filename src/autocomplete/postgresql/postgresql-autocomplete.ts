@@ -1,7 +1,7 @@
 import {ParseTree, TokenStream} from 'antlr4ng';
 import * as c3 from 'antlr4-c3';
 
-import {ColumnAliasSymbol, TableSymbol} from '../../lib/symbolTable.js';
+import {ColumnAliasSymbol, TableSymbol} from '../../lib/symbol-table.js';
 import {
     AutocompleteData,
     AutocompleteParseResult,
