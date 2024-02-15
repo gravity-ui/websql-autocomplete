@@ -1,5 +1,12 @@
 # Changelog
 
+## [4.1.0](https://github.com/gravity-ui/websql-autocomplete/compare/v4.0.1...v4.1.0) (2024-02-15)
+
+
+### Features
+
+* suggest column aliases ([#127](https://github.com/gravity-ui/websql-autocomplete/issues/127)) ([2f338ca](https://github.com/gravity-ui/websql-autocomplete/commit/2f338caab338b901c30e23361b9304ed9e65308a))
+
 ## [4.0.1](https://github.com/gravity-ui/websql-autocomplete/compare/v4.0.0...v4.0.1) (2024-02-13)
 
 
