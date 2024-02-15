@@ -5,7 +5,7 @@ import {ColumnAliasSymbol, TableSymbol} from '../../lib/symbolTable.js';
 import {
     AutocompleteData,
     AutocompleteParseResult,
-    GenerateSuggestionsFromRulesReturnType,
+    GenerateSuggestionsFromRulesResult,
     ISymbolTableVisitor,
     TableOrViewSuggestion,
 } from '../../types.js';
@@ -153,7 +153,7 @@ function generateSuggestionsFromRules(
     rules: c3.CandidatesCollection['rules'],
     cursorTokenIndex: number,
     tokenStream: TokenStream,
-): GenerateSuggestionsFromRulesReturnType {
+): GenerateSuggestionsFromRulesResult {
     let suggestViewsOrTables: AutocompleteParseResult['suggestViewsOrTables'];
     let suggestAggregateFunctions = false;
     let suggestFunctions = false;

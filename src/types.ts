@@ -67,7 +67,7 @@ export type GetParseTree<P> = (
     type?: TableQueryPosition['type'] | 'select',
 ) => ParseTree;
 
-export type GenerateSuggestionsFromRulesReturnType = Partial<AutocompleteParseResult> & {
+export type GenerateSuggestionsFromRulesResult = Partial<AutocompleteParseResult> & {
     shouldSuggestColumns?: boolean;
     shouldSuggestColumnAliases?: boolean;
 };
@@ -75,7 +75,7 @@ export type GenerateSuggestionsFromRules = (
     rules: c3.CandidatesCollection['rules'],
     cursorTokenIndex: number,
     tokenStream: TokenStream,
-) => GenerateSuggestionsFromRulesReturnType;
+) => GenerateSuggestionsFromRulesResult;
 
 export interface AutocompleteData<
     L extends LexerType,
