@@ -496,6 +496,7 @@ import { TableAliasClauseContext } from "./PostgreSqlParser.js";
 import { FunctionAliasClauseContext } from "./PostgreSqlParser.js";
 import { JoinTypeContext } from "./PostgreSqlParser.js";
 import { JoinQualifierContext } from "./PostgreSqlParser.js";
+import { ViewNameContext } from "./PostgreSqlParser.js";
 import { RelationExpressionContext } from "./PostgreSqlParser.js";
 import { RelationExpressionListContext } from "./PostgreSqlParser.js";
 import { RelationExpressionOptionalAliasContext } from "./PostgreSqlParser.js";
@@ -3669,6 +3670,12 @@ export class PostgreSqlParserVisitor<Result> extends AbstractParseTreeVisitor<Re
      * @return the visitor result
      */
     visitJoinQualifier?: (ctx: JoinQualifierContext) => Result;
+    /**
+     * Visit a parse tree produced by `PostgreSqlParser.viewName`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitViewName?: (ctx: ViewNameContext) => Result;
     /**
      * Visit a parse tree produced by `PostgreSqlParser.relationExpression`.
      * @param ctx the parse tree

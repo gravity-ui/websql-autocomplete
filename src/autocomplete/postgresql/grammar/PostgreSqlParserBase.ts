@@ -8,16 +8,13 @@ import {
 import {PostgreSqlLexer} from '../generated/PostgreSqlLexer.js';
 
 abstract class PostgreSqlParserBase extends Parser {
-    ParseRoutineBody(_localctx: CreateFunctionOptionListContext): void {
+    ParseRoutineBody(localContext: CreateFunctionOptionListContext): void {
         let lang = null;
-        for (const coi of _localctx.createFunctionOptionItem()) {
+        for (const coi of localContext.createFunctionOptionItem()) {
             if (coi.LANGUAGE() !== null) {
                 if (coi.nonReservedWordOrSconst() !== null)
                     if (coi.nonReservedWordOrSconst()?.nonReservedWord() !== null)
-                        if (
-                            coi.nonReservedWordOrSconst()?.nonReservedWord()?.identifier() !==
-                            null
-                        )
+                        if (coi.nonReservedWordOrSconst()?.nonReservedWord()?.identifier() !== null)
                             if (
                                 coi
                                     .nonReservedWordOrSconst()
@@ -36,25 +33,25 @@ abstract class PostgreSqlParserBase extends Parser {
             }
         }
         if (null === lang) return;
-        let func_as = null;
-        for (const a of _localctx.createFunctionOptionItem()) {
+        let functionAs = null;
+        for (const a of localContext.createFunctionOptionItem()) {
             if (a.functionAs() !== null) {
-                func_as = a;
+                functionAs = a;
                 break;
             }
         }
-        if (func_as !== null) {
+        if (functionAs !== null) {
             // @ts-ignore
-            const txt = this.GetRoutineBodyString(func_as.func_as()?.sconst(0));
+            const txt = this.GetRoutineBodyString(functionAs.functionAs()?.sconst(0));
             const ph = this.getPostgreSQLParser(txt);
             switch (lang) {
                 case 'plpgsql':
                     // @ts-ignore
-                    func_as.func_as().Definition = ph.plsqlroot();
+                    functionAs.functionAs().Definition = ph.plsqlroot();
                     break;
                 case 'sql':
                     // @ts-ignore
-                    func_as.func_as().Definition = ph.root();
+                    functionAs.functionAs().Definition = ph.root();
                     break;
             }
         }

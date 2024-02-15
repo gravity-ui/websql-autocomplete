@@ -6,6 +6,9 @@
   ],
   // These files are generated, so they don't have to be linted
   "ignorePatterns": ["src/autocomplete/*/generated/**/*", "src/autocomplete/*/grammar/**/*"],
+  "plugins": [
+    "filenames"
+  ],
   "rules": {
       "array-callback-return": "off",
       "consistent-return": "off",
@@ -14,6 +17,7 @@
       "object-shorthand": "error",
       "no-implicit-globals": "off",
       "camelcase": "off",
-      "complexity": "off"
+      "complexity": "off",
+      "filenames/match-regex": [2, "^[a-z-\\.]+$", true]
   }
 }

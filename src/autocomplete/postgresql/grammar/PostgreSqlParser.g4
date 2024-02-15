@@ -403,7 +403,7 @@ alterTableStatement
     | ALTER INDEX (IF_P EXISTS)? indexName (alterTableCommands | indexPartitionCommand)
     | ALTER INDEX ALL IN_P TABLESPACE name (OWNED BY roleList)? SET TABLESPACE name optionalNowait
     | ALTER SEQUENCE (IF_P EXISTS)? qualifiedName alterTableCommands
-    | ALTER VIEW (IF_P EXISTS)? qualifiedName alterTableCommands
+    | ALTER VIEW (IF_P EXISTS)? viewName alterTableCommands
     | ALTER MATERIALIZED VIEW (IF_P EXISTS)? qualifiedName alterTableCommands
     | ALTER MATERIALIZED VIEW ALL IN_P TABLESPACE name (OWNED BY roleList)? SET TABLESPACE name optionalNowait
     | ALTER FOREIGN TABLE (IF_P EXISTS)? relationExpression alterTableCommands
@@ -1841,7 +1841,7 @@ aggregateWithArgumentTypesList
 
 createFunctionOptionList
     : createFunctionOptionItem+ {
-                this.ParseRoutineBody(_localctx);
+                this.ParseRoutineBody(localContext);
             }
     //                    | createfunc_opt_list createfunc_opt_item
     ;
@@ -2934,6 +2934,10 @@ joinType
 joinQualifier
     : USING OPEN_PAREN nameList CLOSE_PAREN
     | ON expression1
+    ;
+
+viewName
+    : qualifiedName
     ;
 
 relationExpression
