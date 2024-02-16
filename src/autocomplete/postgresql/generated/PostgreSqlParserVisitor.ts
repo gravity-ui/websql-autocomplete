@@ -629,6 +629,7 @@ import { Target_labelContext } from "./PostgreSqlParser.js";
 import { QualifiedNameListContext } from "./PostgreSqlParser.js";
 import { IndexNameContext } from "./PostgreSqlParser.js";
 import { IndexNameListContext } from "./PostgreSqlParser.js";
+import { TriggerNameContext } from "./PostgreSqlParser.js";
 import { QualifiedNameContext } from "./PostgreSqlParser.js";
 import { NameListContext } from "./PostgreSqlParser.js";
 import { NameContext } from "./PostgreSqlParser.js";
@@ -4475,6 +4476,12 @@ export class PostgreSqlParserVisitor<Result> extends AbstractParseTreeVisitor<Re
      * @return the visitor result
      */
     visitIndexNameList?: (ctx: IndexNameListContext) => Result;
+    /**
+     * Visit a parse tree produced by `PostgreSqlParser.triggerName`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitTriggerName?: (ctx: TriggerNameContext) => Result;
     /**
      * Visit a parse tree produced by `PostgreSqlParser.qualifiedName`.
      * @param ctx the parse tree
