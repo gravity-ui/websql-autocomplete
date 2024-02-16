@@ -5,8 +5,8 @@ test('should suggest properly after INDEX', () => {
     const parseResult = parsePostgreSqlQueryWithCursor('CREATE INDEX |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [
-        {value: 'CONCURRENTLY'},
         {value: 'IF'},
+        {value: 'CONCURRENTLY'},
         {value: 'ON'},
     ];
     expect(parseResult.suggestKeywords).toEqual(keywordsSuggestion);

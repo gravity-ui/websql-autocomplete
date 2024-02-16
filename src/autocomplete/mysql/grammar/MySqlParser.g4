@@ -587,9 +587,9 @@ alterSpecification
     | ADD COLUMN? LR_BRACKET uid columnDefinition (COMMA uid columnDefinition)* RR_BRACKET                                            # alterByAddColumns
     | ADD indexFormat = (INDEX | KEY) uid? indexType? indexColumnNames indexOption*                                                   # alterByAddIndex
     | ADD (CONSTRAINT name = uid?)? PRIMARY KEY index = uid? indexType? indexColumnNames indexOption*                                 # alterByAddPrimaryKey
-    | ADD (CONSTRAINT name = uid?)? UNIQUE indexFormat = (INDEX | KEY)? indexName = uid? indexType? indexColumnNames indexOption*     # alterByAddUniqueKey
+    | ADD (CONSTRAINT name = uid?)? UNIQUE indexFormat = (INDEX | KEY)? uid? indexType? indexColumnNames indexOption*     # alterByAddUniqueKey
     | ADD keyType = (FULLTEXT | SPATIAL) indexFormat = (INDEX | KEY)? uid? indexColumnNames indexOption*                              # alterByAddSpecialIndex
-    | ADD (CONSTRAINT name = uid?)? FOREIGN KEY indexName = uid? indexColumnNames referenceDefinition                                 # alterByAddForeignKey
+    | ADD (CONSTRAINT name = uid?)? FOREIGN KEY uid? indexColumnNames referenceDefinition                                 # alterByAddForeignKey
     | ADD (CONSTRAINT name = uid?)? CHECK (uid | stringLiteral | LR_BRACKET expression RR_BRACKET) NOT? ENFORCED?                     # alterByAddCheckTableConstraint
     | ALTER (CONSTRAINT name = uid?)? CHECK (uid | stringLiteral | LR_BRACKET expression RR_BRACKET) NOT? ENFORCED?                   # alterByAlterCheckTableConstraint
     | ADD (CONSTRAINT name = uid?)? CHECK LR_BRACKET expression RR_BRACKET                                                            # alterByAddCheckTableConstraint
@@ -602,10 +602,10 @@ alterSpecification
     | DROP COLUMN? uid RESTRICT?                                                                                                      # alterByDropColumn
     | DROP (CONSTRAINT | CHECK) uid                                                                                                   # alterByDropConstraintCheck
     | DROP PRIMARY KEY                                                                                                                # alterByDropPrimaryKey
-    | DROP indexFormat = (INDEX | KEY) uid                                                                                            # alterByDropIndex
-    | RENAME indexFormat = (INDEX | KEY) uid TO uid                                                                                   # alterByRenameIndex
+    | DROP indexFormat = (INDEX | KEY) indexName                                                                                            # alterByDropIndex
+    | RENAME indexFormat = (INDEX | KEY) indexName TO uid                                                                                   # alterByRenameIndex
     | ALTER COLUMN? uid ( SET DEFAULT ( stringLiteral | LR_BRACKET expression RR_BRACKET) | SET (VISIBLE | INVISIBLE) | DROP DEFAULT) # alterByAlterColumnDefault
-    | ALTER INDEX uid (VISIBLE | INVISIBLE)                                                                                           # alterByAlterIndexVisibility
+    | ALTER INDEX indexName (VISIBLE | INVISIBLE)                                                                                           # alterByAlterIndexVisibility
     | DROP FOREIGN KEY uid                                                                                                            # alterByDropForeignKey
     | DISABLE KEYS                                                                                                                    # alterByDisableKeys
     | ENABLE KEYS                                                                                                                     # alterByEnableKeys
@@ -650,7 +650,7 @@ dropEvent
     ;
 
 dropIndex
-    : DROP INDEX intimeAction = (ONLINE | OFFLINE)? uid ON tableName (ALGORITHM EQUAL_SYMBOL? algType = (DEFAULT | INPLACE | COPY) | LOCK EQUAL_SYMBOL? lockType = (DEFAULT | NONE | SHARED | EXCLUSIVE))*
+    : DROP INDEX intimeAction = (ONLINE | OFFLINE)? indexName ON tableName (ALGORITHM EQUAL_SYMBOL? algType = (DEFAULT | INPLACE | COPY) | LOCK EQUAL_SYMBOL? lockType = (DEFAULT | NONE | SHARED | EXCLUSIVE))*
     ;
 
 dropLogfileGroup
@@ -854,7 +854,7 @@ tableSourceItem
     ;
 
 indexHint
-    : indexHintAction = (USE | IGNORE | FORCE) keyFormat = (INDEX | KEY) (FOR indexHintType)? LR_BRACKET uidList RR_BRACKET
+    : indexHintAction = (USE | IGNORE | FORCE) keyFormat = (INDEX | KEY) (FOR indexHintType)? LR_BRACKET indexNameList RR_BRACKET
     ;
 
 indexHintType
@@ -1697,7 +1697,7 @@ shutdownStatement
 // details
 
 tableIndexes
-    : tableName (indexFormat = (INDEX | KEY)? LR_BRACKET uidList RR_BRACKET)?
+    : tableName (indexFormat = (INDEX | KEY)? LR_BRACKET indexNameList RR_BRACKET)?
     ;
 
 flushOption
@@ -1712,7 +1712,7 @@ flushTableOption
     ;
 
 loadedTableIndexes
-    : tableName (PARTITION LR_BRACKET (partitionList = uidList | ALL) RR_BRACKET)? (indexFormat = (INDEX | KEY)? LR_BRACKET indexList = uidList RR_BRACKET)? (IGNORE LEAVES)?
+    : tableName (PARTITION LR_BRACKET (partitionList = uidList | ALL) RR_BRACKET)? (indexFormat = (INDEX | KEY)? LR_BRACKET indexNameList RR_BRACKET)? (IGNORE LEAVES)?
     ;
 
 // Utility Statements
@@ -1807,6 +1807,14 @@ roleName
 fullColumnName
     : uid (dottedId dottedId?)?
     | .? dottedId dottedId?
+    ;
+
+indexName
+    : uid
+    ;
+
+indexNameList
+    : indexName (COMMA indexName)*
     ;
 
 indexColumnName

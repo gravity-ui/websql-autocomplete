@@ -12,6 +12,19 @@ import * as c3 from 'antlr4-c3';
 import {TokenPosition} from './lib/cursor';
 import {TableQueryPosition, TokenDictionary} from './lib/tables';
 
+export interface AutocompleteParseResult {
+    errors: ParserSyntaxError[];
+    suggestKeywords?: KeywordSuggestion[];
+    suggestViewsOrTables?: TableOrViewSuggestion;
+    suggestTemplates?: boolean;
+    suggestAggregateFunctions?: boolean;
+    suggestFunctions?: boolean;
+    suggestIndexes?: boolean;
+    suggestColumns?: ColumnSuggestion;
+    suggestColumnAliases?: ColumnAliasSuggestion[];
+    suggestEngines?: EngineSuggestion;
+}
+
 export interface ParserSyntaxError extends TokenPosition {
     message: string;
 }
@@ -37,18 +50,6 @@ export interface EngineSuggestion {
 
 export interface ColumnAliasSuggestion {
     name: string;
-}
-
-export interface AutocompleteParseResult {
-    errors: ParserSyntaxError[];
-    suggestKeywords?: KeywordSuggestion[];
-    suggestViewsOrTables?: TableOrViewSuggestion;
-    suggestTemplates?: boolean;
-    suggestAggregateFunctions?: boolean;
-    suggestFunctions?: boolean;
-    suggestColumns?: ColumnSuggestion;
-    suggestColumnAliases?: ColumnAliasSuggestion[];
-    suggestEngines?: EngineSuggestion;
 }
 
 export type LexerConstructor<T> = new (input: CharStream) => T;

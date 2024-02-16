@@ -285,7 +285,6 @@ import { DefultPrivilegeOptionContext } from "./PostgreSqlParser.js";
 import { DefaultPrivelegeActionContext } from "./PostgreSqlParser.js";
 import { DefultPrivilegeTargetContext } from "./PostgreSqlParser.js";
 import { IndexStatementContext } from "./PostgreSqlParser.js";
-import { OptionalConcurrentlyContext } from "./PostgreSqlParser.js";
 import { OptionalAccessMethodClauseContext } from "./PostgreSqlParser.js";
 import { IndexParametersContext } from "./PostgreSqlParser.js";
 import { IndexElemOptionsContext } from "./PostgreSqlParser.js";
@@ -628,6 +627,8 @@ import { TargetListContext } from "./PostgreSqlParser.js";
 import { Target_starContext } from "./PostgreSqlParser.js";
 import { Target_labelContext } from "./PostgreSqlParser.js";
 import { QualifiedNameListContext } from "./PostgreSqlParser.js";
+import { IndexNameContext } from "./PostgreSqlParser.js";
+import { IndexNameListContext } from "./PostgreSqlParser.js";
 import { QualifiedNameContext } from "./PostgreSqlParser.js";
 import { NameListContext } from "./PostgreSqlParser.js";
 import { NameContext } from "./PostgreSqlParser.js";
@@ -2403,12 +2404,6 @@ export class PostgreSqlParserVisitor<Result> extends AbstractParseTreeVisitor<Re
      * @return the visitor result
      */
     visitIndexStatement?: (ctx: IndexStatementContext) => Result;
-    /**
-     * Visit a parse tree produced by `PostgreSqlParser.optionalConcurrently`.
-     * @param ctx the parse tree
-     * @return the visitor result
-     */
-    visitOptionalConcurrently?: (ctx: OptionalConcurrentlyContext) => Result;
     /**
      * Visit a parse tree produced by `PostgreSqlParser.optionalAccessMethodClause`.
      * @param ctx the parse tree
@@ -4468,6 +4463,18 @@ export class PostgreSqlParserVisitor<Result> extends AbstractParseTreeVisitor<Re
      * @return the visitor result
      */
     visitQualifiedNameList?: (ctx: QualifiedNameListContext) => Result;
+    /**
+     * Visit a parse tree produced by `PostgreSqlParser.indexName`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitIndexName?: (ctx: IndexNameContext) => Result;
+    /**
+     * Visit a parse tree produced by `PostgreSqlParser.indexNameList`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitIndexNameList?: (ctx: IndexNameListContext) => Result;
     /**
      * Visit a parse tree produced by `PostgreSqlParser.qualifiedName`.
      * @param ctx the parse tree

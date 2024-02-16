@@ -65,6 +65,7 @@ const preferredRules = new Set([
     PostgreSqlParser.RULE_columnId,
     PostgreSqlParser.RULE_functionName,
     PostgreSqlParser.RULE_functionExpressionCommonSubexpr,
+    PostgreSqlParser.RULE_indexName,
 
     // All of these are identifier names, we don't want to suggest them
     PostgreSqlParser.RULE_identifier,
@@ -177,6 +178,7 @@ function generateSuggestionsFromRules(
     let suggestViewsOrTables: AutocompleteParseResult['suggestViewsOrTables'];
     let suggestAggregateFunctions = false;
     let suggestFunctions = false;
+    let suggestIndexes = false;
     let shouldSuggestColumns = false;
     let shouldSuggestColumnAliases = false;
 
@@ -262,6 +264,10 @@ function generateSuggestionsFromRules(
                 }
                 break;
             }
+            case PostgreSqlParser.RULE_indexName: {
+                suggestIndexes = true;
+                break;
+            }
         }
     }
 
@@ -269,6 +275,7 @@ function generateSuggestionsFromRules(
         suggestViewsOrTables,
         suggestAggregateFunctions,
         suggestFunctions,
+        suggestIndexes,
         shouldSuggestColumns,
         shouldSuggestColumnAliases,
     };

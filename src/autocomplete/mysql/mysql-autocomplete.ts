@@ -66,12 +66,17 @@ function getIgnoredTokens(): number[] {
 
     tokens.push(MySqlParser.EOF);
 
+    // KEY is an alias for INDEX, and we should not suggest it because it's legacy
+    tokens.push(MySqlParser.KEY);
+
     return tokens;
 }
 
 const ignoredTokens = new Set(getIgnoredTokens());
 
 const preferredRules = new Set([
+    // We don't need to go inside of it, we already know that this is an index name
+    MySqlParser.RULE_indexName,
     // We don't need to go inside of it, we already know that this is a column
     MySqlParser.RULE_fullColumnName,
     // We don't need to go inside of it, we already know that this is a table name
@@ -161,6 +166,7 @@ function generateSuggestionsFromRules(
     let suggestViewsOrTables: AutocompleteParseResult['suggestViewsOrTables'];
     let suggestAggregateFunctions = false;
     let suggestFunctions = false;
+    let suggestIndexes = false;
     let shouldSuggestColumns = false;
     let shouldSuggestColumnAliases = false;
 
@@ -219,6 +225,10 @@ function generateSuggestionsFromRules(
                 suggestFunctions = true;
                 break;
             }
+            case MySqlParser.RULE_indexName: {
+                suggestIndexes = true;
+                break;
+            }
             case MySqlParser.RULE_fullColumnName:
             case MySqlParser.RULE_indexColumnName: {
                 if (cursorTokenIndex === ruleData.startTokenIndex) {
@@ -256,6 +266,7 @@ function generateSuggestionsFromRules(
         suggestViewsOrTables,
         suggestAggregateFunctions,
         suggestFunctions,
+        suggestIndexes,
         shouldSuggestColumns,
         shouldSuggestColumnAliases,
     };
