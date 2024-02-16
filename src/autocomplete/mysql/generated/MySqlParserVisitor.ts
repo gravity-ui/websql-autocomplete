@@ -446,6 +446,7 @@ import { ShowObjectFilterContext } from "./MySqlParser.js";
 import { ShowColumnsContext } from "./MySqlParser.js";
 import { ShowCreateDbContext } from "./MySqlParser.js";
 import { ShowCreateFullIdObjectContext } from "./MySqlParser.js";
+import { ShowCreateTableOrViewContext } from "./MySqlParser.js";
 import { ShowCreateTriggerContext } from "./MySqlParser.js";
 import { ShowCreateUserContext } from "./MySqlParser.js";
 import { ShowEngineContext } from "./MySqlParser.js";
@@ -3472,6 +3473,13 @@ export class MySqlParserVisitor<Result> extends AbstractParseTreeVisitor<Result>
      * @return the visitor result
      */
     visitShowCreateFullIdObject?: (ctx: ShowCreateFullIdObjectContext) => Result;
+    /**
+     * Visit a parse tree produced by the `showCreateTableOrView`
+     * labeled alternative in `MySqlParser.showStatement`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitShowCreateTableOrView?: (ctx: ShowCreateTableOrViewContext) => Result;
     /**
      * Visit a parse tree produced by the `showCreateTrigger`
      * labeled alternative in `MySqlParser.showStatement`.
