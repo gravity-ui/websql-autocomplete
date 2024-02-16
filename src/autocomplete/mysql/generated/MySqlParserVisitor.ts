@@ -446,6 +446,7 @@ import { ShowObjectFilterContext } from "./MySqlParser.js";
 import { ShowColumnsContext } from "./MySqlParser.js";
 import { ShowCreateDbContext } from "./MySqlParser.js";
 import { ShowCreateFullIdObjectContext } from "./MySqlParser.js";
+import { ShowCreateTriggerContext } from "./MySqlParser.js";
 import { ShowCreateUserContext } from "./MySqlParser.js";
 import { ShowEngineContext } from "./MySqlParser.js";
 import { ShowGlobalInfoContext } from "./MySqlParser.js";
@@ -496,6 +497,7 @@ import { TableNamesContext } from "./MySqlParser.js";
 import { RoleNameContext } from "./MySqlParser.js";
 import { FullColumnNameContext } from "./MySqlParser.js";
 import { IndexNameContext } from "./MySqlParser.js";
+import { TriggerNameContext } from "./MySqlParser.js";
 import { IndexNameListContext } from "./MySqlParser.js";
 import { IndexColumnNameContext } from "./MySqlParser.js";
 import { SimpleUserNameContext } from "./MySqlParser.js";
@@ -3471,6 +3473,13 @@ export class MySqlParserVisitor<Result> extends AbstractParseTreeVisitor<Result>
      */
     visitShowCreateFullIdObject?: (ctx: ShowCreateFullIdObjectContext) => Result;
     /**
+     * Visit a parse tree produced by the `showCreateTrigger`
+     * labeled alternative in `MySqlParser.showStatement`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitShowCreateTrigger?: (ctx: ShowCreateTriggerContext) => Result;
+    /**
      * Visit a parse tree produced by the `showCreateUser`
      * labeled alternative in `MySqlParser.showStatement`.
      * @param ctx the parse tree
@@ -3787,6 +3796,12 @@ export class MySqlParserVisitor<Result> extends AbstractParseTreeVisitor<Result>
      * @return the visitor result
      */
     visitIndexName?: (ctx: IndexNameContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.triggerName`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitTriggerName?: (ctx: TriggerNameContext) => Result;
     /**
      * Visit a parse tree produced by `MySqlParser.indexNameList`.
      * @param ctx the parse tree

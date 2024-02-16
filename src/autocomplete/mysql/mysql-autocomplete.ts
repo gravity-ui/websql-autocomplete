@@ -75,6 +75,8 @@ function getIgnoredTokens(): number[] {
 const ignoredTokens = new Set(getIgnoredTokens());
 
 const preferredRules = new Set([
+    // We don't need to go inside of it, we already know that this is a trigger name
+    MySqlParser.RULE_triggerName,
     // We don't need to go inside of it, we already know that this is an index name
     MySqlParser.RULE_indexName,
     // We don't need to go inside of it, we already know that this is a column
@@ -167,6 +169,7 @@ function generateSuggestionsFromRules(
     let suggestAggregateFunctions = false;
     let suggestFunctions = false;
     let suggestIndexes = false;
+    let suggestTriggers = false;
     let shouldSuggestColumns = false;
     let shouldSuggestColumnAliases = false;
 
@@ -225,6 +228,10 @@ function generateSuggestionsFromRules(
                 suggestFunctions = true;
                 break;
             }
+            case MySqlParser.RULE_triggerName: {
+                suggestTriggers = true;
+                break;
+            }
             case MySqlParser.RULE_indexName: {
                 suggestIndexes = true;
                 break;
@@ -267,6 +274,7 @@ function generateSuggestionsFromRules(
         suggestAggregateFunctions,
         suggestFunctions,
         suggestIndexes,
+        suggestTriggers,
         shouldSuggestColumns,
         shouldSuggestColumnAliases,
     };
