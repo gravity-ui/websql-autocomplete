@@ -1,5 +1,18 @@
 # Changelog
 
+## [4.2.0](https://github.com/gravity-ui/websql-autocomplete/compare/v4.1.0...v4.2.0) (2024-02-16)
+
+
+### Features
+
+* support suggestIndexes in AutocompleteParseResult ([#138](https://github.com/gravity-ui/websql-autocomplete/issues/138)) ([87fc174](https://github.com/gravity-ui/websql-autocomplete/commit/87fc1744918154760ad798abc3e45644cc114008))
+
+
+### Bug Fixes
+
+* broken psql super class throwing errors on function creation ([#136](https://github.com/gravity-ui/websql-autocomplete/issues/136)) ([c86c4a4](https://github.com/gravity-ui/websql-autocomplete/commit/c86c4a4bd25b5adc10abd33149e95819b954858f))
+* postgresql alter view columns suggestions ([#134](https://github.com/gravity-ui/websql-autocomplete/issues/134)) ([ed60a24](https://github.com/gravity-ui/websql-autocomplete/commit/ed60a24e20158ab1baa2bd62ada4551b8e0f88bf))
+
 ## [4.1.0](https://github.com/gravity-ui/websql-autocomplete/compare/v4.0.1...v4.1.0) (2024-02-15)
 
 
