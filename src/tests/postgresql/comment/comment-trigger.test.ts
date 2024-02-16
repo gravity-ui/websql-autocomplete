@@ -5,7 +5,7 @@ import {parsePostgreSqlQueryWithoutCursor} from '../../../index';
 test('should suggest properly after COMMENT ON TRIGGER', () => {
     const parseResult = parsePostgreSqlQueryWithCursor('COMMENT ON TRIGGER |');
 
-    const keywordsSuggestion: KeywordSuggestion[] = [{value: 'IF'}];
+    const keywordsSuggestion: KeywordSuggestion[] = [];
     expect(parseResult.suggestKeywords).toEqual(keywordsSuggestion);
 
     expect(parseResult.suggestTriggers).toEqual(true);
