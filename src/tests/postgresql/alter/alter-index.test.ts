@@ -8,7 +8,7 @@ test('should suggest properly after ALTER INDEX', () => {
     const keywordsSuggestion: KeywordSuggestion[] = [{value: 'IF'}, {value: 'ALL'}];
     expect(parseResult.suggestKeywords).toEqual(keywordsSuggestion);
 
-    expect(parseResult.suggestIndexes).toBeTruthy();
+    expect(parseResult.suggestIndexes).toEqual(true);
 });
 
 test('should not report errors on full statement', () => {

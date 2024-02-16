@@ -8,7 +8,7 @@ test('should suggest table name after ALTER INDEX', () => {
     const keywordSuggestion: KeywordSuggestion[] = [];
     expect(parseResult.suggestKeywords).toEqual(keywordSuggestion);
 
-    expect(parseResult.suggestIndexes).toBeTruthy();
+    expect(parseResult.suggestIndexes).toEqual(true);
 });
 
 test('should suggest table name after ALTER INDEX', () => {

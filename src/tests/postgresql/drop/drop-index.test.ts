@@ -8,7 +8,7 @@ test('should suggest properly after DROP INDEX', () => {
     const keywords: KeywordSuggestion[] = [{value: 'CONCURRENTLY'}, {value: 'IF'}];
     expect(parseResult.suggestKeywords).toEqual(keywords);
 
-    expect(parseResult.suggestIndexes).toBeTruthy();
+    expect(parseResult.suggestIndexes).toEqual(true);
 });
 
 test('should not report errors on full statement', () => {

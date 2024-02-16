@@ -8,7 +8,7 @@ test('should suggest table name after RENAME INDEX', () => {
     const keywordSuggestion: KeywordSuggestion[] = [];
     expect(parseResult.suggestKeywords).toEqual(keywordSuggestion);
 
-    expect(parseResult.suggestIndexes).toBeTruthy();
+    expect(parseResult.suggestIndexes).toEqual(true);
 });
 
 test('should nor report errors on full statement', () => {

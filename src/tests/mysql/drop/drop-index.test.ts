@@ -8,7 +8,7 @@ test('should suggest table name after DROP INDEX', () => {
     const keywordSuggestion: KeywordSuggestion[] = [{value: 'OFFLINE'}, {value: 'ONLINE'}];
     expect(parseResult.suggestKeywords).toEqual(keywordSuggestion);
 
-    expect(parseResult.suggestIndexes).toBeTruthy();
+    expect(parseResult.suggestIndexes).toEqual(true);
 });
 
 test('should nor report errors on full statement', () => {
