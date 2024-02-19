@@ -1,5 +1,17 @@
 # Changelog
 
+## [4.3.0](https://github.com/gravity-ui/websql-autocomplete/compare/v4.2.0...v4.3.0) (2024-02-19)
+
+
+### Features
+
+* add trigger suggestions to mysql, postgresql ([#139](https://github.com/gravity-ui/websql-autocomplete/issues/139)) ([f09f472](https://github.com/gravity-ui/websql-autocomplete/commit/f09f4725b8330d946f1c829eb4163822a69242d5))
+
+
+### Bug Fixes
+
+* fix 'DROP INDEX test_index |' suggesting even more indexes ([#142](https://github.com/gravity-ui/websql-autocomplete/issues/142)) ([36d92fb](https://github.com/gravity-ui/websql-autocomplete/commit/36d92fbb5930c6dbb68a6eddd42f7f61ba136e4f))
+
 ## [4.2.0](https://github.com/gravity-ui/websql-autocomplete/compare/v4.1.0...v4.2.0) (2024-02-16)
 
 
