@@ -162,63 +162,66 @@ function generateSuggestionsFromRules(
     let shouldSuggestColumnAliases = false;
     let suggestEngines;
 
-    for (const [ruleId, ruleData] of rules) {
+    for (const [ruleId, rule] of rules) {
+        if (!isStartingToWriteRule(cursorTokenIndex, rule)) {
+            break;
+        }
+
         switch (ruleId) {
             case ClickHouseParser.RULE_tableIdentifier: {
                 if (
-                    isStartingToWriteRule(cursorTokenIndex, ruleData) &&
-                    !ruleData.ruleList.includes(ClickHouseParser.RULE_createStatement) &&
-                    !ruleData.ruleList.includes(ClickHouseParser.RULE_columnsExpression)
+                    rule.ruleList.includes(ClickHouseParser.RULE_createStatement) ||
+                    rule.ruleList.includes(ClickHouseParser.RULE_columnsExpression)
                 ) {
-                    if (
-                        getPreviousToken(
-                            tokenStream,
-                            tokenDictionary,
-                            cursorTokenIndex,
-                            ClickHouseParser.VIEW,
-                        )
-                    ) {
-                        suggestViewsOrTables = TableOrViewSuggestion.VIEWS;
-                    } else if (
-                        getPreviousToken(
-                            tokenStream,
-                            tokenDictionary,
-                            cursorTokenIndex,
-                            ClickHouseParser.TABLE,
-                        )
-                    ) {
-                        suggestViewsOrTables = TableOrViewSuggestion.TABLES;
-                    } else {
-                        suggestViewsOrTables = TableOrViewSuggestion.ALL;
-                    }
+                    break;
+                }
+
+                if (
+                    getPreviousToken(
+                        tokenStream,
+                        tokenDictionary,
+                        cursorTokenIndex,
+                        ClickHouseParser.VIEW,
+                    )
+                ) {
+                    suggestViewsOrTables = TableOrViewSuggestion.VIEWS;
+                } else if (
+                    getPreviousToken(
+                        tokenStream,
+                        tokenDictionary,
+                        cursorTokenIndex,
+                        ClickHouseParser.TABLE,
+                    )
+                ) {
+                    suggestViewsOrTables = TableOrViewSuggestion.TABLES;
+                } else {
+                    suggestViewsOrTables = TableOrViewSuggestion.ALL;
                 }
                 break;
             }
             case ClickHouseParser.RULE_identifier: {
-                if (ruleData.ruleList.includes(ClickHouseParser.RULE_columnExpression)) {
+                if (rule.ruleList.includes(ClickHouseParser.RULE_columnExpression)) {
                     suggestFunctions = true;
                     // TODO Not sure yet how to specifically find aggregate functions
                     suggestAggregateFunctions = true;
                 }
-                if (ruleData.ruleList.includes(ClickHouseParser.RULE_alterTableClause)) {
+                if (rule.ruleList.includes(ClickHouseParser.RULE_alterTableClause)) {
                     shouldSuggestColumns = true;
                 }
                 break;
             }
             case ClickHouseParser.RULE_columnIdentifier: {
-                if (isStartingToWriteRule(cursorTokenIndex, ruleData)) {
-                    shouldSuggestColumns = true;
-                    if (
-                        ruleData.ruleList.includes(ClickHouseParser.RULE_orderExpression) ||
-                        ruleData.ruleList.includes(ClickHouseParser.RULE_groupByClause)
-                    ) {
-                        shouldSuggestColumnAliases = true;
-                    }
+                shouldSuggestColumns = true;
+                if (
+                    rule.ruleList.includes(ClickHouseParser.RULE_orderExpression) ||
+                    rule.ruleList.includes(ClickHouseParser.RULE_groupByClause)
+                ) {
+                    shouldSuggestColumnAliases = true;
                 }
                 break;
             }
             case ClickHouseParser.RULE_identifierOrNull: {
-                if (ruleData.ruleList.includes(ClickHouseParser.RULE_engineClause)) {
+                if (rule.ruleList.includes(ClickHouseParser.RULE_engineClause)) {
                     suggestEngines = {engines, functionalEngines};
                 }
             }

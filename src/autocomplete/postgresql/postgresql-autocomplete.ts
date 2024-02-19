@@ -185,30 +185,28 @@ function generateSuggestionsFromRules(
     let shouldSuggestColumns = false;
     let shouldSuggestColumnAliases = false;
 
-    for (const [ruleId, ruleData] of rules) {
+    for (const [ruleId, rule] of rules) {
+        if (!isStartingToWriteRule(cursorTokenIndex, rule)) {
+            break;
+        }
+
         switch (ruleId) {
             case PostgreSqlParser.RULE_functionExpressionCommonSubexpr:
             case PostgreSqlParser.RULE_functionName: {
-                if (isStartingToWriteRule(cursorTokenIndex, ruleData)) {
-                    suggestFunctions = true;
-                    // TODO Not sure yet how to specifically find aggregate functions
-                    suggestAggregateFunctions = true;
-                }
+                suggestFunctions = true;
+                // TODO Not sure yet how to specifically find aggregate functions
+                suggestAggregateFunctions = true;
                 break;
             }
             case PostgreSqlParser.RULE_columnId: {
                 const isInsideQualifiedName =
-                    ruleData.ruleList.includes(PostgreSqlParser.RULE_qualifiedName) &&
-                    (ruleData.ruleList.includes(PostgreSqlParser.RULE_insertTarget) ||
-                        ruleData.ruleList.includes(PostgreSqlParser.RULE_relationExpression));
+                    rule.ruleList.includes(PostgreSqlParser.RULE_qualifiedName) &&
+                    (rule.ruleList.includes(PostgreSqlParser.RULE_insertTarget) ||
+                        rule.ruleList.includes(PostgreSqlParser.RULE_relationExpression));
                 const canSuggestTables =
-                    !ruleData.ruleList.includes(PostgreSqlParser.RULE_createStatement) &&
+                    !rule.ruleList.includes(PostgreSqlParser.RULE_createStatement) &&
                     (isInsideQualifiedName ||
-                        ruleData.ruleList.includes(PostgreSqlParser.RULE_functionTable));
-
-                if (!isStartingToWriteRule(cursorTokenIndex, ruleData)) {
-                    break;
-                }
+                        rule.ruleList.includes(PostgreSqlParser.RULE_functionTable));
 
                 if (
                     getPreviousToken(
@@ -225,18 +223,14 @@ function generateSuggestionsFromRules(
                         cursorTokenIndex,
                         PostgreSqlParser.Identifier,
                     ) &&
-                    (ruleData.ruleList.includes(PostgreSqlParser.RULE_alterTableStatement) ||
-                        ruleData.ruleList.includes(
+                    (rule.ruleList.includes(PostgreSqlParser.RULE_alterTableStatement) ||
+                        rule.ruleList.includes(
                             PostgreSqlParser.RULE_refreshMaterializedViewStatement,
                         ) ||
-                        ruleData.ruleList.includes(PostgreSqlParser.RULE_renameStatement) ||
-                        ruleData.ruleList.includes(
-                            PostgreSqlParser.RULE_alterObjectDependsStatement,
-                        ) ||
-                        ruleData.ruleList.includes(
-                            PostgreSqlParser.RULE_alterObjectSchemaStatement,
-                        ) ||
-                        ruleData.ruleList.includes(PostgreSqlParser.RULE_dropStatement))
+                        rule.ruleList.includes(PostgreSqlParser.RULE_renameStatement) ||
+                        rule.ruleList.includes(PostgreSqlParser.RULE_alterObjectDependsStatement) ||
+                        rule.ruleList.includes(PostgreSqlParser.RULE_alterObjectSchemaStatement) ||
+                        rule.ruleList.includes(PostgreSqlParser.RULE_dropStatement))
                 ) {
                     suggestViewsOrTables = TableOrViewSuggestion.VIEWS;
                 } else if (
@@ -246,20 +240,20 @@ function generateSuggestionsFromRules(
                         cursorTokenIndex,
                         PostgreSqlParser.TABLE,
                     ) &&
-                    (ruleData.ruleList.includes(PostgreSqlParser.RULE_dropStatement) ||
+                    (rule.ruleList.includes(PostgreSqlParser.RULE_dropStatement) ||
                         canSuggestTables)
                 ) {
                     suggestViewsOrTables = TableOrViewSuggestion.TABLES;
                 } else if (canSuggestTables) {
                     suggestViewsOrTables = TableOrViewSuggestion.ALL;
                 } else if (
-                    !ruleData.ruleList.includes(PostgreSqlParser.RULE_selectLimitValue) &&
-                    !ruleData.ruleList.includes(PostgreSqlParser.RULE_selectOffsetValue)
+                    !rule.ruleList.includes(PostgreSqlParser.RULE_selectLimitValue) &&
+                    !rule.ruleList.includes(PostgreSqlParser.RULE_selectOffsetValue)
                 ) {
                     shouldSuggestColumns = true;
                     if (
-                        ruleData.ruleList.includes(PostgreSqlParser.RULE_groupByItem) ||
-                        ruleData.ruleList.includes(PostgreSqlParser.RULE_sortBy)
+                        rule.ruleList.includes(PostgreSqlParser.RULE_groupByItem) ||
+                        rule.ruleList.includes(PostgreSqlParser.RULE_sortBy)
                     ) {
                         shouldSuggestColumnAliases = true;
                     }
@@ -267,18 +261,10 @@ function generateSuggestionsFromRules(
                 break;
             }
             case PostgreSqlParser.RULE_indexName: {
-                if (!isStartingToWriteRule(cursorTokenIndex, ruleData)) {
-                    break;
-                }
-
                 suggestIndexes = true;
                 break;
             }
             case PostgreSqlParser.RULE_triggerName: {
-                if (!isStartingToWriteRule(cursorTokenIndex, ruleData)) {
-                    break;
-                }
-
                 suggestTriggers = true;
                 break;
             }
