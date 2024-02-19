@@ -18,6 +18,7 @@ import {
 } from './generated/ClickHouseParser.js';
 import {ClickHouseParserVisitor} from './generated/ClickHouseParserVisitor.js';
 import {TableQueryPosition, TokenDictionary, getPreviousToken} from '../../lib/tables.js';
+import {isStartingToWriteRule} from '../../lib/cursor';
 
 const engines = ['Null', 'Set', 'Log', 'Memory', 'TinyLog', 'StripeLog'];
 
@@ -165,7 +166,7 @@ function generateSuggestionsFromRules(
         switch (ruleId) {
             case ClickHouseParser.RULE_tableIdentifier: {
                 if (
-                    cursorTokenIndex === ruleData.startTokenIndex &&
+                    isStartingToWriteRule(cursorTokenIndex, ruleData) &&
                     !ruleData.ruleList.includes(ClickHouseParser.RULE_createStatement) &&
                     !ruleData.ruleList.includes(ClickHouseParser.RULE_columnsExpression)
                 ) {
@@ -205,7 +206,7 @@ function generateSuggestionsFromRules(
                 break;
             }
             case ClickHouseParser.RULE_columnIdentifier: {
-                if (cursorTokenIndex === ruleData.startTokenIndex) {
+                if (isStartingToWriteRule(cursorTokenIndex, ruleData)) {
                     shouldSuggestColumns = true;
                     if (
                         ruleData.ruleList.includes(ClickHouseParser.RULE_orderExpression) ||

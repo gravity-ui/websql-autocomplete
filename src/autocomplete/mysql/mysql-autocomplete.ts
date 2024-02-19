@@ -18,6 +18,7 @@ import {
 } from './generated/MySqlParser.js';
 import {MySqlParserVisitor} from './generated/MySqlParserVisitor.js';
 import {TableQueryPosition, TokenDictionary, getPreviousToken} from '../../lib/tables.js';
+import {isStartingToWriteRule} from '../../lib/cursor';
 
 const tokenDictionary: TokenDictionary = {
     SPACE: MySqlParser.SPACE,
@@ -177,7 +178,7 @@ function generateSuggestionsFromRules(
         switch (ruleId) {
             case MySqlParser.RULE_tableName: {
                 if (
-                    cursorTokenIndex === ruleData.startTokenIndex &&
+                    isStartingToWriteRule(cursorTokenIndex, ruleData) &&
                     !ruleData.ruleList.includes(MySqlParser.RULE_createTable)
                 ) {
                     if (
@@ -206,7 +207,7 @@ function generateSuggestionsFromRules(
             }
             case MySqlParser.RULE_fullId: {
                 if (
-                    cursorTokenIndex === ruleData.startTokenIndex &&
+                    isStartingToWriteRule(cursorTokenIndex, ruleData) &&
                     getPreviousToken(
                         tokenStream,
                         tokenDictionary,
@@ -229,16 +230,24 @@ function generateSuggestionsFromRules(
                 break;
             }
             case MySqlParser.RULE_triggerName: {
+                if (!isStartingToWriteRule(cursorTokenIndex, ruleData)) {
+                    break;
+                }
+
                 suggestTriggers = true;
                 break;
             }
             case MySqlParser.RULE_indexName: {
+                if (!isStartingToWriteRule(cursorTokenIndex, ruleData)) {
+                    break;
+                }
+
                 suggestIndexes = true;
                 break;
             }
             case MySqlParser.RULE_fullColumnName:
             case MySqlParser.RULE_indexColumnName: {
-                if (cursorTokenIndex === ruleData.startTokenIndex) {
+                if (isStartingToWriteRule(cursorTokenIndex, ruleData)) {
                     shouldSuggestColumns = true;
 
                     if (
@@ -252,7 +261,7 @@ function generateSuggestionsFromRules(
             }
             case MySqlParser.RULE_uid: {
                 if (
-                    cursorTokenIndex === ruleData.startTokenIndex &&
+                    isStartingToWriteRule(cursorTokenIndex, ruleData) &&
                     ((ruleData.ruleList.includes(MySqlParser.RULE_alterSpecification) &&
                         !getPreviousToken(
                             tokenStream,

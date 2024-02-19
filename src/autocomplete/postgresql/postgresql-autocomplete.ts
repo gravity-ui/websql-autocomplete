@@ -20,6 +20,7 @@ import {
 } from './generated/PostgreSqlParser.js';
 import {PostgreSqlParserVisitor} from './generated/PostgreSqlParserVisitor.js';
 import {TableQueryPosition, TokenDictionary, getPreviousToken} from '../../lib/tables.js';
+import {isStartingToWriteRule} from '../../lib/cursor';
 
 const tokenDictionary: TokenDictionary = {
     SPACE: PostgreSqlParser.Whitespace,
@@ -188,7 +189,7 @@ function generateSuggestionsFromRules(
         switch (ruleId) {
             case PostgreSqlParser.RULE_functionExpressionCommonSubexpr:
             case PostgreSqlParser.RULE_functionName: {
-                if (cursorTokenIndex === ruleData.startTokenIndex) {
+                if (isStartingToWriteRule(cursorTokenIndex, ruleData)) {
                     suggestFunctions = true;
                     // TODO Not sure yet how to specifically find aggregate functions
                     suggestAggregateFunctions = true;
@@ -205,8 +206,7 @@ function generateSuggestionsFromRules(
                     (isInsideQualifiedName ||
                         ruleData.ruleList.includes(PostgreSqlParser.RULE_functionTable));
 
-                // We need to check cursorTokenIndex here, because colid -> identifier might have multiple tokens
-                if (cursorTokenIndex !== ruleData.startTokenIndex) {
+                if (!isStartingToWriteRule(cursorTokenIndex, ruleData)) {
                     break;
                 }
 
@@ -267,10 +267,18 @@ function generateSuggestionsFromRules(
                 break;
             }
             case PostgreSqlParser.RULE_indexName: {
+                if (!isStartingToWriteRule(cursorTokenIndex, ruleData)) {
+                    break;
+                }
+
                 suggestIndexes = true;
                 break;
             }
             case PostgreSqlParser.RULE_triggerName: {
+                if (!isStartingToWriteRule(cursorTokenIndex, ruleData)) {
+                    break;
+                }
+
                 suggestTriggers = true;
                 break;
             }
