@@ -174,12 +174,12 @@ function generateSuggestionsFromRules(
     let shouldSuggestColumns = false;
     let shouldSuggestColumnAliases = false;
 
-    for (const [ruleId, ruleData] of rules) {
+    for (const [ruleId, rule] of rules) {
         switch (ruleId) {
             case MySqlParser.RULE_tableName: {
                 if (
-                    isStartingToWriteRule(cursorTokenIndex, ruleData) &&
-                    !ruleData.ruleList.includes(MySqlParser.RULE_createTable)
+                    isStartingToWriteRule(cursorTokenIndex, rule) &&
+                    !rule.ruleList.includes(MySqlParser.RULE_createTable)
                 ) {
                     if (
                         getPreviousToken(
@@ -207,15 +207,15 @@ function generateSuggestionsFromRules(
             }
             case MySqlParser.RULE_fullId: {
                 if (
-                    isStartingToWriteRule(cursorTokenIndex, ruleData) &&
+                    isStartingToWriteRule(cursorTokenIndex, rule) &&
                     getPreviousToken(
                         tokenStream,
                         tokenDictionary,
                         cursorTokenIndex,
                         MySqlParser.VIEW,
                     ) &&
-                    (ruleData.ruleList.includes(MySqlParser.RULE_alterView) ||
-                        ruleData.ruleList.includes(MySqlParser.RULE_dropView))
+                    (rule.ruleList.includes(MySqlParser.RULE_alterView) ||
+                        rule.ruleList.includes(MySqlParser.RULE_dropView))
                 ) {
                     suggestViewsOrTables = TableOrViewSuggestion.VIEWS;
                 }
@@ -230,7 +230,7 @@ function generateSuggestionsFromRules(
                 break;
             }
             case MySqlParser.RULE_triggerName: {
-                if (!isStartingToWriteRule(cursorTokenIndex, ruleData)) {
+                if (!isStartingToWriteRule(cursorTokenIndex, rule)) {
                     break;
                 }
 
@@ -238,7 +238,7 @@ function generateSuggestionsFromRules(
                 break;
             }
             case MySqlParser.RULE_indexName: {
-                if (!isStartingToWriteRule(cursorTokenIndex, ruleData)) {
+                if (!isStartingToWriteRule(cursorTokenIndex, rule)) {
                     break;
                 }
 
@@ -247,12 +247,12 @@ function generateSuggestionsFromRules(
             }
             case MySqlParser.RULE_fullColumnName:
             case MySqlParser.RULE_indexColumnName: {
-                if (isStartingToWriteRule(cursorTokenIndex, ruleData)) {
+                if (isStartingToWriteRule(cursorTokenIndex, rule)) {
                     shouldSuggestColumns = true;
 
                     if (
-                        ruleData.ruleList.includes(MySqlParser.RULE_groupByItem) ||
-                        ruleData.ruleList.includes(MySqlParser.RULE_orderByExpression)
+                        rule.ruleList.includes(MySqlParser.RULE_groupByItem) ||
+                        rule.ruleList.includes(MySqlParser.RULE_orderByExpression)
                     ) {
                         shouldSuggestColumnAliases = true;
                     }
@@ -261,15 +261,15 @@ function generateSuggestionsFromRules(
             }
             case MySqlParser.RULE_uid: {
                 if (
-                    isStartingToWriteRule(cursorTokenIndex, ruleData) &&
-                    ((ruleData.ruleList.includes(MySqlParser.RULE_alterSpecification) &&
+                    isStartingToWriteRule(cursorTokenIndex, rule) &&
+                    ((rule.ruleList.includes(MySqlParser.RULE_alterSpecification) &&
                         !getPreviousToken(
                             tokenStream,
                             tokenDictionary,
                             cursorTokenIndex,
                             MySqlParser.ADD,
                         )) ||
-                        ruleData.ruleList.includes(MySqlParser.RULE_indexColumnName))
+                        rule.ruleList.includes(MySqlParser.RULE_indexColumnName))
                 ) {
                     shouldSuggestColumns = true;
                 }
