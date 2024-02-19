@@ -71,7 +71,7 @@ export function findCursorTokenIndex(
 export function getCursorIndex(query: string, cursor: CursorPosition): number {
     const lines = query.split(lineSeparatorRegex);
     const separatorMatch = query.match(lineSeparatorRegex);
-    let separator = '';
+    let separator: string | undefined = '';
 
     if (separatorMatch) {
         separator = separatorMatch[0];
