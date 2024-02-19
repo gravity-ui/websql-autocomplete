@@ -1,6 +1,6 @@
 {
   "name": "websql-autocomplete",
-  "version": "4.2.0",
+  "version": "4.3.0",
   "description": "A library that provides autocompletion and errors highlighting for various database dialects",
   "repository": {
     "type": "git",
