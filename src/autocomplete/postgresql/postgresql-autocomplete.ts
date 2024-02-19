@@ -186,14 +186,16 @@ function generateSuggestionsFromRules(
     let shouldSuggestColumnAliases = false;
 
     for (const [ruleId, rule] of rules) {
+        if (!isStartingToWriteRule(cursorTokenIndex, rule)) {
+            break;
+        }
+
         switch (ruleId) {
             case PostgreSqlParser.RULE_functionExpressionCommonSubexpr:
             case PostgreSqlParser.RULE_functionName: {
-                if (isStartingToWriteRule(cursorTokenIndex, rule)) {
-                    suggestFunctions = true;
-                    // TODO Not sure yet how to specifically find aggregate functions
-                    suggestAggregateFunctions = true;
-                }
+                suggestFunctions = true;
+                // TODO Not sure yet how to specifically find aggregate functions
+                suggestAggregateFunctions = true;
                 break;
             }
             case PostgreSqlParser.RULE_columnId: {
@@ -205,10 +207,6 @@ function generateSuggestionsFromRules(
                     !rule.ruleList.includes(PostgreSqlParser.RULE_createStatement) &&
                     (isInsideQualifiedName ||
                         rule.ruleList.includes(PostgreSqlParser.RULE_functionTable));
-
-                if (!isStartingToWriteRule(cursorTokenIndex, rule)) {
-                    break;
-                }
 
                 if (
                     getPreviousToken(
@@ -263,18 +261,10 @@ function generateSuggestionsFromRules(
                 break;
             }
             case PostgreSqlParser.RULE_indexName: {
-                if (!isStartingToWriteRule(cursorTokenIndex, rule)) {
-                    break;
-                }
-
                 suggestIndexes = true;
                 break;
             }
             case PostgreSqlParser.RULE_triggerName: {
-                if (!isStartingToWriteRule(cursorTokenIndex, rule)) {
-                    break;
-                }
-
                 suggestTriggers = true;
                 break;
             }

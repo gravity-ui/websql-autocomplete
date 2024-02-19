@@ -163,10 +163,13 @@ function generateSuggestionsFromRules(
     let suggestEngines;
 
     for (const [ruleId, rule] of rules) {
+        if (!isStartingToWriteRule(cursorTokenIndex, rule)) {
+            break;
+        }
+
         switch (ruleId) {
             case ClickHouseParser.RULE_tableIdentifier: {
                 if (
-                    isStartingToWriteRule(cursorTokenIndex, rule) &&
                     !rule.ruleList.includes(ClickHouseParser.RULE_createStatement) &&
                     !rule.ruleList.includes(ClickHouseParser.RULE_columnsExpression)
                 ) {
@@ -206,14 +209,12 @@ function generateSuggestionsFromRules(
                 break;
             }
             case ClickHouseParser.RULE_columnIdentifier: {
-                if (isStartingToWriteRule(cursorTokenIndex, rule)) {
-                    shouldSuggestColumns = true;
-                    if (
-                        rule.ruleList.includes(ClickHouseParser.RULE_orderExpression) ||
-                        rule.ruleList.includes(ClickHouseParser.RULE_groupByClause)
-                    ) {
-                        shouldSuggestColumnAliases = true;
-                    }
+                shouldSuggestColumns = true;
+                if (
+                    rule.ruleList.includes(ClickHouseParser.RULE_orderExpression) ||
+                    rule.ruleList.includes(ClickHouseParser.RULE_groupByClause)
+                ) {
+                    shouldSuggestColumnAliases = true;
                 }
                 break;
             }

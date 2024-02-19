@@ -100,7 +100,8 @@ export function getCursorIndex(query: string, cursor: CursorPosition): number {
 }
 
 /*
-Sometimes a preferredRule is triggered multiple times, even though we want it to be triggered only once
+Sometimes a preferredRule is triggered multiple times, and we haven't found a case where we'd want it.
+We only want it to be triggered only once.
 
 E.g.
 

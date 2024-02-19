@@ -175,12 +175,13 @@ function generateSuggestionsFromRules(
     let shouldSuggestColumnAliases = false;
 
     for (const [ruleId, rule] of rules) {
+        if (!isStartingToWriteRule(cursorTokenIndex, rule)) {
+            break;
+        }
+
         switch (ruleId) {
             case MySqlParser.RULE_tableName: {
-                if (
-                    isStartingToWriteRule(cursorTokenIndex, rule) &&
-                    !rule.ruleList.includes(MySqlParser.RULE_createTable)
-                ) {
+                if (!rule.ruleList.includes(MySqlParser.RULE_createTable)) {
                     if (
                         getPreviousToken(
                             tokenStream,
@@ -207,7 +208,6 @@ function generateSuggestionsFromRules(
             }
             case MySqlParser.RULE_fullId: {
                 if (
-                    isStartingToWriteRule(cursorTokenIndex, rule) &&
                     getPreviousToken(
                         tokenStream,
                         tokenDictionary,
@@ -230,46 +230,35 @@ function generateSuggestionsFromRules(
                 break;
             }
             case MySqlParser.RULE_triggerName: {
-                if (!isStartingToWriteRule(cursorTokenIndex, rule)) {
-                    break;
-                }
-
                 suggestTriggers = true;
                 break;
             }
             case MySqlParser.RULE_indexName: {
-                if (!isStartingToWriteRule(cursorTokenIndex, rule)) {
-                    break;
-                }
-
                 suggestIndexes = true;
                 break;
             }
             case MySqlParser.RULE_fullColumnName:
             case MySqlParser.RULE_indexColumnName: {
-                if (isStartingToWriteRule(cursorTokenIndex, rule)) {
-                    shouldSuggestColumns = true;
+                shouldSuggestColumns = true;
 
-                    if (
-                        rule.ruleList.includes(MySqlParser.RULE_groupByItem) ||
-                        rule.ruleList.includes(MySqlParser.RULE_orderByExpression)
-                    ) {
-                        shouldSuggestColumnAliases = true;
-                    }
+                if (
+                    rule.ruleList.includes(MySqlParser.RULE_groupByItem) ||
+                    rule.ruleList.includes(MySqlParser.RULE_orderByExpression)
+                ) {
+                    shouldSuggestColumnAliases = true;
                 }
                 break;
             }
             case MySqlParser.RULE_uid: {
                 if (
-                    isStartingToWriteRule(cursorTokenIndex, rule) &&
-                    ((rule.ruleList.includes(MySqlParser.RULE_alterSpecification) &&
+                    (rule.ruleList.includes(MySqlParser.RULE_alterSpecification) &&
                         !getPreviousToken(
                             tokenStream,
                             tokenDictionary,
                             cursorTokenIndex,
                             MySqlParser.ADD,
                         )) ||
-                        rule.ruleList.includes(MySqlParser.RULE_indexColumnName))
+                    rule.ruleList.includes(MySqlParser.RULE_indexColumnName)
                 ) {
                     shouldSuggestColumns = true;
                 }
