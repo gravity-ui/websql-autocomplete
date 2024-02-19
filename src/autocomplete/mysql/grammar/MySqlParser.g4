@@ -678,7 +678,7 @@ dropTablespace
     ;
 
 dropTrigger
-    : DROP TRIGGER ifExists? fullId
+    : DROP TRIGGER ifExists? triggerName
     ;
 
 dropView
@@ -1593,7 +1593,9 @@ showStatement
     | SHOW showCommonEntity showFilter?                                                                                                                                                      # showObjectFilter
     | SHOW FULL? columnsFormat = (COLUMNS | FIELDS) tableFormat = (FROM | IN) tableName ( schemaFormat = (FROM | IN) uid)? showFilter?                                                       # showColumns
     | SHOW CREATE schemaFormat = (DATABASE | SCHEMA) ifNotExists? uid                                                                                                                        # showCreateDb
-    | SHOW CREATE namedEntity = (EVENT | FUNCTION | PROCEDURE | TABLE | TRIGGER | VIEW) fullId                                                                                               # showCreateFullIdObject
+    | SHOW CREATE namedEntity = (EVENT | FUNCTION | PROCEDURE) fullId                                                                                               # showCreateFullIdObject
+    | SHOW CREATE (TABLE | VIEW) tableName                                                                                                                              # showCreateTableOrView
+    | SHOW CREATE TRIGGER triggerName                                                                                                                                                       # showCreateTrigger
     | SHOW CREATE USER userName                                                                                                                                                              # showCreateUser
     | SHOW ENGINE engineName engineOption = (STATUS | MUTEX)                                                                                                                                 # showEngine
     | SHOW showGlobalInfoClause                                                                                                                                                              # showGlobalInfo
@@ -1811,6 +1813,10 @@ fullColumnName
 
 indexName
     : uid
+    ;
+
+triggerName
+    : fullId
     ;
 
 indexNameList

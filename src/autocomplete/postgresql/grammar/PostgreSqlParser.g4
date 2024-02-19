@@ -455,14 +455,10 @@ alterTableCommand
     | SET WITHOUT CLUSTER
     | SET LOGGED
     | SET UNLOGGED
-    | ENABLE_P TRIGGER name
-    | ENABLE_P ALWAYS TRIGGER name
-    | ENABLE_P REPLICA TRIGGER name
-    | ENABLE_P TRIGGER ALL
-    | ENABLE_P TRIGGER USER
-    | DISABLE_P TRIGGER name
-    | DISABLE_P TRIGGER ALL
-    | DISABLE_P TRIGGER USER
+    | ENABLE_P (ALWAYS | REPLICA)? TRIGGER triggerName
+    | ENABLE_P TRIGGER (ALL | USER)
+    | DISABLE_P TRIGGER triggerName
+    | DISABLE_P TRIGGER (ALL | USER)
     | ENABLE_P RULE name
     | ENABLE_P ALWAYS RULE name
     | ENABLE_P REPLICA RULE name
@@ -1436,8 +1432,8 @@ dropStatement
     | DROP INDEX (IF_P EXISTS)? indexNameList optionalDropBehavior
     | DROP dropTypeName IF_P EXISTS nameList optionalDropBehavior
     | DROP dropTypeName nameList optionalDropBehavior
-    | DROP objectTypeNameOnAnyName name ON anyName optionalDropBehavior
-    | DROP objectTypeNameOnAnyName IF_P EXISTS name ON anyName optionalDropBehavior
+    | DROP objectTypeNameOnAnyName (IF_P EXISTS)? name ON anyName optionalDropBehavior
+    | DROP TRIGGER (IF_P EXISTS)? triggerName ON anyName optionalDropBehavior
     | DROP TYPE_P typeNameList optionalDropBehavior
     | DROP TYPE_P IF_P EXISTS typeNameList optionalDropBehavior
     | DROP DOMAIN_P typeNameList optionalDropBehavior
@@ -1484,7 +1480,6 @@ dropTypeName
 objectTypeNameOnAnyName
     : POLICY
     | RULE
-    | TRIGGER
     ;
 
 anyNameList
@@ -1526,6 +1521,7 @@ commentStatement
     | COMMENT ON CONSTRAINT name ON anyName IS commentText
     | COMMENT ON CONSTRAINT name ON DOMAIN_P anyName IS commentText
     | COMMENT ON objectTypeNameOnAnyName name ON anyName IS commentText
+    | COMMENT ON TRIGGER triggerName ON anyName IS commentText
     | COMMENT ON PROCEDURE functionWithArgumentTypes IS commentText
     | COMMENT ON ROUTINE functionWithArgumentTypes IS commentText
     | COMMENT ON TRANSFORM FOR typeName LANGUAGE name IS commentText
@@ -2077,7 +2073,7 @@ renameStatement
     | ALTER FOREIGN TABLE relationExpression RENAME optionalColumn name TO name
     | ALTER FOREIGN TABLE IF_P EXISTS relationExpression RENAME optionalColumn name TO name
     | ALTER RULE name ON qualifiedName RENAME TO name
-    | ALTER TRIGGER name ON qualifiedName RENAME TO name
+    | ALTER TRIGGER triggerName ON qualifiedName RENAME TO name
     | ALTER EVENT TRIGGER name RENAME TO name
     | ALTER ROLE roleId RENAME TO roleId
     | ALTER USER roleId RENAME TO roleId
@@ -2105,7 +2101,7 @@ alterObjectDependsStatement
     : ALTER FUNCTION functionWithArgumentTypes NO? DEPENDS ON EXTENSION name
     | ALTER PROCEDURE functionWithArgumentTypes NO? DEPENDS ON EXTENSION name
     | ALTER ROUTINE functionWithArgumentTypes NO? DEPENDS ON EXTENSION name
-    | ALTER TRIGGER name ON qualifiedName NO? DEPENDS ON EXTENSION name
+    | ALTER TRIGGER triggerName ON qualifiedName NO? DEPENDS ON EXTENSION name
     | ALTER MATERIALIZED VIEW qualifiedName NO? DEPENDS ON EXTENSION name
     | ALTER INDEX indexName NO? DEPENDS ON EXTENSION name
     ;
@@ -3758,6 +3754,10 @@ indexName
 
 indexNameList
     : indexName (COMMA indexName)*
+    ;
+
+triggerName
+    : name
     ;
 
 qualifiedName
