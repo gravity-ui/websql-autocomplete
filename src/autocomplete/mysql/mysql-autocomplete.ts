@@ -181,28 +181,30 @@ function generateSuggestionsFromRules(
 
         switch (ruleId) {
             case MySqlParser.RULE_tableName: {
-                if (!rule.ruleList.includes(MySqlParser.RULE_createTable)) {
-                    if (
-                        getPreviousToken(
-                            tokenStream,
-                            tokenDictionary,
-                            cursorTokenIndex,
-                            MySqlParser.VIEW,
-                        )
-                    ) {
-                        suggestViewsOrTables = TableOrViewSuggestion.VIEWS;
-                    } else if (
-                        getPreviousToken(
-                            tokenStream,
-                            tokenDictionary,
-                            cursorTokenIndex,
-                            MySqlParser.TABLE,
-                        )
-                    ) {
-                        suggestViewsOrTables = TableOrViewSuggestion.TABLES;
-                    } else {
-                        suggestViewsOrTables = TableOrViewSuggestion.ALL;
-                    }
+                if (rule.ruleList.includes(MySqlParser.RULE_createTable)) {
+                    break;
+                }
+
+                if (
+                    getPreviousToken(
+                        tokenStream,
+                        tokenDictionary,
+                        cursorTokenIndex,
+                        MySqlParser.VIEW,
+                    )
+                ) {
+                    suggestViewsOrTables = TableOrViewSuggestion.VIEWS;
+                } else if (
+                    getPreviousToken(
+                        tokenStream,
+                        tokenDictionary,
+                        cursorTokenIndex,
+                        MySqlParser.TABLE,
+                    )
+                ) {
+                    suggestViewsOrTables = TableOrViewSuggestion.TABLES;
+                } else {
+                    suggestViewsOrTables = TableOrViewSuggestion.ALL;
                 }
                 break;
             }

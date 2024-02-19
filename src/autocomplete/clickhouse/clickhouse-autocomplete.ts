@@ -170,30 +170,32 @@ function generateSuggestionsFromRules(
         switch (ruleId) {
             case ClickHouseParser.RULE_tableIdentifier: {
                 if (
-                    !rule.ruleList.includes(ClickHouseParser.RULE_createStatement) &&
-                    !rule.ruleList.includes(ClickHouseParser.RULE_columnsExpression)
+                    rule.ruleList.includes(ClickHouseParser.RULE_createStatement) ||
+                    rule.ruleList.includes(ClickHouseParser.RULE_columnsExpression)
                 ) {
-                    if (
-                        getPreviousToken(
-                            tokenStream,
-                            tokenDictionary,
-                            cursorTokenIndex,
-                            ClickHouseParser.VIEW,
-                        )
-                    ) {
-                        suggestViewsOrTables = TableOrViewSuggestion.VIEWS;
-                    } else if (
-                        getPreviousToken(
-                            tokenStream,
-                            tokenDictionary,
-                            cursorTokenIndex,
-                            ClickHouseParser.TABLE,
-                        )
-                    ) {
-                        suggestViewsOrTables = TableOrViewSuggestion.TABLES;
-                    } else {
-                        suggestViewsOrTables = TableOrViewSuggestion.ALL;
-                    }
+                    break;
+                }
+
+                if (
+                    getPreviousToken(
+                        tokenStream,
+                        tokenDictionary,
+                        cursorTokenIndex,
+                        ClickHouseParser.VIEW,
+                    )
+                ) {
+                    suggestViewsOrTables = TableOrViewSuggestion.VIEWS;
+                } else if (
+                    getPreviousToken(
+                        tokenStream,
+                        tokenDictionary,
+                        cursorTokenIndex,
+                        ClickHouseParser.TABLE,
+                    )
+                ) {
+                    suggestViewsOrTables = TableOrViewSuggestion.TABLES;
+                } else {
+                    suggestViewsOrTables = TableOrViewSuggestion.ALL;
                 }
                 break;
             }
