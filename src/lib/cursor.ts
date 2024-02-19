@@ -1,4 +1,5 @@
 import {Token, TokenStream} from 'antlr4ng';
+import {ICandidateRule} from 'antlr4-c3';
 
 export interface CursorPosition {
     line: number;
@@ -96,4 +97,23 @@ export function getCursorIndex(query: string, cursor: CursorPosition): number {
     }, '');
 
     return cursorIndex;
+}
+
+/*
+Sometimes a preferredRule is triggered multiple times, even though we want it to be triggered only once
+
+E.g.
+
+root: 'DROP' 'INDEX' indexName;
+indexName: identifier 'test';
+
+case TestParser.RULE_indexName: {
+    suggestIndexes = true;
+}
+
+If we'll write 'DROP INDEX index_name', 'test' token will fire the preferredRule event, and we'll try to suggest indexes.
+In this case we need to check if our RULE_indexName is being triggered at the first 'identifier', and not 'test'. And this function was created for that.
+ */
+export function isStartingToWriteRule(cursorTokenIndex: number, rule: ICandidateRule): boolean {
+    return cursorTokenIndex === rule.startTokenIndex;
 }
