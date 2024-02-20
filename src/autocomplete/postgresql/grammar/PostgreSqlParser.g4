@@ -446,10 +446,9 @@ alterTableCommand
     | ALTER optionalColumn columnId optionalSetData TYPE_P typeName optionalCollateClause alterUsing
     | ALTER optionalColumn columnId alterGenericOptions
     | ADD_P tableConstraint
-    | ALTER CONSTRAINT name constraintAttributeSpecification
-    | VALIDATE CONSTRAINT name
-    | DROP CONSTRAINT IF_P EXISTS name optionalDropBehavior
-    | DROP CONSTRAINT name optionalDropBehavior
+    | ALTER CONSTRAINT constraintName constraintAttributeElement+
+    | VALIDATE CONSTRAINT constraintName
+    | DROP CONSTRAINT (IF_P EXISTS)? constraintName optionalDropBehavior
     | SET WITHOUT OIDS
     | CLUSTER ON name
     | SET WITHOUT CLUSTER
@@ -1518,8 +1517,7 @@ commentStatement
     | COMMENT ON AGGREGATE aggregateWithArgumentTypes IS commentText
     | COMMENT ON FUNCTION functionWithArgumentTypes IS commentText
     | COMMENT ON OPERATOR operatorWithArgumentTypes IS commentText
-    | COMMENT ON CONSTRAINT name ON anyName IS commentText
-    | COMMENT ON CONSTRAINT name ON DOMAIN_P anyName IS commentText
+    | COMMENT ON CONSTRAINT constraintName ON (DOMAIN_P)? anyName IS commentText
     | COMMENT ON objectTypeNameOnAnyName name ON anyName IS commentText
     | COMMENT ON TRIGGER triggerName ON anyName IS commentText
     | COMMENT ON PROCEDURE functionWithArgumentTypes IS commentText
@@ -2036,7 +2034,7 @@ renameStatement
     | ALTER CONVERSION_P anyName RENAME TO name
     | ALTER DATABASE name RENAME TO name
     | ALTER DOMAIN_P anyName RENAME TO name
-    | ALTER DOMAIN_P anyName RENAME CONSTRAINT name TO name
+    | ALTER DOMAIN_P anyName RENAME CONSTRAINT constraintName TO name
     | ALTER FOREIGN DATA_P WRAPPER name RENAME TO name
     | ALTER FUNCTION functionWithArgumentTypes RENAME TO name
     | ALTER GROUP_P roleId RENAME TO roleId
@@ -2068,8 +2066,7 @@ renameStatement
     | ALTER VIEW IF_P EXISTS qualifiedName RENAME optionalColumn name TO name
     | ALTER MATERIALIZED VIEW qualifiedName RENAME optionalColumn name TO name
     | ALTER MATERIALIZED VIEW IF_P EXISTS qualifiedName RENAME optionalColumn name TO name
-    | ALTER TABLE relationExpression RENAME CONSTRAINT name TO name
-    | ALTER TABLE IF_P EXISTS relationExpression RENAME CONSTRAINT name TO name
+    | ALTER TABLE (IF_P EXISTS)? relationExpression RENAME CONSTRAINT constraintName TO name
     | ALTER FOREIGN TABLE relationExpression RENAME optionalColumn name TO name
     | ALTER FOREIGN TABLE IF_P EXISTS relationExpression RENAME optionalColumn name TO name
     | ALTER RULE name ON qualifiedName RENAME TO name
@@ -2394,7 +2391,16 @@ createDomainStatement
     ;
 
 alterDomainStatement
-    : ALTER DOMAIN_P anyName (alterColumnDefault | DROP NOT NULL_P | SET NOT NULL_P | ADD_P tableConstraint | DROP CONSTRAINT (IF_P EXISTS)? name optionalDropBehavior | VALIDATE CONSTRAINT name)
+    : ALTER DOMAIN_P anyName alterDomainCommand
+    ;
+
+alterDomainCommand
+    : alterColumnDefault
+    | DROP NOT NULL_P
+    | SET NOT NULL_P
+    | ADD_P tableConstraint
+    | DROP CONSTRAINT (IF_P EXISTS)? constraintName optionalDropBehavior
+    | VALIDATE CONSTRAINT constraintName
     ;
 
 optionalAs
@@ -2586,7 +2592,7 @@ optionalOnConflict
 
 optionalConflictExpr
     : OPEN_PAREN indexParameters CLOSE_PAREN whereClause
-    | ON CONSTRAINT name
+    | ON CONSTRAINT constraintName
     |
     ;
 
@@ -3757,6 +3763,10 @@ indexNameList
     ;
 
 triggerName
+    : name
+    ;
+
+constraintName
     : name
     ;
 
