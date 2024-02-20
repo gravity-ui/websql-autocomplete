@@ -591,7 +591,7 @@ alterSpecification
     | ADD keyType = (FULLTEXT | SPATIAL) indexFormat = (INDEX | KEY)? uid? indexColumnNames indexOption*                              # alterByAddSpecialIndex
     | ADD (CONSTRAINT name = uid?)? FOREIGN KEY uid? indexColumnNames referenceDefinition                                 # alterByAddForeignKey
     | ADD (CONSTRAINT name = uid?)? CHECK (uid | stringLiteral | LR_BRACKET expression RR_BRACKET) NOT? ENFORCED?                     # alterByAddCheckTableConstraint
-    | ALTER (CONSTRAINT name = uid?)? CHECK (uid | stringLiteral | LR_BRACKET expression RR_BRACKET) NOT? ENFORCED?                   # alterByAlterCheckTableConstraint
+    | ALTER (CONSTRAINT constraintName?)? CHECK (uid | stringLiteral | LR_BRACKET expression RR_BRACKET) NOT? ENFORCED?                   # alterByAlterCheckTableConstraint
     | ADD (CONSTRAINT name = uid?)? CHECK LR_BRACKET expression RR_BRACKET                                                            # alterByAddCheckTableConstraint
     | ALGORITHM EQUAL_SYMBOL? algType = (DEFAULT | INSTANT | INPLACE | COPY)                                                          # alterBySetAlgorithm
     | ALTER COLUMN? uid (SET DEFAULT defaultValue | DROP DEFAULT)                                                                     # alterByChangeDefault
@@ -600,7 +600,7 @@ alterSpecification
     | LOCK EQUAL_SYMBOL? lockType = (DEFAULT | NONE | SHARED | EXCLUSIVE)                                                             # alterByLock
     | MODIFY COLUMN? uid columnDefinition (FIRST | AFTER uid)?                                                                        # alterByModifyColumn
     | DROP COLUMN? uid RESTRICT?                                                                                                      # alterByDropColumn
-    | DROP (CONSTRAINT | CHECK) uid                                                                                                   # alterByDropConstraintCheck
+    | DROP (CONSTRAINT | CHECK) constraintName                                                                                                   # alterByDropConstraintCheck
     | DROP PRIMARY KEY                                                                                                                # alterByDropPrimaryKey
     | DROP indexFormat = (INDEX | KEY) indexName                                                                                            # alterByDropIndex
     | RENAME indexFormat = (INDEX | KEY) indexName TO uid                                                                                   # alterByRenameIndex
@@ -1812,6 +1812,10 @@ fullColumnName
     ;
 
 indexName
+    : uid
+    ;
+
+constraintName
     : uid
     ;
 
