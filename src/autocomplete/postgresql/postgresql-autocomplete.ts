@@ -68,6 +68,7 @@ const preferredRules = new Set([
     PostgreSqlParser.RULE_functionExpressionCommonSubexpr,
     PostgreSqlParser.RULE_indexName,
     PostgreSqlParser.RULE_triggerName,
+    PostgreSqlParser.RULE_constraintName,
 
     // All of these are identifier names, we don't want to suggest them
     PostgreSqlParser.RULE_identifier,
@@ -182,6 +183,7 @@ function generateSuggestionsFromRules(
     let suggestFunctions = false;
     let suggestIndexes = false;
     let suggestTriggers = false;
+    let suggestConstraints = false;
     let shouldSuggestColumns = false;
     let shouldSuggestColumnAliases = false;
 
@@ -268,6 +270,10 @@ function generateSuggestionsFromRules(
                 suggestTriggers = true;
                 break;
             }
+            case PostgreSqlParser.RULE_constraintName: {
+                suggestConstraints = true;
+                break;
+            }
         }
     }
 
@@ -277,6 +283,7 @@ function generateSuggestionsFromRules(
         suggestFunctions,
         suggestIndexes,
         suggestTriggers,
+        suggestConstraints,
         shouldSuggestColumns,
         shouldSuggestColumnAliases,
     };

@@ -61,8 +61,9 @@ test('should suggest views after ALTER MATERIALIZED VIEW', () => {
 test('should suggest keywords after TABLE', () => {
     const parseResult = parsePostgreSqlQueryWithCursor('ALTER TABLE |');
 
-    const keywords: KeywordSuggestion[] = [{value: 'IF'}, {value: 'ONLY'}, {value: 'ALL'}];
+    const keywords: KeywordSuggestion[] = [{value: 'ONLY'}, {value: 'IF'}, {value: 'ALL'}];
     expect(parseResult.suggestKeywords).toEqual(keywords);
+
     expect(parseResult.suggestViewsOrTables).toEqual(TableOrViewSuggestion.TABLES);
 });
 

@@ -11,7 +11,7 @@ test('should suggest table name after ALTER INDEX', () => {
     expect(parseResult.suggestIndexes).toEqual(true);
 });
 
-test('should suggest table name after ALTER INDEX', () => {
+test('should not report errors on a full statement', () => {
     const parseResult = parseMySqlQueryWithoutCursor(
         'ALTER TABLE test_table ALTER INDEX test_index VISIBLE;',
     );

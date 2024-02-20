@@ -392,6 +392,7 @@ import { AlterCollationStatementContext } from "./PostgreSqlParser.js";
 import { AlterSystemStatementContext } from "./PostgreSqlParser.js";
 import { CreateDomainStatementContext } from "./PostgreSqlParser.js";
 import { AlterDomainStatementContext } from "./PostgreSqlParser.js";
+import { AlterDomainCommandContext } from "./PostgreSqlParser.js";
 import { OptionalAsContext } from "./PostgreSqlParser.js";
 import { AltertsDictionaryStatementContext } from "./PostgreSqlParser.js";
 import { AltertsConfigurationStatementContext } from "./PostgreSqlParser.js";
@@ -630,6 +631,7 @@ import { QualifiedNameListContext } from "./PostgreSqlParser.js";
 import { IndexNameContext } from "./PostgreSqlParser.js";
 import { IndexNameListContext } from "./PostgreSqlParser.js";
 import { TriggerNameContext } from "./PostgreSqlParser.js";
+import { ConstraintNameContext } from "./PostgreSqlParser.js";
 import { QualifiedNameContext } from "./PostgreSqlParser.js";
 import { NameListContext } from "./PostgreSqlParser.js";
 import { NameContext } from "./PostgreSqlParser.js";
@@ -3048,6 +3050,12 @@ export class PostgreSqlParserVisitor<Result> extends AbstractParseTreeVisitor<Re
      */
     visitAlterDomainStatement?: (ctx: AlterDomainStatementContext) => Result;
     /**
+     * Visit a parse tree produced by `PostgreSqlParser.alterDomainCommand`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitAlterDomainCommand?: (ctx: AlterDomainCommandContext) => Result;
+    /**
      * Visit a parse tree produced by `PostgreSqlParser.optionalAs`.
      * @param ctx the parse tree
      * @return the visitor result
@@ -4482,6 +4490,12 @@ export class PostgreSqlParserVisitor<Result> extends AbstractParseTreeVisitor<Re
      * @return the visitor result
      */
     visitTriggerName?: (ctx: TriggerNameContext) => Result;
+    /**
+     * Visit a parse tree produced by `PostgreSqlParser.constraintName`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitConstraintName?: (ctx: ConstraintNameContext) => Result;
     /**
      * Visit a parse tree produced by `PostgreSqlParser.qualifiedName`.
      * @param ctx the parse tree
