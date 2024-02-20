@@ -69,3 +69,12 @@ test('should suggest keywords after SELECT ON table TO user', () => {
     const keywords: KeywordSuggestion[] = [{value: 'WITH'}];
     expect(parseResult.suggestKeywords).toEqual(keywords);
 });
+
+test('should suggest sequences', () => {
+    const parseResult = parsePostgreSqlQueryWithCursor('GRANT ALL ON SEQUENCE |');
+
+    const keywords: KeywordSuggestion[] = [{value: 'TO'}];
+    expect(parseResult.suggestKeywords).toEqual(keywords);
+
+    expect(parseResult.suggestSequences).toEqual(true);
+});
