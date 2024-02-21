@@ -1,4 +1,4 @@
-import {parsePostgreSqlQueryWithCursor} from '../../../lib';
+import {parsePostgreSqlQueryWithCursor} from '../../../test-lib';
 import {parsePostgreSqlQueryWithoutCursor} from '../../../../index';
 
 test('should suggest properly after COMMENT ON CONSTRAINT', () => {

@@ -1,4 +1,4 @@
-import {parsePostgreSqlQueryWithCursor} from '../../../lib';
+import {parsePostgreSqlQueryWithCursor} from '../../../test-lib';
 import {ColumnAliasSuggestion, ColumnSuggestion, KeywordSuggestion} from '../../../../types';
 
 test('should suggest properly after GROUP', () => {

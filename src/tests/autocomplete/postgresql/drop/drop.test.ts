@@ -3,7 +3,7 @@ import {
     TableOrViewSuggestion,
     parsePostgreSqlQueryWithoutCursor,
 } from '../../../../index';
-import {parsePostgreSqlQueryWithCursor} from '../../../lib';
+import {parsePostgreSqlQueryWithCursor} from '../../../test-lib';
 
 test('should suggest keywords after DROP', () => {
     const autocompleteResult = parsePostgreSqlQueryWithCursor('DROP |');

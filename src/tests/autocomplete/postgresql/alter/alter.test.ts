@@ -1,5 +1,5 @@
 import {KeywordSuggestion, TableOrViewSuggestion} from '../../../../index';
-import {parsePostgreSqlQueryWithCursor} from '../../../lib';
+import {parsePostgreSqlQueryWithCursor} from '../../../test-lib';
 
 test('should suggest keywords after ALTER', () => {
     const autocompleteResult = parsePostgreSqlQueryWithCursor('ALTER |');

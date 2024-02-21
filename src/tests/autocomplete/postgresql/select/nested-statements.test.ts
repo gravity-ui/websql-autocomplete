@@ -1,4 +1,4 @@
-import {parsePostgreSqlQueryWithCursor} from '../../../lib';
+import {parsePostgreSqlQueryWithCursor} from '../../../test-lib';
 import {ColumnSuggestion, KeywordSuggestion} from '../../../../types';
 import {parsePostgreSqlQueryWithoutCursor} from '../../../../index';
 

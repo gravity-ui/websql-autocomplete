@@ -1,4 +1,4 @@
-import {separateQueryAndCursor} from './lib';
+import {separateQueryAndCursor} from './test-lib';
 
 test('should work at the query end', () => {
     const [query, cursor] = separateQueryAndCursor('SELECT |');

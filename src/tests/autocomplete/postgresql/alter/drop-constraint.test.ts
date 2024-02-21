@@ -1,4 +1,4 @@
-import {parsePostgreSqlQueryWithCursor} from '../../../lib';
+import {parsePostgreSqlQueryWithCursor} from '../../../test-lib';
 import {KeywordSuggestion, parsePostgreSqlQueryWithoutCursor} from '../../../../index';
 
 test('should suggest view name after DROP CONSTRAINT', () => {

@@ -1,4 +1,4 @@
-import {parsePostgreSqlQueryWithCursor} from '../../../lib';
+import {parsePostgreSqlQueryWithCursor} from '../../../test-lib';
 import {KeywordSuggestion} from '../../../../types';
 
 test('should suggest properly after TRIGGER', () => {

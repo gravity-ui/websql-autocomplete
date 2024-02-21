@@ -1,4 +1,4 @@
-import {parseMySqlQueryWithCursor} from '../../../lib';
+import {parseMySqlQueryWithCursor} from '../../../test-lib';
 import {KeywordSuggestion, TableOrViewSuggestion} from '../../../../types';
 import {parseMySqlQueryWithoutCursor} from '../../../../index';
 

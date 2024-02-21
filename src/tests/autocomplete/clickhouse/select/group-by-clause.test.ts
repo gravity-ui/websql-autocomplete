@@ -1,4 +1,4 @@
-import {parseClickHouseQueryWithCursor} from '../../../lib';
+import {parseClickHouseQueryWithCursor} from '../../../test-lib';
 import {ColumnAliasSuggestion, ColumnSuggestion, KeywordSuggestion} from '../../../../types';
 
 test('should suggest properly after GROUP', () => {

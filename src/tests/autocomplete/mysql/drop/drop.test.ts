@@ -3,7 +3,7 @@ import {
     TableOrViewSuggestion,
     parseMySqlQueryWithoutCursor,
 } from '../../../../index';
-import {parseMySqlQueryWithCursor} from '../../../lib';
+import {parseMySqlQueryWithCursor} from '../../../test-lib';
 
 test('should suggest keywords after DROP', () => {
     const autocompleteResult = parseMySqlQueryWithCursor('DROP |');

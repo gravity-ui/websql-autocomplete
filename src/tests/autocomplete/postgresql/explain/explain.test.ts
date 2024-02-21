@@ -1,5 +1,5 @@
 import {KeywordSuggestion} from '../../../../index';
-import {parsePostgreSqlQueryWithCursor} from '../../../lib';
+import {parsePostgreSqlQueryWithCursor} from '../../../test-lib';
 
 test('should suggest SELECT and contain suggestTemplates with EXPLAIN prefix', () => {
     const autocompleteResult = parsePostgreSqlQueryWithCursor('EXPLAIN |');

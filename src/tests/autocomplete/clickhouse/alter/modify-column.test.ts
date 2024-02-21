@@ -1,5 +1,5 @@
 import {ColumnSuggestion, parseClickHouseQueryWithoutCursor} from '../../../../index';
-import {parseClickHouseQueryWithCursor} from '../../../lib';
+import {parseClickHouseQueryWithCursor} from '../../../test-lib';
 
 test('should suggest table name after MODIFY COLUMN', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor(

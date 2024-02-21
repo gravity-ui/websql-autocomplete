@@ -1,4 +1,4 @@
-import {parsePostgreSqlQueryWithCursor} from '../../lib';
+import {parsePostgreSqlQueryWithCursor} from '../../test-lib';
 
 // Checkout isStartingToWriteRule comment for more information about these tests
 

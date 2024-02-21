@@ -1,5 +1,5 @@
 import {KeywordSuggestion} from '../../../../index';
-import {parseMySqlQueryWithCursor} from '../../../lib';
+import {parseMySqlQueryWithCursor} from '../../../test-lib';
 
 test('should suggest SELECT and contain suggestTemplates with EXPLAIN prefix', () => {
     const autocompleteResult = parseMySqlQueryWithCursor('EXPLAIN |');

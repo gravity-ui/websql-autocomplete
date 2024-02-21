@@ -1,4 +1,4 @@
-import {parseMySqlQueryWithCursor} from '../../../lib';
+import {parseMySqlQueryWithCursor} from '../../../test-lib';
 import {parseMySqlQueryWithoutCursor} from '../../../../index';
 
 test('should suggest table name after DROP CONSTRAINT', () => {

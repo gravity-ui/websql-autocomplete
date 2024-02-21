@@ -3,7 +3,7 @@ import {
     KeywordSuggestion,
     parseClickHouseQueryWithoutCursor,
 } from '../../../../index';
-import {parseClickHouseQueryWithCursor} from '../../../lib';
+import {parseClickHouseQueryWithCursor} from '../../../test-lib';
 
 test('should suggest table name after RENAME COLUMN', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor(

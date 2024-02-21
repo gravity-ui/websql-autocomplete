@@ -1,4 +1,4 @@
-import {parseClickHouseQueryWithCursor} from '../../../lib';
+import {parseClickHouseQueryWithCursor} from '../../../test-lib';
 import {ColumnSuggestion, KeywordSuggestion, TableOrViewSuggestion} from '../../../../types';
 import {parseClickHouseQueryWithoutCursor} from '../../../../index';
 

@@ -3,7 +3,7 @@ import {
     TableOrViewSuggestion,
     parseClickHouseQueryWithoutCursor,
 } from '../../../../index';
-import {parseClickHouseQueryWithCursor} from '../../../lib';
+import {parseClickHouseQueryWithCursor} from '../../../test-lib';
 
 test('should suggest keywords after DROP', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor('DROP |');

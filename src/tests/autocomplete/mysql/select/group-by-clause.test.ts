@@ -1,4 +1,4 @@
-import {parseMySqlQueryWithCursor} from '../../../lib';
+import {parseMySqlQueryWithCursor} from '../../../test-lib';
 import {ColumnAliasSuggestion, ColumnSuggestion, KeywordSuggestion} from '../../../../types';
 
 test('should suggest properly after GROUP', () => {

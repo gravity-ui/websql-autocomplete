@@ -1,4 +1,4 @@
-import {parseMySqlQueryWithCursor} from '../../lib';
+import {parseMySqlQueryWithCursor} from '../../test-lib';
 
 // Checkout isStartingToWriteRule comment for more information about these tests
 

@@ -1,5 +1,5 @@
 import {KeywordSuggestion} from '../../../types';
-import {parseClickHouseQueryWithCursor} from '../../lib';
+import {parseClickHouseQueryWithCursor} from '../../test-lib';
 
 test('should suggest properly for an empty query', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor('|');

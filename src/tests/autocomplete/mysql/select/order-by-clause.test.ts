@@ -1,4 +1,4 @@
-import {parseMySqlQueryWithCursor} from '../../../lib';
+import {parseMySqlQueryWithCursor} from '../../../test-lib';
 import {ColumnAliasSuggestion, ColumnSuggestion, KeywordSuggestion} from '../../../../types';
 
 // TODO: fix, grammar is written this way that ORDER might be an alias

@@ -1,5 +1,5 @@
 import {KeywordSuggestion, TableOrViewSuggestion} from '../../../../index';
-import {parseClickHouseQueryWithCursor} from '../../../lib';
+import {parseClickHouseQueryWithCursor} from '../../../test-lib';
 
 test('should suggest keywords after ALTER', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor('ALTER |');
