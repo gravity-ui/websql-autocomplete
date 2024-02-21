@@ -1,5 +1,16 @@
 # Changelog
 
+## [5.0.0](https://github.com/gravity-ui/websql-autocomplete/compare/v4.3.0...v5.0.0) (2024-02-21)
+
+
+### ⚠ BREAKING CHANGES
+
+* separate AutocompleteParseResult for different databases ([#148](https://github.com/gravity-ui/websql-autocomplete/issues/148))
+
+### Features
+
+* separate AutocompleteParseResult for different databases ([#148](https://github.com/gravity-ui/websql-autocomplete/issues/148)) ([34d5a2b](https://github.com/gravity-ui/websql-autocomplete/commit/34d5a2bdf17ae04267d3d4444753fd13cb57012b))
+
 ## [4.3.0](https://github.com/gravity-ui/websql-autocomplete/compare/v4.2.0...v4.3.0) (2024-02-19)
 
 
