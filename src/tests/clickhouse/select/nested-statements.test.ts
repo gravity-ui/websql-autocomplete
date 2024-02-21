@@ -107,9 +107,9 @@ test('should not report errors', () => {
 });
 
 test('should not report error on missing alias', () => {
-    const autocompleteResults = parseClickHouseQueryWithoutCursor(
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(
         'SELECT * FROM (SELECT * FROM test_table);',
     );
 
-    expect(autocompleteResults.errors).toHaveLength(0);
+    expect(autocompleteResult.errors).toHaveLength(0);
 });

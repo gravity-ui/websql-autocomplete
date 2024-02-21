@@ -2,14 +2,14 @@ import {parseMySqlQueryWithCursor} from '../../lib';
 import {KeywordSuggestion} from '../../../types';
 
 test('should suggest properly after USER', () => {
-    const autocompleteResults = parseMySqlQueryWithCursor('CREATE USER |');
+    const autocompleteResult = parseMySqlQueryWithCursor('CREATE USER |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [{value: 'CURRENT_USER'}, {value: 'IF'}];
-    expect(autocompleteResults.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
 test('should suggest properly after USER', () => {
-    const autocompleteResults = parseMySqlQueryWithCursor('CREATE USER test_user |');
+    const autocompleteResult = parseMySqlQueryWithCursor('CREATE USER test_user |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [
         {value: 'IDENTIFIED'},
@@ -23,5 +23,5 @@ test('should suggest properly after USER', () => {
         {value: 'REQUIRE'},
         {value: 'DEFAULT'},
     ];
-    expect(autocompleteResults.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });

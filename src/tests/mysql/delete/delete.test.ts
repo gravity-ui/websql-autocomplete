@@ -2,7 +2,7 @@ import {parseMySqlQueryWithCursor} from '../../lib';
 import {KeywordSuggestion} from '../../../types';
 
 test('should suggest properly after DELETE', () => {
-    const autocompleteResults = parseMySqlQueryWithCursor('DELETE |');
+    const autocompleteResult = parseMySqlQueryWithCursor('DELETE |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [
         {value: 'FROM'},
@@ -10,18 +10,18 @@ test('should suggest properly after DELETE', () => {
         {value: 'QUICK'},
         {value: 'LOW_PRIORITY'},
     ];
-    expect(autocompleteResults.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
 test('should suggest properly after FROM', () => {
-    const autocompleteResults = parseMySqlQueryWithCursor('DELETE FROM |');
+    const autocompleteResult = parseMySqlQueryWithCursor('DELETE FROM |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [];
-    expect(autocompleteResults.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
 test('should suggest properly after table name', () => {
-    const autocompleteResults = parseMySqlQueryWithCursor('DELETE FROM test_table |');
+    const autocompleteResult = parseMySqlQueryWithCursor('DELETE FROM test_table |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [
         {value: 'USING'},
@@ -31,11 +31,11 @@ test('should suggest properly after table name', () => {
         {value: 'PARTITION'},
         {value: 'AS'},
     ];
-    expect(autocompleteResults.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
 test('should suggest properly after WHERE', () => {
-    const autocompleteResults = parseMySqlQueryWithCursor('DELETE FROM test_table WHERE |');
+    const autocompleteResult = parseMySqlQueryWithCursor('DELETE FROM test_table WHERE |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [
         {value: 'NOT'},
@@ -47,20 +47,20 @@ test('should suggest properly after WHERE', () => {
         {value: 'EXISTS'},
         {value: 'INTERVAL'},
     ];
-    expect(autocompleteResults.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
 test('should suggest properly after LIMIT', () => {
-    const autocompleteResults = parseMySqlQueryWithCursor('DELETE FROM test_table LIMIT |');
+    const autocompleteResult = parseMySqlQueryWithCursor('DELETE FROM test_table LIMIT |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [];
-    expect(autocompleteResults.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
 // TODO: fix
 // grammar treats ORDER as the alias
 test.skip('should suggest properly after ORDER', () => {
-    const autocompleteResults = parseMySqlQueryWithCursor('DELETE FROM test_table ORDER |');
+    const autocompleteResult = parseMySqlQueryWithCursor('DELETE FROM test_table ORDER |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [
         {value: 'BY'},
@@ -69,12 +69,12 @@ test.skip('should suggest properly after ORDER', () => {
         {value: 'WHERE'},
         {value: 'PARTITION'},
     ];
-    expect(autocompleteResults.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
 test('should suggest properly after ORDER', () => {
-    const autocompleteResults = parseMySqlQueryWithCursor('DELETE FROM test_table t ORDER |');
+    const autocompleteResult = parseMySqlQueryWithCursor('DELETE FROM test_table t ORDER |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [{value: 'BY'}];
-    expect(autocompleteResults.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });

@@ -2,7 +2,7 @@ import {KeywordSuggestion} from '../../..';
 import {parsePostgreSqlQueryWithCursor} from '../../lib';
 
 test('should suggest SELECT and contain suggestTemplates with EXPLAIN prefix', () => {
-    const autocompleteResults = parsePostgreSqlQueryWithCursor('EXPLAIN |');
+    const autocompleteResult = parsePostgreSqlQueryWithCursor('EXPLAIN |');
     const keywordSuggestion: KeywordSuggestion[] = [
         {value: 'VERBOSE'},
         {value: 'ANALYSE'},
@@ -20,6 +20,6 @@ test('should suggest SELECT and contain suggestTemplates with EXPLAIN prefix', (
         {value: 'EXECUTE'},
     ];
 
-    expect(autocompleteResults.suggestKeywords).toEqual(keywordSuggestion);
-    expect(autocompleteResults.suggestTemplates).toEqual(true);
+    expect(autocompleteResult.suggestKeywords).toEqual(keywordSuggestion);
+    expect(autocompleteResult.suggestTemplates).toEqual(true);
 });

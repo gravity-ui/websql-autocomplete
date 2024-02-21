@@ -2,7 +2,7 @@ import {parseMySqlQueryWithCursor} from '../../lib';
 import {KeywordSuggestion} from '../../../types';
 
 test('should suggest properly after CREATE', () => {
-    const autocompleteResults = parseMySqlQueryWithCursor('CREATE |');
+    const autocompleteResult = parseMySqlQueryWithCursor('CREATE |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [
         {value: 'FUNCTION'},
@@ -31,5 +31,5 @@ test('should suggest properly after CREATE', () => {
         {value: 'DATABASE'},
         {value: 'SCHEMA'},
     ];
-    expect(autocompleteResults.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });

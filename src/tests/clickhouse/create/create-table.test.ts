@@ -2,14 +2,14 @@ import {parseClickHouseQueryWithCursor} from '../../lib';
 import {KeywordSuggestion} from '../../../types';
 
 test('should suggest properly after TABLE', () => {
-    const autocompleteResults = parseClickHouseQueryWithCursor('CREATE TABLE |');
+    const autocompleteResult = parseClickHouseQueryWithCursor('CREATE TABLE |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [{value: 'IF'}];
-    expect(autocompleteResults.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
 test('should suggest properly after table name', () => {
-    const autocompleteResults = parseClickHouseQueryWithCursor('CREATE TABLE test_table |');
+    const autocompleteResult = parseClickHouseQueryWithCursor('CREATE TABLE test_table |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [
         {value: 'AS'},
@@ -19,12 +19,12 @@ test('should suggest properly after table name', () => {
         {value: 'FORMAT'},
         {value: 'INTO'},
     ];
-    expect(autocompleteResults.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
 // TODO: support colum definitions in clickhouse
 test.skip('should suggest properly after the first column', () => {
-    const autocompleteResults = parseClickHouseQueryWithCursor(
+    const autocompleteResult = parseClickHouseQueryWithCursor(
         'CREATE TABLE test_table (test_database.test_column |',
     );
 
@@ -89,12 +89,12 @@ test.skip('should suggest properly after the first column', () => {
         {value: 'POINT'},
         {value: 'POLYGON'},
     ];
-    expect(autocompleteResults.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
 // TODO: support clickhouse column type suggestions
 test.skip('should suggest properly after the second column', () => {
-    const autocompleteResults = parseClickHouseQueryWithCursor(
+    const autocompleteResult = parseClickHouseQueryWithCursor(
         'CREATE TABLE test_table (test_column TEXT, test_column_2 |',
     );
 
@@ -159,5 +159,5 @@ test.skip('should suggest properly after the second column', () => {
         {value: 'POINT'},
         {value: 'POLYGON'},
     ];
-    expect(autocompleteResults.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });

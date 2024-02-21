@@ -2,7 +2,7 @@ import {KeywordSuggestion} from '../../..';
 import {parseClickHouseQueryWithCursor} from '../../lib';
 
 test('should suggest keywords after EXPLAIN', () => {
-    const autocompleteResults = parseClickHouseQueryWithCursor('EXPLAIN |');
+    const autocompleteResult = parseClickHouseQueryWithCursor('EXPLAIN |');
     const keywords: KeywordSuggestion[] = [
         {value: 'ESTIMATE'},
         {value: 'QUERY'},
@@ -35,15 +35,15 @@ test('should suggest keywords after EXPLAIN', () => {
         {value: 'WATCH'},
     ];
 
-    expect(autocompleteResults.suggestKeywords).toEqual(keywords);
-    expect(autocompleteResults.suggestTemplates).toEqual(true);
+    expect(autocompleteResult.suggestKeywords).toEqual(keywords);
+    expect(autocompleteResult.suggestTemplates).toEqual(true);
 });
 
 // TODO This doesn't work because current ClickHouse suggestTemplates with EXPLAIN autocomplete is broken
 test.skip('should suggest SELECT and contain suggestTemplates with EXPLAIN prefix', () => {
-    const autocompleteResults = parseClickHouseQueryWithCursor('EXPLAIN AST |');
+    const autocompleteResult = parseClickHouseQueryWithCursor('EXPLAIN AST |');
     const selectKeyword: KeywordSuggestion = {value: 'SELECT'};
 
-    expect(autocompleteResults.suggestKeywords).toContainEqual(selectKeyword);
-    expect(autocompleteResults.suggestTemplates).toEqual(true);
+    expect(autocompleteResult.suggestKeywords).toContainEqual(selectKeyword);
+    expect(autocompleteResult.suggestTemplates).toEqual(true);
 });

@@ -2,21 +2,21 @@ import {parseMySqlQueryWithCursor} from '../../lib';
 import {KeywordSuggestion} from '../../../types';
 
 test('should suggest properly after FUNCTION', () => {
-    const autocompleteResults = parseMySqlQueryWithCursor('CREATE FUNCTION |');
+    const autocompleteResult = parseMySqlQueryWithCursor('CREATE FUNCTION |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [{value: 'IF'}];
-    expect(autocompleteResults.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
 test('should suggest properly after function name', () => {
-    const autocompleteResults = parseMySqlQueryWithCursor('CREATE FUNCTION test_function |');
+    const autocompleteResult = parseMySqlQueryWithCursor('CREATE FUNCTION test_function |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [{value: 'RETURNS'}];
-    expect(autocompleteResults.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
 test('should suggest properly after argument', () => {
-    const autocompleteResults = parseMySqlQueryWithCursor(
+    const autocompleteResult = parseMySqlQueryWithCursor(
         'CREATE FUNCTION test_function (test_argument |',
     );
 
@@ -81,20 +81,20 @@ test('should suggest properly after argument', () => {
         {value: 'POINT'},
         {value: 'POLYGON'},
     ];
-    expect(autocompleteResults.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
 test('should suggest properly after arguments', () => {
-    const autocompleteResults = parseMySqlQueryWithCursor(
+    const autocompleteResult = parseMySqlQueryWithCursor(
         'CREATE FUNCTION test_function (test_argument CHARACTER) |',
     );
 
     const keywordsSuggestion: KeywordSuggestion[] = [{value: 'RETURNS'}];
-    expect(autocompleteResults.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
 test('should suggest properly after RETURNS', () => {
-    const autocompleteResults = parseMySqlQueryWithCursor(
+    const autocompleteResult = parseMySqlQueryWithCursor(
         'CREATE FUNCTION test_function (test_argument CHARACTER) RETURNS |',
     );
 
@@ -159,11 +159,11 @@ test('should suggest properly after RETURNS', () => {
         {value: 'POINT'},
         {value: 'POLYGON'},
     ];
-    expect(autocompleteResults.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
 test('should suggest properly after RETURNS and a type', () => {
-    const autocompleteResults = parseMySqlQueryWithCursor(
+    const autocompleteResult = parseMySqlQueryWithCursor(
         'CREATE FUNCTION test_function (test_argument CHARACTER) RETURNS TEXT |',
     );
 
@@ -241,5 +241,5 @@ test('should suggest properly after RETURNS and a type', () => {
         {value: 'MODIFIES'},
         {value: 'SQL'},
     ];
-    expect(autocompleteResults.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });

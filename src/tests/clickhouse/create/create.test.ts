@@ -2,7 +2,7 @@ import {KeywordSuggestion} from '../../../types';
 import {parseClickHouseQueryWithCursor} from '../../lib';
 
 test('should suggest properly after CREATE', () => {
-    const autocompleteResults = parseClickHouseQueryWithCursor('CREATE |');
+    const autocompleteResult = parseClickHouseQueryWithCursor('CREATE |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [
         {value: 'VIEW'},
@@ -14,5 +14,5 @@ test('should suggest properly after CREATE', () => {
         {value: 'DICTIONARY'},
         {value: 'DATABASE'},
     ];
-    expect(autocompleteResults.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });

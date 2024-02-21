@@ -2,21 +2,21 @@ import {parseClickHouseQueryWithCursor} from '../../lib';
 import {KeywordSuggestion} from '../../../types';
 
 test('should suggest properly after DELETE', () => {
-    const autocompleteResults = parseClickHouseQueryWithCursor('DELETE |');
+    const autocompleteResult = parseClickHouseQueryWithCursor('DELETE |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [{value: 'FROM'}];
-    expect(autocompleteResults.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
 test('should suggest properly after FROM', () => {
-    const autocompleteResults = parseClickHouseQueryWithCursor('DELETE FROM |');
+    const autocompleteResult = parseClickHouseQueryWithCursor('DELETE FROM |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [];
-    expect(autocompleteResults.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
 test('should suggest properly after table name', () => {
-    const autocompleteResults = parseClickHouseQueryWithCursor('DELETE FROM test_table |');
+    const autocompleteResult = parseClickHouseQueryWithCursor('DELETE FROM test_table |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [
         {value: 'WHERE'},
@@ -24,11 +24,11 @@ test('should suggest properly after table name', () => {
         {value: 'FORMAT'},
         {value: 'INTO'},
     ];
-    expect(autocompleteResults.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
 test('should suggest properly after WHERE', () => {
-    const autocompleteResults = parseClickHouseQueryWithCursor('DELETE FROM test_table WHERE |');
+    const autocompleteResult = parseClickHouseQueryWithCursor('DELETE FROM test_table WHERE |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [
         {value: 'CASE'},
@@ -42,5 +42,5 @@ test('should suggest properly after WHERE', () => {
         {value: 'NOT'},
         {value: '*'},
     ];
-    expect(autocompleteResults.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
