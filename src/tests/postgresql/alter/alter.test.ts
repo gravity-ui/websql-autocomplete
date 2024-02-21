@@ -2,7 +2,7 @@ import {KeywordSuggestion, TableOrViewSuggestion} from '../../..';
 import {parsePostgreSqlQueryWithCursor} from '../../lib';
 
 test('should suggest keywords after ALTER', () => {
-    const parseResult = parsePostgreSqlQueryWithCursor('ALTER |');
+    const autocompleteResult = parsePostgreSqlQueryWithCursor('ALTER |');
     const keywords: KeywordSuggestion[] = [
         {value: 'TYPE'},
         {value: 'TEXT'},
@@ -42,41 +42,41 @@ test('should suggest keywords after ALTER', () => {
         {value: 'DEFAULT'},
     ];
 
-    expect(parseResult.suggestKeywords).toEqual(keywords);
+    expect(autocompleteResult.suggestKeywords).toEqual(keywords);
 });
 
 test('should suggest VIEW after ALTER MATERIALIZED', () => {
-    const parseResult = parsePostgreSqlQueryWithCursor('ALTER MATERIALIZED |');
+    const autocompleteResult = parsePostgreSqlQueryWithCursor('ALTER MATERIALIZED |');
     const keywords: KeywordSuggestion[] = [{value: 'VIEW'}];
 
-    expect(parseResult.suggestKeywords).toEqual(keywords);
+    expect(autocompleteResult.suggestKeywords).toEqual(keywords);
 });
 
 test('should suggest views after ALTER MATERIALIZED VIEW', () => {
-    const parseResult = parsePostgreSqlQueryWithCursor('ALTER MATERIALIZED VIEW |');
+    const autocompleteResult = parsePostgreSqlQueryWithCursor('ALTER MATERIALIZED VIEW |');
 
-    expect(parseResult.suggestViewsOrTables).toEqual(TableOrViewSuggestion.VIEWS);
+    expect(autocompleteResult.suggestViewsOrTables).toEqual(TableOrViewSuggestion.VIEWS);
 });
 
 test('should suggest keywords after TABLE', () => {
-    const parseResult = parsePostgreSqlQueryWithCursor('ALTER TABLE |');
+    const autocompleteResult = parsePostgreSqlQueryWithCursor('ALTER TABLE |');
 
     const keywords: KeywordSuggestion[] = [{value: 'ONLY'}, {value: 'IF'}, {value: 'ALL'}];
-    expect(parseResult.suggestKeywords).toEqual(keywords);
+    expect(autocompleteResult.suggestKeywords).toEqual(keywords);
 
-    expect(parseResult.suggestViewsOrTables).toEqual(TableOrViewSuggestion.TABLES);
+    expect(autocompleteResult.suggestViewsOrTables).toEqual(TableOrViewSuggestion.TABLES);
 });
 
 test('should suggest tables after ALTER TABLE between statements', () => {
-    const parseResult = parsePostgreSqlQueryWithCursor(
+    const autocompleteResult = parsePostgreSqlQueryWithCursor(
         'DROP VIEW before_view; ALTER TABLE | ; DROP VIEW after_view;',
     );
 
-    expect(parseResult.suggestViewsOrTables).toEqual(TableOrViewSuggestion.TABLES);
+    expect(autocompleteResult.suggestViewsOrTables).toEqual(TableOrViewSuggestion.TABLES);
 });
 
 test('should suggest keywords after TABLE', () => {
-    const parseResult = parsePostgreSqlQueryWithCursor('ALTER TABLE test_table |');
+    const autocompleteResult = parsePostgreSqlQueryWithCursor('ALTER TABLE test_table |');
 
     const keywords: KeywordSuggestion[] = [
         {value: '*'},
@@ -101,21 +101,21 @@ test('should suggest keywords after TABLE', () => {
         {value: 'FORCE'},
         {value: 'OPTIONS'},
     ];
-    expect(parseResult.suggestKeywords).toEqual(keywords);
+    expect(autocompleteResult.suggestKeywords).toEqual(keywords);
 });
 
 test('should suggest tables after ALTER VIEW', () => {
-    const parseResult = parsePostgreSqlQueryWithCursor('ALTER VIEW |');
+    const autocompleteResult = parsePostgreSqlQueryWithCursor('ALTER VIEW |');
 
     const keywords: KeywordSuggestion[] = [{value: 'IF'}];
-    expect(parseResult.suggestKeywords).toEqual(keywords);
-    expect(parseResult.suggestViewsOrTables).toEqual(TableOrViewSuggestion.VIEWS);
+    expect(autocompleteResult.suggestKeywords).toEqual(keywords);
+    expect(autocompleteResult.suggestViewsOrTables).toEqual(TableOrViewSuggestion.VIEWS);
 });
 
 test('should suggest tables after ALTER VIEW between statements', () => {
-    const parseResult = parsePostgreSqlQueryWithCursor(
+    const autocompleteResult = parsePostgreSqlQueryWithCursor(
         'ALTER TABLE before_table DROP COLUMN id; ALTER VIEW | ; ALTER TABLE after_table DROP COLUMN id;',
     );
 
-    expect(parseResult.suggestViewsOrTables).toEqual(TableOrViewSuggestion.VIEWS);
+    expect(autocompleteResult.suggestViewsOrTables).toEqual(TableOrViewSuggestion.VIEWS);
 });

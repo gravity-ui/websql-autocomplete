@@ -2,21 +2,21 @@ import {parseClickHouseQueryWithCursor} from '../../lib';
 import {KeywordSuggestion} from '../../../types';
 
 test('should suggest properly after DELETE', () => {
-    const parseResults = parseClickHouseQueryWithCursor('DELETE |');
+    const autocompleteResults = parseClickHouseQueryWithCursor('DELETE |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [{value: 'FROM'}];
-    expect(parseResults.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(autocompleteResults.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
 test('should suggest properly after FROM', () => {
-    const parseResults = parseClickHouseQueryWithCursor('DELETE FROM |');
+    const autocompleteResults = parseClickHouseQueryWithCursor('DELETE FROM |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [];
-    expect(parseResults.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(autocompleteResults.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
 test('should suggest properly after table name', () => {
-    const parseResults = parseClickHouseQueryWithCursor('DELETE FROM test_table |');
+    const autocompleteResults = parseClickHouseQueryWithCursor('DELETE FROM test_table |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [
         {value: 'WHERE'},
@@ -24,11 +24,11 @@ test('should suggest properly after table name', () => {
         {value: 'FORMAT'},
         {value: 'INTO'},
     ];
-    expect(parseResults.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(autocompleteResults.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
 test('should suggest properly after WHERE', () => {
-    const parseResults = parseClickHouseQueryWithCursor('DELETE FROM test_table WHERE |');
+    const autocompleteResults = parseClickHouseQueryWithCursor('DELETE FROM test_table WHERE |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [
         {value: 'CASE'},
@@ -42,5 +42,5 @@ test('should suggest properly after WHERE', () => {
         {value: 'NOT'},
         {value: '*'},
     ];
-    expect(parseResults.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(autocompleteResults.suggestKeywords).toEqual(keywordsSuggestion);
 });

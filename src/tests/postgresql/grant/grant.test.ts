@@ -3,7 +3,7 @@ import {KeywordSuggestion} from '../../../types';
 
 // TODO Grammar is not full?
 test('should suggest keywords after GRANT', () => {
-    const parseResult = parsePostgreSqlQueryWithCursor('GRANT |');
+    const autocompleteResult = parsePostgreSqlQueryWithCursor('GRANT |');
 
     const keywords: KeywordSuggestion[] = [
         {value: 'SELECT'},
@@ -11,18 +11,18 @@ test('should suggest keywords after GRANT', () => {
         {value: 'CREATE'},
         {value: 'ALL'},
     ];
-    expect(parseResult.suggestKeywords).toEqual(keywords);
+    expect(autocompleteResult.suggestKeywords).toEqual(keywords);
 });
 
 test('should suggest keywords after SELECT', () => {
-    const parseResult = parsePostgreSqlQueryWithCursor('GRANT SELECT |');
+    const autocompleteResult = parsePostgreSqlQueryWithCursor('GRANT SELECT |');
 
     const keywords: KeywordSuggestion[] = [{value: 'TO'}, {value: 'ON'}];
-    expect(parseResult.suggestKeywords).toEqual(keywords);
+    expect(autocompleteResult.suggestKeywords).toEqual(keywords);
 });
 
 test('should suggest keywords after SELECT ON', () => {
-    const parseResult = parsePostgreSqlQueryWithCursor('GRANT SELECT ON |');
+    const autocompleteResult = parsePostgreSqlQueryWithCursor('GRANT SELECT ON |');
 
     const keywords: KeywordSuggestion[] = [
         {value: 'TABLE'},
@@ -40,41 +40,43 @@ test('should suggest keywords after SELECT ON', () => {
         {value: 'TYPE'},
         {value: 'ALL'},
     ];
-    expect(parseResult.suggestKeywords).toEqual(keywords);
+    expect(autocompleteResult.suggestKeywords).toEqual(keywords);
 });
 
 test('should suggest keywords after SELECT ON table', () => {
-    const parseResult = parsePostgreSqlQueryWithCursor('GRANT SELECT ON TABLE test_table |');
+    const autocompleteResult = parsePostgreSqlQueryWithCursor('GRANT SELECT ON TABLE test_table |');
 
     const keywords: KeywordSuggestion[] = [{value: 'TO'}];
-    expect(parseResult.suggestKeywords).toEqual(keywords);
+    expect(autocompleteResult.suggestKeywords).toEqual(keywords);
 });
 
 test('should suggest keywords after SELECT ON table TO', () => {
-    const parseResult = parsePostgreSqlQueryWithCursor('GRANT SELECT ON TABLE test_table TO |');
+    const autocompleteResult = parsePostgreSqlQueryWithCursor(
+        'GRANT SELECT ON TABLE test_table TO |',
+    );
 
     const keywords: KeywordSuggestion[] = [
         {value: 'CURRENT_USER'},
         {value: 'SESSION_USER'},
         {value: 'GROUP'},
     ];
-    expect(parseResult.suggestKeywords).toEqual(keywords);
+    expect(autocompleteResult.suggestKeywords).toEqual(keywords);
 });
 
 test('should suggest keywords after SELECT ON table TO user', () => {
-    const parseResult = parsePostgreSqlQueryWithCursor(
+    const autocompleteResult = parsePostgreSqlQueryWithCursor(
         'GRANT SELECT ON TABLE test_table TO test_user |',
     );
 
     const keywords: KeywordSuggestion[] = [{value: 'WITH'}];
-    expect(parseResult.suggestKeywords).toEqual(keywords);
+    expect(autocompleteResult.suggestKeywords).toEqual(keywords);
 });
 
 test('should suggest sequences', () => {
-    const parseResult = parsePostgreSqlQueryWithCursor('GRANT ALL ON SEQUENCE |');
+    const autocompleteResult = parsePostgreSqlQueryWithCursor('GRANT ALL ON SEQUENCE |');
 
     const keywords: KeywordSuggestion[] = [{value: 'TO'}];
-    expect(parseResult.suggestKeywords).toEqual(keywords);
+    expect(autocompleteResult.suggestKeywords).toEqual(keywords);
 
-    expect(parseResult.suggestSequences).toEqual(true);
+    expect(autocompleteResult.suggestSequences).toEqual(true);
 });

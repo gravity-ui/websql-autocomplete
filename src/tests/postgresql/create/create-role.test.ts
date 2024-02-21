@@ -2,17 +2,17 @@ import {parsePostgreSqlQueryWithCursor} from '../../lib';
 import {KeywordSuggestion} from '../../../types';
 
 test('should suggest properly after ROLE', () => {
-    const parseResult = parsePostgreSqlQueryWithCursor('CREATE ROLE |');
+    const autocompleteResult = parsePostgreSqlQueryWithCursor('CREATE ROLE |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [
         {value: 'CURRENT_USER'},
         {value: 'SESSION_USER'},
     ];
-    expect(parseResult.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
 test('should suggest properly after role name', () => {
-    const parseResult = parsePostgreSqlQueryWithCursor('CREATE ROLE test_role |');
+    const autocompleteResult = parsePostgreSqlQueryWithCursor('CREATE ROLE test_role |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [
         {value: 'WITH'},
@@ -28,11 +28,11 @@ test('should suggest properly after role name', () => {
         {value: 'ROLE'},
         {value: 'IN'},
     ];
-    expect(parseResult.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
 test('should suggest properly after WITH', () => {
-    const parseResult = parsePostgreSqlQueryWithCursor('CREATE ROLE test_role WITH |');
+    const autocompleteResult = parsePostgreSqlQueryWithCursor('CREATE ROLE test_role WITH |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [
         {value: 'PASSWORD'},
@@ -47,5 +47,5 @@ test('should suggest properly after WITH', () => {
         {value: 'ROLE'},
         {value: 'IN'},
     ];
-    expect(parseResult.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });

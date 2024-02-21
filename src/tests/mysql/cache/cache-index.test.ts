@@ -3,17 +3,17 @@ import {KeywordSuggestion} from '../../../types';
 import {parseMySqlQueryWithoutCursor} from '../../../index';
 
 test('should suggest table name after CACHE INDEX', () => {
-    const parseResult = parseMySqlQueryWithCursor('CACHE INDEX test_table ( |');
+    const autocompleteResult = parseMySqlQueryWithCursor('CACHE INDEX test_table ( |');
 
     const keywordSuggestion: KeywordSuggestion[] = [];
-    expect(parseResult.suggestKeywords).toEqual(keywordSuggestion);
+    expect(autocompleteResult.suggestKeywords).toEqual(keywordSuggestion);
 
-    expect(parseResult.suggestIndexes).toEqual(true);
+    expect(autocompleteResult.suggestIndexes).toEqual(true);
 });
 
 test('should nor report errors on full statement', () => {
-    const parseResult = parseMySqlQueryWithoutCursor(
+    const autocompleteResult = parseMySqlQueryWithoutCursor(
         'CACHE INDEX test_table (test_index) IN test_table;',
     );
-    expect(parseResult.errors).toHaveLength(0);
+    expect(autocompleteResult.errors).toHaveLength(0);
 });

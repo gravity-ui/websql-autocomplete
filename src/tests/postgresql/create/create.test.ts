@@ -2,7 +2,7 @@ import {parsePostgreSqlQueryWithCursor} from '../../lib';
 import {KeywordSuggestion} from '../../../types';
 
 test('should suggest properly after CREATE', () => {
-    const parseResult = parsePostgreSqlQueryWithCursor('CREATE |');
+    const autocompleteResult = parsePostgreSqlQueryWithCursor('CREATE |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [
         {value: 'TEMPORARY'},
@@ -53,16 +53,16 @@ test('should suggest properly after CREATE', () => {
         {value: 'ASSERTION'},
         {value: 'ACCESS'},
     ];
-    expect(parseResult.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
 test('should suggest properly after USER', () => {
-    const parseResult = parsePostgreSqlQueryWithCursor('CREATE USER |');
+    const autocompleteResult = parsePostgreSqlQueryWithCursor('CREATE USER |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [
         {value: 'MAPPING'},
         {value: 'CURRENT_USER'},
         {value: 'SESSION_USER'},
     ];
-    expect(parseResult.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });

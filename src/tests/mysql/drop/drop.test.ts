@@ -2,7 +2,7 @@ import {KeywordSuggestion, TableOrViewSuggestion, parseMySqlQueryWithoutCursor} 
 import {parseMySqlQueryWithCursor} from '../../lib';
 
 test('should suggest keywords after DROP', () => {
-    const parseResult = parseMySqlQueryWithCursor('DROP |');
+    const autocompleteResult = parseMySqlQueryWithCursor('DROP |');
     const keywords: KeywordSuggestion[] = [
         {value: 'USER'},
         {value: 'PREPARE'},
@@ -22,41 +22,41 @@ test('should suggest keywords after DROP', () => {
         {value: 'SCHEMA'},
     ];
 
-    expect(parseResult.suggestKeywords).toEqual(keywords);
+    expect(autocompleteResult.suggestKeywords).toEqual(keywords);
 });
 
 test('should suggest tables after DROP TABLE', () => {
-    const parseResult = parseMySqlQueryWithCursor('DROP TABLE |');
+    const autocompleteResult = parseMySqlQueryWithCursor('DROP TABLE |');
 
-    expect(parseResult.suggestViewsOrTables).toEqual(TableOrViewSuggestion.TABLES);
+    expect(autocompleteResult.suggestViewsOrTables).toEqual(TableOrViewSuggestion.TABLES);
 });
 
 test('should suggest views after DROP VIEW', () => {
-    const parseResult = parseMySqlQueryWithCursor('DROP VIEW |');
+    const autocompleteResult = parseMySqlQueryWithCursor('DROP VIEW |');
 
-    expect(parseResult.suggestViewsOrTables).toEqual(TableOrViewSuggestion.VIEWS);
+    expect(autocompleteResult.suggestViewsOrTables).toEqual(TableOrViewSuggestion.VIEWS);
 });
 
 test('should suggest tables after multiple drop statements', () => {
-    const parseResult = parseMySqlQueryWithCursor('DROP VIEW test_view; DROP TABLE |');
+    const autocompleteResult = parseMySqlQueryWithCursor('DROP VIEW test_view; DROP TABLE |');
 
-    expect(parseResult.suggestViewsOrTables).toEqual(TableOrViewSuggestion.TABLES);
+    expect(autocompleteResult.suggestViewsOrTables).toEqual(TableOrViewSuggestion.TABLES);
 });
 
 test('should suggest views after multiple drop statements', () => {
-    const parseResult = parseMySqlQueryWithCursor('DROP TABLE test_table; DROP VIEW |');
+    const autocompleteResult = parseMySqlQueryWithCursor('DROP TABLE test_table; DROP VIEW |');
 
-    expect(parseResult.suggestViewsOrTables).toEqual(TableOrViewSuggestion.VIEWS);
+    expect(autocompleteResult.suggestViewsOrTables).toEqual(TableOrViewSuggestion.VIEWS);
 });
 
 test('should not report error on DROP TABLE', () => {
-    const parseResult = parseMySqlQueryWithoutCursor('DROP TABLE test_table;');
+    const autocompleteResult = parseMySqlQueryWithoutCursor('DROP TABLE test_table;');
 
-    expect(parseResult.errors).toHaveLength(0);
+    expect(autocompleteResult.errors).toHaveLength(0);
 });
 
 test('should not report error on DROP VIEW', () => {
-    const parseResult = parseMySqlQueryWithoutCursor('DROP VIEW test_view;');
+    const autocompleteResult = parseMySqlQueryWithoutCursor('DROP VIEW test_view;');
 
-    expect(parseResult.errors).toHaveLength(0);
+    expect(autocompleteResult.errors).toHaveLength(0);
 });

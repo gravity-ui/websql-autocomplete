@@ -2,7 +2,7 @@ import {KeywordSuggestion} from '../../..';
 import {parseMySqlQueryWithCursor} from '../../lib';
 
 test('should suggest SELECT and contain suggestTemplates with EXPLAIN prefix', () => {
-    const parseResults = parseMySqlQueryWithCursor('EXPLAIN |');
+    const autocompleteResults = parseMySqlQueryWithCursor('EXPLAIN |');
     const keywordSuggestion: KeywordSuggestion[] = [
         {value: 'SELECT'},
         {value: 'DELETE'},
@@ -14,6 +14,6 @@ test('should suggest SELECT and contain suggestTemplates with EXPLAIN prefix', (
         {value: 'PARTITIONS'},
     ];
 
-    expect(parseResults.suggestKeywords).toEqual(keywordSuggestion);
-    expect(parseResults.suggestTemplates).toEqual(true);
+    expect(autocompleteResults.suggestKeywords).toEqual(keywordSuggestion);
+    expect(autocompleteResults.suggestTemplates).toEqual(true);
 });

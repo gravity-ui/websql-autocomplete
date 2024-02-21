@@ -3,7 +3,7 @@ import {ColumnSuggestion, KeywordSuggestion, TableOrViewSuggestion} from '../../
 import {parseClickHouseQueryWithoutCursor} from '../../..';
 
 test('should suggest properly after SELECT', () => {
-    const parseResult = parseClickHouseQueryWithCursor('SELECT |');
+    const autocompleteResult = parseClickHouseQueryWithCursor('SELECT |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [
         {value: '*'},
@@ -19,14 +19,14 @@ test('should suggest properly after SELECT', () => {
         {value: 'TOP'},
         {value: 'DISTINCT'},
     ];
-    expect(parseResult.suggestKeywords).toEqual(keywordsSuggestion);
-    expect(parseResult.suggestFunctions).toEqual(true);
-    expect(parseResult.suggestAggregateFunctions).toEqual(true);
-    expect(parseResult.suggestTemplates).toEqual(false);
+    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(autocompleteResult.suggestFunctions).toEqual(true);
+    expect(autocompleteResult.suggestAggregateFunctions).toEqual(true);
+    expect(autocompleteResult.suggestTemplates).toEqual(false);
 });
 
 test('should suggest properly after *', () => {
-    const parseResult = parseClickHouseQueryWithCursor('SELECT * |');
+    const autocompleteResult = parseClickHouseQueryWithCursor('SELECT * |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [
         {value: 'AS'},
@@ -61,27 +61,27 @@ test('should suggest properly after *', () => {
         {value: 'FORMAT'},
         {value: 'INTO'},
     ];
-    expect(parseResult.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
 test('should suggest properly after FROM', () => {
-    const parseResult = parseClickHouseQueryWithCursor('SELECT * FROM |');
+    const autocompleteResult = parseClickHouseQueryWithCursor('SELECT * FROM |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [];
-    expect(parseResult.suggestKeywords).toEqual(keywordsSuggestion);
-    expect(parseResult.suggestViewsOrTables).toEqual(TableOrViewSuggestion.ALL);
+    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(autocompleteResult.suggestViewsOrTables).toEqual(TableOrViewSuggestion.ALL);
 });
 
 test('should suggest ALL tables between statements', () => {
-    const parseResult = parseClickHouseQueryWithCursor(
+    const autocompleteResult = parseClickHouseQueryWithCursor(
         'ALTER TABLE before_table DROP COLUMN id; SELECT * FROM | ; ALTER TABLE after_table DROP COLUMN id;',
     );
 
-    expect(parseResult.suggestViewsOrTables).toEqual(TableOrViewSuggestion.ALL);
+    expect(autocompleteResult.suggestViewsOrTables).toEqual(TableOrViewSuggestion.ALL);
 });
 
 test('should suggest properly after table name', () => {
-    const parseResult = parseClickHouseQueryWithCursor('SELECT * FROM test_table |');
+    const autocompleteResult = parseClickHouseQueryWithCursor('SELECT * FROM test_table |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [
         {value: 'AS'},
@@ -118,69 +118,71 @@ test('should suggest properly after table name', () => {
         {value: 'FORMAT'},
         {value: 'INTO'},
     ];
-    expect(parseResult.suggestKeywords).toEqual(keywordsSuggestion);
-    expect(parseResult.suggestViewsOrTables).toEqual(undefined);
+    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(autocompleteResult.suggestViewsOrTables).toEqual(undefined);
 });
 
 test('should suggest table name for column', () => {
-    const parseResult = parseClickHouseQueryWithCursor('SELECT | FROM test_table');
+    const autocompleteResult = parseClickHouseQueryWithCursor('SELECT | FROM test_table');
     const columnSuggestions: ColumnSuggestion = {tables: [{name: 'test_table'}]};
 
-    expect(parseResult.suggestColumns).toEqual(columnSuggestions);
+    expect(autocompleteResult.suggestColumns).toEqual(columnSuggestions);
 });
 
 test('should suggest table name for column between statements', () => {
-    const parseResult = parseClickHouseQueryWithCursor(
+    const autocompleteResult = parseClickHouseQueryWithCursor(
         'ALTER TABLE before_table DROP COLUMN id; SELECT | FROM test_table ; ALTER TABLE after_table DROP COLUMN id;',
     );
     const columnSuggestions: ColumnSuggestion = {tables: [{name: 'test_table'}]};
 
-    expect(parseResult.suggestColumns).toEqual(columnSuggestions);
+    expect(autocompleteResult.suggestColumns).toEqual(columnSuggestions);
 });
 
 test('should suggest table name and alias for column', () => {
-    const parseResult = parseClickHouseQueryWithCursor('SELECT | FROM test_table t');
+    const autocompleteResult = parseClickHouseQueryWithCursor('SELECT | FROM test_table t');
     const columnSuggestions: ColumnSuggestion = {tables: [{name: 'test_table', alias: 't'}]};
 
-    expect(parseResult.suggestColumns).toEqual(columnSuggestions);
+    expect(autocompleteResult.suggestColumns).toEqual(columnSuggestions);
 });
 
 test('should suggest table name and alias (with AS) for column', () => {
-    const parseResult = parseClickHouseQueryWithCursor('SELECT | FROM test_table AS t');
+    const autocompleteResult = parseClickHouseQueryWithCursor('SELECT | FROM test_table AS t');
     const columnSuggestions: ColumnSuggestion = {tables: [{name: 'test_table', alias: 't'}]};
 
-    expect(parseResult.suggestColumns).toEqual(columnSuggestions);
+    expect(autocompleteResult.suggestColumns).toEqual(columnSuggestions);
 });
 
 test('should suggest table name and alias for second column', () => {
-    const parseResult = parseClickHouseQueryWithCursor('SELECT id, | FROM test_table AS t');
+    const autocompleteResult = parseClickHouseQueryWithCursor('SELECT id, | FROM test_table AS t');
     const columnSuggestions: ColumnSuggestion = {tables: [{name: 'test_table', alias: 't'}]};
 
-    expect(parseResult.suggestColumns).toEqual(columnSuggestions);
+    expect(autocompleteResult.suggestColumns).toEqual(columnSuggestions);
 });
 
 test('should suggest multiple table names for column', () => {
-    const parseResult = parseClickHouseQueryWithCursor('SELECT | FROM test_table_1, test_table_2');
+    const autocompleteResult = parseClickHouseQueryWithCursor(
+        'SELECT | FROM test_table_1, test_table_2',
+    );
     const columnSuggestions: ColumnSuggestion = {
         tables: [{name: 'test_table_1'}, {name: 'test_table_2'}],
     };
 
-    expect(parseResult.suggestColumns).toEqual(columnSuggestions);
+    expect(autocompleteResult.suggestColumns).toEqual(columnSuggestions);
 });
 
 test('should suggest multiple table names for column between statements', () => {
-    const parseResult = parseClickHouseQueryWithCursor(
+    const autocompleteResult = parseClickHouseQueryWithCursor(
         'ALTER TABLE before_table DROP COLUMN id; SELECT | FROM test_table_1, test_table_2 ; ALTER TABLE after_table DROP COLUMN id;',
     );
     const columnSuggestions: ColumnSuggestion = {
         tables: [{name: 'test_table_1'}, {name: 'test_table_2'}],
     };
 
-    expect(parseResult.suggestColumns).toEqual(columnSuggestions);
+    expect(autocompleteResult.suggestColumns).toEqual(columnSuggestions);
 });
 
 test('should suggest multiple table names and aliases for column', () => {
-    const parseResult = parseClickHouseQueryWithCursor(
+    const autocompleteResult = parseClickHouseQueryWithCursor(
         'SELECT | FROM test_table_1 t1, test_table_2 t2',
     );
     const columnSuggestions: ColumnSuggestion = {
@@ -190,11 +192,11 @@ test('should suggest multiple table names and aliases for column', () => {
         ],
     };
 
-    expect(parseResult.suggestColumns).toEqual(columnSuggestions);
+    expect(autocompleteResult.suggestColumns).toEqual(columnSuggestions);
 });
 
 test('should suggest multiple table names and aliases (with AS) for column', () => {
-    const parseResult = parseClickHouseQueryWithCursor(
+    const autocompleteResult = parseClickHouseQueryWithCursor(
         'SELECT | FROM test_table_1 AS t1, test_table_2 AS t2',
     );
     const columnSuggestions: ColumnSuggestion = {
@@ -204,11 +206,13 @@ test('should suggest multiple table names and aliases (with AS) for column', () 
         ],
     };
 
-    expect(parseResult.suggestColumns).toEqual(columnSuggestions);
+    expect(autocompleteResult.suggestColumns).toEqual(columnSuggestions);
 });
 
 test('should suggest properly after HAVING', () => {
-    const parseResult = parseClickHouseQueryWithCursor('SELECT * FROM test_table as t HAVING |');
+    const autocompleteResult = parseClickHouseQueryWithCursor(
+        'SELECT * FROM test_table as t HAVING |',
+    );
 
     const keywordsSuggestion: KeywordSuggestion[] = [
         {value: 'CASE'},
@@ -222,11 +226,13 @@ test('should suggest properly after HAVING', () => {
         {value: 'NOT'},
         {value: '*'},
     ];
-    expect(parseResult.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
 test('should suggest properly after LIMIT', () => {
-    const parseResult = parseClickHouseQueryWithCursor('SELECT * FROM test_table as t LIMIT |');
+    const autocompleteResult = parseClickHouseQueryWithCursor(
+        'SELECT * FROM test_table as t LIMIT |',
+    );
 
     const keywordsSuggestion: KeywordSuggestion[] = [
         {value: 'CASE'},
@@ -240,27 +246,27 @@ test('should suggest properly after LIMIT', () => {
         {value: 'NOT'},
         {value: '*'},
     ];
-    expect(parseResult.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
 test('should suggest tables with inline comment', () => {
-    const parseResult = parseClickHouseQueryWithCursor(
+    const autocompleteResult = parseClickHouseQueryWithCursor(
         'SELECT * FROM | --SELECT * FROM test_table',
     );
 
-    expect(parseResult.suggestViewsOrTables).toEqual(TableOrViewSuggestion.ALL);
+    expect(autocompleteResult.suggestViewsOrTables).toEqual(TableOrViewSuggestion.ALL);
 });
 
 test('should suggest tables with multiline comment', () => {
-    const parseResult = parseClickHouseQueryWithCursor(
+    const autocompleteResult = parseClickHouseQueryWithCursor(
         'SELECT * FROM | /*SELECT * FROM test_table*/',
     );
 
-    expect(parseResult.suggestViewsOrTables).toEqual(TableOrViewSuggestion.ALL);
+    expect(autocompleteResult.suggestViewsOrTables).toEqual(TableOrViewSuggestion.ALL);
 });
 
 test('should not report errors', () => {
-    const parseResult = parseClickHouseQueryWithoutCursor('SELECT c1, c2 FROM test_table;');
+    const autocompleteResult = parseClickHouseQueryWithoutCursor('SELECT c1, c2 FROM test_table;');
 
-    expect(parseResult.errors).toHaveLength(0);
+    expect(autocompleteResult.errors).toHaveLength(0);
 });

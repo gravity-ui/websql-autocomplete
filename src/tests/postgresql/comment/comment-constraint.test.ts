@@ -2,15 +2,15 @@ import {parsePostgreSqlQueryWithCursor} from '../../lib';
 import {parsePostgreSqlQueryWithoutCursor} from '../../../index';
 
 test('should suggest properly after COMMENT ON CONSTRAINT', () => {
-    const parseResult = parsePostgreSqlQueryWithCursor('COMMENT ON CONSTRAINT |');
+    const autocompleteResult = parsePostgreSqlQueryWithCursor('COMMENT ON CONSTRAINT |');
 
-    expect(parseResult.suggestKeywords).toEqual([]);
-    expect(parseResult.suggestConstraints).toEqual(true);
+    expect(autocompleteResult.suggestKeywords).toEqual([]);
+    expect(autocompleteResult.suggestConstraints).toEqual(true);
 });
 
 test('should not report errors on full statement', () => {
-    const parseResult = parsePostgreSqlQueryWithoutCursor(
+    const autocompleteResult = parsePostgreSqlQueryWithoutCursor(
         "COMMENT ON CONSTRAINT test_constraint ON test_table IS 'test_comment';",
     );
-    expect(parseResult.errors).toHaveLength(0);
+    expect(autocompleteResult.errors).toHaveLength(0);
 });

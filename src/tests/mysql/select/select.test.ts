@@ -3,7 +3,7 @@ import {ColumnSuggestion, KeywordSuggestion, TableOrViewSuggestion} from '../../
 import {parseMySqlQueryWithoutCursor} from '../../..';
 
 test('should suggest properly after SELECT', () => {
-    const parseResult = parseMySqlQueryWithCursor('SELECT |');
+    const autocompleteResult = parseMySqlQueryWithCursor('SELECT |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [
         {value: '*'},
@@ -27,14 +27,14 @@ test('should suggest properly after SELECT', () => {
         {value: 'SQL_NO_CACHE'},
         {value: 'SQL_CALC_FOUND_ROWS'},
     ];
-    expect(parseResult.suggestKeywords).toEqual(keywordsSuggestion);
-    expect(parseResult.suggestFunctions).toEqual(true);
-    expect(parseResult.suggestAggregateFunctions).toEqual(true);
-    expect(parseResult.suggestTemplates).toEqual(false);
+    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(autocompleteResult.suggestFunctions).toEqual(true);
+    expect(autocompleteResult.suggestAggregateFunctions).toEqual(true);
+    expect(autocompleteResult.suggestTemplates).toEqual(false);
 });
 
 test('should suggest properly after *', () => {
-    const parseResult = parseMySqlQueryWithCursor('SELECT * |');
+    const autocompleteResult = parseMySqlQueryWithCursor('SELECT * |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [
         {value: 'FROM'},
@@ -49,39 +49,43 @@ test('should suggest properly after *', () => {
         {value: 'FOR'},
         {value: 'LOCK'},
     ];
-    expect(parseResult.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
 test('should suggest properly after FROM', () => {
-    const parseResult = parseMySqlQueryWithCursor('SELECT * FROM |');
+    const autocompleteResult = parseMySqlQueryWithCursor('SELECT * FROM |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [{value: 'JSON_TABLE'}];
-    expect(parseResult.suggestKeywords).toEqual(keywordsSuggestion);
-    expect(parseResult.suggestViewsOrTables).toEqual(TableOrViewSuggestion.ALL);
+    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(autocompleteResult.suggestViewsOrTables).toEqual(TableOrViewSuggestion.ALL);
 });
 
 test('should suggest ALL tables between statements', () => {
-    const parseResult = parseMySqlQueryWithCursor(
+    const autocompleteResult = parseMySqlQueryWithCursor(
         'ALTER TABLE before_table DROP COLUMN id; SELECT * FROM | ; ALTER TABLE after_table DROP COLUMN id;',
     );
 
-    expect(parseResult.suggestViewsOrTables).toEqual(TableOrViewSuggestion.ALL);
+    expect(autocompleteResult.suggestViewsOrTables).toEqual(TableOrViewSuggestion.ALL);
 });
 
 test('should suggest tables with inline comment', () => {
-    const parseResult = parseMySqlQueryWithCursor('SELECT * FROM | --SELECT * FROM test_table');
+    const autocompleteResult = parseMySqlQueryWithCursor(
+        'SELECT * FROM | --SELECT * FROM test_table',
+    );
 
-    expect(parseResult.suggestViewsOrTables).toEqual(TableOrViewSuggestion.ALL);
+    expect(autocompleteResult.suggestViewsOrTables).toEqual(TableOrViewSuggestion.ALL);
 });
 
 test('should suggest tables with multiline comment', () => {
-    const parseResult = parseMySqlQueryWithCursor('SELECT * FROM | /*SELECT * FROM test_table*/');
+    const autocompleteResult = parseMySqlQueryWithCursor(
+        'SELECT * FROM | /*SELECT * FROM test_table*/',
+    );
 
-    expect(parseResult.suggestViewsOrTables).toEqual(TableOrViewSuggestion.ALL);
+    expect(autocompleteResult.suggestViewsOrTables).toEqual(TableOrViewSuggestion.ALL);
 });
 
 test('should suggest properly after table name', () => {
-    const parseResult = parseMySqlQueryWithCursor('SELECT * FROM test_table |');
+    const autocompleteResult = parseMySqlQueryWithCursor('SELECT * FROM test_table |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [
         {value: 'FORCE'},
@@ -107,69 +111,73 @@ test('should suggest properly after table name', () => {
         {value: 'FOR'},
         {value: 'LOCK'},
     ];
-    expect(parseResult.suggestKeywords).toEqual(keywordsSuggestion);
-    expect(parseResult.suggestViewsOrTables).toEqual(undefined);
+    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(autocompleteResult.suggestViewsOrTables).toEqual(undefined);
 });
 
 test('should suggest table name for column', () => {
-    const parseResult = parseMySqlQueryWithCursor('SELECT | FROM test_table');
+    const autocompleteResult = parseMySqlQueryWithCursor('SELECT | FROM test_table');
     const columnSuggestions: ColumnSuggestion = {tables: [{name: 'test_table'}]};
 
-    expect(parseResult.suggestColumns).toEqual(columnSuggestions);
+    expect(autocompleteResult.suggestColumns).toEqual(columnSuggestions);
 });
 
 test('should suggest table name for column between statements', () => {
-    const parseResult = parseMySqlQueryWithCursor(
+    const autocompleteResult = parseMySqlQueryWithCursor(
         'ALTER TABLE before_table DROP COLUMN id; SELECT | FROM test_table ; ALTER TABLE after_table DROP COLUMN id;',
     );
     const columnSuggestions: ColumnSuggestion = {tables: [{name: 'test_table'}]};
 
-    expect(parseResult.suggestColumns).toEqual(columnSuggestions);
+    expect(autocompleteResult.suggestColumns).toEqual(columnSuggestions);
 });
 
 test('should suggest table name and alias for column', () => {
-    const parseResult = parseMySqlQueryWithCursor('SELECT | FROM test_table t');
+    const autocompleteResult = parseMySqlQueryWithCursor('SELECT | FROM test_table t');
     const columnSuggestions: ColumnSuggestion = {tables: [{name: 'test_table', alias: 't'}]};
 
-    expect(parseResult.suggestColumns).toEqual(columnSuggestions);
+    expect(autocompleteResult.suggestColumns).toEqual(columnSuggestions);
 });
 
 test('should suggest table name and alias (with AS) for column', () => {
-    const parseResult = parseMySqlQueryWithCursor('SELECT | FROM test_table AS t');
+    const autocompleteResult = parseMySqlQueryWithCursor('SELECT | FROM test_table AS t');
     const columnSuggestions: ColumnSuggestion = {tables: [{name: 'test_table', alias: 't'}]};
 
-    expect(parseResult.suggestColumns).toEqual(columnSuggestions);
+    expect(autocompleteResult.suggestColumns).toEqual(columnSuggestions);
 });
 
 test('should suggest table name and alias for second column', () => {
-    const parseResult = parseMySqlQueryWithCursor('SELECT id, | FROM test_table AS t');
+    const autocompleteResult = parseMySqlQueryWithCursor('SELECT id, | FROM test_table AS t');
     const columnSuggestions: ColumnSuggestion = {tables: [{name: 'test_table', alias: 't'}]};
 
-    expect(parseResult.suggestColumns).toEqual(columnSuggestions);
+    expect(autocompleteResult.suggestColumns).toEqual(columnSuggestions);
 });
 
 test('should suggest multiple table names for column', () => {
-    const parseResult = parseMySqlQueryWithCursor('SELECT | FROM test_table_1, test_table_2');
+    const autocompleteResult = parseMySqlQueryWithCursor(
+        'SELECT | FROM test_table_1, test_table_2',
+    );
     const columnSuggestions: ColumnSuggestion = {
         tables: [{name: 'test_table_1'}, {name: 'test_table_2'}],
     };
 
-    expect(parseResult.suggestColumns).toEqual(columnSuggestions);
+    expect(autocompleteResult.suggestColumns).toEqual(columnSuggestions);
 });
 
 test('should suggest multiple table names for column between statements', () => {
-    const parseResult = parseMySqlQueryWithCursor(
+    const autocompleteResult = parseMySqlQueryWithCursor(
         'ALTER TABLE before_table DROP COLUMN id; SELECT | FROM test_table_1, test_table_2 ; ALTER TABLE after_table DROP COLUMN id;',
     );
     const columnSuggestions: ColumnSuggestion = {
         tables: [{name: 'test_table_1'}, {name: 'test_table_2'}],
     };
 
-    expect(parseResult.suggestColumns).toEqual(columnSuggestions);
+    expect(autocompleteResult.suggestColumns).toEqual(columnSuggestions);
 });
 
 test('should suggest multiple table names and aliases for column', () => {
-    const parseResult = parseMySqlQueryWithCursor('SELECT | FROM test_table_1 t1, test_table_2 t2');
+    const autocompleteResult = parseMySqlQueryWithCursor(
+        'SELECT | FROM test_table_1 t1, test_table_2 t2',
+    );
     const columnSuggestions: ColumnSuggestion = {
         tables: [
             {name: 'test_table_1', alias: 't1'},
@@ -177,11 +185,11 @@ test('should suggest multiple table names and aliases for column', () => {
         ],
     };
 
-    expect(parseResult.suggestColumns).toEqual(columnSuggestions);
+    expect(autocompleteResult.suggestColumns).toEqual(columnSuggestions);
 });
 
 test('should suggest multiple table names and aliases (with AS) for column', () => {
-    const parseResult = parseMySqlQueryWithCursor(
+    const autocompleteResult = parseMySqlQueryWithCursor(
         'SELECT | FROM test_table_1 AS t1, test_table_2 AS t2',
     );
     const columnSuggestions: ColumnSuggestion = {
@@ -191,11 +199,11 @@ test('should suggest multiple table names and aliases (with AS) for column', () 
         ],
     };
 
-    expect(parseResult.suggestColumns).toEqual(columnSuggestions);
+    expect(autocompleteResult.suggestColumns).toEqual(columnSuggestions);
 });
 
 test('should suggest properly after HAVING', () => {
-    const parseResult = parseMySqlQueryWithCursor('SELECT * FROM test_table as t HAVING |');
+    const autocompleteResult = parseMySqlQueryWithCursor('SELECT * FROM test_table as t HAVING |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [
         {value: 'NOT'},
@@ -207,18 +215,18 @@ test('should suggest properly after HAVING', () => {
         {value: 'EXISTS'},
         {value: 'INTERVAL'},
     ];
-    expect(parseResult.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
 test('should suggest properly after LIMIT', () => {
-    const parseResult = parseMySqlQueryWithCursor('SELECT * FROM test_table as t LIMIT |');
+    const autocompleteResult = parseMySqlQueryWithCursor('SELECT * FROM test_table as t LIMIT |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [];
-    expect(parseResult.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
 test('should not report errors', () => {
-    const parseResult = parseMySqlQueryWithoutCursor('SELECT c1, c2 FROM test_table;');
+    const autocompleteResult = parseMySqlQueryWithoutCursor('SELECT c1, c2 FROM test_table;');
 
-    expect(parseResult.errors).toHaveLength(0);
+    expect(autocompleteResult.errors).toHaveLength(0);
 });

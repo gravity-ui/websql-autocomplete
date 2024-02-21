@@ -2,7 +2,7 @@ import {parsePostgreSqlQueryWithCursor} from '../lib';
 import {KeywordSuggestion} from '../../types';
 
 test('should suggest properly for an empty query', () => {
-    const parseResult = parsePostgreSqlQueryWithCursor('|');
+    const autocompleteResult = parsePostgreSqlQueryWithCursor('|');
 
     const keywordsSuggestion: KeywordSuggestion[] = [
         {value: 'ALTER'},
@@ -59,6 +59,6 @@ test('should suggest properly for an empty query', () => {
         {value: 'RESET'},
         {value: 'SHOW'},
     ];
-    expect(parseResult.suggestKeywords).toEqual(keywordsSuggestion);
-    expect(parseResult.suggestTemplates).toEqual(true);
+    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(autocompleteResult.suggestTemplates).toEqual(true);
 });

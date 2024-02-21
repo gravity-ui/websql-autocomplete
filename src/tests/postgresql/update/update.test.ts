@@ -3,56 +3,60 @@ import {ColumnSuggestion, KeywordSuggestion, TableOrViewSuggestion} from '../../
 import {parsePostgreSqlQueryWithoutCursor} from '../../..';
 
 test('should suggest properly after UPDATE', () => {
-    const parseResult = parsePostgreSqlQueryWithCursor('UPDATE |');
+    const autocompleteResult = parsePostgreSqlQueryWithCursor('UPDATE |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [{value: 'ONLY'}];
-    expect(parseResult.suggestKeywords).toEqual(keywordsSuggestion);
-    expect(parseResult.suggestViewsOrTables).toEqual(TableOrViewSuggestion.ALL);
+    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(autocompleteResult.suggestViewsOrTables).toEqual(TableOrViewSuggestion.ALL);
 });
 
 test('should suggest tables after UPDATE between statements', () => {
-    const parseResult = parsePostgreSqlQueryWithCursor(
+    const autocompleteResult = parsePostgreSqlQueryWithCursor(
         'ALTER TABLE before_table DROP COLUMN id; UPDATE | ; ALTER TABLE after_table DROP COLUMN id;',
     );
 
-    expect(parseResult.suggestViewsOrTables).toEqual(TableOrViewSuggestion.ALL);
+    expect(autocompleteResult.suggestViewsOrTables).toEqual(TableOrViewSuggestion.ALL);
 });
 
 test('should suggest properly after table name', () => {
-    const parseResult = parsePostgreSqlQueryWithCursor('UPDATE test_table |');
+    const autocompleteResult = parsePostgreSqlQueryWithCursor('UPDATE test_table |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [{value: '*'}, {value: 'AS'}, {value: 'SET'}];
-    expect(parseResult.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
 test('should suggest properly after SET', () => {
-    const parseResult = parsePostgreSqlQueryWithCursor('UPDATE test_table SET |');
+    const autocompleteResult = parsePostgreSqlQueryWithCursor('UPDATE test_table SET |');
 
     // TODO SET is perceived as alias here
     // const keywordsSuggestion: KeywordSuggestion[] = [];
-    // expect(parseResult.suggestKeywords).toEqual(keywordsSuggestion);
+    // expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
     const columnSuggestion: ColumnSuggestion = {tables: [{name: 'test_table'}]};
-    expect(parseResult.suggestColumns).toEqual(columnSuggestion);
+    expect(autocompleteResult.suggestColumns).toEqual(columnSuggestion);
 });
 
 test('should suggest table name for column after SET between statements', () => {
-    const parseResult = parsePostgreSqlQueryWithCursor(
+    const autocompleteResult = parsePostgreSqlQueryWithCursor(
         'ALTER TABLE before_table DROP COLUMN id; UPDATE test_table SET | ; ALTER TABLE after_table DROP COLUMN id;',
     );
     const columnSuggestion: ColumnSuggestion = {tables: [{name: 'test_table'}]};
 
-    expect(parseResult.suggestColumns).toEqual(columnSuggestion);
+    expect(autocompleteResult.suggestColumns).toEqual(columnSuggestion);
 });
 
 test('should suggest properly after column', () => {
-    const parseResult = parsePostgreSqlQueryWithCursor('UPDATE test_table SET test_column |');
+    const autocompleteResult = parsePostgreSqlQueryWithCursor(
+        'UPDATE test_table SET test_column |',
+    );
 
     const keywordsSuggestion: KeywordSuggestion[] = [];
-    expect(parseResult.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
 test('should suggest properly after column equals', () => {
-    const parseResult = parsePostgreSqlQueryWithCursor('UPDATE test_table SET test_column = |');
+    const autocompleteResult = parsePostgreSqlQueryWithCursor(
+        'UPDATE test_table SET test_column = |',
+    );
 
     const keywordsSuggestion: KeywordSuggestion[] = [
         {value: 'NOT'},
@@ -68,11 +72,11 @@ test('should suggest properly after column equals', () => {
         {value: 'CASE'},
         {value: 'ROW'},
     ];
-    expect(parseResult.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
 test('should suggest properly after the first column', () => {
-    const parseResult = parsePostgreSqlQueryWithCursor(
+    const autocompleteResult = parsePostgreSqlQueryWithCursor(
         'UPDATE test_table SET test_column = "test" |',
     );
 
@@ -96,27 +100,27 @@ test('should suggest properly after the first column', () => {
         {value: 'WHERE'},
         {value: 'RETURNING'},
     ];
-    expect(parseResult.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
 test('should suggest table name for second column after SET', () => {
-    const parseResult = parsePostgreSqlQueryWithCursor('UPDATE test_table SET id = 1, |');
+    const autocompleteResult = parsePostgreSqlQueryWithCursor('UPDATE test_table SET id = 1, |');
     const columnSuggestion: ColumnSuggestion = {tables: [{name: 'test_table'}]};
 
-    expect(parseResult.suggestColumns).toEqual(columnSuggestion);
+    expect(autocompleteResult.suggestColumns).toEqual(columnSuggestion);
 });
 
 test('should suggest table name for second column after SET between statements', () => {
-    const parseResult = parsePostgreSqlQueryWithCursor(
+    const autocompleteResult = parsePostgreSqlQueryWithCursor(
         'ALTER TABLE before_table DROP COLUMN id; UPDATE test_table SET id = 1, | ; ALTER TABLE after_table DROP COLUMN id;',
     );
     const columnSuggestion: ColumnSuggestion = {tables: [{name: 'test_table'}]};
 
-    expect(parseResult.suggestColumns).toEqual(columnSuggestion);
+    expect(autocompleteResult.suggestColumns).toEqual(columnSuggestion);
 });
 
 test('should suggest properly after WHERE', () => {
-    const parseResult = parsePostgreSqlQueryWithCursor(
+    const autocompleteResult = parsePostgreSqlQueryWithCursor(
         'UPDATE test_table SET test_column = "test" WHERE |',
     );
 
@@ -136,21 +140,21 @@ test('should suggest properly after WHERE', () => {
         {value: 'CURRENT'},
     ];
     const columnSuggestion: ColumnSuggestion = {tables: [{name: 'test_table'}]};
-    expect(parseResult.suggestKeywords).toEqual(keywordsSuggestion);
-    expect(parseResult.suggestColumns).toEqual(columnSuggestion);
+    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(autocompleteResult.suggestColumns).toEqual(columnSuggestion);
 });
 
 test('should suggest table name for column after WHERE between statements', () => {
-    const parseResult = parsePostgreSqlQueryWithCursor(
+    const autocompleteResult = parsePostgreSqlQueryWithCursor(
         'ALTER TABLE before_table DROP COLUMN id; UPDATE test_table SET id = 1 WHERE | ; ALTER TABLE after_table DROP COLUMN id;',
     );
     const columnSuggestion: ColumnSuggestion = {tables: [{name: 'test_table'}]};
 
-    expect(parseResult.suggestColumns).toEqual(columnSuggestion);
+    expect(autocompleteResult.suggestColumns).toEqual(columnSuggestion);
 });
 
 test('should suggest properly after RETURNING', () => {
-    const parseResult = parsePostgreSqlQueryWithCursor(
+    const autocompleteResult = parsePostgreSqlQueryWithCursor(
         'UPDATE test_table SET test_column = "test" RETURNING |',
     );
 
@@ -169,13 +173,13 @@ test('should suggest properly after RETURNING', () => {
         {value: 'CASE'},
         {value: 'ROW'},
     ];
-    expect(parseResult.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
 test('should not report errors', () => {
-    const parseResult = parsePostgreSqlQueryWithoutCursor(
+    const autocompleteResult = parsePostgreSqlQueryWithoutCursor(
         'UPDATE test_table SET id = 1 WHERE id = 1;',
     );
 
-    expect(parseResult.errors).toHaveLength(0);
+    expect(autocompleteResult.errors).toHaveLength(0);
 });

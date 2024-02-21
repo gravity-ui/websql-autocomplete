@@ -2,15 +2,15 @@ import {parsePostgreSqlQueryWithCursor} from '../../lib';
 import {KeywordSuggestion} from '../../../types';
 
 test('should suggest properly after TABLE', () => {
-    const parseResult = parsePostgreSqlQueryWithCursor('CREATE TABLE |');
+    const autocompleteResult = parsePostgreSqlQueryWithCursor('CREATE TABLE |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [{value: 'IF'}];
-    expect(parseResult.suggestKeywords).toEqual(keywordsSuggestion);
-    expect(parseResult.suggestViewsOrTables).toBeUndefined();
+    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(autocompleteResult.suggestViewsOrTables).toBeUndefined();
 });
 
 test('should suggest properly after table name', () => {
-    const parseResult = parsePostgreSqlQueryWithCursor('CREATE TABLE test_table |');
+    const autocompleteResult = parsePostgreSqlQueryWithCursor('CREATE TABLE test_table |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [
         {value: 'USING'},
@@ -22,11 +22,13 @@ test('should suggest properly after table name', () => {
         {value: 'PARTITION'},
         {value: 'OF'},
     ];
-    expect(parseResult.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
 test('should suggest properly after the first column', () => {
-    const parseResult = parsePostgreSqlQueryWithCursor('CREATE TABLE test_table (test_column |');
+    const autocompleteResult = parsePostgreSqlQueryWithCursor(
+        'CREATE TABLE test_table (test_column |',
+    );
 
     const keywordsSuggestion: KeywordSuggestion[] = [
         {value: 'SETOF'},
@@ -63,11 +65,11 @@ test('should suggest properly after the first column', () => {
         {value: 'TIMESTAMP'},
         {value: 'INTERVAL'},
     ];
-    expect(parseResult.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
 test('should suggest properly after the second column', () => {
-    const parseResult = parsePostgreSqlQueryWithCursor(
+    const autocompleteResult = parsePostgreSqlQueryWithCursor(
         'CREATE TABLE test_table (test_column TEXT, test_column_2 |',
     );
 
@@ -106,11 +108,11 @@ test('should suggest properly after the second column', () => {
         {value: 'TIMESTAMP'},
         {value: 'INTERVAL'},
     ];
-    expect(parseResult.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
 test('should suggest properly after the columns', () => {
-    const parseResult = parsePostgreSqlQueryWithCursor(
+    const autocompleteResult = parsePostgreSqlQueryWithCursor(
         'CREATE TABLE test_table (test_column TEXT, test_column_2 TEXT) |',
     );
 
@@ -123,5 +125,5 @@ test('should suggest properly after the columns', () => {
         {value: 'ON'},
         {value: 'TABLESPACE'},
     ];
-    expect(parseResult.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });

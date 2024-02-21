@@ -3,15 +3,15 @@ import {KeywordSuggestion} from '../../../types';
 import {parseMySqlQueryWithoutCursor} from '../../../index';
 
 test('should suggest table name after DROP INDEX', () => {
-    const parseResult = parseMySqlQueryWithCursor('DROP INDEX |');
+    const autocompleteResult = parseMySqlQueryWithCursor('DROP INDEX |');
 
     const keywordSuggestion: KeywordSuggestion[] = [{value: 'OFFLINE'}, {value: 'ONLINE'}];
-    expect(parseResult.suggestKeywords).toEqual(keywordSuggestion);
+    expect(autocompleteResult.suggestKeywords).toEqual(keywordSuggestion);
 
-    expect(parseResult.suggestIndexes).toEqual(true);
+    expect(autocompleteResult.suggestIndexes).toEqual(true);
 });
 
 test('should nor report errors on full statement', () => {
-    const parseResult = parseMySqlQueryWithoutCursor('DROP INDEX test_index ON test_table;');
-    expect(parseResult.errors).toHaveLength(0);
+    const autocompleteResult = parseMySqlQueryWithoutCursor('DROP INDEX test_index ON test_table;');
+    expect(autocompleteResult.errors).toHaveLength(0);
 });

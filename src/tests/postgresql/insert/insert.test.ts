@@ -3,30 +3,30 @@ import {ColumnSuggestion, KeywordSuggestion, TableOrViewSuggestion} from '../../
 import {parsePostgreSqlQueryWithoutCursor} from '../../..';
 
 test('should suggest properly after INSERT', () => {
-    const parseResult = parsePostgreSqlQueryWithCursor('INSERT |');
+    const autocompleteResult = parsePostgreSqlQueryWithCursor('INSERT |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [{value: 'INTO'}];
-    expect(parseResult.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
 test('should suggest properly after INTO', () => {
-    const parseResult = parsePostgreSqlQueryWithCursor('INSERT INTO |');
+    const autocompleteResult = parsePostgreSqlQueryWithCursor('INSERT INTO |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [];
-    expect(parseResult.suggestKeywords).toEqual(keywordsSuggestion);
-    expect(parseResult.suggestViewsOrTables).toEqual(TableOrViewSuggestion.ALL);
+    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(autocompleteResult.suggestViewsOrTables).toEqual(TableOrViewSuggestion.ALL);
 });
 
 test('should suggest tables after INSERT INTO between statements', () => {
-    const parseResult = parsePostgreSqlQueryWithCursor(
+    const autocompleteResult = parsePostgreSqlQueryWithCursor(
         'ALTER TABLE before_table DROP COLUMN id; INSERT INTO | ; ALTER TABLE after_table DROP COLUMN id;',
     );
 
-    expect(parseResult.suggestViewsOrTables).toEqual(TableOrViewSuggestion.ALL);
+    expect(autocompleteResult.suggestViewsOrTables).toEqual(TableOrViewSuggestion.ALL);
 });
 
 test('should suggest properly after table name', () => {
-    const parseResult = parsePostgreSqlQueryWithCursor('INSERT INTO test_table |');
+    const autocompleteResult = parsePostgreSqlQueryWithCursor('INSERT INTO test_table |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [
         {value: 'AS'},
@@ -37,18 +37,18 @@ test('should suggest properly after table name', () => {
         {value: 'OVERRIDING'},
         {value: 'DEFAULT'},
     ];
-    expect(parseResult.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
 test('should suggest properly after VALUES', () => {
-    const parseResult = parsePostgreSqlQueryWithCursor('INSERT INTO test_table VALUES |');
+    const autocompleteResult = parsePostgreSqlQueryWithCursor('INSERT INTO test_table VALUES |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [];
-    expect(parseResult.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
 test('should suggest properly after VALUES with a bracket', () => {
-    const parseResult = parsePostgreSqlQueryWithCursor('INSERT INTO test_table VALUES ( |');
+    const autocompleteResult = parsePostgreSqlQueryWithCursor('INSERT INTO test_table VALUES ( |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [
         {value: 'NOT'},
@@ -64,11 +64,13 @@ test('should suggest properly after VALUES with a bracket', () => {
         {value: 'CASE'},
         {value: 'ROW'},
     ];
-    expect(parseResult.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
 test('should suggest properly after VALUES with a bracket after a value', () => {
-    const parseResult = parsePostgreSqlQueryWithCursor('INSERT INTO test_table VALUES ("test", |');
+    const autocompleteResult = parsePostgreSqlQueryWithCursor(
+        'INSERT INTO test_table VALUES ("test", |',
+    );
 
     const keywordsSuggestion: KeywordSuggestion[] = [
         {value: 'NOT'},
@@ -84,11 +86,13 @@ test('should suggest properly after VALUES with a bracket after a value', () => 
         {value: 'CASE'},
         {value: 'ROW'},
     ];
-    expect(parseResult.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
 test('should suggest properly after VALUES contents', () => {
-    const parseResult = parsePostgreSqlQueryWithCursor('INSERT INTO test_table VALUES ("test") | ');
+    const autocompleteResult = parsePostgreSqlQueryWithCursor(
+        'INSERT INTO test_table VALUES ("test") | ',
+    );
 
     const keywordsSuggestion: KeywordSuggestion[] = [
         {value: 'INTERSECT'},
@@ -102,11 +106,11 @@ test('should suggest properly after VALUES contents', () => {
         {value: 'ON'},
         {value: 'RETURNING'},
     ];
-    expect(parseResult.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
 test('should suggest properly after table name with a bracket', () => {
-    const parseResult = parsePostgreSqlQueryWithCursor('INSERT INTO test_table( | ');
+    const autocompleteResult = parsePostgreSqlQueryWithCursor('INSERT INTO test_table( | ');
 
     const keywordsSuggestion: KeywordSuggestion[] = [
         {value: 'SELECT'},
@@ -115,28 +119,32 @@ test('should suggest properly after table name with a bracket', () => {
         {value: 'WITH'},
     ];
     const columnSuggestion: ColumnSuggestion = {tables: [{name: 'test_table'}]};
-    expect(parseResult.suggestKeywords).toEqual(keywordsSuggestion);
-    expect(parseResult.suggestColumns).toEqual(columnSuggestion);
+    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(autocompleteResult.suggestColumns).toEqual(columnSuggestion);
 });
 
 test('should suggest table name for column between statements', () => {
-    const parseResult = parsePostgreSqlQueryWithCursor(
+    const autocompleteResult = parsePostgreSqlQueryWithCursor(
         'ALTER TABLE before_table DROP COLUMN id; INSERT INTO test_table(| ; ALTER TABLE after_table DROP COLUMN id',
     );
     const columnSuggestion: ColumnSuggestion = {tables: [{name: 'test_table'}]};
 
-    expect(parseResult.suggestColumns).toEqual(columnSuggestion);
+    expect(autocompleteResult.suggestColumns).toEqual(columnSuggestion);
 });
 
 test('should suggest properly after the first column', () => {
-    const parseResult = parsePostgreSqlQueryWithCursor('INSERT INTO test_table(test_column, | ');
+    const autocompleteResult = parsePostgreSqlQueryWithCursor(
+        'INSERT INTO test_table(test_column, | ',
+    );
 
     const keywordsSuggestion: KeywordSuggestion[] = [];
-    expect(parseResult.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
 test('should suggest properly after table with columns', () => {
-    const parseResult = parsePostgreSqlQueryWithCursor('INSERT INTO test_table(test_column) | ');
+    const autocompleteResult = parsePostgreSqlQueryWithCursor(
+        'INSERT INTO test_table(test_column) | ',
+    );
 
     const keywordsSuggestion: KeywordSuggestion[] = [
         {value: 'SELECT'},
@@ -145,11 +153,13 @@ test('should suggest properly after table with columns', () => {
         {value: 'WITH'},
         {value: 'OVERRIDING'},
     ];
-    expect(parseResult.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
 test('should not report errors', () => {
-    const parseResult = parsePostgreSqlQueryWithoutCursor('INSERT INTO test_table(id) VALUES(1);');
+    const autocompleteResult = parsePostgreSqlQueryWithoutCursor(
+        'INSERT INTO test_table(id) VALUES(1);',
+    );
 
-    expect(parseResult.errors).toHaveLength(0);
+    expect(autocompleteResult.errors).toHaveLength(0);
 });

@@ -2,55 +2,59 @@ import {parseMySqlQueryWithCursor} from '../../lib';
 import {KeywordSuggestion} from '../../../types';
 
 test('should suggest properly after TRIGGER', () => {
-    const parseResults = parseMySqlQueryWithCursor('CREATE TRIGGER |');
+    const autocompleteResults = parseMySqlQueryWithCursor('CREATE TRIGGER |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [{value: 'IF'}];
-    expect(parseResults.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(autocompleteResults.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
 test('should suggest properly after trigger name', () => {
-    const parseResults = parseMySqlQueryWithCursor('CREATE TRIGGER test_trigger |');
+    const autocompleteResults = parseMySqlQueryWithCursor('CREATE TRIGGER test_trigger |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [{value: 'BEFORE'}, {value: 'AFTER'}];
-    expect(parseResults.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(autocompleteResults.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
 test('should suggest properly after AFTER', () => {
-    const parseResults = parseMySqlQueryWithCursor('CREATE TRIGGER test_trigger AFTER |');
+    const autocompleteResults = parseMySqlQueryWithCursor('CREATE TRIGGER test_trigger AFTER |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [
         {value: 'DELETE'},
         {value: 'INSERT'},
         {value: 'UPDATE'},
     ];
-    expect(parseResults.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(autocompleteResults.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
 test('should suggest properly after UPDATE', () => {
-    const parseResults = parseMySqlQueryWithCursor('CREATE TRIGGER test_trigger AFTER UPDATE |');
+    const autocompleteResults = parseMySqlQueryWithCursor(
+        'CREATE TRIGGER test_trigger AFTER UPDATE |',
+    );
 
     const keywordsSuggestion: KeywordSuggestion[] = [{value: 'ON'}];
-    expect(parseResults.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(autocompleteResults.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
 test('should suggest properly after ON', () => {
-    const parseResults = parseMySqlQueryWithCursor('CREATE TRIGGER test_trigger AFTER UPDATE ON |');
+    const autocompleteResults = parseMySqlQueryWithCursor(
+        'CREATE TRIGGER test_trigger AFTER UPDATE ON |',
+    );
 
     const keywordsSuggestion: KeywordSuggestion[] = [];
-    expect(parseResults.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(autocompleteResults.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
 test('should suggest properly after table name', () => {
-    const parseResults = parseMySqlQueryWithCursor(
+    const autocompleteResults = parseMySqlQueryWithCursor(
         'CREATE TRIGGER test_trigger AFTER UPDATE ON test_table |',
     );
 
     const keywordsSuggestion: KeywordSuggestion[] = [{value: 'FOR'}];
-    expect(parseResults.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(autocompleteResults.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
 test('should suggest properly after FOR EACH ROW', () => {
-    const parseResults = parseMySqlQueryWithCursor(
+    const autocompleteResults = parseMySqlQueryWithCursor(
         'CREATE TRIGGER test_trigger AFTER UPDATE ON test_table FOR EACH ROW |',
     );
 
@@ -115,5 +119,5 @@ test('should suggest properly after FOR EACH ROW', () => {
         {value: 'FOLLOWS'},
         {value: 'PRECEDES'},
     ];
-    expect(parseResults.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(autocompleteResults.suggestKeywords).toEqual(keywordsSuggestion);
 });

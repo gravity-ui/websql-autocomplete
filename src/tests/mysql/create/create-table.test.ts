@@ -2,14 +2,14 @@ import {parseMySqlQueryWithCursor} from '../../lib';
 import {KeywordSuggestion} from '../../../types';
 
 test('should suggest properly after TABLE', () => {
-    const parseResults = parseMySqlQueryWithCursor('CREATE TABLE |');
+    const autocompleteResults = parseMySqlQueryWithCursor('CREATE TABLE |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [{value: 'IF'}];
-    expect(parseResults.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(autocompleteResults.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
 test('should suggest properly after table name', () => {
-    const parseResults = parseMySqlQueryWithCursor('CREATE TABLE test_table |');
+    const autocompleteResults = parseMySqlQueryWithCursor('CREATE TABLE test_table |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [
         {value: 'SELECT'},
@@ -55,11 +55,11 @@ test('should suggest properly after table name', () => {
         {value: 'UNION'},
         {value: 'LIKE'},
     ];
-    expect(parseResults.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(autocompleteResults.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
 test('should suggest properly after the first column', () => {
-    const parseResults = parseMySqlQueryWithCursor('CREATE TABLE test_table (test_column |');
+    const autocompleteResults = parseMySqlQueryWithCursor('CREATE TABLE test_table (test_column |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [
         {value: 'CHARACTER'},
@@ -122,11 +122,11 @@ test('should suggest properly after the first column', () => {
         {value: 'POINT'},
         {value: 'POLYGON'},
     ];
-    expect(parseResults.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(autocompleteResults.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
 test('should suggest properly after the second column', () => {
-    const parseResults = parseMySqlQueryWithCursor(
+    const autocompleteResults = parseMySqlQueryWithCursor(
         'CREATE TABLE test_table (test_column TEXT, test_column_2 |',
     );
 
@@ -191,11 +191,11 @@ test('should suggest properly after the second column', () => {
         {value: 'POINT'},
         {value: 'POLYGON'},
     ];
-    expect(parseResults.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(autocompleteResults.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
 test('should suggest properly after the columns', () => {
-    const parseResults = parseMySqlQueryWithCursor(
+    const autocompleteResults = parseMySqlQueryWithCursor(
         'CREATE TABLE test_table (test_column TEXT, test_column_2 TEXT) |',
     );
 
@@ -242,5 +242,5 @@ test('should suggest properly after the columns', () => {
         {value: 'IGNORE'},
         {value: 'REPLACE'},
     ];
-    expect(parseResults.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(autocompleteResults.suggestKeywords).toEqual(keywordsSuggestion);
 });

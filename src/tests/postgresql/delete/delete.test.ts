@@ -2,21 +2,21 @@ import {parsePostgreSqlQueryWithCursor} from '../../lib';
 import {KeywordSuggestion} from '../../../types';
 
 test('should suggest properly after DELETE', () => {
-    const parseResult = parsePostgreSqlQueryWithCursor('DELETE |');
+    const autocompleteResult = parsePostgreSqlQueryWithCursor('DELETE |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [{value: 'FROM'}];
-    expect(parseResult.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
 test('should suggest properly after FROM', () => {
-    const parseResult = parsePostgreSqlQueryWithCursor('DELETE FROM |');
+    const autocompleteResult = parsePostgreSqlQueryWithCursor('DELETE FROM |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [{value: 'ONLY'}];
-    expect(parseResult.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
 test('should suggest properly after table name', () => {
-    const parseResult = parsePostgreSqlQueryWithCursor('DELETE FROM test_table |');
+    const autocompleteResult = parsePostgreSqlQueryWithCursor('DELETE FROM test_table |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [
         {value: '*'},
@@ -25,11 +25,11 @@ test('should suggest properly after table name', () => {
         {value: 'WHERE'},
         {value: 'RETURNING'},
     ];
-    expect(parseResult.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
 test('should suggest properly after WHERE', () => {
-    const parseResult = parsePostgreSqlQueryWithCursor('DELETE FROM test_table WHERE |');
+    const autocompleteResult = parsePostgreSqlQueryWithCursor('DELETE FROM test_table WHERE |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [
         {value: 'NOT'},
@@ -46,11 +46,11 @@ test('should suggest properly after WHERE', () => {
         {value: 'ROW'},
         {value: 'CURRENT'},
     ];
-    expect(parseResult.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
 test('should suggest properly after WHERE with alias', () => {
-    const parseResult = parsePostgreSqlQueryWithCursor('DELETE FROM test_table t WHERE |');
+    const autocompleteResult = parsePostgreSqlQueryWithCursor('DELETE FROM test_table t WHERE |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [
         {value: 'NOT'},
@@ -67,11 +67,11 @@ test('should suggest properly after WHERE with alias', () => {
         {value: 'ROW'},
         {value: 'CURRENT'},
     ];
-    expect(parseResult.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
 test('should suggest properly after USING', () => {
-    const parseResult = parsePostgreSqlQueryWithCursor('DELETE FROM test_table USING |');
+    const autocompleteResult = parsePostgreSqlQueryWithCursor('DELETE FROM test_table USING |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [
         {value: 'ONLY'},
@@ -79,11 +79,11 @@ test('should suggest properly after USING', () => {
         {value: 'XMLTABLE'},
         {value: 'LATERAL'},
     ];
-    expect(parseResult.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
 test('should suggest properly after USING with alias', () => {
-    const parseResult = parsePostgreSqlQueryWithCursor('DELETE FROM test_table t USING |');
+    const autocompleteResult = parsePostgreSqlQueryWithCursor('DELETE FROM test_table t USING |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [
         {value: 'ONLY'},
@@ -91,11 +91,11 @@ test('should suggest properly after USING with alias', () => {
         {value: 'XMLTABLE'},
         {value: 'LATERAL'},
     ];
-    expect(parseResult.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
 test('should suggest properly after RETURNING', () => {
-    const parseResult = parsePostgreSqlQueryWithCursor('DELETE FROM test_table RETURNING |');
+    const autocompleteResult = parsePostgreSqlQueryWithCursor('DELETE FROM test_table RETURNING |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [
         {value: '*'},
@@ -112,11 +112,13 @@ test('should suggest properly after RETURNING', () => {
         {value: 'CASE'},
         {value: 'ROW'},
     ];
-    expect(parseResult.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
 test('should suggest properly after RETURNING with alias', () => {
-    const parseResult = parsePostgreSqlQueryWithCursor('DELETE FROM test_table t RETURNING |');
+    const autocompleteResult = parsePostgreSqlQueryWithCursor(
+        'DELETE FROM test_table t RETURNING |',
+    );
 
     const keywordsSuggestion: KeywordSuggestion[] = [
         {value: '*'},
@@ -133,5 +135,5 @@ test('should suggest properly after RETURNING with alias', () => {
         {value: 'CASE'},
         {value: 'ROW'},
     ];
-    expect(parseResult.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });

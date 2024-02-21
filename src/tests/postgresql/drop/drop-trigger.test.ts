@@ -3,17 +3,17 @@ import {KeywordSuggestion} from '../../../types';
 import {parsePostgreSqlQueryWithoutCursor} from '../../../index';
 
 test('should suggest properly after DROP TRIGGER', () => {
-    const parseResult = parsePostgreSqlQueryWithCursor('DROP TRIGGER |');
+    const autocompleteResult = parsePostgreSqlQueryWithCursor('DROP TRIGGER |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [{value: 'IF'}];
-    expect(parseResult.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 
-    expect(parseResult.suggestTriggers).toEqual(true);
+    expect(autocompleteResult.suggestTriggers).toEqual(true);
 });
 
 test('should not report errors on full statement', () => {
-    const parseResult = parsePostgreSqlQueryWithoutCursor(
+    const autocompleteResult = parsePostgreSqlQueryWithoutCursor(
         'DROP TRIGGER test_trigger ON test_table;',
     );
-    expect(parseResult.errors).toHaveLength(0);
+    expect(autocompleteResult.errors).toHaveLength(0);
 });

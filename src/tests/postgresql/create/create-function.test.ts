@@ -3,21 +3,21 @@ import {KeywordSuggestion} from '../../../types';
 import {parsePostgreSqlQueryWithoutCursor} from '../../..';
 
 test('should suggest properly after FUNCTION', () => {
-    const parseResult = parsePostgreSqlQueryWithCursor('CREATE FUNCTION |');
+    const autocompleteResult = parsePostgreSqlQueryWithCursor('CREATE FUNCTION |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [];
-    expect(parseResult.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
 test('should suggest properly after function name', () => {
-    const parseResult = parsePostgreSqlQueryWithCursor('CREATE FUNCTION test_function |');
+    const autocompleteResult = parsePostgreSqlQueryWithCursor('CREATE FUNCTION test_function |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [];
-    expect(parseResult.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
 test('should suggest properly after argument', () => {
-    const parseResult = parsePostgreSqlQueryWithCursor(
+    const autocompleteResult = parsePostgreSqlQueryWithCursor(
         'CREATE FUNCTION test_function (test_argument |',
     );
 
@@ -62,11 +62,11 @@ test('should suggest properly after argument', () => {
         {value: 'VARIADIC'},
         {value: 'DEFAULT'},
     ];
-    expect(parseResult.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
 test('should suggest properly after arguments', () => {
-    const parseResult = parsePostgreSqlQueryWithCursor(
+    const autocompleteResult = parsePostgreSqlQueryWithCursor(
         'CREATE FUNCTION test_function (test_argument CHARACTER) |',
     );
 
@@ -92,11 +92,11 @@ test('should suggest properly after arguments', () => {
         {value: 'RESET'},
         {value: 'PARALLEL'},
     ];
-    expect(parseResult.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
 test('should suggest properly after RETURNS', () => {
-    const parseResult = parsePostgreSqlQueryWithCursor(
+    const autocompleteResult = parsePostgreSqlQueryWithCursor(
         'CREATE FUNCTION test_function (test_argument CHARACTER) RETURNS |',
     );
 
@@ -137,11 +137,11 @@ test('should suggest properly after RETURNS', () => {
         {value: 'TIMESTAMP'},
         {value: 'INTERVAL'},
     ];
-    expect(parseResult.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
 test('should suggest properly after RETURNS and a type', () => {
-    const parseResult = parsePostgreSqlQueryWithCursor(
+    const autocompleteResult = parsePostgreSqlQueryWithCursor(
         'CREATE FUNCTION test_function (test_argument CHARACTER) RETURNS TEXT |',
     );
 
@@ -168,13 +168,13 @@ test('should suggest properly after RETURNS and a type', () => {
         {value: 'RESET'},
         {value: 'PARALLEL'},
     ];
-    expect(parseResult.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
 test('should not report errors', () => {
-    const parseResult = parsePostgreSqlQueryWithoutCursor(
+    const autocompleteResult = parsePostgreSqlQueryWithoutCursor(
         'CREATE FUNCTION test_function (test_argument CHARACTER) RETURNS TEXT LANGUAGE PLPGSQL AS $$ BEGIN RETURN "test" END; $$;',
     );
 
-    expect(parseResult.errors).toHaveLength(0);
+    expect(autocompleteResult.errors).toHaveLength(0);
 });

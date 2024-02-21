@@ -2,21 +2,23 @@ import {parsePostgreSqlQueryWithCursor} from '../../lib';
 import {KeywordSuggestion, parsePostgreSqlQueryWithoutCursor} from '../../../index';
 
 test('should suggest view name after DROP CONSTRAINT', () => {
-    const parseResult = parsePostgreSqlQueryWithCursor('ALTER TABLE test_table DROP CONSTRAINT |');
+    const autocompleteResult = parsePostgreSqlQueryWithCursor(
+        'ALTER TABLE test_table DROP CONSTRAINT |',
+    );
 
-    expect(parseResult.suggestConstraints).toEqual(true);
+    expect(autocompleteResult.suggestConstraints).toEqual(true);
 
     const keywordSuggestion: KeywordSuggestion[] = [
         {value: 'IF'},
         {value: 'CASCADE'},
         {value: 'RESTRICT'},
     ];
-    expect(parseResult.suggestKeywords).toEqual(keywordSuggestion);
+    expect(autocompleteResult.suggestKeywords).toEqual(keywordSuggestion);
 });
 
 test('should not report an error of a full statement', () => {
-    const parseResult = parsePostgreSqlQueryWithoutCursor(
+    const autocompleteResult = parsePostgreSqlQueryWithoutCursor(
         'ALTER TABLE test_table DROP CONSTRAINT test_constraint;',
     );
-    expect(parseResult.errors).toHaveLength(0);
+    expect(autocompleteResult.errors).toHaveLength(0);
 });

@@ -2,7 +2,7 @@ import {parseMySqlQueryWithCursor} from '../lib';
 import {KeywordSuggestion} from '../../types';
 
 test('should suggest properly for an empty query', () => {
-    const parseResult = parseMySqlQueryWithCursor('|');
+    const autocompleteResult = parseMySqlQueryWithCursor('|');
 
     const keywordsSuggestion: KeywordSuggestion[] = [
         {value: 'CREATE'},
@@ -63,6 +63,6 @@ test('should suggest properly for an empty query', () => {
         {value: 'RESIGNAL'},
         {value: 'GET'},
     ];
-    expect(parseResult.suggestKeywords).toEqual(keywordsSuggestion);
-    expect(parseResult.suggestTemplates).toEqual(true);
+    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(autocompleteResult.suggestTemplates).toEqual(true);
 });

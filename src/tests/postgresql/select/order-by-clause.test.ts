@@ -2,21 +2,23 @@ import {parsePostgreSqlQueryWithCursor} from '../../lib';
 import {ColumnAliasSuggestion, ColumnSuggestion, KeywordSuggestion} from '../../../types';
 
 test('should suggest properly after ORDER', () => {
-    const parseResult = parsePostgreSqlQueryWithCursor('SELECT * FROM test_table ORDER |');
+    const autocompleteResult = parsePostgreSqlQueryWithCursor('SELECT * FROM test_table ORDER |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [{value: 'BY'}];
-    expect(parseResult.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
 test('should suggest properly after ORDER with alias', () => {
-    const parseResult = parsePostgreSqlQueryWithCursor('SELECT * FROM test_table as t ORDER |');
+    const autocompleteResult = parsePostgreSqlQueryWithCursor(
+        'SELECT * FROM test_table as t ORDER |',
+    );
 
     const keywordsSuggestion: KeywordSuggestion[] = [{value: 'BY'}];
-    expect(parseResult.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
 test('should suggest properly after ORDER BY', () => {
-    const parseResult = parsePostgreSqlQueryWithCursor(
+    const autocompleteResult = parsePostgreSqlQueryWithCursor(
         'SELECT count(*) as count, test_column t1 FROM test_table as t ORDER BY |',
     );
     const keywordsSuggestion: KeywordSuggestion[] = [
@@ -36,15 +38,15 @@ test('should suggest properly after ORDER BY', () => {
     const columnSuggestion: ColumnSuggestion = {tables: [{name: 'test_table', alias: 't'}]};
     const columnAliasSuggestion: ColumnAliasSuggestion[] = [{name: 'count'}, {name: 't1'}];
 
-    expect(parseResult.suggestKeywords).toEqual(keywordsSuggestion);
-    expect(parseResult.suggestFunctions).toEqual(true);
-    expect(parseResult.suggestAggregateFunctions).toEqual(true);
-    expect(parseResult.suggestColumns).toEqual(columnSuggestion);
-    expect(parseResult.suggestColumnAliases).toEqual(columnAliasSuggestion);
+    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(autocompleteResult.suggestFunctions).toEqual(true);
+    expect(autocompleteResult.suggestAggregateFunctions).toEqual(true);
+    expect(autocompleteResult.suggestColumns).toEqual(columnSuggestion);
+    expect(autocompleteResult.suggestColumnAliases).toEqual(columnAliasSuggestion);
 });
 
 test('should suggest properly after ORDER BY between statements', () => {
-    const parseResult = parsePostgreSqlQueryWithCursor(
+    const autocompleteResult = parsePostgreSqlQueryWithCursor(
         'ALTER TABLE before_table DROP COLUMN id; ' +
             'SELECT count(*) as count, test_column t1 FROM test_table as t ORDER BY | ; ' +
             'ALTER TABLE after_table DROP COLUMN id;',
@@ -66,15 +68,15 @@ test('should suggest properly after ORDER BY between statements', () => {
     const columnSuggestion: ColumnSuggestion = {tables: [{name: 'test_table', alias: 't'}]};
     const columnAliasSuggestion: ColumnAliasSuggestion[] = [{name: 'count'}, {name: 't1'}];
 
-    expect(parseResult.suggestKeywords).toEqual(keywordsSuggestion);
-    expect(parseResult.suggestFunctions).toEqual(true);
-    expect(parseResult.suggestAggregateFunctions).toEqual(true);
-    expect(parseResult.suggestColumns).toEqual(columnSuggestion);
-    expect(parseResult.suggestColumnAliases).toEqual(columnAliasSuggestion);
+    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(autocompleteResult.suggestFunctions).toEqual(true);
+    expect(autocompleteResult.suggestAggregateFunctions).toEqual(true);
+    expect(autocompleteResult.suggestColumns).toEqual(columnSuggestion);
+    expect(autocompleteResult.suggestColumnAliases).toEqual(columnAliasSuggestion);
 });
 
 test('should suggest properly after ORDER BY in nested statement', () => {
-    const parseResult = parsePostgreSqlQueryWithCursor(
+    const autocompleteResult = parsePostgreSqlQueryWithCursor(
         'SELECT id as id1 FROM (SELECT count(*) as count, test_column t1 FROM test_table as t ORDER BY |',
     );
     const keywordsSuggestion: KeywordSuggestion[] = [
@@ -94,15 +96,15 @@ test('should suggest properly after ORDER BY in nested statement', () => {
     const columnSuggestion: ColumnSuggestion = {tables: [{name: 'test_table', alias: 't'}]};
     const columnAliasSuggestion: ColumnAliasSuggestion[] = [{name: 'count'}, {name: 't1'}];
 
-    expect(parseResult.suggestKeywords).toEqual(keywordsSuggestion);
-    expect(parseResult.suggestFunctions).toEqual(true);
-    expect(parseResult.suggestAggregateFunctions).toEqual(true);
-    expect(parseResult.suggestColumns).toEqual(columnSuggestion);
-    expect(parseResult.suggestColumnAliases).toEqual(columnAliasSuggestion);
+    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(autocompleteResult.suggestFunctions).toEqual(true);
+    expect(autocompleteResult.suggestAggregateFunctions).toEqual(true);
+    expect(autocompleteResult.suggestColumns).toEqual(columnSuggestion);
+    expect(autocompleteResult.suggestColumnAliases).toEqual(columnAliasSuggestion);
 });
 
 test('should suggest properly after ORDER BY between statements in nested statement', () => {
-    const parseResult = parsePostgreSqlQueryWithCursor(
+    const autocompleteResult = parsePostgreSqlQueryWithCursor(
         'ALTER TABLE before_table DROP COLUMN id; ' +
             'SELECT id as id1 FROM (SELECT count(*) as count, test_column t1 FROM test_table as t ORDER BY | ; ' +
             'ALTER TABLE after_table DROP COLUMN id;',
@@ -124,9 +126,9 @@ test('should suggest properly after ORDER BY between statements in nested statem
     const columnSuggestion: ColumnSuggestion = {tables: [{name: 'test_table', alias: 't'}]};
     const columnAliasSuggestion: ColumnAliasSuggestion[] = [{name: 'count'}, {name: 't1'}];
 
-    expect(parseResult.suggestKeywords).toEqual(keywordsSuggestion);
-    expect(parseResult.suggestFunctions).toEqual(true);
-    expect(parseResult.suggestAggregateFunctions).toEqual(true);
-    expect(parseResult.suggestColumns).toEqual(columnSuggestion);
-    expect(parseResult.suggestColumnAliases).toEqual(columnAliasSuggestion);
+    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(autocompleteResult.suggestFunctions).toEqual(true);
+    expect(autocompleteResult.suggestAggregateFunctions).toEqual(true);
+    expect(autocompleteResult.suggestColumns).toEqual(columnSuggestion);
+    expect(autocompleteResult.suggestColumnAliases).toEqual(columnAliasSuggestion);
 });

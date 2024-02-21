@@ -3,17 +3,19 @@ import {KeywordSuggestion} from '../../../types';
 import {parseMySqlQueryWithoutCursor} from '../../../index';
 
 test('should suggest table name after ALTER CONSTRAINT', () => {
-    const parseResult = parseMySqlQueryWithCursor('ALTER TABLE test_table ALTER CONSTRAINT |');
+    const autocompleteResult = parseMySqlQueryWithCursor(
+        'ALTER TABLE test_table ALTER CONSTRAINT |',
+    );
 
     const keywordSuggestion: KeywordSuggestion[] = [{value: 'CHECK'}];
-    expect(parseResult.suggestKeywords).toEqual(keywordSuggestion);
+    expect(autocompleteResult.suggestKeywords).toEqual(keywordSuggestion);
 
-    expect(parseResult.suggestConstraints).toEqual(true);
+    expect(autocompleteResult.suggestConstraints).toEqual(true);
 });
 
 test('should not report errors on a full statement', () => {
-    const parseResult = parseMySqlQueryWithoutCursor(
+    const autocompleteResult = parseMySqlQueryWithoutCursor(
         'ALTER TABLE test_table ALTER CONSTRAINT test_constraint CHECK (test_column > 1);',
     );
-    expect(parseResult.errors).toHaveLength(0);
+    expect(autocompleteResult.errors).toHaveLength(0);
 });

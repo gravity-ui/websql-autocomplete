@@ -2,7 +2,7 @@ import {KeywordSuggestion} from '../../types';
 import {parseClickHouseQueryWithCursor} from '../lib';
 
 test('should suggest properly for an empty query', () => {
-    const parseResult = parseClickHouseQueryWithCursor('|');
+    const autocompleteResult = parseClickHouseQueryWithCursor('|');
 
     const keywordsSuggestion: KeywordSuggestion[] = [
         {value: 'ALTER'},
@@ -30,6 +30,6 @@ test('should suggest properly for an empty query', () => {
         {value: 'WATCH'},
         {value: 'INSERT'},
     ];
-    expect(parseResult.suggestKeywords).toEqual(keywordsSuggestion);
-    expect(parseResult.suggestTemplates).toEqual(true);
+    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(autocompleteResult.suggestTemplates).toEqual(true);
 });

@@ -2,7 +2,7 @@ import {parseMySqlQueryWithCursor} from '../../lib';
 import {KeywordSuggestion} from '../../../types';
 
 test('should suggest keywords after GRANT', () => {
-    const parseResult = parseMySqlQueryWithCursor('GRANT |');
+    const autocompleteResult = parseMySqlQueryWithCursor('GRANT |');
 
     const keywords: KeywordSuggestion[] = [
         {value: 'PROXY'},
@@ -70,18 +70,18 @@ test('should suggest keywords after GRANT', () => {
         {value: 'LOAD'},
         {value: 'INVOKE'},
     ];
-    expect(parseResult.suggestKeywords).toEqual(keywords);
+    expect(autocompleteResult.suggestKeywords).toEqual(keywords);
 });
 
 test('should suggest keywords after SELECT', () => {
-    const parseResult = parseMySqlQueryWithCursor('GRANT SELECT |');
+    const autocompleteResult = parseMySqlQueryWithCursor('GRANT SELECT |');
 
     const keywords: KeywordSuggestion[] = [{value: 'INTO'}, {value: 'ON'}];
-    expect(parseResult.suggestKeywords).toEqual(keywords);
+    expect(autocompleteResult.suggestKeywords).toEqual(keywords);
 });
 
 test('should suggest keywords after SELECT', () => {
-    const parseResult = parseMySqlQueryWithCursor('GRANT SELECT ON |');
+    const autocompleteResult = parseMySqlQueryWithCursor('GRANT SELECT ON |');
 
     const keywords: KeywordSuggestion[] = [
         {value: '*'},
@@ -89,25 +89,25 @@ test('should suggest keywords after SELECT', () => {
         {value: 'TABLE'},
         {value: 'FUNCTION'},
     ];
-    expect(parseResult.suggestKeywords).toEqual(keywords);
+    expect(autocompleteResult.suggestKeywords).toEqual(keywords);
 });
 
 test('should suggest keywords after SELECT', () => {
-    const parseResult = parseMySqlQueryWithCursor('GRANT SELECT ON * |');
+    const autocompleteResult = parseMySqlQueryWithCursor('GRANT SELECT ON * |');
 
     const keywords: KeywordSuggestion[] = [{value: 'TO'}];
-    expect(parseResult.suggestKeywords).toEqual(keywords);
+    expect(autocompleteResult.suggestKeywords).toEqual(keywords);
 });
 
 test('should suggest keywords after SELECT', () => {
-    const parseResult = parseMySqlQueryWithCursor('GRANT SELECT ON * TO |');
+    const autocompleteResult = parseMySqlQueryWithCursor('GRANT SELECT ON * TO |');
 
     const keywords: KeywordSuggestion[] = [{value: 'CURRENT_USER'}];
-    expect(parseResult.suggestKeywords).toEqual(keywords);
+    expect(autocompleteResult.suggestKeywords).toEqual(keywords);
 });
 
 test('should suggest keywords after SELECT', () => {
-    const parseResult = parseMySqlQueryWithCursor('GRANT SELECT ON * TO test_user |');
+    const autocompleteResult = parseMySqlQueryWithCursor('GRANT SELECT ON * TO test_user |');
 
     const keywords: KeywordSuggestion[] = [
         {value: 'IDENTIFIED'},
@@ -115,5 +115,5 @@ test('should suggest keywords after SELECT', () => {
         {value: 'WITH'},
         {value: 'REQUIRE'},
     ];
-    expect(parseResult.suggestKeywords).toEqual(keywords);
+    expect(autocompleteResult.suggestKeywords).toEqual(keywords);
 });

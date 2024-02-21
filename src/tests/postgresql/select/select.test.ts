@@ -3,7 +3,7 @@ import {ColumnSuggestion, KeywordSuggestion, TableOrViewSuggestion} from '../../
 import {parsePostgreSqlQueryWithoutCursor} from '../../..';
 
 test('should suggest properly after SELECT', () => {
-    const parseResult = parsePostgreSqlQueryWithCursor('SELECT |');
+    const autocompleteResult = parsePostgreSqlQueryWithCursor('SELECT |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [
         {value: '*'},
@@ -23,14 +23,14 @@ test('should suggest properly after SELECT', () => {
         {value: 'DISTINCT'},
         {value: 'INTO'},
     ];
-    expect(parseResult.suggestKeywords).toEqual(keywordsSuggestion);
-    expect(parseResult.suggestFunctions).toEqual(true);
-    expect(parseResult.suggestAggregateFunctions).toEqual(true);
-    expect(parseResult.suggestTemplates).toEqual(false);
+    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(autocompleteResult.suggestFunctions).toEqual(true);
+    expect(autocompleteResult.suggestAggregateFunctions).toEqual(true);
+    expect(autocompleteResult.suggestTemplates).toEqual(false);
 });
 
 test('should suggest properly after *', () => {
-    const parseResult = parsePostgreSqlQueryWithCursor('SELECT * |');
+    const autocompleteResult = parsePostgreSqlQueryWithCursor('SELECT * |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [
         {value: 'INTO'},
@@ -48,11 +48,11 @@ test('should suggest properly after *', () => {
         {value: 'OFFSET'},
         {value: 'FOR'},
     ];
-    expect(parseResult.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
 test('should suggest properly after FROM', () => {
-    const parseResult = parsePostgreSqlQueryWithCursor('SELECT * FROM |');
+    const autocompleteResult = parsePostgreSqlQueryWithCursor('SELECT * FROM |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [
         {value: 'ONLY'},
@@ -60,36 +60,36 @@ test('should suggest properly after FROM', () => {
         {value: 'XMLTABLE'},
         {value: 'LATERAL'},
     ];
-    expect(parseResult.suggestKeywords).toEqual(keywordsSuggestion);
-    expect(parseResult.suggestViewsOrTables).toEqual(TableOrViewSuggestion.ALL);
+    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(autocompleteResult.suggestViewsOrTables).toEqual(TableOrViewSuggestion.ALL);
 });
 
 test('should suggest ALL tables between statements', () => {
-    const parseResult = parsePostgreSqlQueryWithCursor(
+    const autocompleteResult = parsePostgreSqlQueryWithCursor(
         'ALTER TABLE before_table DROP COLUMN id; SELECT * FROM | ; ALTER TABLE after_table DROP COLUMN id;',
     );
 
-    expect(parseResult.suggestViewsOrTables).toEqual(TableOrViewSuggestion.ALL);
+    expect(autocompleteResult.suggestViewsOrTables).toEqual(TableOrViewSuggestion.ALL);
 });
 
 test('should suggest tables with inline comment', () => {
-    const parseResult = parsePostgreSqlQueryWithCursor(
+    const autocompleteResult = parsePostgreSqlQueryWithCursor(
         'SELECT * FROM | --SELECT * FROM test_table',
     );
 
-    expect(parseResult.suggestViewsOrTables).toEqual(TableOrViewSuggestion.ALL);
+    expect(autocompleteResult.suggestViewsOrTables).toEqual(TableOrViewSuggestion.ALL);
 });
 
 test('should suggest tables with multiline comment', () => {
-    const parseResult = parsePostgreSqlQueryWithCursor(
+    const autocompleteResult = parsePostgreSqlQueryWithCursor(
         'SELECT * FROM | /*SELECT * FROM test_table*/',
     );
 
-    expect(parseResult.suggestViewsOrTables).toEqual(TableOrViewSuggestion.ALL);
+    expect(autocompleteResult.suggestViewsOrTables).toEqual(TableOrViewSuggestion.ALL);
 });
 
 test('should suggest properly after table name', () => {
-    const parseResult = parsePostgreSqlQueryWithCursor('SELECT * FROM test_table |');
+    const autocompleteResult = parsePostgreSqlQueryWithCursor('SELECT * FROM test_table |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [
         {value: '*'},
@@ -115,69 +115,71 @@ test('should suggest properly after table name', () => {
         {value: 'OFFSET'},
         {value: 'FOR'},
     ];
-    expect(parseResult.suggestKeywords).toEqual(keywordsSuggestion);
-    expect(parseResult.suggestViewsOrTables).toEqual(undefined);
+    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(autocompleteResult.suggestViewsOrTables).toEqual(undefined);
 });
 
 test('should suggest table name for column', () => {
-    const parseResult = parsePostgreSqlQueryWithCursor('SELECT | FROM test_table');
+    const autocompleteResult = parsePostgreSqlQueryWithCursor('SELECT | FROM test_table');
     const columnSuggestions: ColumnSuggestion = {tables: [{name: 'test_table'}]};
 
-    expect(parseResult.suggestColumns).toEqual(columnSuggestions);
+    expect(autocompleteResult.suggestColumns).toEqual(columnSuggestions);
 });
 
 test('should suggest table name for column between statements', () => {
-    const parseResult = parsePostgreSqlQueryWithCursor(
+    const autocompleteResult = parsePostgreSqlQueryWithCursor(
         'ALTER TABLE before_table DROP COLUMN id; SELECT | FROM test_table ; ALTER TABLE after_table DROP COLUMN id;',
     );
     const columnSuggestions: ColumnSuggestion = {tables: [{name: 'test_table'}]};
 
-    expect(parseResult.suggestColumns).toEqual(columnSuggestions);
+    expect(autocompleteResult.suggestColumns).toEqual(columnSuggestions);
 });
 
 test('should suggest table name and alias for column', () => {
-    const parseResult = parsePostgreSqlQueryWithCursor('SELECT | FROM test_table t');
+    const autocompleteResult = parsePostgreSqlQueryWithCursor('SELECT | FROM test_table t');
     const columnSuggestions: ColumnSuggestion = {tables: [{name: 'test_table', alias: 't'}]};
 
-    expect(parseResult.suggestColumns).toEqual(columnSuggestions);
+    expect(autocompleteResult.suggestColumns).toEqual(columnSuggestions);
 });
 
 test('should suggest table name and alias (with AS) for column', () => {
-    const parseResult = parsePostgreSqlQueryWithCursor('SELECT | FROM test_table AS t');
+    const autocompleteResult = parsePostgreSqlQueryWithCursor('SELECT | FROM test_table AS t');
     const columnSuggestions: ColumnSuggestion = {tables: [{name: 'test_table', alias: 't'}]};
 
-    expect(parseResult.suggestColumns).toEqual(columnSuggestions);
+    expect(autocompleteResult.suggestColumns).toEqual(columnSuggestions);
 });
 
 test('should suggest table name and alias for second column', () => {
-    const parseResult = parsePostgreSqlQueryWithCursor('SELECT id, | FROM test_table AS t');
+    const autocompleteResult = parsePostgreSqlQueryWithCursor('SELECT id, | FROM test_table AS t');
     const columnSuggestions: ColumnSuggestion = {tables: [{name: 'test_table', alias: 't'}]};
 
-    expect(parseResult.suggestColumns).toEqual(columnSuggestions);
+    expect(autocompleteResult.suggestColumns).toEqual(columnSuggestions);
 });
 
 test('should suggest multiple table names for column', () => {
-    const parseResult = parsePostgreSqlQueryWithCursor('SELECT | FROM test_table_1, test_table_2');
+    const autocompleteResult = parsePostgreSqlQueryWithCursor(
+        'SELECT | FROM test_table_1, test_table_2',
+    );
     const columnSuggestions: ColumnSuggestion = {
         tables: [{name: 'test_table_1'}, {name: 'test_table_2'}],
     };
 
-    expect(parseResult.suggestColumns).toEqual(columnSuggestions);
+    expect(autocompleteResult.suggestColumns).toEqual(columnSuggestions);
 });
 
 test('should suggest multiple table names for column between statements', () => {
-    const parseResult = parsePostgreSqlQueryWithCursor(
+    const autocompleteResult = parsePostgreSqlQueryWithCursor(
         'ALTER TABLE before_table DROP COLUMN id; SELECT | FROM test_table_1, test_table_2 ; ALTER TABLE after_table DROP COLUMN id;',
     );
     const columnSuggestions: ColumnSuggestion = {
         tables: [{name: 'test_table_1'}, {name: 'test_table_2'}],
     };
 
-    expect(parseResult.suggestColumns).toEqual(columnSuggestions);
+    expect(autocompleteResult.suggestColumns).toEqual(columnSuggestions);
 });
 
 test('should suggest multiple table names and aliases for column', () => {
-    const parseResult = parsePostgreSqlQueryWithCursor(
+    const autocompleteResult = parsePostgreSqlQueryWithCursor(
         'SELECT | FROM test_table_1 t1, test_table_2 t2',
     );
     const columnSuggestions: ColumnSuggestion = {
@@ -187,11 +189,11 @@ test('should suggest multiple table names and aliases for column', () => {
         ],
     };
 
-    expect(parseResult.suggestColumns).toEqual(columnSuggestions);
+    expect(autocompleteResult.suggestColumns).toEqual(columnSuggestions);
 });
 
 test('should suggest multiple table names and aliases (with AS) for column', () => {
-    const parseResult = parsePostgreSqlQueryWithCursor(
+    const autocompleteResult = parsePostgreSqlQueryWithCursor(
         'SELECT | FROM test_table_1 AS t1, test_table_2 AS t2',
     );
     const columnSuggestions: ColumnSuggestion = {
@@ -201,11 +203,13 @@ test('should suggest multiple table names and aliases (with AS) for column', () 
         ],
     };
 
-    expect(parseResult.suggestColumns).toEqual(columnSuggestions);
+    expect(autocompleteResult.suggestColumns).toEqual(columnSuggestions);
 });
 
 test('should suggest properly after HAVING', () => {
-    const parseResult = parsePostgreSqlQueryWithCursor('SELECT * FROM test_table as t HAVING |');
+    const autocompleteResult = parsePostgreSqlQueryWithCursor(
+        'SELECT * FROM test_table as t HAVING |',
+    );
 
     const keywordsSuggestion: KeywordSuggestion[] = [
         {value: 'NOT'},
@@ -221,11 +225,13 @@ test('should suggest properly after HAVING', () => {
         {value: 'CASE'},
         {value: 'ROW'},
     ];
-    expect(parseResult.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
 test('should suggest properly after LIMIT', () => {
-    const parseResult = parsePostgreSqlQueryWithCursor('SELECT * FROM test_table as t LIMIT |');
+    const autocompleteResult = parsePostgreSqlQueryWithCursor(
+        'SELECT * FROM test_table as t LIMIT |',
+    );
 
     const keywordsSuggestion: KeywordSuggestion[] = [
         {value: 'NOT'},
@@ -242,12 +248,14 @@ test('should suggest properly after LIMIT', () => {
         {value: 'ROW'},
         {value: 'ALL'},
     ];
-    expect(parseResult.suggestKeywords).toEqual(keywordsSuggestion);
-    expect(parseResult.suggestColumns).toBeUndefined();
+    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(autocompleteResult.suggestColumns).toBeUndefined();
 });
 
 test('should suggest properly after OFFSET', () => {
-    const parseResult = parsePostgreSqlQueryWithCursor('SELECT * FROM test_table as t OFFSET |');
+    const autocompleteResult = parsePostgreSqlQueryWithCursor(
+        'SELECT * FROM test_table as t OFFSET |',
+    );
 
     const keywordsSuggestion: KeywordSuggestion[] = [
         {value: 'EXISTS'},
@@ -263,12 +271,12 @@ test('should suggest properly after OFFSET', () => {
         {value: 'NOT'},
         {value: 'OPERATOR'},
     ];
-    expect(parseResult.suggestKeywords).toEqual(keywordsSuggestion);
-    expect(parseResult.suggestColumns).toBeUndefined();
+    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(autocompleteResult.suggestColumns).toBeUndefined();
 });
 
 test('should not report errors', () => {
-    const parseResult = parsePostgreSqlQueryWithoutCursor('SELECT c1, c2 FROM test_table;');
+    const autocompleteResult = parsePostgreSqlQueryWithoutCursor('SELECT c1, c2 FROM test_table;');
 
-    expect(parseResult.errors).toHaveLength(0);
+    expect(autocompleteResult.errors).toHaveLength(0);
 });
