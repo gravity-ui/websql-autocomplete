@@ -14,7 +14,8 @@ import {getCurrentStatement, shouldSuggestTemplates} from './lib/query.js';
 import {CursorPosition, findCursorTokenIndex, getCursorIndex} from './lib/cursor.js';
 import {TokenDictionary, getTableQueryPosition} from './lib/tables.js';
 import {
-    AutocompleteParseResult,
+    AutocompleteResultBase,
+    ClickHouseAutocompleteResult,
     ColumnAliasSuggestion,
     ColumnSuggestion,
     EngineSuggestion,
@@ -23,8 +24,10 @@ import {
     ISymbolTableVisitor,
     KeywordSuggestion,
     LexerConstructor,
+    MySqlAutocompleteResult,
     ParserConstructor,
     ParserSyntaxError,
+    PostgreSqlAutocompleteResult,
     SymbolTableVisitorConstructor,
     TableOrViewSuggestion,
 } from './types.js';
@@ -34,7 +37,7 @@ import {clickHouseAutocompleteData} from './autocomplete/clickhouse/clickhouse-a
 
 export {CursorPosition} from './lib/cursor.js';
 export {
-    AutocompleteParseResult,
+    AutocompleteResultBase,
     TableOrViewSuggestion,
     KeywordSuggestion,
     ParserSyntaxError,
@@ -49,7 +52,7 @@ function parseQueryWithoutCursor<L extends LexerType, P extends ParserType>(
     tokenDictionary: TokenDictionary,
     getParseTree: GetParseTree<P>,
     query: string,
-): Pick<AutocompleteParseResult, 'errors'> {
+): Pick<AutocompleteResultBase, 'errors'> {
     const inputStream = CharStreams.fromString(query);
     const lexer = new Lexer(inputStream);
     const tokenStream = new CommonTokenStream(lexer);
@@ -78,7 +81,7 @@ function getColumnSuggestions<
     cursor: CursorPosition,
     initialQuery: string,
     shouldSuggestColumnAliases?: boolean,
-): Pick<AutocompleteParseResult, 'suggestColumns' | 'suggestColumnAliases'> {
+): Pick<AutocompleteResultBase, 'suggestColumns' | 'suggestColumnAliases'> {
     // Here we need the actual token index, without special logic for spaces
     const realCursorTokenIndex = findCursorTokenIndex(
         initialTokenStream,
@@ -98,7 +101,7 @@ function getColumnSuggestions<
         realCursorTokenIndex,
         tokenDictionary,
     );
-    const result: Pick<AutocompleteParseResult, 'suggestColumns' | 'suggestColumnAliases'> = {};
+    const result: Pick<AutocompleteResultBase, 'suggestColumns' | 'suggestColumnAliases'> = {};
 
     if (tableQueryPosition) {
         const query = initialQuery.slice(tableQueryPosition.start, tableQueryPosition.end);
@@ -166,6 +169,7 @@ function getColumnSuggestions<
 const quotesRegex = /^'(.*)'$/;
 
 export function parseQuery<
+    A extends AutocompleteResultBase,
     L extends LexerType,
     P extends ParserType,
     S extends ISymbolTableVisitor & AbstractParseTreeVisitor<{}>,
@@ -178,10 +182,10 @@ export function parseQuery<
     preferredRules: Set<number>,
     explicitlyParseJoin: boolean,
     getParseTree: GetParseTree<P>,
-    generateSuggestionsFromRules: GenerateSuggestionsFromRules,
+    generateSuggestionsFromRules: GenerateSuggestionsFromRules<A>,
     query: string,
     cursor: CursorPosition,
-): AutocompleteParseResult {
+): AutocompleteResultBase {
     const inputStream = CharStreams.fromString(query);
     const lexer = new Lexer(inputStream);
     const tokenStream = new CommonTokenStream(lexer);
@@ -197,7 +201,7 @@ export function parseQuery<
     core.preferredRules = preferredRules;
     const cursorTokenIndex = findCursorTokenIndex(tokenStream, cursor, tokenDictionary.SPACE);
     const suggestKeywords: KeywordSuggestion[] = [];
-    let result: AutocompleteParseResult = {
+    let result: AutocompleteResultBase = {
         errors: errorListener.errors,
     };
 
@@ -257,7 +261,7 @@ export function parseQuery<
 
 export function parseMySqlQueryWithoutCursor(
     query: string,
-): Pick<AutocompleteParseResult, 'errors'> {
+): Pick<MySqlAutocompleteResult, 'errors'> {
     return parseQueryWithoutCursor(
         mySqlAutocompleteData.Lexer,
         mySqlAutocompleteData.Parser,
@@ -267,7 +271,7 @@ export function parseMySqlQueryWithoutCursor(
     );
 }
 
-export function parseMySqlQuery(query: string, cursor: CursorPosition): AutocompleteParseResult {
+export function parseMySqlQuery(query: string, cursor: CursorPosition): MySqlAutocompleteResult {
     return parseQuery(
         mySqlAutocompleteData.Lexer,
         mySqlAutocompleteData.Parser,
@@ -285,7 +289,7 @@ export function parseMySqlQuery(query: string, cursor: CursorPosition): Autocomp
 
 export function parsePostgreSqlQueryWithoutCursor(
     query: string,
-): Pick<AutocompleteParseResult, 'errors'> {
+): Pick<PostgreSqlAutocompleteResult, 'errors'> {
     return parseQueryWithoutCursor(
         postgreSqlAutocompleteData.Lexer,
         postgreSqlAutocompleteData.Parser,
@@ -298,7 +302,7 @@ export function parsePostgreSqlQueryWithoutCursor(
 export function parsePostgreSqlQuery(
     query: string,
     cursor: CursorPosition,
-): AutocompleteParseResult {
+): PostgreSqlAutocompleteResult {
     return parseQuery(
         postgreSqlAutocompleteData.Lexer,
         postgreSqlAutocompleteData.Parser,
@@ -316,7 +320,7 @@ export function parsePostgreSqlQuery(
 
 export function parseClickHouseQueryWithoutCursor(
     query: string,
-): Pick<AutocompleteParseResult, 'errors'> {
+): Pick<ClickHouseAutocompleteResult, 'errors'> {
     return parseQueryWithoutCursor(
         clickHouseAutocompleteData.Lexer,
         clickHouseAutocompleteData.Parser,
@@ -329,7 +333,7 @@ export function parseClickHouseQueryWithoutCursor(
 export function parseClickHouseQuery(
     query: string,
     cursor: CursorPosition,
-): AutocompleteParseResult {
+): ClickHouseAutocompleteResult {
     return parseQuery(
         clickHouseAutocompleteData.Lexer,
         clickHouseAutocompleteData.Parser,

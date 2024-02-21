@@ -4,9 +4,9 @@ import * as c3 from 'antlr4-c3';
 import {ColumnAliasSymbol, TableSymbol} from '../../lib/symbol-table.js';
 import {
     AutocompleteData,
-    AutocompleteParseResult,
     GenerateSuggestionsFromRulesResult,
     ISymbolTableVisitor,
+    PostgreSqlAutocompleteResult,
     TableOrViewSuggestion,
 } from '../../types.js';
 import {PostgreSqlLexer} from './generated/PostgreSqlLexer.js';
@@ -178,8 +178,8 @@ function generateSuggestionsFromRules(
     rules: c3.CandidatesCollection['rules'],
     cursorTokenIndex: number,
     tokenStream: TokenStream,
-): GenerateSuggestionsFromRulesResult {
-    let suggestViewsOrTables: AutocompleteParseResult['suggestViewsOrTables'];
+): GenerateSuggestionsFromRulesResult<PostgreSqlAutocompleteResult> {
+    let suggestViewsOrTables: PostgreSqlAutocompleteResult['suggestViewsOrTables'];
     let suggestAggregateFunctions = false;
     let suggestFunctions = false;
     let suggestIndexes = false;
@@ -319,6 +319,7 @@ function getParseTree(
 }
 
 export const postgreSqlAutocompleteData: AutocompleteData<
+    PostgreSqlAutocompleteResult,
     PostgreSqlLexer,
     PostgreSqlParser,
     PostgreSqlSymbolTableVisitor
