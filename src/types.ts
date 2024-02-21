@@ -12,19 +12,31 @@ import * as c3 from 'antlr4-c3';
 import {TokenPosition} from './lib/cursor';
 import {TableQueryPosition, TokenDictionary} from './lib/tables';
 
-export interface AutocompleteParseResult {
+export interface AutocompleteResultBase {
     errors: ParserSyntaxError[];
     suggestKeywords?: KeywordSuggestion[];
     suggestViewsOrTables?: TableOrViewSuggestion;
     suggestTemplates?: boolean;
     suggestAggregateFunctions?: boolean;
     suggestFunctions?: boolean;
+    suggestColumns?: ColumnSuggestion;
+    suggestColumnAliases?: ColumnAliasSuggestion[];
+}
+
+export interface MySqlAutocompleteResult extends AutocompleteResultBase {
+    suggestIndexes?: boolean;
+    suggestTriggers?: boolean;
+    suggestConstraints?: boolean;
+}
+
+export interface PostgreSqlAutocompleteResult extends AutocompleteResultBase {
     suggestIndexes?: boolean;
     suggestTriggers?: boolean;
     suggestConstraints?: boolean;
     suggestSequences?: boolean;
-    suggestColumns?: ColumnSuggestion;
-    suggestColumnAliases?: ColumnAliasSuggestion[];
+}
+
+export interface ClickHouseAutocompleteResult extends AutocompleteResultBase {
     suggestEngines?: EngineSuggestion;
 }
 
@@ -71,17 +83,18 @@ export type GetParseTree<P> = (
     type?: TableQueryPosition['type'] | 'select',
 ) => ParseTree;
 
-export type GenerateSuggestionsFromRulesResult = Partial<AutocompleteParseResult> & {
+export type GenerateSuggestionsFromRulesResult<A extends AutocompleteResultBase> = Partial<A> & {
     shouldSuggestColumns?: boolean;
     shouldSuggestColumnAliases?: boolean;
 };
-export type GenerateSuggestionsFromRules = (
+export type GenerateSuggestionsFromRules<A extends AutocompleteResultBase> = (
     rules: c3.CandidatesCollection['rules'],
     cursorTokenIndex: number,
     tokenStream: TokenStream,
-) => GenerateSuggestionsFromRulesResult;
+) => GenerateSuggestionsFromRulesResult<A>;
 
 export interface AutocompleteData<
+    A extends AutocompleteResultBase,
     L extends LexerType,
     P extends ParserType,
     S extends ISymbolTableVisitor & AbstractParseTreeVisitor<{}>,
@@ -91,7 +104,7 @@ export interface AutocompleteData<
     SymbolTableVisitor: SymbolTableVisitorConstructor<S>;
     getParseTree: GetParseTree<P>;
     tokenDictionary: TokenDictionary;
-    generateSuggestionsFromRules: GenerateSuggestionsFromRules;
+    generateSuggestionsFromRules: GenerateSuggestionsFromRules<A>;
     ignoredTokens: Set<number>;
     preferredRules: Set<number>;
     explicitlyParseJoin: boolean;
