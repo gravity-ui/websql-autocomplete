@@ -22,6 +22,7 @@ export interface AutocompleteParseResult {
     suggestIndexes?: boolean;
     suggestTriggers?: boolean;
     suggestConstraints?: boolean;
+    suggestSequences?: boolean;
     suggestColumns?: ColumnSuggestion;
     suggestColumnAliases?: ColumnAliasSuggestion[];
     suggestEngines?: EngineSuggestion;

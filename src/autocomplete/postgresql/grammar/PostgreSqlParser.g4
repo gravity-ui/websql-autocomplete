@@ -402,7 +402,6 @@ alterTableStatement
     | ALTER TABLE ALL IN_P TABLESPACE name (OWNED BY roleList)? SET TABLESPACE name optionalNowait
     | ALTER INDEX (IF_P EXISTS)? indexName (alterTableCommands | indexPartitionCommand)
     | ALTER INDEX ALL IN_P TABLESPACE name (OWNED BY roleList)? SET TABLESPACE name optionalNowait
-    | ALTER SEQUENCE (IF_P EXISTS)? qualifiedName alterTableCommands
     | ALTER VIEW (IF_P EXISTS)? viewName alterTableCommands
     | ALTER MATERIALIZED VIEW (IF_P EXISTS)? qualifiedName alterTableCommands
     | ALTER MATERIALIZED VIEW ALL IN_P TABLESPACE name (OWNED BY roleList)? SET TABLESPACE name optionalNowait
@@ -894,7 +893,7 @@ createSequenceStatement
     ;
 
 alterSequenceStatement
-    : ALTER SEQUENCE (IF_P EXISTS)? qualifiedName sequenceOptionList
+    : ALTER SEQUENCE (IF_P EXISTS)? sequenceName sequenceOptionList
     ;
 
 optionalParenthesizedSeqOptionsList
@@ -990,6 +989,7 @@ alterExtensionContentsStatement
     : ALTER EXTENSION name addOrDrop objectTypeName name
     | ALTER EXTENSION name addOrDrop INDEX indexName
     | ALTER EXTENSION name addOrDrop objectTypeAnyName anyName
+    | ALTER EXTENSION name addOrDrop SEQUENCE sequenceName
     | ALTER EXTENSION name addOrDrop AGGREGATE aggregateWithArgumentTypes
     | ALTER EXTENSION name addOrDrop CAST OPEN_PAREN typeName AS typeName CLOSE_PAREN
     | ALTER EXTENSION name addOrDrop DOMAIN_P typeName
@@ -1428,6 +1428,7 @@ reassignOwnedStatement
 
 dropStatement
     : DROP objectTypeAnyName (IF_P EXISTS)? anyNameList optionalDropBehavior
+    | DROP SEQUENCE (IF_P EXISTS)? sequenceNameList optionalDropBehavior
     | DROP INDEX (IF_P EXISTS)? indexNameList optionalDropBehavior
     | DROP dropTypeName IF_P EXISTS nameList optionalDropBehavior
     | DROP dropTypeName nameList optionalDropBehavior
@@ -1441,10 +1442,8 @@ dropStatement
     | DROP INDEX CONCURRENTLY IF_P EXISTS indexName optionalDropBehavior
     ;
 
-// INDEX isn't there because we want index-specific suggestions
 objectTypeAnyName
     : TABLE
-    | SEQUENCE
     | VIEW
     | MATERIALIZED VIEW
     | FOREIGN TABLE
@@ -1509,6 +1508,7 @@ optionalRestartSequences
 
 commentStatement
     : COMMENT ON objectTypeAnyName anyName IS commentText
+    | COMMENT ON SEQUENCE sequenceName IS commentText
     | COMMENT ON INDEX indexName IS commentText
     | COMMENT ON COLUMN anyName IS commentText
     | COMMENT ON objectTypeName name IS commentText
@@ -1536,6 +1536,7 @@ commentText
 
 securityLabelStatement
     : SECURITY LABEL optionalProvider ON objectTypeAnyName anyName IS securityLabel
+    | SECURITY LABEL optionalProvider ON SEQUENCE sequenceName IS securityLabel
     | SECURITY LABEL optionalProvider ON INDEX indexName IS securityLabel
     | SECURITY LABEL optionalProvider ON COLUMN anyName IS securityLabel
     | SECURITY LABEL optionalProvider ON objectTypeName name IS securityLabel
@@ -1623,7 +1624,7 @@ privilege
 privilegeTarget
     : qualifiedNameList
     | TABLE qualifiedNameList
-    | SEQUENCE qualifiedNameList
+    | SEQUENCE sequenceNameList
     | FOREIGN DATA_P WRAPPER nameList
     | FOREIGN SERVER nameList
     | FUNCTION functionWithArgumentTypesList
@@ -2051,8 +2052,7 @@ renameStatement
     | ALTER SUBSCRIPTION name RENAME TO name
     | ALTER TABLE relationExpression RENAME TO name
     | ALTER TABLE IF_P EXISTS relationExpression RENAME TO name
-    | ALTER SEQUENCE qualifiedName RENAME TO name
-    | ALTER SEQUENCE IF_P EXISTS qualifiedName RENAME TO name
+    | ALTER SEQUENCE (IF_P EXISTS)? sequenceName RENAME TO name
     | ALTER VIEW qualifiedName RENAME TO name
     | ALTER VIEW IF_P EXISTS qualifiedName RENAME TO name
     | ALTER MATERIALIZED VIEW qualifiedName RENAME TO name
@@ -2122,8 +2122,7 @@ alterObjectSchemaStatement
     | ALTER TEXT_P SEARCH DICTIONARY anyName SET SCHEMA name
     | ALTER TEXT_P SEARCH TEMPLATE anyName SET SCHEMA name
     | ALTER TEXT_P SEARCH CONFIGURATION anyName SET SCHEMA name
-    | ALTER SEQUENCE qualifiedName SET SCHEMA name
-    | ALTER SEQUENCE IF_P EXISTS qualifiedName SET SCHEMA name
+    | ALTER SEQUENCE (IF_P EXISTS)? sequenceName SET SCHEMA name
     | ALTER VIEW qualifiedName SET SCHEMA name
     | ALTER VIEW IF_P EXISTS qualifiedName SET SCHEMA name
     | ALTER MATERIALIZED VIEW qualifiedName SET SCHEMA name
@@ -3768,6 +3767,14 @@ triggerName
 
 constraintName
     : name
+    ;
+
+sequenceName
+    : qualifiedName
+    ;
+
+sequenceNameList
+    : sequenceName (COMMA sequenceName)*
     ;
 
 qualifiedName
