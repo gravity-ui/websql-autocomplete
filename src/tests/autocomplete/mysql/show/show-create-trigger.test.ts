@@ -1,0 +1,17 @@
+import {parseMySqlQueryWithCursor} from '../../../lib';
+import {KeywordSuggestion} from '../../../../types';
+import {parseMySqlQueryWithoutCursor} from '../../../../index';
+
+test('should suggest triggers after SHOW CREATE TRIGGER', () => {
+    const autocompleteResult = parseMySqlQueryWithCursor('SHOW CREATE TRIGGER |');
+
+    const keywordsSuggestion: KeywordSuggestion[] = [];
+    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
+
+    expect(autocompleteResult.suggestTriggers).toEqual(true);
+});
+
+test('should nor report errors on full statement', () => {
+    const autocompleteResult = parseMySqlQueryWithoutCursor('SHOW CREATE TRIGGER test_trigger;');
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
