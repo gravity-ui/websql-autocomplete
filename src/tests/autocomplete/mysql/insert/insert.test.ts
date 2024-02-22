@@ -1,5 +1,5 @@
 import {parseMySqlQueryWithCursor} from '../../../test-lib';
-import {ColumnSuggestion, KeywordSuggestion, TableOrViewSuggestion} from '../../../../types';
+import {ColumnSuggestion, KeywordSuggestion, TableOrViewSuggestion} from '../../../../index';
 import {parseMySqlQueryWithoutCursor} from '../../../../index';
 
 test('should suggest properly after INSERT', () => {

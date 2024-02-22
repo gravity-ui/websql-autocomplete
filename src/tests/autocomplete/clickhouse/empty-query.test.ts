@@ -1,4 +1,4 @@
-import {KeywordSuggestion} from '../../../types';
+import {KeywordSuggestion} from '../../../index';
 import {parseClickHouseQueryWithCursor} from '../../test-lib';
 
 test('should suggest properly for an empty query', () => {

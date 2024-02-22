@@ -1,5 +1,5 @@
 import {parsePostgreSqlQueryWithCursor} from '../../../test-lib';
-import {KeywordSuggestion} from '../../../../types';
+import {KeywordSuggestion} from '../../../../index';
 import {parsePostgreSqlQueryWithoutCursor} from '../../../../index';
 
 test('should suggest properly after ALTER SEQUENCE', () => {

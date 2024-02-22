@@ -1,5 +1,5 @@
 import {parsePostgreSqlQueryWithCursor} from '../../../test-lib';
-import {KeywordSuggestion} from '../../../../types';
+import {KeywordSuggestion} from '../../../../index';
 
 test('should suggest properly after TABLE', () => {
     const autocompleteResult = parsePostgreSqlQueryWithCursor('CREATE TABLE |');

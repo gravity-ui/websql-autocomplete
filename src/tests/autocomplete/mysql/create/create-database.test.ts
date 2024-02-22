@@ -1,5 +1,5 @@
 import {parseMySqlQueryWithCursor} from '../../../test-lib';
-import {KeywordSuggestion} from '../../../../types';
+import {KeywordSuggestion} from '../../../../index';
 
 test('should suggest properly after DATABASE', () => {
     const autocompleteResult = parseMySqlQueryWithCursor('CREATE DATABASE |');

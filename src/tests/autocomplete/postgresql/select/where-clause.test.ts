@@ -1,5 +1,5 @@
 import {parsePostgreSqlQueryWithCursor} from '../../../test-lib';
-import {ColumnSuggestion, KeywordSuggestion} from '../../../../types';
+import {ColumnSuggestion, KeywordSuggestion} from '../../../../index';
 import {parsePostgreSqlQueryWithoutCursor} from '../../../../index';
 
 test('should suggest properly after WHERE', () => {

@@ -4,7 +4,7 @@ import {
     ClickHouseAutocompleteResult,
     MySqlAutocompleteResult,
     PostgreSqlAutocompleteResult,
-} from '../types';
+} from '../index';
 
 export function parseMySqlQueryWithCursor(queryWithCursor: string): MySqlAutocompleteResult {
     return parseMySqlQuery(...separateQueryAndCursor(queryWithCursor));

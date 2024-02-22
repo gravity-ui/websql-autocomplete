@@ -1,5 +1,5 @@
 import {parseClickHouseQueryWithCursor} from '../../../test-lib';
-import {ColumnSuggestion, KeywordSuggestion} from '../../../../types';
+import {ColumnSuggestion, KeywordSuggestion} from '../../../../index';
 import {parseClickHouseQueryWithoutCursor} from '../../../../index';
 
 test('should suggest nested SELECT', () => {

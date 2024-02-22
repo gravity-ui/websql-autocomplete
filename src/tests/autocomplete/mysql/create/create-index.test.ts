@@ -1,5 +1,5 @@
 import {parseMySqlQueryWithCursor} from '../../../test-lib';
-import {KeywordSuggestion} from '../../../../types';
+import {KeywordSuggestion} from '../../../../index';
 
 test('should suggest properly after INDEX', () => {
     const autocompleteResult = parseMySqlQueryWithCursor('CREATE INDEX |');

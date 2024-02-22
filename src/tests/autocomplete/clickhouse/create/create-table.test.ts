@@ -1,5 +1,5 @@
 import {parseClickHouseQueryWithCursor} from '../../../test-lib';
-import {KeywordSuggestion} from '../../../../types';
+import {KeywordSuggestion} from '../../../../index';
 
 test('should suggest properly after TABLE', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor('CREATE TABLE |');

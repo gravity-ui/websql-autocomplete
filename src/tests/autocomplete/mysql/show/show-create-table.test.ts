@@ -1,5 +1,5 @@
 import {parseMySqlQueryWithCursor} from '../../../test-lib';
-import {KeywordSuggestion, TableOrViewSuggestion} from '../../../../types';
+import {KeywordSuggestion, TableOrViewSuggestion} from '../../../../index';
 import {parseMySqlQueryWithoutCursor} from '../../../../index';
 
 test('should suggest triggers after SHOW CREATE TABLE', () => {

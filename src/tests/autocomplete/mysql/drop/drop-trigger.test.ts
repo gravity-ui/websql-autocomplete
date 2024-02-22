@@ -1,5 +1,5 @@
 import {parseMySqlQueryWithCursor} from '../../../test-lib';
-import {KeywordSuggestion} from '../../../../types';
+import {KeywordSuggestion} from '../../../../index';
 import {parseMySqlQueryWithoutCursor} from '../../../../index';
 
 test('should suggest table name after DROP TRIGGER', () => {

@@ -1,5 +1,5 @@
 import {parsePostgreSqlQueryWithCursor} from '../../../test-lib';
-import {KeywordSuggestion} from '../../../../types';
+import {KeywordSuggestion} from '../../../../index';
 
 test('should suggest properly after ROLE', () => {
     const autocompleteResult = parsePostgreSqlQueryWithCursor('CREATE ROLE |');

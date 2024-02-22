@@ -1,5 +1,5 @@
 import {parsePostgreSqlQueryWithCursor} from '../../../test-lib';
-import {ColumnAliasSuggestion, ColumnSuggestion, KeywordSuggestion} from '../../../../types';
+import {ColumnAliasSuggestion, ColumnSuggestion, KeywordSuggestion} from '../../../../index';
 
 test('should suggest properly after GROUP', () => {
     const autocompleteResult = parsePostgreSqlQueryWithCursor(

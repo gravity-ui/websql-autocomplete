@@ -1,5 +1,5 @@
 import {parseMySqlQueryWithCursor} from '../../../test-lib';
-import {ColumnSuggestion, KeywordSuggestion} from '../../../../types';
+import {ColumnSuggestion, KeywordSuggestion} from '../../../../index';
 import {parseMySqlQueryWithoutCursor} from '../../../../index';
 
 test('should suggest nested SELECT', () => {
