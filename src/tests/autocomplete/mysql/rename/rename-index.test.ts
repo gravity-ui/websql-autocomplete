@@ -1,6 +1,6 @@
 import {parseMySqlQueryWithCursor} from '../../../test-lib';
-import {KeywordSuggestion} from '../../../../types';
-import {parseMySqlQueryWithoutCursor} from '../../../../index';
+import {KeywordSuggestion} from '../../../../autocomplete/autocomplete-types';
+import {parseMySqlQueryWithoutCursor} from '../../../../autocomplete/autocomplete';
 
 test('should suggest table name after RENAME INDEX', () => {
     const autocompleteResult = parseMySqlQueryWithCursor('ALTER TABLE test_table RENAME INDEX |');

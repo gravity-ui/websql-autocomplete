@@ -1,5 +1,6 @@
-import {KeywordSuggestion, parsePostgreSqlQueryWithoutCursor} from '../../../../index';
+import {KeywordSuggestion} from '../../../../index';
 import {parsePostgreSqlQueryWithCursor} from '../../../test-lib';
+import {parsePostgreSqlQueryWithoutCursor} from '../../../../autocomplete/autocomplete';
 
 test('should suggest view name after RENAME CONSTRAINT', () => {
     const autocompleteResult = parsePostgreSqlQueryWithCursor(

@@ -1,6 +1,10 @@
 import {parseMySqlQueryWithCursor} from '../../../test-lib';
-import {ColumnSuggestion, KeywordSuggestion, TableOrViewSuggestion} from '../../../../types';
-import {parseMySqlQueryWithoutCursor} from '../../../../index';
+import {
+    ColumnSuggestion,
+    KeywordSuggestion,
+    TableOrViewSuggestion,
+} from '../../../../autocomplete/autocomplete-types';
+import {parseMySqlQueryWithoutCursor} from '../../../../autocomplete/autocomplete';
 
 test('should suggest properly after UPDATE', () => {
     const autocompleteResult = parseMySqlQueryWithCursor('UPDATE |');

@@ -1,5 +1,5 @@
 import {parseMySqlQueryWithCursor} from '../../../test-lib';
-import {KeywordSuggestion} from '../../../../types';
+import {KeywordSuggestion} from '../../../../autocomplete/autocomplete-types';
 
 test('should suggest properly after CREATE', () => {
     const autocompleteResult = parseMySqlQueryWithCursor('CREATE |');

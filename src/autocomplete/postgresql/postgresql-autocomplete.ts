@@ -8,7 +8,7 @@ import {
     ISymbolTableVisitor,
     PostgreSqlAutocompleteResult,
     TableOrViewSuggestion,
-} from '../../types.js';
+} from '../autocomplete-types.js';
 import {PostgreSqlLexer} from './generated/PostgreSqlLexer.js';
 import {
     InsertTargetContext,

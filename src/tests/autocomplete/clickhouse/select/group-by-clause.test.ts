@@ -1,5 +1,9 @@
 import {parseClickHouseQueryWithCursor} from '../../../test-lib';
-import {ColumnAliasSuggestion, ColumnSuggestion, KeywordSuggestion} from '../../../../types';
+import {
+    ColumnAliasSuggestion,
+    ColumnSuggestion,
+    KeywordSuggestion,
+} from '../../../../autocomplete/autocomplete-types';
 
 test('should suggest properly after GROUP', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor(

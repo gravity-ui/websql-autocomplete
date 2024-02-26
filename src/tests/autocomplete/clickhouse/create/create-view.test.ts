@@ -1,5 +1,5 @@
 import {parseClickHouseQueryWithCursor} from '../../../test-lib';
-import {KeywordSuggestion} from '../../../../types';
+import {KeywordSuggestion} from '../../../../autocomplete/autocomplete-types';
 
 test('should suggest properly after VIEW', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor('CREATE VIEW |');

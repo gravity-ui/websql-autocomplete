@@ -1,5 +1,5 @@
 import {parsePostgreSqlQueryWithCursor} from '../../../test-lib';
-import {parsePostgreSqlQueryWithoutCursor} from '../../../../index';
+import {parsePostgreSqlQueryWithoutCursor} from '../../../../autocomplete/autocomplete';
 
 test('should suggest properly after COMMENT ON CONSTRAINT', () => {
     const autocompleteResult = parsePostgreSqlQueryWithCursor('COMMENT ON CONSTRAINT |');

@@ -1,5 +1,5 @@
 import {parsePostgreSqlQueryWithCursor} from '../../../test-lib';
-import {parsePostgreSqlQueryWithoutCursor} from '../../../../index';
+import {parsePostgreSqlQueryWithoutCursor} from '../../../../autocomplete/autocomplete';
 
 test('should suggest view name after VALIDATE CONSTRAINT', () => {
     const autocompleteResult = parsePostgreSqlQueryWithCursor(

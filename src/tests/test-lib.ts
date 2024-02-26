@@ -1,10 +1,15 @@
-import {CursorPosition, parseClickHouseQuery, parseMySqlQuery, parsePostgreSqlQuery} from '..';
+import {CursorPosition} from '..';
 import {lineSeparatorRegex} from '../lib/cursor';
 import {
     ClickHouseAutocompleteResult,
     MySqlAutocompleteResult,
     PostgreSqlAutocompleteResult,
-} from '../types';
+} from '../autocomplete/autocomplete-types';
+import {
+    parseClickHouseQuery,
+    parseMySqlQuery,
+    parsePostgreSqlQuery,
+} from '../autocomplete/autocomplete';
 
 export function parseMySqlQueryWithCursor(queryWithCursor: string): MySqlAutocompleteResult {
     return parseMySqlQuery(...separateQueryAndCursor(queryWithCursor));

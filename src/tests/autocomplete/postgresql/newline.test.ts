@@ -1,4 +1,4 @@
-import {parsePostgreSqlQueryWithoutCursor} from '../../../index';
+import {parsePostgreSqlQueryWithoutCursor} from '../../../autocomplete/autocomplete';
 
 test('should not report errors with newlines \n', () => {
     const autocompleteResult = parsePostgreSqlQueryWithoutCursor('SELECT *\n\n\nFROM test_table');

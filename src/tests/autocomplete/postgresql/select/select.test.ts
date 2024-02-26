@@ -1,6 +1,10 @@
 import {parsePostgreSqlQueryWithCursor} from '../../../test-lib';
-import {ColumnSuggestion, KeywordSuggestion, TableOrViewSuggestion} from '../../../../types';
-import {parsePostgreSqlQueryWithoutCursor} from '../../../../index';
+import {
+    ColumnSuggestion,
+    KeywordSuggestion,
+    TableOrViewSuggestion,
+} from '../../../../autocomplete/autocomplete-types';
+import {parsePostgreSqlQueryWithoutCursor} from '../../../../autocomplete/autocomplete';
 
 test('should suggest properly after SELECT', () => {
     const autocompleteResult = parsePostgreSqlQueryWithCursor('SELECT |');

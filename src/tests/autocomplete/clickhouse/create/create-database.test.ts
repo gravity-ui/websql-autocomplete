@@ -1,4 +1,4 @@
-import {KeywordSuggestion} from '../../../../types';
+import {KeywordSuggestion} from '../../../../autocomplete/autocomplete-types';
 import {parseClickHouseQueryWithCursor} from '../../../test-lib';
 
 test('should suggest properly after DATABASE', () => {

@@ -1,6 +1,6 @@
 import {parseClickHouseQueryWithCursor} from '../../../test-lib';
-import {ColumnSuggestion, KeywordSuggestion} from '../../../../types';
-import {parseClickHouseQueryWithoutCursor} from '../../../../index';
+import {ColumnSuggestion, KeywordSuggestion} from '../../../../autocomplete/autocomplete-types';
+import {parseClickHouseQueryWithoutCursor} from '../../../../autocomplete/autocomplete';
 
 test('should suggest nested SELECT', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor('SELECT * FROM (|');

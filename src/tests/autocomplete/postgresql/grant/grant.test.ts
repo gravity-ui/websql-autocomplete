@@ -1,5 +1,5 @@
 import {parsePostgreSqlQueryWithCursor} from '../../../test-lib';
-import {KeywordSuggestion} from '../../../../types';
+import {KeywordSuggestion} from '../../../../autocomplete/autocomplete-types';
 
 // TODO Grammar is not full?
 test('should suggest keywords after GRANT', () => {

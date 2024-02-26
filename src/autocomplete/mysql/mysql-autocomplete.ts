@@ -8,7 +8,7 @@ import {
     ISymbolTableVisitor,
     MySqlAutocompleteResult,
     TableOrViewSuggestion,
-} from '../../types.js';
+} from '../autocomplete-types.js';
 import {MySqlLexer} from './generated/MySqlLexer.js';
 import {
     AtomTableItemContext,

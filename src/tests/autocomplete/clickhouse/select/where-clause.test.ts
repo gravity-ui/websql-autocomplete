@@ -1,6 +1,6 @@
 import {parseClickHouseQueryWithCursor} from '../../../test-lib';
-import {ColumnSuggestion, KeywordSuggestion} from '../../../../types';
-import {parseClickHouseQueryWithoutCursor} from '../../../../index';
+import {ColumnSuggestion, KeywordSuggestion} from '../../../../autocomplete/autocomplete-types';
+import {parseClickHouseQueryWithoutCursor} from '../../../../autocomplete/autocomplete';
 
 test('should suggest properly after WHERE', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor('SELECT * FROM test_table WHERE |');

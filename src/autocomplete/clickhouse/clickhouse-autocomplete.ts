@@ -8,7 +8,7 @@ import {
     GenerateSuggestionsFromRulesResult,
     ISymbolTableVisitor,
     TableOrViewSuggestion,
-} from '../../types.js';
+} from '../autocomplete-types.js';
 import {ClickHouseLexer} from './generated/ClickHouseLexer.js';
 import {
     ClickHouseParser,

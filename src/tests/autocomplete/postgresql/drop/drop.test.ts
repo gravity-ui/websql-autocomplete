@@ -1,9 +1,6 @@
-import {
-    KeywordSuggestion,
-    TableOrViewSuggestion,
-    parsePostgreSqlQueryWithoutCursor,
-} from '../../../../index';
+import {KeywordSuggestion, TableOrViewSuggestion} from '../../../../index';
 import {parsePostgreSqlQueryWithCursor} from '../../../test-lib';
+import {parsePostgreSqlQueryWithoutCursor} from '../../../../autocomplete/autocomplete';
 
 test('should suggest keywords after DROP', () => {
     const autocompleteResult = parsePostgreSqlQueryWithCursor('DROP |');

@@ -1,10 +1,6 @@
 import {Token, TokenStream} from 'antlr4ng';
 import {ICandidateRule} from 'antlr4-c3';
-
-export interface CursorPosition {
-    line: number;
-    column: number;
-}
+import {CursorPosition} from '../autocomplete/autocomplete-types';
 
 export interface TokenPosition {
     startLine: number;

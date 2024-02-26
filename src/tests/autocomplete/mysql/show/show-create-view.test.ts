@@ -1,6 +1,9 @@
 import {parseMySqlQueryWithCursor} from '../../../test-lib';
-import {KeywordSuggestion, TableOrViewSuggestion} from '../../../../types';
-import {parseMySqlQueryWithoutCursor} from '../../../../index';
+import {
+    KeywordSuggestion,
+    TableOrViewSuggestion,
+} from '../../../../autocomplete/autocomplete-types';
+import {parseMySqlQueryWithoutCursor} from '../../../../autocomplete/autocomplete';
 
 test('should suggest triggers after SHOW CREATE VIEW', () => {
     const autocompleteResult = parseMySqlQueryWithCursor('SHOW CREATE VIEW |');

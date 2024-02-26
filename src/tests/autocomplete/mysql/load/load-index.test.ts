@@ -1,6 +1,6 @@
 import {parseMySqlQueryWithCursor} from '../../../test-lib';
-import {KeywordSuggestion} from '../../../../types';
-import {parseMySqlQueryWithoutCursor} from '../../../../index';
+import {KeywordSuggestion} from '../../../../autocomplete/autocomplete-types';
+import {parseMySqlQueryWithoutCursor} from '../../../../autocomplete/autocomplete';
 
 test('should suggest table name after LOAD INDEX INTO CACHE', () => {
     const autocompleteResult = parseMySqlQueryWithCursor('LOAD INDEX INTO CACHE test_table (|');

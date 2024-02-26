@@ -1,5 +1,9 @@
 import {parsePostgreSqlQueryWithCursor} from '../../../test-lib';
-import {ColumnAliasSuggestion, ColumnSuggestion, KeywordSuggestion} from '../../../../types';
+import {
+    ColumnAliasSuggestion,
+    ColumnSuggestion,
+    KeywordSuggestion,
+} from '../../../../autocomplete/autocomplete-types';
 
 test('should suggest properly after ORDER', () => {
     const autocompleteResult = parsePostgreSqlQueryWithCursor('SELECT * FROM test_table ORDER |');

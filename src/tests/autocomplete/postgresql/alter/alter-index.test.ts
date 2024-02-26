@@ -1,6 +1,6 @@
 import {parsePostgreSqlQueryWithCursor} from '../../../test-lib';
-import {KeywordSuggestion} from '../../../../types';
-import {parsePostgreSqlQueryWithoutCursor} from '../../../../index';
+import {KeywordSuggestion} from '../../../../autocomplete/autocomplete-types';
+import {parsePostgreSqlQueryWithoutCursor} from '../../../../autocomplete/autocomplete';
 
 test('should suggest properly after ALTER INDEX', () => {
     const autocompleteResult = parsePostgreSqlQueryWithCursor('ALTER INDEX |');

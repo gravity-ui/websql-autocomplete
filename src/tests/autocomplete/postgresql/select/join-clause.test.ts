@@ -1,6 +1,10 @@
 import {parsePostgreSqlQueryWithCursor} from '../../../test-lib';
-import {ColumnSuggestion, KeywordSuggestion, TableOrViewSuggestion} from '../../../../types';
-import {parsePostgreSqlQueryWithoutCursor} from '../../../../index';
+import {
+    ColumnSuggestion,
+    KeywordSuggestion,
+    TableOrViewSuggestion,
+} from '../../../../autocomplete/autocomplete-types';
+import {parsePostgreSqlQueryWithoutCursor} from '../../../../autocomplete/autocomplete';
 
 test('should suggest keywords after INNER', () => {
     const autocompleteResult = parsePostgreSqlQueryWithCursor('SELECT * FROM test_table INNER |');

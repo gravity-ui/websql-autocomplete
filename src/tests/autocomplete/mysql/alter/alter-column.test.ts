@@ -1,5 +1,6 @@
-import {ColumnSuggestion, parseMySqlQueryWithoutCursor} from '../../../../index';
+import {ColumnSuggestion} from '../../../../index';
 import {parseMySqlQueryWithCursor} from '../../../test-lib';
+import {parseMySqlQueryWithoutCursor} from '../../../../autocomplete/autocomplete';
 
 test('should suggest table name after ALTER COLUMN', () => {
     const autocompleteResult = parseMySqlQueryWithCursor('ALTER TABLE test_table ALTER COLUMN |');
