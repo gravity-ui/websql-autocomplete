@@ -18,10 +18,10 @@ Resources to research:
 
 # How everything works
 
-1. ANTLR4 grammar and lexer for different `{dialect}` are defined in `src/autocomplete/{dialect}/grammar` directories.
-2. Actual parsers and lexers for different `{dialect}` are generated into `src/autocomplete/{dialect}/generated` directories.
-3. Dialect specific code, which is required for the core logic to work, is put in `src/autocomplete/{dialect}/{dialect}Autocomplete.ts` files.
-4. The core logic is inside `src/index.ts` file. It uses dialect specific helpers to generate autocomplete suggestions based on current cursor position.
+1. ANTLR4 grammar and lexer for different `{dialect}` are defined in `src/autocomplete/databases/{dialect}/grammar` directories.
+2. Actual parsers and lexers for different `{dialect}` are generated into `src/autocomplete/databases/{dialect}/generated` directories.
+3. Dialect specific code, which is required for the core logic to work, is put in `src/autocomplete/databases/{dialect}/{dialect}-autocomplete.ts` files.
+4. The core logic is inside `src/autocomplete/autocomplete.ts` file. It uses dialect specific helpers to generate autocomplete suggestions based on current cursor position.
 
 # Main scripts
 

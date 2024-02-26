@@ -12,11 +12,7 @@ function getCursorIndex(query: string, cursor: CursorPosition): number | undefin
     parser.removeErrorListeners();
     mySqlAutocompleteData.getParseTree(parser);
 
-    return findCursorTokenIndex(
-        tokenStream,
-        cursor,
-        mySqlAutocompleteData.tokenDictionary.SPACE,
-    );
+    return findCursorTokenIndex(tokenStream, cursor, mySqlAutocompleteData.tokenDictionary.SPACE);
 }
 
 test('returs correct cursorTokenIndex on empty query', () => {
