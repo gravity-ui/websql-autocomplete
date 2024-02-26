@@ -25,5 +25,5 @@ Resources to research:
 
 # Main scripts
 
-- `npm run generate` - Generate parsers and lexers
+- `npm run generate` - Generate parsers and lexers (Java has to be installed on your system for this to work)
 - `npm run test` - Run tests
