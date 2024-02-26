@@ -12,8 +12,8 @@ import {
     PostgreSqlAutocompleteResult,
     SymbolTableVisitorConstructor,
 } from './autocomplete-types';
-import {postgreSqlAutocompleteData} from './postgresql/postgresql-autocomplete';
-import {mySqlAutocompleteData} from './mysql/mysql-autocomplete';
+import {postgreSqlAutocompleteData} from './databases/postgresql/postgresql-autocomplete';
+import {mySqlAutocompleteData} from './databases/mysql/mysql-autocomplete';
 import {
     AbstractParseTreeVisitor,
     CharStreams,
@@ -22,13 +22,13 @@ import {
     Parser as ParserType,
     TokenStream,
 } from 'antlr4ng';
-import {TokenDictionary, getTableQueryPosition} from '../lib/tables';
-import {SqlErrorListener} from '../lib/sql-error-listener';
+import {TokenDictionary, getTableQueryPosition} from './shared/tables';
+import {SqlErrorListener} from './shared/sql-error-listener';
 import * as c3 from 'antlr4-c3';
-import {findCursorTokenIndex, getCursorIndex} from '../lib/cursor';
-import {getCurrentStatement, shouldSuggestTemplates} from '../lib/query';
-import {clickHouseAutocompleteData} from './clickhouse/clickhouse-autocomplete';
-import {ColumnAliasSymbol, TableSymbol} from '../lib/symbol-table';
+import {findCursorTokenIndex, getCursorIndex} from './shared/cursor';
+import {getCurrentStatement, shouldSuggestTemplates} from './shared/query';
+import {clickHouseAutocompleteData} from './databases/clickhouse/clickhouse-autocomplete';
+import {ColumnAliasSymbol, TableSymbol} from './shared/symbol-table';
 
 function parseQueryWithoutCursor<L extends LexerType, P extends ParserType>(
     Lexer: LexerConstructor<L>,

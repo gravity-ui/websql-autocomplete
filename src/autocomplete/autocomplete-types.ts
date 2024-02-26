@@ -9,8 +9,8 @@ import {
 } from 'antlr4ng';
 import * as c3 from 'antlr4-c3';
 
-import {TokenPosition} from '../lib/cursor';
-import {TableQueryPosition, TokenDictionary} from '../lib/tables';
+import {TokenPosition} from './shared/cursor';
+import {TableQueryPosition, TokenDictionary} from './shared/tables';
 
 export interface AutocompleteResultBase {
     errors: ParserSyntaxError[];
