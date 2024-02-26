@@ -5,7 +5,10 @@
       "@gravity-ui/eslint-config/prettier"
   ],
   // These files are generated, so they don't have to be linted
-  "ignorePatterns": ["src/autocomplete/*/generated/**/*", "src/autocomplete/*/grammar/**/*"],
+  "ignorePatterns": [
+    "src/autocomplete/databases/*/generated/**/*",
+    "src/autocomplete/databases/*/grammar/**/*"
+  ],
   "plugins": [
     "filenames"
   ],
