@@ -34,6 +34,7 @@ export interface PostgreSqlAutocompleteResult extends AutocompleteResultBase {
     suggestTriggers?: boolean;
     suggestConstraints?: boolean;
     suggestSequences?: boolean;
+    suggestSchemas?: boolean;
 }
 
 export interface ClickHouseAutocompleteResult extends AutocompleteResultBase {
