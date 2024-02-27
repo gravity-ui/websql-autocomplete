@@ -76,6 +76,8 @@ function getIgnoredTokens(): number[] {
 const ignoredTokens = new Set(getIgnoredTokens());
 
 const preferredRules = new Set([
+    // We don't need to go inside of it, we already know that this is a database name
+    MySqlParser.RULE_databaseName,
     // We don't need to go inside of it, we already know that this is a constraint name
     MySqlParser.RULE_constraintName,
     // We don't need to go inside of it, we already know that this is a trigger name
@@ -174,6 +176,7 @@ function generateSuggestionsFromRules(
     let suggestIndexes = false;
     let suggestTriggers = false;
     let suggestConstraints = false;
+    let suggestDatabases = false;
     let shouldSuggestColumns = false;
     let shouldSuggestColumnAliases = false;
 
@@ -246,6 +249,10 @@ function generateSuggestionsFromRules(
                 suggestConstraints = true;
                 break;
             }
+            case MySqlParser.RULE_databaseName: {
+                suggestDatabases = true;
+                break;
+            }
             case MySqlParser.RULE_fullColumnName:
             case MySqlParser.RULE_indexColumnName: {
                 shouldSuggestColumns = true;
@@ -283,6 +290,7 @@ function generateSuggestionsFromRules(
         suggestIndexes,
         suggestTriggers,
         suggestConstraints,
+        suggestDatabases,
         shouldSuggestColumns,
         shouldSuggestColumnAliases,
     };
