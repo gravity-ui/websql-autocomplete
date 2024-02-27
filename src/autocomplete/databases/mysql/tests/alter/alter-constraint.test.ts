@@ -1,5 +1,5 @@
 import {parseMySqlQueryWithCursor} from '../../../../shared/parse-query-with-cursor';
-import {KeywordSuggestion} from '../../../../autocomplete-types';
+import {ConstraintSuggestion, KeywordSuggestion} from '../../../../autocomplete-types';
 import {parseMySqlQueryWithoutCursor} from '../../../../autocomplete';
 
 test('should suggest table name after ALTER CONSTRAINT', () => {
@@ -10,7 +10,24 @@ test('should suggest table name after ALTER CONSTRAINT', () => {
     const keywordSuggestion: KeywordSuggestion[] = [{value: 'CHECK'}];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordSuggestion);
 
-    expect(autocompleteResult.suggestConstraints).toEqual(true);
+    const constraintSuggestion: ConstraintSuggestion = {
+        tables: [{name: 'test_table'}],
+    };
+    expect(autocompleteResult.suggestConstraints).toEqual(constraintSuggestion);
+});
+
+test('should suggest table name after ALTER CONSTRAINT between statements', () => {
+    const autocompleteResult = parseMySqlQueryWithCursor(
+        'ALTER TABLE before_table DROP COLUMN id; ALTER TABLE test_table ALTER CONSTRAINT | ; ALTER TABLE after_table DROP COLUMN id;',
+    );
+
+    const keywordSuggestion: KeywordSuggestion[] = [{value: 'CHECK'}];
+    expect(autocompleteResult.suggestKeywords).toEqual(keywordSuggestion);
+
+    const constraintSuggestion: ConstraintSuggestion = {
+        tables: [{name: 'test_table'}],
+    };
+    expect(autocompleteResult.suggestConstraints).toEqual(constraintSuggestion);
 });
 
 test('should not report errors on a full statement', () => {

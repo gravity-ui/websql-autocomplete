@@ -173,7 +173,7 @@ function generateSuggestionsFromRules(
     let suggestFunctions = false;
     let suggestIndexes = false;
     let suggestTriggers = false;
-    let suggestConstraints = false;
+    let shouldSuggestConstraints = false;
     let shouldSuggestColumns = false;
     let shouldSuggestColumnAliases = false;
 
@@ -243,7 +243,7 @@ function generateSuggestionsFromRules(
                 break;
             }
             case MySqlParser.RULE_constraintName: {
-                suggestConstraints = true;
+                shouldSuggestConstraints = true;
                 break;
             }
             case MySqlParser.RULE_fullColumnName:
@@ -282,7 +282,7 @@ function generateSuggestionsFromRules(
         suggestFunctions,
         suggestIndexes,
         suggestTriggers,
-        suggestConstraints,
+        shouldSuggestConstraints,
         shouldSuggestColumns,
         shouldSuggestColumnAliases,
     };

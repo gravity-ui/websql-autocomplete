@@ -26,13 +26,13 @@ export interface AutocompleteResultBase {
 export interface MySqlAutocompleteResult extends AutocompleteResultBase {
     suggestIndexes?: boolean;
     suggestTriggers?: boolean;
-    suggestConstraints?: boolean;
+    suggestConstraints?: ConstraintSuggestion;
 }
 
 export interface PostgreSqlAutocompleteResult extends AutocompleteResultBase {
     suggestIndexes?: boolean;
     suggestTriggers?: boolean;
-    suggestConstraints?: boolean;
+    suggestConstraints?: ConstraintSuggestion;
     suggestSequences?: boolean;
 }
 
@@ -48,9 +48,13 @@ export interface KeywordSuggestion {
     value: string;
 }
 
-export interface ColumnSuggestion {
+export interface TableContextSuggestion {
     tables?: {name: string; alias?: string}[];
 }
+
+export type ColumnSuggestion = TableContextSuggestion;
+
+export type ConstraintSuggestion = TableContextSuggestion;
 
 export enum TableOrViewSuggestion {
     ALL = 'ALL',
@@ -86,6 +90,7 @@ export type GetParseTree<P> = (
 export type GenerateSuggestionsFromRulesResult<A extends AutocompleteResultBase> = Partial<A> & {
     shouldSuggestColumns?: boolean;
     shouldSuggestColumnAliases?: boolean;
+    shouldSuggestConstraints?: boolean;
 };
 export type GenerateSuggestionsFromRules<A extends AutocompleteResultBase> = (
     rules: c3.CandidatesCollection['rules'],

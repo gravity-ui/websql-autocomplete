@@ -11,6 +11,7 @@ import {
     ParserConstructor,
     PostgreSqlAutocompleteResult,
     SymbolTableVisitorConstructor,
+    TableContextSuggestion,
 } from './autocomplete-types';
 import {postgreSqlAutocompleteData} from './databases/postgresql/postgresql-autocomplete';
 import {mySqlAutocompleteData} from './databases/mysql/mysql-autocomplete';
@@ -50,7 +51,7 @@ function parseQueryWithoutCursor<L extends LexerType, P extends ParserType>(
     return {errors: errorListener.errors};
 }
 
-function getColumnSuggestions<
+function getContextSuggestions<
     L extends LexerType,
     P extends ParserType,
     S extends ISymbolTableVisitor & AbstractParseTreeVisitor<{}>,
@@ -65,7 +66,10 @@ function getColumnSuggestions<
     cursor: CursorPosition,
     initialQuery: string,
     shouldSuggestColumnAliases?: boolean,
-): Pick<AutocompleteResultBase, 'suggestColumns' | 'suggestColumnAliases'> {
+): {
+    tableContextSuggestion?: TableContextSuggestion;
+    suggestColumnAliases?: AutocompleteResultBase['suggestColumnAliases'];
+} {
     // Here we need the actual token index, without special logic for spaces
     const realCursorTokenIndex = findCursorTokenIndex(
         initialTokenStream,
@@ -85,7 +89,10 @@ function getColumnSuggestions<
         realCursorTokenIndex,
         tokenDictionary,
     );
-    const result: Pick<AutocompleteResultBase, 'suggestColumns' | 'suggestColumnAliases'> = {};
+    const result: {
+        tableContextSuggestion?: TableContextSuggestion;
+        suggestColumnAliases?: AutocompleteResultBase['suggestColumnAliases'];
+    } = {};
 
     if (tableQueryPosition) {
         const query = initialQuery.slice(tableQueryPosition.start, tableQueryPosition.end);
@@ -133,7 +140,7 @@ function getColumnSuggestions<
 
         const tables = visitor.symbolTable.getNestedSymbolsOfTypeSync(TableSymbol);
         if (tables.length) {
-            result.suggestColumns = {
+            result.tableContextSuggestion = {
                 tables: tables.map((tableSymbol) => ({
                     name: tableSymbol.name,
                     alias: tableSymbol.alias,
@@ -169,7 +176,7 @@ export function parseQuery<
     generateSuggestionsFromRules: GenerateSuggestionsFromRules<A>,
     query: string,
     cursor: CursorPosition,
-): AutocompleteResultBase {
+): MySqlAutocompleteResult & PostgreSqlAutocompleteResult & ClickHouseAutocompleteResult {
     const inputStream = CharStreams.fromString(query);
     const lexer = new Lexer(inputStream);
     const tokenStream = new CommonTokenStream(lexer);
@@ -185,7 +192,9 @@ export function parseQuery<
     core.preferredRules = preferredRules;
     const cursorTokenIndex = findCursorTokenIndex(tokenStream, cursor, tokenDictionary.SPACE);
     const suggestKeywords: KeywordSuggestion[] = [];
-    let result: AutocompleteResultBase = {
+    let result: MySqlAutocompleteResult &
+        PostgreSqlAutocompleteResult &
+        ClickHouseAutocompleteResult = {
         errors: errorListener.errors,
     };
 
@@ -196,8 +205,12 @@ export function parseQuery<
     }
 
     const {tokens, rules} = core.collectCandidates(cursorTokenIndex);
-    const {shouldSuggestColumns, shouldSuggestColumnAliases, ...suggestionsFromRules} =
-        generateSuggestionsFromRules(rules, cursorTokenIndex, tokenStream);
+    const {
+        shouldSuggestColumns,
+        shouldSuggestColumnAliases,
+        shouldSuggestConstraints,
+        ...suggestionsFromRules
+    } = generateSuggestionsFromRules(rules, cursorTokenIndex, tokenStream);
     result = {...result, ...suggestionsFromRules};
     tokens.forEach((_, tokenType) => {
         // Literal keyword names are quoted
@@ -218,8 +231,8 @@ export function parseQuery<
     // We can get this by token instead of splitting the string
     const currentStatement = getCurrentStatement(query, cursorIndex);
 
-    if (shouldSuggestColumns) {
-        const {suggestColumns, suggestColumnAliases} = getColumnSuggestions(
+    if (shouldSuggestColumns || shouldSuggestConstraints) {
+        const {tableContextSuggestion, suggestColumnAliases} = getContextSuggestions(
             Lexer,
             Parser,
             SymbolTableVisitor,
@@ -231,8 +244,15 @@ export function parseQuery<
             query,
             shouldSuggestColumnAliases,
         );
-        result.suggestColumns = suggestColumns;
-        result.suggestColumnAliases = suggestColumnAliases;
+        if (tableContextSuggestion && shouldSuggestColumns) {
+            result.suggestColumns = tableContextSuggestion;
+        }
+        if (tableContextSuggestion && shouldSuggestConstraints) {
+            result.suggestConstraints = tableContextSuggestion;
+        }
+        if (suggestColumnAliases && shouldSuggestColumnAliases) {
+            result.suggestColumnAliases = suggestColumnAliases;
+        }
     }
 
     result.suggestTemplates = shouldSuggestTemplates(
