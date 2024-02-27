@@ -338,7 +338,6 @@ import { TransformElementListContext } from "./PostgreSqlParser.js";
 import { DropTransformStatementContext } from "./PostgreSqlParser.js";
 import { ReindexStatementContext } from "./PostgreSqlParser.js";
 import { ReindexTargetTypeContext } from "./PostgreSqlParser.js";
-import { ReindexTargetMultiTableContext } from "./PostgreSqlParser.js";
 import { ReindexOptionListContext } from "./PostgreSqlParser.js";
 import { ReindexOptionElementContext } from "./PostgreSqlParser.js";
 import { AlterTablespaceStatementContext } from "./PostgreSqlParser.js";
@@ -628,6 +627,8 @@ import { TargetListContext } from "./PostgreSqlParser.js";
 import { Target_starContext } from "./PostgreSqlParser.js";
 import { Target_labelContext } from "./PostgreSqlParser.js";
 import { QualifiedNameListContext } from "./PostgreSqlParser.js";
+import { DatabaseNameContext } from "./PostgreSqlParser.js";
+import { DatabaseNameListContext } from "./PostgreSqlParser.js";
 import { SchemaNameContext } from "./PostgreSqlParser.js";
 import { SchemaNameListContext } from "./PostgreSqlParser.js";
 import { IndexNameContext } from "./PostgreSqlParser.js";
@@ -2730,12 +2731,6 @@ export class PostgreSqlParserVisitor<Result> extends AbstractParseTreeVisitor<Re
      */
     visitReindexTargetType?: (ctx: ReindexTargetTypeContext) => Result;
     /**
-     * Visit a parse tree produced by `PostgreSqlParser.reindexTargetMultiTable`.
-     * @param ctx the parse tree
-     * @return the visitor result
-     */
-    visitReindexTargetMultiTable?: (ctx: ReindexTargetMultiTableContext) => Result;
-    /**
      * Visit a parse tree produced by `PostgreSqlParser.reindexOptionList`.
      * @param ctx the parse tree
      * @return the visitor result
@@ -4476,6 +4471,18 @@ export class PostgreSqlParserVisitor<Result> extends AbstractParseTreeVisitor<Re
      * @return the visitor result
      */
     visitQualifiedNameList?: (ctx: QualifiedNameListContext) => Result;
+    /**
+     * Visit a parse tree produced by `PostgreSqlParser.databaseName`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitDatabaseName?: (ctx: DatabaseNameContext) => Result;
+    /**
+     * Visit a parse tree produced by `PostgreSqlParser.databaseNameList`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitDatabaseNameList?: (ctx: DatabaseNameListContext) => Result;
     /**
      * Visit a parse tree produced by `PostgreSqlParser.schemaName`.
      * @param ctx the parse tree
