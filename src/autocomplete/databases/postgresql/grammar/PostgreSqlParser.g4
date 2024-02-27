@@ -290,7 +290,7 @@ setStatementMore
     | variableName FROM CURRENT_P
     | TIME ZONE zoneValue
     | CATALOG sconst
-    | SCHEMA sconst
+    | SCHEMA schemaName
     | NAMES optionalEncoding
     | ROLE nonReservedWordOrSconst
     | SESSION AUTHORIZATION nonReservedWordOrSconst
@@ -971,7 +971,7 @@ createExtensionStatement
     ;
 
 createExtensionOptionItem
-    : SCHEMA name
+    : SCHEMA schemaName
     | VERSION_P nonReservedWordOrSconst
     | FROM nonReservedWordOrSconst
     | CASCADE
@@ -987,6 +987,7 @@ alterExtensionOptionItem
 
 alterExtensionContentsStatement
     : ALTER EXTENSION name addOrDrop objectTypeName name
+    | ALTER EXTENSION name addOrDrop SCHEMA schemaName
     | ALTER EXTENSION name addOrDrop INDEX indexName
     | ALTER EXTENSION name addOrDrop objectTypeAnyName anyName
     | ALTER EXTENSION name addOrDrop SEQUENCE sequenceName
@@ -1430,8 +1431,8 @@ dropStatement
     : DROP objectTypeAnyName (IF_P EXISTS)? anyNameList optionalDropBehavior
     | DROP SEQUENCE (IF_P EXISTS)? sequenceNameList optionalDropBehavior
     | DROP INDEX (IF_P EXISTS)? indexNameList optionalDropBehavior
-    | DROP dropTypeName IF_P EXISTS nameList optionalDropBehavior
-    | DROP dropTypeName nameList optionalDropBehavior
+    | DROP SCHEMA (IF_P EXISTS)? schemaNameList optionalDropBehavior
+    | DROP dropTypeName (IF_P EXISTS)? nameList optionalDropBehavior
     | DROP objectTypeNameOnAnyName (IF_P EXISTS)? name ON anyName optionalDropBehavior
     | DROP TRIGGER (IF_P EXISTS)? triggerName ON anyName optionalDropBehavior
     | DROP TYPE_P typeNameList optionalDropBehavior
@@ -1471,7 +1472,6 @@ dropTypeName
     | FOREIGN DATA_P WRAPPER
     | optionalProcedural LANGUAGE
     | PUBLICATION
-    | SCHEMA
     | SERVER
     ;
 
@@ -1512,6 +1512,7 @@ commentStatement
     | COMMENT ON INDEX indexName IS commentText
     | COMMENT ON COLUMN anyName IS commentText
     | COMMENT ON objectTypeName name IS commentText
+    | COMMENT ON SCHEMA schemaName IS commentText
     | COMMENT ON TYPE_P typeName IS commentText
     | COMMENT ON DOMAIN_P typeName IS commentText
     | COMMENT ON AGGREGATE aggregateWithArgumentTypes IS commentText
@@ -1540,6 +1541,7 @@ securityLabelStatement
     | SECURITY LABEL optionalProvider ON INDEX indexName IS securityLabel
     | SECURITY LABEL optionalProvider ON COLUMN anyName IS securityLabel
     | SECURITY LABEL optionalProvider ON objectTypeName name IS securityLabel
+    | SECURITY LABEL optionalProvider ON SCHEMA schemaName IS securityLabel
     | SECURITY LABEL optionalProvider ON TYPE_P typeName IS securityLabel
     | SECURITY LABEL optionalProvider ON DOMAIN_P typeName IS securityLabel
     | SECURITY LABEL optionalProvider ON AGGREGATE aggregateWithArgumentTypes IS securityLabel
@@ -1634,14 +1636,10 @@ privilegeTarget
     | DOMAIN_P anyNameList
     | LANGUAGE nameList
     | LARGE_P OBJECT_P numericOnlyList
-    | SCHEMA nameList
+    | SCHEMA schemaNameList
     | TABLESPACE nameList
     | TYPE_P anyNameList
-    | ALL TABLES IN_P SCHEMA nameList
-    | ALL SEQUENCES IN_P SCHEMA nameList
-    | ALL FUNCTIONS IN_P SCHEMA nameList
-    | ALL PROCEDURES IN_P SCHEMA nameList
-    | ALL ROUTINES IN_P SCHEMA nameList
+    | ALL (TABLES | SEQUENCES | FUNCTIONS | PROCEDURES | ROUTINES) IN_P SCHEMA schemaNameList
     ;
 
 granteeList
@@ -1682,7 +1680,7 @@ alterDefaultPrivilegesStatement
     ;
 
 defultPrivilegeOption
-    : IN_P SCHEMA nameList
+    : IN_P SCHEMA schemaNameList
     | FOR ROLE roleList
     | FOR USER roleList
     ;
@@ -1993,24 +1991,23 @@ dropTransformStatement
 
 reindexStatement
     : REINDEX reindexTargetType CONCURRENTLY? qualifiedName
+    | REINDEX SCHEMA CONCURRENTLY? schemaName
     | REINDEX INDEX CONCURRENTLY? indexName
     | REINDEX reindexTargetMultiTable CONCURRENTLY? name
     | REINDEX OPEN_PAREN reindexOptionList CLOSE_PAREN INDEX CONCURRENTLY? indexName
+    | REINDEX OPEN_PAREN reindexOptionList CLOSE_PAREN SCHEMA CONCURRENTLY? schemaName
     | REINDEX OPEN_PAREN reindexOptionList CLOSE_PAREN reindexTargetType CONCURRENTLY? qualifiedName
     | REINDEX OPEN_PAREN reindexOptionList CLOSE_PAREN reindexTargetMultiTable CONCURRENTLY? name
     ;
 
-// Doesn't include INDEX, because we want to make suggestions based on it
 reindexTargetType
     : TABLE
-    | SCHEMA
     | DATABASE
     | SYSTEM_P
     ;
 
 reindexTargetMultiTable
-    : SCHEMA
-    | SYSTEM_P
+    : SYSTEM_P
     | DATABASE
     ;
 
@@ -2047,7 +2044,7 @@ renameStatement
     | ALTER PROCEDURE functionWithArgumentTypes RENAME TO name
     | ALTER PUBLICATION name RENAME TO name
     | ALTER ROUTINE functionWithArgumentTypes RENAME TO name
-    | ALTER SCHEMA name RENAME TO name
+    | ALTER SCHEMA schemaName RENAME TO name
     | ALTER SERVER name RENAME TO name
     | ALTER SUBSCRIPTION name RENAME TO name
     | ALTER TABLE relationExpression RENAME TO name
@@ -2104,32 +2101,32 @@ alterObjectDependsStatement
     ;
 
 alterObjectSchemaStatement
-    : ALTER AGGREGATE aggregateWithArgumentTypes SET SCHEMA name
-    | ALTER COLLATION anyName SET SCHEMA name
-    | ALTER CONVERSION_P anyName SET SCHEMA name
-    | ALTER DOMAIN_P anyName SET SCHEMA name
-    | ALTER EXTENSION name SET SCHEMA name
-    | ALTER FUNCTION functionWithArgumentTypes SET SCHEMA name
-    | ALTER OPERATOR operatorWithArgumentTypes SET SCHEMA name
-    | ALTER OPERATOR CLASS anyName USING name SET SCHEMA name
-    | ALTER OPERATOR FAMILY anyName USING name SET SCHEMA name
-    | ALTER PROCEDURE functionWithArgumentTypes SET SCHEMA name
-    | ALTER ROUTINE functionWithArgumentTypes SET SCHEMA name
-    | ALTER TABLE relationExpression SET SCHEMA name
-    | ALTER TABLE IF_P EXISTS relationExpression SET SCHEMA name
-    | ALTER STATISTICS anyName SET SCHEMA name
-    | ALTER TEXT_P SEARCH PARSER anyName SET SCHEMA name
-    | ALTER TEXT_P SEARCH DICTIONARY anyName SET SCHEMA name
-    | ALTER TEXT_P SEARCH TEMPLATE anyName SET SCHEMA name
-    | ALTER TEXT_P SEARCH CONFIGURATION anyName SET SCHEMA name
-    | ALTER SEQUENCE (IF_P EXISTS)? sequenceName SET SCHEMA name
-    | ALTER VIEW qualifiedName SET SCHEMA name
-    | ALTER VIEW IF_P EXISTS qualifiedName SET SCHEMA name
-    | ALTER MATERIALIZED VIEW qualifiedName SET SCHEMA name
-    | ALTER MATERIALIZED VIEW IF_P EXISTS qualifiedName SET SCHEMA name
-    | ALTER FOREIGN TABLE relationExpression SET SCHEMA name
-    | ALTER FOREIGN TABLE IF_P EXISTS relationExpression SET SCHEMA name
-    | ALTER TYPE_P anyName SET SCHEMA name
+    : ALTER AGGREGATE aggregateWithArgumentTypes SET SCHEMA schemaName
+    | ALTER COLLATION anyName SET SCHEMA schemaName
+    | ALTER CONVERSION_P anyName SET SCHEMA schemaName
+    | ALTER DOMAIN_P anyName SET SCHEMA schemaName
+    | ALTER EXTENSION name SET SCHEMA schemaName
+    | ALTER FUNCTION functionWithArgumentTypes SET SCHEMA schemaName
+    | ALTER OPERATOR operatorWithArgumentTypes SET SCHEMA schemaName
+    | ALTER OPERATOR CLASS anyName USING name SET SCHEMA schemaName
+    | ALTER OPERATOR FAMILY anyName USING name SET SCHEMA schemaName
+    | ALTER PROCEDURE functionWithArgumentTypes SET SCHEMA schemaName
+    | ALTER ROUTINE functionWithArgumentTypes SET SCHEMA schemaName
+    | ALTER TABLE relationExpression SET SCHEMA schemaName
+    | ALTER TABLE IF_P EXISTS relationExpression SET SCHEMA schemaName
+    | ALTER STATISTICS anyName SET SCHEMA schemaName
+    | ALTER TEXT_P SEARCH PARSER anyName SET SCHEMA schemaName
+    | ALTER TEXT_P SEARCH DICTIONARY anyName SET SCHEMA schemaName
+    | ALTER TEXT_P SEARCH TEMPLATE anyName SET SCHEMA schemaName
+    | ALTER TEXT_P SEARCH CONFIGURATION anyName SET SCHEMA schemaName
+    | ALTER SEQUENCE (IF_P EXISTS)? sequenceName SET SCHEMA schemaName
+    | ALTER VIEW qualifiedName SET SCHEMA schemaName
+    | ALTER VIEW IF_P EXISTS qualifiedName SET SCHEMA schemaName
+    | ALTER MATERIALIZED VIEW qualifiedName SET SCHEMA schemaName
+    | ALTER MATERIALIZED VIEW IF_P EXISTS qualifiedName SET SCHEMA schemaName
+    | ALTER FOREIGN TABLE relationExpression SET SCHEMA schemaName
+    | ALTER FOREIGN TABLE IF_P EXISTS relationExpression SET SCHEMA schemaName
+    | ALTER TYPE_P anyName SET SCHEMA schemaName
     ;
 
 alterOperatorStatement
@@ -2171,7 +2168,7 @@ alterOwnerStatement
     | ALTER OPERATOR FAMILY anyName USING name OWNER TO roleSpecification
     | ALTER PROCEDURE functionWithArgumentTypes OWNER TO roleSpecification
     | ALTER ROUTINE functionWithArgumentTypes OWNER TO roleSpecification
-    | ALTER SCHEMA name OWNER TO roleSpecification
+    | ALTER SCHEMA schemaName OWNER TO roleSpecification
     | ALTER TYPE_P anyName OWNER TO roleSpecification
     | ALTER TABLESPACE name OWNER TO roleSpecification
     | ALTER STATISTICS anyName OWNER TO roleSpecification
@@ -3751,6 +3748,14 @@ targetElement
 
 qualifiedNameList
     : qualifiedName (COMMA qualifiedName)*
+    ;
+
+schemaName
+    : name
+    ;
+
+schemaNameList
+    : schemaName (COMMA schemaName)*
     ;
 
 indexName
