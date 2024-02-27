@@ -80,3 +80,12 @@ test('should suggest sequences', () => {
 
     expect(autocompleteResult.suggestSequences).toEqual(true);
 });
+
+test('should suggest schemas', () => {
+    const autocompleteResult = parsePostgreSqlQueryWithCursor('GRANT ALL ON SCHEMA |');
+
+    const keywords: KeywordSuggestion[] = [{value: 'TO'}];
+    expect(autocompleteResult.suggestKeywords).toEqual(keywords);
+
+    expect(autocompleteResult.suggestSchemas).toEqual(true);
+});

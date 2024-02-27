@@ -628,6 +628,8 @@ import { TargetListContext } from "./PostgreSqlParser.js";
 import { Target_starContext } from "./PostgreSqlParser.js";
 import { Target_labelContext } from "./PostgreSqlParser.js";
 import { QualifiedNameListContext } from "./PostgreSqlParser.js";
+import { SchemaNameContext } from "./PostgreSqlParser.js";
+import { SchemaNameListContext } from "./PostgreSqlParser.js";
 import { IndexNameContext } from "./PostgreSqlParser.js";
 import { IndexNameListContext } from "./PostgreSqlParser.js";
 import { TriggerNameContext } from "./PostgreSqlParser.js";
@@ -4474,6 +4476,18 @@ export class PostgreSqlParserVisitor<Result> extends AbstractParseTreeVisitor<Re
      * @return the visitor result
      */
     visitQualifiedNameList?: (ctx: QualifiedNameListContext) => Result;
+    /**
+     * Visit a parse tree produced by `PostgreSqlParser.schemaName`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitSchemaName?: (ctx: SchemaNameContext) => Result;
+    /**
+     * Visit a parse tree produced by `PostgreSqlParser.schemaNameList`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitSchemaNameList?: (ctx: SchemaNameListContext) => Result;
     /**
      * Visit a parse tree produced by `PostgreSqlParser.indexName`.
      * @param ctx the parse tree
