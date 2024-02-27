@@ -195,7 +195,7 @@ function generateSuggestionsFromRules(
 
     for (const [ruleId, rule] of rules) {
         if (!isStartingToWriteRule(cursorTokenIndex, rule)) {
-            break;
+            continue;
         }
 
         switch (ruleId) {
