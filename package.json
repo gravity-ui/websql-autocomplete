@@ -1,6 +1,6 @@
 {
   "name": "websql-autocomplete",
-  "version": "5.0.0",
+  "version": "5.1.0",
   "description": "A library that provides autocompletion and errors highlighting for various database dialects",
   "repository": {
     "type": "git",
@@ -65,6 +65,9 @@
     ],
     "*.{js,ts}": [
       "eslint src --fix"
+    ],
+    "*.g4": [
+      "antlr-format --config antlr-formatter.config.json"
     ]
   }
 }

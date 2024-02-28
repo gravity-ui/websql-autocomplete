@@ -89,3 +89,12 @@ test('should suggest schemas', () => {
 
     expect(autocompleteResult.suggestSchemas).toEqual(true);
 });
+
+test('should suggest databases', () => {
+    const autocompleteResult = parsePostgreSqlQueryWithCursor('GRANT ALL ON DATABASE |');
+
+    const keywords: KeywordSuggestion[] = [{value: 'TO'}];
+    expect(autocompleteResult.suggestKeywords).toEqual(keywords);
+
+    expect(autocompleteResult.suggestDatabases).toEqual(true);
+});

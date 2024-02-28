@@ -84,6 +84,8 @@ function getIgnoredTokens(): number[] {
 const ignoredTokens = new Set(getIgnoredTokens());
 
 const rulesToVisit = new Set([
+    // We don't need to go inside of it, we already know that this is a database name
+    MySqlParser.RULE_databaseName,
     // We don't need to go inside of it, we already know that this is a constraint name
     MySqlParser.RULE_constraintName,
     // We don't need to go inside of it, we already know that this is a trigger name
@@ -181,13 +183,14 @@ function processVisitedRules(
     let suggestFunctions = false;
     let suggestIndexes = false;
     let suggestTriggers = false;
+    let suggestDatabases = false;
     let shouldSuggestConstraints = false;
     let shouldSuggestColumns = false;
     let shouldSuggestColumnAliases = false;
 
     for (const [ruleId, rule] of rules) {
         if (!isStartingToWriteRule(cursorTokenIndex, rule)) {
-            break;
+            continue;
         }
 
         switch (ruleId) {
@@ -254,6 +257,10 @@ function processVisitedRules(
                 shouldSuggestConstraints = true;
                 break;
             }
+            case MySqlParser.RULE_databaseName: {
+                suggestDatabases = true;
+                break;
+            }
             case MySqlParser.RULE_fullColumnName:
             case MySqlParser.RULE_indexColumnName: {
                 shouldSuggestColumns = true;
@@ -290,6 +297,7 @@ function processVisitedRules(
         suggestFunctions,
         suggestIndexes,
         suggestTriggers,
+        suggestDatabases,
         shouldSuggestConstraints,
         shouldSuggestColumns,
         shouldSuggestColumnAliases,

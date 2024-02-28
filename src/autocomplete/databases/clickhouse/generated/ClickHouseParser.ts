@@ -2214,7 +2214,7 @@ export class ClickHouseParser extends antlr.Parser {
                 break;
             }
             this.state = 654;
-            this.databaseIdentifier();
+            this.identifier();
             this.state = 656;
             this.errorHandler.sync(this);
             _la = this.tokenStream.LA(1);
@@ -10922,7 +10922,7 @@ export class ClickHouseParser extends antlr.Parser {
         1,0,0,0,643,645,1,0,0,0,644,646,3,72,36,0,645,644,1,0,0,0,645,646,
         1,0,0,0,646,33,1,0,0,0,647,648,7,1,0,0,648,652,5,33,0,0,649,650,
         5,78,0,0,650,651,5,115,0,0,651,653,5,56,0,0,652,649,1,0,0,0,652,
-        653,1,0,0,0,653,654,1,0,0,0,654,656,3,234,117,0,655,657,3,66,33,
+        653,1,0,0,0,653,654,1,0,0,0,654,656,3,250,125,0,655,657,3,66,33,
         0,656,655,1,0,0,0,656,657,1,0,0,0,657,658,1,0,0,0,658,659,3,86,43,
         0,659,35,1,0,0,0,660,668,5,15,0,0,661,664,5,29,0,0,662,663,5,121,
         0,0,663,665,5,140,0,0,664,662,1,0,0,0,664,665,1,0,0,0,665,668,1,
@@ -12932,8 +12932,8 @@ export class CreateDatabaseStatementContext extends antlr.ParserRuleContext {
     public DATABASE(): antlr.TerminalNode {
         return this.getToken(ClickHouseParser.DATABASE, 0)!;
     }
-    public databaseIdentifier(): DatabaseIdentifierContext {
-        return this.getRuleContext(0, DatabaseIdentifierContext)!;
+    public identifier(): IdentifierContext {
+        return this.getRuleContext(0, IdentifierContext)!;
     }
     public engineExpression(): EngineExpressionContext {
         return this.getRuleContext(0, EngineExpressionContext)!;

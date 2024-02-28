@@ -539,8 +539,8 @@ partitionOption
 //    Alter statements
 
 alterDatabase
-    : ALTER dbFormat = (DATABASE | SCHEMA) uid? createDatabaseOption+      # alterSimpleDatabase
-    | ALTER dbFormat = (DATABASE | SCHEMA) uid UPGRADE DATA DIRECTORY NAME # alterUpgradeName
+    : ALTER dbFormat = (DATABASE | SCHEMA) databaseName createDatabaseOption+       # alterSimpleDatabase
+    | ALTER dbFormat = (DATABASE | SCHEMA) databaseName UPGRADE DATA DIRECTORY NAME # alterUpgradeName
     ;
 
 alterEvent
@@ -642,7 +642,7 @@ alterPartitionSpecification
 //    Drop statements
 
 dropDatabase
-    : DROP dbFormat = (DATABASE | SCHEMA) ifExists? uid
+    : DROP dbFormat = (DATABASE | SCHEMA) ifExists? databaseName
     ;
 
 dropEvent
@@ -1592,7 +1592,7 @@ showStatement
     | SHOW logFormat = (BINLOG | RELAYLOG) EVENTS (IN filename = STRING_LITERAL)? ( FROM fromPosition = decimalLiteral)? (LIMIT (offset = decimalLiteral COMMA)? rowCount = decimalLiteral)? # showLogEvents
     | SHOW showCommonEntity showFilter?                                                                                                                                                      # showObjectFilter
     | SHOW FULL? columnsFormat = (COLUMNS | FIELDS) tableFormat = (FROM | IN) tableName ( schemaFormat = (FROM | IN) uid)? showFilter?                                                       # showColumns
-    | SHOW CREATE schemaFormat = (DATABASE | SCHEMA) ifNotExists? uid                                                                                                                        # showCreateDb
+    | SHOW CREATE schemaFormat = (DATABASE | SCHEMA) ifNotExists? databaseName                                                                                                               # showCreateDb
     | SHOW CREATE namedEntity = (EVENT | FUNCTION | PROCEDURE) fullId                                                                                                                        # showCreateFullIdObject
     | SHOW CREATE (TABLE | VIEW) tableName                                                                                                                                                   # showCreateTableOrView
     | SHOW CREATE TRIGGER triggerName                                                                                                                                                        # showCreateTrigger
@@ -1809,6 +1809,10 @@ roleName
 fullColumnName
     : uid (dottedId dottedId?)?
     | .? dottedId dottedId?
+    ;
+
+databaseName
+    : uid
     ;
 
 indexName

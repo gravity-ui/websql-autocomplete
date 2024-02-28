@@ -79,6 +79,7 @@ const rulesToVisit = new Set([
     PostgreSqlParser.RULE_constraintName,
     PostgreSqlParser.RULE_sequenceName,
     PostgreSqlParser.RULE_schemaName,
+    PostgreSqlParser.RULE_databaseName,
 
     // All of these are identifier names, we don't want to suggest them
     PostgreSqlParser.RULE_identifier,
@@ -195,13 +196,14 @@ function processVisitedRules(
     let suggestTriggers = false;
     let suggestSequences = false;
     let suggestSchemas = false;
+    let suggestDatabases = false;
     let shouldSuggestConstraints = false;
     let shouldSuggestColumns = false;
     let shouldSuggestColumnAliases = false;
 
     for (const [ruleId, rule] of rules) {
         if (!isStartingToWriteRule(cursorTokenIndex, rule)) {
-            break;
+            continue;
         }
 
         switch (ruleId) {
@@ -292,6 +294,11 @@ function processVisitedRules(
             }
             case PostgreSqlParser.RULE_schemaName: {
                 suggestSchemas = true;
+                break;
+            }
+            case PostgreSqlParser.RULE_databaseName: {
+                suggestDatabases = true;
+                break;
             }
         }
     }
@@ -305,6 +312,7 @@ function processVisitedRules(
         shouldSuggestConstraints,
         suggestSequences,
         suggestSchemas,
+        suggestDatabases,
         shouldSuggestColumns,
         shouldSuggestColumnAliases,
     };
