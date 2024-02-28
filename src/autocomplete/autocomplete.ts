@@ -2,7 +2,7 @@ import {
     AutocompleteResultBase,
     ClickHouseAutocompleteResult,
     CursorPosition,
-    EnhanceAutocompleteResult,
+    EnrichAutocompleteResult,
     GetParseTree,
     KeywordSuggestion,
     LexerConstructor,
@@ -14,7 +14,7 @@ import {postgreSqlAutocompleteData} from './databases/postgresql/postgresql-auto
 import {mySqlAutocompleteData} from './databases/mysql/mysql-autocomplete';
 import {Lexer as LexerType, Parser as ParserType} from 'antlr4ng';
 import {TokenDictionary} from './shared/tables';
-import {getParserFromQuery} from './shared/query';
+import {createParser} from './shared/query';
 import {SqlErrorListener} from './shared/sql-error-listener';
 import * as c3 from 'antlr4-c3';
 import {findCursorTokenIndex} from './shared/cursor';
@@ -27,7 +27,7 @@ function parseQueryWithoutCursor<L extends LexerType, P extends ParserType>(
     getParseTree: GetParseTree<P>,
     query: string,
 ): Pick<AutocompleteResultBase, 'errors'> {
-    const parser = getParserFromQuery(Lexer, Parser, query);
+    const parser = createParser(Lexer, Parser, query);
     const errorListener = new SqlErrorListener(tokenDictionary.SPACE);
 
     parser.removeErrorListeners();
@@ -48,13 +48,13 @@ export function parseQuery<
     Parser: ParserConstructor<P>,
     tokenDictionary: TokenDictionary,
     ignoredTokens: Set<number>,
-    preferredRules: Set<number>,
+    rulesToVisit: Set<number>,
     getParseTree: GetParseTree<P>,
-    enhanceAutocompleteResult: EnhanceAutocompleteResult<A>,
+    enrichAutocompleteResult: EnrichAutocompleteResult<A>,
     query: string,
     cursor: CursorPosition,
 ): A {
-    const parser = getParserFromQuery(Lexer, Parser, query);
+    const parser = createParser(Lexer, Parser, query);
     const {tokenStream} = parser;
     const errorListener = new SqlErrorListener(tokenDictionary.SPACE);
 
@@ -64,7 +64,7 @@ export function parseQuery<
 
     const core = new c3.CodeCompletionCore(parser);
     core.ignoredTokens = ignoredTokens;
-    core.preferredRules = preferredRules;
+    core.preferredRules = rulesToVisit;
     const cursorTokenIndex = findCursorTokenIndex(tokenStream, cursor, tokenDictionary.SPACE);
 
     if (cursorTokenIndex === undefined) {
@@ -95,7 +95,7 @@ export function parseQuery<
         suggestKeywords,
     };
 
-    return enhanceAutocompleteResult(result, rules, tokenStream, cursorTokenIndex, cursor, query);
+    return enrichAutocompleteResult(result, rules, tokenStream, cursorTokenIndex, cursor, query);
 }
 
 export function parseMySqlQueryWithoutCursor(
@@ -116,9 +116,9 @@ export function parseMySqlQuery(query: string, cursor: CursorPosition): MySqlAut
         mySqlAutocompleteData.Parser,
         mySqlAutocompleteData.tokenDictionary,
         mySqlAutocompleteData.ignoredTokens,
-        mySqlAutocompleteData.preferredRules,
+        mySqlAutocompleteData.rulesToVisit,
         mySqlAutocompleteData.getParseTree,
-        mySqlAutocompleteData.enhanceAutocompleteResult,
+        mySqlAutocompleteData.enrichAutocompleteResult,
         query,
         cursor,
     );
@@ -145,9 +145,9 @@ export function parsePostgreSqlQuery(
         postgreSqlAutocompleteData.Parser,
         postgreSqlAutocompleteData.tokenDictionary,
         postgreSqlAutocompleteData.ignoredTokens,
-        postgreSqlAutocompleteData.preferredRules,
+        postgreSqlAutocompleteData.rulesToVisit,
         postgreSqlAutocompleteData.getParseTree,
-        postgreSqlAutocompleteData.enhanceAutocompleteResult,
+        postgreSqlAutocompleteData.enrichAutocompleteResult,
         query,
         cursor,
     );
@@ -174,9 +174,9 @@ export function parseClickHouseQuery(
         clickHouseAutocompleteData.Parser,
         clickHouseAutocompleteData.tokenDictionary,
         clickHouseAutocompleteData.ignoredTokens,
-        clickHouseAutocompleteData.preferredRules,
+        clickHouseAutocompleteData.rulesToVisit,
         clickHouseAutocompleteData.getParseTree,
-        clickHouseAutocompleteData.enhanceAutocompleteResult,
+        clickHouseAutocompleteData.enrichAutocompleteResult,
         query,
         cursor,
     );

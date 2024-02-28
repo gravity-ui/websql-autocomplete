@@ -7,8 +7,8 @@ import {
     AutocompleteResultBase,
     ClickHouseAutocompleteResult,
     CursorPosition,
-    GenerateSuggestionsFromRulesResult,
     ISymbolTableVisitor,
+    ProcessVisitedRulesResult,
     TableOrViewSuggestion,
 } from '../../autocomplete-types.js';
 import {ClickHouseLexer} from './generated/ClickHouseLexer.js';
@@ -91,7 +91,7 @@ function getIgnoredTokens(): number[] {
 
 const ignoredTokens = new Set(getIgnoredTokens());
 
-const preferredRules = new Set([
+const rulesToVisit = new Set([
     ClickHouseParser.RULE_tableIdentifier,
     ClickHouseParser.RULE_identifier,
     ClickHouseParser.RULE_columnIdentifier,
@@ -158,11 +158,11 @@ class ClickHouseSymbolTableVisitor
     };
 }
 
-function generateSuggestionsFromRules(
+function processVisitedRules(
     rules: c3.CandidatesCollection['rules'],
     cursorTokenIndex: number,
     tokenStream: TokenStream,
-): GenerateSuggestionsFromRulesResult<ClickHouseAutocompleteResult> {
+): ProcessVisitedRulesResult<ClickHouseAutocompleteResult> {
     let suggestViewsOrTables: ClickHouseAutocompleteResult['suggestViewsOrTables'];
     let suggestAggregateFunctions = false;
     let suggestFunctions = false;
@@ -268,7 +268,7 @@ function getParseTree(
     }
 }
 
-function enhanceAutocompleteResult(
+function enrichAutocompleteResult(
     baseResult: AutocompleteResultBase,
     rules: c3.CandidatesCollection['rules'],
     tokenStream: TokenStream,
@@ -277,15 +277,16 @@ function enhanceAutocompleteResult(
     query: string,
 ): ClickHouseAutocompleteResult {
     const {shouldSuggestColumns, shouldSuggestColumnAliases, ...suggestionsFromRules} =
-        generateSuggestionsFromRules(rules, cursorTokenIndex, tokenStream);
+        processVisitedRules(rules, cursorTokenIndex, tokenStream);
     const suggestTemplates = shouldSuggestTemplates(query, cursor);
-    const result = {
+    const result: ClickHouseAutocompleteResult = {
         ...baseResult,
         ...suggestionsFromRules,
         suggestTemplates,
     };
+    const contextSuggestionsNeeded = shouldSuggestColumns || shouldSuggestColumnAliases;
 
-    if (shouldSuggestColumns || shouldSuggestColumnAliases) {
+    if (contextSuggestionsNeeded) {
         const visitor = new ClickHouseSymbolTableVisitor();
         const {tableContextSuggestion, suggestColumnAliases} = getContextSuggestions(
             ClickHouseLexer,
@@ -318,7 +319,7 @@ export const clickHouseAutocompleteData: AutocompleteData<
     Parser: ClickHouseParser,
     tokenDictionary,
     ignoredTokens,
-    preferredRules,
+    rulesToVisit,
     getParseTree,
-    enhanceAutocompleteResult,
+    enrichAutocompleteResult,
 };

@@ -95,18 +95,18 @@ export type GetParseTree<P> = (
     type?: TableQueryPosition['type'] | 'select',
 ) => ParseTree;
 
-export type GenerateSuggestionsFromRulesResult<A extends AutocompleteResultBase> = Partial<A> & {
+export type ProcessVisitedRulesResult<A extends AutocompleteResultBase> = Partial<A> & {
     shouldSuggestColumns?: boolean;
     shouldSuggestColumnAliases?: boolean;
     shouldSuggestConstraints?: boolean;
 };
-export type GenerateSuggestionsFromRules<A extends AutocompleteResultBase> = (
+export type ProcessVisitedRules<A extends AutocompleteResultBase> = (
     rules: c3.CandidatesCollection['rules'],
     cursorTokenIndex: number,
     tokenStream: TokenStream,
-) => GenerateSuggestionsFromRulesResult<A>;
+) => ProcessVisitedRulesResult<A>;
 
-export type EnhanceAutocompleteResult<A extends AutocompleteResultBase> = (
+export type EnrichAutocompleteResult<A extends AutocompleteResultBase> = (
     result: AutocompleteResultBase,
     rules: c3.CandidatesCollection['rules'],
     tokenStream: TokenStream,
@@ -125,8 +125,8 @@ export interface AutocompleteData<
     getParseTree: GetParseTree<P>;
     tokenDictionary: TokenDictionary;
     ignoredTokens: Set<number>;
-    preferredRules: Set<number>;
-    enhanceAutocompleteResult: EnhanceAutocompleteResult<A>;
+    rulesToVisit: Set<number>;
+    enrichAutocompleteResult: EnrichAutocompleteResult<A>;
 }
 
 export interface CursorPosition {

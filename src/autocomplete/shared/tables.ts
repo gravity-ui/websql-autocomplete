@@ -1,6 +1,6 @@
 import {Lexer as LexerType, Parser as ParserType, Token, TokenStream} from 'antlr4ng';
 import {findCursorTokenIndex} from './cursor';
-import {getParserFromQuery} from './query';
+import {createParser} from './query';
 import {getColumnAliasesFromSymbolTable, getTablesFromSymbolTable} from './symbol-table';
 import {
     AutocompleteResultBase,
@@ -275,7 +275,7 @@ export function getContextSuggestions<L extends LexerType, P extends ParserType>
 
     if (tableQueryPosition) {
         const tableQuery = query.slice(tableQueryPosition.start, tableQueryPosition.end);
-        const parser = getParserFromQuery(Lexer, Parser, tableQuery);
+        const parser = createParser(Lexer, Parser, tableQuery);
         const parseTree = getParseTree(parser, tableQueryPosition.type);
 
         symbolTableVisitor.visit(parseTree);
@@ -285,7 +285,7 @@ export function getContextSuggestions<L extends LexerType, P extends ParserType>
                 tableQueryPosition.joinTableQueryPosition.start,
                 tableQueryPosition.joinTableQueryPosition.end,
             );
-            const joinParser = getParserFromQuery(Lexer, Parser, joinTableQuery);
+            const joinParser = createParser(Lexer, Parser, joinTableQuery);
             const joinParseTree = getParseTree(joinParser, 'from');
             symbolTableVisitor.visit(joinParseTree);
         }
@@ -295,7 +295,7 @@ export function getContextSuggestions<L extends LexerType, P extends ParserType>
                 tableQueryPosition.selectTableQueryPosition.start,
                 tableQueryPosition.selectTableQueryPosition.end,
             );
-            const selectParser = getParserFromQuery(Lexer, Parser, selectTableQuery);
+            const selectParser = createParser(Lexer, Parser, selectTableQuery);
             const selectParseTree = getParseTree(selectParser, 'select');
             symbolTableVisitor.visit(selectParseTree);
         }

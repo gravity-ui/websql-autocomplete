@@ -44,7 +44,7 @@ export function shouldSuggestTemplates(query: string, cursor: CursorPosition): b
     );
 }
 
-export function getParserFromQuery<L extends LexerType, P extends ParserType>(
+export function createParser<L extends LexerType, P extends ParserType>(
     Lexer: LexerConstructor<L>,
     Parser: ParserConstructor<P>,
     query: string,

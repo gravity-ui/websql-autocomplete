@@ -6,9 +6,9 @@ import {
     AutocompleteData,
     AutocompleteResultBase,
     CursorPosition,
-    GenerateSuggestionsFromRulesResult,
     ISymbolTableVisitor,
     PostgreSqlAutocompleteResult,
+    ProcessVisitedRulesResult,
     TableOrViewSuggestion,
 } from '../../autocomplete-types.js';
 import {PostgreSqlLexer} from './generated/PostgreSqlLexer.js';
@@ -70,7 +70,7 @@ function getIgnoredTokens(): number[] {
 
 const ignoredTokens = new Set(getIgnoredTokens());
 
-const preferredRules = new Set([
+const rulesToVisit = new Set([
     PostgreSqlParser.RULE_columnId,
     PostgreSqlParser.RULE_functionName,
     PostgreSqlParser.RULE_functionExpressionCommonSubexpr,
@@ -183,11 +183,11 @@ class PostgreSqlSymbolTableVisitor
     };
 }
 
-function generateSuggestionsFromRules(
+function processVisitedRules(
     rules: c3.CandidatesCollection['rules'],
     cursorTokenIndex: number,
     tokenStream: TokenStream,
-): GenerateSuggestionsFromRulesResult<PostgreSqlAutocompleteResult> {
+): ProcessVisitedRulesResult<PostgreSqlAutocompleteResult> {
     let suggestViewsOrTables: PostgreSqlAutocompleteResult['suggestViewsOrTables'];
     let suggestAggregateFunctions = false;
     let suggestFunctions = false;
@@ -332,7 +332,7 @@ function getParseTree(
     }
 }
 
-function enhanceAutocompleteResult(
+function enrichAutocompleteResult(
     baseResult: AutocompleteResultBase,
     rules: c3.CandidatesCollection['rules'],
     tokenStream: TokenStream,
@@ -345,15 +345,17 @@ function enhanceAutocompleteResult(
         shouldSuggestColumnAliases,
         shouldSuggestConstraints,
         ...suggestionsFromRules
-    } = generateSuggestionsFromRules(rules, cursorTokenIndex, tokenStream);
+    } = processVisitedRules(rules, cursorTokenIndex, tokenStream);
     const suggestTemplates = shouldSuggestTemplates(query, cursor);
-    const result = {
+    const result: PostgreSqlAutocompleteResult = {
         ...baseResult,
         ...suggestionsFromRules,
         suggestTemplates,
     };
+    const contextSuggestionsNeeded =
+        shouldSuggestColumns || shouldSuggestConstraints || shouldSuggestColumnAliases;
 
-    if (shouldSuggestColumns || shouldSuggestConstraints || shouldSuggestColumnAliases) {
+    if (contextSuggestionsNeeded) {
         const visitor = new PostgreSqlSymbolTableVisitor();
         const {tableContextSuggestion, suggestColumnAliases} = getContextSuggestions(
             PostgreSqlLexer,
@@ -390,7 +392,7 @@ export const postgreSqlAutocompleteData: AutocompleteData<
     Parser: PostgreSqlParser,
     tokenDictionary,
     ignoredTokens,
-    preferredRules,
+    rulesToVisit,
     getParseTree,
-    enhanceAutocompleteResult,
+    enrichAutocompleteResult,
 };

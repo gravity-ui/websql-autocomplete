@@ -6,9 +6,9 @@ import {
     AutocompleteData,
     AutocompleteResultBase,
     CursorPosition,
-    GenerateSuggestionsFromRulesResult,
     ISymbolTableVisitor,
     MySqlAutocompleteResult,
+    ProcessVisitedRulesResult,
     TableOrViewSuggestion,
 } from '../../autocomplete-types.js';
 import {MySqlLexer} from './generated/MySqlLexer.js';
@@ -83,7 +83,7 @@ function getIgnoredTokens(): number[] {
 
 const ignoredTokens = new Set(getIgnoredTokens());
 
-const preferredRules = new Set([
+const rulesToVisit = new Set([
     // We don't need to go inside of it, we already know that this is a constraint name
     MySqlParser.RULE_constraintName,
     // We don't need to go inside of it, we already know that this is a trigger name
@@ -171,11 +171,11 @@ class MySqlSymbolTableVisitor extends MySqlParserVisitor<{}> implements ISymbolT
     };
 }
 
-function generateSuggestionsFromRules(
+function processVisitedRules(
     rules: c3.CandidatesCollection['rules'],
     cursorTokenIndex: number,
     tokenStream: TokenStream,
-): GenerateSuggestionsFromRulesResult<MySqlAutocompleteResult> {
+): ProcessVisitedRulesResult<MySqlAutocompleteResult> {
     let suggestViewsOrTables: MySqlAutocompleteResult['suggestViewsOrTables'];
     let suggestAggregateFunctions = false;
     let suggestFunctions = false;
@@ -318,7 +318,7 @@ function getParseTree(
     }
 }
 
-function enhanceAutocompleteResult(
+function enrichAutocompleteResult(
     baseResult: AutocompleteResultBase,
     rules: c3.CandidatesCollection['rules'],
     tokenStream: TokenStream,
@@ -331,15 +331,17 @@ function enhanceAutocompleteResult(
         shouldSuggestColumnAliases,
         shouldSuggestConstraints,
         ...suggestionsFromRules
-    } = generateSuggestionsFromRules(rules, cursorTokenIndex, tokenStream);
+    } = processVisitedRules(rules, cursorTokenIndex, tokenStream);
     const suggestTemplates = shouldSuggestTemplates(query, cursor);
-    const result = {
+    const result: MySqlAutocompleteResult = {
         ...baseResult,
         ...suggestionsFromRules,
         suggestTemplates,
     };
+    const contextSuggestionsNeeded =
+        shouldSuggestColumns || shouldSuggestConstraints || shouldSuggestColumnAliases;
 
-    if (shouldSuggestColumns || shouldSuggestConstraints || shouldSuggestColumnAliases) {
+    if (contextSuggestionsNeeded) {
         const visitor = new MySqlSymbolTableVisitor();
         const {tableContextSuggestion, suggestColumnAliases} = getContextSuggestions(
             MySqlLexer,
@@ -375,7 +377,7 @@ export const mySqlAutocompleteData: AutocompleteData<
     Parser: MySqlParser,
     tokenDictionary,
     ignoredTokens,
-    preferredRules,
+    rulesToVisit,
     getParseTree,
-    enhanceAutocompleteResult,
+    enrichAutocompleteResult,
 };
