@@ -2,34 +2,23 @@ import {
     AutocompleteResultBase,
     ClickHouseAutocompleteResult,
     CursorPosition,
-    GenerateSuggestionsFromRules,
+    EnhanceAutocompleteResult,
     GetParseTree,
-    ISymbolTableVisitor,
     KeywordSuggestion,
     LexerConstructor,
     MySqlAutocompleteResult,
     ParserConstructor,
     PostgreSqlAutocompleteResult,
-    SymbolTableVisitorConstructor,
-    TableContextSuggestion,
 } from './autocomplete-types';
 import {postgreSqlAutocompleteData} from './databases/postgresql/postgresql-autocomplete';
 import {mySqlAutocompleteData} from './databases/mysql/mysql-autocomplete';
-import {
-    AbstractParseTreeVisitor,
-    CharStreams,
-    CommonTokenStream,
-    Lexer as LexerType,
-    Parser as ParserType,
-    TokenStream,
-} from 'antlr4ng';
-import {TokenDictionary, getTableQueryPosition} from './shared/tables';
+import {Lexer as LexerType, Parser as ParserType} from 'antlr4ng';
+import {TokenDictionary} from './shared/tables';
+import {getParserFromQuery} from './shared/query';
 import {SqlErrorListener} from './shared/sql-error-listener';
 import * as c3 from 'antlr4-c3';
-import {findCursorTokenIndex, getCursorIndex} from './shared/cursor';
-import {getCurrentStatement, shouldSuggestTemplates} from './shared/query';
+import {findCursorTokenIndex} from './shared/cursor';
 import {clickHouseAutocompleteData} from './databases/clickhouse/clickhouse-autocomplete';
-import {ColumnAliasSymbol, TableSymbol} from './shared/symbol-table';
 
 function parseQueryWithoutCursor<L extends LexerType, P extends ParserType>(
     Lexer: LexerConstructor<L>,
@@ -38,10 +27,7 @@ function parseQueryWithoutCursor<L extends LexerType, P extends ParserType>(
     getParseTree: GetParseTree<P>,
     query: string,
 ): Pick<AutocompleteResultBase, 'errors'> {
-    const inputStream = CharStreams.fromString(query);
-    const lexer = new Lexer(inputStream);
-    const tokenStream = new CommonTokenStream(lexer);
-    const parser = new Parser(tokenStream);
+    const parser = getParserFromQuery(Lexer, Parser, query);
     const errorListener = new SqlErrorListener(tokenDictionary.SPACE);
 
     parser.removeErrorListeners();
@@ -51,136 +37,25 @@ function parseQueryWithoutCursor<L extends LexerType, P extends ParserType>(
     return {errors: errorListener.errors};
 }
 
-function getContextSuggestions<
-    L extends LexerType,
-    P extends ParserType,
-    S extends ISymbolTableVisitor & AbstractParseTreeVisitor<{}>,
->(
-    Lexer: LexerConstructor<L>,
-    Parser: ParserConstructor<P>,
-    SymbolTableVisitor: SymbolTableVisitorConstructor<S>,
-    tokenDictionary: TokenDictionary,
-    explicitlyParseJoin: boolean,
-    getParseTree: GetParseTree<P>,
-    initialTokenStream: TokenStream,
-    cursor: CursorPosition,
-    initialQuery: string,
-    shouldSuggestColumnAliases?: boolean,
-): {
-    tableContextSuggestion?: TableContextSuggestion;
-    suggestColumnAliases?: AutocompleteResultBase['suggestColumnAliases'];
-} {
-    // Here we need the actual token index, without special logic for spaces
-    const realCursorTokenIndex = findCursorTokenIndex(
-        initialTokenStream,
-        cursor,
-        tokenDictionary.SPACE,
-        true,
-    );
-
-    if (!realCursorTokenIndex) {
-        throw new Error(
-            `Could not find realCursorTokenIndex at Ln ${cursor.line}, Col ${cursor.column}`,
-        );
-    }
-
-    const tableQueryPosition = getTableQueryPosition(
-        initialTokenStream,
-        realCursorTokenIndex,
-        tokenDictionary,
-    );
-    const result: {
-        tableContextSuggestion?: TableContextSuggestion;
-        suggestColumnAliases?: AutocompleteResultBase['suggestColumnAliases'];
-    } = {};
-
-    if (tableQueryPosition) {
-        const query = initialQuery.slice(tableQueryPosition.start, tableQueryPosition.end);
-
-        const inputStream = CharStreams.fromString(query);
-        const lexer = new Lexer(inputStream);
-        const tokenStream = new CommonTokenStream(lexer);
-        const parser = new Parser(tokenStream);
-
-        parser.removeErrorListeners();
-        const parseTree = getParseTree(parser, tableQueryPosition.type);
-        const visitor = new SymbolTableVisitor();
-
-        visitor.visit(parseTree);
-
-        if (explicitlyParseJoin && tableQueryPosition.joinTableQueryPosition) {
-            const joinTableQuery = initialQuery.slice(
-                tableQueryPosition.joinTableQueryPosition.start,
-                tableQueryPosition.joinTableQueryPosition.end,
-            );
-            const joinInputStream = CharStreams.fromString(joinTableQuery);
-            const joinLexer = new Lexer(joinInputStream);
-            const joinTokenStream = new CommonTokenStream(joinLexer);
-            const joinParser = new Parser(joinTokenStream);
-
-            joinParser.removeErrorListeners();
-            const joinParseTree = getParseTree(joinParser, 'from');
-            visitor.visit(joinParseTree);
-        }
-
-        if (shouldSuggestColumnAliases && tableQueryPosition.selectTableQueryPosition) {
-            const selectTableQuery = initialQuery.slice(
-                tableQueryPosition.selectTableQueryPosition.start,
-                tableQueryPosition.selectTableQueryPosition.end,
-            );
-            const selectInputStream = CharStreams.fromString(selectTableQuery);
-            const selectLexer = new Lexer(selectInputStream);
-            const selectTokenStream = new CommonTokenStream(selectLexer);
-            const selectParser = new Parser(selectTokenStream);
-
-            selectParser.removeErrorListeners();
-            const selectParseTree = getParseTree(selectParser, 'select');
-            visitor.visit(selectParseTree);
-        }
-
-        const tables = visitor.symbolTable.getNestedSymbolsOfTypeSync(TableSymbol);
-        if (tables.length) {
-            result.tableContextSuggestion = {
-                tables: tables.map((tableSymbol) => ({
-                    name: tableSymbol.name,
-                    alias: tableSymbol.alias,
-                })),
-            };
-        }
-
-        const columnAliases = visitor.symbolTable.getNestedSymbolsOfTypeSync(ColumnAliasSymbol);
-        if (columnAliases.length) {
-            result.suggestColumnAliases = columnAliases.map(({name}) => ({name}));
-        }
-    }
-
-    return result;
-}
-
 const quotesRegex = /^'(.*)'$/;
 
 export function parseQuery<
     A extends AutocompleteResultBase,
     L extends LexerType,
     P extends ParserType,
-    S extends ISymbolTableVisitor & AbstractParseTreeVisitor<{}>,
 >(
     Lexer: LexerConstructor<L>,
     Parser: ParserConstructor<P>,
-    SymbolTableVisitor: SymbolTableVisitorConstructor<S>,
     tokenDictionary: TokenDictionary,
     ignoredTokens: Set<number>,
     preferredRules: Set<number>,
-    explicitlyParseJoin: boolean,
     getParseTree: GetParseTree<P>,
-    generateSuggestionsFromRules: GenerateSuggestionsFromRules<A>,
+    enhanceAutocompleteResult: EnhanceAutocompleteResult<A>,
     query: string,
     cursor: CursorPosition,
-): MySqlAutocompleteResult & PostgreSqlAutocompleteResult & ClickHouseAutocompleteResult {
-    const inputStream = CharStreams.fromString(query);
-    const lexer = new Lexer(inputStream);
-    const tokenStream = new CommonTokenStream(lexer);
-    const parser = new Parser(tokenStream);
+): A {
+    const parser = getParserFromQuery(Lexer, Parser, query);
+    const {tokenStream} = parser;
     const errorListener = new SqlErrorListener(tokenDictionary.SPACE);
 
     parser.removeErrorListeners();
@@ -191,12 +66,6 @@ export function parseQuery<
     core.ignoredTokens = ignoredTokens;
     core.preferredRules = preferredRules;
     const cursorTokenIndex = findCursorTokenIndex(tokenStream, cursor, tokenDictionary.SPACE);
-    const suggestKeywords: KeywordSuggestion[] = [];
-    let result: MySqlAutocompleteResult &
-        PostgreSqlAutocompleteResult &
-        ClickHouseAutocompleteResult = {
-        errors: errorListener.errors,
-    };
 
     if (cursorTokenIndex === undefined) {
         throw new Error(
@@ -204,14 +73,8 @@ export function parseQuery<
         );
     }
 
+    const suggestKeywords: KeywordSuggestion[] = [];
     const {tokens, rules} = core.collectCandidates(cursorTokenIndex);
-    const {
-        shouldSuggestColumns,
-        shouldSuggestColumnAliases,
-        shouldSuggestConstraints,
-        ...suggestionsFromRules
-    } = generateSuggestionsFromRules(rules, cursorTokenIndex, tokenStream);
-    result = {...result, ...suggestionsFromRules};
     tokens.forEach((_, tokenType) => {
         // Literal keyword names are quoted
         const literalName = parser.vocabulary.getLiteralName(tokenType)?.replace(quotesRegex, '$1');
@@ -227,40 +90,12 @@ export function parseQuery<
         });
     });
 
-    const cursorIndex = getCursorIndex(query, cursor);
-    // We can get this by token instead of splitting the string
-    const currentStatement = getCurrentStatement(query, cursorIndex);
+    const result: AutocompleteResultBase = {
+        errors: errorListener.errors,
+        suggestKeywords,
+    };
 
-    if (shouldSuggestColumns || shouldSuggestConstraints) {
-        const {tableContextSuggestion, suggestColumnAliases} = getContextSuggestions(
-            Lexer,
-            Parser,
-            SymbolTableVisitor,
-            tokenDictionary,
-            explicitlyParseJoin,
-            getParseTree,
-            tokenStream,
-            cursor,
-            query,
-            shouldSuggestColumnAliases,
-        );
-        if (tableContextSuggestion && shouldSuggestColumns) {
-            result.suggestColumns = tableContextSuggestion;
-        }
-        if (tableContextSuggestion && shouldSuggestConstraints) {
-            result.suggestConstraints = tableContextSuggestion;
-        }
-        if (suggestColumnAliases && shouldSuggestColumnAliases) {
-            result.suggestColumnAliases = suggestColumnAliases;
-        }
-    }
-
-    result.suggestTemplates = shouldSuggestTemplates(
-        currentStatement.statement,
-        currentStatement.cursorIndex,
-    );
-    result.suggestKeywords = suggestKeywords;
-    return result;
+    return enhanceAutocompleteResult(result, rules, tokenStream, cursorTokenIndex, cursor, query);
 }
 
 export function parseMySqlQueryWithoutCursor(
@@ -279,13 +114,11 @@ export function parseMySqlQuery(query: string, cursor: CursorPosition): MySqlAut
     return parseQuery(
         mySqlAutocompleteData.Lexer,
         mySqlAutocompleteData.Parser,
-        mySqlAutocompleteData.SymbolTableVisitor,
         mySqlAutocompleteData.tokenDictionary,
         mySqlAutocompleteData.ignoredTokens,
         mySqlAutocompleteData.preferredRules,
-        mySqlAutocompleteData.explicitlyParseJoin,
         mySqlAutocompleteData.getParseTree,
-        mySqlAutocompleteData.generateSuggestionsFromRules,
+        mySqlAutocompleteData.enhanceAutocompleteResult,
         query,
         cursor,
     );
@@ -310,13 +143,11 @@ export function parsePostgreSqlQuery(
     return parseQuery(
         postgreSqlAutocompleteData.Lexer,
         postgreSqlAutocompleteData.Parser,
-        postgreSqlAutocompleteData.SymbolTableVisitor,
         postgreSqlAutocompleteData.tokenDictionary,
         postgreSqlAutocompleteData.ignoredTokens,
         postgreSqlAutocompleteData.preferredRules,
-        postgreSqlAutocompleteData.explicitlyParseJoin,
         postgreSqlAutocompleteData.getParseTree,
-        postgreSqlAutocompleteData.generateSuggestionsFromRules,
+        postgreSqlAutocompleteData.enhanceAutocompleteResult,
         query,
         cursor,
     );
@@ -341,13 +172,11 @@ export function parseClickHouseQuery(
     return parseQuery(
         clickHouseAutocompleteData.Lexer,
         clickHouseAutocompleteData.Parser,
-        clickHouseAutocompleteData.SymbolTableVisitor,
         clickHouseAutocompleteData.tokenDictionary,
         clickHouseAutocompleteData.ignoredTokens,
         clickHouseAutocompleteData.preferredRules,
-        clickHouseAutocompleteData.explicitlyParseJoin,
         clickHouseAutocompleteData.getParseTree,
-        clickHouseAutocompleteData.generateSuggestionsFromRules,
+        clickHouseAutocompleteData.enhanceAutocompleteResult,
         query,
         cursor,
     );

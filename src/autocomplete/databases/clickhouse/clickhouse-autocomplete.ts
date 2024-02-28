@@ -4,7 +4,9 @@ import * as c3 from 'antlr4-c3';
 import {ColumnAliasSymbol, TableSymbol} from '../../shared/symbol-table.js';
 import {
     AutocompleteData,
+    AutocompleteResultBase,
     ClickHouseAutocompleteResult,
+    CursorPosition,
     GenerateSuggestionsFromRulesResult,
     ISymbolTableVisitor,
     TableOrViewSuggestion,
@@ -17,8 +19,14 @@ import {
     TableIdentifierContext,
 } from './generated/ClickHouseParser.js';
 import {ClickHouseParserVisitor} from './generated/ClickHouseParserVisitor.js';
-import {TableQueryPosition, TokenDictionary, getPreviousToken} from '../../shared/tables.js';
+import {
+    TableQueryPosition,
+    TokenDictionary,
+    getContextSuggestions,
+    getPreviousToken,
+} from '../../shared/tables.js';
 import {isStartingToWriteRule} from '../../shared/cursor';
+import {shouldSuggestTemplates} from '../../shared/query.js';
 
 const engines = ['Null', 'Set', 'Log', 'Memory', 'TinyLog', 'StripeLog'];
 
@@ -260,19 +268,57 @@ function getParseTree(
     }
 }
 
+function enhanceAutocompleteResult(
+    baseResult: AutocompleteResultBase,
+    rules: c3.CandidatesCollection['rules'],
+    tokenStream: TokenStream,
+    cursorTokenIndex: number,
+    cursor: CursorPosition,
+    query: string,
+): ClickHouseAutocompleteResult {
+    const {shouldSuggestColumns, shouldSuggestColumnAliases, ...suggestionsFromRules} =
+        generateSuggestionsFromRules(rules, cursorTokenIndex, tokenStream);
+    const suggestTemplates = shouldSuggestTemplates(query, cursor);
+    const result = {
+        ...baseResult,
+        ...suggestionsFromRules,
+        suggestTemplates,
+    };
+
+    if (shouldSuggestColumns || shouldSuggestColumnAliases) {
+        const visitor = new ClickHouseSymbolTableVisitor();
+        const {tableContextSuggestion, suggestColumnAliases} = getContextSuggestions(
+            ClickHouseLexer,
+            ClickHouseParser,
+            visitor,
+            tokenDictionary,
+            getParseTree,
+            tokenStream,
+            cursor,
+            query,
+        );
+
+        if (shouldSuggestColumns && tableContextSuggestion) {
+            result.suggestColumns = tableContextSuggestion;
+        }
+        if (shouldSuggestColumnAliases && suggestColumnAliases) {
+            result.suggestColumnAliases = suggestColumnAliases;
+        }
+    }
+
+    return result;
+}
+
 export const clickHouseAutocompleteData: AutocompleteData<
     ClickHouseAutocompleteResult,
     ClickHouseLexer,
-    ClickHouseParser,
-    ClickHouseSymbolTableVisitor
+    ClickHouseParser
 > = {
     Lexer: ClickHouseLexer,
     Parser: ClickHouseParser,
-    SymbolTableVisitor: ClickHouseSymbolTableVisitor,
     tokenDictionary,
     ignoredTokens,
     preferredRules,
-    explicitlyParseJoin: false,
     getParseTree,
-    generateSuggestionsFromRules,
+    enhanceAutocompleteResult,
 };

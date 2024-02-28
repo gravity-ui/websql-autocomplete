@@ -49,8 +49,13 @@ export interface KeywordSuggestion {
     value: string;
 }
 
+export interface Table {
+    name: string;
+    alias?: string;
+}
+
 export interface TableContextSuggestion {
-    tables?: {name: string; alias?: string}[];
+    tables?: Table[];
 }
 
 export type ColumnSuggestion = TableContextSuggestion;
@@ -83,6 +88,8 @@ export interface ISymbolTableVisitor {
     scope: c3.ScopedSymbol;
 }
 
+export type SymbolTableVisitor = ISymbolTableVisitor & AbstractParseTreeVisitor<{}>;
+
 export type GetParseTree<P> = (
     parser: P,
     type?: TableQueryPosition['type'] | 'select',
@@ -99,21 +106,27 @@ export type GenerateSuggestionsFromRules<A extends AutocompleteResultBase> = (
     tokenStream: TokenStream,
 ) => GenerateSuggestionsFromRulesResult<A>;
 
+export type EnhanceAutocompleteResult<A extends AutocompleteResultBase> = (
+    result: AutocompleteResultBase,
+    rules: c3.CandidatesCollection['rules'],
+    tokenStream: TokenStream,
+    cursorTokenIndex: number,
+    cursor: CursorPosition,
+    query: string,
+) => A;
+
 export interface AutocompleteData<
     A extends AutocompleteResultBase,
     L extends LexerType,
     P extends ParserType,
-    S extends ISymbolTableVisitor & AbstractParseTreeVisitor<{}>,
 > {
     Lexer: LexerConstructor<L>;
     Parser: ParserConstructor<P>;
-    SymbolTableVisitor: SymbolTableVisitorConstructor<S>;
     getParseTree: GetParseTree<P>;
     tokenDictionary: TokenDictionary;
-    generateSuggestionsFromRules: GenerateSuggestionsFromRules<A>;
     ignoredTokens: Set<number>;
     preferredRules: Set<number>;
-    explicitlyParseJoin: boolean;
+    enhanceAutocompleteResult: EnhanceAutocompleteResult<A>;
 }
 
 export interface CursorPosition {

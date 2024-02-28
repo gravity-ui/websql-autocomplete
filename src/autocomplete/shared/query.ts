@@ -1,3 +1,8 @@
+import {CharStreams, CommonTokenStream, Lexer as LexerType, Parser as ParserType} from 'antlr4ng';
+
+import {CursorPosition, LexerConstructor, ParserConstructor} from '../autocomplete-types';
+import {getCursorIndex} from './cursor';
+
 export function getCurrentStatement(
     query: string,
     cursorIndex: number,
@@ -22,8 +27,13 @@ const spaceSymbols = '(\\s|\r\n|\n|\r)+';
 const explainRegex = new RegExp(`^(${spaceSymbols})?explain${spaceSymbols}$`);
 const multipleKeywordsRegex = new RegExp(`^(${spaceSymbols})?\\S+${spaceSymbols}`);
 
-export function shouldSuggestTemplates(statement: string, cursorIndex: number): boolean {
-    const currentStatementBeforeCursor = statement.slice(0, cursorIndex).toLowerCase();
+// TODO Find a better way to suggestTemplates
+export function shouldSuggestTemplates(query: string, cursor: CursorPosition): boolean {
+    const cursorIndex = getCursorIndex(query, cursor);
+    const currentStatement = getCurrentStatement(query, cursorIndex);
+    const currentStatementBeforeCursor = currentStatement.statement
+        .slice(0, currentStatement.cursorIndex)
+        .toLowerCase();
 
     return Boolean(
         cursorIndex === 0 ||
@@ -32,4 +42,19 @@ export function shouldSuggestTemplates(statement: string, cursorIndex: number): 
             // Explain statement
             currentStatementBeforeCursor.match(explainRegex),
     );
+}
+
+export function getParserFromQuery<L extends LexerType, P extends ParserType>(
+    Lexer: LexerConstructor<L>,
+    Parser: ParserConstructor<P>,
+    query: string,
+): P {
+    const inputStream = CharStreams.fromString(query);
+    const lexer = new Lexer(inputStream);
+    const tokenStream = new CommonTokenStream(lexer);
+    const parser = new Parser(tokenStream);
+
+    parser.removeErrorListeners();
+
+    return parser;
 }

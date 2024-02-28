@@ -9,8 +9,7 @@ test.skip('should suggest properly after COMMENT ON CONSTRAINT', () => {
     expect(autocompleteResult.suggestConstraints).toEqual(true);
 });
 
-// TODO Get context of table in COMMENT statement
-test.skip('should not report errors on full statement', () => {
+test('should not report errors on full statement', () => {
     const autocompleteResult = parsePostgreSqlQueryWithoutCursor(
         "COMMENT ON CONSTRAINT test_constraint ON test_table IS 'test_comment';",
     );

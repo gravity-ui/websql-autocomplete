@@ -1,4 +1,16 @@
-import {Token, TokenStream} from 'antlr4ng';
+import {Lexer as LexerType, Parser as ParserType, Token, TokenStream} from 'antlr4ng';
+import {findCursorTokenIndex} from './cursor';
+import {getParserFromQuery} from './query';
+import {getColumnAliasesFromSymbolTable, getTablesFromSymbolTable} from './symbol-table';
+import {
+    AutocompleteResultBase,
+    CursorPosition,
+    GetParseTree,
+    LexerConstructor,
+    ParserConstructor,
+    SymbolTableVisitor,
+    TableContextSuggestion,
+} from '../autocomplete-types';
 
 interface TableQueryPositionBase {
     start: number;
@@ -223,4 +235,83 @@ export function getPreviousToken(
     }
 
     return undefined;
+}
+
+interface ContextSuggestions {
+    tableContextSuggestion?: TableContextSuggestion;
+    suggestColumnAliases?: AutocompleteResultBase['suggestColumnAliases'];
+}
+
+export function getContextSuggestions<L extends LexerType, P extends ParserType>(
+    Lexer: LexerConstructor<L>,
+    Parser: ParserConstructor<P>,
+    symbolTableVisitor: SymbolTableVisitor,
+    tokenDictionary: TokenDictionary,
+    getParseTree: GetParseTree<P>,
+    tokenStream: TokenStream,
+    cursor: CursorPosition,
+    query: string,
+    explicitlyParseJoin?: boolean,
+): ContextSuggestions {
+    // The actual token index, without special logic for spaces
+    const actualCursorTokenIndex = findCursorTokenIndex(
+        tokenStream,
+        cursor,
+        tokenDictionary.SPACE,
+        true,
+    );
+    if (!actualCursorTokenIndex) {
+        throw new Error(
+            `Could not find actualCursorTokenIndex at Ln ${cursor.line}, Col ${cursor.column}`,
+        );
+    }
+
+    const contextSuggestions: ContextSuggestions = {};
+    const tableQueryPosition = getTableQueryPosition(
+        tokenStream,
+        actualCursorTokenIndex,
+        tokenDictionary,
+    );
+
+    if (tableQueryPosition) {
+        const tableQuery = query.slice(tableQueryPosition.start, tableQueryPosition.end);
+        const parser = getParserFromQuery(Lexer, Parser, tableQuery);
+        const parseTree = getParseTree(parser, tableQueryPosition.type);
+
+        symbolTableVisitor.visit(parseTree);
+
+        if (explicitlyParseJoin && tableQueryPosition.joinTableQueryPosition) {
+            const joinTableQuery = query.slice(
+                tableQueryPosition.joinTableQueryPosition.start,
+                tableQueryPosition.joinTableQueryPosition.end,
+            );
+            const joinParser = getParserFromQuery(Lexer, Parser, joinTableQuery);
+            const joinParseTree = getParseTree(joinParser, 'from');
+            symbolTableVisitor.visit(joinParseTree);
+        }
+
+        if (tableQueryPosition.selectTableQueryPosition) {
+            const selectTableQuery = query.slice(
+                tableQueryPosition.selectTableQueryPosition.start,
+                tableQueryPosition.selectTableQueryPosition.end,
+            );
+            const selectParser = getParserFromQuery(Lexer, Parser, selectTableQuery);
+            const selectParseTree = getParseTree(selectParser, 'select');
+            symbolTableVisitor.visit(selectParseTree);
+        }
+
+        const tables = getTablesFromSymbolTable(symbolTableVisitor);
+        if (tables.length) {
+            contextSuggestions.tableContextSuggestion = {
+                tables,
+            };
+        }
+
+        const columnAliases = getColumnAliasesFromSymbolTable(symbolTableVisitor);
+        if (columnAliases.length) {
+            contextSuggestions.suggestColumnAliases = columnAliases.map(({name}) => ({name}));
+        }
+    }
+
+    return contextSuggestions;
 }
