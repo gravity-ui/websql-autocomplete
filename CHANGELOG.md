@@ -1,5 +1,18 @@
 # Changelog
 
+## [5.1.0](https://github.com/gravity-ui/websql-autocomplete/compare/v5.0.0...v5.1.0) (2024-02-28)
+
+
+### Features
+
+* Add database suggestions ([#161](https://github.com/gravity-ui/websql-autocomplete/issues/161)) ([eaba501](https://github.com/gravity-ui/websql-autocomplete/commit/eaba50135b74492759e977070a5b8f2cbfec0e50))
+* Add schema suggestions for postgresql ([#157](https://github.com/gravity-ui/websql-autocomplete/issues/157)) ([ceb9580](https://github.com/gravity-ui/websql-autocomplete/commit/ceb95805f3de0e2a1d4ce884ac47eac792a19bca))
+
+
+### Bug Fixes
+
+* Properly export specific database autocomplete results ([#152](https://github.com/gravity-ui/websql-autocomplete/issues/152)) ([b426a40](https://github.com/gravity-ui/websql-autocomplete/commit/b426a4002a242e324c3c083c4f3b31699f67170b))
+
 ## [5.0.0](https://github.com/gravity-ui/websql-autocomplete/compare/v4.3.0...v5.0.0) (2024-02-21)
 
 
