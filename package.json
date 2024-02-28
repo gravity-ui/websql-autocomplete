@@ -65,6 +65,9 @@
     ],
     "*.{js,ts}": [
       "eslint src --fix"
+    ],
+    "*.g4": [
+      "antlr-format --config antlr-formatter.config.json"
     ]
   }
 }

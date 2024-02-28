@@ -497,6 +497,7 @@ import { TableNameContext } from "./MySqlParser.js";
 import { TableNamesContext } from "./MySqlParser.js";
 import { RoleNameContext } from "./MySqlParser.js";
 import { FullColumnNameContext } from "./MySqlParser.js";
+import { DatabaseNameContext } from "./MySqlParser.js";
 import { IndexNameContext } from "./MySqlParser.js";
 import { ConstraintNameContext } from "./MySqlParser.js";
 import { TriggerNameContext } from "./MySqlParser.js";
@@ -3799,6 +3800,12 @@ export class MySqlParserVisitor<Result> extends AbstractParseTreeVisitor<Result>
      * @return the visitor result
      */
     visitFullColumnName?: (ctx: FullColumnNameContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.databaseName`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitDatabaseName?: (ctx: DatabaseNameContext) => Result;
     /**
      * Visit a parse tree produced by `MySqlParser.indexName`.
      * @param ctx the parse tree

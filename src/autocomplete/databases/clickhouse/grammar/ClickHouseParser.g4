@@ -142,7 +142,7 @@ createTableStatement
     ;
 
 createDatabaseStatement
-    : (ATTACH | CREATE) DATABASE (IF NOT EXISTS)? databaseIdentifier clusterClause? engineExpression
+    : (ATTACH | CREATE) DATABASE (IF NOT EXISTS)? identifier clusterClause? engineExpression
     ;
 
 createDictionaryStatement

@@ -84,6 +84,7 @@ function getIgnoredTokens(): number[] {
 const ignoredTokens = new Set(getIgnoredTokens());
 
 const preferredRules = new Set([
+    ClickHouseParser.RULE_databaseIdentifier,
     ClickHouseParser.RULE_tableIdentifier,
     ClickHouseParser.RULE_identifier,
     ClickHouseParser.RULE_columnIdentifier,
@@ -158,13 +159,14 @@ function generateSuggestionsFromRules(
     let suggestViewsOrTables: ClickHouseAutocompleteResult['suggestViewsOrTables'];
     let suggestAggregateFunctions = false;
     let suggestFunctions = false;
+    let suggestDatabases = false;
     let shouldSuggestColumns = false;
     let shouldSuggestColumnAliases = false;
     let suggestEngines;
 
     for (const [ruleId, rule] of rules) {
         if (!isStartingToWriteRule(cursorTokenIndex, rule)) {
-            break;
+            continue;
         }
 
         switch (ruleId) {
@@ -224,6 +226,11 @@ function generateSuggestionsFromRules(
                 if (rule.ruleList.includes(ClickHouseParser.RULE_engineClause)) {
                     suggestEngines = {engines, functionalEngines};
                 }
+                break;
+            }
+            case ClickHouseParser.RULE_databaseIdentifier: {
+                suggestDatabases = true;
+                break;
             }
         }
     }
@@ -232,8 +239,9 @@ function generateSuggestionsFromRules(
         suggestViewsOrTables,
         suggestAggregateFunctions,
         suggestFunctions,
-        shouldSuggestColumns,
         suggestEngines,
+        suggestDatabases,
+        shouldSuggestColumns,
         shouldSuggestColumnAliases,
     };
 }

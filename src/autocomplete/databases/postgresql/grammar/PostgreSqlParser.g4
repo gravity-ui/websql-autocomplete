@@ -225,7 +225,7 @@ alterRoleStatement
 
 optionalInDatabase
     :
-    | IN_P DATABASE name
+    | IN_P DATABASE databaseName
     ;
 
 alterRoleSetStatement
@@ -987,6 +987,7 @@ alterExtensionOptionItem
 
 alterExtensionContentsStatement
     : ALTER EXTENSION name addOrDrop objectTypeName name
+    | ALTER EXTENSION name addOrDrop DATABASE databaseName
     | ALTER EXTENSION name addOrDrop SCHEMA schemaName
     | ALTER EXTENSION name addOrDrop INDEX indexName
     | ALTER EXTENSION name addOrDrop objectTypeAnyName anyName
@@ -1459,7 +1460,6 @@ objectTypeAnyName
 
 objectTypeName
     : dropTypeName
-    | DATABASE
     | ROLE
     | SUBSCRIPTION
     | TABLESPACE
@@ -1512,6 +1512,7 @@ commentStatement
     | COMMENT ON INDEX indexName IS commentText
     | COMMENT ON COLUMN anyName IS commentText
     | COMMENT ON objectTypeName name IS commentText
+    | COMMENT ON DATABASE databaseName IS commentText
     | COMMENT ON SCHEMA schemaName IS commentText
     | COMMENT ON TYPE_P typeName IS commentText
     | COMMENT ON DOMAIN_P typeName IS commentText
@@ -1541,6 +1542,7 @@ securityLabelStatement
     | SECURITY LABEL optionalProvider ON INDEX indexName IS securityLabel
     | SECURITY LABEL optionalProvider ON COLUMN anyName IS securityLabel
     | SECURITY LABEL optionalProvider ON objectTypeName name IS securityLabel
+    | SECURITY LABEL optionalProvider ON DATABASE databaseName IS securityLabel
     | SECURITY LABEL optionalProvider ON SCHEMA schemaName IS securityLabel
     | SECURITY LABEL optionalProvider ON TYPE_P typeName IS securityLabel
     | SECURITY LABEL optionalProvider ON DOMAIN_P typeName IS securityLabel
@@ -1632,7 +1634,7 @@ privilegeTarget
     | FUNCTION functionWithArgumentTypesList
     | PROCEDURE functionWithArgumentTypesList
     | ROUTINE functionWithArgumentTypesList
-    | DATABASE nameList
+    | DATABASE databaseNameList
     | DOMAIN_P anyNameList
     | LANGUAGE nameList
     | LARGE_P OBJECT_P numericOnlyList
@@ -1990,25 +1992,16 @@ dropTransformStatement
     ;
 
 reindexStatement
-    : REINDEX reindexTargetType CONCURRENTLY? qualifiedName
-    | REINDEX SCHEMA CONCURRENTLY? schemaName
-    | REINDEX INDEX CONCURRENTLY? indexName
-    | REINDEX reindexTargetMultiTable CONCURRENTLY? name
-    | REINDEX OPEN_PAREN reindexOptionList CLOSE_PAREN INDEX CONCURRENTLY? indexName
-    | REINDEX OPEN_PAREN reindexOptionList CLOSE_PAREN SCHEMA CONCURRENTLY? schemaName
-    | REINDEX OPEN_PAREN reindexOptionList CLOSE_PAREN reindexTargetType CONCURRENTLY? qualifiedName
-    | REINDEX OPEN_PAREN reindexOptionList CLOSE_PAREN reindexTargetMultiTable CONCURRENTLY? name
+    : REINDEX (OPEN_PAREN reindexOptionList CLOSE_PAREN)? reindexTargetType CONCURRENTLY? qualifiedName
+    | REINDEX (OPEN_PAREN reindexOptionList CLOSE_PAREN)? DATABASE CONCURRENTLY? databaseName
+    | REINDEX (OPEN_PAREN reindexOptionList CLOSE_PAREN)? SCHEMA CONCURRENTLY? schemaName
+    | REINDEX (OPEN_PAREN reindexOptionList CLOSE_PAREN)? INDEX CONCURRENTLY? indexName
+    | REINDEX (OPEN_PAREN reindexOptionList CLOSE_PAREN)? SYSTEM_P CONCURRENTLY? name
     ;
 
 reindexTargetType
     : TABLE
-    | DATABASE
     | SYSTEM_P
-    ;
-
-reindexTargetMultiTable
-    : SYSTEM_P
-    | DATABASE
     ;
 
 reindexOptionList
@@ -2030,7 +2023,7 @@ renameStatement
     : ALTER AGGREGATE aggregateWithArgumentTypes RENAME TO name
     | ALTER COLLATION anyName RENAME TO name
     | ALTER CONVERSION_P anyName RENAME TO name
-    | ALTER DATABASE name RENAME TO name
+    | ALTER DATABASE databaseName RENAME TO name
     | ALTER DOMAIN_P anyName RENAME TO name
     | ALTER DOMAIN_P anyName RENAME CONSTRAINT constraintName TO name
     | ALTER FOREIGN DATA_P WRAPPER name RENAME TO name
@@ -2158,7 +2151,7 @@ alterOwnerStatement
     : ALTER AGGREGATE aggregateWithArgumentTypes OWNER TO roleSpecification
     | ALTER COLLATION anyName OWNER TO roleSpecification
     | ALTER CONVERSION_P anyName OWNER TO roleSpecification
-    | ALTER DATABASE name OWNER TO roleSpecification
+    | ALTER DATABASE databaseName OWNER TO roleSpecification
     | ALTER DOMAIN_P anyName OWNER TO roleSpecification
     | ALTER FUNCTION functionWithArgumentTypes OWNER TO roleSpecification
     | ALTER optionalProcedural LANGUAGE name OWNER TO roleSpecification
@@ -2363,15 +2356,15 @@ createDatabaseOptionName
     ;
 
 alterDatabaseStatement
-    : ALTER DATABASE name (WITH createDatabaseOptionList | createDatabaseOptionList | SET TABLESPACE name)
+    : ALTER DATABASE databaseName (WITH createDatabaseOptionList | createDatabaseOptionList | SET TABLESPACE name)
     ;
 
 alterDatabaseSetStatement
-    : ALTER DATABASE name setResetClause
+    : ALTER DATABASE databaseName setResetClause
     ;
 
 dropDatabaseStatement
-    : DROP DATABASE (IF_P EXISTS)? name (optionalWith OPEN_PAREN FORCE (COMMA FORCE)* CLOSE_PAREN)?
+    : DROP DATABASE (IF_P EXISTS)? databaseName (optionalWith OPEN_PAREN FORCE (COMMA FORCE)* CLOSE_PAREN)?
     ;
 
 alterCollationStatement
@@ -3748,6 +3741,14 @@ targetElement
 
 qualifiedNameList
     : qualifiedName (COMMA qualifiedName)*
+    ;
+
+databaseName
+    : name
+    ;
+
+databaseNameList
+    : databaseName (COMMA databaseName)*
     ;
 
 schemaName
