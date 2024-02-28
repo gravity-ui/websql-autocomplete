@@ -1,5 +1,16 @@
 # Changelog
 
+## [6.0.0](https://github.com/gravity-ui/websql-autocomplete/compare/v5.1.0...v6.0.0) (2024-02-28)
+
+
+### ⚠ BREAKING CHANGES
+
+* add table context to constraint suggestions ([#159](https://github.com/gravity-ui/websql-autocomplete/issues/159))
+
+### Features
+
+* add table context to constraint suggestions ([#159](https://github.com/gravity-ui/websql-autocomplete/issues/159)) ([23ee8dd](https://github.com/gravity-ui/websql-autocomplete/commit/23ee8dd9b68e9763783bca97d5ae3431ffd1c4f1))
+
 ## [5.1.0](https://github.com/gravity-ui/websql-autocomplete/compare/v5.0.0...v5.1.0) (2024-02-28)
 
 
