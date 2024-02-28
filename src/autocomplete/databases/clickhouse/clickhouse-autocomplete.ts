@@ -4,9 +4,11 @@ import * as c3 from 'antlr4-c3';
 import {ColumnAliasSymbol, TableSymbol} from '../../shared/symbol-table.js';
 import {
     AutocompleteData,
+    AutocompleteResultBase,
     ClickHouseAutocompleteResult,
-    GenerateSuggestionsFromRulesResult,
+    CursorPosition,
     ISymbolTableVisitor,
+    ProcessVisitedRulesResult,
     TableOrViewSuggestion,
 } from '../../autocomplete-types.js';
 import {ClickHouseLexer} from './generated/ClickHouseLexer.js';
@@ -17,8 +19,14 @@ import {
     TableIdentifierContext,
 } from './generated/ClickHouseParser.js';
 import {ClickHouseParserVisitor} from './generated/ClickHouseParserVisitor.js';
-import {TableQueryPosition, TokenDictionary, getPreviousToken} from '../../shared/tables.js';
+import {
+    TableQueryPosition,
+    TokenDictionary,
+    getContextSuggestions,
+    getPreviousToken,
+} from '../../shared/tables.js';
 import {isStartingToWriteRule} from '../../shared/cursor';
+import {shouldSuggestTemplates} from '../../shared/query.js';
 
 const engines = ['Null', 'Set', 'Log', 'Memory', 'TinyLog', 'StripeLog'];
 
@@ -83,7 +91,7 @@ function getIgnoredTokens(): number[] {
 
 const ignoredTokens = new Set(getIgnoredTokens());
 
-const preferredRules = new Set([
+const rulesToVisit = new Set([
     ClickHouseParser.RULE_databaseIdentifier,
     ClickHouseParser.RULE_tableIdentifier,
     ClickHouseParser.RULE_identifier,
@@ -151,11 +159,11 @@ class ClickHouseSymbolTableVisitor
     };
 }
 
-function generateSuggestionsFromRules(
+function processVisitedRules(
     rules: c3.CandidatesCollection['rules'],
     cursorTokenIndex: number,
     tokenStream: TokenStream,
-): GenerateSuggestionsFromRulesResult<ClickHouseAutocompleteResult> {
+): ProcessVisitedRulesResult<ClickHouseAutocompleteResult> {
     let suggestViewsOrTables: ClickHouseAutocompleteResult['suggestViewsOrTables'];
     let suggestAggregateFunctions = false;
     let suggestFunctions = false;
@@ -268,19 +276,58 @@ function getParseTree(
     }
 }
 
+function enrichAutocompleteResult(
+    baseResult: AutocompleteResultBase,
+    rules: c3.CandidatesCollection['rules'],
+    tokenStream: TokenStream,
+    cursorTokenIndex: number,
+    cursor: CursorPosition,
+    query: string,
+): ClickHouseAutocompleteResult {
+    const {shouldSuggestColumns, shouldSuggestColumnAliases, ...suggestionsFromRules} =
+        processVisitedRules(rules, cursorTokenIndex, tokenStream);
+    const suggestTemplates = shouldSuggestTemplates(query, cursor);
+    const result: ClickHouseAutocompleteResult = {
+        ...baseResult,
+        ...suggestionsFromRules,
+        suggestTemplates,
+    };
+    const contextSuggestionsNeeded = shouldSuggestColumns || shouldSuggestColumnAliases;
+
+    if (contextSuggestionsNeeded) {
+        const visitor = new ClickHouseSymbolTableVisitor();
+        const {tableContextSuggestion, suggestColumnAliases} = getContextSuggestions(
+            ClickHouseLexer,
+            ClickHouseParser,
+            visitor,
+            tokenDictionary,
+            getParseTree,
+            tokenStream,
+            cursor,
+            query,
+        );
+
+        if (shouldSuggestColumns && tableContextSuggestion) {
+            result.suggestColumns = tableContextSuggestion;
+        }
+        if (shouldSuggestColumnAliases && suggestColumnAliases) {
+            result.suggestColumnAliases = suggestColumnAliases;
+        }
+    }
+
+    return result;
+}
+
 export const clickHouseAutocompleteData: AutocompleteData<
     ClickHouseAutocompleteResult,
     ClickHouseLexer,
-    ClickHouseParser,
-    ClickHouseSymbolTableVisitor
+    ClickHouseParser
 > = {
     Lexer: ClickHouseLexer,
     Parser: ClickHouseParser,
-    SymbolTableVisitor: ClickHouseSymbolTableVisitor,
     tokenDictionary,
     ignoredTokens,
-    preferredRules,
-    explicitlyParseJoin: false,
+    rulesToVisit,
     getParseTree,
-    generateSuggestionsFromRules,
+    enrichAutocompleteResult,
 };

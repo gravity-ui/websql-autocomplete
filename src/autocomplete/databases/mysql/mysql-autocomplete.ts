@@ -4,9 +4,11 @@ import * as c3 from 'antlr4-c3';
 import {ColumnAliasSymbol, TableSymbol} from '../../shared/symbol-table.js';
 import {
     AutocompleteData,
-    GenerateSuggestionsFromRulesResult,
+    AutocompleteResultBase,
+    CursorPosition,
     ISymbolTableVisitor,
     MySqlAutocompleteResult,
+    ProcessVisitedRulesResult,
     TableOrViewSuggestion,
 } from '../../autocomplete-types.js';
 import {MySqlLexer} from './generated/MySqlLexer.js';
@@ -17,8 +19,14 @@ import {
     TableNameContext,
 } from './generated/MySqlParser.js';
 import {MySqlParserVisitor} from './generated/MySqlParserVisitor.js';
-import {TableQueryPosition, TokenDictionary, getPreviousToken} from '../../shared/tables.js';
+import {
+    TableQueryPosition,
+    TokenDictionary,
+    getContextSuggestions,
+    getPreviousToken,
+} from '../../shared/tables.js';
 import {isStartingToWriteRule} from '../../shared/cursor';
+import {shouldSuggestTemplates} from '../../shared/query.js';
 
 const tokenDictionary: TokenDictionary = {
     SPACE: MySqlParser.SPACE,
@@ -75,7 +83,7 @@ function getIgnoredTokens(): number[] {
 
 const ignoredTokens = new Set(getIgnoredTokens());
 
-const preferredRules = new Set([
+const rulesToVisit = new Set([
     // We don't need to go inside of it, we already know that this is a database name
     MySqlParser.RULE_databaseName,
     // We don't need to go inside of it, we already know that this is a constraint name
@@ -165,18 +173,18 @@ class MySqlSymbolTableVisitor extends MySqlParserVisitor<{}> implements ISymbolT
     };
 }
 
-function generateSuggestionsFromRules(
+function processVisitedRules(
     rules: c3.CandidatesCollection['rules'],
     cursorTokenIndex: number,
     tokenStream: TokenStream,
-): GenerateSuggestionsFromRulesResult<MySqlAutocompleteResult> {
+): ProcessVisitedRulesResult<MySqlAutocompleteResult> {
     let suggestViewsOrTables: MySqlAutocompleteResult['suggestViewsOrTables'];
     let suggestAggregateFunctions = false;
     let suggestFunctions = false;
     let suggestIndexes = false;
     let suggestTriggers = false;
-    let suggestConstraints = false;
     let suggestDatabases = false;
+    let shouldSuggestConstraints = false;
     let shouldSuggestColumns = false;
     let shouldSuggestColumnAliases = false;
 
@@ -246,7 +254,7 @@ function generateSuggestionsFromRules(
                 break;
             }
             case MySqlParser.RULE_constraintName: {
-                suggestConstraints = true;
+                shouldSuggestConstraints = true;
                 break;
             }
             case MySqlParser.RULE_databaseName: {
@@ -289,8 +297,8 @@ function generateSuggestionsFromRules(
         suggestFunctions,
         suggestIndexes,
         suggestTriggers,
-        suggestConstraints,
         suggestDatabases,
+        shouldSuggestConstraints,
         shouldSuggestColumns,
         shouldSuggestColumnAliases,
     };
@@ -318,19 +326,66 @@ function getParseTree(
     }
 }
 
+function enrichAutocompleteResult(
+    baseResult: AutocompleteResultBase,
+    rules: c3.CandidatesCollection['rules'],
+    tokenStream: TokenStream,
+    cursorTokenIndex: number,
+    cursor: CursorPosition,
+    query: string,
+): MySqlAutocompleteResult {
+    const {
+        shouldSuggestColumns,
+        shouldSuggestColumnAliases,
+        shouldSuggestConstraints,
+        ...suggestionsFromRules
+    } = processVisitedRules(rules, cursorTokenIndex, tokenStream);
+    const suggestTemplates = shouldSuggestTemplates(query, cursor);
+    const result: MySqlAutocompleteResult = {
+        ...baseResult,
+        ...suggestionsFromRules,
+        suggestTemplates,
+    };
+    const contextSuggestionsNeeded =
+        shouldSuggestColumns || shouldSuggestConstraints || shouldSuggestColumnAliases;
+
+    if (contextSuggestionsNeeded) {
+        const visitor = new MySqlSymbolTableVisitor();
+        const {tableContextSuggestion, suggestColumnAliases} = getContextSuggestions(
+            MySqlLexer,
+            MySqlParser,
+            visitor,
+            tokenDictionary,
+            getParseTree,
+            tokenStream,
+            cursor,
+            query,
+        );
+
+        if (shouldSuggestColumns && tableContextSuggestion) {
+            result.suggestColumns = tableContextSuggestion;
+        }
+        if (shouldSuggestConstraints && tableContextSuggestion) {
+            result.suggestConstraints = tableContextSuggestion;
+        }
+        if (shouldSuggestColumnAliases && suggestColumnAliases) {
+            result.suggestColumnAliases = suggestColumnAliases;
+        }
+    }
+
+    return result;
+}
+
 export const mySqlAutocompleteData: AutocompleteData<
     MySqlAutocompleteResult,
     MySqlLexer,
-    MySqlParser,
-    MySqlSymbolTableVisitor
+    MySqlParser
 > = {
     Lexer: MySqlLexer,
     Parser: MySqlParser,
-    SymbolTableVisitor: MySqlSymbolTableVisitor,
     tokenDictionary,
     ignoredTokens,
-    preferredRules,
-    explicitlyParseJoin: false,
+    rulesToVisit,
     getParseTree,
-    generateSuggestionsFromRules,
+    enrichAutocompleteResult,
 };

@@ -27,13 +27,13 @@ export interface AutocompleteResultBase {
 export interface MySqlAutocompleteResult extends AutocompleteResultBase {
     suggestIndexes?: boolean;
     suggestTriggers?: boolean;
-    suggestConstraints?: boolean;
+    suggestConstraints?: ConstraintSuggestion;
 }
 
 export interface PostgreSqlAutocompleteResult extends AutocompleteResultBase {
     suggestIndexes?: boolean;
     suggestTriggers?: boolean;
-    suggestConstraints?: boolean;
+    suggestConstraints?: ConstraintSuggestion;
     suggestSequences?: boolean;
     suggestSchemas?: boolean;
 }
@@ -50,9 +50,18 @@ export interface KeywordSuggestion {
     value: string;
 }
 
-export interface ColumnSuggestion {
-    tables?: {name: string; alias?: string}[];
+export interface Table {
+    name: string;
+    alias?: string;
 }
+
+export interface TableContextSuggestion {
+    tables?: Table[];
+}
+
+export type ColumnSuggestion = TableContextSuggestion;
+
+export type ConstraintSuggestion = TableContextSuggestion;
 
 export enum TableOrViewSuggestion {
     ALL = 'ALL',
@@ -80,36 +89,45 @@ export interface ISymbolTableVisitor {
     scope: c3.ScopedSymbol;
 }
 
+export type SymbolTableVisitor = ISymbolTableVisitor & AbstractParseTreeVisitor<{}>;
+
 export type GetParseTree<P> = (
     parser: P,
     type?: TableQueryPosition['type'] | 'select',
 ) => ParseTree;
 
-export type GenerateSuggestionsFromRulesResult<A extends AutocompleteResultBase> = Partial<A> & {
+export type ProcessVisitedRulesResult<A extends AutocompleteResultBase> = Partial<A> & {
     shouldSuggestColumns?: boolean;
     shouldSuggestColumnAliases?: boolean;
+    shouldSuggestConstraints?: boolean;
 };
-export type GenerateSuggestionsFromRules<A extends AutocompleteResultBase> = (
+export type ProcessVisitedRules<A extends AutocompleteResultBase> = (
     rules: c3.CandidatesCollection['rules'],
     cursorTokenIndex: number,
     tokenStream: TokenStream,
-) => GenerateSuggestionsFromRulesResult<A>;
+) => ProcessVisitedRulesResult<A>;
+
+export type EnrichAutocompleteResult<A extends AutocompleteResultBase> = (
+    result: AutocompleteResultBase,
+    rules: c3.CandidatesCollection['rules'],
+    tokenStream: TokenStream,
+    cursorTokenIndex: number,
+    cursor: CursorPosition,
+    query: string,
+) => A;
 
 export interface AutocompleteData<
     A extends AutocompleteResultBase,
     L extends LexerType,
     P extends ParserType,
-    S extends ISymbolTableVisitor & AbstractParseTreeVisitor<{}>,
 > {
     Lexer: LexerConstructor<L>;
     Parser: ParserConstructor<P>;
-    SymbolTableVisitor: SymbolTableVisitorConstructor<S>;
     getParseTree: GetParseTree<P>;
     tokenDictionary: TokenDictionary;
-    generateSuggestionsFromRules: GenerateSuggestionsFromRules<A>;
     ignoredTokens: Set<number>;
-    preferredRules: Set<number>;
-    explicitlyParseJoin: boolean;
+    rulesToVisit: Set<number>;
+    enrichAutocompleteResult: EnrichAutocompleteResult<A>;
 }
 
 export interface CursorPosition {

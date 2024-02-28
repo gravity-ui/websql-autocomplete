@@ -1,12 +1,28 @@
 import {parsePostgreSqlQueryWithCursor} from '../../../../shared/parse-query-with-cursor';
 import {parsePostgreSqlQueryWithoutCursor} from '../../../../autocomplete';
+import {ConstraintSuggestion} from '../../../../autocomplete-types';
 
 test('should suggest view name after VALIDATE CONSTRAINT', () => {
     const autocompleteResult = parsePostgreSqlQueryWithCursor(
         'ALTER TABLE test_table VALIDATE CONSTRAINT |',
     );
 
-    expect(autocompleteResult.suggestConstraints).toEqual(true);
+    const constraintSuggestion: ConstraintSuggestion = {
+        tables: [{name: 'test_table'}],
+    };
+    expect(autocompleteResult.suggestConstraints).toEqual(constraintSuggestion);
+    expect(autocompleteResult.suggestKeywords).toEqual([]);
+});
+
+test('should suggest view name after VALIDATE CONSTRAINT between statements', () => {
+    const autocompleteResult = parsePostgreSqlQueryWithCursor(
+        'ALTER TABLE before_table DROP COLUMN id; ALTER TABLE test_table VALIDATE CONSTRAINT | ; ALTER TABLE after_table DROP COLUMN id;',
+    );
+
+    const constraintSuggestion: ConstraintSuggestion = {
+        tables: [{name: 'test_table'}],
+    };
+    expect(autocompleteResult.suggestConstraints).toEqual(constraintSuggestion);
     expect(autocompleteResult.suggestKeywords).toEqual([]);
 });
 

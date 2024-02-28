@@ -539,7 +539,7 @@ partitionOption
 //    Alter statements
 
 alterDatabase
-    : ALTER dbFormat = (DATABASE | SCHEMA) databaseName createDatabaseOption+      # alterSimpleDatabase
+    : ALTER dbFormat = (DATABASE | SCHEMA) databaseName createDatabaseOption+       # alterSimpleDatabase
     | ALTER dbFormat = (DATABASE | SCHEMA) databaseName UPGRADE DATA DIRECTORY NAME # alterUpgradeName
     ;
 
@@ -1592,7 +1592,7 @@ showStatement
     | SHOW logFormat = (BINLOG | RELAYLOG) EVENTS (IN filename = STRING_LITERAL)? ( FROM fromPosition = decimalLiteral)? (LIMIT (offset = decimalLiteral COMMA)? rowCount = decimalLiteral)? # showLogEvents
     | SHOW showCommonEntity showFilter?                                                                                                                                                      # showObjectFilter
     | SHOW FULL? columnsFormat = (COLUMNS | FIELDS) tableFormat = (FROM | IN) tableName ( schemaFormat = (FROM | IN) uid)? showFilter?                                                       # showColumns
-    | SHOW CREATE schemaFormat = (DATABASE | SCHEMA) ifNotExists? databaseName                                                                                                                        # showCreateDb
+    | SHOW CREATE schemaFormat = (DATABASE | SCHEMA) ifNotExists? databaseName                                                                                                               # showCreateDb
     | SHOW CREATE namedEntity = (EVENT | FUNCTION | PROCEDURE) fullId                                                                                                                        # showCreateFullIdObject
     | SHOW CREATE (TABLE | VIEW) tableName                                                                                                                                                   # showCreateTableOrView
     | SHOW CREATE TRIGGER triggerName                                                                                                                                                        # showCreateTrigger

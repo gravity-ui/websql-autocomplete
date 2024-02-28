@@ -1,5 +1,5 @@
 import {parsePostgreSqlQueryWithCursor} from '../../../../shared/parse-query-with-cursor';
-import {KeywordSuggestion} from '../../../../autocomplete-types';
+import {ConstraintSuggestion, KeywordSuggestion} from '../../../../autocomplete-types';
 import {parsePostgreSqlQueryWithoutCursor} from '../../../../autocomplete';
 
 test('should suggest view name after ALTER CONSTRAINT', () => {
@@ -7,7 +7,32 @@ test('should suggest view name after ALTER CONSTRAINT', () => {
         'ALTER TABLE test_table ALTER CONSTRAINT |',
     );
 
-    expect(autocompleteResult.suggestConstraints).toEqual(true);
+    const constraintSuggestion: ConstraintSuggestion = {
+        tables: [{name: 'test_table'}],
+    };
+    expect(autocompleteResult.suggestConstraints).toEqual(constraintSuggestion);
+
+    const keywordSuggestion: KeywordSuggestion[] = [
+        {value: 'OPTIONS'},
+        {value: 'SET'},
+        {value: 'TYPE'},
+        {value: 'DROP'},
+        {value: 'RESTART'},
+        {value: 'ADD'},
+        {value: 'RESET'},
+    ];
+    expect(autocompleteResult.suggestKeywords).toEqual(keywordSuggestion);
+});
+
+test('should suggest view name after ALTER CONSTRAINT between statements', () => {
+    const autocompleteResult = parsePostgreSqlQueryWithCursor(
+        'ALTER TABLE before_table DROP COLUMN id; ALTER TABLE test_table ALTER CONSTRAINT | ; ALTER TABLE after_table DROP COLUMN id;',
+    );
+
+    const constraintSuggestion: ConstraintSuggestion = {
+        tables: [{name: 'test_table'}],
+    };
+    expect(autocompleteResult.suggestConstraints).toEqual(constraintSuggestion);
 
     const keywordSuggestion: KeywordSuggestion[] = [
         {value: 'OPTIONS'},

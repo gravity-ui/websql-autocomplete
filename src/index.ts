@@ -19,4 +19,6 @@ export {
     ColumnAliasSuggestion,
     EngineSuggestion,
     CursorPosition,
+    ConstraintSuggestion,
+    Table,
 } from './autocomplete/autocomplete-types';
