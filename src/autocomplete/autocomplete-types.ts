@@ -22,6 +22,7 @@ export interface AutocompleteResultBase {
     suggestColumns?: ColumnSuggestion;
     suggestColumnAliases?: ColumnAliasSuggestion[];
     suggestDatabases?: boolean;
+    suggestRoles?: boolean;
 }
 
 export interface MySqlAutocompleteResult extends AutocompleteResultBase {
