@@ -113,7 +113,6 @@ statement
     | createTriggerStatement
     | createEventTriggerStatement
     | createRoleStatement
-    | createUserStatement
     | createUserMappingStatement
     | createDatabaseStatement
     | deallocateStatement
@@ -137,7 +136,7 @@ statement
     | explainStatement
     | fetchStatement
     | grantStatement
-    | grantRoleStatement
+    | grantPrivilegeStatement
     | importForeignSchemaStatement
     | indexStatement
     | insertStatement
@@ -155,7 +154,7 @@ statement
     | removeOperatorStatement
     | renameStatement
     | revokeStatement
-    | revokeRoleStatement
+    | revokePrivilegeStatement
     | ruleStatement
     | securityLabelStatement
     | selectStatement
@@ -179,10 +178,6 @@ callStatement
     : CALL functionApplication
     ;
 
-createRoleStatement
-    : CREATE ROLE roleId optionalWith optionalRoleList
-    ;
-
 optionalWith
     : WITH
     //| WITH_LA
@@ -203,24 +198,24 @@ alterRoleElemement
     | INHERIT
     | CONNECTION LIMIT signedIconst
     | VALID UNTIL sconst
-    | USER roleList
+    | USER roleIdList
     | identifier
     ;
 
 createRoleElement
     : alterRoleElemement
     | SYSID iconst
-    | ADMIN roleList
-    | ROLE roleList
-    | IN_P (ROLE | GROUP_P) roleList
+    | ADMIN roleIdList
+    | ROLE roleIdList
+    | IN_P (ROLE | GROUP_P) roleIdList
     ;
 
-createUserStatement
+createRoleStatement
     : CREATE USER roleId optionalWith optionalRoleList
     ;
 
 alterRoleStatement
-    : ALTER (ROLE | USER) roleSpecification optionalWith alterOptionalRoleList
+    : ALTER (ROLE | USER) roleId optionalWith alterOptionalRoleList
     ;
 
 optionalInDatabase
@@ -229,11 +224,11 @@ optionalInDatabase
     ;
 
 alterRoleSetStatement
-    : ALTER (ROLE | USER) ALL? roleSpecification optionalInDatabase setResetClause
+    : ALTER (ROLE | USER) ALL? roleId optionalInDatabase setResetClause
     ;
 
 dropRoleStatement
-    : DROP (ROLE | USER | GROUP_P) (IF_P EXISTS)? roleList
+    : DROP (ROLE | USER | GROUP_P) (IF_P EXISTS)? roleIdList
     ;
 
 createGroupStatement
@@ -241,7 +236,7 @@ createGroupStatement
     ;
 
 alterGroupStatement
-    : ALTER GROUP_P roleSpecification addOrDrop USER roleList
+    : ALTER GROUP_P roleId addOrDrop USER roleIdList
     ;
 
 addOrDrop
@@ -250,7 +245,7 @@ addOrDrop
     ;
 
 createSchemaStatement
-    : CREATE SCHEMA (IF_P NOT EXISTS)? (optionalSchemaName AUTHORIZATION roleSpecification | columnId) optionalSchemaList
+    : CREATE SCHEMA (IF_P NOT EXISTS)? (optionalSchemaName AUTHORIZATION roleId | columnId) optionalSchemaList
     ;
 
 optionalSchemaName
@@ -399,12 +394,12 @@ discardStatement
 
 alterTableStatement
     : ALTER TABLE (IF_P EXISTS)? relationExpression (alterTableCommands | partitionCommand)
-    | ALTER TABLE ALL IN_P TABLESPACE name (OWNED BY roleList)? SET TABLESPACE name optionalNowait
+    | ALTER TABLE ALL IN_P TABLESPACE name (OWNED BY roleIdList)? SET TABLESPACE name optionalNowait
     | ALTER INDEX (IF_P EXISTS)? indexName (alterTableCommands | indexPartitionCommand)
-    | ALTER INDEX ALL IN_P TABLESPACE name (OWNED BY roleList)? SET TABLESPACE name optionalNowait
+    | ALTER INDEX ALL IN_P TABLESPACE name (OWNED BY roleIdList)? SET TABLESPACE name optionalNowait
     | ALTER VIEW (IF_P EXISTS)? viewName alterTableCommands
     | ALTER MATERIALIZED VIEW (IF_P EXISTS)? qualifiedName alterTableCommands
-    | ALTER MATERIALIZED VIEW ALL IN_P TABLESPACE name (OWNED BY roleList)? SET TABLESPACE name optionalNowait
+    | ALTER MATERIALIZED VIEW ALL IN_P TABLESPACE name (OWNED BY roleIdList)? SET TABLESPACE name optionalNowait
     | ALTER FOREIGN TABLE (IF_P EXISTS)? relationExpression alterTableCommands
     ;
 
@@ -465,7 +460,7 @@ alterTableCommand
     | NO INHERIT qualifiedName
     | OF anyName
     | NOT OF
-    | OWNER TO roleSpecification
+    | OWNER TO roleId
     | SET TABLESPACE name
     | SET relOptions
     | RESET relOptions
@@ -958,7 +953,7 @@ createTablespaceStatement
     ;
 
 optionalTablespaceOwner
-    : OWNER roleSpecification
+    : OWNER roleId
     |
     ;
 
@@ -1106,7 +1101,7 @@ createUserMappingStatement
     ;
 
 authIdentifier
-    : roleSpecification
+    : roleId
     | USER
     ;
 
@@ -1120,11 +1115,11 @@ alterUserMappingStatement
     ;
 
 createPolicyStatement
-    : CREATE POLICY name ON qualifiedName rowSecurityDefaultPermissive rowSecurityDefaultForCmd rowSecurityDefaultToRole rowSecurityOptionalExpression rowSecurityOptionalWithCheck
+    : CREATE POLICY name ON qualifiedName rowSecurityDefaultPermissive rowSecurityDefaultForCmd rowSecurityOptionalToUser rowSecurityOptionalExpression rowSecurityOptionalWithCheck
     ;
 
 alterPolicyStatement
-    : ALTER POLICY name ON qualifiedName rowSecurityOptionalToRole rowSecurityOptionalExpression rowSecurityOptionalWithCheck
+    : ALTER POLICY name ON qualifiedName rowSecurityOptionalToUser rowSecurityOptionalExpression rowSecurityOptionalWithCheck
     ;
 
 rowSecurityOptionalExpression
@@ -1137,13 +1132,8 @@ rowSecurityOptionalWithCheck
     |
     ;
 
-rowSecurityDefaultToRole
-    : TO roleList
-    |
-    ;
-
-rowSecurityOptionalToRole
-    : TO roleList
+rowSecurityOptionalToUser
+    : TO roleIdList
     |
     ;
 
@@ -1421,11 +1411,11 @@ dropOperatorFamilyStatement
     ;
 
 dropOwnedStatement
-    : DROP OWNED BY roleList optionalDropBehavior
+    : DROP OWNED BY roleIdList optionalDropBehavior
     ;
 
 reassignOwnedStatement
-    : REASSIGN OWNED BY roleList TO roleSpecification
+    : REASSIGN OWNED BY roleIdList TO roleId
     ;
 
 dropStatement
@@ -1458,6 +1448,7 @@ objectTypeAnyName
     | TEXT_P SEARCH CONFIGURATION
     ;
 
+// TODO
 objectTypeName
     : dropTypeName
     | ROLE
@@ -1649,8 +1640,8 @@ granteeList
     ;
 
 grantee
-    : roleSpecification
-    | GROUP_P roleSpecification
+    : roleId
+    | GROUP_P roleId
     ;
 
 optionalWithGrantOption
@@ -1658,13 +1649,13 @@ optionalWithGrantOption
     |
     ;
 
-grantRoleStatement
-    : GRANT privilegeList TO roleList optionalGrantAdminOption optionalGrantedBy
+grantPrivilegeStatement
+    : GRANT privilegeList TO roleIdList optionalGrantAdminOption optionalGrantedBy
     ;
 
-revokeRoleStatement
-    : REVOKE privilegeList FROM roleList optionalGrantedBy optionalDropBehavior
-    | REVOKE ADMIN OPTION FOR privilegeList FROM roleList optionalGrantedBy optionalDropBehavior
+revokePrivilegeStatement
+    : REVOKE privilegeList FROM roleIdList optionalGrantedBy optionalDropBehavior
+    | REVOKE ADMIN OPTION FOR privilegeList FROM roleIdList optionalGrantedBy optionalDropBehavior
     ;
 
 optionalGrantAdminOption
@@ -1673,7 +1664,7 @@ optionalGrantAdminOption
     ;
 
 optionalGrantedBy
-    : GRANTED BY roleSpecification
+    : GRANTED BY roleId
     |
     ;
 
@@ -1683,8 +1674,8 @@ alterDefaultPrivilegesStatement
 
 defultPrivilegeOption
     : IN_P SCHEMA schemaNameList
-    | FOR ROLE roleList
-    | FOR USER roleList
+    | FOR ROLE roleIdList
+    | FOR USER roleIdList
     ;
 
 defaultPrivelegeAction
@@ -2148,30 +2139,30 @@ alterTypeStatement
     ;
 
 alterOwnerStatement
-    : ALTER AGGREGATE aggregateWithArgumentTypes OWNER TO roleSpecification
-    | ALTER COLLATION anyName OWNER TO roleSpecification
-    | ALTER CONVERSION_P anyName OWNER TO roleSpecification
-    | ALTER DATABASE databaseName OWNER TO roleSpecification
-    | ALTER DOMAIN_P anyName OWNER TO roleSpecification
-    | ALTER FUNCTION functionWithArgumentTypes OWNER TO roleSpecification
-    | ALTER optionalProcedural LANGUAGE name OWNER TO roleSpecification
-    | ALTER LARGE_P OBJECT_P numericOnly OWNER TO roleSpecification
-    | ALTER OPERATOR operatorWithArgumentTypes OWNER TO roleSpecification
-    | ALTER OPERATOR CLASS anyName USING name OWNER TO roleSpecification
-    | ALTER OPERATOR FAMILY anyName USING name OWNER TO roleSpecification
-    | ALTER PROCEDURE functionWithArgumentTypes OWNER TO roleSpecification
-    | ALTER ROUTINE functionWithArgumentTypes OWNER TO roleSpecification
-    | ALTER SCHEMA schemaName OWNER TO roleSpecification
-    | ALTER TYPE_P anyName OWNER TO roleSpecification
-    | ALTER TABLESPACE name OWNER TO roleSpecification
-    | ALTER STATISTICS anyName OWNER TO roleSpecification
-    | ALTER TEXT_P SEARCH DICTIONARY anyName OWNER TO roleSpecification
-    | ALTER TEXT_P SEARCH CONFIGURATION anyName OWNER TO roleSpecification
-    | ALTER FOREIGN DATA_P WRAPPER name OWNER TO roleSpecification
-    | ALTER SERVER name OWNER TO roleSpecification
-    | ALTER EVENT TRIGGER name OWNER TO roleSpecification
-    | ALTER PUBLICATION name OWNER TO roleSpecification
-    | ALTER SUBSCRIPTION name OWNER TO roleSpecification
+    : ALTER AGGREGATE aggregateWithArgumentTypes OWNER TO roleId
+    | ALTER COLLATION anyName OWNER TO roleId
+    | ALTER CONVERSION_P anyName OWNER TO roleId
+    | ALTER DATABASE databaseName OWNER TO roleId
+    | ALTER DOMAIN_P anyName OWNER TO roleId
+    | ALTER FUNCTION functionWithArgumentTypes OWNER TO roleId
+    | ALTER optionalProcedural LANGUAGE name OWNER TO roleId
+    | ALTER LARGE_P OBJECT_P numericOnly OWNER TO roleId
+    | ALTER OPERATOR operatorWithArgumentTypes OWNER TO roleId
+    | ALTER OPERATOR CLASS anyName USING name OWNER TO roleId
+    | ALTER OPERATOR FAMILY anyName USING name OWNER TO roleId
+    | ALTER PROCEDURE functionWithArgumentTypes OWNER TO roleId
+    | ALTER ROUTINE functionWithArgumentTypes OWNER TO roleId
+    | ALTER SCHEMA schemaName OWNER TO roleId
+    | ALTER TYPE_P anyName OWNER TO roleId
+    | ALTER TABLESPACE name OWNER TO roleId
+    | ALTER STATISTICS anyName OWNER TO roleId
+    | ALTER TEXT_P SEARCH DICTIONARY anyName OWNER TO roleId
+    | ALTER TEXT_P SEARCH CONFIGURATION anyName OWNER TO roleId
+    | ALTER FOREIGN DATA_P WRAPPER name OWNER TO roleId
+    | ALTER SERVER name OWNER TO roleId
+    | ALTER EVENT TRIGGER name OWNER TO roleId
+    | ALTER PUBLICATION name OWNER TO roleId
+    | ALTER SUBSCRIPTION name OWNER TO roleId
     ;
 
 createPublicationStatement
@@ -3864,17 +3855,13 @@ signedIconst
     ;
 
 roleId
-    : roleSpecification
-    ;
-
-roleSpecification
     : nonReservedWord
     | CURRENT_USER
     | SESSION_USER
     ;
 
-roleList
-    : roleSpecification (COMMA roleSpecification)*
+roleIdList
+    : roleId (COMMA roleId)*
     ;
 
 columnId

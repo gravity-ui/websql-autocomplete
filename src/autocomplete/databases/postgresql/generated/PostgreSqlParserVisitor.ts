@@ -20,13 +20,12 @@ import { StatementsContext } from "./PostgreSqlParser.js";
 import { StatementContext } from "./PostgreSqlParser.js";
 import { PlsqlConsoleCommandContext } from "./PostgreSqlParser.js";
 import { CallStatementContext } from "./PostgreSqlParser.js";
-import { CreateRoleStatementContext } from "./PostgreSqlParser.js";
 import { OptionalWithContext } from "./PostgreSqlParser.js";
 import { OptionalRoleListContext } from "./PostgreSqlParser.js";
 import { AlterOptionalRoleListContext } from "./PostgreSqlParser.js";
 import { AlterRoleElemementContext } from "./PostgreSqlParser.js";
 import { CreateRoleElementContext } from "./PostgreSqlParser.js";
-import { CreateUserStatementContext } from "./PostgreSqlParser.js";
+import { CreateRoleStatementContext } from "./PostgreSqlParser.js";
 import { AlterRoleStatementContext } from "./PostgreSqlParser.js";
 import { OptionalInDatabaseContext } from "./PostgreSqlParser.js";
 import { AlterRoleSetStatementContext } from "./PostgreSqlParser.js";
@@ -192,8 +191,7 @@ import { CreatePolicyStatementContext } from "./PostgreSqlParser.js";
 import { AlterPolicyStatementContext } from "./PostgreSqlParser.js";
 import { RowSecurityOptionalExpressionContext } from "./PostgreSqlParser.js";
 import { RowSecurityOptionalWithCheckContext } from "./PostgreSqlParser.js";
-import { RowSecurityDefaultToRoleContext } from "./PostgreSqlParser.js";
-import { RowSecurityOptionalToRoleContext } from "./PostgreSqlParser.js";
+import { RowSecurityOptionalToUserContext } from "./PostgreSqlParser.js";
 import { RowSecurityDefaultPermissiveContext } from "./PostgreSqlParser.js";
 import { RowSecurityDefaultForCmdContext } from "./PostgreSqlParser.js";
 import { RowSecurityCommandContext } from "./PostgreSqlParser.js";
@@ -276,8 +274,8 @@ import { PrivilegeTargetContext } from "./PostgreSqlParser.js";
 import { GranteeListContext } from "./PostgreSqlParser.js";
 import { GranteeContext } from "./PostgreSqlParser.js";
 import { OptionalWithGrantOptionContext } from "./PostgreSqlParser.js";
-import { GrantRoleStatementContext } from "./PostgreSqlParser.js";
-import { RevokeRoleStatementContext } from "./PostgreSqlParser.js";
+import { GrantPrivilegeStatementContext } from "./PostgreSqlParser.js";
+import { RevokePrivilegeStatementContext } from "./PostgreSqlParser.js";
 import { OptionalGrantAdminOptionContext } from "./PostgreSqlParser.js";
 import { OptionalGrantedByContext } from "./PostgreSqlParser.js";
 import { AlterDefaultPrivilegesStatementContext } from "./PostgreSqlParser.js";
@@ -653,8 +651,7 @@ import { AnySconstContext } from "./PostgreSqlParser.js";
 import { OptionalUescapeContext } from "./PostgreSqlParser.js";
 import { SignedIconstContext } from "./PostgreSqlParser.js";
 import { RoleIdContext } from "./PostgreSqlParser.js";
-import { RoleSpecificationContext } from "./PostgreSqlParser.js";
-import { RoleListContext } from "./PostgreSqlParser.js";
+import { RoleIdListContext } from "./PostgreSqlParser.js";
 import { ColumnIdContext } from "./PostgreSqlParser.js";
 import { TableAliasContext } from "./PostgreSqlParser.js";
 import { TypeFunctionNameContext } from "./PostgreSqlParser.js";
@@ -823,12 +820,6 @@ export class PostgreSqlParserVisitor<Result> extends AbstractParseTreeVisitor<Re
      */
     visitCallStatement?: (ctx: CallStatementContext) => Result;
     /**
-     * Visit a parse tree produced by `PostgreSqlParser.createRoleStatement`.
-     * @param ctx the parse tree
-     * @return the visitor result
-     */
-    visitCreateRoleStatement?: (ctx: CreateRoleStatementContext) => Result;
-    /**
      * Visit a parse tree produced by `PostgreSqlParser.optionalWith`.
      * @param ctx the parse tree
      * @return the visitor result
@@ -859,11 +850,11 @@ export class PostgreSqlParserVisitor<Result> extends AbstractParseTreeVisitor<Re
      */
     visitCreateRoleElement?: (ctx: CreateRoleElementContext) => Result;
     /**
-     * Visit a parse tree produced by `PostgreSqlParser.createUserStatement`.
+     * Visit a parse tree produced by `PostgreSqlParser.createRoleStatement`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitCreateUserStatement?: (ctx: CreateUserStatementContext) => Result;
+    visitCreateRoleStatement?: (ctx: CreateRoleStatementContext) => Result;
     /**
      * Visit a parse tree produced by `PostgreSqlParser.alterRoleStatement`.
      * @param ctx the parse tree
@@ -1855,17 +1846,11 @@ export class PostgreSqlParserVisitor<Result> extends AbstractParseTreeVisitor<Re
      */
     visitRowSecurityOptionalWithCheck?: (ctx: RowSecurityOptionalWithCheckContext) => Result;
     /**
-     * Visit a parse tree produced by `PostgreSqlParser.rowSecurityDefaultToRole`.
+     * Visit a parse tree produced by `PostgreSqlParser.rowSecurityOptionalToUser`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitRowSecurityDefaultToRole?: (ctx: RowSecurityDefaultToRoleContext) => Result;
-    /**
-     * Visit a parse tree produced by `PostgreSqlParser.rowSecurityOptionalToRole`.
-     * @param ctx the parse tree
-     * @return the visitor result
-     */
-    visitRowSecurityOptionalToRole?: (ctx: RowSecurityOptionalToRoleContext) => Result;
+    visitRowSecurityOptionalToUser?: (ctx: RowSecurityOptionalToUserContext) => Result;
     /**
      * Visit a parse tree produced by `PostgreSqlParser.rowSecurityDefaultPermissive`.
      * @param ctx the parse tree
@@ -2359,17 +2344,17 @@ export class PostgreSqlParserVisitor<Result> extends AbstractParseTreeVisitor<Re
      */
     visitOptionalWithGrantOption?: (ctx: OptionalWithGrantOptionContext) => Result;
     /**
-     * Visit a parse tree produced by `PostgreSqlParser.grantRoleStatement`.
+     * Visit a parse tree produced by `PostgreSqlParser.grantPrivilegeStatement`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitGrantRoleStatement?: (ctx: GrantRoleStatementContext) => Result;
+    visitGrantPrivilegeStatement?: (ctx: GrantPrivilegeStatementContext) => Result;
     /**
-     * Visit a parse tree produced by `PostgreSqlParser.revokeRoleStatement`.
+     * Visit a parse tree produced by `PostgreSqlParser.revokePrivilegeStatement`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitRevokeRoleStatement?: (ctx: RevokeRoleStatementContext) => Result;
+    visitRevokePrivilegeStatement?: (ctx: RevokePrivilegeStatementContext) => Result;
     /**
      * Visit a parse tree produced by `PostgreSqlParser.optionalGrantAdminOption`.
      * @param ctx the parse tree
@@ -4628,17 +4613,11 @@ export class PostgreSqlParserVisitor<Result> extends AbstractParseTreeVisitor<Re
      */
     visitRoleId?: (ctx: RoleIdContext) => Result;
     /**
-     * Visit a parse tree produced by `PostgreSqlParser.roleSpecification`.
+     * Visit a parse tree produced by `PostgreSqlParser.roleIdList`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitRoleSpecification?: (ctx: RoleSpecificationContext) => Result;
-    /**
-     * Visit a parse tree produced by `PostgreSqlParser.roleList`.
-     * @param ctx the parse tree
-     * @return the visitor result
-     */
-    visitRoleList?: (ctx: RoleListContext) => Result;
+    visitRoleIdList?: (ctx: RoleIdListContext) => Result;
     /**
      * Visit a parse tree produced by `PostgreSqlParser.columnId`.
      * @param ctx the parse tree
