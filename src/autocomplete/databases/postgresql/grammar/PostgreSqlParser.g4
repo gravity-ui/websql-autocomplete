@@ -198,7 +198,7 @@ alterRoleElemement
     | INHERIT
     | CONNECTION LIMIT signedIconst
     | VALID UNTIL sconst
-    | USER roleIdList
+    | roleOrAliases roleIdList
     | identifier
     ;
 
@@ -206,16 +206,15 @@ createRoleElement
     : alterRoleElemement
     | SYSID iconst
     | ADMIN roleIdList
-    | ROLE roleIdList
-    | IN_P (ROLE | GROUP_P) roleIdList
+    | IN_P? roleOrAliases roleIdList
     ;
 
 createRoleStatement
-    : CREATE USER roleId optionalWith optionalRoleList
+    : CREATE roleOrAliases roleId optionalWith optionalRoleList
     ;
 
 alterRoleStatement
-    : ALTER (ROLE | USER) roleId optionalWith alterOptionalRoleList
+    : ALTER roleOrAliases roleId optionalWith alterOptionalRoleList
     ;
 
 optionalInDatabase
@@ -224,19 +223,11 @@ optionalInDatabase
     ;
 
 alterRoleSetStatement
-    : ALTER (ROLE | USER) ALL? roleId optionalInDatabase setResetClause
+    : ALTER roleOrAliases ALL? roleId optionalInDatabase setResetClause
     ;
 
 dropRoleStatement
-    : DROP (ROLE | USER | GROUP_P) (IF_P EXISTS)? roleIdList
-    ;
-
-createGroupStatement
-    : CREATE GROUP_P roleId optionalWith optionalRoleList
-    ;
-
-alterGroupStatement
-    : ALTER GROUP_P roleId addOrDrop USER roleIdList
+    : DROP roleOrAliases (IF_P EXISTS)? roleIdList
     ;
 
 addOrDrop
@@ -287,7 +278,7 @@ setStatementMore
     | CATALOG sconst
     | SCHEMA schemaName
     | NAMES optionalEncoding
-    | ROLE nonReservedWordOrSconst
+    | roleOrAliases nonReservedWordOrSconst
     | SESSION AUTHORIZATION nonReservedWordOrSconst
     | XML_P OPTION documentOrContent
     | TRANSACTION SNAPSHOT sconst
@@ -1100,6 +1091,7 @@ createUserMappingStatement
     | CREATE USER MAPPING IF_P NOT EXISTS FOR authIdentifier SERVER name createGenericOptions
     ;
 
+// TODO: check
 authIdentifier
     : roleId
     | USER
@@ -1448,7 +1440,7 @@ objectTypeAnyName
     | TEXT_P SEARCH CONFIGURATION
     ;
 
-// TODO
+// TODO: check
 objectTypeName
     : dropTypeName
     | ROLE
@@ -1674,8 +1666,7 @@ alterDefaultPrivilegesStatement
 
 defultPrivilegeOption
     : IN_P SCHEMA schemaNameList
-    | FOR ROLE roleIdList
-    | FOR USER roleIdList
+    | FOR roleOrAliases roleIdList
     ;
 
 defaultPrivelegeAction
@@ -2019,7 +2010,6 @@ renameStatement
     | ALTER DOMAIN_P anyName RENAME CONSTRAINT constraintName TO name
     | ALTER FOREIGN DATA_P WRAPPER name RENAME TO name
     | ALTER FUNCTION functionWithArgumentTypes RENAME TO name
-    | ALTER GROUP_P roleId RENAME TO roleId
     | ALTER optionalProcedural LANGUAGE name RENAME TO name
     | ALTER OPERATOR CLASS anyName USING name RENAME TO name
     | ALTER OPERATOR FAMILY anyName USING name RENAME TO name
@@ -2053,8 +2043,7 @@ renameStatement
     | ALTER RULE name ON qualifiedName RENAME TO name
     | ALTER TRIGGER triggerName ON qualifiedName RENAME TO name
     | ALTER EVENT TRIGGER name RENAME TO name
-    | ALTER ROLE roleId RENAME TO roleId
-    | ALTER USER roleId RENAME TO roleId
+    | ALTER roleOrAliases roleId RENAME TO roleId
     | ALTER TABLESPACE name RENAME TO name
     | ALTER STATISTICS anyName RENAME TO name
     | ALTER TEXT_P SEARCH PARSER anyName RENAME TO name
@@ -5202,4 +5191,10 @@ makeExecuteSqlStatement
 optionalReturningClauseInto
     : INTO STRICT_P? intoTarget
     |
+    ;
+
+roleOrAliases
+    : ROLE
+    | USER
+    | GROUP_P
     ;
