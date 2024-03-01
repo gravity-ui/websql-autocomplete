@@ -690,7 +690,7 @@ dropRole
     ;
 
 setRole
-    : SET DEFAULT ROLE (NONE | ALL | roleNameList) TO (userName | uid) (COMMA (userName | uid))*
+    : SET DEFAULT ROLE (NONE | ALL | roleNameList) TO userNameList
     | SET ROLE roleOption
     ;
 
@@ -1342,18 +1342,18 @@ elifAlternative
 //    Account management statements
 
 alterUser
-    : ALTER USER userSpecification (COMMA userSpecification)*                                                                                                                                                                                       # alterUserMysqlV56
-    | ALTER USER ifExists? userAuthOption (COMMA userAuthOption)* (REQUIRE (tlsNone = NONE | tlsOption (AND? tlsOption)*))? (WITH userResourceOption+)? (userPasswordOption | userLockOption)* (COMMENT STRING_LITERAL | ATTRIBUTE STRING_LITERAL)? # alterUserMysqlV80
-    | ALTER USER ifExists? (userName | uid) DEFAULT ROLE roleOption                                                                                                                                                                                 # alterUserMysqlV80
+    : ALTER USER userSpecification (COMMA userSpecification)*                                                                                                                                                                      # alterUserMysqlV56
+    | ALTER USER ifExists? newUserAuthOptionList (REQUIRE (tlsNone = NONE | tlsOption (AND? tlsOption)*))? (WITH userResourceOption+)? (userPasswordOption | userLockOption)* (COMMENT STRING_LITERAL | ATTRIBUTE STRING_LITERAL)? # alterUserMysqlV80
+    | ALTER USER ifExists? userName DEFAULT ROLE roleOption                                                                                                                                                                        # alterUserMysqlV80
     ;
 
 createUser
-    : CREATE USER userAuthOption (COMMA userAuthOption)*                                                                                                                                                                                                                           # createUserMysqlV56
-    | CREATE USER ifNotExists? userAuthOption (COMMA userAuthOption)* (DEFAULT ROLE roleOption)? (REQUIRE (tlsNone = NONE | tlsOption (AND? tlsOption)*))? (WITH userResourceOption+)? (userPasswordOption | userLockOption)* (COMMENT STRING_LITERAL | ATTRIBUTE STRING_LITERAL)? # createUserMysqlV80
+    : CREATE USER newUserAuthOptionList                                                                                                                                                                                                                           # createUserMysqlV56
+    | CREATE USER ifNotExists? newUserAuthOptionList (DEFAULT ROLE roleOption)? (REQUIRE (tlsNone = NONE | tlsOption (AND? tlsOption)*))? (WITH userResourceOption+)? (userPasswordOption | userLockOption)* (COMMENT STRING_LITERAL | ATTRIBUTE STRING_LITERAL)? # createUserMysqlV80
     ;
 
 dropUser
-    : DROP USER ifExists? userName (COMMA userName)*
+    : DROP USER ifExists? userNameList
     ;
 
 grantStatement
@@ -1396,12 +1396,16 @@ userSpecification
     : userName userPasswordOption
     ;
 
-userAuthOption
-    : userName IDENTIFIED BY PASSWORD hashed = STRING_LITERAL # hashAuthOption
-    | userName IDENTIFIED BY RANDOM PASSWORD authOptionClause # randomAuthOption
-    | userName IDENTIFIED BY STRING_LITERAL authOptionClause  # stringAuthOption
-    | userName IDENTIFIED WITH authenticationRule             # moduleAuthOption
-    | userName                                                # simpleAuthOption
+newUserAuthOptionList
+    : newUserAuthOption (COMMA newUserAuthOption)*
+    ;
+
+newUserAuthOption
+    : newUserName IDENTIFIED BY PASSWORD hashed = STRING_LITERAL # hashAuthOption
+    | newUserName IDENTIFIED BY RANDOM PASSWORD authOptionClause # randomAuthOption
+    | newUserName IDENTIFIED BY STRING_LITERAL authOptionClause  # stringAuthOption
+    | newUserName IDENTIFIED WITH authenticationRule             # moduleAuthOption
+    | newUserName                                                # simpleAuthOption
     ;
 
 authOptionClause
@@ -1525,7 +1529,7 @@ privilegeLevel
     ;
 
 renameUserClause
-    : fromFirst = userName TO toFirst = userName
+    : userName TO newUserName
     ;
 
 //    Table maintenance statements
@@ -1866,10 +1870,18 @@ hostName
     : (LOCAL_ID | HOST_IP_ADDRESS | AT_SIGN)
     ;
 
-userName
+userNameList
+    : userName (COMMA userName)*
+    ;
+
+newUserName
     : simpleUserName
     | simpleUserName hostName
     | currentUserExpression
+    ;
+
+userName
+    : newUserName
     ;
 
 mysqlVariable

@@ -102,7 +102,7 @@ test('should suggest keywords after REVOKE SELECT ON *', () => {
 test('should suggest keywords after REVOKE SELECT ON * FROM', () => {
     const autocompleteResult = parseMySqlQueryWithCursor('REVOKE SELECT ON * FROM |');
 
-    const keywords: KeywordSuggestion[] = [{value: 'CURRENT_USER'}];
+    const keywords: KeywordSuggestion[] = [];
     expect(autocompleteResult.suggestKeywords).toEqual(keywords);
 
     expect(autocompleteResult.suggestRoles).toEqual(true);

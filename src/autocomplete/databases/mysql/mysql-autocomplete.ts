@@ -85,6 +85,7 @@ const ignoredTokens = new Set(getIgnoredTokens());
 
 const rulesToVisit = new Set([
     // We don't need to go inside of those objects, we already know we need to suggest them
+    MySqlParser.RULE_userName,
     MySqlParser.RULE_roleName,
     MySqlParser.RULE_databaseName,
     MySqlParser.RULE_constraintName,
@@ -180,6 +181,7 @@ function processVisitedRules(
     let suggestTriggers = false;
     let suggestDatabases = false;
     let suggestRoles = false;
+    let suggestUsers = false;
 
     let shouldSuggestConstraints = false;
     let shouldSuggestColumns = false;
@@ -262,6 +264,10 @@ function processVisitedRules(
                 suggestRoles = true;
                 break;
             }
+            case MySqlParser.RULE_userName: {
+                suggestUsers = true;
+                break;
+            }
             case MySqlParser.RULE_fullColumnName:
             case MySqlParser.RULE_indexColumnName: {
                 shouldSuggestColumns = true;
@@ -300,6 +306,7 @@ function processVisitedRules(
         suggestTriggers,
         suggestDatabases,
         suggestRoles,
+        suggestUsers,
         shouldSuggestConstraints,
         shouldSuggestColumns,
         shouldSuggestColumnAliases,

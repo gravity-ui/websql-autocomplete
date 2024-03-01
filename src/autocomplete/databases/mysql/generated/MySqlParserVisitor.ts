@@ -403,6 +403,7 @@ import { RoleRevokeContext } from "./MySqlParser.js";
 import { RevokeProxyContext } from "./MySqlParser.js";
 import { SetPasswordStatementContext } from "./MySqlParser.js";
 import { UserSpecificationContext } from "./MySqlParser.js";
+import { NewUserAuthOptionListContext } from "./MySqlParser.js";
 import { HashAuthOptionContext } from "./MySqlParser.js";
 import { RandomAuthOptionContext } from "./MySqlParser.js";
 import { StringAuthOptionContext } from "./MySqlParser.js";
@@ -510,6 +511,8 @@ import { IndexNameListContext } from "./MySqlParser.js";
 import { IndexColumnNameContext } from "./MySqlParser.js";
 import { SimpleUserNameContext } from "./MySqlParser.js";
 import { HostNameContext } from "./MySqlParser.js";
+import { UserNameListContext } from "./MySqlParser.js";
+import { NewUserNameContext } from "./MySqlParser.js";
 import { UserNameContext } from "./MySqlParser.js";
 import { MysqlVariableContext } from "./MySqlParser.js";
 import { CharsetNameContext } from "./MySqlParser.js";
@@ -3197,36 +3200,42 @@ export class MySqlParserVisitor<Result> extends AbstractParseTreeVisitor<Result>
      */
     visitUserSpecification?: (ctx: UserSpecificationContext) => Result;
     /**
+     * Visit a parse tree produced by `MySqlParser.newUserAuthOptionList`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitNewUserAuthOptionList?: (ctx: NewUserAuthOptionListContext) => Result;
+    /**
      * Visit a parse tree produced by the `hashAuthOption`
-     * labeled alternative in `MySqlParser.userAuthOption`.
+     * labeled alternative in `MySqlParser.newUserAuthOption`.
      * @param ctx the parse tree
      * @return the visitor result
      */
     visitHashAuthOption?: (ctx: HashAuthOptionContext) => Result;
     /**
      * Visit a parse tree produced by the `randomAuthOption`
-     * labeled alternative in `MySqlParser.userAuthOption`.
+     * labeled alternative in `MySqlParser.newUserAuthOption`.
      * @param ctx the parse tree
      * @return the visitor result
      */
     visitRandomAuthOption?: (ctx: RandomAuthOptionContext) => Result;
     /**
      * Visit a parse tree produced by the `stringAuthOption`
-     * labeled alternative in `MySqlParser.userAuthOption`.
+     * labeled alternative in `MySqlParser.newUserAuthOption`.
      * @param ctx the parse tree
      * @return the visitor result
      */
     visitStringAuthOption?: (ctx: StringAuthOptionContext) => Result;
     /**
      * Visit a parse tree produced by the `moduleAuthOption`
-     * labeled alternative in `MySqlParser.userAuthOption`.
+     * labeled alternative in `MySqlParser.newUserAuthOption`.
      * @param ctx the parse tree
      * @return the visitor result
      */
     visitModuleAuthOption?: (ctx: ModuleAuthOptionContext) => Result;
     /**
      * Visit a parse tree produced by the `simpleAuthOption`
-     * labeled alternative in `MySqlParser.userAuthOption`.
+     * labeled alternative in `MySqlParser.newUserAuthOption`.
      * @param ctx the parse tree
      * @return the visitor result
      */
@@ -3883,6 +3892,18 @@ export class MySqlParserVisitor<Result> extends AbstractParseTreeVisitor<Result>
      * @return the visitor result
      */
     visitHostName?: (ctx: HostNameContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.userNameList`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitUserNameList?: (ctx: UserNameListContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.newUserName`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitNewUserName?: (ctx: NewUserNameContext) => Result;
     /**
      * Visit a parse tree produced by `MySqlParser.userName`.
      * @param ctx the parse tree
