@@ -1,0 +1,21 @@
+import {parseMySqlQueryWithCursor} from '../../../../shared/parse-query-with-cursor';
+import {KeywordSuggestion} from '../../../../autocomplete-types';
+import {parseMySqlQueryWithoutCursor} from '../../../../autocomplete';
+
+test('should suggest triggers after SET', () => {
+    const autocompleteResult = parseMySqlQueryWithCursor('SET ROLE |');
+
+    const keywordsSuggestion: KeywordSuggestion[] = [
+        {value: 'DEFAULT'},
+        {value: 'NONE'},
+        {value: 'ALL'},
+    ];
+    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
+
+    expect(autocompleteResult.suggestRoles).toEqual(true);
+});
+
+test('should nor report errors on full statement', () => {
+    const autocompleteResult = parseMySqlQueryWithoutCursor('SET ROLE test_role;');
+    expect(autocompleteResult.errors).toHaveLength(0);
+});

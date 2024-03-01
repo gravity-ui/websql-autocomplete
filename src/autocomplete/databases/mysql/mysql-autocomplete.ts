@@ -84,19 +84,14 @@ function getIgnoredTokens(): number[] {
 const ignoredTokens = new Set(getIgnoredTokens());
 
 const rulesToVisit = new Set([
-    // We don't need to go inside of it, we already know that this is a database name
+    // We don't need to go inside of those objects, we already know we need to suggest them
+    MySqlParser.RULE_roleName,
     MySqlParser.RULE_databaseName,
-    // We don't need to go inside of it, we already know that this is a constraint name
     MySqlParser.RULE_constraintName,
-    // We don't need to go inside of it, we already know that this is a trigger name
     MySqlParser.RULE_triggerName,
-    // We don't need to go inside of it, we already know that this is an index name
     MySqlParser.RULE_indexName,
-    // We don't need to go inside of it, we already know that this is a column
     MySqlParser.RULE_fullColumnName,
-    // We don't need to go inside of it, we already know that this is a table name
     MySqlParser.RULE_tableName,
-    // We don't need to go inside of it, we already know that this is a username, and it can be anything
     MySqlParser.RULE_simpleUserName,
     // TODO: merge with uid???
     // We don't need to go inside of next rules, we already know that this is identifier of sorts.
@@ -184,6 +179,8 @@ function processVisitedRules(
     let suggestIndexes = false;
     let suggestTriggers = false;
     let suggestDatabases = false;
+    let suggestRoles = false;
+
     let shouldSuggestConstraints = false;
     let shouldSuggestColumns = false;
     let shouldSuggestColumnAliases = false;
@@ -261,6 +258,10 @@ function processVisitedRules(
                 suggestDatabases = true;
                 break;
             }
+            case MySqlParser.RULE_roleName: {
+                suggestRoles = true;
+                break;
+            }
             case MySqlParser.RULE_fullColumnName:
             case MySqlParser.RULE_indexColumnName: {
                 shouldSuggestColumns = true;
@@ -298,6 +299,7 @@ function processVisitedRules(
         suggestIndexes,
         suggestTriggers,
         suggestDatabases,
+        suggestRoles,
         shouldSuggestConstraints,
         shouldSuggestColumns,
         shouldSuggestColumnAliases,

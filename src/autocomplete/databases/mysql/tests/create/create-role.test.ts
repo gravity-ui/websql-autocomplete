@@ -4,7 +4,7 @@ import {KeywordSuggestion} from '../../../../autocomplete-types';
 test('should suggest properly after ROLE', () => {
     const autocompleteResult = parseMySqlQueryWithCursor('CREATE ROLE |');
 
-    const keywordsSuggestion: KeywordSuggestion[] = [{value: 'CURRENT_USER'}, {value: 'IF'}];
+    const keywordsSuggestion: KeywordSuggestion[] = [{value: 'IF'}];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
