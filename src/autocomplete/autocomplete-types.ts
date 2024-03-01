@@ -22,13 +22,13 @@ export interface AutocompleteResultBase {
     suggestColumns?: ColumnSuggestion;
     suggestColumnAliases?: ColumnAliasSuggestion[];
     suggestDatabases?: boolean;
-    suggestRoles?: boolean;
 }
 
 export interface MySqlAutocompleteResult extends AutocompleteResultBase {
     suggestIndexes?: boolean;
     suggestTriggers?: boolean;
     suggestConstraints?: ConstraintSuggestion;
+    suggestRoles?: boolean;
 }
 
 export interface PostgreSqlAutocompleteResult extends AutocompleteResultBase {
