@@ -397,8 +397,8 @@ import { GrantStatementContext } from "./MySqlParser.js";
 import { RoleOptionContext } from "./MySqlParser.js";
 import { GrantProxyContext } from "./MySqlParser.js";
 import { RenameUserContext } from "./MySqlParser.js";
-import { DetailRevokeContext } from "./MySqlParser.js";
-import { ShortRevokeContext } from "./MySqlParser.js";
+import { DetailedPrivilegeRevokeContext } from "./MySqlParser.js";
+import { ShortPrivilegeRevokeContext } from "./MySqlParser.js";
 import { RoleRevokeContext } from "./MySqlParser.js";
 import { RevokeProxyContext } from "./MySqlParser.js";
 import { SetPasswordStatementContext } from "./MySqlParser.js";
@@ -495,6 +495,11 @@ import { DescribeConnectionContext } from "./MySqlParser.js";
 import { FullIdContext } from "./MySqlParser.js";
 import { TableNameContext } from "./MySqlParser.js";
 import { TableNamesContext } from "./MySqlParser.js";
+import { UserOrRoleNameContext } from "./MySqlParser.js";
+import { UserOrRoleNameListContext } from "./MySqlParser.js";
+import { NewRoleNameListContext } from "./MySqlParser.js";
+import { NewRoleNameContext } from "./MySqlParser.js";
+import { RoleNameListContext } from "./MySqlParser.js";
 import { RoleNameContext } from "./MySqlParser.js";
 import { FullColumnNameContext } from "./MySqlParser.js";
 import { DatabaseNameContext } from "./MySqlParser.js";
@@ -3153,19 +3158,19 @@ export class MySqlParserVisitor<Result> extends AbstractParseTreeVisitor<Result>
      */
     visitRenameUser?: (ctx: RenameUserContext) => Result;
     /**
-     * Visit a parse tree produced by the `detailRevoke`
+     * Visit a parse tree produced by the `detailedPrivilegeRevoke`
      * labeled alternative in `MySqlParser.revokeStatement`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitDetailRevoke?: (ctx: DetailRevokeContext) => Result;
+    visitDetailedPrivilegeRevoke?: (ctx: DetailedPrivilegeRevokeContext) => Result;
     /**
-     * Visit a parse tree produced by the `shortRevoke`
+     * Visit a parse tree produced by the `shortPrivilegeRevoke`
      * labeled alternative in `MySqlParser.revokeStatement`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitShortRevoke?: (ctx: ShortRevokeContext) => Result;
+    visitShortPrivilegeRevoke?: (ctx: ShortPrivilegeRevokeContext) => Result;
     /**
      * Visit a parse tree produced by the `roleRevoke`
      * labeled alternative in `MySqlParser.revokeStatement`.
@@ -3788,6 +3793,36 @@ export class MySqlParserVisitor<Result> extends AbstractParseTreeVisitor<Result>
      * @return the visitor result
      */
     visitTableNames?: (ctx: TableNamesContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.userOrRoleName`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitUserOrRoleName?: (ctx: UserOrRoleNameContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.userOrRoleNameList`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitUserOrRoleNameList?: (ctx: UserOrRoleNameListContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.newRoleNameList`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitNewRoleNameList?: (ctx: NewRoleNameListContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.newRoleName`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitNewRoleName?: (ctx: NewRoleNameContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.roleNameList`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitRoleNameList?: (ctx: RoleNameListContext) => Result;
     /**
      * Visit a parse tree produced by `MySqlParser.roleName`.
      * @param ctx the parse tree

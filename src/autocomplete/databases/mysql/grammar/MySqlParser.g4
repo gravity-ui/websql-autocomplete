@@ -228,7 +228,7 @@ createFunction
     ;
 
 createRole
-    : CREATE ROLE ifNotExists? roleName (COMMA roleName)*
+    : CREATE ROLE ifNotExists? newRoleNameList
     ;
 
 createServer
@@ -686,11 +686,11 @@ dropView
     ;
 
 dropRole
-    : DROP ROLE ifExists? roleName (COMMA roleName)*
+    : DROP ROLE ifExists? roleNameList
     ;
 
 setRole
-    : SET DEFAULT ROLE (NONE | ALL | roleName (COMMA roleName)*) TO (userName | uid) (COMMA (userName | uid))*
+    : SET DEFAULT ROLE (NONE | ALL | roleNameList) TO (userName | uid) (COMMA (userName | uid))*
     | SET ROLE roleOption
     ;
 
@@ -1357,15 +1357,15 @@ dropUser
     ;
 
 grantStatement
-    : GRANT privelegeClause (COMMA privelegeClause)* ON privilegeObject = (TABLE | FUNCTION | PROCEDURE)? privilegeLevel TO userAuthOption (COMMA userAuthOption)* (REQUIRE (tlsNone = NONE | tlsOption (AND? tlsOption)*))? (WITH (GRANT OPTION | userResourceOption)*)? (AS userName WITH ROLE roleOption)?
-    | GRANT (userName | uid) (COMMA (userName | uid))* TO (userName | uid) (COMMA (userName | uid))* ( WITH ADMIN OPTION)?
+    : GRANT privelegeClause (COMMA privelegeClause)* ON (TABLE | FUNCTION | PROCEDURE)? privilegeLevel TO userOrRoleNameList (REQUIRE (tlsNone = NONE | tlsOption (AND? tlsOption)*))? (WITH (GRANT OPTION | userResourceOption)*)? (AS userName WITH ROLE roleOption)?
+    | GRANT roleNameList TO userOrRoleNameList (WITH ADMIN OPTION)?
     ;
 
 roleOption
     : DEFAULT
     | NONE
-    | ALL (EXCEPT userName (COMMA userName)*)?
-    | userName (COMMA userName)*
+    | ALL (EXCEPT roleNameList)?
+    | roleNameList
     ;
 
 grantProxy
@@ -1377,9 +1377,9 @@ renameUser
     ;
 
 revokeStatement
-    : REVOKE privelegeClause (COMMA privelegeClause)* ON privilegeObject = (TABLE | FUNCTION | PROCEDURE)? privilegeLevel FROM userName (COMMA userName)* # detailRevoke
-    | REVOKE ALL PRIVILEGES? COMMA GRANT OPTION FROM userName (COMMA userName)*                                                                           # shortRevoke
-    | REVOKE (userName | uid) (COMMA (userName | uid))* FROM (userName | uid) (COMMA (userName | uid))*                                                   # roleRevoke
+    : REVOKE privelegeClause (COMMA privelegeClause)* ON privilegeObject = (TABLE | FUNCTION | PROCEDURE)? privilegeLevel FROM userOrRoleNameList # detailedPrivilegeRevoke
+    | REVOKE ALL PRIVILEGES? COMMA GRANT OPTION FROM userOrRoleNameList                                                                           # shortPrivilegeRevoke
+    | REVOKE roleNameList FROM userOrRoleNameList*                                                                                                # roleRevoke
     ;
 
 revokeProxy
@@ -1801,9 +1801,29 @@ tableNames
     : tableName (COMMA tableName)*
     ;
 
-roleName
+userOrRoleName
     : userName
-    | uid
+    | roleName
+    ;
+
+userOrRoleNameList
+    : userOrRoleName (COMMA userOrRoleName)*
+    ;
+
+newRoleNameList
+    : newRoleName (COMMA newRoleName)*
+    ;
+
+newRoleName
+    : uid
+    ;
+
+roleNameList
+    : roleName (COMMA roleName)*
+    ;
+
+roleName
+    : newRoleName
     ;
 
 fullColumnName

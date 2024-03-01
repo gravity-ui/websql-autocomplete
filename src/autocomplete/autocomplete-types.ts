@@ -28,6 +28,7 @@ export interface MySqlAutocompleteResult extends AutocompleteResultBase {
     suggestIndexes?: boolean;
     suggestTriggers?: boolean;
     suggestConstraints?: ConstraintSuggestion;
+    suggestRoles?: boolean;
 }
 
 export interface PostgreSqlAutocompleteResult extends AutocompleteResultBase {
