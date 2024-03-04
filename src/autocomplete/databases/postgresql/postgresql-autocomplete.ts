@@ -80,7 +80,7 @@ const rulesToVisit = new Set([
     PostgreSqlParser.RULE_sequenceName,
     PostgreSqlParser.RULE_schemaName,
     PostgreSqlParser.RULE_databaseName,
-    PostgreSqlParser.RULE_roleId,
+    PostgreSqlParser.RULE_roleName,
 
     // All of these are identifier names, we don't want to suggest them
     PostgreSqlParser.RULE_identifier,
@@ -302,7 +302,7 @@ function processVisitedRules(
                 suggestDatabases = true;
                 break;
             }
-            case PostgreSqlParser.RULE_roleId: {
+            case PostgreSqlParser.RULE_roleName: {
                 suggestRoles = true;
             }
         }

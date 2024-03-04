@@ -196,23 +196,23 @@ alterRoleElemement
     | INHERIT
     | CONNECTION LIMIT signedIconst
     | VALID UNTIL sconst
-    | roleOrAliases roleIdList
+    | roleOrAliases roleNameList
     | identifier
     ;
 
 createRoleElement
     : alterRoleElemement
     | SYSID iconst
-    | ADMIN roleIdList
-    | IN_P? roleOrAliases roleIdList
+    | ADMIN roleNameList
+    | IN_P? roleOrAliases roleNameList
     ;
 
 createRoleStatement
-    : CREATE roleOrAliases roleId optionalWith optionalRoleList
+    : CREATE roleOrAliases roleName optionalWith optionalRoleList
     ;
 
 alterRoleStatement
-    : ALTER roleOrAliases roleId optionalWith alterOptionalRoleList
+    : ALTER roleOrAliases roleName optionalWith alterOptionalRoleList
     ;
 
 optionalInDatabase
@@ -221,11 +221,11 @@ optionalInDatabase
     ;
 
 alterRoleSetStatement
-    : ALTER roleOrAliases ALL? roleId optionalInDatabase setResetClause
+    : ALTER roleOrAliases ALL? roleName optionalInDatabase setResetClause
     ;
 
 dropRoleStatement
-    : DROP roleOrAliases (IF_P EXISTS)? roleIdList
+    : DROP roleOrAliases (IF_P EXISTS)? roleNameList
     ;
 
 addOrDrop
@@ -234,7 +234,7 @@ addOrDrop
     ;
 
 createSchemaStatement
-    : CREATE SCHEMA (IF_P NOT EXISTS)? (optionalSchemaName AUTHORIZATION roleId | columnId) optionalSchemaList
+    : CREATE SCHEMA (IF_P NOT EXISTS)? (optionalSchemaName AUTHORIZATION roleName | columnId) optionalSchemaList
     ;
 
 optionalSchemaName
@@ -383,12 +383,12 @@ discardStatement
 
 alterTableStatement
     : ALTER TABLE (IF_P EXISTS)? relationExpression (alterTableCommands | partitionCommand)
-    | ALTER TABLE ALL IN_P TABLESPACE name (OWNED BY roleIdList)? SET TABLESPACE name optionalNowait
+    | ALTER TABLE ALL IN_P TABLESPACE name (OWNED BY roleNameList)? SET TABLESPACE name optionalNowait
     | ALTER INDEX (IF_P EXISTS)? indexName (alterTableCommands | indexPartitionCommand)
-    | ALTER INDEX ALL IN_P TABLESPACE name (OWNED BY roleIdList)? SET TABLESPACE name optionalNowait
+    | ALTER INDEX ALL IN_P TABLESPACE name (OWNED BY roleNameList)? SET TABLESPACE name optionalNowait
     | ALTER VIEW (IF_P EXISTS)? viewName alterTableCommands
     | ALTER MATERIALIZED VIEW (IF_P EXISTS)? qualifiedName alterTableCommands
-    | ALTER MATERIALIZED VIEW ALL IN_P TABLESPACE name (OWNED BY roleIdList)? SET TABLESPACE name optionalNowait
+    | ALTER MATERIALIZED VIEW ALL IN_P TABLESPACE name (OWNED BY roleNameList)? SET TABLESPACE name optionalNowait
     | ALTER FOREIGN TABLE (IF_P EXISTS)? relationExpression alterTableCommands
     ;
 
@@ -449,7 +449,7 @@ alterTableCommand
     | NO INHERIT qualifiedName
     | OF anyName
     | NOT OF
-    | OWNER TO roleId
+    | OWNER TO roleName
     | SET TABLESPACE name
     | SET relOptions
     | RESET relOptions
@@ -942,7 +942,7 @@ createTablespaceStatement
     ;
 
 optionalTablespaceOwner
-    : OWNER roleId
+    : OWNER roleName
     |
     ;
 
@@ -971,7 +971,7 @@ alterExtensionOptionItem
 
 alterExtensionContentsStatement
     : ALTER EXTENSION name addOrDrop objectTypeName name
-    | ALTER EXTENSION name addOrDrop ROLE roleId
+    | ALTER EXTENSION name addOrDrop ROLE roleName
     | ALTER EXTENSION name addOrDrop DATABASE databaseName
     | ALTER EXTENSION name addOrDrop SCHEMA schemaName
     | ALTER EXTENSION name addOrDrop INDEX indexName
@@ -1091,7 +1091,7 @@ createUserMappingStatement
     ;
 
 authIdentifier
-    : roleId
+    : roleName
     | USER
     ;
 
@@ -1123,7 +1123,7 @@ rowSecurityOptionalWithCheck
     ;
 
 rowSecurityOptionalToUser
-    : TO roleIdList
+    : TO roleNameList
     |
     ;
 
@@ -1401,11 +1401,11 @@ dropOperatorFamilyStatement
     ;
 
 dropOwnedStatement
-    : DROP OWNED BY roleIdList optionalDropBehavior
+    : DROP OWNED BY roleNameList optionalDropBehavior
     ;
 
 reassignOwnedStatement
-    : REASSIGN OWNED BY roleIdList TO roleId
+    : REASSIGN OWNED BY roleNameList TO roleName
     ;
 
 dropStatement
@@ -1491,7 +1491,7 @@ commentStatement
     | COMMENT ON INDEX indexName IS commentText
     | COMMENT ON COLUMN anyName IS commentText
     | COMMENT ON objectTypeName name IS commentText
-    | COMMENT ON ROLE roleId IS commentText
+    | COMMENT ON ROLE roleName IS commentText
     | COMMENT ON DATABASE databaseName IS commentText
     | COMMENT ON SCHEMA schemaName IS commentText
     | COMMENT ON TYPE_P typeName IS commentText
@@ -1522,7 +1522,7 @@ securityLabelStatement
     | SECURITY LABEL optionalProvider ON INDEX indexName IS securityLabel
     | SECURITY LABEL optionalProvider ON COLUMN anyName IS securityLabel
     | SECURITY LABEL optionalProvider ON objectTypeName name IS securityLabel
-    | SECURITY LABEL optionalProvider ON ROLE roleId IS securityLabel
+    | SECURITY LABEL optionalProvider ON ROLE roleName IS securityLabel
     | SECURITY LABEL optionalProvider ON DATABASE databaseName IS securityLabel
     | SECURITY LABEL optionalProvider ON SCHEMA schemaName IS securityLabel
     | SECURITY LABEL optionalProvider ON TYPE_P typeName IS securityLabel
@@ -1630,8 +1630,8 @@ granteeList
     ;
 
 grantee
-    : roleId
-    | GROUP_P roleId
+    : roleName
+    | GROUP_P roleName
     ;
 
 optionalWithGrantOption
@@ -1640,12 +1640,12 @@ optionalWithGrantOption
     ;
 
 grantPrivilegeStatement
-    : GRANT privilegeList TO roleIdList optionalGrantAdminOption optionalGrantedBy
+    : GRANT privilegeList TO roleNameList optionalGrantAdminOption optionalGrantedBy
     ;
 
 revokePrivilegeStatement
-    : REVOKE privilegeList FROM roleIdList optionalGrantedBy optionalDropBehavior
-    | REVOKE ADMIN OPTION FOR privilegeList FROM roleIdList optionalGrantedBy optionalDropBehavior
+    : REVOKE privilegeList FROM roleNameList optionalGrantedBy optionalDropBehavior
+    | REVOKE ADMIN OPTION FOR privilegeList FROM roleNameList optionalGrantedBy optionalDropBehavior
     ;
 
 optionalGrantAdminOption
@@ -1654,7 +1654,7 @@ optionalGrantAdminOption
     ;
 
 optionalGrantedBy
-    : GRANTED BY roleId
+    : GRANTED BY roleName
     |
     ;
 
@@ -1664,7 +1664,7 @@ alterDefaultPrivilegesStatement
 
 defultPrivilegeOption
     : IN_P SCHEMA schemaNameList
-    | FOR roleOrAliases roleIdList
+    | FOR roleOrAliases roleNameList
     ;
 
 defaultPrivelegeAction
@@ -2041,7 +2041,7 @@ renameStatement
     | ALTER RULE name ON qualifiedName RENAME TO name
     | ALTER TRIGGER triggerName ON qualifiedName RENAME TO name
     | ALTER EVENT TRIGGER name RENAME TO name
-    | ALTER roleOrAliases roleId RENAME TO roleId
+    | ALTER roleOrAliases roleName RENAME TO roleName
     | ALTER TABLESPACE name RENAME TO name
     | ALTER STATISTICS anyName RENAME TO name
     | ALTER TEXT_P SEARCH PARSER anyName RENAME TO name
@@ -2126,30 +2126,30 @@ alterTypeStatement
     ;
 
 alterOwnerStatement
-    : ALTER AGGREGATE aggregateWithArgumentTypes OWNER TO roleId
-    | ALTER COLLATION anyName OWNER TO roleId
-    | ALTER CONVERSION_P anyName OWNER TO roleId
-    | ALTER DATABASE databaseName OWNER TO roleId
-    | ALTER DOMAIN_P anyName OWNER TO roleId
-    | ALTER FUNCTION functionWithArgumentTypes OWNER TO roleId
-    | ALTER optionalProcedural LANGUAGE name OWNER TO roleId
-    | ALTER LARGE_P OBJECT_P numericOnly OWNER TO roleId
-    | ALTER OPERATOR operatorWithArgumentTypes OWNER TO roleId
-    | ALTER OPERATOR CLASS anyName USING name OWNER TO roleId
-    | ALTER OPERATOR FAMILY anyName USING name OWNER TO roleId
-    | ALTER PROCEDURE functionWithArgumentTypes OWNER TO roleId
-    | ALTER ROUTINE functionWithArgumentTypes OWNER TO roleId
-    | ALTER SCHEMA schemaName OWNER TO roleId
-    | ALTER TYPE_P anyName OWNER TO roleId
-    | ALTER TABLESPACE name OWNER TO roleId
-    | ALTER STATISTICS anyName OWNER TO roleId
-    | ALTER TEXT_P SEARCH DICTIONARY anyName OWNER TO roleId
-    | ALTER TEXT_P SEARCH CONFIGURATION anyName OWNER TO roleId
-    | ALTER FOREIGN DATA_P WRAPPER name OWNER TO roleId
-    | ALTER SERVER name OWNER TO roleId
-    | ALTER EVENT TRIGGER name OWNER TO roleId
-    | ALTER PUBLICATION name OWNER TO roleId
-    | ALTER SUBSCRIPTION name OWNER TO roleId
+    : ALTER AGGREGATE aggregateWithArgumentTypes OWNER TO roleName
+    | ALTER COLLATION anyName OWNER TO roleName
+    | ALTER CONVERSION_P anyName OWNER TO roleName
+    | ALTER DATABASE databaseName OWNER TO roleName
+    | ALTER DOMAIN_P anyName OWNER TO roleName
+    | ALTER FUNCTION functionWithArgumentTypes OWNER TO roleName
+    | ALTER optionalProcedural LANGUAGE name OWNER TO roleName
+    | ALTER LARGE_P OBJECT_P numericOnly OWNER TO roleName
+    | ALTER OPERATOR operatorWithArgumentTypes OWNER TO roleName
+    | ALTER OPERATOR CLASS anyName USING name OWNER TO roleName
+    | ALTER OPERATOR FAMILY anyName USING name OWNER TO roleName
+    | ALTER PROCEDURE functionWithArgumentTypes OWNER TO roleName
+    | ALTER ROUTINE functionWithArgumentTypes OWNER TO roleName
+    | ALTER SCHEMA schemaName OWNER TO roleName
+    | ALTER TYPE_P anyName OWNER TO roleName
+    | ALTER TABLESPACE name OWNER TO roleName
+    | ALTER STATISTICS anyName OWNER TO roleName
+    | ALTER TEXT_P SEARCH DICTIONARY anyName OWNER TO roleName
+    | ALTER TEXT_P SEARCH CONFIGURATION anyName OWNER TO roleName
+    | ALTER FOREIGN DATA_P WRAPPER name OWNER TO roleName
+    | ALTER SERVER name OWNER TO roleName
+    | ALTER EVENT TRIGGER name OWNER TO roleName
+    | ALTER PUBLICATION name OWNER TO roleName
+    | ALTER SUBSCRIPTION name OWNER TO roleName
     ;
 
 createPublicationStatement
@@ -3841,14 +3841,14 @@ signedIconst
     | MINUS iconst
     ;
 
-roleId
+roleName
     : nonReservedWord
     | CURRENT_USER
     | SESSION_USER
     ;
 
-roleIdList
-    : roleId (COMMA roleId)*
+roleNameList
+    : roleName (COMMA roleName)*
     ;
 
 columnId

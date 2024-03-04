@@ -648,8 +648,8 @@ import { SconstContext } from "./PostgreSqlParser.js";
 import { AnySconstContext } from "./PostgreSqlParser.js";
 import { OptionalUescapeContext } from "./PostgreSqlParser.js";
 import { SignedIconstContext } from "./PostgreSqlParser.js";
-import { RoleIdContext } from "./PostgreSqlParser.js";
-import { RoleIdListContext } from "./PostgreSqlParser.js";
+import { RoleNameContext } from "./PostgreSqlParser.js";
+import { RoleNameListContext } from "./PostgreSqlParser.js";
 import { ColumnIdContext } from "./PostgreSqlParser.js";
 import { TableAliasContext } from "./PostgreSqlParser.js";
 import { TypeFunctionNameContext } from "./PostgreSqlParser.js";
@@ -4594,17 +4594,17 @@ export class PostgreSqlParserVisitor<Result> extends AbstractParseTreeVisitor<Re
      */
     visitSignedIconst?: (ctx: SignedIconstContext) => Result;
     /**
-     * Visit a parse tree produced by `PostgreSqlParser.roleId`.
+     * Visit a parse tree produced by `PostgreSqlParser.roleName`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitRoleId?: (ctx: RoleIdContext) => Result;
+    visitRoleName?: (ctx: RoleNameContext) => Result;
     /**
-     * Visit a parse tree produced by `PostgreSqlParser.roleIdList`.
+     * Visit a parse tree produced by `PostgreSqlParser.roleNameList`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitRoleIdList?: (ctx: RoleIdListContext) => Result;
+    visitRoleNameList?: (ctx: RoleNameListContext) => Result;
     /**
      * Visit a parse tree produced by `PostgreSqlParser.columnId`.
      * @param ctx the parse tree
