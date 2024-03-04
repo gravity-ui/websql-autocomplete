@@ -70,14 +70,14 @@ test('should suggest keywords after SELECT ON table TO user', () => {
         'REVOKE SELECT ON TABLE test_table FROM test_user |',
     );
 
-    const keywords: KeywordSuggestion[] = [{value: 'WITH'}];
+    const keywords: KeywordSuggestion[] = [{value: 'CASCADE'}, {value: 'RESTRICT'}];
     expect(autocompleteResult.suggestKeywords).toEqual(keywords);
 });
 
 test('should suggest sequences', () => {
     const autocompleteResult = parsePostgreSqlQueryWithCursor('REVOKE ALL ON SEQUENCE |');
 
-    const keywords: KeywordSuggestion[] = [{value: 'TO'}];
+    const keywords: KeywordSuggestion[] = [{value: 'FROM'}];
     expect(autocompleteResult.suggestKeywords).toEqual(keywords);
 
     expect(autocompleteResult.suggestSequences).toEqual(true);
@@ -86,7 +86,7 @@ test('should suggest sequences', () => {
 test('should suggest schemas', () => {
     const autocompleteResult = parsePostgreSqlQueryWithCursor('REVOKE ALL ON SCHEMA |');
 
-    const keywords: KeywordSuggestion[] = [{value: 'TO'}];
+    const keywords: KeywordSuggestion[] = [{value: 'FROM'}];
     expect(autocompleteResult.suggestKeywords).toEqual(keywords);
 
     expect(autocompleteResult.suggestSchemas).toEqual(true);
@@ -95,7 +95,7 @@ test('should suggest schemas', () => {
 test('should suggest databases', () => {
     const autocompleteResult = parsePostgreSqlQueryWithCursor('REVOKE ALL ON DATABASE |');
 
-    const keywords: KeywordSuggestion[] = [{value: 'TO'}];
+    const keywords: KeywordSuggestion[] = [{value: 'FROM'}];
     expect(autocompleteResult.suggestKeywords).toEqual(keywords);
 
     expect(autocompleteResult.suggestDatabases).toEqual(true);

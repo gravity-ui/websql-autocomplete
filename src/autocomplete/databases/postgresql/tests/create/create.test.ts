@@ -24,6 +24,7 @@ test('should suggest properly after CREATE', () => {
         {value: 'AGGREGATE'},
         {value: 'DATABASE'},
         {value: 'USER'},
+        {value: 'GROUP'},
         {value: 'ROLE'},
         {value: 'EVENT'},
         {value: 'CONSTRAINT'},
@@ -40,7 +41,6 @@ test('should suggest properly after CREATE', () => {
         {value: 'POLICY'},
         {value: 'PUBLICATION'},
         {value: 'MATERIALIZED'},
-        {value: 'GROUP'},
         {value: 'FUNCTION'},
         {value: 'PROCEDURE'},
         {value: 'FOREIGN'},
@@ -59,10 +59,6 @@ test('should suggest properly after CREATE', () => {
 test('should suggest properly after USER', () => {
     const autocompleteResult = parsePostgreSqlQueryWithCursor('CREATE USER |');
 
-    const keywordsSuggestion: KeywordSuggestion[] = [
-        {value: 'MAPPING'},
-        {value: 'CURRENT_USER'},
-        {value: 'SESSION_USER'},
-    ];
+    const keywordsSuggestion: KeywordSuggestion[] = [{value: 'MAPPING'}];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
