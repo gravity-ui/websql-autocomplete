@@ -56,7 +56,6 @@ statement
     | alterForeignDataWrapperStatement
     | alterForeignServerStatement
     | alterFunctionStatement
-    | alterGroupStatement
     | alterObjectDependsStatement
     | alterObjectSchemaStatement
     | alterOwnerStatement
@@ -95,7 +94,6 @@ statement
     | createForeignServerStatement
     | createForeignTableStatement
     | createFunctionStatement
-    | createGroupStatement
     | createMaterializedViewStatement
     | createOperatorClassStatement
     | createOperatorFamilyStatement
@@ -973,6 +971,7 @@ alterExtensionOptionItem
 
 alterExtensionContentsStatement
     : ALTER EXTENSION name addOrDrop objectTypeName name
+    | ALTER EXTENSION name addOrDrop ROLE roleId
     | ALTER EXTENSION name addOrDrop DATABASE databaseName
     | ALTER EXTENSION name addOrDrop SCHEMA schemaName
     | ALTER EXTENSION name addOrDrop INDEX indexName
@@ -1091,7 +1090,6 @@ createUserMappingStatement
     | CREATE USER MAPPING IF_P NOT EXISTS FOR authIdentifier SERVER name createGenericOptions
     ;
 
-// TODO: check
 authIdentifier
     : roleId
     | USER
@@ -1440,10 +1438,8 @@ objectTypeAnyName
     | TEXT_P SEARCH CONFIGURATION
     ;
 
-// TODO: check
 objectTypeName
     : dropTypeName
-    | ROLE
     | SUBSCRIPTION
     | TABLESPACE
     ;
@@ -1495,6 +1491,7 @@ commentStatement
     | COMMENT ON INDEX indexName IS commentText
     | COMMENT ON COLUMN anyName IS commentText
     | COMMENT ON objectTypeName name IS commentText
+    | COMMENT ON ROLE roleId IS commentText
     | COMMENT ON DATABASE databaseName IS commentText
     | COMMENT ON SCHEMA schemaName IS commentText
     | COMMENT ON TYPE_P typeName IS commentText
@@ -1525,6 +1522,7 @@ securityLabelStatement
     | SECURITY LABEL optionalProvider ON INDEX indexName IS securityLabel
     | SECURITY LABEL optionalProvider ON COLUMN anyName IS securityLabel
     | SECURITY LABEL optionalProvider ON objectTypeName name IS securityLabel
+    | SECURITY LABEL optionalProvider ON ROLE roleId IS securityLabel
     | SECURITY LABEL optionalProvider ON DATABASE databaseName IS securityLabel
     | SECURITY LABEL optionalProvider ON SCHEMA schemaName IS securityLabel
     | SECURITY LABEL optionalProvider ON TYPE_P typeName IS securityLabel

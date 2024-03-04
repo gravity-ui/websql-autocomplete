@@ -22,7 +22,6 @@ export interface AutocompleteResultBase {
     suggestColumns?: ColumnSuggestion;
     suggestColumnAliases?: ColumnAliasSuggestion[];
     suggestDatabases?: boolean;
-    suggestUsers?: boolean;
 }
 
 export interface MySqlAutocompleteResult extends AutocompleteResultBase {
@@ -30,6 +29,7 @@ export interface MySqlAutocompleteResult extends AutocompleteResultBase {
     suggestTriggers?: boolean;
     suggestConstraints?: ConstraintSuggestion;
     suggestRoles?: boolean;
+    suggestUsers?: boolean;
 }
 
 export interface PostgreSqlAutocompleteResult extends AutocompleteResultBase {
@@ -38,6 +38,7 @@ export interface PostgreSqlAutocompleteResult extends AutocompleteResultBase {
     suggestConstraints?: ConstraintSuggestion;
     suggestSequences?: boolean;
     suggestSchemas?: boolean;
+    suggestRoles?: boolean;
 }
 
 export interface ClickHouseAutocompleteResult extends AutocompleteResultBase {

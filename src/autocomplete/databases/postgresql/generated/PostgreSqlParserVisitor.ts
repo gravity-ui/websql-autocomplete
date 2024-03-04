@@ -30,8 +30,6 @@ import { AlterRoleStatementContext } from "./PostgreSqlParser.js";
 import { OptionalInDatabaseContext } from "./PostgreSqlParser.js";
 import { AlterRoleSetStatementContext } from "./PostgreSqlParser.js";
 import { DropRoleStatementContext } from "./PostgreSqlParser.js";
-import { CreateGroupStatementContext } from "./PostgreSqlParser.js";
-import { AlterGroupStatementContext } from "./PostgreSqlParser.js";
 import { AddOrDropContext } from "./PostgreSqlParser.js";
 import { CreateSchemaStatementContext } from "./PostgreSqlParser.js";
 import { OptionalSchemaNameContext } from "./PostgreSqlParser.js";
@@ -773,6 +771,7 @@ import { ExpressionUntilRightbracketContext } from "./PostgreSqlParser.js";
 import { ExpressionUntilLoopContext } from "./PostgreSqlParser.js";
 import { MakeExecuteSqlStatementContext } from "./PostgreSqlParser.js";
 import { OptionalReturningClauseIntoContext } from "./PostgreSqlParser.js";
+import { RoleOrAliasesContext } from "./PostgreSqlParser.js";
 
 
 /**
@@ -879,18 +878,6 @@ export class PostgreSqlParserVisitor<Result> extends AbstractParseTreeVisitor<Re
      * @return the visitor result
      */
     visitDropRoleStatement?: (ctx: DropRoleStatementContext) => Result;
-    /**
-     * Visit a parse tree produced by `PostgreSqlParser.createGroupStatement`.
-     * @param ctx the parse tree
-     * @return the visitor result
-     */
-    visitCreateGroupStatement?: (ctx: CreateGroupStatementContext) => Result;
-    /**
-     * Visit a parse tree produced by `PostgreSqlParser.alterGroupStatement`.
-     * @param ctx the parse tree
-     * @return the visitor result
-     */
-    visitAlterGroupStatement?: (ctx: AlterGroupStatementContext) => Result;
     /**
      * Visit a parse tree produced by `PostgreSqlParser.addOrDrop`.
      * @param ctx the parse tree
@@ -5344,4 +5331,10 @@ export class PostgreSqlParserVisitor<Result> extends AbstractParseTreeVisitor<Re
      * @return the visitor result
      */
     visitOptionalReturningClauseInto?: (ctx: OptionalReturningClauseIntoContext) => Result;
+    /**
+     * Visit a parse tree produced by `PostgreSqlParser.roleOrAliases`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitRoleOrAliases?: (ctx: RoleOrAliasesContext) => Result;
 }
