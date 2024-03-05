@@ -55,12 +55,10 @@ test('should suggest keywords after SELECT ON table TO', () => {
         'GRANT SELECT ON TABLE test_table TO |',
     );
 
-    const keywords: KeywordSuggestion[] = [
-        {value: 'CURRENT_USER'},
-        {value: 'SESSION_USER'},
-        {value: 'GROUP'},
-    ];
+    const keywords: KeywordSuggestion[] = [{value: 'GROUP'}];
     expect(autocompleteResult.suggestKeywords).toEqual(keywords);
+
+    expect(autocompleteResult.suggestRoles).toEqual(true);
 });
 
 test('should suggest keywords after SELECT ON table TO user', () => {

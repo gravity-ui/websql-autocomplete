@@ -4,10 +4,7 @@ import {KeywordSuggestion} from '../../../../autocomplete-types';
 test('should suggest properly after ROLE', () => {
     const autocompleteResult = parsePostgreSqlQueryWithCursor('CREATE ROLE |');
 
-    const keywordsSuggestion: KeywordSuggestion[] = [
-        {value: 'CURRENT_USER'},
-        {value: 'SESSION_USER'},
-    ];
+    const keywordsSuggestion: KeywordSuggestion[] = [];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
@@ -22,10 +19,11 @@ test('should suggest properly after role name', () => {
         {value: 'INHERIT'},
         {value: 'CONNECTION'},
         {value: 'VALID'},
+        {value: 'GROUP'},
         {value: 'USER'},
+        {value: 'ROLE'},
         {value: 'SYSID'},
         {value: 'ADMIN'},
-        {value: 'ROLE'},
         {value: 'IN'},
     ];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
@@ -41,10 +39,11 @@ test('should suggest properly after WITH', () => {
         {value: 'INHERIT'},
         {value: 'CONNECTION'},
         {value: 'VALID'},
+        {value: 'GROUP'},
         {value: 'USER'},
+        {value: 'ROLE'},
         {value: 'SYSID'},
         {value: 'ADMIN'},
-        {value: 'ROLE'},
         {value: 'IN'},
     ];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);

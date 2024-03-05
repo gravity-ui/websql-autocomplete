@@ -29,6 +29,7 @@ export interface MySqlAutocompleteResult extends AutocompleteResultBase {
     suggestTriggers?: boolean;
     suggestConstraints?: ConstraintSuggestion;
     suggestRoles?: boolean;
+    suggestUsers?: boolean;
 }
 
 export interface PostgreSqlAutocompleteResult extends AutocompleteResultBase {
@@ -37,6 +38,7 @@ export interface PostgreSqlAutocompleteResult extends AutocompleteResultBase {
     suggestConstraints?: ConstraintSuggestion;
     suggestSequences?: boolean;
     suggestSchemas?: boolean;
+    suggestRoles?: boolean;
 }
 
 export interface ClickHouseAutocompleteResult extends AutocompleteResultBase {

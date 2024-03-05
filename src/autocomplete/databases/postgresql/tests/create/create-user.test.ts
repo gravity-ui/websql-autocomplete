@@ -4,11 +4,7 @@ import {KeywordSuggestion} from '../../../../autocomplete-types';
 test('should suggest properly after USER', () => {
     const autocompleteResult = parsePostgreSqlQueryWithCursor('CREATE USER |');
 
-    const keywordsSuggestion: KeywordSuggestion[] = [
-        {value: 'MAPPING'},
-        {value: 'CURRENT_USER'},
-        {value: 'SESSION_USER'},
-    ];
+    const keywordsSuggestion: KeywordSuggestion[] = [{value: 'MAPPING'}];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
@@ -23,10 +19,11 @@ test('should suggest properly after user name', () => {
         {value: 'INHERIT'},
         {value: 'CONNECTION'},
         {value: 'VALID'},
+        {value: 'GROUP'},
         {value: 'USER'},
+        {value: 'ROLE'},
         {value: 'SYSID'},
         {value: 'ADMIN'},
-        {value: 'ROLE'},
         {value: 'IN'},
     ];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
