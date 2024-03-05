@@ -1,7 +1,7 @@
 DIALECT=$1
 
 # Check that dialect is correct
-if [ "$DIALECT" != "mysql" ] && [ "$DIALECT" != "postgresql" ] && [ "$DIALECT" != "clickhouse" ]
+if [ "$DIALECT" != "mysql" ] && [ "$DIALECT" != "postgresql" ] && [ "$DIALECT" != "clickhouse" ] && [ "$DIALECT" != "yql" ]
 then
   echo "dialect '$DIALECT' is not supported"
   exit 0
@@ -14,6 +14,9 @@ then
 elif [ "$DIALECT" == "postgresql" ]
 then
   FILE_PREFIX=src/autocomplete/databases/$DIALECT/generated/PostgreSql
+elif [ "$DIALECT" == "yql" ]
+then
+  FILE_PREFIX=src/autocomplete/databases/$DIALECT/generated/YQL
 else
   FILE_PREFIX=src/autocomplete/databases/$DIALECT/generated/ClickHouse
 fi
@@ -25,8 +28,14 @@ HEADER="////////////////////////////////////////////////////////
 declare -a FILES_TO_PATCH=(
   ${FILE_PREFIX}Lexer.ts
   ${FILE_PREFIX}Parser.ts
-  ${FILE_PREFIX}ParserVisitor.ts
 )
+
+if [ "$DIALECT" == "yql" ]
+then
+  FILES_TO_PATCH+=("${FILE_PREFIX}Visitor.ts")
+else
+  FILES_TO_PATCH+=("${FILE_PREFIX}ParserVisitor.ts")
+fi
 
 echo "Patching ${DIALECT} generated files"
 

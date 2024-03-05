@@ -31,7 +31,8 @@
     "generate:mysql": "rimraf src/autocomplete/databases/mysql/generated && antlr4ng -Dlanguage=TypeScript -o src/autocomplete/databases/mysql/generated/ -visitor -no-listener -Xexact-output-dir src/autocomplete/databases/mysql/grammar/MySqlLexer.g4 src/autocomplete/databases/mysql/grammar/MySqlParser.g4 && bash scripts/patch-generated.sh mysql",
     "generate:postgresql": "rimraf src/autocomplete/databases/postgresql/generated && antlr4ng -Dlanguage=TypeScript -o src/autocomplete/databases/postgresql/generated/ -visitor -no-listener -Xexact-output-dir src/autocomplete/databases/postgresql/grammar/PostgreSqlLexer.g4 src/autocomplete/databases/postgresql/grammar/PostgreSqlParser.g4 && bash scripts/patch-generated.sh postgresql",
     "generate:clickhouse": "rimraf src/autocomplete/databases/clickhouse/generated && antlr4ng -Dlanguage=TypeScript -o src/autocomplete/databases/clickhouse/generated/ -visitor -no-listener -Xexact-output-dir src/autocomplete/databases/clickhouse/grammar/ClickHouseLexer.g4 src/autocomplete/databases/clickhouse/grammar/ClickHouseParser.g4 && bash scripts/patch-generated.sh clickhouse",
-    "test": "node --experimental-vm-modules ./node_modules/.bin/jest --verbose src",
+    "generate:yql": "rimraf src/autocomplete/databases/yql/generated && antlr4ng -Dlanguage=TypeScript -o src/autocomplete/databases/yql/generated/ -visitor -no-listener -Xexact-output-dir src/autocomplete/databases/yql/grammar/YQL.g4 && bash scripts/patch-generated.sh yql",
+    "test": "node --experimental-vm-modules  ./node_modules/.bin/jest --verbose  src",
     "build": "rimraf dist && node build.js && tsc -p tsconfig.build.json",
     "prepublishOnly": "npm run build"
   },

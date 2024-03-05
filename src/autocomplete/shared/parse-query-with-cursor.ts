@@ -3,9 +3,15 @@ import {
     CursorPosition,
     MySqlAutocompleteResult,
     PostgreSqlAutocompleteResult,
+    YQLAutocompleteResult,
 } from '../autocomplete-types';
 import {lineSeparatorRegex} from './cursor';
-import {parseClickHouseQuery, parseMySqlQuery, parsePostgreSqlQuery} from '../autocomplete';
+import {
+    parseClickHouseQuery,
+    parseMySqlQuery,
+    parsePostgreSqlQuery,
+    parseYQLQuery,
+} from '../autocomplete';
 
 export function parseMySqlQueryWithCursor(queryWithCursor: string): MySqlAutocompleteResult {
     return parseMySqlQuery(...separateQueryAndCursor(queryWithCursor));
@@ -21,6 +27,9 @@ export function parseClickHouseQueryWithCursor(
     queryWithCursor: string,
 ): ClickHouseAutocompleteResult {
     return parseClickHouseQuery(...separateQueryAndCursor(queryWithCursor));
+}
+export function parseYQLQueryWithCursor(queryWithCursor: string): YQLAutocompleteResult {
+    return parseYQLQuery(...separateQueryAndCursor(queryWithCursor));
 }
 
 // separateQueryAndCursor helps to calculate cursor position based on the pipe symbol `|`.

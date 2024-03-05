@@ -45,6 +45,26 @@ export interface ClickHouseAutocompleteResult extends AutocompleteResultBase {
     suggestEngines?: EngineSuggestion;
 }
 
+type YQLEntity =
+    | 'externalDataSource'
+    | 'view'
+    | 'object'
+    | 'tableStore'
+    | 'table'
+    | 'replication'
+    | 'topic'
+    | 'group'
+    | 'user';
+export interface YQLAutocompleteResult
+    extends Omit<AutocompleteResultBase, 'suggestViewsOrTables'> {
+    suggestEntity?: YQLEntity[];
+    suggestSimpleTypes?: boolean;
+    suggestUdfs?: boolean;
+    suggestWindowFunctions?: boolean;
+    suggestTableFunctions?: boolean;
+    suggestPragmas?: boolean;
+}
+
 export interface ParserSyntaxError extends TokenPosition {
     message: string;
 }

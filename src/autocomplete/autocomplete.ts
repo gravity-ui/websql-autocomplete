@@ -9,6 +9,7 @@ import {
     MySqlAutocompleteResult,
     ParserConstructor,
     PostgreSqlAutocompleteResult,
+    YQLAutocompleteResult,
 } from './autocomplete-types';
 import {postgreSqlAutocompleteData} from './databases/postgresql/postgresql-autocomplete';
 import {mySqlAutocompleteData} from './databases/mysql/mysql-autocomplete';
@@ -19,6 +20,7 @@ import {SqlErrorListener} from './shared/sql-error-listener';
 import * as c3 from 'antlr4-c3';
 import {findCursorTokenIndex} from './shared/cursor';
 import {clickHouseAutocompleteData} from './databases/clickhouse/clickhouse-autocomplete';
+import {yqlAutocompleteData} from './databases/yql/yql-autocomplete';
 
 function parseQueryWithoutCursor<L extends LexerType, P extends ParserType>(
     Lexer: LexerConstructor<L>,
@@ -177,6 +179,29 @@ export function parseClickHouseQuery(
         clickHouseAutocompleteData.rulesToVisit,
         clickHouseAutocompleteData.getParseTree,
         clickHouseAutocompleteData.enrichAutocompleteResult,
+        query,
+        cursor,
+    );
+}
+export function parseYQLQueryWithoutCursor(query: string): Pick<YQLAutocompleteResult, 'errors'> {
+    return parseQueryWithoutCursor(
+        yqlAutocompleteData.Lexer,
+        yqlAutocompleteData.Parser,
+        yqlAutocompleteData.tokenDictionary,
+        yqlAutocompleteData.getParseTree,
+        query,
+    );
+}
+
+export function parseYQLQuery(query: string, cursor: CursorPosition): YQLAutocompleteResult {
+    return parseQuery(
+        yqlAutocompleteData.Lexer,
+        yqlAutocompleteData.Parser,
+        yqlAutocompleteData.tokenDictionary,
+        yqlAutocompleteData.ignoredTokens,
+        yqlAutocompleteData.rulesToVisit,
+        yqlAutocompleteData.getParseTree,
+        yqlAutocompleteData.enrichAutocompleteResult,
         query,
         cursor,
     );

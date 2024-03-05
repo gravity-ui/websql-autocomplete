@@ -5,6 +5,8 @@ export {
     parsePostgreSqlQueryWithoutCursor,
     parseClickHouseQuery,
     parseClickHouseQueryWithoutCursor,
+    parseYQLQuery,
+    parseYQLQueryWithoutCursor,
 } from './autocomplete/autocomplete';
 
 export {
