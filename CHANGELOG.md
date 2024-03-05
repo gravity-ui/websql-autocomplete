@@ -1,5 +1,13 @@
 # Changelog
 
+## [6.1.0](https://github.com/gravity-ui/websql-autocomplete/compare/v6.0.0...v6.1.0) (2024-03-05)
+
+
+### Features
+
+* Add role suggestions for MySql ([#165](https://github.com/gravity-ui/websql-autocomplete/issues/165)) ([eba7ac3](https://github.com/gravity-ui/websql-autocomplete/commit/eba7ac370f77f4bf39a102f449134fb0c164a162))
+* Add user suggestions for MySql, role suggestions for PostgreSql ([#168](https://github.com/gravity-ui/websql-autocomplete/issues/168)) ([f329f54](https://github.com/gravity-ui/websql-autocomplete/commit/f329f54dc062a35a061e9b1de483b9d499b03b2a))
+
 ## [6.0.0](https://github.com/gravity-ui/websql-autocomplete/compare/v5.1.0...v6.0.0) (2024-02-28)
 
 
