@@ -250,7 +250,8 @@ function processVisitedRules(
                     rule.ruleList.includes(YQLParser.RULE_values_stmt) ||
                     rule.ruleList.includes(YQLParser.RULE_limit_stmt) ||
                     rule.ruleList.includes(YQLParser.RULE_offset_stmt) ||
-                    rule.ruleList.includes(YQLParser.RULE_lambda_stmt);
+                    rule.ruleList.includes(YQLParser.RULE_lambda_stmt) ||
+                    rule.ruleList.includes(YQLParser.RULE_alter_table_add_column);
                 if (!isSourceExpression) {
                     if (!withoutColumnsSuggestion) {
                         shouldSuggestColumns = true;

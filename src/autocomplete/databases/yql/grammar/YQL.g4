@@ -1266,7 +1266,7 @@ role_name
     ;
 
 create_user_option
-    : ENCRYPTED? PASSWORD expr
+    : ENCRYPTED? PASSWORD object_feature_value
     ;
 
 grant_permissions_stmt

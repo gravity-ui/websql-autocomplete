@@ -17,40 +17,8 @@ test('should suggest properly after user name', () => {
 
 test('should suggest properly after PASSWORD', () => {
     const autocompleteResult = parseYQLQueryWithCursor('CREATE USER test_user PASSWORD |');
-    const keywordsSuggestion: KeywordSuggestion[] = [
-        {value: 'DIGITS'},
-        {value: 'INTEGER_VALUE'},
-        {value: 'REAL'},
-        {value: 'BLOB'},
-        {value: 'NULL'},
-        {value: 'CURRENT_TIME'},
-        {value: 'CURRENT_DATE'},
-        {value: 'CURRENT_TIMESTAMP'},
-        {value: 'FALSE'},
-        {value: 'TRUE'},
-        {value: 'EMPTY_ACTION'},
-        {value: 'CAST'},
-        {value: 'EXISTS'},
-        {value: 'CASE'},
-        {value: 'VARIANT'},
-        {value: 'ENUM'},
-        {value: 'CALLABLE'},
-        {value: 'BITCAST'},
-        {value: 'JSON_VALUE'},
-        {value: 'JSON_EXISTS'},
-        {value: 'JSON_QUERY'},
-        {value: 'NOT'},
-        {value: 'OPTIONAL'},
-        {value: 'TUPLE'},
-        {value: 'STRUCT'},
-        {value: 'LIST'},
-        {value: 'FLOW'},
-        {value: 'DICT'},
-        {value: 'SET'},
-        {value: 'RESOURCE'},
-        {value: 'TAGGED'},
-    ];
+    const keywordsSuggestion: KeywordSuggestion[] = [];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
-    expect(autocompleteResult.suggestFunctions).toBeTruthy();
-    expect(autocompleteResult.suggestUdfs).toBeTruthy();
+    expect(autocompleteResult.suggestFunctions).toBeFalsy();
+    expect(autocompleteResult.suggestUdfs).toBeFalsy();
 });

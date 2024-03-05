@@ -74,6 +74,7 @@ test('should suggest keywords after ADD COLUMN', () => {
     const keywords: KeywordSuggestion[] = [];
 
     expect(autocompleteResult.suggestKeywords).toEqual(keywords);
+    expect(autocompleteResult.suggestColumns).toBeFalsy();
 });
 
 test('should suggest types after column name', () => {
