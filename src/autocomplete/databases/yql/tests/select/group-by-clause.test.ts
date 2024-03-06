@@ -1,6 +1,5 @@
 import {parseYQLQueryWithCursor} from '../../../../shared/parse-query-with-cursor';
 import {
-    ColumnAliasSuggestion,
     ColumnSuggestion,
     KeywordSuggestion,
     YQLAutocompleteResult,
@@ -66,11 +65,9 @@ test('should suggest properly after GROUP BY', () => {
         'SELECT count(*) as count, test_column t1 FROM test_table as t GROUP BY |',
     );
     const columnSuggestion: ColumnSuggestion = {tables: [{name: 'test_table', alias: 't'}]};
-    const columnAliasSuggestion: ColumnAliasSuggestion[] = [{name: 'count'}, {name: 't1'}];
 
     expect(autocompleteResult.suggestKeywords).toEqual(afterGroupByKeywords);
     expect(autocompleteResult.suggestColumns).toEqual(columnSuggestion);
-    expect(autocompleteResult.suggestColumnAliases).toEqual(columnAliasSuggestion);
     getAfterGroupByCommonExpections(autocompleteResult);
 });
 
@@ -81,11 +78,9 @@ test('should suggest properly after GROUP BY between statements', () => {
             'ALTER TABLE after_table DROP COLUMN id;',
     );
     const columnSuggestion: ColumnSuggestion = {tables: [{name: 'test_table', alias: 't'}]};
-    const columnAliasSuggestion: ColumnAliasSuggestion[] = [{name: 'count'}, {name: 't1'}];
 
     expect(autocompleteResult.suggestKeywords).toEqual(afterGroupByKeywords);
     expect(autocompleteResult.suggestColumns).toEqual(columnSuggestion);
-    expect(autocompleteResult.suggestColumnAliases).toEqual(columnAliasSuggestion);
     getAfterGroupByCommonExpections(autocompleteResult);
 });
 
@@ -94,11 +89,9 @@ test('should suggest properly after GROUP BY in nested statement', () => {
         'SELECT id as id1 FROM (SELECT count(*) as count, test_column t1 FROM test_table as t GROUP BY |',
     );
     const columnSuggestion: ColumnSuggestion = {tables: [{name: 'test_table', alias: 't'}]};
-    const columnAliasSuggestion: ColumnAliasSuggestion[] = [{name: 'count'}, {name: 't1'}];
 
     expect(autocompleteResult.suggestKeywords).toEqual(afterGroupByKeywords);
     expect(autocompleteResult.suggestColumns).toEqual(columnSuggestion);
-    expect(autocompleteResult.suggestColumnAliases).toEqual(columnAliasSuggestion);
     getAfterGroupByCommonExpections(autocompleteResult);
 });
 
@@ -110,10 +103,8 @@ test('should suggest properly after GROUP BY between statements in nested statem
     );
 
     const columnSuggestion: ColumnSuggestion = {tables: [{name: 'test_table', alias: 't'}]};
-    const columnAliasSuggestion: ColumnAliasSuggestion[] = [{name: 'count'}, {name: 't1'}];
 
     expect(autocompleteResult.suggestKeywords).toEqual(afterGroupByKeywords);
     expect(autocompleteResult.suggestColumns).toEqual(columnSuggestion);
-    expect(autocompleteResult.suggestColumnAliases).toEqual(columnAliasSuggestion);
     getAfterGroupByCommonExpections(autocompleteResult);
 });

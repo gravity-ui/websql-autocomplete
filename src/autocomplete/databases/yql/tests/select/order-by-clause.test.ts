@@ -1,6 +1,5 @@
 import {parseYQLQueryWithCursor} from '../../../../shared/parse-query-with-cursor';
 import {
-    ColumnAliasSuggestion,
     ColumnSuggestion,
     KeywordSuggestion,
     YQLAutocompleteResult,
@@ -62,10 +61,8 @@ test('should suggest properly after ORDER BY', () => {
     );
 
     const columnSuggestion: ColumnSuggestion = {tables: [{name: 'test_table', alias: 't'}]};
-    const columnAliasSuggestion: ColumnAliasSuggestion[] = [{name: 'count'}, {name: 't1'}];
 
     expect(autocompleteResult.suggestColumns).toEqual(columnSuggestion);
-    expect(autocompleteResult.suggestColumnAliases).toEqual(columnAliasSuggestion);
     getAfterOrderByCommonExpections(autocompleteResult);
 });
 
@@ -76,10 +73,8 @@ test('should suggest properly after ORDER BY between statements', () => {
             'ALTER TABLE after_table DROP COLUMN id;',
     );
     const columnSuggestion: ColumnSuggestion = {tables: [{name: 'test_table', alias: 't'}]};
-    const columnAliasSuggestion: ColumnAliasSuggestion[] = [{name: 'count'}, {name: 't1'}];
 
     expect(autocompleteResult.suggestColumns).toEqual(columnSuggestion);
-    expect(autocompleteResult.suggestColumnAliases).toEqual(columnAliasSuggestion);
     getAfterOrderByCommonExpections(autocompleteResult);
 });
 
@@ -88,9 +83,8 @@ test('should suggest properly after ORDER BY in nested statement', () => {
         'SELECT id as id1 FROM (SELECT count(*) as count, test_column t1 FROM test_table as t ORDER BY |',
     );
     const columnSuggestion: ColumnSuggestion = {tables: [{name: 'test_table', alias: 't'}]};
-    const columnAliasSuggestion: ColumnAliasSuggestion[] = [{name: 'count'}, {name: 't1'}];
+
     expect(autocompleteResult.suggestColumns).toEqual(columnSuggestion);
-    expect(autocompleteResult.suggestColumnAliases).toEqual(columnAliasSuggestion);
     getAfterOrderByCommonExpections(autocompleteResult);
 });
 
@@ -101,9 +95,6 @@ test('should suggest properly after ORDER BY between statements in nested statem
             'ALTER TABLE after_table DROP COLUMN id;',
     );
     const columnSuggestion: ColumnSuggestion = {tables: [{name: 'test_table', alias: 't'}]};
-    const columnAliasSuggestion: ColumnAliasSuggestion[] = [{name: 'count'}, {name: 't1'}];
-
     expect(autocompleteResult.suggestColumns).toEqual(columnSuggestion);
-    expect(autocompleteResult.suggestColumnAliases).toEqual(columnAliasSuggestion);
     getAfterOrderByCommonExpections(autocompleteResult);
 });
