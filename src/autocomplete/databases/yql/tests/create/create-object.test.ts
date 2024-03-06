@@ -17,11 +17,11 @@ test('should suggest properly after object name', () => {
 
 test('should suggest properly after TYPE', () => {
     const autocompleteResult = parseYQLQueryWithCursor('CREATE OBJECT test_object (TYPE |');
-    const keywordsSuggestion: KeywordSuggestion[] = [];
+    const keywordsSuggestion: KeywordSuggestion[] = [{value: 'SECRET'}];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 test('should suggest properly after type expression', () => {
-    const autocompleteResult = parseYQLQueryWithCursor('CREATE OBJECT test_object (TYPE test) |');
+    const autocompleteResult = parseYQLQueryWithCursor('CREATE OBJECT test_object (TYPE SECRET) |');
     const keywordsSuggestion: KeywordSuggestion[] = [{value: 'WITH'}];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
