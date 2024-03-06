@@ -14,6 +14,8 @@ export {
     MySqlAutocompleteResult,
     PostgreSqlAutocompleteResult,
     ClickHouseAutocompleteResult,
+    YQLAutocompleteResult,
+    YQLEntity,
     TableOrViewSuggestion,
     KeywordSuggestion,
     ParserSyntaxError,

@@ -1007,7 +1007,7 @@ object_features
     ;
 
 object_type_ref
-    : an_id_or_type
+    : SECRET
     ;
 
 create_table_stmt
@@ -3338,6 +3338,10 @@ SCHEMA
 
 SECONDS
     : S E C O N D S
+    ;
+
+SECRET
+    : S E C R E T
     ;
 
 SEEK

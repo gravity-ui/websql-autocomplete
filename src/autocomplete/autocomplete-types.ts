@@ -15,7 +15,6 @@ import {TableQueryPosition, TokenDictionary} from './shared/tables';
 export interface AutocompleteResultBase {
     errors: ParserSyntaxError[];
     suggestKeywords?: KeywordSuggestion[];
-    suggestViewsOrTables?: TableOrViewSuggestion;
     suggestTemplates?: boolean;
     suggestAggregateFunctions?: boolean;
     suggestFunctions?: boolean;
@@ -25,6 +24,7 @@ export interface AutocompleteResultBase {
 }
 
 export interface MySqlAutocompleteResult extends AutocompleteResultBase {
+    suggestViewsOrTables?: TableOrViewSuggestion;
     suggestIndexes?: boolean;
     suggestTriggers?: boolean;
     suggestConstraints?: ConstraintSuggestion;
@@ -33,6 +33,7 @@ export interface MySqlAutocompleteResult extends AutocompleteResultBase {
 }
 
 export interface PostgreSqlAutocompleteResult extends AutocompleteResultBase {
+    suggestViewsOrTables?: TableOrViewSuggestion;
     suggestIndexes?: boolean;
     suggestTriggers?: boolean;
     suggestConstraints?: ConstraintSuggestion;
@@ -42,10 +43,11 @@ export interface PostgreSqlAutocompleteResult extends AutocompleteResultBase {
 }
 
 export interface ClickHouseAutocompleteResult extends AutocompleteResultBase {
+    suggestViewsOrTables?: TableOrViewSuggestion;
     suggestEngines?: EngineSuggestion;
 }
 
-type YQLEntity =
+export type YQLEntity =
     | 'externalDataSource'
     | 'view'
     | 'object'
@@ -55,8 +57,8 @@ type YQLEntity =
     | 'topic'
     | 'group'
     | 'user';
-export interface YQLAutocompleteResult
-    extends Omit<AutocompleteResultBase, 'suggestViewsOrTables'> {
+
+export interface YQLAutocompleteResult extends AutocompleteResultBase {
     suggestEntity?: YQLEntity[];
     suggestSimpleTypes?: boolean;
     suggestUdfs?: boolean;
@@ -124,6 +126,7 @@ export type ProcessVisitedRulesResult<A extends AutocompleteResultBase> = Partia
     shouldSuggestColumnAliases?: boolean;
     shouldSuggestConstraints?: boolean;
 };
+
 export type ProcessVisitedRules<A extends AutocompleteResultBase> = (
     rules: c3.CandidatesCollection['rules'],
     cursorTokenIndex: number,

@@ -183,6 +183,7 @@ export function parseClickHouseQuery(
         cursor,
     );
 }
+
 export function parseYQLQueryWithoutCursor(query: string): Pick<YQLAutocompleteResult, 'errors'> {
     return parseQueryWithoutCursor(
         yqlAutocompleteData.Lexer,

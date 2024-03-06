@@ -1,26 +1,28 @@
 {
-  "root": true,
-  "extends": [
-      "@gravity-ui/eslint-config",
-      "@gravity-ui/eslint-config/prettier"
-  ],
-  // These files are generated, so they don't have to be linted
-  "ignorePatterns": [
-    "src/autocomplete/databases/*/generated/**/*",
-    "src/autocomplete/databases/*/grammar/**/*"
-  ],
-  "plugins": [
-    "filenames"
-  ],
-  "rules": {
-      "array-callback-return": "off",
-      "consistent-return": "off",
-      "no-negated-condition": "off",
-      "@typescript-eslint/explicit-function-return-type": "error",
-      "object-shorthand": "error",
-      "no-implicit-globals": "off",
-      "camelcase": "off",
-      "complexity": "off",
-      "filenames/match-regex": [2, "^[a-z-\\.]+$", true]
-  }
+    "root": true,
+    "extends": ["@gravity-ui/eslint-config", "@gravity-ui/eslint-config/prettier"],
+    // These files are generated, so they don't have to be linted
+    "ignorePatterns": [
+        "src/autocomplete/databases/*/generated/**/*",
+        "src/autocomplete/databases/*/grammar/**/*"
+    ],
+    "plugins": ["filenames"],
+    "rules": {
+        "array-callback-return": "off",
+        "consistent-return": "off",
+        "no-negated-condition": "off",
+        "@typescript-eslint/explicit-function-return-type": "error",
+        "object-shorthand": "error",
+        "no-implicit-globals": "off",
+        "camelcase": "off",
+        "complexity": "off",
+        "filenames/match-regex": [2, "^[a-z-\\.]+$", true],
+        "padding-line-between-statements": [
+            "error",
+            {"blankLine": "always", "prev": "function", "next": "*"},
+            {"blankLine": "always", "prev": "*", "next": "function"},
+            {"blankLine": "always", "prev": "export", "next": "*"},
+            {"blankLine": "always", "prev": "*", "next": "export"}
+        ]
+    }
 }

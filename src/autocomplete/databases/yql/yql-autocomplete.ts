@@ -187,7 +187,6 @@ function processVisitedRules(
     let suggestPragmas = false;
     let shouldSuggestColumns = false;
     let suggestSimpleTypes = false;
-    let shouldSuggestColumnAliases = false;
 
     const isCreateEntity = getPreviousToken(
         tokenStream,
@@ -217,7 +216,6 @@ function processVisitedRules(
                     rule.ruleList.includes(YQLParser.RULE_alter_table_alter_column)
                 ) {
                     shouldSuggestColumns = true;
-                    shouldSuggestColumnAliases = true;
                 }
                 if (rule.ruleList.includes(YQLParser.RULE_pragma_stmt)) {
                     suggestPragmas = true;
@@ -255,7 +253,6 @@ function processVisitedRules(
                 if (!isSourceExpression) {
                     if (!withoutColumnsSuggestion) {
                         shouldSuggestColumns = true;
-                        shouldSuggestColumnAliases = true;
                     }
                     if (isCommonFunctionExpression) {
                         suggestUdfs = true;
@@ -358,7 +355,6 @@ function processVisitedRules(
         suggestPragmas,
         suggestFunctions,
         shouldSuggestColumns,
-        shouldSuggestColumnAliases,
         suggestSimpleTypes,
         suggestWindowFunctions,
         suggestTableFunctions,

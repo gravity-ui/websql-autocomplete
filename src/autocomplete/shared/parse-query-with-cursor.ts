@@ -28,6 +28,7 @@ export function parseClickHouseQueryWithCursor(
 ): ClickHouseAutocompleteResult {
     return parseClickHouseQuery(...separateQueryAndCursor(queryWithCursor));
 }
+
 export function parseYQLQueryWithCursor(queryWithCursor: string): YQLAutocompleteResult {
     return parseYQLQuery(...separateQueryAndCursor(queryWithCursor));
 }
