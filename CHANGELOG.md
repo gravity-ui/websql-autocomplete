@@ -1,5 +1,16 @@
 # Changelog
 
+## [7.0.0](https://github.com/gravity-ui/websql-autocomplete/compare/v6.1.0...v7.0.0) (2024-03-06)
+
+
+### ⚠ BREAKING CHANGES
+
+* Add YQL language autocomplete ([#170](https://github.com/gravity-ui/websql-autocomplete/issues/170))
+
+### Features
+
+* Add YQL language autocomplete ([#170](https://github.com/gravity-ui/websql-autocomplete/issues/170)) ([7f07f3e](https://github.com/gravity-ui/websql-autocomplete/commit/7f07f3ef48b6ce6dcf00522d328732066aebadd4))
+
 ## [6.1.0](https://github.com/gravity-ui/websql-autocomplete/compare/v6.0.0...v6.1.0) (2024-03-05)
 
 
