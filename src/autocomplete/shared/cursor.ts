@@ -10,6 +10,7 @@ export interface TokenPosition {
 }
 
 const possibleIdentifierPrefixRegex = /[\w]$/;
+
 export const lineSeparatorRegex = /\r\n|\n|\r/g;
 
 export function getTokenPosition(token: Token, whitespaceToken: number): TokenPosition {

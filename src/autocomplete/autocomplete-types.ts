@@ -15,7 +15,6 @@ import {TableQueryPosition, TokenDictionary} from './shared/tables';
 export interface AutocompleteResultBase {
     errors: ParserSyntaxError[];
     suggestKeywords?: KeywordSuggestion[];
-    suggestViewsOrTables?: TableOrViewSuggestion;
     suggestTemplates?: boolean;
     suggestAggregateFunctions?: boolean;
     suggestFunctions?: boolean;
@@ -25,6 +24,7 @@ export interface AutocompleteResultBase {
 }
 
 export interface MySqlAutocompleteResult extends AutocompleteResultBase {
+    suggestViewsOrTables?: TableOrViewSuggestion;
     suggestIndexes?: boolean;
     suggestTriggers?: boolean;
     suggestConstraints?: ConstraintSuggestion;
@@ -33,6 +33,7 @@ export interface MySqlAutocompleteResult extends AutocompleteResultBase {
 }
 
 export interface PostgreSqlAutocompleteResult extends AutocompleteResultBase {
+    suggestViewsOrTables?: TableOrViewSuggestion;
     suggestIndexes?: boolean;
     suggestTriggers?: boolean;
     suggestConstraints?: ConstraintSuggestion;
@@ -42,7 +43,28 @@ export interface PostgreSqlAutocompleteResult extends AutocompleteResultBase {
 }
 
 export interface ClickHouseAutocompleteResult extends AutocompleteResultBase {
+    suggestViewsOrTables?: TableOrViewSuggestion;
     suggestEngines?: EngineSuggestion;
+}
+
+export type YQLEntity =
+    | 'externalDataSource'
+    | 'view'
+    | 'object'
+    | 'tableStore'
+    | 'table'
+    | 'replication'
+    | 'topic'
+    | 'group'
+    | 'user';
+
+export interface YQLAutocompleteResult extends AutocompleteResultBase {
+    suggestEntity?: YQLEntity[];
+    suggestSimpleTypes?: boolean;
+    suggestUdfs?: boolean;
+    suggestWindowFunctions?: boolean;
+    suggestTableFunctions?: boolean;
+    suggestPragmas?: boolean;
 }
 
 export interface ParserSyntaxError extends TokenPosition {
@@ -104,6 +126,7 @@ export type ProcessVisitedRulesResult<A extends AutocompleteResultBase> = Partia
     shouldSuggestColumnAliases?: boolean;
     shouldSuggestConstraints?: boolean;
 };
+
 export type ProcessVisitedRules<A extends AutocompleteResultBase> = (
     rules: c3.CandidatesCollection['rules'],
     cursorTokenIndex: number,
