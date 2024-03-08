@@ -83,6 +83,8 @@ test('should suggest keywords after JOIN table', () => {
         'SELECT * FROM test_table_1 JOIN test_table_2 |',
     );
     const keywords: KeywordSuggestion[] = [
+        {value: 'VIEW'},
+        {value: 'WITH'},
         {value: 'TABLESAMPLE'},
         {value: 'SAMPLE'},
         {value: 'AS'},

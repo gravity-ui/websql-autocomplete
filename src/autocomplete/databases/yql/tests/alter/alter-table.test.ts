@@ -137,3 +137,11 @@ test('should suggest keywords after RENAME', () => {
 
     expect(autocompleteResult.suggestKeywords).toEqual(keywords);
 });
+
+test('should suggest after RENAME TO', () => {
+    const autocompleteResult = parseYQLQueryWithCursor('ALTER TABLE test_table RENAME TO |');
+    const keywords: KeywordSuggestion[] = [];
+
+    expect(autocompleteResult.suggestKeywords).toEqual(keywords);
+    expect(autocompleteResult.suggestColumns).toBeFalsy();
+});

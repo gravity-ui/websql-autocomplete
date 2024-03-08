@@ -94,6 +94,8 @@ test('should suggest properly after table name', () => {
     const autocompleteResult = parseYQLQueryWithCursor('SELECT * FROM test_table |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [
+        {value: 'VIEW'},
+        {value: 'WITH'},
         {value: 'TABLESAMPLE'},
         {value: 'SAMPLE'},
         {value: 'AS'},
