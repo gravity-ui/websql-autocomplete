@@ -4,6 +4,7 @@ import {
     CommonTokenStream,
     Lexer as LexerType,
     ParseTree,
+    ParserRuleContext,
     Parser as ParserType,
     TokenStream,
 } from 'antlr4ng';
@@ -154,6 +155,7 @@ export interface AutocompleteData<
     ignoredTokens: Set<number>;
     rulesToVisit: Set<number>;
     enrichAutocompleteResult: EnrichAutocompleteResult<A>;
+    context?: ParserRuleContext;
 }
 
 export interface CursorPosition {

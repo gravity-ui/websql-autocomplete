@@ -9,6 +9,7 @@ import {
     Named_exprContext,
     Named_single_sourceContext,
     Result_columnContext,
+    Sql_query_yqContext,
     YQLParser,
 } from './generated/YQLParser.js';
 import {YQLVisitor} from './generated/YQLVisitor.js';
@@ -17,6 +18,7 @@ import {
     AutocompleteData,
     AutocompleteResultBase,
     CursorPosition,
+    GetParseTree,
     ISymbolTableVisitor,
     ProcessVisitedRulesResult,
     YQLAutocompleteResult,
@@ -340,6 +342,24 @@ function getParseTree(parser: YQLParser, type?: TableQueryPosition['type'] | 'se
         return parser.sql_query();
     }
 
+    return getCommonParseTree(parser, type);
+}
+
+function getParseTreeYQ(
+    parser: YQLParser,
+    type?: TableQueryPosition['type'] | 'select',
+): ParseTree {
+    if (!type) {
+        return parser.sql_query_yq();
+    }
+
+    return getCommonParseTree(parser, type);
+}
+
+function getCommonParseTree(
+    parser: YQLParser,
+    type: TableQueryPosition['type'] | 'select',
+): ParseTree {
     switch (type) {
         case 'from':
             return parser.from_stmt();
@@ -354,47 +374,49 @@ function getParseTree(parser: YQLParser, type?: TableQueryPosition['type'] | 'se
     }
 }
 
-function enrichAutocompleteResult(
-    baseResult: AutocompleteResultBase,
-    rules: c3.CandidatesCollection['rules'],
-    tokenStream: TokenStream,
-    cursorTokenIndex: number,
-    cursor: CursorPosition,
-    query: string,
-): YQLAutocompleteResult {
-    const {shouldSuggestColumns, shouldSuggestColumnAliases, ...suggestionsFromRules} =
-        processVisitedRules(rules, cursorTokenIndex, tokenStream);
-    const suggestTemplates = shouldSuggestTemplates(query, cursor);
-    const result: YQLAutocompleteResult = {
-        ...baseResult,
-        ...suggestionsFromRules,
-        suggestTemplates,
+function getEnrichAutocompleteResult(parseTreeGetter: GetParseTree<YQLParser>) {
+    return (
+        baseResult: AutocompleteResultBase,
+        rules: c3.CandidatesCollection['rules'],
+        tokenStream: TokenStream,
+        cursorTokenIndex: number,
+        cursor: CursorPosition,
+        query: string,
+    ): YQLAutocompleteResult => {
+        const {shouldSuggestColumns, shouldSuggestColumnAliases, ...suggestionsFromRules} =
+            processVisitedRules(rules, cursorTokenIndex, tokenStream);
+        const suggestTemplates = shouldSuggestTemplates(query, cursor);
+        const result: YQLAutocompleteResult = {
+            ...baseResult,
+            ...suggestionsFromRules,
+            suggestTemplates,
+        };
+        const contextSuggestionsNeeded = shouldSuggestColumns || shouldSuggestColumnAliases;
+
+        if (contextSuggestionsNeeded) {
+            const visitor = new YQLSymbolTableVisitor();
+            const {tableContextSuggestion, suggestColumnAliases} = getContextSuggestions(
+                YQLLexer,
+                YQLParser,
+                visitor,
+                tokenDictionary,
+                parseTreeGetter,
+                tokenStream,
+                cursor,
+                query,
+                true,
+            );
+
+            if (shouldSuggestColumns && tableContextSuggestion) {
+                result.suggestColumns = tableContextSuggestion;
+            }
+            if (shouldSuggestColumnAliases && suggestColumnAliases) {
+                result.suggestColumnAliases = suggestColumnAliases;
+            }
+        }
+
+        return result;
     };
-    const contextSuggestionsNeeded = shouldSuggestColumns || shouldSuggestColumnAliases;
-
-    if (contextSuggestionsNeeded) {
-        const visitor = new YQLSymbolTableVisitor();
-        const {tableContextSuggestion, suggestColumnAliases} = getContextSuggestions(
-            YQLLexer,
-            YQLParser,
-            visitor,
-            tokenDictionary,
-            getParseTree,
-            tokenStream,
-            cursor,
-            query,
-            true,
-        );
-
-        if (shouldSuggestColumns && tableContextSuggestion) {
-            result.suggestColumns = tableContextSuggestion;
-        }
-        if (shouldSuggestColumnAliases && suggestColumnAliases) {
-            result.suggestColumnAliases = suggestColumnAliases;
-        }
-    }
-
-    return result;
 }
 
 export const yqlAutocompleteData: AutocompleteData<YQLAutocompleteResult, YQLLexer, YQLParser> = {
@@ -404,5 +426,18 @@ export const yqlAutocompleteData: AutocompleteData<YQLAutocompleteResult, YQLLex
     ignoredTokens,
     rulesToVisit,
     getParseTree,
-    enrichAutocompleteResult,
+    enrichAutocompleteResult: getEnrichAutocompleteResult(getParseTree),
+};
+
+const context = new Sql_query_yqContext(null, -1);
+
+export const yqlAutocompleteDataYQ: AutocompleteData<YQLAutocompleteResult, YQLLexer, YQLParser> = {
+    Lexer: YQLLexer,
+    Parser: YQLParser,
+    tokenDictionary,
+    ignoredTokens,
+    rulesToVisit,
+    getParseTree: getParseTreeYQ,
+    enrichAutocompleteResult: getEnrichAutocompleteResult(getParseTreeYQ),
+    context,
 };

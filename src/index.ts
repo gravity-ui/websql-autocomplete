@@ -7,6 +7,8 @@ export {
     parseClickHouseQueryWithoutCursor,
     parseYQLQuery,
     parseYQLQueryWithoutCursor,
+    parseYQQuery,
+    parseYQQueryWithoutCursor,
 } from './autocomplete/autocomplete';
 
 export {

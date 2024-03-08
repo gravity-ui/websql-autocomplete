@@ -13,12 +13,16 @@ import { AbstractParseTreeVisitor } from "antlr4ng";
 
 
 import { Sql_queryContext } from "./YQLParser.js";
+import { Sql_query_yqContext } from "./YQLParser.js";
 import { Sql_stmt_listContext } from "./YQLParser.js";
+import { Sql_stmt_list_yqContext } from "./YQLParser.js";
 import { Ansi_sql_stmt_listContext } from "./YQLParser.js";
 import { Lambda_bodyContext } from "./YQLParser.js";
 import { Lambda_stmtContext } from "./YQLParser.js";
 import { Sql_stmtContext } from "./YQLParser.js";
+import { Sql_stmt_yqContext } from "./YQLParser.js";
 import { Sql_stmt_coreContext } from "./YQLParser.js";
+import { Sql_stmt_core_yqContext } from "./YQLParser.js";
 import { ExprContext } from "./YQLParser.js";
 import { Or_subexprContext } from "./YQLParser.js";
 import { And_subexprContext } from "./YQLParser.js";
@@ -200,6 +204,7 @@ import { Repeatable_clauseContext } from "./YQLParser.js";
 import { Join_opContext } from "./YQLParser.js";
 import { Join_constraintContext } from "./YQLParser.js";
 import { Into_table_stmtContext } from "./YQLParser.js";
+import { Into_table_stmt_yqContext } from "./YQLParser.js";
 import { Into_values_sourceContext } from "./YQLParser.js";
 import { Values_stmtContext } from "./YQLParser.js";
 import { Values_sourceContext } from "./YQLParser.js";
@@ -460,11 +465,23 @@ export class YQLVisitor<Result> extends AbstractParseTreeVisitor<Result> {
      */
     visitSql_query?: (ctx: Sql_queryContext) => Result;
     /**
+     * Visit a parse tree produced by `YQLParser.sql_query_yq`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitSql_query_yq?: (ctx: Sql_query_yqContext) => Result;
+    /**
      * Visit a parse tree produced by `YQLParser.sql_stmt_list`.
      * @param ctx the parse tree
      * @return the visitor result
      */
     visitSql_stmt_list?: (ctx: Sql_stmt_listContext) => Result;
+    /**
+     * Visit a parse tree produced by `YQLParser.sql_stmt_list_yq`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitSql_stmt_list_yq?: (ctx: Sql_stmt_list_yqContext) => Result;
     /**
      * Visit a parse tree produced by `YQLParser.ansi_sql_stmt_list`.
      * @param ctx the parse tree
@@ -490,11 +507,23 @@ export class YQLVisitor<Result> extends AbstractParseTreeVisitor<Result> {
      */
     visitSql_stmt?: (ctx: Sql_stmtContext) => Result;
     /**
+     * Visit a parse tree produced by `YQLParser.sql_stmt_yq`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitSql_stmt_yq?: (ctx: Sql_stmt_yqContext) => Result;
+    /**
      * Visit a parse tree produced by `YQLParser.sql_stmt_core`.
      * @param ctx the parse tree
      * @return the visitor result
      */
     visitSql_stmt_core?: (ctx: Sql_stmt_coreContext) => Result;
+    /**
+     * Visit a parse tree produced by `YQLParser.sql_stmt_core_yq`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitSql_stmt_core_yq?: (ctx: Sql_stmt_core_yqContext) => Result;
     /**
      * Visit a parse tree produced by `YQLParser.expr`.
      * @param ctx the parse tree
@@ -1581,6 +1610,12 @@ export class YQLVisitor<Result> extends AbstractParseTreeVisitor<Result> {
      * @return the visitor result
      */
     visitInto_table_stmt?: (ctx: Into_table_stmtContext) => Result;
+    /**
+     * Visit a parse tree produced by `YQLParser.into_table_stmt_yq`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitInto_table_stmt_yq?: (ctx: Into_table_stmt_yqContext) => Result;
     /**
      * Visit a parse tree produced by `YQLParser.into_values_source`.
      * @param ctx the parse tree

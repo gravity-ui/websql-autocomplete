@@ -11,6 +11,7 @@ import {
     parseMySqlQuery,
     parsePostgreSqlQuery,
     parseYQLQuery,
+    parseYQQuery,
 } from '../autocomplete';
 
 export function parseMySqlQueryWithCursor(queryWithCursor: string): MySqlAutocompleteResult {
@@ -31,6 +32,10 @@ export function parseClickHouseQueryWithCursor(
 
 export function parseYQLQueryWithCursor(queryWithCursor: string): YQLAutocompleteResult {
     return parseYQLQuery(...separateQueryAndCursor(queryWithCursor));
+}
+
+export function parseYQQueryWithCursor(queryWithCursor: string): YQLAutocompleteResult {
+    return parseYQQuery(...separateQueryAndCursor(queryWithCursor));
 }
 
 // separateQueryAndCursor helps to calculate cursor position based on the pipe symbol `|`.

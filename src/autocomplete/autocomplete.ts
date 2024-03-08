@@ -13,14 +13,14 @@ import {
 } from './autocomplete-types';
 import {postgreSqlAutocompleteData} from './databases/postgresql/postgresql-autocomplete';
 import {mySqlAutocompleteData} from './databases/mysql/mysql-autocomplete';
-import {Lexer as LexerType, Parser as ParserType} from 'antlr4ng';
+import {Lexer as LexerType, ParserRuleContext, Parser as ParserType} from 'antlr4ng';
 import {TokenDictionary} from './shared/tables';
 import {createParser} from './shared/query';
 import {SqlErrorListener} from './shared/sql-error-listener';
 import * as c3 from 'antlr4-c3';
 import {findCursorTokenIndex} from './shared/cursor';
 import {clickHouseAutocompleteData} from './databases/clickhouse/clickhouse-autocomplete';
-import {yqlAutocompleteData} from './databases/yql/yql-autocomplete';
+import {yqlAutocompleteData, yqlAutocompleteDataYQ} from './databases/yql/yql-autocomplete';
 
 function parseQueryWithoutCursor<L extends LexerType, P extends ParserType>(
     Lexer: LexerConstructor<L>,
@@ -55,6 +55,7 @@ export function parseQuery<
     enrichAutocompleteResult: EnrichAutocompleteResult<A>,
     query: string,
     cursor: CursorPosition,
+    context?: ParserRuleContext,
 ): A {
     const parser = createParser(Lexer, Parser, query);
     const {tokenStream} = parser;
@@ -76,7 +77,7 @@ export function parseQuery<
     }
 
     const suggestKeywords: KeywordSuggestion[] = [];
-    const {tokens, rules} = core.collectCandidates(cursorTokenIndex);
+    const {tokens, rules} = core.collectCandidates(cursorTokenIndex, context);
     tokens.forEach((_, tokenType) => {
         // Literal keyword names are quoted
         const literalName = parser.vocabulary.getLiteralName(tokenType)?.replace(quotesRegex, '$1');
@@ -205,5 +206,31 @@ export function parseYQLQuery(query: string, cursor: CursorPosition): YQLAutocom
         yqlAutocompleteData.enrichAutocompleteResult,
         query,
         cursor,
+        yqlAutocompleteData.context,
+    );
+}
+
+export function parseYQQueryWithoutCursor(query: string): Pick<YQLAutocompleteResult, 'errors'> {
+    return parseQueryWithoutCursor(
+        yqlAutocompleteDataYQ.Lexer,
+        yqlAutocompleteDataYQ.Parser,
+        yqlAutocompleteDataYQ.tokenDictionary,
+        yqlAutocompleteDataYQ.getParseTree,
+        query,
+    );
+}
+
+export function parseYQQuery(query: string, cursor: CursorPosition): YQLAutocompleteResult {
+    return parseQuery(
+        yqlAutocompleteDataYQ.Lexer,
+        yqlAutocompleteDataYQ.Parser,
+        yqlAutocompleteDataYQ.tokenDictionary,
+        yqlAutocompleteDataYQ.ignoredTokens,
+        yqlAutocompleteDataYQ.rulesToVisit,
+        yqlAutocompleteDataYQ.getParseTree,
+        yqlAutocompleteDataYQ.enrichAutocompleteResult,
+        query,
+        cursor,
+        yqlAutocompleteDataYQ.context,
     );
 }

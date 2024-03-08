@@ -13,8 +13,16 @@ sql_query
     : sql_stmt_list
     ;
 
+sql_query_yq
+    : sql_stmt_list_yq
+    ;
+
 sql_stmt_list
     : SEMICOLON* sql_stmt (SEMICOLON+ sql_stmt)* SEMICOLON* EOF
+    ;
+
+sql_stmt_list_yq
+    : SEMICOLON* sql_stmt_yq (SEMICOLON+ sql_stmt_yq)* SEMICOLON* EOF
     ;
 
 ansi_sql_stmt_list
@@ -32,6 +40,10 @@ lambda_stmt
 
 sql_stmt
     : (EXPLAIN (QUERY PLAN)?)? sql_stmt_core
+    ;
+
+sql_stmt_yq
+    : (EXPLAIN (QUERY PLAN)?)? sql_stmt_core_yq
     ;
 
 sql_stmt_core
@@ -76,6 +88,22 @@ sql_stmt_core
     | upsert_object_stmt
     | create_view_stmt
     | drop_view_stmt
+    ;
+
+sql_stmt_core_yq
+    : pragma_stmt
+    | select_stmt
+    | named_nodes_stmt
+    | use_stmt
+    | into_table_stmt_yq
+    | declare_stmt
+    | import_stmt
+    | export_stmt
+    | do_stmt
+    | define_action_or_subquery_stmt
+    | if_stmt
+    | for_stmt
+    | values_stmt
     ;
 
 expr
@@ -919,6 +947,10 @@ into_table_stmt
     : (INSERT | INSERT OR ABORT | INSERT OR REVERT | INSERT OR IGNORE | UPSERT | REPLACE) INTO into_simple_table_ref into_values_source
     ;
 
+into_table_stmt_yq
+    : (INSERT | INSERT OR ABORT | INSERT OR REVERT | INSERT OR IGNORE | REPLACE) INTO into_simple_table_ref into_values_source
+    ;
+
 into_values_source
     : pure_column_list? values_source
     | DEFAULT VALUES
@@ -1384,21 +1416,27 @@ object_ref
 existed_table_ref
     : cluster_expr_with_dot existed_table_id_or_at
     ;
+
 existed_object_ref
     : cluster_expr_with_dot existed_object_id_or_at
     ;
+
 existed_view_ref
     : cluster_expr_with_dot existed_view_id_or_at
     ;
+
 existed_topic_ref
     : cluster_expr_with_dot existed_topic_id_or_at
     ;
+
 existed_table_store_ref
     : cluster_expr_with_dot existed_table_store_id_or_at
     ;
+
 existed_replication_ref
     : cluster_expr_with_dot existed_replication_id_or_at
     ;
+
 existed_external_data_source_ref
     : cluster_expr_with_dot existed_external_data_source_id_or_at
     ;
@@ -1825,26 +1863,32 @@ an_existed_table_id_or_type
     : existed_table_id
     | STRING_VALUE
     ;
+
 an_existed_object_id_or_type
     : existed_object_id
     | STRING_VALUE
     ;
+
 an_existed_view_id_or_type
     : existed_view_id
     | STRING_VALUE
     ;
+
 an_existed_topic_id_or_type
     : existed_topic_id
     | STRING_VALUE
     ;
+
 an_existed_table_store_id_or_type
     : existed_table_store_id
     | STRING_VALUE
     ;
+
 an_existed_replication_id_or_type
     : existed_replication_id
     | STRING_VALUE
     ;
+
 an_existed_external_data_source_id_or_type
     : existed_external_data_source_id
     | STRING_VALUE
@@ -1920,21 +1964,27 @@ udf_id
 existed_table_id
     : id
     ;
+
 existed_object_id
     : id
     ;
+
 existed_view_id
     : id
     ;
+
 existed_topic_id
     : id
     ;
+
 existed_table_store_id
     : id
     ;
+
 existed_external_data_source_id
     : id
     ;
+
 existed_replication_id
     : id
     ;
@@ -1950,21 +2000,27 @@ id_or_at
 existed_table_id_or_at
     : AT? an_existed_table_id_or_type
     ;
+
 existed_object_id_or_at
     : AT? an_existed_object_id_or_type
     ;
+
 existed_view_id_or_at
     : AT? an_existed_view_id_or_type
     ;
+
 existed_topic_id_or_at
     : AT? an_existed_topic_id_or_type
     ;
+
 existed_table_store_id_or_at
     : AT? an_existed_table_store_id_or_type
     ;
+
 existed_replication_id_or_at
     : AT? an_existed_replication_id_or_type
     ;
+
 existed_external_data_source_id_or_at
     : AT? an_existed_external_data_source_id_or_type
     ;
