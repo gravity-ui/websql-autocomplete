@@ -13,12 +13,16 @@ import { AbstractParseTreeVisitor } from "antlr4ng";
 
 
 import { Sql_queryContext } from "./YQLParser.js";
+import { Sql_query_yqContext } from "./YQLParser.js";
 import { Sql_stmt_listContext } from "./YQLParser.js";
+import { Sql_stmt_list_yqContext } from "./YQLParser.js";
 import { Ansi_sql_stmt_listContext } from "./YQLParser.js";
 import { Lambda_bodyContext } from "./YQLParser.js";
 import { Lambda_stmtContext } from "./YQLParser.js";
 import { Sql_stmtContext } from "./YQLParser.js";
+import { Sql_stmt_yqContext } from "./YQLParser.js";
 import { Sql_stmt_coreContext } from "./YQLParser.js";
+import { Sql_stmt_core_yqContext } from "./YQLParser.js";
 import { ExprContext } from "./YQLParser.js";
 import { Or_subexprContext } from "./YQLParser.js";
 import { And_subexprContext } from "./YQLParser.js";
@@ -46,6 +50,7 @@ import { Expr_dict_listContext } from "./YQLParser.js";
 import { Dict_literalContext } from "./YQLParser.js";
 import { Expr_struct_listContext } from "./YQLParser.js";
 import { Struct_literalContext } from "./YQLParser.js";
+import { Udf_exprContext } from "./YQLParser.js";
 import { Atom_exprContext } from "./YQLParser.js";
 import { In_atom_exprContext } from "./YQLParser.js";
 import { Cast_exprContext } from "./YQLParser.js";
@@ -124,6 +129,7 @@ import { Export_stmtContext } from "./YQLParser.js";
 import { Call_actionContext } from "./YQLParser.js";
 import { Inline_actionContext } from "./YQLParser.js";
 import { Do_stmtContext } from "./YQLParser.js";
+import { Pragma_idContext } from "./YQLParser.js";
 import { Pragma_stmtContext } from "./YQLParser.js";
 import { Pragma_valueContext } from "./YQLParser.js";
 import { Sort_specificationContext } from "./YQLParser.js";
@@ -198,6 +204,7 @@ import { Repeatable_clauseContext } from "./YQLParser.js";
 import { Join_opContext } from "./YQLParser.js";
 import { Join_constraintContext } from "./YQLParser.js";
 import { Into_table_stmtContext } from "./YQLParser.js";
+import { Into_table_stmt_yqContext } from "./YQLParser.js";
 import { Into_values_sourceContext } from "./YQLParser.js";
 import { Values_stmtContext } from "./YQLParser.js";
 import { Values_sourceContext } from "./YQLParser.js";
@@ -293,14 +300,24 @@ import { Define_action_or_subquery_stmtContext } from "./YQLParser.js";
 import { Define_action_or_subquery_bodyContext } from "./YQLParser.js";
 import { If_stmtContext } from "./YQLParser.js";
 import { For_stmtContext } from "./YQLParser.js";
+import { Cluster_expr_with_dotContext } from "./YQLParser.js";
 import { Table_refContext } from "./YQLParser.js";
 import { Table_keyContext } from "./YQLParser.js";
 import { Table_argContext } from "./YQLParser.js";
 import { Table_hintsContext } from "./YQLParser.js";
 import { Table_hintContext } from "./YQLParser.js";
 import { Object_refContext } from "./YQLParser.js";
+import { Existing_table_refContext } from "./YQLParser.js";
+import { Existing_object_refContext } from "./YQLParser.js";
+import { Existing_view_refContext } from "./YQLParser.js";
+import { Existing_topic_refContext } from "./YQLParser.js";
+import { Existing_table_store_refContext } from "./YQLParser.js";
+import { Existing_replication_refContext } from "./YQLParser.js";
+import { Existing_external_data_source_refContext } from "./YQLParser.js";
 import { Simple_table_ref_coreContext } from "./YQLParser.js";
+import { Existing_simple_table_ref_coreContext } from "./YQLParser.js";
 import { Simple_table_refContext } from "./YQLParser.js";
+import { Existing_simple_table_refContext } from "./YQLParser.js";
 import { Into_simple_table_refContext } from "./YQLParser.js";
 import { Delete_stmtContext } from "./YQLParser.js";
 import { Update_stmtContext } from "./YQLParser.js";
@@ -363,14 +380,28 @@ import { IdentifierContext } from "./YQLParser.js";
 import { IdContext } from "./YQLParser.js";
 import { Id_schemaContext } from "./YQLParser.js";
 import { Id_exprContext } from "./YQLParser.js";
+import { Simple_function_idContext } from "./YQLParser.js";
+import { Window_function_idContext } from "./YQLParser.js";
+import { Table_function_idContext } from "./YQLParser.js";
+import { Aggregate_function_idContext } from "./YQLParser.js";
 import { Id_expr_inContext } from "./YQLParser.js";
 import { Id_windowContext } from "./YQLParser.js";
 import { Id_tableContext } from "./YQLParser.js";
 import { Id_withoutContext } from "./YQLParser.js";
 import { Id_hintContext } from "./YQLParser.js";
 import { Id_as_compatContext } from "./YQLParser.js";
+import { Existing_column_idContext } from "./YQLParser.js";
 import { An_idContext } from "./YQLParser.js";
+import { An_existing_column_idContext } from "./YQLParser.js";
+import { An_existing_topic_idContext } from "./YQLParser.js";
 import { An_id_or_typeContext } from "./YQLParser.js";
+import { An_existing_table_id_or_typeContext } from "./YQLParser.js";
+import { An_existing_object_id_or_typeContext } from "./YQLParser.js";
+import { An_existing_view_id_or_typeContext } from "./YQLParser.js";
+import { An_existing_topic_id_or_typeContext } from "./YQLParser.js";
+import { An_existing_table_store_id_or_typeContext } from "./YQLParser.js";
+import { An_existing_replication_id_or_typeContext } from "./YQLParser.js";
+import { An_existing_external_data_source_id_or_typeContext } from "./YQLParser.js";
 import { An_id_schemaContext } from "./YQLParser.js";
 import { An_id_exprContext } from "./YQLParser.js";
 import { An_id_expr_inContext } from "./YQLParser.js";
@@ -384,8 +415,23 @@ import { View_nameContext } from "./YQLParser.js";
 import { Opt_id_prefixContext } from "./YQLParser.js";
 import { Cluster_exprContext } from "./YQLParser.js";
 import { Id_or_typeContext } from "./YQLParser.js";
+import { Udf_idContext } from "./YQLParser.js";
+import { Existing_table_idContext } from "./YQLParser.js";
+import { Existing_object_idContext } from "./YQLParser.js";
+import { Existing_view_idContext } from "./YQLParser.js";
+import { Existing_topic_idContext } from "./YQLParser.js";
+import { Existing_table_store_idContext } from "./YQLParser.js";
+import { Existing_external_data_source_idContext } from "./YQLParser.js";
+import { Existing_replication_idContext } from "./YQLParser.js";
 import { Opt_id_prefix_or_typeContext } from "./YQLParser.js";
 import { Id_or_atContext } from "./YQLParser.js";
+import { Existing_table_id_or_atContext } from "./YQLParser.js";
+import { Existing_object_id_or_atContext } from "./YQLParser.js";
+import { Existing_view_id_or_atContext } from "./YQLParser.js";
+import { Existing_topic_id_or_atContext } from "./YQLParser.js";
+import { Existing_table_store_id_or_atContext } from "./YQLParser.js";
+import { Existing_replication_id_or_atContext } from "./YQLParser.js";
+import { Existing_external_data_source_id_or_atContext } from "./YQLParser.js";
 import { Id_table_or_typeContext } from "./YQLParser.js";
 import { Id_table_or_atContext } from "./YQLParser.js";
 import { KeywordContext } from "./YQLParser.js";
@@ -419,11 +465,23 @@ export class YQLVisitor<Result> extends AbstractParseTreeVisitor<Result> {
      */
     visitSql_query?: (ctx: Sql_queryContext) => Result;
     /**
+     * Visit a parse tree produced by `YQLParser.sql_query_yq`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitSql_query_yq?: (ctx: Sql_query_yqContext) => Result;
+    /**
      * Visit a parse tree produced by `YQLParser.sql_stmt_list`.
      * @param ctx the parse tree
      * @return the visitor result
      */
     visitSql_stmt_list?: (ctx: Sql_stmt_listContext) => Result;
+    /**
+     * Visit a parse tree produced by `YQLParser.sql_stmt_list_yq`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitSql_stmt_list_yq?: (ctx: Sql_stmt_list_yqContext) => Result;
     /**
      * Visit a parse tree produced by `YQLParser.ansi_sql_stmt_list`.
      * @param ctx the parse tree
@@ -449,11 +507,23 @@ export class YQLVisitor<Result> extends AbstractParseTreeVisitor<Result> {
      */
     visitSql_stmt?: (ctx: Sql_stmtContext) => Result;
     /**
+     * Visit a parse tree produced by `YQLParser.sql_stmt_yq`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitSql_stmt_yq?: (ctx: Sql_stmt_yqContext) => Result;
+    /**
      * Visit a parse tree produced by `YQLParser.sql_stmt_core`.
      * @param ctx the parse tree
      * @return the visitor result
      */
     visitSql_stmt_core?: (ctx: Sql_stmt_coreContext) => Result;
+    /**
+     * Visit a parse tree produced by `YQLParser.sql_stmt_core_yq`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitSql_stmt_core_yq?: (ctx: Sql_stmt_core_yqContext) => Result;
     /**
      * Visit a parse tree produced by `YQLParser.expr`.
      * @param ctx the parse tree
@@ -616,6 +686,12 @@ export class YQLVisitor<Result> extends AbstractParseTreeVisitor<Result> {
      * @return the visitor result
      */
     visitStruct_literal?: (ctx: Struct_literalContext) => Result;
+    /**
+     * Visit a parse tree produced by `YQLParser.udf_expr`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitUdf_expr?: (ctx: Udf_exprContext) => Result;
     /**
      * Visit a parse tree produced by `YQLParser.atom_expr`.
      * @param ctx the parse tree
@@ -1085,6 +1161,12 @@ export class YQLVisitor<Result> extends AbstractParseTreeVisitor<Result> {
      */
     visitDo_stmt?: (ctx: Do_stmtContext) => Result;
     /**
+     * Visit a parse tree produced by `YQLParser.pragma_id`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitPragma_id?: (ctx: Pragma_idContext) => Result;
+    /**
      * Visit a parse tree produced by `YQLParser.pragma_stmt`.
      * @param ctx the parse tree
      * @return the visitor result
@@ -1528,6 +1610,12 @@ export class YQLVisitor<Result> extends AbstractParseTreeVisitor<Result> {
      * @return the visitor result
      */
     visitInto_table_stmt?: (ctx: Into_table_stmtContext) => Result;
+    /**
+     * Visit a parse tree produced by `YQLParser.into_table_stmt_yq`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitInto_table_stmt_yq?: (ctx: Into_table_stmt_yqContext) => Result;
     /**
      * Visit a parse tree produced by `YQLParser.into_values_source`.
      * @param ctx the parse tree
@@ -2099,6 +2187,12 @@ export class YQLVisitor<Result> extends AbstractParseTreeVisitor<Result> {
      */
     visitFor_stmt?: (ctx: For_stmtContext) => Result;
     /**
+     * Visit a parse tree produced by `YQLParser.cluster_expr_with_dot`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitCluster_expr_with_dot?: (ctx: Cluster_expr_with_dotContext) => Result;
+    /**
      * Visit a parse tree produced by `YQLParser.table_ref`.
      * @param ctx the parse tree
      * @return the visitor result
@@ -2135,17 +2229,71 @@ export class YQLVisitor<Result> extends AbstractParseTreeVisitor<Result> {
      */
     visitObject_ref?: (ctx: Object_refContext) => Result;
     /**
+     * Visit a parse tree produced by `YQLParser.existing_table_ref`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitExisting_table_ref?: (ctx: Existing_table_refContext) => Result;
+    /**
+     * Visit a parse tree produced by `YQLParser.existing_object_ref`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitExisting_object_ref?: (ctx: Existing_object_refContext) => Result;
+    /**
+     * Visit a parse tree produced by `YQLParser.existing_view_ref`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitExisting_view_ref?: (ctx: Existing_view_refContext) => Result;
+    /**
+     * Visit a parse tree produced by `YQLParser.existing_topic_ref`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitExisting_topic_ref?: (ctx: Existing_topic_refContext) => Result;
+    /**
+     * Visit a parse tree produced by `YQLParser.existing_table_store_ref`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitExisting_table_store_ref?: (ctx: Existing_table_store_refContext) => Result;
+    /**
+     * Visit a parse tree produced by `YQLParser.existing_replication_ref`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitExisting_replication_ref?: (ctx: Existing_replication_refContext) => Result;
+    /**
+     * Visit a parse tree produced by `YQLParser.existing_external_data_source_ref`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitExisting_external_data_source_ref?: (ctx: Existing_external_data_source_refContext) => Result;
+    /**
      * Visit a parse tree produced by `YQLParser.simple_table_ref_core`.
      * @param ctx the parse tree
      * @return the visitor result
      */
     visitSimple_table_ref_core?: (ctx: Simple_table_ref_coreContext) => Result;
     /**
+     * Visit a parse tree produced by `YQLParser.existing_simple_table_ref_core`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitExisting_simple_table_ref_core?: (ctx: Existing_simple_table_ref_coreContext) => Result;
+    /**
      * Visit a parse tree produced by `YQLParser.simple_table_ref`.
      * @param ctx the parse tree
      * @return the visitor result
      */
     visitSimple_table_ref?: (ctx: Simple_table_refContext) => Result;
+    /**
+     * Visit a parse tree produced by `YQLParser.existing_simple_table_ref`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitExisting_simple_table_ref?: (ctx: Existing_simple_table_refContext) => Result;
     /**
      * Visit a parse tree produced by `YQLParser.into_simple_table_ref`.
      * @param ctx the parse tree
@@ -2519,6 +2667,30 @@ export class YQLVisitor<Result> extends AbstractParseTreeVisitor<Result> {
      */
     visitId_expr?: (ctx: Id_exprContext) => Result;
     /**
+     * Visit a parse tree produced by `YQLParser.simple_function_id`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitSimple_function_id?: (ctx: Simple_function_idContext) => Result;
+    /**
+     * Visit a parse tree produced by `YQLParser.window_function_id`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitWindow_function_id?: (ctx: Window_function_idContext) => Result;
+    /**
+     * Visit a parse tree produced by `YQLParser.table_function_id`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitTable_function_id?: (ctx: Table_function_idContext) => Result;
+    /**
+     * Visit a parse tree produced by `YQLParser.aggregate_function_id`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitAggregate_function_id?: (ctx: Aggregate_function_idContext) => Result;
+    /**
      * Visit a parse tree produced by `YQLParser.id_expr_in`.
      * @param ctx the parse tree
      * @return the visitor result
@@ -2555,17 +2727,77 @@ export class YQLVisitor<Result> extends AbstractParseTreeVisitor<Result> {
      */
     visitId_as_compat?: (ctx: Id_as_compatContext) => Result;
     /**
+     * Visit a parse tree produced by `YQLParser.existing_column_id`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitExisting_column_id?: (ctx: Existing_column_idContext) => Result;
+    /**
      * Visit a parse tree produced by `YQLParser.an_id`.
      * @param ctx the parse tree
      * @return the visitor result
      */
     visitAn_id?: (ctx: An_idContext) => Result;
     /**
+     * Visit a parse tree produced by `YQLParser.an_existing_column_id`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitAn_existing_column_id?: (ctx: An_existing_column_idContext) => Result;
+    /**
+     * Visit a parse tree produced by `YQLParser.an_existing_topic_id`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitAn_existing_topic_id?: (ctx: An_existing_topic_idContext) => Result;
+    /**
      * Visit a parse tree produced by `YQLParser.an_id_or_type`.
      * @param ctx the parse tree
      * @return the visitor result
      */
     visitAn_id_or_type?: (ctx: An_id_or_typeContext) => Result;
+    /**
+     * Visit a parse tree produced by `YQLParser.an_existing_table_id_or_type`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitAn_existing_table_id_or_type?: (ctx: An_existing_table_id_or_typeContext) => Result;
+    /**
+     * Visit a parse tree produced by `YQLParser.an_existing_object_id_or_type`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitAn_existing_object_id_or_type?: (ctx: An_existing_object_id_or_typeContext) => Result;
+    /**
+     * Visit a parse tree produced by `YQLParser.an_existing_view_id_or_type`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitAn_existing_view_id_or_type?: (ctx: An_existing_view_id_or_typeContext) => Result;
+    /**
+     * Visit a parse tree produced by `YQLParser.an_existing_topic_id_or_type`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitAn_existing_topic_id_or_type?: (ctx: An_existing_topic_id_or_typeContext) => Result;
+    /**
+     * Visit a parse tree produced by `YQLParser.an_existing_table_store_id_or_type`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitAn_existing_table_store_id_or_type?: (ctx: An_existing_table_store_id_or_typeContext) => Result;
+    /**
+     * Visit a parse tree produced by `YQLParser.an_existing_replication_id_or_type`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitAn_existing_replication_id_or_type?: (ctx: An_existing_replication_id_or_typeContext) => Result;
+    /**
+     * Visit a parse tree produced by `YQLParser.an_existing_external_data_source_id_or_type`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitAn_existing_external_data_source_id_or_type?: (ctx: An_existing_external_data_source_id_or_typeContext) => Result;
     /**
      * Visit a parse tree produced by `YQLParser.an_id_schema`.
      * @param ctx the parse tree
@@ -2645,6 +2877,54 @@ export class YQLVisitor<Result> extends AbstractParseTreeVisitor<Result> {
      */
     visitId_or_type?: (ctx: Id_or_typeContext) => Result;
     /**
+     * Visit a parse tree produced by `YQLParser.udf_id`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitUdf_id?: (ctx: Udf_idContext) => Result;
+    /**
+     * Visit a parse tree produced by `YQLParser.existing_table_id`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitExisting_table_id?: (ctx: Existing_table_idContext) => Result;
+    /**
+     * Visit a parse tree produced by `YQLParser.existing_object_id`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitExisting_object_id?: (ctx: Existing_object_idContext) => Result;
+    /**
+     * Visit a parse tree produced by `YQLParser.existing_view_id`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitExisting_view_id?: (ctx: Existing_view_idContext) => Result;
+    /**
+     * Visit a parse tree produced by `YQLParser.existing_topic_id`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitExisting_topic_id?: (ctx: Existing_topic_idContext) => Result;
+    /**
+     * Visit a parse tree produced by `YQLParser.existing_table_store_id`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitExisting_table_store_id?: (ctx: Existing_table_store_idContext) => Result;
+    /**
+     * Visit a parse tree produced by `YQLParser.existing_external_data_source_id`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitExisting_external_data_source_id?: (ctx: Existing_external_data_source_idContext) => Result;
+    /**
+     * Visit a parse tree produced by `YQLParser.existing_replication_id`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitExisting_replication_id?: (ctx: Existing_replication_idContext) => Result;
+    /**
      * Visit a parse tree produced by `YQLParser.opt_id_prefix_or_type`.
      * @param ctx the parse tree
      * @return the visitor result
@@ -2656,6 +2936,48 @@ export class YQLVisitor<Result> extends AbstractParseTreeVisitor<Result> {
      * @return the visitor result
      */
     visitId_or_at?: (ctx: Id_or_atContext) => Result;
+    /**
+     * Visit a parse tree produced by `YQLParser.existing_table_id_or_at`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitExisting_table_id_or_at?: (ctx: Existing_table_id_or_atContext) => Result;
+    /**
+     * Visit a parse tree produced by `YQLParser.existing_object_id_or_at`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitExisting_object_id_or_at?: (ctx: Existing_object_id_or_atContext) => Result;
+    /**
+     * Visit a parse tree produced by `YQLParser.existing_view_id_or_at`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitExisting_view_id_or_at?: (ctx: Existing_view_id_or_atContext) => Result;
+    /**
+     * Visit a parse tree produced by `YQLParser.existing_topic_id_or_at`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitExisting_topic_id_or_at?: (ctx: Existing_topic_id_or_atContext) => Result;
+    /**
+     * Visit a parse tree produced by `YQLParser.existing_table_store_id_or_at`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitExisting_table_store_id_or_at?: (ctx: Existing_table_store_id_or_atContext) => Result;
+    /**
+     * Visit a parse tree produced by `YQLParser.existing_replication_id_or_at`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitExisting_replication_id_or_at?: (ctx: Existing_replication_id_or_atContext) => Result;
+    /**
+     * Visit a parse tree produced by `YQLParser.existing_external_data_source_id_or_at`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitExisting_external_data_source_id_or_at?: (ctx: Existing_external_data_source_id_or_atContext) => Result;
     /**
      * Visit a parse tree produced by `YQLParser.id_table_or_type`.
      * @param ctx the parse tree
