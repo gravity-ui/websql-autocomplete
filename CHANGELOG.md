@@ -1,5 +1,21 @@
 # Changelog
 
+## [8.0.0](https://github.com/gravity-ui/websql-autocomplete/compare/v7.0.0...v8.0.0) (2024-03-11)
+
+
+### ⚠ BREAKING CHANGES
+
+* Support YQ dialect ([#173](https://github.com/gravity-ui/websql-autocomplete/issues/173))
+
+### Features
+
+* Support YQ dialect ([#173](https://github.com/gravity-ui/websql-autocomplete/issues/173)) ([24f51be](https://github.com/gravity-ui/websql-autocomplete/commit/24f51bea07d8fe657104ba12ae39cbd433457b3b))
+
+
+### Bug Fixes
+
+* rename YQ and YQL functions ([#175](https://github.com/gravity-ui/websql-autocomplete/issues/175)) ([2d1feef](https://github.com/gravity-ui/websql-autocomplete/commit/2d1feef47b8ae2a99ed5c51e2d3825fa1ac21d9a))
+
 ## [7.0.0](https://github.com/gravity-ui/websql-autocomplete/compare/v6.1.0...v7.0.0) (2024-03-06)
 
 
