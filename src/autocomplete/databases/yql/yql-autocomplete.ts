@@ -21,7 +21,7 @@ import {
     GetParseTree,
     ISymbolTableVisitor,
     ProcessVisitedRulesResult,
-    YQLAutocompleteResult,
+    YqlAutocompleteResult,
 } from '../../autocomplete-types.js';
 import {ColumnAliasSymbol, TableSymbol} from '../../shared/symbol-table.js';
 import {
@@ -190,8 +190,8 @@ function processVisitedRules(
     rules: c3.CandidatesCollection['rules'],
     cursorTokenIndex: number,
     tokenStream: TokenStream,
-): ProcessVisitedRulesResult<YQLAutocompleteResult> {
-    let suggestEntity: YQLAutocompleteResult['suggestEntity'];
+): ProcessVisitedRulesResult<YqlAutocompleteResult> {
+    let suggestEntity: YqlAutocompleteResult['suggestEntity'];
     let suggestUdfs = false;
     let suggestAggregateFunctions = false;
     let suggestFunctions = false;
@@ -382,11 +382,11 @@ function getEnrichAutocompleteResult(parseTreeGetter: GetParseTree<YQLParser>) {
         cursorTokenIndex: number,
         cursor: CursorPosition,
         query: string,
-    ): YQLAutocompleteResult => {
+    ): YqlAutocompleteResult => {
         const {shouldSuggestColumns, shouldSuggestColumnAliases, ...suggestionsFromRules} =
             processVisitedRules(rules, cursorTokenIndex, tokenStream);
         const suggestTemplates = shouldSuggestTemplates(query, cursor);
-        const result: YQLAutocompleteResult = {
+        const result: YqlAutocompleteResult = {
             ...baseResult,
             ...suggestionsFromRules,
             suggestTemplates,
@@ -419,7 +419,7 @@ function getEnrichAutocompleteResult(parseTreeGetter: GetParseTree<YQLParser>) {
     };
 }
 
-export const yqlAutocompleteData: AutocompleteData<YQLAutocompleteResult, YQLLexer, YQLParser> = {
+export const yqlAutocompleteData: AutocompleteData<YqlAutocompleteResult, YQLLexer, YQLParser> = {
     Lexer: YQLLexer,
     Parser: YQLParser,
     tokenDictionary,
@@ -431,7 +431,7 @@ export const yqlAutocompleteData: AutocompleteData<YQLAutocompleteResult, YQLLex
 
 const context = new Sql_query_yqContext(null, -1);
 
-export const yqlAutocompleteDataYQ: AutocompleteData<YQLAutocompleteResult, YQLLexer, YQLParser> = {
+export const yqlAutocompleteDataYQ: AutocompleteData<YqlAutocompleteResult, YQLLexer, YQLParser> = {
     Lexer: YQLLexer,
     Parser: YQLParser,
     tokenDictionary,

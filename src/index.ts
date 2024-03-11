@@ -5,10 +5,10 @@ export {
     parsePostgreSqlQueryWithoutCursor,
     parseClickHouseQuery,
     parseClickHouseQueryWithoutCursor,
-    parseYQLQuery,
-    parseYQLQueryWithoutCursor,
-    parseYQQuery,
-    parseYQQueryWithoutCursor,
+    parseYqlQuery,
+    parseYqlQueryWithoutCursor,
+    parseYqQuery,
+    parseYqQueryWithoutCursor,
 } from './autocomplete/autocomplete';
 
 export {
@@ -16,7 +16,7 @@ export {
     MySqlAutocompleteResult,
     PostgreSqlAutocompleteResult,
     ClickHouseAutocompleteResult,
-    YQLAutocompleteResult,
+    YqlAutocompleteResult,
     YQLEntity,
     TableOrViewSuggestion,
     KeywordSuggestion,

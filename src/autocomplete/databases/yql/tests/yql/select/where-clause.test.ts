@@ -1,10 +1,10 @@
-import {parseYQLQueryWithCursor} from '../../../../../shared/parse-query-with-cursor';
+import {parseYqlQueryWithCursor} from '../../../../../shared/parse-query-with-cursor';
 import {
     ColumnSuggestion,
     KeywordSuggestion,
-    YQLAutocompleteResult,
+    YqlAutocompleteResult,
 } from '../../../../../autocomplete-types';
-import {parseYQLQueryWithoutCursor} from '../../../../../autocomplete';
+import {parseYqlQueryWithoutCursor} from '../../../../../autocomplete';
 
 const AfterWhereKeywords: KeywordSuggestion[] = [
     {value: 'DIGITS'},
@@ -40,7 +40,7 @@ const AfterWhereKeywords: KeywordSuggestion[] = [
     {value: 'TAGGED'},
 ];
 
-function getAfterWhereCommonExpections(autocompleteResult: YQLAutocompleteResult): void {
+function getAfterWhereCommonExpections(autocompleteResult: YqlAutocompleteResult): void {
     expect(autocompleteResult.suggestAggregateFunctions).toBeFalsy();
     expect(autocompleteResult.suggestWindowFunctions).toBeFalsy();
     expect(autocompleteResult.suggestFunctions).toBeTruthy();
@@ -50,7 +50,7 @@ function getAfterWhereCommonExpections(autocompleteResult: YQLAutocompleteResult
 }
 
 test('should suggest properly after WHERE', () => {
-    const autocompleteResult = parseYQLQueryWithCursor('SELECT * FROM test_table WHERE |');
+    const autocompleteResult = parseYqlQueryWithCursor('SELECT * FROM test_table WHERE |');
 
     const columnSuggestions: ColumnSuggestion = {
         tables: [{name: 'test_table'}],
@@ -61,7 +61,7 @@ test('should suggest properly after WHERE', () => {
 });
 
 test('should suggest table name for column between statements', () => {
-    const autocompleteResult = parseYQLQueryWithCursor(
+    const autocompleteResult = parseYqlQueryWithCursor(
         'ALTER TABLE before_table DROP COLUMN id; SELECT * FROM test_table WHERE | ; ALTER TABLE after_table DROP COLUMN id;',
     );
     const columnSuggestions: ColumnSuggestion = {
@@ -73,7 +73,7 @@ test('should suggest table name for column between statements', () => {
 });
 
 test('should suggest table name and alias for column', () => {
-    const autocompleteResult = parseYQLQueryWithCursor('SELECT * FROM test_table t1 WHERE |');
+    const autocompleteResult = parseYqlQueryWithCursor('SELECT * FROM test_table t1 WHERE |');
     const columnSuggestions: ColumnSuggestion = {
         tables: [{name: 'test_table', alias: 't1'}],
     };
@@ -82,7 +82,7 @@ test('should suggest table name and alias for column', () => {
 });
 
 test('should suggest table name and alias (with AS) for column', () => {
-    const autocompleteResult = parseYQLQueryWithCursor('SELECT * FROM test_table AS t1 WHERE |');
+    const autocompleteResult = parseYqlQueryWithCursor('SELECT * FROM test_table AS t1 WHERE |');
     const columnSuggestions: ColumnSuggestion = {
         tables: [{name: 'test_table', alias: 't1'}],
     };
@@ -91,7 +91,7 @@ test('should suggest table name and alias (with AS) for column', () => {
 });
 
 test('should suggest table name and alias for second column', () => {
-    const autocompleteResult = parseYQLQueryWithCursor(
+    const autocompleteResult = parseYqlQueryWithCursor(
         'SELECT * FROM test_table AS t1 WHERE id = 2 AND |',
     );
     const columnSuggestions: ColumnSuggestion = {tables: [{name: 'test_table', alias: 't1'}]};
@@ -100,7 +100,7 @@ test('should suggest table name and alias for second column', () => {
 });
 
 test('should suggest multiple table names for column', () => {
-    const autocompleteResult = parseYQLQueryWithCursor(
+    const autocompleteResult = parseYqlQueryWithCursor(
         'SELECT * FROM test_table_1, test_table_2 WHERE |',
     );
     const columnSuggestions: ColumnSuggestion = {
@@ -111,7 +111,7 @@ test('should suggest multiple table names for column', () => {
 });
 
 test('should suggest multiple table names and aliases for column', () => {
-    const autocompleteResult = parseYQLQueryWithCursor(
+    const autocompleteResult = parseYqlQueryWithCursor(
         'SELECT * FROM test_table_1 t1, test_table_2 t2 WHERE |',
     );
     const columnSuggestions: ColumnSuggestion = {
@@ -125,7 +125,7 @@ test('should suggest multiple table names and aliases for column', () => {
 });
 
 test('should suggest multiple table names and aliases (with AS) for column', () => {
-    const autocompleteResult = parseYQLQueryWithCursor(
+    const autocompleteResult = parseYqlQueryWithCursor(
         'SELECT * FROM test_table_1 AS t1, test_table_2 AS t2 WHERE |',
     );
     const columnSuggestions: ColumnSuggestion = {
@@ -139,7 +139,7 @@ test('should suggest multiple table names and aliases (with AS) for column', () 
 });
 
 test('should not report errors', () => {
-    const autocompleteResult = parseYQLQueryWithoutCursor('SELECT * FROM test_table WHERE id = 1;');
+    const autocompleteResult = parseYqlQueryWithoutCursor('SELECT * FROM test_table WHERE id = 1;');
 
     expect(autocompleteResult.errors).toHaveLength(0);
 });

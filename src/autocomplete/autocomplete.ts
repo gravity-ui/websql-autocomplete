@@ -9,7 +9,7 @@ import {
     MySqlAutocompleteResult,
     ParserConstructor,
     PostgreSqlAutocompleteResult,
-    YQLAutocompleteResult,
+    YqlAutocompleteResult,
 } from './autocomplete-types';
 import {postgreSqlAutocompleteData} from './databases/postgresql/postgresql-autocomplete';
 import {mySqlAutocompleteData} from './databases/mysql/mysql-autocomplete';
@@ -185,7 +185,7 @@ export function parseClickHouseQuery(
     );
 }
 
-export function parseYQLQueryWithoutCursor(query: string): Pick<YQLAutocompleteResult, 'errors'> {
+export function parseYqlQueryWithoutCursor(query: string): Pick<YqlAutocompleteResult, 'errors'> {
     return parseQueryWithoutCursor(
         yqlAutocompleteData.Lexer,
         yqlAutocompleteData.Parser,
@@ -195,7 +195,7 @@ export function parseYQLQueryWithoutCursor(query: string): Pick<YQLAutocompleteR
     );
 }
 
-export function parseYQLQuery(query: string, cursor: CursorPosition): YQLAutocompleteResult {
+export function parseYqlQuery(query: string, cursor: CursorPosition): YqlAutocompleteResult {
     return parseQuery(
         yqlAutocompleteData.Lexer,
         yqlAutocompleteData.Parser,
@@ -210,7 +210,7 @@ export function parseYQLQuery(query: string, cursor: CursorPosition): YQLAutocom
     );
 }
 
-export function parseYQQueryWithoutCursor(query: string): Pick<YQLAutocompleteResult, 'errors'> {
+export function parseYqQueryWithoutCursor(query: string): Pick<YqlAutocompleteResult, 'errors'> {
     return parseQueryWithoutCursor(
         yqlAutocompleteDataYQ.Lexer,
         yqlAutocompleteDataYQ.Parser,
@@ -220,7 +220,7 @@ export function parseYQQueryWithoutCursor(query: string): Pick<YQLAutocompleteRe
     );
 }
 
-export function parseYQQuery(query: string, cursor: CursorPosition): YQLAutocompleteResult {
+export function parseYqQuery(query: string, cursor: CursorPosition): YqlAutocompleteResult {
     return parseQuery(
         yqlAutocompleteDataYQ.Lexer,
         yqlAutocompleteDataYQ.Parser,

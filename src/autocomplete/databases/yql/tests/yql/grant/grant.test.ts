@@ -1,8 +1,8 @@
 import {KeywordSuggestion} from '../../../../../autocomplete-types';
-import {parseYQLQueryWithCursor} from '../../../../../shared/parse-query-with-cursor';
+import {parseYqlQueryWithCursor} from '../../../../../shared/parse-query-with-cursor';
 
 test('should suggest keywords after GRANT', () => {
-    const autocompleteResult = parseYQLQueryWithCursor('GRANT |');
+    const autocompleteResult = parseYqlQueryWithCursor('GRANT |');
     const keywords: KeywordSuggestion[] = [
         {value: 'CONNECT'},
         {value: 'LIST'},

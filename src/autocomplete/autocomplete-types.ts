@@ -59,7 +59,7 @@ export type YQLEntity =
     | 'group'
     | 'user';
 
-export interface YQLAutocompleteResult extends AutocompleteResultBase {
+export interface YqlAutocompleteResult extends AutocompleteResultBase {
     suggestEntity?: YQLEntity[];
     suggestSimpleTypes?: boolean;
     suggestUdfs?: boolean;

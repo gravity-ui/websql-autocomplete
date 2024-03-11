@@ -1,14 +1,14 @@
 import {KeywordSuggestion} from '../../../../../autocomplete-types';
-import {parseYQLQueryWithCursor} from '../../../../../shared/parse-query-with-cursor';
+import {parseYqlQueryWithCursor} from '../../../../../shared/parse-query-with-cursor';
 
 test('should suggest keywords after USER ', () => {
-    const autocompleteResult = parseYQLQueryWithCursor('ALTER USER |');
+    const autocompleteResult = parseYqlQueryWithCursor('ALTER USER |');
     const keywords: KeywordSuggestion[] = [];
     expect(autocompleteResult.suggestKeywords).toEqual(keywords);
 });
 
 test('should suggest keywords after user name', () => {
-    const autocompleteResult = parseYQLQueryWithCursor('ALTER USER test |');
+    const autocompleteResult = parseYqlQueryWithCursor('ALTER USER test |');
     const keywords: KeywordSuggestion[] = [
         {value: 'RENAME'},
         {value: 'ENCRYPTED'},

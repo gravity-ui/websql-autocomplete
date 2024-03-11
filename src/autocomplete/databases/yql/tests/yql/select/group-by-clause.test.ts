@@ -1,8 +1,8 @@
-import {parseYQLQueryWithCursor} from '../../../../../shared/parse-query-with-cursor';
+import {parseYqlQueryWithCursor} from '../../../../../shared/parse-query-with-cursor';
 import {
     ColumnSuggestion,
     KeywordSuggestion,
-    YQLAutocompleteResult,
+    YqlAutocompleteResult,
 } from '../../../../../autocomplete-types';
 
 const afterGroupByKeywords: KeywordSuggestion[] = [
@@ -45,7 +45,7 @@ const afterGroupByKeywords: KeywordSuggestion[] = [
     {value: 'HOP'},
 ];
 
-function getAfterGroupByCommonExpections(autocompleteResult: YQLAutocompleteResult): void {
+function getAfterGroupByCommonExpections(autocompleteResult: YqlAutocompleteResult): void {
     expect(autocompleteResult.suggestAggregateFunctions).toBeFalsy();
     expect(autocompleteResult.suggestWindowFunctions).toBeFalsy();
     expect(autocompleteResult.suggestFunctions).toBeTruthy();
@@ -54,14 +54,14 @@ function getAfterGroupByCommonExpections(autocompleteResult: YQLAutocompleteResu
 }
 
 test('should suggest properly after GROUP', () => {
-    const autocompleteResult = parseYQLQueryWithCursor('SELECT * FROM test_table as t GROUP |');
+    const autocompleteResult = parseYqlQueryWithCursor('SELECT * FROM test_table as t GROUP |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [{value: 'BY'}, {value: 'COMPACT'}];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
 test('should suggest properly after GROUP BY', () => {
-    const autocompleteResult = parseYQLQueryWithCursor(
+    const autocompleteResult = parseYqlQueryWithCursor(
         'SELECT count(*) as count, test_column t1 FROM test_table as t GROUP BY |',
     );
     const columnSuggestion: ColumnSuggestion = {tables: [{name: 'test_table', alias: 't'}]};
@@ -72,7 +72,7 @@ test('should suggest properly after GROUP BY', () => {
 });
 
 test('should suggest properly after GROUP BY between statements', () => {
-    const autocompleteResult = parseYQLQueryWithCursor(
+    const autocompleteResult = parseYqlQueryWithCursor(
         'ALTER TABLE before_table DROP COLUMN id; ' +
             'SELECT count(*) as count, test_column t1 FROM test_table as t GROUP BY | ; ' +
             'ALTER TABLE after_table DROP COLUMN id;',
@@ -85,7 +85,7 @@ test('should suggest properly after GROUP BY between statements', () => {
 });
 
 test('should suggest properly after GROUP BY in nested statement', () => {
-    const autocompleteResult = parseYQLQueryWithCursor(
+    const autocompleteResult = parseYqlQueryWithCursor(
         'SELECT id as id1 FROM (SELECT count(*) as count, test_column t1 FROM test_table as t GROUP BY |',
     );
     const columnSuggestion: ColumnSuggestion = {tables: [{name: 'test_table', alias: 't'}]};
@@ -96,7 +96,7 @@ test('should suggest properly after GROUP BY in nested statement', () => {
 });
 
 test('should suggest properly after GROUP BY between statements in nested statement', () => {
-    const autocompleteResult = parseYQLQueryWithCursor(
+    const autocompleteResult = parseYqlQueryWithCursor(
         'ALTER TABLE before_table DROP COLUMN id; ' +
             'SELECT id as id1 FROM (SELECT count(*) as count, test_column t1 FROM test_table as t GROUP BY | ; ' +
             'ALTER TABLE after_table DROP COLUMN id;',

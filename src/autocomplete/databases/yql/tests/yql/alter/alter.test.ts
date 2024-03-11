@@ -1,8 +1,8 @@
 import {KeywordSuggestion} from '../../../../../autocomplete-types';
-import {parseYQLQueryWithCursor} from '../../../../../shared/parse-query-with-cursor';
+import {parseYqlQueryWithCursor} from '../../../../../shared/parse-query-with-cursor';
 
 test('should suggest keywords after ALTER', () => {
-    const autocompleteResult = parseYQLQueryWithCursor('ALTER |');
+    const autocompleteResult = parseYqlQueryWithCursor('ALTER |');
 
     const keywords: KeywordSuggestion[] = [
         {value: 'TABLESTORE'},
@@ -17,7 +17,7 @@ test('should suggest keywords after ALTER', () => {
 });
 
 test('should suggest keywords after TABLE', () => {
-    const autocompleteResult = parseYQLQueryWithCursor('ALTER TABLE |');
+    const autocompleteResult = parseYqlQueryWithCursor('ALTER TABLE |');
 
     const keywords: KeywordSuggestion[] = [];
     expect(autocompleteResult.suggestKeywords).toEqual(keywords);
@@ -25,34 +25,34 @@ test('should suggest keywords after TABLE', () => {
 });
 
 test('should suggest keywords after TABLESTORE', () => {
-    const autocompleteResult = parseYQLQueryWithCursor('ALTER TABLESTORE |');
+    const autocompleteResult = parseYqlQueryWithCursor('ALTER TABLESTORE |');
 
     const keywords: KeywordSuggestion[] = [];
     expect(autocompleteResult.suggestKeywords).toEqual(keywords);
     expect(autocompleteResult.suggestEntity).toEqual(['tableStore']);
 });
 test('should suggest keywords after TOPIC', () => {
-    const autocompleteResult = parseYQLQueryWithCursor('ALTER TOPIC |');
+    const autocompleteResult = parseYqlQueryWithCursor('ALTER TOPIC |');
     const keywords: KeywordSuggestion[] = [];
     expect(autocompleteResult.suggestKeywords).toEqual(keywords);
     expect(autocompleteResult.suggestEntity).toEqual(['topic']);
 });
 test('should suggest keywords after OBJECT', () => {
-    const autocompleteResult = parseYQLQueryWithCursor('ALTER OBJECT |');
+    const autocompleteResult = parseYqlQueryWithCursor('ALTER OBJECT |');
 
     const keywords: KeywordSuggestion[] = [];
     expect(autocompleteResult.suggestKeywords).toEqual(keywords);
     expect(autocompleteResult.suggestEntity).toEqual(['object']);
 });
 test('should suggest keywords after GROUP', () => {
-    const autocompleteResult = parseYQLQueryWithCursor('ALTER GROUP |');
+    const autocompleteResult = parseYqlQueryWithCursor('ALTER GROUP |');
 
     const keywords: KeywordSuggestion[] = [];
     expect(autocompleteResult.suggestKeywords).toEqual(keywords);
     expect(autocompleteResult.suggestEntity).toEqual(['group']);
 });
 test('should suggest keywords after USER', () => {
-    const autocompleteResult = parseYQLQueryWithCursor('ALTER USER |');
+    const autocompleteResult = parseYqlQueryWithCursor('ALTER USER |');
 
     const keywords: KeywordSuggestion[] = [];
     expect(autocompleteResult.suggestKeywords).toEqual(keywords);
@@ -60,7 +60,7 @@ test('should suggest keywords after USER', () => {
 });
 
 test('should suggest keywords after table name', () => {
-    const autocompleteResult = parseYQLQueryWithCursor('ALTER TABLE test_table |');
+    const autocompleteResult = parseYqlQueryWithCursor('ALTER TABLE test_table |');
     const keywords: KeywordSuggestion[] = [
         {value: 'WITH'},
         {value: 'ADD'},
@@ -73,7 +73,7 @@ test('should suggest keywords after table name', () => {
     expect(autocompleteResult.suggestKeywords).toEqual(keywords);
 });
 test('should suggest tables after ALTER VIEW between statements', () => {
-    const autocompleteResult = parseYQLQueryWithCursor(
+    const autocompleteResult = parseYqlQueryWithCursor(
         'ALTER TABLE before_table DROP COLUMN id; ALTER OBJECT | ; ALTER TABLE after_table DROP COLUMN id;',
     );
 
