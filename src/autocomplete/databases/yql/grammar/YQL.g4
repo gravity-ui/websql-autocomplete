@@ -1721,19 +1721,19 @@ identifier
 
 id
     : identifier
-    // | keyword
+    | keyword
     ;
 
 id_schema
     : identifier
-    // | keyword_compat
-    // | keyword_expr_uncompat
-    // //  | keyword_table_uncompat
-    // | keyword_select_uncompat
-    // //  | keyword_alter_uncompat
-    // | keyword_in_uncompat
-    // | keyword_window_uncompat
-    // | keyword_hint_uncompat
+    | keyword_compat
+    | keyword_expr_uncompat
+    //  | keyword_table_uncompat
+    | keyword_select_uncompat
+    //  | keyword_alter_uncompat
+    | keyword_in_uncompat
+    | keyword_window_uncompat
+    | keyword_hint_uncompat
     ;
 
 id_expr
@@ -1742,14 +1742,14 @@ id_expr
     | table_function_id
     | aggregate_function_id
     | existing_column_id
-    // | keyword_compat
-    // //  | keyword_expr_uncompat
-    // //  | keyword_table_uncompat
-    // //  | keyword_select_uncompat
-    // | keyword_alter_uncompat
-    // | keyword_in_uncompat
-    // | keyword_window_uncompat
-    // | keyword_hint_uncompat
+    | keyword_compat
+    //  | keyword_expr_uncompat
+    //  | keyword_table_uncompat
+    //  | keyword_select_uncompat
+    | keyword_alter_uncompat
+    | keyword_in_uncompat
+    | keyword_window_uncompat
+    | keyword_hint_uncompat
     ;
 
 simple_function_id
@@ -1770,67 +1770,67 @@ aggregate_function_id
 
 id_expr_in
     : identifier
-    // | keyword_compat
-    // //  | keyword_expr_uncompat
-    // //  | keyword_table_uncompat
-    // //  | keyword_select_uncompat
-    // | keyword_alter_uncompat
-    // //  | keyword_in_uncompat
-    // | keyword_window_uncompat
-    // | keyword_hint_uncompat
+    | keyword_compat
+    //  | keyword_expr_uncompat
+    //  | keyword_table_uncompat
+    //  | keyword_select_uncompat
+    | keyword_alter_uncompat
+    //  | keyword_in_uncompat
+    | keyword_window_uncompat
+    | keyword_hint_uncompat
     ;
 
 id_window
     : identifier
-    // | keyword_compat
-    // | keyword_expr_uncompat
-    // | keyword_table_uncompat
-    // | keyword_select_uncompat
-    // | keyword_alter_uncompat
-    // | keyword_in_uncompat
-    // //  | keyword_window_uncompat
-    // | keyword_hint_uncompat
+    | keyword_compat
+    | keyword_expr_uncompat
+    | keyword_table_uncompat
+    | keyword_select_uncompat
+    | keyword_alter_uncompat
+    | keyword_in_uncompat
+    //  | keyword_window_uncompat
+    | keyword_hint_uncompat
     ;
 
 id_table
     : identifier
-    // | keyword_compat
-    // | keyword_expr_uncompat
-    // //  | keyword_table_uncompat
-    // | keyword_select_uncompat
-    // //  | keyword_alter_uncompat
-    // | keyword_in_uncompat
-    // | keyword_window_uncompat
-    // | keyword_hint_uncompat
+    | keyword_compat
+    | keyword_expr_uncompat
+    //  | keyword_table_uncompat
+    | keyword_select_uncompat
+    //  | keyword_alter_uncompat
+    | keyword_in_uncompat
+    | keyword_window_uncompat
+    | keyword_hint_uncompat
     ;
 
 id_without
     : identifier
-    // | keyword_compat
-    // //  | keyword_expr_uncompat
-    // | keyword_table_uncompat
-    // //  | keyword_select_uncompat
-    // | keyword_alter_uncompat
-    // | keyword_in_uncompat
-    // | keyword_window_uncompat
-    // | keyword_hint_uncompat
+    | keyword_compat
+    //  | keyword_expr_uncompat
+    | keyword_table_uncompat
+    //  | keyword_select_uncompat
+    | keyword_alter_uncompat
+    | keyword_in_uncompat
+    | keyword_window_uncompat
+    | keyword_hint_uncompat
     ;
 
 id_hint
     : identifier
-    // | keyword_compat
-    // | keyword_expr_uncompat
-    // | keyword_table_uncompat
-    // | keyword_select_uncompat
-    // | keyword_alter_uncompat
-    // | keyword_in_uncompat
-    // | keyword_window_uncompat
-    //  | keyword_hint_uncompat
+    | keyword_compat
+    | keyword_expr_uncompat
+    | keyword_table_uncompat
+    | keyword_select_uncompat
+    | keyword_alter_uncompat
+    | keyword_in_uncompat
+    | keyword_window_uncompat
+    | keyword_hint_uncompat
     ;
 
 id_as_compat
     : identifier
-    // | keyword_as_compat
+    | keyword_as_compat
     ;
 
 // ANSI-aware versions of various identifiers with support double-quoted identifiers when PRAGMA AnsiQuotedIdentifiers; is present
