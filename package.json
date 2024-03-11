@@ -1,5 +1,5 @@
 {
-  "name": "websql-autocomplete",
+  "name": "@gravity-ui/websql-autocomplete",
   "version": "7.0.0",
   "description": "A library that provides autocompletion and errors highlighting for various database dialects",
   "repository": {
@@ -57,7 +57,7 @@
     "ts-jest": "^29.1.2"
   },
   "dependencies": {
-    "antlr4-c3": "^3.3.5",
+    "antlr4-c3": "~3.3.5",
     "antlr4ng": "^2.0.10"
   },
   "nano-staged": {
