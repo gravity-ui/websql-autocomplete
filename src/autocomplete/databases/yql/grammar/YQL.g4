@@ -1830,7 +1830,7 @@ id_hint
 
 id_as_compat
     : identifier
-    // | keyword_as_compat
+    | keyword_as_compat
     ;
 
 // ANSI-aware versions of various identifiers with support double-quoted identifiers when PRAGMA AnsiQuotedIdentifiers; is present
