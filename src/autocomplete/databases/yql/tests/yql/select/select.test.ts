@@ -162,6 +162,13 @@ test('should suggest table name and alias for second column', () => {
     expect(autocompleteResult.suggestColumns).toEqual(columnSuggestions);
 });
 
+test('should suggest table name and alias for second column if first equals to keyword', () => {
+    const autocompleteResult = parseYqlQueryWithCursor('SELECT key, | FROM test_table AS t');
+    const columnSuggestions: ColumnSuggestion = {tables: [{name: 'test_table', alias: 't'}]};
+
+    expect(autocompleteResult.suggestColumns).toEqual(columnSuggestions);
+});
+
 test('should suggest multiple table names for column', () => {
     const autocompleteResult = parseYqlQueryWithCursor('SELECT | FROM test_table_1, test_table_2');
     const columnSuggestions: ColumnSuggestion = {
