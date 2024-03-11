@@ -1,8 +1,8 @@
-import {parseYQLQueryWithCursor} from '../../../../../shared/parse-query-with-cursor';
+import {parseYqlQueryWithCursor} from '../../../../../shared/parse-query-with-cursor';
 import {
     ColumnSuggestion,
     KeywordSuggestion,
-    YQLAutocompleteResult,
+    YqlAutocompleteResult,
 } from '../../../../../autocomplete-types';
 
 const afterOrderByKeywords: KeywordSuggestion[] = [
@@ -39,7 +39,7 @@ const afterOrderByKeywords: KeywordSuggestion[] = [
     {value: 'TAGGED'},
 ];
 
-function getAfterOrderByCommonExpections(autocompleteResult: YQLAutocompleteResult): void {
+function getAfterOrderByCommonExpections(autocompleteResult: YqlAutocompleteResult): void {
     expect(autocompleteResult.suggestAggregateFunctions).toBeTruthy();
     expect(autocompleteResult.suggestWindowFunctions).toBeTruthy();
     expect(autocompleteResult.suggestFunctions).toBeTruthy();
@@ -49,14 +49,14 @@ function getAfterOrderByCommonExpections(autocompleteResult: YQLAutocompleteResu
 }
 
 test('should suggest properly after ORDER', () => {
-    const autocompleteResult = parseYQLQueryWithCursor('SELECT * FROM test_table ORDER |');
+    const autocompleteResult = parseYqlQueryWithCursor('SELECT * FROM test_table ORDER |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [{value: 'BY'}];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
 test('should suggest properly after ORDER BY', () => {
-    const autocompleteResult = parseYQLQueryWithCursor(
+    const autocompleteResult = parseYqlQueryWithCursor(
         'SELECT count(*) as count, test_column t1 FROM test_table as t ORDER BY |',
     );
 
@@ -67,7 +67,7 @@ test('should suggest properly after ORDER BY', () => {
 });
 
 test('should suggest properly after ORDER BY between statements', () => {
-    const autocompleteResult = parseYQLQueryWithCursor(
+    const autocompleteResult = parseYqlQueryWithCursor(
         'ALTER TABLE before_table DROP COLUMN id; ' +
             'SELECT count(*) as count, test_column t1 FROM test_table as t ORDER BY | ; ' +
             'ALTER TABLE after_table DROP COLUMN id;',
@@ -79,7 +79,7 @@ test('should suggest properly after ORDER BY between statements', () => {
 });
 
 test('should suggest properly after ORDER BY in nested statement', () => {
-    const autocompleteResult = parseYQLQueryWithCursor(
+    const autocompleteResult = parseYqlQueryWithCursor(
         'SELECT id as id1 FROM (SELECT count(*) as count, test_column t1 FROM test_table as t ORDER BY |',
     );
     const columnSuggestion: ColumnSuggestion = {tables: [{name: 'test_table', alias: 't'}]};
@@ -89,7 +89,7 @@ test('should suggest properly after ORDER BY in nested statement', () => {
 });
 
 test('should suggest properly after ORDER BY between statements in nested statement', () => {
-    const autocompleteResult = parseYQLQueryWithCursor(
+    const autocompleteResult = parseYqlQueryWithCursor(
         'ALTER TABLE before_table DROP COLUMN id; ' +
             'SELECT id as id1 FROM (SELECT count(*) as count, test_column t1 FROM test_table as t ORDER BY | ; ' +
             'ALTER TABLE after_table DROP COLUMN id;',

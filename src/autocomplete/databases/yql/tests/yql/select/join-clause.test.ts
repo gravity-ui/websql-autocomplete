@@ -1,9 +1,9 @@
-import {parseYQLQueryWithCursor} from '../../../../../shared/parse-query-with-cursor';
+import {parseYqlQueryWithCursor} from '../../../../../shared/parse-query-with-cursor';
 import {ColumnSuggestion, KeywordSuggestion} from '../../../../../autocomplete-types';
-import {parseYQLQueryWithoutCursor} from '../../../../../autocomplete';
+import {parseYqlQueryWithoutCursor} from '../../../../../autocomplete';
 
 test('should suggest keywords after INNER', () => {
-    const autocompleteResult = parseYQLQueryWithCursor('SELECT * FROM test_table INNER |');
+    const autocompleteResult = parseYqlQueryWithCursor('SELECT * FROM test_table INNER |');
 
     const keywords: KeywordSuggestion[] = [{value: 'JOIN'}];
 
@@ -11,7 +11,7 @@ test('should suggest keywords after INNER', () => {
 });
 
 test('should suggest keywords after LEFT', () => {
-    const autocompleteResult = parseYQLQueryWithCursor('SELECT * FROM test_table LEFT |');
+    const autocompleteResult = parseYqlQueryWithCursor('SELECT * FROM test_table LEFT |');
     const keywords: KeywordSuggestion[] = [
         {value: 'JOIN'},
         {value: 'OUTER'},
@@ -23,7 +23,7 @@ test('should suggest keywords after LEFT', () => {
 });
 
 test('should suggest keywords after RIGHT', () => {
-    const autocompleteResult = parseYQLQueryWithCursor('SELECT * FROM test_table RIGHT |');
+    const autocompleteResult = parseYqlQueryWithCursor('SELECT * FROM test_table RIGHT |');
 
     const keywords: KeywordSuggestion[] = [
         {value: 'JOIN'},
@@ -36,7 +36,7 @@ test('should suggest keywords after RIGHT', () => {
 });
 
 test('should suggest keywords after FULL', () => {
-    const autocompleteResult = parseYQLQueryWithCursor('SELECT * FROM test_table FULL |');
+    const autocompleteResult = parseYqlQueryWithCursor('SELECT * FROM test_table FULL |');
 
     const keywords: KeywordSuggestion[] = [{value: 'JOIN'}, {value: 'OUTER'}];
 
@@ -44,34 +44,34 @@ test('should suggest keywords after FULL', () => {
 });
 
 test('should suggest keywords after LEFT OUTER', () => {
-    const autocompleteResult = parseYQLQueryWithCursor('SELECT * FROM test_table LEFT OUTER |');
+    const autocompleteResult = parseYqlQueryWithCursor('SELECT * FROM test_table LEFT OUTER |');
     const keywords: KeywordSuggestion[] = [{value: 'JOIN'}];
 
     expect(autocompleteResult.suggestKeywords).toEqual(keywords);
 });
 
 test('should suggest keywords after RIGHT OUTER', () => {
-    const autocompleteResult = parseYQLQueryWithCursor('SELECT * FROM test_table RIGHT OUTER |');
+    const autocompleteResult = parseYqlQueryWithCursor('SELECT * FROM test_table RIGHT OUTER |');
     const keywords: KeywordSuggestion[] = [{value: 'JOIN'}];
 
     expect(autocompleteResult.suggestKeywords).toEqual(keywords);
 });
 
 test('should suggest keywords after FULL OUTER', () => {
-    const autocompleteResult = parseYQLQueryWithCursor('SELECT * FROM test_table FULL OUTER |');
+    const autocompleteResult = parseYqlQueryWithCursor('SELECT * FROM test_table FULL OUTER |');
     const keywords: KeywordSuggestion[] = [{value: 'JOIN'}];
 
     expect(autocompleteResult.suggestKeywords).toEqual(keywords);
 });
 
 test('should suggest tables after JOIN', () => {
-    const autocompleteResult = parseYQLQueryWithCursor('SELECT * FROM test_table JOIN |');
+    const autocompleteResult = parseYqlQueryWithCursor('SELECT * FROM test_table JOIN |');
 
     expect(autocompleteResult.suggestEntity).toEqual(['table']);
 });
 
 test('should suggest tables after JOIN between statements', () => {
-    const autocompleteResult = parseYQLQueryWithCursor(
+    const autocompleteResult = parseYqlQueryWithCursor(
         'ALTER TABLE before_table DROP COLUMN id; SELECT * FROM test_table JOIN | ; ALTER TABLE after_table DROP COLUMN id;',
     );
 
@@ -79,7 +79,7 @@ test('should suggest tables after JOIN between statements', () => {
 });
 
 test('should suggest keywords after JOIN table', () => {
-    const autocompleteResult = parseYQLQueryWithCursor(
+    const autocompleteResult = parseYqlQueryWithCursor(
         'SELECT * FROM test_table_1 JOIN test_table_2 |',
     );
     const keywords: KeywordSuggestion[] = [
@@ -118,7 +118,7 @@ test('should suggest keywords after JOIN table', () => {
 });
 
 test('should suggest table names for ON clause', () => {
-    const autocompleteResult = parseYQLQueryWithCursor(
+    const autocompleteResult = parseYqlQueryWithCursor(
         'SELECT * FROM test_table_1 JOIN test_table_2 ON |',
     );
     const columnSuggestion: ColumnSuggestion = {
@@ -129,7 +129,7 @@ test('should suggest table names for ON clause', () => {
 });
 
 test('should suggest table names and aliases for ON clause', () => {
-    const autocompleteResult = parseYQLQueryWithCursor(
+    const autocompleteResult = parseYqlQueryWithCursor(
         'SELECT * FROM test_table_1 t1 JOIN test_table_2 t2 ON |',
     );
     const columnSuggestion: ColumnSuggestion = {
@@ -143,7 +143,7 @@ test('should suggest table names and aliases for ON clause', () => {
 });
 
 test('should suggest table names and aliases for ON clause between statements', () => {
-    const autocompleteResult = parseYQLQueryWithCursor(
+    const autocompleteResult = parseYqlQueryWithCursor(
         'ALTER TABLE before_table DROP COLUMN id; SELECT * FROM test_table_1 t1 JOIN test_table_2 t2 ON | ; ALTER TABLE after_table DROP COLUMN id;',
     );
     const columnSuggestion: ColumnSuggestion = {
@@ -157,7 +157,7 @@ test('should suggest table names and aliases for ON clause between statements', 
 });
 
 test('should suggest table names and aliases (with AS) for ON clause', () => {
-    const autocompleteResult = parseYQLQueryWithCursor(
+    const autocompleteResult = parseYqlQueryWithCursor(
         'SELECT * FROM test_table_1 AS t1 JOIN test_table_2 AS t2 ON |',
     );
     const columnSuggestion: ColumnSuggestion = {
@@ -171,7 +171,7 @@ test('should suggest table names and aliases (with AS) for ON clause', () => {
 });
 
 test('should suggest table names and aliases for ON clause for second column', () => {
-    const autocompleteResult = parseYQLQueryWithCursor(
+    const autocompleteResult = parseYqlQueryWithCursor(
         'SELECT * FROM test_table_1 AS t1 JOIN test_table_2 AS t2 ON id = |',
     );
     const columnSuggestion: ColumnSuggestion = {
@@ -185,7 +185,7 @@ test('should suggest table names and aliases for ON clause for second column', (
 });
 
 test('should suggest table names and aliases for ON clause for second condition', () => {
-    const autocompleteResult = parseYQLQueryWithCursor(
+    const autocompleteResult = parseYqlQueryWithCursor(
         'SELECT * FROM test_table_1 AS t1 JOIN test_table_2 AS t2 ON id = id AND |',
     );
     const columnSuggestion: ColumnSuggestion = {
@@ -199,7 +199,7 @@ test('should suggest table names and aliases for ON clause for second condition'
 });
 
 test('should suggest table names and aliases for WHERE clause', () => {
-    const autocompleteResult = parseYQLQueryWithCursor(
+    const autocompleteResult = parseYqlQueryWithCursor(
         'SELECT * FROM test_table_1 AS t1 JOIN test_table_2 AS t2 ON id = id WHERE |',
     );
     const columnSuggestion: ColumnSuggestion = {
@@ -213,7 +213,7 @@ test('should suggest table names and aliases for WHERE clause', () => {
 });
 
 test('should not report errors', () => {
-    const autocompleteResult = parseYQLQueryWithoutCursor(
+    const autocompleteResult = parseYqlQueryWithoutCursor(
         'SELECT * FROM test_table_1 AS t1 JOIN test_table_2 AS t2 ON t1.id = t2.id;',
     );
 

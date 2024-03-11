@@ -1,8 +1,8 @@
 import {KeywordSuggestion} from '../../../../../autocomplete-types';
-import {parseYQLQueryWithCursor} from '../../../../../shared/parse-query-with-cursor';
+import {parseYqlQueryWithCursor} from '../../../../../shared/parse-query-with-cursor';
 
 test('should suggest properly after CREATE', () => {
-    const autocompleteResult = parseYQLQueryWithCursor('CREATE |');
+    const autocompleteResult = parseYqlQueryWithCursor('CREATE |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [
         {value: 'VIEW'},

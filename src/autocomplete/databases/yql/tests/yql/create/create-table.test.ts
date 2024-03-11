@@ -1,8 +1,8 @@
-import {parseYQLQueryWithCursor} from '../../../../../shared/parse-query-with-cursor';
+import {parseYqlQueryWithCursor} from '../../../../../shared/parse-query-with-cursor';
 import {KeywordSuggestion} from '../../../../../autocomplete-types';
 
 test('should suggest properly after TABLE', () => {
-    const autocompleteResult = parseYQLQueryWithCursor('CREATE TABLE |');
+    const autocompleteResult = parseYqlQueryWithCursor('CREATE TABLE |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [{value: 'IF'}];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
@@ -10,13 +10,13 @@ test('should suggest properly after TABLE', () => {
 });
 
 test('should suggest properly after table name', () => {
-    const autocompleteResult = parseYQLQueryWithCursor('CREATE TABLE test_table |');
+    const autocompleteResult = parseYqlQueryWithCursor('CREATE TABLE test_table |');
     const keywordsSuggestion: KeywordSuggestion[] = [{value: 'WITH'}];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
 test('should suggest properly table entry start', () => {
-    const autocompleteResult = parseYQLQueryWithCursor('CREATE TABLE test_table (|');
+    const autocompleteResult = parseYqlQueryWithCursor('CREATE TABLE test_table (|');
     const keywordsSuggestion: KeywordSuggestion[] = [
         {value: 'PRIMARY'},
         {value: 'PARTITION'},
@@ -28,7 +28,7 @@ test('should suggest properly table entry start', () => {
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 test('should suggest properly column schema', () => {
-    const autocompleteResult = parseYQLQueryWithCursor('CREATE TABLE test_table (test_schema |');
+    const autocompleteResult = parseYqlQueryWithCursor('CREATE TABLE test_table (test_schema |');
     const keywordsSuggestion: KeywordSuggestion[] = [
         {value: 'OPTIONAL'},
         {value: 'TUPLE'},
@@ -48,7 +48,7 @@ test('should suggest properly column schema', () => {
     expect(autocompleteResult.suggestSimpleTypes).toBeTruthy();
 });
 test('should suggest properly after composite type', () => {
-    const autocompleteResult = parseYQLQueryWithCursor(
+    const autocompleteResult = parseYqlQueryWithCursor(
         'CREATE TABLE test_table (test_schema OPTIONAL<|',
     );
     const keywordsSuggestion: KeywordSuggestion[] = [
@@ -70,7 +70,7 @@ test('should suggest properly after composite type', () => {
     expect(autocompleteResult.suggestSimpleTypes).toBeTruthy();
 });
 test('should suggest properly after column schema', () => {
-    const autocompleteResult = parseYQLQueryWithCursor(
+    const autocompleteResult = parseYqlQueryWithCursor(
         'CREATE TABLE test_table (test_schema OPTIONAL<String>) |',
     );
     const keywordsSuggestion: KeywordSuggestion[] = [

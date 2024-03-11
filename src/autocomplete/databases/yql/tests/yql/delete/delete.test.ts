@@ -1,21 +1,21 @@
-import {parseYQLQueryWithCursor} from '../../../../../shared/parse-query-with-cursor';
+import {parseYqlQueryWithCursor} from '../../../../../shared/parse-query-with-cursor';
 import {ColumnSuggestion, KeywordSuggestion} from '../../../../../autocomplete-types';
 
 test('should suggest properly after DELETE', () => {
-    const autocompleteResult = parseYQLQueryWithCursor('DELETE |');
+    const autocompleteResult = parseYqlQueryWithCursor('DELETE |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [{value: 'FROM'}];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
 test('should suggest properly after FROM', () => {
-    const autocompleteResult = parseYQLQueryWithCursor('DELETE FROM |');
+    const autocompleteResult = parseYqlQueryWithCursor('DELETE FROM |');
     const keywordsSuggestion: KeywordSuggestion[] = [];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
 test('should suggest properly after table name', () => {
-    const autocompleteResult = parseYQLQueryWithCursor('DELETE FROM test_table |');
+    const autocompleteResult = parseYqlQueryWithCursor('DELETE FROM test_table |');
     const keywordsSuggestion: KeywordSuggestion[] = [
         {value: 'WITH'},
         {value: 'ON'},
@@ -25,7 +25,7 @@ test('should suggest properly after table name', () => {
 });
 
 test('should suggest properly after WHERE', () => {
-    const autocompleteResult = parseYQLQueryWithCursor('DELETE FROM test_table WHERE |');
+    const autocompleteResult = parseYqlQueryWithCursor('DELETE FROM test_table WHERE |');
     const columnsSuggestions: ColumnSuggestion = {
         tables: [
             {
@@ -38,7 +38,7 @@ test('should suggest properly after WHERE', () => {
 });
 
 test('should suggest properly after ON', () => {
-    const autocompleteResult = parseYQLQueryWithCursor('DELETE FROM test_table ON |');
+    const autocompleteResult = parseYqlQueryWithCursor('DELETE FROM test_table ON |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [
         {value: 'VALUES'},
