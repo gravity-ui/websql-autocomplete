@@ -639,17 +639,17 @@ export class YQLParser extends antlr.Parser {
     public static readonly RULE_table_hints = 292;
     public static readonly RULE_table_hint = 293;
     public static readonly RULE_object_ref = 294;
-    public static readonly RULE_existed_table_ref = 295;
-    public static readonly RULE_existed_object_ref = 296;
-    public static readonly RULE_existed_view_ref = 297;
-    public static readonly RULE_existed_topic_ref = 298;
-    public static readonly RULE_existed_table_store_ref = 299;
-    public static readonly RULE_existed_replication_ref = 300;
-    public static readonly RULE_existed_external_data_source_ref = 301;
+    public static readonly RULE_existing_table_ref = 295;
+    public static readonly RULE_existing_object_ref = 296;
+    public static readonly RULE_existing_view_ref = 297;
+    public static readonly RULE_existing_topic_ref = 298;
+    public static readonly RULE_existing_table_store_ref = 299;
+    public static readonly RULE_existing_replication_ref = 300;
+    public static readonly RULE_existing_external_data_source_ref = 301;
     public static readonly RULE_simple_table_ref_core = 302;
-    public static readonly RULE_existed_simple_table_ref_core = 303;
+    public static readonly RULE_existing_simple_table_ref_core = 303;
     public static readonly RULE_simple_table_ref = 304;
-    public static readonly RULE_existed_simple_table_ref = 305;
+    public static readonly RULE_existing_simple_table_ref = 305;
     public static readonly RULE_into_simple_table_ref = 306;
     public static readonly RULE_delete_stmt = 307;
     public static readonly RULE_update_stmt = 308;
@@ -722,18 +722,18 @@ export class YQLParser extends antlr.Parser {
     public static readonly RULE_id_without = 375;
     public static readonly RULE_id_hint = 376;
     public static readonly RULE_id_as_compat = 377;
-    public static readonly RULE_existed_column_id = 378;
+    public static readonly RULE_existing_column_id = 378;
     public static readonly RULE_an_id = 379;
-    public static readonly RULE_an_existed_column_id = 380;
-    public static readonly RULE_an_existed_topic_id = 381;
+    public static readonly RULE_an_existing_column_id = 380;
+    public static readonly RULE_an_existing_topic_id = 381;
     public static readonly RULE_an_id_or_type = 382;
-    public static readonly RULE_an_existed_table_id_or_type = 383;
-    public static readonly RULE_an_existed_object_id_or_type = 384;
-    public static readonly RULE_an_existed_view_id_or_type = 385;
-    public static readonly RULE_an_existed_topic_id_or_type = 386;
-    public static readonly RULE_an_existed_table_store_id_or_type = 387;
-    public static readonly RULE_an_existed_replication_id_or_type = 388;
-    public static readonly RULE_an_existed_external_data_source_id_or_type = 389;
+    public static readonly RULE_an_existing_table_id_or_type = 383;
+    public static readonly RULE_an_existing_object_id_or_type = 384;
+    public static readonly RULE_an_existing_view_id_or_type = 385;
+    public static readonly RULE_an_existing_topic_id_or_type = 386;
+    public static readonly RULE_an_existing_table_store_id_or_type = 387;
+    public static readonly RULE_an_existing_replication_id_or_type = 388;
+    public static readonly RULE_an_existing_external_data_source_id_or_type = 389;
     public static readonly RULE_an_id_schema = 390;
     public static readonly RULE_an_id_expr = 391;
     public static readonly RULE_an_id_expr_in = 392;
@@ -748,22 +748,22 @@ export class YQLParser extends antlr.Parser {
     public static readonly RULE_cluster_expr = 401;
     public static readonly RULE_id_or_type = 402;
     public static readonly RULE_udf_id = 403;
-    public static readonly RULE_existed_table_id = 404;
-    public static readonly RULE_existed_object_id = 405;
-    public static readonly RULE_existed_view_id = 406;
-    public static readonly RULE_existed_topic_id = 407;
-    public static readonly RULE_existed_table_store_id = 408;
-    public static readonly RULE_existed_external_data_source_id = 409;
-    public static readonly RULE_existed_replication_id = 410;
+    public static readonly RULE_existing_table_id = 404;
+    public static readonly RULE_existing_object_id = 405;
+    public static readonly RULE_existing_view_id = 406;
+    public static readonly RULE_existing_topic_id = 407;
+    public static readonly RULE_existing_table_store_id = 408;
+    public static readonly RULE_existing_external_data_source_id = 409;
+    public static readonly RULE_existing_replication_id = 410;
     public static readonly RULE_opt_id_prefix_or_type = 411;
     public static readonly RULE_id_or_at = 412;
-    public static readonly RULE_existed_table_id_or_at = 413;
-    public static readonly RULE_existed_object_id_or_at = 414;
-    public static readonly RULE_existed_view_id_or_at = 415;
-    public static readonly RULE_existed_topic_id_or_at = 416;
-    public static readonly RULE_existed_table_store_id_or_at = 417;
-    public static readonly RULE_existed_replication_id_or_at = 418;
-    public static readonly RULE_existed_external_data_source_id_or_at = 419;
+    public static readonly RULE_existing_table_id_or_at = 413;
+    public static readonly RULE_existing_object_id_or_at = 414;
+    public static readonly RULE_existing_view_id_or_at = 415;
+    public static readonly RULE_existing_topic_id_or_at = 416;
+    public static readonly RULE_existing_table_store_id_or_at = 417;
+    public static readonly RULE_existing_replication_id_or_at = 418;
+    public static readonly RULE_existing_external_data_source_id_or_at = 419;
     public static readonly RULE_id_table_or_type = 420;
     public static readonly RULE_id_table_or_at = 421;
     public static readonly RULE_keyword = 422;
@@ -923,10 +923,10 @@ export class YQLParser extends antlr.Parser {
         "drop_replication_stmt", "action_or_subquery_args", "define_action_or_subquery_stmt", 
         "define_action_or_subquery_body", "if_stmt", "for_stmt", "cluster_expr_with_dot", 
         "table_ref", "table_key", "table_arg", "table_hints", "table_hint", 
-        "object_ref", "existed_table_ref", "existed_object_ref", "existed_view_ref", 
-        "existed_topic_ref", "existed_table_store_ref", "existed_replication_ref", 
-        "existed_external_data_source_ref", "simple_table_ref_core", "existed_simple_table_ref_core", 
-        "simple_table_ref", "existed_simple_table_ref", "into_simple_table_ref", 
+        "object_ref", "existing_table_ref", "existing_object_ref", "existing_view_ref", 
+        "existing_topic_ref", "existing_table_store_ref", "existing_replication_ref", 
+        "existing_external_data_source_ref", "simple_table_ref_core", "existing_simple_table_ref_core", 
+        "simple_table_ref", "existing_simple_table_ref", "into_simple_table_ref", 
         "delete_stmt", "update_stmt", "set_clause_choice", "set_clause_list", 
         "set_clause", "set_target", "multiple_column_assignment", "set_target_list", 
         "create_topic_stmt", "create_topic_entries", "create_topic_entry", 
@@ -947,24 +947,24 @@ export class YQLParser extends antlr.Parser {
         "named_nodes_stmt", "commit_stmt", "rollback_stmt", "identifier", 
         "id", "id_schema", "id_expr", "simple_function_id", "window_function_id", 
         "table_function_id", "aggregate_function_id", "id_expr_in", "id_window", 
-        "id_table", "id_without", "id_hint", "id_as_compat", "existed_column_id", 
-        "an_id", "an_existed_column_id", "an_existed_topic_id", "an_id_or_type", 
-        "an_existed_table_id_or_type", "an_existed_object_id_or_type", "an_existed_view_id_or_type", 
-        "an_existed_topic_id_or_type", "an_existed_table_store_id_or_type", 
-        "an_existed_replication_id_or_type", "an_existed_external_data_source_id_or_type", 
+        "id_table", "id_without", "id_hint", "id_as_compat", "existing_column_id", 
+        "an_id", "an_existing_column_id", "an_existing_topic_id", "an_id_or_type", 
+        "an_existing_table_id_or_type", "an_existing_object_id_or_type", 
+        "an_existing_view_id_or_type", "an_existing_topic_id_or_type", "an_existing_table_store_id_or_type", 
+        "an_existing_replication_id_or_type", "an_existing_external_data_source_id_or_type", 
         "an_id_schema", "an_id_expr", "an_id_expr_in", "an_id_window", "an_id_table", 
         "an_id_without", "an_id_hint", "an_id_pure", "an_id_as_compat", 
         "view_name", "opt_id_prefix", "cluster_expr", "id_or_type", "udf_id", 
-        "existed_table_id", "existed_object_id", "existed_view_id", "existed_topic_id", 
-        "existed_table_store_id", "existed_external_data_source_id", "existed_replication_id", 
-        "opt_id_prefix_or_type", "id_or_at", "existed_table_id_or_at", "existed_object_id_or_at", 
-        "existed_view_id_or_at", "existed_topic_id_or_at", "existed_table_store_id_or_at", 
-        "existed_replication_id_or_at", "existed_external_data_source_id_or_at", 
-        "id_table_or_type", "id_table_or_at", "keyword", "keyword_expr_uncompat", 
-        "keyword_table_uncompat", "keyword_select_uncompat", "keyword_alter_uncompat", 
-        "keyword_in_uncompat", "keyword_window_uncompat", "keyword_hint_uncompat", 
-        "keyword_as_compat", "keyword_compat", "type_id", "bool_value", 
-        "real", "integer",
+        "existing_table_id", "existing_object_id", "existing_view_id", "existing_topic_id", 
+        "existing_table_store_id", "existing_external_data_source_id", "existing_replication_id", 
+        "opt_id_prefix_or_type", "id_or_at", "existing_table_id_or_at", 
+        "existing_object_id_or_at", "existing_view_id_or_at", "existing_topic_id_or_at", 
+        "existing_table_store_id_or_at", "existing_replication_id_or_at", 
+        "existing_external_data_source_id_or_at", "id_table_or_type", "id_table_or_at", 
+        "keyword", "keyword_expr_uncompat", "keyword_table_uncompat", "keyword_select_uncompat", 
+        "keyword_alter_uncompat", "keyword_in_uncompat", "keyword_window_uncompat", 
+        "keyword_hint_uncompat", "keyword_as_compat", "keyword_compat", 
+        "type_id", "bool_value", "real", "integer",
     ];
 
     public get grammarFileName(): string { return "YQL.g4"; }
@@ -4665,7 +4665,7 @@ export class YQLParser extends antlr.Parser {
             this.state = 1519;
             this.match(YQLParser.LPAREN);
             this.state = 1520;
-            this.an_existed_column_id();
+            this.an_existing_column_id();
             this.state = 1525;
             this.errorHandler.sync(this);
             _la = this.tokenStream.LA(1);
@@ -4675,7 +4675,7 @@ export class YQLParser extends antlr.Parser {
                 this.state = 1521;
                 this.match(YQLParser.COMMA);
                 this.state = 1522;
-                this.an_existed_column_id();
+                this.an_existing_column_id();
                 }
                 }
                 this.state = 1527;
@@ -4720,7 +4720,7 @@ export class YQLParser extends antlr.Parser {
                 this.enterOuterAlt(localContext, 2);
                 {
                 this.state = 1531;
-                this.an_existed_column_id();
+                this.an_existing_column_id();
                 }
                 break;
             default:
@@ -4795,7 +4795,7 @@ export class YQLParser extends antlr.Parser {
             this.state = 1545;
             this.opt_id_prefix();
             this.state = 1546;
-            this.an_existed_column_id();
+            this.an_existing_column_id();
             }
         }
         catch (re) {
@@ -4836,7 +4836,7 @@ export class YQLParser extends antlr.Parser {
                 this.enterOuterAlt(localContext, 2);
                 {
                 this.state = 1552;
-                this.an_existed_column_id();
+                this.an_existing_column_id();
                 }
                 break;
             }
@@ -11570,7 +11570,7 @@ export class YQLParser extends antlr.Parser {
             }
 
             this.state = 2732;
-            this.existed_external_data_source_ref();
+            this.existing_external_data_source_ref();
             }
         }
         catch (re) {
@@ -11632,7 +11632,7 @@ export class YQLParser extends antlr.Parser {
             this.state = 2742;
             this.match(YQLParser.VIEW);
             this.state = 2743;
-            this.existed_view_ref();
+            this.existing_view_ref();
             }
         }
         catch (re) {
@@ -11661,7 +11661,7 @@ export class YQLParser extends antlr.Parser {
             this.state = 2746;
             this.match(YQLParser.OBJECT);
             this.state = 2747;
-            this.existed_object_ref();
+            this.existing_object_ref();
             this.state = 2748;
             this.match(YQLParser.LPAREN);
             this.state = 2749;
@@ -11794,7 +11794,7 @@ export class YQLParser extends antlr.Parser {
             this.state = 2774;
             this.match(YQLParser.OBJECT);
             this.state = 2775;
-            this.existed_object_ref();
+            this.existing_object_ref();
             this.state = 2776;
             this.match(YQLParser.LPAREN);
             this.state = 2777;
@@ -11871,7 +11871,7 @@ export class YQLParser extends antlr.Parser {
             }
 
             this.state = 2791;
-            this.existed_object_ref();
+            this.existing_object_ref();
             this.state = 2792;
             this.match(YQLParser.LPAREN);
             this.state = 2793;
@@ -12380,7 +12380,7 @@ export class YQLParser extends antlr.Parser {
             this.state = 2879;
             this.match(YQLParser.LPAREN);
             this.state = 2880;
-            this.existed_simple_table_ref_core();
+            this.existing_simple_table_ref_core();
             this.state = 2885;
             this.errorHandler.sync(this);
             _la = this.tokenStream.LA(1);
@@ -12390,7 +12390,7 @@ export class YQLParser extends antlr.Parser {
                 this.state = 2881;
                 this.match(YQLParser.COMMA);
                 this.state = 2882;
-                this.existed_simple_table_ref_core();
+                this.existing_simple_table_ref_core();
                 }
                 }
                 this.state = 2887;
@@ -12595,7 +12595,7 @@ export class YQLParser extends antlr.Parser {
             this.state = 2919;
             this.match(YQLParser.TABLE);
             this.state = 2920;
-            this.existed_simple_table_ref();
+            this.existing_simple_table_ref();
             this.state = 2921;
             this.alter_table_action();
             this.state = 2926;
@@ -12770,7 +12770,7 @@ export class YQLParser extends antlr.Parser {
             this.state = 2947;
             this.match(YQLParser.TABLESTORE);
             this.state = 2948;
-            this.existed_table_store_ref();
+            this.existing_table_store_ref();
             this.state = 2949;
             this.alter_table_store_action();
             this.state = 2954;
@@ -12901,7 +12901,7 @@ export class YQLParser extends antlr.Parser {
             }
 
             this.state = 2971;
-            this.an_existed_column_id();
+            this.an_existing_column_id();
             }
         }
         catch (re) {
@@ -12929,7 +12929,7 @@ export class YQLParser extends antlr.Parser {
             this.state = 2974;
             this.match(YQLParser.COLUMN);
             this.state = 2975;
-            this.an_existed_column_id();
+            this.an_existing_column_id();
             this.state = 2976;
             this.match(YQLParser.SET);
             this.state = 2977;
@@ -14437,7 +14437,7 @@ export class YQLParser extends antlr.Parser {
             }
 
             this.state = 3280;
-            this.existed_simple_table_ref();
+            this.existing_simple_table_ref();
             }
         }
         catch (re) {
@@ -15561,7 +15561,7 @@ export class YQLParser extends antlr.Parser {
             this.state = 3502;
             this.match(YQLParser.REPLICATION);
             this.state = 3503;
-            this.existed_replication_ref();
+            this.existing_replication_ref();
             this.state = 3505;
             this.errorHandler.sync(this);
             _la = this.tokenStream.LA(1);
@@ -16071,7 +16071,7 @@ export class YQLParser extends antlr.Parser {
             this.enterOuterAlt(localContext, 1);
             {
             this.state = 3620;
-            this.an_existed_table_id_or_type();
+            this.an_existing_table_id_or_type();
             this.state = 3623;
             this.errorHandler.sync(this);
             _la = this.tokenStream.LA(1);
@@ -16420,16 +16420,16 @@ export class YQLParser extends antlr.Parser {
         }
         return localContext;
     }
-    public existed_table_ref(): Existed_table_refContext {
-        let localContext = new Existed_table_refContext(this.context, this.state);
-        this.enterRule(localContext, 590, YQLParser.RULE_existed_table_ref);
+    public existing_table_ref(): Existing_table_refContext {
+        let localContext = new Existing_table_refContext(this.context, this.state);
+        this.enterRule(localContext, 590, YQLParser.RULE_existing_table_ref);
         try {
             this.enterOuterAlt(localContext, 1);
             {
             this.state = 3698;
             this.cluster_expr_with_dot();
             this.state = 3699;
-            this.existed_table_id_or_at();
+            this.existing_table_id_or_at();
             }
         }
         catch (re) {
@@ -16446,16 +16446,16 @@ export class YQLParser extends antlr.Parser {
         }
         return localContext;
     }
-    public existed_object_ref(): Existed_object_refContext {
-        let localContext = new Existed_object_refContext(this.context, this.state);
-        this.enterRule(localContext, 592, YQLParser.RULE_existed_object_ref);
+    public existing_object_ref(): Existing_object_refContext {
+        let localContext = new Existing_object_refContext(this.context, this.state);
+        this.enterRule(localContext, 592, YQLParser.RULE_existing_object_ref);
         try {
             this.enterOuterAlt(localContext, 1);
             {
             this.state = 3701;
             this.cluster_expr_with_dot();
             this.state = 3702;
-            this.existed_object_id_or_at();
+            this.existing_object_id_or_at();
             }
         }
         catch (re) {
@@ -16472,16 +16472,16 @@ export class YQLParser extends antlr.Parser {
         }
         return localContext;
     }
-    public existed_view_ref(): Existed_view_refContext {
-        let localContext = new Existed_view_refContext(this.context, this.state);
-        this.enterRule(localContext, 594, YQLParser.RULE_existed_view_ref);
+    public existing_view_ref(): Existing_view_refContext {
+        let localContext = new Existing_view_refContext(this.context, this.state);
+        this.enterRule(localContext, 594, YQLParser.RULE_existing_view_ref);
         try {
             this.enterOuterAlt(localContext, 1);
             {
             this.state = 3704;
             this.cluster_expr_with_dot();
             this.state = 3705;
-            this.existed_view_id_or_at();
+            this.existing_view_id_or_at();
             }
         }
         catch (re) {
@@ -16498,16 +16498,16 @@ export class YQLParser extends antlr.Parser {
         }
         return localContext;
     }
-    public existed_topic_ref(): Existed_topic_refContext {
-        let localContext = new Existed_topic_refContext(this.context, this.state);
-        this.enterRule(localContext, 596, YQLParser.RULE_existed_topic_ref);
+    public existing_topic_ref(): Existing_topic_refContext {
+        let localContext = new Existing_topic_refContext(this.context, this.state);
+        this.enterRule(localContext, 596, YQLParser.RULE_existing_topic_ref);
         try {
             this.enterOuterAlt(localContext, 1);
             {
             this.state = 3707;
             this.cluster_expr_with_dot();
             this.state = 3708;
-            this.existed_topic_id_or_at();
+            this.existing_topic_id_or_at();
             }
         }
         catch (re) {
@@ -16524,16 +16524,16 @@ export class YQLParser extends antlr.Parser {
         }
         return localContext;
     }
-    public existed_table_store_ref(): Existed_table_store_refContext {
-        let localContext = new Existed_table_store_refContext(this.context, this.state);
-        this.enterRule(localContext, 598, YQLParser.RULE_existed_table_store_ref);
+    public existing_table_store_ref(): Existing_table_store_refContext {
+        let localContext = new Existing_table_store_refContext(this.context, this.state);
+        this.enterRule(localContext, 598, YQLParser.RULE_existing_table_store_ref);
         try {
             this.enterOuterAlt(localContext, 1);
             {
             this.state = 3710;
             this.cluster_expr_with_dot();
             this.state = 3711;
-            this.existed_table_store_id_or_at();
+            this.existing_table_store_id_or_at();
             }
         }
         catch (re) {
@@ -16550,16 +16550,16 @@ export class YQLParser extends antlr.Parser {
         }
         return localContext;
     }
-    public existed_replication_ref(): Existed_replication_refContext {
-        let localContext = new Existed_replication_refContext(this.context, this.state);
-        this.enterRule(localContext, 600, YQLParser.RULE_existed_replication_ref);
+    public existing_replication_ref(): Existing_replication_refContext {
+        let localContext = new Existing_replication_refContext(this.context, this.state);
+        this.enterRule(localContext, 600, YQLParser.RULE_existing_replication_ref);
         try {
             this.enterOuterAlt(localContext, 1);
             {
             this.state = 3713;
             this.cluster_expr_with_dot();
             this.state = 3714;
-            this.existed_replication_id_or_at();
+            this.existing_replication_id_or_at();
             }
         }
         catch (re) {
@@ -16576,16 +16576,16 @@ export class YQLParser extends antlr.Parser {
         }
         return localContext;
     }
-    public existed_external_data_source_ref(): Existed_external_data_source_refContext {
-        let localContext = new Existed_external_data_source_refContext(this.context, this.state);
-        this.enterRule(localContext, 602, YQLParser.RULE_existed_external_data_source_ref);
+    public existing_external_data_source_ref(): Existing_external_data_source_refContext {
+        let localContext = new Existing_external_data_source_refContext(this.context, this.state);
+        this.enterRule(localContext, 602, YQLParser.RULE_existing_external_data_source_ref);
         try {
             this.enterOuterAlt(localContext, 1);
             {
             this.state = 3716;
             this.cluster_expr_with_dot();
             this.state = 3717;
-            this.existed_external_data_source_id_or_at();
+            this.existing_external_data_source_id_or_at();
             }
         }
         catch (re) {
@@ -16650,9 +16650,9 @@ export class YQLParser extends antlr.Parser {
         }
         return localContext;
     }
-    public existed_simple_table_ref_core(): Existed_simple_table_ref_coreContext {
-        let localContext = new Existed_simple_table_ref_coreContext(this.context, this.state);
-        this.enterRule(localContext, 606, YQLParser.RULE_existed_simple_table_ref_core);
+    public existing_simple_table_ref_core(): Existing_simple_table_ref_coreContext {
+        let localContext = new Existing_simple_table_ref_coreContext(this.context, this.state);
+        this.enterRule(localContext, 606, YQLParser.RULE_existing_simple_table_ref_core);
         let _la: number;
         try {
             this.state = 3731;
@@ -16662,7 +16662,7 @@ export class YQLParser extends antlr.Parser {
                 this.enterOuterAlt(localContext, 1);
                 {
                 this.state = 3726;
-                this.existed_table_ref();
+                this.existing_table_ref();
                 }
                 break;
             case 2:
@@ -16733,15 +16733,15 @@ export class YQLParser extends antlr.Parser {
         }
         return localContext;
     }
-    public existed_simple_table_ref(): Existed_simple_table_refContext {
-        let localContext = new Existed_simple_table_refContext(this.context, this.state);
-        this.enterRule(localContext, 610, YQLParser.RULE_existed_simple_table_ref);
+    public existing_simple_table_ref(): Existing_simple_table_refContext {
+        let localContext = new Existing_simple_table_refContext(this.context, this.state);
+        this.enterRule(localContext, 610, YQLParser.RULE_existing_simple_table_ref);
         let _la: number;
         try {
             this.enterOuterAlt(localContext, 1);
             {
             this.state = 3737;
-            this.existed_simple_table_ref_core();
+            this.existing_simple_table_ref_core();
             this.state = 3739;
             this.errorHandler.sync(this);
             _la = this.tokenStream.LA(1);
@@ -16776,7 +16776,7 @@ export class YQLParser extends antlr.Parser {
             this.enterOuterAlt(localContext, 1);
             {
             this.state = 3741;
-            this.existed_simple_table_ref();
+            this.existing_simple_table_ref();
             this.state = 3745;
             this.errorHandler.sync(this);
             _la = this.tokenStream.LA(1);
@@ -16818,7 +16818,7 @@ export class YQLParser extends antlr.Parser {
             this.state = 3748;
             this.match(YQLParser.FROM);
             this.state = 3749;
-            this.existed_simple_table_ref();
+            this.existing_simple_table_ref();
             this.state = 3753;
             this.errorHandler.sync(this);
             switch (this.tokenStream.LA(1)) {
@@ -16869,7 +16869,7 @@ export class YQLParser extends antlr.Parser {
             this.state = 3755;
             this.match(YQLParser.UPDATE);
             this.state = 3756;
-            this.existed_simple_table_ref();
+            this.existing_simple_table_ref();
             this.state = 3764;
             this.errorHandler.sync(this);
             switch (this.tokenStream.LA(1)) {
@@ -17289,7 +17289,7 @@ export class YQLParser extends antlr.Parser {
             this.state = 3829;
             this.match(YQLParser.TOPIC);
             this.state = 3830;
-            this.existed_topic_ref();
+            this.existing_topic_ref();
             this.state = 3831;
             this.alter_topic_action();
             this.state = 3836;
@@ -17709,7 +17709,7 @@ export class YQLParser extends antlr.Parser {
             this.state = 3902;
             this.match(YQLParser.TOPIC);
             this.state = 3903;
-            this.existed_topic_ref();
+            this.existing_topic_ref();
             }
         }
         catch (re) {
@@ -19107,7 +19107,7 @@ export class YQLParser extends antlr.Parser {
                 this.enterOuterAlt(localContext, 5);
                 {
                 this.state = 4071;
-                this.existed_column_id();
+                this.existing_column_id();
                 }
                 break;
             }
@@ -19366,9 +19366,9 @@ export class YQLParser extends antlr.Parser {
         }
         return localContext;
     }
-    public existed_column_id(): Existed_column_idContext {
-        let localContext = new Existed_column_idContext(this.context, this.state);
-        this.enterRule(localContext, 756, YQLParser.RULE_existed_column_id);
+    public existing_column_id(): Existing_column_idContext {
+        let localContext = new Existing_column_idContext(this.context, this.state);
+        this.enterRule(localContext, 756, YQLParser.RULE_existing_column_id);
         try {
             this.enterOuterAlt(localContext, 1);
             {
@@ -19430,9 +19430,9 @@ export class YQLParser extends antlr.Parser {
         }
         return localContext;
     }
-    public an_existed_column_id(): An_existed_column_idContext {
-        let localContext = new An_existed_column_idContext(this.context, this.state);
-        this.enterRule(localContext, 760, YQLParser.RULE_an_existed_column_id);
+    public an_existing_column_id(): An_existing_column_idContext {
+        let localContext = new An_existing_column_idContext(this.context, this.state);
+        this.enterRule(localContext, 760, YQLParser.RULE_an_existing_column_id);
         try {
             this.state = 4102;
             this.errorHandler.sync(this);
@@ -19442,7 +19442,7 @@ export class YQLParser extends antlr.Parser {
                 this.enterOuterAlt(localContext, 1);
                 {
                 this.state = 4100;
-                this.existed_column_id();
+                this.existing_column_id();
                 }
                 break;
             case YQLParser.STRING_VALUE:
@@ -19470,9 +19470,9 @@ export class YQLParser extends antlr.Parser {
         }
         return localContext;
     }
-    public an_existed_topic_id(): An_existed_topic_idContext {
-        let localContext = new An_existed_topic_idContext(this.context, this.state);
-        this.enterRule(localContext, 762, YQLParser.RULE_an_existed_topic_id);
+    public an_existing_topic_id(): An_existing_topic_idContext {
+        let localContext = new An_existing_topic_idContext(this.context, this.state);
+        this.enterRule(localContext, 762, YQLParser.RULE_an_existing_topic_id);
         try {
             this.state = 4106;
             this.errorHandler.sync(this);
@@ -19482,7 +19482,7 @@ export class YQLParser extends antlr.Parser {
                 this.enterOuterAlt(localContext, 1);
                 {
                 this.state = 4104;
-                this.existed_topic_id();
+                this.existing_topic_id();
                 }
                 break;
             case YQLParser.STRING_VALUE:
@@ -19550,9 +19550,9 @@ export class YQLParser extends antlr.Parser {
         }
         return localContext;
     }
-    public an_existed_table_id_or_type(): An_existed_table_id_or_typeContext {
-        let localContext = new An_existed_table_id_or_typeContext(this.context, this.state);
-        this.enterRule(localContext, 766, YQLParser.RULE_an_existed_table_id_or_type);
+    public an_existing_table_id_or_type(): An_existing_table_id_or_typeContext {
+        let localContext = new An_existing_table_id_or_typeContext(this.context, this.state);
+        this.enterRule(localContext, 766, YQLParser.RULE_an_existing_table_id_or_type);
         try {
             this.state = 4114;
             this.errorHandler.sync(this);
@@ -19562,7 +19562,7 @@ export class YQLParser extends antlr.Parser {
                 this.enterOuterAlt(localContext, 1);
                 {
                 this.state = 4112;
-                this.existed_table_id();
+                this.existing_table_id();
                 }
                 break;
             case YQLParser.STRING_VALUE:
@@ -19590,9 +19590,9 @@ export class YQLParser extends antlr.Parser {
         }
         return localContext;
     }
-    public an_existed_object_id_or_type(): An_existed_object_id_or_typeContext {
-        let localContext = new An_existed_object_id_or_typeContext(this.context, this.state);
-        this.enterRule(localContext, 768, YQLParser.RULE_an_existed_object_id_or_type);
+    public an_existing_object_id_or_type(): An_existing_object_id_or_typeContext {
+        let localContext = new An_existing_object_id_or_typeContext(this.context, this.state);
+        this.enterRule(localContext, 768, YQLParser.RULE_an_existing_object_id_or_type);
         try {
             this.state = 4118;
             this.errorHandler.sync(this);
@@ -19602,7 +19602,7 @@ export class YQLParser extends antlr.Parser {
                 this.enterOuterAlt(localContext, 1);
                 {
                 this.state = 4116;
-                this.existed_object_id();
+                this.existing_object_id();
                 }
                 break;
             case YQLParser.STRING_VALUE:
@@ -19630,9 +19630,9 @@ export class YQLParser extends antlr.Parser {
         }
         return localContext;
     }
-    public an_existed_view_id_or_type(): An_existed_view_id_or_typeContext {
-        let localContext = new An_existed_view_id_or_typeContext(this.context, this.state);
-        this.enterRule(localContext, 770, YQLParser.RULE_an_existed_view_id_or_type);
+    public an_existing_view_id_or_type(): An_existing_view_id_or_typeContext {
+        let localContext = new An_existing_view_id_or_typeContext(this.context, this.state);
+        this.enterRule(localContext, 770, YQLParser.RULE_an_existing_view_id_or_type);
         try {
             this.state = 4122;
             this.errorHandler.sync(this);
@@ -19642,7 +19642,7 @@ export class YQLParser extends antlr.Parser {
                 this.enterOuterAlt(localContext, 1);
                 {
                 this.state = 4120;
-                this.existed_view_id();
+                this.existing_view_id();
                 }
                 break;
             case YQLParser.STRING_VALUE:
@@ -19670,9 +19670,9 @@ export class YQLParser extends antlr.Parser {
         }
         return localContext;
     }
-    public an_existed_topic_id_or_type(): An_existed_topic_id_or_typeContext {
-        let localContext = new An_existed_topic_id_or_typeContext(this.context, this.state);
-        this.enterRule(localContext, 772, YQLParser.RULE_an_existed_topic_id_or_type);
+    public an_existing_topic_id_or_type(): An_existing_topic_id_or_typeContext {
+        let localContext = new An_existing_topic_id_or_typeContext(this.context, this.state);
+        this.enterRule(localContext, 772, YQLParser.RULE_an_existing_topic_id_or_type);
         try {
             this.state = 4126;
             this.errorHandler.sync(this);
@@ -19682,7 +19682,7 @@ export class YQLParser extends antlr.Parser {
                 this.enterOuterAlt(localContext, 1);
                 {
                 this.state = 4124;
-                this.existed_topic_id();
+                this.existing_topic_id();
                 }
                 break;
             case YQLParser.STRING_VALUE:
@@ -19710,9 +19710,9 @@ export class YQLParser extends antlr.Parser {
         }
         return localContext;
     }
-    public an_existed_table_store_id_or_type(): An_existed_table_store_id_or_typeContext {
-        let localContext = new An_existed_table_store_id_or_typeContext(this.context, this.state);
-        this.enterRule(localContext, 774, YQLParser.RULE_an_existed_table_store_id_or_type);
+    public an_existing_table_store_id_or_type(): An_existing_table_store_id_or_typeContext {
+        let localContext = new An_existing_table_store_id_or_typeContext(this.context, this.state);
+        this.enterRule(localContext, 774, YQLParser.RULE_an_existing_table_store_id_or_type);
         try {
             this.state = 4130;
             this.errorHandler.sync(this);
@@ -19722,7 +19722,7 @@ export class YQLParser extends antlr.Parser {
                 this.enterOuterAlt(localContext, 1);
                 {
                 this.state = 4128;
-                this.existed_table_store_id();
+                this.existing_table_store_id();
                 }
                 break;
             case YQLParser.STRING_VALUE:
@@ -19750,9 +19750,9 @@ export class YQLParser extends antlr.Parser {
         }
         return localContext;
     }
-    public an_existed_replication_id_or_type(): An_existed_replication_id_or_typeContext {
-        let localContext = new An_existed_replication_id_or_typeContext(this.context, this.state);
-        this.enterRule(localContext, 776, YQLParser.RULE_an_existed_replication_id_or_type);
+    public an_existing_replication_id_or_type(): An_existing_replication_id_or_typeContext {
+        let localContext = new An_existing_replication_id_or_typeContext(this.context, this.state);
+        this.enterRule(localContext, 776, YQLParser.RULE_an_existing_replication_id_or_type);
         try {
             this.state = 4134;
             this.errorHandler.sync(this);
@@ -19762,7 +19762,7 @@ export class YQLParser extends antlr.Parser {
                 this.enterOuterAlt(localContext, 1);
                 {
                 this.state = 4132;
-                this.existed_replication_id();
+                this.existing_replication_id();
                 }
                 break;
             case YQLParser.STRING_VALUE:
@@ -19790,9 +19790,9 @@ export class YQLParser extends antlr.Parser {
         }
         return localContext;
     }
-    public an_existed_external_data_source_id_or_type(): An_existed_external_data_source_id_or_typeContext {
-        let localContext = new An_existed_external_data_source_id_or_typeContext(this.context, this.state);
-        this.enterRule(localContext, 778, YQLParser.RULE_an_existed_external_data_source_id_or_type);
+    public an_existing_external_data_source_id_or_type(): An_existing_external_data_source_id_or_typeContext {
+        let localContext = new An_existing_external_data_source_id_or_typeContext(this.context, this.state);
+        this.enterRule(localContext, 778, YQLParser.RULE_an_existing_external_data_source_id_or_type);
         try {
             this.state = 4138;
             this.errorHandler.sync(this);
@@ -19802,7 +19802,7 @@ export class YQLParser extends antlr.Parser {
                 this.enterOuterAlt(localContext, 1);
                 {
                 this.state = 4136;
-                this.existed_external_data_source_id();
+                this.existing_external_data_source_id();
                 }
                 break;
             case YQLParser.STRING_VALUE:
@@ -20370,9 +20370,9 @@ export class YQLParser extends antlr.Parser {
         }
         return localContext;
     }
-    public existed_table_id(): Existed_table_idContext {
-        let localContext = new Existed_table_idContext(this.context, this.state);
-        this.enterRule(localContext, 808, YQLParser.RULE_existed_table_id);
+    public existing_table_id(): Existing_table_idContext {
+        let localContext = new Existing_table_idContext(this.context, this.state);
+        this.enterRule(localContext, 808, YQLParser.RULE_existing_table_id);
         try {
             this.enterOuterAlt(localContext, 1);
             {
@@ -20394,9 +20394,9 @@ export class YQLParser extends antlr.Parser {
         }
         return localContext;
     }
-    public existed_object_id(): Existed_object_idContext {
-        let localContext = new Existed_object_idContext(this.context, this.state);
-        this.enterRule(localContext, 810, YQLParser.RULE_existed_object_id);
+    public existing_object_id(): Existing_object_idContext {
+        let localContext = new Existing_object_idContext(this.context, this.state);
+        this.enterRule(localContext, 810, YQLParser.RULE_existing_object_id);
         try {
             this.enterOuterAlt(localContext, 1);
             {
@@ -20418,9 +20418,9 @@ export class YQLParser extends antlr.Parser {
         }
         return localContext;
     }
-    public existed_view_id(): Existed_view_idContext {
-        let localContext = new Existed_view_idContext(this.context, this.state);
-        this.enterRule(localContext, 812, YQLParser.RULE_existed_view_id);
+    public existing_view_id(): Existing_view_idContext {
+        let localContext = new Existing_view_idContext(this.context, this.state);
+        this.enterRule(localContext, 812, YQLParser.RULE_existing_view_id);
         try {
             this.enterOuterAlt(localContext, 1);
             {
@@ -20442,9 +20442,9 @@ export class YQLParser extends antlr.Parser {
         }
         return localContext;
     }
-    public existed_topic_id(): Existed_topic_idContext {
-        let localContext = new Existed_topic_idContext(this.context, this.state);
-        this.enterRule(localContext, 814, YQLParser.RULE_existed_topic_id);
+    public existing_topic_id(): Existing_topic_idContext {
+        let localContext = new Existing_topic_idContext(this.context, this.state);
+        this.enterRule(localContext, 814, YQLParser.RULE_existing_topic_id);
         try {
             this.enterOuterAlt(localContext, 1);
             {
@@ -20466,9 +20466,9 @@ export class YQLParser extends antlr.Parser {
         }
         return localContext;
     }
-    public existed_table_store_id(): Existed_table_store_idContext {
-        let localContext = new Existed_table_store_idContext(this.context, this.state);
-        this.enterRule(localContext, 816, YQLParser.RULE_existed_table_store_id);
+    public existing_table_store_id(): Existing_table_store_idContext {
+        let localContext = new Existing_table_store_idContext(this.context, this.state);
+        this.enterRule(localContext, 816, YQLParser.RULE_existing_table_store_id);
         try {
             this.enterOuterAlt(localContext, 1);
             {
@@ -20490,9 +20490,9 @@ export class YQLParser extends antlr.Parser {
         }
         return localContext;
     }
-    public existed_external_data_source_id(): Existed_external_data_source_idContext {
-        let localContext = new Existed_external_data_source_idContext(this.context, this.state);
-        this.enterRule(localContext, 818, YQLParser.RULE_existed_external_data_source_id);
+    public existing_external_data_source_id(): Existing_external_data_source_idContext {
+        let localContext = new Existing_external_data_source_idContext(this.context, this.state);
+        this.enterRule(localContext, 818, YQLParser.RULE_existing_external_data_source_id);
         try {
             this.enterOuterAlt(localContext, 1);
             {
@@ -20514,9 +20514,9 @@ export class YQLParser extends antlr.Parser {
         }
         return localContext;
     }
-    public existed_replication_id(): Existed_replication_idContext {
-        let localContext = new Existed_replication_idContext(this.context, this.state);
-        this.enterRule(localContext, 820, YQLParser.RULE_existed_replication_id);
+    public existing_replication_id(): Existing_replication_idContext {
+        let localContext = new Existing_replication_idContext(this.context, this.state);
+        this.enterRule(localContext, 820, YQLParser.RULE_existing_replication_id);
         try {
             this.enterOuterAlt(localContext, 1);
             {
@@ -20607,9 +20607,9 @@ export class YQLParser extends antlr.Parser {
         }
         return localContext;
     }
-    public existed_table_id_or_at(): Existed_table_id_or_atContext {
-        let localContext = new Existed_table_id_or_atContext(this.context, this.state);
-        this.enterRule(localContext, 826, YQLParser.RULE_existed_table_id_or_at);
+    public existing_table_id_or_at(): Existing_table_id_or_atContext {
+        let localContext = new Existing_table_id_or_atContext(this.context, this.state);
+        this.enterRule(localContext, 826, YQLParser.RULE_existing_table_id_or_at);
         let _la: number;
         try {
             this.enterOuterAlt(localContext, 1);
@@ -20625,7 +20625,7 @@ export class YQLParser extends antlr.Parser {
             }
 
             this.state = 4226;
-            this.an_existed_table_id_or_type();
+            this.an_existing_table_id_or_type();
             }
         }
         catch (re) {
@@ -20642,9 +20642,9 @@ export class YQLParser extends antlr.Parser {
         }
         return localContext;
     }
-    public existed_object_id_or_at(): Existed_object_id_or_atContext {
-        let localContext = new Existed_object_id_or_atContext(this.context, this.state);
-        this.enterRule(localContext, 828, YQLParser.RULE_existed_object_id_or_at);
+    public existing_object_id_or_at(): Existing_object_id_or_atContext {
+        let localContext = new Existing_object_id_or_atContext(this.context, this.state);
+        this.enterRule(localContext, 828, YQLParser.RULE_existing_object_id_or_at);
         let _la: number;
         try {
             this.enterOuterAlt(localContext, 1);
@@ -20660,7 +20660,7 @@ export class YQLParser extends antlr.Parser {
             }
 
             this.state = 4231;
-            this.an_existed_object_id_or_type();
+            this.an_existing_object_id_or_type();
             }
         }
         catch (re) {
@@ -20677,9 +20677,9 @@ export class YQLParser extends antlr.Parser {
         }
         return localContext;
     }
-    public existed_view_id_or_at(): Existed_view_id_or_atContext {
-        let localContext = new Existed_view_id_or_atContext(this.context, this.state);
-        this.enterRule(localContext, 830, YQLParser.RULE_existed_view_id_or_at);
+    public existing_view_id_or_at(): Existing_view_id_or_atContext {
+        let localContext = new Existing_view_id_or_atContext(this.context, this.state);
+        this.enterRule(localContext, 830, YQLParser.RULE_existing_view_id_or_at);
         let _la: number;
         try {
             this.enterOuterAlt(localContext, 1);
@@ -20695,7 +20695,7 @@ export class YQLParser extends antlr.Parser {
             }
 
             this.state = 4236;
-            this.an_existed_view_id_or_type();
+            this.an_existing_view_id_or_type();
             }
         }
         catch (re) {
@@ -20712,9 +20712,9 @@ export class YQLParser extends antlr.Parser {
         }
         return localContext;
     }
-    public existed_topic_id_or_at(): Existed_topic_id_or_atContext {
-        let localContext = new Existed_topic_id_or_atContext(this.context, this.state);
-        this.enterRule(localContext, 832, YQLParser.RULE_existed_topic_id_or_at);
+    public existing_topic_id_or_at(): Existing_topic_id_or_atContext {
+        let localContext = new Existing_topic_id_or_atContext(this.context, this.state);
+        this.enterRule(localContext, 832, YQLParser.RULE_existing_topic_id_or_at);
         let _la: number;
         try {
             this.enterOuterAlt(localContext, 1);
@@ -20730,7 +20730,7 @@ export class YQLParser extends antlr.Parser {
             }
 
             this.state = 4241;
-            this.an_existed_topic_id_or_type();
+            this.an_existing_topic_id_or_type();
             }
         }
         catch (re) {
@@ -20747,9 +20747,9 @@ export class YQLParser extends antlr.Parser {
         }
         return localContext;
     }
-    public existed_table_store_id_or_at(): Existed_table_store_id_or_atContext {
-        let localContext = new Existed_table_store_id_or_atContext(this.context, this.state);
-        this.enterRule(localContext, 834, YQLParser.RULE_existed_table_store_id_or_at);
+    public existing_table_store_id_or_at(): Existing_table_store_id_or_atContext {
+        let localContext = new Existing_table_store_id_or_atContext(this.context, this.state);
+        this.enterRule(localContext, 834, YQLParser.RULE_existing_table_store_id_or_at);
         let _la: number;
         try {
             this.enterOuterAlt(localContext, 1);
@@ -20765,7 +20765,7 @@ export class YQLParser extends antlr.Parser {
             }
 
             this.state = 4246;
-            this.an_existed_table_store_id_or_type();
+            this.an_existing_table_store_id_or_type();
             }
         }
         catch (re) {
@@ -20782,9 +20782,9 @@ export class YQLParser extends antlr.Parser {
         }
         return localContext;
     }
-    public existed_replication_id_or_at(): Existed_replication_id_or_atContext {
-        let localContext = new Existed_replication_id_or_atContext(this.context, this.state);
-        this.enterRule(localContext, 836, YQLParser.RULE_existed_replication_id_or_at);
+    public existing_replication_id_or_at(): Existing_replication_id_or_atContext {
+        let localContext = new Existing_replication_id_or_atContext(this.context, this.state);
+        this.enterRule(localContext, 836, YQLParser.RULE_existing_replication_id_or_at);
         let _la: number;
         try {
             this.enterOuterAlt(localContext, 1);
@@ -20800,7 +20800,7 @@ export class YQLParser extends antlr.Parser {
             }
 
             this.state = 4251;
-            this.an_existed_replication_id_or_type();
+            this.an_existing_replication_id_or_type();
             }
         }
         catch (re) {
@@ -20817,9 +20817,9 @@ export class YQLParser extends antlr.Parser {
         }
         return localContext;
     }
-    public existed_external_data_source_id_or_at(): Existed_external_data_source_id_or_atContext {
-        let localContext = new Existed_external_data_source_id_or_atContext(this.context, this.state);
-        this.enterRule(localContext, 838, YQLParser.RULE_existed_external_data_source_id_or_at);
+    public existing_external_data_source_id_or_at(): Existing_external_data_source_id_or_atContext {
+        let localContext = new Existing_external_data_source_id_or_atContext(this.context, this.state);
+        this.enterRule(localContext, 838, YQLParser.RULE_existing_external_data_source_id_or_at);
         let _la: number;
         try {
             this.enterOuterAlt(localContext, 1);
@@ -20835,7 +20835,7 @@ export class YQLParser extends antlr.Parser {
             }
 
             this.state = 4256;
-            this.an_existed_external_data_source_id_or_type();
+            this.an_existing_external_data_source_id_or_type();
             }
         }
         catch (re) {
@@ -25884,14 +25884,14 @@ export class Pure_column_listContext extends antlr.ParserRuleContext {
     public LPAREN(): antlr.TerminalNode {
         return this.getToken(YQLParser.LPAREN, 0)!;
     }
-    public an_existed_column_id(): An_existed_column_idContext[];
-    public an_existed_column_id(i: number): An_existed_column_idContext | null;
-    public an_existed_column_id(i?: number): An_existed_column_idContext[] | An_existed_column_idContext | null {
+    public an_existing_column_id(): An_existing_column_idContext[];
+    public an_existing_column_id(i: number): An_existing_column_idContext | null;
+    public an_existing_column_id(i?: number): An_existing_column_idContext[] | An_existing_column_idContext | null {
         if (i === undefined) {
-            return this.getRuleContexts(An_existed_column_idContext);
+            return this.getRuleContexts(An_existing_column_idContext);
         }
 
-        return this.getRuleContext(i, An_existed_column_idContext);
+        return this.getRuleContext(i, An_existing_column_idContext);
     }
     public RPAREN(): antlr.TerminalNode {
         return this.getToken(YQLParser.RPAREN, 0)!;
@@ -25925,8 +25925,8 @@ export class Pure_column_or_namedContext extends antlr.ParserRuleContext {
     public bind_parameter(): Bind_parameterContext | null {
         return this.getRuleContext(0, Bind_parameterContext);
     }
-    public an_existed_column_id(): An_existed_column_idContext | null {
-        return this.getRuleContext(0, An_existed_column_idContext);
+    public an_existing_column_id(): An_existing_column_idContext | null {
+        return this.getRuleContext(0, An_existing_column_idContext);
     }
     public override get ruleIndex(): number {
         return YQLParser.RULE_pure_column_or_named;
@@ -25989,8 +25989,8 @@ export class Column_nameContext extends antlr.ParserRuleContext {
     public opt_id_prefix(): Opt_id_prefixContext {
         return this.getRuleContext(0, Opt_id_prefixContext)!;
     }
-    public an_existed_column_id(): An_existed_column_idContext {
-        return this.getRuleContext(0, An_existed_column_idContext)!;
+    public an_existing_column_id(): An_existing_column_idContext {
+        return this.getRuleContext(0, An_existing_column_idContext)!;
     }
     public override get ruleIndex(): number {
         return YQLParser.RULE_column_name;
@@ -26021,8 +26021,8 @@ export class Without_column_nameContext extends antlr.ParserRuleContext {
     public DOT(): antlr.TerminalNode | null {
         return this.getToken(YQLParser.DOT, 0);
     }
-    public an_existed_column_id(): An_existed_column_idContext | null {
-        return this.getRuleContext(0, An_existed_column_idContext);
+    public an_existing_column_id(): An_existing_column_idContext | null {
+        return this.getRuleContext(0, An_existing_column_idContext);
     }
     public override get ruleIndex(): number {
         return YQLParser.RULE_without_column_name;
@@ -30474,8 +30474,8 @@ export class Drop_external_data_source_stmtContext extends antlr.ParserRuleConte
     public SOURCE(): antlr.TerminalNode {
         return this.getToken(YQLParser.SOURCE, 0)!;
     }
-    public existed_external_data_source_ref(): Existed_external_data_source_refContext {
-        return this.getRuleContext(0, Existed_external_data_source_refContext)!;
+    public existing_external_data_source_ref(): Existing_external_data_source_refContext {
+        return this.getRuleContext(0, Existing_external_data_source_refContext)!;
     }
     public IF(): antlr.TerminalNode | null {
         return this.getToken(YQLParser.IF, 0);
@@ -30541,8 +30541,8 @@ export class Drop_view_stmtContext extends antlr.ParserRuleContext {
     public VIEW(): antlr.TerminalNode {
         return this.getToken(YQLParser.VIEW, 0)!;
     }
-    public existed_view_ref(): Existed_view_refContext {
-        return this.getRuleContext(0, Existed_view_refContext)!;
+    public existing_view_ref(): Existing_view_refContext {
+        return this.getRuleContext(0, Existing_view_refContext)!;
     }
     public override get ruleIndex(): number {
         return YQLParser.RULE_drop_view_stmt;
@@ -30567,8 +30567,8 @@ export class Upsert_object_stmtContext extends antlr.ParserRuleContext {
     public OBJECT(): antlr.TerminalNode {
         return this.getToken(YQLParser.OBJECT, 0)!;
     }
-    public existed_object_ref(): Existed_object_refContext {
-        return this.getRuleContext(0, Existed_object_refContext)!;
+    public existing_object_ref(): Existing_object_refContext {
+        return this.getRuleContext(0, Existing_object_refContext)!;
     }
     public LPAREN(): antlr.TerminalNode {
         return this.getToken(YQLParser.LPAREN, 0)!;
@@ -30681,8 +30681,8 @@ export class Alter_object_stmtContext extends antlr.ParserRuleContext {
     public OBJECT(): antlr.TerminalNode {
         return this.getToken(YQLParser.OBJECT, 0)!;
     }
-    public existed_object_ref(): Existed_object_refContext {
-        return this.getRuleContext(0, Existed_object_refContext)!;
+    public existing_object_ref(): Existing_object_refContext {
+        return this.getRuleContext(0, Existing_object_refContext)!;
     }
     public LPAREN(): antlr.TerminalNode {
         return this.getToken(YQLParser.LPAREN, 0)!;
@@ -30745,8 +30745,8 @@ export class Drop_object_stmtContext extends antlr.ParserRuleContext {
     public OBJECT(): antlr.TerminalNode {
         return this.getToken(YQLParser.OBJECT, 0)!;
     }
-    public existed_object_ref(): Existed_object_refContext {
-        return this.getRuleContext(0, Existed_object_refContext)!;
+    public existing_object_ref(): Existing_object_refContext {
+        return this.getRuleContext(0, Existing_object_refContext)!;
     }
     public LPAREN(): antlr.TerminalNode {
         return this.getToken(YQLParser.LPAREN, 0)!;
@@ -31083,14 +31083,14 @@ export class Table_inheritsContext extends antlr.ParserRuleContext {
     public LPAREN(): antlr.TerminalNode {
         return this.getToken(YQLParser.LPAREN, 0)!;
     }
-    public existed_simple_table_ref_core(): Existed_simple_table_ref_coreContext[];
-    public existed_simple_table_ref_core(i: number): Existed_simple_table_ref_coreContext | null;
-    public existed_simple_table_ref_core(i?: number): Existed_simple_table_ref_coreContext[] | Existed_simple_table_ref_coreContext | null {
+    public existing_simple_table_ref_core(): Existing_simple_table_ref_coreContext[];
+    public existing_simple_table_ref_core(i: number): Existing_simple_table_ref_coreContext | null;
+    public existing_simple_table_ref_core(i?: number): Existing_simple_table_ref_coreContext[] | Existing_simple_table_ref_coreContext | null {
         if (i === undefined) {
-            return this.getRuleContexts(Existed_simple_table_ref_coreContext);
+            return this.getRuleContexts(Existing_simple_table_ref_coreContext);
         }
 
-        return this.getRuleContext(i, Existed_simple_table_ref_coreContext);
+        return this.getRuleContext(i, Existing_simple_table_ref_coreContext);
     }
     public RPAREN(): antlr.TerminalNode {
         return this.getToken(YQLParser.RPAREN, 0)!;
@@ -31272,8 +31272,8 @@ export class Alter_table_stmtContext extends antlr.ParserRuleContext {
     public TABLE(): antlr.TerminalNode {
         return this.getToken(YQLParser.TABLE, 0)!;
     }
-    public existed_simple_table_ref(): Existed_simple_table_refContext {
-        return this.getRuleContext(0, Existed_simple_table_refContext)!;
+    public existing_simple_table_ref(): Existing_simple_table_refContext {
+        return this.getRuleContext(0, Existing_simple_table_refContext)!;
     }
     public alter_table_action(): Alter_table_actionContext[];
     public alter_table_action(i: number): Alter_table_actionContext | null;
@@ -31378,8 +31378,8 @@ export class Alter_table_store_stmtContext extends antlr.ParserRuleContext {
     public TABLESTORE(): antlr.TerminalNode {
         return this.getToken(YQLParser.TABLESTORE, 0)!;
     }
-    public existed_table_store_ref(): Existed_table_store_refContext {
-        return this.getRuleContext(0, Existed_table_store_refContext)!;
+    public existing_table_store_ref(): Existing_table_store_refContext {
+        return this.getRuleContext(0, Existing_table_store_refContext)!;
     }
     public alter_table_store_action(): Alter_table_store_actionContext[];
     public alter_table_store_action(i: number): Alter_table_store_actionContext | null;
@@ -31468,8 +31468,8 @@ export class Alter_table_drop_columnContext extends antlr.ParserRuleContext {
     public DROP(): antlr.TerminalNode {
         return this.getToken(YQLParser.DROP, 0)!;
     }
-    public an_existed_column_id(): An_existed_column_idContext {
-        return this.getRuleContext(0, An_existed_column_idContext)!;
+    public an_existing_column_id(): An_existing_column_idContext {
+        return this.getRuleContext(0, An_existing_column_idContext)!;
     }
     public COLUMN(): antlr.TerminalNode | null {
         return this.getToken(YQLParser.COLUMN, 0);
@@ -31497,8 +31497,8 @@ export class Alter_table_alter_columnContext extends antlr.ParserRuleContext {
     public COLUMN(): antlr.TerminalNode {
         return this.getToken(YQLParser.COLUMN, 0)!;
     }
-    public an_existed_column_id(): An_existed_column_idContext {
-        return this.getRuleContext(0, An_existed_column_idContext)!;
+    public an_existing_column_id(): An_existing_column_idContext {
+        return this.getRuleContext(0, An_existing_column_idContext)!;
     }
     public SET(): antlr.TerminalNode {
         return this.getToken(YQLParser.SET, 0)!;
@@ -32644,8 +32644,8 @@ export class Drop_table_stmtContext extends antlr.ParserRuleContext {
     public DROP(): antlr.TerminalNode {
         return this.getToken(YQLParser.DROP, 0)!;
     }
-    public existed_simple_table_ref(): Existed_simple_table_refContext {
-        return this.getRuleContext(0, Existed_simple_table_refContext)!;
+    public existing_simple_table_ref(): Existing_simple_table_refContext {
+        return this.getRuleContext(0, Existing_simple_table_refContext)!;
     }
     public TABLE(): antlr.TerminalNode | null {
         return this.getToken(YQLParser.TABLE, 0);
@@ -33401,8 +33401,8 @@ export class Drop_replication_stmtContext extends antlr.ParserRuleContext {
     public REPLICATION(): antlr.TerminalNode {
         return this.getToken(YQLParser.REPLICATION, 0)!;
     }
-    public existed_replication_ref(): Existed_replication_refContext {
-        return this.getRuleContext(0, Existed_replication_refContext)!;
+    public existing_replication_ref(): Existing_replication_refContext {
+        return this.getRuleContext(0, Existing_replication_refContext)!;
     }
     public CASCADE(): antlr.TerminalNode | null {
         return this.getToken(YQLParser.CASCADE, 0);
@@ -33720,8 +33720,8 @@ export class Table_keyContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
-    public an_existed_table_id_or_type(): An_existed_table_id_or_typeContext {
-        return this.getRuleContext(0, An_existed_table_id_or_typeContext)!;
+    public an_existing_table_id_or_type(): An_existing_table_id_or_typeContext {
+        return this.getRuleContext(0, An_existing_table_id_or_typeContext)!;
     }
     public VIEW(): antlr.TerminalNode | null {
         return this.getToken(YQLParser.VIEW, 0);
@@ -33903,22 +33903,22 @@ export class Object_refContext extends antlr.ParserRuleContext {
 }
 
 
-export class Existed_table_refContext extends antlr.ParserRuleContext {
+export class Existing_table_refContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
     public cluster_expr_with_dot(): Cluster_expr_with_dotContext {
         return this.getRuleContext(0, Cluster_expr_with_dotContext)!;
     }
-    public existed_table_id_or_at(): Existed_table_id_or_atContext {
-        return this.getRuleContext(0, Existed_table_id_or_atContext)!;
+    public existing_table_id_or_at(): Existing_table_id_or_atContext {
+        return this.getRuleContext(0, Existing_table_id_or_atContext)!;
     }
     public override get ruleIndex(): number {
-        return YQLParser.RULE_existed_table_ref;
+        return YQLParser.RULE_existing_table_ref;
     }
     public override accept<Result>(visitor: YQLVisitor<Result>): Result | null {
-        if (visitor.visitExisted_table_ref) {
-            return visitor.visitExisted_table_ref(this);
+        if (visitor.visitExisting_table_ref) {
+            return visitor.visitExisting_table_ref(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -33926,22 +33926,22 @@ export class Existed_table_refContext extends antlr.ParserRuleContext {
 }
 
 
-export class Existed_object_refContext extends antlr.ParserRuleContext {
+export class Existing_object_refContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
     public cluster_expr_with_dot(): Cluster_expr_with_dotContext {
         return this.getRuleContext(0, Cluster_expr_with_dotContext)!;
     }
-    public existed_object_id_or_at(): Existed_object_id_or_atContext {
-        return this.getRuleContext(0, Existed_object_id_or_atContext)!;
+    public existing_object_id_or_at(): Existing_object_id_or_atContext {
+        return this.getRuleContext(0, Existing_object_id_or_atContext)!;
     }
     public override get ruleIndex(): number {
-        return YQLParser.RULE_existed_object_ref;
+        return YQLParser.RULE_existing_object_ref;
     }
     public override accept<Result>(visitor: YQLVisitor<Result>): Result | null {
-        if (visitor.visitExisted_object_ref) {
-            return visitor.visitExisted_object_ref(this);
+        if (visitor.visitExisting_object_ref) {
+            return visitor.visitExisting_object_ref(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -33949,22 +33949,22 @@ export class Existed_object_refContext extends antlr.ParserRuleContext {
 }
 
 
-export class Existed_view_refContext extends antlr.ParserRuleContext {
+export class Existing_view_refContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
     public cluster_expr_with_dot(): Cluster_expr_with_dotContext {
         return this.getRuleContext(0, Cluster_expr_with_dotContext)!;
     }
-    public existed_view_id_or_at(): Existed_view_id_or_atContext {
-        return this.getRuleContext(0, Existed_view_id_or_atContext)!;
+    public existing_view_id_or_at(): Existing_view_id_or_atContext {
+        return this.getRuleContext(0, Existing_view_id_or_atContext)!;
     }
     public override get ruleIndex(): number {
-        return YQLParser.RULE_existed_view_ref;
+        return YQLParser.RULE_existing_view_ref;
     }
     public override accept<Result>(visitor: YQLVisitor<Result>): Result | null {
-        if (visitor.visitExisted_view_ref) {
-            return visitor.visitExisted_view_ref(this);
+        if (visitor.visitExisting_view_ref) {
+            return visitor.visitExisting_view_ref(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -33972,22 +33972,22 @@ export class Existed_view_refContext extends antlr.ParserRuleContext {
 }
 
 
-export class Existed_topic_refContext extends antlr.ParserRuleContext {
+export class Existing_topic_refContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
     public cluster_expr_with_dot(): Cluster_expr_with_dotContext {
         return this.getRuleContext(0, Cluster_expr_with_dotContext)!;
     }
-    public existed_topic_id_or_at(): Existed_topic_id_or_atContext {
-        return this.getRuleContext(0, Existed_topic_id_or_atContext)!;
+    public existing_topic_id_or_at(): Existing_topic_id_or_atContext {
+        return this.getRuleContext(0, Existing_topic_id_or_atContext)!;
     }
     public override get ruleIndex(): number {
-        return YQLParser.RULE_existed_topic_ref;
+        return YQLParser.RULE_existing_topic_ref;
     }
     public override accept<Result>(visitor: YQLVisitor<Result>): Result | null {
-        if (visitor.visitExisted_topic_ref) {
-            return visitor.visitExisted_topic_ref(this);
+        if (visitor.visitExisting_topic_ref) {
+            return visitor.visitExisting_topic_ref(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -33995,22 +33995,22 @@ export class Existed_topic_refContext extends antlr.ParserRuleContext {
 }
 
 
-export class Existed_table_store_refContext extends antlr.ParserRuleContext {
+export class Existing_table_store_refContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
     public cluster_expr_with_dot(): Cluster_expr_with_dotContext {
         return this.getRuleContext(0, Cluster_expr_with_dotContext)!;
     }
-    public existed_table_store_id_or_at(): Existed_table_store_id_or_atContext {
-        return this.getRuleContext(0, Existed_table_store_id_or_atContext)!;
+    public existing_table_store_id_or_at(): Existing_table_store_id_or_atContext {
+        return this.getRuleContext(0, Existing_table_store_id_or_atContext)!;
     }
     public override get ruleIndex(): number {
-        return YQLParser.RULE_existed_table_store_ref;
+        return YQLParser.RULE_existing_table_store_ref;
     }
     public override accept<Result>(visitor: YQLVisitor<Result>): Result | null {
-        if (visitor.visitExisted_table_store_ref) {
-            return visitor.visitExisted_table_store_ref(this);
+        if (visitor.visitExisting_table_store_ref) {
+            return visitor.visitExisting_table_store_ref(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -34018,22 +34018,22 @@ export class Existed_table_store_refContext extends antlr.ParserRuleContext {
 }
 
 
-export class Existed_replication_refContext extends antlr.ParserRuleContext {
+export class Existing_replication_refContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
     public cluster_expr_with_dot(): Cluster_expr_with_dotContext {
         return this.getRuleContext(0, Cluster_expr_with_dotContext)!;
     }
-    public existed_replication_id_or_at(): Existed_replication_id_or_atContext {
-        return this.getRuleContext(0, Existed_replication_id_or_atContext)!;
+    public existing_replication_id_or_at(): Existing_replication_id_or_atContext {
+        return this.getRuleContext(0, Existing_replication_id_or_atContext)!;
     }
     public override get ruleIndex(): number {
-        return YQLParser.RULE_existed_replication_ref;
+        return YQLParser.RULE_existing_replication_ref;
     }
     public override accept<Result>(visitor: YQLVisitor<Result>): Result | null {
-        if (visitor.visitExisted_replication_ref) {
-            return visitor.visitExisted_replication_ref(this);
+        if (visitor.visitExisting_replication_ref) {
+            return visitor.visitExisting_replication_ref(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -34041,22 +34041,22 @@ export class Existed_replication_refContext extends antlr.ParserRuleContext {
 }
 
 
-export class Existed_external_data_source_refContext extends antlr.ParserRuleContext {
+export class Existing_external_data_source_refContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
     public cluster_expr_with_dot(): Cluster_expr_with_dotContext {
         return this.getRuleContext(0, Cluster_expr_with_dotContext)!;
     }
-    public existed_external_data_source_id_or_at(): Existed_external_data_source_id_or_atContext {
-        return this.getRuleContext(0, Existed_external_data_source_id_or_atContext)!;
+    public existing_external_data_source_id_or_at(): Existing_external_data_source_id_or_atContext {
+        return this.getRuleContext(0, Existing_external_data_source_id_or_atContext)!;
     }
     public override get ruleIndex(): number {
-        return YQLParser.RULE_existed_external_data_source_ref;
+        return YQLParser.RULE_existing_external_data_source_ref;
     }
     public override accept<Result>(visitor: YQLVisitor<Result>): Result | null {
-        if (visitor.visitExisted_external_data_source_ref) {
-            return visitor.visitExisted_external_data_source_ref(this);
+        if (visitor.visitExisting_external_data_source_ref) {
+            return visitor.visitExisting_external_data_source_ref(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -34090,12 +34090,12 @@ export class Simple_table_ref_coreContext extends antlr.ParserRuleContext {
 }
 
 
-export class Existed_simple_table_ref_coreContext extends antlr.ParserRuleContext {
+export class Existing_simple_table_ref_coreContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
-    public existed_table_ref(): Existed_table_refContext | null {
-        return this.getRuleContext(0, Existed_table_refContext);
+    public existing_table_ref(): Existing_table_refContext | null {
+        return this.getRuleContext(0, Existing_table_refContext);
     }
     public bind_parameter(): Bind_parameterContext | null {
         return this.getRuleContext(0, Bind_parameterContext);
@@ -34104,11 +34104,11 @@ export class Existed_simple_table_ref_coreContext extends antlr.ParserRuleContex
         return this.getToken(YQLParser.AT, 0);
     }
     public override get ruleIndex(): number {
-        return YQLParser.RULE_existed_simple_table_ref_core;
+        return YQLParser.RULE_existing_simple_table_ref_core;
     }
     public override accept<Result>(visitor: YQLVisitor<Result>): Result | null {
-        if (visitor.visitExisted_simple_table_ref_core) {
-            return visitor.visitExisted_simple_table_ref_core(this);
+        if (visitor.visitExisting_simple_table_ref_core) {
+            return visitor.visitExisting_simple_table_ref_core(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -34139,22 +34139,22 @@ export class Simple_table_refContext extends antlr.ParserRuleContext {
 }
 
 
-export class Existed_simple_table_refContext extends antlr.ParserRuleContext {
+export class Existing_simple_table_refContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
-    public existed_simple_table_ref_core(): Existed_simple_table_ref_coreContext {
-        return this.getRuleContext(0, Existed_simple_table_ref_coreContext)!;
+    public existing_simple_table_ref_core(): Existing_simple_table_ref_coreContext {
+        return this.getRuleContext(0, Existing_simple_table_ref_coreContext)!;
     }
     public table_hints(): Table_hintsContext | null {
         return this.getRuleContext(0, Table_hintsContext);
     }
     public override get ruleIndex(): number {
-        return YQLParser.RULE_existed_simple_table_ref;
+        return YQLParser.RULE_existing_simple_table_ref;
     }
     public override accept<Result>(visitor: YQLVisitor<Result>): Result | null {
-        if (visitor.visitExisted_simple_table_ref) {
-            return visitor.visitExisted_simple_table_ref(this);
+        if (visitor.visitExisting_simple_table_ref) {
+            return visitor.visitExisting_simple_table_ref(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -34166,8 +34166,8 @@ export class Into_simple_table_refContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
-    public existed_simple_table_ref(): Existed_simple_table_refContext {
-        return this.getRuleContext(0, Existed_simple_table_refContext)!;
+    public existing_simple_table_ref(): Existing_simple_table_refContext {
+        return this.getRuleContext(0, Existing_simple_table_refContext)!;
     }
     public ERASE(): antlr.TerminalNode | null {
         return this.getToken(YQLParser.ERASE, 0);
@@ -34201,8 +34201,8 @@ export class Delete_stmtContext extends antlr.ParserRuleContext {
     public FROM(): antlr.TerminalNode {
         return this.getToken(YQLParser.FROM, 0)!;
     }
-    public existed_simple_table_ref(): Existed_simple_table_refContext {
-        return this.getRuleContext(0, Existed_simple_table_refContext)!;
+    public existing_simple_table_ref(): Existing_simple_table_refContext {
+        return this.getRuleContext(0, Existing_simple_table_refContext)!;
     }
     public where_expr(): Where_exprContext | null {
         return this.getRuleContext(0, Where_exprContext);
@@ -34233,8 +34233,8 @@ export class Update_stmtContext extends antlr.ParserRuleContext {
     public UPDATE(): antlr.TerminalNode {
         return this.getToken(YQLParser.UPDATE, 0)!;
     }
-    public existed_simple_table_ref(): Existed_simple_table_refContext {
-        return this.getRuleContext(0, Existed_simple_table_refContext)!;
+    public existing_simple_table_ref(): Existing_simple_table_refContext {
+        return this.getRuleContext(0, Existing_simple_table_refContext)!;
     }
     public SET(): antlr.TerminalNode | null {
         return this.getToken(YQLParser.SET, 0);
@@ -34573,8 +34573,8 @@ export class Alter_topic_stmtContext extends antlr.ParserRuleContext {
     public TOPIC(): antlr.TerminalNode {
         return this.getToken(YQLParser.TOPIC, 0)!;
     }
-    public existed_topic_ref(): Existed_topic_refContext {
-        return this.getRuleContext(0, Existed_topic_refContext)!;
+    public existing_topic_ref(): Existing_topic_refContext {
+        return this.getRuleContext(0, Existing_topic_refContext)!;
     }
     public alter_topic_action(): Alter_topic_actionContext[];
     public alter_topic_action(i: number): Alter_topic_actionContext | null;
@@ -34925,8 +34925,8 @@ export class Drop_topic_stmtContext extends antlr.ParserRuleContext {
     public TOPIC(): antlr.TerminalNode {
         return this.getToken(YQLParser.TOPIC, 0)!;
     }
-    public existed_topic_ref(): Existed_topic_refContext {
-        return this.getRuleContext(0, Existed_topic_refContext)!;
+    public existing_topic_ref(): Existing_topic_refContext {
+        return this.getRuleContext(0, Existing_topic_refContext)!;
     }
     public override get ruleIndex(): number {
         return YQLParser.RULE_drop_topic_stmt;
@@ -35881,8 +35881,8 @@ export class Id_exprContext extends antlr.ParserRuleContext {
     public aggregate_function_id(): Aggregate_function_idContext | null {
         return this.getRuleContext(0, Aggregate_function_idContext);
     }
-    public existed_column_id(): Existed_column_idContext | null {
-        return this.getRuleContext(0, Existed_column_idContext);
+    public existing_column_id(): Existing_column_idContext | null {
+        return this.getRuleContext(0, Existing_column_idContext);
     }
     public override get ruleIndex(): number {
         return YQLParser.RULE_id_expr;
@@ -36097,7 +36097,7 @@ export class Id_as_compatContext extends antlr.ParserRuleContext {
 }
 
 
-export class Existed_column_idContext extends antlr.ParserRuleContext {
+export class Existing_column_idContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
@@ -36105,11 +36105,11 @@ export class Existed_column_idContext extends antlr.ParserRuleContext {
         return this.getRuleContext(0, IdentifierContext)!;
     }
     public override get ruleIndex(): number {
-        return YQLParser.RULE_existed_column_id;
+        return YQLParser.RULE_existing_column_id;
     }
     public override accept<Result>(visitor: YQLVisitor<Result>): Result | null {
-        if (visitor.visitExisted_column_id) {
-            return visitor.visitExisted_column_id(this);
+        if (visitor.visitExisting_column_id) {
+            return visitor.visitExisting_column_id(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -36140,22 +36140,22 @@ export class An_idContext extends antlr.ParserRuleContext {
 }
 
 
-export class An_existed_column_idContext extends antlr.ParserRuleContext {
+export class An_existing_column_idContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
-    public existed_column_id(): Existed_column_idContext | null {
-        return this.getRuleContext(0, Existed_column_idContext);
+    public existing_column_id(): Existing_column_idContext | null {
+        return this.getRuleContext(0, Existing_column_idContext);
     }
     public STRING_VALUE(): antlr.TerminalNode | null {
         return this.getToken(YQLParser.STRING_VALUE, 0);
     }
     public override get ruleIndex(): number {
-        return YQLParser.RULE_an_existed_column_id;
+        return YQLParser.RULE_an_existing_column_id;
     }
     public override accept<Result>(visitor: YQLVisitor<Result>): Result | null {
-        if (visitor.visitAn_existed_column_id) {
-            return visitor.visitAn_existed_column_id(this);
+        if (visitor.visitAn_existing_column_id) {
+            return visitor.visitAn_existing_column_id(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -36163,22 +36163,22 @@ export class An_existed_column_idContext extends antlr.ParserRuleContext {
 }
 
 
-export class An_existed_topic_idContext extends antlr.ParserRuleContext {
+export class An_existing_topic_idContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
-    public existed_topic_id(): Existed_topic_idContext | null {
-        return this.getRuleContext(0, Existed_topic_idContext);
+    public existing_topic_id(): Existing_topic_idContext | null {
+        return this.getRuleContext(0, Existing_topic_idContext);
     }
     public STRING_VALUE(): antlr.TerminalNode | null {
         return this.getToken(YQLParser.STRING_VALUE, 0);
     }
     public override get ruleIndex(): number {
-        return YQLParser.RULE_an_existed_topic_id;
+        return YQLParser.RULE_an_existing_topic_id;
     }
     public override accept<Result>(visitor: YQLVisitor<Result>): Result | null {
-        if (visitor.visitAn_existed_topic_id) {
-            return visitor.visitAn_existed_topic_id(this);
+        if (visitor.visitAn_existing_topic_id) {
+            return visitor.visitAn_existing_topic_id(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -36209,22 +36209,22 @@ export class An_id_or_typeContext extends antlr.ParserRuleContext {
 }
 
 
-export class An_existed_table_id_or_typeContext extends antlr.ParserRuleContext {
+export class An_existing_table_id_or_typeContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
-    public existed_table_id(): Existed_table_idContext | null {
-        return this.getRuleContext(0, Existed_table_idContext);
+    public existing_table_id(): Existing_table_idContext | null {
+        return this.getRuleContext(0, Existing_table_idContext);
     }
     public STRING_VALUE(): antlr.TerminalNode | null {
         return this.getToken(YQLParser.STRING_VALUE, 0);
     }
     public override get ruleIndex(): number {
-        return YQLParser.RULE_an_existed_table_id_or_type;
+        return YQLParser.RULE_an_existing_table_id_or_type;
     }
     public override accept<Result>(visitor: YQLVisitor<Result>): Result | null {
-        if (visitor.visitAn_existed_table_id_or_type) {
-            return visitor.visitAn_existed_table_id_or_type(this);
+        if (visitor.visitAn_existing_table_id_or_type) {
+            return visitor.visitAn_existing_table_id_or_type(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -36232,22 +36232,22 @@ export class An_existed_table_id_or_typeContext extends antlr.ParserRuleContext 
 }
 
 
-export class An_existed_object_id_or_typeContext extends antlr.ParserRuleContext {
+export class An_existing_object_id_or_typeContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
-    public existed_object_id(): Existed_object_idContext | null {
-        return this.getRuleContext(0, Existed_object_idContext);
+    public existing_object_id(): Existing_object_idContext | null {
+        return this.getRuleContext(0, Existing_object_idContext);
     }
     public STRING_VALUE(): antlr.TerminalNode | null {
         return this.getToken(YQLParser.STRING_VALUE, 0);
     }
     public override get ruleIndex(): number {
-        return YQLParser.RULE_an_existed_object_id_or_type;
+        return YQLParser.RULE_an_existing_object_id_or_type;
     }
     public override accept<Result>(visitor: YQLVisitor<Result>): Result | null {
-        if (visitor.visitAn_existed_object_id_or_type) {
-            return visitor.visitAn_existed_object_id_or_type(this);
+        if (visitor.visitAn_existing_object_id_or_type) {
+            return visitor.visitAn_existing_object_id_or_type(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -36255,22 +36255,22 @@ export class An_existed_object_id_or_typeContext extends antlr.ParserRuleContext
 }
 
 
-export class An_existed_view_id_or_typeContext extends antlr.ParserRuleContext {
+export class An_existing_view_id_or_typeContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
-    public existed_view_id(): Existed_view_idContext | null {
-        return this.getRuleContext(0, Existed_view_idContext);
+    public existing_view_id(): Existing_view_idContext | null {
+        return this.getRuleContext(0, Existing_view_idContext);
     }
     public STRING_VALUE(): antlr.TerminalNode | null {
         return this.getToken(YQLParser.STRING_VALUE, 0);
     }
     public override get ruleIndex(): number {
-        return YQLParser.RULE_an_existed_view_id_or_type;
+        return YQLParser.RULE_an_existing_view_id_or_type;
     }
     public override accept<Result>(visitor: YQLVisitor<Result>): Result | null {
-        if (visitor.visitAn_existed_view_id_or_type) {
-            return visitor.visitAn_existed_view_id_or_type(this);
+        if (visitor.visitAn_existing_view_id_or_type) {
+            return visitor.visitAn_existing_view_id_or_type(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -36278,22 +36278,22 @@ export class An_existed_view_id_or_typeContext extends antlr.ParserRuleContext {
 }
 
 
-export class An_existed_topic_id_or_typeContext extends antlr.ParserRuleContext {
+export class An_existing_topic_id_or_typeContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
-    public existed_topic_id(): Existed_topic_idContext | null {
-        return this.getRuleContext(0, Existed_topic_idContext);
+    public existing_topic_id(): Existing_topic_idContext | null {
+        return this.getRuleContext(0, Existing_topic_idContext);
     }
     public STRING_VALUE(): antlr.TerminalNode | null {
         return this.getToken(YQLParser.STRING_VALUE, 0);
     }
     public override get ruleIndex(): number {
-        return YQLParser.RULE_an_existed_topic_id_or_type;
+        return YQLParser.RULE_an_existing_topic_id_or_type;
     }
     public override accept<Result>(visitor: YQLVisitor<Result>): Result | null {
-        if (visitor.visitAn_existed_topic_id_or_type) {
-            return visitor.visitAn_existed_topic_id_or_type(this);
+        if (visitor.visitAn_existing_topic_id_or_type) {
+            return visitor.visitAn_existing_topic_id_or_type(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -36301,22 +36301,22 @@ export class An_existed_topic_id_or_typeContext extends antlr.ParserRuleContext 
 }
 
 
-export class An_existed_table_store_id_or_typeContext extends antlr.ParserRuleContext {
+export class An_existing_table_store_id_or_typeContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
-    public existed_table_store_id(): Existed_table_store_idContext | null {
-        return this.getRuleContext(0, Existed_table_store_idContext);
+    public existing_table_store_id(): Existing_table_store_idContext | null {
+        return this.getRuleContext(0, Existing_table_store_idContext);
     }
     public STRING_VALUE(): antlr.TerminalNode | null {
         return this.getToken(YQLParser.STRING_VALUE, 0);
     }
     public override get ruleIndex(): number {
-        return YQLParser.RULE_an_existed_table_store_id_or_type;
+        return YQLParser.RULE_an_existing_table_store_id_or_type;
     }
     public override accept<Result>(visitor: YQLVisitor<Result>): Result | null {
-        if (visitor.visitAn_existed_table_store_id_or_type) {
-            return visitor.visitAn_existed_table_store_id_or_type(this);
+        if (visitor.visitAn_existing_table_store_id_or_type) {
+            return visitor.visitAn_existing_table_store_id_or_type(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -36324,22 +36324,22 @@ export class An_existed_table_store_id_or_typeContext extends antlr.ParserRuleCo
 }
 
 
-export class An_existed_replication_id_or_typeContext extends antlr.ParserRuleContext {
+export class An_existing_replication_id_or_typeContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
-    public existed_replication_id(): Existed_replication_idContext | null {
-        return this.getRuleContext(0, Existed_replication_idContext);
+    public existing_replication_id(): Existing_replication_idContext | null {
+        return this.getRuleContext(0, Existing_replication_idContext);
     }
     public STRING_VALUE(): antlr.TerminalNode | null {
         return this.getToken(YQLParser.STRING_VALUE, 0);
     }
     public override get ruleIndex(): number {
-        return YQLParser.RULE_an_existed_replication_id_or_type;
+        return YQLParser.RULE_an_existing_replication_id_or_type;
     }
     public override accept<Result>(visitor: YQLVisitor<Result>): Result | null {
-        if (visitor.visitAn_existed_replication_id_or_type) {
-            return visitor.visitAn_existed_replication_id_or_type(this);
+        if (visitor.visitAn_existing_replication_id_or_type) {
+            return visitor.visitAn_existing_replication_id_or_type(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -36347,22 +36347,22 @@ export class An_existed_replication_id_or_typeContext extends antlr.ParserRuleCo
 }
 
 
-export class An_existed_external_data_source_id_or_typeContext extends antlr.ParserRuleContext {
+export class An_existing_external_data_source_id_or_typeContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
-    public existed_external_data_source_id(): Existed_external_data_source_idContext | null {
-        return this.getRuleContext(0, Existed_external_data_source_idContext);
+    public existing_external_data_source_id(): Existing_external_data_source_idContext | null {
+        return this.getRuleContext(0, Existing_external_data_source_idContext);
     }
     public STRING_VALUE(): antlr.TerminalNode | null {
         return this.getToken(YQLParser.STRING_VALUE, 0);
     }
     public override get ruleIndex(): number {
-        return YQLParser.RULE_an_existed_external_data_source_id_or_type;
+        return YQLParser.RULE_an_existing_external_data_source_id_or_type;
     }
     public override accept<Result>(visitor: YQLVisitor<Result>): Result | null {
-        if (visitor.visitAn_existed_external_data_source_id_or_type) {
-            return visitor.visitAn_existed_external_data_source_id_or_type(this);
+        if (visitor.visitAn_existing_external_data_source_id_or_type) {
+            return visitor.visitAn_existing_external_data_source_id_or_type(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -36695,7 +36695,7 @@ export class Udf_idContext extends antlr.ParserRuleContext {
 }
 
 
-export class Existed_table_idContext extends antlr.ParserRuleContext {
+export class Existing_table_idContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
@@ -36703,11 +36703,11 @@ export class Existed_table_idContext extends antlr.ParserRuleContext {
         return this.getRuleContext(0, IdContext)!;
     }
     public override get ruleIndex(): number {
-        return YQLParser.RULE_existed_table_id;
+        return YQLParser.RULE_existing_table_id;
     }
     public override accept<Result>(visitor: YQLVisitor<Result>): Result | null {
-        if (visitor.visitExisted_table_id) {
-            return visitor.visitExisted_table_id(this);
+        if (visitor.visitExisting_table_id) {
+            return visitor.visitExisting_table_id(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -36715,7 +36715,7 @@ export class Existed_table_idContext extends antlr.ParserRuleContext {
 }
 
 
-export class Existed_object_idContext extends antlr.ParserRuleContext {
+export class Existing_object_idContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
@@ -36723,11 +36723,11 @@ export class Existed_object_idContext extends antlr.ParserRuleContext {
         return this.getRuleContext(0, IdContext)!;
     }
     public override get ruleIndex(): number {
-        return YQLParser.RULE_existed_object_id;
+        return YQLParser.RULE_existing_object_id;
     }
     public override accept<Result>(visitor: YQLVisitor<Result>): Result | null {
-        if (visitor.visitExisted_object_id) {
-            return visitor.visitExisted_object_id(this);
+        if (visitor.visitExisting_object_id) {
+            return visitor.visitExisting_object_id(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -36735,7 +36735,7 @@ export class Existed_object_idContext extends antlr.ParserRuleContext {
 }
 
 
-export class Existed_view_idContext extends antlr.ParserRuleContext {
+export class Existing_view_idContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
@@ -36743,11 +36743,11 @@ export class Existed_view_idContext extends antlr.ParserRuleContext {
         return this.getRuleContext(0, IdContext)!;
     }
     public override get ruleIndex(): number {
-        return YQLParser.RULE_existed_view_id;
+        return YQLParser.RULE_existing_view_id;
     }
     public override accept<Result>(visitor: YQLVisitor<Result>): Result | null {
-        if (visitor.visitExisted_view_id) {
-            return visitor.visitExisted_view_id(this);
+        if (visitor.visitExisting_view_id) {
+            return visitor.visitExisting_view_id(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -36755,7 +36755,7 @@ export class Existed_view_idContext extends antlr.ParserRuleContext {
 }
 
 
-export class Existed_topic_idContext extends antlr.ParserRuleContext {
+export class Existing_topic_idContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
@@ -36763,11 +36763,11 @@ export class Existed_topic_idContext extends antlr.ParserRuleContext {
         return this.getRuleContext(0, IdContext)!;
     }
     public override get ruleIndex(): number {
-        return YQLParser.RULE_existed_topic_id;
+        return YQLParser.RULE_existing_topic_id;
     }
     public override accept<Result>(visitor: YQLVisitor<Result>): Result | null {
-        if (visitor.visitExisted_topic_id) {
-            return visitor.visitExisted_topic_id(this);
+        if (visitor.visitExisting_topic_id) {
+            return visitor.visitExisting_topic_id(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -36775,7 +36775,7 @@ export class Existed_topic_idContext extends antlr.ParserRuleContext {
 }
 
 
-export class Existed_table_store_idContext extends antlr.ParserRuleContext {
+export class Existing_table_store_idContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
@@ -36783,11 +36783,11 @@ export class Existed_table_store_idContext extends antlr.ParserRuleContext {
         return this.getRuleContext(0, IdContext)!;
     }
     public override get ruleIndex(): number {
-        return YQLParser.RULE_existed_table_store_id;
+        return YQLParser.RULE_existing_table_store_id;
     }
     public override accept<Result>(visitor: YQLVisitor<Result>): Result | null {
-        if (visitor.visitExisted_table_store_id) {
-            return visitor.visitExisted_table_store_id(this);
+        if (visitor.visitExisting_table_store_id) {
+            return visitor.visitExisting_table_store_id(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -36795,7 +36795,7 @@ export class Existed_table_store_idContext extends antlr.ParserRuleContext {
 }
 
 
-export class Existed_external_data_source_idContext extends antlr.ParserRuleContext {
+export class Existing_external_data_source_idContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
@@ -36803,11 +36803,11 @@ export class Existed_external_data_source_idContext extends antlr.ParserRuleCont
         return this.getRuleContext(0, IdContext)!;
     }
     public override get ruleIndex(): number {
-        return YQLParser.RULE_existed_external_data_source_id;
+        return YQLParser.RULE_existing_external_data_source_id;
     }
     public override accept<Result>(visitor: YQLVisitor<Result>): Result | null {
-        if (visitor.visitExisted_external_data_source_id) {
-            return visitor.visitExisted_external_data_source_id(this);
+        if (visitor.visitExisting_external_data_source_id) {
+            return visitor.visitExisting_external_data_source_id(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -36815,7 +36815,7 @@ export class Existed_external_data_source_idContext extends antlr.ParserRuleCont
 }
 
 
-export class Existed_replication_idContext extends antlr.ParserRuleContext {
+export class Existing_replication_idContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
@@ -36823,11 +36823,11 @@ export class Existed_replication_idContext extends antlr.ParserRuleContext {
         return this.getRuleContext(0, IdContext)!;
     }
     public override get ruleIndex(): number {
-        return YQLParser.RULE_existed_replication_id;
+        return YQLParser.RULE_existing_replication_id;
     }
     public override accept<Result>(visitor: YQLVisitor<Result>): Result | null {
-        if (visitor.visitExisted_replication_id) {
-            return visitor.visitExisted_replication_id(this);
+        if (visitor.visitExisting_replication_id) {
+            return visitor.visitExisting_replication_id(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -36881,22 +36881,22 @@ export class Id_or_atContext extends antlr.ParserRuleContext {
 }
 
 
-export class Existed_table_id_or_atContext extends antlr.ParserRuleContext {
+export class Existing_table_id_or_atContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
-    public an_existed_table_id_or_type(): An_existed_table_id_or_typeContext {
-        return this.getRuleContext(0, An_existed_table_id_or_typeContext)!;
+    public an_existing_table_id_or_type(): An_existing_table_id_or_typeContext {
+        return this.getRuleContext(0, An_existing_table_id_or_typeContext)!;
     }
     public AT(): antlr.TerminalNode | null {
         return this.getToken(YQLParser.AT, 0);
     }
     public override get ruleIndex(): number {
-        return YQLParser.RULE_existed_table_id_or_at;
+        return YQLParser.RULE_existing_table_id_or_at;
     }
     public override accept<Result>(visitor: YQLVisitor<Result>): Result | null {
-        if (visitor.visitExisted_table_id_or_at) {
-            return visitor.visitExisted_table_id_or_at(this);
+        if (visitor.visitExisting_table_id_or_at) {
+            return visitor.visitExisting_table_id_or_at(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -36904,22 +36904,22 @@ export class Existed_table_id_or_atContext extends antlr.ParserRuleContext {
 }
 
 
-export class Existed_object_id_or_atContext extends antlr.ParserRuleContext {
+export class Existing_object_id_or_atContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
-    public an_existed_object_id_or_type(): An_existed_object_id_or_typeContext {
-        return this.getRuleContext(0, An_existed_object_id_or_typeContext)!;
+    public an_existing_object_id_or_type(): An_existing_object_id_or_typeContext {
+        return this.getRuleContext(0, An_existing_object_id_or_typeContext)!;
     }
     public AT(): antlr.TerminalNode | null {
         return this.getToken(YQLParser.AT, 0);
     }
     public override get ruleIndex(): number {
-        return YQLParser.RULE_existed_object_id_or_at;
+        return YQLParser.RULE_existing_object_id_or_at;
     }
     public override accept<Result>(visitor: YQLVisitor<Result>): Result | null {
-        if (visitor.visitExisted_object_id_or_at) {
-            return visitor.visitExisted_object_id_or_at(this);
+        if (visitor.visitExisting_object_id_or_at) {
+            return visitor.visitExisting_object_id_or_at(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -36927,22 +36927,22 @@ export class Existed_object_id_or_atContext extends antlr.ParserRuleContext {
 }
 
 
-export class Existed_view_id_or_atContext extends antlr.ParserRuleContext {
+export class Existing_view_id_or_atContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
-    public an_existed_view_id_or_type(): An_existed_view_id_or_typeContext {
-        return this.getRuleContext(0, An_existed_view_id_or_typeContext)!;
+    public an_existing_view_id_or_type(): An_existing_view_id_or_typeContext {
+        return this.getRuleContext(0, An_existing_view_id_or_typeContext)!;
     }
     public AT(): antlr.TerminalNode | null {
         return this.getToken(YQLParser.AT, 0);
     }
     public override get ruleIndex(): number {
-        return YQLParser.RULE_existed_view_id_or_at;
+        return YQLParser.RULE_existing_view_id_or_at;
     }
     public override accept<Result>(visitor: YQLVisitor<Result>): Result | null {
-        if (visitor.visitExisted_view_id_or_at) {
-            return visitor.visitExisted_view_id_or_at(this);
+        if (visitor.visitExisting_view_id_or_at) {
+            return visitor.visitExisting_view_id_or_at(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -36950,22 +36950,22 @@ export class Existed_view_id_or_atContext extends antlr.ParserRuleContext {
 }
 
 
-export class Existed_topic_id_or_atContext extends antlr.ParserRuleContext {
+export class Existing_topic_id_or_atContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
-    public an_existed_topic_id_or_type(): An_existed_topic_id_or_typeContext {
-        return this.getRuleContext(0, An_existed_topic_id_or_typeContext)!;
+    public an_existing_topic_id_or_type(): An_existing_topic_id_or_typeContext {
+        return this.getRuleContext(0, An_existing_topic_id_or_typeContext)!;
     }
     public AT(): antlr.TerminalNode | null {
         return this.getToken(YQLParser.AT, 0);
     }
     public override get ruleIndex(): number {
-        return YQLParser.RULE_existed_topic_id_or_at;
+        return YQLParser.RULE_existing_topic_id_or_at;
     }
     public override accept<Result>(visitor: YQLVisitor<Result>): Result | null {
-        if (visitor.visitExisted_topic_id_or_at) {
-            return visitor.visitExisted_topic_id_or_at(this);
+        if (visitor.visitExisting_topic_id_or_at) {
+            return visitor.visitExisting_topic_id_or_at(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -36973,22 +36973,22 @@ export class Existed_topic_id_or_atContext extends antlr.ParserRuleContext {
 }
 
 
-export class Existed_table_store_id_or_atContext extends antlr.ParserRuleContext {
+export class Existing_table_store_id_or_atContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
-    public an_existed_table_store_id_or_type(): An_existed_table_store_id_or_typeContext {
-        return this.getRuleContext(0, An_existed_table_store_id_or_typeContext)!;
+    public an_existing_table_store_id_or_type(): An_existing_table_store_id_or_typeContext {
+        return this.getRuleContext(0, An_existing_table_store_id_or_typeContext)!;
     }
     public AT(): antlr.TerminalNode | null {
         return this.getToken(YQLParser.AT, 0);
     }
     public override get ruleIndex(): number {
-        return YQLParser.RULE_existed_table_store_id_or_at;
+        return YQLParser.RULE_existing_table_store_id_or_at;
     }
     public override accept<Result>(visitor: YQLVisitor<Result>): Result | null {
-        if (visitor.visitExisted_table_store_id_or_at) {
-            return visitor.visitExisted_table_store_id_or_at(this);
+        if (visitor.visitExisting_table_store_id_or_at) {
+            return visitor.visitExisting_table_store_id_or_at(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -36996,22 +36996,22 @@ export class Existed_table_store_id_or_atContext extends antlr.ParserRuleContext
 }
 
 
-export class Existed_replication_id_or_atContext extends antlr.ParserRuleContext {
+export class Existing_replication_id_or_atContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
-    public an_existed_replication_id_or_type(): An_existed_replication_id_or_typeContext {
-        return this.getRuleContext(0, An_existed_replication_id_or_typeContext)!;
+    public an_existing_replication_id_or_type(): An_existing_replication_id_or_typeContext {
+        return this.getRuleContext(0, An_existing_replication_id_or_typeContext)!;
     }
     public AT(): antlr.TerminalNode | null {
         return this.getToken(YQLParser.AT, 0);
     }
     public override get ruleIndex(): number {
-        return YQLParser.RULE_existed_replication_id_or_at;
+        return YQLParser.RULE_existing_replication_id_or_at;
     }
     public override accept<Result>(visitor: YQLVisitor<Result>): Result | null {
-        if (visitor.visitExisted_replication_id_or_at) {
-            return visitor.visitExisted_replication_id_or_at(this);
+        if (visitor.visitExisting_replication_id_or_at) {
+            return visitor.visitExisting_replication_id_or_at(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -37019,22 +37019,22 @@ export class Existed_replication_id_or_atContext extends antlr.ParserRuleContext
 }
 
 
-export class Existed_external_data_source_id_or_atContext extends antlr.ParserRuleContext {
+export class Existing_external_data_source_id_or_atContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
-    public an_existed_external_data_source_id_or_type(): An_existed_external_data_source_id_or_typeContext {
-        return this.getRuleContext(0, An_existed_external_data_source_id_or_typeContext)!;
+    public an_existing_external_data_source_id_or_type(): An_existing_external_data_source_id_or_typeContext {
+        return this.getRuleContext(0, An_existing_external_data_source_id_or_typeContext)!;
     }
     public AT(): antlr.TerminalNode | null {
         return this.getToken(YQLParser.AT, 0);
     }
     public override get ruleIndex(): number {
-        return YQLParser.RULE_existed_external_data_source_id_or_at;
+        return YQLParser.RULE_existing_external_data_source_id_or_at;
     }
     public override accept<Result>(visitor: YQLVisitor<Result>): Result | null {
-        if (visitor.visitExisted_external_data_source_id_or_at) {
-            return visitor.visitExisted_external_data_source_id_or_at(this);
+        if (visitor.visitExisting_external_data_source_id_or_at) {
+            return visitor.visitExisting_external_data_source_id_or_at(this);
         } else {
             return visitor.visitChildren(this);
         }

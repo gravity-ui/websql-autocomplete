@@ -3,8 +3,8 @@ import * as c3 from 'antlr4-c3';
 
 import {YQLLexer} from './generated/YQLLexer.js';
 import {
-    Existed_table_idContext,
-    Existed_table_store_idContext,
+    Existing_table_idContext,
+    Existing_table_store_idContext,
     Named_columnContext,
     Named_exprContext,
     Named_single_sourceContext,
@@ -75,19 +75,19 @@ const rulesToVisit = new Set([
     YQLParser.RULE_role_name,
 
     YQLParser.RULE_pragma_id,
-    YQLParser.RULE_existed_external_data_source_id,
-    YQLParser.RULE_existed_table_store_id,
-    YQLParser.RULE_existed_topic_id,
-    YQLParser.RULE_existed_view_id,
-    YQLParser.RULE_existed_object_id,
-    YQLParser.RULE_existed_table_id,
-    YQLParser.RULE_existed_replication_id,
+    YQLParser.RULE_existing_external_data_source_id,
+    YQLParser.RULE_existing_table_store_id,
+    YQLParser.RULE_existing_topic_id,
+    YQLParser.RULE_existing_view_id,
+    YQLParser.RULE_existing_object_id,
+    YQLParser.RULE_existing_table_id,
+    YQLParser.RULE_existing_replication_id,
     YQLParser.RULE_udf_expr,
     YQLParser.RULE_simple_function_id,
     YQLParser.RULE_window_function_id,
     YQLParser.RULE_table_function_id,
     YQLParser.RULE_aggregate_function_id,
-    YQLParser.RULE_existed_column_id,
+    YQLParser.RULE_existing_column_id,
 ]);
 
 class YQLSymbolTableVisitor extends YQLVisitor<{}> implements ISymbolTableVisitor {
@@ -100,7 +100,7 @@ class YQLSymbolTableVisitor extends YQLVisitor<{}> implements ISymbolTableVisito
         this.scope = this.symbolTable.addNewSymbolOfType(c3.ScopedSymbol, undefined);
     }
 
-    visitExisted_table_id = (context: Existed_table_idContext): {} => {
+    visitExisting_table_id = (context: Existing_table_idContext): {} => {
         try {
             this.symbolTable.addNewSymbolOfType(TableSymbol, this.scope, context.getText());
         } catch (error) {
@@ -111,7 +111,7 @@ class YQLSymbolTableVisitor extends YQLVisitor<{}> implements ISymbolTableVisito
 
         return this.visitChildren(context) as {};
     };
-    visitExisted_table_store_id = (context: Existed_table_store_idContext): {} => {
+    visitExisting_table_store_id = (context: Existing_table_store_idContext): {} => {
         try {
             this.symbolTable.addNewSymbolOfType(TableSymbol, this.scope, context.getText());
         } catch (error) {
@@ -226,35 +226,35 @@ function processVisitedRules(
                 suggestPragmas = true;
                 break;
             }
-            case YQLParser.RULE_existed_external_data_source_id: {
+            case YQLParser.RULE_existing_external_data_source_id: {
                 suggestEntity = ['externalDataSource'];
                 break;
             }
-            case YQLParser.RULE_existed_table_store_id: {
+            case YQLParser.RULE_existing_table_store_id: {
                 suggestEntity = ['tableStore'];
                 break;
             }
-            case YQLParser.RULE_existed_topic_id: {
+            case YQLParser.RULE_existing_topic_id: {
                 suggestEntity = ['topic'];
                 break;
             }
-            case YQLParser.RULE_existed_view_id: {
+            case YQLParser.RULE_existing_view_id: {
                 suggestEntity = ['view'];
                 break;
             }
-            case YQLParser.RULE_existed_object_id: {
+            case YQLParser.RULE_existing_object_id: {
                 suggestEntity = ['object'];
                 break;
             }
-            case YQLParser.RULE_existed_table_id: {
+            case YQLParser.RULE_existing_table_id: {
                 suggestEntity = ['table'];
                 break;
             }
-            case YQLParser.RULE_existed_replication_id: {
+            case YQLParser.RULE_existing_replication_id: {
                 suggestEntity = ['replication'];
                 break;
             }
-            case YQLParser.RULE_existed_column_id: {
+            case YQLParser.RULE_existing_column_id: {
                 const withoutColumnsSuggestion =
                     rule.ruleList.includes(YQLParser.RULE_values_stmt) ||
                     rule.ruleList.includes(YQLParser.RULE_limit_stmt) ||

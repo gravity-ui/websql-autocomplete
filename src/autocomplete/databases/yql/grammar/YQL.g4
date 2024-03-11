@@ -365,12 +365,12 @@ expr_list
     ;
 
 pure_column_list
-    : LPAREN an_existed_column_id (COMMA an_existed_column_id)* RPAREN
+    : LPAREN an_existing_column_id (COMMA an_existing_column_id)* RPAREN
     ;
 
 pure_column_or_named
     : bind_parameter
-    | an_existed_column_id
+    | an_existing_column_id
     ;
 
 pure_column_or_named_list
@@ -378,12 +378,12 @@ pure_column_or_named_list
     ;
 
 column_name
-    : opt_id_prefix an_existed_column_id
+    : opt_id_prefix an_existing_column_id
     ;
 
 without_column_name
     : (an_id DOT an_id)
-    | an_existed_column_id
+    | an_existing_column_id
     ;
 
 column_list
@@ -983,7 +983,7 @@ create_external_data_source_stmt
     ;
 
 drop_external_data_source_stmt
-    : DROP EXTERNAL DATA SOURCE (IF EXISTS)? existed_external_data_source_ref
+    : DROP EXTERNAL DATA SOURCE (IF EXISTS)? existing_external_data_source_ref
     ;
 
 create_view_stmt
@@ -991,11 +991,11 @@ create_view_stmt
     ;
 
 drop_view_stmt
-    : DROP VIEW existed_view_ref
+    : DROP VIEW existing_view_ref
     ;
 
 upsert_object_stmt
-    : UPSERT OBJECT existed_object_ref LPAREN TYPE object_type_ref RPAREN create_object_features?
+    : UPSERT OBJECT existing_object_ref LPAREN TYPE object_type_ref RPAREN create_object_features?
     ;
 
 create_object_stmt
@@ -1007,7 +1007,7 @@ create_object_features
     ;
 
 alter_object_stmt
-    : ALTER OBJECT existed_object_ref LPAREN TYPE object_type_ref RPAREN alter_object_features
+    : ALTER OBJECT existing_object_ref LPAREN TYPE object_type_ref RPAREN alter_object_features
     ;
 
 alter_object_features
@@ -1015,7 +1015,7 @@ alter_object_features
     ;
 
 drop_object_stmt
-    : DROP OBJECT (IF EXISTS)? existed_object_ref LPAREN TYPE object_type_ref RPAREN drop_object_features?
+    : DROP OBJECT (IF EXISTS)? existing_object_ref LPAREN TYPE object_type_ref RPAREN drop_object_features?
     ;
 
 drop_object_features
@@ -1064,7 +1064,7 @@ create_table_entry
     ;
 
 table_inherits
-    : INHERITS LPAREN existed_simple_table_ref_core (COMMA existed_simple_table_ref_core)* RPAREN
+    : INHERITS LPAREN existing_simple_table_ref_core (COMMA existing_simple_table_ref_core)* RPAREN
     ;
 
 table_partition_by
@@ -1089,7 +1089,7 @@ alter_table_or_table_store
     ;
 
 alter_table_stmt
-    : ALTER TABLE existed_simple_table_ref alter_table_action (COMMA alter_table_action)*
+    : ALTER TABLE existing_simple_table_ref alter_table_action (COMMA alter_table_action)*
     ;
 
 alter_table_action
@@ -1111,7 +1111,7 @@ alter_table_action
     ;
 
 alter_table_store_stmt
-    : ALTER TABLESTORE existed_table_store_ref alter_table_store_action (COMMA alter_table_store_action)*
+    : ALTER TABLESTORE existing_table_store_ref alter_table_store_action (COMMA alter_table_store_action)*
     ;
 
 alter_table_store_action
@@ -1124,11 +1124,11 @@ alter_table_add_column
     ;
 
 alter_table_drop_column
-    : DROP COLUMN? an_existed_column_id
+    : DROP COLUMN? an_existing_column_id
     ;
 
 alter_table_alter_column
-    : ALTER COLUMN an_existed_column_id SET family_relation
+    : ALTER COLUMN an_existing_column_id SET family_relation
     ;
 
 alter_table_add_column_family
@@ -1278,7 +1278,7 @@ literal_value_list
     ;
 
 drop_table_stmt
-    : DROP (TABLE | TABLESTORE | EXTERNAL TABLE) (IF EXISTS)? existed_simple_table_ref
+    : DROP (TABLE | TABLESTORE | EXTERNAL TABLE) (IF EXISTS)? existing_simple_table_ref
     ;
 
 create_user_stmt
@@ -1360,7 +1360,7 @@ replication_settings_entry
     ;
 
 drop_replication_stmt
-    : DROP ASYNC REPLICATION existed_replication_ref CASCADE?
+    : DROP ASYNC REPLICATION existing_replication_ref CASCADE?
     ;
 
 action_or_subquery_args
@@ -1392,7 +1392,7 @@ table_ref
     ;
 
 table_key
-    : an_existed_table_id_or_type (VIEW view_name)?
+    : an_existing_table_id_or_type (VIEW view_name)?
     ;
 
 table_arg
@@ -1413,32 +1413,32 @@ object_ref
     : cluster_expr_with_dot id_or_at
     ;
 
-existed_table_ref
-    : cluster_expr_with_dot existed_table_id_or_at
+existing_table_ref
+    : cluster_expr_with_dot existing_table_id_or_at
     ;
 
-existed_object_ref
-    : cluster_expr_with_dot existed_object_id_or_at
+existing_object_ref
+    : cluster_expr_with_dot existing_object_id_or_at
     ;
 
-existed_view_ref
-    : cluster_expr_with_dot existed_view_id_or_at
+existing_view_ref
+    : cluster_expr_with_dot existing_view_id_or_at
     ;
 
-existed_topic_ref
-    : cluster_expr_with_dot existed_topic_id_or_at
+existing_topic_ref
+    : cluster_expr_with_dot existing_topic_id_or_at
     ;
 
-existed_table_store_ref
-    : cluster_expr_with_dot existed_table_store_id_or_at
+existing_table_store_ref
+    : cluster_expr_with_dot existing_table_store_id_or_at
     ;
 
-existed_replication_ref
-    : cluster_expr_with_dot existed_replication_id_or_at
+existing_replication_ref
+    : cluster_expr_with_dot existing_replication_id_or_at
     ;
 
-existed_external_data_source_ref
-    : cluster_expr_with_dot existed_external_data_source_id_or_at
+existing_external_data_source_ref
+    : cluster_expr_with_dot existing_external_data_source_id_or_at
     ;
 
 simple_table_ref_core
@@ -1446,8 +1446,8 @@ simple_table_ref_core
     | AT? bind_parameter
     ;
 
-existed_simple_table_ref_core
-    : existed_table_ref
+existing_simple_table_ref_core
+    : existing_table_ref
     | AT? bind_parameter
     ;
 
@@ -1455,20 +1455,20 @@ simple_table_ref
     : simple_table_ref_core table_hints?
     ;
 
-existed_simple_table_ref
-    : existed_simple_table_ref_core table_hints?
+existing_simple_table_ref
+    : existing_simple_table_ref_core table_hints?
     ;
 
 into_simple_table_ref
-    : existed_simple_table_ref (ERASE BY pure_column_list)?
+    : existing_simple_table_ref (ERASE BY pure_column_list)?
     ;
 
 delete_stmt
-    : DELETE FROM existed_simple_table_ref (where_expr | ON into_values_source)?
+    : DELETE FROM existing_simple_table_ref (where_expr | ON into_values_source)?
     ;
 
 update_stmt
-    : UPDATE existed_simple_table_ref (SET set_clause_choice (where_expr)? | ON into_values_source)
+    : UPDATE existing_simple_table_ref (SET set_clause_choice (where_expr)? | ON into_values_source)
     ;
 
 /// out of 2003 standart
@@ -1515,7 +1515,7 @@ with_topic_settings
     ;
 
 alter_topic_stmt
-    : ALTER TOPIC existed_topic_ref alter_topic_action (COMMA alter_topic_action)*
+    : ALTER TOPIC existing_topic_ref alter_topic_action (COMMA alter_topic_action)*
     ;
 
 alter_topic_action
@@ -1564,7 +1564,7 @@ alter_topic_reset_settings
     ;
 
 drop_topic_stmt
-    : DROP TOPIC existed_topic_ref
+    : DROP TOPIC existing_topic_ref
     ;
 
 topic_settings
@@ -1741,7 +1741,7 @@ id_expr
     | window_function_id
     | table_function_id
     | aggregate_function_id
-    | existed_column_id
+    | existing_column_id
     // | keyword_compat
     // //  | keyword_expr_uncompat
     // //  | keyword_table_uncompat
@@ -1835,7 +1835,7 @@ id_as_compat
 
 // ANSI-aware versions of various identifiers with support double-quoted identifiers when PRAGMA AnsiQuotedIdentifiers; is present
 
-existed_column_id
+existing_column_id
     : identifier
     ;
 
@@ -1844,13 +1844,13 @@ an_id
     | STRING_VALUE
     ;
 
-an_existed_column_id
-    : existed_column_id
+an_existing_column_id
+    : existing_column_id
     | STRING_VALUE
     ;
 
-an_existed_topic_id
-    : existed_topic_id
+an_existing_topic_id
+    : existing_topic_id
     | STRING_VALUE
     ;
 
@@ -1859,38 +1859,38 @@ an_id_or_type
     | STRING_VALUE
     ;
 
-an_existed_table_id_or_type
-    : existed_table_id
+an_existing_table_id_or_type
+    : existing_table_id
     | STRING_VALUE
     ;
 
-an_existed_object_id_or_type
-    : existed_object_id
+an_existing_object_id_or_type
+    : existing_object_id
     | STRING_VALUE
     ;
 
-an_existed_view_id_or_type
-    : existed_view_id
+an_existing_view_id_or_type
+    : existing_view_id
     | STRING_VALUE
     ;
 
-an_existed_topic_id_or_type
-    : existed_topic_id
+an_existing_topic_id_or_type
+    : existing_topic_id
     | STRING_VALUE
     ;
 
-an_existed_table_store_id_or_type
-    : existed_table_store_id
+an_existing_table_store_id_or_type
+    : existing_table_store_id
     | STRING_VALUE
     ;
 
-an_existed_replication_id_or_type
-    : existed_replication_id
+an_existing_replication_id_or_type
+    : existing_replication_id
     | STRING_VALUE
     ;
 
-an_existed_external_data_source_id_or_type
-    : existed_external_data_source_id
+an_existing_external_data_source_id_or_type
+    : existing_external_data_source_id
     | STRING_VALUE
     ;
 
@@ -1961,31 +1961,31 @@ udf_id
     : id
     ;
 
-existed_table_id
+existing_table_id
     : id
     ;
 
-existed_object_id
+existing_object_id
     : id
     ;
 
-existed_view_id
+existing_view_id
     : id
     ;
 
-existed_topic_id
+existing_topic_id
     : id
     ;
 
-existed_table_store_id
+existing_table_store_id
     : id
     ;
 
-existed_external_data_source_id
+existing_external_data_source_id
     : id
     ;
 
-existed_replication_id
+existing_replication_id
     : id
     ;
 
@@ -1997,32 +1997,32 @@ id_or_at
     : AT? an_id_or_type
     ;
 
-existed_table_id_or_at
-    : AT? an_existed_table_id_or_type
+existing_table_id_or_at
+    : AT? an_existing_table_id_or_type
     ;
 
-existed_object_id_or_at
-    : AT? an_existed_object_id_or_type
+existing_object_id_or_at
+    : AT? an_existing_object_id_or_type
     ;
 
-existed_view_id_or_at
-    : AT? an_existed_view_id_or_type
+existing_view_id_or_at
+    : AT? an_existing_view_id_or_type
     ;
 
-existed_topic_id_or_at
-    : AT? an_existed_topic_id_or_type
+existing_topic_id_or_at
+    : AT? an_existing_topic_id_or_type
     ;
 
-existed_table_store_id_or_at
-    : AT? an_existed_table_store_id_or_type
+existing_table_store_id_or_at
+    : AT? an_existing_table_store_id_or_type
     ;
 
-existed_replication_id_or_at
-    : AT? an_existed_replication_id_or_type
+existing_replication_id_or_at
+    : AT? an_existing_replication_id_or_type
     ;
 
-existed_external_data_source_id_or_at
-    : AT? an_existed_external_data_source_id_or_type
+existing_external_data_source_id_or_at
+    : AT? an_existing_external_data_source_id_or_type
     ;
 
 id_table_or_type
