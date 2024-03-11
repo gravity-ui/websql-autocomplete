@@ -88,6 +88,16 @@ const rulesToVisit = new Set([
     YQLParser.RULE_table_function_id,
     YQLParser.RULE_aggregate_function_id,
     YQLParser.RULE_existing_column_id,
+
+    YQLParser.RULE_keyword,
+    YQLParser.RULE_keyword_compat,
+    YQLParser.RULE_keyword_expr_uncompat,
+    YQLParser.RULE_keyword_table_uncompat,
+    YQLParser.RULE_keyword_select_uncompat,
+    YQLParser.RULE_keyword_alter_uncompat,
+    YQLParser.RULE_keyword_in_uncompat,
+    YQLParser.RULE_keyword_window_uncompat,
+    YQLParser.RULE_keyword_hint_uncompat,
 ]);
 
 class YQLSymbolTableVisitor extends YQLVisitor<{}> implements ISymbolTableVisitor {
