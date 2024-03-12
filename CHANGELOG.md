@@ -1,5 +1,12 @@
 # Changelog
 
+## [8.0.1](https://github.com/gravity-ui/websql-autocomplete/compare/v8.0.0...v8.0.1) (2024-03-11)
+
+
+### Bug Fixes
+
+* should not suggest excess keywords if entity id equals to keyword in YQL autocomplete ([#177](https://github.com/gravity-ui/websql-autocomplete/issues/177)) ([23de65a](https://github.com/gravity-ui/websql-autocomplete/commit/23de65af04372c87cc7201c1ec055258eebf7970))
+
 ## [8.0.0](https://github.com/gravity-ui/websql-autocomplete/compare/v7.0.0...v8.0.0) (2024-03-11)
 
 
