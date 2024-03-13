@@ -82,6 +82,15 @@ test('should suggest properly after FROM', () => {
     expect(autocompleteResult.suggestEntity).toEqual(['table']);
 });
 
+test('should suggest properly after FROM when typing table name', () => {
+    const autocompleteResult = parseYqlQueryWithCursor('SELECT * FROM te|');
+
+    const keywordsSuggestion: KeywordSuggestion[] = [{value: 'ANY'}];
+    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(autocompleteResult.suggestEntity).toEqual(['table']);
+    expect(autocompleteResult.suggestColumns).toBeFalsy();
+});
+
 test('should suggest tables between statements', () => {
     const autocompleteResult = parseYqlQueryWithCursor(
         'ALTER TABLE before_table DROP COLUMN id; SELECT * FROM | ; ALTER TABLE after_table DROP COLUMN id;',
