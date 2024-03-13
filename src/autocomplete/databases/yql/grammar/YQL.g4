@@ -1388,7 +1388,7 @@ cluster_expr_with_dot
     ;
 
 table_ref
-    : cluster_expr_with_dot AT? (table_key | an_id_expr LPAREN (table_arg (COMMA table_arg)* COMMA?)? RPAREN | bind_parameter (LPAREN expr_list? RPAREN)? (VIEW view_name)?) table_hints?
+    : cluster_expr_with_dot AT? (table_key | an_table_id_expr LPAREN (table_arg (COMMA table_arg)* COMMA?)? RPAREN | bind_parameter (LPAREN expr_list? RPAREN)? (VIEW view_name)?) table_hints?
     ;
 
 table_key
@@ -1752,6 +1752,15 @@ id_expr
     | keyword_hint_uncompat
     ;
 
+table_id_expr
+    : table_function_id
+    | keyword_compat
+    | keyword_alter_uncompat
+    | keyword_in_uncompat
+    | keyword_window_uncompat
+    | keyword_hint_uncompat
+    ;
+
 simple_function_id
     : identifier
     ;
@@ -1901,6 +1910,11 @@ an_id_schema
 
 an_id_expr
     : id_expr
+    | STRING_VALUE
+    ;
+
+an_table_id_expr
+    : table_id_expr
     | STRING_VALUE
     ;
 

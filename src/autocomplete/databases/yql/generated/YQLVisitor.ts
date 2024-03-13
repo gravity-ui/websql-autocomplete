@@ -380,6 +380,7 @@ import { IdentifierContext } from "./YQLParser.js";
 import { IdContext } from "./YQLParser.js";
 import { Id_schemaContext } from "./YQLParser.js";
 import { Id_exprContext } from "./YQLParser.js";
+import { Table_id_exprContext } from "./YQLParser.js";
 import { Simple_function_idContext } from "./YQLParser.js";
 import { Window_function_idContext } from "./YQLParser.js";
 import { Table_function_idContext } from "./YQLParser.js";
@@ -404,6 +405,7 @@ import { An_existing_replication_id_or_typeContext } from "./YQLParser.js";
 import { An_existing_external_data_source_id_or_typeContext } from "./YQLParser.js";
 import { An_id_schemaContext } from "./YQLParser.js";
 import { An_id_exprContext } from "./YQLParser.js";
+import { An_table_id_exprContext } from "./YQLParser.js";
 import { An_id_expr_inContext } from "./YQLParser.js";
 import { An_id_windowContext } from "./YQLParser.js";
 import { An_id_tableContext } from "./YQLParser.js";
@@ -2667,6 +2669,12 @@ export class YQLVisitor<Result> extends AbstractParseTreeVisitor<Result> {
      */
     visitId_expr?: (ctx: Id_exprContext) => Result;
     /**
+     * Visit a parse tree produced by `YQLParser.table_id_expr`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitTable_id_expr?: (ctx: Table_id_exprContext) => Result;
+    /**
      * Visit a parse tree produced by `YQLParser.simple_function_id`.
      * @param ctx the parse tree
      * @return the visitor result
@@ -2810,6 +2818,12 @@ export class YQLVisitor<Result> extends AbstractParseTreeVisitor<Result> {
      * @return the visitor result
      */
     visitAn_id_expr?: (ctx: An_id_exprContext) => Result;
+    /**
+     * Visit a parse tree produced by `YQLParser.an_table_id_expr`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitAn_table_id_expr?: (ctx: An_table_id_exprContext) => Result;
     /**
      * Visit a parse tree produced by `YQLParser.an_id_expr_in`.
      * @param ctx the parse tree
