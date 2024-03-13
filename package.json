@@ -1,6 +1,6 @@
 {
   "name": "@gravity-ui/websql-autocomplete",
-  "version": "8.0.1",
+  "version": "8.0.2",
   "description": "A library that provides autocompletion and errors highlighting for various database dialects",
   "repository": {
     "type": "git",

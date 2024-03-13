@@ -1,5 +1,12 @@
 # Changelog
 
+## [8.0.2](https://github.com/gravity-ui/websql-autocomplete/compare/v8.0.1...v8.0.2) (2024-03-13)
+
+
+### Bug Fixes
+
+* **YQL:** should not suggest columns after FROM keyword ([#179](https://github.com/gravity-ui/websql-autocomplete/issues/179)) ([df467c5](https://github.com/gravity-ui/websql-autocomplete/commit/df467c51eda3e0a13d34266f795ac4213c0d4d3c))
+
 ## [8.0.1](https://github.com/gravity-ui/websql-autocomplete/compare/v8.0.0...v8.0.1) (2024-03-11)
 
 
