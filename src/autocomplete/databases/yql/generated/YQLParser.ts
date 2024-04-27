@@ -997,7 +997,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -1021,7 +1020,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -1107,7 +1105,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -1193,7 +1190,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -1232,7 +1228,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -1315,7 +1310,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -1354,7 +1348,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -1401,7 +1394,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -1448,7 +1440,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -1758,7 +1749,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -1872,7 +1862,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -1926,7 +1915,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -1967,7 +1955,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -2008,7 +1995,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -2043,7 +2029,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -2082,7 +2067,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -2308,7 +2292,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -2340,7 +2323,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -2388,7 +2370,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -2414,7 +2395,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -2442,7 +2422,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -2468,7 +2447,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -2588,7 +2566,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -2636,7 +2613,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -2684,7 +2660,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -2725,7 +2700,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -2764,7 +2738,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -2796,7 +2769,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -3147,7 +3119,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -3187,7 +3158,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -3227,7 +3197,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -3264,7 +3233,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -3301,7 +3269,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -3348,7 +3315,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -3416,7 +3382,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -3463,7 +3428,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -3514,7 +3478,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -3561,7 +3524,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -3860,7 +3822,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -3967,7 +3928,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -4078,7 +4038,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -4112,7 +4071,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -4146,7 +4104,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -4197,7 +4154,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -4260,7 +4216,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -4325,7 +4280,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -4349,7 +4303,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -4395,7 +4348,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -4419,7 +4371,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -4670,7 +4621,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -4698,7 +4648,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -4739,7 +4688,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -4780,7 +4728,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -4830,7 +4777,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -4898,7 +4844,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -4934,7 +4879,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -4975,7 +4919,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -5056,7 +4999,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -5115,7 +5057,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -5186,7 +5127,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -5233,7 +5173,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -5276,7 +5215,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -5321,7 +5259,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -5362,7 +5299,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -5407,7 +5343,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -5433,7 +5368,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -5476,7 +5410,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -5530,7 +5463,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -5584,7 +5516,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -5621,7 +5552,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -5664,7 +5594,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -6007,7 +5936,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -6201,7 +6129,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -6257,7 +6184,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -6285,7 +6211,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -6315,7 +6240,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -6412,7 +6336,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -6716,7 +6639,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -6751,7 +6673,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -6792,7 +6713,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -6829,7 +6749,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -6870,7 +6789,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -6929,7 +6847,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -6953,7 +6870,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -6993,7 +6909,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -7294,7 +7209,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -7322,7 +7236,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -7386,7 +7299,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -7422,7 +7334,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -7461,7 +7372,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -7504,7 +7414,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -7538,7 +7447,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -7568,7 +7476,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -7652,7 +7559,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -7736,7 +7642,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -7796,7 +7701,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -7826,7 +7730,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -7856,7 +7759,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -7886,7 +7788,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -7920,7 +7821,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -7950,7 +7850,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -8010,7 +7909,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -8040,7 +7938,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -8074,7 +7971,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -8145,7 +8041,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -8266,7 +8161,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -8353,7 +8247,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -8408,7 +8301,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -8432,7 +8324,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -8512,7 +8403,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -8555,7 +8445,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -8606,7 +8495,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -8636,7 +8524,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -8662,7 +8549,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -8717,7 +8603,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -8747,7 +8632,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -8790,7 +8674,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -8814,7 +8697,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -8887,7 +8769,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -9207,7 +9088,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -9249,7 +9129,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -9290,7 +9169,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -9331,7 +9209,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -9372,7 +9249,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -9419,7 +9295,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -9476,7 +9351,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -9502,7 +9376,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -9528,7 +9401,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -9591,7 +9463,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -9663,7 +9534,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -9689,7 +9559,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -9812,7 +9681,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -9840,7 +9708,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -9881,7 +9748,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -10000,7 +9866,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -10040,7 +9905,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -10066,7 +9930,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -10222,7 +10085,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -10293,7 +10155,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -10355,7 +10216,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -10413,7 +10273,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -10439,7 +10298,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -10480,7 +10338,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -10508,7 +10365,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -10577,7 +10433,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -10663,7 +10518,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -10687,7 +10541,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -10719,7 +10572,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -10760,7 +10612,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -10797,7 +10648,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -10831,7 +10681,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -10958,7 +10807,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -11047,7 +10895,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -11071,7 +10918,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -11118,7 +10964,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -11144,7 +10989,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -11185,7 +11029,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -11217,7 +11060,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -11241,7 +11083,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -11282,7 +11123,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -11306,7 +11146,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -11347,7 +11186,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -11375,7 +11213,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -11399,7 +11236,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -11423,7 +11259,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -11447,7 +11282,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -11471,7 +11305,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -11499,7 +11332,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -11534,7 +11366,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -11587,7 +11418,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -11628,7 +11458,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -11686,7 +11515,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -11710,7 +11538,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -11751,7 +11578,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -11781,7 +11607,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -11811,7 +11636,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -11843,7 +11667,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -11885,7 +11708,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -12009,7 +11831,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -12080,7 +11901,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -12117,7 +11937,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -12427,7 +12246,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -12502,7 +12320,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -12670,7 +12487,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -12722,7 +12538,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -12748,7 +12563,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -12791,7 +12605,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -12823,7 +12636,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -12853,7 +12665,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -13015,7 +12826,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -13058,7 +12868,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -13138,7 +12947,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -13212,7 +13020,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -13269,7 +13076,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -13295,7 +13101,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -13339,7 +13144,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -13380,7 +13184,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -13408,7 +13211,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -13445,7 +13247,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -13493,7 +13294,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -13537,7 +13337,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -13571,7 +13370,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -13599,7 +13397,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -13646,7 +13443,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -13707,7 +13503,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -13733,7 +13528,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -13771,7 +13565,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -13797,7 +13590,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -13856,7 +13648,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -13882,7 +13673,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -14183,7 +13973,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -14211,7 +14000,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -14235,7 +14023,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -14272,7 +14059,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -14588,7 +14374,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -14620,7 +14405,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -14762,7 +14546,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -14820,7 +14603,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -14867,7 +14649,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -14897,7 +14678,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -14944,7 +14724,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -14970,7 +14749,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -14998,7 +14776,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -15035,7 +14812,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -15082,7 +14858,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -15210,7 +14985,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -15257,7 +15031,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -15296,7 +15069,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -15333,7 +15105,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -15370,7 +15141,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -15402,7 +15172,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -15428,7 +15197,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -15462,7 +15230,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -15490,7 +15257,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -15537,7 +15303,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -15584,7 +15349,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -15610,7 +15374,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -15638,7 +15401,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -15666,7 +15428,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -15698,7 +15459,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -15724,7 +15484,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -15754,7 +15513,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -15782,7 +15540,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -15821,7 +15578,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -15847,7 +15603,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -15902,7 +15657,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -15944,7 +15698,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -16063,7 +15816,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -16201,7 +15953,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -16240,7 +15991,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -16292,7 +16042,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -16316,7 +16065,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -16350,7 +16098,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -16391,7 +16138,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -16419,7 +16165,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -16443,7 +16188,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -16488,7 +16232,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -16516,7 +16259,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -16605,7 +16347,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -16633,7 +16374,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -16686,7 +16426,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -16714,7 +16453,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -16738,7 +16476,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -16796,7 +16533,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -16841,7 +16577,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -16905,7 +16640,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -16944,7 +16678,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -17007,7 +16740,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -17079,7 +16811,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -17171,7 +16902,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -17248,7 +16978,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -17543,7 +17272,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -17580,7 +17308,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -17674,7 +17401,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -17755,7 +17481,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -17947,7 +17672,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -18001,7 +17725,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -18096,7 +17819,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -18155,7 +17877,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -18183,7 +17904,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -18224,7 +17944,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -18252,7 +17971,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -18293,7 +18011,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -18334,7 +18051,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -18392,7 +18108,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -18484,7 +18199,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -18535,7 +18249,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -18590,7 +18303,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -18624,7 +18336,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -18768,7 +18479,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -18805,7 +18515,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -18852,7 +18561,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -19171,7 +18879,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -19605,7 +19312,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -19631,7 +19337,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -19657,7 +19362,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -19683,7 +19387,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -19709,7 +19412,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -19735,7 +19437,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -19761,7 +19462,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -19787,7 +19487,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -19813,7 +19512,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -19861,7 +19559,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -19909,7 +19606,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -19944,7 +19640,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -19979,7 +19674,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -20018,7 +19712,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -20070,7 +19763,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -20129,7 +19821,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -20424,7 +20115,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -20465,7 +20155,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -20493,7 +20182,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -20517,7 +20205,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -20549,7 +20236,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -20594,7 +20280,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -20643,7 +20328,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -20688,7 +20372,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -20712,7 +20395,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -20742,7 +20424,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -20789,7 +20470,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -20849,7 +20529,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -20875,7 +20554,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -20912,7 +20590,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -20942,7 +20619,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -20981,7 +20657,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -21009,7 +20684,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -21039,7 +20713,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -21086,7 +20759,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -21116,7 +20788,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -21163,7 +20834,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -21191,7 +20861,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -21232,7 +20901,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -21260,7 +20928,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -21284,7 +20951,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -21314,7 +20980,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -21355,7 +21020,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -21383,7 +21047,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -21407,7 +21070,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -21433,7 +21095,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -21457,7 +21118,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -21500,7 +21160,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -21530,7 +21189,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -21822,7 +21480,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -21846,7 +21503,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -21872,7 +21528,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -21913,7 +21568,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -21941,7 +21595,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -21965,7 +21618,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -21993,7 +21645,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -22056,7 +21707,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -22080,7 +21730,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -22119,7 +21768,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -22143,7 +21791,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -22180,7 +21827,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -22212,7 +21858,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -22249,7 +21894,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -22279,7 +21923,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -22342,7 +21985,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -22405,7 +22047,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -22431,7 +22072,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -22479,7 +22119,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -22521,7 +22160,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -22545,7 +22183,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -22569,7 +22206,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -22601,7 +22237,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -22894,7 +22529,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -23213,7 +22847,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -23306,7 +22939,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -23580,7 +23212,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -23604,7 +23235,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -23628,7 +23258,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -23652,7 +23281,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -23676,7 +23304,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -23943,7 +23570,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -24269,7 +23895,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -24588,7 +24213,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -24871,7 +24495,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -25206,7 +24829,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -25287,7 +24909,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -25311,7 +24932,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -25605,7 +25225,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -25645,7 +25264,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -25939,7 +25557,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -26233,7 +25850,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -26527,7 +26143,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -26821,7 +26436,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -27115,7 +26729,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -27409,7 +27022,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -27703,7 +27315,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -27997,7 +27608,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -28291,7 +27901,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -28581,7 +28190,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -28832,7 +28440,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -29083,7 +28690,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -29333,7 +28939,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -29624,7 +29229,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -29914,7 +29518,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -30168,7 +29771,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -30462,7 +30064,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -30502,7 +30103,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -30584,7 +30184,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -30623,7 +30222,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -30657,7 +30255,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -30712,7 +30309,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -30736,7 +30332,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -30760,7 +30355,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -30784,7 +30378,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -30808,7 +30401,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -30832,7 +30424,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -30856,7 +30447,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -30880,7 +30470,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -30904,7 +30493,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -30928,7 +30516,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -30962,7 +30549,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -30997,7 +30583,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -31032,7 +30617,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -31067,7 +30651,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -31102,7 +30685,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -31137,7 +30719,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -31172,7 +30753,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -31207,7 +30787,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -31242,7 +30821,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -31266,7 +30844,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -31301,7 +30878,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -31628,7 +31204,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -31660,7 +31235,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -31692,7 +31266,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -31724,7 +31297,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -31748,7 +31320,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -31772,7 +31343,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -31804,7 +31374,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -31836,7 +31405,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -31868,7 +31436,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -31900,7 +31467,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -31932,7 +31498,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -31964,7 +31529,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -31988,7 +31552,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -32020,7 +31583,6 @@ export class YQLParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {

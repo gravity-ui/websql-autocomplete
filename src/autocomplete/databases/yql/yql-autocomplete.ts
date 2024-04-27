@@ -21,6 +21,7 @@ import {
     GetParseTree,
     ISymbolTableVisitor,
     ProcessVisitedRulesResult,
+    Table,
     YqlAutocompleteResult,
 } from '../../autocomplete-types.js';
 import {ColumnAliasSymbol, TableSymbol} from '../../shared/symbol-table.js';
@@ -45,6 +46,33 @@ const tokenDictionary: TokenDictionary = {
     SEMICOLON: YQLParser.SEMICOLON,
     SELECT: YQLParser.SELECT,
 };
+
+function getUniqueTableSuggestions(suggestions: Table[] = []): Table[] {
+    const suggestionsMap = suggestions.reduce(
+        (acc, table) => {
+            const aliases = acc[table.name] ?? new Set();
+            if (table.alias) {
+                aliases.add(table.alias);
+            }
+
+            acc[table.name] = aliases;
+            return acc;
+        },
+        {} as Record<string, Set<string>>,
+    );
+    return Object.keys(suggestionsMap).reduce((acc, el) => {
+        const aliases = suggestionsMap[el] as Set<string>;
+        if (aliases.size > 0) {
+            aliases?.forEach((alias) => {
+                acc.push({name: el, alias});
+            });
+        } else {
+            acc.push({name: el});
+        }
+
+        return acc;
+    }, [] as Table[]);
+}
 
 // These are keywords that we do not want to show in autocomplete
 function getIgnoredTokens(): number[] {
@@ -114,7 +142,7 @@ class YQLSymbolTableVisitor extends YQLVisitor<{}> implements ISymbolTableVisito
 
     constructor() {
         super();
-        this.symbolTable = new c3.SymbolTable('', {});
+        this.symbolTable = new c3.SymbolTable('', {allowDuplicateSymbols: true});
         this.scope = this.symbolTable.addNewSymbolOfType(c3.ScopedSymbol, undefined);
     }
 
@@ -190,7 +218,6 @@ class YQLSymbolTableVisitor extends YQLVisitor<{}> implements ISymbolTableVisito
         try {
             const alias =
                 context.an_id_or_type()?.getText() ?? context.an_id_as_compat()?.getText();
-
             if (alias) {
                 this.symbolTable.addNewSymbolOfType(ColumnAliasSymbol, this.scope, alias);
             }
@@ -218,6 +245,7 @@ function processVisitedRules(
     let suggestPragmas = false;
     let shouldSuggestColumns = false;
     let suggestSimpleTypes = false;
+    let shouldSuggestColumnAliases = false;
 
     const isCreateEntity = getPreviousToken(
         tokenStream,
@@ -281,6 +309,7 @@ function processVisitedRules(
                     rule.ruleList.includes(YQLParser.RULE_alter_table_add_column);
                 if (!withoutColumnsSuggestion) {
                     shouldSuggestColumns = true;
+                    shouldSuggestColumnAliases = true;
                 }
                 break;
             }
@@ -352,6 +381,7 @@ function processVisitedRules(
         suggestWindowFunctions,
         suggestTableFunctions,
         suggestAggregateFunctions,
+        shouldSuggestColumnAliases,
     };
 }
 
@@ -426,7 +456,8 @@ function getEnrichAutocompleteResult(parseTreeGetter: GetParseTree<YQLParser>) {
             );
 
             if (shouldSuggestColumns && tableContextSuggestion) {
-                result.suggestColumns = tableContextSuggestion;
+                const normalizedTables = getUniqueTableSuggestions(tableContextSuggestion.tables);
+                result.suggestColumns = {tables: normalizedTables};
             }
             if (shouldSuggestColumnAliases && suggestColumnAliases) {
                 result.suggestColumnAliases = suggestColumnAliases;
