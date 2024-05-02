@@ -1102,7 +1102,7 @@ export class PostgreSqlLexer extends PostgreSqlLexerBase {
 
     public get modeNames(): string[] { return PostgreSqlLexer.modeNames; }
 
-    public override action(localContext: antlr.RuleContext | null, ruleIndex: number, actionIndex: number): void {
+    public override action(localContext: antlr.ParserRuleContext | null, ruleIndex: number, actionIndex: number): void {
         switch (ruleIndex) {
         case 28:
             this.Operator_action(localContext, actionIndex);
@@ -1127,7 +1127,7 @@ export class PostgreSqlLexer extends PostgreSqlLexerBase {
             break;
         }
     }
-    private Operator_action(localContext: antlr.RuleContext | null, actionIndex: number): void {
+    private Operator_action(localContext: antlr.ParserRuleContext | null, actionIndex: number): void {
         switch (actionIndex) {
         case 0:
 
@@ -1136,21 +1136,21 @@ export class PostgreSqlLexer extends PostgreSqlLexerBase {
             break;
         }
     }
-    private BeginDollarStringConstant_action(localContext: antlr.RuleContext | null, actionIndex: number): void {
+    private BeginDollarStringConstant_action(localContext: antlr.ParserRuleContext | null, actionIndex: number): void {
         switch (actionIndex) {
         case 1:
             this.pushTag();
             break;
         }
     }
-    private NumericFail_action(localContext: antlr.RuleContext | null, actionIndex: number): void {
+    private NumericFail_action(localContext: antlr.ParserRuleContext | null, actionIndex: number): void {
         switch (actionIndex) {
         case 2:
             this.HandleNumericFail();
             break;
         }
     }
-    private UnterminatedBlockComment_action(localContext: antlr.RuleContext | null, actionIndex: number): void {
+    private UnterminatedBlockComment_action(localContext: antlr.ParserRuleContext | null, actionIndex: number): void {
         switch (actionIndex) {
         case 3:
 
@@ -1159,26 +1159,26 @@ export class PostgreSqlLexer extends PostgreSqlLexerBase {
             break;
         }
     }
-    private AfterEscapeStringConstantMode_NotContinued_action(localContext: antlr.RuleContext | null, actionIndex: number): void {
+    private AfterEscapeStringConstantMode_NotContinued_action(localContext: antlr.ParserRuleContext | null, actionIndex: number): void {
         switch (actionIndex) {
         case 4:
             break;
         }
     }
-    private AfterEscapeStringConstantWithNewlineMode_NotContinued_action(localContext: antlr.RuleContext | null, actionIndex: number): void {
+    private AfterEscapeStringConstantWithNewlineMode_NotContinued_action(localContext: antlr.ParserRuleContext | null, actionIndex: number): void {
         switch (actionIndex) {
         case 5:
             break;
         }
     }
-    private EndDollarStringConstant_action(localContext: antlr.RuleContext | null, actionIndex: number): void {
+    private EndDollarStringConstant_action(localContext: antlr.ParserRuleContext | null, actionIndex: number): void {
         switch (actionIndex) {
         case 6:
             this.popTag();
             break;
         }
     }
-    public override sempred(localContext: antlr.RuleContext | null, ruleIndex: number, predIndex: number): boolean {
+    public override sempred(localContext: antlr.ParserRuleContext | null, ruleIndex: number, predIndex: number): boolean {
         switch (ruleIndex) {
         case 28:
             return this.Operator_sempred(localContext, predIndex);
@@ -1191,7 +1191,7 @@ export class PostgreSqlLexer extends PostgreSqlLexerBase {
         }
         return true;
     }
-    private Operator_sempred(localContext: antlr.RuleContext | null, predIndex: number): boolean {
+    private Operator_sempred(localContext: antlr.ParserRuleContext | null, predIndex: number): boolean {
         switch (predIndex) {
         case 0:
             return this.checkLA('-');
@@ -1202,7 +1202,7 @@ export class PostgreSqlLexer extends PostgreSqlLexerBase {
         }
         return true;
     }
-    private OperatorEndingWithPlusMinus_sempred(localContext: antlr.RuleContext | null, predIndex: number): boolean {
+    private OperatorEndingWithPlusMinus_sempred(localContext: antlr.ParserRuleContext | null, predIndex: number): boolean {
         switch (predIndex) {
         case 3:
             return this.checkLA('-');
@@ -1213,7 +1213,7 @@ export class PostgreSqlLexer extends PostgreSqlLexerBase {
         }
         return true;
     }
-    private IdentifierStartChar_sempred(localContext: antlr.RuleContext | null, predIndex: number): boolean {
+    private IdentifierStartChar_sempred(localContext: antlr.ParserRuleContext | null, predIndex: number): boolean {
         switch (predIndex) {
         case 6:
             return this.charIsLetter();
@@ -1224,7 +1224,7 @@ export class PostgreSqlLexer extends PostgreSqlLexerBase {
         }
         return true;
     }
-    private EndDollarStringConstant_sempred(localContext: antlr.RuleContext | null, predIndex: number): boolean {
+    private EndDollarStringConstant_sempred(localContext: antlr.ParserRuleContext | null, predIndex: number): boolean {
         switch (predIndex) {
         case 8:
             return this.isTag();

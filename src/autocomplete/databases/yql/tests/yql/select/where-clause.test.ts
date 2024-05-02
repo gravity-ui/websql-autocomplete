@@ -138,6 +138,14 @@ test('should suggest multiple table names and aliases (with AS) for column', () 
     expect(autocompleteResult.suggestColumns).toEqual(columnSuggestions);
 });
 
+test('should suggest aliases for column', () => {
+    const autocompleteResult = parseYqlQueryWithCursor(
+        'SELECT key as k, value v FROM test_table_1 WHERE |',
+    );
+    const columnAliasSuggestions = [{name: 'k'}, {name: 'v'}];
+    expect(autocompleteResult.suggestColumnAliases).toEqual(columnAliasSuggestions);
+});
+
 test('should not report errors', () => {
     const autocompleteResult = parseYqlQueryWithoutCursor('SELECT * FROM test_table WHERE id = 1;');
 

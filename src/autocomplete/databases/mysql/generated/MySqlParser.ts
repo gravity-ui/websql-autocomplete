@@ -2145,7 +2145,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -2197,7 +2196,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -2269,7 +2267,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -2558,7 +2555,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -2672,7 +2668,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -2758,7 +2753,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -2886,7 +2880,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -2933,7 +2926,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -3026,7 +3018,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -3224,7 +3215,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -3296,7 +3286,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -3357,7 +3346,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -3462,7 +3450,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -3625,7 +3612,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -3796,7 +3782,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -3884,7 +3869,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -4914,7 +4898,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -4952,7 +4935,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -5021,7 +5003,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -5297,7 +5278,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -5368,7 +5348,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -5567,7 +5546,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -5668,7 +5646,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -5704,7 +5681,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -5779,7 +5755,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -5803,7 +5778,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -5827,7 +5801,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -6008,7 +5981,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -6206,7 +6178,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -6256,7 +6227,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -6292,7 +6262,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -6334,7 +6303,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -6419,7 +6387,7 @@ export class MySqlParser extends antlr.Parser {
                         {
                         this.state = 1456;
                         (localContext as IntervalScheduleContext)._intervalExpr = this.intervalExpr();
-                        (localContext as IntervalScheduleContext)._startIntervals.push((localContext as IntervalScheduleContext)._intervalExpr);
+                        (localContext as IntervalScheduleContext)._startIntervals.push((localContext as IntervalScheduleContext)._intervalExpr!);
                         }
                         }
                         this.state = 1461;
@@ -6446,7 +6414,7 @@ export class MySqlParser extends antlr.Parser {
                         {
                         this.state = 1466;
                         (localContext as IntervalScheduleContext)._intervalExpr = this.intervalExpr();
-                        (localContext as IntervalScheduleContext)._endIntervals.push((localContext as IntervalScheduleContext)._intervalExpr);
+                        (localContext as IntervalScheduleContext)._endIntervals.push((localContext as IntervalScheduleContext)._intervalExpr!);
                         }
                         }
                         this.state = 1471;
@@ -6464,7 +6432,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -6515,7 +6482,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -6559,7 +6525,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -6682,7 +6647,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -6730,7 +6694,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -6764,7 +6727,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -6889,7 +6851,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -6934,7 +6895,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -6960,7 +6920,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -7096,7 +7055,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -7184,7 +7142,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -7229,7 +7186,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -7299,7 +7255,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -7361,7 +7316,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -7644,7 +7598,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -7894,7 +7847,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -7961,7 +7913,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -8034,7 +7985,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -8098,7 +8048,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -8237,7 +8186,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -9151,7 +9099,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -9183,7 +9130,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -9217,7 +9163,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -9314,7 +9259,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -9488,7 +9432,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -9582,7 +9525,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -9964,7 +9906,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -10008,7 +9949,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -10053,7 +9993,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -10094,7 +10033,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -10306,7 +10244,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -10392,7 +10329,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -10517,7 +10453,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -10560,7 +10495,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -10594,7 +10528,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -10677,7 +10610,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -10720,7 +10652,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -10773,7 +10704,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -10876,7 +10806,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -10957,7 +10886,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -11090,7 +11018,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -12423,7 +12350,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -19779,7 +19705,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -19826,7 +19751,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -19864,7 +19788,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -19983,7 +19906,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -20019,7 +19941,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -20057,7 +19978,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -20095,7 +20015,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -20133,7 +20052,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -20200,7 +20118,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -20251,7 +20168,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -20289,7 +20205,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -20362,7 +20277,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -20400,7 +20314,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -20471,7 +20384,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -20516,7 +20428,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -20544,7 +20455,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -20581,7 +20491,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -20636,7 +20545,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -20673,7 +20581,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -20699,7 +20606,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -20750,7 +20656,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -20905,7 +20810,7 @@ export class MySqlParser extends antlr.Parser {
                     this.match(MySqlParser.COMMA);
                     this.state = 3193;
                     localContext._updatedElement = this.updatedElement();
-                    localContext._setElements.push(localContext._updatedElement);
+                    localContext._setElements.push(localContext._updatedElement!);
                     }
                     }
                     this.state = 3198;
@@ -20942,7 +20847,7 @@ export class MySqlParser extends antlr.Parser {
                     this.match(MySqlParser.COMMA);
                     this.state = 3207;
                     localContext._updatedElement = this.updatedElement();
-                    localContext._duplicatedElements.push(localContext._updatedElement);
+                    localContext._duplicatedElements.push(localContext._updatedElement!);
                     }
                     }
                     this.state = 3212;
@@ -20956,7 +20861,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -21205,7 +21109,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -21402,7 +21305,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -21511,7 +21413,7 @@ export class MySqlParser extends antlr.Parser {
                     this.match(MySqlParser.COMMA);
                     this.state = 3373;
                     localContext._updatedElement = this.updatedElement();
-                    localContext._setElements.push(localContext._updatedElement);
+                    localContext._setElements.push(localContext._updatedElement!);
                     }
                     }
                     this.state = 3378;
@@ -21527,7 +21429,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -21820,7 +21721,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -21857,7 +21757,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -21924,7 +21823,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -22016,7 +21914,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -22058,7 +21955,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -22966,7 +22862,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -23013,7 +22908,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -23142,7 +23036,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -24186,7 +24079,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -24235,7 +24127,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -24328,7 +24219,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -24391,7 +24281,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -24419,7 +24308,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -24538,7 +24426,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -24617,7 +24504,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -24664,7 +24550,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -24707,7 +24592,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -24750,7 +24634,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -24833,7 +24716,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -24968,7 +24850,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -25029,7 +24910,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -25079,7 +24959,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -25284,7 +25163,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -25333,7 +25211,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -25378,7 +25255,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -25423,7 +25299,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -25622,7 +25497,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -25728,7 +25602,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -25773,7 +25646,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -25834,7 +25706,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -25923,7 +25794,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -25986,7 +25856,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -26027,7 +25896,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -26207,7 +26075,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -26259,7 +26126,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -26311,7 +26177,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -26410,7 +26275,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -26467,7 +26331,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -26502,7 +26365,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -26603,7 +26465,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -26749,7 +26610,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -26819,7 +26679,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -26866,7 +26725,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -26913,7 +26771,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -26972,7 +26829,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -26998,7 +26854,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -27059,7 +26914,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -27102,7 +26956,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -27158,7 +27011,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -28076,7 +27928,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -28129,7 +27980,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -28164,7 +28014,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -28241,7 +28090,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -28318,7 +28166,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -28344,7 +28191,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -28393,7 +28239,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -28421,7 +28266,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -28483,7 +28327,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -28509,7 +28352,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -28548,7 +28390,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -28611,7 +28452,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -28663,7 +28503,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -28710,7 +28549,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -28771,7 +28609,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -28823,7 +28660,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -28880,7 +28716,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -28937,7 +28772,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -28984,7 +28818,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -29043,7 +28876,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -29069,7 +28901,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -29116,7 +28947,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -29205,7 +29035,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -29258,7 +29087,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -29284,7 +29112,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -29310,7 +29137,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -29452,7 +29278,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -29484,7 +29309,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -29516,7 +29340,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -29548,7 +29371,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -29576,7 +29398,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -29730,7 +29551,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -29762,7 +29582,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -29794,7 +29613,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -29889,7 +29707,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -29962,7 +29779,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -30022,7 +29838,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -30077,7 +29892,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -30128,7 +29942,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -30156,7 +29969,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -30197,7 +30009,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -30225,7 +30036,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -30264,7 +30074,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -30310,7 +30119,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -30349,7 +30157,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -30386,7 +30193,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -30423,7 +30229,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -30559,7 +30364,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -30649,7 +30453,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -30685,7 +30488,7 @@ export class MySqlParser extends antlr.Parser {
                     {
                     this.state = 4743;
                     localContext._procedureSqlStatement = this.procedureSqlStatement();
-                    localContext._thenStatements.push(localContext._procedureSqlStatement);
+                    localContext._thenStatements.push(localContext._procedureSqlStatement!);
                     }
                     }
                     break;
@@ -30727,7 +30530,7 @@ export class MySqlParser extends antlr.Parser {
                         {
                         this.state = 4755;
                         localContext._procedureSqlStatement = this.procedureSqlStatement();
-                        localContext._elseStatements.push(localContext._procedureSqlStatement);
+                        localContext._elseStatements.push(localContext._procedureSqlStatement!);
                         }
                         }
                         break;
@@ -30749,7 +30552,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -30775,7 +30577,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -30801,7 +30602,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -30873,7 +30673,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -30949,7 +30748,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -30975,7 +30773,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -31051,7 +30848,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -31131,7 +30927,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -31172,7 +30967,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -31237,7 +31031,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -31269,7 +31062,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -31328,7 +31120,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -32289,7 +32080,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -32329,7 +32119,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -32392,7 +32181,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -32441,7 +32229,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -32678,7 +32465,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -32885,7 +32671,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -32924,7 +32709,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -33142,7 +32926,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -33206,7 +32989,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -33247,7 +33029,7 @@ export class MySqlParser extends antlr.Parser {
                 this.match(MySqlParser.COMMA);
                 this.state = 5124;
                 localContext._userName = this.userName();
-                localContext._toOther.push(localContext._userName);
+                localContext._toOther.push(localContext._userName!);
                 }
                 }
                 this.state = 5129;
@@ -33272,7 +33054,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -33317,7 +33098,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -33449,7 +33229,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -33490,7 +33269,7 @@ export class MySqlParser extends antlr.Parser {
                 this.match(MySqlParser.COMMA);
                 this.state = 5190;
                 localContext._userName = this.userName();
-                localContext._fromOther.push(localContext._userName);
+                localContext._fromOther.push(localContext._userName!);
                 }
                 }
                 this.state = 5195;
@@ -33501,7 +33280,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -33561,7 +33339,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -33587,7 +33364,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -33628,7 +33404,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -33723,7 +33498,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -33772,7 +33546,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -33855,7 +33628,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -33921,7 +33693,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -33982,7 +33753,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -34185,7 +33955,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -34220,7 +33989,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -34259,7 +34027,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -34855,7 +34622,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -34940,7 +34706,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -34968,7 +34733,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -35100,7 +34864,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -35143,7 +34906,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -35190,7 +34952,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -35244,7 +35005,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -35321,7 +35081,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -35390,7 +35149,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -35455,7 +35213,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -35487,7 +35244,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -35515,7 +35271,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -35841,7 +35596,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -36520,7 +36274,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -37466,7 +37219,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -37574,7 +37326,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -37617,7 +37368,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -37732,7 +37482,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -37799,7 +37548,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -37893,7 +37641,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -37919,7 +37666,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -38869,7 +38615,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -38930,7 +38675,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -38975,7 +38719,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -39024,7 +38767,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -39052,7 +38794,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -39076,7 +38817,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -39133,7 +38873,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -39317,7 +39056,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -39362,7 +39100,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -40332,7 +40069,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -40383,7 +40119,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -40448,7 +40183,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -40474,7 +40208,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -40500,7 +40233,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -40591,7 +40323,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -40686,7 +40417,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -41620,7 +41350,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -41673,7 +41402,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -41720,7 +41448,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -42742,7 +42469,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -42774,7 +42500,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -42859,7 +42584,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -42901,7 +42625,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -42925,7 +42648,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -42966,7 +42688,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -43003,7 +42724,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -43044,7 +42764,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -43085,7 +42804,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -43109,7 +42827,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -43150,7 +42867,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -43174,7 +42890,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -43251,7 +42966,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -43275,7 +42989,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -43299,7 +43012,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -43323,7 +43035,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -43347,7 +43058,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -43388,7 +43098,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -43473,7 +43182,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -43524,7 +43232,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -43556,7 +43263,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -43597,7 +43303,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -43643,7 +43348,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -43667,7 +43371,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -43699,7 +43402,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -43750,7 +43452,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -43787,7 +43488,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -43845,7 +43545,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -43877,7 +43576,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -43938,7 +43636,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -43987,7 +43684,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -44046,7 +43742,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -44083,7 +43778,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -44996,7 +44690,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -45082,7 +44775,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -45123,7 +44815,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -45155,7 +44846,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -45198,7 +44888,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -45323,7 +45012,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -45355,7 +45043,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -45390,7 +45077,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -45432,7 +45118,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -45532,7 +45217,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -46103,7 +45787,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -46148,7 +45831,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -46318,7 +46000,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -46346,7 +46027,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -46378,7 +46058,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -46419,7 +46098,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -46462,7 +46140,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -46503,7 +46180,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -46546,7 +46222,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -46591,7 +46266,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -46632,7 +46306,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -46673,7 +46346,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -46714,7 +46386,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -46755,7 +46426,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -46796,7 +46466,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -46903,7 +46572,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -46989,7 +46657,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -47026,7 +46693,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -47052,7 +46718,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -47080,7 +46745,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -47106,7 +46770,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -47147,7 +46810,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -47246,7 +46908,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -47872,7 +47533,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -47902,7 +47562,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -47966,7 +47625,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -48009,7 +47667,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -48255,7 +47912,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -48409,7 +48065,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -49324,7 +48979,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -49387,7 +49041,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -49411,7 +49064,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -49437,7 +49089,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -49469,7 +49120,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -49506,7 +49156,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -49536,7 +49185,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -49601,7 +49249,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -49646,7 +49293,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -50201,7 +49847,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -50240,7 +49885,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -50333,7 +49977,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -50384,7 +50027,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -50485,7 +50127,7 @@ export class MySqlParser extends antlr.Parser {
             alternative = this.interpreter.adaptivePredict(this.tokenStream, 1039, this.context);
             while (alternative !== 2 && alternative !== antlr.ATN.INVALID_ALT_NUMBER) {
                 if (alternative === 1) {
-                    if (this._parseListeners != null) {
+                    if (this.parseListeners != null) {
                         this.triggerExitRuleEvent();
                     }
                     previousContext = localContext;
@@ -50512,7 +50154,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -50557,7 +50198,7 @@ export class MySqlParser extends antlr.Parser {
             alternative = this.interpreter.adaptivePredict(this.tokenStream, 1047, this.context);
             while (alternative !== 2 && alternative !== antlr.ATN.INVALID_ALT_NUMBER) {
                 if (alternative === 1) {
-                    if (this._parseListeners != null) {
+                    if (this.parseListeners != null) {
                         this.triggerExitRuleEvent();
                     }
                     previousContext = localContext;
@@ -50807,7 +50448,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -51021,7 +50661,7 @@ export class MySqlParser extends antlr.Parser {
             alternative = this.interpreter.adaptivePredict(this.tokenStream, 1052, this.context);
             while (alternative !== 2 && alternative !== antlr.ATN.INVALID_ALT_NUMBER) {
                 if (alternative === 1) {
-                    if (this._parseListeners != null) {
+                    if (this.parseListeners != null) {
                         this.triggerExitRuleEvent();
                     }
                     previousContext = localContext;
@@ -51114,7 +50754,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -51146,7 +50785,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -51237,7 +50875,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -51301,7 +50938,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -51365,7 +51001,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -51397,7 +51032,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -51429,7 +51063,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -51472,7 +51105,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -51504,7 +51136,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -51536,7 +51167,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -51568,7 +51198,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -51600,7 +51229,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -51632,7 +51260,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -51664,7 +51291,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -51696,7 +51322,6 @@ export class MySqlParser extends antlr.Parser {
         }
         catch (re) {
             if (re instanceof antlr.RecognitionException) {
-                localContext.exception = re;
                 this.errorHandler.reportError(this, re);
                 this.errorHandler.recover(this, re);
             } else {
@@ -51709,7 +51334,7 @@ export class MySqlParser extends antlr.Parser {
         return localContext;
     }
 
-    public override sempred(localContext: antlr.RuleContext | null, ruleIndex: number, predIndex: number): boolean {
+    public override sempred(localContext: antlr.ParserRuleContext | null, ruleIndex: number, predIndex: number): boolean {
         switch (ruleIndex) {
         case 358:
             return this.expression_sempred(localContext as ExpressionContext, predIndex);

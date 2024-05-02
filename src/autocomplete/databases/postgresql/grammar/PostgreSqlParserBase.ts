@@ -1,4 +1,4 @@
-import {CharStreams, CommonTokenStream, Parser} from 'antlr4ng';
+import {CharStream, CommonTokenStream, Parser} from 'antlr4ng';
 
 import {
     CreateFunctionOptionListContext,
@@ -88,7 +88,7 @@ abstract class PostgreSqlParserBase extends Parser {
     }
 
     private getPostgreSQLParser(script: string): PostgreSqlParser {
-        const charStream = CharStreams.fromString(script);
+        const charStream = CharStream.fromString(script);
         const lexer = new PostgreSqlLexer(charStream);
         const tokens = new CommonTokenStream(lexer);
         const parser = new PostgreSqlParser(tokens);

@@ -1,4 +1,4 @@
-import {CharStreams, CommonTokenStream, Lexer as LexerType, Parser as ParserType} from 'antlr4ng';
+import {CharStream, CommonTokenStream, Lexer as LexerType, Parser as ParserType} from 'antlr4ng';
 
 import {CursorPosition, LexerConstructor, ParserConstructor} from '../autocomplete-types';
 import {getCursorIndex} from './cursor';
@@ -49,7 +49,7 @@ export function createParser<L extends LexerType, P extends ParserType>(
     Parser: ParserConstructor<P>,
     query: string,
 ): P {
-    const inputStream = CharStreams.fromString(query);
+    const inputStream = CharStream.fromString(query);
     const lexer = new Lexer(inputStream);
     const tokenStream = new CommonTokenStream(lexer);
     const parser = new Parser(tokenStream);
