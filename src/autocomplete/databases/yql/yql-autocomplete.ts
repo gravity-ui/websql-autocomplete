@@ -60,14 +60,14 @@ function getUniqueTableSuggestions(suggestions: Table[] = []): Table[] {
         },
         {} as Record<string, Set<string>>,
     );
-    return Object.keys(suggestionsMap).reduce((acc, el) => {
-        const aliases = suggestionsMap[el] as Set<string>;
+    return Object.keys(suggestionsMap).reduce((acc, tableName) => {
+        const aliases = suggestionsMap[tableName] as Set<string>;
         if (aliases.size > 0) {
             aliases?.forEach((alias) => {
-                acc.push({name: el, alias});
+                acc.push({name: tableName, alias});
             });
         } else {
-            acc.push({name: el});
+            acc.push({name: tableName});
         }
 
         return acc;
