@@ -21,7 +21,6 @@ import {
     GetParseTree,
     ISymbolTableVisitor,
     ProcessVisitedRulesResult,
-    Table,
     YqlAutocompleteResult,
 } from '../../autocomplete-types.js';
 import {ColumnAliasSymbol, TableSymbol} from '../../shared/symbol-table.js';
@@ -46,33 +45,6 @@ const tokenDictionary: TokenDictionary = {
     SEMICOLON: YQLParser.SEMICOLON,
     SELECT: YQLParser.SELECT,
 };
-
-function getUniqueTableSuggestions(suggestions: Table[] = []): Table[] {
-    const suggestionsMap = suggestions.reduce(
-        (acc, table) => {
-            const aliases = acc[table.name] ?? new Set();
-            if (table.alias) {
-                aliases.add(table.alias);
-            }
-
-            acc[table.name] = aliases;
-            return acc;
-        },
-        {} as Record<string, Set<string>>,
-    );
-    return Object.keys(suggestionsMap).reduce((acc, tableName) => {
-        const aliases = suggestionsMap[tableName] as Set<string>;
-        if (aliases.size > 0) {
-            aliases?.forEach((alias) => {
-                acc.push({name: tableName, alias});
-            });
-        } else {
-            acc.push({name: tableName});
-        }
-
-        return acc;
-    }, [] as Table[]);
-}
 
 // These are keywords that we do not want to show in autocomplete
 function getIgnoredTokens(): number[] {
@@ -456,8 +428,7 @@ function getEnrichAutocompleteResult(parseTreeGetter: GetParseTree<YQLParser>) {
             );
 
             if (shouldSuggestColumns && tableContextSuggestion) {
-                const normalizedTables = getUniqueTableSuggestions(tableContextSuggestion.tables);
-                result.suggestColumns = {tables: normalizedTables};
+                result.suggestColumns = {tables: tableContextSuggestion.tables};
             }
             if (shouldSuggestColumnAliases && suggestColumnAliases) {
                 result.suggestColumnAliases = suggestColumnAliases;

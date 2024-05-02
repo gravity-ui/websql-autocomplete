@@ -102,7 +102,7 @@ class PostgreSqlSymbolTableVisitor
 
     constructor() {
         super();
-        this.symbolTable = new c3.SymbolTable('', {});
+        this.symbolTable = new c3.SymbolTable('', {allowDuplicateSymbols: true});
         this.scope = this.symbolTable.addNewSymbolOfType(c3.ScopedSymbol, undefined);
     }
 

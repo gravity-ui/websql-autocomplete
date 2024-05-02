@@ -123,6 +123,21 @@ test('should suggest table names and aliases for ON clause', () => {
     expect(autocompleteResult.suggestColumns).toEqual(columnSuggestion);
 });
 
+test('should suggest table names and aliases for ON clause if table name not unique', () => {
+    const autocompleteResult = parsePostgreSqlQueryWithCursor(
+        'SELECT * FROM test_table_1 t1 JOIN test_table_1 t2 ON |',
+    );
+
+    const columnSuggestion: ColumnSuggestion = {
+        tables: [
+            {name: 'test_table_1', alias: 't1'},
+            {name: 'test_table_1', alias: 't2'},
+        ],
+    };
+
+    expect(autocompleteResult.suggestColumns).toEqual(columnSuggestion);
+});
+
 test('should suggest table names and aliases for ON clause between statements', () => {
     const autocompleteResult = parsePostgreSqlQueryWithCursor(
         'ALTER TABLE before_table DROP COLUMN id; SELECT * FROM test_table_1 t1 JOIN test_table_2 t2 ON | ; ALTER TABLE after_table DROP COLUMN id;',

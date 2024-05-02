@@ -13,11 +13,36 @@ export class TableSymbol extends c3.TypedSymbol {
     }
 }
 
+function getUniqueTableSuggestions(symbols: TableSymbol[] = []): Table[] {
+    const suggestionsMap = symbols.reduce(
+        (acc, table) => {
+            const aliases = acc[table.name] ?? new Set();
+            if (table.alias) {
+                aliases.add(table.alias);
+            }
+
+            acc[table.name] = aliases;
+            return acc;
+        },
+        {} as Record<string, Set<string>>,
+    );
+    return Object.keys(suggestionsMap).reduce((acc, tableName) => {
+        const aliases = suggestionsMap[tableName] as Set<string>;
+        if (aliases.size > 0) {
+            aliases?.forEach((alias) => {
+                acc.push({name: tableName, alias});
+            });
+        } else {
+            acc.push({name: tableName});
+        }
+
+        return acc;
+    }, [] as Table[]);
+}
+
 export function getTablesFromSymbolTable(visitor: SymbolTableVisitor): Table[] {
-    return visitor.symbolTable.getNestedSymbolsOfTypeSync(TableSymbol).map((tableSymbol) => ({
-        name: tableSymbol.name,
-        alias: tableSymbol.alias,
-    }));
+    const suggestions = visitor.symbolTable.getNestedSymbolsOfTypeSync(TableSymbol);
+    return getUniqueTableSuggestions(suggestions);
 }
 
 export class ColumnAliasSymbol extends c3.TypedSymbol {
