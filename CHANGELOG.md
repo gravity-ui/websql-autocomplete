@@ -1,5 +1,12 @@
 # Changelog
 
+## [8.1.0](https://github.com/gravity-ui/websql-autocomplete/compare/v8.0.2...v8.1.0) (2024-05-02)
+
+
+### Features
+
+* suggest multiple tables with same name and different aliases ([#182](https://github.com/gravity-ui/websql-autocomplete/issues/182)) ([1d3fb82](https://github.com/gravity-ui/websql-autocomplete/commit/1d3fb820f647c5ba667ff664bd81667c5a7f705f))
+
 ## [8.0.2](https://github.com/gravity-ui/websql-autocomplete/compare/v8.0.1...v8.0.2) (2024-03-13)
 
 
