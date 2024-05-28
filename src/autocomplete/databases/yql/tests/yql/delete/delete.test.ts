@@ -18,6 +18,7 @@ test('should suggest properly after table name', () => {
     const autocompleteResult = parseYqlQueryWithCursor('DELETE FROM test_table |');
     const keywordsSuggestion: KeywordSuggestion[] = [
         {value: 'WITH'},
+        {value: 'RETURNING'},
         {value: 'ON'},
         {value: 'WHERE'},
     ];

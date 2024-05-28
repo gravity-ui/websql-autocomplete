@@ -9,9 +9,12 @@ test('should suggest properly after CREATE', () => {
         {value: 'TOPIC'},
         {value: 'ASYNC'},
         {value: 'EXTERNAL'},
+        {value: 'OR'},
         {value: 'OBJECT'},
         {value: 'GROUP'},
         {value: 'USER'},
+        {value: 'TEMPORARY'},
+        {value: 'TEMP'},
         {value: 'TABLESTORE'},
         {value: 'TABLE'},
     ];

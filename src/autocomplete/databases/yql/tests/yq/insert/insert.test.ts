@@ -1,14 +1,14 @@
-import {parseYqlQueryWithCursor} from '../../../../../shared/parse-query-with-cursor';
+import {parseYqQueryWithCursor} from '../../../../../shared/parse-query-with-cursor';
 import {ColumnSuggestion, KeywordSuggestion} from '../../../../../autocomplete-types';
 
 test('should suggest properly after INSERT', () => {
-    const autocompleteResult = parseYqlQueryWithCursor('INSERT |');
+    const autocompleteResult = parseYqQueryWithCursor('INSERT |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [{value: 'OR'}, {value: 'INTO'}];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 test('should suggest properly after OR', () => {
-    const autocompleteResult = parseYqlQueryWithCursor('INSERT OR |');
+    const autocompleteResult = parseYqQueryWithCursor('INSERT OR |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [
         {value: 'IGNORE'},
@@ -19,14 +19,14 @@ test('should suggest properly after OR', () => {
 });
 
 test('should suggest properly after INTO', () => {
-    const autocompleteResult = parseYqlQueryWithCursor('INSERT INTO |');
+    const autocompleteResult = parseYqQueryWithCursor('INSERT INTO |');
     const keywordsSuggestion: KeywordSuggestion[] = [];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
     expect(autocompleteResult.suggestEntity).toEqual(['table']);
 });
 
 test('should suggest properly after table name', () => {
-    const autocompleteResult = parseYqlQueryWithCursor('INSERT INTO test_table |');
+    const autocompleteResult = parseYqQueryWithCursor('INSERT INTO test_table |');
     const keywordsSuggestion: KeywordSuggestion[] = [
         {value: 'WITH'},
         {value: 'ERASE'},
@@ -42,7 +42,7 @@ test('should suggest properly after table name', () => {
 });
 
 test('should suggest properly after table name with a bracket', () => {
-    const autocompleteResult = parseYqlQueryWithCursor('INSERT INTO test_table(|');
+    const autocompleteResult = parseYqQueryWithCursor('INSERT INTO test_table(|');
     const keywordsSuggestion: KeywordSuggestion[] = [
         {value: 'DISCARD'},
         {value: 'PROCESS'},
@@ -56,7 +56,7 @@ test('should suggest properly after table name with a bracket', () => {
 });
 
 test('should suggest properly after table name', () => {
-    const autocompleteResult = parseYqlQueryWithCursor(
+    const autocompleteResult = parseYqQueryWithCursor(
         'INSERT INTO test_table(test_column_1, test_column_2) |',
     );
     const keywordsSuggestion: KeywordSuggestion[] = [
@@ -71,7 +71,7 @@ test('should suggest properly after table name', () => {
 });
 
 test('should suggest properly after VALUES', () => {
-    const autocompleteResult = parseYqlQueryWithCursor(
+    const autocompleteResult = parseYqQueryWithCursor(
         'INSERT INTO test_table(test_column_1, test_column_2) VALUES (|',
     );
 
@@ -79,10 +79,10 @@ test('should suggest properly after VALUES', () => {
 });
 
 test('should suggest properly after values', () => {
-    const autocompleteResult = parseYqlQueryWithCursor(
+    const autocompleteResult = parseYqQueryWithCursor(
         'INSERT INTO test_table(test_column_1, test_column_2) VALUES (123, 321) |',
     );
 
-    const keywordsSuggestion: KeywordSuggestion[] = [{value: 'RETURNING'}];
+    const keywordsSuggestion: KeywordSuggestion[] = [];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });

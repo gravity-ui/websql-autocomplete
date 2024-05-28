@@ -1,9 +1,9 @@
-import {parseYqlQueryWithCursor} from '../../../../../shared/parse-query-with-cursor';
+import {parseYqQueryWithCursor} from '../../../../../shared/parse-query-with-cursor';
 import {ColumnSuggestion, KeywordSuggestion} from '../../../../../autocomplete-types';
-import {parseYqlQueryWithoutCursor} from '../../../../../autocomplete';
+import {parseYqQueryWithoutCursor} from '../../../../../autocomplete';
 
 test('should suggest properly after SELECT', () => {
-    const autocompleteResult = parseYqlQueryWithCursor('SELECT |');
+    const autocompleteResult = parseYqQueryWithCursor('SELECT |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [
         {value: 'ALL'},
@@ -39,7 +39,7 @@ test('should suggest properly after SELECT', () => {
     expect(autocompleteResult.suggestUdfs).toEqual(true);
 });
 test('should suggest properly after FROM', () => {
-    const autocompleteResult = parseYqlQueryWithCursor('FROM |');
+    const autocompleteResult = parseYqQueryWithCursor('FROM |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [{value: 'ANY'}];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
@@ -47,7 +47,7 @@ test('should suggest properly after FROM', () => {
 });
 
 test('should suggest properly after *', () => {
-    const autocompleteResult = parseYqlQueryWithCursor('SELECT * |');
+    const autocompleteResult = parseYqQueryWithCursor('SELECT * |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [
         {value: 'ASSUME'},
@@ -68,7 +68,7 @@ test('should suggest properly after *', () => {
 });
 
 test('should suggest properly after FROM', () => {
-    const autocompleteResult = parseYqlQueryWithCursor('SELECT * FROM |');
+    const autocompleteResult = parseYqQueryWithCursor('SELECT * FROM |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [{value: 'ANY'}];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
@@ -77,7 +77,7 @@ test('should suggest properly after FROM', () => {
 });
 
 test('should suggest properly after FROM when typing table name', () => {
-    const autocompleteResult = parseYqlQueryWithCursor('SELECT * FROM te|');
+    const autocompleteResult = parseYqQueryWithCursor('SELECT * FROM te|');
 
     const keywordsSuggestion: KeywordSuggestion[] = [{value: 'ANY'}];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
@@ -86,15 +86,15 @@ test('should suggest properly after FROM when typing table name', () => {
 });
 
 test('should suggest tables between statements', () => {
-    const autocompleteResult = parseYqlQueryWithCursor(
-        'ALTER TABLE before_table DROP COLUMN id; SELECT * FROM | ; ALTER TABLE after_table DROP COLUMN id;',
+    const autocompleteResult = parseYqQueryWithCursor(
+        'SELECT * FROM before_table; SELECT * FROM | ; SELECT * FROM after_table;',
     );
 
     expect(autocompleteResult.suggestEntity).toEqual(['table']);
 });
 
 test('should suggest properly after table name', () => {
-    const autocompleteResult = parseYqlQueryWithCursor('SELECT * FROM test_table |');
+    const autocompleteResult = parseYqQueryWithCursor('SELECT * FROM test_table |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [
         {value: 'VIEW'},
@@ -129,22 +129,22 @@ test('should suggest properly after table name', () => {
 });
 
 test('should suggest table hints after WITH', () => {
-    const autocompleteResult = parseYqlQueryWithCursor('SELECT * FROM test_table WITH |');
+    const autocompleteResult = parseYqQueryWithCursor('SELECT * FROM test_table WITH |');
     const keywordsSuggestion: KeywordSuggestion[] = [{value: 'COLUMNS'}, {value: 'SCHEMA'}];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
     expect(autocompleteResult.suggestTableHints).toEqual('select_stmt');
 });
 
 test('should suggest table name for column', () => {
-    const autocompleteResult = parseYqlQueryWithCursor('SELECT | FROM test_table');
+    const autocompleteResult = parseYqQueryWithCursor('SELECT | FROM test_table');
     const columnSuggestions: ColumnSuggestion = {tables: [{name: 'test_table'}]};
 
     expect(autocompleteResult.suggestColumns).toEqual(columnSuggestions);
 });
 
 test('should suggest table name for column between statements', () => {
-    const autocompleteResult = parseYqlQueryWithCursor(
-        'ALTER TABLE before_table DROP COLUMN id; SELECT | FROM test_table ; ALTER TABLE after_table DROP COLUMN id;',
+    const autocompleteResult = parseYqQueryWithCursor(
+        'SELECT * FROM before_table; SELECT | FROM test_table ; SELECT * FROM after_table;',
     );
     const columnSuggestions: ColumnSuggestion = {tables: [{name: 'test_table'}]};
 
@@ -152,35 +152,35 @@ test('should suggest table name for column between statements', () => {
 });
 
 test('should suggest table name and alias for column', () => {
-    const autocompleteResult = parseYqlQueryWithCursor('SELECT | FROM test_table t');
+    const autocompleteResult = parseYqQueryWithCursor('SELECT | FROM test_table t');
     const columnSuggestions: ColumnSuggestion = {tables: [{name: 'test_table', alias: 't'}]};
 
     expect(autocompleteResult.suggestColumns).toEqual(columnSuggestions);
 });
 
 test('should suggest table name and alias (with AS) for column', () => {
-    const autocompleteResult = parseYqlQueryWithCursor('SELECT | FROM test_table AS t');
+    const autocompleteResult = parseYqQueryWithCursor('SELECT | FROM test_table AS t');
     const columnSuggestions: ColumnSuggestion = {tables: [{name: 'test_table', alias: 't'}]};
 
     expect(autocompleteResult.suggestColumns).toEqual(columnSuggestions);
 });
 
 test('should suggest table name and alias for second column', () => {
-    const autocompleteResult = parseYqlQueryWithCursor('SELECT id, | FROM test_table AS t');
+    const autocompleteResult = parseYqQueryWithCursor('SELECT id, | FROM test_table AS t');
     const columnSuggestions: ColumnSuggestion = {tables: [{name: 'test_table', alias: 't'}]};
 
     expect(autocompleteResult.suggestColumns).toEqual(columnSuggestions);
 });
 
 test('should suggest table name and alias for second column if first equals to keyword', () => {
-    const autocompleteResult = parseYqlQueryWithCursor('SELECT key, | FROM test_table AS t');
+    const autocompleteResult = parseYqQueryWithCursor('SELECT key, | FROM test_table AS t');
     const columnSuggestions: ColumnSuggestion = {tables: [{name: 'test_table', alias: 't'}]};
 
     expect(autocompleteResult.suggestColumns).toEqual(columnSuggestions);
 });
 
 test('should suggest multiple table names for column', () => {
-    const autocompleteResult = parseYqlQueryWithCursor('SELECT | FROM test_table_1, test_table_2');
+    const autocompleteResult = parseYqQueryWithCursor('SELECT | FROM test_table_1, test_table_2');
     const columnSuggestions: ColumnSuggestion = {
         tables: [{name: 'test_table_1'}, {name: 'test_table_2'}],
     };
@@ -189,8 +189,8 @@ test('should suggest multiple table names for column', () => {
 });
 
 test('should suggest multiple table names for column between statements', () => {
-    const autocompleteResult = parseYqlQueryWithCursor(
-        'ALTER TABLE before_table DROP COLUMN id; SELECT | FROM test_table_1, test_table_2 ; ALTER TABLE after_table DROP COLUMN id;',
+    const autocompleteResult = parseYqQueryWithCursor(
+        'SELECT * FROM before_table; SELECT | FROM test_table_1, test_table_2 ; SELECT * FROM after_table;',
     );
     const columnSuggestions: ColumnSuggestion = {
         tables: [{name: 'test_table_1'}, {name: 'test_table_2'}],
@@ -200,7 +200,7 @@ test('should suggest multiple table names for column between statements', () => 
 });
 
 test('should suggest multiple table names and aliases for column', () => {
-    const autocompleteResult = parseYqlQueryWithCursor(
+    const autocompleteResult = parseYqQueryWithCursor(
         'SELECT | FROM test_table_1 t1, test_table_2 t2',
     );
     const columnSuggestions: ColumnSuggestion = {
@@ -214,7 +214,7 @@ test('should suggest multiple table names and aliases for column', () => {
 });
 
 test('should suggest multiple table names and aliases (with AS) for column', () => {
-    const autocompleteResult = parseYqlQueryWithCursor(
+    const autocompleteResult = parseYqQueryWithCursor(
         'SELECT | FROM test_table_1 AS t1, test_table_2 AS t2',
     );
     const columnSuggestions: ColumnSuggestion = {
@@ -228,7 +228,7 @@ test('should suggest multiple table names and aliases (with AS) for column', () 
 });
 
 test('should suggest properly after HAVING', () => {
-    const autocompleteResult = parseYqlQueryWithCursor('SELECT * FROM test_table as t HAVING |');
+    const autocompleteResult = parseYqQueryWithCursor('SELECT * FROM test_table as t HAVING |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [
         {value: 'NULL'},
@@ -263,7 +263,7 @@ test('should suggest properly after HAVING', () => {
 });
 
 test('should suggest properly after LIMIT', () => {
-    const autocompleteResult = parseYqlQueryWithCursor('SELECT * FROM test_table as t LIMIT |');
+    const autocompleteResult = parseYqQueryWithCursor('SELECT * FROM test_table as t LIMIT |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [
         {value: 'NULL'},
@@ -297,14 +297,12 @@ test('should suggest properly after LIMIT', () => {
 });
 
 test('should suggest tables with inline comment', () => {
-    const autocompleteResult = parseYqlQueryWithCursor(
-        'SELECT * FROM | --SELECT * FROM test_table',
-    );
+    const autocompleteResult = parseYqQueryWithCursor('SELECT * FROM | --SELECT * FROM test_table');
     expect(autocompleteResult.suggestEntity).toEqual(['table']);
 });
 
 test('should suggest tables with multiline comment', () => {
-    const autocompleteResult = parseYqlQueryWithCursor(
+    const autocompleteResult = parseYqQueryWithCursor(
         'SELECT * FROM | /*SELECT * FROM test_table*/',
     );
 
@@ -312,7 +310,7 @@ test('should suggest tables with multiline comment', () => {
 });
 
 test('should not report errors', () => {
-    const autocompleteResult = parseYqlQueryWithoutCursor('SELECT c1, c2 FROM test_table;');
+    const autocompleteResult = parseYqQueryWithoutCursor('SELECT c1, c2 FROM test_table;');
 
     expect(autocompleteResult.errors).toHaveLength(0);
 });

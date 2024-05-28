@@ -1,10 +1,9 @@
-import {KeywordSuggestion} from '../../../../autocomplete-types';
-import {parseYqQueryWithCursor} from '../../../../shared/parse-query-with-cursor';
+import {parseYqQueryWithCursor} from '../../../../../shared/parse-query-with-cursor';
+import {KeywordSuggestion} from '../../../../../autocomplete-types';
 
-test('should suggest properly for an empty query', () => {
-    const autocompleteResult = parseYqQueryWithCursor('|');
-    const keywordsSuggestion: KeywordSuggestion[] = [
-        {value: 'EXPLAIN'},
+test('should suggest keywords after EXPLAIN', () => {
+    const autocompleteResult = parseYqQueryWithCursor('EXPLAIN |');
+    const keywords: KeywordSuggestion[] = [
         {value: 'PRAGMA'},
         {value: 'DISCARD'},
         {value: 'PROCESS'},
@@ -24,7 +23,9 @@ test('should suggest properly for an empty query', () => {
         {value: 'PARALLEL'},
         {value: 'FOR'},
         {value: 'VALUES'},
+        {value: 'QUERY'},
     ];
-    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
+
+    expect(autocompleteResult.suggestKeywords).toEqual(keywords);
     expect(autocompleteResult.suggestTemplates).toEqual(true);
 });

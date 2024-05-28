@@ -1,3 +1,4 @@
+
 // $antlr-format columnLimit 500, minEmptyLines 1, maxEmptyLinesToKeep 1, useTab false, reflowComments false, breakBeforeBraces false
 // $antlr-format keepEmptyLinesAtTheStartOfBlocks false, allowShortRulesOnASingleLine false, alignSemicolons hanging, alignColons hanging
 // $antlr-format alignTrailingComments true
@@ -11,10 +12,12 @@ options {
 // Input is a list of statements.
 sql_query
     : sql_stmt_list
+    | (PRAGMA ANSI DIGITS ansi_sql_stmt_list)
     ;
 
 sql_query_yq
     : sql_stmt_list_yq
+    | (PRAGMA ANSI DIGITS ansi_sql_stmt_list)
     ;
 
 sql_stmt_list
@@ -38,12 +41,16 @@ lambda_stmt
     | import_stmt
     ;
 
-sql_stmt
-    : (EXPLAIN (QUERY PLAN)?)? sql_stmt_core
+QUERY
+    : Q U E R Y
     ;
 
 sql_stmt_yq
     : (EXPLAIN (QUERY PLAN)?)? sql_stmt_core_yq
+    ;
+
+sql_stmt
+    : (EXPLAIN (QUERY PLAN)?)? sql_stmt_core
     ;
 
 sql_stmt_core
@@ -62,6 +69,7 @@ sql_stmt_core
     | import_stmt
     | export_stmt
     | alter_table_stmt
+    | alter_external_table_stmt
     | do_stmt
     | define_action_or_subquery_stmt
     | if_stmt
@@ -76,6 +84,7 @@ sql_stmt_core
     | alter_object_stmt
     | drop_object_stmt
     | create_external_data_source_stmt
+    | alter_external_data_source_stmt
     | drop_external_data_source_stmt
     | create_replication_stmt
     | drop_replication_stmt
@@ -88,6 +97,7 @@ sql_stmt_core
     | upsert_object_stmt
     | create_view_stmt
     | drop_view_stmt
+    | alter_replication_stmt
     ;
 
 sql_stmt_core_yq
@@ -233,10 +243,6 @@ struct_literal
     : STRUCT_OPEN expr_struct_list? COMMA? STRUCT_CLOSE
     ;
 
-udf_expr
-    : an_id_or_type NAMESPACE (id_or_type | STRING_VALUE)
-    ;
-
 atom_expr
     : literal_value
     | bind_parameter
@@ -244,7 +250,7 @@ atom_expr
     | cast_expr
     | exists_expr
     | case_expr
-    | udf_expr
+    | an_id_or_type NAMESPACE (id_or_type | STRING_VALUE)
     | value_constructor
     | bitcast_expr
     | list_literal
@@ -258,7 +264,7 @@ in_atom_expr
     | lambda
     | cast_expr
     | case_expr
-    | udf_expr
+    | an_id_or_type NAMESPACE (id_or_type | STRING_VALUE)
     | LPAREN select_stmt RPAREN
     // TODO: resolve ANTLR error: rule in_atom_expr has non-LL(*) decision due to recursive rule invocations reachable from alts 3,8
     //  | LPAREN values_stmt RPAREN
@@ -365,12 +371,12 @@ expr_list
     ;
 
 pure_column_list
-    : LPAREN an_existing_column_id (COMMA an_existing_column_id)* RPAREN
+    : LPAREN an_id (COMMA an_id)* RPAREN
     ;
 
 pure_column_or_named
     : bind_parameter
-    | an_existing_column_id
+    | an_id
     ;
 
 pure_column_or_named_list
@@ -378,12 +384,12 @@ pure_column_or_named_list
     ;
 
 column_name
-    : opt_id_prefix an_existing_column_id
+    : opt_id_prefix an_id
     ;
 
 without_column_name
     : (an_id DOT an_id)
-    | an_existing_column_id
+    | an_id_without
     ;
 
 column_list
@@ -413,7 +419,7 @@ invoke_expr_tail
     ;
 
 using_call_expr
-    : (udf_expr | an_id_expr | bind_parameter | (EXTERNAL FUNCTION)) invoke_expr
+    : ((an_id_or_type NAMESPACE an_id_or_type) | an_id_expr | bind_parameter | (EXTERNAL FUNCTION)) invoke_expr
     ;
 
 key_expr
@@ -605,12 +611,8 @@ do_stmt
     : DO (call_action | inline_action)
     ;
 
-pragma_id
-    : an_id
-    ;
-
 pragma_stmt
-    : PRAGMA opt_id_prefix_or_type pragma_id (EQUALS pragma_value | LPAREN pragma_value (COMMA pragma_value)* RPAREN)?
+    : PRAGMA opt_id_prefix_or_type an_id (EQUALS pragma_value | LPAREN pragma_value (COMMA pragma_value)* RPAREN)?
     ;
 
 pragma_value
@@ -649,28 +651,16 @@ select_op
     | EXCEPT
     ;
 
-limit_stmt
-    : LIMIT expr
-    ;
-
-offset_stmt
-    : OFFSET expr
-    ;
-
 select_kind_partial
-    : select_kind (limit_stmt (offset_stmt | COMMA expr)?)?
+    : select_kind (LIMIT expr ((OFFSET | COMMA) expr)?)?
     ;
 
 select_kind
     : (DISCARD)? (process_core | reduce_core | select_core) (INTO RESULT pure_column_or_named)?
     ;
 
-where_expr
-    : WHERE expr
-    ;
-
 process_core
-    : PROCESS STREAM? named_single_source (COMMA named_single_source)* (USING using_call_expr (AS an_id)? (WITH external_call_settings)? (where_expr)? (HAVING expr)? (ASSUME order_by_clause)?)?
+    : PROCESS STREAM? named_single_source (COMMA named_single_source)* (USING using_call_expr (AS an_id)? (WITH external_call_settings)? (WHERE expr)? (HAVING expr)? (ASSUME order_by_clause)?)?
     ;
 
 external_call_param
@@ -682,7 +672,7 @@ external_call_settings
     ;
 
 reduce_core
-    : REDUCE named_single_source (COMMA named_single_source)* (PRESORT sort_specification_list)? ON column_list USING ALL? using_call_expr (AS an_id)? (where_expr)? (HAVING expr)? (ASSUME order_by_clause)?
+    : REDUCE named_single_source (COMMA named_single_source)* (PRESORT sort_specification_list)? ON column_list USING ALL? using_call_expr (AS an_id)? (WHERE expr)? (HAVING expr)? (ASSUME order_by_clause)?
     ;
 
 opt_set_quantifier
@@ -694,7 +684,7 @@ from_stmt
     ;
 
 select_core
-    : (FROM join_source)? SELECT STREAM? opt_set_quantifier result_column (COMMA result_column)* COMMA? (WITHOUT without_column_list)? (FROM join_source)? (where_expr)? group_by_clause? (HAVING expr)? window_clause? ext_order_by_clause?
+    : (FROM join_source)? SELECT STREAM? opt_set_quantifier result_column (COMMA result_column)* COMMA? (WITHOUT without_column_list)? (FROM join_source)? (WHERE expr)? group_by_clause? (HAVING expr)? window_clause? ext_order_by_clause?
     ;
 
 // ISO/IEC 9075-2:2016(E) 7.7 <row pattern recognition clause>
@@ -943,8 +933,12 @@ join_constraint
     | USING pure_column_or_named_list
     ;
 
+returning_columns_list
+    : RETURNING (ASTERISK | an_id (COMMA an_id)*)
+    ;
+
 into_table_stmt
-    : (INSERT | INSERT OR ABORT | INSERT OR REVERT | INSERT OR IGNORE | UPSERT | REPLACE) INTO into_simple_table_ref into_values_source
+    : (INSERT | INSERT OR ABORT | INSERT OR REVERT | INSERT OR IGNORE | UPSERT | REPLACE) INTO into_simple_table_ref into_values_source returning_columns_list?
     ;
 
 into_table_stmt_yq
@@ -979,11 +973,22 @@ simple_values_source
     ;
 
 create_external_data_source_stmt
-    : CREATE EXTERNAL DATA SOURCE (IF NOT EXISTS)? object_ref with_table_settings
+    : CREATE (OR REPLACE)? EXTERNAL DATA SOURCE (IF NOT EXISTS)? object_ref with_table_settings
+    ;
+
+alter_external_data_source_stmt
+    : ALTER EXTERNAL DATA SOURCE object_ref alter_external_data_source_action (COMMA alter_external_data_source_action)*
+    ;
+
+alter_external_data_source_action
+    : alter_table_set_table_setting_uncompat
+    | alter_table_set_table_setting_compat
+    | alter_table_reset_table_setting
+    //| alter_table_rename_to // TODO
     ;
 
 drop_external_data_source_stmt
-    : DROP EXTERNAL DATA SOURCE (IF EXISTS)? existing_external_data_source_ref
+    : DROP EXTERNAL DATA SOURCE (IF EXISTS)? object_ref
     ;
 
 create_view_stmt
@@ -991,11 +996,11 @@ create_view_stmt
     ;
 
 drop_view_stmt
-    : DROP VIEW existing_view_ref
+    : DROP VIEW object_ref
     ;
 
 upsert_object_stmt
-    : UPSERT OBJECT existing_object_ref LPAREN TYPE object_type_ref RPAREN create_object_features?
+    : UPSERT OBJECT object_ref LPAREN TYPE object_type_ref RPAREN create_object_features?
     ;
 
 create_object_stmt
@@ -1007,7 +1012,7 @@ create_object_features
     ;
 
 alter_object_stmt
-    : ALTER OBJECT existing_object_ref LPAREN TYPE object_type_ref RPAREN alter_object_features
+    : ALTER OBJECT object_ref LPAREN TYPE object_type_ref RPAREN alter_object_features
     ;
 
 alter_object_features
@@ -1015,7 +1020,7 @@ alter_object_features
     ;
 
 drop_object_stmt
-    : DROP OBJECT (IF EXISTS)? existing_object_ref LPAREN TYPE object_type_ref RPAREN drop_object_features?
+    : DROP OBJECT (IF EXISTS)? object_ref LPAREN TYPE object_type_ref RPAREN drop_object_features?
     ;
 
 drop_object_features
@@ -1047,12 +1052,11 @@ object_features
     ;
 
 object_type_ref
-    : SECRET
-    | TABLESTORE
+    : an_id_or_type
     ;
 
 create_table_stmt
-    : CREATE (TABLE | TABLESTORE | EXTERNAL TABLE) (IF NOT EXISTS)? simple_table_ref LPAREN create_table_entry (COMMA create_table_entry)* COMMA? RPAREN table_inherits? table_partition_by? with_table_settings? table_tablestore?
+    : CREATE (OR REPLACE)? (TABLE | TABLESTORE | EXTERNAL TABLE | TEMP TABLE | TEMPORARY TABLE) (IF NOT EXISTS)? simple_table_ref LPAREN create_table_entry (COMMA create_table_entry)* COMMA? RPAREN table_inherits? table_partition_by? with_table_settings? table_tablestore? table_as_source?
     ;
 
 create_table_entry
@@ -1061,10 +1065,11 @@ create_table_entry
     | table_index
     | family_entry
     | changefeed
+    | an_id_schema
     ;
 
 table_inherits
-    : INHERITS LPAREN existing_simple_table_ref_core (COMMA existing_simple_table_ref_core)* RPAREN
+    : INHERITS LPAREN simple_table_ref_core (COMMA simple_table_ref_core)* RPAREN
     ;
 
 table_partition_by
@@ -1083,13 +1088,17 @@ table_settings_entry
     : an_id EQUALS table_setting_value
     ;
 
-alter_table_or_table_store
+table_as_source
+    : AS values_source
+    ;
+
+alter_table_for_autocomplete
     : alter_table_stmt
     | alter_table_store_stmt
     ;
 
 alter_table_stmt
-    : ALTER TABLE existing_simple_table_ref alter_table_action (COMMA alter_table_action)*
+    : ALTER TABLE simple_table_ref alter_table_action (COMMA alter_table_action)*
     ;
 
 alter_table_action
@@ -1110,8 +1119,21 @@ alter_table_action
     | alter_table_rename_index_to
     ;
 
+alter_external_table_stmt
+    : ALTER EXTERNAL TABLE simple_table_ref alter_external_table_action (COMMA alter_external_table_action)*
+    ;
+
+alter_external_table_action
+    : alter_table_add_column
+    | alter_table_drop_column
+    | alter_table_set_table_setting_uncompat
+    | alter_table_set_table_setting_compat
+    | alter_table_reset_table_setting
+    //| alter_table_rename_to // TODO
+    ;
+
 alter_table_store_stmt
-    : ALTER TABLESTORE existing_table_store_ref alter_table_store_action (COMMA alter_table_store_action)*
+    : ALTER TABLESTORE object_ref alter_table_store_action (COMMA alter_table_store_action)*
     ;
 
 alter_table_store_action
@@ -1124,11 +1146,11 @@ alter_table_add_column
     ;
 
 alter_table_drop_column
-    : DROP COLUMN? an_existing_column_id
+    : DROP COLUMN? an_id
     ;
 
 alter_table_alter_column
-    : ALTER COLUMN an_existing_column_id SET family_relation
+    : ALTER COLUMN an_id SET family_relation
     ;
 
 alter_table_add_column_family
@@ -1278,7 +1300,7 @@ literal_value_list
     ;
 
 drop_table_stmt
-    : DROP (TABLE | TABLESTORE | EXTERNAL TABLE) (IF EXISTS)? existing_simple_table_ref
+    : DROP (TABLE | TABLESTORE | EXTERNAL TABLE) (IF EXISTS)? simple_table_ref
     ;
 
 create_user_stmt
@@ -1307,7 +1329,7 @@ role_name
     ;
 
 create_user_option
-    : ENCRYPTED? PASSWORD object_feature_value
+    : ENCRYPTED? PASSWORD expr
     ;
 
 grant_permissions_stmt
@@ -1359,8 +1381,20 @@ replication_settings_entry
     : an_id EQUALS STRING_VALUE
     ;
 
+alter_replication_stmt
+    : ALTER ASYNC REPLICATION object_ref alter_replication_action (COMMA alter_replication_action)*
+    ;
+
+alter_replication_action
+    : alter_replication_set_setting
+    ;
+
+alter_replication_set_setting
+    : SET LPAREN replication_settings RPAREN
+    ;
+
 drop_replication_stmt
-    : DROP ASYNC REPLICATION existing_replication_ref CASCADE?
+    : DROP ASYNC REPLICATION object_ref CASCADE?
     ;
 
 action_or_subquery_args
@@ -1380,19 +1414,15 @@ if_stmt
     ;
 
 for_stmt
-    : EVALUATE? FOR bind_parameter IN expr do_stmt (ELSE do_stmt)?
-    ;
-
-cluster_expr_with_dot
-    : (cluster_expr DOT)?
+    : EVALUATE? PARALLEL? FOR bind_parameter IN expr do_stmt (ELSE do_stmt)?
     ;
 
 table_ref
-    : cluster_expr_with_dot AT? (table_key | an_table_id_expr LPAREN (table_arg (COMMA table_arg)* COMMA?)? RPAREN | bind_parameter (LPAREN expr_list? RPAREN)? (VIEW view_name)?) table_hints?
+    : (cluster_expr DOT)? AT? (table_key | an_id_expr LPAREN (table_arg (COMMA table_arg)* COMMA?)? RPAREN | bind_parameter (LPAREN expr_list? RPAREN)? (VIEW view_name)?) table_hints?
     ;
 
 table_key
-    : an_existing_table_id_or_type (VIEW view_name)?
+    : id_table_or_type (VIEW view_name)?
     ;
 
 table_arg
@@ -1410,35 +1440,7 @@ table_hint
     ;
 
 object_ref
-    : cluster_expr_with_dot id_or_at
-    ;
-
-existing_table_ref
-    : cluster_expr_with_dot existing_table_id_or_at
-    ;
-
-existing_object_ref
-    : cluster_expr_with_dot existing_object_id_or_at
-    ;
-
-existing_view_ref
-    : cluster_expr_with_dot existing_view_id_or_at
-    ;
-
-existing_topic_ref
-    : cluster_expr_with_dot existing_topic_id_or_at
-    ;
-
-existing_table_store_ref
-    : cluster_expr_with_dot existing_table_store_id_or_at
-    ;
-
-existing_replication_ref
-    : cluster_expr_with_dot existing_replication_id_or_at
-    ;
-
-existing_external_data_source_ref
-    : cluster_expr_with_dot existing_external_data_source_id_or_at
+    : (cluster_expr DOT)? id_or_at
     ;
 
 simple_table_ref_core
@@ -1446,29 +1448,20 @@ simple_table_ref_core
     | AT? bind_parameter
     ;
 
-existing_simple_table_ref_core
-    : existing_table_ref
-    | AT? bind_parameter
-    ;
-
 simple_table_ref
     : simple_table_ref_core table_hints?
     ;
 
-existing_simple_table_ref
-    : existing_simple_table_ref_core table_hints?
-    ;
-
 into_simple_table_ref
-    : existing_simple_table_ref (ERASE BY pure_column_list)?
+    : simple_table_ref (ERASE BY pure_column_list)?
     ;
 
 delete_stmt
-    : DELETE FROM existing_simple_table_ref (where_expr | ON into_values_source)?
+    : DELETE FROM simple_table_ref (WHERE expr | ON into_values_source)? returning_columns_list?
     ;
 
 update_stmt
-    : UPDATE existing_simple_table_ref (SET set_clause_choice (where_expr)? | ON into_values_source)
+    : UPDATE simple_table_ref (SET set_clause_choice (WHERE expr)? | ON into_values_source) returning_columns_list?
     ;
 
 /// out of 2003 standart
@@ -1515,7 +1508,7 @@ with_topic_settings
     ;
 
 alter_topic_stmt
-    : ALTER TOPIC existing_topic_ref alter_topic_action (COMMA alter_topic_action)*
+    : ALTER TOPIC topic_ref alter_topic_action (COMMA alter_topic_action)*
     ;
 
 alter_topic_action
@@ -1564,7 +1557,7 @@ alter_topic_reset_settings
     ;
 
 drop_topic_stmt
-    : DROP TOPIC existing_topic_ref
+    : DROP TOPIC topic_ref
     ;
 
 topic_settings
@@ -1596,7 +1589,7 @@ topic_consumer_setting_value
     ;
 
 topic_ref
-    : cluster_expr_with_dot an_id
+    : (cluster_expr DOT)? an_id
     ;
 
 topic_consumer_ref
@@ -1611,7 +1604,7 @@ null_treatment
     ;
 
 filter_clause
-    : FILTER LPAREN where_expr RPAREN
+    : FILTER LPAREN WHERE expr RPAREN
     ;
 
 window_name_or_specification
@@ -1737,11 +1730,7 @@ id_schema
     ;
 
 id_expr
-    : simple_function_id
-    | window_function_id
-    | table_function_id
-    | aggregate_function_id
-    | existing_column_id
+    : identifier
     | keyword_compat
     //  | keyword_expr_uncompat
     //  | keyword_table_uncompat
@@ -1750,31 +1739,6 @@ id_expr
     | keyword_in_uncompat
     | keyword_window_uncompat
     | keyword_hint_uncompat
-    ;
-
-table_id_expr
-    : table_function_id
-    | keyword_compat
-    | keyword_alter_uncompat
-    | keyword_in_uncompat
-    | keyword_window_uncompat
-    | keyword_hint_uncompat
-    ;
-
-simple_function_id
-    : identifier
-    ;
-
-window_function_id
-    : identifier
-    ;
-
-table_function_id
-    : identifier
-    ;
-
-aggregate_function_id
-    : identifier
     ;
 
 id_expr_in
@@ -1834,7 +1798,7 @@ id_hint
     | keyword_alter_uncompat
     | keyword_in_uncompat
     | keyword_window_uncompat
-    | keyword_hint_uncompat
+    //  | keyword_hint_uncompat
     ;
 
 id_as_compat
@@ -1843,63 +1807,13 @@ id_as_compat
     ;
 
 // ANSI-aware versions of various identifiers with support double-quoted identifiers when PRAGMA AnsiQuotedIdentifiers; is present
-
-existing_column_id
-    : identifier
-    ;
-
 an_id
     : id
     | STRING_VALUE
     ;
 
-an_existing_column_id
-    : existing_column_id
-    | STRING_VALUE
-    ;
-
-an_existing_topic_id
-    : existing_topic_id
-    | STRING_VALUE
-    ;
-
 an_id_or_type
     : id_or_type
-    | STRING_VALUE
-    ;
-
-an_existing_table_id_or_type
-    : existing_table_id
-    | STRING_VALUE
-    ;
-
-an_existing_object_id_or_type
-    : existing_object_id
-    | STRING_VALUE
-    ;
-
-an_existing_view_id_or_type
-    : existing_view_id
-    | STRING_VALUE
-    ;
-
-an_existing_topic_id_or_type
-    : existing_topic_id
-    | STRING_VALUE
-    ;
-
-an_existing_table_store_id_or_type
-    : existing_table_store_id
-    | STRING_VALUE
-    ;
-
-an_existing_replication_id_or_type
-    : existing_replication_id
-    | STRING_VALUE
-    ;
-
-an_existing_external_data_source_id_or_type
-    : existing_external_data_source_id
     | STRING_VALUE
     ;
 
@@ -1910,11 +1824,6 @@ an_id_schema
 
 an_id_expr
     : id_expr
-    | STRING_VALUE
-    ;
-
-an_table_id_expr
-    : table_id_expr
     | STRING_VALUE
     ;
 
@@ -1968,39 +1877,7 @@ cluster_expr
 
 id_or_type
     : id
-    // | type_id
-    ;
-
-udf_id
-    : id
-    ;
-
-existing_table_id
-    : id
-    ;
-
-existing_object_id
-    : id
-    ;
-
-existing_view_id
-    : id
-    ;
-
-existing_topic_id
-    : id
-    ;
-
-existing_table_store_id
-    : id
-    ;
-
-existing_external_data_source_id
-    : id
-    ;
-
-existing_replication_id
-    : id
+    | type_id
     ;
 
 opt_id_prefix_or_type
@@ -2011,37 +1888,9 @@ id_or_at
     : AT? an_id_or_type
     ;
 
-existing_table_id_or_at
-    : AT? an_existing_table_id_or_type
-    ;
-
-existing_object_id_or_at
-    : AT? an_existing_object_id_or_type
-    ;
-
-existing_view_id_or_at
-    : AT? an_existing_view_id_or_type
-    ;
-
-existing_topic_id_or_at
-    : AT? an_existing_topic_id_or_type
-    ;
-
-existing_table_store_id_or_at
-    : AT? an_existing_table_store_id_or_type
-    ;
-
-existing_replication_id_or_at
-    : AT? an_existing_replication_id_or_type
-    ;
-
-existing_external_data_source_id_or_at
-    : AT? an_existing_external_data_source_id_or_type
-    ;
-
 id_table_or_type
     : an_id_table
-    // | type_id
+    | type_id
     ;
 
 id_table_or_at
@@ -2083,6 +1932,7 @@ keyword_expr_uncompat
     | PROCESS
     | REDUCE
     | RETURN
+    | RETURNING
     | ROLLUP
     | SELECT
     | SYMMETRIC
@@ -2154,6 +2004,7 @@ keyword_as_compat
     | OMIT
     | ONE
     | OPTION
+    | PARALLEL
     | PAST
     | PATTERN
     | PER
@@ -2307,6 +2158,7 @@ keyword_compat
         | OTHERS
         | OUTER
         | OVER
+        | PARALLEL
         | PARTITION
         | PASSING
         | PASSWORD
@@ -2336,7 +2188,6 @@ keyword_compat
         | RESPECT
         | RESTRICT
         | RESULT
-        | RETURNING
         | REVERT
         | REVOKE
         | RIGHT
@@ -3377,6 +3228,10 @@ OVER
     : O V E R
     ;
 
+PARALLEL
+    : P A R A L L E L
+    ;
+
 PARTITION
     : P A R T I T I O N
     ;
@@ -3433,10 +3288,7 @@ PROCESS
     : P R O C E S S
     ;
 
-QUERY
-    : Q U E R Y
-    ;
-
+//QUERY: Q U E R Y;
 QUEUE
     : Q U E U E
     ;
@@ -3564,10 +3416,6 @@ SCHEMA
 
 SECONDS
     : S E C O N D S
-    ;
-
-SECRET
-    : S E C R E T
     ;
 
 SEEK
@@ -3822,7 +3670,7 @@ fragment STRING_MULTILINE
     ;
 
 STRING_VALUE
-    : ((STRING_SINGLE | STRING_DOUBLE | STRING_MULTILINE) (U | Y | J | P (T | B | V)?)?)
+    : ((STRING_SINGLE | STRING_DOUBLE | STRING_MULTILINE) (S | U | Y | J | P (T | B | V)?)?)
     ;
 
 ID_PLAIN

@@ -1,18 +1,19 @@
 import {ParseTree, TokenStream} from 'antlr4ng';
 import * as c3 from 'antlr4-c3';
 
-import {YQLLexer} from './generated/YQLLexer.js';
+import {YQLLexer} from './generated/YQLLexer';
 import {
-    Existing_table_idContext,
-    Existing_table_store_idContext,
+    Alter_table_store_stmtContext,
     Named_columnContext,
     Named_exprContext,
     Named_single_sourceContext,
     Result_columnContext,
+    Simple_table_ref_coreContext,
+    Sql_queryContext,
     Sql_query_yqContext,
     YQLParser,
-} from './generated/YQLParser.js';
-import {YQLVisitor} from './generated/YQLVisitor.js';
+} from './generated/YQLParser';
+import {YQLVisitor} from './generated/YQLVisitor';
 
 import {
     AutocompleteData,
@@ -21,6 +22,7 @@ import {
     GetParseTree,
     ISymbolTableVisitor,
     ProcessVisitedRulesResult,
+    YQLEntity,
     YqlAutocompleteResult,
 } from '../../autocomplete-types.js';
 import {ColumnAliasSymbol, TableSymbol} from '../../shared/symbol-table.js';
@@ -61,7 +63,13 @@ function getIgnoredTokens(): number[] {
 
     tokens.push(YQLParser.STREAM);
     tokens.push(YQLParser.STRING_VALUE);
+    tokens.push(YQLParser.REAL);
     tokens.push(YQLParser.EOF);
+    tokens.push(YQLParser.DIGITS);
+    tokens.push(YQLParser.BLOB);
+    tokens.push(YQLParser.CURRENT_TIME);
+    tokens.push(YQLParser.CURRENT_DATE);
+    tokens.push(YQLParser.CURRENT_TIMESTAMP);
 
     return tokens;
 }
@@ -69,25 +77,14 @@ function getIgnoredTokens(): number[] {
 const ignoredTokens = new Set(getIgnoredTokens());
 
 const rulesToVisit = new Set([
-    YQLParser.RULE_type_name_simple,
-    YQLParser.RULE_cluster_expr_with_dot,
+    YQLParser.RULE_id_or_type,
+    YQLParser.RULE_cluster_expr,
     YQLParser.RULE_identifier,
-    YQLParser.RULE_role_name,
+    YQLParser.RULE_id,
+    YQLParser.RULE_integer,
+    YQLParser.RULE_type_id,
 
-    YQLParser.RULE_pragma_id,
-    YQLParser.RULE_existing_external_data_source_id,
-    YQLParser.RULE_existing_table_store_id,
-    YQLParser.RULE_existing_topic_id,
-    YQLParser.RULE_existing_view_id,
-    YQLParser.RULE_existing_object_id,
-    YQLParser.RULE_existing_table_id,
-    YQLParser.RULE_existing_replication_id,
-    YQLParser.RULE_udf_expr,
-    YQLParser.RULE_simple_function_id,
-    YQLParser.RULE_window_function_id,
-    YQLParser.RULE_table_function_id,
-    YQLParser.RULE_aggregate_function_id,
-    YQLParser.RULE_existing_column_id,
+    // WITH - предлагать WITH
 
     YQLParser.RULE_keyword,
     YQLParser.RULE_keyword_compat,
@@ -118,9 +115,12 @@ class YQLSymbolTableVisitor extends YQLVisitor<{}> implements ISymbolTableVisito
         this.scope = this.symbolTable.addNewSymbolOfType(c3.ScopedSymbol, undefined);
     }
 
-    visitExisting_table_id = (context: Existing_table_idContext): {} => {
+    visitSimple_table_ref_core = (context: Simple_table_ref_coreContext): {} => {
         try {
-            this.symbolTable.addNewSymbolOfType(TableSymbol, this.scope, context.getText());
+            const table = context.object_ref()?.id_or_at()?.an_id_or_type()?.getText();
+            if (table) {
+                this.symbolTable.addNewSymbolOfType(TableSymbol, this.scope, table);
+            }
         } catch (error) {
             if (!(error instanceof c3.DuplicateSymbolError)) {
                 throw error;
@@ -129,9 +129,13 @@ class YQLSymbolTableVisitor extends YQLVisitor<{}> implements ISymbolTableVisito
 
         return this.visitChildren(context) as {};
     };
-    visitExisting_table_store_id = (context: Existing_table_store_idContext): {} => {
+    visitAlter_table_store_stmt = (context: Alter_table_store_stmtContext): {} => {
         try {
-            this.symbolTable.addNewSymbolOfType(TableSymbol, this.scope, context.getText());
+            this.symbolTable.addNewSymbolOfType(
+                TableSymbol,
+                this.scope,
+                context.object_ref()?.id_or_at()?.getText(),
+            );
         } catch (error) {
             if (!(error instanceof c3.DuplicateSymbolError)) {
                 throw error;
@@ -203,129 +207,202 @@ class YQLSymbolTableVisitor extends YQLVisitor<{}> implements ISymbolTableVisito
     };
 }
 
-function processVisitedRules(
-    rules: c3.CandidatesCollection['rules'],
-    cursorTokenIndex: number,
+type EntitySuggestion =
+    | 'suggestObject'
+    | 'suggestTableStore'
+    | 'suggestReplication'
+    | 'suggestExternalTable'
+    | 'suggestTopic'
+    | 'suggestUser'
+    | 'suggestGroup'
+    | 'suggestView'
+    | 'suggestExternalDatasource'
+    | 'suggestTable';
+
+type InternalSuggestions<T> = Omit<
+    Record<
+        | keyof YqlAutocompleteResult
+        | EntitySuggestion
+        | 'shouldSuggestTableIndexes'
+        | 'shouldSuggestColumns'
+        | 'shouldSuggestTableHints',
+        T
+    >,
+    | 'suggestColumns'
+    | 'suggestTableIndexes'
+    | 'errors'
+    | 'suggestKeywords'
+    | 'suggestTemplates'
+    | 'suggestColumnAliases'
+    | 'suggestDatabases'
+    | 'suggestEntity'
+    | 'suggestTableHints'
+>;
+
+const EntitySuggestionToYqlEntity: Record<EntitySuggestion, YQLEntity> = {
+    suggestObject: 'object',
+    suggestTableStore: 'tableStore',
+    suggestTable: 'table',
+    suggestExternalTable: 'externalTable',
+    suggestExternalDatasource: 'externalDataSource',
+    suggestTopic: 'topic',
+    suggestView: 'view',
+    suggestReplication: 'replication',
+    suggestGroup: 'group',
+    suggestUser: 'user',
+};
+
+function isEntitySuggestion(suggestion: string): suggestion is EntitySuggestion {
+    return suggestion in EntitySuggestionToYqlEntity;
+}
+
+function getIdentifierContext(
+    ruleList: c3.RuleList,
     tokenStream: TokenStream,
-): ProcessVisitedRulesResult<YqlAutocompleteResult> {
-    let suggestEntity: YqlAutocompleteResult['suggestEntity'];
-    let suggestUdfs = false;
-    let suggestAggregateFunctions = false;
-    let suggestFunctions = false;
-    let suggestWindowFunctions = false;
-    let suggestTableFunctions = false;
-    let suggestPragmas = false;
-    let shouldSuggestColumns = false;
-    let suggestSimpleTypes = false;
-    let shouldSuggestColumnAliases = false;
-
-    const isCreateEntity = getPreviousToken(
-        tokenStream,
-        tokenDictionary,
-        cursorTokenIndex,
-        YQLParser.CREATE,
-    );
-
-    for (const [ruleId, rule] of rules) {
-        if (!isStartingToWriteRule(cursorTokenIndex, rule)) {
-            break;
-        }
-
-        const isGroupByOrWhere =
-            rule.ruleList.includes(YQLParser.RULE_where_expr) ||
-            rule.ruleList.includes(YQLParser.RULE_group_by_clause);
-
-        switch (ruleId) {
-            case YQLParser.RULE_type_name_simple: {
-                suggestSimpleTypes = true;
+    cursorTokenIndex: number,
+): Partial<InternalSuggestions<boolean>> {
+    const suggestions: InternalSuggestions<number> = {
+        suggestObject: -Infinity,
+        suggestTableStore: -Infinity,
+        suggestTable: -Infinity,
+        suggestUser: -Infinity,
+        suggestGroup: -Infinity,
+        suggestTopic: -Infinity,
+        suggestView: -Infinity,
+        suggestReplication: -Infinity,
+        suggestExternalTable: -Infinity,
+        suggestExternalDatasource: -Infinity,
+        shouldSuggestTableIndexes: -Infinity,
+        shouldSuggestColumns: -Infinity,
+        suggestSimpleTypes: -Infinity,
+        suggestPragmas: -Infinity,
+        suggestUdfs: -Infinity,
+        suggestWindowFunctions: -Infinity,
+        suggestTableFunctions: -Infinity,
+        suggestFunctions: -Infinity,
+        suggestAggregateFunctions: -Infinity,
+        shouldSuggestTableHints: -Infinity,
+    };
+    const resetSuggestionParams = (params: (keyof InternalSuggestions<number>)[]): void => {
+        params.forEach((param) => {
+            suggestions[param] = -Infinity;
+        });
+    };
+    for (const rule of ruleList) {
+        switch (rule) {
+            case YQLParser.RULE_an_id_hint:
+                suggestions.shouldSuggestTableHints += 1;
                 break;
-            }
-            case YQLParser.RULE_pragma_id: {
-                suggestPragmas = true;
+            case YQLParser.RULE_an_id:
+                suggestions.suggestPragmas += 1;
+                suggestions.shouldSuggestTableIndexes += 1;
+                suggestions.shouldSuggestColumns += 1;
+                suggestions.suggestTopic += 1;
                 break;
-            }
-            case YQLParser.RULE_existing_external_data_source_id: {
-                suggestEntity = ['externalDataSource'];
+            case YQLParser.RULE_id_or_at:
+                suggestions.suggestObject += 1;
+                suggestions.suggestTableStore += 1;
+                suggestions.suggestTable += 1;
+                suggestions.suggestExternalTable += 1;
+                suggestions.suggestExternalDatasource += 1;
+                suggestions.suggestView += 1;
+                suggestions.suggestReplication += 1;
                 break;
-            }
-            case YQLParser.RULE_existing_table_store_id: {
-                suggestEntity = ['tableStore'];
+            case YQLParser.RULE_an_id_table:
+                suggestions.suggestTable += 1;
                 break;
-            }
-            case YQLParser.RULE_existing_topic_id: {
-                suggestEntity = ['topic'];
+            case YQLParser.RULE_topic_ref:
+                suggestions.suggestTopic += 1;
                 break;
-            }
-            case YQLParser.RULE_existing_view_id: {
-                suggestEntity = ['view'];
+            case YQLParser.RULE_role_name:
+                suggestions.suggestUser += 1;
+                suggestions.suggestGroup += 1;
                 break;
-            }
-            case YQLParser.RULE_existing_object_id: {
-                suggestEntity = ['object'];
+            case YQLParser.RULE_alter_object_stmt:
+                suggestions.suggestObject = 1;
                 break;
-            }
-            case YQLParser.RULE_existing_table_id: {
-                suggestEntity = ['table'];
+            case YQLParser.RULE_drop_object_stmt:
+                suggestions.suggestObject = 1;
                 break;
-            }
-            case YQLParser.RULE_existing_replication_id: {
-                suggestEntity = ['replication'];
+            case YQLParser.RULE_alter_table_store_stmt:
+                suggestions.suggestTableStore = 1;
                 break;
-            }
-            case YQLParser.RULE_existing_column_id: {
-                const withoutColumnsSuggestion =
-                    rule.ruleList.includes(YQLParser.RULE_values_stmt) ||
-                    rule.ruleList.includes(YQLParser.RULE_limit_stmt) ||
-                    rule.ruleList.includes(YQLParser.RULE_offset_stmt) ||
-                    rule.ruleList.includes(YQLParser.RULE_lambda_stmt) ||
-                    rule.ruleList.includes(YQLParser.RULE_alter_table_add_column);
-                if (!withoutColumnsSuggestion) {
-                    shouldSuggestColumns = true;
-                    shouldSuggestColumnAliases = true;
-                }
+            case YQLParser.RULE_alter_table_drop_index:
+                suggestions.shouldSuggestTableIndexes = 1;
                 break;
-            }
-            case YQLParser.RULE_udf_expr: {
-                suggestUdfs = true;
+            case YQLParser.RULE_alter_table_rename_index_to:
+                suggestions.shouldSuggestTableIndexes = 1;
                 break;
-            }
-            case YQLParser.RULE_simple_function_id: {
-                suggestFunctions = true;
+            case YQLParser.RULE_pragma_stmt:
+                suggestions.suggestPragmas = 1;
                 break;
-            }
-            case YQLParser.RULE_window_function_id: {
+            case YQLParser.RULE_simple_table_ref:
                 if (
-                    !isGroupByOrWhere &&
-                    !rule.ruleList.includes(YQLParser.RULE_window_specification_details)
+                    !getPreviousToken(
+                        tokenStream,
+                        tokenDictionary,
+                        cursorTokenIndex,
+                        YQLParser.CREATE,
+                    ) &&
+                    !getPreviousToken(
+                        tokenStream,
+                        tokenDictionary,
+                        cursorTokenIndex,
+                        YQLParser.EXTERNAL,
+                    )
                 ) {
-                    suggestWindowFunctions = true;
+                    suggestions.suggestTable = 1;
+                }
+
+                break;
+            case YQLParser.RULE_table_ref:
+                resetSuggestionParams([
+                    'suggestWindowFunctions',
+                    'suggestFunctions',
+                    'suggestAggregateFunctions',
+                    'shouldSuggestColumns',
+                    'suggestUdfs',
+                ]);
+                suggestions.suggestTableFunctions = 1;
+                suggestions.suggestTable = 1;
+                break;
+            case YQLParser.RULE_table_inherits:
+                suggestions.suggestTable = 1;
+                break;
+            case YQLParser.RULE_replication_target: {
+                if (
+                    !getPreviousToken(tokenStream, tokenDictionary, cursorTokenIndex, YQLParser.AS)
+                ) {
+                    suggestions.suggestTable = 1;
                 }
                 break;
             }
-            case YQLParser.RULE_table_function_id: {
-                suggestTableFunctions = true;
+            case YQLParser.RULE_drop_external_data_source_stmt:
+                suggestions.suggestExternalDatasource = 1;
                 break;
-            }
-            case YQLParser.RULE_aggregate_function_id: {
-                if (!isGroupByOrWhere) {
-                    suggestAggregateFunctions = true;
-                }
+            case YQLParser.RULE_alter_external_data_source_stmt:
+                suggestions.suggestExternalDatasource = 1;
                 break;
-            }
-            case YQLParser.RULE_identifier: {
-                if (rule.ruleList.includes(YQLParser.RULE_replication_target)) {
-                    suggestEntity = ['table'];
-                }
+            case YQLParser.RULE_drop_topic_stmt:
+                suggestions.suggestTopic = 1;
                 break;
-            }
-            case YQLParser.RULE_role_name: {
-                if (isCreateEntity) {
-                    break;
-                }
+            case YQLParser.RULE_alter_topic_stmt:
+                suggestions.suggestTopic = 1;
+                break;
+            case YQLParser.RULE_drop_view_stmt:
+                suggestions.suggestView = 1;
+                break;
+            case YQLParser.RULE_alter_replication_stmt:
+                suggestions.suggestReplication = 1;
+                break;
+            case YQLParser.RULE_drop_replication_stmt:
+                suggestions.suggestReplication = 1;
+                break;
+            case YQLParser.RULE_drop_role_stmt:
                 if (
                     getPreviousToken(tokenStream, tokenDictionary, cursorTokenIndex, YQLParser.USER)
                 ) {
-                    suggestEntity = ['user'];
+                    suggestions.suggestUser = 1;
                 } else if (
                     getPreviousToken(
                         tokenStream,
@@ -334,26 +411,229 @@ function processVisitedRules(
                         YQLParser.GROUP,
                     )
                 ) {
-                    suggestEntity = ['group'];
-                } else {
-                    suggestEntity = ['user', 'group'];
+                    suggestions.suggestGroup = 1;
+                }
+                break;
+            case YQLParser.RULE_alter_user_stmt:
+                if (
+                    !getPreviousToken(
+                        tokenStream,
+                        tokenDictionary,
+                        cursorTokenIndex,
+                        YQLParser.RENAME,
+                    )
+                ) {
+                    suggestions.suggestUser = 1;
+                }
+                break;
+            case YQLParser.RULE_create_group_stmt:
+                if (
+                    getPreviousToken(tokenStream, tokenDictionary, cursorTokenIndex, YQLParser.USER)
+                ) {
+                    suggestions.suggestUser = 1;
+                }
+                break;
+            case YQLParser.RULE_alter_group_stmt:
+                if (
+                    !getPreviousToken(
+                        tokenStream,
+                        tokenDictionary,
+                        cursorTokenIndex,
+                        YQLParser.RENAME,
+                    )
+                ) {
+                    if (
+                        getPreviousToken(
+                            tokenStream,
+                            tokenDictionary,
+                            cursorTokenIndex,
+                            YQLParser.USER,
+                        )
+                    ) {
+                        suggestions.suggestUser = 1;
+                    } else {
+                        suggestions.suggestGroup = 1;
+                    }
+                }
+                break;
+            case YQLParser.RULE_grant_permissions_stmt:
+            case YQLParser.RULE_revoke_permissions_stmt:
+                suggestions.suggestUser = 1;
+                suggestions.suggestGroup = 1;
+                break;
+            case YQLParser.RULE_drop_table_stmt:
+                if (
+                    getPreviousToken(
+                        tokenStream,
+                        tokenDictionary,
+                        cursorTokenIndex,
+                        YQLParser.EXTERNAL,
+                    )
+                ) {
+                    suggestions.suggestExternalTable = 1;
+                } else if (
+                    getPreviousToken(
+                        tokenStream,
+                        tokenDictionary,
+                        cursorTokenIndex,
+                        YQLParser.TABLESTORE,
+                    )
+                ) {
+                    suggestions.suggestTableStore = 1;
+                }
+                break;
+            case YQLParser.RULE_pure_column_list:
+            case YQLParser.RULE_pure_column_or_named:
+            case YQLParser.RULE_column_name:
+            case YQLParser.RULE_without_column_name:
+            case YQLParser.RULE_alter_table_drop_column:
+            case YQLParser.RULE_delete_stmt:
+                suggestions.shouldSuggestColumns = 1;
+                break;
+            case YQLParser.RULE_alter_table_alter_column:
+                if (
+                    !getPreviousToken(
+                        tokenStream,
+                        tokenDictionary,
+                        cursorTokenIndex,
+                        YQLParser.FAMILY,
+                    )
+                ) {
+                    suggestions.shouldSuggestColumns = 1;
                 }
 
+                break;
+            case YQLParser.RULE_type_name_simple:
+                suggestions.suggestSimpleTypes = 2;
+                break;
+            case YQLParser.RULE_atom_expr:
+            case YQLParser.RULE_in_atom_expr:
+                suggestions.suggestUdfs += 1;
+                break;
+            case YQLParser.RULE_id_expr:
+                suggestions.suggestWindowFunctions += 1;
+                suggestions.suggestTableFunctions += 1;
+                suggestions.suggestFunctions += 1;
+                suggestions.suggestAggregateFunctions += 1;
+                suggestions.shouldSuggestColumns += 1;
+                break;
+            case YQLParser.RULE_select_stmt:
+                suggestions.suggestWindowFunctions = 1;
+                suggestions.suggestFunctions = 1;
+                suggestions.suggestAggregateFunctions = 1;
+                suggestions.shouldSuggestColumns = 1;
+                suggestions.suggestUdfs = 1;
+                break;
+            case YQLParser.RULE_select_kind:
+                suggestions.shouldSuggestColumns = 1;
+                break;
+            case YQLParser.RULE_values_stmt:
+            case YQLParser.RULE_alter_table_add_column:
+            case YQLParser.RULE_lambda_stmt:
+            case YQLParser.RULE_select_kind_partial:
+                resetSuggestionParams(['shouldSuggestColumns']);
+                break;
+            case YQLParser.RULE_group_by_clause:
+                resetSuggestionParams(['suggestWindowFunctions', 'suggestAggregateFunctions']);
+                break;
+            case YQLParser.RULE_window_specification_details:
+                resetSuggestionParams(['suggestWindowFunctions']);
+                break;
+            case YQLParser.RULE_expr: {
+                if (
+                    getPreviousToken(
+                        tokenStream,
+                        tokenDictionary,
+                        cursorTokenIndex,
+                        YQLParser.WHERE,
+                    )
+                ) {
+                    resetSuggestionParams(['suggestWindowFunctions', 'suggestAggregateFunctions']);
+                }
+                break;
+            }
+            case YQLParser.RULE_table_hint:
+                suggestions.shouldSuggestTableHints = 1;
+        }
+    }
+
+    let maximum = 2;
+    return Object.entries(suggestions).reduce(
+        (acc, [key, value]) => {
+            const typedKey = key as keyof InternalSuggestions<boolean>;
+            if (value > maximum) {
+                maximum = value;
+                acc = {[typedKey]: true};
+            } else if (value === maximum) {
+                acc[typedKey] = true;
+            }
+            return acc;
+        },
+        {} as Partial<InternalSuggestions<boolean>>,
+    );
+}
+
+const ruleNames = YQLParser.ruleNames;
+
+function getParticularStmt(ruleList: c3.RuleList): string | undefined {
+    const coreStatementIndex = ruleList.findIndex(
+        (el) => el === YQLParser.RULE_sql_stmt_core || el === YQLParser.RULE_sql_stmt_core_yq,
+    );
+    if (coreStatementIndex === -1) {
+        return undefined;
+    }
+    const particularStmtIndex = coreStatementIndex + 1;
+    const particularStmt = ruleList[particularStmtIndex];
+    if (!particularStmt) {
+        return undefined;
+    }
+    return ruleNames[particularStmt];
+}
+
+function processVisitedRules(
+    rules: c3.CandidatesCollection['rules'],
+    cursorTokenIndex: number,
+    tokenStream: TokenStream,
+): ProcessVisitedRulesResult<YqlAutocompleteResult> {
+    const suggestEntity: YqlAutocompleteResult['suggestEntity'] = [];
+
+    let suggestionsResult: Partial<InternalSuggestions<boolean>> = {};
+    let coreStmt;
+    for (const [ruleId, rule] of rules) {
+        if (!isStartingToWriteRule(cursorTokenIndex, rule)) {
+            break;
+        }
+        switch (ruleId) {
+            case YQLParser.RULE_id_table:
+            case YQLParser.RULE_id_hint:
+            case YQLParser.RULE_identifier:
+            case YQLParser.RULE_id_or_type:
+            case YQLParser.RULE_id: {
+                const suggestions = getIdentifierContext(
+                    rule.ruleList,
+                    tokenStream,
+                    cursorTokenIndex,
+                );
+                if (suggestions.shouldSuggestTableHints) {
+                    coreStmt = getParticularStmt(rule.ruleList);
+                }
+                suggestionsResult = {...suggestionsResult, ...suggestions};
                 break;
             }
         }
     }
+
+    Object.keys(suggestionsResult).forEach((suggestion) => {
+        if (suggestEntity && isEntitySuggestion(suggestion)) {
+            suggestEntity.push(EntitySuggestionToYqlEntity[suggestion]);
+        }
+    });
+
     return {
-        suggestEntity,
-        suggestUdfs,
-        suggestPragmas,
-        suggestFunctions,
-        shouldSuggestColumns,
-        suggestSimpleTypes,
-        suggestWindowFunctions,
-        suggestTableFunctions,
-        suggestAggregateFunctions,
-        shouldSuggestColumnAliases,
+        suggestEntity: suggestEntity.length ? suggestEntity : undefined,
+        shouldSuggestColumnAliases: suggestionsResult.shouldSuggestColumns,
+        suggestTableHints: coreStmt,
+        ...suggestionsResult,
     };
 }
 
@@ -384,7 +664,7 @@ function getCommonParseTree(
         case 'from':
             return parser.from_stmt();
         case 'alter':
-            return parser.alter_table_or_table_store();
+            return parser.alter_table_for_autocomplete();
         case 'insert':
             return parser.into_table_stmt();
         case 'update':
@@ -403,15 +683,20 @@ function getEnrichAutocompleteResult(parseTreeGetter: GetParseTree<YQLParser>) {
         cursor: CursorPosition,
         query: string,
     ): YqlAutocompleteResult => {
-        const {shouldSuggestColumns, shouldSuggestColumnAliases, ...suggestionsFromRules} =
-            processVisitedRules(rules, cursorTokenIndex, tokenStream);
+        const {
+            shouldSuggestColumns,
+            shouldSuggestColumnAliases,
+            shouldSuggestTableIndexes,
+            ...suggestionsFromRules
+        } = processVisitedRules(rules, cursorTokenIndex, tokenStream);
         const suggestTemplates = shouldSuggestTemplates(query, cursor);
         const result: YqlAutocompleteResult = {
             ...baseResult,
             ...suggestionsFromRules,
             suggestTemplates,
         };
-        const contextSuggestionsNeeded = shouldSuggestColumns || shouldSuggestColumnAliases;
+        const contextSuggestionsNeeded =
+            shouldSuggestColumns || shouldSuggestColumnAliases || shouldSuggestTableIndexes;
 
         if (contextSuggestionsNeeded) {
             const visitor = new YQLSymbolTableVisitor();
@@ -430,6 +715,9 @@ function getEnrichAutocompleteResult(parseTreeGetter: GetParseTree<YQLParser>) {
             if (shouldSuggestColumns && tableContextSuggestion) {
                 result.suggestColumns = {tables: tableContextSuggestion.tables};
             }
+            if (shouldSuggestTableIndexes && tableContextSuggestion) {
+                result.suggestTableIndexes = {tables: tableContextSuggestion.tables};
+            }
             if (shouldSuggestColumnAliases && suggestColumnAliases) {
                 result.suggestColumnAliases = suggestColumnAliases;
             }
@@ -439,6 +727,8 @@ function getEnrichAutocompleteResult(parseTreeGetter: GetParseTree<YQLParser>) {
     };
 }
 
+const yqlContext = new Sql_queryContext(null, -1);
+
 export const yqlAutocompleteData: AutocompleteData<YqlAutocompleteResult, YQLLexer, YQLParser> = {
     Lexer: YQLLexer,
     Parser: YQLParser,
@@ -447,9 +737,10 @@ export const yqlAutocompleteData: AutocompleteData<YqlAutocompleteResult, YQLLex
     rulesToVisit,
     getParseTree,
     enrichAutocompleteResult: getEnrichAutocompleteResult(getParseTree),
+    context: yqlContext,
 };
 
-const context = new Sql_query_yqContext(null, -1);
+const yqContext = new Sql_query_yqContext(null, -1);
 
 export const yqlAutocompleteDataYQ: AutocompleteData<YqlAutocompleteResult, YQLLexer, YQLParser> = {
     Lexer: YQLLexer,
@@ -459,5 +750,5 @@ export const yqlAutocompleteDataYQ: AutocompleteData<YqlAutocompleteResult, YQLL
     rulesToVisit,
     getParseTree: getParseTreeYQ,
     enrichAutocompleteResult: getEnrichAutocompleteResult(getParseTreeYQ),
-    context,
+    context: yqContext,
 };

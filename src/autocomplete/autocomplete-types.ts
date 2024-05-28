@@ -50,6 +50,7 @@ export interface ClickHouseAutocompleteResult extends AutocompleteResultBase {
 
 export type YQLEntity =
     | 'externalDataSource'
+    | 'externalTable'
     | 'view'
     | 'object'
     | 'tableStore'
@@ -57,15 +58,18 @@ export type YQLEntity =
     | 'replication'
     | 'topic'
     | 'group'
-    | 'user';
+    | 'user'
+    | 'tableIndex';
 
 export interface YqlAutocompleteResult extends AutocompleteResultBase {
+    suggestTableIndexes?: TableIndexSuggestion;
     suggestEntity?: YQLEntity[];
     suggestSimpleTypes?: boolean;
     suggestUdfs?: boolean;
     suggestWindowFunctions?: boolean;
     suggestTableFunctions?: boolean;
     suggestPragmas?: boolean;
+    suggestTableHints?: string;
 }
 
 export interface ParserSyntaxError extends TokenPosition {
@@ -86,6 +90,8 @@ export interface TableContextSuggestion {
 }
 
 export type ColumnSuggestion = TableContextSuggestion;
+
+export type TableIndexSuggestion = TableContextSuggestion;
 
 export type ConstraintSuggestion = TableContextSuggestion;
 
@@ -126,6 +132,7 @@ export type ProcessVisitedRulesResult<A extends AutocompleteResultBase> = Partia
     shouldSuggestColumns?: boolean;
     shouldSuggestColumnAliases?: boolean;
     shouldSuggestConstraints?: boolean;
+    shouldSuggestTableIndexes?: boolean;
 };
 
 export type ProcessVisitedRules<A extends AutocompleteResultBase> = (

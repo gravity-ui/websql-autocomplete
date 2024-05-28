@@ -28,6 +28,7 @@ test('should suggest keywords after EXPLAIN', () => {
         {value: 'DEFINE'},
         {value: 'EVALUATE'},
         {value: 'IF'},
+        {value: 'PARALLEL'},
         {value: 'FOR'},
         {value: 'VALUES'},
         {value: 'GRANT'},

@@ -1,8 +1,8 @@
-import {parseYqlQueryWithCursor} from '../../../../../shared/parse-query-with-cursor';
+import {parseYqQueryWithCursor} from '../../../../../shared/parse-query-with-cursor';
 import {KeywordSuggestion} from '../../../../../autocomplete-types';
 
 test('should suggest properly after PRAGMA', () => {
-    const autocompleteResult = parseYqlQueryWithCursor('PRAGMA |');
+    const autocompleteResult = parseYqQueryWithCursor('PRAGMA |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [{value: 'ANSI'}];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
@@ -10,7 +10,7 @@ test('should suggest properly after PRAGMA', () => {
 });
 
 test('should suggest properly after PRAGMA ANSI', () => {
-    const autocompleteResult = parseYqlQueryWithCursor('PRAGMA ANSI |');
+    const autocompleteResult = parseYqQueryWithCursor('PRAGMA ANSI |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
