@@ -84,8 +84,6 @@ const rulesToVisit = new Set([
     YQLParser.RULE_integer,
     YQLParser.RULE_type_id,
 
-    // WITH - предлагать WITH
-
     YQLParser.RULE_keyword,
     YQLParser.RULE_keyword_compat,
     YQLParser.RULE_keyword_expr_uncompat,
@@ -219,24 +217,24 @@ type EntitySuggestion =
     | 'suggestExternalDatasource'
     | 'suggestTable';
 
-type InternalSuggestions<T> = Omit<
-    Record<
-        | keyof YqlAutocompleteResult
-        | EntitySuggestion
-        | 'shouldSuggestTableIndexes'
-        | 'shouldSuggestColumns'
-        | 'shouldSuggestTableHints',
-        T
-    >,
-    | 'suggestColumns'
-    | 'suggestTableIndexes'
-    | 'errors'
-    | 'suggestKeywords'
-    | 'suggestTemplates'
-    | 'suggestColumnAliases'
-    | 'suggestDatabases'
-    | 'suggestEntity'
-    | 'suggestTableHints'
+type YqlAutocompleteResultPartialKeys = Pick<
+    YqlAutocompleteResult,
+    | 'suggestAggregateFunctions'
+    | 'suggestFunctions'
+    | 'suggestSimpleTypes'
+    | 'suggestUdfs'
+    | 'suggestWindowFunctions'
+    | 'suggestTableFunctions'
+    | 'suggestPragmas'
+>;
+
+type InternalSuggestions<T> = Record<
+    | keyof YqlAutocompleteResultPartialKeys
+    | EntitySuggestion
+    | 'shouldSuggestTableIndexes'
+    | 'shouldSuggestColumns'
+    | 'shouldSuggestTableHints',
+    T
 >;
 
 const EntitySuggestionToYqlEntity: Record<EntitySuggestion, YQLEntity> = {
@@ -261,6 +259,7 @@ function getIdentifierContext(
     tokenStream: TokenStream,
     cursorTokenIndex: number,
 ): Partial<InternalSuggestions<boolean>> {
+    // -Infinity is a starting point. When we enter a rule, where such kind of suggestion is possible, we mark it as "1", it's kind of initialisation. -Infinity is set to avoid cases when we reach ceiling ("2" for now) without initialising the rule.
     const suggestions: InternalSuggestions<number> = {
         suggestObject: -Infinity,
         suggestTableStore: -Infinity,
@@ -575,19 +574,19 @@ function getIdentifierContext(
 
 const ruleNames = YQLParser.ruleNames;
 
-function getParticularStmt(ruleList: c3.RuleList): string | undefined {
+function getParticularStatement(ruleList: c3.RuleList): string | undefined {
     const coreStatementIndex = ruleList.findIndex(
         (el) => el === YQLParser.RULE_sql_stmt_core || el === YQLParser.RULE_sql_stmt_core_yq,
     );
     if (coreStatementIndex === -1) {
         return undefined;
     }
-    const particularStmtIndex = coreStatementIndex + 1;
-    const particularStmt = ruleList[particularStmtIndex];
-    if (!particularStmt) {
+    const particularStatementIndex = coreStatementIndex + 1;
+    const particularStatement = ruleList[particularStatementIndex];
+    if (!particularStatement) {
         return undefined;
     }
-    return ruleNames[particularStmt];
+    return ruleNames[particularStatement];
 }
 
 function processVisitedRules(
@@ -615,7 +614,7 @@ function processVisitedRules(
                     cursorTokenIndex,
                 );
                 if (suggestions.shouldSuggestTableHints) {
-                    coreStmt = getParticularStmt(rule.ruleList);
+                    coreStmt = getParticularStatement(rule.ruleList);
                 }
                 suggestionsResult = {...suggestionsResult, ...suggestions};
                 break;
