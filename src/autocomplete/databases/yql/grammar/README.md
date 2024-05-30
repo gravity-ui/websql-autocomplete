@@ -1,6 +1,6 @@
-When new grammar is arrived, it is a must to do next steps before generating parsers:
+Before generating parsers for new grammar version following steps should be done:
 
-1. Add to the end of file next statements:
+1. Put following statements at the end of the file:
 
 ```antlr
 sql_query_yq

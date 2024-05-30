@@ -18,16 +18,16 @@ export const tokenDictionary: TokenDictionary = {
     SELECT: YQLParser.SELECT,
 };
 
-type OneRuleInList = (rules: number | number[]) => boolean;
+type AnyRuleInList = (rules: number | number[]) => boolean;
 type AllRulesInList = (rules: number[]) => boolean;
 
-function checktRuleInListGetter(ruleList: c3.RuleList): {
-    oneRuleInList: OneRuleInList;
+function getRuleCheckHelpers(ruleList: c3.RuleList): {
+    anyRuleInList: AnyRuleInList;
     allRulesInList: AllRulesInList;
 } {
     const ruleMap = new Map(ruleList.map((rule) => [rule, true]));
     return {
-        oneRuleInList: (rules: number | number[]): boolean => {
+        anyRuleInList: (rules: number | number[]): boolean => {
             const normalizedRules = Array.isArray(rules) ? rules : [rules];
             return normalizedRules.some((rule) => ruleMap.has(rule));
         },
@@ -36,20 +36,20 @@ function checktRuleInListGetter(ruleList: c3.RuleList): {
 }
 
 interface GetParticularSuggestionProps {
-    oneRuleInList: OneRuleInList;
+    anyRuleInList: AnyRuleInList;
     allRulesInList: AllRulesInList;
     cursorTokenIndex: number;
     tokenStream: TokenStream;
 }
 
 function getWindowFunctionsSuggestions({
-    oneRuleInList,
+    anyRuleInList,
     allRulesInList,
 }: GetParticularSuggestionProps): boolean | undefined {
     if (!allRulesInList([YQLParser.RULE_select_stmt, YQLParser.RULE_id_expr])) {
         return;
     }
-    const noWindowFunction = oneRuleInList([
+    const noWindowFunction = anyRuleInList([
         YQLParser.RULE_window_specification_details,
         YQLParser.RULE_group_by_clause,
         YQLParser.RULE_table_ref,
@@ -61,43 +61,43 @@ function getWindowFunctionsSuggestions({
     return;
 }
 
-function getObjectSuggestions({oneRuleInList}: GetParticularSuggestionProps): boolean | undefined {
+function getObjectSuggestions({anyRuleInList}: GetParticularSuggestionProps): boolean | undefined {
     return (
-        oneRuleInList([YQLParser.RULE_alter_object_stmt, YQLParser.RULE_drop_object_stmt]) &&
-        oneRuleInList(YQLParser.RULE_id_or_at)
+        anyRuleInList([YQLParser.RULE_alter_object_stmt, YQLParser.RULE_drop_object_stmt]) &&
+        anyRuleInList(YQLParser.RULE_id_or_at)
     );
 }
 
 function getTablestoreSuggestions({
-    oneRuleInList,
+    anyRuleInList,
     tokenStream,
     cursorTokenIndex,
 }: GetParticularSuggestionProps): boolean | undefined {
-    if (!oneRuleInList(YQLParser.RULE_id_or_at)) {
+    if (!anyRuleInList(YQLParser.RULE_id_or_at)) {
         return;
     }
 
     const tableStoreInDropTable =
-        oneRuleInList(YQLParser.RULE_drop_table_stmt) &&
+        anyRuleInList(YQLParser.RULE_drop_table_stmt) &&
         Boolean(
             getPreviousToken(tokenStream, tokenDictionary, cursorTokenIndex, YQLParser.TABLESTORE),
         );
 
-    return oneRuleInList(YQLParser.RULE_alter_table_store_stmt) || tableStoreInDropTable;
+    return anyRuleInList(YQLParser.RULE_alter_table_store_stmt) || tableStoreInDropTable;
 }
 
 function getTableSuggestions({
-    oneRuleInList,
+    anyRuleInList,
     allRulesInList,
     tokenStream,
     cursorTokenIndex,
 }: GetParticularSuggestionProps): boolean | undefined {
-    if (!oneRuleInList([YQLParser.RULE_id_or_at, YQLParser.RULE_id_table_or_type])) {
+    if (!anyRuleInList([YQLParser.RULE_id_or_at, YQLParser.RULE_id_table_or_type])) {
         return;
     }
     const isTargetForReplication =
-        oneRuleInList(YQLParser.RULE_replication_target) &&
-        !oneRuleInList(YQLParser.RULE_replication_name);
+        anyRuleInList(YQLParser.RULE_replication_target) &&
+        !anyRuleInList(YQLParser.RULE_replication_name);
 
     const isExistingTableInSimpleTableRef =
         allRulesInList([YQLParser.RULE_simple_table_ref]) &&
@@ -105,43 +105,43 @@ function getTableSuggestions({
         !getPreviousToken(tokenStream, tokenDictionary, cursorTokenIndex, YQLParser.EXTERNAL);
 
     return (
-        oneRuleInList([YQLParser.RULE_table_ref, YQLParser.RULE_table_inherits]) ||
+        anyRuleInList([YQLParser.RULE_table_ref, YQLParser.RULE_table_inherits]) ||
         isExistingTableInSimpleTableRef ||
         isTargetForReplication
     );
 }
 
 function getUserSuggestions({
-    oneRuleInList,
+    anyRuleInList,
     tokenStream,
     cursorTokenIndex,
 }: GetParticularSuggestionProps): boolean | undefined {
-    if (!oneRuleInList(YQLParser.RULE_role_name)) {
+    if (!anyRuleInList(YQLParser.RULE_role_name)) {
         return;
     }
 
-    const hasPreviousTokenUSER = Boolean(
+    const hasPreviousTokenUser = Boolean(
         getPreviousToken(tokenStream, tokenDictionary, cursorTokenIndex, YQLParser.USER),
     );
 
-    const hasPreviousTokenRENAME = Boolean(
+    const hasPreviousTokenRename = Boolean(
         getPreviousToken(tokenStream, tokenDictionary, cursorTokenIndex, YQLParser.RENAME),
     );
 
-    const userInRevokePermissions = oneRuleInList(YQLParser.RULE_revoke_permissions_stmt);
+    const userInRevokePermissions = anyRuleInList(YQLParser.RULE_revoke_permissions_stmt);
 
     const userInAlterGroup =
-        oneRuleInList(YQLParser.RULE_alter_group_stmt) &&
-        !hasPreviousTokenRENAME &&
-        hasPreviousTokenUSER;
+        anyRuleInList(YQLParser.RULE_alter_group_stmt) &&
+        !hasPreviousTokenRename &&
+        hasPreviousTokenUser;
 
     const userInCreateGroup =
-        oneRuleInList(YQLParser.RULE_create_group_stmt) && hasPreviousTokenUSER;
+        anyRuleInList(YQLParser.RULE_create_group_stmt) && hasPreviousTokenUser;
 
     const userInAlterUser =
-        oneRuleInList(YQLParser.RULE_alter_user_stmt) && !hasPreviousTokenRENAME;
+        anyRuleInList(YQLParser.RULE_alter_user_stmt) && !hasPreviousTokenRename;
 
-    const userInDropRole = oneRuleInList(YQLParser.RULE_drop_role_stmt) && hasPreviousTokenUSER;
+    const userInDropRole = anyRuleInList(YQLParser.RULE_drop_role_stmt) && hasPreviousTokenUser;
 
     return (
         userInDropRole ||
@@ -153,114 +153,114 @@ function getUserSuggestions({
 }
 
 function getGroupSuggestions({
-    oneRuleInList,
+    anyRuleInList,
     tokenStream,
     cursorTokenIndex,
 }: GetParticularSuggestionProps): boolean | undefined {
-    if (!oneRuleInList(YQLParser.RULE_role_name)) {
+    if (!anyRuleInList(YQLParser.RULE_role_name)) {
         return;
     }
 
-    const hasPreviousTokenGROUP = Boolean(
+    const hasPreviousTokenGroup = Boolean(
         getPreviousToken(tokenStream, tokenDictionary, cursorTokenIndex, YQLParser.GROUP),
     );
-    const hasPreviousTokenUSER = Boolean(
+    const hasPreviousTokenUser = Boolean(
         getPreviousToken(tokenStream, tokenDictionary, cursorTokenIndex, YQLParser.USER),
     );
 
-    const hasPreviousTokenRENAME = Boolean(
+    const hasPreviousTokenRename = Boolean(
         getPreviousToken(tokenStream, tokenDictionary, cursorTokenIndex, YQLParser.RENAME),
     );
 
-    const groupInDropRole = oneRuleInList(YQLParser.RULE_drop_role_stmt) && hasPreviousTokenGROUP;
+    const groupInDropRole = anyRuleInList(YQLParser.RULE_drop_role_stmt) && hasPreviousTokenGroup;
 
     const groupInAlterGroup =
-        oneRuleInList(YQLParser.RULE_alter_group_stmt) &&
-        !hasPreviousTokenRENAME &&
-        !hasPreviousTokenUSER;
+        anyRuleInList(YQLParser.RULE_alter_group_stmt) &&
+        !hasPreviousTokenRename &&
+        !hasPreviousTokenUser;
 
     return (
-        oneRuleInList(YQLParser.RULE_revoke_permissions_stmt) ||
+        anyRuleInList(YQLParser.RULE_revoke_permissions_stmt) ||
         groupInAlterGroup ||
         groupInDropRole
     );
 }
 
-function getTopicSuggestions({oneRuleInList}: GetParticularSuggestionProps): boolean | undefined {
-    if (!oneRuleInList([YQLParser.RULE_an_id, YQLParser.RULE_topic_ref])) {
+function getTopicSuggestions({anyRuleInList}: GetParticularSuggestionProps): boolean | undefined {
+    if (!anyRuleInList([YQLParser.RULE_an_id, YQLParser.RULE_topic_ref])) {
         return;
     }
 
-    return oneRuleInList([YQLParser.RULE_drop_topic_stmt, YQLParser.RULE_alter_topic_stmt]);
+    return anyRuleInList([YQLParser.RULE_drop_topic_stmt, YQLParser.RULE_alter_topic_stmt]);
 }
 
-function getViewSuggestions({oneRuleInList}: GetParticularSuggestionProps): boolean | undefined {
-    if (!oneRuleInList(YQLParser.RULE_id_or_at)) {
+function getViewSuggestions({anyRuleInList}: GetParticularSuggestionProps): boolean | undefined {
+    if (!anyRuleInList(YQLParser.RULE_id_or_at)) {
         return;
     }
-    return oneRuleInList(YQLParser.RULE_drop_view_stmt);
+    return anyRuleInList(YQLParser.RULE_drop_view_stmt);
 }
 
 function getReplicationSuggestions({
-    oneRuleInList,
+    anyRuleInList,
 }: GetParticularSuggestionProps): boolean | undefined {
-    if (!oneRuleInList(YQLParser.RULE_id_or_at)) {
+    if (!anyRuleInList(YQLParser.RULE_id_or_at)) {
         return;
     }
 
-    return oneRuleInList([
+    return anyRuleInList([
         YQLParser.RULE_alter_replication_stmt,
         YQLParser.RULE_drop_replication_stmt,
     ]);
 }
 
 function getExternalTableSuggestions({
-    oneRuleInList,
+    anyRuleInList,
     tokenStream,
     cursorTokenIndex,
 }: GetParticularSuggestionProps): boolean | undefined {
-    if (!oneRuleInList(YQLParser.RULE_id_or_at)) {
+    if (!anyRuleInList(YQLParser.RULE_id_or_at)) {
         return;
     }
-    const hasPreviousTokenEXTERNAL = Boolean(
+    const hasPreviousTokenExternal = Boolean(
         getPreviousToken(tokenStream, tokenDictionary, cursorTokenIndex, YQLParser.EXTERNAL),
     );
-    return oneRuleInList(YQLParser.RULE_drop_table_stmt) && hasPreviousTokenEXTERNAL;
+    return anyRuleInList(YQLParser.RULE_drop_table_stmt) && hasPreviousTokenExternal;
 }
 
 function getExternalDatasourceSuggestions({
-    oneRuleInList,
+    anyRuleInList,
 }: GetParticularSuggestionProps): boolean | undefined {
-    if (!oneRuleInList(YQLParser.RULE_id_or_at)) {
+    if (!anyRuleInList(YQLParser.RULE_id_or_at)) {
         return;
     }
-    return oneRuleInList([
+    return anyRuleInList([
         YQLParser.RULE_drop_external_data_source_stmt,
         YQLParser.RULE_alter_external_data_source_stmt,
     ]);
 }
 
 function getTableIndexesSuggestions({
-    oneRuleInList,
+    anyRuleInList,
 }: GetParticularSuggestionProps): boolean | undefined {
-    if (!oneRuleInList(YQLParser.RULE_an_id)) {
+    if (!anyRuleInList(YQLParser.RULE_an_id)) {
         return;
     }
 
-    return oneRuleInList([
+    return anyRuleInList([
         YQLParser.RULE_alter_table_drop_index,
         YQLParser.RULE_alter_table_rename_index_to,
     ]);
 }
 
 function getColumnsSuggestions({
-    oneRuleInList,
+    anyRuleInList,
     tokenStream,
     cursorTokenIndex,
 }: GetParticularSuggestionProps): boolean | undefined {
     if (
-        !oneRuleInList([YQLParser.RULE_an_id, YQLParser.RULE_id_expr]) ||
-        oneRuleInList([
+        !anyRuleInList([YQLParser.RULE_an_id, YQLParser.RULE_id_expr]) ||
+        anyRuleInList([
             YQLParser.RULE_table_ref,
             YQLParser.RULE_values_stmt,
             YQLParser.RULE_alter_table_add_column,
@@ -271,15 +271,15 @@ function getColumnsSuggestions({
     }
 
     const existingColumnInSelect =
-        oneRuleInList(YQLParser.RULE_select_kind) &&
+        anyRuleInList(YQLParser.RULE_select_kind) &&
         !getPreviousToken(tokenStream, tokenDictionary, cursorTokenIndex, YQLParser.LIMIT);
 
     const existingColumnInAlterTableAlterColumn =
-        oneRuleInList(YQLParser.RULE_alter_table_alter_column) &&
+        anyRuleInList(YQLParser.RULE_alter_table_alter_column) &&
         !getPreviousToken(tokenStream, tokenDictionary, cursorTokenIndex, YQLParser.FAMILY);
 
     return (
-        oneRuleInList([
+        anyRuleInList([
             YQLParser.RULE_pure_column_list,
             YQLParser.RULE_pure_column_or_named,
             YQLParser.RULE_column_name,
@@ -293,9 +293,9 @@ function getColumnsSuggestions({
 }
 
 function getSimpleTypesSuggestions({
-    oneRuleInList,
+    anyRuleInList,
 }: GetParticularSuggestionProps): boolean | undefined {
-    return oneRuleInList(YQLParser.RULE_type_name_simple);
+    return anyRuleInList(YQLParser.RULE_type_name_simple);
 }
 
 function getPragmasSuggestions({
@@ -304,14 +304,14 @@ function getPragmasSuggestions({
     return allRulesInList([YQLParser.RULE_an_id, YQLParser.RULE_pragma_stmt]);
 }
 
-function getUdfsSuggestions({oneRuleInList}: GetParticularSuggestionProps): boolean | undefined {
+function getUdfsSuggestions({anyRuleInList}: GetParticularSuggestionProps): boolean | undefined {
     if (
-        !oneRuleInList([YQLParser.RULE_atom_expr, YQLParser.RULE_in_atom_expr]) ||
-        oneRuleInList(YQLParser.RULE_table_ref)
+        !anyRuleInList([YQLParser.RULE_atom_expr, YQLParser.RULE_in_atom_expr]) ||
+        anyRuleInList(YQLParser.RULE_table_ref)
     ) {
         return;
     }
-    return oneRuleInList(YQLParser.RULE_select_stmt);
+    return anyRuleInList(YQLParser.RULE_select_stmt);
 }
 
 function getTableFunctionsSuggestions({
@@ -321,22 +321,22 @@ function getTableFunctionsSuggestions({
 }
 
 function getFunctionsSuggestions({
-    oneRuleInList,
+    anyRuleInList,
 }: GetParticularSuggestionProps): boolean | undefined {
-    if (!oneRuleInList(YQLParser.RULE_id_expr) || oneRuleInList(YQLParser.RULE_table_ref)) {
+    if (!anyRuleInList(YQLParser.RULE_id_expr) || anyRuleInList(YQLParser.RULE_table_ref)) {
         return;
     }
-    return oneRuleInList(YQLParser.RULE_select_stmt);
+    return anyRuleInList(YQLParser.RULE_select_stmt);
 }
 
 function getAggregateFunctionsSuggestions({
-    oneRuleInList,
+    anyRuleInList,
     allRulesInList,
 }: GetParticularSuggestionProps): boolean | undefined {
     if (!allRulesInList([YQLParser.RULE_select_stmt, YQLParser.RULE_id_expr])) {
         return;
     }
-    const noAggregateFunction = oneRuleInList([
+    const noAggregateFunction = anyRuleInList([
         YQLParser.RULE_group_by_clause,
         YQLParser.RULE_table_ref,
         YQLParser.RULE_where_expr,
@@ -388,7 +388,7 @@ export function getGranularSuggestions(
     cursorTokenIndex: number,
     tokenStream: TokenStream,
 ): InternalSuggestions {
-    const getters = checktRuleInListGetter(ruleList);
+    const getters = getRuleCheckHelpers(ruleList);
     const props = {...getters, cursorTokenIndex, tokenStream};
 
     const suggestWindowFunctions = getWindowFunctionsSuggestions(props);
