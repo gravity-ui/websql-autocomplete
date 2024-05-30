@@ -53,6 +53,24 @@ test('should suggest properly after WHERE', () => {
     getAfterWhereCommonExpections(autocompleteResult);
 });
 
+test('should suggest properly after WHERE expr', () => {
+    const autocompleteResult = parseYqlQueryWithCursor(
+        'SELECT * FROM test_table WHERE true HAVING |',
+    );
+
+    const columnSuggestions: ColumnSuggestion = {
+        tables: [{name: 'test_table'}],
+    };
+
+    expect(autocompleteResult.suggestColumns).toEqual(columnSuggestions);
+    expect(autocompleteResult.suggestAggregateFunctions).toBeTruthy();
+    expect(autocompleteResult.suggestWindowFunctions).toBeTruthy();
+    expect(autocompleteResult.suggestFunctions).toBeTruthy();
+    expect(autocompleteResult.suggestUdfs).toBeTruthy();
+    expect(autocompleteResult.suggestTableFunctions).toBeFalsy();
+    expect(autocompleteResult.suggestKeywords).toEqual(AfterWhereKeywords);
+});
+
 test('should suggest table name for column between statements', () => {
     const autocompleteResult = parseYqlQueryWithCursor(
         'ALTER TABLE before_table DROP COLUMN id; SELECT * FROM test_table WHERE | ; ALTER TABLE after_table DROP COLUMN id;',

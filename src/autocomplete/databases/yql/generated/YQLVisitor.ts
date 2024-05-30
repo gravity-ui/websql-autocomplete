@@ -13,16 +13,12 @@ import { AbstractParseTreeVisitor } from "antlr4ng";
 
 
 import { Sql_queryContext } from "./YQLParser.js";
-import { Sql_query_yqContext } from "./YQLParser.js";
 import { Sql_stmt_listContext } from "./YQLParser.js";
-import { Sql_stmt_list_yqContext } from "./YQLParser.js";
 import { Ansi_sql_stmt_listContext } from "./YQLParser.js";
 import { Lambda_bodyContext } from "./YQLParser.js";
 import { Lambda_stmtContext } from "./YQLParser.js";
-import { Sql_stmt_yqContext } from "./YQLParser.js";
 import { Sql_stmtContext } from "./YQLParser.js";
 import { Sql_stmt_coreContext } from "./YQLParser.js";
-import { Sql_stmt_core_yqContext } from "./YQLParser.js";
 import { ExprContext } from "./YQLParser.js";
 import { Or_subexprContext } from "./YQLParser.js";
 import { And_subexprContext } from "./YQLParser.js";
@@ -143,7 +139,6 @@ import { External_call_paramContext } from "./YQLParser.js";
 import { External_call_settingsContext } from "./YQLParser.js";
 import { Reduce_coreContext } from "./YQLParser.js";
 import { Opt_set_quantifierContext } from "./YQLParser.js";
-import { From_stmtContext } from "./YQLParser.js";
 import { Select_coreContext } from "./YQLParser.js";
 import { Row_pattern_recognition_clauseContext } from "./YQLParser.js";
 import { Row_pattern_rows_per_matchContext } from "./YQLParser.js";
@@ -234,7 +229,6 @@ import { With_table_settingsContext } from "./YQLParser.js";
 import { Table_tablestoreContext } from "./YQLParser.js";
 import { Table_settings_entryContext } from "./YQLParser.js";
 import { Table_as_sourceContext } from "./YQLParser.js";
-import { Alter_table_for_autocompleteContext } from "./YQLParser.js";
 import { Alter_table_stmtContext } from "./YQLParser.js";
 import { Alter_table_actionContext } from "./YQLParser.js";
 import { Alter_external_table_stmtContext } from "./YQLParser.js";
@@ -413,6 +407,14 @@ import { Type_idContext } from "./YQLParser.js";
 import { Bool_valueContext } from "./YQLParser.js";
 import { RealContext } from "./YQLParser.js";
 import { IntegerContext } from "./YQLParser.js";
+import { Sql_query_yqContext } from "./YQLParser.js";
+import { Sql_stmt_list_yqContext } from "./YQLParser.js";
+import { Sql_stmt_yqContext } from "./YQLParser.js";
+import { Sql_stmt_core_yqContext } from "./YQLParser.js";
+import { Replication_nameContext } from "./YQLParser.js";
+import { Where_exprContext } from "./YQLParser.js";
+import { From_stmtContext } from "./YQLParser.js";
+import { Alter_table_for_autocompleteContext } from "./YQLParser.js";
 
 
 /**
@@ -430,23 +432,11 @@ export class YQLVisitor<Result> extends AbstractParseTreeVisitor<Result> {
      */
     visitSql_query?: (ctx: Sql_queryContext) => Result;
     /**
-     * Visit a parse tree produced by `YQLParser.sql_query_yq`.
-     * @param ctx the parse tree
-     * @return the visitor result
-     */
-    visitSql_query_yq?: (ctx: Sql_query_yqContext) => Result;
-    /**
      * Visit a parse tree produced by `YQLParser.sql_stmt_list`.
      * @param ctx the parse tree
      * @return the visitor result
      */
     visitSql_stmt_list?: (ctx: Sql_stmt_listContext) => Result;
-    /**
-     * Visit a parse tree produced by `YQLParser.sql_stmt_list_yq`.
-     * @param ctx the parse tree
-     * @return the visitor result
-     */
-    visitSql_stmt_list_yq?: (ctx: Sql_stmt_list_yqContext) => Result;
     /**
      * Visit a parse tree produced by `YQLParser.ansi_sql_stmt_list`.
      * @param ctx the parse tree
@@ -466,12 +456,6 @@ export class YQLVisitor<Result> extends AbstractParseTreeVisitor<Result> {
      */
     visitLambda_stmt?: (ctx: Lambda_stmtContext) => Result;
     /**
-     * Visit a parse tree produced by `YQLParser.sql_stmt_yq`.
-     * @param ctx the parse tree
-     * @return the visitor result
-     */
-    visitSql_stmt_yq?: (ctx: Sql_stmt_yqContext) => Result;
-    /**
      * Visit a parse tree produced by `YQLParser.sql_stmt`.
      * @param ctx the parse tree
      * @return the visitor result
@@ -483,12 +467,6 @@ export class YQLVisitor<Result> extends AbstractParseTreeVisitor<Result> {
      * @return the visitor result
      */
     visitSql_stmt_core?: (ctx: Sql_stmt_coreContext) => Result;
-    /**
-     * Visit a parse tree produced by `YQLParser.sql_stmt_core_yq`.
-     * @param ctx the parse tree
-     * @return the visitor result
-     */
-    visitSql_stmt_core_yq?: (ctx: Sql_stmt_core_yqContext) => Result;
     /**
      * Visit a parse tree produced by `YQLParser.expr`.
      * @param ctx the parse tree
@@ -1210,12 +1188,6 @@ export class YQLVisitor<Result> extends AbstractParseTreeVisitor<Result> {
      */
     visitOpt_set_quantifier?: (ctx: Opt_set_quantifierContext) => Result;
     /**
-     * Visit a parse tree produced by `YQLParser.from_stmt`.
-     * @param ctx the parse tree
-     * @return the visitor result
-     */
-    visitFrom_stmt?: (ctx: From_stmtContext) => Result;
-    /**
      * Visit a parse tree produced by `YQLParser.select_core`.
      * @param ctx the parse tree
      * @return the visitor result
@@ -1755,12 +1727,6 @@ export class YQLVisitor<Result> extends AbstractParseTreeVisitor<Result> {
      * @return the visitor result
      */
     visitTable_as_source?: (ctx: Table_as_sourceContext) => Result;
-    /**
-     * Visit a parse tree produced by `YQLParser.alter_table_for_autocomplete`.
-     * @param ctx the parse tree
-     * @return the visitor result
-     */
-    visitAlter_table_for_autocomplete?: (ctx: Alter_table_for_autocompleteContext) => Result;
     /**
      * Visit a parse tree produced by `YQLParser.alter_table_stmt`.
      * @param ctx the parse tree
@@ -2829,4 +2795,52 @@ export class YQLVisitor<Result> extends AbstractParseTreeVisitor<Result> {
      * @return the visitor result
      */
     visitInteger?: (ctx: IntegerContext) => Result;
+    /**
+     * Visit a parse tree produced by `YQLParser.sql_query_yq`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitSql_query_yq?: (ctx: Sql_query_yqContext) => Result;
+    /**
+     * Visit a parse tree produced by `YQLParser.sql_stmt_list_yq`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitSql_stmt_list_yq?: (ctx: Sql_stmt_list_yqContext) => Result;
+    /**
+     * Visit a parse tree produced by `YQLParser.sql_stmt_yq`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitSql_stmt_yq?: (ctx: Sql_stmt_yqContext) => Result;
+    /**
+     * Visit a parse tree produced by `YQLParser.sql_stmt_core_yq`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitSql_stmt_core_yq?: (ctx: Sql_stmt_core_yqContext) => Result;
+    /**
+     * Visit a parse tree produced by `YQLParser.replication_name`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitReplication_name?: (ctx: Replication_nameContext) => Result;
+    /**
+     * Visit a parse tree produced by `YQLParser.where_expr`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitWhere_expr?: (ctx: Where_exprContext) => Result;
+    /**
+     * Visit a parse tree produced by `YQLParser.from_stmt`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitFrom_stmt?: (ctx: From_stmtContext) => Result;
+    /**
+     * Visit a parse tree produced by `YQLParser.alter_table_for_autocomplete`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitAlter_table_for_autocomplete?: (ctx: Alter_table_for_autocompleteContext) => Result;
 }

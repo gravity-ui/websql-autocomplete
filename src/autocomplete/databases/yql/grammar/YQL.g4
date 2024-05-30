@@ -1,4 +1,3 @@
-
 // $antlr-format columnLimit 500, minEmptyLines 1, maxEmptyLinesToKeep 1, useTab false, reflowComments false, breakBeforeBraces false
 // $antlr-format keepEmptyLinesAtTheStartOfBlocks false, allowShortRulesOnASingleLine false, alignSemicolons hanging, alignColons hanging
 // $antlr-format alignTrailingComments true
@@ -15,17 +14,8 @@ sql_query
     | (PRAGMA ANSI DIGITS ansi_sql_stmt_list)
     ;
 
-sql_query_yq
-    : sql_stmt_list_yq
-    | (PRAGMA ANSI DIGITS ansi_sql_stmt_list)
-    ;
-
 sql_stmt_list
     : SEMICOLON* sql_stmt (SEMICOLON+ sql_stmt)* SEMICOLON* EOF
-    ;
-
-sql_stmt_list_yq
-    : SEMICOLON* sql_stmt_yq (SEMICOLON+ sql_stmt_yq)* SEMICOLON* EOF
     ;
 
 ansi_sql_stmt_list
@@ -43,10 +33,6 @@ lambda_stmt
 
 QUERY
     : Q U E R Y
-    ;
-
-sql_stmt_yq
-    : (EXPLAIN (QUERY PLAN)?)? sql_stmt_core_yq
     ;
 
 sql_stmt
@@ -98,22 +84,6 @@ sql_stmt_core
     | create_view_stmt
     | drop_view_stmt
     | alter_replication_stmt
-    ;
-
-sql_stmt_core_yq
-    : pragma_stmt
-    | select_stmt
-    | named_nodes_stmt
-    | use_stmt
-    | into_table_stmt_yq
-    | declare_stmt
-    | import_stmt
-    | export_stmt
-    | do_stmt
-    | define_action_or_subquery_stmt
-    | if_stmt
-    | for_stmt
-    | values_stmt
     ;
 
 expr
@@ -660,7 +630,7 @@ select_kind
     ;
 
 process_core
-    : PROCESS STREAM? named_single_source (COMMA named_single_source)* (USING using_call_expr (AS an_id)? (WITH external_call_settings)? (WHERE expr)? (HAVING expr)? (ASSUME order_by_clause)?)?
+    : PROCESS STREAM? named_single_source (COMMA named_single_source)* (USING using_call_expr (AS an_id)? (WITH external_call_settings)? where_expr? (HAVING expr)? (ASSUME order_by_clause)?)?
     ;
 
 external_call_param
@@ -672,19 +642,15 @@ external_call_settings
     ;
 
 reduce_core
-    : REDUCE named_single_source (COMMA named_single_source)* (PRESORT sort_specification_list)? ON column_list USING ALL? using_call_expr (AS an_id)? (WHERE expr)? (HAVING expr)? (ASSUME order_by_clause)?
+    : REDUCE named_single_source (COMMA named_single_source)* (PRESORT sort_specification_list)? ON column_list USING ALL? using_call_expr (AS an_id)? where_expr? (HAVING expr)? (ASSUME order_by_clause)?
     ;
 
 opt_set_quantifier
     : (ALL | DISTINCT)?
     ;
 
-from_stmt
-    : FROM join_source
-    ;
-
 select_core
-    : (FROM join_source)? SELECT STREAM? opt_set_quantifier result_column (COMMA result_column)* COMMA? (WITHOUT without_column_list)? (FROM join_source)? (WHERE expr)? group_by_clause? (HAVING expr)? window_clause? ext_order_by_clause?
+    : (FROM join_source)? SELECT STREAM? opt_set_quantifier result_column (COMMA result_column)* COMMA? (WITHOUT without_column_list)? (FROM join_source)? where_expr? group_by_clause? (HAVING expr)? window_clause? ext_order_by_clause?
     ;
 
 // ISO/IEC 9075-2:2016(E) 7.7 <row pattern recognition clause>
@@ -1092,11 +1058,6 @@ table_as_source
     : AS values_source
     ;
 
-alter_table_for_autocomplete
-    : alter_table_stmt
-    | alter_table_store_stmt
-    ;
-
 alter_table_stmt
     : ALTER TABLE simple_table_ref alter_table_action (COMMA alter_table_action)*
     ;
@@ -1370,7 +1331,7 @@ create_replication_stmt
     ;
 
 replication_target
-    : object_ref AS object_ref
+    : object_ref replication_name
     ;
 
 replication_settings
@@ -1457,11 +1418,11 @@ into_simple_table_ref
     ;
 
 delete_stmt
-    : DELETE FROM simple_table_ref (WHERE expr | ON into_values_source)? returning_columns_list?
+    : DELETE FROM simple_table_ref (where_expr | ON into_values_source)? returning_columns_list?
     ;
 
 update_stmt
-    : UPDATE simple_table_ref (SET set_clause_choice (WHERE expr)? | ON into_values_source) returning_columns_list?
+    : UPDATE simple_table_ref (SET set_clause_choice where_expr? | ON into_values_source) returning_columns_list?
     ;
 
 /// out of 2003 standart
@@ -1604,7 +1565,7 @@ null_treatment
     ;
 
 filter_clause
-    : FILTER LPAREN WHERE expr RPAREN
+    : FILTER LPAREN where_expr RPAREN
     ;
 
 window_name_or_specification
@@ -3760,4 +3721,50 @@ WS
 
 COMMENT
     : (MULTILINE_COMMENT | LINE_COMMENT) -> skip
+    ;
+
+sql_query_yq
+    : sql_stmt_list_yq
+    | (PRAGMA ANSI DIGITS ansi_sql_stmt_list)
+    ;
+
+sql_stmt_list_yq
+    : SEMICOLON* sql_stmt_yq (SEMICOLON+ sql_stmt_yq)* SEMICOLON* EOF
+    ;
+
+sql_stmt_yq
+    : (EXPLAIN (QUERY PLAN)?)? sql_stmt_core_yq
+    ;
+
+sql_stmt_core_yq
+    : pragma_stmt
+    | select_stmt
+    | named_nodes_stmt
+    | use_stmt
+    | into_table_stmt_yq
+    | declare_stmt
+    | import_stmt
+    | export_stmt
+    | do_stmt
+    | define_action_or_subquery_stmt
+    | if_stmt
+    | for_stmt
+    | values_stmt
+    ;
+
+replication_name
+    : AS object_ref
+    ;
+
+where_expr
+    : WHERE expr
+    ;
+
+from_stmt
+    : FROM join_source
+    ;
+
+alter_table_for_autocomplete
+    : alter_table_stmt
+    | alter_table_store_stmt
     ;
