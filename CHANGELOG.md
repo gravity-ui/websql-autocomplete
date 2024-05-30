@@ -1,5 +1,12 @@
 # Changelog
 
+## [8.2.0](https://github.com/gravity-ui/websql-autocomplete/compare/v8.1.0...v8.2.0) (2024-05-30)
+
+
+### Features
+
+* **YQL:** improve suggestions calculation ([#184](https://github.com/gravity-ui/websql-autocomplete/issues/184)) ([71e9056](https://github.com/gravity-ui/websql-autocomplete/commit/71e90561ed3deb0d183da772139a4abc64981a67))
+
 ## [8.1.0](https://github.com/gravity-ui/websql-autocomplete/compare/v8.0.2...v8.1.0) (2024-05-02)
 
 
