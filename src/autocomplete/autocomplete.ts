@@ -234,3 +234,5 @@ export function parseYqQuery(query: string, cursor: CursorPosition): YqlAutocomp
         yqlAutocompleteDataYQ.context,
     );
 }
+
+export {tokenizeYQL} from './databases/yql/yql-tokenizer';

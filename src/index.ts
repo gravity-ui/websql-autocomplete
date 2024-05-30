@@ -9,6 +9,7 @@ export {
     parseYqlQueryWithoutCursor,
     parseYqQuery,
     parseYqQueryWithoutCursor,
+    tokenizeYQL,
 } from './autocomplete/autocomplete';
 
 export {
