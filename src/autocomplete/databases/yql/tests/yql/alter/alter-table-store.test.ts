@@ -17,6 +17,5 @@ test('should suggest keywords after tablestore name', () => {
 test('should suggest table name after DROP COLUMN', () => {
     const autocompleteResult = parseYqlQueryWithCursor('ALTER TABLESTORE test_table DROP COLUMN |');
     const columnSuggestion: ColumnSuggestion = {tables: [{name: 'test_table'}]};
-
     expect(autocompleteResult.suggestColumns).toEqual(columnSuggestion);
 });

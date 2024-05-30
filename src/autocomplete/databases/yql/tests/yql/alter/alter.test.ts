@@ -5,8 +5,10 @@ test('should suggest keywords after ALTER', () => {
     const autocompleteResult = parseYqlQueryWithCursor('ALTER |');
 
     const keywords: KeywordSuggestion[] = [
+        {value: 'ASYNC'},
         {value: 'TABLESTORE'},
         {value: 'TOPIC'},
+        {value: 'EXTERNAL'},
         {value: 'OBJECT'},
         {value: 'GROUP'},
         {value: 'USER'},
@@ -72,7 +74,7 @@ test('should suggest keywords after table name', () => {
     ];
     expect(autocompleteResult.suggestKeywords).toEqual(keywords);
 });
-test('should suggest tables after ALTER VIEW between statements', () => {
+test('should suggest object after between statements', () => {
     const autocompleteResult = parseYqlQueryWithCursor(
         'ALTER TABLE before_table DROP COLUMN id; ALTER OBJECT | ; ALTER TABLE after_table DROP COLUMN id;',
     );

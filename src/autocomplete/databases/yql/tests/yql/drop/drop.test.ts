@@ -67,3 +67,11 @@ test('should suggest after TABLE', () => {
     expect(autocompleteResult.suggestKeywords).toEqual(keywords);
     expect(autocompleteResult.suggestEntity).toEqual(['table']);
 });
+
+test('should suggest after EXTERNAL TABLE', () => {
+    const autocompleteResult = parseYqlQueryWithCursor('DROP EXTERNAL TABLE |');
+    const keywords: KeywordSuggestion[] = [{value: 'IF'}];
+
+    expect(autocompleteResult.suggestKeywords).toEqual(keywords);
+    expect(autocompleteResult.suggestEntity).toEqual(['externalTable']);
+});

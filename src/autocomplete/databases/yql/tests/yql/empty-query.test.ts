@@ -30,6 +30,7 @@ test('should suggest properly for an empty query', () => {
         {value: 'DEFINE'},
         {value: 'EVALUATE'},
         {value: 'IF'},
+        {value: 'PARALLEL'},
         {value: 'FOR'},
         {value: 'VALUES'},
         {value: 'GRANT'},

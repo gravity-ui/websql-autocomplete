@@ -17,7 +17,7 @@ test('should suggest properly after object name', () => {
 
 test('should suggest properly after TYPE', () => {
     const autocompleteResult = parseYqlQueryWithCursor('CREATE OBJECT test_object (TYPE |');
-    const keywordsSuggestion: KeywordSuggestion[] = [{value: 'SECRET'}, {value: 'TABLESTORE'}];
+    const keywordsSuggestion: KeywordSuggestion[] = [];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 test('should suggest properly after type expression', () => {

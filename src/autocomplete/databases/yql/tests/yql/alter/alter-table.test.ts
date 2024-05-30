@@ -1,5 +1,9 @@
 import {parseYqlQueryWithoutCursor} from '../../../../../autocomplete';
-import {ColumnSuggestion, KeywordSuggestion} from '../../../../../autocomplete-types';
+import {
+    ColumnSuggestion,
+    KeywordSuggestion,
+    TableIndexSuggestion,
+} from '../../../../../autocomplete-types';
 import {parseYqlQueryWithCursor} from '../../../../../shared/parse-query-with-cursor';
 
 test('should suggest keywords after table name', () => {
@@ -50,6 +54,14 @@ test('should suggest SET after column name', () => {
     expect(autocompleteResult.suggestKeywords).toEqual(keywords);
 });
 
+test('should not suggest after FAMILY', () => {
+    const autocompleteResult = parseYqlQueryWithCursor(
+        'ALTER TABLE test_table ALTER COLUMN id SET FAMILY |',
+    );
+    const keywords: KeywordSuggestion[] = [];
+    expect(autocompleteResult.suggestKeywords).toEqual(keywords);
+    expect(autocompleteResult.suggestColumns).toBeFalsy();
+});
 test('should not report errors', () => {
     const autocompleteResult = parseYqlQueryWithoutCursor(
         'ALTER TABLE test_table ALTER COLUMN id SET FAMILY test;',
@@ -122,6 +134,14 @@ test('should suggest keywords after DROP ', () => {
     const columnSuggestion: ColumnSuggestion = {tables: [{name: 'test_table'}]};
 
     expect(autocompleteResult.suggestColumns).toEqual(columnSuggestion);
+    expect(autocompleteResult.suggestKeywords).toEqual(keywords);
+});
+test('should suggest keywords after INDEX ', () => {
+    const autocompleteResult = parseYqlQueryWithCursor('ALTER TABLE test_table DROP INDEX |');
+    const keywords: KeywordSuggestion[] = [];
+    const indexesSuggestion: TableIndexSuggestion = {tables: [{name: 'test_table'}]};
+    expect(autocompleteResult.suggestColumns).toBeFalsy();
+    expect(autocompleteResult.suggestTableIndexes).toEqual(indexesSuggestion);
     expect(autocompleteResult.suggestKeywords).toEqual(keywords);
 });
 test('should suggest table name after DROP COLUMN', () => {

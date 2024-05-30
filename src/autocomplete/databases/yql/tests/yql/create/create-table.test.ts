@@ -74,10 +74,17 @@ test('should suggest properly after column schema', () => {
         'CREATE TABLE test_table (test_schema OPTIONAL<String>) |',
     );
     const keywordsSuggestion: KeywordSuggestion[] = [
+        {value: 'AS'},
         {value: 'TABLESTORE'},
         {value: 'WITH'},
         {value: 'PARTITION'},
         {value: 'INHERITS'},
     ];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
+});
+test('should suggest properly after WITH', () => {
+    const autocompleteResult = parseYqlQueryWithCursor('CREATE TABLE test_table WITH |');
+    const keywordsSuggestion: KeywordSuggestion[] = [{value: 'COLUMNS'}, {value: 'SCHEMA'}];
+    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(autocompleteResult.suggestTableHints).toEqual('create_table_stmt');
 });
