@@ -70,6 +70,7 @@ export interface YqlAutocompleteResult extends AutocompleteResultBase {
     suggestTableFunctions?: boolean;
     suggestPragmas?: boolean;
     suggestTableHints?: string;
+    suggestTableSettings?: string;
 }
 
 export interface ParserSyntaxError extends TokenPosition {
