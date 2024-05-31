@@ -1,5 +1,12 @@
 # Changelog
 
+## [8.4.0](https://github.com/gravity-ui/websql-autocomplete/compare/v8.3.0...v8.4.0) (2024-05-31)
+
+
+### Features
+
+* **YQL:** add table settings suggestions ([#190](https://github.com/gravity-ui/websql-autocomplete/issues/190)) ([fb450be](https://github.com/gravity-ui/websql-autocomplete/commit/fb450be94653d11522a8ee50c5efd3c1bd723789))
+
 ## [8.3.0](https://github.com/gravity-ui/websql-autocomplete/compare/v8.2.0...v8.3.0) (2024-05-31)
 
 
