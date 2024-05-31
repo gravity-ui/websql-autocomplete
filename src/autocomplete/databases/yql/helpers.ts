@@ -357,6 +357,16 @@ function getTableHintsSuggestions({
     return allRulesInList([YQLParser.RULE_an_id_hint, YQLParser.RULE_table_hint]);
 }
 
+function getTableSettingsSuggestions({
+    allRulesInList,
+    anyRuleInList,
+}: GetParticularSuggestionProps): boolean | undefined {
+    if (anyRuleInList(YQLParser.RULE_table_setting_value)) {
+        return;
+    }
+    return allRulesInList([YQLParser.RULE_with_table_settings, YQLParser.RULE_an_id]);
+}
+
 const ruleNames = YQLParser.ruleNames;
 
 export function getParticularStatement(ruleList: c3.RuleList): string | undefined {
@@ -415,6 +425,7 @@ export function getGranularSuggestions(
     const suggestFunctions = getFunctionsSuggestions(props);
     const suggestAggregateFunctions = getAggregateFunctionsSuggestions(props);
     const shouldSuggestTableHints = getTableHintsSuggestions(props);
+    const shouldSuggestTableSettings = getTableSettingsSuggestions(props);
 
     return {
         suggestWindowFunctions,
@@ -428,6 +439,9 @@ export function getGranularSuggestions(
         suggestFunctions,
         suggestAggregateFunctions,
         suggestTableHints: shouldSuggestTableHints ? getParticularStatement(ruleList) : undefined,
+        suggestTableSettings: shouldSuggestTableSettings
+            ? getParticularStatement(ruleList)
+            : undefined,
         suggestObject,
         suggestTableStore,
         suggestTable,

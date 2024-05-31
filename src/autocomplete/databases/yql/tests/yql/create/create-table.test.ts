@@ -88,3 +88,19 @@ test('should suggest properly after WITH', () => {
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
     expect(autocompleteResult.suggestTableHints).toEqual('create_table_stmt');
 });
+test('should suggest properly table hints', () => {
+    const autocompleteResult = parseYqlQueryWithCursor('CREATE TABLE test_table WITH (|');
+    const keywordsSuggestion: KeywordSuggestion[] = [{value: 'COLUMNS'}, {value: 'SCHEMA'}];
+    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(autocompleteResult.suggestTableHints).toEqual('create_table_stmt');
+    expect(autocompleteResult.suggestTableSettings).toBeFalsy();
+});
+test('should suggest properly table settings', () => {
+    const autocompleteResult = parseYqlQueryWithCursor(
+        'CREATE TABLE test_table (col1 String) WITH (set1 = 1, |',
+    );
+    const keywordsSuggestion: KeywordSuggestion[] = [];
+    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(autocompleteResult.suggestTableSettings).toEqual('create_table_stmt');
+    expect(autocompleteResult.suggestTableHints).toBeFalsy();
+});
