@@ -194,11 +194,11 @@ function getTopicSuggestions({anyRuleInList}: GetParticularSuggestionProps): boo
     return anyRuleInList([YQLParser.RULE_drop_topic_stmt, YQLParser.RULE_alter_topic_stmt]);
 }
 
-function getViewSuggestions({anyRuleInList}: GetParticularSuggestionProps): boolean | undefined {
-    if (!anyRuleInList(YQLParser.RULE_id_or_at)) {
-        return;
-    }
-    return anyRuleInList(YQLParser.RULE_drop_view_stmt);
+function getViewSuggestions({allRulesInList}: GetParticularSuggestionProps): boolean | undefined {
+    return (
+        allRulesInList([YQLParser.RULE_drop_view_stmt, YQLParser.RULE_id_or_at]) ||
+        allRulesInList([YQLParser.RULE_table_ref, YQLParser.RULE_id_table_or_type])
+    );
 }
 
 function getReplicationSuggestions({
@@ -215,17 +215,21 @@ function getReplicationSuggestions({
 }
 
 function getExternalTableSuggestions({
-    anyRuleInList,
+    allRulesInList,
     tokenStream,
     cursorTokenIndex,
 }: GetParticularSuggestionProps): boolean | undefined {
-    if (!anyRuleInList(YQLParser.RULE_id_or_at)) {
-        return;
-    }
     const hasPreviousTokenExternal = Boolean(
         getPreviousToken(tokenStream, tokenDictionary, cursorTokenIndex, YQLParser.EXTERNAL),
     );
-    return anyRuleInList(YQLParser.RULE_drop_table_stmt) && hasPreviousTokenExternal;
+
+    const externalTableInDropTable =
+        allRulesInList([YQLParser.RULE_id_or_at, YQLParser.RULE_drop_table_stmt]) &&
+        hasPreviousTokenExternal;
+    return (
+        externalTableInDropTable ||
+        allRulesInList([YQLParser.RULE_table_ref, YQLParser.RULE_id_table_or_type])
+    );
 }
 
 function getExternalDatasourceSuggestions({

@@ -67,7 +67,7 @@ test('should suggest keywords after FULL OUTER', () => {
 test('should suggest tables after JOIN', () => {
     const autocompleteResult = parseYqlQueryWithCursor('SELECT * FROM test_table JOIN |');
 
-    expect(autocompleteResult.suggestEntity).toEqual(['table']);
+    expect(autocompleteResult.suggestEntity).toEqual(['table', 'view', 'externalTable']);
     expect(autocompleteResult.suggestAggregateFunctions).toBeFalsy();
     expect(autocompleteResult.suggestWindowFunctions).toBeFalsy();
     expect(autocompleteResult.suggestFunctions).toBeFalsy();
@@ -80,7 +80,7 @@ test('should suggest tables after JOIN between statements', () => {
         'ALTER TABLE before_table DROP COLUMN id; SELECT * FROM test_table JOIN | ; ALTER TABLE after_table DROP COLUMN id;',
     );
 
-    expect(autocompleteResult.suggestEntity).toEqual(['table']);
+    expect(autocompleteResult.suggestEntity).toEqual(['table', 'view', 'externalTable']);
     expect(autocompleteResult.suggestAggregateFunctions).toBeFalsy();
     expect(autocompleteResult.suggestWindowFunctions).toBeFalsy();
     expect(autocompleteResult.suggestFunctions).toBeFalsy();

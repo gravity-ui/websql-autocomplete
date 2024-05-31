@@ -43,7 +43,7 @@ test('should suggest properly after FROM', () => {
 
     const keywordsSuggestion: KeywordSuggestion[] = [{value: 'ANY'}];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
-    expect(autocompleteResult.suggestEntity).toEqual(['table']);
+    expect(autocompleteResult.suggestEntity).toEqual(['table', 'view', 'externalTable']);
 });
 
 test('should suggest properly after *', () => {
@@ -72,7 +72,7 @@ test('should suggest properly after FROM', () => {
 
     const keywordsSuggestion: KeywordSuggestion[] = [{value: 'ANY'}];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
-    expect(autocompleteResult.suggestEntity).toEqual(['table']);
+    expect(autocompleteResult.suggestEntity).toEqual(['table', 'view', 'externalTable']);
     expect(autocompleteResult.suggestTableFunctions).toBeTruthy();
 });
 
@@ -81,7 +81,7 @@ test('should suggest properly after FROM when typing table name', () => {
 
     const keywordsSuggestion: KeywordSuggestion[] = [{value: 'ANY'}];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
-    expect(autocompleteResult.suggestEntity).toEqual(['table']);
+    expect(autocompleteResult.suggestEntity).toEqual(['table', 'view', 'externalTable']);
     expect(autocompleteResult.suggestColumns).toBeFalsy();
 });
 
@@ -90,7 +90,7 @@ test('should suggest tables between statements', () => {
         'SELECT * FROM before_table; SELECT * FROM | ; SELECT * FROM after_table;',
     );
 
-    expect(autocompleteResult.suggestEntity).toEqual(['table']);
+    expect(autocompleteResult.suggestEntity).toEqual(['table', 'view', 'externalTable']);
 });
 
 test('should suggest properly after table name', () => {
@@ -298,7 +298,7 @@ test('should suggest properly after LIMIT', () => {
 
 test('should suggest tables with inline comment', () => {
     const autocompleteResult = parseYqQueryWithCursor('SELECT * FROM | --SELECT * FROM test_table');
-    expect(autocompleteResult.suggestEntity).toEqual(['table']);
+    expect(autocompleteResult.suggestEntity).toEqual(['table', 'view', 'externalTable']);
 });
 
 test('should suggest tables with multiline comment', () => {
@@ -306,7 +306,7 @@ test('should suggest tables with multiline comment', () => {
         'SELECT * FROM | /*SELECT * FROM test_table*/',
     );
 
-    expect(autocompleteResult.suggestEntity).toEqual(['table']);
+    expect(autocompleteResult.suggestEntity).toEqual(['table', 'view', 'externalTable']);
 });
 
 test('should not report errors', () => {
