@@ -1,5 +1,12 @@
 # Changelog
 
+## [8.4.1](https://github.com/gravity-ui/websql-autocomplete/compare/v8.4.0...v8.4.1) (2024-06-04)
+
+
+### Bug Fixes
+
+* **YQL:** suggest entity settings as YQLEntity ([#192](https://github.com/gravity-ui/websql-autocomplete/issues/192)) ([fb478ce](https://github.com/gravity-ui/websql-autocomplete/commit/fb478cef1bf639e9e12ae3d4e5e3fa6f67a8fbc1))
+
 ## [8.4.0](https://github.com/gravity-ui/websql-autocomplete/compare/v8.3.0...v8.4.0) (2024-05-31)
 
 
