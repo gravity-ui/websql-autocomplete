@@ -26,3 +26,10 @@ test('should suggest properly after source name', () => {
     const keywordsSuggestion: KeywordSuggestion[] = [{value: 'WITH'}];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
+test('should suggest properly after WITH', () => {
+    const autocompleteResult = parseYqlQueryWithCursor('CREATE EXTERNAL DATA SOURCE test WITH (|');
+
+    const keywordsSuggestion: KeywordSuggestion[] = [];
+    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(autocompleteResult.suggestEntitySettings).toEqual('externalDataSource');
+});
