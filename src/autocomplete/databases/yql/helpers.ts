@@ -361,7 +361,13 @@ function getEntitySettingsSuggestions({
     allRulesInList,
     anyRuleInList,
 }: GetParticularSuggestionProps): YQLEntity | undefined {
-    if (anyRuleInList([YQLParser.RULE_table_setting_value, YQLParser.RULE_topic_setting_value])) {
+    if (
+        anyRuleInList([
+            YQLParser.RULE_table_setting_value,
+            YQLParser.RULE_topic_setting_value,
+            YQLParser.RULE_topic_consumer_setting_value,
+        ])
+    ) {
         return;
     }
     if (allRulesInList([YQLParser.RULE_with_table_settings, YQLParser.RULE_an_id])) {
@@ -378,6 +384,12 @@ function getEntitySettingsSuggestions({
     }
     if (allRulesInList([YQLParser.RULE_with_topic_settings, YQLParser.RULE_an_id])) {
         return 'topic';
+    }
+    if (allRulesInList([YQLParser.RULE_topic_consumer_with_settings, YQLParser.RULE_an_id])) {
+        return 'topicConsumer';
+    }
+    if (allRulesInList([YQLParser.RULE_replication_settings, YQLParser.RULE_an_id])) {
+        return 'replication';
     }
     return;
 }

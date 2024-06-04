@@ -59,7 +59,8 @@ export type YQLEntity =
     | 'topic'
     | 'group'
     | 'user'
-    | 'tableIndex';
+    | 'tableIndex'
+    | 'topicConsumer';
 
 export interface YqlAutocompleteResult extends AutocompleteResultBase {
     suggestTableIndexes?: TableIndexSuggestion;
