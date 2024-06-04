@@ -22,7 +22,7 @@ type YqlAutocompleteResultPartial = Pick<
     | 'suggestTableFunctions'
     | 'suggestPragmas'
     | 'suggestTableHints'
-    | 'suggestTableSettings'
+    | 'suggestEntitySettings'
 >;
 
 export interface InternalSuggestions

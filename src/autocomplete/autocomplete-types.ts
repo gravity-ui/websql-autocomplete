@@ -59,7 +59,8 @@ export type YQLEntity =
     | 'topic'
     | 'group'
     | 'user'
-    | 'tableIndex';
+    | 'tableIndex'
+    | 'topicConsumer';
 
 export interface YqlAutocompleteResult extends AutocompleteResultBase {
     suggestTableIndexes?: TableIndexSuggestion;
@@ -70,7 +71,7 @@ export interface YqlAutocompleteResult extends AutocompleteResultBase {
     suggestTableFunctions?: boolean;
     suggestPragmas?: boolean;
     suggestTableHints?: string;
-    suggestTableSettings?: string;
+    suggestEntitySettings?: YQLEntity;
 }
 
 export interface ParserSyntaxError extends TokenPosition {

@@ -93,7 +93,7 @@ test('should suggest properly table hints', () => {
     const keywordsSuggestion: KeywordSuggestion[] = [{value: 'COLUMNS'}, {value: 'SCHEMA'}];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
     expect(autocompleteResult.suggestTableHints).toEqual('create_table_stmt');
-    expect(autocompleteResult.suggestTableSettings).toBeFalsy();
+    expect(autocompleteResult.suggestEntitySettings).toBeFalsy();
 });
 test('should suggest properly table settings', () => {
     const autocompleteResult = parseYqlQueryWithCursor(
@@ -101,6 +101,6 @@ test('should suggest properly table settings', () => {
     );
     const keywordsSuggestion: KeywordSuggestion[] = [];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
-    expect(autocompleteResult.suggestTableSettings).toEqual('create_table_stmt');
+    expect(autocompleteResult.suggestEntitySettings).toEqual('table');
     expect(autocompleteResult.suggestTableHints).toBeFalsy();
 });

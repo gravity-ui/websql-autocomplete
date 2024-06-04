@@ -357,14 +357,41 @@ function getTableHintsSuggestions({
     return allRulesInList([YQLParser.RULE_an_id_hint, YQLParser.RULE_table_hint]);
 }
 
-function getTableSettingsSuggestions({
+function getEntitySettingsSuggestions({
     allRulesInList,
     anyRuleInList,
-}: GetParticularSuggestionProps): boolean | undefined {
-    if (anyRuleInList(YQLParser.RULE_table_setting_value)) {
+}: GetParticularSuggestionProps): YQLEntity | undefined {
+    if (
+        anyRuleInList([
+            YQLParser.RULE_table_setting_value,
+            YQLParser.RULE_topic_setting_value,
+            YQLParser.RULE_topic_consumer_setting_value,
+        ])
+    ) {
         return;
     }
-    return allRulesInList([YQLParser.RULE_with_table_settings, YQLParser.RULE_an_id]);
+    if (allRulesInList([YQLParser.RULE_with_table_settings, YQLParser.RULE_an_id])) {
+        if (anyRuleInList(YQLParser.RULE_create_external_data_source_stmt)) {
+            return 'externalDataSource';
+        }
+        if (anyRuleInList(YQLParser.RULE_create_view_stmt)) {
+            return 'view';
+        }
+        if (anyRuleInList(YQLParser.RULE_create_table_stmt)) {
+            return 'table';
+        }
+        return;
+    }
+    if (allRulesInList([YQLParser.RULE_with_topic_settings, YQLParser.RULE_an_id])) {
+        return 'topic';
+    }
+    if (allRulesInList([YQLParser.RULE_topic_consumer_with_settings, YQLParser.RULE_an_id])) {
+        return 'topicConsumer';
+    }
+    if (allRulesInList([YQLParser.RULE_replication_settings, YQLParser.RULE_an_id])) {
+        return 'replication';
+    }
+    return;
 }
 
 const ruleNames = YQLParser.ruleNames;
@@ -425,7 +452,7 @@ export function getGranularSuggestions(
     const suggestFunctions = getFunctionsSuggestions(props);
     const suggestAggregateFunctions = getAggregateFunctionsSuggestions(props);
     const shouldSuggestTableHints = getTableHintsSuggestions(props);
-    const shouldSuggestTableSettings = getTableSettingsSuggestions(props);
+    const suggestEntitySettings = getEntitySettingsSuggestions(props);
 
     return {
         suggestWindowFunctions,
@@ -439,9 +466,7 @@ export function getGranularSuggestions(
         suggestFunctions,
         suggestAggregateFunctions,
         suggestTableHints: shouldSuggestTableHints ? getParticularStatement(ruleList) : undefined,
-        suggestTableSettings: shouldSuggestTableSettings
-            ? getParticularStatement(ruleList)
-            : undefined,
+        suggestEntitySettings,
         suggestObject,
         suggestTableStore,
         suggestTable,

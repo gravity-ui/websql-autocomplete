@@ -29,3 +29,20 @@ test('should suggest properly after FOR', () => {
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
     expect(autocompleteResult.suggestEntity).toEqual(['table']);
 });
+test('should suggest properly after FOR', () => {
+    const autocompleteResult = parseYqlQueryWithCursor(
+        'CREATE ASYNC REPLICATION test FOR target AS target |',
+    );
+
+    const keywordsSuggestion: KeywordSuggestion[] = [{value: 'WITH'}];
+    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
+});
+test('should suggest properly after WITH', () => {
+    const autocompleteResult = parseYqlQueryWithCursor(
+        'CREATE ASYNC REPLICATION test FOR target AS target WITH (|',
+    );
+
+    const keywordsSuggestion: KeywordSuggestion[] = [];
+    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(autocompleteResult.suggestEntitySettings).toEqual('replication');
+});
