@@ -71,6 +71,7 @@ test('should suggest tables after JOIN', () => {
     expect(autocompleteResult.suggestAggregateFunctions).toBeFalsy();
     expect(autocompleteResult.suggestWindowFunctions).toBeFalsy();
     expect(autocompleteResult.suggestFunctions).toBeFalsy();
+    expect(autocompleteResult.suggestSimpleTypes).toBeFalsy();
     expect(autocompleteResult.suggestUdfs).toBeFalsy();
     expect(autocompleteResult.suggestTableFunctions).toBeTruthy();
 });
@@ -84,6 +85,7 @@ test('should suggest tables after JOIN between statements', () => {
     expect(autocompleteResult.suggestAggregateFunctions).toBeFalsy();
     expect(autocompleteResult.suggestWindowFunctions).toBeFalsy();
     expect(autocompleteResult.suggestFunctions).toBeFalsy();
+    expect(autocompleteResult.suggestSimpleTypes).toBeFalsy();
     expect(autocompleteResult.suggestUdfs).toBeFalsy();
     expect(autocompleteResult.suggestTableFunctions).toBeTruthy();
 });
