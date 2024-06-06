@@ -298,8 +298,12 @@ function getColumnsSuggestions({
 
 function getSimpleTypesSuggestions({
     anyRuleInList,
+    allRulesInList,
 }: GetParticularSuggestionProps): boolean | undefined {
-    return anyRuleInList(YQLParser.RULE_type_name_simple);
+    const simpleTypeInExpression =
+        allRulesInList([YQLParser.RULE_id_expr, YQLParser.RULE_select_stmt]) &&
+        !anyRuleInList(YQLParser.RULE_table_ref);
+    return anyRuleInList(YQLParser.RULE_type_name_simple) || simpleTypeInExpression;
 }
 
 function getPragmasSuggestions({

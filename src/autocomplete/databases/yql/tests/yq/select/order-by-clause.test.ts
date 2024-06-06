@@ -36,6 +36,7 @@ function getAfterOrderByCommonExpections(autocompleteResult: YqlAutocompleteResu
     expect(autocompleteResult.suggestAggregateFunctions).toBeTruthy();
     expect(autocompleteResult.suggestWindowFunctions).toBeTruthy();
     expect(autocompleteResult.suggestFunctions).toBeTruthy();
+    expect(autocompleteResult.suggestSimpleTypes).toBeTruthy();
     expect(autocompleteResult.suggestUdfs).toBeTruthy();
     expect(autocompleteResult.suggestTableFunctions).toBeFalsy();
     expect(autocompleteResult.suggestKeywords).toEqual(afterOrderByKeywords);

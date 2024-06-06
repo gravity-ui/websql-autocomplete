@@ -37,6 +37,7 @@ function getAfterWhereCommonExpections(autocompleteResult: YqlAutocompleteResult
     expect(autocompleteResult.suggestAggregateFunctions).toBeFalsy();
     expect(autocompleteResult.suggestWindowFunctions).toBeFalsy();
     expect(autocompleteResult.suggestFunctions).toBeTruthy();
+    expect(autocompleteResult.suggestSimpleTypes).toBeTruthy();
     expect(autocompleteResult.suggestUdfs).toBeTruthy();
     expect(autocompleteResult.suggestTableFunctions).toBeFalsy();
     expect(autocompleteResult.suggestKeywords).toEqual(AfterWhereKeywords);
@@ -66,6 +67,7 @@ test('should suggest properly after WHERE expr', () => {
     expect(autocompleteResult.suggestAggregateFunctions).toBeTruthy();
     expect(autocompleteResult.suggestWindowFunctions).toBeTruthy();
     expect(autocompleteResult.suggestFunctions).toBeTruthy();
+    expect(autocompleteResult.suggestSimpleTypes).toBeTruthy();
     expect(autocompleteResult.suggestUdfs).toBeTruthy();
     expect(autocompleteResult.suggestTableFunctions).toBeFalsy();
     expect(autocompleteResult.suggestKeywords).toEqual(AfterWhereKeywords);

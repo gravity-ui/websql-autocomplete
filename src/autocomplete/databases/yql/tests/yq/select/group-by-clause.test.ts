@@ -42,6 +42,7 @@ function getAfterGroupByCommonExpections(autocompleteResult: YqlAutocompleteResu
     expect(autocompleteResult.suggestAggregateFunctions).toBeFalsy();
     expect(autocompleteResult.suggestWindowFunctions).toBeFalsy();
     expect(autocompleteResult.suggestFunctions).toBeTruthy();
+    expect(autocompleteResult.suggestSimpleTypes).toBeTruthy();
     expect(autocompleteResult.suggestUdfs).toBeTruthy();
     expect(autocompleteResult.suggestTableFunctions).toBeFalsy();
 }

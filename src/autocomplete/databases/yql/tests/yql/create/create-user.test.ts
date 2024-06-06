@@ -45,5 +45,6 @@ test('should suggest properly after PASSWORD', () => {
     ];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
     expect(autocompleteResult.suggestFunctions).toBeFalsy();
+    expect(autocompleteResult.suggestSimpleTypes).toBeFalsy();
     expect(autocompleteResult.suggestUdfs).toBeFalsy();
 });

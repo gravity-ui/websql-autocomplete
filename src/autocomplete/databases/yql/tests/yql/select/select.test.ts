@@ -35,8 +35,9 @@ test('should suggest properly after SELECT', () => {
         {value: 'TAGGED'},
     ];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
-    expect(autocompleteResult.suggestFunctions).toEqual(true);
-    expect(autocompleteResult.suggestUdfs).toEqual(true);
+    expect(autocompleteResult.suggestFunctions).toBeTruthy();
+    expect(autocompleteResult.suggestUdfs).toBeTruthy();
+    expect(autocompleteResult.suggestSimpleTypes).toBeTruthy();
 });
 test('should suggest properly after FROM', () => {
     const autocompleteResult = parseYqlQueryWithCursor('FROM |');
@@ -258,6 +259,7 @@ test('should suggest properly after HAVING', () => {
     ];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
     expect(autocompleteResult.suggestFunctions).toBeTruthy();
+    expect(autocompleteResult.suggestSimpleTypes).toBeTruthy();
     expect(autocompleteResult.suggestUdfs).toBeTruthy();
     expect(autocompleteResult.suggestColumns).toBeTruthy();
 });
@@ -293,6 +295,7 @@ test('should suggest properly after LIMIT', () => {
     ];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
     expect(autocompleteResult.suggestFunctions).toBeTruthy();
+    expect(autocompleteResult.suggestSimpleTypes).toBeTruthy();
     expect(autocompleteResult.suggestUdfs).toBeTruthy();
 });
 
