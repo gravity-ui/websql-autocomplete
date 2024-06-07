@@ -1,5 +1,12 @@
 # Changelog
 
+## [9.1.0](https://github.com/gravity-ui/websql-autocomplete/compare/v9.0.0...v9.1.0) (2024-06-06)
+
+
+### Features
+
+* **YQL:** suggest simple types in expressions ([#194](https://github.com/gravity-ui/websql-autocomplete/issues/194)) ([6c81be6](https://github.com/gravity-ui/websql-autocomplete/commit/6c81be6e5ad61dfbd95fe02d56ffd9ce82728f97))
+
 ## [9.0.0](https://github.com/gravity-ui/websql-autocomplete/compare/v8.4.0...v9.0.0) (2024-06-04)
 
 
