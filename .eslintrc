@@ -6,7 +6,7 @@
         "src/autocomplete/databases/*/generated/**/*",
         "src/autocomplete/databases/*/grammar/**/*"
     ],
-    "plugins": ["filenames"],
+    "plugins": ["filenames", "import"],
     "rules": {
         "array-callback-return": "off",
         "consistent-return": "off",
@@ -23,6 +23,26 @@
             {"blankLine": "always", "prev": "*", "next": "function"},
             {"blankLine": "always", "prev": "export", "next": "*"},
             {"blankLine": "always", "prev": "*", "next": "export"}
-        ]
+        ],
+        "import/no-restricted-paths": ["error", {
+            "zones": [
+                {
+                    "target": "./src/autocomplete/databases/clickhouse/**/*",
+                    "from": "./src/autocomplete/databases/!(clickhouse)/**/*"
+                },
+                {
+                    "target": "./src/autocomplete/databases/mysql/**/*",
+                    "from": "./src/autocomplete/databases/!(mysql)/**/*"
+                },
+                {
+                    "target": "./src/autocomplete/databases/postgresql/**/*",
+                    "from": "./src/autocomplete/databases/!(postgresql)/**/*"
+                },
+                {
+                    "target": "./src/autocomplete/databases/yql/**/*",
+                    "from": "./src/autocomplete/databases/!(yql)/**/*"
+                },
+            ]
+        }]
     }
 }

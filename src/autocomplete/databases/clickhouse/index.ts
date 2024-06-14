@@ -8,6 +8,10 @@ import {clickHouseAutocompleteData} from './clickhouse-autocomplete';
 import {parseQuery, parseQueryWithoutCursor} from '../../shared/autocomplete';
 import {separateQueryAndCursor} from '../../shared/parse-query-with-cursor';
 
+export {ClickHouseLexer} from './generated/ClickHouseLexer';
+
+export {ClickHouseParser} from './generated/ClickHouseParser';
+
 export interface ClickHouseAutocompleteResult extends AutocompleteResultBase {
     suggestViewsOrTables?: TableOrViewSuggestion;
     suggestEngines?: EngineSuggestion;
