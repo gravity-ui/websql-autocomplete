@@ -1,5 +1,4 @@
-import {parsePostgreSqlQueryWithCursor} from '../../../../shared/parse-query-with-cursor';
-import {parsePostgreSqlQueryWithoutCursor} from '../../../../autocomplete';
+import {parsePostgreSqlQueryWithCursor, parsePostgreSqlQueryWithoutCursor} from '../../index';
 
 // TODO Get context of table in COMMENT statement
 test.skip('should suggest properly after COMMENT ON CONSTRAINT', () => {

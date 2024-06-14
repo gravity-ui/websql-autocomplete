@@ -1,10 +1,9 @@
-import {parseMySqlQueryWithCursor} from '../../../../shared/parse-query-with-cursor';
+import {parseMySqlQueryWithCursor, parseMySqlQueryWithoutCursor} from '../../index';
 import {
     ColumnSuggestion,
     KeywordSuggestion,
     TableOrViewSuggestion,
-} from '../../../../autocomplete-types';
-import {parseMySqlQueryWithoutCursor} from '../../../../autocomplete';
+} from '../../../../shared/autocomplete-types';
 
 test('should suggest keywords after INNER', () => {
     const autocompleteResult = parseMySqlQueryWithCursor('SELECT * FROM test_table INNER |');

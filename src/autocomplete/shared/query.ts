@@ -1,6 +1,6 @@
 import {CharStream, CommonTokenStream, Lexer as LexerType, Parser as ParserType} from 'antlr4ng';
 
-import {CursorPosition, LexerConstructor, ParserConstructor} from '../autocomplete-types';
+import {CursorPosition, LexerConstructor, ParserConstructor} from './autocomplete-types';
 import {getCursorIndex} from './cursor';
 
 export function getCurrentStatement(

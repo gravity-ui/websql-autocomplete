@@ -1,5 +1,4 @@
-import {parseMySqlQueryWithCursor} from '../../../../shared/parse-query-with-cursor';
-import {parseMySqlQueryWithoutCursor} from '../../../../autocomplete';
+import {parseMySqlQueryWithCursor, parseMySqlQueryWithoutCursor} from '../../index';
 
 test('should suggest roles after REVOKE', () => {
     const autocompleteResult = parseMySqlQueryWithCursor('REVOKE |');

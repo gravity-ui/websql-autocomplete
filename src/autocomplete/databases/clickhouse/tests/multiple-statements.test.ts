@@ -1,4 +1,4 @@
-import {parseClickHouseQueryWithoutCursor} from '../../../autocomplete';
+import {parseClickHouseQueryWithoutCursor} from '../index';
 
 test('should not report errors on multiple statements', () => {
     const autocompleteResult = parseClickHouseQueryWithoutCursor(`

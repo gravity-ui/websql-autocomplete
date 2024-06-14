@@ -1,6 +1,5 @@
-import {parseMySqlQueryWithCursor} from '../../../../shared/parse-query-with-cursor';
-import {KeywordSuggestion, TableOrViewSuggestion} from '../../../../autocomplete-types';
-import {parseMySqlQueryWithoutCursor} from '../../../../autocomplete';
+import {parseMySqlQueryWithCursor, parseMySqlQueryWithoutCursor} from '../../index';
+import {KeywordSuggestion, TableOrViewSuggestion} from '../../../../shared/autocomplete-types';
 
 test('should suggest triggers after SHOW CREATE TABLE', () => {
     const autocompleteResult = parseMySqlQueryWithCursor('SHOW CREATE TABLE |');

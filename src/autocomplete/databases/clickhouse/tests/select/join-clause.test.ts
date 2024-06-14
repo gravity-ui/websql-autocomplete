@@ -1,10 +1,9 @@
-import {parseClickHouseQueryWithCursor} from '../../../../shared/parse-query-with-cursor';
+import {parseClickHouseQueryWithCursor, parseClickHouseQueryWithoutCursor} from '../../index';
 import {
     ColumnSuggestion,
     KeywordSuggestion,
     TableOrViewSuggestion,
-} from '../../../../autocomplete-types';
-import {parseClickHouseQueryWithoutCursor} from '../../../../autocomplete';
+} from '../../../../shared/autocomplete-types';
 
 test('should suggest keywords after INNER', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor('SELECT * FROM test_table INNER |');

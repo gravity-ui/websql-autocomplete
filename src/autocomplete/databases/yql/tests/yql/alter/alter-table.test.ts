@@ -1,10 +1,9 @@
-import {parseYqlQueryWithoutCursor} from '../../../../../autocomplete';
 import {
     ColumnSuggestion,
     KeywordSuggestion,
     TableIndexSuggestion,
-} from '../../../../../autocomplete-types';
-import {parseYqlQueryWithCursor} from '../../../../../shared/parse-query-with-cursor';
+} from '../../../../../shared/autocomplete-types';
+import {parseYqlQueryWithCursor, parseYqlQueryWithoutCursor} from '../../../index';
 
 test('should suggest keywords after table name', () => {
     const autocompleteResult = parseYqlQueryWithCursor('ALTER TABLE test_table |');

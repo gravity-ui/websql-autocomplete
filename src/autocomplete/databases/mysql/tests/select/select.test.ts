@@ -1,10 +1,9 @@
-import {parseMySqlQueryWithCursor} from '../../../../shared/parse-query-with-cursor';
+import {parseMySqlQueryWithCursor, parseMySqlQueryWithoutCursor} from '../../index';
 import {
     ColumnSuggestion,
     KeywordSuggestion,
     TableOrViewSuggestion,
-} from '../../../../autocomplete-types';
-import {parseMySqlQueryWithoutCursor} from '../../../../autocomplete';
+} from '../../../../shared/autocomplete-types';
 
 test('should suggest properly after SELECT', () => {
     const autocompleteResult = parseMySqlQueryWithCursor('SELECT |');

@@ -1,5 +1,5 @@
-import {KeywordSuggestion, TableOrViewSuggestion} from '../../../../autocomplete-types';
-import {parseMySqlQueryWithCursor} from '../../../../shared/parse-query-with-cursor';
+import {KeywordSuggestion, TableOrViewSuggestion} from '../../../../shared/autocomplete-types';
+import {parseMySqlQueryWithCursor} from '../../index';
 
 test('should suggest keywords after ALTER', () => {
     const autocompleteResult = parseMySqlQueryWithCursor('ALTER |');

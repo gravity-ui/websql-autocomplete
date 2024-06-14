@@ -1,4 +1,4 @@
-import {parseMySqlQueryWithoutCursor} from '../../../autocomplete';
+import {parseMySqlQueryWithoutCursor} from '../index';
 
 test('should not report errors with newlines \n', () => {
     const autocompleteResult = parseMySqlQueryWithoutCursor('SELECT *\n\n\nFROM test_table');

@@ -1,4 +1,4 @@
-import {parsePostgreSqlQueryWithCursor} from '../../../shared/parse-query-with-cursor';
+import {parsePostgreSqlQueryWithCursor} from '../index';
 
 // Checkout isStartingToWriteRule comment for more information about these tests
 
