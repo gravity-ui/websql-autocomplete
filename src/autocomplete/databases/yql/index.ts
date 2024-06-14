@@ -8,6 +8,8 @@ export {YQLLexer} from './generated/YQLLexer';
 
 export {YQLParser} from './generated/YQLParser';
 
+export type {YqlAutocompleteResult};
+
 export function parseYqlQueryWithoutCursor(query: string): Pick<YqlAutocompleteResult, 'errors'> {
     return parseQueryWithoutCursor(
         yqlAutocompleteData.Lexer,

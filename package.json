@@ -12,8 +12,28 @@
     "dist-types/*",
     "dist/*"
   ],
-  "main": "./dist/index.js",
-  "types": "./dist-types/index.d.ts",
+  "exports": {
+    "./clickhouse": "./dist/databases/clickhouse/index.js",
+    "./mysql": "./dist/databases/mysql/index.js",
+    "./postgresql": "./dist/databases/postgresql/index.js",
+    "./yql": "./dist/databases/yql/index.js"
+  },
+  "typesVersions": {
+    "*": {
+      "clickhouse": [
+        "./dist-types/databases/clickhouse/index.d.ts"
+      ],
+      "mysql": [
+        "./dist-types/databases/mysql/index.d.ts"
+      ],
+      "yql": [
+        "./dist-types/databases/yql/index.d.ts"
+      ],
+      "postgresql": [
+        "./dist-types/databases/postgresql/index.d.ts"
+      ]
+    }
+  },
   "engines": {
     "node": ">=16.0"
   },
