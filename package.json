@@ -31,6 +31,9 @@
       ],
       "postgresql": [
         "./dist-types/databases/postgresql/index.d.ts"
+      ],
+      "shared": [
+        "./dist-types/databases/shared/index.d.ts"
       ]
     }
   },
