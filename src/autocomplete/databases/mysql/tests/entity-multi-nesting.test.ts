@@ -1,4 +1,4 @@
-import {parseMySqlQueryWithCursor} from '../../../shared/parse-query-with-cursor';
+import {parseMySqlQueryWithCursor} from '../index';
 
 // Checkout isStartingToWriteRule comment for more information about these tests
 

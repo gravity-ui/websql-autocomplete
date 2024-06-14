@@ -7,10 +7,9 @@ import {
     AutocompleteResultBase,
     CursorPosition,
     ISymbolTableVisitor,
-    MySqlAutocompleteResult,
     ProcessVisitedRulesResult,
     TableOrViewSuggestion,
-} from '../../autocomplete-types.js';
+} from '../../shared/autocomplete-types';
 import {MySqlLexer} from './generated/MySqlLexer.js';
 import {
     AtomTableItemContext,
@@ -27,6 +26,7 @@ import {
 } from '../../shared/tables.js';
 import {isStartingToWriteRule} from '../../shared/cursor';
 import {shouldSuggestTemplates} from '../../shared/query.js';
+import {MySqlAutocompleteResult} from './index.js';
 
 const tokenDictionary: TokenDictionary = {
     SPACE: MySqlParser.SPACE,

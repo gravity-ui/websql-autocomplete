@@ -1,4 +1,4 @@
-import {parseYqlQueryWithoutCursor} from '../../../../autocomplete';
+import {parseYqlQueryWithoutCursor} from '../../index';
 
 test('should not report errors with newlines \n', () => {
     const autocompleteResult = parseYqlQueryWithoutCursor('SELECT *\n\n\nFROM test_table');

@@ -1,6 +1,5 @@
-import {parseYqlQueryWithoutCursor} from '../../../../../autocomplete';
-import {KeywordSuggestion} from '../../../../../autocomplete-types';
-import {parseYqlQueryWithCursor} from '../../../../../shared/parse-query-with-cursor';
+import {KeywordSuggestion} from '../../../../../shared/autocomplete-types';
+import {parseYqlQueryWithCursor, parseYqlQueryWithoutCursor} from '../../../index';
 
 test('should suggest keywords after ASYNC ', () => {
     const autocompleteResult = parseYqlQueryWithCursor('ALTER ASYNC |');

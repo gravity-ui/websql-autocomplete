@@ -5,12 +5,11 @@ import {ColumnAliasSymbol, TableSymbol} from '../../shared/symbol-table.js';
 import {
     AutocompleteData,
     AutocompleteResultBase,
-    ClickHouseAutocompleteResult,
     CursorPosition,
     ISymbolTableVisitor,
     ProcessVisitedRulesResult,
     TableOrViewSuggestion,
-} from '../../autocomplete-types.js';
+} from '../../shared/autocomplete-types.js';
 import {ClickHouseLexer} from './generated/ClickHouseLexer.js';
 import {
     ClickHouseParser,
@@ -27,6 +26,7 @@ import {
 } from '../../shared/tables.js';
 import {isStartingToWriteRule} from '../../shared/cursor';
 import {shouldSuggestTemplates} from '../../shared/query.js';
+import {ClickHouseAutocompleteResult} from './index';
 
 const engines = ['Null', 'Set', 'Log', 'Memory', 'TinyLog', 'StripeLog'];
 

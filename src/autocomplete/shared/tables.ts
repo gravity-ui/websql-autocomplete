@@ -10,7 +10,7 @@ import {
     ParserConstructor,
     SymbolTableVisitor,
     TableContextSuggestion,
-} from '../autocomplete-types';
+} from './autocomplete-types';
 
 interface TableQueryPositionBase {
     start: number;

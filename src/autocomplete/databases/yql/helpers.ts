@@ -2,8 +2,7 @@ import * as c3 from 'antlr4-c3';
 import {type TokenStream} from 'antlr4ng';
 import {YQLParser} from './generated/YQLParser';
 import {type TokenDictionary, getPreviousToken} from '../../shared/tables';
-import {EntitySuggestion, InternalSuggestions} from './types';
-import {YQLEntity} from '../../autocomplete-types';
+import {EntitySuggestion, InternalSuggestions, YQLEntity} from './types';
 
 export const tokenDictionary: TokenDictionary = {
     SPACE: YQLParser.WS,

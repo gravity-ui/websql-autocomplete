@@ -1,6 +1,5 @@
-import {ColumnSuggestion} from '../../../../autocomplete-types';
-import {parsePostgreSqlQueryWithCursor} from '../../../../shared/parse-query-with-cursor';
-import {parsePostgreSqlQueryWithoutCursor} from '../../../../autocomplete';
+import {ColumnSuggestion} from '../../../../shared/autocomplete-types';
+import {parsePostgreSqlQueryWithCursor, parsePostgreSqlQueryWithoutCursor} from '../../index';
 
 test('should suggest table name after DROP COLUMN', () => {
     const autocompleteResult = parsePostgreSqlQueryWithCursor(

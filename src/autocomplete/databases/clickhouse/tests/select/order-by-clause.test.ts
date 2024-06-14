@@ -1,9 +1,9 @@
-import {parseClickHouseQueryWithCursor} from '../../../../shared/parse-query-with-cursor';
+import {parseClickHouseQueryWithCursor} from '../../index';
 import {
     ColumnAliasSuggestion,
     ColumnSuggestion,
     KeywordSuggestion,
-} from '../../../../autocomplete-types';
+} from '../../../../shared/autocomplete-types';
 
 test('should suggest properly after ORDER', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor('SELECT * FROM test_table ORDER |');

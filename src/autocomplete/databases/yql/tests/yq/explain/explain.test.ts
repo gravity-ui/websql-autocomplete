@@ -1,5 +1,5 @@
-import {parseYqQueryWithCursor} from '../../../../../shared/parse-query-with-cursor';
-import {KeywordSuggestion} from '../../../../../autocomplete-types';
+import {parseYqQueryWithCursor} from '../../../index';
+import {KeywordSuggestion} from '../../../../../shared/autocomplete-types';
 
 test('should suggest keywords after EXPLAIN', () => {
     const autocompleteResult = parseYqQueryWithCursor('EXPLAIN |');

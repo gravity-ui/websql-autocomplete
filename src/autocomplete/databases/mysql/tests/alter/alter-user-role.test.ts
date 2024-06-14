@@ -1,6 +1,5 @@
-import {KeywordSuggestion} from '../../../../autocomplete-types';
-import {parseMySqlQueryWithCursor} from '../../../../shared/parse-query-with-cursor';
-import {parseMySqlQueryWithoutCursor} from '../../../../autocomplete';
+import {KeywordSuggestion} from '../../../../shared/autocomplete-types';
+import {parseMySqlQueryWithCursor, parseMySqlQueryWithoutCursor} from '../../index';
 
 test('should suggest table name after ALTER USER ROLE', () => {
     const autocompleteResult = parseMySqlQueryWithCursor('ALTER USER test_user DEFAULT ROLE |');

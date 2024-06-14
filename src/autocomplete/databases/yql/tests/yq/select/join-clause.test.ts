@@ -1,6 +1,5 @@
-import {parseYqQueryWithCursor} from '../../../../../shared/parse-query-with-cursor';
-import {ColumnSuggestion, KeywordSuggestion} from '../../../../../autocomplete-types';
-import {parseYqQueryWithoutCursor} from '../../../../../autocomplete';
+import {parseYqQueryWithCursor, parseYqQueryWithoutCursor} from '../../../index';
+import {ColumnSuggestion, KeywordSuggestion} from '../../../../../shared/autocomplete-types';
 
 test('should suggest keywords after INNER', () => {
     const autocompleteResult = parseYqQueryWithCursor('SELECT * FROM test_table INNER |');

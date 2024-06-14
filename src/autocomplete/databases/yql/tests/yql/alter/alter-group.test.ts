@@ -1,5 +1,5 @@
-import {KeywordSuggestion} from '../../../../../autocomplete-types';
-import {parseYqlQueryWithCursor} from '../../../../../shared/parse-query-with-cursor';
+import {KeywordSuggestion} from '../../../../../shared/autocomplete-types';
+import {parseYqlQueryWithCursor} from '../../../index';
 
 test('should suggest keywords after GROUP ', () => {
     const autocompleteResult = parseYqlQueryWithCursor('ALTER GROUP |');

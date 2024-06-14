@@ -1,5 +1,5 @@
-import {parseYqlQueryWithCursor} from '../../../../../shared/parse-query-with-cursor';
-import {ColumnSuggestion, KeywordSuggestion} from '../../../../../autocomplete-types';
+import {parseYqlQueryWithCursor} from '../../../index';
+import {ColumnSuggestion, KeywordSuggestion} from '../../../../../shared/autocomplete-types';
 
 test('should suggest properly after DELETE', () => {
     const autocompleteResult = parseYqlQueryWithCursor('DELETE |');
