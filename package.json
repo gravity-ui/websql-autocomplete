@@ -20,19 +20,19 @@
   "typesVersions": {
     "*": {
       "clickhouse": [
-        "./dist/databases/clickhouse/index.d.ts"
+        "./dist/types/databases/clickhouse/index.d.ts"
       ],
       "mysql": [
-        "./dist/databases/mysql/index.d.ts"
+        "./dist/types/databases/mysql/index.d.ts"
       ],
       "yql": [
-        "./dist/databases/yql/index.d.ts"
+        "./dist/types/databases/yql/index.d.ts"
       ],
       "postgresql": [
-        "./dist/databases/postgresql/index.d.ts"
+        "./dist/types/databases/postgresql/index.d.ts"
       ],
       "shared": [
-        "./dist/shared/index.d.ts"
+        "./dist/types/shared/index.d.ts"
       ]
     }
   },
