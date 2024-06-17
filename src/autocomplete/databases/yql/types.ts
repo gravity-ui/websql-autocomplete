@@ -1,4 +1,4 @@
-import {YqlAutocompleteResult} from '../../autocomplete-types';
+import {AutocompleteResultBase, TableIndexSuggestion} from '../../shared/autocomplete-types';
 
 export type EntitySuggestion =
     | 'suggestObject'
@@ -31,4 +31,30 @@ export interface InternalSuggestions
     shouldSuggestTableIndexes?: boolean;
     shouldSuggestColumns?: boolean;
     shouldSuggestColumnAliases?: boolean;
+}
+
+export type YQLEntity =
+    | 'externalDataSource'
+    | 'externalTable'
+    | 'view'
+    | 'object'
+    | 'tableStore'
+    | 'table'
+    | 'replication'
+    | 'topic'
+    | 'group'
+    | 'user'
+    | 'tableIndex'
+    | 'topicConsumer';
+
+export interface YqlAutocompleteResult extends AutocompleteResultBase {
+    suggestTableIndexes?: TableIndexSuggestion;
+    suggestEntity?: YQLEntity[];
+    suggestSimpleTypes?: boolean;
+    suggestUdfs?: boolean;
+    suggestWindowFunctions?: boolean;
+    suggestTableFunctions?: boolean;
+    suggestPragmas?: boolean;
+    suggestTableHints?: string;
+    suggestEntitySettings?: YQLEntity;
 }

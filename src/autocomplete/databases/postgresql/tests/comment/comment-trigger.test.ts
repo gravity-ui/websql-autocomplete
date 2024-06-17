@@ -1,6 +1,5 @@
-import {parsePostgreSqlQueryWithCursor} from '../../../../shared/parse-query-with-cursor';
-import {KeywordSuggestion} from '../../../../autocomplete-types';
-import {parsePostgreSqlQueryWithoutCursor} from '../../../../autocomplete';
+import {parsePostgreSqlQueryWithCursor, parsePostgreSqlQueryWithoutCursor} from '../../index';
+import {KeywordSuggestion} from '../../../../shared/autocomplete-types';
 
 test('should suggest properly after COMMENT ON TRIGGER', () => {
     const autocompleteResult = parsePostgreSqlQueryWithCursor('COMMENT ON TRIGGER |');

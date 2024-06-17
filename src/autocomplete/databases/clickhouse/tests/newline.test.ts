@@ -1,4 +1,4 @@
-import {parseClickHouseQueryWithoutCursor} from '../../../autocomplete';
+import {parseClickHouseQueryWithoutCursor} from '../index';
 
 test('should not report errors with newlines \n', () => {
     const autocompleteResult = parseClickHouseQueryWithoutCursor('SELECT *\n\n\nFROM test_table');

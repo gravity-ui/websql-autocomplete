@@ -1,5 +1,5 @@
-import {parseMySqlQueryWithCursor} from '../../../../shared/parse-query-with-cursor';
-import {KeywordSuggestion} from '../../../../autocomplete-types';
+import {parseMySqlQueryWithCursor} from '../../index';
+import {KeywordSuggestion} from '../../../../shared/autocomplete-types';
 
 test('should suggest properly after SCHEMA', () => {
     const autocompleteResult = parseMySqlQueryWithCursor('CREATE SCHEMA |');

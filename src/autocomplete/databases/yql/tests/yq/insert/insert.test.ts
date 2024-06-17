@@ -1,5 +1,5 @@
-import {parseYqQueryWithCursor} from '../../../../../shared/parse-query-with-cursor';
-import {ColumnSuggestion, KeywordSuggestion} from '../../../../../autocomplete-types';
+import {parseYqQueryWithCursor} from '../../../index';
+import {ColumnSuggestion, KeywordSuggestion} from '../../../../../shared/autocomplete-types';
 
 test('should suggest properly after INSERT', () => {
     const autocompleteResult = parseYqQueryWithCursor('INSERT |');

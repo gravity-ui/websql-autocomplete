@@ -1,4 +1,4 @@
-import {parsePostgreSqlQueryWithoutCursor} from '../../../../autocomplete';
+import {parsePostgreSqlQueryWithoutCursor} from '../../index';
 
 test('should nor report errors on full statement', () => {
     const autocompleteResult = parsePostgreSqlQueryWithoutCursor(

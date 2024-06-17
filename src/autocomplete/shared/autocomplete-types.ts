@@ -10,8 +10,8 @@ import {
 } from 'antlr4ng';
 import * as c3 from 'antlr4-c3';
 
-import {TokenPosition} from './shared/cursor';
-import {TableQueryPosition, TokenDictionary} from './shared/tables';
+import {TokenPosition} from './cursor';
+import {TableQueryPosition, TokenDictionary} from './tables';
 
 export interface AutocompleteResultBase {
     errors: ParserSyntaxError[];
@@ -22,56 +22,6 @@ export interface AutocompleteResultBase {
     suggestColumns?: ColumnSuggestion;
     suggestColumnAliases?: ColumnAliasSuggestion[];
     suggestDatabases?: boolean;
-}
-
-export interface MySqlAutocompleteResult extends AutocompleteResultBase {
-    suggestViewsOrTables?: TableOrViewSuggestion;
-    suggestIndexes?: boolean;
-    suggestTriggers?: boolean;
-    suggestConstraints?: ConstraintSuggestion;
-    suggestRoles?: boolean;
-    suggestUsers?: boolean;
-}
-
-export interface PostgreSqlAutocompleteResult extends AutocompleteResultBase {
-    suggestViewsOrTables?: TableOrViewSuggestion;
-    suggestIndexes?: boolean;
-    suggestTriggers?: boolean;
-    suggestConstraints?: ConstraintSuggestion;
-    suggestSequences?: boolean;
-    suggestSchemas?: boolean;
-    suggestRoles?: boolean;
-}
-
-export interface ClickHouseAutocompleteResult extends AutocompleteResultBase {
-    suggestViewsOrTables?: TableOrViewSuggestion;
-    suggestEngines?: EngineSuggestion;
-}
-
-export type YQLEntity =
-    | 'externalDataSource'
-    | 'externalTable'
-    | 'view'
-    | 'object'
-    | 'tableStore'
-    | 'table'
-    | 'replication'
-    | 'topic'
-    | 'group'
-    | 'user'
-    | 'tableIndex'
-    | 'topicConsumer';
-
-export interface YqlAutocompleteResult extends AutocompleteResultBase {
-    suggestTableIndexes?: TableIndexSuggestion;
-    suggestEntity?: YQLEntity[];
-    suggestSimpleTypes?: boolean;
-    suggestUdfs?: boolean;
-    suggestWindowFunctions?: boolean;
-    suggestTableFunctions?: boolean;
-    suggestPragmas?: boolean;
-    suggestTableHints?: string;
-    suggestEntitySettings?: YQLEntity;
 }
 
 export interface ParserSyntaxError extends TokenPosition {

@@ -1,5 +1,5 @@
-import {parseYqQueryWithCursor} from '../../../../../shared/parse-query-with-cursor';
-import {KeywordSuggestion} from '../../../../../autocomplete-types';
+import {parseYqQueryWithCursor} from '../../../index';
+import {KeywordSuggestion} from '../../../../../shared/autocomplete-types';
 
 test('should suggest properly after PRAGMA', () => {
     const autocompleteResult = parseYqQueryWithCursor('PRAGMA |');

@@ -1,6 +1,5 @@
-import {ColumnSuggestion} from '../../../../autocomplete-types';
-import {parseClickHouseQueryWithCursor} from '../../../../shared/parse-query-with-cursor';
-import {parseClickHouseQueryWithoutCursor} from '../../../../autocomplete';
+import {ColumnSuggestion} from '../../../../shared/autocomplete-types';
+import {parseClickHouseQueryWithCursor, parseClickHouseQueryWithoutCursor} from '../../index';
 
 test('should suggest table name after MODIFY COLUMN', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor(

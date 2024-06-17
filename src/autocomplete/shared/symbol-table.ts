@@ -1,5 +1,5 @@
 import * as c3 from 'antlr4-c3';
-import {ColumnAliasSuggestion, SymbolTableVisitor, Table} from '../autocomplete-types';
+import {ColumnAliasSuggestion, SymbolTableVisitor, Table} from './autocomplete-types';
 
 export class TableSymbol extends c3.TypedSymbol {
     name: string;

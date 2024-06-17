@@ -1,11 +1,18 @@
 import {build} from 'esbuild';
 
-build({
-    entryPoints: ['src/index.ts'],
-    external: ['antlr4ng', 'antlr4-c3'],
-    bundle: true,
-    minify: true,
-    format: 'esm',
-    outfile: 'dist/index.js',
-    tsconfig: './tsconfig.build.json',
-});
+// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+(async () => {
+    const databases = ['clickhouse', 'mysql', 'postgresql', 'yql'];
+
+    for (const database of databases) {
+        await build({
+            external: ['antlr4ng', 'antlr4-c3'],
+            bundle: true,
+            minify: true,
+            format: 'esm',
+            tsconfig: './tsconfig.build.json',
+            entryPoints: [`src/autocomplete/databases/${database}/index.ts`],
+            outfile: `dist/databases/${database}/index.js`,
+        });
+    }
+})();

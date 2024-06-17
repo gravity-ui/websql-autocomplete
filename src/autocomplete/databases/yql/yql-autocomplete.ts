@@ -22,14 +22,13 @@ import {
     GetParseTree,
     ISymbolTableVisitor,
     ProcessVisitedRulesResult,
-    YqlAutocompleteResult,
-} from '../../autocomplete-types.js';
+} from '../../shared/autocomplete-types';
 import {ColumnAliasSymbol, TableSymbol} from '../../shared/symbol-table.js';
-import {TableQueryPosition, getContextSuggestions} from '../../shared/tables.js';
+import {TableQueryPosition, getContextSuggestions} from '../../shared/tables';
 import {isStartingToWriteRule} from '../../shared/cursor.js';
 import {shouldSuggestTemplates} from '../../shared/query.js';
 import {EntitySuggestionToYqlEntity, getGranularSuggestions, tokenDictionary} from './helpers';
-import {EntitySuggestion, InternalSuggestions} from './types';
+import {EntitySuggestion, InternalSuggestions, YqlAutocompleteResult} from './types';
 
 // These are keywords that we do not want to show in autocomplete
 function getIgnoredTokens(): number[] {
