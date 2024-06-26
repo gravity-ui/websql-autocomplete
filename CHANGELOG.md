@@ -1,5 +1,12 @@
 # Changelog
 
+## [9.1.1](https://github.com/gravity-ui/websql-autocomplete/compare/v9.1.0...v9.1.1) (2024-06-26)
+
+
+### Bug Fixes
+
+* add option to esbuild to prevent constructor names being changed, causing conflicts in parsers ([#198](https://github.com/gravity-ui/websql-autocomplete/issues/198)) ([987468a](https://github.com/gravity-ui/websql-autocomplete/commit/987468a67e0923ba4d48af917fb86ebc5e7bf67a))
+
 ## [9.1.0](https://github.com/gravity-ui/websql-autocomplete/compare/v9.0.0...v9.1.0) (2024-06-06)
 
 
