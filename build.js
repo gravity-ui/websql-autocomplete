@@ -5,6 +5,7 @@ build({
     external: ['antlr4ng', 'antlr4-c3'],
     bundle: true,
     minify: true,
+    keepNames: true,
     format: 'esm',
     outfile: 'dist/index.js',
     tsconfig: './tsconfig.build.json',
