@@ -1,6 +1,5 @@
-import {parseMySqlQueryWithCursor} from '../../../../shared/parse-query-with-cursor';
-import {KeywordSuggestion} from '../../../../autocomplete-types';
-import {parseMySqlQueryWithoutCursor} from '../../../../autocomplete';
+import {parseMySqlQueryWithCursor, parseMySqlQueryWithoutCursor} from '../../index';
+import {KeywordSuggestion} from '../../../../shared/autocomplete-types';
 
 test('should suggest table name after ALTER INDEX', () => {
     const autocompleteResult = parseMySqlQueryWithCursor('ALTER TABLE test_table ALTER INDEX |');

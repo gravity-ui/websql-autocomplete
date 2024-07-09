@@ -1,5 +1,5 @@
-import {parsePostgreSqlQueryWithCursor} from '../../../../shared/parse-query-with-cursor';
-import {KeywordSuggestion} from '../../../../autocomplete-types';
+import {parsePostgreSqlQueryWithCursor} from '../../index';
+import {KeywordSuggestion} from '../../../../shared/autocomplete-types';
 
 test('should suggest properly after USER', () => {
     const autocompleteResult = parsePostgreSqlQueryWithCursor('CREATE USER |');

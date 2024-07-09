@@ -1,5 +1,5 @@
-import {KeywordSuggestion} from '../../../../autocomplete-types';
-import {parseClickHouseQueryWithCursor} from '../../../../shared/parse-query-with-cursor';
+import {KeywordSuggestion} from '../../../../shared/autocomplete-types';
+import {parseClickHouseQueryWithCursor} from '../../index';
 
 test('should suggest properly after DATABASE', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor('CREATE DATABASE |');

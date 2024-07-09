@@ -1,6 +1,5 @@
-import {parseMySqlQueryWithCursor} from '../../../../shared/parse-query-with-cursor';
-import {parseMySqlQueryWithoutCursor} from '../../../../autocomplete';
-import {ConstraintSuggestion} from '../../../../autocomplete-types';
+import {parseMySqlQueryWithCursor, parseMySqlQueryWithoutCursor} from '../../index';
+import {ConstraintSuggestion} from '../../../../shared/autocomplete-types';
 
 test('should suggest table name after DROP CONSTRAINT', () => {
     const autocompleteResult = parseMySqlQueryWithCursor(

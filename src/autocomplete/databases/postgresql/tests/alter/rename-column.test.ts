@@ -1,6 +1,5 @@
-import {ColumnSuggestion, KeywordSuggestion} from '../../../../autocomplete-types';
-import {parsePostgreSqlQueryWithCursor} from '../../../../shared/parse-query-with-cursor';
-import {parsePostgreSqlQueryWithoutCursor} from '../../../../autocomplete';
+import {ColumnSuggestion, KeywordSuggestion} from '../../../../shared/autocomplete-types';
+import {parsePostgreSqlQueryWithCursor, parsePostgreSqlQueryWithoutCursor} from '../../index';
 
 test('should suggest view name after RENAME COLUMN', () => {
     const autocompleteResult = parsePostgreSqlQueryWithCursor(

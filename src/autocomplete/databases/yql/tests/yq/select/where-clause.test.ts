@@ -1,10 +1,6 @@
-import {parseYqQueryWithCursor} from '../../../../../shared/parse-query-with-cursor';
-import {
-    ColumnSuggestion,
-    KeywordSuggestion,
-    YqlAutocompleteResult,
-} from '../../../../../autocomplete-types';
-import {parseYqQueryWithoutCursor} from '../../../../../autocomplete';
+import {parseYqQueryWithCursor, parseYqQueryWithoutCursor} from '../../../index';
+import {ColumnSuggestion, KeywordSuggestion} from '../../../../../shared/autocomplete-types';
+import {YqlAutocompleteResult} from '../../../types';
 
 const AfterWhereKeywords: KeywordSuggestion[] = [
     {value: 'NULL'},

@@ -1,9 +1,9 @@
-import {parseMySqlQueryWithCursor} from '../../../../shared/parse-query-with-cursor';
+import {parseMySqlQueryWithCursor} from '../../index';
 import {
     ColumnAliasSuggestion,
     ColumnSuggestion,
     KeywordSuggestion,
-} from '../../../../autocomplete-types';
+} from '../../../../shared/autocomplete-types';
 
 test('should suggest properly after GROUP', () => {
     const autocompleteResult = parseMySqlQueryWithCursor('SELECT * FROM test_table as t GROUP |');

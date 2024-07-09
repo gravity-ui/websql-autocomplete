@@ -1,5 +1,4 @@
-import {parseMySqlQueryWithCursor} from '../../../../shared/parse-query-with-cursor';
-import {parseMySqlQueryWithoutCursor} from '../../../../autocomplete';
+import {parseMySqlQueryWithCursor, parseMySqlQueryWithoutCursor} from '../../index';
 
 test('should suggest keywords after GRANT', () => {
     const autocompleteResult = parseMySqlQueryWithCursor('GRANT |');

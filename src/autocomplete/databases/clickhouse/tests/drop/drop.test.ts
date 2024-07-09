@@ -1,6 +1,5 @@
-import {KeywordSuggestion, TableOrViewSuggestion} from '../../../../autocomplete-types';
-import {parseClickHouseQueryWithCursor} from '../../../../shared/parse-query-with-cursor';
-import {parseClickHouseQueryWithoutCursor} from '../../../../autocomplete';
+import {KeywordSuggestion, TableOrViewSuggestion} from '../../../../shared/autocomplete-types';
+import {parseClickHouseQueryWithCursor, parseClickHouseQueryWithoutCursor} from '../../index';
 
 test('should suggest keywords after DROP', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor('DROP |');

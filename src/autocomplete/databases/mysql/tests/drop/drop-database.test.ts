@@ -1,6 +1,5 @@
-import {parseMySqlQueryWithCursor} from '../../../../shared/parse-query-with-cursor';
-import {KeywordSuggestion} from '../../../../autocomplete-types';
-import {parseMySqlQueryWithoutCursor} from '../../../../autocomplete';
+import {parseMySqlQueryWithCursor, parseMySqlQueryWithoutCursor} from '../../index';
+import {KeywordSuggestion} from '../../../../shared/autocomplete-types';
 
 test('should suggest table name after DROP', () => {
     const autocompleteResult = parseMySqlQueryWithCursor('DROP DATABASE |');

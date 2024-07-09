@@ -7,10 +7,9 @@ import {
     AutocompleteResultBase,
     CursorPosition,
     ISymbolTableVisitor,
-    PostgreSqlAutocompleteResult,
     ProcessVisitedRulesResult,
     TableOrViewSuggestion,
-} from '../../autocomplete-types.js';
+} from '../../shared/autocomplete-types.js';
 import {PostgreSqlLexer} from './generated/PostgreSqlLexer.js';
 import {
     InsertTargetContext,
@@ -29,6 +28,7 @@ import {
 } from '../../shared/tables.js';
 import {isStartingToWriteRule} from '../../shared/cursor';
 import {shouldSuggestTemplates} from '../../shared/query.js';
+import {PostgreSqlAutocompleteResult} from './index.js';
 
 const tokenDictionary: TokenDictionary = {
     SPACE: PostgreSqlParser.Whitespace,

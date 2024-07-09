@@ -1,5 +1,5 @@
-import {ColumnSuggestion, KeywordSuggestion} from '../../../../../autocomplete-types';
-import {parseYqlQueryWithCursor} from '../../../../../shared/parse-query-with-cursor';
+import {ColumnSuggestion, KeywordSuggestion} from '../../../../../shared/autocomplete-types';
+import {parseYqlQueryWithCursor} from '../../../index';
 
 test('should suggest keywords after TABLESTORE ', () => {
     const autocompleteResult = parseYqlQueryWithCursor('ALTER TABLESTORE |');

@@ -1,6 +1,5 @@
-import {parseYqlQueryWithCursor} from '../../../../../shared/parse-query-with-cursor';
-import {ColumnSuggestion, KeywordSuggestion} from '../../../../../autocomplete-types';
-import {parseYqlQueryWithoutCursor} from '../../../../../autocomplete';
+import {parseYqlQueryWithCursor, parseYqlQueryWithoutCursor} from '../../../index';
+import {ColumnSuggestion, KeywordSuggestion} from '../../../../../shared/autocomplete-types';
 
 test('should suggest properly after SELECT', () => {
     const autocompleteResult = parseYqlQueryWithCursor('SELECT |');

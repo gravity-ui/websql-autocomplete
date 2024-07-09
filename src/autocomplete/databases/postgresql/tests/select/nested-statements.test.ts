@@ -1,6 +1,5 @@
-import {parsePostgreSqlQueryWithCursor} from '../../../../shared/parse-query-with-cursor';
-import {ColumnSuggestion, KeywordSuggestion} from '../../../../autocomplete-types';
-import {parsePostgreSqlQueryWithoutCursor} from '../../../../autocomplete';
+import {parsePostgreSqlQueryWithCursor, parsePostgreSqlQueryWithoutCursor} from '../../index';
+import {ColumnSuggestion, KeywordSuggestion} from '../../../../shared/autocomplete-types';
 
 test('should suggest nested SELECT', () => {
     const autocompleteResult = parsePostgreSqlQueryWithCursor('SELECT * FROM (|');

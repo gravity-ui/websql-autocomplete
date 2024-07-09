@@ -1,6 +1,5 @@
-import {parseClickHouseQueryWithCursor} from '../../../../shared/parse-query-with-cursor';
-import {KeywordSuggestion} from '../../../../autocomplete-types';
-import {parseClickHouseQueryWithoutCursor} from '../../../../autocomplete';
+import {parseClickHouseQueryWithCursor, parseClickHouseQueryWithoutCursor} from '../../index';
+import {KeywordSuggestion} from '../../../../shared/autocomplete-types';
 
 test('should suggest keywords after SHOW TABLES', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor('SHOW TABLES FROM |');
