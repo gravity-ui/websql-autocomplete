@@ -1,5 +1,12 @@
 # Changelog
 
+## [10.0.0](https://github.com/gravity-ui/websql-autocomplete/compare/v9.1.1...v10.0.0) (2024-07-09)
+
+
+### ⚠ BREAKING CHANGES
+
+* modular assembly ([#202](https://github.com/gravity-ui/websql-autocomplete/issues/202))
+
 ## [9.1.1](https://github.com/gravity-ui/websql-autocomplete/compare/v9.1.0...v9.1.1) (2024-06-26)
 
 
