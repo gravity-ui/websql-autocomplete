@@ -4,10 +4,6 @@ import {parseQuery, parseQueryWithoutCursor} from '../../shared/autocomplete';
 import {separateQueryAndCursor} from '../../shared/parse-query-with-cursor';
 import {YqlAutocompleteResult} from './types';
 
-export {YQLLexer} from './generated/YQLLexer';
-
-export {YQLParser} from './generated/YQLParser';
-
 export type {YqlAutocompleteResult};
 
 export function parseYqlQueryWithoutCursor(query: string): Pick<YqlAutocompleteResult, 'errors'> {

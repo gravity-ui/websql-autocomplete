@@ -8,10 +8,6 @@ import {mySqlAutocompleteData} from './mysql-autocomplete';
 import {parseQuery, parseQueryWithoutCursor} from '../../shared/autocomplete';
 import {separateQueryAndCursor} from '../../shared/parse-query-with-cursor';
 
-export {MySqlLexer} from './generated/MySqlLexer';
-
-export {MySqlParser} from './generated/MySqlParser';
-
 export interface MySqlAutocompleteResult extends AutocompleteResultBase {
     suggestViewsOrTables?: TableOrViewSuggestion;
     suggestIndexes?: boolean;
