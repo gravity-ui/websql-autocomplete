@@ -2,7 +2,9 @@ import {CursorPosition} from '../../shared/autocomplete-types';
 import {yqlAutocompleteData, yqlAutocompleteDataYQ} from './yql-autocomplete';
 import {parseQuery, parseQueryWithoutCursor} from '../../shared/autocomplete';
 import {separateQueryAndCursor} from '../../shared/parse-query-with-cursor';
-import {YqlAutocompleteResult} from './types';
+import {YqlAutocompleteResult, YqlTokenizeResult} from './types';
+import {tokenize} from '../../shared/tokenize';
+import {YQLLexer} from './generated/YQLLexer';
 
 export type {YqlAutocompleteResult};
 
@@ -62,4 +64,8 @@ export function parseYqlQueryWithCursor(queryWithCursor: string): YqlAutocomplet
 
 export function parseYqQueryWithCursor(queryWithCursor: string): YqlAutocompleteResult {
     return parseYqQuery(...separateQueryAndCursor(queryWithCursor));
+}
+
+export function tokenizeYqlQuery(query: string): YqlTokenizeResult {
+    return tokenize(YQLLexer, YQLLexer.symbolicNames, query);
 }

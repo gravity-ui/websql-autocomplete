@@ -58,3 +58,8 @@ export function createParser<L extends LexerType, P extends ParserType>(
 
     return parser;
 }
+
+export function createLexer<L extends LexerType>(Lexer: LexerConstructor<L>, query: string): L {
+    const inputStream = CharStream.fromString(query);
+    return new Lexer(inputStream);
+}
