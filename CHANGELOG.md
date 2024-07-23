@@ -1,5 +1,12 @@
 # Changelog
 
+## [10.1.0](https://github.com/gravity-ui/websql-autocomplete/compare/v10.0.0...v10.1.0) (2024-07-23)
+
+
+### Features
+
+* **YQL:** add tokenize method for YQL ([#205](https://github.com/gravity-ui/websql-autocomplete/issues/205)) ([8c2f69a](https://github.com/gravity-ui/websql-autocomplete/commit/8c2f69a05dd3308391f46624159074c3f44e8898))
+
 ## [10.0.0](https://github.com/gravity-ui/websql-autocomplete/compare/v9.1.1...v10.0.0) (2024-07-09)
 
 
