@@ -12,6 +12,7 @@
         "consistent-return": "off",
         "no-negated-condition": "off",
         "@typescript-eslint/explicit-function-return-type": "error",
+        "@typescript-eslint/array-type": ["error", { "default": "array" }],
         "object-shorthand": "error",
         "no-implicit-globals": "off",
         "camelcase": "off",
