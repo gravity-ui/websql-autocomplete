@@ -18,7 +18,7 @@ const EOF = -1;
 
 export function tokenize<L extends LexerType>(
     Lexer: LexerConstructor<L>,
-    symbolicNames: Array<string | null>,
+    symbolicNames: (string | null)[],
     query: string,
 ): TokenizeResult {
     const lexer = createLexer(Lexer, query);
@@ -27,7 +27,7 @@ export function tokenize<L extends LexerType>(
     lexer.removeErrorListeners();
     lexer.addErrorListener(errorListener);
 
-    const tokens: Array<Token> = [];
+    const tokens: Token[] = [];
 
     let done = false;
     do {
@@ -35,8 +35,13 @@ export function tokenize<L extends LexerType>(
         if (token === null || token.type === EOF) {
             done = true;
         } else {
-            const tokenName = symbolicNames[token.type] as string;
-            tokens.push({ruleName: tokenName, startIndex: token.column});
+            const tokenName = symbolicNames[token.type];
+            if (tokenName) {
+                tokens.push({
+                    ruleName: tokenName,
+                    startIndex: token.column,
+                });
+            }
         }
     } while (!done);
 
