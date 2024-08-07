@@ -14,8 +14,8 @@ root
 
 // We can omit newline only if it's the last statement
 commands
-    : command NEWLINE?
-    | command NEWLINE commands
+    : command NEWLINE*
+    | command NEWLINE+ commands
     ;
 
 command
