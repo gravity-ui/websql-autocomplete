@@ -26,7 +26,12 @@ command
     ;
 
 setCommand
-    : SET keyName identifier (NX | XX)? GET? expirationClause?
+    : SET keyName identifier keyExistenceClause? GET? expirationClause?
+    ;
+
+keyExistenceClause
+    : NX
+    | XX
     ;
 
 expirationClause

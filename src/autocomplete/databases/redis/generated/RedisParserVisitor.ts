@@ -16,6 +16,7 @@ import { RootContext } from "./RedisParser.js";
 import { CommandsContext } from "./RedisParser.js";
 import { CommandContext } from "./RedisParser.js";
 import { SetCommandContext } from "./RedisParser.js";
+import { KeyExistenceClauseContext } from "./RedisParser.js";
 import { ExpirationClauseContext } from "./RedisParser.js";
 import { GetCommandContext } from "./RedisParser.js";
 import { IncrementCommandContext } from "./RedisParser.js";
@@ -56,6 +57,12 @@ export class RedisParserVisitor<Result> extends AbstractParseTreeVisitor<Result>
      * @return the visitor result
      */
     visitSetCommand?: (ctx: SetCommandContext) => Result;
+    /**
+     * Visit a parse tree produced by `RedisParser.keyExistenceClause`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitKeyExistenceClause?: (ctx: KeyExistenceClauseContext) => Result;
     /**
      * Visit a parse tree produced by `RedisParser.expirationClause`.
      * @param ctx the parse tree

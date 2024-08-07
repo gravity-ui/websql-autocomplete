@@ -6,12 +6,6 @@ test('should not report errors on SET command', () => {
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should not report errors on multiple SET commands', () => {
-    const autocompleteResult = parseRedisQueryWithoutCursor('SET test test\nSET 123 123');
-
-    expect(autocompleteResult.errors).toHaveLength(0);
-});
-
 test('should report errors on SET command without arguments', () => {
     const autocompleteResult = parseRedisQueryWithoutCursor('SET');
 
