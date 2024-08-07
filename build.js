@@ -1,6 +1,6 @@
 import {build} from 'esbuild';
 
-const databases = ['clickhouse', 'mysql', 'postgresql', 'yql'];
+const databases = ['clickhouse', 'mysql', 'postgresql', 'yql', 'redis'];
 
 build({
     external: ['antlr4ng', 'antlr4-c3'],

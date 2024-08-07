@@ -1,7 +1,7 @@
 DIALECT=$1
 
 # Check that dialect is correct
-if [ "$DIALECT" != "mysql" ] && [ "$DIALECT" != "postgresql" ] && [ "$DIALECT" != "clickhouse" ] && [ "$DIALECT" != "yql" ]
+if [ "$DIALECT" != "mysql" ] && [ "$DIALECT" != "postgresql" ] && [ "$DIALECT" != "clickhouse" ] && [ "$DIALECT" != "yql" ] && [ "$DIALECT" != "redis" ]
 then
   echo "dialect '$DIALECT' is not supported"
   exit 0
@@ -17,6 +17,9 @@ then
 elif [ "$DIALECT" == "yql" ]
 then
   FILE_PREFIX=src/autocomplete/databases/$DIALECT/generated/YQL
+elif [ "$DIALECT" == "redis" ]
+then
+  FILE_PREFIX=src/autocomplete/databases/$DIALECT/generated/Redis
 else
   FILE_PREFIX=src/autocomplete/databases/$DIALECT/generated/ClickHouse
 fi

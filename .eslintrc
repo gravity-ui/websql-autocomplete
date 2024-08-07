@@ -43,6 +43,10 @@
                     "target": "./src/autocomplete/databases/yql/**/*",
                     "from": "./src/autocomplete/databases/!(yql)/**/*"
                 },
+                {
+                    "target": "./src/autocomplete/databases/redis/**/*",
+                    "from": "./src/autocomplete/databases/!(redis)/**/*"
+                }
             ]
         }]
     }
