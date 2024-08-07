@@ -10,8 +10,8 @@ options {
 
 // Spaces
 
-SPACE   : [ \t]+              -> channel (HIDDEN);
-NEWLINE : ('\r' '\n'? | '\n') -> channel (HIDDEN);
+SPACE   : [ \t]+ -> channel (HIDDEN);
+NEWLINE : ('\r' '\n'? | '\n');
 
 // Keywords
 
