@@ -24,7 +24,7 @@ export function parsePostgreSqlQueryWithoutCursor(
     return parseQueryWithoutCursor(
         postgreSqlAutocompleteData.Lexer,
         postgreSqlAutocompleteData.Parser,
-        postgreSqlAutocompleteData.tokenDictionary,
+        postgreSqlAutocompleteData.tokenDictionary.SPACE,
         postgreSqlAutocompleteData.getParseTree,
         query,
     );
@@ -37,7 +37,7 @@ export function parsePostgreSqlQuery(
     return parseQuery(
         postgreSqlAutocompleteData.Lexer,
         postgreSqlAutocompleteData.Parser,
-        postgreSqlAutocompleteData.tokenDictionary,
+        postgreSqlAutocompleteData.tokenDictionary.SPACE,
         postgreSqlAutocompleteData.ignoredTokens,
         postgreSqlAutocompleteData.rulesToVisit,
         postgreSqlAutocompleteData.getParseTree,

@@ -12,7 +12,7 @@ export function parseYqlQueryWithoutCursor(query: string): Pick<YqlAutocompleteR
     return parseQueryWithoutCursor(
         yqlAutocompleteData.Lexer,
         yqlAutocompleteData.Parser,
-        yqlAutocompleteData.tokenDictionary,
+        yqlAutocompleteData.tokenDictionary.SPACE,
         yqlAutocompleteData.getParseTree,
         query,
     );
@@ -22,7 +22,7 @@ export function parseYqlQuery(query: string, cursor: CursorPosition): YqlAutocom
     return parseQuery(
         yqlAutocompleteData.Lexer,
         yqlAutocompleteData.Parser,
-        yqlAutocompleteData.tokenDictionary,
+        yqlAutocompleteData.tokenDictionary.SPACE,
         yqlAutocompleteData.ignoredTokens,
         yqlAutocompleteData.rulesToVisit,
         yqlAutocompleteData.getParseTree,
@@ -37,7 +37,7 @@ export function parseYqQueryWithoutCursor(query: string): Pick<YqlAutocompleteRe
     return parseQueryWithoutCursor(
         yqlAutocompleteDataYQ.Lexer,
         yqlAutocompleteDataYQ.Parser,
-        yqlAutocompleteDataYQ.tokenDictionary,
+        yqlAutocompleteDataYQ.tokenDictionary.SPACE,
         yqlAutocompleteDataYQ.getParseTree,
         query,
     );
@@ -47,7 +47,7 @@ export function parseYqQuery(query: string, cursor: CursorPosition): YqlAutocomp
     return parseQuery(
         yqlAutocompleteDataYQ.Lexer,
         yqlAutocompleteDataYQ.Parser,
-        yqlAutocompleteDataYQ.tokenDictionary,
+        yqlAutocompleteDataYQ.tokenDictionary.SPACE,
         yqlAutocompleteDataYQ.ignoredTokens,
         yqlAutocompleteDataYQ.rulesToVisit,
         yqlAutocompleteDataYQ.getParseTree,

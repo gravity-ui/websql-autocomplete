@@ -23,7 +23,7 @@ export function parseMySqlQueryWithoutCursor(
     return parseQueryWithoutCursor(
         mySqlAutocompleteData.Lexer,
         mySqlAutocompleteData.Parser,
-        mySqlAutocompleteData.tokenDictionary,
+        mySqlAutocompleteData.tokenDictionary.SPACE,
         mySqlAutocompleteData.getParseTree,
         query,
     );
@@ -33,7 +33,7 @@ export function parseMySqlQuery(query: string, cursor: CursorPosition): MySqlAut
     return parseQuery(
         mySqlAutocompleteData.Lexer,
         mySqlAutocompleteData.Parser,
-        mySqlAutocompleteData.tokenDictionary,
+        mySqlAutocompleteData.tokenDictionary.SPACE,
         mySqlAutocompleteData.ignoredTokens,
         mySqlAutocompleteData.rulesToVisit,
         mySqlAutocompleteData.getParseTree,

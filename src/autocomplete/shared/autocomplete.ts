@@ -8,7 +8,6 @@ import {
     ParserConstructor,
 } from './autocomplete-types';
 import {Lexer as LexerType, ParserRuleContext, Parser as ParserType} from 'antlr4ng';
-import {TokenDictionary} from './tables';
 import {createParser} from './query';
 import {SqlErrorListener} from './sql-error-listener';
 import * as c3 from 'antlr4-c3';
@@ -17,12 +16,12 @@ import {findCursorTokenIndex} from './cursor';
 export function parseQueryWithoutCursor<L extends LexerType, P extends ParserType>(
     Lexer: LexerConstructor<L>,
     Parser: ParserConstructor<P>,
-    tokenDictionary: TokenDictionary,
+    whitespaceToken: number,
     getParseTree: GetParseTree<P>,
     query: string,
 ): Pick<AutocompleteResultBase, 'errors'> {
     const parser = createParser(Lexer, Parser, query);
-    const errorListener = new SqlErrorListener(tokenDictionary.SPACE);
+    const errorListener = new SqlErrorListener(whitespaceToken);
 
     parser.removeErrorListeners();
     parser.addErrorListener(errorListener);
@@ -40,7 +39,7 @@ export function parseQuery<
 >(
     Lexer: LexerConstructor<L>,
     Parser: ParserConstructor<P>,
-    tokenDictionary: TokenDictionary,
+    whitespaceToken: number,
     ignoredTokens: Set<number>,
     rulesToVisit: Set<number>,
     getParseTree: GetParseTree<P>,
@@ -51,7 +50,7 @@ export function parseQuery<
 ): A {
     const parser = createParser(Lexer, Parser, query);
     const {tokenStream} = parser;
-    const errorListener = new SqlErrorListener(tokenDictionary.SPACE);
+    const errorListener = new SqlErrorListener(whitespaceToken);
 
     parser.removeErrorListeners();
     parser.addErrorListener(errorListener);
@@ -60,7 +59,7 @@ export function parseQuery<
     const core = new c3.CodeCompletionCore(parser);
     core.ignoredTokens = ignoredTokens;
     core.preferredRules = rulesToVisit;
-    const cursorTokenIndex = findCursorTokenIndex(tokenStream, cursor, tokenDictionary.SPACE);
+    const cursorTokenIndex = findCursorTokenIndex(tokenStream, cursor, whitespaceToken);
 
     if (cursorTokenIndex === undefined) {
         throw new Error(

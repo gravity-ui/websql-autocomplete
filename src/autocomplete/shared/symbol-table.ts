@@ -21,6 +21,8 @@ function getUniqueTableSuggestions(symbols: TableSymbol[] = []): Table[] {
                 aliases.add(table.alias);
             }
 
+            // It's fine to assign to accumulator here
+            // eslint-disable-next-line no-param-reassign
             acc[table.name] = aliases;
             return acc;
         },
