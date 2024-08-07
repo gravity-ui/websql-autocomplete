@@ -19,7 +19,7 @@ export function parseClickHouseQueryWithoutCursor(
     return parseQueryWithoutCursor(
         clickHouseAutocompleteData.Lexer,
         clickHouseAutocompleteData.Parser,
-        clickHouseAutocompleteData.tokenDictionary,
+        clickHouseAutocompleteData.tokenDictionary.SPACE,
         clickHouseAutocompleteData.getParseTree,
         query,
     );
@@ -32,7 +32,7 @@ export function parseClickHouseQuery(
     return parseQuery(
         clickHouseAutocompleteData.Lexer,
         clickHouseAutocompleteData.Parser,
-        clickHouseAutocompleteData.tokenDictionary,
+        clickHouseAutocompleteData.tokenDictionary.SPACE,
         clickHouseAutocompleteData.ignoredTokens,
         clickHouseAutocompleteData.rulesToVisit,
         clickHouseAutocompleteData.getParseTree,
