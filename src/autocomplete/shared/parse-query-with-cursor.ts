@@ -8,43 +8,43 @@ import {lineSeparatorRegex} from './cursor';
 export function separateQueryAndCursor(query: string): [string, CursorPosition] {
     const lines = query.split(lineSeparatorRegex);
     const cursorSymbol = '|';
-    let currentLineIndex: number | undefined;
+    let cursorLineIndex: number | undefined;
 
     for (let i = 0; i < lines.length; i++) {
         if (lines[i]?.includes(cursorSymbol)) {
-            currentLineIndex = i;
+            cursorLineIndex = i;
             break;
         }
     }
 
-    if (currentLineIndex === undefined) {
+    if (cursorLineIndex === undefined) {
         throw new Error(`Cursor not provided for query ${query}`);
     }
 
-    const subQuery = lines[currentLineIndex];
-    if (!subQuery) {
-        throw new Error(`Line ${currentLineIndex} not found`);
+    const queryAtCursorLine = lines[cursorLineIndex];
+    if (!queryAtCursorLine) {
+        throw new Error(`Line ${cursorLineIndex} not found`);
     }
 
     const [queryBeforeCursor, queryAfterCursor, ...excessQueries] = query.split(cursorSymbol);
-    const [subQueryBeforeCursor, subQueryAfterCursor, ...excessSubQueries] =
-        subQuery.split(cursorSymbol);
+    const [beforeQueryAtCursorLine, afterQueryAtCursorLine, ...excessQueries2] =
+        queryAtCursorLine.split(cursorSymbol);
 
-    if (excessQueries.length > 0 || excessSubQueries.length > 0) {
+    if (excessQueries.length > 0 || excessQueries2.length > 0) {
         throw new Error(`Multiple cursors not allowed, but present in query ${query}`);
     }
 
     if (
         queryBeforeCursor === undefined ||
         queryAfterCursor === undefined ||
-        subQueryBeforeCursor === undefined ||
-        subQueryAfterCursor === undefined
+        beforeQueryAtCursorLine === undefined ||
+        afterQueryAtCursorLine === undefined
     ) {
         throw new Error(`Cursor not provided for query ${query}`);
     }
 
     return [
         queryBeforeCursor + queryAfterCursor,
-        {line: currentLineIndex + 1, column: subQueryBeforeCursor.length + 1},
+        {line: cursorLineIndex + 1, column: beforeQueryAtCursorLine.length + 1},
     ];
 }
