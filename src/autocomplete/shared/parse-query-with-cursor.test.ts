@@ -46,14 +46,40 @@ test('should not work with multiple cursors', () => {
     }).toThrow(/Multiple cursors not allowed/);
 });
 
-test('should not work with newlines', () => {
-    expect(() => {
-        separateQueryAndCursor('SELECT *\n FROM |');
-    }).toThrow(/Newline characters not allowed/);
-});
-
 test('should not work without cursor', () => {
     expect(() => {
         separateQueryAndCursor('SELECT * FROM ');
     }).toThrow(/Cursor not provided/);
+});
+
+test('should work with cursor on first line', () => {
+    const [query, cursor] = separateQueryAndCursor('SELECT * FROM |;\nSELECT');
+
+    expect(query).toEqual('SELECT * FROM ;\nSELECT');
+    expect(cursor).toEqual({
+        line: 1,
+        column: 15,
+    });
+});
+
+test('should work with cursor on second line', () => {
+    const [query, cursor] = separateQueryAndCursor('SELECT * FROM test;\nSELECT |');
+
+    expect(query).toEqual('SELECT * FROM test;\nSELECT ');
+    expect(cursor).toEqual({
+        line: 2,
+        column: 8,
+    });
+});
+
+test('should work with cursor on third line', () => {
+    const [query, cursor] = separateQueryAndCursor(
+        'SELECT * FROM test;\nSELECT * FROM test;\nSEL|',
+    );
+
+    expect(query).toEqual('SELECT * FROM test;\nSELECT * FROM test;\nSEL');
+    expect(cursor).toEqual({
+        line: 3,
+        column: 4,
+    });
 });

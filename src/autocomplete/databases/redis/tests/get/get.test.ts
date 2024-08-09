@@ -1,4 +1,4 @@
-import {parseRedisQueryWithoutCursor} from '../../index';
+import {parseRedisQueryWithCursor, parseRedisQueryWithoutCursor} from '../../index';
 
 test('should not report errors on GET command', () => {
     const autocompleteResult = parseRedisQueryWithoutCursor('GET test');
@@ -10,4 +10,11 @@ test('should report errors on GET command without arguments', () => {
     const autocompleteResult = parseRedisQueryWithoutCursor('GET');
 
     expect(autocompleteResult.errors).toHaveLength(1);
+});
+
+test('should suggest keys after GET', () => {
+    const autocompleteResult = parseRedisQueryWithCursor('GET |');
+
+    expect(autocompleteResult.suggestKeys).toEqual(true);
+    expect(autocompleteResult.suggestKeywords).toEqual([]);
 });

@@ -1,14 +1,14 @@
 import {
-    AutocompleteResultBase,
     ConstraintSuggestion,
     CursorPosition,
+    SqlAutocompleteResult,
     TableOrViewSuggestion,
 } from '../../shared/autocomplete-types';
 import {postgreSqlAutocompleteData} from './postgresql-autocomplete';
 import {parseQuery, parseQueryWithoutCursor} from '../../shared/autocomplete';
 import {separateQueryAndCursor} from '../../shared/parse-query-with-cursor';
 
-export interface PostgreSqlAutocompleteResult extends AutocompleteResultBase {
+export interface PostgreSqlAutocompleteResult extends SqlAutocompleteResult {
     suggestViewsOrTables?: TableOrViewSuggestion;
     suggestIndexes?: boolean;
     suggestTriggers?: boolean;

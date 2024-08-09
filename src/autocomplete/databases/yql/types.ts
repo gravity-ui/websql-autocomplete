@@ -1,4 +1,4 @@
-import {AutocompleteResultBase, TableIndexSuggestion} from '../../shared/autocomplete-types';
+import {SqlAutocompleteResult, TableIndexSuggestion} from '../../shared/autocomplete-types';
 import {TokenizeResult} from '../../shared/tokenize';
 
 export type EntitySuggestion =
@@ -48,7 +48,7 @@ export type YQLEntity =
     | 'tableIndex'
     | 'topicConsumer';
 
-export interface YqlAutocompleteResult extends AutocompleteResultBase {
+export interface YqlAutocompleteResult extends SqlAutocompleteResult {
     suggestTableIndexes?: TableIndexSuggestion;
     suggestEntity?: YQLEntity[];
     suggestSimpleTypes?: boolean;

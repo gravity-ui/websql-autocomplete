@@ -17,11 +17,14 @@ export interface AutocompleteResultBase {
     errors: ParserSyntaxError[];
     suggestKeywords?: KeywordSuggestion[];
     suggestTemplates?: boolean;
+    suggestDatabases?: boolean;
+}
+
+export interface SqlAutocompleteResult extends AutocompleteResultBase {
     suggestAggregateFunctions?: boolean;
     suggestFunctions?: boolean;
     suggestColumns?: ColumnSuggestion;
     suggestColumnAliases?: ColumnAliasSuggestion[];
-    suggestDatabases?: boolean;
 }
 
 export interface ParserSyntaxError extends TokenPosition {
