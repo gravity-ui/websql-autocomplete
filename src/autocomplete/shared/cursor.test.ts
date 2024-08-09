@@ -15,37 +15,37 @@ function getCursorIndex(query: string, cursor: CursorPosition): number | undefin
     return findCursorTokenIndex(tokenStream, cursor, mySqlAutocompleteData.tokenDictionary.SPACE);
 }
 
-test('returs correct cursorTokenIndex on empty query', () => {
+test('returns correct cursorTokenIndex on empty query', () => {
     const cursorTokenIndex = getCursorIndex('', {line: 1, column: 1});
 
     expect(cursorTokenIndex).toEqual(0);
 });
 
-test('returs correct cursorTokenIndex on start typing', () => {
+test('returns correct cursorTokenIndex on start typing', () => {
     const cursorTokenIndex = getCursorIndex('S', {line: 1, column: 2});
 
     expect(cursorTokenIndex).toEqual(0);
 });
 
-test('returs correct cursorTokenIndex on space', () => {
+test('returns correct cursorTokenIndex on space', () => {
     const cursorTokenIndex = getCursorIndex('SELECT ', {line: 1, column: 8});
 
     expect(cursorTokenIndex).toEqual(2);
 });
 
-test('returs correct cursorTokenIndex on word end', () => {
+test('returns correct cursorTokenIndex on word end', () => {
     const cursorTokenIndex = getCursorIndex('SELECT', {line: 1, column: 7});
 
     expect(cursorTokenIndex).toEqual(0);
 });
 
-test('returs correct cursorTokenIndex on newline', () => {
+test('returns correct cursorTokenIndex on newline', () => {
     const cursorTokenIndex = getCursorIndex('SELECT\n', {line: 2, column: 1});
 
     expect(cursorTokenIndex).toEqual(2);
 });
 
-test('returs correct cursorTokenIndex on big query', () => {
+test('returns correct cursorTokenIndex on big query', () => {
     const cursorTokenIndex = getCursorIndex('SELECT * FROM test_table WHERE ', {
         line: 1,
         column: 32,
