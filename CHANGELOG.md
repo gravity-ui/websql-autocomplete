@@ -1,5 +1,18 @@
 # Changelog
 
+## [10.2.0](https://github.com/gravity-ui/websql-autocomplete/compare/v10.1.0...v10.2.0) (2024-08-09)
+
+
+### Features
+
+* add Redis autocomplete ([#209](https://github.com/gravity-ui/websql-autocomplete/issues/209)) ([41199c8](https://github.com/gravity-ui/websql-autocomplete/commit/41199c8b4c716e5c8914cd5c9d30728a99cefeda))
+* basic Redis grammar, parseRedisQueryWithoutCursor function, tests ([#207](https://github.com/gravity-ui/websql-autocomplete/issues/207)) ([584f902](https://github.com/gravity-ui/websql-autocomplete/commit/584f902bd3b7685fa069b55ed8cdd6145f14a65e))
+
+
+### Bug Fixes
+
+* spelling returs to returns ([#204](https://github.com/gravity-ui/websql-autocomplete/issues/204)) ([def0d05](https://github.com/gravity-ui/websql-autocomplete/commit/def0d05b5ca7cc5850b929164c4b4f6f04e9e930))
+
 ## [10.1.0](https://github.com/gravity-ui/websql-autocomplete/compare/v10.0.0...v10.1.0) (2024-07-23)
 
 
