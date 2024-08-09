@@ -1,14 +1,14 @@
 import {
-    AutocompleteResultBase,
     CursorPosition,
     EngineSuggestion,
+    SqlAutocompleteResult,
     TableOrViewSuggestion,
 } from '../../shared/autocomplete-types';
 import {clickHouseAutocompleteData} from './clickhouse-autocomplete';
 import {parseQuery, parseQueryWithoutCursor} from '../../shared/autocomplete';
 import {separateQueryAndCursor} from '../../shared/parse-query-with-cursor';
 
-export interface ClickHouseAutocompleteResult extends AutocompleteResultBase {
+export interface ClickHouseAutocompleteResult extends SqlAutocompleteResult {
     suggestViewsOrTables?: TableOrViewSuggestion;
     suggestEngines?: EngineSuggestion;
 }

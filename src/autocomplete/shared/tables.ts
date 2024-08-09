@@ -3,11 +3,11 @@ import {findCursorTokenIndex} from './cursor';
 import {createParser} from './query';
 import {getColumnAliasesFromSymbolTable, getTablesFromSymbolTable} from './symbol-table';
 import {
-    AutocompleteResultBase,
     CursorPosition,
     GetParseTree,
     LexerConstructor,
     ParserConstructor,
+    SqlAutocompleteResult,
     SymbolTableVisitor,
     TableContextSuggestion,
 } from './autocomplete-types';
@@ -239,7 +239,7 @@ export function getPreviousToken(
 
 interface ContextSuggestions {
     tableContextSuggestion?: TableContextSuggestion;
-    suggestColumnAliases?: AutocompleteResultBase['suggestColumnAliases'];
+    suggestColumnAliases?: SqlAutocompleteResult['suggestColumnAliases'];
 }
 
 export function getContextSuggestions<L extends LexerType, P extends ParserType>(

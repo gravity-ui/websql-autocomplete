@@ -1,14 +1,14 @@
 import {
-    AutocompleteResultBase,
     ConstraintSuggestion,
     CursorPosition,
+    SqlAutocompleteResult,
     TableOrViewSuggestion,
 } from '../../shared/autocomplete-types';
 import {mySqlAutocompleteData} from './mysql-autocomplete';
 import {parseQuery, parseQueryWithoutCursor} from '../../shared/autocomplete';
 import {separateQueryAndCursor} from '../../shared/parse-query-with-cursor';
 
-export interface MySqlAutocompleteResult extends AutocompleteResultBase {
+export interface MySqlAutocompleteResult extends SqlAutocompleteResult {
     suggestViewsOrTables?: TableOrViewSuggestion;
     suggestIndexes?: boolean;
     suggestTriggers?: boolean;
