@@ -2,11 +2,12 @@ import {LexerConstructor, ParserSyntaxError} from './autocomplete-types';
 import {Lexer as LexerType} from 'antlr4ng';
 import {createLexer} from './query';
 import {SqlErrorListener} from './sql-error-listener';
-import {tokenDictionary} from '../databases/yql/helpers';
 
 export type Token = {
     ruleName: string;
     startIndex: number;
+    type: number;
+    text?: string;
 };
 
 export type TokenizeResult = {
@@ -19,10 +20,11 @@ const EOF = -1;
 export function tokenize<L extends LexerType>(
     Lexer: LexerConstructor<L>,
     symbolicNames: (string | null)[],
+    whitespaceToken: number,
     query: string,
 ): TokenizeResult {
     const lexer = createLexer(Lexer, query);
-    const errorListener = new SqlErrorListener(tokenDictionary.SPACE);
+    const errorListener = new SqlErrorListener(whitespaceToken);
 
     lexer.removeErrorListeners();
     lexer.addErrorListener(errorListener);
@@ -40,6 +42,8 @@ export function tokenize<L extends LexerType>(
                 tokens.push({
                     ruleName: tokenName,
                     startIndex: token.column,
+                    type: token.type,
+                    text: token.text,
                 });
             }
         }
