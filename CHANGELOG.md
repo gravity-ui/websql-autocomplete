@@ -1,5 +1,12 @@
 # Changelog
 
+## [10.2.1](https://github.com/gravity-ui/websql-autocomplete/compare/v10.2.0...v10.2.1) (2024-08-13)
+
+
+### Bug Fixes
+
+* export shared types ([#211](https://github.com/gravity-ui/websql-autocomplete/issues/211)) ([9195b95](https://github.com/gravity-ui/websql-autocomplete/commit/9195b958a2865962241266e3767a6cd66826b863))
+
 ## [10.2.0](https://github.com/gravity-ui/websql-autocomplete/compare/v10.1.0...v10.2.0) (2024-08-13)
 
 
