@@ -9,8 +9,11 @@ build({
     keepNames: true,
     format: 'esm',
     tsconfig: './tsconfig.build.json',
-    entryPoints: databases.map((database) => `src/autocomplete/databases/${database}/index.ts`),
-    outbase: 'src/autocomplete/databases',
-    outdir: 'dist/databases',
+    entryPoints: [
+        ...databases.map((database) => `src/autocomplete/databases/${database}/index.ts`),
+        'src/autocomplete/shared/autocomplete-types.ts',
+    ],
+    outbase: 'src/autocomplete',
+    outdir: 'dist',
     splitting: true,
 });
