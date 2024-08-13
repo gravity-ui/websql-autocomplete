@@ -1,5 +1,14 @@
 # Changelog
 
+## [10.2.0](https://github.com/gravity-ui/websql-autocomplete/compare/v10.1.0...v10.2.0) (2024-08-13)
+
+
+### Features
+
+* add ability to extract redis commands from query ([#210](https://github.com/gravity-ui/websql-autocomplete/issues/210)) ([06520f7](https://github.com/gravity-ui/websql-autocomplete/commit/06520f768dc283397294d1e234a9a76723e7877b))
+* add Redis autocomplete ([#209](https://github.com/gravity-ui/websql-autocomplete/issues/209)) ([41199c8](https://github.com/gravity-ui/websql-autocomplete/commit/41199c8b4c716e5c8914cd5c9d30728a99cefeda))
+* basic Redis grammar, parseRedisQueryWithoutCursor function ([#207](https://github.com/gravity-ui/websql-autocomplete/issues/207)) ([584f902](https://github.com/gravity-ui/websql-autocomplete/commit/584f902bd3b7685fa069b55ed8cdd6145f14a65e))
+
 ## [10.1.0](https://github.com/gravity-ui/websql-autocomplete/compare/v10.0.0...v10.1.0) (2024-07-23)
 
 
