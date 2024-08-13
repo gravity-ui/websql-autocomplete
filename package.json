@@ -16,7 +16,8 @@
     "./mysql": "./dist/databases/mysql/index.js",
     "./postgresql": "./dist/databases/postgresql/index.js",
     "./yql": "./dist/databases/yql/index.js",
-    "./redis": "./dist/databases/redis/index.js"
+    "./redis": "./dist/databases/redis/index.js",
+    "./shared": "./dist/shared/autocomplete-types.js"
   },
   "typesVersions": {
     "*": {
