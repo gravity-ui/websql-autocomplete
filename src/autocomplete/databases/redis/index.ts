@@ -3,6 +3,8 @@ import {redisAutocompleteData} from './redis-autocomplete';
 import {parseQuery, parseQueryWithoutCursor} from '../../shared/autocomplete';
 import {separateQueryAndCursor} from '../../shared';
 
+export {extractRedisCommandsFromQuery, RedisCommands} from './redis-tokenize';
+
 export interface RedisAutocompleteResult extends AutocompleteResultBase {
     suggestKeys?: boolean;
 }

@@ -67,5 +67,10 @@ export function parseYqQueryWithCursor(queryWithCursor: string): YqlAutocomplete
 }
 
 export function tokenizeYqlQuery(query: string): YqlTokenizeResult {
-    return tokenize(YQLLexer, YQLLexer.symbolicNames, query);
+    return tokenize(
+        YQLLexer,
+        YQLLexer.symbolicNames,
+        yqlAutocompleteData.tokenDictionary.SPACE,
+        query,
+    );
 }
