@@ -1,5 +1,12 @@
 # Changelog
 
+## [10.3.0](https://github.com/gravity-ui/websql-autocomplete/compare/v10.2.1...v10.3.0) (2024-08-16)
+
+
+### Features
+
+* support cjs build ([#214](https://github.com/gravity-ui/websql-autocomplete/issues/214)) ([e1ae899](https://github.com/gravity-ui/websql-autocomplete/commit/e1ae89939c4b20515c04c6801aae47dfad0dacc3))
+
 ## [10.2.1](https://github.com/gravity-ui/websql-autocomplete/compare/v10.2.0...v10.2.1) (2024-08-13)
 
 
