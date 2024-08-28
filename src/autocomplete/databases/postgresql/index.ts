@@ -8,6 +8,8 @@ import {postgreSqlAutocompleteData} from './postgresql-autocomplete';
 import {parseQuery, parseQueryWithoutCursor} from '../../shared/autocomplete';
 import {separateQueryAndCursor} from '../../shared/parse-query-with-cursor';
 
+export {extractPostgreSqlStatementsFromQuery} from './postgresql-extract-statements';
+
 export interface PostgreSqlAutocompleteResult extends SqlAutocompleteResult {
     suggestViewsOrTables?: TableOrViewSuggestion;
     suggestIndexes?: boolean;
