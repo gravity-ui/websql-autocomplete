@@ -26,7 +26,7 @@ export function extractPostgreSqlStatementsFromQuery(
     let startLine = 0;
     let startColumn = 0;
     let statementStartIndex = 0;
-    let pendingNewStatement = true;
+    let processingNewStatement = false;
     let lastStatementToken: Token;
 
     const tokenDictionary = postgreSqlAutocompleteData.tokenDictionary;
@@ -38,12 +38,12 @@ export function extractPostgreSqlStatementsFromQuery(
         );
         const isSemicolonToken = token.type === tokenDictionary.SEMICOLON;
 
-        if (pendingNewStatement && isNewlineOrSpaceToken) {
+        if (!processingNewStatement && isNewlineOrSpaceToken) {
             return;
         }
 
-        if (pendingNewStatement) {
-            pendingNewStatement = false;
+        if (!processingNewStatement) {
+            processingNewStatement = true;
             statementStartIndex = token.startIndex;
             startColumn = token.columnIndex + 1;
             startLine = token.line;
@@ -54,7 +54,7 @@ export function extractPostgreSqlStatementsFromQuery(
         }
 
         if (isSemicolonToken && statementStartIndex === token.startIndex) {
-            pendingNewStatement = true;
+            processingNewStatement = false;
             return;
         }
 
@@ -79,7 +79,7 @@ export function extractPostgreSqlStatementsFromQuery(
         }
 
         if (isSemicolonToken) {
-            pendingNewStatement = true;
+            processingNewStatement = false;
         }
     });
 
