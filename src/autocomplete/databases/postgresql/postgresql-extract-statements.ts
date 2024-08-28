@@ -45,7 +45,7 @@ export function extractPostgreSqlStatementsFromQuery(
         if (pendingNewStatement) {
             pendingNewStatement = false;
             statementStartIndex = token.startIndex;
-            startColumn = token.column;
+            startColumn = token.columnIndex + 1;
             startLine = token.line;
         }
 
@@ -63,10 +63,11 @@ export function extractPostgreSqlStatementsFromQuery(
                 startLine,
                 endLine: lastStatementToken.line,
                 startColumn,
-                endColumn: lastStatementToken.column + (lastStatementToken.text?.length || 0),
+                endColumn:
+                    lastStatementToken.columnIndex + 1 + getTokenTextLength(lastStatementToken),
                 statement: query.slice(
                     statementStartIndex,
-                    lastStatementToken.startIndex + (lastStatementToken.text?.length || 0),
+                    lastStatementToken.startIndex + getTokenTextLength(lastStatementToken),
                 ),
             };
 
@@ -85,18 +86,22 @@ export function extractPostgreSqlStatementsFromQuery(
     return statements;
 }
 
+function getTokenTextLength(token: Token): number {
+    return token.text?.length || 0;
+}
+
 function hasCursorInStatement(
     cursorPosition: CursorPosition,
     statement: PostgreSqlStatement,
 ): boolean {
-    const cursorIncludedFromLeft =
+    const isCursorAfterStart =
         cursorPosition.line > statement.startLine ||
         (cursorPosition.line === statement.startLine &&
             cursorPosition.column > statement.startColumn);
 
-    const cursorIncludedToRight =
+    const isCursorBeforeEnd =
         cursorPosition.line < statement.endLine ||
         (cursorPosition.line === statement.endLine && cursorPosition.column <= statement.endColumn);
 
-    return cursorIncludedFromLeft && cursorIncludedToRight;
+    return isCursorAfterStart && isCursorBeforeEnd;
 }

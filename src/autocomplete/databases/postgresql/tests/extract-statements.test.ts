@@ -136,10 +136,7 @@ test('should ignore newlines', () => {
 });
 
 test('should extract statements from multiple query', () => {
-    const query1 = `SELECT * FROM art WHERE id = 1;`;
-    const query2 = `SELECT * FROM art2 WHERE id = 2;`;
-
-    const queryText = [query1, query2].join('\n');
+    const queryText = 'SELECT * FROM art WHERE id = 1;\nSELECT * FROM art2 WHERE id = 2;';
 
     const result = extractPostgreSqlStatementsFromQuery(queryText);
     const expectedResult: PostgreSqlStatement[] = [

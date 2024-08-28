@@ -7,7 +7,7 @@ export type Token = {
     ruleName: string;
     startIndex: number;
     line: number;
-    column: number;
+    columnIndex: number;
     type: number;
     text?: string;
 };
@@ -44,8 +44,8 @@ export function tokenize<L extends LexerType>(
                 tokens.push({
                     ruleName: tokenName,
                     startIndex: token.start,
+                    columnIndex: token.column,
                     line: token.line,
-                    column: token.column + 1,
                     type: token.type,
                     text: token.text,
                 });
