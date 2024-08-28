@@ -160,10 +160,9 @@ test('should extract statements from multiple query', () => {
 });
 
 test('should extract statements from multiple query and define current statement', () => {
-    const query1 = `SELECT * FROM art WHERE id = 1;`;
-    const query2 = `SELECT| * FROM art2 WHERE id = 2;`;
-
-    const [queryText, cursor] = separateQueryAndCursor([query1, query2].join('\n'));
+    const [queryText, cursor] = separateQueryAndCursor(
+        'SELECT * FROM art WHERE id = 1;\nSELECT| * FROM art2 WHERE id = 2;',
+    );
 
     const result = extractPostgreSqlStatementsFromQuery(queryText, cursor);
     const expectedResult: PostgreSqlStatement[] = [
