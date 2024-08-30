@@ -13,19 +13,36 @@ options {
 SPACE   : [ \t]+ -> channel (HIDDEN);
 NEWLINE : ('\r' '\n'? | '\n');
 
-// Keywords
+// String keywords
 
-SET     : 'SET';
-GET     : 'GET';
-INCR    : 'INCR';
-DECR    : 'DECR';
-NX      : 'NX';
-XX      : 'XX';
-EX      : 'EX';
-PX      : 'PX';
-EXAT    : 'EXAT';
-PXAT    : 'PXAT';
-KEEPTTL : 'KEEPTTL';
+SET      : 'SET';
+GET      : 'GET';
+INCR     : 'INCR';
+INCRBY   : 'INCRBY';
+DECR     : 'DECR';
+DECRBY   : 'DECRBY';
+NX       : 'NX';
+XX       : 'XX';
+EX       : 'EX';
+PX       : 'PX';
+EXAT     : 'EXAT';
+PXAT     : 'PXAT';
+KEEPTTL  : 'KEEPTTL';
+APPEND   : 'APPEND';
+GETDEL   : 'GETDEL';
+PERSIST  : 'PERSIST';
+GETEX    : 'GETEX';
+GETRANGE : 'GETRANGE';
+GETSET   : 'GETSET';
+MGET     : 'MGET';
+MSET     : 'MSET';
+MSETNX   : 'MSETNX';
+PSETEX   : 'PSETEX';
+SETEX    : 'SETEX';
+SETNX    : 'SETNX';
+SETRANGE : 'SETRANGE';
+STRLEN   : 'STRLEN';
+SUBSTR   : 'SUBSTR';
 
 // Constructors symbols
 
@@ -36,7 +53,8 @@ DOUBLE_QUOTE : '"';
 
 fragment DECIMAL_DIGIT: [0-9];
 
-DECIMAL_LITERAL: DECIMAL_DIGIT+;
+POSITIVE_DECIMAL_LITERAL : DECIMAL_DIGIT+;
+DECIMAL_LITERAL          : [-]? POSITIVE_DECIMAL_LITERAL;
 
 // Identifiers
 // Should be at the very bottom, for it is the most general token
