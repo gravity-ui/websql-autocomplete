@@ -7,8 +7,11 @@ import {
 import {postgreSqlAutocompleteData} from './postgresql-autocomplete';
 import {parseQuery, parseQueryWithoutCursor} from '../../shared/autocomplete';
 import {separateQueryAndCursor} from '../../shared/parse-query-with-cursor';
-
-export {extractPostgreSqlStatementsFromQuery} from './postgresql-extract-statements';
+import {
+    StatementPosition,
+    extractStatementPositionsFromQuery,
+} from '../../shared/extract-statement-positions-from-query';
+import {PostgreSqlLexer} from './generated/PostgreSqlLexer';
 
 export interface PostgreSqlAutocompleteResult extends SqlAutocompleteResult {
     suggestViewsOrTables?: TableOrViewSuggestion;
@@ -53,4 +56,15 @@ export function parsePostgreSqlQueryWithCursor(
     queryWithCursor: string,
 ): PostgreSqlAutocompleteResult {
     return parsePostgreSqlQuery(...separateQueryAndCursor(queryWithCursor));
+}
+
+export function extractPostgreSqlStatementPositionsFromQuery(query: string): StatementPosition[] {
+    return extractStatementPositionsFromQuery(
+        query,
+        postgreSqlAutocompleteData.Lexer,
+        PostgreSqlLexer.symbolicNames,
+        postgreSqlAutocompleteData.tokenDictionary.SPACE,
+        [PostgreSqlLexer.Newline, postgreSqlAutocompleteData.tokenDictionary.SPACE],
+        postgreSqlAutocompleteData.tokenDictionary.SEMICOLON,
+    );
 }

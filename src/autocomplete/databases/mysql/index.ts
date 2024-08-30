@@ -7,6 +7,11 @@ import {
 import {mySqlAutocompleteData} from './mysql-autocomplete';
 import {parseQuery, parseQueryWithoutCursor} from '../../shared/autocomplete';
 import {separateQueryAndCursor} from '../../shared/parse-query-with-cursor';
+import {
+    StatementPosition,
+    extractStatementPositionsFromQuery,
+} from '../../shared/extract-statement-positions-from-query';
+import {MySqlLexer} from './generated/MySqlLexer';
 
 export interface MySqlAutocompleteResult extends SqlAutocompleteResult {
     suggestViewsOrTables?: TableOrViewSuggestion;
@@ -45,4 +50,15 @@ export function parseMySqlQuery(query: string, cursor: CursorPosition): MySqlAut
 
 export function parseMySqlQueryWithCursor(queryWithCursor: string): MySqlAutocompleteResult {
     return parseMySqlQuery(...separateQueryAndCursor(queryWithCursor));
+}
+
+export function extractMySqlStatementPositionsFromQuery(query: string): StatementPosition[] {
+    return extractStatementPositionsFromQuery(
+        query,
+        mySqlAutocompleteData.Lexer,
+        MySqlLexer.symbolicNames,
+        mySqlAutocompleteData.tokenDictionary.SPACE,
+        [mySqlAutocompleteData.tokenDictionary.SPACE],
+        mySqlAutocompleteData.tokenDictionary.SEMICOLON,
+    );
 }

@@ -2,6 +2,11 @@ import {AutocompleteResultBase, CursorPosition} from '../../shared/autocomplete-
 import {redisAutocompleteData} from './redis-autocomplete';
 import {parseQuery, parseQueryWithoutCursor} from '../../shared/autocomplete';
 import {separateQueryAndCursor} from '../../shared';
+import {
+    StatementPosition,
+    extractStatementPositionsFromQuery,
+} from '../../shared/extract-statement-positions-from-query';
+import {RedisLexer} from './generated/RedisLexer';
 
 export {extractRedisCommandsFromQuery, RedisCommands} from './redis-tokenize';
 
@@ -37,4 +42,15 @@ export function parseRedisQuery(query: string, cursor: CursorPosition): RedisAut
 
 export function parseRedisQueryWithCursor(queryWithCursor: string): RedisAutocompleteResult {
     return parseRedisQuery(...separateQueryAndCursor(queryWithCursor));
+}
+
+export function extractRedisStatementPositionsFromQuery(query: string): StatementPosition[] {
+    return extractStatementPositionsFromQuery(
+        query,
+        redisAutocompleteData.Lexer,
+        RedisLexer.symbolicNames,
+        redisAutocompleteData.tokenDictionary.SPACE,
+        [redisAutocompleteData.tokenDictionary.SPACE],
+        RedisLexer.NEWLINE,
+    );
 }
