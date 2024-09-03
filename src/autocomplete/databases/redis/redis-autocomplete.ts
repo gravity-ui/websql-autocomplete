@@ -24,15 +24,16 @@ const ignoredTokens = new Set([
     RedisParser.DOUBLE_QUOTE,
     RedisParser.DECIMAL_LITERAL,
     RedisParser.IDENTIFIER,
+    RedisParser.POSITIVE_DECIMAL_LITERAL,
 ]);
 
-const rulesToVisit = new Set([RedisParser.RULE_keyName]);
+const rulesToVisit = new Set([RedisParser.RULE_stringKeyName]);
 
 function processVisitedRules(
     rules: c3.CandidatesCollection['rules'],
     cursorTokenIndex: number,
 ): ProcessVisitedRulesResult<RedisAutocompleteResult> {
-    let suggestKeys = false;
+    let suggestStrings = false;
 
     for (const [ruleId, rule] of rules) {
         if (!isStartingToWriteRule(cursorTokenIndex, rule)) {
@@ -40,15 +41,15 @@ function processVisitedRules(
         }
 
         switch (ruleId) {
-            case RedisParser.RULE_keyName: {
-                suggestKeys = true;
+            case RedisParser.RULE_stringKeyName: {
+                suggestStrings = true;
                 break;
             }
         }
     }
 
     return {
-        suggestKeys,
+        suggestStrings,
     };
 }
 
@@ -64,11 +65,11 @@ function enrichAutocompleteResult(
     cursor: CursorPosition,
     query: string,
 ): RedisAutocompleteResult {
-    const {suggestKeys} = processVisitedRules(rules, cursorTokenIndex);
+    const {suggestStrings} = processVisitedRules(rules, cursorTokenIndex);
     const suggestTemplates = shouldSuggestTemplates(query, cursor);
     const result: RedisAutocompleteResult = {
         ...baseResult,
-        suggestKeys,
+        suggestStrings,
         suggestTemplates,
     };
 

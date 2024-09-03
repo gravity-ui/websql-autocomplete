@@ -15,14 +15,32 @@ import { AbstractParseTreeVisitor } from "antlr4ng";
 import { RootContext } from "./RedisParser.js";
 import { CommandsContext } from "./RedisParser.js";
 import { CommandContext } from "./RedisParser.js";
+import { StringCommandContext } from "./RedisParser.js";
 import { SetCommandContext } from "./RedisParser.js";
 import { KeyExistenceClauseContext } from "./RedisParser.js";
 import { ExpirationClauseContext } from "./RedisParser.js";
 import { GetCommandContext } from "./RedisParser.js";
 import { IncrementCommandContext } from "./RedisParser.js";
+import { IncrementByCommandContext } from "./RedisParser.js";
 import { DecrementCommandContext } from "./RedisParser.js";
+import { DecrementByCommandContext } from "./RedisParser.js";
+import { AppendCommandContext } from "./RedisParser.js";
+import { GetDeleteCommandContext } from "./RedisParser.js";
+import { GetExCommandContext } from "./RedisParser.js";
+import { GetRangeCommandContext } from "./RedisParser.js";
+import { GetSetCommandContext } from "./RedisParser.js";
+import { MGetCommandContext } from "./RedisParser.js";
+import { MSetCommandContext } from "./RedisParser.js";
+import { MSetNxCommandContext } from "./RedisParser.js";
+import { PSetExCommandContext } from "./RedisParser.js";
+import { SetExCommandContext } from "./RedisParser.js";
+import { SetNxCommandContext } from "./RedisParser.js";
+import { SetRangeCommandContext } from "./RedisParser.js";
+import { StringLengthCommandContext } from "./RedisParser.js";
+import { SubstringCommandContext } from "./RedisParser.js";
+import { DecimalContext } from "./RedisParser.js";
 import { IdentifierContext } from "./RedisParser.js";
-import { KeyNameContext } from "./RedisParser.js";
+import { StringKeyNameContext } from "./RedisParser.js";
 
 
 /**
@@ -51,6 +69,12 @@ export class RedisParserVisitor<Result> extends AbstractParseTreeVisitor<Result>
      * @return the visitor result
      */
     visitCommand?: (ctx: CommandContext) => Result;
+    /**
+     * Visit a parse tree produced by `RedisParser.stringCommand`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitStringCommand?: (ctx: StringCommandContext) => Result;
     /**
      * Visit a parse tree produced by `RedisParser.setCommand`.
      * @param ctx the parse tree
@@ -82,11 +106,113 @@ export class RedisParserVisitor<Result> extends AbstractParseTreeVisitor<Result>
      */
     visitIncrementCommand?: (ctx: IncrementCommandContext) => Result;
     /**
+     * Visit a parse tree produced by `RedisParser.incrementByCommand`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitIncrementByCommand?: (ctx: IncrementByCommandContext) => Result;
+    /**
      * Visit a parse tree produced by `RedisParser.decrementCommand`.
      * @param ctx the parse tree
      * @return the visitor result
      */
     visitDecrementCommand?: (ctx: DecrementCommandContext) => Result;
+    /**
+     * Visit a parse tree produced by `RedisParser.decrementByCommand`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitDecrementByCommand?: (ctx: DecrementByCommandContext) => Result;
+    /**
+     * Visit a parse tree produced by `RedisParser.appendCommand`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitAppendCommand?: (ctx: AppendCommandContext) => Result;
+    /**
+     * Visit a parse tree produced by `RedisParser.getDeleteCommand`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitGetDeleteCommand?: (ctx: GetDeleteCommandContext) => Result;
+    /**
+     * Visit a parse tree produced by `RedisParser.getExCommand`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitGetExCommand?: (ctx: GetExCommandContext) => Result;
+    /**
+     * Visit a parse tree produced by `RedisParser.getRangeCommand`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitGetRangeCommand?: (ctx: GetRangeCommandContext) => Result;
+    /**
+     * Visit a parse tree produced by `RedisParser.getSetCommand`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitGetSetCommand?: (ctx: GetSetCommandContext) => Result;
+    /**
+     * Visit a parse tree produced by `RedisParser.mGetCommand`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitMGetCommand?: (ctx: MGetCommandContext) => Result;
+    /**
+     * Visit a parse tree produced by `RedisParser.mSetCommand`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitMSetCommand?: (ctx: MSetCommandContext) => Result;
+    /**
+     * Visit a parse tree produced by `RedisParser.mSetNxCommand`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitMSetNxCommand?: (ctx: MSetNxCommandContext) => Result;
+    /**
+     * Visit a parse tree produced by `RedisParser.pSetExCommand`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitPSetExCommand?: (ctx: PSetExCommandContext) => Result;
+    /**
+     * Visit a parse tree produced by `RedisParser.setExCommand`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitSetExCommand?: (ctx: SetExCommandContext) => Result;
+    /**
+     * Visit a parse tree produced by `RedisParser.setNxCommand`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitSetNxCommand?: (ctx: SetNxCommandContext) => Result;
+    /**
+     * Visit a parse tree produced by `RedisParser.setRangeCommand`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitSetRangeCommand?: (ctx: SetRangeCommandContext) => Result;
+    /**
+     * Visit a parse tree produced by `RedisParser.stringLengthCommand`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitStringLengthCommand?: (ctx: StringLengthCommandContext) => Result;
+    /**
+     * Visit a parse tree produced by `RedisParser.substringCommand`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitSubstringCommand?: (ctx: SubstringCommandContext) => Result;
+    /**
+     * Visit a parse tree produced by `RedisParser.decimal`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitDecimal?: (ctx: DecimalContext) => Result;
     /**
      * Visit a parse tree produced by `RedisParser.identifier`.
      * @param ctx the parse tree
@@ -94,9 +220,9 @@ export class RedisParserVisitor<Result> extends AbstractParseTreeVisitor<Result>
      */
     visitIdentifier?: (ctx: IdentifierContext) => Result;
     /**
-     * Visit a parse tree produced by `RedisParser.keyName`.
+     * Visit a parse tree produced by `RedisParser.stringKeyName`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitKeyName?: (ctx: KeyNameContext) => Result;
+    visitStringKeyName?: (ctx: StringKeyNameContext) => Result;
 }

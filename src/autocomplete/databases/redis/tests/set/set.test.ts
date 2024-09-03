@@ -70,14 +70,14 @@ test('should not report errors on SET command with all argument', () => {
 test('should suggest keys after SET', () => {
     const autocompleteResult = parseRedisQueryWithCursor('SET |');
 
-    expect(autocompleteResult.suggestKeys).toEqual(true);
+    expect(autocompleteResult.suggestStrings).toEqual(true);
     expect(autocompleteResult.suggestKeywords).toEqual([]);
 });
 
 test('should not suggest keys after SET key', () => {
     const autocompleteResult = parseRedisQueryWithCursor('SET key |');
 
-    expect(autocompleteResult.suggestKeys).toEqual(false);
+    expect(autocompleteResult.suggestStrings).toEqual(false);
     expect(autocompleteResult.suggestKeywords).toEqual([]);
 });
 
@@ -85,6 +85,9 @@ test('should keywords after SET key value', () => {
     const autocompleteResult = parseRedisQueryWithCursor('SET key value |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [
+        {
+            value: 'KEEPTTL',
+        },
         {
             value: 'EX',
         },
@@ -96,9 +99,6 @@ test('should keywords after SET key value', () => {
         },
         {
             value: 'PXAT',
-        },
-        {
-            value: 'KEEPTTL',
         },
         {
             value: 'GET',
@@ -110,7 +110,7 @@ test('should keywords after SET key value', () => {
             value: 'XX',
         },
     ];
-    expect(autocompleteResult.suggestKeys).toEqual(false);
+    expect(autocompleteResult.suggestStrings).toEqual(false);
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
@@ -119,6 +119,9 @@ test('should keywords after NX', () => {
 
     const keywordsSuggestion: KeywordSuggestion[] = [
         {
+            value: 'KEEPTTL',
+        },
+        {
             value: 'EX',
         },
         {
@@ -131,13 +134,10 @@ test('should keywords after NX', () => {
             value: 'PXAT',
         },
         {
-            value: 'KEEPTTL',
-        },
-        {
             value: 'GET',
         },
     ];
-    expect(autocompleteResult.suggestKeys).toEqual(false);
+    expect(autocompleteResult.suggestStrings).toEqual(false);
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
@@ -146,6 +146,9 @@ test('should keywords after XX', () => {
 
     const keywordsSuggestion: KeywordSuggestion[] = [
         {
+            value: 'KEEPTTL',
+        },
+        {
             value: 'EX',
         },
         {
@@ -158,13 +161,10 @@ test('should keywords after XX', () => {
             value: 'PXAT',
         },
         {
-            value: 'KEEPTTL',
-        },
-        {
             value: 'GET',
         },
     ];
-    expect(autocompleteResult.suggestKeys).toEqual(false);
+    expect(autocompleteResult.suggestStrings).toEqual(false);
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
@@ -173,6 +173,9 @@ test('should keywords after GET', () => {
 
     const keywordsSuggestion: KeywordSuggestion[] = [
         {
+            value: 'KEEPTTL',
+        },
+        {
             value: 'EX',
         },
         {
@@ -184,45 +187,42 @@ test('should keywords after GET', () => {
         {
             value: 'PXAT',
         },
-        {
-            value: 'KEEPTTL',
-        },
     ];
-    expect(autocompleteResult.suggestKeys).toEqual(false);
+    expect(autocompleteResult.suggestStrings).toEqual(false);
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
 test('should not keywords after EX', () => {
     const autocompleteResult = parseRedisQueryWithCursor('SET key value EX |');
 
-    expect(autocompleteResult.suggestKeys).toEqual(false);
+    expect(autocompleteResult.suggestStrings).toEqual(false);
     expect(autocompleteResult.suggestKeywords).toEqual([]);
 });
 
 test('should not keywords after PX', () => {
     const autocompleteResult = parseRedisQueryWithCursor('SET key value PX |');
 
-    expect(autocompleteResult.suggestKeys).toEqual(false);
+    expect(autocompleteResult.suggestStrings).toEqual(false);
     expect(autocompleteResult.suggestKeywords).toEqual([]);
 });
 
 test('should not keywords after EXAT', () => {
     const autocompleteResult = parseRedisQueryWithCursor('SET key value EXAT |');
 
-    expect(autocompleteResult.suggestKeys).toEqual(false);
+    expect(autocompleteResult.suggestStrings).toEqual(false);
     expect(autocompleteResult.suggestKeywords).toEqual([]);
 });
 
 test('should not keywords after PXAT', () => {
     const autocompleteResult = parseRedisQueryWithCursor('SET key value PXAT |');
 
-    expect(autocompleteResult.suggestKeys).toEqual(false);
+    expect(autocompleteResult.suggestStrings).toEqual(false);
     expect(autocompleteResult.suggestKeywords).toEqual([]);
 });
 
 test('should not keywords after KEEPTTL', () => {
     const autocompleteResult = parseRedisQueryWithCursor('SET key value KEEPTTL |');
 
-    expect(autocompleteResult.suggestKeys).toEqual(false);
+    expect(autocompleteResult.suggestStrings).toEqual(false);
     expect(autocompleteResult.suggestKeywords).toEqual([]);
 });
