@@ -15,7 +15,39 @@ import { AbstractParseTreeVisitor } from "antlr4ng";
 import { RootContext } from "./RedisParser.js";
 import { CommandsContext } from "./RedisParser.js";
 import { CommandContext } from "./RedisParser.js";
+import { CommonCommandContext } from "./RedisParser.js";
 import { StringCommandContext } from "./RedisParser.js";
+import { CopyCommandContext } from "./RedisParser.js";
+import { DbClauseContext } from "./RedisParser.js";
+import { DatabaseNameContext } from "./RedisParser.js";
+import { DeleteCommandContext } from "./RedisParser.js";
+import { UnlinkCommandContext } from "./RedisParser.js";
+import { DumpCommandContext } from "./RedisParser.js";
+import { ExistsCommandContext } from "./RedisParser.js";
+import { ExpireCommandContext } from "./RedisParser.js";
+import { ExpireAtCommandContext } from "./RedisParser.js";
+import { PExpireCommandContext } from "./RedisParser.js";
+import { PExpireAtCommandContext } from "./RedisParser.js";
+import { ExpireOptionsContext } from "./RedisParser.js";
+import { ExpireTimeCommandContext } from "./RedisParser.js";
+import { PExpireTimeCommandContext } from "./RedisParser.js";
+import { KeysCommandContext } from "./RedisParser.js";
+import { MoveCommandContext } from "./RedisParser.js";
+import { ObjectCommandContext } from "./RedisParser.js";
+import { ObjectOptionsContext } from "./RedisParser.js";
+import { PersistCommandContext } from "./RedisParser.js";
+import { TtlCommandContext } from "./RedisParser.js";
+import { PTtlCommandContext } from "./RedisParser.js";
+import { RandomKeyCommandContext } from "./RedisParser.js";
+import { RenameCommandContext } from "./RedisParser.js";
+import { RenameNxCommandContext } from "./RedisParser.js";
+import { ScanCommandContext } from "./RedisParser.js";
+import { MatchClauseContext } from "./RedisParser.js";
+import { CountClauseContext } from "./RedisParser.js";
+import { TypeClauseContext } from "./RedisParser.js";
+import { TouchCommandContext } from "./RedisParser.js";
+import { TypeCommandContext } from "./RedisParser.js";
+import { WaitCommandContext } from "./RedisParser.js";
 import { SetCommandContext } from "./RedisParser.js";
 import { KeyExistenceClauseContext } from "./RedisParser.js";
 import { ExpirationClauseContext } from "./RedisParser.js";
@@ -41,6 +73,8 @@ import { SubstringCommandContext } from "./RedisParser.js";
 import { DecimalContext } from "./RedisParser.js";
 import { IdentifierContext } from "./RedisParser.js";
 import { StringKeyNameContext } from "./RedisParser.js";
+import { KeyNameContext } from "./RedisParser.js";
+import { NotProperPatternContext } from "./RedisParser.js";
 
 
 /**
@@ -70,11 +104,203 @@ export class RedisParserVisitor<Result> extends AbstractParseTreeVisitor<Result>
      */
     visitCommand?: (ctx: CommandContext) => Result;
     /**
+     * Visit a parse tree produced by `RedisParser.commonCommand`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitCommonCommand?: (ctx: CommonCommandContext) => Result;
+    /**
      * Visit a parse tree produced by `RedisParser.stringCommand`.
      * @param ctx the parse tree
      * @return the visitor result
      */
     visitStringCommand?: (ctx: StringCommandContext) => Result;
+    /**
+     * Visit a parse tree produced by `RedisParser.copyCommand`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitCopyCommand?: (ctx: CopyCommandContext) => Result;
+    /**
+     * Visit a parse tree produced by `RedisParser.dbClause`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitDbClause?: (ctx: DbClauseContext) => Result;
+    /**
+     * Visit a parse tree produced by `RedisParser.databaseName`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitDatabaseName?: (ctx: DatabaseNameContext) => Result;
+    /**
+     * Visit a parse tree produced by `RedisParser.deleteCommand`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitDeleteCommand?: (ctx: DeleteCommandContext) => Result;
+    /**
+     * Visit a parse tree produced by `RedisParser.unlinkCommand`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitUnlinkCommand?: (ctx: UnlinkCommandContext) => Result;
+    /**
+     * Visit a parse tree produced by `RedisParser.dumpCommand`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitDumpCommand?: (ctx: DumpCommandContext) => Result;
+    /**
+     * Visit a parse tree produced by `RedisParser.existsCommand`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitExistsCommand?: (ctx: ExistsCommandContext) => Result;
+    /**
+     * Visit a parse tree produced by `RedisParser.expireCommand`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitExpireCommand?: (ctx: ExpireCommandContext) => Result;
+    /**
+     * Visit a parse tree produced by `RedisParser.expireAtCommand`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitExpireAtCommand?: (ctx: ExpireAtCommandContext) => Result;
+    /**
+     * Visit a parse tree produced by `RedisParser.pExpireCommand`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitPExpireCommand?: (ctx: PExpireCommandContext) => Result;
+    /**
+     * Visit a parse tree produced by `RedisParser.pExpireAtCommand`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitPExpireAtCommand?: (ctx: PExpireAtCommandContext) => Result;
+    /**
+     * Visit a parse tree produced by `RedisParser.expireOptions`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitExpireOptions?: (ctx: ExpireOptionsContext) => Result;
+    /**
+     * Visit a parse tree produced by `RedisParser.expireTimeCommand`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitExpireTimeCommand?: (ctx: ExpireTimeCommandContext) => Result;
+    /**
+     * Visit a parse tree produced by `RedisParser.pExpireTimeCommand`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitPExpireTimeCommand?: (ctx: PExpireTimeCommandContext) => Result;
+    /**
+     * Visit a parse tree produced by `RedisParser.keysCommand`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitKeysCommand?: (ctx: KeysCommandContext) => Result;
+    /**
+     * Visit a parse tree produced by `RedisParser.moveCommand`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitMoveCommand?: (ctx: MoveCommandContext) => Result;
+    /**
+     * Visit a parse tree produced by `RedisParser.objectCommand`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitObjectCommand?: (ctx: ObjectCommandContext) => Result;
+    /**
+     * Visit a parse tree produced by `RedisParser.objectOptions`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitObjectOptions?: (ctx: ObjectOptionsContext) => Result;
+    /**
+     * Visit a parse tree produced by `RedisParser.persistCommand`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitPersistCommand?: (ctx: PersistCommandContext) => Result;
+    /**
+     * Visit a parse tree produced by `RedisParser.ttlCommand`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitTtlCommand?: (ctx: TtlCommandContext) => Result;
+    /**
+     * Visit a parse tree produced by `RedisParser.pTtlCommand`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitPTtlCommand?: (ctx: PTtlCommandContext) => Result;
+    /**
+     * Visit a parse tree produced by `RedisParser.randomKeyCommand`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitRandomKeyCommand?: (ctx: RandomKeyCommandContext) => Result;
+    /**
+     * Visit a parse tree produced by `RedisParser.renameCommand`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitRenameCommand?: (ctx: RenameCommandContext) => Result;
+    /**
+     * Visit a parse tree produced by `RedisParser.renameNxCommand`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitRenameNxCommand?: (ctx: RenameNxCommandContext) => Result;
+    /**
+     * Visit a parse tree produced by `RedisParser.scanCommand`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitScanCommand?: (ctx: ScanCommandContext) => Result;
+    /**
+     * Visit a parse tree produced by `RedisParser.matchClause`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitMatchClause?: (ctx: MatchClauseContext) => Result;
+    /**
+     * Visit a parse tree produced by `RedisParser.countClause`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitCountClause?: (ctx: CountClauseContext) => Result;
+    /**
+     * Visit a parse tree produced by `RedisParser.typeClause`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitTypeClause?: (ctx: TypeClauseContext) => Result;
+    /**
+     * Visit a parse tree produced by `RedisParser.touchCommand`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitTouchCommand?: (ctx: TouchCommandContext) => Result;
+    /**
+     * Visit a parse tree produced by `RedisParser.typeCommand`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitTypeCommand?: (ctx: TypeCommandContext) => Result;
+    /**
+     * Visit a parse tree produced by `RedisParser.waitCommand`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitWaitCommand?: (ctx: WaitCommandContext) => Result;
     /**
      * Visit a parse tree produced by `RedisParser.setCommand`.
      * @param ctx the parse tree
@@ -225,4 +451,17 @@ export class RedisParserVisitor<Result> extends AbstractParseTreeVisitor<Result>
      * @return the visitor result
      */
     visitStringKeyName?: (ctx: StringKeyNameContext) => Result;
+    /**
+     * Visit a parse tree produced by `RedisParser.keyName`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitKeyName?: (ctx: KeyNameContext) => Result;
+    /**
+     * Visit a parse tree produced by the `notProperPattern`
+     * labeled alternative in `RedisParser.keyPattern`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitNotProperPattern?: (ctx: NotProperPatternContext) => Result;
 }

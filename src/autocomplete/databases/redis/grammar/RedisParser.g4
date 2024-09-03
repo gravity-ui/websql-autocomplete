@@ -19,7 +19,35 @@ commands
     ;
 
 command
-    : stringCommand
+    : commonCommand
+    | stringCommand
+    ;
+
+commonCommand
+    : copyCommand
+    | deleteCommand
+    | unlinkCommand
+    | dumpCommand
+    | existsCommand
+    | expireCommand
+    | expireAtCommand
+    | expireTimeCommand
+    | pExpireCommand
+    | pExpireAtCommand
+    | pExpireTimeCommand
+    | keysCommand
+    | moveCommand
+    | objectCommand
+    | persistCommand
+    | ttlCommand
+    | pTtlCommand
+    | randomKeyCommand
+    | renameCommand
+    | renameNxCommand
+    | scanCommand
+    | touchCommand
+    | typeCommand
+    | waitCommand
     ;
 
 stringCommand
@@ -43,6 +71,136 @@ stringCommand
     | setRangeCommand
     | stringLengthCommand
     | substringCommand
+    ;
+
+copyCommand
+    : COPY keyName identifier dbClause? REPLACE?
+    ;
+
+dbClause
+    : DB databaseName
+    ;
+
+databaseName
+    : POSITIVE_DECIMAL_LITERAL
+    ;
+
+deleteCommand
+    : DEL keyName+
+    ;
+
+unlinkCommand
+    : UNLINK keyName+
+    ;
+
+dumpCommand
+    : DUMP keyName
+    ;
+
+existsCommand
+    : EXISTS keyName+
+    ;
+
+expireCommand
+    : EXPIRE keyName decimal expireOptions?
+    ;
+
+expireAtCommand
+    : EXPIREAT keyName decimal expireOptions?
+    ;
+
+pExpireCommand
+    : PEXPIRE keyName decimal expireOptions?
+    ;
+
+pExpireAtCommand
+    : PEXPIREAT keyName decimal expireOptions?
+    ;
+
+expireOptions
+    : NX
+    | XX
+    | GT
+    | LT
+    ;
+
+expireTimeCommand
+    : EXPIRETIME keyName
+    ;
+
+pExpireTimeCommand
+    : PEXPIRETIME keyName
+    ;
+
+keysCommand
+    : KEYS keyPattern
+    ;
+
+moveCommand
+    : MOVE keyName databaseName
+    ;
+
+objectCommand
+    : OBJECT objectOptions keyName
+    ;
+
+objectOptions
+    : ENCODING
+    | FREQ
+    | IDLETIME
+    | REFCOUNT
+    ;
+
+persistCommand
+    : PERSIST keyName
+    ;
+
+ttlCommand
+    : TTL keyName
+    ;
+
+pTtlCommand
+    : PTTL keyName
+    ;
+
+randomKeyCommand
+    : RANDOMKEY
+    ;
+
+renameCommand
+    : RENAME keyName identifier
+    ;
+
+renameNxCommand
+    : RENAMENX keyName identifier
+    ;
+
+scanCommand
+    : SCAN decimal matchClause? countClause? typeClause?
+    ;
+
+matchClause
+    : MATCH keyPattern
+    ;
+
+countClause
+    : COUNT POSITIVE_DECIMAL_LITERAL
+    ;
+
+typeClause
+    : TYPE identifier
+    ;
+
+touchCommand
+    : TOUCH keyName+
+    ;
+
+typeCommand
+    : TYPE keyName
+    ;
+
+waitCommand
+    : WAIT POSITIVE_DECIMAL_LITERAL POSITIVE_DECIMAL_LITERAL
     ;
 
 setCommand
@@ -150,4 +308,12 @@ identifier
 
 stringKeyName
     : identifier
+    ;
+
+keyName
+    : identifier
+    ;
+
+keyPattern
+    : identifier # notProperPattern
     ;

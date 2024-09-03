@@ -13,6 +13,45 @@ options {
 SPACE   : [ \t]+ -> channel (HIDDEN);
 NEWLINE : ('\r' '\n'? | '\n');
 
+// Common keywords
+
+COPY        : 'COPY';
+DB          : 'DB';
+REPLACE     : 'REPLACE';
+DEL         : 'DEL';
+UNLINK      : 'UNLINK';
+DUMP        : 'DUMP';
+EXISTS      : 'EXISTS';
+EXPIRE      : 'EXPIRE';
+GT          : 'GT';
+LT          : 'LT';
+NX          : 'NX';
+XX          : 'XX';
+EXPIREAT    : 'EXPIREAT';
+EXPIRETIME  : 'EXPIRETIME';
+PEXPIRE     : 'PEXPIRE';
+PEXPIREAT   : 'PEXPIREAT';
+PEXPIRETIME : 'PEXPIRETIME';
+KEYS        : 'KEYS';
+MOVE        : 'MOVE';
+OBJECT      : 'OBJECT';
+ENCODING    : 'ENCODING';
+FREQ        : 'FREQ';
+IDLETIME    : 'IDLETIME';
+REFCOUNT    : 'REFCOUNT';
+PERSIST     : 'PERSIST';
+TTL         : 'TTL';
+PTTL        : 'PTTL';
+RANDOMKEY   : 'RANDOMKEY';
+RENAME      : 'RENAME';
+RENAMENX    : 'RENAMENX';
+SCAN        : 'SCAN';
+MATCH       : 'MATCH';
+COUNT       : 'COUNT';
+TYPE        : 'TYPE';
+TOUCH       : 'TOUCH';
+WAIT        : 'WAIT';
+
 // String keywords
 
 SET      : 'SET';
@@ -21,8 +60,6 @@ INCR     : 'INCR';
 INCRBY   : 'INCRBY';
 DECR     : 'DECR';
 DECRBY   : 'DECRBY';
-NX       : 'NX';
-XX       : 'XX';
 EX       : 'EX';
 PX       : 'PX';
 EXAT     : 'EXAT';
@@ -30,7 +67,6 @@ PXAT     : 'PXAT';
 KEEPTTL  : 'KEEPTTL';
 APPEND   : 'APPEND';
 GETDEL   : 'GETDEL';
-PERSIST  : 'PERSIST';
 GETEX    : 'GETEX';
 GETRANGE : 'GETRANGE';
 GETSET   : 'GETSET';
