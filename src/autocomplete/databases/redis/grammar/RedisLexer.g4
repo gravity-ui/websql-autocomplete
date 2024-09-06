@@ -51,6 +51,12 @@ COUNT       : 'COUNT';
 TYPE        : 'TYPE';
 TOUCH       : 'TOUCH';
 WAIT        : 'WAIT';
+LEFT        : 'LEFT';
+RIGHT       : 'RIGHT';
+BEFORE      : 'BEFORE';
+AFTER       : 'AFTER';
+RANK        : 'RANK';
+MAXLEN      : 'MAXLEN';
 
 // String keywords
 
@@ -79,6 +85,31 @@ SETNX    : 'SETNX';
 SETRANGE : 'SETRANGE';
 STRLEN   : 'STRLEN';
 SUBSTR   : 'SUBSTR';
+
+// List keywords
+
+LMOVE      : 'LMOVE';
+BLMOVE     : 'BLMOVE';
+LMPOP      : 'LMPOP';
+BLMPOP     : 'BLMPOP';
+LPOP       : 'LPOP';
+BLPOP      : 'BLPOP';
+RPOP       : 'RPOP';
+BRPOP      : 'BRPOP';
+RPOPLPUSH  : 'RPOPLPUSH';
+BRPOPLPUSH : 'BRPOPLPUSH';
+LINDEX     : 'LINDEX';
+LINSERT    : 'LINSERT';
+LLEN       : 'LLEN';
+LPOS       : 'LPOS';
+LPUSH      : 'LPUSH';
+LPUSHX     : 'LPUSHX';
+RPUSH      : 'RPUSH';
+RPUSHX     : 'RPUSHX';
+LRANGE     : 'LRANGE';
+LREM       : 'LREM';
+LSET       : 'LSET';
+LTRIM      : 'LTRIM';
 
 // Constructors symbols
 

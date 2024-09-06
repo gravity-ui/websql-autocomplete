@@ -31,6 +31,7 @@ const rulesToVisit = new Set([
     RedisParser.RULE_keyName,
     RedisParser.RULE_databaseName,
     RedisParser.RULE_stringKeyName,
+    RedisParser.RULE_listKeyName,
 ]);
 
 function processVisitedRules(
@@ -40,6 +41,7 @@ function processVisitedRules(
     let suggestDatabases = false;
     let suggestKeys = false;
     let suggestStrings = false;
+    let suggestLists = false;
 
     for (const [ruleId, rule] of rules) {
         if (!isStartingToWriteRule(cursorTokenIndex, rule)) {
@@ -59,6 +61,10 @@ function processVisitedRules(
                 suggestStrings = true;
                 break;
             }
+            case RedisParser.RULE_listKeyName: {
+                suggestLists = true;
+                break;
+            }
         }
     }
 
@@ -66,6 +72,7 @@ function processVisitedRules(
         suggestDatabases,
         suggestKeys,
         suggestStrings,
+        suggestLists,
     };
 }
 
@@ -81,7 +88,7 @@ function enrichAutocompleteResult(
     cursor: CursorPosition,
     query: string,
 ): RedisAutocompleteResult {
-    const {suggestDatabases, suggestKeys, suggestStrings} = processVisitedRules(
+    const {suggestDatabases, suggestKeys, suggestStrings, suggestLists} = processVisitedRules(
         rules,
         cursorTokenIndex,
     );
@@ -91,6 +98,7 @@ function enrichAutocompleteResult(
         suggestDatabases,
         suggestKeys,
         suggestStrings,
+        suggestLists,
         suggestTemplates,
     };
 

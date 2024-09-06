@@ -21,6 +21,7 @@ commands
 command
     : commonCommand
     | stringCommand
+    | listCommand
     ;
 
 commonCommand
@@ -71,6 +72,137 @@ stringCommand
     | setRangeCommand
     | stringLengthCommand
     | substringCommand
+    ;
+
+listCommand
+    : lmoveCommand
+    | blmoveCommand
+    | lmpopCommand
+    | blmpopCommand
+    | lpopCommand
+    | blpopCommand
+    | rpopCommand
+    | brpopCommand
+    | rpopLpushCommand
+    | brpopLpushCommand
+    | lindexCommand
+    | linsertCommand
+    | llenCommand
+    | lposCommand
+    | lpushCommand
+    | lpushxCommand
+    | rpushCommand
+    | rpushxCommand
+    | lrangeCommand
+    | lremCommand
+    | lsetCommand
+    | ltrimCommand
+    ;
+
+lmoveCommand
+    : LMOVE listKeyName listKeyName leftOrRightClause leftOrRightClause
+    ;
+
+leftOrRightClause
+    : LEFT
+    | RIGHT
+    ;
+
+blmoveCommand
+    : BLMOVE listKeyName listKeyName leftOrRightClause leftOrRightClause POSITIVE_DECIMAL_LITERAL
+    ;
+
+lmpopCommand
+    : LMPOP POSITIVE_DECIMAL_LITERAL listKeyName+ leftOrRightClause countClause?
+    ;
+
+blmpopCommand
+    : BLMPOP POSITIVE_DECIMAL_LITERAL POSITIVE_DECIMAL_LITERAL listKeyName+ leftOrRightClause countClause?
+    ;
+
+lpopCommand
+    : LPOP listKeyName POSITIVE_DECIMAL_LITERAL?
+    ;
+
+blpopCommand
+    : BLPOP listKeyName+ POSITIVE_DECIMAL_LITERAL
+    ;
+
+rpopCommand
+    : RPOP listKeyName POSITIVE_DECIMAL_LITERAL?
+    ;
+
+brpopCommand
+    : BRPOP listKeyName+ POSITIVE_DECIMAL_LITERAL
+    ;
+
+rpopLpushCommand
+    : RPOPLPUSH listKeyName listKeyName
+    ;
+
+brpopLpushCommand
+    : BRPOPLPUSH listKeyName listKeyName POSITIVE_DECIMAL_LITERAL
+    ;
+
+lindexCommand
+    : LINDEX listKeyName decimal
+    ;
+
+linsertCommand
+    : LINSERT listKeyName beforeOrAfterClause identifier identifier
+    ;
+
+beforeOrAfterClause
+    : BEFORE
+    | AFTER
+    ;
+
+llenCommand
+    : LLEN listKeyName
+    ;
+
+lposCommand
+    : LPOS listKeyName identifier rankClause? countClause? maxLenClause?
+    ;
+
+rankClause
+    : RANK decimal
+    ;
+
+maxLenClause
+    : MAXLEN POSITIVE_DECIMAL_LITERAL
+    ;
+
+lpushCommand
+    : LPUSH listKeyName identifier+
+    ;
+
+lpushxCommand
+    : LPUSHX listKeyName identifier+
+    ;
+
+rpushCommand
+    : RPUSH listKeyName identifier+
+    ;
+
+rpushxCommand
+    : RPUSHX listKeyName identifier+
+    ;
+
+lrangeCommand
+    : LRANGE listKeyName decimal decimal
+    ;
+
+lremCommand
+    : LREM listKeyName decimal identifier
+    ;
+
+lsetCommand
+    : LSET listKeyName decimal identifier
+    ;
+
+ltrimCommand
+    : LTRIM listKeyName decimal decimal
     ;
 
 copyCommand
@@ -307,6 +439,10 @@ identifier
     ;
 
 stringKeyName
+    : identifier
+    ;
+
+listKeyName
     : identifier
     ;
 
