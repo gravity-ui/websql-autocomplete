@@ -9,6 +9,7 @@ export interface RedisAutocompleteResult extends AutocompleteResultBase {
     suggestKeys?: boolean;
     suggestStrings?: boolean;
     suggestLists?: boolean;
+    suggestSets?: boolean;
 }
 
 export function parseRedisQueryWithoutCursor(

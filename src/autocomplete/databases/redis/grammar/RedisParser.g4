@@ -22,6 +22,7 @@ command
     : commonCommand
     | stringCommand
     | listCommand
+    | setCommand
     ;
 
 commonCommand
@@ -52,7 +53,7 @@ commonCommand
     ;
 
 stringCommand
-    : setCommand
+    : stringSetCommand
     | getCommand
     | incrementCommand
     | incrementByCommand
@@ -97,6 +98,98 @@ listCommand
     | lremCommand
     | lsetCommand
     | ltrimCommand
+    ;
+
+setCommand
+    : saddCommand
+    | scardCommand
+    | sdiffCommand
+    | sdiffstoreCommand
+    | sinterCommand
+    | sintercardCommand
+    | sinterstoreCommand
+    | sismemberCommand
+    | smismemberCommand
+    | smembersCommand
+    | smoveCommand
+    | spopCommand
+    | srandmemberCommand
+    | sremCommand
+    | sscanComman
+    | sunionCommand
+    | sunionstoreCommand
+    ;
+
+saddCommand
+    : SADD setKeyName identifier+
+    ;
+
+scardCommand
+    : SCARD setKeyName
+    ;
+
+sdiffCommand
+    : SDIFF setKeyName+
+    ;
+
+sdiffstoreCommand
+    : SDIFFSTORE identifier setKeyName+
+    ;
+
+sinterCommand
+    : SINTER setKeyName+
+    ;
+
+sintercardCommand
+    : SINTERCARD POSITIVE_DECIMAL_LITERAL setKeyName+ limitClause?
+    ;
+
+limitClause
+    : LIMIT POSITIVE_DECIMAL_LITERAL
+    ;
+
+sinterstoreCommand
+    : SINTERSTORE identifier setKeyName+
+    ;
+
+sismemberCommand
+    : SISMEMBER setKeyName identifier
+    ;
+
+smismemberCommand
+    : SMISMEMBER setKeyName identifier+
+    ;
+
+smembersCommand
+    : SMEMBERS setKeyName
+    ;
+
+smoveCommand
+    : SMOVE setKeyName setKeyName
+    ;
+
+spopCommand
+    : SPOP setKeyName POSITIVE_DECIMAL_LITERAL?
+    ;
+
+srandmemberCommand
+    : SRANDMEMBER setKeyName decimal?
+    ;
+
+sremCommand
+    : SREM setKeyName identifier+
+    ;
+
+sscanComman
+    : SSCAN setKeyName decimal matchClause? countClause?
+    ;
+
+sunionCommand
+    : SUNION setKeyName+
+    ;
+
+sunionstoreCommand
+    : SUNIONSTORE identifier setKeyName+
     ;
 
 lmoveCommand
@@ -335,7 +428,7 @@ waitCommand
     : WAIT POSITIVE_DECIMAL_LITERAL POSITIVE_DECIMAL_LITERAL
     ;
 
-setCommand
+stringSetCommand
     : SET stringKeyName identifier keyExistenceClause? GET? (expirationClause | KEEPTTL)?
     ;
 
@@ -443,6 +536,10 @@ stringKeyName
     ;
 
 listKeyName
+    : identifier
+    ;
+
+setKeyName
     : identifier
     ;
 

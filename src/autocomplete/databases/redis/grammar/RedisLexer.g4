@@ -57,6 +57,7 @@ BEFORE      : 'BEFORE';
 AFTER       : 'AFTER';
 RANK        : 'RANK';
 MAXLEN      : 'MAXLEN';
+LIMIT       : 'LIMIT';
 
 // String keywords
 
@@ -110,6 +111,26 @@ LRANGE     : 'LRANGE';
 LREM       : 'LREM';
 LSET       : 'LSET';
 LTRIM      : 'LTRIM';
+
+// Set keywords
+
+SADD        : 'SADD';
+SCARD       : 'SCARD';
+SDIFF       : 'SDIFF';
+SDIFFSTORE  : 'SDIFFSTORE';
+SINTER      : 'SINTER';
+SINTERCARD  : 'SINTERCARD';
+SINTERSTORE : 'SINTERSTORE';
+SISMEMBER   : 'SISMEMBER';
+SMISMEMBER  : 'SMISMEMBER';
+SMEMBERS    : 'SMEMBERS';
+SMOVE       : 'SMOVE';
+SPOP        : 'SPOP';
+SRANDMEMBER : 'SRANDMEMBER';
+SREM        : 'SREM';
+SSCAN       : 'SSCAN';
+SUNION      : 'SUNION';
+SUNIONSTORE : 'SUNIONSTORE';
 
 // Constructors symbols
 
