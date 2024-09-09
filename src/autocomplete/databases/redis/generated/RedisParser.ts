@@ -58,99 +58,155 @@ export class RedisParser extends antlr.Parser {
     public static readonly TYPE = 36;
     public static readonly TOUCH = 37;
     public static readonly WAIT = 38;
-    public static readonly SET = 39;
-    public static readonly GET = 40;
-    public static readonly INCR = 41;
-    public static readonly INCRBY = 42;
-    public static readonly DECR = 43;
-    public static readonly DECRBY = 44;
-    public static readonly EX = 45;
-    public static readonly PX = 46;
-    public static readonly EXAT = 47;
-    public static readonly PXAT = 48;
-    public static readonly KEEPTTL = 49;
-    public static readonly APPEND = 50;
-    public static readonly GETDEL = 51;
-    public static readonly GETEX = 52;
-    public static readonly GETRANGE = 53;
-    public static readonly GETSET = 54;
-    public static readonly MGET = 55;
-    public static readonly MSET = 56;
-    public static readonly MSETNX = 57;
-    public static readonly PSETEX = 58;
-    public static readonly SETEX = 59;
-    public static readonly SETNX = 60;
-    public static readonly SETRANGE = 61;
-    public static readonly STRLEN = 62;
-    public static readonly SUBSTR = 63;
-    public static readonly SINGLE_QUOTE = 64;
-    public static readonly DOUBLE_QUOTE = 65;
-    public static readonly POSITIVE_DECIMAL_LITERAL = 66;
-    public static readonly DECIMAL_LITERAL = 67;
-    public static readonly IDENTIFIER = 68;
+    public static readonly LEFT = 39;
+    public static readonly RIGHT = 40;
+    public static readonly BEFORE = 41;
+    public static readonly AFTER = 42;
+    public static readonly RANK = 43;
+    public static readonly MAXLEN = 44;
+    public static readonly SET = 45;
+    public static readonly GET = 46;
+    public static readonly INCR = 47;
+    public static readonly INCRBY = 48;
+    public static readonly DECR = 49;
+    public static readonly DECRBY = 50;
+    public static readonly EX = 51;
+    public static readonly PX = 52;
+    public static readonly EXAT = 53;
+    public static readonly PXAT = 54;
+    public static readonly KEEPTTL = 55;
+    public static readonly APPEND = 56;
+    public static readonly GETDEL = 57;
+    public static readonly GETEX = 58;
+    public static readonly GETRANGE = 59;
+    public static readonly GETSET = 60;
+    public static readonly MGET = 61;
+    public static readonly MSET = 62;
+    public static readonly MSETNX = 63;
+    public static readonly PSETEX = 64;
+    public static readonly SETEX = 65;
+    public static readonly SETNX = 66;
+    public static readonly SETRANGE = 67;
+    public static readonly STRLEN = 68;
+    public static readonly SUBSTR = 69;
+    public static readonly LMOVE = 70;
+    public static readonly BLMOVE = 71;
+    public static readonly LMPOP = 72;
+    public static readonly BLMPOP = 73;
+    public static readonly LPOP = 74;
+    public static readonly BLPOP = 75;
+    public static readonly RPOP = 76;
+    public static readonly BRPOP = 77;
+    public static readonly RPOPLPUSH = 78;
+    public static readonly BRPOPLPUSH = 79;
+    public static readonly LINDEX = 80;
+    public static readonly LINSERT = 81;
+    public static readonly LLEN = 82;
+    public static readonly LPOS = 83;
+    public static readonly LPUSH = 84;
+    public static readonly LPUSHX = 85;
+    public static readonly RPUSH = 86;
+    public static readonly RPUSHX = 87;
+    public static readonly LRANGE = 88;
+    public static readonly LREM = 89;
+    public static readonly LSET = 90;
+    public static readonly LTRIM = 91;
+    public static readonly SINGLE_QUOTE = 92;
+    public static readonly DOUBLE_QUOTE = 93;
+    public static readonly POSITIVE_DECIMAL_LITERAL = 94;
+    public static readonly DECIMAL_LITERAL = 95;
+    public static readonly IDENTIFIER = 96;
     public static readonly RULE_root = 0;
     public static readonly RULE_commands = 1;
     public static readonly RULE_command = 2;
     public static readonly RULE_commonCommand = 3;
     public static readonly RULE_stringCommand = 4;
-    public static readonly RULE_copyCommand = 5;
-    public static readonly RULE_dbClause = 6;
-    public static readonly RULE_databaseName = 7;
-    public static readonly RULE_deleteCommand = 8;
-    public static readonly RULE_unlinkCommand = 9;
-    public static readonly RULE_dumpCommand = 10;
-    public static readonly RULE_existsCommand = 11;
-    public static readonly RULE_expireCommand = 12;
-    public static readonly RULE_expireAtCommand = 13;
-    public static readonly RULE_pExpireCommand = 14;
-    public static readonly RULE_pExpireAtCommand = 15;
-    public static readonly RULE_expireOptions = 16;
-    public static readonly RULE_expireTimeCommand = 17;
-    public static readonly RULE_pExpireTimeCommand = 18;
-    public static readonly RULE_keysCommand = 19;
-    public static readonly RULE_moveCommand = 20;
-    public static readonly RULE_objectCommand = 21;
-    public static readonly RULE_objectOptions = 22;
-    public static readonly RULE_persistCommand = 23;
-    public static readonly RULE_ttlCommand = 24;
-    public static readonly RULE_pTtlCommand = 25;
-    public static readonly RULE_randomKeyCommand = 26;
-    public static readonly RULE_renameCommand = 27;
-    public static readonly RULE_renameNxCommand = 28;
-    public static readonly RULE_scanCommand = 29;
-    public static readonly RULE_matchClause = 30;
-    public static readonly RULE_countClause = 31;
-    public static readonly RULE_typeClause = 32;
-    public static readonly RULE_touchCommand = 33;
-    public static readonly RULE_typeCommand = 34;
-    public static readonly RULE_waitCommand = 35;
-    public static readonly RULE_setCommand = 36;
-    public static readonly RULE_keyExistenceClause = 37;
-    public static readonly RULE_expirationClause = 38;
-    public static readonly RULE_getCommand = 39;
-    public static readonly RULE_incrementCommand = 40;
-    public static readonly RULE_incrementByCommand = 41;
-    public static readonly RULE_decrementCommand = 42;
-    public static readonly RULE_decrementByCommand = 43;
-    public static readonly RULE_appendCommand = 44;
-    public static readonly RULE_getDeleteCommand = 45;
-    public static readonly RULE_getExCommand = 46;
-    public static readonly RULE_getRangeCommand = 47;
-    public static readonly RULE_getSetCommand = 48;
-    public static readonly RULE_mGetCommand = 49;
-    public static readonly RULE_mSetCommand = 50;
-    public static readonly RULE_mSetNxCommand = 51;
-    public static readonly RULE_pSetExCommand = 52;
-    public static readonly RULE_setExCommand = 53;
-    public static readonly RULE_setNxCommand = 54;
-    public static readonly RULE_setRangeCommand = 55;
-    public static readonly RULE_stringLengthCommand = 56;
-    public static readonly RULE_substringCommand = 57;
-    public static readonly RULE_decimal = 58;
-    public static readonly RULE_identifier = 59;
-    public static readonly RULE_stringKeyName = 60;
-    public static readonly RULE_keyName = 61;
-    public static readonly RULE_keyPattern = 62;
+    public static readonly RULE_listCommand = 5;
+    public static readonly RULE_lmoveCommand = 6;
+    public static readonly RULE_leftOrRightClause = 7;
+    public static readonly RULE_blmoveCommand = 8;
+    public static readonly RULE_lmpopCommand = 9;
+    public static readonly RULE_blmpopCommand = 10;
+    public static readonly RULE_lpopCommand = 11;
+    public static readonly RULE_blpopCommand = 12;
+    public static readonly RULE_rpopCommand = 13;
+    public static readonly RULE_brpopCommand = 14;
+    public static readonly RULE_rpopLpushCommand = 15;
+    public static readonly RULE_brpopLpushCommand = 16;
+    public static readonly RULE_lindexCommand = 17;
+    public static readonly RULE_linsertCommand = 18;
+    public static readonly RULE_beforeOrAfterClause = 19;
+    public static readonly RULE_llenCommand = 20;
+    public static readonly RULE_lposCommand = 21;
+    public static readonly RULE_rankClause = 22;
+    public static readonly RULE_maxLenClause = 23;
+    public static readonly RULE_lpushCommand = 24;
+    public static readonly RULE_lpushxCommand = 25;
+    public static readonly RULE_rpushCommand = 26;
+    public static readonly RULE_rpushxCommand = 27;
+    public static readonly RULE_lrangeCommand = 28;
+    public static readonly RULE_lremCommand = 29;
+    public static readonly RULE_lsetCommand = 30;
+    public static readonly RULE_ltrimCommand = 31;
+    public static readonly RULE_copyCommand = 32;
+    public static readonly RULE_dbClause = 33;
+    public static readonly RULE_databaseName = 34;
+    public static readonly RULE_deleteCommand = 35;
+    public static readonly RULE_unlinkCommand = 36;
+    public static readonly RULE_dumpCommand = 37;
+    public static readonly RULE_existsCommand = 38;
+    public static readonly RULE_expireCommand = 39;
+    public static readonly RULE_expireAtCommand = 40;
+    public static readonly RULE_pExpireCommand = 41;
+    public static readonly RULE_pExpireAtCommand = 42;
+    public static readonly RULE_expireOptions = 43;
+    public static readonly RULE_expireTimeCommand = 44;
+    public static readonly RULE_pExpireTimeCommand = 45;
+    public static readonly RULE_keysCommand = 46;
+    public static readonly RULE_moveCommand = 47;
+    public static readonly RULE_objectCommand = 48;
+    public static readonly RULE_objectOptions = 49;
+    public static readonly RULE_persistCommand = 50;
+    public static readonly RULE_ttlCommand = 51;
+    public static readonly RULE_pTtlCommand = 52;
+    public static readonly RULE_randomKeyCommand = 53;
+    public static readonly RULE_renameCommand = 54;
+    public static readonly RULE_renameNxCommand = 55;
+    public static readonly RULE_scanCommand = 56;
+    public static readonly RULE_matchClause = 57;
+    public static readonly RULE_countClause = 58;
+    public static readonly RULE_typeClause = 59;
+    public static readonly RULE_touchCommand = 60;
+    public static readonly RULE_typeCommand = 61;
+    public static readonly RULE_waitCommand = 62;
+    public static readonly RULE_setCommand = 63;
+    public static readonly RULE_keyExistenceClause = 64;
+    public static readonly RULE_expirationClause = 65;
+    public static readonly RULE_getCommand = 66;
+    public static readonly RULE_incrementCommand = 67;
+    public static readonly RULE_incrementByCommand = 68;
+    public static readonly RULE_decrementCommand = 69;
+    public static readonly RULE_decrementByCommand = 70;
+    public static readonly RULE_appendCommand = 71;
+    public static readonly RULE_getDeleteCommand = 72;
+    public static readonly RULE_getExCommand = 73;
+    public static readonly RULE_getRangeCommand = 74;
+    public static readonly RULE_getSetCommand = 75;
+    public static readonly RULE_mGetCommand = 76;
+    public static readonly RULE_mSetCommand = 77;
+    public static readonly RULE_mSetNxCommand = 78;
+    public static readonly RULE_pSetExCommand = 79;
+    public static readonly RULE_setExCommand = 80;
+    public static readonly RULE_setNxCommand = 81;
+    public static readonly RULE_setRangeCommand = 82;
+    public static readonly RULE_stringLengthCommand = 83;
+    public static readonly RULE_substringCommand = 84;
+    public static readonly RULE_decimal = 85;
+    public static readonly RULE_identifier = 86;
+    public static readonly RULE_stringKeyName = 87;
+    public static readonly RULE_listKeyName = 88;
+    public static readonly RULE_keyName = 89;
+    public static readonly RULE_keyPattern = 90;
 
     public static readonly literalNames = [
         null, null, null, "'COPY'", "'DB'", "'REPLACE'", "'DEL'", "'UNLINK'", 
@@ -159,11 +215,15 @@ export class RedisParser extends antlr.Parser {
         "'KEYS'", "'MOVE'", "'OBJECT'", "'ENCODING'", "'FREQ'", "'IDLETIME'", 
         "'REFCOUNT'", "'PERSIST'", "'TTL'", "'PTTL'", "'RANDOMKEY'", "'RENAME'", 
         "'RENAMENX'", "'SCAN'", "'MATCH'", "'COUNT'", "'TYPE'", "'TOUCH'", 
-        "'WAIT'", "'SET'", "'GET'", "'INCR'", "'INCRBY'", "'DECR'", "'DECRBY'", 
+        "'WAIT'", "'LEFT'", "'RIGHT'", "'BEFORE'", "'AFTER'", "'RANK'", 
+        "'MAXLEN'", "'SET'", "'GET'", "'INCR'", "'INCRBY'", "'DECR'", "'DECRBY'", 
         "'EX'", "'PX'", "'EXAT'", "'PXAT'", "'KEEPTTL'", "'APPEND'", "'GETDEL'", 
         "'GETEX'", "'GETRANGE'", "'GETSET'", "'MGET'", "'MSET'", "'MSETNX'", 
         "'PSETEX'", "'SETEX'", "'SETNX'", "'SETRANGE'", "'STRLEN'", "'SUBSTR'", 
-        "'''", "'\"'"
+        "'LMOVE'", "'BLMOVE'", "'LMPOP'", "'BLMPOP'", "'LPOP'", "'BLPOP'", 
+        "'RPOP'", "'BRPOP'", "'RPOPLPUSH'", "'BRPOPLPUSH'", "'LINDEX'", 
+        "'LINSERT'", "'LLEN'", "'LPOS'", "'LPUSH'", "'LPUSHX'", "'RPUSH'", 
+        "'RPUSHX'", "'LRANGE'", "'LREM'", "'LSET'", "'LTRIM'", "'''", "'\"'"
     ];
 
     public static readonly symbolicNames = [
@@ -172,28 +232,39 @@ export class RedisParser extends antlr.Parser {
         "EXPIRETIME", "PEXPIRE", "PEXPIREAT", "PEXPIRETIME", "KEYS", "MOVE", 
         "OBJECT", "ENCODING", "FREQ", "IDLETIME", "REFCOUNT", "PERSIST", 
         "TTL", "PTTL", "RANDOMKEY", "RENAME", "RENAMENX", "SCAN", "MATCH", 
-        "COUNT", "TYPE", "TOUCH", "WAIT", "SET", "GET", "INCR", "INCRBY", 
-        "DECR", "DECRBY", "EX", "PX", "EXAT", "PXAT", "KEEPTTL", "APPEND", 
-        "GETDEL", "GETEX", "GETRANGE", "GETSET", "MGET", "MSET", "MSETNX", 
-        "PSETEX", "SETEX", "SETNX", "SETRANGE", "STRLEN", "SUBSTR", "SINGLE_QUOTE", 
-        "DOUBLE_QUOTE", "POSITIVE_DECIMAL_LITERAL", "DECIMAL_LITERAL", "IDENTIFIER"
+        "COUNT", "TYPE", "TOUCH", "WAIT", "LEFT", "RIGHT", "BEFORE", "AFTER", 
+        "RANK", "MAXLEN", "SET", "GET", "INCR", "INCRBY", "DECR", "DECRBY", 
+        "EX", "PX", "EXAT", "PXAT", "KEEPTTL", "APPEND", "GETDEL", "GETEX", 
+        "GETRANGE", "GETSET", "MGET", "MSET", "MSETNX", "PSETEX", "SETEX", 
+        "SETNX", "SETRANGE", "STRLEN", "SUBSTR", "LMOVE", "BLMOVE", "LMPOP", 
+        "BLMPOP", "LPOP", "BLPOP", "RPOP", "BRPOP", "RPOPLPUSH", "BRPOPLPUSH", 
+        "LINDEX", "LINSERT", "LLEN", "LPOS", "LPUSH", "LPUSHX", "RPUSH", 
+        "RPUSHX", "LRANGE", "LREM", "LSET", "LTRIM", "SINGLE_QUOTE", "DOUBLE_QUOTE", 
+        "POSITIVE_DECIMAL_LITERAL", "DECIMAL_LITERAL", "IDENTIFIER"
     ];
     public static readonly ruleNames = [
         "root", "commands", "command", "commonCommand", "stringCommand", 
-        "copyCommand", "dbClause", "databaseName", "deleteCommand", "unlinkCommand", 
-        "dumpCommand", "existsCommand", "expireCommand", "expireAtCommand", 
-        "pExpireCommand", "pExpireAtCommand", "expireOptions", "expireTimeCommand", 
-        "pExpireTimeCommand", "keysCommand", "moveCommand", "objectCommand", 
-        "objectOptions", "persistCommand", "ttlCommand", "pTtlCommand", 
-        "randomKeyCommand", "renameCommand", "renameNxCommand", "scanCommand", 
-        "matchClause", "countClause", "typeClause", "touchCommand", "typeCommand", 
-        "waitCommand", "setCommand", "keyExistenceClause", "expirationClause", 
-        "getCommand", "incrementCommand", "incrementByCommand", "decrementCommand", 
-        "decrementByCommand", "appendCommand", "getDeleteCommand", "getExCommand", 
-        "getRangeCommand", "getSetCommand", "mGetCommand", "mSetCommand", 
-        "mSetNxCommand", "pSetExCommand", "setExCommand", "setNxCommand", 
-        "setRangeCommand", "stringLengthCommand", "substringCommand", "decimal", 
-        "identifier", "stringKeyName", "keyName", "keyPattern",
+        "listCommand", "lmoveCommand", "leftOrRightClause", "blmoveCommand", 
+        "lmpopCommand", "blmpopCommand", "lpopCommand", "blpopCommand", 
+        "rpopCommand", "brpopCommand", "rpopLpushCommand", "brpopLpushCommand", 
+        "lindexCommand", "linsertCommand", "beforeOrAfterClause", "llenCommand", 
+        "lposCommand", "rankClause", "maxLenClause", "lpushCommand", "lpushxCommand", 
+        "rpushCommand", "rpushxCommand", "lrangeCommand", "lremCommand", 
+        "lsetCommand", "ltrimCommand", "copyCommand", "dbClause", "databaseName", 
+        "deleteCommand", "unlinkCommand", "dumpCommand", "existsCommand", 
+        "expireCommand", "expireAtCommand", "pExpireCommand", "pExpireAtCommand", 
+        "expireOptions", "expireTimeCommand", "pExpireTimeCommand", "keysCommand", 
+        "moveCommand", "objectCommand", "objectOptions", "persistCommand", 
+        "ttlCommand", "pTtlCommand", "randomKeyCommand", "renameCommand", 
+        "renameNxCommand", "scanCommand", "matchClause", "countClause", 
+        "typeClause", "touchCommand", "typeCommand", "waitCommand", "setCommand", 
+        "keyExistenceClause", "expirationClause", "getCommand", "incrementCommand", 
+        "incrementByCommand", "decrementCommand", "decrementByCommand", 
+        "appendCommand", "getDeleteCommand", "getExCommand", "getRangeCommand", 
+        "getSetCommand", "mGetCommand", "mSetCommand", "mSetNxCommand", 
+        "pSetExCommand", "setExCommand", "setNxCommand", "setRangeCommand", 
+        "stringLengthCommand", "substringCommand", "decimal", "identifier", 
+        "stringKeyName", "listKeyName", "keyName", "keyPattern",
     ];
 
     public get grammarFileName(): string { return "RedisParser.g4"; }
@@ -217,17 +288,17 @@ export class RedisParser extends antlr.Parser {
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 127;
+            this.state = 183;
             this.errorHandler.sync(this);
             _la = this.tokenStream.LA(1);
-            if ((((_la) & ~0x1F) === 0 && ((1 << _la) & 4169107400) !== 0) || ((((_la - 32)) & ~0x1F) === 0 && ((1 << (_la - 32)) & 4294713331) !== 0)) {
+            if ((((_la) & ~0x1F) === 0 && ((1 << _la) & 4169107400) !== 0) || ((((_la - 32)) & ~0x1F) === 0 && ((1 << (_la - 32)) & 4278706291) !== 0) || ((((_la - 64)) & ~0x1F) === 0 && ((1 << (_la - 64)) & 268435455) !== 0)) {
                 {
-                this.state = 126;
+                this.state = 182;
                 this.commands();
                 }
             }
 
-            this.state = 129;
+            this.state = 185;
             this.match(RedisParser.EOF);
             }
         }
@@ -249,25 +320,25 @@ export class RedisParser extends antlr.Parser {
         this.enterRule(localContext, 2, RedisParser.RULE_commands);
         let _la: number;
         try {
-            this.state = 146;
+            this.state = 202;
             this.errorHandler.sync(this);
             switch (this.interpreter.adaptivePredict(this.tokenStream, 3, this.context) ) {
             case 1:
                 this.enterOuterAlt(localContext, 1);
                 {
-                this.state = 131;
+                this.state = 187;
                 this.command();
-                this.state = 135;
+                this.state = 191;
                 this.errorHandler.sync(this);
                 _la = this.tokenStream.LA(1);
                 while (_la === 2) {
                     {
                     {
-                    this.state = 132;
+                    this.state = 188;
                     this.match(RedisParser.NEWLINE);
                     }
                     }
-                    this.state = 137;
+                    this.state = 193;
                     this.errorHandler.sync(this);
                     _la = this.tokenStream.LA(1);
                 }
@@ -276,23 +347,23 @@ export class RedisParser extends antlr.Parser {
             case 2:
                 this.enterOuterAlt(localContext, 2);
                 {
-                this.state = 138;
+                this.state = 194;
                 this.command();
-                this.state = 140;
+                this.state = 196;
                 this.errorHandler.sync(this);
                 _la = this.tokenStream.LA(1);
                 do {
                     {
                     {
-                    this.state = 139;
+                    this.state = 195;
                     this.match(RedisParser.NEWLINE);
                     }
                     }
-                    this.state = 142;
+                    this.state = 198;
                     this.errorHandler.sync(this);
                     _la = this.tokenStream.LA(1);
                 } while (_la === 2);
-                this.state = 144;
+                this.state = 200;
                 this.commands();
                 }
                 break;
@@ -315,7 +386,7 @@ export class RedisParser extends antlr.Parser {
         let localContext = new CommandContext(this.context, this.state);
         this.enterRule(localContext, 4, RedisParser.RULE_command);
         try {
-            this.state = 150;
+            this.state = 207;
             this.errorHandler.sync(this);
             switch (this.tokenStream.LA(1)) {
             case RedisParser.COPY:
@@ -344,7 +415,7 @@ export class RedisParser extends antlr.Parser {
             case RedisParser.WAIT:
                 this.enterOuterAlt(localContext, 1);
                 {
-                this.state = 148;
+                this.state = 204;
                 this.commonCommand();
                 }
                 break;
@@ -370,8 +441,36 @@ export class RedisParser extends antlr.Parser {
             case RedisParser.SUBSTR:
                 this.enterOuterAlt(localContext, 2);
                 {
-                this.state = 149;
+                this.state = 205;
                 this.stringCommand();
+                }
+                break;
+            case RedisParser.LMOVE:
+            case RedisParser.BLMOVE:
+            case RedisParser.LMPOP:
+            case RedisParser.BLMPOP:
+            case RedisParser.LPOP:
+            case RedisParser.BLPOP:
+            case RedisParser.RPOP:
+            case RedisParser.BRPOP:
+            case RedisParser.RPOPLPUSH:
+            case RedisParser.BRPOPLPUSH:
+            case RedisParser.LINDEX:
+            case RedisParser.LINSERT:
+            case RedisParser.LLEN:
+            case RedisParser.LPOS:
+            case RedisParser.LPUSH:
+            case RedisParser.LPUSHX:
+            case RedisParser.RPUSH:
+            case RedisParser.RPUSHX:
+            case RedisParser.LRANGE:
+            case RedisParser.LREM:
+            case RedisParser.LSET:
+            case RedisParser.LTRIM:
+                this.enterOuterAlt(localContext, 3);
+                {
+                this.state = 206;
+                this.listCommand();
                 }
                 break;
             default:
@@ -395,174 +494,174 @@ export class RedisParser extends antlr.Parser {
         let localContext = new CommonCommandContext(this.context, this.state);
         this.enterRule(localContext, 6, RedisParser.RULE_commonCommand);
         try {
-            this.state = 176;
+            this.state = 233;
             this.errorHandler.sync(this);
             switch (this.tokenStream.LA(1)) {
             case RedisParser.COPY:
                 this.enterOuterAlt(localContext, 1);
                 {
-                this.state = 152;
+                this.state = 209;
                 this.copyCommand();
                 }
                 break;
             case RedisParser.DEL:
                 this.enterOuterAlt(localContext, 2);
                 {
-                this.state = 153;
+                this.state = 210;
                 this.deleteCommand();
                 }
                 break;
             case RedisParser.UNLINK:
                 this.enterOuterAlt(localContext, 3);
                 {
-                this.state = 154;
+                this.state = 211;
                 this.unlinkCommand();
                 }
                 break;
             case RedisParser.DUMP:
                 this.enterOuterAlt(localContext, 4);
                 {
-                this.state = 155;
+                this.state = 212;
                 this.dumpCommand();
                 }
                 break;
             case RedisParser.EXISTS:
                 this.enterOuterAlt(localContext, 5);
                 {
-                this.state = 156;
+                this.state = 213;
                 this.existsCommand();
                 }
                 break;
             case RedisParser.EXPIRE:
                 this.enterOuterAlt(localContext, 6);
                 {
-                this.state = 157;
+                this.state = 214;
                 this.expireCommand();
                 }
                 break;
             case RedisParser.EXPIREAT:
                 this.enterOuterAlt(localContext, 7);
                 {
-                this.state = 158;
+                this.state = 215;
                 this.expireAtCommand();
                 }
                 break;
             case RedisParser.EXPIRETIME:
                 this.enterOuterAlt(localContext, 8);
                 {
-                this.state = 159;
+                this.state = 216;
                 this.expireTimeCommand();
                 }
                 break;
             case RedisParser.PEXPIRE:
                 this.enterOuterAlt(localContext, 9);
                 {
-                this.state = 160;
+                this.state = 217;
                 this.pExpireCommand();
                 }
                 break;
             case RedisParser.PEXPIREAT:
                 this.enterOuterAlt(localContext, 10);
                 {
-                this.state = 161;
+                this.state = 218;
                 this.pExpireAtCommand();
                 }
                 break;
             case RedisParser.PEXPIRETIME:
                 this.enterOuterAlt(localContext, 11);
                 {
-                this.state = 162;
+                this.state = 219;
                 this.pExpireTimeCommand();
                 }
                 break;
             case RedisParser.KEYS:
                 this.enterOuterAlt(localContext, 12);
                 {
-                this.state = 163;
+                this.state = 220;
                 this.keysCommand();
                 }
                 break;
             case RedisParser.MOVE:
                 this.enterOuterAlt(localContext, 13);
                 {
-                this.state = 164;
+                this.state = 221;
                 this.moveCommand();
                 }
                 break;
             case RedisParser.OBJECT:
                 this.enterOuterAlt(localContext, 14);
                 {
-                this.state = 165;
+                this.state = 222;
                 this.objectCommand();
                 }
                 break;
             case RedisParser.PERSIST:
                 this.enterOuterAlt(localContext, 15);
                 {
-                this.state = 166;
+                this.state = 223;
                 this.persistCommand();
                 }
                 break;
             case RedisParser.TTL:
                 this.enterOuterAlt(localContext, 16);
                 {
-                this.state = 167;
+                this.state = 224;
                 this.ttlCommand();
                 }
                 break;
             case RedisParser.PTTL:
                 this.enterOuterAlt(localContext, 17);
                 {
-                this.state = 168;
+                this.state = 225;
                 this.pTtlCommand();
                 }
                 break;
             case RedisParser.RANDOMKEY:
                 this.enterOuterAlt(localContext, 18);
                 {
-                this.state = 169;
+                this.state = 226;
                 this.randomKeyCommand();
                 }
                 break;
             case RedisParser.RENAME:
                 this.enterOuterAlt(localContext, 19);
                 {
-                this.state = 170;
+                this.state = 227;
                 this.renameCommand();
                 }
                 break;
             case RedisParser.RENAMENX:
                 this.enterOuterAlt(localContext, 20);
                 {
-                this.state = 171;
+                this.state = 228;
                 this.renameNxCommand();
                 }
                 break;
             case RedisParser.SCAN:
                 this.enterOuterAlt(localContext, 21);
                 {
-                this.state = 172;
+                this.state = 229;
                 this.scanCommand();
                 }
                 break;
             case RedisParser.TOUCH:
                 this.enterOuterAlt(localContext, 22);
                 {
-                this.state = 173;
+                this.state = 230;
                 this.touchCommand();
                 }
                 break;
             case RedisParser.TYPE:
                 this.enterOuterAlt(localContext, 23);
                 {
-                this.state = 174;
+                this.state = 231;
                 this.typeCommand();
                 }
                 break;
             case RedisParser.WAIT:
                 this.enterOuterAlt(localContext, 24);
                 {
-                this.state = 175;
+                this.state = 232;
                 this.waitCommand();
                 }
                 break;
@@ -587,146 +686,146 @@ export class RedisParser extends antlr.Parser {
         let localContext = new StringCommandContext(this.context, this.state);
         this.enterRule(localContext, 8, RedisParser.RULE_stringCommand);
         try {
-            this.state = 198;
+            this.state = 255;
             this.errorHandler.sync(this);
             switch (this.tokenStream.LA(1)) {
             case RedisParser.SET:
                 this.enterOuterAlt(localContext, 1);
                 {
-                this.state = 178;
+                this.state = 235;
                 this.setCommand();
                 }
                 break;
             case RedisParser.GET:
                 this.enterOuterAlt(localContext, 2);
                 {
-                this.state = 179;
+                this.state = 236;
                 this.getCommand();
                 }
                 break;
             case RedisParser.INCR:
                 this.enterOuterAlt(localContext, 3);
                 {
-                this.state = 180;
+                this.state = 237;
                 this.incrementCommand();
                 }
                 break;
             case RedisParser.INCRBY:
                 this.enterOuterAlt(localContext, 4);
                 {
-                this.state = 181;
+                this.state = 238;
                 this.incrementByCommand();
                 }
                 break;
             case RedisParser.DECR:
                 this.enterOuterAlt(localContext, 5);
                 {
-                this.state = 182;
+                this.state = 239;
                 this.decrementCommand();
                 }
                 break;
             case RedisParser.DECRBY:
                 this.enterOuterAlt(localContext, 6);
                 {
-                this.state = 183;
+                this.state = 240;
                 this.decrementByCommand();
                 }
                 break;
             case RedisParser.APPEND:
                 this.enterOuterAlt(localContext, 7);
                 {
-                this.state = 184;
+                this.state = 241;
                 this.appendCommand();
                 }
                 break;
             case RedisParser.GETDEL:
                 this.enterOuterAlt(localContext, 8);
                 {
-                this.state = 185;
+                this.state = 242;
                 this.getDeleteCommand();
                 }
                 break;
             case RedisParser.GETEX:
                 this.enterOuterAlt(localContext, 9);
                 {
-                this.state = 186;
+                this.state = 243;
                 this.getExCommand();
                 }
                 break;
             case RedisParser.GETRANGE:
                 this.enterOuterAlt(localContext, 10);
                 {
-                this.state = 187;
+                this.state = 244;
                 this.getRangeCommand();
                 }
                 break;
             case RedisParser.GETSET:
                 this.enterOuterAlt(localContext, 11);
                 {
-                this.state = 188;
+                this.state = 245;
                 this.getSetCommand();
                 }
                 break;
             case RedisParser.MGET:
                 this.enterOuterAlt(localContext, 12);
                 {
-                this.state = 189;
+                this.state = 246;
                 this.mGetCommand();
                 }
                 break;
             case RedisParser.MSET:
                 this.enterOuterAlt(localContext, 13);
                 {
-                this.state = 190;
+                this.state = 247;
                 this.mSetCommand();
                 }
                 break;
             case RedisParser.MSETNX:
                 this.enterOuterAlt(localContext, 14);
                 {
-                this.state = 191;
+                this.state = 248;
                 this.mSetNxCommand();
                 }
                 break;
             case RedisParser.PSETEX:
                 this.enterOuterAlt(localContext, 15);
                 {
-                this.state = 192;
+                this.state = 249;
                 this.pSetExCommand();
                 }
                 break;
             case RedisParser.SETEX:
                 this.enterOuterAlt(localContext, 16);
                 {
-                this.state = 193;
+                this.state = 250;
                 this.setExCommand();
                 }
                 break;
             case RedisParser.SETNX:
                 this.enterOuterAlt(localContext, 17);
                 {
-                this.state = 194;
+                this.state = 251;
                 this.setNxCommand();
                 }
                 break;
             case RedisParser.SETRANGE:
                 this.enterOuterAlt(localContext, 18);
                 {
-                this.state = 195;
+                this.state = 252;
                 this.setRangeCommand();
                 }
                 break;
             case RedisParser.STRLEN:
                 this.enterOuterAlt(localContext, 19);
                 {
-                this.state = 196;
+                this.state = 253;
                 this.stringLengthCommand();
                 }
                 break;
             case RedisParser.SUBSTR:
                 this.enterOuterAlt(localContext, 20);
                 {
-                this.state = 197;
+                this.state = 254;
                 this.substringCommand();
                 }
                 break;
@@ -747,35 +846,1132 @@ export class RedisParser extends antlr.Parser {
         }
         return localContext;
     }
-    public copyCommand(): CopyCommandContext {
-        let localContext = new CopyCommandContext(this.context, this.state);
-        this.enterRule(localContext, 10, RedisParser.RULE_copyCommand);
+    public listCommand(): ListCommandContext {
+        let localContext = new ListCommandContext(this.context, this.state);
+        this.enterRule(localContext, 10, RedisParser.RULE_listCommand);
+        try {
+            this.state = 279;
+            this.errorHandler.sync(this);
+            switch (this.tokenStream.LA(1)) {
+            case RedisParser.LMOVE:
+                this.enterOuterAlt(localContext, 1);
+                {
+                this.state = 257;
+                this.lmoveCommand();
+                }
+                break;
+            case RedisParser.BLMOVE:
+                this.enterOuterAlt(localContext, 2);
+                {
+                this.state = 258;
+                this.blmoveCommand();
+                }
+                break;
+            case RedisParser.LMPOP:
+                this.enterOuterAlt(localContext, 3);
+                {
+                this.state = 259;
+                this.lmpopCommand();
+                }
+                break;
+            case RedisParser.BLMPOP:
+                this.enterOuterAlt(localContext, 4);
+                {
+                this.state = 260;
+                this.blmpopCommand();
+                }
+                break;
+            case RedisParser.LPOP:
+                this.enterOuterAlt(localContext, 5);
+                {
+                this.state = 261;
+                this.lpopCommand();
+                }
+                break;
+            case RedisParser.BLPOP:
+                this.enterOuterAlt(localContext, 6);
+                {
+                this.state = 262;
+                this.blpopCommand();
+                }
+                break;
+            case RedisParser.RPOP:
+                this.enterOuterAlt(localContext, 7);
+                {
+                this.state = 263;
+                this.rpopCommand();
+                }
+                break;
+            case RedisParser.BRPOP:
+                this.enterOuterAlt(localContext, 8);
+                {
+                this.state = 264;
+                this.brpopCommand();
+                }
+                break;
+            case RedisParser.RPOPLPUSH:
+                this.enterOuterAlt(localContext, 9);
+                {
+                this.state = 265;
+                this.rpopLpushCommand();
+                }
+                break;
+            case RedisParser.BRPOPLPUSH:
+                this.enterOuterAlt(localContext, 10);
+                {
+                this.state = 266;
+                this.brpopLpushCommand();
+                }
+                break;
+            case RedisParser.LINDEX:
+                this.enterOuterAlt(localContext, 11);
+                {
+                this.state = 267;
+                this.lindexCommand();
+                }
+                break;
+            case RedisParser.LINSERT:
+                this.enterOuterAlt(localContext, 12);
+                {
+                this.state = 268;
+                this.linsertCommand();
+                }
+                break;
+            case RedisParser.LLEN:
+                this.enterOuterAlt(localContext, 13);
+                {
+                this.state = 269;
+                this.llenCommand();
+                }
+                break;
+            case RedisParser.LPOS:
+                this.enterOuterAlt(localContext, 14);
+                {
+                this.state = 270;
+                this.lposCommand();
+                }
+                break;
+            case RedisParser.LPUSH:
+                this.enterOuterAlt(localContext, 15);
+                {
+                this.state = 271;
+                this.lpushCommand();
+                }
+                break;
+            case RedisParser.LPUSHX:
+                this.enterOuterAlt(localContext, 16);
+                {
+                this.state = 272;
+                this.lpushxCommand();
+                }
+                break;
+            case RedisParser.RPUSH:
+                this.enterOuterAlt(localContext, 17);
+                {
+                this.state = 273;
+                this.rpushCommand();
+                }
+                break;
+            case RedisParser.RPUSHX:
+                this.enterOuterAlt(localContext, 18);
+                {
+                this.state = 274;
+                this.rpushxCommand();
+                }
+                break;
+            case RedisParser.LRANGE:
+                this.enterOuterAlt(localContext, 19);
+                {
+                this.state = 275;
+                this.lrangeCommand();
+                }
+                break;
+            case RedisParser.LREM:
+                this.enterOuterAlt(localContext, 20);
+                {
+                this.state = 276;
+                this.lremCommand();
+                }
+                break;
+            case RedisParser.LSET:
+                this.enterOuterAlt(localContext, 21);
+                {
+                this.state = 277;
+                this.lsetCommand();
+                }
+                break;
+            case RedisParser.LTRIM:
+                this.enterOuterAlt(localContext, 22);
+                {
+                this.state = 278;
+                this.ltrimCommand();
+                }
+                break;
+            default:
+                throw new antlr.NoViableAltException(this);
+            }
+        }
+        catch (re) {
+            if (re instanceof antlr.RecognitionException) {
+                this.errorHandler.reportError(this, re);
+                this.errorHandler.recover(this, re);
+            } else {
+                throw re;
+            }
+        }
+        finally {
+            this.exitRule();
+        }
+        return localContext;
+    }
+    public lmoveCommand(): LmoveCommandContext {
+        let localContext = new LmoveCommandContext(this.context, this.state);
+        this.enterRule(localContext, 12, RedisParser.RULE_lmoveCommand);
+        try {
+            this.enterOuterAlt(localContext, 1);
+            {
+            this.state = 281;
+            this.match(RedisParser.LMOVE);
+            this.state = 282;
+            this.listKeyName();
+            this.state = 283;
+            this.listKeyName();
+            this.state = 284;
+            this.leftOrRightClause();
+            this.state = 285;
+            this.leftOrRightClause();
+            }
+        }
+        catch (re) {
+            if (re instanceof antlr.RecognitionException) {
+                this.errorHandler.reportError(this, re);
+                this.errorHandler.recover(this, re);
+            } else {
+                throw re;
+            }
+        }
+        finally {
+            this.exitRule();
+        }
+        return localContext;
+    }
+    public leftOrRightClause(): LeftOrRightClauseContext {
+        let localContext = new LeftOrRightClauseContext(this.context, this.state);
+        this.enterRule(localContext, 14, RedisParser.RULE_leftOrRightClause);
         let _la: number;
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 200;
-            this.match(RedisParser.COPY);
-            this.state = 201;
-            this.keyName();
-            this.state = 202;
+            this.state = 287;
+            _la = this.tokenStream.LA(1);
+            if(!(_la === 39 || _la === 40)) {
+            this.errorHandler.recoverInline(this);
+            }
+            else {
+                this.errorHandler.reportMatch(this);
+                this.consume();
+            }
+            }
+        }
+        catch (re) {
+            if (re instanceof antlr.RecognitionException) {
+                this.errorHandler.reportError(this, re);
+                this.errorHandler.recover(this, re);
+            } else {
+                throw re;
+            }
+        }
+        finally {
+            this.exitRule();
+        }
+        return localContext;
+    }
+    public blmoveCommand(): BlmoveCommandContext {
+        let localContext = new BlmoveCommandContext(this.context, this.state);
+        this.enterRule(localContext, 16, RedisParser.RULE_blmoveCommand);
+        try {
+            this.enterOuterAlt(localContext, 1);
+            {
+            this.state = 289;
+            this.match(RedisParser.BLMOVE);
+            this.state = 290;
+            this.listKeyName();
+            this.state = 291;
+            this.listKeyName();
+            this.state = 292;
+            this.leftOrRightClause();
+            this.state = 293;
+            this.leftOrRightClause();
+            this.state = 294;
+            this.match(RedisParser.POSITIVE_DECIMAL_LITERAL);
+            }
+        }
+        catch (re) {
+            if (re instanceof antlr.RecognitionException) {
+                this.errorHandler.reportError(this, re);
+                this.errorHandler.recover(this, re);
+            } else {
+                throw re;
+            }
+        }
+        finally {
+            this.exitRule();
+        }
+        return localContext;
+    }
+    public lmpopCommand(): LmpopCommandContext {
+        let localContext = new LmpopCommandContext(this.context, this.state);
+        this.enterRule(localContext, 18, RedisParser.RULE_lmpopCommand);
+        let _la: number;
+        try {
+            this.enterOuterAlt(localContext, 1);
+            {
+            this.state = 296;
+            this.match(RedisParser.LMPOP);
+            this.state = 297;
+            this.match(RedisParser.POSITIVE_DECIMAL_LITERAL);
+            this.state = 299;
+            this.errorHandler.sync(this);
+            _la = this.tokenStream.LA(1);
+            do {
+                {
+                {
+                this.state = 298;
+                this.listKeyName();
+                }
+                }
+                this.state = 301;
+                this.errorHandler.sync(this);
+                _la = this.tokenStream.LA(1);
+            } while (((((_la - 94)) & ~0x1F) === 0 && ((1 << (_la - 94)) & 7) !== 0));
+            this.state = 303;
+            this.leftOrRightClause();
+            this.state = 305;
+            this.errorHandler.sync(this);
+            _la = this.tokenStream.LA(1);
+            if (_la === 35) {
+                {
+                this.state = 304;
+                this.countClause();
+                }
+            }
+
+            }
+        }
+        catch (re) {
+            if (re instanceof antlr.RecognitionException) {
+                this.errorHandler.reportError(this, re);
+                this.errorHandler.recover(this, re);
+            } else {
+                throw re;
+            }
+        }
+        finally {
+            this.exitRule();
+        }
+        return localContext;
+    }
+    public blmpopCommand(): BlmpopCommandContext {
+        let localContext = new BlmpopCommandContext(this.context, this.state);
+        this.enterRule(localContext, 20, RedisParser.RULE_blmpopCommand);
+        let _la: number;
+        try {
+            this.enterOuterAlt(localContext, 1);
+            {
+            this.state = 307;
+            this.match(RedisParser.BLMPOP);
+            this.state = 308;
+            this.match(RedisParser.POSITIVE_DECIMAL_LITERAL);
+            this.state = 309;
+            this.match(RedisParser.POSITIVE_DECIMAL_LITERAL);
+            this.state = 311;
+            this.errorHandler.sync(this);
+            _la = this.tokenStream.LA(1);
+            do {
+                {
+                {
+                this.state = 310;
+                this.listKeyName();
+                }
+                }
+                this.state = 313;
+                this.errorHandler.sync(this);
+                _la = this.tokenStream.LA(1);
+            } while (((((_la - 94)) & ~0x1F) === 0 && ((1 << (_la - 94)) & 7) !== 0));
+            this.state = 315;
+            this.leftOrRightClause();
+            this.state = 317;
+            this.errorHandler.sync(this);
+            _la = this.tokenStream.LA(1);
+            if (_la === 35) {
+                {
+                this.state = 316;
+                this.countClause();
+                }
+            }
+
+            }
+        }
+        catch (re) {
+            if (re instanceof antlr.RecognitionException) {
+                this.errorHandler.reportError(this, re);
+                this.errorHandler.recover(this, re);
+            } else {
+                throw re;
+            }
+        }
+        finally {
+            this.exitRule();
+        }
+        return localContext;
+    }
+    public lpopCommand(): LpopCommandContext {
+        let localContext = new LpopCommandContext(this.context, this.state);
+        this.enterRule(localContext, 22, RedisParser.RULE_lpopCommand);
+        let _la: number;
+        try {
+            this.enterOuterAlt(localContext, 1);
+            {
+            this.state = 319;
+            this.match(RedisParser.LPOP);
+            this.state = 320;
+            this.listKeyName();
+            this.state = 322;
+            this.errorHandler.sync(this);
+            _la = this.tokenStream.LA(1);
+            if (_la === 94) {
+                {
+                this.state = 321;
+                this.match(RedisParser.POSITIVE_DECIMAL_LITERAL);
+                }
+            }
+
+            }
+        }
+        catch (re) {
+            if (re instanceof antlr.RecognitionException) {
+                this.errorHandler.reportError(this, re);
+                this.errorHandler.recover(this, re);
+            } else {
+                throw re;
+            }
+        }
+        finally {
+            this.exitRule();
+        }
+        return localContext;
+    }
+    public blpopCommand(): BlpopCommandContext {
+        let localContext = new BlpopCommandContext(this.context, this.state);
+        this.enterRule(localContext, 24, RedisParser.RULE_blpopCommand);
+        try {
+            let alternative: number;
+            this.enterOuterAlt(localContext, 1);
+            {
+            this.state = 324;
+            this.match(RedisParser.BLPOP);
+            this.state = 326;
+            this.errorHandler.sync(this);
+            alternative = 1;
+            do {
+                switch (alternative) {
+                case 1:
+                    {
+                    {
+                    this.state = 325;
+                    this.listKeyName();
+                    }
+                    }
+                    break;
+                default:
+                    throw new antlr.NoViableAltException(this);
+                }
+                this.state = 328;
+                this.errorHandler.sync(this);
+                alternative = this.interpreter.adaptivePredict(this.tokenStream, 13, this.context);
+            } while (alternative !== 2 && alternative !== antlr.ATN.INVALID_ALT_NUMBER);
+            this.state = 330;
+            this.match(RedisParser.POSITIVE_DECIMAL_LITERAL);
+            }
+        }
+        catch (re) {
+            if (re instanceof antlr.RecognitionException) {
+                this.errorHandler.reportError(this, re);
+                this.errorHandler.recover(this, re);
+            } else {
+                throw re;
+            }
+        }
+        finally {
+            this.exitRule();
+        }
+        return localContext;
+    }
+    public rpopCommand(): RpopCommandContext {
+        let localContext = new RpopCommandContext(this.context, this.state);
+        this.enterRule(localContext, 26, RedisParser.RULE_rpopCommand);
+        let _la: number;
+        try {
+            this.enterOuterAlt(localContext, 1);
+            {
+            this.state = 332;
+            this.match(RedisParser.RPOP);
+            this.state = 333;
+            this.listKeyName();
+            this.state = 335;
+            this.errorHandler.sync(this);
+            _la = this.tokenStream.LA(1);
+            if (_la === 94) {
+                {
+                this.state = 334;
+                this.match(RedisParser.POSITIVE_DECIMAL_LITERAL);
+                }
+            }
+
+            }
+        }
+        catch (re) {
+            if (re instanceof antlr.RecognitionException) {
+                this.errorHandler.reportError(this, re);
+                this.errorHandler.recover(this, re);
+            } else {
+                throw re;
+            }
+        }
+        finally {
+            this.exitRule();
+        }
+        return localContext;
+    }
+    public brpopCommand(): BrpopCommandContext {
+        let localContext = new BrpopCommandContext(this.context, this.state);
+        this.enterRule(localContext, 28, RedisParser.RULE_brpopCommand);
+        try {
+            let alternative: number;
+            this.enterOuterAlt(localContext, 1);
+            {
+            this.state = 337;
+            this.match(RedisParser.BRPOP);
+            this.state = 339;
+            this.errorHandler.sync(this);
+            alternative = 1;
+            do {
+                switch (alternative) {
+                case 1:
+                    {
+                    {
+                    this.state = 338;
+                    this.listKeyName();
+                    }
+                    }
+                    break;
+                default:
+                    throw new antlr.NoViableAltException(this);
+                }
+                this.state = 341;
+                this.errorHandler.sync(this);
+                alternative = this.interpreter.adaptivePredict(this.tokenStream, 15, this.context);
+            } while (alternative !== 2 && alternative !== antlr.ATN.INVALID_ALT_NUMBER);
+            this.state = 343;
+            this.match(RedisParser.POSITIVE_DECIMAL_LITERAL);
+            }
+        }
+        catch (re) {
+            if (re instanceof antlr.RecognitionException) {
+                this.errorHandler.reportError(this, re);
+                this.errorHandler.recover(this, re);
+            } else {
+                throw re;
+            }
+        }
+        finally {
+            this.exitRule();
+        }
+        return localContext;
+    }
+    public rpopLpushCommand(): RpopLpushCommandContext {
+        let localContext = new RpopLpushCommandContext(this.context, this.state);
+        this.enterRule(localContext, 30, RedisParser.RULE_rpopLpushCommand);
+        try {
+            this.enterOuterAlt(localContext, 1);
+            {
+            this.state = 345;
+            this.match(RedisParser.RPOPLPUSH);
+            this.state = 346;
+            this.listKeyName();
+            this.state = 347;
+            this.listKeyName();
+            }
+        }
+        catch (re) {
+            if (re instanceof antlr.RecognitionException) {
+                this.errorHandler.reportError(this, re);
+                this.errorHandler.recover(this, re);
+            } else {
+                throw re;
+            }
+        }
+        finally {
+            this.exitRule();
+        }
+        return localContext;
+    }
+    public brpopLpushCommand(): BrpopLpushCommandContext {
+        let localContext = new BrpopLpushCommandContext(this.context, this.state);
+        this.enterRule(localContext, 32, RedisParser.RULE_brpopLpushCommand);
+        try {
+            this.enterOuterAlt(localContext, 1);
+            {
+            this.state = 349;
+            this.match(RedisParser.BRPOPLPUSH);
+            this.state = 350;
+            this.listKeyName();
+            this.state = 351;
+            this.listKeyName();
+            this.state = 352;
+            this.match(RedisParser.POSITIVE_DECIMAL_LITERAL);
+            }
+        }
+        catch (re) {
+            if (re instanceof antlr.RecognitionException) {
+                this.errorHandler.reportError(this, re);
+                this.errorHandler.recover(this, re);
+            } else {
+                throw re;
+            }
+        }
+        finally {
+            this.exitRule();
+        }
+        return localContext;
+    }
+    public lindexCommand(): LindexCommandContext {
+        let localContext = new LindexCommandContext(this.context, this.state);
+        this.enterRule(localContext, 34, RedisParser.RULE_lindexCommand);
+        try {
+            this.enterOuterAlt(localContext, 1);
+            {
+            this.state = 354;
+            this.match(RedisParser.LINDEX);
+            this.state = 355;
+            this.listKeyName();
+            this.state = 356;
+            this.decimal();
+            }
+        }
+        catch (re) {
+            if (re instanceof antlr.RecognitionException) {
+                this.errorHandler.reportError(this, re);
+                this.errorHandler.recover(this, re);
+            } else {
+                throw re;
+            }
+        }
+        finally {
+            this.exitRule();
+        }
+        return localContext;
+    }
+    public linsertCommand(): LinsertCommandContext {
+        let localContext = new LinsertCommandContext(this.context, this.state);
+        this.enterRule(localContext, 36, RedisParser.RULE_linsertCommand);
+        try {
+            this.enterOuterAlt(localContext, 1);
+            {
+            this.state = 358;
+            this.match(RedisParser.LINSERT);
+            this.state = 359;
+            this.listKeyName();
+            this.state = 360;
+            this.beforeOrAfterClause();
+            this.state = 361;
             this.identifier();
-            this.state = 204;
+            this.state = 362;
+            this.identifier();
+            }
+        }
+        catch (re) {
+            if (re instanceof antlr.RecognitionException) {
+                this.errorHandler.reportError(this, re);
+                this.errorHandler.recover(this, re);
+            } else {
+                throw re;
+            }
+        }
+        finally {
+            this.exitRule();
+        }
+        return localContext;
+    }
+    public beforeOrAfterClause(): BeforeOrAfterClauseContext {
+        let localContext = new BeforeOrAfterClauseContext(this.context, this.state);
+        this.enterRule(localContext, 38, RedisParser.RULE_beforeOrAfterClause);
+        let _la: number;
+        try {
+            this.enterOuterAlt(localContext, 1);
+            {
+            this.state = 364;
+            _la = this.tokenStream.LA(1);
+            if(!(_la === 41 || _la === 42)) {
+            this.errorHandler.recoverInline(this);
+            }
+            else {
+                this.errorHandler.reportMatch(this);
+                this.consume();
+            }
+            }
+        }
+        catch (re) {
+            if (re instanceof antlr.RecognitionException) {
+                this.errorHandler.reportError(this, re);
+                this.errorHandler.recover(this, re);
+            } else {
+                throw re;
+            }
+        }
+        finally {
+            this.exitRule();
+        }
+        return localContext;
+    }
+    public llenCommand(): LlenCommandContext {
+        let localContext = new LlenCommandContext(this.context, this.state);
+        this.enterRule(localContext, 40, RedisParser.RULE_llenCommand);
+        try {
+            this.enterOuterAlt(localContext, 1);
+            {
+            this.state = 366;
+            this.match(RedisParser.LLEN);
+            this.state = 367;
+            this.listKeyName();
+            }
+        }
+        catch (re) {
+            if (re instanceof antlr.RecognitionException) {
+                this.errorHandler.reportError(this, re);
+                this.errorHandler.recover(this, re);
+            } else {
+                throw re;
+            }
+        }
+        finally {
+            this.exitRule();
+        }
+        return localContext;
+    }
+    public lposCommand(): LposCommandContext {
+        let localContext = new LposCommandContext(this.context, this.state);
+        this.enterRule(localContext, 42, RedisParser.RULE_lposCommand);
+        let _la: number;
+        try {
+            this.enterOuterAlt(localContext, 1);
+            {
+            this.state = 369;
+            this.match(RedisParser.LPOS);
+            this.state = 370;
+            this.listKeyName();
+            this.state = 371;
+            this.identifier();
+            this.state = 373;
+            this.errorHandler.sync(this);
+            _la = this.tokenStream.LA(1);
+            if (_la === 43) {
+                {
+                this.state = 372;
+                this.rankClause();
+                }
+            }
+
+            this.state = 376;
+            this.errorHandler.sync(this);
+            _la = this.tokenStream.LA(1);
+            if (_la === 35) {
+                {
+                this.state = 375;
+                this.countClause();
+                }
+            }
+
+            this.state = 379;
+            this.errorHandler.sync(this);
+            _la = this.tokenStream.LA(1);
+            if (_la === 44) {
+                {
+                this.state = 378;
+                this.maxLenClause();
+                }
+            }
+
+            }
+        }
+        catch (re) {
+            if (re instanceof antlr.RecognitionException) {
+                this.errorHandler.reportError(this, re);
+                this.errorHandler.recover(this, re);
+            } else {
+                throw re;
+            }
+        }
+        finally {
+            this.exitRule();
+        }
+        return localContext;
+    }
+    public rankClause(): RankClauseContext {
+        let localContext = new RankClauseContext(this.context, this.state);
+        this.enterRule(localContext, 44, RedisParser.RULE_rankClause);
+        try {
+            this.enterOuterAlt(localContext, 1);
+            {
+            this.state = 381;
+            this.match(RedisParser.RANK);
+            this.state = 382;
+            this.decimal();
+            }
+        }
+        catch (re) {
+            if (re instanceof antlr.RecognitionException) {
+                this.errorHandler.reportError(this, re);
+                this.errorHandler.recover(this, re);
+            } else {
+                throw re;
+            }
+        }
+        finally {
+            this.exitRule();
+        }
+        return localContext;
+    }
+    public maxLenClause(): MaxLenClauseContext {
+        let localContext = new MaxLenClauseContext(this.context, this.state);
+        this.enterRule(localContext, 46, RedisParser.RULE_maxLenClause);
+        try {
+            this.enterOuterAlt(localContext, 1);
+            {
+            this.state = 384;
+            this.match(RedisParser.MAXLEN);
+            this.state = 385;
+            this.match(RedisParser.POSITIVE_DECIMAL_LITERAL);
+            }
+        }
+        catch (re) {
+            if (re instanceof antlr.RecognitionException) {
+                this.errorHandler.reportError(this, re);
+                this.errorHandler.recover(this, re);
+            } else {
+                throw re;
+            }
+        }
+        finally {
+            this.exitRule();
+        }
+        return localContext;
+    }
+    public lpushCommand(): LpushCommandContext {
+        let localContext = new LpushCommandContext(this.context, this.state);
+        this.enterRule(localContext, 48, RedisParser.RULE_lpushCommand);
+        let _la: number;
+        try {
+            this.enterOuterAlt(localContext, 1);
+            {
+            this.state = 387;
+            this.match(RedisParser.LPUSH);
+            this.state = 388;
+            this.listKeyName();
+            this.state = 390;
+            this.errorHandler.sync(this);
+            _la = this.tokenStream.LA(1);
+            do {
+                {
+                {
+                this.state = 389;
+                this.identifier();
+                }
+                }
+                this.state = 392;
+                this.errorHandler.sync(this);
+                _la = this.tokenStream.LA(1);
+            } while (((((_la - 94)) & ~0x1F) === 0 && ((1 << (_la - 94)) & 7) !== 0));
+            }
+        }
+        catch (re) {
+            if (re instanceof antlr.RecognitionException) {
+                this.errorHandler.reportError(this, re);
+                this.errorHandler.recover(this, re);
+            } else {
+                throw re;
+            }
+        }
+        finally {
+            this.exitRule();
+        }
+        return localContext;
+    }
+    public lpushxCommand(): LpushxCommandContext {
+        let localContext = new LpushxCommandContext(this.context, this.state);
+        this.enterRule(localContext, 50, RedisParser.RULE_lpushxCommand);
+        let _la: number;
+        try {
+            this.enterOuterAlt(localContext, 1);
+            {
+            this.state = 394;
+            this.match(RedisParser.LPUSHX);
+            this.state = 395;
+            this.listKeyName();
+            this.state = 397;
+            this.errorHandler.sync(this);
+            _la = this.tokenStream.LA(1);
+            do {
+                {
+                {
+                this.state = 396;
+                this.identifier();
+                }
+                }
+                this.state = 399;
+                this.errorHandler.sync(this);
+                _la = this.tokenStream.LA(1);
+            } while (((((_la - 94)) & ~0x1F) === 0 && ((1 << (_la - 94)) & 7) !== 0));
+            }
+        }
+        catch (re) {
+            if (re instanceof antlr.RecognitionException) {
+                this.errorHandler.reportError(this, re);
+                this.errorHandler.recover(this, re);
+            } else {
+                throw re;
+            }
+        }
+        finally {
+            this.exitRule();
+        }
+        return localContext;
+    }
+    public rpushCommand(): RpushCommandContext {
+        let localContext = new RpushCommandContext(this.context, this.state);
+        this.enterRule(localContext, 52, RedisParser.RULE_rpushCommand);
+        let _la: number;
+        try {
+            this.enterOuterAlt(localContext, 1);
+            {
+            this.state = 401;
+            this.match(RedisParser.RPUSH);
+            this.state = 402;
+            this.listKeyName();
+            this.state = 404;
+            this.errorHandler.sync(this);
+            _la = this.tokenStream.LA(1);
+            do {
+                {
+                {
+                this.state = 403;
+                this.identifier();
+                }
+                }
+                this.state = 406;
+                this.errorHandler.sync(this);
+                _la = this.tokenStream.LA(1);
+            } while (((((_la - 94)) & ~0x1F) === 0 && ((1 << (_la - 94)) & 7) !== 0));
+            }
+        }
+        catch (re) {
+            if (re instanceof antlr.RecognitionException) {
+                this.errorHandler.reportError(this, re);
+                this.errorHandler.recover(this, re);
+            } else {
+                throw re;
+            }
+        }
+        finally {
+            this.exitRule();
+        }
+        return localContext;
+    }
+    public rpushxCommand(): RpushxCommandContext {
+        let localContext = new RpushxCommandContext(this.context, this.state);
+        this.enterRule(localContext, 54, RedisParser.RULE_rpushxCommand);
+        let _la: number;
+        try {
+            this.enterOuterAlt(localContext, 1);
+            {
+            this.state = 408;
+            this.match(RedisParser.RPUSHX);
+            this.state = 409;
+            this.listKeyName();
+            this.state = 411;
+            this.errorHandler.sync(this);
+            _la = this.tokenStream.LA(1);
+            do {
+                {
+                {
+                this.state = 410;
+                this.identifier();
+                }
+                }
+                this.state = 413;
+                this.errorHandler.sync(this);
+                _la = this.tokenStream.LA(1);
+            } while (((((_la - 94)) & ~0x1F) === 0 && ((1 << (_la - 94)) & 7) !== 0));
+            }
+        }
+        catch (re) {
+            if (re instanceof antlr.RecognitionException) {
+                this.errorHandler.reportError(this, re);
+                this.errorHandler.recover(this, re);
+            } else {
+                throw re;
+            }
+        }
+        finally {
+            this.exitRule();
+        }
+        return localContext;
+    }
+    public lrangeCommand(): LrangeCommandContext {
+        let localContext = new LrangeCommandContext(this.context, this.state);
+        this.enterRule(localContext, 56, RedisParser.RULE_lrangeCommand);
+        try {
+            this.enterOuterAlt(localContext, 1);
+            {
+            this.state = 415;
+            this.match(RedisParser.LRANGE);
+            this.state = 416;
+            this.listKeyName();
+            this.state = 417;
+            this.decimal();
+            this.state = 418;
+            this.decimal();
+            }
+        }
+        catch (re) {
+            if (re instanceof antlr.RecognitionException) {
+                this.errorHandler.reportError(this, re);
+                this.errorHandler.recover(this, re);
+            } else {
+                throw re;
+            }
+        }
+        finally {
+            this.exitRule();
+        }
+        return localContext;
+    }
+    public lremCommand(): LremCommandContext {
+        let localContext = new LremCommandContext(this.context, this.state);
+        this.enterRule(localContext, 58, RedisParser.RULE_lremCommand);
+        try {
+            this.enterOuterAlt(localContext, 1);
+            {
+            this.state = 420;
+            this.match(RedisParser.LREM);
+            this.state = 421;
+            this.listKeyName();
+            this.state = 422;
+            this.decimal();
+            this.state = 423;
+            this.identifier();
+            }
+        }
+        catch (re) {
+            if (re instanceof antlr.RecognitionException) {
+                this.errorHandler.reportError(this, re);
+                this.errorHandler.recover(this, re);
+            } else {
+                throw re;
+            }
+        }
+        finally {
+            this.exitRule();
+        }
+        return localContext;
+    }
+    public lsetCommand(): LsetCommandContext {
+        let localContext = new LsetCommandContext(this.context, this.state);
+        this.enterRule(localContext, 60, RedisParser.RULE_lsetCommand);
+        try {
+            this.enterOuterAlt(localContext, 1);
+            {
+            this.state = 425;
+            this.match(RedisParser.LSET);
+            this.state = 426;
+            this.listKeyName();
+            this.state = 427;
+            this.decimal();
+            this.state = 428;
+            this.identifier();
+            }
+        }
+        catch (re) {
+            if (re instanceof antlr.RecognitionException) {
+                this.errorHandler.reportError(this, re);
+                this.errorHandler.recover(this, re);
+            } else {
+                throw re;
+            }
+        }
+        finally {
+            this.exitRule();
+        }
+        return localContext;
+    }
+    public ltrimCommand(): LtrimCommandContext {
+        let localContext = new LtrimCommandContext(this.context, this.state);
+        this.enterRule(localContext, 62, RedisParser.RULE_ltrimCommand);
+        try {
+            this.enterOuterAlt(localContext, 1);
+            {
+            this.state = 430;
+            this.match(RedisParser.LTRIM);
+            this.state = 431;
+            this.listKeyName();
+            this.state = 432;
+            this.decimal();
+            this.state = 433;
+            this.decimal();
+            }
+        }
+        catch (re) {
+            if (re instanceof antlr.RecognitionException) {
+                this.errorHandler.reportError(this, re);
+                this.errorHandler.recover(this, re);
+            } else {
+                throw re;
+            }
+        }
+        finally {
+            this.exitRule();
+        }
+        return localContext;
+    }
+    public copyCommand(): CopyCommandContext {
+        let localContext = new CopyCommandContext(this.context, this.state);
+        this.enterRule(localContext, 64, RedisParser.RULE_copyCommand);
+        let _la: number;
+        try {
+            this.enterOuterAlt(localContext, 1);
+            {
+            this.state = 435;
+            this.match(RedisParser.COPY);
+            this.state = 436;
+            this.keyName();
+            this.state = 437;
+            this.identifier();
+            this.state = 439;
             this.errorHandler.sync(this);
             _la = this.tokenStream.LA(1);
             if (_la === 4) {
                 {
-                this.state = 203;
+                this.state = 438;
                 this.dbClause();
                 }
             }
 
-            this.state = 207;
+            this.state = 442;
             this.errorHandler.sync(this);
             _la = this.tokenStream.LA(1);
             if (_la === 5) {
                 {
-                this.state = 206;
+                this.state = 441;
                 this.match(RedisParser.REPLACE);
                 }
             }
@@ -797,13 +1993,13 @@ export class RedisParser extends antlr.Parser {
     }
     public dbClause(): DbClauseContext {
         let localContext = new DbClauseContext(this.context, this.state);
-        this.enterRule(localContext, 12, RedisParser.RULE_dbClause);
+        this.enterRule(localContext, 66, RedisParser.RULE_dbClause);
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 209;
+            this.state = 444;
             this.match(RedisParser.DB);
-            this.state = 210;
+            this.state = 445;
             this.databaseName();
             }
         }
@@ -822,11 +2018,11 @@ export class RedisParser extends antlr.Parser {
     }
     public databaseName(): DatabaseNameContext {
         let localContext = new DatabaseNameContext(this.context, this.state);
-        this.enterRule(localContext, 14, RedisParser.RULE_databaseName);
+        this.enterRule(localContext, 68, RedisParser.RULE_databaseName);
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 212;
+            this.state = 447;
             this.match(RedisParser.POSITIVE_DECIMAL_LITERAL);
             }
         }
@@ -845,27 +2041,27 @@ export class RedisParser extends antlr.Parser {
     }
     public deleteCommand(): DeleteCommandContext {
         let localContext = new DeleteCommandContext(this.context, this.state);
-        this.enterRule(localContext, 16, RedisParser.RULE_deleteCommand);
+        this.enterRule(localContext, 70, RedisParser.RULE_deleteCommand);
         let _la: number;
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 214;
+            this.state = 449;
             this.match(RedisParser.DEL);
-            this.state = 216;
+            this.state = 451;
             this.errorHandler.sync(this);
             _la = this.tokenStream.LA(1);
             do {
                 {
                 {
-                this.state = 215;
+                this.state = 450;
                 this.keyName();
                 }
                 }
-                this.state = 218;
+                this.state = 453;
                 this.errorHandler.sync(this);
                 _la = this.tokenStream.LA(1);
-            } while (((((_la - 66)) & ~0x1F) === 0 && ((1 << (_la - 66)) & 7) !== 0));
+            } while (((((_la - 94)) & ~0x1F) === 0 && ((1 << (_la - 94)) & 7) !== 0));
             }
         }
         catch (re) {
@@ -883,27 +2079,27 @@ export class RedisParser extends antlr.Parser {
     }
     public unlinkCommand(): UnlinkCommandContext {
         let localContext = new UnlinkCommandContext(this.context, this.state);
-        this.enterRule(localContext, 18, RedisParser.RULE_unlinkCommand);
+        this.enterRule(localContext, 72, RedisParser.RULE_unlinkCommand);
         let _la: number;
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 220;
+            this.state = 455;
             this.match(RedisParser.UNLINK);
-            this.state = 222;
+            this.state = 457;
             this.errorHandler.sync(this);
             _la = this.tokenStream.LA(1);
             do {
                 {
                 {
-                this.state = 221;
+                this.state = 456;
                 this.keyName();
                 }
                 }
-                this.state = 224;
+                this.state = 459;
                 this.errorHandler.sync(this);
                 _la = this.tokenStream.LA(1);
-            } while (((((_la - 66)) & ~0x1F) === 0 && ((1 << (_la - 66)) & 7) !== 0));
+            } while (((((_la - 94)) & ~0x1F) === 0 && ((1 << (_la - 94)) & 7) !== 0));
             }
         }
         catch (re) {
@@ -921,13 +2117,13 @@ export class RedisParser extends antlr.Parser {
     }
     public dumpCommand(): DumpCommandContext {
         let localContext = new DumpCommandContext(this.context, this.state);
-        this.enterRule(localContext, 20, RedisParser.RULE_dumpCommand);
+        this.enterRule(localContext, 74, RedisParser.RULE_dumpCommand);
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 226;
+            this.state = 461;
             this.match(RedisParser.DUMP);
-            this.state = 227;
+            this.state = 462;
             this.keyName();
             }
         }
@@ -946,27 +2142,27 @@ export class RedisParser extends antlr.Parser {
     }
     public existsCommand(): ExistsCommandContext {
         let localContext = new ExistsCommandContext(this.context, this.state);
-        this.enterRule(localContext, 22, RedisParser.RULE_existsCommand);
+        this.enterRule(localContext, 76, RedisParser.RULE_existsCommand);
         let _la: number;
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 229;
+            this.state = 464;
             this.match(RedisParser.EXISTS);
-            this.state = 231;
+            this.state = 466;
             this.errorHandler.sync(this);
             _la = this.tokenStream.LA(1);
             do {
                 {
                 {
-                this.state = 230;
+                this.state = 465;
                 this.keyName();
                 }
                 }
-                this.state = 233;
+                this.state = 468;
                 this.errorHandler.sync(this);
                 _la = this.tokenStream.LA(1);
-            } while (((((_la - 66)) & ~0x1F) === 0 && ((1 << (_la - 66)) & 7) !== 0));
+            } while (((((_la - 94)) & ~0x1F) === 0 && ((1 << (_la - 94)) & 7) !== 0));
             }
         }
         catch (re) {
@@ -984,23 +2180,23 @@ export class RedisParser extends antlr.Parser {
     }
     public expireCommand(): ExpireCommandContext {
         let localContext = new ExpireCommandContext(this.context, this.state);
-        this.enterRule(localContext, 24, RedisParser.RULE_expireCommand);
+        this.enterRule(localContext, 78, RedisParser.RULE_expireCommand);
         let _la: number;
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 235;
+            this.state = 470;
             this.match(RedisParser.EXPIRE);
-            this.state = 236;
+            this.state = 471;
             this.keyName();
-            this.state = 237;
+            this.state = 472;
             this.decimal();
-            this.state = 239;
+            this.state = 474;
             this.errorHandler.sync(this);
             _la = this.tokenStream.LA(1);
             if ((((_la) & ~0x1F) === 0 && ((1 << _la) & 30720) !== 0)) {
                 {
-                this.state = 238;
+                this.state = 473;
                 this.expireOptions();
                 }
             }
@@ -1022,23 +2218,23 @@ export class RedisParser extends antlr.Parser {
     }
     public expireAtCommand(): ExpireAtCommandContext {
         let localContext = new ExpireAtCommandContext(this.context, this.state);
-        this.enterRule(localContext, 26, RedisParser.RULE_expireAtCommand);
+        this.enterRule(localContext, 80, RedisParser.RULE_expireAtCommand);
         let _la: number;
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 241;
+            this.state = 476;
             this.match(RedisParser.EXPIREAT);
-            this.state = 242;
+            this.state = 477;
             this.keyName();
-            this.state = 243;
+            this.state = 478;
             this.decimal();
-            this.state = 245;
+            this.state = 480;
             this.errorHandler.sync(this);
             _la = this.tokenStream.LA(1);
             if ((((_la) & ~0x1F) === 0 && ((1 << _la) & 30720) !== 0)) {
                 {
-                this.state = 244;
+                this.state = 479;
                 this.expireOptions();
                 }
             }
@@ -1060,23 +2256,23 @@ export class RedisParser extends antlr.Parser {
     }
     public pExpireCommand(): PExpireCommandContext {
         let localContext = new PExpireCommandContext(this.context, this.state);
-        this.enterRule(localContext, 28, RedisParser.RULE_pExpireCommand);
+        this.enterRule(localContext, 82, RedisParser.RULE_pExpireCommand);
         let _la: number;
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 247;
+            this.state = 482;
             this.match(RedisParser.PEXPIRE);
-            this.state = 248;
+            this.state = 483;
             this.keyName();
-            this.state = 249;
+            this.state = 484;
             this.decimal();
-            this.state = 251;
+            this.state = 486;
             this.errorHandler.sync(this);
             _la = this.tokenStream.LA(1);
             if ((((_la) & ~0x1F) === 0 && ((1 << _la) & 30720) !== 0)) {
                 {
-                this.state = 250;
+                this.state = 485;
                 this.expireOptions();
                 }
             }
@@ -1098,23 +2294,23 @@ export class RedisParser extends antlr.Parser {
     }
     public pExpireAtCommand(): PExpireAtCommandContext {
         let localContext = new PExpireAtCommandContext(this.context, this.state);
-        this.enterRule(localContext, 30, RedisParser.RULE_pExpireAtCommand);
+        this.enterRule(localContext, 84, RedisParser.RULE_pExpireAtCommand);
         let _la: number;
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 253;
+            this.state = 488;
             this.match(RedisParser.PEXPIREAT);
-            this.state = 254;
+            this.state = 489;
             this.keyName();
-            this.state = 255;
+            this.state = 490;
             this.decimal();
-            this.state = 257;
+            this.state = 492;
             this.errorHandler.sync(this);
             _la = this.tokenStream.LA(1);
             if ((((_la) & ~0x1F) === 0 && ((1 << _la) & 30720) !== 0)) {
                 {
-                this.state = 256;
+                this.state = 491;
                 this.expireOptions();
                 }
             }
@@ -1136,12 +2332,12 @@ export class RedisParser extends antlr.Parser {
     }
     public expireOptions(): ExpireOptionsContext {
         let localContext = new ExpireOptionsContext(this.context, this.state);
-        this.enterRule(localContext, 32, RedisParser.RULE_expireOptions);
+        this.enterRule(localContext, 86, RedisParser.RULE_expireOptions);
         let _la: number;
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 259;
+            this.state = 494;
             _la = this.tokenStream.LA(1);
             if(!((((_la) & ~0x1F) === 0 && ((1 << _la) & 30720) !== 0))) {
             this.errorHandler.recoverInline(this);
@@ -1167,13 +2363,13 @@ export class RedisParser extends antlr.Parser {
     }
     public expireTimeCommand(): ExpireTimeCommandContext {
         let localContext = new ExpireTimeCommandContext(this.context, this.state);
-        this.enterRule(localContext, 34, RedisParser.RULE_expireTimeCommand);
+        this.enterRule(localContext, 88, RedisParser.RULE_expireTimeCommand);
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 261;
+            this.state = 496;
             this.match(RedisParser.EXPIRETIME);
-            this.state = 262;
+            this.state = 497;
             this.keyName();
             }
         }
@@ -1192,13 +2388,13 @@ export class RedisParser extends antlr.Parser {
     }
     public pExpireTimeCommand(): PExpireTimeCommandContext {
         let localContext = new PExpireTimeCommandContext(this.context, this.state);
-        this.enterRule(localContext, 36, RedisParser.RULE_pExpireTimeCommand);
+        this.enterRule(localContext, 90, RedisParser.RULE_pExpireTimeCommand);
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 264;
+            this.state = 499;
             this.match(RedisParser.PEXPIRETIME);
-            this.state = 265;
+            this.state = 500;
             this.keyName();
             }
         }
@@ -1217,13 +2413,13 @@ export class RedisParser extends antlr.Parser {
     }
     public keysCommand(): KeysCommandContext {
         let localContext = new KeysCommandContext(this.context, this.state);
-        this.enterRule(localContext, 38, RedisParser.RULE_keysCommand);
+        this.enterRule(localContext, 92, RedisParser.RULE_keysCommand);
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 267;
+            this.state = 502;
             this.match(RedisParser.KEYS);
-            this.state = 268;
+            this.state = 503;
             this.keyPattern();
             }
         }
@@ -1242,15 +2438,15 @@ export class RedisParser extends antlr.Parser {
     }
     public moveCommand(): MoveCommandContext {
         let localContext = new MoveCommandContext(this.context, this.state);
-        this.enterRule(localContext, 40, RedisParser.RULE_moveCommand);
+        this.enterRule(localContext, 94, RedisParser.RULE_moveCommand);
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 270;
+            this.state = 505;
             this.match(RedisParser.MOVE);
-            this.state = 271;
+            this.state = 506;
             this.keyName();
-            this.state = 272;
+            this.state = 507;
             this.databaseName();
             }
         }
@@ -1269,15 +2465,15 @@ export class RedisParser extends antlr.Parser {
     }
     public objectCommand(): ObjectCommandContext {
         let localContext = new ObjectCommandContext(this.context, this.state);
-        this.enterRule(localContext, 42, RedisParser.RULE_objectCommand);
+        this.enterRule(localContext, 96, RedisParser.RULE_objectCommand);
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 274;
+            this.state = 509;
             this.match(RedisParser.OBJECT);
-            this.state = 275;
+            this.state = 510;
             this.objectOptions();
-            this.state = 276;
+            this.state = 511;
             this.keyName();
             }
         }
@@ -1296,12 +2492,12 @@ export class RedisParser extends antlr.Parser {
     }
     public objectOptions(): ObjectOptionsContext {
         let localContext = new ObjectOptionsContext(this.context, this.state);
-        this.enterRule(localContext, 44, RedisParser.RULE_objectOptions);
+        this.enterRule(localContext, 98, RedisParser.RULE_objectOptions);
         let _la: number;
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 278;
+            this.state = 513;
             _la = this.tokenStream.LA(1);
             if(!((((_la) & ~0x1F) === 0 && ((1 << _la) & 125829120) !== 0))) {
             this.errorHandler.recoverInline(this);
@@ -1327,13 +2523,13 @@ export class RedisParser extends antlr.Parser {
     }
     public persistCommand(): PersistCommandContext {
         let localContext = new PersistCommandContext(this.context, this.state);
-        this.enterRule(localContext, 46, RedisParser.RULE_persistCommand);
+        this.enterRule(localContext, 100, RedisParser.RULE_persistCommand);
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 280;
+            this.state = 515;
             this.match(RedisParser.PERSIST);
-            this.state = 281;
+            this.state = 516;
             this.keyName();
             }
         }
@@ -1352,13 +2548,13 @@ export class RedisParser extends antlr.Parser {
     }
     public ttlCommand(): TtlCommandContext {
         let localContext = new TtlCommandContext(this.context, this.state);
-        this.enterRule(localContext, 48, RedisParser.RULE_ttlCommand);
+        this.enterRule(localContext, 102, RedisParser.RULE_ttlCommand);
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 283;
+            this.state = 518;
             this.match(RedisParser.TTL);
-            this.state = 284;
+            this.state = 519;
             this.keyName();
             }
         }
@@ -1377,13 +2573,13 @@ export class RedisParser extends antlr.Parser {
     }
     public pTtlCommand(): PTtlCommandContext {
         let localContext = new PTtlCommandContext(this.context, this.state);
-        this.enterRule(localContext, 50, RedisParser.RULE_pTtlCommand);
+        this.enterRule(localContext, 104, RedisParser.RULE_pTtlCommand);
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 286;
+            this.state = 521;
             this.match(RedisParser.PTTL);
-            this.state = 287;
+            this.state = 522;
             this.keyName();
             }
         }
@@ -1402,11 +2598,11 @@ export class RedisParser extends antlr.Parser {
     }
     public randomKeyCommand(): RandomKeyCommandContext {
         let localContext = new RandomKeyCommandContext(this.context, this.state);
-        this.enterRule(localContext, 52, RedisParser.RULE_randomKeyCommand);
+        this.enterRule(localContext, 106, RedisParser.RULE_randomKeyCommand);
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 289;
+            this.state = 524;
             this.match(RedisParser.RANDOMKEY);
             }
         }
@@ -1425,15 +2621,15 @@ export class RedisParser extends antlr.Parser {
     }
     public renameCommand(): RenameCommandContext {
         let localContext = new RenameCommandContext(this.context, this.state);
-        this.enterRule(localContext, 54, RedisParser.RULE_renameCommand);
+        this.enterRule(localContext, 108, RedisParser.RULE_renameCommand);
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 291;
+            this.state = 526;
             this.match(RedisParser.RENAME);
-            this.state = 292;
+            this.state = 527;
             this.keyName();
-            this.state = 293;
+            this.state = 528;
             this.identifier();
             }
         }
@@ -1452,15 +2648,15 @@ export class RedisParser extends antlr.Parser {
     }
     public renameNxCommand(): RenameNxCommandContext {
         let localContext = new RenameNxCommandContext(this.context, this.state);
-        this.enterRule(localContext, 56, RedisParser.RULE_renameNxCommand);
+        this.enterRule(localContext, 110, RedisParser.RULE_renameNxCommand);
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 295;
+            this.state = 530;
             this.match(RedisParser.RENAMENX);
-            this.state = 296;
+            this.state = 531;
             this.keyName();
-            this.state = 297;
+            this.state = 532;
             this.identifier();
             }
         }
@@ -1479,41 +2675,41 @@ export class RedisParser extends antlr.Parser {
     }
     public scanCommand(): ScanCommandContext {
         let localContext = new ScanCommandContext(this.context, this.state);
-        this.enterRule(localContext, 58, RedisParser.RULE_scanCommand);
+        this.enterRule(localContext, 112, RedisParser.RULE_scanCommand);
         let _la: number;
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 299;
+            this.state = 534;
             this.match(RedisParser.SCAN);
-            this.state = 300;
+            this.state = 535;
             this.decimal();
-            this.state = 302;
+            this.state = 537;
             this.errorHandler.sync(this);
             _la = this.tokenStream.LA(1);
             if (_la === 34) {
                 {
-                this.state = 301;
+                this.state = 536;
                 this.matchClause();
                 }
             }
 
-            this.state = 305;
+            this.state = 540;
             this.errorHandler.sync(this);
             _la = this.tokenStream.LA(1);
             if (_la === 35) {
                 {
-                this.state = 304;
+                this.state = 539;
                 this.countClause();
                 }
             }
 
-            this.state = 308;
+            this.state = 543;
             this.errorHandler.sync(this);
             _la = this.tokenStream.LA(1);
             if (_la === 36) {
                 {
-                this.state = 307;
+                this.state = 542;
                 this.typeClause();
                 }
             }
@@ -1535,13 +2731,13 @@ export class RedisParser extends antlr.Parser {
     }
     public matchClause(): MatchClauseContext {
         let localContext = new MatchClauseContext(this.context, this.state);
-        this.enterRule(localContext, 60, RedisParser.RULE_matchClause);
+        this.enterRule(localContext, 114, RedisParser.RULE_matchClause);
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 310;
+            this.state = 545;
             this.match(RedisParser.MATCH);
-            this.state = 311;
+            this.state = 546;
             this.keyPattern();
             }
         }
@@ -1560,13 +2756,13 @@ export class RedisParser extends antlr.Parser {
     }
     public countClause(): CountClauseContext {
         let localContext = new CountClauseContext(this.context, this.state);
-        this.enterRule(localContext, 62, RedisParser.RULE_countClause);
+        this.enterRule(localContext, 116, RedisParser.RULE_countClause);
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 313;
+            this.state = 548;
             this.match(RedisParser.COUNT);
-            this.state = 314;
+            this.state = 549;
             this.match(RedisParser.POSITIVE_DECIMAL_LITERAL);
             }
         }
@@ -1585,13 +2781,13 @@ export class RedisParser extends antlr.Parser {
     }
     public typeClause(): TypeClauseContext {
         let localContext = new TypeClauseContext(this.context, this.state);
-        this.enterRule(localContext, 64, RedisParser.RULE_typeClause);
+        this.enterRule(localContext, 118, RedisParser.RULE_typeClause);
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 316;
+            this.state = 551;
             this.match(RedisParser.TYPE);
-            this.state = 317;
+            this.state = 552;
             this.identifier();
             }
         }
@@ -1610,27 +2806,27 @@ export class RedisParser extends antlr.Parser {
     }
     public touchCommand(): TouchCommandContext {
         let localContext = new TouchCommandContext(this.context, this.state);
-        this.enterRule(localContext, 66, RedisParser.RULE_touchCommand);
+        this.enterRule(localContext, 120, RedisParser.RULE_touchCommand);
         let _la: number;
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 319;
+            this.state = 554;
             this.match(RedisParser.TOUCH);
-            this.state = 321;
+            this.state = 556;
             this.errorHandler.sync(this);
             _la = this.tokenStream.LA(1);
             do {
                 {
                 {
-                this.state = 320;
+                this.state = 555;
                 this.keyName();
                 }
                 }
-                this.state = 323;
+                this.state = 558;
                 this.errorHandler.sync(this);
                 _la = this.tokenStream.LA(1);
-            } while (((((_la - 66)) & ~0x1F) === 0 && ((1 << (_la - 66)) & 7) !== 0));
+            } while (((((_la - 94)) & ~0x1F) === 0 && ((1 << (_la - 94)) & 7) !== 0));
             }
         }
         catch (re) {
@@ -1648,13 +2844,13 @@ export class RedisParser extends antlr.Parser {
     }
     public typeCommand(): TypeCommandContext {
         let localContext = new TypeCommandContext(this.context, this.state);
-        this.enterRule(localContext, 68, RedisParser.RULE_typeCommand);
+        this.enterRule(localContext, 122, RedisParser.RULE_typeCommand);
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 325;
+            this.state = 560;
             this.match(RedisParser.TYPE);
-            this.state = 326;
+            this.state = 561;
             this.keyName();
             }
         }
@@ -1673,15 +2869,15 @@ export class RedisParser extends antlr.Parser {
     }
     public waitCommand(): WaitCommandContext {
         let localContext = new WaitCommandContext(this.context, this.state);
-        this.enterRule(localContext, 70, RedisParser.RULE_waitCommand);
+        this.enterRule(localContext, 124, RedisParser.RULE_waitCommand);
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 328;
+            this.state = 563;
             this.match(RedisParser.WAIT);
-            this.state = 329;
+            this.state = 564;
             this.match(RedisParser.POSITIVE_DECIMAL_LITERAL);
-            this.state = 330;
+            this.state = 565;
             this.match(RedisParser.POSITIVE_DECIMAL_LITERAL);
             }
         }
@@ -1700,38 +2896,38 @@ export class RedisParser extends antlr.Parser {
     }
     public setCommand(): SetCommandContext {
         let localContext = new SetCommandContext(this.context, this.state);
-        this.enterRule(localContext, 72, RedisParser.RULE_setCommand);
+        this.enterRule(localContext, 126, RedisParser.RULE_setCommand);
         let _la: number;
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 332;
+            this.state = 567;
             this.match(RedisParser.SET);
-            this.state = 333;
+            this.state = 568;
             this.stringKeyName();
-            this.state = 334;
+            this.state = 569;
             this.identifier();
-            this.state = 336;
+            this.state = 571;
             this.errorHandler.sync(this);
             _la = this.tokenStream.LA(1);
             if (_la === 13 || _la === 14) {
                 {
-                this.state = 335;
+                this.state = 570;
                 this.keyExistenceClause();
                 }
             }
 
-            this.state = 339;
+            this.state = 574;
             this.errorHandler.sync(this);
             _la = this.tokenStream.LA(1);
-            if (_la === 40) {
+            if (_la === 46) {
                 {
-                this.state = 338;
+                this.state = 573;
                 this.match(RedisParser.GET);
                 }
             }
 
-            this.state = 343;
+            this.state = 578;
             this.errorHandler.sync(this);
             switch (this.tokenStream.LA(1)) {
             case RedisParser.EX:
@@ -1739,13 +2935,13 @@ export class RedisParser extends antlr.Parser {
             case RedisParser.EXAT:
             case RedisParser.PXAT:
                 {
-                this.state = 341;
+                this.state = 576;
                 this.expirationClause();
                 }
                 break;
             case RedisParser.KEEPTTL:
                 {
-                this.state = 342;
+                this.state = 577;
                 this.match(RedisParser.KEEPTTL);
                 }
                 break;
@@ -1772,12 +2968,12 @@ export class RedisParser extends antlr.Parser {
     }
     public keyExistenceClause(): KeyExistenceClauseContext {
         let localContext = new KeyExistenceClauseContext(this.context, this.state);
-        this.enterRule(localContext, 74, RedisParser.RULE_keyExistenceClause);
+        this.enterRule(localContext, 128, RedisParser.RULE_keyExistenceClause);
         let _la: number;
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 345;
+            this.state = 580;
             _la = this.tokenStream.LA(1);
             if(!(_la === 13 || _la === 14)) {
             this.errorHandler.recoverInline(this);
@@ -1803,44 +2999,44 @@ export class RedisParser extends antlr.Parser {
     }
     public expirationClause(): ExpirationClauseContext {
         let localContext = new ExpirationClauseContext(this.context, this.state);
-        this.enterRule(localContext, 76, RedisParser.RULE_expirationClause);
+        this.enterRule(localContext, 130, RedisParser.RULE_expirationClause);
         try {
-            this.state = 355;
+            this.state = 590;
             this.errorHandler.sync(this);
             switch (this.tokenStream.LA(1)) {
             case RedisParser.EX:
                 this.enterOuterAlt(localContext, 1);
                 {
-                this.state = 347;
+                this.state = 582;
                 this.match(RedisParser.EX);
-                this.state = 348;
+                this.state = 583;
                 this.match(RedisParser.POSITIVE_DECIMAL_LITERAL);
                 }
                 break;
             case RedisParser.PX:
                 this.enterOuterAlt(localContext, 2);
                 {
-                this.state = 349;
+                this.state = 584;
                 this.match(RedisParser.PX);
-                this.state = 350;
+                this.state = 585;
                 this.match(RedisParser.POSITIVE_DECIMAL_LITERAL);
                 }
                 break;
             case RedisParser.EXAT:
                 this.enterOuterAlt(localContext, 3);
                 {
-                this.state = 351;
+                this.state = 586;
                 this.match(RedisParser.EXAT);
-                this.state = 352;
+                this.state = 587;
                 this.match(RedisParser.POSITIVE_DECIMAL_LITERAL);
                 }
                 break;
             case RedisParser.PXAT:
                 this.enterOuterAlt(localContext, 4);
                 {
-                this.state = 353;
+                this.state = 588;
                 this.match(RedisParser.PXAT);
-                this.state = 354;
+                this.state = 589;
                 this.match(RedisParser.POSITIVE_DECIMAL_LITERAL);
                 }
                 break;
@@ -1863,13 +3059,13 @@ export class RedisParser extends antlr.Parser {
     }
     public getCommand(): GetCommandContext {
         let localContext = new GetCommandContext(this.context, this.state);
-        this.enterRule(localContext, 78, RedisParser.RULE_getCommand);
+        this.enterRule(localContext, 132, RedisParser.RULE_getCommand);
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 357;
+            this.state = 592;
             this.match(RedisParser.GET);
-            this.state = 358;
+            this.state = 593;
             this.stringKeyName();
             }
         }
@@ -1888,13 +3084,13 @@ export class RedisParser extends antlr.Parser {
     }
     public incrementCommand(): IncrementCommandContext {
         let localContext = new IncrementCommandContext(this.context, this.state);
-        this.enterRule(localContext, 80, RedisParser.RULE_incrementCommand);
+        this.enterRule(localContext, 134, RedisParser.RULE_incrementCommand);
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 360;
+            this.state = 595;
             this.match(RedisParser.INCR);
-            this.state = 361;
+            this.state = 596;
             this.stringKeyName();
             }
         }
@@ -1913,15 +3109,15 @@ export class RedisParser extends antlr.Parser {
     }
     public incrementByCommand(): IncrementByCommandContext {
         let localContext = new IncrementByCommandContext(this.context, this.state);
-        this.enterRule(localContext, 82, RedisParser.RULE_incrementByCommand);
+        this.enterRule(localContext, 136, RedisParser.RULE_incrementByCommand);
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 363;
+            this.state = 598;
             this.match(RedisParser.INCRBY);
-            this.state = 364;
+            this.state = 599;
             this.stringKeyName();
-            this.state = 365;
+            this.state = 600;
             this.decimal();
             }
         }
@@ -1940,13 +3136,13 @@ export class RedisParser extends antlr.Parser {
     }
     public decrementCommand(): DecrementCommandContext {
         let localContext = new DecrementCommandContext(this.context, this.state);
-        this.enterRule(localContext, 84, RedisParser.RULE_decrementCommand);
+        this.enterRule(localContext, 138, RedisParser.RULE_decrementCommand);
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 367;
+            this.state = 602;
             this.match(RedisParser.DECR);
-            this.state = 368;
+            this.state = 603;
             this.stringKeyName();
             }
         }
@@ -1965,15 +3161,15 @@ export class RedisParser extends antlr.Parser {
     }
     public decrementByCommand(): DecrementByCommandContext {
         let localContext = new DecrementByCommandContext(this.context, this.state);
-        this.enterRule(localContext, 86, RedisParser.RULE_decrementByCommand);
+        this.enterRule(localContext, 140, RedisParser.RULE_decrementByCommand);
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 370;
+            this.state = 605;
             this.match(RedisParser.DECRBY);
-            this.state = 371;
+            this.state = 606;
             this.stringKeyName();
-            this.state = 372;
+            this.state = 607;
             this.decimal();
             }
         }
@@ -1992,15 +3188,15 @@ export class RedisParser extends antlr.Parser {
     }
     public appendCommand(): AppendCommandContext {
         let localContext = new AppendCommandContext(this.context, this.state);
-        this.enterRule(localContext, 88, RedisParser.RULE_appendCommand);
+        this.enterRule(localContext, 142, RedisParser.RULE_appendCommand);
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 374;
+            this.state = 609;
             this.match(RedisParser.APPEND);
-            this.state = 375;
+            this.state = 610;
             this.stringKeyName();
-            this.state = 376;
+            this.state = 611;
             this.identifier();
             }
         }
@@ -2019,13 +3215,13 @@ export class RedisParser extends antlr.Parser {
     }
     public getDeleteCommand(): GetDeleteCommandContext {
         let localContext = new GetDeleteCommandContext(this.context, this.state);
-        this.enterRule(localContext, 90, RedisParser.RULE_getDeleteCommand);
+        this.enterRule(localContext, 144, RedisParser.RULE_getDeleteCommand);
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 378;
+            this.state = 613;
             this.match(RedisParser.GETDEL);
-            this.state = 379;
+            this.state = 614;
             this.stringKeyName();
             }
         }
@@ -2044,15 +3240,15 @@ export class RedisParser extends antlr.Parser {
     }
     public getExCommand(): GetExCommandContext {
         let localContext = new GetExCommandContext(this.context, this.state);
-        this.enterRule(localContext, 92, RedisParser.RULE_getExCommand);
+        this.enterRule(localContext, 146, RedisParser.RULE_getExCommand);
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 381;
+            this.state = 616;
             this.match(RedisParser.GETEX);
-            this.state = 382;
+            this.state = 617;
             this.stringKeyName();
-            this.state = 385;
+            this.state = 620;
             this.errorHandler.sync(this);
             switch (this.tokenStream.LA(1)) {
             case RedisParser.EX:
@@ -2060,13 +3256,13 @@ export class RedisParser extends antlr.Parser {
             case RedisParser.EXAT:
             case RedisParser.PXAT:
                 {
-                this.state = 383;
+                this.state = 618;
                 this.expirationClause();
                 }
                 break;
             case RedisParser.PERSIST:
                 {
-                this.state = 384;
+                this.state = 619;
                 this.match(RedisParser.PERSIST);
                 }
                 break;
@@ -2093,17 +3289,17 @@ export class RedisParser extends antlr.Parser {
     }
     public getRangeCommand(): GetRangeCommandContext {
         let localContext = new GetRangeCommandContext(this.context, this.state);
-        this.enterRule(localContext, 94, RedisParser.RULE_getRangeCommand);
+        this.enterRule(localContext, 148, RedisParser.RULE_getRangeCommand);
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 387;
+            this.state = 622;
             this.match(RedisParser.GETRANGE);
-            this.state = 388;
+            this.state = 623;
             this.stringKeyName();
-            this.state = 389;
+            this.state = 624;
             this.decimal();
-            this.state = 390;
+            this.state = 625;
             this.decimal();
             }
         }
@@ -2122,15 +3318,15 @@ export class RedisParser extends antlr.Parser {
     }
     public getSetCommand(): GetSetCommandContext {
         let localContext = new GetSetCommandContext(this.context, this.state);
-        this.enterRule(localContext, 96, RedisParser.RULE_getSetCommand);
+        this.enterRule(localContext, 150, RedisParser.RULE_getSetCommand);
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 392;
+            this.state = 627;
             this.match(RedisParser.GETSET);
-            this.state = 393;
+            this.state = 628;
             this.stringKeyName();
-            this.state = 394;
+            this.state = 629;
             this.identifier();
             }
         }
@@ -2149,27 +3345,27 @@ export class RedisParser extends antlr.Parser {
     }
     public mGetCommand(): MGetCommandContext {
         let localContext = new MGetCommandContext(this.context, this.state);
-        this.enterRule(localContext, 98, RedisParser.RULE_mGetCommand);
+        this.enterRule(localContext, 152, RedisParser.RULE_mGetCommand);
         let _la: number;
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 396;
+            this.state = 631;
             this.match(RedisParser.MGET);
-            this.state = 398;
+            this.state = 633;
             this.errorHandler.sync(this);
             _la = this.tokenStream.LA(1);
             do {
                 {
                 {
-                this.state = 397;
+                this.state = 632;
                 this.stringKeyName();
                 }
                 }
-                this.state = 400;
+                this.state = 635;
                 this.errorHandler.sync(this);
                 _la = this.tokenStream.LA(1);
-            } while (((((_la - 66)) & ~0x1F) === 0 && ((1 << (_la - 66)) & 7) !== 0));
+            } while (((((_la - 94)) & ~0x1F) === 0 && ((1 << (_la - 94)) & 7) !== 0));
             }
         }
         catch (re) {
@@ -2187,29 +3383,29 @@ export class RedisParser extends antlr.Parser {
     }
     public mSetCommand(): MSetCommandContext {
         let localContext = new MSetCommandContext(this.context, this.state);
-        this.enterRule(localContext, 100, RedisParser.RULE_mSetCommand);
+        this.enterRule(localContext, 154, RedisParser.RULE_mSetCommand);
         let _la: number;
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 402;
+            this.state = 637;
             this.match(RedisParser.MSET);
-            this.state = 406;
+            this.state = 641;
             this.errorHandler.sync(this);
             _la = this.tokenStream.LA(1);
             do {
                 {
                 {
-                this.state = 403;
+                this.state = 638;
                 this.stringKeyName();
-                this.state = 404;
+                this.state = 639;
                 this.identifier();
                 }
                 }
-                this.state = 408;
+                this.state = 643;
                 this.errorHandler.sync(this);
                 _la = this.tokenStream.LA(1);
-            } while (((((_la - 66)) & ~0x1F) === 0 && ((1 << (_la - 66)) & 7) !== 0));
+            } while (((((_la - 94)) & ~0x1F) === 0 && ((1 << (_la - 94)) & 7) !== 0));
             }
         }
         catch (re) {
@@ -2227,29 +3423,29 @@ export class RedisParser extends antlr.Parser {
     }
     public mSetNxCommand(): MSetNxCommandContext {
         let localContext = new MSetNxCommandContext(this.context, this.state);
-        this.enterRule(localContext, 102, RedisParser.RULE_mSetNxCommand);
+        this.enterRule(localContext, 156, RedisParser.RULE_mSetNxCommand);
         let _la: number;
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 410;
+            this.state = 645;
             this.match(RedisParser.MSETNX);
-            this.state = 414;
+            this.state = 649;
             this.errorHandler.sync(this);
             _la = this.tokenStream.LA(1);
             do {
                 {
                 {
-                this.state = 411;
+                this.state = 646;
                 this.stringKeyName();
-                this.state = 412;
+                this.state = 647;
                 this.identifier();
                 }
                 }
-                this.state = 416;
+                this.state = 651;
                 this.errorHandler.sync(this);
                 _la = this.tokenStream.LA(1);
-            } while (((((_la - 66)) & ~0x1F) === 0 && ((1 << (_la - 66)) & 7) !== 0));
+            } while (((((_la - 94)) & ~0x1F) === 0 && ((1 << (_la - 94)) & 7) !== 0));
             }
         }
         catch (re) {
@@ -2267,17 +3463,17 @@ export class RedisParser extends antlr.Parser {
     }
     public pSetExCommand(): PSetExCommandContext {
         let localContext = new PSetExCommandContext(this.context, this.state);
-        this.enterRule(localContext, 104, RedisParser.RULE_pSetExCommand);
+        this.enterRule(localContext, 158, RedisParser.RULE_pSetExCommand);
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 418;
+            this.state = 653;
             this.match(RedisParser.PSETEX);
-            this.state = 419;
+            this.state = 654;
             this.stringKeyName();
-            this.state = 420;
+            this.state = 655;
             this.match(RedisParser.POSITIVE_DECIMAL_LITERAL);
-            this.state = 421;
+            this.state = 656;
             this.identifier();
             }
         }
@@ -2296,17 +3492,17 @@ export class RedisParser extends antlr.Parser {
     }
     public setExCommand(): SetExCommandContext {
         let localContext = new SetExCommandContext(this.context, this.state);
-        this.enterRule(localContext, 106, RedisParser.RULE_setExCommand);
+        this.enterRule(localContext, 160, RedisParser.RULE_setExCommand);
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 423;
+            this.state = 658;
             this.match(RedisParser.SETEX);
-            this.state = 424;
+            this.state = 659;
             this.stringKeyName();
-            this.state = 425;
+            this.state = 660;
             this.match(RedisParser.POSITIVE_DECIMAL_LITERAL);
-            this.state = 426;
+            this.state = 661;
             this.identifier();
             }
         }
@@ -2325,15 +3521,15 @@ export class RedisParser extends antlr.Parser {
     }
     public setNxCommand(): SetNxCommandContext {
         let localContext = new SetNxCommandContext(this.context, this.state);
-        this.enterRule(localContext, 108, RedisParser.RULE_setNxCommand);
+        this.enterRule(localContext, 162, RedisParser.RULE_setNxCommand);
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 428;
+            this.state = 663;
             this.match(RedisParser.SETNX);
-            this.state = 429;
+            this.state = 664;
             this.stringKeyName();
-            this.state = 430;
+            this.state = 665;
             this.identifier();
             }
         }
@@ -2352,17 +3548,17 @@ export class RedisParser extends antlr.Parser {
     }
     public setRangeCommand(): SetRangeCommandContext {
         let localContext = new SetRangeCommandContext(this.context, this.state);
-        this.enterRule(localContext, 110, RedisParser.RULE_setRangeCommand);
+        this.enterRule(localContext, 164, RedisParser.RULE_setRangeCommand);
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 432;
+            this.state = 667;
             this.match(RedisParser.SETRANGE);
-            this.state = 433;
+            this.state = 668;
             this.stringKeyName();
-            this.state = 434;
+            this.state = 669;
             this.match(RedisParser.POSITIVE_DECIMAL_LITERAL);
-            this.state = 435;
+            this.state = 670;
             this.identifier();
             }
         }
@@ -2381,13 +3577,13 @@ export class RedisParser extends antlr.Parser {
     }
     public stringLengthCommand(): StringLengthCommandContext {
         let localContext = new StringLengthCommandContext(this.context, this.state);
-        this.enterRule(localContext, 112, RedisParser.RULE_stringLengthCommand);
+        this.enterRule(localContext, 166, RedisParser.RULE_stringLengthCommand);
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 437;
+            this.state = 672;
             this.match(RedisParser.STRLEN);
-            this.state = 438;
+            this.state = 673;
             this.stringKeyName();
             }
         }
@@ -2406,17 +3602,17 @@ export class RedisParser extends antlr.Parser {
     }
     public substringCommand(): SubstringCommandContext {
         let localContext = new SubstringCommandContext(this.context, this.state);
-        this.enterRule(localContext, 114, RedisParser.RULE_substringCommand);
+        this.enterRule(localContext, 168, RedisParser.RULE_substringCommand);
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 440;
+            this.state = 675;
             this.match(RedisParser.SUBSTR);
-            this.state = 441;
+            this.state = 676;
             this.stringKeyName();
-            this.state = 442;
+            this.state = 677;
             this.decimal();
-            this.state = 443;
+            this.state = 678;
             this.decimal();
             }
         }
@@ -2435,14 +3631,14 @@ export class RedisParser extends antlr.Parser {
     }
     public decimal(): DecimalContext {
         let localContext = new DecimalContext(this.context, this.state);
-        this.enterRule(localContext, 116, RedisParser.RULE_decimal);
+        this.enterRule(localContext, 170, RedisParser.RULE_decimal);
         let _la: number;
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 445;
+            this.state = 680;
             _la = this.tokenStream.LA(1);
-            if(!(_la === 66 || _la === 67)) {
+            if(!(_la === 94 || _la === 95)) {
             this.errorHandler.recoverInline(this);
             }
             else {
@@ -2466,14 +3662,14 @@ export class RedisParser extends antlr.Parser {
     }
     public identifier(): IdentifierContext {
         let localContext = new IdentifierContext(this.context, this.state);
-        this.enterRule(localContext, 118, RedisParser.RULE_identifier);
+        this.enterRule(localContext, 172, RedisParser.RULE_identifier);
         let _la: number;
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 447;
+            this.state = 682;
             _la = this.tokenStream.LA(1);
-            if(!(((((_la - 66)) & ~0x1F) === 0 && ((1 << (_la - 66)) & 7) !== 0))) {
+            if(!(((((_la - 94)) & ~0x1F) === 0 && ((1 << (_la - 94)) & 7) !== 0))) {
             this.errorHandler.recoverInline(this);
             }
             else {
@@ -2497,11 +3693,34 @@ export class RedisParser extends antlr.Parser {
     }
     public stringKeyName(): StringKeyNameContext {
         let localContext = new StringKeyNameContext(this.context, this.state);
-        this.enterRule(localContext, 120, RedisParser.RULE_stringKeyName);
+        this.enterRule(localContext, 174, RedisParser.RULE_stringKeyName);
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 449;
+            this.state = 684;
+            this.identifier();
+            }
+        }
+        catch (re) {
+            if (re instanceof antlr.RecognitionException) {
+                this.errorHandler.reportError(this, re);
+                this.errorHandler.recover(this, re);
+            } else {
+                throw re;
+            }
+        }
+        finally {
+            this.exitRule();
+        }
+        return localContext;
+    }
+    public listKeyName(): ListKeyNameContext {
+        let localContext = new ListKeyNameContext(this.context, this.state);
+        this.enterRule(localContext, 176, RedisParser.RULE_listKeyName);
+        try {
+            this.enterOuterAlt(localContext, 1);
+            {
+            this.state = 686;
             this.identifier();
             }
         }
@@ -2520,11 +3739,11 @@ export class RedisParser extends antlr.Parser {
     }
     public keyName(): KeyNameContext {
         let localContext = new KeyNameContext(this.context, this.state);
-        this.enterRule(localContext, 122, RedisParser.RULE_keyName);
+        this.enterRule(localContext, 178, RedisParser.RULE_keyName);
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 451;
+            this.state = 688;
             this.identifier();
             }
         }
@@ -2543,12 +3762,12 @@ export class RedisParser extends antlr.Parser {
     }
     public keyPattern(): KeyPatternContext {
         let localContext = new KeyPatternContext(this.context, this.state);
-        this.enterRule(localContext, 124, RedisParser.RULE_keyPattern);
+        this.enterRule(localContext, 180, RedisParser.RULE_keyPattern);
         try {
             localContext = new NotProperPatternContext(localContext);
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 453;
+            this.state = 690;
             this.identifier();
             }
         }
@@ -2567,7 +3786,7 @@ export class RedisParser extends antlr.Parser {
     }
 
     public static readonly _serializedATN: number[] = [
-        4,1,68,456,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,2,4,7,4,2,5,7,5,2,6,7,
+        4,1,96,693,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,2,4,7,4,2,5,7,5,2,6,7,
         6,2,7,7,7,2,8,7,8,2,9,7,9,2,10,7,10,2,11,7,11,2,12,7,12,2,13,7,13,
         2,14,7,14,2,15,7,15,2,16,7,16,2,17,7,17,2,18,7,18,2,19,7,19,2,20,
         7,20,2,21,7,21,2,22,7,22,2,23,7,23,2,24,7,24,2,25,7,25,2,26,7,26,
@@ -2576,158 +3795,245 @@ export class RedisParser extends antlr.Parser {
         2,40,7,40,2,41,7,41,2,42,7,42,2,43,7,43,2,44,7,44,2,45,7,45,2,46,
         7,46,2,47,7,47,2,48,7,48,2,49,7,49,2,50,7,50,2,51,7,51,2,52,7,52,
         2,53,7,53,2,54,7,54,2,55,7,55,2,56,7,56,2,57,7,57,2,58,7,58,2,59,
-        7,59,2,60,7,60,2,61,7,61,2,62,7,62,1,0,3,0,128,8,0,1,0,1,0,1,1,1,
-        1,5,1,134,8,1,10,1,12,1,137,9,1,1,1,1,1,4,1,141,8,1,11,1,12,1,142,
-        1,1,1,1,3,1,147,8,1,1,2,1,2,3,2,151,8,2,1,3,1,3,1,3,1,3,1,3,1,3,
-        1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,
-        1,3,1,3,3,3,177,8,3,1,4,1,4,1,4,1,4,1,4,1,4,1,4,1,4,1,4,1,4,1,4,
-        1,4,1,4,1,4,1,4,1,4,1,4,1,4,1,4,1,4,3,4,199,8,4,1,5,1,5,1,5,1,5,
-        3,5,205,8,5,1,5,3,5,208,8,5,1,6,1,6,1,6,1,7,1,7,1,8,1,8,4,8,217,
-        8,8,11,8,12,8,218,1,9,1,9,4,9,223,8,9,11,9,12,9,224,1,10,1,10,1,
-        10,1,11,1,11,4,11,232,8,11,11,11,12,11,233,1,12,1,12,1,12,1,12,3,
-        12,240,8,12,1,13,1,13,1,13,1,13,3,13,246,8,13,1,14,1,14,1,14,1,14,
-        3,14,252,8,14,1,15,1,15,1,15,1,15,3,15,258,8,15,1,16,1,16,1,17,1,
-        17,1,17,1,18,1,18,1,18,1,19,1,19,1,19,1,20,1,20,1,20,1,20,1,21,1,
-        21,1,21,1,21,1,22,1,22,1,23,1,23,1,23,1,24,1,24,1,24,1,25,1,25,1,
-        25,1,26,1,26,1,27,1,27,1,27,1,27,1,28,1,28,1,28,1,28,1,29,1,29,1,
-        29,3,29,303,8,29,1,29,3,29,306,8,29,1,29,3,29,309,8,29,1,30,1,30,
-        1,30,1,31,1,31,1,31,1,32,1,32,1,32,1,33,1,33,4,33,322,8,33,11,33,
-        12,33,323,1,34,1,34,1,34,1,35,1,35,1,35,1,35,1,36,1,36,1,36,1,36,
-        3,36,337,8,36,1,36,3,36,340,8,36,1,36,1,36,3,36,344,8,36,1,37,1,
-        37,1,38,1,38,1,38,1,38,1,38,1,38,1,38,1,38,3,38,356,8,38,1,39,1,
-        39,1,39,1,40,1,40,1,40,1,41,1,41,1,41,1,41,1,42,1,42,1,42,1,43,1,
-        43,1,43,1,43,1,44,1,44,1,44,1,44,1,45,1,45,1,45,1,46,1,46,1,46,1,
-        46,3,46,386,8,46,1,47,1,47,1,47,1,47,1,47,1,48,1,48,1,48,1,48,1,
-        49,1,49,4,49,399,8,49,11,49,12,49,400,1,50,1,50,1,50,1,50,4,50,407,
-        8,50,11,50,12,50,408,1,51,1,51,1,51,1,51,4,51,415,8,51,11,51,12,
-        51,416,1,52,1,52,1,52,1,52,1,52,1,53,1,53,1,53,1,53,1,53,1,54,1,
-        54,1,54,1,54,1,55,1,55,1,55,1,55,1,55,1,56,1,56,1,56,1,57,1,57,1,
-        57,1,57,1,57,1,58,1,58,1,59,1,59,1,60,1,60,1,61,1,61,1,62,1,62,1,
-        62,0,0,63,0,2,4,6,8,10,12,14,16,18,20,22,24,26,28,30,32,34,36,38,
-        40,42,44,46,48,50,52,54,56,58,60,62,64,66,68,70,72,74,76,78,80,82,
-        84,86,88,90,92,94,96,98,100,102,104,106,108,110,112,114,116,118,
-        120,122,124,0,5,1,0,11,14,1,0,23,26,1,0,13,14,1,0,66,67,1,0,66,68,
-        464,0,127,1,0,0,0,2,146,1,0,0,0,4,150,1,0,0,0,6,176,1,0,0,0,8,198,
-        1,0,0,0,10,200,1,0,0,0,12,209,1,0,0,0,14,212,1,0,0,0,16,214,1,0,
-        0,0,18,220,1,0,0,0,20,226,1,0,0,0,22,229,1,0,0,0,24,235,1,0,0,0,
-        26,241,1,0,0,0,28,247,1,0,0,0,30,253,1,0,0,0,32,259,1,0,0,0,34,261,
-        1,0,0,0,36,264,1,0,0,0,38,267,1,0,0,0,40,270,1,0,0,0,42,274,1,0,
-        0,0,44,278,1,0,0,0,46,280,1,0,0,0,48,283,1,0,0,0,50,286,1,0,0,0,
-        52,289,1,0,0,0,54,291,1,0,0,0,56,295,1,0,0,0,58,299,1,0,0,0,60,310,
-        1,0,0,0,62,313,1,0,0,0,64,316,1,0,0,0,66,319,1,0,0,0,68,325,1,0,
-        0,0,70,328,1,0,0,0,72,332,1,0,0,0,74,345,1,0,0,0,76,355,1,0,0,0,
-        78,357,1,0,0,0,80,360,1,0,0,0,82,363,1,0,0,0,84,367,1,0,0,0,86,370,
-        1,0,0,0,88,374,1,0,0,0,90,378,1,0,0,0,92,381,1,0,0,0,94,387,1,0,
-        0,0,96,392,1,0,0,0,98,396,1,0,0,0,100,402,1,0,0,0,102,410,1,0,0,
-        0,104,418,1,0,0,0,106,423,1,0,0,0,108,428,1,0,0,0,110,432,1,0,0,
-        0,112,437,1,0,0,0,114,440,1,0,0,0,116,445,1,0,0,0,118,447,1,0,0,
-        0,120,449,1,0,0,0,122,451,1,0,0,0,124,453,1,0,0,0,126,128,3,2,1,
-        0,127,126,1,0,0,0,127,128,1,0,0,0,128,129,1,0,0,0,129,130,5,0,0,
-        1,130,1,1,0,0,0,131,135,3,4,2,0,132,134,5,2,0,0,133,132,1,0,0,0,
-        134,137,1,0,0,0,135,133,1,0,0,0,135,136,1,0,0,0,136,147,1,0,0,0,
-        137,135,1,0,0,0,138,140,3,4,2,0,139,141,5,2,0,0,140,139,1,0,0,0,
-        141,142,1,0,0,0,142,140,1,0,0,0,142,143,1,0,0,0,143,144,1,0,0,0,
-        144,145,3,2,1,0,145,147,1,0,0,0,146,131,1,0,0,0,146,138,1,0,0,0,
-        147,3,1,0,0,0,148,151,3,6,3,0,149,151,3,8,4,0,150,148,1,0,0,0,150,
-        149,1,0,0,0,151,5,1,0,0,0,152,177,3,10,5,0,153,177,3,16,8,0,154,
-        177,3,18,9,0,155,177,3,20,10,0,156,177,3,22,11,0,157,177,3,24,12,
-        0,158,177,3,26,13,0,159,177,3,34,17,0,160,177,3,28,14,0,161,177,
-        3,30,15,0,162,177,3,36,18,0,163,177,3,38,19,0,164,177,3,40,20,0,
-        165,177,3,42,21,0,166,177,3,46,23,0,167,177,3,48,24,0,168,177,3,
-        50,25,0,169,177,3,52,26,0,170,177,3,54,27,0,171,177,3,56,28,0,172,
-        177,3,58,29,0,173,177,3,66,33,0,174,177,3,68,34,0,175,177,3,70,35,
-        0,176,152,1,0,0,0,176,153,1,0,0,0,176,154,1,0,0,0,176,155,1,0,0,
-        0,176,156,1,0,0,0,176,157,1,0,0,0,176,158,1,0,0,0,176,159,1,0,0,
-        0,176,160,1,0,0,0,176,161,1,0,0,0,176,162,1,0,0,0,176,163,1,0,0,
-        0,176,164,1,0,0,0,176,165,1,0,0,0,176,166,1,0,0,0,176,167,1,0,0,
-        0,176,168,1,0,0,0,176,169,1,0,0,0,176,170,1,0,0,0,176,171,1,0,0,
-        0,176,172,1,0,0,0,176,173,1,0,0,0,176,174,1,0,0,0,176,175,1,0,0,
-        0,177,7,1,0,0,0,178,199,3,72,36,0,179,199,3,78,39,0,180,199,3,80,
-        40,0,181,199,3,82,41,0,182,199,3,84,42,0,183,199,3,86,43,0,184,199,
-        3,88,44,0,185,199,3,90,45,0,186,199,3,92,46,0,187,199,3,94,47,0,
-        188,199,3,96,48,0,189,199,3,98,49,0,190,199,3,100,50,0,191,199,3,
-        102,51,0,192,199,3,104,52,0,193,199,3,106,53,0,194,199,3,108,54,
-        0,195,199,3,110,55,0,196,199,3,112,56,0,197,199,3,114,57,0,198,178,
-        1,0,0,0,198,179,1,0,0,0,198,180,1,0,0,0,198,181,1,0,0,0,198,182,
-        1,0,0,0,198,183,1,0,0,0,198,184,1,0,0,0,198,185,1,0,0,0,198,186,
-        1,0,0,0,198,187,1,0,0,0,198,188,1,0,0,0,198,189,1,0,0,0,198,190,
-        1,0,0,0,198,191,1,0,0,0,198,192,1,0,0,0,198,193,1,0,0,0,198,194,
-        1,0,0,0,198,195,1,0,0,0,198,196,1,0,0,0,198,197,1,0,0,0,199,9,1,
-        0,0,0,200,201,5,3,0,0,201,202,3,122,61,0,202,204,3,118,59,0,203,
-        205,3,12,6,0,204,203,1,0,0,0,204,205,1,0,0,0,205,207,1,0,0,0,206,
-        208,5,5,0,0,207,206,1,0,0,0,207,208,1,0,0,0,208,11,1,0,0,0,209,210,
-        5,4,0,0,210,211,3,14,7,0,211,13,1,0,0,0,212,213,5,66,0,0,213,15,
-        1,0,0,0,214,216,5,6,0,0,215,217,3,122,61,0,216,215,1,0,0,0,217,218,
-        1,0,0,0,218,216,1,0,0,0,218,219,1,0,0,0,219,17,1,0,0,0,220,222,5,
-        7,0,0,221,223,3,122,61,0,222,221,1,0,0,0,223,224,1,0,0,0,224,222,
-        1,0,0,0,224,225,1,0,0,0,225,19,1,0,0,0,226,227,5,8,0,0,227,228,3,
-        122,61,0,228,21,1,0,0,0,229,231,5,9,0,0,230,232,3,122,61,0,231,230,
-        1,0,0,0,232,233,1,0,0,0,233,231,1,0,0,0,233,234,1,0,0,0,234,23,1,
-        0,0,0,235,236,5,10,0,0,236,237,3,122,61,0,237,239,3,116,58,0,238,
-        240,3,32,16,0,239,238,1,0,0,0,239,240,1,0,0,0,240,25,1,0,0,0,241,
-        242,5,15,0,0,242,243,3,122,61,0,243,245,3,116,58,0,244,246,3,32,
-        16,0,245,244,1,0,0,0,245,246,1,0,0,0,246,27,1,0,0,0,247,248,5,17,
-        0,0,248,249,3,122,61,0,249,251,3,116,58,0,250,252,3,32,16,0,251,
-        250,1,0,0,0,251,252,1,0,0,0,252,29,1,0,0,0,253,254,5,18,0,0,254,
-        255,3,122,61,0,255,257,3,116,58,0,256,258,3,32,16,0,257,256,1,0,
-        0,0,257,258,1,0,0,0,258,31,1,0,0,0,259,260,7,0,0,0,260,33,1,0,0,
-        0,261,262,5,16,0,0,262,263,3,122,61,0,263,35,1,0,0,0,264,265,5,19,
-        0,0,265,266,3,122,61,0,266,37,1,0,0,0,267,268,5,20,0,0,268,269,3,
-        124,62,0,269,39,1,0,0,0,270,271,5,21,0,0,271,272,3,122,61,0,272,
-        273,3,14,7,0,273,41,1,0,0,0,274,275,5,22,0,0,275,276,3,44,22,0,276,
-        277,3,122,61,0,277,43,1,0,0,0,278,279,7,1,0,0,279,45,1,0,0,0,280,
-        281,5,27,0,0,281,282,3,122,61,0,282,47,1,0,0,0,283,284,5,28,0,0,
-        284,285,3,122,61,0,285,49,1,0,0,0,286,287,5,29,0,0,287,288,3,122,
-        61,0,288,51,1,0,0,0,289,290,5,30,0,0,290,53,1,0,0,0,291,292,5,31,
-        0,0,292,293,3,122,61,0,293,294,3,118,59,0,294,55,1,0,0,0,295,296,
-        5,32,0,0,296,297,3,122,61,0,297,298,3,118,59,0,298,57,1,0,0,0,299,
-        300,5,33,0,0,300,302,3,116,58,0,301,303,3,60,30,0,302,301,1,0,0,
-        0,302,303,1,0,0,0,303,305,1,0,0,0,304,306,3,62,31,0,305,304,1,0,
-        0,0,305,306,1,0,0,0,306,308,1,0,0,0,307,309,3,64,32,0,308,307,1,
-        0,0,0,308,309,1,0,0,0,309,59,1,0,0,0,310,311,5,34,0,0,311,312,3,
-        124,62,0,312,61,1,0,0,0,313,314,5,35,0,0,314,315,5,66,0,0,315,63,
-        1,0,0,0,316,317,5,36,0,0,317,318,3,118,59,0,318,65,1,0,0,0,319,321,
-        5,37,0,0,320,322,3,122,61,0,321,320,1,0,0,0,322,323,1,0,0,0,323,
-        321,1,0,0,0,323,324,1,0,0,0,324,67,1,0,0,0,325,326,5,36,0,0,326,
-        327,3,122,61,0,327,69,1,0,0,0,328,329,5,38,0,0,329,330,5,66,0,0,
-        330,331,5,66,0,0,331,71,1,0,0,0,332,333,5,39,0,0,333,334,3,120,60,
-        0,334,336,3,118,59,0,335,337,3,74,37,0,336,335,1,0,0,0,336,337,1,
-        0,0,0,337,339,1,0,0,0,338,340,5,40,0,0,339,338,1,0,0,0,339,340,1,
-        0,0,0,340,343,1,0,0,0,341,344,3,76,38,0,342,344,5,49,0,0,343,341,
-        1,0,0,0,343,342,1,0,0,0,343,344,1,0,0,0,344,73,1,0,0,0,345,346,7,
-        2,0,0,346,75,1,0,0,0,347,348,5,45,0,0,348,356,5,66,0,0,349,350,5,
-        46,0,0,350,356,5,66,0,0,351,352,5,47,0,0,352,356,5,66,0,0,353,354,
-        5,48,0,0,354,356,5,66,0,0,355,347,1,0,0,0,355,349,1,0,0,0,355,351,
-        1,0,0,0,355,353,1,0,0,0,356,77,1,0,0,0,357,358,5,40,0,0,358,359,
-        3,120,60,0,359,79,1,0,0,0,360,361,5,41,0,0,361,362,3,120,60,0,362,
-        81,1,0,0,0,363,364,5,42,0,0,364,365,3,120,60,0,365,366,3,116,58,
-        0,366,83,1,0,0,0,367,368,5,43,0,0,368,369,3,120,60,0,369,85,1,0,
-        0,0,370,371,5,44,0,0,371,372,3,120,60,0,372,373,3,116,58,0,373,87,
-        1,0,0,0,374,375,5,50,0,0,375,376,3,120,60,0,376,377,3,118,59,0,377,
-        89,1,0,0,0,378,379,5,51,0,0,379,380,3,120,60,0,380,91,1,0,0,0,381,
-        382,5,52,0,0,382,385,3,120,60,0,383,386,3,76,38,0,384,386,5,27,0,
-        0,385,383,1,0,0,0,385,384,1,0,0,0,385,386,1,0,0,0,386,93,1,0,0,0,
-        387,388,5,53,0,0,388,389,3,120,60,0,389,390,3,116,58,0,390,391,3,
-        116,58,0,391,95,1,0,0,0,392,393,5,54,0,0,393,394,3,120,60,0,394,
-        395,3,118,59,0,395,97,1,0,0,0,396,398,5,55,0,0,397,399,3,120,60,
-        0,398,397,1,0,0,0,399,400,1,0,0,0,400,398,1,0,0,0,400,401,1,0,0,
-        0,401,99,1,0,0,0,402,406,5,56,0,0,403,404,3,120,60,0,404,405,3,118,
-        59,0,405,407,1,0,0,0,406,403,1,0,0,0,407,408,1,0,0,0,408,406,1,0,
-        0,0,408,409,1,0,0,0,409,101,1,0,0,0,410,414,5,57,0,0,411,412,3,120,
-        60,0,412,413,3,118,59,0,413,415,1,0,0,0,414,411,1,0,0,0,415,416,
-        1,0,0,0,416,414,1,0,0,0,416,417,1,0,0,0,417,103,1,0,0,0,418,419,
-        5,58,0,0,419,420,3,120,60,0,420,421,5,66,0,0,421,422,3,118,59,0,
-        422,105,1,0,0,0,423,424,5,59,0,0,424,425,3,120,60,0,425,426,5,66,
-        0,0,426,427,3,118,59,0,427,107,1,0,0,0,428,429,5,60,0,0,429,430,
-        3,120,60,0,430,431,3,118,59,0,431,109,1,0,0,0,432,433,5,61,0,0,433,
-        434,3,120,60,0,434,435,5,66,0,0,435,436,3,118,59,0,436,111,1,0,0,
-        0,437,438,5,62,0,0,438,439,3,120,60,0,439,113,1,0,0,0,440,441,5,
-        63,0,0,441,442,3,120,60,0,442,443,3,116,58,0,443,444,3,116,58,0,
-        444,115,1,0,0,0,445,446,7,3,0,0,446,117,1,0,0,0,447,448,7,4,0,0,
-        448,119,1,0,0,0,449,450,3,118,59,0,450,121,1,0,0,0,451,452,3,118,
-        59,0,452,123,1,0,0,0,453,454,3,118,59,0,454,125,1,0,0,0,28,127,135,
-        142,146,150,176,198,204,207,218,224,233,239,245,251,257,302,305,
-        308,323,336,339,343,355,385,400,408,416
+        7,59,2,60,7,60,2,61,7,61,2,62,7,62,2,63,7,63,2,64,7,64,2,65,7,65,
+        2,66,7,66,2,67,7,67,2,68,7,68,2,69,7,69,2,70,7,70,2,71,7,71,2,72,
+        7,72,2,73,7,73,2,74,7,74,2,75,7,75,2,76,7,76,2,77,7,77,2,78,7,78,
+        2,79,7,79,2,80,7,80,2,81,7,81,2,82,7,82,2,83,7,83,2,84,7,84,2,85,
+        7,85,2,86,7,86,2,87,7,87,2,88,7,88,2,89,7,89,2,90,7,90,1,0,3,0,184,
+        8,0,1,0,1,0,1,1,1,1,5,1,190,8,1,10,1,12,1,193,9,1,1,1,1,1,4,1,197,
+        8,1,11,1,12,1,198,1,1,1,1,3,1,203,8,1,1,2,1,2,1,2,3,2,208,8,2,1,
+        3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,
+        3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,3,3,234,8,3,1,4,1,4,1,4,1,4,1,4,1,
+        4,1,4,1,4,1,4,1,4,1,4,1,4,1,4,1,4,1,4,1,4,1,4,1,4,1,4,1,4,3,4,256,
+        8,4,1,5,1,5,1,5,1,5,1,5,1,5,1,5,1,5,1,5,1,5,1,5,1,5,1,5,1,5,1,5,
+        1,5,1,5,1,5,1,5,1,5,1,5,1,5,3,5,280,8,5,1,6,1,6,1,6,1,6,1,6,1,6,
+        1,7,1,7,1,8,1,8,1,8,1,8,1,8,1,8,1,8,1,9,1,9,1,9,4,9,300,8,9,11,9,
+        12,9,301,1,9,1,9,3,9,306,8,9,1,10,1,10,1,10,1,10,4,10,312,8,10,11,
+        10,12,10,313,1,10,1,10,3,10,318,8,10,1,11,1,11,1,11,3,11,323,8,11,
+        1,12,1,12,4,12,327,8,12,11,12,12,12,328,1,12,1,12,1,13,1,13,1,13,
+        3,13,336,8,13,1,14,1,14,4,14,340,8,14,11,14,12,14,341,1,14,1,14,
+        1,15,1,15,1,15,1,15,1,16,1,16,1,16,1,16,1,16,1,17,1,17,1,17,1,17,
+        1,18,1,18,1,18,1,18,1,18,1,18,1,19,1,19,1,20,1,20,1,20,1,21,1,21,
+        1,21,1,21,3,21,374,8,21,1,21,3,21,377,8,21,1,21,3,21,380,8,21,1,
+        22,1,22,1,22,1,23,1,23,1,23,1,24,1,24,1,24,4,24,391,8,24,11,24,12,
+        24,392,1,25,1,25,1,25,4,25,398,8,25,11,25,12,25,399,1,26,1,26,1,
+        26,4,26,405,8,26,11,26,12,26,406,1,27,1,27,1,27,4,27,412,8,27,11,
+        27,12,27,413,1,28,1,28,1,28,1,28,1,28,1,29,1,29,1,29,1,29,1,29,1,
+        30,1,30,1,30,1,30,1,30,1,31,1,31,1,31,1,31,1,31,1,32,1,32,1,32,1,
+        32,3,32,440,8,32,1,32,3,32,443,8,32,1,33,1,33,1,33,1,34,1,34,1,35,
+        1,35,4,35,452,8,35,11,35,12,35,453,1,36,1,36,4,36,458,8,36,11,36,
+        12,36,459,1,37,1,37,1,37,1,38,1,38,4,38,467,8,38,11,38,12,38,468,
+        1,39,1,39,1,39,1,39,3,39,475,8,39,1,40,1,40,1,40,1,40,3,40,481,8,
+        40,1,41,1,41,1,41,1,41,3,41,487,8,41,1,42,1,42,1,42,1,42,3,42,493,
+        8,42,1,43,1,43,1,44,1,44,1,44,1,45,1,45,1,45,1,46,1,46,1,46,1,47,
+        1,47,1,47,1,47,1,48,1,48,1,48,1,48,1,49,1,49,1,50,1,50,1,50,1,51,
+        1,51,1,51,1,52,1,52,1,52,1,53,1,53,1,54,1,54,1,54,1,54,1,55,1,55,
+        1,55,1,55,1,56,1,56,1,56,3,56,538,8,56,1,56,3,56,541,8,56,1,56,3,
+        56,544,8,56,1,57,1,57,1,57,1,58,1,58,1,58,1,59,1,59,1,59,1,60,1,
+        60,4,60,557,8,60,11,60,12,60,558,1,61,1,61,1,61,1,62,1,62,1,62,1,
+        62,1,63,1,63,1,63,1,63,3,63,572,8,63,1,63,3,63,575,8,63,1,63,1,63,
+        3,63,579,8,63,1,64,1,64,1,65,1,65,1,65,1,65,1,65,1,65,1,65,1,65,
+        3,65,591,8,65,1,66,1,66,1,66,1,67,1,67,1,67,1,68,1,68,1,68,1,68,
+        1,69,1,69,1,69,1,70,1,70,1,70,1,70,1,71,1,71,1,71,1,71,1,72,1,72,
+        1,72,1,73,1,73,1,73,1,73,3,73,621,8,73,1,74,1,74,1,74,1,74,1,74,
+        1,75,1,75,1,75,1,75,1,76,1,76,4,76,634,8,76,11,76,12,76,635,1,77,
+        1,77,1,77,1,77,4,77,642,8,77,11,77,12,77,643,1,78,1,78,1,78,1,78,
+        4,78,650,8,78,11,78,12,78,651,1,79,1,79,1,79,1,79,1,79,1,80,1,80,
+        1,80,1,80,1,80,1,81,1,81,1,81,1,81,1,82,1,82,1,82,1,82,1,82,1,83,
+        1,83,1,83,1,84,1,84,1,84,1,84,1,84,1,85,1,85,1,86,1,86,1,87,1,87,
+        1,88,1,88,1,89,1,89,1,90,1,90,1,90,0,0,91,0,2,4,6,8,10,12,14,16,
+        18,20,22,24,26,28,30,32,34,36,38,40,42,44,46,48,50,52,54,56,58,60,
+        62,64,66,68,70,72,74,76,78,80,82,84,86,88,90,92,94,96,98,100,102,
+        104,106,108,110,112,114,116,118,120,122,124,126,128,130,132,134,
+        136,138,140,142,144,146,148,150,152,154,156,158,160,162,164,166,
+        168,170,172,174,176,178,180,0,7,1,0,39,40,1,0,41,42,1,0,11,14,1,
+        0,23,26,1,0,13,14,1,0,94,95,1,0,94,96,710,0,183,1,0,0,0,2,202,1,
+        0,0,0,4,207,1,0,0,0,6,233,1,0,0,0,8,255,1,0,0,0,10,279,1,0,0,0,12,
+        281,1,0,0,0,14,287,1,0,0,0,16,289,1,0,0,0,18,296,1,0,0,0,20,307,
+        1,0,0,0,22,319,1,0,0,0,24,324,1,0,0,0,26,332,1,0,0,0,28,337,1,0,
+        0,0,30,345,1,0,0,0,32,349,1,0,0,0,34,354,1,0,0,0,36,358,1,0,0,0,
+        38,364,1,0,0,0,40,366,1,0,0,0,42,369,1,0,0,0,44,381,1,0,0,0,46,384,
+        1,0,0,0,48,387,1,0,0,0,50,394,1,0,0,0,52,401,1,0,0,0,54,408,1,0,
+        0,0,56,415,1,0,0,0,58,420,1,0,0,0,60,425,1,0,0,0,62,430,1,0,0,0,
+        64,435,1,0,0,0,66,444,1,0,0,0,68,447,1,0,0,0,70,449,1,0,0,0,72,455,
+        1,0,0,0,74,461,1,0,0,0,76,464,1,0,0,0,78,470,1,0,0,0,80,476,1,0,
+        0,0,82,482,1,0,0,0,84,488,1,0,0,0,86,494,1,0,0,0,88,496,1,0,0,0,
+        90,499,1,0,0,0,92,502,1,0,0,0,94,505,1,0,0,0,96,509,1,0,0,0,98,513,
+        1,0,0,0,100,515,1,0,0,0,102,518,1,0,0,0,104,521,1,0,0,0,106,524,
+        1,0,0,0,108,526,1,0,0,0,110,530,1,0,0,0,112,534,1,0,0,0,114,545,
+        1,0,0,0,116,548,1,0,0,0,118,551,1,0,0,0,120,554,1,0,0,0,122,560,
+        1,0,0,0,124,563,1,0,0,0,126,567,1,0,0,0,128,580,1,0,0,0,130,590,
+        1,0,0,0,132,592,1,0,0,0,134,595,1,0,0,0,136,598,1,0,0,0,138,602,
+        1,0,0,0,140,605,1,0,0,0,142,609,1,0,0,0,144,613,1,0,0,0,146,616,
+        1,0,0,0,148,622,1,0,0,0,150,627,1,0,0,0,152,631,1,0,0,0,154,637,
+        1,0,0,0,156,645,1,0,0,0,158,653,1,0,0,0,160,658,1,0,0,0,162,663,
+        1,0,0,0,164,667,1,0,0,0,166,672,1,0,0,0,168,675,1,0,0,0,170,680,
+        1,0,0,0,172,682,1,0,0,0,174,684,1,0,0,0,176,686,1,0,0,0,178,688,
+        1,0,0,0,180,690,1,0,0,0,182,184,3,2,1,0,183,182,1,0,0,0,183,184,
+        1,0,0,0,184,185,1,0,0,0,185,186,5,0,0,1,186,1,1,0,0,0,187,191,3,
+        4,2,0,188,190,5,2,0,0,189,188,1,0,0,0,190,193,1,0,0,0,191,189,1,
+        0,0,0,191,192,1,0,0,0,192,203,1,0,0,0,193,191,1,0,0,0,194,196,3,
+        4,2,0,195,197,5,2,0,0,196,195,1,0,0,0,197,198,1,0,0,0,198,196,1,
+        0,0,0,198,199,1,0,0,0,199,200,1,0,0,0,200,201,3,2,1,0,201,203,1,
+        0,0,0,202,187,1,0,0,0,202,194,1,0,0,0,203,3,1,0,0,0,204,208,3,6,
+        3,0,205,208,3,8,4,0,206,208,3,10,5,0,207,204,1,0,0,0,207,205,1,0,
+        0,0,207,206,1,0,0,0,208,5,1,0,0,0,209,234,3,64,32,0,210,234,3,70,
+        35,0,211,234,3,72,36,0,212,234,3,74,37,0,213,234,3,76,38,0,214,234,
+        3,78,39,0,215,234,3,80,40,0,216,234,3,88,44,0,217,234,3,82,41,0,
+        218,234,3,84,42,0,219,234,3,90,45,0,220,234,3,92,46,0,221,234,3,
+        94,47,0,222,234,3,96,48,0,223,234,3,100,50,0,224,234,3,102,51,0,
+        225,234,3,104,52,0,226,234,3,106,53,0,227,234,3,108,54,0,228,234,
+        3,110,55,0,229,234,3,112,56,0,230,234,3,120,60,0,231,234,3,122,61,
+        0,232,234,3,124,62,0,233,209,1,0,0,0,233,210,1,0,0,0,233,211,1,0,
+        0,0,233,212,1,0,0,0,233,213,1,0,0,0,233,214,1,0,0,0,233,215,1,0,
+        0,0,233,216,1,0,0,0,233,217,1,0,0,0,233,218,1,0,0,0,233,219,1,0,
+        0,0,233,220,1,0,0,0,233,221,1,0,0,0,233,222,1,0,0,0,233,223,1,0,
+        0,0,233,224,1,0,0,0,233,225,1,0,0,0,233,226,1,0,0,0,233,227,1,0,
+        0,0,233,228,1,0,0,0,233,229,1,0,0,0,233,230,1,0,0,0,233,231,1,0,
+        0,0,233,232,1,0,0,0,234,7,1,0,0,0,235,256,3,126,63,0,236,256,3,132,
+        66,0,237,256,3,134,67,0,238,256,3,136,68,0,239,256,3,138,69,0,240,
+        256,3,140,70,0,241,256,3,142,71,0,242,256,3,144,72,0,243,256,3,146,
+        73,0,244,256,3,148,74,0,245,256,3,150,75,0,246,256,3,152,76,0,247,
+        256,3,154,77,0,248,256,3,156,78,0,249,256,3,158,79,0,250,256,3,160,
+        80,0,251,256,3,162,81,0,252,256,3,164,82,0,253,256,3,166,83,0,254,
+        256,3,168,84,0,255,235,1,0,0,0,255,236,1,0,0,0,255,237,1,0,0,0,255,
+        238,1,0,0,0,255,239,1,0,0,0,255,240,1,0,0,0,255,241,1,0,0,0,255,
+        242,1,0,0,0,255,243,1,0,0,0,255,244,1,0,0,0,255,245,1,0,0,0,255,
+        246,1,0,0,0,255,247,1,0,0,0,255,248,1,0,0,0,255,249,1,0,0,0,255,
+        250,1,0,0,0,255,251,1,0,0,0,255,252,1,0,0,0,255,253,1,0,0,0,255,
+        254,1,0,0,0,256,9,1,0,0,0,257,280,3,12,6,0,258,280,3,16,8,0,259,
+        280,3,18,9,0,260,280,3,20,10,0,261,280,3,22,11,0,262,280,3,24,12,
+        0,263,280,3,26,13,0,264,280,3,28,14,0,265,280,3,30,15,0,266,280,
+        3,32,16,0,267,280,3,34,17,0,268,280,3,36,18,0,269,280,3,40,20,0,
+        270,280,3,42,21,0,271,280,3,48,24,0,272,280,3,50,25,0,273,280,3,
+        52,26,0,274,280,3,54,27,0,275,280,3,56,28,0,276,280,3,58,29,0,277,
+        280,3,60,30,0,278,280,3,62,31,0,279,257,1,0,0,0,279,258,1,0,0,0,
+        279,259,1,0,0,0,279,260,1,0,0,0,279,261,1,0,0,0,279,262,1,0,0,0,
+        279,263,1,0,0,0,279,264,1,0,0,0,279,265,1,0,0,0,279,266,1,0,0,0,
+        279,267,1,0,0,0,279,268,1,0,0,0,279,269,1,0,0,0,279,270,1,0,0,0,
+        279,271,1,0,0,0,279,272,1,0,0,0,279,273,1,0,0,0,279,274,1,0,0,0,
+        279,275,1,0,0,0,279,276,1,0,0,0,279,277,1,0,0,0,279,278,1,0,0,0,
+        280,11,1,0,0,0,281,282,5,70,0,0,282,283,3,176,88,0,283,284,3,176,
+        88,0,284,285,3,14,7,0,285,286,3,14,7,0,286,13,1,0,0,0,287,288,7,
+        0,0,0,288,15,1,0,0,0,289,290,5,71,0,0,290,291,3,176,88,0,291,292,
+        3,176,88,0,292,293,3,14,7,0,293,294,3,14,7,0,294,295,5,94,0,0,295,
+        17,1,0,0,0,296,297,5,72,0,0,297,299,5,94,0,0,298,300,3,176,88,0,
+        299,298,1,0,0,0,300,301,1,0,0,0,301,299,1,0,0,0,301,302,1,0,0,0,
+        302,303,1,0,0,0,303,305,3,14,7,0,304,306,3,116,58,0,305,304,1,0,
+        0,0,305,306,1,0,0,0,306,19,1,0,0,0,307,308,5,73,0,0,308,309,5,94,
+        0,0,309,311,5,94,0,0,310,312,3,176,88,0,311,310,1,0,0,0,312,313,
+        1,0,0,0,313,311,1,0,0,0,313,314,1,0,0,0,314,315,1,0,0,0,315,317,
+        3,14,7,0,316,318,3,116,58,0,317,316,1,0,0,0,317,318,1,0,0,0,318,
+        21,1,0,0,0,319,320,5,74,0,0,320,322,3,176,88,0,321,323,5,94,0,0,
+        322,321,1,0,0,0,322,323,1,0,0,0,323,23,1,0,0,0,324,326,5,75,0,0,
+        325,327,3,176,88,0,326,325,1,0,0,0,327,328,1,0,0,0,328,326,1,0,0,
+        0,328,329,1,0,0,0,329,330,1,0,0,0,330,331,5,94,0,0,331,25,1,0,0,
+        0,332,333,5,76,0,0,333,335,3,176,88,0,334,336,5,94,0,0,335,334,1,
+        0,0,0,335,336,1,0,0,0,336,27,1,0,0,0,337,339,5,77,0,0,338,340,3,
+        176,88,0,339,338,1,0,0,0,340,341,1,0,0,0,341,339,1,0,0,0,341,342,
+        1,0,0,0,342,343,1,0,0,0,343,344,5,94,0,0,344,29,1,0,0,0,345,346,
+        5,78,0,0,346,347,3,176,88,0,347,348,3,176,88,0,348,31,1,0,0,0,349,
+        350,5,79,0,0,350,351,3,176,88,0,351,352,3,176,88,0,352,353,5,94,
+        0,0,353,33,1,0,0,0,354,355,5,80,0,0,355,356,3,176,88,0,356,357,3,
+        170,85,0,357,35,1,0,0,0,358,359,5,81,0,0,359,360,3,176,88,0,360,
+        361,3,38,19,0,361,362,3,172,86,0,362,363,3,172,86,0,363,37,1,0,0,
+        0,364,365,7,1,0,0,365,39,1,0,0,0,366,367,5,82,0,0,367,368,3,176,
+        88,0,368,41,1,0,0,0,369,370,5,83,0,0,370,371,3,176,88,0,371,373,
+        3,172,86,0,372,374,3,44,22,0,373,372,1,0,0,0,373,374,1,0,0,0,374,
+        376,1,0,0,0,375,377,3,116,58,0,376,375,1,0,0,0,376,377,1,0,0,0,377,
+        379,1,0,0,0,378,380,3,46,23,0,379,378,1,0,0,0,379,380,1,0,0,0,380,
+        43,1,0,0,0,381,382,5,43,0,0,382,383,3,170,85,0,383,45,1,0,0,0,384,
+        385,5,44,0,0,385,386,5,94,0,0,386,47,1,0,0,0,387,388,5,84,0,0,388,
+        390,3,176,88,0,389,391,3,172,86,0,390,389,1,0,0,0,391,392,1,0,0,
+        0,392,390,1,0,0,0,392,393,1,0,0,0,393,49,1,0,0,0,394,395,5,85,0,
+        0,395,397,3,176,88,0,396,398,3,172,86,0,397,396,1,0,0,0,398,399,
+        1,0,0,0,399,397,1,0,0,0,399,400,1,0,0,0,400,51,1,0,0,0,401,402,5,
+        86,0,0,402,404,3,176,88,0,403,405,3,172,86,0,404,403,1,0,0,0,405,
+        406,1,0,0,0,406,404,1,0,0,0,406,407,1,0,0,0,407,53,1,0,0,0,408,409,
+        5,87,0,0,409,411,3,176,88,0,410,412,3,172,86,0,411,410,1,0,0,0,412,
+        413,1,0,0,0,413,411,1,0,0,0,413,414,1,0,0,0,414,55,1,0,0,0,415,416,
+        5,88,0,0,416,417,3,176,88,0,417,418,3,170,85,0,418,419,3,170,85,
+        0,419,57,1,0,0,0,420,421,5,89,0,0,421,422,3,176,88,0,422,423,3,170,
+        85,0,423,424,3,172,86,0,424,59,1,0,0,0,425,426,5,90,0,0,426,427,
+        3,176,88,0,427,428,3,170,85,0,428,429,3,172,86,0,429,61,1,0,0,0,
+        430,431,5,91,0,0,431,432,3,176,88,0,432,433,3,170,85,0,433,434,3,
+        170,85,0,434,63,1,0,0,0,435,436,5,3,0,0,436,437,3,178,89,0,437,439,
+        3,172,86,0,438,440,3,66,33,0,439,438,1,0,0,0,439,440,1,0,0,0,440,
+        442,1,0,0,0,441,443,5,5,0,0,442,441,1,0,0,0,442,443,1,0,0,0,443,
+        65,1,0,0,0,444,445,5,4,0,0,445,446,3,68,34,0,446,67,1,0,0,0,447,
+        448,5,94,0,0,448,69,1,0,0,0,449,451,5,6,0,0,450,452,3,178,89,0,451,
+        450,1,0,0,0,452,453,1,0,0,0,453,451,1,0,0,0,453,454,1,0,0,0,454,
+        71,1,0,0,0,455,457,5,7,0,0,456,458,3,178,89,0,457,456,1,0,0,0,458,
+        459,1,0,0,0,459,457,1,0,0,0,459,460,1,0,0,0,460,73,1,0,0,0,461,462,
+        5,8,0,0,462,463,3,178,89,0,463,75,1,0,0,0,464,466,5,9,0,0,465,467,
+        3,178,89,0,466,465,1,0,0,0,467,468,1,0,0,0,468,466,1,0,0,0,468,469,
+        1,0,0,0,469,77,1,0,0,0,470,471,5,10,0,0,471,472,3,178,89,0,472,474,
+        3,170,85,0,473,475,3,86,43,0,474,473,1,0,0,0,474,475,1,0,0,0,475,
+        79,1,0,0,0,476,477,5,15,0,0,477,478,3,178,89,0,478,480,3,170,85,
+        0,479,481,3,86,43,0,480,479,1,0,0,0,480,481,1,0,0,0,481,81,1,0,0,
+        0,482,483,5,17,0,0,483,484,3,178,89,0,484,486,3,170,85,0,485,487,
+        3,86,43,0,486,485,1,0,0,0,486,487,1,0,0,0,487,83,1,0,0,0,488,489,
+        5,18,0,0,489,490,3,178,89,0,490,492,3,170,85,0,491,493,3,86,43,0,
+        492,491,1,0,0,0,492,493,1,0,0,0,493,85,1,0,0,0,494,495,7,2,0,0,495,
+        87,1,0,0,0,496,497,5,16,0,0,497,498,3,178,89,0,498,89,1,0,0,0,499,
+        500,5,19,0,0,500,501,3,178,89,0,501,91,1,0,0,0,502,503,5,20,0,0,
+        503,504,3,180,90,0,504,93,1,0,0,0,505,506,5,21,0,0,506,507,3,178,
+        89,0,507,508,3,68,34,0,508,95,1,0,0,0,509,510,5,22,0,0,510,511,3,
+        98,49,0,511,512,3,178,89,0,512,97,1,0,0,0,513,514,7,3,0,0,514,99,
+        1,0,0,0,515,516,5,27,0,0,516,517,3,178,89,0,517,101,1,0,0,0,518,
+        519,5,28,0,0,519,520,3,178,89,0,520,103,1,0,0,0,521,522,5,29,0,0,
+        522,523,3,178,89,0,523,105,1,0,0,0,524,525,5,30,0,0,525,107,1,0,
+        0,0,526,527,5,31,0,0,527,528,3,178,89,0,528,529,3,172,86,0,529,109,
+        1,0,0,0,530,531,5,32,0,0,531,532,3,178,89,0,532,533,3,172,86,0,533,
+        111,1,0,0,0,534,535,5,33,0,0,535,537,3,170,85,0,536,538,3,114,57,
+        0,537,536,1,0,0,0,537,538,1,0,0,0,538,540,1,0,0,0,539,541,3,116,
+        58,0,540,539,1,0,0,0,540,541,1,0,0,0,541,543,1,0,0,0,542,544,3,118,
+        59,0,543,542,1,0,0,0,543,544,1,0,0,0,544,113,1,0,0,0,545,546,5,34,
+        0,0,546,547,3,180,90,0,547,115,1,0,0,0,548,549,5,35,0,0,549,550,
+        5,94,0,0,550,117,1,0,0,0,551,552,5,36,0,0,552,553,3,172,86,0,553,
+        119,1,0,0,0,554,556,5,37,0,0,555,557,3,178,89,0,556,555,1,0,0,0,
+        557,558,1,0,0,0,558,556,1,0,0,0,558,559,1,0,0,0,559,121,1,0,0,0,
+        560,561,5,36,0,0,561,562,3,178,89,0,562,123,1,0,0,0,563,564,5,38,
+        0,0,564,565,5,94,0,0,565,566,5,94,0,0,566,125,1,0,0,0,567,568,5,
+        45,0,0,568,569,3,174,87,0,569,571,3,172,86,0,570,572,3,128,64,0,
+        571,570,1,0,0,0,571,572,1,0,0,0,572,574,1,0,0,0,573,575,5,46,0,0,
+        574,573,1,0,0,0,574,575,1,0,0,0,575,578,1,0,0,0,576,579,3,130,65,
+        0,577,579,5,55,0,0,578,576,1,0,0,0,578,577,1,0,0,0,578,579,1,0,0,
+        0,579,127,1,0,0,0,580,581,7,4,0,0,581,129,1,0,0,0,582,583,5,51,0,
+        0,583,591,5,94,0,0,584,585,5,52,0,0,585,591,5,94,0,0,586,587,5,53,
+        0,0,587,591,5,94,0,0,588,589,5,54,0,0,589,591,5,94,0,0,590,582,1,
+        0,0,0,590,584,1,0,0,0,590,586,1,0,0,0,590,588,1,0,0,0,591,131,1,
+        0,0,0,592,593,5,46,0,0,593,594,3,174,87,0,594,133,1,0,0,0,595,596,
+        5,47,0,0,596,597,3,174,87,0,597,135,1,0,0,0,598,599,5,48,0,0,599,
+        600,3,174,87,0,600,601,3,170,85,0,601,137,1,0,0,0,602,603,5,49,0,
+        0,603,604,3,174,87,0,604,139,1,0,0,0,605,606,5,50,0,0,606,607,3,
+        174,87,0,607,608,3,170,85,0,608,141,1,0,0,0,609,610,5,56,0,0,610,
+        611,3,174,87,0,611,612,3,172,86,0,612,143,1,0,0,0,613,614,5,57,0,
+        0,614,615,3,174,87,0,615,145,1,0,0,0,616,617,5,58,0,0,617,620,3,
+        174,87,0,618,621,3,130,65,0,619,621,5,27,0,0,620,618,1,0,0,0,620,
+        619,1,0,0,0,620,621,1,0,0,0,621,147,1,0,0,0,622,623,5,59,0,0,623,
+        624,3,174,87,0,624,625,3,170,85,0,625,626,3,170,85,0,626,149,1,0,
+        0,0,627,628,5,60,0,0,628,629,3,174,87,0,629,630,3,172,86,0,630,151,
+        1,0,0,0,631,633,5,61,0,0,632,634,3,174,87,0,633,632,1,0,0,0,634,
+        635,1,0,0,0,635,633,1,0,0,0,635,636,1,0,0,0,636,153,1,0,0,0,637,
+        641,5,62,0,0,638,639,3,174,87,0,639,640,3,172,86,0,640,642,1,0,0,
+        0,641,638,1,0,0,0,642,643,1,0,0,0,643,641,1,0,0,0,643,644,1,0,0,
+        0,644,155,1,0,0,0,645,649,5,63,0,0,646,647,3,174,87,0,647,648,3,
+        172,86,0,648,650,1,0,0,0,649,646,1,0,0,0,650,651,1,0,0,0,651,649,
+        1,0,0,0,651,652,1,0,0,0,652,157,1,0,0,0,653,654,5,64,0,0,654,655,
+        3,174,87,0,655,656,5,94,0,0,656,657,3,172,86,0,657,159,1,0,0,0,658,
+        659,5,65,0,0,659,660,3,174,87,0,660,661,5,94,0,0,661,662,3,172,86,
+        0,662,161,1,0,0,0,663,664,5,66,0,0,664,665,3,174,87,0,665,666,3,
+        172,86,0,666,163,1,0,0,0,667,668,5,67,0,0,668,669,3,174,87,0,669,
+        670,5,94,0,0,670,671,3,172,86,0,671,165,1,0,0,0,672,673,5,68,0,0,
+        673,674,3,174,87,0,674,167,1,0,0,0,675,676,5,69,0,0,676,677,3,174,
+        87,0,677,678,3,170,85,0,678,679,3,170,85,0,679,169,1,0,0,0,680,681,
+        7,5,0,0,681,171,1,0,0,0,682,683,7,6,0,0,683,173,1,0,0,0,684,685,
+        3,172,86,0,685,175,1,0,0,0,686,687,3,172,86,0,687,177,1,0,0,0,688,
+        689,3,172,86,0,689,179,1,0,0,0,690,691,3,172,86,0,691,181,1,0,0,
+        0,44,183,191,198,202,207,233,255,279,301,305,313,317,322,328,335,
+        341,373,376,379,392,399,406,413,439,442,453,459,468,474,480,486,
+        492,537,540,543,558,571,574,578,590,620,635,643,651
     ];
 
     private static __ATN: antlr.ATN;
@@ -2813,6 +4119,9 @@ export class CommandContext extends antlr.ParserRuleContext {
     }
     public stringCommand(): StringCommandContext | null {
         return this.getRuleContext(0, StringCommandContext);
+    }
+    public listCommand(): ListCommandContext | null {
+        return this.getRuleContext(0, ListCommandContext);
     }
     public override get ruleIndex(): number {
         return RedisParser.RULE_command;
@@ -2986,6 +4295,888 @@ export class StringCommandContext extends antlr.ParserRuleContext {
     public override accept<Result>(visitor: RedisParserVisitor<Result>): Result | null {
         if (visitor.visitStringCommand) {
             return visitor.visitStringCommand(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
+}
+
+
+export class ListCommandContext extends antlr.ParserRuleContext {
+    public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
+        super(parent, invokingState);
+    }
+    public lmoveCommand(): LmoveCommandContext | null {
+        return this.getRuleContext(0, LmoveCommandContext);
+    }
+    public blmoveCommand(): BlmoveCommandContext | null {
+        return this.getRuleContext(0, BlmoveCommandContext);
+    }
+    public lmpopCommand(): LmpopCommandContext | null {
+        return this.getRuleContext(0, LmpopCommandContext);
+    }
+    public blmpopCommand(): BlmpopCommandContext | null {
+        return this.getRuleContext(0, BlmpopCommandContext);
+    }
+    public lpopCommand(): LpopCommandContext | null {
+        return this.getRuleContext(0, LpopCommandContext);
+    }
+    public blpopCommand(): BlpopCommandContext | null {
+        return this.getRuleContext(0, BlpopCommandContext);
+    }
+    public rpopCommand(): RpopCommandContext | null {
+        return this.getRuleContext(0, RpopCommandContext);
+    }
+    public brpopCommand(): BrpopCommandContext | null {
+        return this.getRuleContext(0, BrpopCommandContext);
+    }
+    public rpopLpushCommand(): RpopLpushCommandContext | null {
+        return this.getRuleContext(0, RpopLpushCommandContext);
+    }
+    public brpopLpushCommand(): BrpopLpushCommandContext | null {
+        return this.getRuleContext(0, BrpopLpushCommandContext);
+    }
+    public lindexCommand(): LindexCommandContext | null {
+        return this.getRuleContext(0, LindexCommandContext);
+    }
+    public linsertCommand(): LinsertCommandContext | null {
+        return this.getRuleContext(0, LinsertCommandContext);
+    }
+    public llenCommand(): LlenCommandContext | null {
+        return this.getRuleContext(0, LlenCommandContext);
+    }
+    public lposCommand(): LposCommandContext | null {
+        return this.getRuleContext(0, LposCommandContext);
+    }
+    public lpushCommand(): LpushCommandContext | null {
+        return this.getRuleContext(0, LpushCommandContext);
+    }
+    public lpushxCommand(): LpushxCommandContext | null {
+        return this.getRuleContext(0, LpushxCommandContext);
+    }
+    public rpushCommand(): RpushCommandContext | null {
+        return this.getRuleContext(0, RpushCommandContext);
+    }
+    public rpushxCommand(): RpushxCommandContext | null {
+        return this.getRuleContext(0, RpushxCommandContext);
+    }
+    public lrangeCommand(): LrangeCommandContext | null {
+        return this.getRuleContext(0, LrangeCommandContext);
+    }
+    public lremCommand(): LremCommandContext | null {
+        return this.getRuleContext(0, LremCommandContext);
+    }
+    public lsetCommand(): LsetCommandContext | null {
+        return this.getRuleContext(0, LsetCommandContext);
+    }
+    public ltrimCommand(): LtrimCommandContext | null {
+        return this.getRuleContext(0, LtrimCommandContext);
+    }
+    public override get ruleIndex(): number {
+        return RedisParser.RULE_listCommand;
+    }
+    public override accept<Result>(visitor: RedisParserVisitor<Result>): Result | null {
+        if (visitor.visitListCommand) {
+            return visitor.visitListCommand(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
+}
+
+
+export class LmoveCommandContext extends antlr.ParserRuleContext {
+    public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
+        super(parent, invokingState);
+    }
+    public LMOVE(): antlr.TerminalNode {
+        return this.getToken(RedisParser.LMOVE, 0)!;
+    }
+    public listKeyName(): ListKeyNameContext[];
+    public listKeyName(i: number): ListKeyNameContext | null;
+    public listKeyName(i?: number): ListKeyNameContext[] | ListKeyNameContext | null {
+        if (i === undefined) {
+            return this.getRuleContexts(ListKeyNameContext);
+        }
+
+        return this.getRuleContext(i, ListKeyNameContext);
+    }
+    public leftOrRightClause(): LeftOrRightClauseContext[];
+    public leftOrRightClause(i: number): LeftOrRightClauseContext | null;
+    public leftOrRightClause(i?: number): LeftOrRightClauseContext[] | LeftOrRightClauseContext | null {
+        if (i === undefined) {
+            return this.getRuleContexts(LeftOrRightClauseContext);
+        }
+
+        return this.getRuleContext(i, LeftOrRightClauseContext);
+    }
+    public override get ruleIndex(): number {
+        return RedisParser.RULE_lmoveCommand;
+    }
+    public override accept<Result>(visitor: RedisParserVisitor<Result>): Result | null {
+        if (visitor.visitLmoveCommand) {
+            return visitor.visitLmoveCommand(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
+}
+
+
+export class LeftOrRightClauseContext extends antlr.ParserRuleContext {
+    public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
+        super(parent, invokingState);
+    }
+    public LEFT(): antlr.TerminalNode | null {
+        return this.getToken(RedisParser.LEFT, 0);
+    }
+    public RIGHT(): antlr.TerminalNode | null {
+        return this.getToken(RedisParser.RIGHT, 0);
+    }
+    public override get ruleIndex(): number {
+        return RedisParser.RULE_leftOrRightClause;
+    }
+    public override accept<Result>(visitor: RedisParserVisitor<Result>): Result | null {
+        if (visitor.visitLeftOrRightClause) {
+            return visitor.visitLeftOrRightClause(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
+}
+
+
+export class BlmoveCommandContext extends antlr.ParserRuleContext {
+    public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
+        super(parent, invokingState);
+    }
+    public BLMOVE(): antlr.TerminalNode {
+        return this.getToken(RedisParser.BLMOVE, 0)!;
+    }
+    public listKeyName(): ListKeyNameContext[];
+    public listKeyName(i: number): ListKeyNameContext | null;
+    public listKeyName(i?: number): ListKeyNameContext[] | ListKeyNameContext | null {
+        if (i === undefined) {
+            return this.getRuleContexts(ListKeyNameContext);
+        }
+
+        return this.getRuleContext(i, ListKeyNameContext);
+    }
+    public leftOrRightClause(): LeftOrRightClauseContext[];
+    public leftOrRightClause(i: number): LeftOrRightClauseContext | null;
+    public leftOrRightClause(i?: number): LeftOrRightClauseContext[] | LeftOrRightClauseContext | null {
+        if (i === undefined) {
+            return this.getRuleContexts(LeftOrRightClauseContext);
+        }
+
+        return this.getRuleContext(i, LeftOrRightClauseContext);
+    }
+    public POSITIVE_DECIMAL_LITERAL(): antlr.TerminalNode {
+        return this.getToken(RedisParser.POSITIVE_DECIMAL_LITERAL, 0)!;
+    }
+    public override get ruleIndex(): number {
+        return RedisParser.RULE_blmoveCommand;
+    }
+    public override accept<Result>(visitor: RedisParserVisitor<Result>): Result | null {
+        if (visitor.visitBlmoveCommand) {
+            return visitor.visitBlmoveCommand(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
+}
+
+
+export class LmpopCommandContext extends antlr.ParserRuleContext {
+    public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
+        super(parent, invokingState);
+    }
+    public LMPOP(): antlr.TerminalNode {
+        return this.getToken(RedisParser.LMPOP, 0)!;
+    }
+    public POSITIVE_DECIMAL_LITERAL(): antlr.TerminalNode {
+        return this.getToken(RedisParser.POSITIVE_DECIMAL_LITERAL, 0)!;
+    }
+    public leftOrRightClause(): LeftOrRightClauseContext {
+        return this.getRuleContext(0, LeftOrRightClauseContext)!;
+    }
+    public listKeyName(): ListKeyNameContext[];
+    public listKeyName(i: number): ListKeyNameContext | null;
+    public listKeyName(i?: number): ListKeyNameContext[] | ListKeyNameContext | null {
+        if (i === undefined) {
+            return this.getRuleContexts(ListKeyNameContext);
+        }
+
+        return this.getRuleContext(i, ListKeyNameContext);
+    }
+    public countClause(): CountClauseContext | null {
+        return this.getRuleContext(0, CountClauseContext);
+    }
+    public override get ruleIndex(): number {
+        return RedisParser.RULE_lmpopCommand;
+    }
+    public override accept<Result>(visitor: RedisParserVisitor<Result>): Result | null {
+        if (visitor.visitLmpopCommand) {
+            return visitor.visitLmpopCommand(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
+}
+
+
+export class BlmpopCommandContext extends antlr.ParserRuleContext {
+    public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
+        super(parent, invokingState);
+    }
+    public BLMPOP(): antlr.TerminalNode {
+        return this.getToken(RedisParser.BLMPOP, 0)!;
+    }
+    public POSITIVE_DECIMAL_LITERAL(): antlr.TerminalNode[];
+    public POSITIVE_DECIMAL_LITERAL(i: number): antlr.TerminalNode | null;
+    public POSITIVE_DECIMAL_LITERAL(i?: number): antlr.TerminalNode | null | antlr.TerminalNode[] {
+    	if (i === undefined) {
+    		return this.getTokens(RedisParser.POSITIVE_DECIMAL_LITERAL);
+    	} else {
+    		return this.getToken(RedisParser.POSITIVE_DECIMAL_LITERAL, i);
+    	}
+    }
+    public leftOrRightClause(): LeftOrRightClauseContext {
+        return this.getRuleContext(0, LeftOrRightClauseContext)!;
+    }
+    public listKeyName(): ListKeyNameContext[];
+    public listKeyName(i: number): ListKeyNameContext | null;
+    public listKeyName(i?: number): ListKeyNameContext[] | ListKeyNameContext | null {
+        if (i === undefined) {
+            return this.getRuleContexts(ListKeyNameContext);
+        }
+
+        return this.getRuleContext(i, ListKeyNameContext);
+    }
+    public countClause(): CountClauseContext | null {
+        return this.getRuleContext(0, CountClauseContext);
+    }
+    public override get ruleIndex(): number {
+        return RedisParser.RULE_blmpopCommand;
+    }
+    public override accept<Result>(visitor: RedisParserVisitor<Result>): Result | null {
+        if (visitor.visitBlmpopCommand) {
+            return visitor.visitBlmpopCommand(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
+}
+
+
+export class LpopCommandContext extends antlr.ParserRuleContext {
+    public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
+        super(parent, invokingState);
+    }
+    public LPOP(): antlr.TerminalNode {
+        return this.getToken(RedisParser.LPOP, 0)!;
+    }
+    public listKeyName(): ListKeyNameContext {
+        return this.getRuleContext(0, ListKeyNameContext)!;
+    }
+    public POSITIVE_DECIMAL_LITERAL(): antlr.TerminalNode | null {
+        return this.getToken(RedisParser.POSITIVE_DECIMAL_LITERAL, 0);
+    }
+    public override get ruleIndex(): number {
+        return RedisParser.RULE_lpopCommand;
+    }
+    public override accept<Result>(visitor: RedisParserVisitor<Result>): Result | null {
+        if (visitor.visitLpopCommand) {
+            return visitor.visitLpopCommand(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
+}
+
+
+export class BlpopCommandContext extends antlr.ParserRuleContext {
+    public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
+        super(parent, invokingState);
+    }
+    public BLPOP(): antlr.TerminalNode {
+        return this.getToken(RedisParser.BLPOP, 0)!;
+    }
+    public POSITIVE_DECIMAL_LITERAL(): antlr.TerminalNode {
+        return this.getToken(RedisParser.POSITIVE_DECIMAL_LITERAL, 0)!;
+    }
+    public listKeyName(): ListKeyNameContext[];
+    public listKeyName(i: number): ListKeyNameContext | null;
+    public listKeyName(i?: number): ListKeyNameContext[] | ListKeyNameContext | null {
+        if (i === undefined) {
+            return this.getRuleContexts(ListKeyNameContext);
+        }
+
+        return this.getRuleContext(i, ListKeyNameContext);
+    }
+    public override get ruleIndex(): number {
+        return RedisParser.RULE_blpopCommand;
+    }
+    public override accept<Result>(visitor: RedisParserVisitor<Result>): Result | null {
+        if (visitor.visitBlpopCommand) {
+            return visitor.visitBlpopCommand(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
+}
+
+
+export class RpopCommandContext extends antlr.ParserRuleContext {
+    public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
+        super(parent, invokingState);
+    }
+    public RPOP(): antlr.TerminalNode {
+        return this.getToken(RedisParser.RPOP, 0)!;
+    }
+    public listKeyName(): ListKeyNameContext {
+        return this.getRuleContext(0, ListKeyNameContext)!;
+    }
+    public POSITIVE_DECIMAL_LITERAL(): antlr.TerminalNode | null {
+        return this.getToken(RedisParser.POSITIVE_DECIMAL_LITERAL, 0);
+    }
+    public override get ruleIndex(): number {
+        return RedisParser.RULE_rpopCommand;
+    }
+    public override accept<Result>(visitor: RedisParserVisitor<Result>): Result | null {
+        if (visitor.visitRpopCommand) {
+            return visitor.visitRpopCommand(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
+}
+
+
+export class BrpopCommandContext extends antlr.ParserRuleContext {
+    public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
+        super(parent, invokingState);
+    }
+    public BRPOP(): antlr.TerminalNode {
+        return this.getToken(RedisParser.BRPOP, 0)!;
+    }
+    public POSITIVE_DECIMAL_LITERAL(): antlr.TerminalNode {
+        return this.getToken(RedisParser.POSITIVE_DECIMAL_LITERAL, 0)!;
+    }
+    public listKeyName(): ListKeyNameContext[];
+    public listKeyName(i: number): ListKeyNameContext | null;
+    public listKeyName(i?: number): ListKeyNameContext[] | ListKeyNameContext | null {
+        if (i === undefined) {
+            return this.getRuleContexts(ListKeyNameContext);
+        }
+
+        return this.getRuleContext(i, ListKeyNameContext);
+    }
+    public override get ruleIndex(): number {
+        return RedisParser.RULE_brpopCommand;
+    }
+    public override accept<Result>(visitor: RedisParserVisitor<Result>): Result | null {
+        if (visitor.visitBrpopCommand) {
+            return visitor.visitBrpopCommand(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
+}
+
+
+export class RpopLpushCommandContext extends antlr.ParserRuleContext {
+    public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
+        super(parent, invokingState);
+    }
+    public RPOPLPUSH(): antlr.TerminalNode {
+        return this.getToken(RedisParser.RPOPLPUSH, 0)!;
+    }
+    public listKeyName(): ListKeyNameContext[];
+    public listKeyName(i: number): ListKeyNameContext | null;
+    public listKeyName(i?: number): ListKeyNameContext[] | ListKeyNameContext | null {
+        if (i === undefined) {
+            return this.getRuleContexts(ListKeyNameContext);
+        }
+
+        return this.getRuleContext(i, ListKeyNameContext);
+    }
+    public override get ruleIndex(): number {
+        return RedisParser.RULE_rpopLpushCommand;
+    }
+    public override accept<Result>(visitor: RedisParserVisitor<Result>): Result | null {
+        if (visitor.visitRpopLpushCommand) {
+            return visitor.visitRpopLpushCommand(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
+}
+
+
+export class BrpopLpushCommandContext extends antlr.ParserRuleContext {
+    public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
+        super(parent, invokingState);
+    }
+    public BRPOPLPUSH(): antlr.TerminalNode {
+        return this.getToken(RedisParser.BRPOPLPUSH, 0)!;
+    }
+    public listKeyName(): ListKeyNameContext[];
+    public listKeyName(i: number): ListKeyNameContext | null;
+    public listKeyName(i?: number): ListKeyNameContext[] | ListKeyNameContext | null {
+        if (i === undefined) {
+            return this.getRuleContexts(ListKeyNameContext);
+        }
+
+        return this.getRuleContext(i, ListKeyNameContext);
+    }
+    public POSITIVE_DECIMAL_LITERAL(): antlr.TerminalNode {
+        return this.getToken(RedisParser.POSITIVE_DECIMAL_LITERAL, 0)!;
+    }
+    public override get ruleIndex(): number {
+        return RedisParser.RULE_brpopLpushCommand;
+    }
+    public override accept<Result>(visitor: RedisParserVisitor<Result>): Result | null {
+        if (visitor.visitBrpopLpushCommand) {
+            return visitor.visitBrpopLpushCommand(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
+}
+
+
+export class LindexCommandContext extends antlr.ParserRuleContext {
+    public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
+        super(parent, invokingState);
+    }
+    public LINDEX(): antlr.TerminalNode {
+        return this.getToken(RedisParser.LINDEX, 0)!;
+    }
+    public listKeyName(): ListKeyNameContext {
+        return this.getRuleContext(0, ListKeyNameContext)!;
+    }
+    public decimal(): DecimalContext {
+        return this.getRuleContext(0, DecimalContext)!;
+    }
+    public override get ruleIndex(): number {
+        return RedisParser.RULE_lindexCommand;
+    }
+    public override accept<Result>(visitor: RedisParserVisitor<Result>): Result | null {
+        if (visitor.visitLindexCommand) {
+            return visitor.visitLindexCommand(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
+}
+
+
+export class LinsertCommandContext extends antlr.ParserRuleContext {
+    public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
+        super(parent, invokingState);
+    }
+    public LINSERT(): antlr.TerminalNode {
+        return this.getToken(RedisParser.LINSERT, 0)!;
+    }
+    public listKeyName(): ListKeyNameContext {
+        return this.getRuleContext(0, ListKeyNameContext)!;
+    }
+    public beforeOrAfterClause(): BeforeOrAfterClauseContext {
+        return this.getRuleContext(0, BeforeOrAfterClauseContext)!;
+    }
+    public identifier(): IdentifierContext[];
+    public identifier(i: number): IdentifierContext | null;
+    public identifier(i?: number): IdentifierContext[] | IdentifierContext | null {
+        if (i === undefined) {
+            return this.getRuleContexts(IdentifierContext);
+        }
+
+        return this.getRuleContext(i, IdentifierContext);
+    }
+    public override get ruleIndex(): number {
+        return RedisParser.RULE_linsertCommand;
+    }
+    public override accept<Result>(visitor: RedisParserVisitor<Result>): Result | null {
+        if (visitor.visitLinsertCommand) {
+            return visitor.visitLinsertCommand(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
+}
+
+
+export class BeforeOrAfterClauseContext extends antlr.ParserRuleContext {
+    public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
+        super(parent, invokingState);
+    }
+    public BEFORE(): antlr.TerminalNode | null {
+        return this.getToken(RedisParser.BEFORE, 0);
+    }
+    public AFTER(): antlr.TerminalNode | null {
+        return this.getToken(RedisParser.AFTER, 0);
+    }
+    public override get ruleIndex(): number {
+        return RedisParser.RULE_beforeOrAfterClause;
+    }
+    public override accept<Result>(visitor: RedisParserVisitor<Result>): Result | null {
+        if (visitor.visitBeforeOrAfterClause) {
+            return visitor.visitBeforeOrAfterClause(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
+}
+
+
+export class LlenCommandContext extends antlr.ParserRuleContext {
+    public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
+        super(parent, invokingState);
+    }
+    public LLEN(): antlr.TerminalNode {
+        return this.getToken(RedisParser.LLEN, 0)!;
+    }
+    public listKeyName(): ListKeyNameContext {
+        return this.getRuleContext(0, ListKeyNameContext)!;
+    }
+    public override get ruleIndex(): number {
+        return RedisParser.RULE_llenCommand;
+    }
+    public override accept<Result>(visitor: RedisParserVisitor<Result>): Result | null {
+        if (visitor.visitLlenCommand) {
+            return visitor.visitLlenCommand(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
+}
+
+
+export class LposCommandContext extends antlr.ParserRuleContext {
+    public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
+        super(parent, invokingState);
+    }
+    public LPOS(): antlr.TerminalNode {
+        return this.getToken(RedisParser.LPOS, 0)!;
+    }
+    public listKeyName(): ListKeyNameContext {
+        return this.getRuleContext(0, ListKeyNameContext)!;
+    }
+    public identifier(): IdentifierContext {
+        return this.getRuleContext(0, IdentifierContext)!;
+    }
+    public rankClause(): RankClauseContext | null {
+        return this.getRuleContext(0, RankClauseContext);
+    }
+    public countClause(): CountClauseContext | null {
+        return this.getRuleContext(0, CountClauseContext);
+    }
+    public maxLenClause(): MaxLenClauseContext | null {
+        return this.getRuleContext(0, MaxLenClauseContext);
+    }
+    public override get ruleIndex(): number {
+        return RedisParser.RULE_lposCommand;
+    }
+    public override accept<Result>(visitor: RedisParserVisitor<Result>): Result | null {
+        if (visitor.visitLposCommand) {
+            return visitor.visitLposCommand(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
+}
+
+
+export class RankClauseContext extends antlr.ParserRuleContext {
+    public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
+        super(parent, invokingState);
+    }
+    public RANK(): antlr.TerminalNode {
+        return this.getToken(RedisParser.RANK, 0)!;
+    }
+    public decimal(): DecimalContext {
+        return this.getRuleContext(0, DecimalContext)!;
+    }
+    public override get ruleIndex(): number {
+        return RedisParser.RULE_rankClause;
+    }
+    public override accept<Result>(visitor: RedisParserVisitor<Result>): Result | null {
+        if (visitor.visitRankClause) {
+            return visitor.visitRankClause(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
+}
+
+
+export class MaxLenClauseContext extends antlr.ParserRuleContext {
+    public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
+        super(parent, invokingState);
+    }
+    public MAXLEN(): antlr.TerminalNode {
+        return this.getToken(RedisParser.MAXLEN, 0)!;
+    }
+    public POSITIVE_DECIMAL_LITERAL(): antlr.TerminalNode {
+        return this.getToken(RedisParser.POSITIVE_DECIMAL_LITERAL, 0)!;
+    }
+    public override get ruleIndex(): number {
+        return RedisParser.RULE_maxLenClause;
+    }
+    public override accept<Result>(visitor: RedisParserVisitor<Result>): Result | null {
+        if (visitor.visitMaxLenClause) {
+            return visitor.visitMaxLenClause(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
+}
+
+
+export class LpushCommandContext extends antlr.ParserRuleContext {
+    public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
+        super(parent, invokingState);
+    }
+    public LPUSH(): antlr.TerminalNode {
+        return this.getToken(RedisParser.LPUSH, 0)!;
+    }
+    public listKeyName(): ListKeyNameContext {
+        return this.getRuleContext(0, ListKeyNameContext)!;
+    }
+    public identifier(): IdentifierContext[];
+    public identifier(i: number): IdentifierContext | null;
+    public identifier(i?: number): IdentifierContext[] | IdentifierContext | null {
+        if (i === undefined) {
+            return this.getRuleContexts(IdentifierContext);
+        }
+
+        return this.getRuleContext(i, IdentifierContext);
+    }
+    public override get ruleIndex(): number {
+        return RedisParser.RULE_lpushCommand;
+    }
+    public override accept<Result>(visitor: RedisParserVisitor<Result>): Result | null {
+        if (visitor.visitLpushCommand) {
+            return visitor.visitLpushCommand(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
+}
+
+
+export class LpushxCommandContext extends antlr.ParserRuleContext {
+    public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
+        super(parent, invokingState);
+    }
+    public LPUSHX(): antlr.TerminalNode {
+        return this.getToken(RedisParser.LPUSHX, 0)!;
+    }
+    public listKeyName(): ListKeyNameContext {
+        return this.getRuleContext(0, ListKeyNameContext)!;
+    }
+    public identifier(): IdentifierContext[];
+    public identifier(i: number): IdentifierContext | null;
+    public identifier(i?: number): IdentifierContext[] | IdentifierContext | null {
+        if (i === undefined) {
+            return this.getRuleContexts(IdentifierContext);
+        }
+
+        return this.getRuleContext(i, IdentifierContext);
+    }
+    public override get ruleIndex(): number {
+        return RedisParser.RULE_lpushxCommand;
+    }
+    public override accept<Result>(visitor: RedisParserVisitor<Result>): Result | null {
+        if (visitor.visitLpushxCommand) {
+            return visitor.visitLpushxCommand(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
+}
+
+
+export class RpushCommandContext extends antlr.ParserRuleContext {
+    public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
+        super(parent, invokingState);
+    }
+    public RPUSH(): antlr.TerminalNode {
+        return this.getToken(RedisParser.RPUSH, 0)!;
+    }
+    public listKeyName(): ListKeyNameContext {
+        return this.getRuleContext(0, ListKeyNameContext)!;
+    }
+    public identifier(): IdentifierContext[];
+    public identifier(i: number): IdentifierContext | null;
+    public identifier(i?: number): IdentifierContext[] | IdentifierContext | null {
+        if (i === undefined) {
+            return this.getRuleContexts(IdentifierContext);
+        }
+
+        return this.getRuleContext(i, IdentifierContext);
+    }
+    public override get ruleIndex(): number {
+        return RedisParser.RULE_rpushCommand;
+    }
+    public override accept<Result>(visitor: RedisParserVisitor<Result>): Result | null {
+        if (visitor.visitRpushCommand) {
+            return visitor.visitRpushCommand(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
+}
+
+
+export class RpushxCommandContext extends antlr.ParserRuleContext {
+    public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
+        super(parent, invokingState);
+    }
+    public RPUSHX(): antlr.TerminalNode {
+        return this.getToken(RedisParser.RPUSHX, 0)!;
+    }
+    public listKeyName(): ListKeyNameContext {
+        return this.getRuleContext(0, ListKeyNameContext)!;
+    }
+    public identifier(): IdentifierContext[];
+    public identifier(i: number): IdentifierContext | null;
+    public identifier(i?: number): IdentifierContext[] | IdentifierContext | null {
+        if (i === undefined) {
+            return this.getRuleContexts(IdentifierContext);
+        }
+
+        return this.getRuleContext(i, IdentifierContext);
+    }
+    public override get ruleIndex(): number {
+        return RedisParser.RULE_rpushxCommand;
+    }
+    public override accept<Result>(visitor: RedisParserVisitor<Result>): Result | null {
+        if (visitor.visitRpushxCommand) {
+            return visitor.visitRpushxCommand(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
+}
+
+
+export class LrangeCommandContext extends antlr.ParserRuleContext {
+    public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
+        super(parent, invokingState);
+    }
+    public LRANGE(): antlr.TerminalNode {
+        return this.getToken(RedisParser.LRANGE, 0)!;
+    }
+    public listKeyName(): ListKeyNameContext {
+        return this.getRuleContext(0, ListKeyNameContext)!;
+    }
+    public decimal(): DecimalContext[];
+    public decimal(i: number): DecimalContext | null;
+    public decimal(i?: number): DecimalContext[] | DecimalContext | null {
+        if (i === undefined) {
+            return this.getRuleContexts(DecimalContext);
+        }
+
+        return this.getRuleContext(i, DecimalContext);
+    }
+    public override get ruleIndex(): number {
+        return RedisParser.RULE_lrangeCommand;
+    }
+    public override accept<Result>(visitor: RedisParserVisitor<Result>): Result | null {
+        if (visitor.visitLrangeCommand) {
+            return visitor.visitLrangeCommand(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
+}
+
+
+export class LremCommandContext extends antlr.ParserRuleContext {
+    public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
+        super(parent, invokingState);
+    }
+    public LREM(): antlr.TerminalNode {
+        return this.getToken(RedisParser.LREM, 0)!;
+    }
+    public listKeyName(): ListKeyNameContext {
+        return this.getRuleContext(0, ListKeyNameContext)!;
+    }
+    public decimal(): DecimalContext {
+        return this.getRuleContext(0, DecimalContext)!;
+    }
+    public identifier(): IdentifierContext {
+        return this.getRuleContext(0, IdentifierContext)!;
+    }
+    public override get ruleIndex(): number {
+        return RedisParser.RULE_lremCommand;
+    }
+    public override accept<Result>(visitor: RedisParserVisitor<Result>): Result | null {
+        if (visitor.visitLremCommand) {
+            return visitor.visitLremCommand(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
+}
+
+
+export class LsetCommandContext extends antlr.ParserRuleContext {
+    public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
+        super(parent, invokingState);
+    }
+    public LSET(): antlr.TerminalNode {
+        return this.getToken(RedisParser.LSET, 0)!;
+    }
+    public listKeyName(): ListKeyNameContext {
+        return this.getRuleContext(0, ListKeyNameContext)!;
+    }
+    public decimal(): DecimalContext {
+        return this.getRuleContext(0, DecimalContext)!;
+    }
+    public identifier(): IdentifierContext {
+        return this.getRuleContext(0, IdentifierContext)!;
+    }
+    public override get ruleIndex(): number {
+        return RedisParser.RULE_lsetCommand;
+    }
+    public override accept<Result>(visitor: RedisParserVisitor<Result>): Result | null {
+        if (visitor.visitLsetCommand) {
+            return visitor.visitLsetCommand(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
+}
+
+
+export class LtrimCommandContext extends antlr.ParserRuleContext {
+    public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
+        super(parent, invokingState);
+    }
+    public LTRIM(): antlr.TerminalNode {
+        return this.getToken(RedisParser.LTRIM, 0)!;
+    }
+    public listKeyName(): ListKeyNameContext {
+        return this.getRuleContext(0, ListKeyNameContext)!;
+    }
+    public decimal(): DecimalContext[];
+    public decimal(i: number): DecimalContext | null;
+    public decimal(i?: number): DecimalContext[] | DecimalContext | null {
+        if (i === undefined) {
+            return this.getRuleContexts(DecimalContext);
+        }
+
+        return this.getRuleContext(i, DecimalContext);
+    }
+    public override get ruleIndex(): number {
+        return RedisParser.RULE_ltrimCommand;
+    }
+    public override accept<Result>(visitor: RedisParserVisitor<Result>): Result | null {
+        if (visitor.visitLtrimCommand) {
+            return visitor.visitLtrimCommand(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -4481,6 +6672,26 @@ export class StringKeyNameContext extends antlr.ParserRuleContext {
     public override accept<Result>(visitor: RedisParserVisitor<Result>): Result | null {
         if (visitor.visitStringKeyName) {
             return visitor.visitStringKeyName(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
+}
+
+
+export class ListKeyNameContext extends antlr.ParserRuleContext {
+    public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
+        super(parent, invokingState);
+    }
+    public identifier(): IdentifierContext {
+        return this.getRuleContext(0, IdentifierContext)!;
+    }
+    public override get ruleIndex(): number {
+        return RedisParser.RULE_listKeyName;
+    }
+    public override accept<Result>(visitor: RedisParserVisitor<Result>): Result | null {
+        if (visitor.visitListKeyName) {
+            return visitor.visitListKeyName(this);
         } else {
             return visitor.visitChildren(this);
         }
