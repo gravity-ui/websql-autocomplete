@@ -18,6 +18,25 @@ import { CommandContext } from "./RedisParser.js";
 import { CommonCommandContext } from "./RedisParser.js";
 import { StringCommandContext } from "./RedisParser.js";
 import { ListCommandContext } from "./RedisParser.js";
+import { SetCommandContext } from "./RedisParser.js";
+import { SaddCommandContext } from "./RedisParser.js";
+import { ScardCommandContext } from "./RedisParser.js";
+import { SdiffCommandContext } from "./RedisParser.js";
+import { SdiffstoreCommandContext } from "./RedisParser.js";
+import { SinterCommandContext } from "./RedisParser.js";
+import { SintercardCommandContext } from "./RedisParser.js";
+import { LimitClauseContext } from "./RedisParser.js";
+import { SinterstoreCommandContext } from "./RedisParser.js";
+import { SismemberCommandContext } from "./RedisParser.js";
+import { SmismemberCommandContext } from "./RedisParser.js";
+import { SmembersCommandContext } from "./RedisParser.js";
+import { SmoveCommandContext } from "./RedisParser.js";
+import { SpopCommandContext } from "./RedisParser.js";
+import { SrandmemberCommandContext } from "./RedisParser.js";
+import { SremCommandContext } from "./RedisParser.js";
+import { SscanCommanContext } from "./RedisParser.js";
+import { SunionCommandContext } from "./RedisParser.js";
+import { SunionstoreCommandContext } from "./RedisParser.js";
 import { LmoveCommandContext } from "./RedisParser.js";
 import { LeftOrRightClauseContext } from "./RedisParser.js";
 import { BlmoveCommandContext } from "./RedisParser.js";
@@ -75,7 +94,7 @@ import { TypeClauseContext } from "./RedisParser.js";
 import { TouchCommandContext } from "./RedisParser.js";
 import { TypeCommandContext } from "./RedisParser.js";
 import { WaitCommandContext } from "./RedisParser.js";
-import { SetCommandContext } from "./RedisParser.js";
+import { StringSetCommandContext } from "./RedisParser.js";
 import { KeyExistenceClauseContext } from "./RedisParser.js";
 import { ExpirationClauseContext } from "./RedisParser.js";
 import { GetCommandContext } from "./RedisParser.js";
@@ -101,6 +120,7 @@ import { DecimalContext } from "./RedisParser.js";
 import { IdentifierContext } from "./RedisParser.js";
 import { StringKeyNameContext } from "./RedisParser.js";
 import { ListKeyNameContext } from "./RedisParser.js";
+import { SetKeyNameContext } from "./RedisParser.js";
 import { KeyNameContext } from "./RedisParser.js";
 import { NotProperPatternContext } from "./RedisParser.js";
 
@@ -149,6 +169,120 @@ export class RedisParserVisitor<Result> extends AbstractParseTreeVisitor<Result>
      * @return the visitor result
      */
     visitListCommand?: (ctx: ListCommandContext) => Result;
+    /**
+     * Visit a parse tree produced by `RedisParser.setCommand`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitSetCommand?: (ctx: SetCommandContext) => Result;
+    /**
+     * Visit a parse tree produced by `RedisParser.saddCommand`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitSaddCommand?: (ctx: SaddCommandContext) => Result;
+    /**
+     * Visit a parse tree produced by `RedisParser.scardCommand`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitScardCommand?: (ctx: ScardCommandContext) => Result;
+    /**
+     * Visit a parse tree produced by `RedisParser.sdiffCommand`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitSdiffCommand?: (ctx: SdiffCommandContext) => Result;
+    /**
+     * Visit a parse tree produced by `RedisParser.sdiffstoreCommand`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitSdiffstoreCommand?: (ctx: SdiffstoreCommandContext) => Result;
+    /**
+     * Visit a parse tree produced by `RedisParser.sinterCommand`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitSinterCommand?: (ctx: SinterCommandContext) => Result;
+    /**
+     * Visit a parse tree produced by `RedisParser.sintercardCommand`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitSintercardCommand?: (ctx: SintercardCommandContext) => Result;
+    /**
+     * Visit a parse tree produced by `RedisParser.limitClause`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitLimitClause?: (ctx: LimitClauseContext) => Result;
+    /**
+     * Visit a parse tree produced by `RedisParser.sinterstoreCommand`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitSinterstoreCommand?: (ctx: SinterstoreCommandContext) => Result;
+    /**
+     * Visit a parse tree produced by `RedisParser.sismemberCommand`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitSismemberCommand?: (ctx: SismemberCommandContext) => Result;
+    /**
+     * Visit a parse tree produced by `RedisParser.smismemberCommand`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitSmismemberCommand?: (ctx: SmismemberCommandContext) => Result;
+    /**
+     * Visit a parse tree produced by `RedisParser.smembersCommand`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitSmembersCommand?: (ctx: SmembersCommandContext) => Result;
+    /**
+     * Visit a parse tree produced by `RedisParser.smoveCommand`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitSmoveCommand?: (ctx: SmoveCommandContext) => Result;
+    /**
+     * Visit a parse tree produced by `RedisParser.spopCommand`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitSpopCommand?: (ctx: SpopCommandContext) => Result;
+    /**
+     * Visit a parse tree produced by `RedisParser.srandmemberCommand`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitSrandmemberCommand?: (ctx: SrandmemberCommandContext) => Result;
+    /**
+     * Visit a parse tree produced by `RedisParser.sremCommand`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitSremCommand?: (ctx: SremCommandContext) => Result;
+    /**
+     * Visit a parse tree produced by `RedisParser.sscanComman`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitSscanComman?: (ctx: SscanCommanContext) => Result;
+    /**
+     * Visit a parse tree produced by `RedisParser.sunionCommand`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitSunionCommand?: (ctx: SunionCommandContext) => Result;
+    /**
+     * Visit a parse tree produced by `RedisParser.sunionstoreCommand`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitSunionstoreCommand?: (ctx: SunionstoreCommandContext) => Result;
     /**
      * Visit a parse tree produced by `RedisParser.lmoveCommand`.
      * @param ctx the parse tree
@@ -492,11 +626,11 @@ export class RedisParserVisitor<Result> extends AbstractParseTreeVisitor<Result>
      */
     visitWaitCommand?: (ctx: WaitCommandContext) => Result;
     /**
-     * Visit a parse tree produced by `RedisParser.setCommand`.
+     * Visit a parse tree produced by `RedisParser.stringSetCommand`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitSetCommand?: (ctx: SetCommandContext) => Result;
+    visitStringSetCommand?: (ctx: StringSetCommandContext) => Result;
     /**
      * Visit a parse tree produced by `RedisParser.keyExistenceClause`.
      * @param ctx the parse tree
@@ -647,6 +781,12 @@ export class RedisParserVisitor<Result> extends AbstractParseTreeVisitor<Result>
      * @return the visitor result
      */
     visitListKeyName?: (ctx: ListKeyNameContext) => Result;
+    /**
+     * Visit a parse tree produced by `RedisParser.setKeyName`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitSetKeyName?: (ctx: SetKeyNameContext) => Result;
     /**
      * Visit a parse tree produced by `RedisParser.keyName`.
      * @param ctx the parse tree
