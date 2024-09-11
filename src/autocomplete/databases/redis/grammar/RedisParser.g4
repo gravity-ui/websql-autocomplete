@@ -23,6 +23,7 @@ command
     | stringCommand
     | listCommand
     | setCommand
+    | sortedSetCommand
     ;
 
 commonCommand
@@ -118,6 +119,215 @@ setCommand
     | sscanComman
     | sunionCommand
     | sunionstoreCommand
+    ;
+
+sortedSetCommand
+    : zmpopCommand
+    | bzmpopCommand
+    | zpopmaxCommand
+    | bzpopmaxCommand
+    | zpopminCommand
+    | bzpopminCommand
+    | zaddCommand
+    | zcardCommand
+    | zcountCommand
+    | zdiffCommand
+    | zdiffstoreCommand
+    | zincrbyCommand
+    | zinterCommand
+    | zintercardCommand
+    | zinterstoreCommand
+    | zlexcountCommand
+    | zscoreCommand
+    | zmscoreCommand
+    | zrandmemberCommand
+    | zrangeCommand
+    | zrangebylexCommand
+    | zrangebyscoreCommand
+    | zrangestoreCommand
+    | zrankCommand
+    | zrevrankCommand
+    | zremCommand
+    | zremrangebylexCommand
+    | zremrangebyrankCommand
+    | zremrangebyscoreCommand
+    | zrevrangeCommand
+    | zrevrangebylexCommand
+    | zrevrangebyscoreCommand
+    | zscanCommand
+    | zunionCommand
+    | zunionstoreCommand
+    ;
+
+zmpopCommand
+    : ZMPOP POSITIVE_DECIMAL_LITERAL sortedSetKeyName+ minMaxClause countClause?
+    ;
+
+bzmpopCommand
+    : BZMPOP POSITIVE_DECIMAL_LITERAL POSITIVE_DECIMAL_LITERAL sortedSetKeyName+ minMaxClause countClause?
+    ;
+
+zpopmaxCommand
+    : ZPOPMAX sortedSetKeyName POSITIVE_DECIMAL_LITERAL?
+    ;
+
+bzpopmaxCommand
+    : BZPOPMAX sortedSetKeyName+ POSITIVE_DECIMAL_LITERAL
+    ;
+
+zpopminCommand
+    : ZPOPMIN sortedSetKeyName POSITIVE_DECIMAL_LITERAL?
+    ;
+
+bzpopminCommand
+    : BZPOPMIN sortedSetKeyName+ POSITIVE_DECIMAL_LITERAL
+    ;
+
+minMaxClause
+    : MIN
+    | MAX
+    ;
+
+zaddCommand
+    : ZADD sortedSetKeyName keyExistenceClause? keyUpdateClause? CH? INCR? scoreMemberClause+
+    ;
+
+keyUpdateClause
+    : GT
+    | LT
+    ;
+
+scoreMemberClause
+    : decimal identifier
+    ;
+
+zcardCommand
+    : ZCARD sortedSetKeyName
+    ;
+
+zcountCommand
+    : ZCOUNT sortedSetKeyName decimalScore decimalScore
+    ;
+
+zdiffCommand
+    : ZDIFF POSITIVE_DECIMAL_LITERAL sortedSetKeyName+ WITHSCORES?
+    ;
+
+zdiffstoreCommand
+    : ZDIFFSTORE identifier POSITIVE_DECIMAL_LITERAL sortedSetKeyName+
+    ;
+
+zincrbyCommand
+    : ZINCRBY sortedSetKeyName decimal identifier
+    ;
+
+zinterCommand
+    : ZINTER POSITIVE_DECIMAL_LITERAL sortedSetKeyName+ weightsClause? aggregateClause? WITHSCORES?
+    ;
+
+zintercardCommand
+    : ZINTERCARD POSITIVE_DECIMAL_LITERAL sortedSetKeyName+ limitClause?
+    ;
+
+zinterstoreCommand
+    : ZINTERSTORE identifier POSITIVE_DECIMAL_LITERAL sortedSetKeyName+ weightsClause? aggregateClause?
+    ;
+
+weightsClause
+    : WEIGHTS decimal+
+    ;
+
+aggregateClause
+    : AGGREGATE (MIN | MAX | SUM)
+    ;
+
+zlexcountCommand
+    : ZLEXCOUNT sortedSetKeyName lexicalScore lexicalScore
+    ;
+
+zscoreCommand
+    : ZSCORE sortedSetKeyName identifier
+    ;
+
+zmscoreCommand
+    : ZMSCORE sortedSetKeyName identifier+
+    ;
+
+zrandmemberCommand
+    : ZRANDMEMBER sortedSetKeyName (decimal WITHSCORES?)?
+    ;
+
+zrangeCommand
+    : ZRANGE sortedSetKeyName lexicalScore lexicalScore rangeTypeClause? REV? limitOffsetClause? WITHSCORES?
+    ;
+
+zrangebylexCommand
+    : ZRANGEBYLEX sortedSetKeyName lexicalScore lexicalScore limitOffsetClause?
+    ;
+
+zrangebyscoreCommand
+    : ZRANGEBYSCORE sortedSetKeyName decimalScore decimalScore WITHSCORES? limitOffsetClause?
+    ;
+
+zrangestoreCommand
+    : ZRANGESTORE identifier sortedSetKeyName lexicalScore lexicalScore rangeTypeClause? REV? limitOffsetClause?
+    ;
+
+rangeTypeClause
+    : BYSCORE
+    | BYLEX
+    ;
+
+limitOffsetClause
+    : LIMIT decimal decimal
+    ;
+
+zrankCommand
+    : ZRANK sortedSetKeyName identifier WITHSCORE?
+    ;
+
+zrevrankCommand
+    : ZREVRANK sortedSetKeyName identifier WITHSCORE?
+    ;
+
+zremCommand
+    : ZREM sortedSetKeyName identifier+
+    ;
+
+zremrangebylexCommand
+    : ZREMRANGEBYLEX sortedSetKeyName lexicalScore lexicalScore
+    ;
+
+zremrangebyrankCommand
+    : ZREMRANGEBYRANK sortedSetKeyName decimal decimal
+    ;
+
+zremrangebyscoreCommand
+    : ZREMRANGEBYSCORE sortedSetKeyName decimalScore decimalScore
+    ;
+
+zrevrangeCommand
+    : ZREVRANGE sortedSetKeyName decimal decimal WITHSCORES?
+    ;
+
+zrevrangebylexCommand
+    : ZREVRANGEBYLEX sortedSetKeyName lexicalScore lexicalScore limitOffsetClause?
+    ;
+
+zrevrangebyscoreCommand
+    : ZREVRANGEBYSCORE sortedSetKeyName decimalScore decimalScore WITHSCORES? limitOffsetClause?
+    ;
+
+zscanCommand
+    : ZSCAN sortedSetKeyName decimal matchClause? countClause?
+    ;
+
+zunionCommand
+    : ZUNION POSITIVE_DECIMAL_LITERAL sortedSetKeyName+ weightsClause? aggregateClause? WITHSCORES?
+    ;
+
+zunionstoreCommand
+    : ZUNIONSTORE identifier POSITIVE_DECIMAL_LITERAL sortedSetKeyName+ weightsClause? aggregateClause?
     ;
 
 saddCommand
@@ -525,10 +735,21 @@ decimal
     | DECIMAL_LITERAL
     ;
 
+decimalScore
+    : POSITIVE_DECIMAL_LITERAL
+    | DECIMAL_LITERAL
+    | DECIMAL_SCORE_LITERAL
+    ;
+
 identifier
     : IDENTIFIER
     | DECIMAL_LITERAL
     | POSITIVE_DECIMAL_LITERAL
+    | DECIMAL_SCORE_LITERAL
+    ;
+
+lexicalScore
+    : identifier
     ;
 
 stringKeyName
@@ -540,6 +761,10 @@ listKeyName
     ;
 
 setKeyName
+    : identifier
+    ;
+
+sortedSetKeyName
     : identifier
     ;
 

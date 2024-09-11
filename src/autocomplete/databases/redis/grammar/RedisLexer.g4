@@ -58,6 +58,17 @@ AFTER       : 'AFTER';
 RANK        : 'RANK';
 MAXLEN      : 'MAXLEN';
 LIMIT       : 'LIMIT';
+MIN         : 'MIN';
+MAX         : 'MAX';
+CH          : 'CH';
+WITHSCORE   : 'WITHSCORE';
+WITHSCORES  : 'WITHSCORES';
+WEIGHTS     : 'WEIGHTS';
+AGGREGATE   : 'AGGREGATE';
+SUM         : 'SUM';
+BYSCORE     : 'BYSCORE';
+BYLEX       : 'BYLEX';
+REV         : 'REV';
 
 // String keywords
 
@@ -132,6 +143,44 @@ SSCAN       : 'SSCAN';
 SUNION      : 'SUNION';
 SUNIONSTORE : 'SUNIONSTORE';
 
+// Sorted set keywords
+
+ZMPOP            : 'ZMPOP';
+BZMPOP           : 'BZMPOP';
+ZPOPMAX          : 'ZPOPMAX';
+BZPOPMAX         : 'BZPOPMAX';
+ZPOPMIN          : 'ZPOPMIN';
+BZPOPMIN         : 'BZPOPMIN';
+ZADD             : 'ZADD';
+ZCARD            : 'ZCARD';
+ZCOUNT           : 'ZCOUNT';
+ZDIFF            : 'ZDIFF';
+ZDIFFSTORE       : 'ZDIFFSTORE';
+ZINCRBY          : 'ZINCRBY';
+ZINTER           : 'ZINTER';
+ZINTERCARD       : 'ZINTERCARD';
+ZINTERSTORE      : 'ZINTERSTORE';
+ZLEXCOUNT        : 'ZLEXCOUNT';
+ZSCORE           : 'ZSCORE';
+ZMSCORE          : 'ZMSCORE';
+ZRANDMEMBER      : 'ZRANDMEMBER';
+ZRANGE           : 'ZRANGE';
+ZRANGEBYLEX      : 'ZRANGEBYLEX';
+ZRANGEBYSCORE    : 'ZRANGEBYSCORE';
+ZRANGESTORE      : 'ZRANGESTORE';
+ZRANK            : 'ZRANK';
+ZREM             : 'ZREM';
+ZREMRANGEBYLEX   : 'ZREMRANGEBYLEX';
+ZREMRANGEBYRANK  : 'ZREMRANGEBYRANK';
+ZREMRANGEBYSCORE : 'ZREMRANGEBYSCORE';
+ZREVRANGE        : 'ZREVRANGE';
+ZREVRANGEBYLEX   : 'ZREVRANGEBYLEX';
+ZREVRANGEBYSCORE : 'ZREVRANGEBYSCORE';
+ZREVRANK         : 'ZREVRANK';
+ZSCAN            : 'ZSCAN';
+ZUNION           : 'ZUNION';
+ZUNIONSTORE      : 'ZUNIONSTORE';
+
 // Constructors symbols
 
 SINGLE_QUOTE : '\'';
@@ -143,6 +192,7 @@ fragment DECIMAL_DIGIT: [0-9];
 
 POSITIVE_DECIMAL_LITERAL : DECIMAL_DIGIT+;
 DECIMAL_LITERAL          : [-]? POSITIVE_DECIMAL_LITERAL;
+DECIMAL_SCORE_LITERAL    : ([(]? DECIMAL_LITERAL) | ([+ | -]? 'inf');
 
 // Identifiers
 // Should be at the very bottom, for it is the most general token
