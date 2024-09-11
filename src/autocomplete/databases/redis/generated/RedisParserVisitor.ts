@@ -20,6 +20,32 @@ import { StringCommandContext } from "./RedisParser.js";
 import { ListCommandContext } from "./RedisParser.js";
 import { SetCommandContext } from "./RedisParser.js";
 import { SortedSetCommandContext } from "./RedisParser.js";
+import { HashCommandContext } from "./RedisParser.js";
+import { HdelCommandContext } from "./RedisParser.js";
+import { HexistsCommandContext } from "./RedisParser.js";
+import { HexpireCommandContext } from "./RedisParser.js";
+import { HpexpireCommandContext } from "./RedisParser.js";
+import { FieldsClauseContext } from "./RedisParser.js";
+import { HexpireAtCommandContext } from "./RedisParser.js";
+import { HpexpireAtCommandContext } from "./RedisParser.js";
+import { HexpireTimeCommandContext } from "./RedisParser.js";
+import { HpexpireTimeCommandContext } from "./RedisParser.js";
+import { HgetCommandContext } from "./RedisParser.js";
+import { HmgetCommandContext } from "./RedisParser.js";
+import { HgetAllCommandContext } from "./RedisParser.js";
+import { HincrByCommandContext } from "./RedisParser.js";
+import { HkeysCommandContext } from "./RedisParser.js";
+import { HlenCommandContext } from "./RedisParser.js";
+import { HsetCommandContext } from "./RedisParser.js";
+import { HmsetCommandContext } from "./RedisParser.js";
+import { HsetnxCommandContext } from "./RedisParser.js";
+import { HpersistCommandContext } from "./RedisParser.js";
+import { HttlCommandContext } from "./RedisParser.js";
+import { HpttlCommandContext } from "./RedisParser.js";
+import { HrandfieldCommandContext } from "./RedisParser.js";
+import { HscanCommandContext } from "./RedisParser.js";
+import { HstrlenCommandContext } from "./RedisParser.js";
+import { HvalsCommandContext } from "./RedisParser.js";
 import { ZmpopCommandContext } from "./RedisParser.js";
 import { BzmpopCommandContext } from "./RedisParser.js";
 import { ZpopmaxCommandContext } from "./RedisParser.js";
@@ -167,6 +193,7 @@ import { StringKeyNameContext } from "./RedisParser.js";
 import { ListKeyNameContext } from "./RedisParser.js";
 import { SetKeyNameContext } from "./RedisParser.js";
 import { SortedSetKeyNameContext } from "./RedisParser.js";
+import { HashKeyNameContext } from "./RedisParser.js";
 import { KeyNameContext } from "./RedisParser.js";
 import { NotProperPatternContext } from "./RedisParser.js";
 
@@ -227,6 +254,162 @@ export class RedisParserVisitor<Result> extends AbstractParseTreeVisitor<Result>
      * @return the visitor result
      */
     visitSortedSetCommand?: (ctx: SortedSetCommandContext) => Result;
+    /**
+     * Visit a parse tree produced by `RedisParser.hashCommand`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitHashCommand?: (ctx: HashCommandContext) => Result;
+    /**
+     * Visit a parse tree produced by `RedisParser.hdelCommand`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitHdelCommand?: (ctx: HdelCommandContext) => Result;
+    /**
+     * Visit a parse tree produced by `RedisParser.hexistsCommand`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitHexistsCommand?: (ctx: HexistsCommandContext) => Result;
+    /**
+     * Visit a parse tree produced by `RedisParser.hexpireCommand`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitHexpireCommand?: (ctx: HexpireCommandContext) => Result;
+    /**
+     * Visit a parse tree produced by `RedisParser.hpexpireCommand`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitHpexpireCommand?: (ctx: HpexpireCommandContext) => Result;
+    /**
+     * Visit a parse tree produced by `RedisParser.fieldsClause`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitFieldsClause?: (ctx: FieldsClauseContext) => Result;
+    /**
+     * Visit a parse tree produced by `RedisParser.hexpireAtCommand`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitHexpireAtCommand?: (ctx: HexpireAtCommandContext) => Result;
+    /**
+     * Visit a parse tree produced by `RedisParser.hpexpireAtCommand`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitHpexpireAtCommand?: (ctx: HpexpireAtCommandContext) => Result;
+    /**
+     * Visit a parse tree produced by `RedisParser.hexpireTimeCommand`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitHexpireTimeCommand?: (ctx: HexpireTimeCommandContext) => Result;
+    /**
+     * Visit a parse tree produced by `RedisParser.hpexpireTimeCommand`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitHpexpireTimeCommand?: (ctx: HpexpireTimeCommandContext) => Result;
+    /**
+     * Visit a parse tree produced by `RedisParser.hgetCommand`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitHgetCommand?: (ctx: HgetCommandContext) => Result;
+    /**
+     * Visit a parse tree produced by `RedisParser.hmgetCommand`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitHmgetCommand?: (ctx: HmgetCommandContext) => Result;
+    /**
+     * Visit a parse tree produced by `RedisParser.hgetAllCommand`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitHgetAllCommand?: (ctx: HgetAllCommandContext) => Result;
+    /**
+     * Visit a parse tree produced by `RedisParser.hincrByCommand`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitHincrByCommand?: (ctx: HincrByCommandContext) => Result;
+    /**
+     * Visit a parse tree produced by `RedisParser.hkeysCommand`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitHkeysCommand?: (ctx: HkeysCommandContext) => Result;
+    /**
+     * Visit a parse tree produced by `RedisParser.hlenCommand`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitHlenCommand?: (ctx: HlenCommandContext) => Result;
+    /**
+     * Visit a parse tree produced by `RedisParser.hsetCommand`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitHsetCommand?: (ctx: HsetCommandContext) => Result;
+    /**
+     * Visit a parse tree produced by `RedisParser.hmsetCommand`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitHmsetCommand?: (ctx: HmsetCommandContext) => Result;
+    /**
+     * Visit a parse tree produced by `RedisParser.hsetnxCommand`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitHsetnxCommand?: (ctx: HsetnxCommandContext) => Result;
+    /**
+     * Visit a parse tree produced by `RedisParser.hpersistCommand`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitHpersistCommand?: (ctx: HpersistCommandContext) => Result;
+    /**
+     * Visit a parse tree produced by `RedisParser.httlCommand`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitHttlCommand?: (ctx: HttlCommandContext) => Result;
+    /**
+     * Visit a parse tree produced by `RedisParser.hpttlCommand`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitHpttlCommand?: (ctx: HpttlCommandContext) => Result;
+    /**
+     * Visit a parse tree produced by `RedisParser.hrandfieldCommand`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitHrandfieldCommand?: (ctx: HrandfieldCommandContext) => Result;
+    /**
+     * Visit a parse tree produced by `RedisParser.hscanCommand`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitHscanCommand?: (ctx: HscanCommandContext) => Result;
+    /**
+     * Visit a parse tree produced by `RedisParser.hstrlenCommand`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitHstrlenCommand?: (ctx: HstrlenCommandContext) => Result;
+    /**
+     * Visit a parse tree produced by `RedisParser.hvalsCommand`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitHvalsCommand?: (ctx: HvalsCommandContext) => Result;
     /**
      * Visit a parse tree produced by `RedisParser.zmpopCommand`.
      * @param ctx the parse tree
@@ -1109,6 +1292,12 @@ export class RedisParserVisitor<Result> extends AbstractParseTreeVisitor<Result>
      * @return the visitor result
      */
     visitSortedSetKeyName?: (ctx: SortedSetKeyNameContext) => Result;
+    /**
+     * Visit a parse tree produced by `RedisParser.hashKeyName`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitHashKeyName?: (ctx: HashKeyNameContext) => Result;
     /**
      * Visit a parse tree produced by `RedisParser.keyName`.
      * @param ctx the parse tree
