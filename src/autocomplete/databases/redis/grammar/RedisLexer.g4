@@ -69,6 +69,9 @@ SUM         : 'SUM';
 BYSCORE     : 'BYSCORE';
 BYLEX       : 'BYLEX';
 REV         : 'REV';
+FIELDS      : 'FIELDS';
+WITHVALUES  : 'WITHVALUES';
+NOVALUES    : 'NOVALUES';
 
 // String keywords
 
@@ -180,6 +183,33 @@ ZREVRANK         : 'ZREVRANK';
 ZSCAN            : 'ZSCAN';
 ZUNION           : 'ZUNION';
 ZUNIONSTORE      : 'ZUNIONSTORE';
+
+// Hash keywords
+
+HDEL         : 'HDEL';
+HEXISTS      : 'HEXISTS';
+HEXPIRE      : 'HEXPIRE';
+HPEXPIRE     : 'HPEXPIRE';
+HEXPIREAT    : 'HEXPIREAT';
+HPEXPIREAT   : 'HPEXPIREAT';
+HEXPIRETIME  : 'HEXPIRETIME';
+HPEXPIRETIME : 'HPEXPIRETIME';
+HGET         : 'HGET';
+HMGET        : 'HMGET';
+HGETALL      : 'HGETALL';
+HINCRBY      : 'HINCRBY';
+HKEYS        : 'HKEYS';
+HLEN         : 'HLEN';
+HSET         : 'HSET';
+HMSET        : 'HMSET';
+HSETNX       : 'HSETNX';
+HPERSIST     : 'HPERSIST';
+HTTL         : 'HTTL';
+HPTTL        : 'HPTTL';
+HRANDFIELD   : 'HRANDFIELD';
+HSCAN        : 'HSCAN';
+HSTRLEN      : 'HSTRLEN';
+HVALS        : 'HVALS';
 
 // Constructors symbols
 

@@ -11,6 +11,7 @@ export interface RedisAutocompleteResult extends AutocompleteResultBase {
     suggestLists?: boolean;
     suggestSets?: boolean;
     suggestSortedSets?: boolean;
+    suggestHashes?: boolean;
 }
 
 export function parseRedisQueryWithoutCursor(

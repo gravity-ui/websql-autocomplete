@@ -24,6 +24,7 @@ command
     | listCommand
     | setCommand
     | sortedSetCommand
+    | hashCommand
     ;
 
 commonCommand
@@ -157,6 +158,133 @@ sortedSetCommand
     | zscanCommand
     | zunionCommand
     | zunionstoreCommand
+    ;
+
+hashCommand
+    : hdelCommand
+    | hexistsCommand
+    | hexpireCommand
+    | hpexpireCommand
+    | hexpireAtCommand
+    | hpexpireAtCommand
+    | hexpireTimeCommand
+    | hpexpireTimeCommand
+    | hgetCommand
+    | hgetAllCommand
+    | hincrByCommand
+    | hkeysCommand
+    | hlenCommand
+    | hmgetCommand
+    | hsetCommand
+    | hmsetCommand
+    | hsetnxCommand
+    | hpersistCommand
+    | httlCommand
+    | hpttlCommand
+    | hrandfieldCommand
+    | hscanCommand
+    | hstrlenCommand
+    | hvalsCommand
+    ;
+
+hdelCommand
+    : HDEL hashKeyName identifier+
+    ;
+
+hexistsCommand
+    : HEXISTS hashKeyName identifier
+    ;
+
+hexpireCommand
+    : HEXPIRE hashKeyName decimal expireOptions? fieldsClause
+    ;
+
+hpexpireCommand
+    : HPEXPIRE hashKeyName decimal expireOptions? fieldsClause
+    ;
+
+fieldsClause
+    : FIELDS POSITIVE_DECIMAL_LITERAL identifier+
+    ;
+
+hexpireAtCommand
+    : HEXPIREAT hashKeyName decimal expireOptions? fieldsClause
+    ;
+
+hpexpireAtCommand
+    : HPEXPIREAT hashKeyName decimal expireOptions? fieldsClause
+    ;
+
+hexpireTimeCommand
+    : HEXPIRETIME hashKeyName fieldsClause
+    ;
+
+hpexpireTimeCommand
+    : HPEXPIRETIME hashKeyName fieldsClause
+    ;
+
+hgetCommand
+    : HGET hashKeyName identifier
+    ;
+
+hmgetCommand
+    : HMGET hashKeyName identifier+
+    ;
+
+hgetAllCommand
+    : HGETALL hashKeyName
+    ;
+
+hincrByCommand
+    : HINCRBY hashKeyName identifier decimal
+    ;
+
+hkeysCommand
+    : HKEYS hashKeyName
+    ;
+
+hlenCommand
+    : HLEN hashKeyName
+    ;
+
+hsetCommand
+    : HSET hashKeyName (identifier identifier)+
+    ;
+
+hmsetCommand
+    : HMSET hashKeyName (identifier identifier)+
+    ;
+
+hsetnxCommand
+    : HSETNX hashKeyName identifier identifier
+    ;
+
+hpersistCommand
+    : HPERSIST hashKeyName fieldsClause
+    ;
+
+httlCommand
+    : HTTL hashKeyName fieldsClause
+    ;
+
+hpttlCommand
+    : HPTTL hashKeyName fieldsClause
+    ;
+
+hrandfieldCommand
+    : HRANDFIELD hashKeyName (decimal WITHVALUES?)?
+    ;
+
+hscanCommand
+    : HSCAN hashKeyName decimal matchClause? countClause? NOVALUES?
+    ;
+
+hstrlenCommand
+    : HSTRLEN hashKeyName identifier
+    ;
+
+hvalsCommand
+    : HVALS hashKeyName
     ;
 
 zmpopCommand
@@ -765,6 +893,10 @@ setKeyName
     ;
 
 sortedSetKeyName
+    : identifier
+    ;
+
+hashKeyName
     : identifier
     ;
 
