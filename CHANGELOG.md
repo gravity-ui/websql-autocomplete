@@ -1,5 +1,21 @@
 # Changelog
 
+## [11.0.0](https://github.com/gravity-ui/websql-autocomplete/compare/v10.3.0...v11.0.0) (2024-09-12)
+
+
+### ⚠ BREAKING CHANGES
+
+* support most Redis string commands, rename suggestKeys to suggestStrings ([#217](https://github.com/gravity-ui/websql-autocomplete/issues/217))
+
+### Features
+
+* support most Redis common commands ([#219](https://github.com/gravity-ui/websql-autocomplete/issues/219)) ([d865ed6](https://github.com/gravity-ui/websql-autocomplete/commit/d865ed625648e9e459d38654fe54477d69b5bb7a))
+* support most Redis list commands, add suggestLists to autocomplete ([#220](https://github.com/gravity-ui/websql-autocomplete/issues/220)) ([ad85bef](https://github.com/gravity-ui/websql-autocomplete/commit/ad85bef9292395dd605b31d25a098f63423d67d5))
+* support most Redis string commands, rename suggestKeys to suggestStrings ([#217](https://github.com/gravity-ui/websql-autocomplete/issues/217)) ([a21f79b](https://github.com/gravity-ui/websql-autocomplete/commit/a21f79bd3652edb8eea32556c4e0d023b17d73c0))
+* support Redis hash commands, add suggestHashes to autocomplete ([#223](https://github.com/gravity-ui/websql-autocomplete/issues/223)) ([2811872](https://github.com/gravity-ui/websql-autocomplete/commit/2811872d54b153bbd841091b4e0107a4f2664a5e))
+* support Redis set commands, add suggestSets to autocomplete ([#221](https://github.com/gravity-ui/websql-autocomplete/issues/221)) ([f0291da](https://github.com/gravity-ui/websql-autocomplete/commit/f0291da972e642da62d75c08eeb228d12f7fb8ed))
+* support Redis sorted set commands, add suggestSortedSets to autocomplete ([#222](https://github.com/gravity-ui/websql-autocomplete/issues/222)) ([1b2b39c](https://github.com/gravity-ui/websql-autocomplete/commit/1b2b39c353d9d478f7c513ced891329862100a9b))
+
 ## [10.3.0](https://github.com/gravity-ui/websql-autocomplete/compare/v10.2.1...v10.3.0) (2024-08-16)
 
 
