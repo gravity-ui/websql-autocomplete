@@ -1,10 +1,9 @@
-/* no-irregular-whitespace: "off" */
 /* eslint no-useless-escape: "off" */
-import {parseClickHouseQuery} from '../../index';
+import {parseClickHouseQueryWithoutCursor} from '../../index';
 
 test('should pass without errors rollback: 1', () => {
     const query = `ROLLBACK;`;
 
-    const autocompleteResult = parseClickHouseQuery(query, {line: 0, column: 0});
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
