@@ -1,4 +1,6 @@
 /* eslint no-useless-escape: "off" */
+/* eslint filenames/match-regex: "off" */
+/* eslint no-irregular-whitespace: "off" */
 import {parseClickHouseQueryWithoutCursor} from '../../index';
 
 test('should pass without errors alter: 1', () => {
@@ -7340,6 +7342,1630 @@ test('should pass without errors alter: 999', () => {
 
 test('should pass without errors alter: 1000', () => {
     const query = `ALTER TABLE alter_bug MODIFY COLUMN epoch DEFAULT toUInt64(_time_dec) CODEC(Delta,LZ4);`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1001', () => {
+    const query = `ALTER TABLE test DETACH PARTITION tuple();`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1002', () => {
+    const query = `ALTER TABLE test_prewhere_default_column ADD COLUMN OperatingSystem UInt64 DEFAULT SessionType+1;`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1003', () => {
+    const query = `alter table mt_compact modify setting min_rows_for_wide_part = 1000; -- { serverError NOT_IMPLEMENTED } show create table mt_compact;`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1004', () => {
+    const query = `alter table mt_compact attach partition 1 from mt_compact_2; -- { serverError BAD_ARGUMENTS } drop table mt_compact;`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1005', () => {
+    const query = `alter table mt_compact modify setting parts_to_delay_insert = 300;`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1006', () => {
+    const query = `alter table mt_compact modify setting min_rows_for_wide_part = 0;`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1007', () => {
+    const query = `alter table mt_compact update b = 42 where 1;`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1008', () => {
+    const query = `ALTER TABLE table_for_synchronous_mutations1 UPDATE v1 = v1 + 1 WHERE 1 SETTINGS mutations_sync = 2;`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1009', () => {
+    const query = `ALTER TABLE table_for_synchronous_mutations_no_replication UPDATE v1 = v1 + 1 WHERE 1 SETTINGS mutations_sync = 2;`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1010', () => {
+    const query = `ALTER TABLE column_size_bug DELETE WHERE value=1;`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1011', () => {
+    const query = `ALTER TABLE pipe_01019 MODIFY QUERY
+SELECT
+v * 2 as v,
+1 as v2
+FROM src_01019;`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1012', () => {
+    const query = `ALTER TABLE dest_01019 ADD COLUMN v2 UInt64;`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1013', () => {
+    const query = `ALTER TABLE table_01 DETACH PARTITION ID '20191001';`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1014', () => {
+    const query = `ALTER TABLE table_01 ATTACH PART '20191001_1_1_0';`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1015', () => {
+    const query = `ALTER TABLE table_01 DETACH PARTITION ALL;`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1016', () => {
+    const query = `ALTER TABLE bad_skip_idx ADD INDEX idx value TYPE bloom_filter(0.01) GRANULARITY 4;`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1017', () => {
+    const query = `ALTER TABLE replicated_constraints1 ADD CONSTRAINT b_constraint CHECK b > 10;`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1018', () => {
+    const query = `ALTER TABLE replicated_constraints2 ADD CONSTRAINT a_constraint CHECK a < 10;`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1019', () => {
+    const query = `ALTER TABLE replicated_table_for_alter1 MODIFY SETTING index_granularity = 4096; -- { serverError READONLY_SETTING } SHOW CREATE TABLE replicated_table_for_alter1;`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1020', () => {
+    const query = `ALTER TABLE replicated_table_for_alter1 MODIFY SETTING use_minimalistic_part_header_in_zookeeper = 1;`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1021', () => {
+    const query = `ALTER TABLE replicated_table_for_alter2 MODIFY SETTING  parts_to_throw_insert = 1, parts_to_delay_insert = 1;`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1022', () => {
+    const query = `ALTER TABLE replicated_table_for_alter1 ADD COLUMN Data2 UInt64, MODIFY SETTING check_delay_period=5, check_delay_period=10, check_delay_period=15;`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1023', () => {
+    const query = `ALTER TABLE replicated_table_for_reset_setting1 MODIFY SETTING index_granularity = 4096; -- { serverError READONLY_SETTING } SHOW CREATE TABLE replicated_table_for_reset_setting1;`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1024', () => {
+    const query = `ALTER TABLE replicated_table_for_reset_setting1 MODIFY SETTING merge_with_ttl_timeout = 100;`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1025', () => {
+    const query = `ALTER TABLE replicated_table_for_reset_setting2 MODIFY SETTING merge_with_ttl_timeout = 200;`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1026', () => {
+    const query = `ALTER TABLE replicated_table_for_reset_setting1 RESET SETTING check_delay_period, unknown_setting; -- { serverError BAD_ARGUMENTS } ALTER TABLE replicated_table_for_reset_setting1 RESET SETTING merge_with_ttl_timeout;`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1027', () => {
+    const query = `ALTER TABLE replicated_table_for_reset_setting2 RESET SETTING merge_with_ttl_timeout;`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1028', () => {
+    const query = `ALTER TABLE log_for_alter MODIFY SETTING aaa=123; -- { serverError BAD_ARGUMENTS } DROP TABLE IF EXISTS log_for_alter;`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1029', () => {
+    const query = `ALTER TABLE table_for_alter MODIFY SETTING index_granularity=555; -- { serverError READONLY_SETTING } SHOW CREATE TABLE table_for_alter;`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1030', () => {
+    const query = `ALTER TABLE table_for_alter MODIFY SETTING  parts_to_throw_insert = 1, parts_to_delay_insert = 1;`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1031', () => {
+    const query = `ALTER TABLE table_for_alter MODIFY SETTING check_delay_period=10, check_delay_period=20, check_delay_period=30;`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1032', () => {
+    const query = `ALTER TABLE table_for_alter ADD COLUMN Data2 UInt64, MODIFY SETTING check_delay_period=5, check_delay_period=10, check_delay_period=15;`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1033', () => {
+    const query = `ALTER TABLE table_for_reset_setting MODIFY SETTING index_granularity=555; -- { serverError READONLY_SETTING } SHOW CREATE TABLE table_for_reset_setting;`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1034', () => {
+    const query = `ALTER TABLE table_for_reset_setting MODIFY SETTING  parts_to_throw_insert = 1, parts_to_delay_insert = 1;`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1035', () => {
+    const query = `ALTER TABLE table_for_reset_setting RESET SETTING index_granularity; -- { serverError READONLY_SETTING } ALTER TABLE table_for_reset_setting RESET SETTING merge_with_ttl_timeout, unknown_setting; -- { serverError BAD_ARGUMENTS }
+ALTER TABLE table_for_reset_setting MODIFY SETTING merge_with_ttl_timeout = 300, max_concurrent_queries = 1;`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1036', () => {
+    const query = `ALTER TABLE table_for_reset_setting RESET SETTING max_concurrent_queries, merge_with_ttl_timeout;`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1037', () => {
+    const query = `ALTER TABLE test_move_partition_src MOVE PARTITION 1 TO TABLE test_move_partition_dest;`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1038', () => {
+    const query = `ALTER TABLE test_move_partition_src MOVE PART '0_1_1_0' TO TABLE test_move_partition_dest;  -- { clientError SYNTAX_ERROR } SELECT count() FROM test_move_partition_src;`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1039', () => {
+    const query = `ALTER TABLE mt_with_pk MODIFY COLUMN y Array(String);`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1040', () => {
+    const query = `ALTER TABLE mt_with_pk UPDATE w = 0 WHERE 1 SETTINGS mutations_sync = 2;`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1041', () => {
+    const query = `ALTER TABLE mt_with_pk UPDATE y = ['q', 'q', 'q'] WHERE 1 SETTINGS mutations_sync = 2;`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1042', () => {
+    const query = `ALTER TABLE mt_with_pk ADD INDEX idx1 z + w TYPE minmax GRANULARITY 1;`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1043', () => {
+    const query = `ALTER TABLE alter_attach DETACH PARTITION 1;`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1044', () => {
+    const query = `ALTER TABLE alter_attach ADD COLUMN s String;`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1045', () => {
+    const query = `ALTER TABLE alter_attach ATTACH PARTITION 1;`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1046', () => {
+    const query = `ALTER TABLE alter_attach DETACH PARTITION 2;`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1047', () => {
+    const query = `ALTER TABLE alter_attach DROP COLUMN s;`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1048', () => {
+    const query = `ALTER TABLE alter_attach ATTACH PARTITION 2;`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1049', () => {
+    const query = `ALTER TABLE alter_update_00806 UPDATE e = CAST('foo', 'Enum8(\\'foo\\' = 1, \\'bar\\' = 2)') WHERE d='2018-01-02' SETTINGS mutations_sync = 2;`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1050', () => {
+    const query = `ALTER TABLE part_info FREEZE PARTITION '1970-10-02';`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1051', () => {
+    const query = `ALTER TABLE part_info FREEZE;`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1052', () => {
+    const query = `ALTER TABLE test_generic_events_all ADD COLUMN OperatingSystem UInt64 DEFAULT 42;`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1053', () => {
+    const query = `ALTER TABLE test_generic_events_all ADD COLUMN OperatingSystem UInt64 DEFAULT SessionType+1;`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1054', () => {
+    const query = `alter table ttl modify ttl a; -- { serverError BAD_TTL_EXPRESSION } drop table if exists ttl;`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1055', () => {
+    const query = `alter table ttl modify column a Int ttl d + interval 1 day;`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1056', () => {
+    const query = `alter table ttl modify column d Int ttl d + interval 1 day; -- { serverError ILLEGAL_TYPE_OF_ARGUMENT } alter table ttl modify column d DateTime ttl d + interval 1 day; -- { serverError ALTER_OF_COLUMN_IS_FORBIDDEN }
+drop table if exists ttl;`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1057', () => {
+    const query = `ALTER TABLE adaptive_granularity_alter2 MODIFY COLUMN v1 Int16;`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1058', () => {
+    const query = `ALTER TABLE adaptive_granularity_alter1 MODIFY COLUMN v2 String;`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1059', () => {
+    const query = `ALTER TABLE adaptive_granularity_alter MODIFY COLUMN v1 Int16;`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1060', () => {
+    const query = `ALTER TABLE adaptive_granularity_alter MODIFY COLUMN v2 String;`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1061', () => {
+    const query = `ALTER TABLE large_alter_table_00926 MODIFY COLUMN data CODEC(NONE, LZ4, LZ4HC, ZSTD);`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1062', () => {
+    const query = `ALTER TABLE add_materialized_column_after ADD COLUMN y String MATERIALIZED toString(x) AFTER x;`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1063', () => {
+    const query = `ALTER TABLE alter_compression_codec1 ADD COLUMN alter_column String DEFAULT 'default_value' CODEC(ZSTD);`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1064', () => {
+    const query = `ALTER TABLE alter_compression_codec1 MODIFY COLUMN alter_column CODEC(NONE);`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1065', () => {
+    const query = `ALTER TABLE alter_compression_codec1 MODIFY COLUMN alter_column CODEC(ZSTD, LZ4HC, LZ4, LZ4, NONE);`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1066', () => {
+    const query = `ALTER TABLE alter_compression_codec1 MODIFY COLUMN alter_column FixedString(100);`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1067', () => {
+    const query = `ALTER TABLE union2 MODIFY ORDER BY a; -- { serverError NOT_IMPLEMENTED } DROP TABLE union1;`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1068', () => {
+    const query = `ALTER TABLE minmax_idx ADD INDEX idx1 u64 * i32 TYPE minmax GRANULARITY 10;`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1069', () => {
+    const query = `ALTER TABLE minmax_idx_r ADD INDEX idx2 u64 + i32 TYPE minmax GRANULARITY 10;`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1070', () => {
+    const query = `ALTER TABLE minmax_idx ADD INDEX idx3 u64 - i32 TYPE minmax GRANULARITY 10 AFTER idx1;`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1071', () => {
+    const query = `ALTER TABLE minmax_idx DROP INDEX idx1;`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1072', () => {
+    const query = `ALTER TABLE minmax_idx DROP INDEX idx2;`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1073', () => {
+    const query = `ALTER TABLE minmax_idx_r DROP INDEX idx3;`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1074', () => {
+    const query = `ALTER TABLE minmax_idx2_r DROP INDEX idx1, DROP INDEX idx2;`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1075', () => {
+    const query = `ALTER TABLE minmax_idx ADD INDEX idx2 u64 + i32 TYPE minmax GRANULARITY 10;`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1076', () => {
+    const query = `ALTER TABLE minmax_idx ADD INDEX idx3 (u64 - i32) TYPE minmax GRANULARITY 10 AFTER idx1;`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1077', () => {
+    const query = `ALTER TABLE minmax_idx DROP INDEX idx3;`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1078', () => {
+    const query = `ALTER TABLE minmax_idx ADD INDEX idx1 (u64 * i32) TYPE minmax GRANULARITY 10;`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1079', () => {
+    const query = `ALTER TABLE minmax_idx2 DROP INDEX idx1, DROP INDEX idx2;`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1080', () => {
+    const query = `ALTER TABLE alter_update_00806 UPDATE e = CAST('foo', 'Enum8(\\'foo\\' = 1, \\'bar\\' = 2)') WHERE d='2018-01-02' SETTINGS mutations_sync = 1;`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1081', () => {
+    const query = `ALTER TABLE delta_codec_for_alter MODIFY COLUMN x Codec(Delta, LZ4);`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1082', () => {
+    const query = `ALTER TABLE delta_codec_for_alter MODIFY COLUMN x UInt64 Codec(Delta, LZ4);`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1083', () => {
+    const query = `ALTER TABLE alter_compression_codec ADD COLUMN alter_column String DEFAULT 'default_value' CODEC(ZSTD);`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1084', () => {
+    const query = `ALTER TABLE alter_compression_codec MODIFY COLUMN alter_column CODEC(NONE);`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1085', () => {
+    const query = `ALTER TABLE alter_compression_codec MODIFY COLUMN alter_column CODEC(ZSTD, LZ4HC, LZ4, LZ4, NONE);`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1086', () => {
+    const query = `ALTER TABLE alter_compression_codec MODIFY COLUMN alter_column FixedString(100);`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1087', () => {
+    const query = `ALTER TABLE alter_bad_codec ADD COLUMN alter_column DateTime DEFAULT '2019-01-01 00:00:00' CODEC(gbdgkjsdh); -- { serverError UNKNOWN_CODEC } ALTER TABLE alter_bad_codec ADD COLUMN alter_column DateTime DEFAULT '2019-01-01 00:00:00' CODEC(ZSTD(100)); -- { serverError ILLEGAL_CODEC_PARAMETER }
+DROP TABLE IF EXISTS alter_bad_codec;`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1088', () => {
+    const query = `ALTER TABLE large_alter_table_00804 MODIFY COLUMN data CODEC(NONE, LZ4, LZ4HC, ZSTD);`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1089', () => {
+    const query = `ALTER TABLE defaults ADD COLUMN n Nested(a UInt64, b String);`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1090', () => {
+    const query = `ALTER TABLE defaults ADD COLUMN n.c Array(UInt8) DEFAULT arrayMap(x -> 0, n.a) AFTER n.a;`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1091', () => {
+    const query = `ALTER TABLE old_style ADD COLUMN y UInt32, MODIFY ORDER BY (x, y); -- { serverError BAD_ARGUMENTS } DROP TABLE old_style;`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1092', () => {
+    const query = `ALTER TABLE summing_r1 MODIFY ORDER BY x; -- { serverError BAD_ARGUMENTS } ALTER TABLE summing_r1 ADD COLUMN z UInt32 AFTER y, MODIFY ORDER BY (x, y, -z);`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1093', () => {
+    const query = `ALTER TABLE summing_r1 ADD COLUMN t UInt32 AFTER z, MODIFY ORDER BY (x, y, t * t) SETTINGS replication_alter_partitions_sync = 2; -- { serverError UNFINISHED } ATTACH TABLE summing_r2;`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1094', () => {
+    const query = `ALTER TABLE no_order MODIFY ORDER BY (a); -- { serverError BAD_ARGUMENTS} DROP TABLE no_order;`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1095', () => {
+    const query = `ALTER TABLE old_style ADD COLUMN y UInt32, MODIFY ORDER BY (x, y); -- { serverError BAD_ARGUMENTS} DROP TABLE old_style;`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1096', () => {
+    const query = `ALTER TABLE summing MODIFY ORDER BY x; -- { serverError BAD_ARGUMENTS} ALTER TABLE summing ADD COLUMN z UInt32 AFTER y, MODIFY ORDER BY (x, y, -z);`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1097', () => {
+    const query = `ALTER TABLE alter_column MODIFY COLUMN y Int64;`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1098', () => {
+    const query = `ALTER TABLE check_comments COMMENT COLUMN column_name1 'another comment';`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1099', () => {
+    const query = `ALTER TABLE dst_00753 DROP COLUMN x, MODIFY COLUMN y String, ADD COLUMN z String DEFAULT 'DEFZ';`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1100', () => {
+    const query = `ALTER TABLE alter_attach DETACH PARTITION ALL;`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1101', () => {
+    const query = `ALTER TABLE detach_all_no_partition DETACH PARTITION ALL;`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1102', () => {
+    const query = `ALTER TABLE detach_all_no_partition ATTACH PARTITION tuple();`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1103', () => {
+    const query = `ALTER TABLE replicated_table_detach_all1 DETACH PARTITION ALL;`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1104', () => {
+    const query = `ALTER TABLE replicated_table_detach_all1 ATTACH PARTITION tuple(1);`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1105', () => {
+    const query = `ALTER TABLE replicated_table_detach_all1 FETCH PARTITION ALL FROM '/clickhouse/tables/test_00753_{database}/replicated_table_detach_all1'; -- { serverError SUPPORT_IS_DISABLED } DROP TABLE replicated_table_detach_all1;`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1106', () => {
+    const query = `ALTER TABLE partition_all2 REPLACE PARTITION ALL FROM partition_all; -- { serverError SUPPORT_IS_DISABLED } ALTER TABLE partition_all MOVE PARTITION ALL TO TABLE partition_all2; -- { serverError SUPPORT_IS_DISABLED }
+ALTER TABLE partition_all2 CLEAR INDEX p IN PARTITION ALL; -- { serverError SUPPORT_IS_DISABLED }
+ALTER TABLE partition_all2 CLEAR COLUMN q IN PARTITION ALL; -- { serverError SUPPORT_IS_DISABLED }
+ALTER TABLE partition_all2 UPDATE q = q + 1 IN PARTITION ALL where p = 1; -- { serverError SUPPORT_IS_DISABLED }
+ALTER TABLE partition_all2 FREEZE PARTITION ALL; -- { serverError SUPPORT_IS_DISABLED }
+CHECK TABLE partition_all2 PARTITION ALL; -- { serverError SUPPORT_IS_DISABLED }
+OPTIMIZE TABLE partition_all2 PARTITION ALL; -- { serverError SUPPORT_IS_DISABLED }
+DROP TABLE partition_all;`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1107', () => {
+    const query = `ALTER TABLE partition_attach_all DETACH PARTITION ALL;`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1108', () => {
+    const query = `ALTER TABLE partition_attach_all ATTACH PARTITION ALL;`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1109', () => {
+    const query = `ALTER TABLE partition_attach_all DETACH PARTITION 1;`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1110', () => {
+    const query = `ALTER TABLE partition_attach_all DROP PARTITION ALL;`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1111', () => {
+    const query = `ALTER TABLE replicated_partition_attach_all DETACH PARTITION ALL;`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1112', () => {
+    const query = `ALTER TABLE replicated_partition_attach_all ATTACH PARTITION ALL;`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1113', () => {
+    const query = `ALTER TABLE replicated_partition_attach_all DETACH PARTITION 1;`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1114', () => {
+    const query = `ALTER TABLE replicated_partition_attach_all DROP PARTITION ALL;`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1115', () => {
+    const query = `ALTER TABLE check_query_comment_column COMMENT COLUMN first_column 'comment 1_1',
+COMMENT COLUMN second_column 'comment 2_1',
+COMMENT COLUMN third_column 'comment 3_1',
+COMMENT COLUMN fourth_column 'comment 4_1',
+COMMENT COLUMN fifth_column 'comment 5_1';`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1116', () => {
+    const query = `ALTER TABLE check_query_comment_column MODIFY COLUMN first_column COMMENT 'comment 1_2',
+MODIFY COLUMN second_column COMMENT 'comment 2_2',
+MODIFY COLUMN third_column COMMENT 'comment 3_2',
+MODIFY COLUMN fourth_column COMMENT 'comment 4_2',
+MODIFY COLUMN fifth_column COMMENT 'comment 5_2';`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1117', () => {
+    const query = `ALTER TABLE check_query_comment_column COMMENT COLUMN first_column 'comment 1_2',
+COMMENT COLUMN second_column 'comment 2_2',
+COMMENT COLUMN third_column 'comment 3_2';`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1118', () => {
+    const query = `ALTER TABLE check_query_comment_column MODIFY COLUMN first_column COMMENT 'comment 1_3',
+MODIFY COLUMN second_column COMMENT 'comment 2_3',
+MODIFY COLUMN third_column COMMENT 'comment 3_3';`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1119', () => {
+    const query = `ALTER TABLE check_query_comment_column MODIFY COLUMN first_column DEFAULT 1 COMMENT 'comment 1_3',
+MODIFY COLUMN second_column COMMENT 'comment 2_3',            -- We can't change default value of partition key.
+MODIFY COLUMN third_column DEFAULT 1 COMMENT 'comment 3_3';`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1120', () => {
+    const query = `ALTER TABLE byte_identical_r1 ADD COLUMN y UInt64 DEFAULT rand();`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1121', () => {
+    const query = `alter table tab_00718 modify column b UInt32;`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1122', () => {
+    const query = `alter table tab_00718 modify column b LowCardinality(UInt32);`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1123', () => {
+    const query = `alter table tab_00718 modify column b LowCardinality(String);`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1124', () => {
+    const query = `alter table tab_00718 modify column b String;`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1125', () => {
+    const query = `ALTER TABLE uuid MODIFY COLUMN id0 UUID;`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1126', () => {
+    const query = `ALTER TABLE uuid MODIFY COLUMN id1 UUID;`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1127', () => {
+    const query = `ALTER TABLE uuid MODIFY COLUMN id0 UUID; -- { serverError ALTER_OF_COLUMN_IS_FORBIDDEN } ALTER TABLE uuid MODIFY COLUMN id1 UUID; -- { serverError ALTER_OF_COLUMN_IS_FORBIDDEN }
+DROP TABLE uuid;`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1128', () => {
+    const query = `alter table t_00712_1 add column c Int32;`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1129', () => {
+    const query = `ALTER TABLE mergetree_00712 ADD COLUMN y UInt8 DEFAULT 0;`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1130', () => {
+    const query = `alter table lc_null_int8_defnull add column val2 LowCardinality(Nullable(Int8)) DEFAULT NULL;`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1131', () => {
+    const query = `alter table cardinality add column y LowCardinality(String);`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1132', () => {
+    const query = `ALTER TABLE alter_00665 MODIFY COLUMN \`boolean_false\` Nullable(UInt8);`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1133', () => {
+    const query = `ALTER TABLE src DROP PARTITION 1;`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1134', () => {
+    const query = `ALTER TABLE dst REPLACE PARTITION 1 FROM dst;`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1135', () => {
+    const query = `ALTER TABLE dst ATTACH PARTITION ALL FROM src;`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1136', () => {
+    const query = `ALTER TABLE dst DETACH PARTITION 0;`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1137', () => {
+    const query = `ALTER TABLE dst DETACH PARTITION 1;`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1138', () => {
+    const query = `ALTER TABLE dst DETACH PARTITION 2;`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1139', () => {
+    const query = `ALTER TABLE dst ATTACH PARTITION 1;`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1140', () => {
+    const query = `alter table test_00615 drop column data;`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1141', () => {
+    const query = `alter table test_00615 add column data Nullable(Float64);`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1142', () => {
+    const query = `ALTER TABLE mv_00610 DROP PARTITION 201801;`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1143', () => {
+    const query = `alter table \`table_00609\` add column def UInt64 default val + 1;`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1144', () => {
+    const query = `alter table \`table_00609\` add column def UInt64;`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1145', () => {
+    const query = `ALTER TABLE partition_and_primary_keys_using_same_expression DROP PARTITION '2018-02-20';`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1146', () => {
+    const query = `ALTER TABLE nested ADD COLUMN n.b Array(UInt64);`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1147', () => {
+    const query = `ALTER TABLE nested ADD COLUMN n.c Array(UInt64) DEFAULT arrayMap(x -> x * 2, n.a);`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1148', () => {
+    const query = `ALTER TABLE nullable_00571 ADD COLUMN n Nullable(UInt64);`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1149', () => {
+    const query = `ALTER TABLE nullable_00571 DROP COLUMN n;`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1150', () => {
+    const query = `ALTER TABLE nullable_00571 ADD COLUMN n Nullable(UInt64) DEFAULT NULL;`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1151', () => {
+    const query = `ALTER TABLE nullable_00571 ADD COLUMN n Nullable(UInt64) DEFAULT 0;`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1152', () => {
+    const query = `ALTER TABLE null_00557 ADD COLUMN y String, MODIFY COLUMN x Int64 DEFAULT toInt64(y);`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1153', () => {
+    const query = `ALTER TABLE multidimensional ADD COLUMN t Tuple(String, Array(Nullable(String)), Tuple(UInt32, Date));`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1154', () => {
+    const query = `ALTER TABLE deduplication_by_partition DROP PARTITION 200001;`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1155', () => {
+    const query = `ALTER TABLE \`.inner_id.00000510-1000-4000-8000-000000000001\` DROP PARTITION ID 'all';`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1156', () => {
+    const query = `ALTER TABLE \`.inner_id.00000510-1000-4000-8000-000000000002\` DROP PARTITION ID 'all';`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1157', () => {
+    const query = `ALTER TABLE not_partitioned_replica1_00502 DETACH PARTITION ID 'all';`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1158', () => {
+    const query = `ALTER TABLE partitioned_by_week_replica1 DROP PARTITION '1999-12-27';`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1159', () => {
+    const query = `ALTER TABLE partitioned_by_tuple_replica1_00502 DETACH PARTITION ID '20000101-1';`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1160', () => {
+    const query = `ALTER TABLE partitioned_by_string_replica1 DROP PARTITION 'bbb';`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1161', () => {
+    const query = `ALTER TABLE without_fixed_size_columns_replica1 DROP PARTITION 1;`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1162', () => {
+    const query = `ALTER TABLE not_partitioned DETACH PARTITION ID 'all';`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1163', () => {
+    const query = `ALTER TABLE partitioned_by_week DROP PARTITION '1999-12-27';`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1164', () => {
+    const query = `ALTER TABLE partitioned_by_tuple DETACH PARTITION ID '20000101-1';`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1165', () => {
+    const query = `ALTER TABLE partitioned_by_string DROP PARTITION 'bbb';`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1166', () => {
+    const query = `ALTER TABLE without_fixed_size_columns DROP PARTITION 1;`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1167', () => {
+    const query = `ALTER TABLE nullable_alter MODIFY COLUMN x Nullable(String);`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1168', () => {
+    const query = `ALTER TABLE nullable_alter MODIFY COLUMN x Nullable(FixedString(5));`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1169', () => {
+    const query = `ALTER TABLE clear_column CLEAR COLUMN num IN PARTITION '201612';`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1170', () => {
+    const query = `ALTER TABLE clear_column CLEAR COLUMN num IN PARTITION '201611';`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1171', () => {
+    const query = `ALTER TABLE clear_column1 ADD COLUMN s String;`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1172', () => {
+    const query = `ALTER TABLE clear_column1 CLEAR COLUMN s IN PARTITION '200001';`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1173', () => {
+    const query = `ALTER TABLE clear_column1 CLEAR COLUMN i IN PARTITION '200001';`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1174', () => {
+    const query = `ALTER TABLE clear_column1 CLEAR COLUMN i IN PARTITION '200002';`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1175', () => {
+    const query = `ALTER TABLE clear_column1 CLEAR COLUMN s IN PARTITION '200002';`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1176', () => {
+    const query = `ALTER TABLE clear_column1 CLEAR COLUMN s IN PARTITION '200012', CLEAR COLUMN i IN PARTITION '200012';`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1177', () => {
+    const query = `ALTER TABLE clear_column1 DROP PARTITION '200012', DROP PARTITION '200011';`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1178', () => {
+    const query = `ALTER TABLE agg_func_col ADD COLUMN af_avg1 AggregateFunction(avg, UInt8);`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1179', () => {
+    const query = `ALTER TABLE agg_func_col ADD COLUMN af_gua AggregateFunction(groupUniqArray, String) DEFAULT arrayReduce('groupUniqArrayState', ['---', '---']);`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1180', () => {
+    const query = `ALTER TABLE alter_00394 ADD COLUMN \`n.i8\` Array(Int8) AFTER i32;`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1181', () => {
+    const query = `ALTER TABLE enum_nested_alter MODIFY COLUMN n.e Array(Enum8('Hello' = 1, 'World' = 2));`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1182', () => {
+    const query = `ALTER TABLE enum_nested_alter MODIFY COLUMN n.e Array(Enum16('Hello' = 1, 'World' = 2, 'a' = 300));`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1183', () => {
+    const query = `ALTER TABLE enum_nested_alter MODIFY COLUMN n.e Array(UInt16);`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1184', () => {
+    const query = `ALTER TABLE enum_nested_alter MODIFY COLUMN n.e Array(String);`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1185', () => {
+    const query = `ALTER TABLE enum_nested_alter  MODIFY COLUMN tasks.errcategory Array(Enum8(
+'undefined' = 0, 'system' = 1, 'generic' = 2, 'asio.netdb' = 3, 'asio.misc' = 4, 
+'asio.addrinfo' = 5, 'rtb.client' = 6, 'rtb.logic' = 7, 'http.status' = 8, 'http.code' = 9)),
+MODIFY COLUMN tasks.status Array(Enum8('hello' = 1, 'world' = 2, 'goodbye' = 3));`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1186', () => {
+    const query = `ALTER TABLE enum_nested_alter MODIFY COLUMN n.e Array(Enum8('Hello.world' = 1, 'a' = 2));`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1187', () => {
+    const query = `ALTER TABLE prewhere_defaults ADD COLUMN y UInt16 DEFAULT x;`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1188', () => {
+    const query = `alter table enums modify column e Enum8('world' = 2, 'hello' = 1, '!' = 3);`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1189', () => {
+    const query = `alter table enums modify column e Enum16('world' = 2, 'hello' = 1, '!' = 3),
+modify column sign Enum16('minus' = -1, 'plus' = 1),
+modify column letter Enum16('a' = 0, 'b' = 1, 'c' = 2, 'no letter' = -256);`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1190', () => {
+    const query = `alter table enums modify column e Enum8('world' = 2, 'hello' = 1, '!' = 3),
+modify column sign Enum8('minus' = -1, 'plus' = 1);`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1191', () => {
+    const query = `alter table aliases_test modify column array alias [0, 1, 2];`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1192', () => {
+    const query = `alter table aliases_test modify column array default [0, 1, 2];`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1193', () => {
+    const query = `alter table aliases_test add column struct.key Array(UInt8) default [0, 1, 2], add column struct.value Array(UInt8) default array;`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1194', () => {
+    const query = `alter table aliases_test modify column struct.value alias array;`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1195', () => {
+    const query = `ALTER TABLE attach_r2 DROP PARTITION 201402;`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1196', () => {
+    const query = `alter table prewhere_column_missing add column arr Array(UInt64);`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1197', () => {
+    const query = `alter table prewhere_column_missing add column hash_x UInt64 default intHash64(x);`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1198', () => {
+    const query = `ALTER TABLE alter_00147 ADD COLUMN n.y Array(UInt64);`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1199', () => {
+    const query = `ALTER TABLE prewhere ADD COLUMN a1 String AFTER a;`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1200', () => {
+    const query = `ALTER TABLE alter_00121 DROP COLUMN x;`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1201', () => {
+    const query = `ALTER TABLE alter_00121 ADD COLUMN x UInt8;`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1202', () => {
+    const query = `alter table defaulted add column payload_length UInt64 materialized length(payload);`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1203', () => {
+    const query = `alter table defaulted modify column payload_length default length(payload);`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1204', () => {
+    const query = `alter table defaulted modify column payload_length default length(payload) % 65535;`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1205', () => {
+    const query = `alter table defaulted modify column payload_length UInt16 default length(payload);`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1206', () => {
+    const query = `alter table defaulted drop column payload_length;`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1207', () => {
+    const query = `ALTER TABLE replicated_alter1 ADD COLUMN dt DateTime('UTC');`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1208', () => {
+    const query = `ALTER TABLE replicated_alter1 ADD COLUMN n Nested(ui8 UInt8, s String);`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1209', () => {
+    const query = `ALTER TABLE replicated_alter1 ADD COLUMN \`n.d\` Array(Date);`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1210', () => {
+    const query = `ALTER TABLE replicated_alter1 ADD COLUMN s String DEFAULT '0';`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1211', () => {
+    const query = `ALTER TABLE replicated_alter1 DROP COLUMN \`n.d\`, MODIFY COLUMN s Int64;`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1212', () => {
+    const query = `ALTER TABLE replicated_alter1 ADD COLUMN \`n.d\` Array(Date), MODIFY COLUMN s UInt32;`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1213', () => {
+    const query = `ALTER TABLE replicated_alter1 DROP COLUMN n.ui8, DROP COLUMN n.d;`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1214', () => {
+    const query = `ALTER TABLE replicated_alter1 DROP COLUMN n.s;`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1215', () => {
+    const query = `ALTER TABLE replicated_alter1 ADD COLUMN n.s Array(String), ADD COLUMN n.d Array(Date);`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1216', () => {
+    const query = `ALTER TABLE replicated_alter1 DROP COLUMN n;`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1217', () => {
+    const query = `ALTER TABLE replicated_alter1 MODIFY COLUMN dt Date, MODIFY COLUMN s DateTime('UTC') DEFAULT '1970-01-01 00:00:00';`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1218', () => {
+    const query = `ALTER TABLE alter_00061 ADD COLUMN n Nested(ui8 UInt8, s String);`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1219', () => {
+    const query = `ALTER TABLE alter_00061 ADD COLUMN \`n.d\` Array(Date);`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1220', () => {
+    const query = `ALTER TABLE alter_00061 ADD COLUMN s String DEFAULT '0';`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1221', () => {
+    const query = `ALTER TABLE alter_00061 DROP COLUMN \`n.d\`, MODIFY COLUMN s Int64;`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1222', () => {
+    const query = `ALTER TABLE alter_00061 ADD COLUMN \`n.d\` Array(Date), MODIFY COLUMN s UInt32;`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1223', () => {
+    const query = `ALTER TABLE alter_00061 DROP COLUMN n.ui8, DROP COLUMN n.d;`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1224', () => {
+    const query = `ALTER TABLE alter_00061 DROP COLUMN n.s;`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1225', () => {
+    const query = `ALTER TABLE alter_00061 ADD COLUMN n.s Array(String), ADD COLUMN n.d Array(Date);`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1226', () => {
+    const query = `ALTER TABLE alter_00061 DROP COLUMN n;`;
+
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should pass without errors alter: 1227', () => {
+    const query = `ALTER TABLE alter_test ADD COLUMN Added2 UInt32;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);

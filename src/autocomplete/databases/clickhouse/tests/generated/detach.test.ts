@@ -1,4 +1,6 @@
 /* eslint no-useless-escape: "off" */
+/* eslint filenames/match-regex: "off" */
+/* eslint no-irregular-whitespace: "off" */
 import {parseClickHouseQueryWithoutCursor} from '../../index';
 
 test('should pass without errors detach: 1', () => {
