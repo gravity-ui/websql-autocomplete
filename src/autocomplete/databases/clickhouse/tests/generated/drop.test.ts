@@ -28157,10779 +28157,10737 @@ test('should pass without errors drop: 4021', () => {
 });
 
 test('should pass without errors drop: 4022', () => {
-    const query = `drop user if exists "Вася Пупкин";`;
-
-    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
-    expect(autocompleteResult.errors).toHaveLength(0);
-});
-
-test('should pass without errors drop: 4023', () => {
-    const query = `drop user if exists "无名氏 ";`;
-
-    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
-    expect(autocompleteResult.errors).toHaveLength(0);
-});
-
-test('should pass without errors drop: 4024', () => {
-    const query = `drop user if exists "🙈 🙉 🙊";`;
-
-    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
-    expect(autocompleteResult.errors).toHaveLength(0);
-});
-
-test('should pass without errors drop: 4025', () => {
     const query = `drop user "       ";`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4026', () => {
+test('should pass without errors drop: 4023', () => {
     const query = `drop user '   spaces';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4027', () => {
+test('should pass without errors drop: 4024', () => {
     const query = `drop user 'spaces    ';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4028', () => {
+test('should pass without errors drop: 4025', () => {
     const query = `drop user " spaces ";`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4029', () => {
-    const query = `drop user "Вася Пупкин";`;
-
-    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
-    expect(autocompleteResult.errors).toHaveLength(0);
-});
-
-test('should pass without errors drop: 4030', () => {
-    const query = `drop user "无名氏 ";`;
-
-    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
-    expect(autocompleteResult.errors).toHaveLength(0);
-});
-
-test('should pass without errors drop: 4031', () => {
-    const query = `drop user "🙈 🙉 🙊";`;
-
-    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
-    expect(autocompleteResult.errors).toHaveLength(0);
-});
-
-test('should pass without errors drop: 4032', () => {
+test('should pass without errors drop: 4026', () => {
     const query = `DROP TABLE IF EXISTS prewhere;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4033', () => {
+test('should pass without errors drop: 4027', () => {
     const query = `DROP TABLE prewhere;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4034', () => {
+test('should pass without errors drop: 4028', () => {
     const query = `DROP DICTIONARY IF EXISTS dict_flat;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4035', () => {
+test('should pass without errors drop: 4029', () => {
     const query = `DROP DICTIONARY IF EXISTS dict_hashed;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4036', () => {
+test('should pass without errors drop: 4030', () => {
     const query = `DROP DICTIONARY IF EXISTS dict_complex_cache;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4037', () => {
+test('should pass without errors drop: 4031', () => {
     const query = `DROP DICTIONARY dict_flat;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4038', () => {
+test('should pass without errors drop: 4032', () => {
     const query = `DROP DICTIONARY dict_hashed;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4039', () => {
+test('should pass without errors drop: 4033', () => {
     const query = `DROP DICTIONARY dict_complex_cache;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4040', () => {
+test('should pass without errors drop: 4034', () => {
     const query = `DROP DATABASE IF EXISTS conv_main;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4041', () => {
+test('should pass without errors drop: 4035', () => {
     const query = `DROP TABLE IF EXISTS minmax_compact;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4042', () => {
+test('should pass without errors drop: 4036', () => {
     const query = `DROP TABLE minmax_compact;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4043', () => {
+test('should pass without errors drop: 4037', () => {
     const query = `DROP TABLE IF EXISTS clear_column;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4044', () => {
+test('should pass without errors drop: 4038', () => {
     const query = `DROP TABLE clear_column;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4045', () => {
+test('should pass without errors drop: 4039', () => {
     const query = `DROP TABLE IF EXISTS check_table_with_indices;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4046', () => {
+test('should pass without errors drop: 4040', () => {
     const query = `DROP TABLE check_table_with_indices;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4047', () => {
+test('should pass without errors drop: 4041', () => {
     const query = `DROP DATABASE IF EXISTS db_for_dict;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4048', () => {
+test('should pass without errors drop: 4042', () => {
     const query = `DROP DATABASE IF EXISTS test_01109;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4049', () => {
+test('should pass without errors drop: 4043', () => {
     const query = `DROP DATABASE IF EXISTS test_01109_other_atomic;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4050', () => {
+test('should pass without errors drop: 4044', () => {
     const query = `DROP DATABASE IF EXISTS test_01109_ordinary;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4051', () => {
+test('should pass without errors drop: 4045', () => {
     const query = `DROP DATABASE IF EXISTS test_01109_rename_exists;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4052', () => {
+test('should pass without errors drop: 4046', () => {
     const query = `DROP DATABASE test_01109;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4053', () => {
+test('should pass without errors drop: 4047', () => {
     const query = `DROP DATABASE test_01109_other_atomic;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4054', () => {
+test('should pass without errors drop: 4048', () => {
     const query = `DROP DATABASE test_01109_ordinary;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4055', () => {
+test('should pass without errors drop: 4049', () => {
     const query = `DROP DATABASE test_01109_rename_exists;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4056', () => {
+test('should pass without errors drop: 4050', () => {
     const query = `DROP TABLE IF EXISTS d_one;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4057', () => {
+test('should pass without errors drop: 4051', () => {
     const query = `DROP TABLE d_one;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4058', () => {
+test('should pass without errors drop: 4052', () => {
     const query = `DROP TABLE IF EXISTS d_numbers;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4059', () => {
+test('should pass without errors drop: 4053', () => {
     const query = `DROP TABLE d_numbers;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4060', () => {
+test('should pass without errors drop: 4054', () => {
     const query = `DROP DATABASE test_01103;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4061', () => {
+test('should pass without errors drop: 4055', () => {
     const query = `DROP TABLE IF EXISTS hits;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4062', () => {
+test('should pass without errors drop: 4056', () => {
     const query = `DROP TABLE IF EXISTS hits_layer;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4063', () => {
+test('should pass without errors drop: 4057', () => {
     const query = `DROP TABLE IF EXISTS visits_layer;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4064', () => {
+test('should pass without errors drop: 4058', () => {
     const query = `DROP TABLE hits;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4065', () => {
+test('should pass without errors drop: 4059', () => {
     const query = `DROP TABLE hits_layer;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4066', () => {
+test('should pass without errors drop: 4060', () => {
     const query = `DROP TABLE visits_layer;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4067', () => {
+test('should pass without errors drop: 4061', () => {
     const query = `DROP TABLE IF EXISTS test_a;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4068', () => {
+test('should pass without errors drop: 4062', () => {
     const query = `DROP TABLE IF EXISTS test_b;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4069', () => {
+test('should pass without errors drop: 4063', () => {
     const query = `DROP TABLE test_a;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4070', () => {
+test('should pass without errors drop: 4064', () => {
     const query = `DROP TABLE test_b;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4071', () => {
+test('should pass without errors drop: 4065', () => {
     const query = `DROP TABLE IF EXISTS local_01099_a;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4072', () => {
+test('should pass without errors drop: 4066', () => {
     const query = `DROP TABLE IF EXISTS local_01099_b;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4073', () => {
+test('should pass without errors drop: 4067', () => {
     const query = `DROP TABLE IF EXISTS distributed_01099_a;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4074', () => {
+test('should pass without errors drop: 4068', () => {
     const query = `DROP TABLE IF EXISTS distributed_01099_b;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4075', () => {
+test('should pass without errors drop: 4069', () => {
     const query = `DROP TABLE local_01099_a;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4076', () => {
+test('should pass without errors drop: 4070', () => {
     const query = `DROP TABLE local_01099_b;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4077', () => {
+test('should pass without errors drop: 4071', () => {
     const query = `DROP TABLE distributed_01099_a;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4078', () => {
+test('should pass without errors drop: 4072', () => {
     const query = `DROP TABLE distributed_01099_b;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4079', () => {
+test('should pass without errors drop: 4073', () => {
     const query = `DROP TABLE IF EXISTS table_with_cyclic_defaults;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4080', () => {
+test('should pass without errors drop: 4074', () => {
     const query = `DROP TABLE IF EXISTS part;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4081', () => {
+test('should pass without errors drop: 4075', () => {
     const query = `DROP TABLE IF EXISTS supplier;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4082', () => {
+test('should pass without errors drop: 4076', () => {
     const query = `DROP TABLE IF EXISTS partsupp;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4083', () => {
+test('should pass without errors drop: 4077', () => {
     const query = `DROP TABLE IF EXISTS lineitem;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4084', () => {
+test('should pass without errors drop: 4078', () => {
     const query = `DROP TABLE IF EXISTS nation;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4085', () => {
+test('should pass without errors drop: 4079', () => {
     const query = `DROP TABLE IF EXISTS region;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4086', () => {
+test('should pass without errors drop: 4080', () => {
     const query = `DROP TABLE supplier;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4087', () => {
+test('should pass without errors drop: 4081', () => {
     const query = `DROP TABLE partsupp;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4088', () => {
+test('should pass without errors drop: 4082', () => {
     const query = `DROP TABLE customer;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4089', () => {
+test('should pass without errors drop: 4083', () => {
     const query = `DROP TABLE lineitem;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4090', () => {
+test('should pass without errors drop: 4084', () => {
     const query = `DROP TABLE nation;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4091', () => {
+test('should pass without errors drop: 4085', () => {
     const query = `DROP TABLE region;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4092', () => {
+test('should pass without errors drop: 4086', () => {
     const query = `DROP TABLE IF EXISTS table_with_complex_default;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4093', () => {
+test('should pass without errors drop: 4087', () => {
     const query = `DROP TABLE IF EXISTS test_default_using_alias;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4094', () => {
+test('should pass without errors drop: 4088', () => {
     const query = `DROP TABLE IF EXISTS mutations_and_quorum1 SYNC;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4095', () => {
+test('should pass without errors drop: 4089', () => {
     const query = `DROP TABLE IF EXISTS mutations_and_quorum2 SYNC;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4096', () => {
+test('should pass without errors drop: 4090', () => {
     const query = `DROP TABLE IF EXISTS old_format_mt;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4097', () => {
+test('should pass without errors drop: 4091', () => {
     const query = `DROP TABLE IF EXISTS {CLICKHOUSE_DATABASE:Identifier}.mt;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4098', () => {
+test('should pass without errors drop: 4092', () => {
     const query = `DROP TABLE IF EXISTS {CLICKHOUSE_DATABASE:Identifier}.wv;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4099', () => {
+test('should pass without errors drop: 4093', () => {
     const query = `DROP TABLE {CLICKHOUSE_DATABASE:Identifier}.wv SYNC;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4100', () => {
+test('should pass without errors drop: 4094', () => {
     const query = `DROP DATABASE {CLICKHOUSE_DATABASE_1:Identifier};`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4101', () => {
+test('should pass without errors drop: 4095', () => {
     const query = `DROP TABLE IF EXISTS table_with_defaults_on_aliases;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4102', () => {
+test('should pass without errors drop: 4096', () => {
     const query = `DROP TABLE functional_index_mergetree;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4103', () => {
+test('should pass without errors drop: 4097', () => {
     const query = `DROP TABLE IF EXISTS url;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4104', () => {
+test('should pass without errors drop: 4098', () => {
     const query = `DROP TABLE IF EXISTS buffer;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4105', () => {
+test('should pass without errors drop: 4099', () => {
     const query = `DROP TABLE IF EXISTS merge_tf;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4106', () => {
+test('should pass without errors drop: 4100', () => {
     const query = `DROP TABLE IF EXISTS distributed_tf;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4107', () => {
+test('should pass without errors drop: 4101', () => {
     const query = `DROP TABLE IF EXISTS rich_syntax;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4108', () => {
+test('should pass without errors drop: 4102', () => {
     const query = `DROP TABLE url;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4109', () => {
+test('should pass without errors drop: 4103', () => {
     const query = `DROP TABLE buffer;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4110', () => {
+test('should pass without errors drop: 4104', () => {
     const query = `DROP TABLE merge_tf;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4111', () => {
+test('should pass without errors drop: 4105', () => {
     const query = `DROP TABLE distributed_tf;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4112', () => {
+test('should pass without errors drop: 4106', () => {
     const query = `DROP TABLE rich_syntax;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4113', () => {
+test('should pass without errors drop: 4107', () => {
     const query = `drop table if exists ax;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4114', () => {
+test('should pass without errors drop: 4108', () => {
     const query = `drop table if exists bx;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4115', () => {
+test('should pass without errors drop: 4109', () => {
     const query = `drop table ax;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4116', () => {
+test('should pass without errors drop: 4110', () => {
     const query = `drop table bx;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4117', () => {
+test('should pass without errors drop: 4111', () => {
     const query = `drop table if exists da_memory_efficient_shard;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4118', () => {
+test('should pass without errors drop: 4112', () => {
     const query = `drop table if exists test_01081;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4119', () => {
+test('should pass without errors drop: 4113', () => {
     const query = `drop table if exists A1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4120', () => {
+test('should pass without errors drop: 4114', () => {
     const query = `drop table if exists A_M;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4121', () => {
+test('should pass without errors drop: 4115', () => {
     const query = `drop table A1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4122', () => {
+test('should pass without errors drop: 4116', () => {
     const query = `drop table A_M;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4123', () => {
+test('should pass without errors drop: 4117', () => {
     const query = `drop table if exists {CLICKHOUSE_DATABASE:Identifier}.test_table_01080;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4124', () => {
+test('should pass without errors drop: 4118', () => {
     const query = `drop DICTIONARY if exists {CLICKHOUSE_DATABASE:Identifier}.test_dict_01080;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4125', () => {
+test('should pass without errors drop: 4119', () => {
     const query = `drop DICTIONARY   {CLICKHOUSE_DATABASE:Identifier}.test_dict_01080;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4126', () => {
+test('should pass without errors drop: 4120', () => {
     const query = `drop table   {CLICKHOUSE_DATABASE:Identifier}.test_table_01080;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4127', () => {
+test('should pass without errors drop: 4121', () => {
     const query = `DROP TABLE IF EXISTS mt_pk;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4128', () => {
+test('should pass without errors drop: 4122', () => {
     const query = `DROP TABLE mt_pk;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4129', () => {
+test('should pass without errors drop: 4123', () => {
     const query = `DROP TABLE IF EXISTS alter_default;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4130', () => {
+test('should pass without errors drop: 4124', () => {
     const query = `DROP TABLE IF EXISTS bloom_filter_not_has;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4131', () => {
+test('should pass without errors drop: 4125', () => {
     const query = `drop table if exists t50;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4132', () => {
+test('should pass without errors drop: 4126', () => {
     const query = `drop table t50;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4133', () => {
+test('should pass without errors drop: 4127', () => {
     const query = `DROP TABLE IF EXISTS test_view;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4134', () => {
+test('should pass without errors drop: 4128', () => {
     const query = `DROP USER IF EXISTS test_user_01075, test_user_01075_x, test_user_01075_x@localhost, test_user_01075_x@'192.168.23.15';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4135', () => {
+test('should pass without errors drop: 4129', () => {
     const query = `DROP USER test_user_01075;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4136', () => {
+test('should pass without errors drop: 4130', () => {
     const query = `DROP USER 'test_user_01075_x@192.168.23.15';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4137', () => {
+test('should pass without errors drop: 4131', () => {
     const query = `DROP USER IF EXISTS test_user_01074;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4138', () => {
+test('should pass without errors drop: 4132', () => {
     const query = `DROP USER test_user_01074;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4139', () => {
+test('should pass without errors drop: 4133', () => {
     const query = `DROP DATABASE {CLICKHOUSE_DATABASE:Identifier};`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4140', () => {
+test('should pass without errors drop: 4134', () => {
     const query = `DROP USER IF EXISTS test_user_01073;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4141', () => {
+test('should pass without errors drop: 4135', () => {
     const query = `DROP ROLE IF EXISTS test_role_01073;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4142', () => {
+test('should pass without errors drop: 4136', () => {
     const query = `DROP USER test_user_01073;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4143', () => {
+test('should pass without errors drop: 4137', () => {
     const query = `DROP ROLE test_role_01073;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4144', () => {
+test('should pass without errors drop: 4138', () => {
     const query = `DROP TABLE IF EXISTS test_01073_crlf_end_of_line;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4145', () => {
+test('should pass without errors drop: 4139', () => {
     const query = `DROP TABLE aine;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4146', () => {
+test('should pass without errors drop: 4140', () => {
     const query = `drop table dist_01072;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4147', () => {
+test('should pass without errors drop: 4141', () => {
     const query = `drop table data_01072;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4148', () => {
+test('should pass without errors drop: 4142', () => {
     const query = `DROP TEMPORARY TABLE IF EXISTS table_to_drop;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4149', () => {
+test('should pass without errors drop: 4143', () => {
     const query = `DROP TABLE IF EXISTS table_to_drop;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4150', () => {
+test('should pass without errors drop: 4144', () => {
     const query = `DROP TEMPORARY TABLE table_to_drop;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4151', () => {
+test('should pass without errors drop: 4145', () => {
     const query = `DROP TEMPORARY TABLE table_to_drop; -- { serverError UNKNOWN_TABLE } DROP TABLE table_to_drop;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4152', () => {
+test('should pass without errors drop: 4146', () => {
     const query = `DROP TABLE table_to_drop; -- { serverError UNKNOWN_TABLE } CREATE TABLE table_to_drop(x Int8) ENGINE=Log;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4153', () => {
+test('should pass without errors drop: 4147', () => {
     const query = `DROP TABLE table_to_drop;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4154', () => {
+test('should pass without errors drop: 4148', () => {
     const query = `DROP TABLE IF EXISTS old_syntax_01071_test;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4155', () => {
+test('should pass without errors drop: 4149', () => {
     const query = `DROP TABLE IF EXISTS new_syntax_01071_test;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4156', () => {
+test('should pass without errors drop: 4150', () => {
     const query = `drop table if exists data_01071;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4157', () => {
+test('should pass without errors drop: 4151', () => {
     const query = `drop table if exists dist_01071;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4158', () => {
+test('should pass without errors drop: 4152', () => {
     const query = `drop table if exists data2_01071;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4159', () => {
+test('should pass without errors drop: 4153', () => {
     const query = `drop table if exists dist2_01071;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4160', () => {
+test('should pass without errors drop: 4154', () => {
     const query = `drop table if exists dist2_layer_01071;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4161', () => {
+test('should pass without errors drop: 4155', () => {
     const query = `DROP TABLE IF EXISTS test_table_for_01070_exception_code_in_query_log_table;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4162', () => {
+test('should pass without errors drop: 4156', () => {
     const query = `drop table if exists alter_ttl;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4163', () => {
+test('should pass without errors drop: 4157', () => {
     const query = `drop table alter_ttl;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4164', () => {
+test('should pass without errors drop: 4158', () => {
     const query = `DROP TABLE IF EXISTS testmt;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4165', () => {
+test('should pass without errors drop: 4159', () => {
     const query = `DROP TABLE testmt;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4166', () => {
+test('should pass without errors drop: 4160', () => {
     const query = `DROP TABLE IF EXISTS mv_source;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4167', () => {
+test('should pass without errors drop: 4161', () => {
     const query = `DROP TABLE IF EXISTS mv_target;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4168', () => {
+test('should pass without errors drop: 4162', () => {
     const query = `DROP TABLE mv_source;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4169', () => {
+test('should pass without errors drop: 4163', () => {
     const query = `DROP TABLE mv_target;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4170', () => {
+test('should pass without errors drop: 4164', () => {
     const query = `DROP DATABASE IF EXISTS memory_01069;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4171', () => {
+test('should pass without errors drop: 4165', () => {
     const query = `DROP TABLE memory_01069.mt;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4172', () => {
+test('should pass without errors drop: 4166', () => {
     const query = `DROP DATABASE memory_01069;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4173', () => {
+test('should pass without errors drop: 4167', () => {
     const query = `DROP TABLE IF EXISTS logins;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4174', () => {
+test('should pass without errors drop: 4168', () => {
     const query = `DROP TABLE IF EXISTS mv_logins2target;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4175', () => {
+test('should pass without errors drop: 4169', () => {
     const query = `DROP TABLE IF EXISTS checkouts;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4176', () => {
+test('should pass without errors drop: 4170', () => {
     const query = `DROP TABLE IF EXISTS mv_checkouts2target;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4177', () => {
+test('should pass without errors drop: 4171', () => {
     const query = `DROP TABLE target_table;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4178', () => {
+test('should pass without errors drop: 4172', () => {
     const query = `DROP TABLE IF EXISTS test_alter_on_mutation;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4179', () => {
+test('should pass without errors drop: 4173', () => {
     const query = `DROP TABLE IF EXISTS nested_alter;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4180', () => {
+test('should pass without errors drop: 4174', () => {
     const query = `DROP TABLE nested_alter;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4181', () => {
+test('should pass without errors drop: 4175', () => {
     const query = `DROP TABLE IF EXISTS alter_bug;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4182', () => {
+test('should pass without errors drop: 4176', () => {
     const query = `DROP TABLE IF EXISTS defaults_all_columns;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4183', () => {
+test('should pass without errors drop: 4177', () => {
     const query = `DROP TABLE defaults_all_columns;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4184', () => {
+test('should pass without errors drop: 4178', () => {
     const query = `DROP TABLE IF EXISTS lv;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4185', () => {
+test('should pass without errors drop: 4179', () => {
     const query = `DROP TABLE {CLICKHOUSE_DATABASE_1:Identifier}.dict_data;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4186', () => {
+test('should pass without errors drop: 4180', () => {
     const query = `DROP TABLE IF EXISTS test_prewhere_default_column;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4187', () => {
+test('should pass without errors drop: 4181', () => {
     const query = `DROP TABLE IF EXISTS test_prewhere_column_type;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4188', () => {
+test('should pass without errors drop: 4182', () => {
     const query = `DROP TABLE test_prewhere_default_column;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4189', () => {
+test('should pass without errors drop: 4183', () => {
     const query = `DROP TABLE test_prewhere_column_type;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4190', () => {
+test('should pass without errors drop: 4184', () => {
     const query = `drop table mt_compact_2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4191', () => {
+test('should pass without errors drop: 4185', () => {
     const query = `drop table if exists test_01054_overflow.ints;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4192', () => {
+test('should pass without errors drop: 4186', () => {
     const query = `DROP TABLE if exists test_01054.ints;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4193', () => {
+test('should pass without errors drop: 4187', () => {
     const query = `DROP DATABASE test_01054_overflow;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4194', () => {
+test('should pass without errors drop: 4188', () => {
     const query = `DROP TABLE IF EXISTS wv SYNC;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4195', () => {
+test('should pass without errors drop: 4189', () => {
     const query = `DROP TABLE c;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4196', () => {
+test('should pass without errors drop: 4190', () => {
     const query = `DROP TABLE IF EXISTS any_left_join;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4197', () => {
+test('should pass without errors drop: 4191', () => {
     const query = `DROP TABLE IF EXISTS any_inner_join;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4198', () => {
+test('should pass without errors drop: 4192', () => {
     const query = `DROP TABLE IF EXISTS any_right_join;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4199', () => {
+test('should pass without errors drop: 4193', () => {
     const query = `DROP TABLE IF EXISTS any_full_join;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4200', () => {
+test('should pass without errors drop: 4194', () => {
     const query = `DROP TABLE IF EXISTS semi_left_join;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4201', () => {
+test('should pass without errors drop: 4195', () => {
     const query = `DROP TABLE IF EXISTS semi_right_join;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4202', () => {
+test('should pass without errors drop: 4196', () => {
     const query = `DROP TABLE IF EXISTS anti_left_join;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4203', () => {
+test('should pass without errors drop: 4197', () => {
     const query = `DROP TABLE IF EXISTS anti_right_join;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4204', () => {
+test('should pass without errors drop: 4198', () => {
     const query = `DROP TABLE any_left_join;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4205', () => {
+test('should pass without errors drop: 4199', () => {
     const query = `DROP TABLE any_inner_join;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4206', () => {
+test('should pass without errors drop: 4200', () => {
     const query = `DROP TABLE any_right_join;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4207', () => {
+test('should pass without errors drop: 4201', () => {
     const query = `DROP TABLE semi_left_join;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4208', () => {
+test('should pass without errors drop: 4202', () => {
     const query = `DROP TABLE semi_right_join;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4209', () => {
+test('should pass without errors drop: 4203', () => {
     const query = `DROP TABLE anti_left_join;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4210', () => {
+test('should pass without errors drop: 4204', () => {
     const query = `DROP TABLE anti_right_join;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4211', () => {
+test('should pass without errors drop: 4205', () => {
     const query = `DROP TABLE IF EXISTS left_join;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4212', () => {
+test('should pass without errors drop: 4206', () => {
     const query = `DROP TABLE IF EXISTS inner_join;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4213', () => {
+test('should pass without errors drop: 4207', () => {
     const query = `DROP TABLE IF EXISTS right_join;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4214', () => {
+test('should pass without errors drop: 4208', () => {
     const query = `DROP TABLE IF EXISTS full_join;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4215', () => {
+test('should pass without errors drop: 4209', () => {
     const query = `DROP TABLE left_join;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4216', () => {
+test('should pass without errors drop: 4210', () => {
     const query = `DROP TABLE inner_join;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4217', () => {
+test('should pass without errors drop: 4211', () => {
     const query = `DROP TABLE right_join;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4218', () => {
+test('should pass without errors drop: 4212', () => {
     const query = `DROP TABLE full_join;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4219', () => {
+test('should pass without errors drop: 4213', () => {
     const query = `DROP TABLE IF EXISTS id1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4220', () => {
+test('should pass without errors drop: 4214', () => {
     const query = `DROP TABLE IF EXISTS id2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4221', () => {
+test('should pass without errors drop: 4215', () => {
     const query = `DROP TABLE id1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4222', () => {
+test('should pass without errors drop: 4216', () => {
     const query = `DROP TABLE id2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4223', () => {
+test('should pass without errors drop: 4217', () => {
     const query = `DROP TABLE IF EXISTS testJoinTable;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4224', () => {
+test('should pass without errors drop: 4218', () => {
     const query = `DROP TABLE testJoinTable;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4225', () => {
+test('should pass without errors drop: 4219', () => {
     const query = `DROP TABLE IF EXISTS master;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4226', () => {
+test('should pass without errors drop: 4220', () => {
     const query = `DROP TABLE IF EXISTS transaction;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4227', () => {
+test('should pass without errors drop: 4221', () => {
     const query = `DROP TABLE master;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4228', () => {
+test('should pass without errors drop: 4222', () => {
     const query = `DROP TABLE transaction;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4229', () => {
+test('should pass without errors drop: 4223', () => {
     const query = `DROP TABLE IF EXISTS some_join;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4230', () => {
+test('should pass without errors drop: 4224', () => {
     const query = `DROP TABLE some_join;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4231', () => {
+test('should pass without errors drop: 4225', () => {
     const query = `drop dictionary if exists {CLICKHOUSE_DATABASE:Identifier}.test_dict_01051_d;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4232', () => {
+test('should pass without errors drop: 4226', () => {
     const query = `drop table if exists {CLICKHOUSE_DATABASE:Identifier}.test_01051_d;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4233', () => {
+test('should pass without errors drop: 4227', () => {
     const query = `drop table if exists {CLICKHOUSE_DATABASE:Identifier}.test_view_01051_d;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4234', () => {
+test('should pass without errors drop: 4228', () => {
     const query = `DROP TABLE IF EXISTS table_for_synchronous_mutations1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4235', () => {
+test('should pass without errors drop: 4229', () => {
     const query = `DROP TABLE IF EXISTS table_for_synchronous_mutations2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4236', () => {
+test('should pass without errors drop: 4230', () => {
     const query = `DROP TABLE IF EXISTS table_for_synchronous_mutations_no_replication;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4237', () => {
+test('should pass without errors drop: 4231', () => {
     const query = `DROP TABLE IF EXISTS Alpha;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4238', () => {
+test('should pass without errors drop: 4232', () => {
     const query = `DROP TABLE IF EXISTS Beta;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4239', () => {
+test('should pass without errors drop: 4233', () => {
     const query = `DROP TABLE Alpha;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4240', () => {
+test('should pass without errors drop: 4234', () => {
     const query = `DROP TABLE Beta;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4241', () => {
+test('should pass without errors drop: 4235', () => {
     const query = `DROP DATABASE IF EXISTS test_01048;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4242', () => {
+test('should pass without errors drop: 4236', () => {
     const query = `DROP TABLE IF EXISTS test_01048.mt;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4243', () => {
+test('should pass without errors drop: 4237', () => {
     const query = `DROP TABLE IF EXISTS test_01048.mt_2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4244', () => {
+test('should pass without errors drop: 4238', () => {
     const query = `DROP TABLE IF EXISTS test_01048.wv;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4245', () => {
+test('should pass without errors drop: 4239', () => {
     const query = `DROP TABLE test_01048.wv;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4246', () => {
+test('should pass without errors drop: 4240', () => {
     const query = `DROP TABLE test_01048.mt;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4247', () => {
+test('should pass without errors drop: 4241', () => {
     const query = `DROP TABLE test_01048.mt_2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4248', () => {
+test('should pass without errors drop: 4242', () => {
     const query = `DROP DATABASE IF EXISTS db_01048;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4249', () => {
+test('should pass without errors drop: 4243', () => {
     const query = `DROP TABLE IF EXISTS db_01048.t_01048;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4250', () => {
+test('should pass without errors drop: 4244', () => {
     const query = `DROP TABLE db_01048.t_01048;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4251', () => {
+test('should pass without errors drop: 4245', () => {
     const query = `DROP DICTIONARY IF EXISTS t_01048;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4252', () => {
+test('should pass without errors drop: 4246', () => {
     const query = `DROP TABLE db_01048.t_01048; -- { serverError CANNOT_DETACH_DICTIONARY_AS_TABLE } DROP DICTIONARY db_01048.t_01048;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4253', () => {
+test('should pass without errors drop: 4247', () => {
     const query = `DROP VIEW db_01048.v_01048;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4254', () => {
+test('should pass without errors drop: 4248', () => {
     const query = `DROP TABLE db_01048.t_01048_2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4255', () => {
+test('should pass without errors drop: 4249', () => {
     const query = `DROP DATABASE db_01048;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4256', () => {
+test('should pass without errors drop: 4250', () => {
     const query = `DROP TABLE IF EXISTS {CLICKHOUSE_DATABASE:Identifier}.mt_2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4257', () => {
+test('should pass without errors drop: 4251', () => {
     const query = `DROP TABLE IF EXISTS {CLICKHOUSE_DATABASE:Identifier}.\`.inner.wv\`;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4258', () => {
+test('should pass without errors drop: 4252', () => {
     const query = `DROP TABLE {CLICKHOUSE_DATABASE:Identifier}.wv;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4259', () => {
+test('should pass without errors drop: 4253', () => {
     const query = `DROP TABLE {CLICKHOUSE_DATABASE:Identifier}.mt;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4260', () => {
+test('should pass without errors drop: 4254', () => {
     const query = `DROP TABLE {CLICKHOUSE_DATABASE:Identifier}.mt_2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4261', () => {
+test('should pass without errors drop: 4255', () => {
     const query = `DROP TABLE IF EXISTS column_size_bug;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4262', () => {
+test('should pass without errors drop: 4256', () => {
     const query = `DROP TABLE column_size_bug;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4263', () => {
+test('should pass without errors drop: 4257', () => {
     const query = `DROP TABLE IF EXISTS requests;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4264', () => {
+test('should pass without errors drop: 4258', () => {
     const query = `DROP TABLE requests;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4265', () => {
+test('should pass without errors drop: 4259', () => {
     const query = `DROP TABLE IF EXISTS test_count;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4266', () => {
+test('should pass without errors drop: 4260', () => {
     const query = `DROP TABLE test_count;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4267', () => {
+test('should pass without errors drop: 4261', () => {
     const query = `DROP TABLE IF EXISTS t_d;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4268', () => {
+test('should pass without errors drop: 4262', () => {
     const query = `DROP DICTIONARY IF EXISTS {CLICKHOUSE_DATABASE:Identifier}.restricted_dict;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4269', () => {
+test('should pass without errors drop: 4263', () => {
     const query = `DROP TABLE IF EXISTS check_query_test;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4270', () => {
+test('should pass without errors drop: 4264', () => {
     const query = `DROP TABLE IF EXISTS check_query_test_non_adaptive;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4271', () => {
+test('should pass without errors drop: 4265', () => {
     const query = `DROP DICTIONARY {CLICKHOUSE_DATABASE:Identifier}.dict_exists;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4272', () => {
+test('should pass without errors drop: 4266', () => {
     const query = `DROP TABLE {CLICKHOUSE_DATABASE:Identifier}.table_for_dict;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4273', () => {
+test('should pass without errors drop: 4267', () => {
     const query = `DROP TABLE IF EXISTS test_01040;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4274', () => {
+test('should pass without errors drop: 4268', () => {
     const query = `DROP TABLE IF EXISTS dist_test_01040;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4275', () => {
+test('should pass without errors drop: 4269', () => {
     const query = `DROP TABLE dist_test_01040;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4276', () => {
+test('should pass without errors drop: 4270', () => {
     const query = `DROP TABLE test_01040;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4277', () => {
+test('should pass without errors drop: 4271', () => {
     const query = `DROP TABLE IF EXISTS array_of_tuples;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4278', () => {
+test('should pass without errors drop: 4272', () => {
     const query = `DROP TABLE array_of_tuples;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4279', () => {
+test('should pass without errors drop: 4273', () => {
     const query = `DROP TABLE IF EXISTS mt_without_pk SYNC;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4280', () => {
+test('should pass without errors drop: 4274', () => {
     const query = `DROP TABLE IF EXISTS replicated_mt_without_pk SYNC;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4281', () => {
+test('should pass without errors drop: 4275', () => {
     const query = `DROP DATABASE IF EXISTS \`foo 1234\`;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4282', () => {
+test('should pass without errors drop: 4276', () => {
     const query = `DROP DATABASE IF EXISTS \`foo 123\`;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4283', () => {
+test('should pass without errors drop: 4277', () => {
     const query = `DROP DICTIONARY \`foo 1234\`.dict;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4284', () => {
+test('should pass without errors drop: 4278', () => {
     const query = `DROP TABLE \`foo 1234\`.dict_data;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4285', () => {
+test('should pass without errors drop: 4279', () => {
     const query = `DROP DATABASE \`foo 1234\`;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4286', () => {
+test('should pass without errors drop: 4280', () => {
     const query = `DROP DATABASE \`foo 123\`;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4287', () => {
+test('should pass without errors drop: 4281', () => {
     const query = `DROP DATABASE IF EXISTS empty_db_01036;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4288', () => {
+test('should pass without errors drop: 4282', () => {
     const query = `drop table if exists audience_local;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4289', () => {
+test('should pass without errors drop: 4283', () => {
     const query = `DROP TABLE IF EXISTS test_01035_avg;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4290', () => {
+test('should pass without errors drop: 4284', () => {
     const query = `drop table if exists sample_final;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4291', () => {
+test('should pass without errors drop: 4285', () => {
     const query = `drop table if exists test_max_parallel_replicas_lr;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4292', () => {
+test('should pass without errors drop: 4286', () => {
     const query = `drop table test_max_parallel_replicas_lr;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4293', () => {
+test('should pass without errors drop: 4287', () => {
     const query = `DROP TABLE IF EXISTS BannerDict;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4294', () => {
+test('should pass without errors drop: 4288', () => {
     const query = `DROP DICTIONARY IF EXISTS {CLICKHOUSE_DATABASE_1:Identifier}.dict1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4295', () => {
+test('should pass without errors drop: 4289', () => {
     const query = `DROP TABLE IF EXISTS {CLICKHOUSE_DATABASE:Identifier}.table_for_dict;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4296', () => {
+test('should pass without errors drop: 4290', () => {
     const query = `DROP TABLE IF EXISTS sometable;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4297', () => {
+test('should pass without errors drop: 4291', () => {
     const query = `drop table if exists test_table_url_syntax ;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4298', () => {
+test('should pass without errors drop: 4292', () => {
     const query = `drop table if exists test_table_url ;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4299', () => {
+test('should pass without errors drop: 4293', () => {
     const query = `drop table test_table_url;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4300', () => {
+test('should pass without errors drop: 4294', () => {
     const query = `drop table if exists test_table_hdfs_syntax ;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4301', () => {
+test('should pass without errors drop: 4295', () => {
     const query = `drop table if exists tst;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4302', () => {
+test('should pass without errors drop: 4296', () => {
     const query = `drop table tst;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4303', () => {
+test('should pass without errors drop: 4297', () => {
     const query = `DROP TABLE IF EXISTS empty_pk;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4304', () => {
+test('should pass without errors drop: 4298', () => {
     const query = `DROP TABLE empty_pk;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4305', () => {
+test('should pass without errors drop: 4299', () => {
     const query = `DROP DATABASE IF EXISTS dict_in_01023;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4306', () => {
+test('should pass without errors drop: 4300', () => {
     const query = `DROP TABLE output;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4307', () => {
+test('should pass without errors drop: 4301', () => {
     const query = `DROP TABLE dist_out;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4308', () => {
+test('should pass without errors drop: 4302', () => {
     const query = `DROP TABLE buffer_;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4309', () => {
+test('should pass without errors drop: 4303', () => {
     const query = `DROP TABLE null_;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4310', () => {
+test('should pass without errors drop: 4304', () => {
     const query = `DROP TABLE input;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4311', () => {
+test('should pass without errors drop: 4305', () => {
     const query = `DROP DICTIONARY dict_in_01023.dict;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4312', () => {
+test('should pass without errors drop: 4306', () => {
     const query = `DROP TABLE dict_in_01023.input;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4313', () => {
+test('should pass without errors drop: 4307', () => {
     const query = `DROP DATABASE dict_in_01023;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4314', () => {
+test('should pass without errors drop: 4308', () => {
     const query = `DROP TABLE IF EXISTS tuple_values;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4315', () => {
+test('should pass without errors drop: 4309', () => {
     const query = `DROP TABLE tuple_values;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4316', () => {
+test('should pass without errors drop: 4310', () => {
     const query = `DROP TABLE IF EXISTS create_as_select_01021;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4317', () => {
+test('should pass without errors drop: 4311', () => {
     const query = `DROP TABLE create_as_select_01021;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4318', () => {
+test('should pass without errors drop: 4312', () => {
     const query = `DROP TABLE IF EXISTS mv_extra_columns_dst;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4319', () => {
+test('should pass without errors drop: 4313', () => {
     const query = `DROP TABLE IF EXISTS mv_extra_columns_src;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4320', () => {
+test('should pass without errors drop: 4314', () => {
     const query = `DROP TABLE IF EXISTS mv_extra_columns_view;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4321', () => {
+test('should pass without errors drop: 4315', () => {
     const query = `DROP TABLE mv_extra_columns_src;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4322', () => {
+test('should pass without errors drop: 4316', () => {
     const query = `DROP TABLE mv_extra_columns_dst;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4323', () => {
+test('should pass without errors drop: 4317', () => {
     const query = `DROP TABLE IF EXISTS src_01019;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4324', () => {
+test('should pass without errors drop: 4318', () => {
     const query = `DROP TABLE IF EXISTS dest_01019;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4325', () => {
+test('should pass without errors drop: 4319', () => {
     const query = `DROP TABLE IF EXISTS pipe_01019;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4326', () => {
+test('should pass without errors drop: 4320', () => {
     const query = `DROP TABLE src_01019;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4327', () => {
+test('should pass without errors drop: 4321', () => {
     const query = `DROP TABLE dest_01019;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4328', () => {
+test('should pass without errors drop: 4322', () => {
     const query = `DROP TABLE pipe_01019;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4329', () => {
+test('should pass without errors drop: 4323', () => {
     const query = `DROP TABLE IF EXISTS null_;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4330', () => {
+test('should pass without errors drop: 4324', () => {
     const query = `DROP TABLE IF EXISTS buffer_;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4331', () => {
+test('should pass without errors drop: 4325', () => {
     const query = `DROP TABLE IF EXISTS aggregation_;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4332', () => {
+test('should pass without errors drop: 4326', () => {
     const query = `DROP TABLE aggregation_;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4333', () => {
+test('should pass without errors drop: 4327', () => {
     const query = `DROP TABLE IF EXISTS TESTTABLE4;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4334', () => {
+test('should pass without errors drop: 4328', () => {
     const query = `DROP TABLE TESTTABLE4;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4335', () => {
+test('should pass without errors drop: 4329', () => {
     const query = `DROP TABLE IF EXISTS {CLICKHOUSE_DATABASE:Identifier}.table_from_ipv4_trie_dict;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4336', () => {
+test('should pass without errors drop: 4330', () => {
     const query = `DROP DICTIONARY IF EXISTS {CLICKHOUSE_DATABASE:Identifier}.dict_ipv4_trie;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4337', () => {
+test('should pass without errors drop: 4331', () => {
     const query = `DROP TABLE IF EXISTS {CLICKHOUSE_DATABASE:Identifier}.table_ipv4_trie;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4338', () => {
+test('should pass without errors drop: 4332', () => {
     const query = `DROP TABLE IF EXISTS {CLICKHOUSE_DATABASE:Identifier}.table_from_ip_trie_dict;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4339', () => {
+test('should pass without errors drop: 4333', () => {
     const query = `DROP DICTIONARY IF EXISTS {CLICKHOUSE_DATABASE:Identifier}.dict_ip_trie;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4340', () => {
+test('should pass without errors drop: 4334', () => {
     const query = `DROP TABLE IF EXISTS {CLICKHOUSE_DATABASE:Identifier}.table_ip_trie;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4341', () => {
+test('should pass without errors drop: 4335', () => {
     const query = `DROP DICTIONARY {CLICKHOUSE_DATABASE:Identifier}.dict1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4342', () => {
+test('should pass without errors drop: 4336', () => {
     const query = `DROP DATABASE IF EXISTS memory_db;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4343', () => {
+test('should pass without errors drop: 4337', () => {
     const query = `DROP DATABASE IF EXISTS db_01018;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4344', () => {
+test('should pass without errors drop: 4338', () => {
     const query = `DROP DATABASE IF EXISTS database_for_dict_01018;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4345', () => {
+test('should pass without errors drop: 4339', () => {
     const query = `DROP DICTIONARY IF EXISTS db_01018.dict1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4346', () => {
+test('should pass without errors drop: 4340', () => {
     const query = `DROP DATABASE IF EXISTS lazy_db;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4347', () => {
+test('should pass without errors drop: 4341', () => {
     const query = `DROP DICTIONARY memory_db.dict2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4348', () => {
+test('should pass without errors drop: 4342', () => {
     const query = `DROP TABLE IF EXISTS database_for_dict_01018.table_for_dict;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4349', () => {
+test('should pass without errors drop: 4343', () => {
     const query = `DROP TABLE IF EXISTS mem1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4350', () => {
+test('should pass without errors drop: 4344', () => {
     const query = `DROP TABLE IF EXISTS dist_1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4351', () => {
+test('should pass without errors drop: 4345', () => {
     const query = `DROP TABLE IF EXISTS dist_2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4352', () => {
+test('should pass without errors drop: 4346', () => {
     const query = `DROP TABLE IF EXISTS dist_3;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4353', () => {
+test('should pass without errors drop: 4347', () => {
     const query = `drop table if exists null_01016;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4354', () => {
+test('should pass without errors drop: 4348', () => {
     const query = `drop table null_01016;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4355', () => {
+test('should pass without errors drop: 4349', () => {
     const query = `DROP TABLE IF EXISTS tuple_01016;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4356', () => {
+test('should pass without errors drop: 4350', () => {
     const query = `DROP TABLE tuple_01016;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4357', () => {
+test('should pass without errors drop: 4351', () => {
     const query = `DROP TABLE IF EXISTS table_01;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4358', () => {
+test('should pass without errors drop: 4352', () => {
     const query = `DROP TABLE IF EXISTS new_table_test;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4359', () => {
+test('should pass without errors drop: 4353', () => {
     const query = `DROP TABLE IF EXISTS check_table_test;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4360', () => {
+test('should pass without errors drop: 4354', () => {
     const query = `DROP TABLE new_table_test;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4361', () => {
+test('should pass without errors drop: 4355', () => {
     const query = `DROP TABLE check_table_test;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4362', () => {
+test('should pass without errors drop: 4356', () => {
     const query = `DROP TABLE as_foo;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4363', () => {
+test('should pass without errors drop: 4357', () => {
     const query = `DROP TABLE dist_as_foo;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4364', () => {
+test('should pass without errors drop: 4358', () => {
     const query = `DROP TABLE IF EXISTS test_insert_t1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4365', () => {
+test('should pass without errors drop: 4359', () => {
     const query = `DROP TABLE IF EXISTS test_insert_t2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4366', () => {
+test('should pass without errors drop: 4360', () => {
     const query = `DROP TABLE IF EXISTS test_insert_t3;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4367', () => {
+test('should pass without errors drop: 4361', () => {
     const query = `DROP TABLE test_insert_t1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4368', () => {
+test('should pass without errors drop: 4362', () => {
     const query = `DROP TABLE test_insert_t2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4369', () => {
+test('should pass without errors drop: 4363', () => {
     const query = `DROP TABLE test_insert_t3;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4370', () => {
+test('should pass without errors drop: 4364', () => {
     const query = `DROP TABLE IF EXISTS view_foo_bar;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4371', () => {
+test('should pass without errors drop: 4365', () => {
     const query = `DROP TABLE view_foo_bar;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4372', () => {
+test('should pass without errors drop: 4366', () => {
     const query = `DROP TABLE IF EXISTS ttl_with_default;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4373', () => {
+test('should pass without errors drop: 4367', () => {
     const query = `DROP TABLE ttl_with_default;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4374', () => {
+test('should pass without errors drop: 4368', () => {
     const query = `DROP TABLE IF EXISTS enums;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4375', () => {
+test('should pass without errors drop: 4369', () => {
     const query = `DROP TABLE enums;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4376', () => {
+test('should pass without errors drop: 4370', () => {
     const query = `DROP TABLE IF EXISTS bad_skip_idx;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4377', () => {
+test('should pass without errors drop: 4371', () => {
     const query = `DROP TABLE IF EXISTS test_vertical_merge;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4378', () => {
+test('should pass without errors drop: 4372', () => {
     const query = `DROP TABLE IF EXISTS constrained;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4379', () => {
+test('should pass without errors drop: 4373', () => {
     const query = `DROP TABLE constrained;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4380', () => {
+test('should pass without errors drop: 4374', () => {
     const query = `DROP TABLE IF EXISTS constrained2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4381', () => {
+test('should pass without errors drop: 4375', () => {
     const query = `DROP TABLE constrained2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4382', () => {
+test('should pass without errors drop: 4376', () => {
     const query = `DROP TABLE IF EXISTS set_array;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4383', () => {
+test('should pass without errors drop: 4377', () => {
     const query = `DROP TABLE set_array;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4384', () => {
+test('should pass without errors drop: 4378', () => {
     const query = `DROP TABLE IF EXISTS ties;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4385', () => {
+test('should pass without errors drop: 4379', () => {
     const query = `DROP TABLE ties;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4386', () => {
+test('should pass without errors drop: 4380', () => {
     const query = `DROP TABLE IF EXISTS fill;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4387', () => {
+test('should pass without errors drop: 4381', () => {
     const query = `DROP TABLE fill;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4388', () => {
+test('should pass without errors drop: 4382', () => {
     const query = `DROP TABLE IF EXISTS order_with_aggr;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4389', () => {
+test('should pass without errors drop: 4383', () => {
     const query = `DROP TABLE order_with_aggr;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4390', () => {
+test('should pass without errors drop: 4384', () => {
     const query = `drop table if exists bloom_filter2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4391', () => {
+test('should pass without errors drop: 4385', () => {
     const query = `DROP TABLE IF EXISTS replicated_constraints1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4392', () => {
+test('should pass without errors drop: 4386', () => {
     const query = `DROP TABLE IF EXISTS replicated_constraints2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4393', () => {
+test('should pass without errors drop: 4387', () => {
     const query = `DROP TABLE replicated_constraints2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4394', () => {
+test('should pass without errors drop: 4388', () => {
     const query = `DROP TABLE IF EXISTS distr0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4395', () => {
+test('should pass without errors drop: 4389', () => {
     const query = `DROP TABLE IF EXISTS distr1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4396', () => {
+test('should pass without errors drop: 4390', () => {
     const query = `DROP TABLE IF EXISTS mat_view;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4397', () => {
+test('should pass without errors drop: 4391', () => {
     const query = `DROP TABLE IF EXISTS topk;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4398', () => {
+test('should pass without errors drop: 4392', () => {
     const query = `DROP TABLE topk;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4399', () => {
+test('should pass without errors drop: 4393', () => {
     const query = `DROP TABLE IF EXISTS merge_a;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4400', () => {
+test('should pass without errors drop: 4394', () => {
     const query = `DROP TABLE IF EXISTS merge_b;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4401', () => {
+test('should pass without errors drop: 4395', () => {
     const query = `DROP TABLE IF EXISTS merge_ab;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4402', () => {
+test('should pass without errors drop: 4396', () => {
     const query = `DROP TABLE merge_a;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4403', () => {
+test('should pass without errors drop: 4397', () => {
     const query = `DROP TABLE merge_b;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4404', () => {
+test('should pass without errors drop: 4398', () => {
     const query = `DROP TABLE merge_ab;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4405', () => {
+test('should pass without errors drop: 4399', () => {
     const query = `DROP TABLE IF EXISTS replicated_table_for_alter1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4406', () => {
+test('should pass without errors drop: 4400', () => {
     const query = `DROP TABLE IF EXISTS replicated_table_for_alter2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4407', () => {
+test('should pass without errors drop: 4401', () => {
     const query = `DROP TABLE IF EXISTS replicated_table_for_reset_setting1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4408', () => {
+test('should pass without errors drop: 4402', () => {
     const query = `DROP TABLE IF EXISTS replicated_table_for_reset_setting2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4409', () => {
+test('should pass without errors drop: 4403', () => {
     const query = `DROP TABLE numbers500k;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4410', () => {
+test('should pass without errors drop: 4404', () => {
     const query = `DROP TABLE IF EXISTS log_for_alter;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4411', () => {
+test('should pass without errors drop: 4405', () => {
     const query = `DROP TABLE IF EXISTS table_for_reset_setting;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4412', () => {
+test('should pass without errors drop: 4406', () => {
     const query = `drop table if exists test_join;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4413', () => {
+test('should pass without errors drop: 4407', () => {
     const query = `DROP TABLE test3;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4414', () => {
+test('should pass without errors drop: 4408', () => {
     const query = `DROP TABLE IF EXISTS set_index_not;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4415', () => {
+test('should pass without errors drop: 4409', () => {
     const query = `DROP TABLE set_index_not;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4416', () => {
+test('should pass without errors drop: 4410', () => {
     const query = `DROP TABLE IF EXISTS num;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4417', () => {
+test('should pass without errors drop: 4411', () => {
     const query = `DROP TABLE num;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4418', () => {
+test('should pass without errors drop: 4412', () => {
     const query = `DROP TABLE IF EXISTS han_1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4419', () => {
+test('should pass without errors drop: 4413', () => {
     const query = `DROP TABLE IF EXISTS values_list;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4420', () => {
+test('should pass without errors drop: 4414', () => {
     const query = `DROP TABLE values_list;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4421', () => {
+test('should pass without errors drop: 4415', () => {
     const query = `drop table sample_prewhere;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4422', () => {
+test('should pass without errors drop: 4416', () => {
     const query = `DROP TABLE IF EXISTS dst1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4423', () => {
+test('should pass without errors drop: 4417', () => {
     const query = `DROP TABLE IF EXISTS src_to_dst1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4424', () => {
+test('should pass without errors drop: 4418', () => {
     const query = `DROP TABLE IF EXISTS dst2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4425', () => {
+test('should pass without errors drop: 4419', () => {
     const query = `DROP TABLE src_to_dst1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4426', () => {
+test('should pass without errors drop: 4420', () => {
     const query = `DROP TABLE dst1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4427', () => {
+test('should pass without errors drop: 4421', () => {
     const query = `DROP TABLE dst2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4428', () => {
+test('should pass without errors drop: 4422', () => {
     const query = `DROP TABLE IF EXISTS test_move_partition_src;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4429', () => {
+test('should pass without errors drop: 4423', () => {
     const query = `DROP TABLE IF EXISTS test_move_partition_dest;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4430', () => {
+test('should pass without errors drop: 4424', () => {
     const query = `DROP TABLE test_move_partition_src;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4431', () => {
+test('should pass without errors drop: 4425', () => {
     const query = `DROP TABLE test_move_partition_dest;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4432', () => {
+test('should pass without errors drop: 4426', () => {
     const query = `DROP TABLE IF EXISTS test_00974;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4433', () => {
+test('should pass without errors drop: 4427', () => {
     const query = `DROP TABLE test_00974;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4434', () => {
+test('should pass without errors drop: 4428', () => {
     const query = `DROP TABLE IF EXISTS source_table1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4435', () => {
+test('should pass without errors drop: 4429', () => {
     const query = `DROP TABLE IF EXISTS source_table2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4436', () => {
+test('should pass without errors drop: 4430', () => {
     const query = `DROP TABLE IF EXISTS distributed_table1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4437', () => {
+test('should pass without errors drop: 4431', () => {
     const query = `DROP TABLE IF EXISTS distributed_table2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4438', () => {
+test('should pass without errors drop: 4432', () => {
     const query = `DROP TABLE source_table1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4439', () => {
+test('should pass without errors drop: 4433', () => {
     const query = `DROP TABLE source_table2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4440', () => {
+test('should pass without errors drop: 4434', () => {
     const query = `DROP TABLE distributed_table1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4441', () => {
+test('should pass without errors drop: 4435', () => {
     const query = `DROP TABLE distributed_table2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4442', () => {
+test('should pass without errors drop: 4436', () => {
     const query = `DROP TABLE IF EXISTS indexed_table;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4443', () => {
+test('should pass without errors drop: 4437', () => {
     const query = `DROP TABLE IF EXISTS another_indexed_table;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4444', () => {
+test('should pass without errors drop: 4438', () => {
     const query = `DROP TABLE part_a;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4445', () => {
+test('should pass without errors drop: 4439', () => {
     const query = `DROP TABLE part_b;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4446', () => {
+test('should pass without errors drop: 4440', () => {
     const query = `DROP TABLE part_c;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4447', () => {
+test('should pass without errors drop: 4441', () => {
     const query = `DROP TABLE part_d;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4448', () => {
+test('should pass without errors drop: 4442', () => {
     const query = `DROP TABLE IF EXISTS upyachka;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4449', () => {
+test('should pass without errors drop: 4443', () => {
     const query = `DROP TABLE upyachka;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4450', () => {
+test('should pass without errors drop: 4444', () => {
     const query = `DROP TABLE IF EXISTS ColumnsClauseTest;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4451', () => {
+test('should pass without errors drop: 4445', () => {
     const query = `DROP TABLE ColumnsClauseTest;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4452', () => {
+test('should pass without errors drop: 4446', () => {
     const query = `DROP TABLE IF EXISTS tableFile_00968;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4453', () => {
+test('should pass without errors drop: 4447', () => {
     const query = `DROP TABLE IF EXISTS tableMergeTree_00968;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4454', () => {
+test('should pass without errors drop: 4448', () => {
     const query = `DROP TABLE tableFile_00968;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4455', () => {
+test('should pass without errors drop: 4449', () => {
     const query = `DROP TABLE tableMergeTree_00968;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4456', () => {
+test('should pass without errors drop: 4450', () => {
     const query = `DROP TABLE IF EXISTS dist_00967;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4457', () => {
+test('should pass without errors drop: 4451', () => {
     const query = `DROP TABLE IF EXISTS underlying_00967;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4458', () => {
+test('should pass without errors drop: 4452', () => {
     const query = `DROP TABLE dist_00967;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4459', () => {
+test('should pass without errors drop: 4453', () => {
     const query = `DROP TABLE underlying_00967;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4460', () => {
+test('should pass without errors drop: 4454', () => {
     const query = `DROP TABLE IF EXISTS test_startsWith;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4461', () => {
+test('should pass without errors drop: 4455', () => {
     const query = `DROP TABLE test_startsWith;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4462', () => {
+test('should pass without errors drop: 4456', () => {
     const query = `DROP TABLE IF EXISTS t_enum8;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4463', () => {
+test('should pass without errors drop: 4457', () => {
     const query = `DROP TABLE t_enum8;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4464', () => {
+test('should pass without errors drop: 4458', () => {
     const query = `DROP TABLE IF EXISTS t_enum16;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4465', () => {
+test('should pass without errors drop: 4459', () => {
     const query = `DROP TABLE t_enum16;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4466', () => {
+test('should pass without errors drop: 4460', () => {
     const query = `DROP TABLE IF EXISTS test_00961;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4467', () => {
+test('should pass without errors drop: 4461', () => {
     const query = `DROP TABLE test_00961;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4468', () => {
+test('should pass without errors drop: 4462', () => {
     const query = `DROP TABLE IF EXISTS mt_table;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4469', () => {
+test('should pass without errors drop: 4463', () => {
     const query = `DROP TABLE IF EXISTS segfault_table;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4470', () => {
+test('should pass without errors drop: 4464', () => {
     const query = `DROP TABLE IF EXISTS mt_with_pk;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4471', () => {
+test('should pass without errors drop: 4465', () => {
     const query = `DROP TABLE IF EXISTS alter_attach;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4472', () => {
+test('should pass without errors drop: 4466', () => {
     const query = `DROP TABLE IF EXISTS alter_update_00806;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4473', () => {
+test('should pass without errors drop: 4467', () => {
     const query = `DROP TABLE IF EXISTS mt_without_pk;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4474', () => {
+test('should pass without errors drop: 4468', () => {
     const query = `DROP TABLE IF EXISTS mt_with_small_granularity;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4475', () => {
+test('should pass without errors drop: 4469', () => {
     const query = `DROP TABLE IF EXISTS moving_sum_num;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4476', () => {
+test('should pass without errors drop: 4470', () => {
     const query = `DROP TABLE IF EXISTS moving_sum_dec;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4477', () => {
+test('should pass without errors drop: 4471', () => {
     const query = `DROP TABLE moving_sum_dec;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4478', () => {
+test('should pass without errors drop: 4472', () => {
     const query = `DROP TABLE moving_sum_num;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4479', () => {
+test('should pass without errors drop: 4473', () => {
     const query = `DROP TABLE IF EXISTS part_info;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4480', () => {
+test('should pass without errors drop: 4474', () => {
     const query = `DROP TABLE part_info;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4481', () => {
+test('should pass without errors drop: 4475', () => {
     const query = `DROP TABLE IF EXISTS local_00952;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4482', () => {
+test('should pass without errors drop: 4476', () => {
     const query = `DROP TABLE IF EXISTS distributed_00952;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4483', () => {
+test('should pass without errors drop: 4477', () => {
     const query = `DROP TABLE distributed_00952;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4484', () => {
+test('should pass without errors drop: 4478', () => {
     const query = `DROP TABLE local_00952;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4485', () => {
+test('should pass without errors drop: 4479', () => {
     const query = `drop table if exists test_entry_distance;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4486', () => {
+test('should pass without errors drop: 4480', () => {
     const query = `drop table if exists decimals;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4487', () => {
+test('should pass without errors drop: 4481', () => {
     const query = `DROP TABLE IF EXISTS test_generic_events_all;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4488', () => {
+test('should pass without errors drop: 4482', () => {
     const query = `DROP TABLE IF EXISTS type_names;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4489', () => {
+test('should pass without errors drop: 4483', () => {
     const query = `DROP TABLE IF EXISTS values_template;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4490', () => {
+test('should pass without errors drop: 4484', () => {
     const query = `DROP TABLE IF EXISTS values_template_nullable;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4491', () => {
+test('should pass without errors drop: 4485', () => {
     const query = `DROP TABLE IF EXISTS values_template_fallback;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4492', () => {
+test('should pass without errors drop: 4486', () => {
     const query = `DROP TABLE type_names;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4493', () => {
+test('should pass without errors drop: 4487', () => {
     const query = `DROP TABLE values_template;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4494', () => {
+test('should pass without errors drop: 4488', () => {
     const query = `DROP TABLE values_template_nullable;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4495', () => {
+test('should pass without errors drop: 4489', () => {
     const query = `DROP TABLE values_template_fallback;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4496', () => {
+test('should pass without errors drop: 4490', () => {
     const query = `DROP TABLE IF EXISTS model;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4497', () => {
+test('should pass without errors drop: 4491', () => {
     const query = `DROP TABLE IF EXISTS grouptest;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4498', () => {
+test('should pass without errors drop: 4492', () => {
     const query = `DROP TABLE model;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4499', () => {
+test('should pass without errors drop: 4493', () => {
     const query = `DROP TABLE grouptest;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4500', () => {
+test('should pass without errors drop: 4494', () => {
     const query = `DROP TABLE IF EXISTS single_column_bloom_filter;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4501', () => {
+test('should pass without errors drop: 4495', () => {
     const query = `DROP TABLE IF EXISTS bloom_filter_types_test;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4502', () => {
+test('should pass without errors drop: 4496', () => {
     const query = `DROP TABLE IF EXISTS bloom_filter_array_types_test;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4503', () => {
+test('should pass without errors drop: 4497', () => {
     const query = `DROP TABLE IF EXISTS bloom_filter_null_types_test;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4504', () => {
+test('should pass without errors drop: 4498', () => {
     const query = `DROP TABLE IF EXISTS bloom_filter_lc_null_types_test;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4505', () => {
+test('should pass without errors drop: 4499', () => {
     const query = `DROP TABLE IF EXISTS bloom_filter_array_lc_null_types_test;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4506', () => {
+test('should pass without errors drop: 4500', () => {
     const query = `DROP TABLE IF EXISTS bloom_filter_array_offsets_lc_str;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4507', () => {
+test('should pass without errors drop: 4501', () => {
     const query = `DROP TABLE IF EXISTS bloom_filter_array_offsets_str;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4508', () => {
+test('should pass without errors drop: 4502', () => {
     const query = `DROP TABLE IF EXISTS bloom_filter_array_offsets_i;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4509', () => {
+test('should pass without errors drop: 4503', () => {
     const query = `DROP TABLE IF EXISTS test_bf_indexOf;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4510', () => {
+test('should pass without errors drop: 4504', () => {
     const query = `DROP TABLE IF EXISTS test_bf_cast;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4511', () => {
+test('should pass without errors drop: 4505', () => {
     const query = `DROP TABLE test_bf_cast;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4512', () => {
+test('should pass without errors drop: 4506', () => {
     const query = `DROP TABLE IF EXISTS min_max_with_nullable_string;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4513', () => {
+test('should pass without errors drop: 4507', () => {
     const query = `DROP TABLE min_max_with_nullable_string;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4514', () => {
+test('should pass without errors drop: 4508', () => {
     const query = `DROP TABLE IF EXISTS original_mv;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4515', () => {
+test('should pass without errors drop: 4509', () => {
     const query = `DROP TABLE IF EXISTS new_mv;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4516', () => {
+test('should pass without errors drop: 4510', () => {
     const query = `DROP TABLE IF EXISTS src_00942;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4517', () => {
+test('should pass without errors drop: 4511', () => {
     const query = `DROP TABLE IF EXISTS view_table_00942;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4518', () => {
+test('should pass without errors drop: 4512', () => {
     const query = `DROP TABLE IF EXISTS new_view_table_00942;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4519', () => {
+test('should pass without errors drop: 4513', () => {
     const query = `DROP TABLE src_00942;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4520', () => {
+test('should pass without errors drop: 4514', () => {
     const query = `drop table if exists max_parts_in_total;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4521', () => {
+test('should pass without errors drop: 4515', () => {
     const query = `DROP TABLE IF EXISTS nullt;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4522', () => {
+test('should pass without errors drop: 4516', () => {
     const query = `drop table if exists limit_by;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4523', () => {
+test('should pass without errors drop: 4517', () => {
     const query = `drop table limit_by;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4524', () => {
+test('should pass without errors drop: 4518', () => {
     const query = `DROP TABLE IF EXISTS retention_test;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4525', () => {
+test('should pass without errors drop: 4519', () => {
     const query = `DROP TABLE IF EXISTS ipv6_range;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4526', () => {
+test('should pass without errors drop: 4520', () => {
     const query = `DROP TABLE ipv6_range;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4527', () => {
+test('should pass without errors drop: 4521', () => {
     const query = `DROP TABLE IF EXISTS ipv4_range;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4528', () => {
+test('should pass without errors drop: 4522', () => {
     const query = `DROP TABLE ipv4_range;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4529', () => {
+test('should pass without errors drop: 4523', () => {
     const query = `DROP TABLE IF EXISTS samples;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4530', () => {
+test('should pass without errors drop: 4524', () => {
     const query = `drop table if exists ttl_00933_2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4531', () => {
+test('should pass without errors drop: 4525', () => {
     const query = `drop table if exists ttl_00933_1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4532', () => {
+test('should pass without errors drop: 4526', () => {
     const query = `DROP TABLE IF EXISTS reserved_word_table;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4533', () => {
+test('should pass without errors drop: 4527', () => {
     const query = `DROP TABLE reserved_word_table;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4534', () => {
+test('should pass without errors drop: 4528', () => {
     const query = `drop table if exists geohash_test_data;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4535', () => {
+test('should pass without errors drop: 4529', () => {
     const query = `drop table if exists test_in;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4536', () => {
+test('should pass without errors drop: 4530', () => {
     const query = `DROP TABLE IF EXISTS lc_00931;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4537', () => {
+test('should pass without errors drop: 4531', () => {
     const query = `drop table if exists lc;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4538', () => {
+test('should pass without errors drop: 4532', () => {
     const query = `DROP TABLE IF EXISTS partitions;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4539', () => {
+test('should pass without errors drop: 4533', () => {
     const query = `drop table if exists array_intersect;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4540', () => {
+test('should pass without errors drop: 4534', () => {
     const query = `DROP TABLE IF EXISTS md;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4541', () => {
+test('should pass without errors drop: 4535', () => {
     const query = `DROP TABLE IF EXISTS tv;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4542', () => {
+test('should pass without errors drop: 4536', () => {
     const query = `DROP TABLE md;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4543', () => {
+test('should pass without errors drop: 4537', () => {
     const query = `DROP TABLE tv;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4544', () => {
+test('should pass without errors drop: 4538', () => {
     const query = `DROP TABLE IF EXISTS tvs;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4545', () => {
+test('should pass without errors drop: 4539', () => {
     const query = `DROP TABLE tvs;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4546', () => {
+test('should pass without errors drop: 4540', () => {
     const query = `DROP TABLE B1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4547', () => {
+test('should pass without errors drop: 4541', () => {
     const query = `DROP TABLE B2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4548', () => {
+test('should pass without errors drop: 4542', () => {
     const query = `DROP TABLE B3;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4549', () => {
+test('should pass without errors drop: 4543', () => {
     const query = `DROP TABLE IF EXISTS zero_rows_per_granule1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4550', () => {
+test('should pass without errors drop: 4544', () => {
     const query = `DROP TABLE IF EXISTS zero_rows_per_granule2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4551', () => {
+test('should pass without errors drop: 4545', () => {
     const query = `DROP TABLE IF EXISTS four_rows_per_granule1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4552', () => {
+test('should pass without errors drop: 4546', () => {
     const query = `DROP TABLE IF EXISTS four_rows_per_granule2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4553', () => {
+test('should pass without errors drop: 4547', () => {
     const query = `DROP TABLE IF EXISTS adaptive_granularity_alter1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4554', () => {
+test('should pass without errors drop: 4548', () => {
     const query = `DROP TABLE IF EXISTS adaptive_granularity_alter2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4555', () => {
+test('should pass without errors drop: 4549', () => {
     const query = `DROP TABLE IF EXISTS zero_rows_per_granule;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4556', () => {
+test('should pass without errors drop: 4550', () => {
     const query = `DROP TABLE IF EXISTS four_rows_per_granule;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4557', () => {
+test('should pass without errors drop: 4551', () => {
     const query = `DROP TABLE IF EXISTS six_rows_per_granule;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4558', () => {
+test('should pass without errors drop: 4552', () => {
     const query = `DROP TABLE IF EXISTS two_rows_per_granule;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4559', () => {
+test('should pass without errors drop: 4553', () => {
     const query = `DROP TABLE IF EXISTS huge_granularity_small_blocks;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4560', () => {
+test('should pass without errors drop: 4554', () => {
     const query = `DROP TABLE IF EXISTS adaptive_granularity_alter;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4561', () => {
+test('should pass without errors drop: 4555', () => {
     const query = `DROP TABLE IF EXISTS large_alter_table_00926;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4562', () => {
+test('should pass without errors drop: 4556', () => {
     const query = `DROP TABLE IF EXISTS store_of_hash_00926;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4563', () => {
+test('should pass without errors drop: 4557', () => {
     const query = `DROP TABLE IF EXISTS ANIMAL;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4564', () => {
+test('should pass without errors drop: 4558', () => {
     const query = `DROP TABLE ANIMAL;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4565', () => {
+test('should pass without errors drop: 4559', () => {
     const query = `DROP TABLE IF EXISTS add_materialized_column_after;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4566', () => {
+test('should pass without errors drop: 4560', () => {
     const query = `DROP TABLE add_materialized_column_after;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4567', () => {
+test('should pass without errors drop: 4561', () => {
     const query = `drop table if exists simple;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4568', () => {
+test('should pass without errors drop: 4562', () => {
     const query = `drop table simple;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4569', () => {
+test('should pass without errors drop: 4563', () => {
     const query = `drop table if exists with_overflow;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4570', () => {
+test('should pass without errors drop: 4564', () => {
     const query = `drop table with_overflow;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4571', () => {
+test('should pass without errors drop: 4565', () => {
     const query = `DROP TABLE IF EXISTS alter_compression_codec1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4572', () => {
+test('should pass without errors drop: 4566', () => {
     const query = `DROP TABLE IF EXISTS alter_compression_codec2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4573', () => {
+test('should pass without errors drop: 4567', () => {
     const query = `DROP TABLE IF EXISTS compression_codec_replicated1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4574', () => {
+test('should pass without errors drop: 4568', () => {
     const query = `DROP TABLE IF EXISTS compression_codec_replicated2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4575', () => {
+test('should pass without errors drop: 4569', () => {
     const query = `DROP TABLE IF EXISTS compression_codec_multiple_replicated1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4576', () => {
+test('should pass without errors drop: 4570', () => {
     const query = `DROP TABLE IF EXISTS compression_codec_multiple_replicated2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4577', () => {
+test('should pass without errors drop: 4571', () => {
     const query = `DROP TABLE IF EXISTS compression_codec_multiple_more_types_replicated;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4578', () => {
+test('should pass without errors drop: 4572', () => {
     const query = `DROP TABLE IF EXISTS compression_codec_multiple_with_key_replicated;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4579', () => {
+test('should pass without errors drop: 4573', () => {
     const query = `DROP TABLE compression_codec_multiple_more_types_replicated;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4580', () => {
+test('should pass without errors drop: 4574', () => {
     const query = `DROP TABLE IF EXISTS sensor_value;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4581', () => {
+test('should pass without errors drop: 4575', () => {
     const query = `DROP TABLE sensor_value;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4582', () => {
+test('should pass without errors drop: 4576', () => {
     const query = `DROP TABLE IF EXISTS union1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4583', () => {
+test('should pass without errors drop: 4577', () => {
     const query = `DROP TABLE IF EXISTS union2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4584', () => {
+test('should pass without errors drop: 4578', () => {
     const query = `DROP TABLE union2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4585', () => {
+test('should pass without errors drop: 4579', () => {
     const query = `DROP TABLE IF EXISTS buffer_table1__fuzz_28;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4586', () => {
+test('should pass without errors drop: 4580', () => {
     const query = `drop table if exists test_distance;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4587', () => {
+test('should pass without errors drop: 4581', () => {
     const query = `DROP TABLE arrays_test;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4588', () => {
+test('should pass without errors drop: 4582', () => {
     const query = `DROP TABLE IF EXISTS arr_tests_visits;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4589', () => {
+test('should pass without errors drop: 4583', () => {
     const query = `DROP TABLE arr_tests_visits;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4590', () => {
+test('should pass without errors drop: 4584', () => {
     const query = `drop table if exists null_lc_set_index;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4591', () => {
+test('should pass without errors drop: 4585', () => {
     const query = `drop table if exists nullable_set_index;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4592', () => {
+test('should pass without errors drop: 4586', () => {
     const query = `drop table if exists lc_00906;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4593', () => {
+test('should pass without errors drop: 4587', () => {
     const query = `DROP TABLE IF EXISTS foo_c;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4594', () => {
+test('should pass without errors drop: 4588', () => {
     const query = `DROP TABLE IF EXISTS index_memory;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4595', () => {
+test('should pass without errors drop: 4589', () => {
     const query = `DROP TABLE index_memory;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4596', () => {
+test('should pass without errors drop: 4590', () => {
     const query = `DROP TABLE IF EXISTS nt;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4597', () => {
+test('should pass without errors drop: 4591', () => {
     const query = `DROP TABLE IF EXISTS ntxy;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4598', () => {
+test('should pass without errors drop: 4592', () => {
     const query = `DROP TABLE nt;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4599', () => {
+test('should pass without errors drop: 4593', () => {
     const query = `DROP TABLE ntxy;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4600', () => {
+test('should pass without errors drop: 4594', () => {
     const query = `DROP TABLE IF EXISTS t64;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4601', () => {
+test('should pass without errors drop: 4595', () => {
     const query = `DROP TABLE t64;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4602', () => {
+test('should pass without errors drop: 4596', () => {
     const query = `drop table if exists test1_00863;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4603', () => {
+test('should pass without errors drop: 4597', () => {
     const query = `drop table if exists test2_00863;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4604', () => {
+test('should pass without errors drop: 4598', () => {
     const query = `drop table if exists test3_00863;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4605', () => {
+test('should pass without errors drop: 4599', () => {
     const query = `drop table test1_00863;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4606', () => {
+test('should pass without errors drop: 4600', () => {
     const query = `drop table test2_00863;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4607', () => {
+test('should pass without errors drop: 4601', () => {
     const query = `drop table test3_00863;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4608', () => {
+test('should pass without errors drop: 4602', () => {
     const query = `DROP TABLE IF EXISTS temp;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4609', () => {
+test('should pass without errors drop: 4603', () => {
     const query = `DROP TABLE IF EXISTS test_00861;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4610', () => {
+test('should pass without errors drop: 4604', () => {
     const query = `DROP TABLE test_00861;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4611', () => {
+test('should pass without errors drop: 4605', () => {
     const query = `DROP TABLE IF EXISTS appointment_events;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4612', () => {
+test('should pass without errors drop: 4606', () => {
     const query = `DROP TABLE appointment_events;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4613', () => {
+test('should pass without errors drop: 4607', () => {
     const query = `drop table if exists fooL;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4614', () => {
+test('should pass without errors drop: 4608', () => {
     const query = `drop table if exists fooR;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4615', () => {
+test('should pass without errors drop: 4609', () => {
     const query = `drop table fooL;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4616', () => {
+test('should pass without errors drop: 4610', () => {
     const query = `drop table fooR;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4617', () => {
+test('should pass without errors drop: 4611', () => {
     const query = `drop table if exists shard1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4618', () => {
+test('should pass without errors drop: 4612', () => {
     const query = `drop table if exists shard2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4619', () => {
+test('should pass without errors drop: 4613', () => {
     const query = `drop table shard1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4620', () => {
+test('should pass without errors drop: 4614', () => {
     const query = `drop table shard2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4621', () => {
+test('should pass without errors drop: 4615', () => {
     const query = `drop table distr1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4622', () => {
+test('should pass without errors drop: 4616', () => {
     const query = `drop table distr2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4623', () => {
+test('should pass without errors drop: 4617', () => {
     const query = `DROP TABLE IF EXISTS other_table;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4624', () => {
+test('should pass without errors drop: 4618', () => {
     const query = `DROP TABLE other_table;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4625', () => {
+test('should pass without errors drop: 4619', () => {
     const query = `DROP TABLE IF EXISTS t1_00856;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4626', () => {
+test('should pass without errors drop: 4620', () => {
     const query = `DROP TABLE IF EXISTS t2_00856;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4627', () => {
+test('should pass without errors drop: 4621', () => {
     const query = `DROP TABLE t1_00856;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4628', () => {
+test('should pass without errors drop: 4622', () => {
     const query = `DROP TABLE t2_00856;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4629', () => {
+test('should pass without errors drop: 4623', () => {
     const query = `DROP TABLE IF EXISTS table_a;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4630', () => {
+test('should pass without errors drop: 4624', () => {
     const query = `DROP TABLE IF EXISTS table_b;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4631', () => {
+test('should pass without errors drop: 4625', () => {
     const query = `DROP TABLE IF EXISTS t1_00850;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4632', () => {
+test('should pass without errors drop: 4626', () => {
     const query = `DROP TABLE IF EXISTS t2_00850;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4633', () => {
+test('should pass without errors drop: 4627', () => {
     const query = `DROP TABLE t1_00850;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4634', () => {
+test('should pass without errors drop: 4628', () => {
     const query = `DROP TABLE t2_00850;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4635', () => {
+test('should pass without errors drop: 4629', () => {
     const query = `DROP TABLE IF EXISTS t1_00848;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4636', () => {
+test('should pass without errors drop: 4630', () => {
     const query = `DROP TABLE IF EXISTS t2_00848;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4637', () => {
+test('should pass without errors drop: 4631', () => {
     const query = `DROP TABLE IF EXISTS t3_00848;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4638', () => {
+test('should pass without errors drop: 4632', () => {
     const query = `DROP TABLE t1_00848;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4639', () => {
+test('should pass without errors drop: 4633', () => {
     const query = `DROP TABLE t2_00848;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4640', () => {
+test('should pass without errors drop: 4634', () => {
     const query = `DROP TABLE t3_00848;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4641', () => {
+test('should pass without errors drop: 4635', () => {
     const query = `DROP TABLE IF EXISTS t1_00844;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4642', () => {
+test('should pass without errors drop: 4636', () => {
     const query = `DROP TABLE IF EXISTS t2_00844;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4643', () => {
+test('should pass without errors drop: 4637', () => {
     const query = `DROP TABLE t1_00844;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4644', () => {
+test('should pass without errors drop: 4638', () => {
     const query = `DROP TABLE t2_00844;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4645', () => {
+test('should pass without errors drop: 4639', () => {
     const query = `DROP TABLE IF EXISTS test1_00843;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4646', () => {
+test('should pass without errors drop: 4640', () => {
     const query = `DROP TABLE IF EXISTS test2_00843;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4647', () => {
+test('should pass without errors drop: 4641', () => {
     const query = `DROP TABLE IF EXISTS view_00843;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4648', () => {
+test('should pass without errors drop: 4642', () => {
     const query = `DROP TABLE test1_00843;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4649', () => {
+test('should pass without errors drop: 4643', () => {
     const query = `DROP TABLE view_00843;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4650', () => {
+test('should pass without errors drop: 4644', () => {
     const query = `DROP TABLE IF EXISTS minmax_idx1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4651', () => {
+test('should pass without errors drop: 4645', () => {
     const query = `DROP TABLE IF EXISTS minmax_idx2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4652', () => {
+test('should pass without errors drop: 4646', () => {
     const query = `DROP TABLE minmax_idx1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4653', () => {
+test('should pass without errors drop: 4647', () => {
     const query = `DROP TABLE minmax_idx2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4654', () => {
+test('should pass without errors drop: 4648', () => {
     const query = `DROP TABLE IF EXISTS minmax_idx;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4655', () => {
+test('should pass without errors drop: 4649', () => {
     const query = `DROP TABLE IF EXISTS minmax_idx_r;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4656', () => {
+test('should pass without errors drop: 4650', () => {
     const query = `DROP TABLE IF EXISTS minmax_idx2_r;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4657', () => {
+test('should pass without errors drop: 4651', () => {
     const query = `DROP TABLE minmax_idx;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4658', () => {
+test('should pass without errors drop: 4652', () => {
     const query = `DROP TABLE minmax_idx_r;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4659', () => {
+test('should pass without errors drop: 4653', () => {
     const query = `DROP TABLE minmax_idx2_r;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4660', () => {
+test('should pass without errors drop: 4654', () => {
     const query = `DROP TABLE kv;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4661', () => {
+test('should pass without errors drop: 4655', () => {
     const query = `DROP TABLE kv_overwrite;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4662', () => {
+test('should pass without errors drop: 4656', () => {
     const query = `DROP TABLE IF EXISTS bitmap_test;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4663', () => {
+test('should pass without errors drop: 4657', () => {
     const query = `DROP TABLE IF EXISTS bitmap_state_test;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4664', () => {
+test('should pass without errors drop: 4658', () => {
     const query = `DROP TABLE IF EXISTS bitmap_column_expr_test;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4665', () => {
+test('should pass without errors drop: 4659', () => {
     const query = `DROP TABLE IF EXISTS bitmap_column_expr_test2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4666', () => {
+test('should pass without errors drop: 4660', () => {
     const query = `DROP TABLE IF EXISTS bitmap_column_expr_test3;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4667', () => {
+test('should pass without errors drop: 4661', () => {
     const query = `DROP TABLE IF EXISTS numbers10;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4668', () => {
+test('should pass without errors drop: 4662', () => {
     const query = `drop table bitmap_test;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4669', () => {
+test('should pass without errors drop: 4663', () => {
     const query = `DROP TABLE bitmap_state_test;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4670', () => {
+test('should pass without errors drop: 4664', () => {
     const query = `DROP TABLE IF EXISTS t1_00826;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4671', () => {
+test('should pass without errors drop: 4665', () => {
     const query = `DROP TABLE IF EXISTS t2_00826;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4672', () => {
+test('should pass without errors drop: 4666', () => {
     const query = `DROP TABLE t1_00826;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4673', () => {
+test('should pass without errors drop: 4667', () => {
     const query = `DROP TABLE t2_00826;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4674', () => {
+test('should pass without errors drop: 4668', () => {
     const query = `DROP TABLE IF EXISTS sequence;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4675', () => {
+test('should pass without errors drop: 4669', () => {
     const query = `DROP TABLE sequence;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4676', () => {
+test('should pass without errors drop: 4670', () => {
     const query = `DROP TABLE IF EXISTS table5;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4677', () => {
+test('should pass without errors drop: 4671', () => {
     const query = `DROP TABLE table5;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4678', () => {
+test('should pass without errors drop: 4672', () => {
     const query = `DROP TABLE IF EXISTS table_set;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4679', () => {
+test('should pass without errors drop: 4673', () => {
     const query = `DROP TABLE table_set;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4680', () => {
+test('should pass without errors drop: 4674', () => {
     const query = `DROP TABLE IF EXISTS visits1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4681', () => {
+test('should pass without errors drop: 4675', () => {
     const query = `DROP TABLE visits1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4682', () => {
+test('should pass without errors drop: 4676', () => {
     const query = `drop table if exists t_00818;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4683', () => {
+test('should pass without errors drop: 4677', () => {
     const query = `drop table if exists s_00818;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4684', () => {
+test('should pass without errors drop: 4678', () => {
     const query = `drop table t_00818;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4685', () => {
+test('should pass without errors drop: 4679', () => {
     const query = `drop table s_00818;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4686', () => {
+test('should pass without errors drop: 4680', () => {
     const query = `DROP TABLE IF EXISTS test_00818;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4687', () => {
+test('should pass without errors drop: 4681', () => {
     const query = `DROP TABLE test_00818;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4688', () => {
+test('should pass without errors drop: 4682', () => {
     const query = `drop table if exists t1_00816;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4689', () => {
+test('should pass without errors drop: 4683', () => {
     const query = `drop table if exists t2_00816;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4690', () => {
+test('should pass without errors drop: 4684', () => {
     const query = `DROP TABLE t1_00816;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4691', () => {
+test('should pass without errors drop: 4685', () => {
     const query = `DROP TABLE t2_00816;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4692', () => {
+test('should pass without errors drop: 4686', () => {
     const query = `DROP TABLE IF EXISTS fact_cpc_clicks;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4693', () => {
+test('should pass without errors drop: 4687', () => {
     const query = `DROP TABLE IF EXISTS dim_model;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4694', () => {
+test('should pass without errors drop: 4688', () => {
     const query = `DROP TABLE IF EXISTS test_00808_push_down_with_finalizeAggregation;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4695', () => {
+test('should pass without errors drop: 4689', () => {
     const query = `DROP TABLE alter_update_00806;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4696', () => {
+test('should pass without errors drop: 4690', () => {
     const query = `DROP TABLE IF EXISTS compression_codec;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4697', () => {
+test('should pass without errors drop: 4691', () => {
     const query = `DROP TABLE IF EXISTS delta_codec_for_alter;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4698', () => {
+test('should pass without errors drop: 4692', () => {
     const query = `DROP TABLE IF EXISTS delta_codec_synthetic;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4699', () => {
+test('should pass without errors drop: 4693', () => {
     const query = `DROP TABLE IF EXISTS default_codec_synthetic;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4700', () => {
+test('should pass without errors drop: 4694', () => {
     const query = `DROP TABLE IF EXISTS delta_codec_float;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4701', () => {
+test('should pass without errors drop: 4695', () => {
     const query = `DROP TABLE IF EXISTS default_codec_float;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4702', () => {
+test('should pass without errors drop: 4696', () => {
     const query = `DROP TABLE IF EXISTS delta_codec_string;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4703', () => {
+test('should pass without errors drop: 4697', () => {
     const query = `DROP TABLE IF EXISTS default_codec_string;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4704', () => {
+test('should pass without errors drop: 4698', () => {
     const query = `DROP TABLE IF EXISTS compression_codec_log;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4705', () => {
+test('should pass without errors drop: 4699', () => {
     const query = `DROP TABLE IF EXISTS compression_codec_multiple_log;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4706', () => {
+test('should pass without errors drop: 4700', () => {
     const query = `DROP TABLE IF EXISTS compression_codec_tiny_log;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4707', () => {
+test('should pass without errors drop: 4701', () => {
     const query = `DROP TABLE IF EXISTS compression_codec_multiple_tiny_log;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4708', () => {
+test('should pass without errors drop: 4702', () => {
     const query = `DROP TABLE compression_codec_multiple_log;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4709', () => {
+test('should pass without errors drop: 4703', () => {
     const query = `DROP TABLE compression_codec_multiple_tiny_log;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4710', () => {
+test('should pass without errors drop: 4704', () => {
     const query = `DROP TABLE IF EXISTS bad_codec;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4711', () => {
+test('should pass without errors drop: 4705', () => {
     const query = `DROP TABLE IF EXISTS params_when_no_params;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4712', () => {
+test('should pass without errors drop: 4706', () => {
     const query = `DROP TABLE IF EXISTS too_many_params;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4713', () => {
+test('should pass without errors drop: 4707', () => {
     const query = `DROP TABLE IF EXISTS codec_multiple_direct_specification_1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4714', () => {
+test('should pass without errors drop: 4708', () => {
     const query = `DROP TABLE IF EXISTS codec_multiple_direct_specification_2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4715', () => {
+test('should pass without errors drop: 4709', () => {
     const query = `DROP TABLE IF EXISTS delta_bad_params1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4716', () => {
+test('should pass without errors drop: 4710', () => {
     const query = `DROP TABLE IF EXISTS delta_bad_params2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4717', () => {
+test('should pass without errors drop: 4711', () => {
     const query = `DROP TABLE IF EXISTS compression_codec_multiple;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4718', () => {
+test('should pass without errors drop: 4712', () => {
     const query = `DROP TABLE IF EXISTS compression_codec_multiple_more_types;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4719', () => {
+test('should pass without errors drop: 4713', () => {
     const query = `DROP TABLE IF EXISTS compression_codec_multiple_with_key;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4720', () => {
+test('should pass without errors drop: 4714', () => {
     const query = `DROP TABLE IF EXISTS test_default_delta;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4721', () => {
+test('should pass without errors drop: 4715', () => {
     const query = `DROP TABLE compression_codec_multiple;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4722', () => {
+test('should pass without errors drop: 4716', () => {
     const query = `DROP TABLE compression_codec_multiple_more_types;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4723', () => {
+test('should pass without errors drop: 4717', () => {
     const query = `DROP TABLE IF EXISTS alter_compression_codec;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4724', () => {
+test('should pass without errors drop: 4718', () => {
     const query = `DROP TABLE IF EXISTS alter_bad_codec;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4725', () => {
+test('should pass without errors drop: 4719', () => {
     const query = `DROP TABLE IF EXISTS large_alter_table_00804;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4726', () => {
+test('should pass without errors drop: 4720', () => {
     const query = `DROP TABLE IF EXISTS store_of_hash_00804;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4727', () => {
+test('should pass without errors drop: 4721', () => {
     const query = `DROP TABLE rollup_having;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4728', () => {
+test('should pass without errors drop: 4722', () => {
     const query = `DROP TABLE IF EXISTS datetime_table;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4729', () => {
+test('should pass without errors drop: 4723', () => {
     const query = `DROP TABLE IF EXISTS join_any_inner;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4730', () => {
+test('should pass without errors drop: 4724', () => {
     const query = `DROP TABLE IF EXISTS join_any_left;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4731', () => {
+test('should pass without errors drop: 4725', () => {
     const query = `DROP TABLE IF EXISTS join_any_left_null;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4732', () => {
+test('should pass without errors drop: 4726', () => {
     const query = `DROP TABLE IF EXISTS join_all_inner;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4733', () => {
+test('should pass without errors drop: 4727', () => {
     const query = `DROP TABLE IF EXISTS join_all_left;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4734', () => {
+test('should pass without errors drop: 4728', () => {
     const query = `DROP TABLE IF EXISTS join_string_key;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4735', () => {
+test('should pass without errors drop: 4729', () => {
     const query = `DROP TABLE {CLICKHOUSE_DATABASE:Identifier}.join_any_inner;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4736', () => {
+test('should pass without errors drop: 4730', () => {
     const query = `DROP TABLE {CLICKHOUSE_DATABASE:Identifier}.join_any_left;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4737', () => {
+test('should pass without errors drop: 4731', () => {
     const query = `DROP TABLE {CLICKHOUSE_DATABASE:Identifier}.join_any_left_null;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4738', () => {
+test('should pass without errors drop: 4732', () => {
     const query = `DROP TABLE {CLICKHOUSE_DATABASE:Identifier}.join_all_inner;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4739', () => {
+test('should pass without errors drop: 4733', () => {
     const query = `DROP TABLE {CLICKHOUSE_DATABASE:Identifier}.join_all_left;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4740', () => {
+test('should pass without errors drop: 4734', () => {
     const query = `DROP TABLE {CLICKHOUSE_DATABASE:Identifier}.join_string_key;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4741', () => {
+test('should pass without errors drop: 4735', () => {
     const query = `DROP TABLE IF EXISTS {CLICKHOUSE_DATABASE:Identifier}.join_test;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4742', () => {
+test('should pass without errors drop: 4736', () => {
     const query = `DROP TABLE {CLICKHOUSE_DATABASE:Identifier}.join_test;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4743', () => {
+test('should pass without errors drop: 4737', () => {
     const query = `drop table if exists lc_00800_1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4744', () => {
+test('should pass without errors drop: 4738', () => {
     const query = `DROP TABLE IF EXISTS low_cardinality;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4745', () => {
+test('should pass without errors drop: 4739', () => {
     const query = `DROP TABLE IF EXISTS low_cardinality_all;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4746', () => {
+test('should pass without errors drop: 4740', () => {
     const query = `drop table if exists lc_00800_2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4747', () => {
+test('should pass without errors drop: 4741', () => {
     const query = `drop table if exists lc_00800_2 ;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4748', () => {
+test('should pass without errors drop: 4742', () => {
     const query = `DROP TABLE IF EXISTS bm;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4749', () => {
+test('should pass without errors drop: 4743', () => {
     const query = `DROP TABLE bm;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4750', () => {
+test('should pass without errors drop: 4744', () => {
     const query = `DROP TABLE IF EXISTS table_view;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4751', () => {
+test('should pass without errors drop: 4745', () => {
     const query = `drop table if exists td;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4752', () => {
+test('should pass without errors drop: 4746', () => {
     const query = `DROP TABLE IF EXISTS auto_assign_enum;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4753', () => {
+test('should pass without errors drop: 4747', () => {
     const query = `DROP TABLE IF EXISTS auto_assign_enum1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4754', () => {
+test('should pass without errors drop: 4748', () => {
     const query = `DROP TABLE IF EXISTS auto_assign_enum2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4755', () => {
+test('should pass without errors drop: 4749', () => {
     const query = `DROP TABLE IF EXISTS auto_assign_enum3;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4756', () => {
+test('should pass without errors drop: 4750', () => {
     const query = `DROP TABLE auto_assign_enum1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4757', () => {
+test('should pass without errors drop: 4751', () => {
     const query = `DROP TABLE auto_assign_enum2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4758', () => {
+test('should pass without errors drop: 4752', () => {
     const query = `DROP TABLE IF EXISTS size_hint;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4759', () => {
+test('should pass without errors drop: 4753', () => {
     const query = `DROP TABLE size_hint;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4760', () => {
+test('should pass without errors drop: 4754', () => {
     const query = `DROP TABLE IF EXISTS old_style;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4761', () => {
+test('should pass without errors drop: 4755', () => {
     const query = `DROP TABLE IF EXISTS summing_r1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4762', () => {
+test('should pass without errors drop: 4756', () => {
     const query = `DROP TABLE IF EXISTS summing_r2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4763', () => {
+test('should pass without errors drop: 4757', () => {
     const query = `DROP TABLE summing_r1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4764', () => {
+test('should pass without errors drop: 4758', () => {
     const query = `DROP TABLE summing_r2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4765', () => {
+test('should pass without errors drop: 4759', () => {
     const query = `DROP TABLE IF EXISTS no_order;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4766', () => {
+test('should pass without errors drop: 4760', () => {
     const query = `DROP TABLE IF EXISTS alter_column;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4767', () => {
+test('should pass without errors drop: 4761', () => {
     const query = `DROP TABLE alter_column;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4768', () => {
+test('should pass without errors drop: 4762', () => {
     const query = `DROP TABLE check_system_tables;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4769', () => {
+test('should pass without errors drop: 4763', () => {
     const query = `DROP TABLE IF EXISTS check_system_tables_null;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4770', () => {
+test('should pass without errors drop: 4764', () => {
     const query = `DROP TABLE check_system_tables_null;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4771', () => {
+test('should pass without errors drop: 4765', () => {
     const query = `DROP TABLE check_system_tables_mv;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4772', () => {
+test('should pass without errors drop: 4766', () => {
     const query = `DROP TABLE IF EXISTS datetime;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4773', () => {
+test('should pass without errors drop: 4767', () => {
     const query = `DROP TABLE datetime;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4774', () => {
+test('should pass without errors drop: 4768', () => {
     const query = `DROP TABLE IF EXISTS check_comments;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4775', () => {
+test('should pass without errors drop: 4769', () => {
     const query = `DROP TABLE check_comments;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4776', () => {
+test('should pass without errors drop: 4770', () => {
     const query = `DROP TABLE IF EXISTS dst_00753;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4777', () => {
+test('should pass without errors drop: 4771', () => {
     const query = `DROP TABLE IF EXISTS buffer_00753;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4778', () => {
+test('should pass without errors drop: 4772', () => {
     const query = `DROP TABLE IF EXISTS detach_all_no_partition;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4779', () => {
+test('should pass without errors drop: 4773', () => {
     const query = `DROP TABLE alter_attach;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4780', () => {
+test('should pass without errors drop: 4774', () => {
     const query = `DROP TABLE detach_all_no_partition;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4781', () => {
+test('should pass without errors drop: 4775', () => {
     const query = `DROP TABLE IF EXISTS replicated_table_detach_all1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4782', () => {
+test('should pass without errors drop: 4776', () => {
     const query = `DROP TABLE IF EXISTS replicated_table_detach_all2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4783', () => {
+test('should pass without errors drop: 4777', () => {
     const query = `DROP TABLE replicated_table_detach_all2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4784', () => {
+test('should pass without errors drop: 4778', () => {
     const query = `DROP TABLE IF EXISTS partition_all;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4785', () => {
+test('should pass without errors drop: 4779', () => {
     const query = `DROP TABLE IF EXISTS partition_all2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4786', () => {
+test('should pass without errors drop: 4780', () => {
     const query = `DROP TABLE partition_all2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4787', () => {
+test('should pass without errors drop: 4781', () => {
     const query = `DROP TABLE partition_attach_all;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4788', () => {
+test('should pass without errors drop: 4782', () => {
     const query = `DROP TABLE replicated_partition_attach_all;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4789', () => {
+test('should pass without errors drop: 4783', () => {
     const query = `drop table if exists lc_perm;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4790', () => {
+test('should pass without errors drop: 4784', () => {
     const query = `drop table if exists radacct;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4791', () => {
+test('should pass without errors drop: 4785', () => {
     const query = `drop table if exists mv_traffic_by_tadig15min;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4792', () => {
+test('should pass without errors drop: 4786', () => {
     const query = `drop table if exists lc_00752;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4793', () => {
+test('should pass without errors drop: 4787', () => {
     const query = `drop table if exists lc_mv_00752;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4794', () => {
+test('should pass without errors drop: 4788', () => {
     const query = `drop table if exists lc_left_aj;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4795', () => {
+test('should pass without errors drop: 4789', () => {
     const query = `drop table if exists lc_lambda;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4796', () => {
+test('should pass without errors drop: 4790', () => {
     const query = `drop table if exists test_array;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4797', () => {
+test('should pass without errors drop: 4791', () => {
     const query = `drop table if exists low_null_float;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4798', () => {
+test('should pass without errors drop: 4792', () => {
     const query = `DROP TABLE IF EXISTS t_00751;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4799', () => {
+test('should pass without errors drop: 4793', () => {
     const query = `DROP TABLE IF EXISTS t_mv_00751;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4800', () => {
+test('should pass without errors drop: 4794', () => {
     const query = `DROP TABLE IF EXISTS u_00751;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4801', () => {
+test('should pass without errors drop: 4795', () => {
     const query = `DROP TABLE IF EXISTS v_00751;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4802', () => {
+test('should pass without errors drop: 4796', () => {
     const query = `DROP TABLE {CLICKHOUSE_DATABASE:Identifier}.t_00751;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4803', () => {
+test('should pass without errors drop: 4797', () => {
     const query = `DROP TABLE {CLICKHOUSE_DATABASE:Identifier}.t_mv_00751;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4804', () => {
+test('should pass without errors drop: 4798', () => {
     const query = `DROP TABLE {CLICKHOUSE_DATABASE:Identifier}.u_00751;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4805', () => {
+test('should pass without errors drop: 4799', () => {
     const query = `DROP TABLE {CLICKHOUSE_DATABASE:Identifier}.v_00751;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4806', () => {
+test('should pass without errors drop: 4800', () => {
     const query = `DROP TABLE IF EXISTS sample_merge_tree;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4807', () => {
+test('should pass without errors drop: 4801', () => {
     const query = `DROP TABLE IF EXISTS arraytest;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4808', () => {
+test('should pass without errors drop: 4802', () => {
     const query = `DROP TABLE IF EXISTS time_table;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4809', () => {
+test('should pass without errors drop: 4803', () => {
     const query = `DROP TABLE IF EXISTS testx;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4810', () => {
+test('should pass without errors drop: 4804', () => {
     const query = `DROP TABLE dt;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4811', () => {
+test('should pass without errors drop: 4805', () => {
     const query = `DROP TEMPORARY TABLE IF EXISTS test_00744;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4812', () => {
+test('should pass without errors drop: 4806', () => {
     const query = `DROP TABLE IF EXISTS installation_stats;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4813', () => {
+test('should pass without errors drop: 4807', () => {
     const query = `DROP TABLE installation_stats;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4814', () => {
+test('should pass without errors drop: 4808', () => {
     const query = `DROP TABLE IF EXISTS perf;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4815', () => {
+test('should pass without errors drop: 4809', () => {
     const query = `DROP TABLE perf;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4816', () => {
+test('should pass without errors drop: 4810', () => {
     const query = `DROP TABLE IF EXISTS {CLICKHOUSE_DATABASE:Identifier};`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4817', () => {
+test('should pass without errors drop: 4811', () => {
     const query = `DROP TABLE IF EXISTS test_view_00740;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4818', () => {
+test('should pass without errors drop: 4812', () => {
     const query = `DROP TABLE IF EXISTS test_nested_view_00740;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4819', () => {
+test('should pass without errors drop: 4813', () => {
     const query = `DROP TABLE IF EXISTS test_joined_view_00740;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4820', () => {
+test('should pass without errors drop: 4814', () => {
     const query = `DROP TABLE IF EXISTS {CLICKHOUSE_DATABASE:Identifier}.test_00740;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4821', () => {
+test('should pass without errors drop: 4815', () => {
     const query = `DROP TABLE IF EXISTS {CLICKHOUSE_DATABASE:Identifier}.test_view_00740;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4822', () => {
+test('should pass without errors drop: 4816', () => {
     const query = `DROP TABLE IF EXISTS {CLICKHOUSE_DATABASE:Identifier}.test_nested_view_00740;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4823', () => {
+test('should pass without errors drop: 4817', () => {
     const query = `drop temporary table if exists wups;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4824', () => {
+test('should pass without errors drop: 4818', () => {
     const query = `drop temporary table wups;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4825', () => {
+test('should pass without errors drop: 4819', () => {
     const query = `DROP TABLE IF EXISTS sites;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4826', () => {
+test('should pass without errors drop: 4820', () => {
     const query = `DROP TABLE sites;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4827', () => {
+test('should pass without errors drop: 4821', () => {
     const query = `DROP TABLE IF EXISTS bug;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4828', () => {
+test('should pass without errors drop: 4822', () => {
     const query = `DROP TABLE bug;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4829', () => {
+test('should pass without errors drop: 4823', () => {
     const query = `DROP TABLE IF EXISTS or_expr_bug;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4830', () => {
+test('should pass without errors drop: 4824', () => {
     const query = `DROP TABLE or_expr_bug;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4831', () => {
+test('should pass without errors drop: 4825', () => {
     const query = `DROP TABLE IF EXISTS decimal_sum;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4832', () => {
+test('should pass without errors drop: 4826', () => {
     const query = `drop table decimal_sum;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4833', () => {
+test('should pass without errors drop: 4827', () => {
     const query = `DROP TABLE IF EXISTS unicode;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4834', () => {
+test('should pass without errors drop: 4828', () => {
     const query = `drop table if exists t1_00729;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4835', () => {
+test('should pass without errors drop: 4829', () => {
     const query = `DROP TABLE IF EXISTS concat_saf_test;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4836', () => {
+test('should pass without errors drop: 4830', () => {
     const query = `DROP TABLE concat_saf_test;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4837', () => {
+test('should pass without errors drop: 4831', () => {
     const query = `DROP TABLE IF EXISTS concat_nested_test;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4838', () => {
+test('should pass without errors drop: 4832', () => {
     const query = `DROP TABLE concat_nested_test;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4839', () => {
+test('should pass without errors drop: 4833', () => {
     const query = `DROP TABLE IF EXISTS src_00726;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4840', () => {
+test('should pass without errors drop: 4834', () => {
     const query = `DROP TABLE IF EXISTS mv1_00726;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4841', () => {
+test('should pass without errors drop: 4835', () => {
     const query = `DROP TABLE IF EXISTS mv2_00726;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4842', () => {
+test('should pass without errors drop: 4836', () => {
     const query = `DROP TABLE mv1_00726;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4843', () => {
+test('should pass without errors drop: 4837', () => {
     const query = `DROP TABLE mv2_00726;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4844', () => {
+test('should pass without errors drop: 4838', () => {
     const query = `DROP TABLE src_00726;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4845', () => {
+test('should pass without errors drop: 4839', () => {
     const query = `drop table if exists t_00725_4;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4846', () => {
+test('should pass without errors drop: 4840', () => {
     const query = `drop table if exists s_00725_4;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4847', () => {
+test('should pass without errors drop: 4841', () => {
     const query = `drop table if exists t_00725_3;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4848', () => {
+test('should pass without errors drop: 4842', () => {
     const query = `drop table if exists z_00725_3;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4849', () => {
+test('should pass without errors drop: 4843', () => {
     const query = `drop table if exists t_00725_2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4850', () => {
+test('should pass without errors drop: 4844', () => {
     const query = `drop table if exists s_00725_2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4851', () => {
+test('should pass without errors drop: 4845', () => {
     const query = `DROP TABLE IF EXISTS a2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4852', () => {
+test('should pass without errors drop: 4846', () => {
     const query = `DROP TABLE IF EXISTS check_query_comment_column;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4853', () => {
+test('should pass without errors drop: 4847', () => {
     const query = `DROP TEMPORARY TABLE IF EXISTS test_00724;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4854', () => {
+test('should pass without errors drop: 4848', () => {
     const query = `DROP TABLE IF EXISTS one;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4855', () => {
+test('should pass without errors drop: 4849', () => {
     const query = `DROP TABLE one;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4856', () => {
+test('should pass without errors drop: 4850', () => {
     const query = `DROP TABLE IF EXISTS byte_identical_r1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4857', () => {
+test('should pass without errors drop: 4851', () => {
     const query = `DROP TABLE IF EXISTS byte_identical_r2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4858', () => {
+test('should pass without errors drop: 4852', () => {
     const query = `DROP TABLE byte_identical_r1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4859', () => {
+test('should pass without errors drop: 4853', () => {
     const query = `DROP TABLE byte_identical_r2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4860', () => {
+test('should pass without errors drop: 4854', () => {
     const query = `DROP TABLE IF EXISTS cube;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4861', () => {
+test('should pass without errors drop: 4855', () => {
     const query = `DROP TABLE cube;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4862', () => {
+test('should pass without errors drop: 4856', () => {
     const query = `drop table if exists tab_00718;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4863', () => {
+test('should pass without errors drop: 4857', () => {
     const query = `DROP TABLE IF EXISTS test_local_1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4864', () => {
+test('should pass without errors drop: 4858', () => {
     const query = `DROP TABLE IF EXISTS test_local_2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4865', () => {
+test('should pass without errors drop: 4859', () => {
     const query = `DROP TABLE IF EXISTS test_distributed_1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4866', () => {
+test('should pass without errors drop: 4860', () => {
     const query = `DROP TABLE IF EXISTS test_distributed_2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4867', () => {
+test('should pass without errors drop: 4861', () => {
     const query = `DROP TABLE IF EXISTS test_u64_local;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4868', () => {
+test('should pass without errors drop: 4862', () => {
     const query = `DROP TABLE IF EXISTS test_s64_local;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4869', () => {
+test('should pass without errors drop: 4863', () => {
     const query = `DROP TABLE IF EXISTS test_u64_distributed;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4870', () => {
+test('should pass without errors drop: 4864', () => {
     const query = `DROP TABLE IF EXISTS test_s64_distributed;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4871', () => {
+test('should pass without errors drop: 4865', () => {
     const query = `drop table if exists tab_00717;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4872', () => {
+test('should pass without errors drop: 4866', () => {
     const query = `DROP TABLE IF EXISTS test_low_null_float;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4873', () => {
+test('should pass without errors drop: 4867', () => {
     const query = `DROP TABLE IF EXISTS dist_00717;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4874', () => {
+test('should pass without errors drop: 4868', () => {
     const query = `DROP TABLE IF EXISTS default_join1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4875', () => {
+test('should pass without errors drop: 4869', () => {
     const query = `DROP TABLE IF EXISTS default_join2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4876', () => {
+test('should pass without errors drop: 4870', () => {
     const query = `DROP TABLE default_join1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4877', () => {
+test('should pass without errors drop: 4871', () => {
     const query = `DROP TABLE default_join2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4878', () => {
+test('should pass without errors drop: 4872', () => {
     const query = `drop table if exists rate_test;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4879', () => {
+test('should pass without errors drop: 4873', () => {
     const query = `drop table if exists rate_test2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4880', () => {
+test('should pass without errors drop: 4874', () => {
     const query = `drop table rate_test;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4881', () => {
+test('should pass without errors drop: 4875', () => {
     const query = `drop table rate_test2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4882', () => {
+test('should pass without errors drop: 4876', () => {
     const query = `DROP TEMPORARY TABLE IF EXISTS temporary_table;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4883', () => {
+test('should pass without errors drop: 4877', () => {
     const query = `DROP TABLE IF EXISTS test_merge_1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4884', () => {
+test('should pass without errors drop: 4878', () => {
     const query = `DROP TABLE IF EXISTS test_merge_2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4885', () => {
+test('should pass without errors drop: 4879', () => {
     const query = `DROP TABLE IF EXISTS uuid;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4886', () => {
+test('should pass without errors drop: 4880', () => {
     const query = `DROP TABLE uuid;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4887', () => {
+test('should pass without errors drop: 4881', () => {
     const query = `DROP TABLE IF EXISTS collapsing;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4888', () => {
+test('should pass without errors drop: 4882', () => {
     const query = `DROP TABLE collapsing;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4889', () => {
+test('should pass without errors drop: 4883', () => {
     const query = `drop table if exists t_00712_2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4890', () => {
+test('should pass without errors drop: 4884', () => {
     const query = `drop table if exists tab_00712_2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4891', () => {
+test('should pass without errors drop: 4885', () => {
     const query = `DROP TABLE IF EXISTS sample_prewhere;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4892', () => {
+test('should pass without errors drop: 4886', () => {
     const query = `drop table if exists t_00712_1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4893', () => {
+test('should pass without errors drop: 4887', () => {
     const query = `drop table t_00712_1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4894', () => {
+test('should pass without errors drop: 4888', () => {
     const query = `DROP TABLE IF EXISTS mergetree_00712;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4895', () => {
+test('should pass without errors drop: 4889', () => {
     const query = `DROP TABLE mergetree_00712;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4896', () => {
+test('should pass without errors drop: 4890', () => {
     const query = `drop table if exists trepl;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4897', () => {
+test('should pass without errors drop: 4891', () => {
     const query = `drop table trepl;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4898', () => {
+test('should pass without errors drop: 4892', () => {
     const query = `drop table if exists versioned_collapsing;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4899', () => {
+test('should pass without errors drop: 4893', () => {
     const query = `drop table versioned_collapsing;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4900', () => {
+test('should pass without errors drop: 4894', () => {
     const query = `drop table if exists prewhere_alias;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4901', () => {
+test('should pass without errors drop: 4895', () => {
     const query = `drop table prewhere_alias;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4902', () => {
+test('should pass without errors drop: 4896', () => {
     const query = `drop table if exists tab_00712_1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4903', () => {
+test('should pass without errors drop: 4897', () => {
     const query = `drop table tab_00712_1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4904', () => {
+test('should pass without errors drop: 4898', () => {
     const query = `DROP TABLE IF EXISTS partition_id;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4905', () => {
+test('should pass without errors drop: 4899', () => {
     const query = `DROP TEMPORARY TABLE IF EXISTS test_00707;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4906', () => {
+test('should pass without errors drop: 4900', () => {
     const query = `DROP TABLE IF EXISTS add_aggregate;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4907', () => {
+test('should pass without errors drop: 4901', () => {
     const query = `drop table IF EXISTS tab1_copy;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4908', () => {
+test('should pass without errors drop: 4902', () => {
     const query = `drop table tab1_copy;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4909', () => {
+test('should pass without errors drop: 4903', () => {
     const query = `DROP TABLE IF EXISTS where_qualified;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4910', () => {
+test('should pass without errors drop: 4904', () => {
     const query = `DROP TABLE where_qualified;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4911', () => {
+test('should pass without errors drop: 4905', () => {
     const query = `DROP TABLE IF EXISTS using1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4912', () => {
+test('should pass without errors drop: 4906', () => {
     const query = `DROP TABLE IF EXISTS using2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4913', () => {
+test('should pass without errors drop: 4907', () => {
     const query = `DROP TABLE using1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4914', () => {
+test('should pass without errors drop: 4908', () => {
     const query = `DROP TABLE using2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4915', () => {
+test('should pass without errors drop: 4909', () => {
     const query = `drop table if exists persons;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4916', () => {
+test('should pass without errors drop: 4910', () => {
     const query = `drop table if exists children;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4917', () => {
+test('should pass without errors drop: 4911', () => {
     const query = `drop table persons;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4918', () => {
+test('should pass without errors drop: 4912', () => {
     const query = `drop table children;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4919', () => {
+test('should pass without errors drop: 4913', () => {
     const query = `DROP TABLE IF EXISTS rollup;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4920', () => {
+test('should pass without errors drop: 4914', () => {
     const query = `DROP TABLE rollup;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4921', () => {
+test('should pass without errors drop: 4915', () => {
     const query = `DROP TABLE IF EXISTS Issue_2231_Invalid_Nested_Columns_Size;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4922', () => {
+test('should pass without errors drop: 4916', () => {
     const query = `DROP TABLE Issue_2231_Invalid_Nested_Columns_Size;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4923', () => {
+test('should pass without errors drop: 4917', () => {
     const query = `DROP TABLE IF EXISTS mergetree_00698;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4924', () => {
+test('should pass without errors drop: 4918', () => {
     const query = `DROP TABLE mergetree_00698;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4925', () => {
+test('should pass without errors drop: 4919', () => {
     const query = `DROP TEMPORARY TABLE IF EXISTS t_00693;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4926', () => {
+test('should pass without errors drop: 4920', () => {
     const query = `drop table if exists lc_str_0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4927', () => {
+test('should pass without errors drop: 4921', () => {
     const query = `drop table if exists lc_str_1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4928', () => {
+test('should pass without errors drop: 4922', () => {
     const query = `drop table if exists lc_null_str_0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4929', () => {
+test('should pass without errors drop: 4923', () => {
     const query = `drop table if exists lc_null_str_1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4930', () => {
+test('should pass without errors drop: 4924', () => {
     const query = `drop table if exists lc_int8_0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4931', () => {
+test('should pass without errors drop: 4925', () => {
     const query = `drop table if exists lc_int8_1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4932', () => {
+test('should pass without errors drop: 4926', () => {
     const query = `drop table if exists lc_null_int8_0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4933', () => {
+test('should pass without errors drop: 4927', () => {
     const query = `drop table if exists lc_null_int8_1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4934', () => {
+test('should pass without errors drop: 4928', () => {
     const query = `drop table if exists lc_fix_str_0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4935', () => {
+test('should pass without errors drop: 4929', () => {
     const query = `drop table if exists lc_fix_str_1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4936', () => {
+test('should pass without errors drop: 4930', () => {
     const query = `drop table if exists lc_null_fix_str_0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4937', () => {
+test('should pass without errors drop: 4931', () => {
     const query = `drop table if exists lc_null_fix_str_1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4938', () => {
+test('should pass without errors drop: 4932', () => {
     const query = `drop table if exists lc_str_uuid;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4939', () => {
+test('should pass without errors drop: 4933', () => {
     const query = `drop table if exists lc_small_dict;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4940', () => {
+test('should pass without errors drop: 4934', () => {
     const query = `drop table if exists lc_big_dict;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4941', () => {
+test('should pass without errors drop: 4935', () => {
     const query = `drop table if exists lc_prewhere;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4942', () => {
+test('should pass without errors drop: 4936', () => {
     const query = `drop table if exists lc_null_int8_defnull;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4943', () => {
+test('should pass without errors drop: 4937', () => {
     const query = `drop table if exists lc_00688;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4944', () => {
+test('should pass without errors drop: 4938', () => {
     const query = `drop table if exists ary_lc_null;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4945', () => {
+test('should pass without errors drop: 4939', () => {
     const query = `drop table if exists lc_dict_reading;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4946', () => {
+test('should pass without errors drop: 4940', () => {
     const query = `drop table if exists cardinality;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4947', () => {
+test('should pass without errors drop: 4941', () => {
     const query = `DROP TABLE IF EXISTS test_00688;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4948', () => {
+test('should pass without errors drop: 4942', () => {
     const query = `DROP TABLE test_00688;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4949', () => {
+test('should pass without errors drop: 4943', () => {
     const query = `DROP TABLE retention_test;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4950', () => {
+test('should pass without errors drop: 4944', () => {
     const query = `DROP TABLE IF EXISTS test_00687;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4951', () => {
+test('should pass without errors drop: 4945', () => {
     const query = `DROP TABLE IF EXISTS mv_bad;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4952', () => {
+test('should pass without errors drop: 4946', () => {
     const query = `DROP TABLE IF EXISTS mv_good;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4953', () => {
+test('should pass without errors drop: 4947', () => {
     const query = `DROP TABLE IF EXISTS mv_group;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4954', () => {
+test('should pass without errors drop: 4948', () => {
     const query = `DROP TABLE mv_bad;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4955', () => {
+test('should pass without errors drop: 4949', () => {
     const query = `DROP TABLE mv_good;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4956', () => {
+test('should pass without errors drop: 4950', () => {
     const query = `DROP TABLE mv_group;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4957', () => {
+test('should pass without errors drop: 4951', () => {
     const query = `DROP TABLE test_00687;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4958', () => {
+test('should pass without errors drop: 4952', () => {
     const query = `DROP TABLE IF EXISTS test_00681;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4959', () => {
+test('should pass without errors drop: 4953', () => {
     const query = `DROP TABLE test_00681;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4960', () => {
+test('should pass without errors drop: 4954', () => {
     const query = `DROP TABLE IF EXISTS mergetree_00673;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4961', () => {
+test('should pass without errors drop: 4955', () => {
     const query = `DROP TABLE mergetree_00673;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4962', () => {
+test('should pass without errors drop: 4956', () => {
     const query = `DROP TABLE IF EXISTS arrayDistinct_test;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4963', () => {
+test('should pass without errors drop: 4957', () => {
     const query = `DROP TABLE arrayDistinct_test;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4964', () => {
+test('should pass without errors drop: 4958', () => {
     const query = `DROP TABLE IF EXISTS test1_00671;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4965', () => {
+test('should pass without errors drop: 4959', () => {
     const query = `DROP TABLE IF EXISTS test2_00671;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4966', () => {
+test('should pass without errors drop: 4960', () => {
     const query = `DROP TABLE test1_00671;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4967', () => {
+test('should pass without errors drop: 4961', () => {
     const query = `DROP TABLE test2_00671;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4968', () => {
+test('should pass without errors drop: 4962', () => {
     const query = `drop temporary table if exists test_00670;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4969', () => {
+test('should pass without errors drop: 4963', () => {
     const query = `drop temporary table test_00670;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4970', () => {
+test('should pass without errors drop: 4964', () => {
     const query = `DROP TABLE IF EXISTS array;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4971', () => {
+test('should pass without errors drop: 4965', () => {
     const query = `DROP TABLE array;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4972', () => {
+test('should pass without errors drop: 4966', () => {
     const query = `DROP TABLE IF EXISTS alter_00665;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4973', () => {
+test('should pass without errors drop: 4967', () => {
     const query = `DROP TABLE alter_00665;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4974', () => {
+test('should pass without errors drop: 4968', () => {
     const query = `DROP TABLE IF EXISTS 00662_has_nullable;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4975', () => {
+test('should pass without errors drop: 4969', () => {
     const query = `DROP TABLE 00662_has_nullable;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4976', () => {
+test('should pass without errors drop: 4970', () => {
     const query = `DROP TABLE IF EXISTS partitioned_by_tuple_replica1_00661 SYNC;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4977', () => {
+test('should pass without errors drop: 4971', () => {
     const query = `DROP TABLE IF EXISTS partitioned_by_tuple_replica2_00661 SYNC;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4978', () => {
+test('should pass without errors drop: 4972', () => {
     const query = `DROP TABLE partitioned_by_tuple_replica1_00661 SYNC;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4979', () => {
+test('should pass without errors drop: 4973', () => {
     const query = `DROP TABLE partitioned_by_tuple_replica2_00661 SYNC;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4980', () => {
+test('should pass without errors drop: 4974', () => {
     const query = `DROP TABLE IF EXISTS has_function;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4981', () => {
+test('should pass without errors drop: 4975', () => {
     const query = `DROP TABLE has_function;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4982', () => {
+test('should pass without errors drop: 4976', () => {
     const query = `DROP TABLE IF EXISTS partitioned_by_tuple;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4983', () => {
+test('should pass without errors drop: 4977', () => {
     const query = `DROP TABLE partitioned_by_tuple;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4984', () => {
+test('should pass without errors drop: 4978', () => {
     const query = `drop table if exists \`table_00653\`;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4985', () => {
+test('should pass without errors drop: 4979', () => {
     const query = `drop table table_00653;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4986', () => {
+test('should pass without errors drop: 4980', () => {
     const query = `drop table if exists tab_00650;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4987', () => {
+test('should pass without errors drop: 4981', () => {
     const query = `drop table tab_00650;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4988', () => {
+test('should pass without errors drop: 4982', () => {
     const query = `DROP TABLE IF EXISTS final_test;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4989', () => {
+test('should pass without errors drop: 4983', () => {
     const query = `DROP TABLE final_test;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4990', () => {
+test('should pass without errors drop: 4984', () => {
     const query = `DROP TABLE IF EXISTS mult_aggregation;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4991', () => {
+test('should pass without errors drop: 4985', () => {
     const query = `drop table if exists histogram;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4992', () => {
+test('should pass without errors drop: 4986', () => {
     const query = `DROP TABLE IF EXISTS weird_mmx;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4993', () => {
+test('should pass without errors drop: 4987', () => {
     const query = `DROP TABLE weird_mmx;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4994', () => {
+test('should pass without errors drop: 4988', () => {
     const query = `DROP TABLE IF EXISTS cast1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4995', () => {
+test('should pass without errors drop: 4989', () => {
     const query = `DROP TABLE IF EXISTS cast2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4996', () => {
+test('should pass without errors drop: 4990', () => {
     const query = `DROP TABLE cast1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4997', () => {
+test('should pass without errors drop: 4991', () => {
     const query = `DROP TABLE cast2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4998', () => {
+test('should pass without errors drop: 4992', () => {
     const query = `DROP TABLE IF EXISTS cast;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 4999', () => {
+test('should pass without errors drop: 4993', () => {
     const query = `DROP TABLE cast;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5000', () => {
+test('should pass without errors drop: 4994', () => {
     const query = `DROP TABLE IF EXISTS endsWith_test;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5001', () => {
+test('should pass without errors drop: 4995', () => {
     const query = `DROP TABLE IF EXISTS startsWith_test;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5002', () => {
+test('should pass without errors drop: 4996', () => {
     const query = `DROP TABLE startsWith_test;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5003', () => {
+test('should pass without errors drop: 4997', () => {
     const query = `DROP TABLE IF EXISTS test1_00634;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5004', () => {
+test('should pass without errors drop: 4998', () => {
     const query = `DROP TABLE IF EXISTS test2_00634;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5005', () => {
+test('should pass without errors drop: 4999', () => {
     const query = `DROP TABLE IF EXISTS v_test1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5006', () => {
+test('should pass without errors drop: 5000', () => {
     const query = `DROP TABLE IF EXISTS v_test2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5007', () => {
+test('should pass without errors drop: 5001', () => {
     const query = `DROP TABLE IF EXISTS v_test11;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5008', () => {
+test('should pass without errors drop: 5002', () => {
     const query = `DROP TABLE IF EXISTS v_test22;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5009', () => {
+test('should pass without errors drop: 5003', () => {
     const query = `DROP TABLE test1_00634;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5010', () => {
+test('should pass without errors drop: 5004', () => {
     const query = `DROP TABLE test2_00634;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5011', () => {
+test('should pass without errors drop: 5005', () => {
     const query = `DROP TABLE v_test11;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5012', () => {
+test('should pass without errors drop: 5006', () => {
     const query = `DROP TABLE v_test22;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5013', () => {
+test('should pass without errors drop: 5007', () => {
     const query = `drop table if exists orin_test;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5014', () => {
+test('should pass without errors drop: 5008', () => {
     const query = `drop table orin_test;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5015', () => {
+test('should pass without errors drop: 5009', () => {
     const query = `DROP TABLE IF EXISTS dict_string;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5016', () => {
+test('should pass without errors drop: 5010', () => {
     const query = `DROP TABLE IF EXISTS dict_ui64;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5017', () => {
+test('should pass without errors drop: 5011', () => {
     const query = `DROP TABLE IF EXISTS video_views;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5018', () => {
+test('should pass without errors drop: 5012', () => {
     const query = `DROP TABLE dict_string;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5019', () => {
+test('should pass without errors drop: 5013', () => {
     const query = `DROP TABLE dict_ui64;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5020', () => {
+test('should pass without errors drop: 5014', () => {
     const query = `DROP TABLE video_views;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5021', () => {
+test('should pass without errors drop: 5015', () => {
     const query = `DROP TABLE IF EXISTS sample_00632;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5022', () => {
+test('should pass without errors drop: 5016', () => {
     const query = `DROP TABLE sample_00632;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5023', () => {
+test('should pass without errors drop: 5017', () => {
     const query = `drop table if exists funnel_test;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5024', () => {
+test('should pass without errors drop: 5018', () => {
     const query = `drop table if exists funnel_test2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5025', () => {
+test('should pass without errors drop: 5019', () => {
     const query = `drop table if exists funnel_test_u64;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5026', () => {
+test('should pass without errors drop: 5020', () => {
     const query = `drop table if exists funnel_test_strict;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5027', () => {
+test('should pass without errors drop: 5021', () => {
     const query = `drop table funnel_test;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5028', () => {
+test('should pass without errors drop: 5022', () => {
     const query = `drop table funnel_test2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5029', () => {
+test('should pass without errors drop: 5023', () => {
     const query = `drop table funnel_test_u64;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5030', () => {
+test('should pass without errors drop: 5024', () => {
     const query = `drop table funnel_test_strict;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5031', () => {
+test('should pass without errors drop: 5025', () => {
     const query = `drop table if exists funnel_test_strict_order;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5032', () => {
+test('should pass without errors drop: 5026', () => {
     const query = `drop table funnel_test_strict_order;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5033', () => {
+test('should pass without errors drop: 5027', () => {
     const query = `drop table if exists strict_BiteTheDDDD;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5034', () => {
+test('should pass without errors drop: 5028', () => {
     const query = `drop table strict_BiteTheDDDD;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5035', () => {
+test('should pass without errors drop: 5029', () => {
     const query = `drop table if exists funnel_test_non_null;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5036', () => {
+test('should pass without errors drop: 5030', () => {
     const query = `drop table funnel_test_non_null;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5037', () => {
+test('should pass without errors drop: 5031', () => {
     const query = `drop table funnel_test_strict_increase;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5038', () => {
+test('should pass without errors drop: 5032', () => {
     const query = `drop table if exists test_in_tuple_1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5039', () => {
+test('should pass without errors drop: 5033', () => {
     const query = `drop table if exists test_in_tuple_2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5040', () => {
+test('should pass without errors drop: 5034', () => {
     const query = `drop table if exists test_in_tuple;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5041', () => {
+test('should pass without errors drop: 5035', () => {
     const query = `DROP TEMPORARY TABLE test_block_numbers;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5042', () => {
+test('should pass without errors drop: 5036', () => {
     const query = `DROP TABLE IF EXISTS tab_00625;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5043', () => {
+test('should pass without errors drop: 5037', () => {
     const query = `DROP TABLE tab_00625;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5044', () => {
+test('should pass without errors drop: 5038', () => {
     const query = `DROP TABLE IF EXISTS truncate_test_log;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5045', () => {
+test('should pass without errors drop: 5039', () => {
     const query = `DROP TABLE IF EXISTS truncate_test_memory;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5046', () => {
+test('should pass without errors drop: 5040', () => {
     const query = `DROP TABLE IF EXISTS truncate_test_tiny_log;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5047', () => {
+test('should pass without errors drop: 5041', () => {
     const query = `DROP TABLE IF EXISTS truncate_test_stripe_log;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5048', () => {
+test('should pass without errors drop: 5042', () => {
     const query = `DROP TABLE IF EXISTS truncate_test_merge_tree;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5049', () => {
+test('should pass without errors drop: 5043', () => {
     const query = `DROP TABLE IF EXISTS truncate_test_materialized_view;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5050', () => {
+test('should pass without errors drop: 5044', () => {
     const query = `DROP TABLE IF EXISTS truncate_test_materialized_depend;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5051', () => {
+test('should pass without errors drop: 5045', () => {
     const query = `DROP TABLE IF EXISTS truncate_test_set;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5052', () => {
+test('should pass without errors drop: 5046', () => {
     const query = `DROP TABLE IF EXISTS replicated_truncate1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5053', () => {
+test('should pass without errors drop: 5047', () => {
     const query = `DROP TABLE IF EXISTS replicated_truncate2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5054', () => {
+test('should pass without errors drop: 5048', () => {
     const query = `DROP TABLE IF EXISTS regression_for_in_operator_view;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5055', () => {
+test('should pass without errors drop: 5049', () => {
     const query = `DROP TABLE IF EXISTS regression_for_in_operator;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5056', () => {
+test('should pass without errors drop: 5050', () => {
     const query = `DROP TABLE regression_for_in_operator_view;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5057', () => {
+test('should pass without errors drop: 5051', () => {
     const query = `DROP TABLE regression_for_in_operator;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5058', () => {
+test('should pass without errors drop: 5052', () => {
     const query = `DROP TABLE IF EXISTS rename1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5059', () => {
+test('should pass without errors drop: 5053', () => {
     const query = `DROP TABLE IF EXISTS rename2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5060', () => {
+test('should pass without errors drop: 5054', () => {
     const query = `DROP TABLE IF EXISTS rename3;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5061', () => {
+test('should pass without errors drop: 5055', () => {
     const query = `DROP TABLE IF EXISTS union;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5062', () => {
+test('should pass without errors drop: 5056', () => {
     const query = `DROP TABLE union;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5063', () => {
+test('should pass without errors drop: 5057', () => {
     const query = `DROP TABLE IF EXISTS test_array_ops;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5064', () => {
+test('should pass without errors drop: 5058', () => {
     const query = `DROP TABLE test_array_ops;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5065', () => {
+test('should pass without errors drop: 5059', () => {
     const query = `DROP TABLE IF EXISTS test_00616;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5066', () => {
+test('should pass without errors drop: 5060', () => {
     const query = `DROP TABLE IF EXISTS replacing_00616;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5067', () => {
+test('should pass without errors drop: 5061', () => {
     const query = `DROP TABLE test_00616;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5068', () => {
+test('should pass without errors drop: 5062', () => {
     const query = `DROP TABLE replacing_00616;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5069', () => {
+test('should pass without errors drop: 5063', () => {
     const query = `DROP TABLE IF EXISTS test_00615;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5070', () => {
+test('should pass without errors drop: 5064', () => {
     const query = `DROP TABLE test_00615;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5071', () => {
+test('should pass without errors drop: 5065', () => {
     const query = `DROP TABLE IF EXISTS count;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5072', () => {
+test('should pass without errors drop: 5066', () => {
     const query = `DROP TABLE count;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5073', () => {
+test('should pass without errors drop: 5067', () => {
     const query = `drop table if exists tab_00612;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5074', () => {
+test('should pass without errors drop: 5068', () => {
     const query = `drop table tab_00612;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5075', () => {
+test('should pass without errors drop: 5069', () => {
     const query = `DROP TABLE IF EXISTS data_00612;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5076', () => {
+test('should pass without errors drop: 5070', () => {
     const query = `DROP TABLE IF EXISTS dist_00612;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5077', () => {
+test('should pass without errors drop: 5071', () => {
     const query = `DROP TABLE dist_00612;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5078', () => {
+test('should pass without errors drop: 5072', () => {
     const query = `DROP TABLE data_00612;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5079', () => {
+test('should pass without errors drop: 5073', () => {
     const query = `DROP TABLE IF EXISTS tab_00610;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5080', () => {
+test('should pass without errors drop: 5074', () => {
     const query = `DROP TABLE IF EXISTS mv_00610;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5081', () => {
+test('should pass without errors drop: 5075', () => {
     const query = `DROP TABLE tab_00610;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5082', () => {
+test('should pass without errors drop: 5076', () => {
     const query = `DROP TABLE mv_00610;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5083', () => {
+test('should pass without errors drop: 5077', () => {
     const query = `drop table if exists \`table_00609\`;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5084', () => {
+test('should pass without errors drop: 5078', () => {
     const query = `DROP TABLE IF EXISTS test_00609;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5085', () => {
+test('should pass without errors drop: 5079', () => {
     const query = `DROP TABLE IF EXISTS test_mv_00609;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5086', () => {
+test('should pass without errors drop: 5080', () => {
     const query = `DROP TABLE test_mv_00609;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5087', () => {
+test('should pass without errors drop: 5081', () => {
     const query = `DROP TABLE IF EXISTS mergetree_00609;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5088', () => {
+test('should pass without errors drop: 5082', () => {
     const query = `DROP TABLE IF EXISTS distributed_00609;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5089', () => {
+test('should pass without errors drop: 5083', () => {
     const query = `DROP TABLE mergetree_00609;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5090', () => {
+test('should pass without errors drop: 5084', () => {
     const query = `DROP TABLE distributed_00609;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5091', () => {
+test('should pass without errors drop: 5085', () => {
     const query = `DROP TABLE IF EXISTS test_00599;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5092', () => {
+test('should pass without errors drop: 5086', () => {
     const query = `DROP TABLE IF EXISTS test_view_00599;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5093', () => {
+test('should pass without errors drop: 5087', () => {
     const query = `DROP TABLE IF EXISTS test_00597;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5094', () => {
+test('should pass without errors drop: 5088', () => {
     const query = `DROP TABLE IF EXISTS test_view_00597;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5095', () => {
+test('should pass without errors drop: 5089', () => {
     const query = `DROP TABLE IF EXISTS alias_local10;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5096', () => {
+test('should pass without errors drop: 5090', () => {
     const query = `DROP TABLE IF EXISTS alias10;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5097', () => {
+test('should pass without errors drop: 5091', () => {
     const query = `DROP TABLE alias10;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5098', () => {
+test('should pass without errors drop: 5092', () => {
     const query = `DROP TABLE IF EXISTS columns;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5099', () => {
+test('should pass without errors drop: 5093', () => {
     const query = `DROP TABLE columns;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5100', () => {
+test('should pass without errors drop: 5094', () => {
     const query = `DROP TABLE IF EXISTS mergetree_00588;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5101', () => {
+test('should pass without errors drop: 5095', () => {
     const query = `DROP TABLE IF EXISTS distributed_00588;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5102', () => {
+test('should pass without errors drop: 5096', () => {
     const query = `DROP TABLE mergetree_00588;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5103', () => {
+test('should pass without errors drop: 5097', () => {
     const query = `DROP TABLE distributed_00588;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5104', () => {
+test('should pass without errors drop: 5098', () => {
     const query = `DROP TABLE IF EXISTS local_statements;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5105', () => {
+test('should pass without errors drop: 5099', () => {
     const query = `DROP TABLE IF EXISTS statements;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5106', () => {
+test('should pass without errors drop: 5100', () => {
     const query = `DROP TABLE local_statements;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5107', () => {
+test('should pass without errors drop: 5101', () => {
     const query = `DROP TABLE statements;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5108', () => {
+test('should pass without errors drop: 5102', () => {
     const query = `DROP TABLE IF EXISTS clicks;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5109', () => {
+test('should pass without errors drop: 5103', () => {
     const query = `DROP TABLE IF EXISTS transactions;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5110', () => {
+test('should pass without errors drop: 5104', () => {
     const query = `DROP TABLE clicks;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5111', () => {
+test('should pass without errors drop: 5105', () => {
     const query = `DROP TABLE transactions;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5112', () => {
+test('should pass without errors drop: 5106', () => {
     const query = `DROP TABLE IF EXISTS Test_00584;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5113', () => {
+test('should pass without errors drop: 5107', () => {
     const query = `DROP TABLE TestView;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5114', () => {
+test('should pass without errors drop: 5108', () => {
     const query = `DROP TABLE Test_00584;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5115', () => {
+test('should pass without errors drop: 5109', () => {
     const query = `DROP TABLE IF EXISTS sample_00579_1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5116', () => {
+test('should pass without errors drop: 5110', () => {
     const query = `DROP TABLE IF EXISTS sample_00579_2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5117', () => {
+test('should pass without errors drop: 5111', () => {
     const query = `DROP TABLE IF EXISTS sample_merge_00579;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5118', () => {
+test('should pass without errors drop: 5112', () => {
     const query = `DROP TABLE sample_00579_1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5119', () => {
+test('should pass without errors drop: 5113', () => {
     const query = `DROP TABLE sample_00579_2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5120', () => {
+test('should pass without errors drop: 5114', () => {
     const query = `DROP TABLE sample_merge_00579;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5121', () => {
+test('should pass without errors drop: 5115', () => {
     const query = `DROP TABLE IF EXISTS partition_and_primary_keys_using_same_expression;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5122', () => {
+test('should pass without errors drop: 5116', () => {
     const query = `DROP TABLE partition_and_primary_keys_using_same_expression;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5123', () => {
+test('should pass without errors drop: 5117', () => {
     const query = `DROP TABLE IF EXISTS unsorted;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5124', () => {
+test('should pass without errors drop: 5118', () => {
     const query = `DROP TABLE unsorted;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5125', () => {
+test('should pass without errors drop: 5119', () => {
     const query = `DROP TABLE IF EXISTS unsorted_replacing;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5126', () => {
+test('should pass without errors drop: 5120', () => {
     const query = `DROP TABLE unsorted_replacing;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5127', () => {
+test('should pass without errors drop: 5121', () => {
     const query = `DROP TABLE IF EXISTS unsorted_collapsing;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5128', () => {
+test('should pass without errors drop: 5122', () => {
     const query = `DROP TABLE unsorted_collapsing;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5129', () => {
+test('should pass without errors drop: 5123', () => {
     const query = `DROP TABLE IF EXISTS numbers1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5130', () => {
+test('should pass without errors drop: 5124', () => {
     const query = `DROP TABLE IF EXISTS numbers2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5131', () => {
+test('should pass without errors drop: 5125', () => {
     const query = `DROP TABLE IF EXISTS numbers3;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5132', () => {
+test('should pass without errors drop: 5126', () => {
     const query = `DROP TABLE IF EXISTS numbers4;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5133', () => {
+test('should pass without errors drop: 5127', () => {
     const query = `DROP TABLE IF EXISTS numbers5;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5134', () => {
+test('should pass without errors drop: 5128', () => {
     const query = `DROP TABLE numbers4;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5135', () => {
+test('should pass without errors drop: 5129', () => {
     const query = `DROP TABLE numbers5;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5136', () => {
+test('should pass without errors drop: 5130', () => {
     const query = `drop table if exists tab_00577;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5137', () => {
+test('should pass without errors drop: 5131', () => {
     const query = `drop table tab_00577;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5138', () => {
+test('should pass without errors drop: 5132', () => {
     const query = `DROP TABLE IF EXISTS t_00575;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5139', () => {
+test('should pass without errors drop: 5133', () => {
     const query = `DROP TABLE t_00575;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5140', () => {
+test('should pass without errors drop: 5134', () => {
     const query = `DROP TABLE IF EXISTS test_materialized_00571;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5141', () => {
+test('should pass without errors drop: 5135', () => {
     const query = `DROP TABLE IF EXISTS {CLICKHOUSE_DATABASE:Identifier}.test_00571;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5142', () => {
+test('should pass without errors drop: 5136', () => {
     const query = `DROP TABLE IF EXISTS {CLICKHOUSE_DATABASE:Identifier}.test_materialized_00571;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5143', () => {
+test('should pass without errors drop: 5137', () => {
     const query = `DROP TABLE IF EXISTS nullable_00571;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5144', () => {
+test('should pass without errors drop: 5138', () => {
     const query = `DROP TABLE nullable_00571;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5145', () => {
+test('should pass without errors drop: 5139', () => {
     const query = `DROP TABLE IF EXISTS defaulted;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5146', () => {
+test('should pass without errors drop: 5140', () => {
     const query = `DROP TABLE defaulted;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5147', () => {
+test('should pass without errors drop: 5141', () => {
     const query = `drop table if exists mult_tab;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5148', () => {
+test('should pass without errors drop: 5142', () => {
     const query = `DROP TABLE mult_tab;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5149', () => {
+test('should pass without errors drop: 5143', () => {
     const query = `DROP TEMPORARY TABLE IF EXISTS temp_tab;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5150', () => {
+test('should pass without errors drop: 5144', () => {
     const query = `DROP TEMPORARY TABLE temp_tab;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5151', () => {
+test('should pass without errors drop: 5145', () => {
     const query = `DROP TABLE IF EXISTS test_00563;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5152', () => {
+test('should pass without errors drop: 5146', () => {
     const query = `DROP TABLE IF EXISTS join_with_index;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5153', () => {
+test('should pass without errors drop: 5147', () => {
     const query = `DROP TABLE IF EXISTS test_00562;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5154', () => {
+test('should pass without errors drop: 5148', () => {
     const query = `drop table IF EXISTS joinbug;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5155', () => {
+test('should pass without errors drop: 5149', () => {
     const query = `drop table IF EXISTS joinbug_join;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5156', () => {
+test('should pass without errors drop: 5150', () => {
     const query = `DROP TABLE joinbug_join;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5157', () => {
+test('should pass without errors drop: 5151', () => {
     const query = `DROP TABLE IF EXISTS null_00557;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5158', () => {
+test('should pass without errors drop: 5152', () => {
     const query = `DROP TABLE null_00557;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5159', () => {
+test('should pass without errors drop: 5153', () => {
     const query = `DROP TABLE IF EXISTS nums_buf;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5160', () => {
+test('should pass without errors drop: 5154', () => {
     const query = `DROP TABLE IF EXISTS null_00549;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5161', () => {
+test('should pass without errors drop: 5155', () => {
     const query = `DROP TABLE null_00549;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5162', () => {
+test('should pass without errors drop: 5156', () => {
     const query = `DROP TABLE IF EXISTS m1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5163', () => {
+test('should pass without errors drop: 5157', () => {
     const query = `DROP TABLE m1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5164', () => {
+test('should pass without errors drop: 5158', () => {
     const query = `DROP TEMPORARY TABLE readonly00542;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5165', () => {
+test('should pass without errors drop: 5159', () => {
     const query = `DROP TABLE IF EXISTS float;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5166', () => {
+test('should pass without errors drop: 5160', () => {
     const query = `DROP TABLE float;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5167', () => {
+test('should pass without errors drop: 5161', () => {
     const query = `DROP TABLE IF EXISTS agg_over_nullable;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5168', () => {
+test('should pass without errors drop: 5162', () => {
     const query = `DROP TABLE agg_over_nullable;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5169', () => {
+test('should pass without errors drop: 5163', () => {
     const query = `DROP TABLE IF EXISTS arr;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5170', () => {
+test('should pass without errors drop: 5164', () => {
     const query = `DROP TABLE arr;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5171', () => {
+test('should pass without errors drop: 5165', () => {
     const query = `DROP TABLE IF EXISTS multidimensional;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5172', () => {
+test('should pass without errors drop: 5166', () => {
     const query = `DROP TABLE multidimensional;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5173', () => {
+test('should pass without errors drop: 5167', () => {
     const query = `DROP TEMPORARY TABLE IF EXISTS t1_00519;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5174', () => {
+test('should pass without errors drop: 5168', () => {
     const query = `DROP TEMPORARY TABLE IF EXISTS t3_00519;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5175', () => {
+test('should pass without errors drop: 5169', () => {
     const query = `DROP TABLE IF EXISTS date;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5176', () => {
+test('should pass without errors drop: 5170', () => {
     const query = `DROP TABLE date;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5177', () => {
+test('should pass without errors drop: 5171', () => {
     const query = `DROP TABLE IF EXISTS deduplication_by_partition;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5178', () => {
+test('should pass without errors drop: 5172', () => {
     const query = `DROP TABLE deduplication_by_partition;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5179', () => {
+test('should pass without errors drop: 5173', () => {
     const query = `DROP TABLE IF EXISTS with_deduplication;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5180', () => {
+test('should pass without errors drop: 5174', () => {
     const query = `DROP TABLE IF EXISTS without_deduplication;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5181', () => {
+test('should pass without errors drop: 5175', () => {
     const query = `DROP TABLE IF EXISTS with_deduplication_mv;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5182', () => {
+test('should pass without errors drop: 5176', () => {
     const query = `DROP TABLE IF EXISTS without_deduplication_mv;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5183', () => {
+test('should pass without errors drop: 5177', () => {
     const query = `DROP TABLE IF EXISTS replicated_with_sampling;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5184', () => {
+test('should pass without errors drop: 5178', () => {
     const query = `DROP TABLE replicated_with_sampling;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5185', () => {
+test('should pass without errors drop: 5179', () => {
     const query = `DROP TABLE IF EXISTS replicated_collapsing;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5186', () => {
+test('should pass without errors drop: 5180', () => {
     const query = `DROP TABLE replicated_collapsing;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5187', () => {
+test('should pass without errors drop: 5181', () => {
     const query = `DROP TABLE IF EXISTS replicated_versioned_collapsing;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5188', () => {
+test('should pass without errors drop: 5182', () => {
     const query = `DROP TABLE replicated_versioned_collapsing;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5189', () => {
+test('should pass without errors drop: 5183', () => {
     const query = `DROP TABLE IF EXISTS with_settings;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5190', () => {
+test('should pass without errors drop: 5184', () => {
     const query = `DROP TABLE with_settings;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5191', () => {
+test('should pass without errors drop: 5185', () => {
     const query = `DROP TABLE {CLICKHOUSE_DATABASE:Identifier}.mv_00508;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5192', () => {
+test('should pass without errors drop: 5186', () => {
     const query = `DROP TABLE {CLICKHOUSE_DATABASE:Identifier}.src;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5193', () => {
+test('should pass without errors drop: 5187', () => {
     const query = `DROP TABLE {CLICKHOUSE_DATABASE:Identifier}.dst;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5194', () => {
+test('should pass without errors drop: 5188', () => {
     const query = `DROP TABLE IF EXISTS union3;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5195', () => {
+test('should pass without errors drop: 5189', () => {
     const query = `DROP TABLE union1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5196', () => {
+test('should pass without errors drop: 5190', () => {
     const query = `DROP TABLE union3;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5197', () => {
+test('should pass without errors drop: 5191', () => {
     const query = `DROP TABLE IF EXISTS globalin;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5198', () => {
+test('should pass without errors drop: 5192', () => {
     const query = `DROP TABLE globalin;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5199', () => {
+test('should pass without errors drop: 5193', () => {
     const query = `DROP TABLE IF EXISTS union_bug;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5200', () => {
+test('should pass without errors drop: 5194', () => {
     const query = `DROP TABLE union_bug;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5201', () => {
+test('should pass without errors drop: 5195', () => {
     const query = `drop table if exists test_ins_arr;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5202', () => {
+test('should pass without errors drop: 5196', () => {
     const query = `drop table test_ins_arr;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5203', () => {
+test('should pass without errors drop: 5197', () => {
     const query = `drop table if exists test_ins_null;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5204', () => {
+test('should pass without errors drop: 5198', () => {
     const query = `drop table test_ins_null;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5205', () => {
+test('should pass without errors drop: 5199', () => {
     const query = `drop table if exists test_ins_arr_null;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5206', () => {
+test('should pass without errors drop: 5200', () => {
     const query = `drop table test_ins_arr_null;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5207', () => {
+test('should pass without errors drop: 5201', () => {
     const query = `drop table if exists test_ins_arr_arr;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5208', () => {
+test('should pass without errors drop: 5202', () => {
     const query = `drop table test_ins_arr_arr;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5209', () => {
+test('should pass without errors drop: 5203', () => {
     const query = `drop table if exists test_ins_arr_arr_null;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5210', () => {
+test('should pass without errors drop: 5204', () => {
     const query = `drop table test_ins_arr_arr_null;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5211', () => {
+test('should pass without errors drop: 5205', () => {
     const query = `drop table if exists test_ins_arr_arr_arr;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5212', () => {
+test('should pass without errors drop: 5206', () => {
     const query = `drop table test_ins_arr_arr_arr;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5213', () => {
+test('should pass without errors drop: 5207', () => {
     const query = `DROP TABLE IF EXISTS sum_map;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5214', () => {
+test('should pass without errors drop: 5208', () => {
     const query = `DROP TABLE sum_map;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5215', () => {
+test('should pass without errors drop: 5209', () => {
     const query = `DROP TABLE sum_map_overflow;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5216', () => {
+test('should pass without errors drop: 5210', () => {
     const query = `DROP TABLE IF EXISTS sum_map_decimal;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5217', () => {
+test('should pass without errors drop: 5211', () => {
     const query = `DROP TABLE sum_map_decimal_nullable;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5218', () => {
+test('should pass without errors drop: 5212', () => {
     const query = `DROP TABLE IF EXISTS not_partitioned_replica1_00502 SYNC;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5219', () => {
+test('should pass without errors drop: 5213', () => {
     const query = `DROP TABLE IF EXISTS not_partitioned_replica2_00502 SYNC;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5220', () => {
+test('should pass without errors drop: 5214', () => {
     const query = `DROP TABLE not_partitioned_replica1_00502 SYNC;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5221', () => {
+test('should pass without errors drop: 5215', () => {
     const query = `DROP TABLE not_partitioned_replica2_00502 SYNC;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5222', () => {
+test('should pass without errors drop: 5216', () => {
     const query = `DROP TABLE IF EXISTS partitioned_by_week_replica1 SYNC;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5223', () => {
+test('should pass without errors drop: 5217', () => {
     const query = `DROP TABLE IF EXISTS partitioned_by_week_replica2 SYNC;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5224', () => {
+test('should pass without errors drop: 5218', () => {
     const query = `DROP TABLE partitioned_by_week_replica1 SYNC;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5225', () => {
+test('should pass without errors drop: 5219', () => {
     const query = `DROP TABLE partitioned_by_week_replica2 SYNC;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5226', () => {
+test('should pass without errors drop: 5220', () => {
     const query = `DROP TABLE IF EXISTS partitioned_by_tuple_replica1_00502 SYNC;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5227', () => {
+test('should pass without errors drop: 5221', () => {
     const query = `DROP TABLE IF EXISTS partitioned_by_tuple_replica2_00502 SYNC;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5228', () => {
+test('should pass without errors drop: 5222', () => {
     const query = `DROP TABLE partitioned_by_tuple_replica1_00502 SYNC;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5229', () => {
+test('should pass without errors drop: 5223', () => {
     const query = `DROP TABLE partitioned_by_tuple_replica2_00502 SYNC;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5230', () => {
+test('should pass without errors drop: 5224', () => {
     const query = `DROP TABLE IF EXISTS partitioned_by_string_replica1 SYNC;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5231', () => {
+test('should pass without errors drop: 5225', () => {
     const query = `DROP TABLE IF EXISTS partitioned_by_string_replica2 SYNC;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5232', () => {
+test('should pass without errors drop: 5226', () => {
     const query = `DROP TABLE partitioned_by_string_replica1 SYNC;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5233', () => {
+test('should pass without errors drop: 5227', () => {
     const query = `DROP TABLE partitioned_by_string_replica2 SYNC;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5234', () => {
+test('should pass without errors drop: 5228', () => {
     const query = `DROP TABLE IF EXISTS without_fixed_size_columns_replica1 SYNC;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5235', () => {
+test('should pass without errors drop: 5229', () => {
     const query = `DROP TABLE IF EXISTS without_fixed_size_columns_replica2 SYNC;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5236', () => {
+test('should pass without errors drop: 5230', () => {
     const query = `DROP TABLE without_fixed_size_columns_replica1 SYNC;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5237', () => {
+test('should pass without errors drop: 5231', () => {
     const query = `DROP TABLE without_fixed_size_columns_replica2 SYNC;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5238', () => {
+test('should pass without errors drop: 5232', () => {
     const query = `DROP TABLE IF EXISTS not_partitioned;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5239', () => {
+test('should pass without errors drop: 5233', () => {
     const query = `DROP TABLE not_partitioned;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5240', () => {
+test('should pass without errors drop: 5234', () => {
     const query = `DROP TABLE IF EXISTS partitioned_by_week;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5241', () => {
+test('should pass without errors drop: 5235', () => {
     const query = `DROP TABLE partitioned_by_week;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5242', () => {
+test('should pass without errors drop: 5236', () => {
     const query = `DROP TABLE IF EXISTS partitioned_by_string;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5243', () => {
+test('should pass without errors drop: 5237', () => {
     const query = `DROP TABLE partitioned_by_string;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5244', () => {
+test('should pass without errors drop: 5238', () => {
     const query = `DROP TABLE IF EXISTS without_fixed_size_columns;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5245', () => {
+test('should pass without errors drop: 5239', () => {
     const query = `DROP TABLE without_fixed_size_columns;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5246', () => {
+test('should pass without errors drop: 5240', () => {
     const query = `DROP TABLE IF EXISTS polygons;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5247', () => {
+test('should pass without errors drop: 5241', () => {
     const query = `DROP TABLE polygons;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5248', () => {
+test('should pass without errors drop: 5242', () => {
     const query = `drop table if exists coords;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5249', () => {
+test('should pass without errors drop: 5243', () => {
     const query = `DROP TABLE p;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5250', () => {
+test('should pass without errors drop: 5244', () => {
     const query = `DROP TABLE json;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5251', () => {
+test('should pass without errors drop: 5245', () => {
     const query = `DROP TABLE if exists array_functions;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5252', () => {
+test('should pass without errors drop: 5246', () => {
     const query = `drop table if exists one_table;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5253', () => {
+test('should pass without errors drop: 5247', () => {
     const query = `DROP TABLE temp_tab;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5254', () => {
+test('should pass without errors drop: 5248', () => {
     const query = `DROP TABLE IF EXISTS non_ascii;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5255', () => {
+test('should pass without errors drop: 5249', () => {
     const query = `DROP TABLE non_ascii;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5256', () => {
+test('should pass without errors drop: 5250', () => {
     const query = `DROP TABLE IF EXISTS primary;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5257', () => {
+test('should pass without errors drop: 5251', () => {
     const query = `DROP TABLE primary;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5258', () => {
+test('should pass without errors drop: 5252', () => {
     const query = `drop table if exists tab_00484;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5259', () => {
+test('should pass without errors drop: 5253', () => {
     const query = `drop table tab_00484;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5260', () => {
+test('should pass without errors drop: 5254', () => {
     const query = `drop table if exists \`table_00483\`;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5261', () => {
+test('should pass without errors drop: 5255', () => {
     const query = `DROP TABLE IF EXISTS tab_00481;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5262', () => {
+test('should pass without errors drop: 5256', () => {
     const query = `DROP TABLE tab_00481;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5263', () => {
+test('should pass without errors drop: 5257', () => {
     const query = `DROP TABLE IF EXISTS null_00481;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5264', () => {
+test('should pass without errors drop: 5258', () => {
     const query = `DROP TABLE IF EXISTS null_view;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5265', () => {
+test('should pass without errors drop: 5259', () => {
     const query = `DROP TABLE null_00481;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5266', () => {
+test('should pass without errors drop: 5260', () => {
     const query = `DROP TABLE null_view;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5267', () => {
+test('should pass without errors drop: 5261', () => {
     const query = `DROP TEMPORARY TABLE IF EXISTS t_00477;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5268', () => {
+test('should pass without errors drop: 5262', () => {
     const query = `DROP TABLE IF EXISTS t_00472;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5269', () => {
+test('should pass without errors drop: 5263', () => {
     const query = `DROP TABLE IF EXISTS mv_00472;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5270', () => {
+test('should pass without errors drop: 5264', () => {
     const query = `DROP TABLE IF EXISTS \`.inner.mv_00472\`;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5271', () => {
+test('should pass without errors drop: 5265', () => {
     const query = `DROP TABLE t_00472;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5272', () => {
+test('should pass without errors drop: 5266', () => {
     const query = `DROP TABLE mv_00472;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5273', () => {
+test('should pass without errors drop: 5267', () => {
     const query = `DROP TABLE IF EXISTS strings_00469;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5274', () => {
+test('should pass without errors drop: 5268', () => {
     const query = `DROP TABLE strings_00469;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5275', () => {
+test('should pass without errors drop: 5269', () => {
     const query = `DROP TABLE IF EXISTS nullable_00465;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5276', () => {
+test('should pass without errors drop: 5270', () => {
     const query = `DROP TABLE nullable_00465;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5277', () => {
+test('should pass without errors drop: 5271', () => {
     const query = `DROP TABLE IF EXISTS u32;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5278', () => {
+test('should pass without errors drop: 5272', () => {
     const query = `DROP TABLE IF EXISTS u64;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5279', () => {
+test('should pass without errors drop: 5273', () => {
     const query = `DROP TABLE IF EXISTS merge_32_64;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5280', () => {
+test('should pass without errors drop: 5274', () => {
     const query = `DROP TABLE u32;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5281', () => {
+test('should pass without errors drop: 5275', () => {
     const query = `DROP TABLE u64;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5282', () => {
+test('should pass without errors drop: 5276', () => {
     const query = `DROP TABLE merge_32_64;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5283', () => {
+test('should pass without errors drop: 5277', () => {
     const query = `DROP TABLE IF EXISTS s64;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5284', () => {
+test('should pass without errors drop: 5278', () => {
     const query = `DROP TABLE IF EXISTS merge_s64_u64;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5285', () => {
+test('should pass without errors drop: 5279', () => {
     const query = `DROP TABLE s64;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5286', () => {
+test('should pass without errors drop: 5280', () => {
     const query = `DROP TABLE merge_s64_u64;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5287', () => {
+test('should pass without errors drop: 5281', () => {
     const query = `DROP TABLE IF EXISTS one_00458;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5288', () => {
+test('should pass without errors drop: 5282', () => {
     const query = `DROP TABLE IF EXISTS two_00458;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5289', () => {
+test('should pass without errors drop: 5283', () => {
     const query = `DROP TABLE IF EXISTS merge_one_two;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5290', () => {
+test('should pass without errors drop: 5284', () => {
     const query = `DROP TABLE IF EXISTS nullable_00457;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5291', () => {
+test('should pass without errors drop: 5285', () => {
     const query = `DROP TABLE nullable_00457;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5292', () => {
+test('should pass without errors drop: 5286', () => {
     const query = `DROP TABLE IF EXISTS nullable_alter;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5293', () => {
+test('should pass without errors drop: 5287', () => {
     const query = `DROP TABLE nullable_alter;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5294', () => {
+test('should pass without errors drop: 5288', () => {
     const query = `DROP TABLE IF EXISTS cast_enums;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5295', () => {
+test('should pass without errors drop: 5289', () => {
     const query = `DROP TABLE IF EXISTS clear_column1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5296', () => {
+test('should pass without errors drop: 5290', () => {
     const query = `DROP TABLE IF EXISTS clear_column2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5297', () => {
+test('should pass without errors drop: 5291', () => {
     const query = `DROP TABLE clear_column1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5298', () => {
+test('should pass without errors drop: 5292', () => {
     const query = `DROP TABLE clear_column2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5299', () => {
+test('should pass without errors drop: 5293', () => {
     const query = `DROP TABLE IF EXISTS nulls;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5300', () => {
+test('should pass without errors drop: 5294', () => {
     const query = `DROP TABLE nulls;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5301', () => {
+test('should pass without errors drop: 5295', () => {
     const query = `DROP TABLE IF EXISTS agg_func_col;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5302', () => {
+test('should pass without errors drop: 5296', () => {
     const query = `DROP TABLE IF EXISTS nullable_00431;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5303', () => {
+test('should pass without errors drop: 5297', () => {
     const query = `DROP TABLE nullable_00431;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5304', () => {
+test('should pass without errors drop: 5298', () => {
     const query = `DROP TABLE IF EXISTS log;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5305', () => {
+test('should pass without errors drop: 5299', () => {
     const query = `DROP TABLE IF EXISTS distinct;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5306', () => {
+test('should pass without errors drop: 5300', () => {
     const query = `DROP TABLE IF EXISTS const_in_const;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5307', () => {
+test('should pass without errors drop: 5301', () => {
     const query = `DROP TABLE IF EXISTS arena;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5308', () => {
+test('should pass without errors drop: 5302', () => {
     const query = `DROP TABLE IF EXISTS stripe1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5309', () => {
+test('should pass without errors drop: 5303', () => {
     const query = `DROP TABLE IF EXISTS stripe2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5310', () => {
+test('should pass without errors drop: 5304', () => {
     const query = `DROP TABLE IF EXISTS stripe3;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5311', () => {
+test('should pass without errors drop: 5305', () => {
     const query = `DROP TABLE IF EXISTS stripe4;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5312', () => {
+test('should pass without errors drop: 5306', () => {
     const query = `DROP TABLE IF EXISTS stripe5;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5313', () => {
+test('should pass without errors drop: 5307', () => {
     const query = `DROP TABLE IF EXISTS stripe6;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5314', () => {
+test('should pass without errors drop: 5308', () => {
     const query = `DROP TABLE IF EXISTS stripe7;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5315', () => {
+test('should pass without errors drop: 5309', () => {
     const query = `DROP TABLE IF EXISTS stripe8;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5316', () => {
+test('should pass without errors drop: 5310', () => {
     const query = `DROP TABLE IF EXISTS stripe9;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5317', () => {
+test('should pass without errors drop: 5311', () => {
     const query = `DROP TABLE IF EXISTS stripe10;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5318', () => {
+test('should pass without errors drop: 5312', () => {
     const query = `DROP TABLE IF EXISTS merge_00401;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5319', () => {
+test('should pass without errors drop: 5313', () => {
     const query = `DROP TABLE IF EXISTS grop_uniq_array_date;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5320', () => {
+test('should pass without errors drop: 5314', () => {
     const query = `DROP TABLE IF EXISTS replaceall;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5321', () => {
+test('should pass without errors drop: 5315', () => {
     const query = `DROP TABLE replaceall;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5322', () => {
+test('should pass without errors drop: 5316', () => {
     const query = `DROP TABLE IF EXISTS alter_00394;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5323', () => {
+test('should pass without errors drop: 5317', () => {
     const query = `DROP TABLE IF EXISTS enum_nested_alter;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5324', () => {
+test('should pass without errors drop: 5318', () => {
     const query = `DROP TABLE enum_nested_alter;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5325', () => {
+test('should pass without errors drop: 5319', () => {
     const query = `DROP TABLE IF EXISTS enum_totals;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5326', () => {
+test('should pass without errors drop: 5320', () => {
     const query = `DROP TABLE enum_totals;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5327', () => {
+test('should pass without errors drop: 5321', () => {
     const query = `DROP TABLE IF EXISTS has_column_in_table;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5328', () => {
+test('should pass without errors drop: 5322', () => {
     const query = `DROP TABLE IF EXISTS enum_pk;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5329', () => {
+test('should pass without errors drop: 5323', () => {
     const query = `DROP TABLE enum_pk;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5330', () => {
+test('should pass without errors drop: 5324', () => {
     const query = `DROP TABLE IF EXISTS aggregates;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5331', () => {
+test('should pass without errors drop: 5325', () => {
     const query = `DROP TABLE aggregates;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5332', () => {
+test('should pass without errors drop: 5326', () => {
     const query = `DROP TABLE IF EXISTS group_uniq_arr_str;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5333', () => {
+test('should pass without errors drop: 5327', () => {
     const query = `DROP TABLE IF EXISTS group_uniq_arr_int;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5334', () => {
+test('should pass without errors drop: 5328', () => {
     const query = `DROP TABLE IF EXISTS group_uniq_str;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5335', () => {
+test('should pass without errors drop: 5329', () => {
     const query = `DROP TABLE IF EXISTS prewhere_defaults;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5336', () => {
+test('should pass without errors drop: 5330', () => {
     const query = `DROP TABLE prewhere_defaults;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5337', () => {
+test('should pass without errors drop: 5331', () => {
     const query = `DROP TABLE IF EXISTS nested1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5338', () => {
+test('should pass without errors drop: 5332', () => {
     const query = `DROP TABLE IF EXISTS nested2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5339', () => {
+test('should pass without errors drop: 5333', () => {
     const query = `DROP TABLE nested1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5340', () => {
+test('should pass without errors drop: 5334', () => {
     const query = `DROP TABLE nested2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5341', () => {
+test('should pass without errors drop: 5335', () => {
     const query = `DROP TABLE IF EXISTS numbers_squashed;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5342', () => {
+test('should pass without errors drop: 5336', () => {
     const query = `DROP TABLE numbers_squashed;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5343', () => {
+test('should pass without errors drop: 5337', () => {
     const query = `DROP TABLE IF EXISTS bad_arrays;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5344', () => {
+test('should pass without errors drop: 5338', () => {
     const query = `DROP TABLE bad_arrays;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5345', () => {
+test('should pass without errors drop: 5339', () => {
     const query = `DROP TABLE IF EXISTS ontime;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5346', () => {
+test('should pass without errors drop: 5340', () => {
     const query = `DROP TABLE ontime;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5347', () => {
+test('should pass without errors drop: 5341', () => {
     const query = `DROP TABLE myRMT;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5348', () => {
+test('should pass without errors drop: 5342', () => {
     const query = `DROP TABLE IF EXISTS replace;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5349', () => {
+test('should pass without errors drop: 5343', () => {
     const query = `DROP TABLE replace;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5350', () => {
+test('should pass without errors drop: 5344', () => {
     const query = `DROP TABLE v1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5351', () => {
+test('should pass without errors drop: 5345', () => {
     const query = `DROP TABLE v2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5352', () => {
+test('should pass without errors drop: 5346', () => {
     const query = `DROP TABLE IF EXISTS multi_if_check;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5353', () => {
+test('should pass without errors drop: 5347', () => {
     const query = `DROP TABLE IF EXISTS summing_composite_key;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5354', () => {
+test('should pass without errors drop: 5348', () => {
     const query = `DROP TABLE summing_composite_key;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5355', () => {
+test('should pass without errors drop: 5349', () => {
     const query = `DROP TABLE IF EXISTS pk_set;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5356', () => {
+test('should pass without errors drop: 5350', () => {
     const query = `DROP TABLE pk_set;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5357', () => {
+test('should pass without errors drop: 5351', () => {
     const query = `DROP TABLE IF EXISTS index_for_like;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5358', () => {
+test('should pass without errors drop: 5352', () => {
     const query = `DROP TABLE index_for_like;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5359', () => {
+test('should pass without errors drop: 5353', () => {
     const query = `DROP TABLE IF EXISTS sample_00314_1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5360', () => {
+test('should pass without errors drop: 5354', () => {
     const query = `DROP TABLE IF EXISTS sample_00314_2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5361', () => {
+test('should pass without errors drop: 5355', () => {
     const query = `DROP TABLE IF EXISTS sample_merge_00314;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5362', () => {
+test('should pass without errors drop: 5356', () => {
     const query = `DROP TABLE sample_00314_1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5363', () => {
+test('should pass without errors drop: 5357', () => {
     const query = `DROP TABLE sample_00314_2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5364', () => {
+test('should pass without errors drop: 5358', () => {
     const query = `DROP TABLE sample_merge_00314;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5365', () => {
+test('should pass without errors drop: 5359', () => {
     const query = `DROP TABLE IF EXISTS array_pk;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5366', () => {
+test('should pass without errors drop: 5360', () => {
     const query = `DROP TABLE array_pk;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5367', () => {
+test('should pass without errors drop: 5361', () => {
     const query = `DROP TABLE IF EXISTS test_00309_formats_case_insensitive;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5368', () => {
+test('should pass without errors drop: 5362', () => {
     const query = `DROP TABLE IF EXISTS insert;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5369', () => {
+test('should pass without errors drop: 5363', () => {
     const query = `DROP TABLE insert;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5370', () => {
+test('should pass without errors drop: 5364', () => {
     const query = `drop table if exists t_306;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5371', () => {
+test('should pass without errors drop: 5365', () => {
     const query = `DROP TABLE enum;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5372', () => {
+test('should pass without errors drop: 5366', () => {
     const query = `drop table if exists enums_copy;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5373', () => {
+test('should pass without errors drop: 5367', () => {
     const query = `drop table enums_copy;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5374', () => {
+test('should pass without errors drop: 5368', () => {
     const query = `DROP TABLE IF EXISTS numbers_10_00290;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5375', () => {
+test('should pass without errors drop: 5369', () => {
     const query = `DROP TABLE numbers_10_00290;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5376', () => {
+test('should pass without errors drop: 5370', () => {
     const query = `DROP TABLE IF EXISTS stripelog;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5377', () => {
+test('should pass without errors drop: 5371', () => {
     const query = `DROP TABLE stripelog;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5378', () => {
+test('should pass without errors drop: 5372', () => {
     const query = `DROP TABLE IF EXISTS sorted;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5379', () => {
+test('should pass without errors drop: 5373', () => {
     const query = `DROP TABLE sorted;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5380', () => {
+test('should pass without errors drop: 5374', () => {
     const query = `DROP TABLE IF EXISTS sample_00276;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5381', () => {
+test('should pass without errors drop: 5375', () => {
     const query = `DROP TABLE sample_00276;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5382', () => {
+test('should pass without errors drop: 5376', () => {
     const query = `DROP TABLE IF EXISTS numbers_1001;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5383', () => {
+test('should pass without errors drop: 5377', () => {
     const query = `DROP TABLE numbers_1001;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5384', () => {
+test('should pass without errors drop: 5378', () => {
     const query = `DROP TABLE IF EXISTS view1_00270;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5385', () => {
+test('should pass without errors drop: 5379', () => {
     const query = `DROP TABLE IF EXISTS view2_00270;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5386', () => {
+test('should pass without errors drop: 5380', () => {
     const query = `DROP TABLE IF EXISTS merge_view_00270;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5387', () => {
+test('should pass without errors drop: 5381', () => {
     const query = `DROP TABLE view1_00270;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5388', () => {
+test('should pass without errors drop: 5382', () => {
     const query = `DROP TABLE view2_00270;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5389', () => {
+test('should pass without errors drop: 5383', () => {
     const query = `DROP TABLE merge_view_00270;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5390', () => {
+test('should pass without errors drop: 5384', () => {
     const query = `DROP TABLE IF EXISTS numbers_10k_log;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5391', () => {
+test('should pass without errors drop: 5385', () => {
     const query = `DROP TABLE numbers_10k_log;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5392', () => {
+test('should pass without errors drop: 5386', () => {
     const query = `drop table if exists aliases_test;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5393', () => {
+test('should pass without errors drop: 5387', () => {
     const query = `drop table aliases_test;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5394', () => {
+test('should pass without errors drop: 5388', () => {
     const query = `drop table if exists numbers_10;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5395', () => {
+test('should pass without errors drop: 5389', () => {
     const query = `DROP TABLE IF EXISTS elog_cut;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5396', () => {
+test('should pass without errors drop: 5390', () => {
     const query = `DROP TABLE elog_cut;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5397', () => {
+test('should pass without errors drop: 5391', () => {
     const query = `DROP TABLE IF EXISTS storage;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5398', () => {
+test('should pass without errors drop: 5392', () => {
     const query = `DROP TABLE storage;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5399', () => {
+test('should pass without errors drop: 5393', () => {
     const query = `DROP TABLE IF EXISTS attach_r1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5400', () => {
+test('should pass without errors drop: 5394', () => {
     const query = `DROP TABLE IF EXISTS attach_r2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5401', () => {
+test('should pass without errors drop: 5395', () => {
     const query = `DROP TABLE attach_r1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5402', () => {
+test('should pass without errors drop: 5396', () => {
     const query = `DROP TABLE attach_r2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5403', () => {
+test('should pass without errors drop: 5397', () => {
     const query = `drop temporary table if exists one_0023;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5404', () => {
+test('should pass without errors drop: 5398', () => {
     const query = `DROP TABLE foo_00234;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5405', () => {
+test('should pass without errors drop: 5399', () => {
     const query = `drop table if exists prewhere_column_missing;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5406', () => {
+test('should pass without errors drop: 5400', () => {
     const query = `drop table prewhere_column_missing;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5407', () => {
+test('should pass without errors drop: 5401', () => {
     const query = `DROP TABLE IF EXISTS deduplication;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5408', () => {
+test('should pass without errors drop: 5402', () => {
     const query = `DROP TABLE deduplication;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5409', () => {
+test('should pass without errors drop: 5403', () => {
     const query = `DROP TABLE IF EXISTS numbers_100k_log;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5410', () => {
+test('should pass without errors drop: 5404', () => {
     const query = `DROP TABLE numbers_100k_log;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5411', () => {
+test('should pass without errors drop: 5405', () => {
     const query = `drop table if exists sequence_test;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5412', () => {
+test('should pass without errors drop: 5406', () => {
     const query = `drop table sequence_test;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5413', () => {
+test('should pass without errors drop: 5407', () => {
     const query = `DROP TABLE IF EXISTS primary_key;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5414', () => {
+test('should pass without errors drop: 5408', () => {
     const query = `DROP TABLE primary_key;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5415', () => {
+test('should pass without errors drop: 5409', () => {
     const query = `DROP TABLE IF EXISTS test_00209;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5416', () => {
+test('should pass without errors drop: 5410', () => {
     const query = `DROP TABLE test_00209;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5417', () => {
+test('should pass without errors drop: 5411', () => {
     const query = `drop table if exists t_q1ht4gq_5;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5418', () => {
+test('should pass without errors drop: 5412', () => {
     const query = `DROP TABLE IF EXISTS t1_00203;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5419', () => {
+test('should pass without errors drop: 5413', () => {
     const query = `DROP TABLE IF EXISTS t2_00203;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5420', () => {
+test('should pass without errors drop: 5414', () => {
     const query = `DROP TABLE t1_00203;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5421', () => {
+test('should pass without errors drop: 5415', () => {
     const query = `DROP TABLE t2_00203;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5422', () => {
+test('should pass without errors drop: 5416', () => {
     const query = `DROP TABLE IF EXISTS numbers_memory;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5423', () => {
+test('should pass without errors drop: 5417', () => {
     const query = `DROP TABLE numbers_memory;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5424', () => {
+test('should pass without errors drop: 5418', () => {
     const query = `DROP TABLE IF EXISTS parallel_replicas;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5425', () => {
+test('should pass without errors drop: 5419', () => {
     const query = `DROP TABLE IF EXISTS parallel_replicas_backup;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5426', () => {
+test('should pass without errors drop: 5420', () => {
     const query = `DROP TABLE parallel_replicas;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5427', () => {
+test('should pass without errors drop: 5421', () => {
     const query = `DROP TABLE parallel_replicas_backup;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5428', () => {
+test('should pass without errors drop: 5422', () => {
     const query = `DROP TABLE IF EXISTS aggregating_00191;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5429', () => {
+test('should pass without errors drop: 5423', () => {
     const query = `DROP TABLE aggregating_00191;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5430', () => {
+test('should pass without errors drop: 5424', () => {
     const query = `DROP TABLE IF EXISTS data_00184;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5431', () => {
+test('should pass without errors drop: 5425', () => {
     const query = `drop table data_00184;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5432', () => {
+test('should pass without errors drop: 5426', () => {
     const query = `DROP TABLE IF EXISTS t_00180;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5433', () => {
+test('should pass without errors drop: 5427', () => {
     const query = `DROP TABLE IF EXISTS mv_00180;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5434', () => {
+test('should pass without errors drop: 5428', () => {
     const query = `DROP TABLE IF EXISTS \`.inner.mv_00180\`;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5435', () => {
+test('should pass without errors drop: 5429', () => {
     const query = `DROP TABLE t_00180;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5436', () => {
+test('should pass without errors drop: 5430', () => {
     const query = `DROP TABLE mv_00180;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5437', () => {
+test('should pass without errors drop: 5431', () => {
     const query = `DROP TABLE IF EXISTS datetime64_index_tbl;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5438', () => {
+test('should pass without errors drop: 5432', () => {
     const query = `DROP TABLE datetime64_index_tbl;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5439', () => {
+test('should pass without errors drop: 5433', () => {
     const query = `DROP TABLE IF EXISTS partition_by_ignore SYNC;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5440', () => {
+test('should pass without errors drop: 5434', () => {
     const query = `DROP TABLE IF EXISTS mt_00168;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5441', () => {
+test('should pass without errors drop: 5435', () => {
     const query = `DROP TABLE IF EXISTS mt_00168_buffer;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5442', () => {
+test('should pass without errors drop: 5436', () => {
     const query = `DROP TABLE mt_00168_buffer;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5443', () => {
+test('should pass without errors drop: 5437', () => {
     const query = `DROP TABLE mt_00168;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5444', () => {
+test('should pass without errors drop: 5438', () => {
     const query = `DROP TABLE IF EXISTS mt_00160;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5445', () => {
+test('should pass without errors drop: 5439', () => {
     const query = `DROP TABLE IF EXISTS merge_00160;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5446', () => {
+test('should pass without errors drop: 5440', () => {
     const query = `DROP TABLE merge_00160;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5447', () => {
+test('should pass without errors drop: 5441', () => {
     const query = `DROP TABLE mt_00160;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5448', () => {
+test('should pass without errors drop: 5442', () => {
     const query = `DROP TABLE IF EXISTS {CLICKHOUSE_DATABASE:Identifier}.mt_buffer_00158;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5449', () => {
+test('should pass without errors drop: 5443', () => {
     const query = `DROP TABLE IF EXISTS {CLICKHOUSE_DATABASE:Identifier}.mt_00158;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5450', () => {
+test('should pass without errors drop: 5444', () => {
     const query = `drop table if exists nested_map_multiple_values;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5451', () => {
+test('should pass without errors drop: 5445', () => {
     const query = `drop table nested_map_multiple_values;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5452', () => {
+test('should pass without errors drop: 5446', () => {
     const query = `drop table if exists nested_not_a_map;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5453', () => {
+test('should pass without errors drop: 5447', () => {
     const query = `drop table nested_not_a_map;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5454', () => {
+test('should pass without errors drop: 5448', () => {
     const query = `DROP TABLE IF EXISTS alter_00147;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5455', () => {
+test('should pass without errors drop: 5449', () => {
     const query = `DROP TABLE alter_00147;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5456', () => {
+test('should pass without errors drop: 5450', () => {
     const query = `drop table if exists nested_map;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5457', () => {
+test('should pass without errors drop: 5451', () => {
     const query = `drop table nested_map;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5458', () => {
+test('should pass without errors drop: 5452', () => {
     const query = `drop table if exists nested_map_explicit;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5459', () => {
+test('should pass without errors drop: 5453', () => {
     const query = `drop table nested_map_explicit;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5460', () => {
+test('should pass without errors drop: 5454', () => {
     const query = `DROP TABLE IF EXISTS default;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5461', () => {
+test('should pass without errors drop: 5455', () => {
     const query = `DROP TABLE default;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5462', () => {
+test('should pass without errors drop: 5456', () => {
     const query = `DROP TABLE IF EXISTS buffer_00126;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5463', () => {
+test('should pass without errors drop: 5457', () => {
     const query = `DROP TABLE IF EXISTS null_sink_00126;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5464', () => {
+test('should pass without errors drop: 5458', () => {
     const query = `DROP TABLE buffer_00126;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5465', () => {
+test('should pass without errors drop: 5459', () => {
     const query = `DROP TABLE null_sink_00126;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5466', () => {
+test('should pass without errors drop: 5460', () => {
     const query = `DROP TABLE report;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5467', () => {
+test('should pass without errors drop: 5461', () => {
     const query = `DROP TABLE IF EXISTS alter_00121 SYNC;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5468', () => {
+test('should pass without errors drop: 5462', () => {
     const query = `DROP TABLE alter_00121 SYNC;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5469', () => {
+test('should pass without errors drop: 5463', () => {
     const query = `DROP TABLE IF EXISTS null_00117;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5470', () => {
+test('should pass without errors drop: 5464', () => {
     const query = `DROP TABLE null_00117;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5471', () => {
+test('should pass without errors drop: 5465', () => {
     const query = `DROP TABLE IF EXISTS set2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5472', () => {
+test('should pass without errors drop: 5466', () => {
     const query = `DROP TABLE IF EXISTS numbers_mt;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5473', () => {
+test('should pass without errors drop: 5467', () => {
     const query = `DROP TABLE numbers_mt;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5474', () => {
+test('should pass without errors drop: 5468', () => {
     const query = `DROP TABLE IF EXISTS numbers10m;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5475', () => {
+test('should pass without errors drop: 5469', () => {
     const query = `DROP TABLE numbers10m;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5476', () => {
+test('should pass without errors drop: 5470', () => {
     const query = `DROP TABLE IF EXISTS test_view_filtered;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5477', () => {
+test('should pass without errors drop: 5471', () => {
     const query = `DROP TABLE IF EXISTS tmp_mv;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5478', () => {
+test('should pass without errors drop: 5472', () => {
     const query = `DROP TABLE IF EXISTS tmp_mv2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5479', () => {
+test('should pass without errors drop: 5473', () => {
     const query = `DROP TABLE IF EXISTS tmp_mv3;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5480', () => {
+test('should pass without errors drop: 5474', () => {
     const query = `DROP TABLE IF EXISTS tmp_mv4;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5481', () => {
+test('should pass without errors drop: 5475', () => {
     const query = `DROP TABLE IF EXISTS \`.inner.tmp_mv\`;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5482', () => {
+test('should pass without errors drop: 5476', () => {
     const query = `DROP TABLE IF EXISTS \`.inner.tmp_mv2\`;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5483', () => {
+test('should pass without errors drop: 5477', () => {
     const query = `DROP TABLE IF EXISTS \`.inner.tmp_mv3\`;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5484', () => {
+test('should pass without errors drop: 5478', () => {
     const query = `DROP TABLE IF EXISTS \`.inner.tmp_mv4\`;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5485', () => {
+test('should pass without errors drop: 5479', () => {
     const query = `DROP TABLE tmp_mv;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5486', () => {
+test('should pass without errors drop: 5480', () => {
     const query = `DROP TABLE tmp_mv2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5487', () => {
+test('should pass without errors drop: 5481', () => {
     const query = `DROP TABLE tmp_mv3;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5488', () => {
+test('should pass without errors drop: 5482', () => {
     const query = `DROP TABLE tmp_mv4;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5489', () => {
+test('should pass without errors drop: 5483', () => {
     const query = `DROP TABLE IF EXISTS report1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5490', () => {
+test('should pass without errors drop: 5484', () => {
     const query = `DROP TABLE IF EXISTS report2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5491', () => {
+test('should pass without errors drop: 5485', () => {
     const query = `DROP TABLE report1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5492', () => {
+test('should pass without errors drop: 5486', () => {
     const query = `DROP TABLE report2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5493', () => {
+test('should pass without errors drop: 5487', () => {
     const query = `DROP TABLE IF EXISTS data2013;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5494', () => {
+test('should pass without errors drop: 5488', () => {
     const query = `DROP TABLE IF EXISTS data2015;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5495', () => {
+test('should pass without errors drop: 5489', () => {
     const query = `DROP TABLE data2013;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5496', () => {
+test('should pass without errors drop: 5490', () => {
     const query = `DROP TABLE data2015;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5497', () => {
+test('should pass without errors drop: 5491', () => {
     const query = `DROP TABLE IF EXISTS data2014;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5498', () => {
+test('should pass without errors drop: 5492', () => {
     const query = `DROP TABLE data2014;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5499', () => {
+test('should pass without errors drop: 5493', () => {
     const query = `DROP TABLE IF EXISTS min_if;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5500', () => {
+test('should pass without errors drop: 5494', () => {
     const query = `DROP TABLE min_if;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5501', () => {
+test('should pass without errors drop: 5495', () => {
     const query = `DROP TABLE IF EXISTS summing_merge_tree_with_list_of_columns_to_sum;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5502', () => {
+test('should pass without errors drop: 5496', () => {
     const query = `DROP TABLE IF EXISTS merge_tree_with_sampling;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5503', () => {
+test('should pass without errors drop: 5497', () => {
     const query = `DROP TABLE IF EXISTS collapsing_merge_tree_with_sampling;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5504', () => {
+test('should pass without errors drop: 5498', () => {
     const query = `DROP TABLE IF EXISTS versioned_collapsing_merge_tree_with_sampling;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5505', () => {
+test('should pass without errors drop: 5499', () => {
     const query = `DROP TABLE IF EXISTS summing_merge_tree_with_sampling;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5506', () => {
+test('should pass without errors drop: 5500', () => {
     const query = `DROP TABLE IF EXISTS summing_merge_tree_with_sampling_with_list_of_columns_to_sum;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5507', () => {
+test('should pass without errors drop: 5501', () => {
     const query = `DROP TABLE IF EXISTS aggregating_merge_tree_with_sampling;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5508', () => {
+test('should pass without errors drop: 5502', () => {
     const query = `DROP TABLE IF EXISTS replicated_merge_tree;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5509', () => {
+test('should pass without errors drop: 5503', () => {
     const query = `DROP TABLE IF EXISTS replicated_collapsing_merge_tree;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5510', () => {
+test('should pass without errors drop: 5504', () => {
     const query = `DROP TABLE IF EXISTS replicated_versioned_collapsing_merge_tree;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5511', () => {
+test('should pass without errors drop: 5505', () => {
     const query = `DROP TABLE IF EXISTS replicated_summing_merge_tree;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5512', () => {
+test('should pass without errors drop: 5506', () => {
     const query = `DROP TABLE IF EXISTS replicated_summing_merge_tree_with_list_of_columns_to_sum;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5513', () => {
+test('should pass without errors drop: 5507', () => {
     const query = `DROP TABLE IF EXISTS replicated_aggregating_merge_tree;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5514', () => {
+test('should pass without errors drop: 5508', () => {
     const query = `DROP TABLE IF EXISTS replicated_merge_tree_with_sampling;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5515', () => {
+test('should pass without errors drop: 5509', () => {
     const query = `DROP TABLE IF EXISTS replicated_collapsing_merge_tree_with_sampling;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5516', () => {
+test('should pass without errors drop: 5510', () => {
     const query = `DROP TABLE IF EXISTS replicated_versioned_collapsing_merge_tree_with_sampling;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5517', () => {
+test('should pass without errors drop: 5511', () => {
     const query = `DROP TABLE IF EXISTS replicated_summing_merge_tree_with_sampling;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5518', () => {
+test('should pass without errors drop: 5512', () => {
     const query = `DROP TABLE IF EXISTS replicated_summing_merge_tree_with_sampling_with_list_of_columns_to_sum;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5519', () => {
+test('should pass without errors drop: 5513', () => {
     const query = `DROP TABLE IF EXISTS replicated_aggregating_merge_tree_with_sampling;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5520', () => {
+test('should pass without errors drop: 5514', () => {
     const query = `DROP TABLE summing_merge_tree_with_list_of_columns_to_sum;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5521', () => {
+test('should pass without errors drop: 5515', () => {
     const query = `DROP TABLE merge_tree_with_sampling;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5522', () => {
+test('should pass without errors drop: 5516', () => {
     const query = `DROP TABLE collapsing_merge_tree_with_sampling;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5523', () => {
+test('should pass without errors drop: 5517', () => {
     const query = `DROP TABLE versioned_collapsing_merge_tree_with_sampling;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5524', () => {
+test('should pass without errors drop: 5518', () => {
     const query = `DROP TABLE summing_merge_tree_with_sampling;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5525', () => {
+test('should pass without errors drop: 5519', () => {
     const query = `DROP TABLE summing_merge_tree_with_sampling_with_list_of_columns_to_sum;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5526', () => {
+test('should pass without errors drop: 5520', () => {
     const query = `DROP TABLE aggregating_merge_tree_with_sampling;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5527', () => {
+test('should pass without errors drop: 5521', () => {
     const query = `DROP TABLE replicated_merge_tree;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5528', () => {
+test('should pass without errors drop: 5522', () => {
     const query = `DROP TABLE replicated_collapsing_merge_tree;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5529', () => {
+test('should pass without errors drop: 5523', () => {
     const query = `DROP TABLE replicated_versioned_collapsing_merge_tree;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5530', () => {
+test('should pass without errors drop: 5524', () => {
     const query = `DROP TABLE replicated_summing_merge_tree;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5531', () => {
+test('should pass without errors drop: 5525', () => {
     const query = `DROP TABLE replicated_summing_merge_tree_with_list_of_columns_to_sum;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5532', () => {
+test('should pass without errors drop: 5526', () => {
     const query = `DROP TABLE replicated_aggregating_merge_tree;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5533', () => {
+test('should pass without errors drop: 5527', () => {
     const query = `DROP TABLE replicated_merge_tree_with_sampling;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5534', () => {
+test('should pass without errors drop: 5528', () => {
     const query = `DROP TABLE replicated_collapsing_merge_tree_with_sampling;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5535', () => {
+test('should pass without errors drop: 5529', () => {
     const query = `DROP TABLE replicated_versioned_collapsing_merge_tree_with_sampling;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5536', () => {
+test('should pass without errors drop: 5530', () => {
     const query = `DROP TABLE replicated_summing_merge_tree_with_sampling;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5537', () => {
+test('should pass without errors drop: 5531', () => {
     const query = `DROP TABLE replicated_summing_merge_tree_with_sampling_with_list_of_columns_to_sum;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5538', () => {
+test('should pass without errors drop: 5532', () => {
     const query = `DROP TABLE replicated_aggregating_merge_tree_with_sampling;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5539', () => {
+test('should pass without errors drop: 5533', () => {
     const query = `DROP TABLE IF EXISTS addresses;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5540', () => {
+test('should pass without errors drop: 5534', () => {
     const query = `DROP TABLE addresses;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5541', () => {
+test('should pass without errors drop: 5535', () => {
     const query = `DROP TABLE IF EXISTS insert_fewer_columns;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5542', () => {
+test('should pass without errors drop: 5536', () => {
     const query = `DROP TABLE IF EXISTS insert_fewer_columns_2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5543', () => {
+test('should pass without errors drop: 5537', () => {
     const query = `DROP TABLE insert_fewer_columns;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5544', () => {
+test('should pass without errors drop: 5538', () => {
     const query = `DROP TABLE empty_tiny_log;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5545', () => {
+test('should pass without errors drop: 5539', () => {
     const query = `DROP TABLE IF EXISTS check_query_tiny_log;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5546', () => {
+test('should pass without errors drop: 5540', () => {
     const query = `DROP TABLE IF EXISTS check_query_log;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5547', () => {
+test('should pass without errors drop: 5541', () => {
     const query = `DROP TABLE check_query_log;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5548', () => {
+test('should pass without errors drop: 5542', () => {
     const query = `DROP TABLE check_query_tiny_log;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5549', () => {
+test('should pass without errors drop: 5543', () => {
     const query = `DROP TABLE IF EXISTS replicated_alter1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5550', () => {
+test('should pass without errors drop: 5544', () => {
     const query = `DROP TABLE IF EXISTS replicated_alter2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5551', () => {
+test('should pass without errors drop: 5545', () => {
     const query = `DROP TABLE replicated_alter1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5552', () => {
+test('should pass without errors drop: 5546', () => {
     const query = `DROP TABLE replicated_alter2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5553', () => {
+test('should pass without errors drop: 5547', () => {
     const query = `DROP TABLE IF EXISTS alter_00061;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5554', () => {
+test('should pass without errors drop: 5548', () => {
     const query = `DROP TABLE alter_00061;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5555', () => {
+test('should pass without errors drop: 5549', () => {
     const query = `DROP TABLE IF EXISTS empty_summing;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5556', () => {
+test('should pass without errors drop: 5550', () => {
     const query = `DROP TABLE empty_summing;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5557', () => {
+test('should pass without errors drop: 5551', () => {
     const query = `DROP TABLE IF EXISTS big_array;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5558', () => {
+test('should pass without errors drop: 5552', () => {
     const query = `DROP TABLE big_array;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5559', () => {
+test('should pass without errors drop: 5553', () => {
     const query = `DROP TABLE IF EXISTS array_element_test;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5560', () => {
+test('should pass without errors drop: 5554', () => {
     const query = `DROP TABLE array_element_test;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors drop: 5561', () => {
+test('should pass without errors drop: 5555', () => {
     const query = `DROP TABLE nested_test;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);

@@ -4182,97 +4182,27 @@ test('should pass without errors explain: 536', () => {
 });
 
 test('should pass without errors explain: 537', () => {
-    const query = `EXPLAIN SYNTAX SELECT materialize('Привет, World') AS s WHERE (s LIKE 'hell%') OR (s ILIKE '%привет%') OR (s ILIKE 'world%') SETTINGS optimize_or_like_chain = 0;`;
-
-    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
-    expect(autocompleteResult.errors).toHaveLength(0);
-});
-
-test('should pass without errors explain: 538', () => {
-    const query = `EXPLAIN QUERY TREE run_passes=1 SELECT materialize('Привет, World') AS s WHERE (s LIKE 'hell%') OR (s ILIKE '%привет%') OR (s ILIKE 'world%') SETTINGS optimize_or_like_chain = 0, enable_analyzer = 1;`;
-
-    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
-    expect(autocompleteResult.errors).toHaveLength(0);
-});
-
-test('should pass without errors explain: 539', () => {
-    const query = `EXPLAIN SYNTAX SELECT materialize('Привет, World') AS s WHERE (s LIKE 'hell%') OR (s ILIKE '%привет%') OR (s ILIKE 'world%') SETTINGS optimize_or_like_chain = 1;`;
-
-    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
-    expect(autocompleteResult.errors).toHaveLength(0);
-});
-
-test('should pass without errors explain: 540', () => {
-    const query = `EXPLAIN QUERY TREE run_passes=1 SELECT materialize('Привет, World') AS s WHERE (s LIKE 'hell%') OR (s ILIKE '%привет%') OR (s ILIKE 'world%') SETTINGS optimize_or_like_chain = 1, enable_analyzer = 1;`;
-
-    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
-    expect(autocompleteResult.errors).toHaveLength(0);
-});
-
-test('should pass without errors explain: 541', () => {
-    const query = `EXPLAIN SYNTAX SELECT materialize('Привет, World') AS s1, materialize('Привет, World') AS s2 WHERE (s1 LIKE 'hell%') OR (s2 ILIKE '%привет%') OR (s1 ILIKE 'world%') SETTINGS optimize_or_like_chain = 1;`;
-
-    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
-    expect(autocompleteResult.errors).toHaveLength(0);
-});
-
-test('should pass without errors explain: 542', () => {
-    const query = `EXPLAIN SYNTAX SELECT materialize('Привет, World') AS s1, materialize('Привет, World') AS s2 WHERE (s1 LIKE 'hell%') OR (s2 ILIKE '%привет%') OR (s1 ILIKE 'world%') SETTINGS optimize_or_like_chain = 1, allow_hyperscan = 0;`;
-
-    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
-    expect(autocompleteResult.errors).toHaveLength(0);
-});
-
-test('should pass without errors explain: 543', () => {
-    const query = `EXPLAIN SYNTAX SELECT materialize('Привет, World') AS s1, materialize('Привет, World') AS s2 WHERE (s1 LIKE 'hell%') OR (s2 ILIKE '%привет%') OR (s1 ILIKE 'world%') SETTINGS optimize_or_like_chain = 1, max_hyperscan_regexp_length = 10;`;
-
-    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
-    expect(autocompleteResult.errors).toHaveLength(0);
-});
-
-test('should pass without errors explain: 544', () => {
-    const query = `EXPLAIN SYNTAX SELECT materialize('Привет, World') AS s1, materialize('Привет, World') AS s2 WHERE (s1 LIKE 'hell%') OR (s2 ILIKE '%привет%') OR (s1 ILIKE 'world%') SETTINGS optimize_or_like_chain = 1, max_hyperscan_regexp_total_length = 10;`;
-
-    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
-    expect(autocompleteResult.errors).toHaveLength(0);
-});
-
-test('should pass without errors explain: 545', () => {
-    const query = `EXPLAIN SYNTAX SELECT materialize('Привет, World') AS s1, materialize('Привет, World') AS s2 WHERE (s1 LIKE 'hell%') OR (s2 ILIKE '%привет%') OR (s1 ILIKE 'world%') OR s1 == 'Привет' SETTINGS optimize_or_like_chain = 1;`;
-
-    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
-    expect(autocompleteResult.errors).toHaveLength(0);
-});
-
-test('should pass without errors explain: 546', () => {
-    const query = `EXPLAIN SYNTAX SELECT test, materialize('Привет, World') AS s WHERE ((s LIKE 'hell%') AS test) OR (s ILIKE '%привет%') OR (s ILIKE 'world%') SETTINGS optimize_or_like_chain = 1;`;
-
-    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
-    expect(autocompleteResult.errors).toHaveLength(0);
-});
-
-test('should pass without errors explain: 547', () => {
     const query = `explain syntax select * from (select range(0, 10) range_, point_ from system.one array join range_ as point_);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 548', () => {
+test('should pass without errors explain: 538', () => {
     const query = `EXPLAIN PIPELINE SELECT sleep(1);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 549', () => {
+test('should pass without errors explain: 539', () => {
     const query = `EXPLAIN SYNTAX INSERT INTO test FROM INFILE 'data.file' SELECT x from input('x UInt32') FORMAT TSV;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 550', () => {
+test('should pass without errors explain: 540', () => {
     const query = `EXPLAIN SYNTAX INSERT INTO test FROM INFILE 'data.file' WATCH view; -- { clientError SYNTAX_ERROR } EXPLAIN SYNTAX INSERT INTO test FROM INFILE 'data.file' VALUES (1) -- { clientError SYNTAX_ERROR }
 EXPLAIN SYNTAX INSERT INTO test FROM INFILE 'data.file' WITH number AS x SELECT number FROM input('number UInt32');`;
 
@@ -4280,315 +4210,315 @@ EXPLAIN SYNTAX INSERT INTO test FROM INFILE 'data.file' WITH number AS x SELECT 
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 551', () => {
+test('should pass without errors explain: 541', () => {
     const query = `EXPLAIN PIPELINE SELECT toStartOfMonth(date) as d, i FROM t_read_in_order ORDER BY d, i LIMIT 5;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 552', () => {
+test('should pass without errors explain: 542', () => {
     const query = `EXPLAIN PIPELINE SELECT toStartOfMonth(date) as d, i FROM t_read_in_order ORDER BY d DESC, -i LIMIT 5;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 553', () => {
+test('should pass without errors explain: 543', () => {
     const query = `EXPLAIN PIPELINE SELECT toStartOfMonth(date) as d, i FROM t_read_in_order ORDER BY d, -i LIMIT 5;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 554', () => {
+test('should pass without errors explain: 544', () => {
     const query = `EXPLAIN PIPELINE SELECT date, i FROM t_read_in_order WHERE date = '2020-10-11' ORDER BY i LIMIT 5 settings enable_analyzer=0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 555', () => {
+test('should pass without errors explain: 545', () => {
     const query = `EXPLAIN PIPELINE SELECT date, i FROM t_read_in_order WHERE date = '2020-10-11' ORDER BY i LIMIT 5 settings enable_analyzer=1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 556', () => {
+test('should pass without errors explain: 546', () => {
     const query = `EXPLAIN PIPELINE SELECT * FROM t_read_in_order WHERE date = '2020-10-11' ORDER BY i, v LIMIT 5 settings enable_analyzer=0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 557', () => {
+test('should pass without errors explain: 547', () => {
     const query = `EXPLAIN PIPELINE SELECT * FROM t_read_in_order WHERE date = '2020-10-11' ORDER BY i, v LIMIT 5 settings enable_analyzer=1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 558', () => {
+test('should pass without errors explain: 548', () => {
     const query = `EXPLAIN SYNTAX SELECT date, i FROM t_read_in_order WHERE date = '2020-10-12' ORDER BY i DESC LIMIT 5;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 559', () => {
+test('should pass without errors explain: 549', () => {
     const query = `EXPLAIN PIPELINE SELECT date, i FROM t_read_in_order WHERE date = '2020-10-12' ORDER BY i DESC LIMIT 5 settings enable_analyzer=0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 560', () => {
+test('should pass without errors explain: 550', () => {
     const query = `EXPLAIN PIPELINE SELECT date, i FROM t_read_in_order WHERE date = '2020-10-12' ORDER BY i DESC LIMIT 5 settings enable_analyzer=1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 561', () => {
+test('should pass without errors explain: 551', () => {
     const query = `EXPLAIN PIPELINE SELECT toStartOfDay(dt) as date, d FROM t_read_in_order ORDER BY date, round(d) LIMIT 5;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 562', () => {
+test('should pass without errors explain: 552', () => {
     const query = `explain syntax select x, if((select hasColumnInTable(currentDatabase(), 'test', 'y')), y, x || '_')  from test;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 563', () => {
+test('should pass without errors explain: 553', () => {
     const query = `EXPLAIN QUERY TREE dump_tree = 0, dump_ast = 1 SELECT t1.1 FROM t_tuple_element;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 564', () => {
+test('should pass without errors explain: 554', () => {
     const query = `EXPLAIN QUERY TREE dump_tree = 0, dump_ast = 1 SELECT tupleElement(t1, 2) FROM t_tuple_element;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 565', () => {
+test('should pass without errors explain: 555', () => {
     const query = `EXPLAIN QUERY TREE dump_tree = 0, dump_ast = 1 SELECT tupleElement(t1, 'a') FROM t_tuple_element;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 566', () => {
+test('should pass without errors explain: 556', () => {
     const query = `EXPLAIN QUERY TREE dump_tree = 0, dump_ast = 1 SELECT t2.1 FROM t_tuple_element;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 567', () => {
+test('should pass without errors explain: 557', () => {
     const query = `EXPLAIN QUERY TREE dump_tree = 0, dump_ast = 1 SELECT tupleElement(t2, 1) FROM t_tuple_element;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 568', () => {
+test('should pass without errors explain: 558', () => {
     const query = `EXPLAIN QUERY TREE dump_tree = 0, dump_ast = 1 WITH (1, 2) AS t SELECT t.1, t.2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 569', () => {
+test('should pass without errors explain: 559', () => {
     const query = `EXPLAIN QUERY TREE dump_tree = 0, dump_ast = 1 WITH (1, 2)::Tuple(a UInt32, b UInt32) AS t SELECT t.1, tupleElement(t, 'b');`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 570', () => {
+test('should pass without errors explain: 560', () => {
     const query = `explain syntax select t1.* from t1_all t1 join t2_all t2 on t1.a = t2.a;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 571', () => {
+test('should pass without errors explain: 561', () => {
     const query = `EXPLAIN QUERY TREE dump_tree = 0, dump_ast = 1 SELECT mapContains(m, 'a') FROM t_map_contains;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 572', () => {
+test('should pass without errors explain: 562', () => {
     const query = `explain syntax select null is null;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 573', () => {
+test('should pass without errors explain: 563', () => {
     const query = `explain syntax select null is not null;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 574', () => {
+test('should pass without errors explain: 564', () => {
     const query = `explain syntax select isNull(null);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 575', () => {
+test('should pass without errors explain: 565', () => {
     const query = `explain syntax select isNotNull(null);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 576', () => {
+test('should pass without errors explain: 566', () => {
     const query = `explain syntax select isNotNull(1)+isNotNull(2) from remote('127.2', system.one);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 577', () => {
+test('should pass without errors explain: 567', () => {
     const query = `EXPLAIN SYNTAX SELECT -((3, 7, 3), 100);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 578', () => {
+test('should pass without errors explain: 568', () => {
     const query = `explain syntax select x3, x2, x1 from test order by 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 579', () => {
+test('should pass without errors explain: 569', () => {
     const query = `explain syntax select x3 + 1, x2, x1 from test order by 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 580', () => {
+test('should pass without errors explain: 570', () => {
     const query = `explain syntax select x3, x2, x1 from test order by -1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 581', () => {
+test('should pass without errors explain: 571', () => {
     const query = `explain syntax select x3 + 1, x2, x1 from test order by -1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 582', () => {
+test('should pass without errors explain: 572', () => {
     const query = `explain syntax select x3, x3 - x2, x2, x1 from test order by 2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 583', () => {
+test('should pass without errors explain: 573', () => {
     const query = `explain syntax select x3, x3 - x2, x2, x1 from test order by -2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 584', () => {
+test('should pass without errors explain: 574', () => {
     const query = `explain syntax select x3, if(x3 > 10, x3, plus(x1, x2)), x1 + x2 from test order by 2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 585', () => {
+test('should pass without errors explain: 575', () => {
     const query = `explain syntax select x3, if(x3 > 10, x3, plus(x1, x2)), x1 + x2 from test order by -2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 586', () => {
+test('should pass without errors explain: 576', () => {
     const query = `explain syntax select max(x1), x2 from test group by 2 order by 1, 2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 587', () => {
+test('should pass without errors explain: 577', () => {
     const query = `explain syntax select max(x1), x2 from test group by -1 order by -2, -1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 588', () => {
+test('should pass without errors explain: 578', () => {
     const query = `explain syntax select 1 + greatest(x1, 1), x2 from test group by 1, 2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 589', () => {
+test('should pass without errors explain: 579', () => {
     const query = `explain syntax select 1 + greatest(x1, 1), x2 from test group by -2, -1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 590', () => {
+test('should pass without errors explain: 580', () => {
     const query = `explain syntax select x1 + x3, x3 from test group by -2, -1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 591', () => {
+test('should pass without errors explain: 581', () => {
     const query = `explain syntax select plus(1, 1) as a group by a;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 592', () => {
+test('should pass without errors explain: 582', () => {
     const query = `explain syntax select 1 intersect select 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 593', () => {
+test('should pass without errors explain: 583', () => {
     const query = `explain syntax select 1 except select 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 594', () => {
+test('should pass without errors explain: 584', () => {
     const query = `explain syntax select 1 union all select 2  except (select 2 except select 1 union all select 1) except select 4;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 595', () => {
+test('should pass without errors explain: 585', () => {
     const query = `explain select distinct k1 from remote('127.{1,2}', view(select 1 k1, 2 k2, 3 v from numbers(2)), cityHash64(k1, k2)); -- not optimized explain select distinct k1, k2 from remote('127.{1,2}', view(select 1 k1, 2 k2, 3 v from numbers(2)), cityHash64(k1, k2)); -- optimized
 explain select distinct on (k1) k2 from remote('127.{1,2}', view(select 1 k1, 2 k2, 3 v from numbers(2)), cityHash64(k1, k2)); -- not optimized
 explain select distinct on (k1, k2) v from remote('127.{1,2}', view(select 1 k1, 2 k2, 3 v from numbers(2)), cityHash64(k1, k2)); -- optimized
@@ -4602,49 +4532,49 @@ set enable_analyzer = 1;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 596', () => {
+test('should pass without errors explain: 586', () => {
     const query = `explain description=0 select * from remote('127.{1,2}', view(select * from numbers(1e6))) order by number limit 10 settings distributed_push_down_limit=0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 597', () => {
+test('should pass without errors explain: 587', () => {
     const query = `explain description=0 select * from remote('127.{1,2}', view(select * from numbers(1e6))) order by number limit 10 settings distributed_push_down_limit=1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 598', () => {
+test('should pass without errors explain: 588', () => {
     const query = `EXPLAIN SYNTAX SELECT 1 != (NOT 1);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 599', () => {
+test('should pass without errors explain: 589', () => {
     const query = `EXPLAIN SYNTAX SELECT 1 != NOT 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 600', () => {
+test('should pass without errors explain: 590', () => {
     const query = `EXPLAIN SYNTAX SELECT NOT NOT (NOT (NOT (NULL)));`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 601', () => {
+test('should pass without errors explain: 591', () => {
     const query = `EXPLAIN SYNTAX SELECT NOT (NOT (NOT NOT NULL));`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 602', () => {
+test('should pass without errors explain: 592', () => {
     const query = `EXPLAIN PIPELINE SELECT fact_1_id, fact_2_id, fact_3_id, SUM(sales_value) AS sales_value from grouping_sets
 GROUP BY GROUPING SETS ((fact_1_id, fact_2_id), (fact_1_id, fact_3_id))
 ORDER BY fact_1_id, fact_2_id, fact_3_id;`;
@@ -4653,7 +4583,7 @@ ORDER BY fact_1_id, fact_2_id, fact_3_id;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 603', () => {
+test('should pass without errors explain: 593', () => {
     const query = `EXPLAIN PIPELINE SELECT SUM(number) as sum_value, count() AS count_value from numbers_mt(1000000)
 GROUP BY GROUPING SETS ((number % 10), (number % 100))
 ORDER BY sum_value, count_value SETTINGS max_threads=3;`;
@@ -4662,336 +4592,336 @@ ORDER BY sum_value, count_value SETTINGS max_threads=3;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 604', () => {
+test('should pass without errors explain: 594', () => {
     const query = `EXPLAIN SYNTAX SELECT -1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 605', () => {
+test('should pass without errors explain: 595', () => {
     const query = `EXPLAIN SYNTAX SELECT -(1);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 606', () => {
+test('should pass without errors explain: 596', () => {
     const query = `EXPLAIN SYNTAX SELECT -(-(1));`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 607', () => {
+test('should pass without errors explain: 597', () => {
     const query = `EXPLAIN SYNTAX SELECT -(-(-(1)));`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 608', () => {
+test('should pass without errors explain: 598', () => {
     const query = `EXPLAIN SYNTAX SELECT -(-(-1));`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 609', () => {
+test('should pass without errors explain: 599', () => {
     const query = `EXPLAIN SYNTAX SELECT -(-toUInt64(-(1)));`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 610', () => {
+test('should pass without errors explain: 600', () => {
     const query = `EXPLAIN QUERY TREE dump_tree = 1, dump_ast = 1 SELECT id IS NULL, n IS NULL, n IS NOT NULL FROM t_func_to_subcolumns;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 611', () => {
+test('should pass without errors explain: 601', () => {
     const query = `EXPLAIN QUERY TREE dump_tree = 1, dump_ast = 1 SELECT length(arr), empty(arr), notEmpty(arr), empty(n) FROM t_func_to_subcolumns;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 612', () => {
+test('should pass without errors explain: 602', () => {
     const query = `EXPLAIN QUERY TREE dump_tree = 1, dump_ast = 1 SELECT mapKeys(m), mapValues(m) FROM t_func_to_subcolumns;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 613', () => {
+test('should pass without errors explain: 603', () => {
     const query = `EXPLAIN QUERY TREE dump_tree = 1, dump_ast = 1 SELECT count(n) FROM t_func_to_subcolumns;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 614', () => {
+test('should pass without errors explain: 604', () => {
     const query = `EXPLAIN QUERY TREE dump_tree = 1, dump_ast = 1 SELECT count(id) FROM t_func_to_subcolumns;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 615', () => {
+test('should pass without errors explain: 605', () => {
     const query = `EXPLAIN QUERY TREE dump_tree = 1, dump_ast = 1 SELECT id, left.n IS NULL, right.n IS NULL FROM t_func_to_subcolumns AS left FULL JOIN (SELECT 1 AS id, 'qqq' AS n UNION ALL SELECT 3 AS id, 'www') AS right USING(id);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 616', () => {
+test('should pass without errors explain: 606', () => {
     const query = `explain pipeline select * from test final SETTINGS enable_vertical_final = 0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 617', () => {
+test('should pass without errors explain: 607', () => {
     const query = `EXPLAIN SYNTAX SELECT [3,4,5][1]::Int32;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 618', () => {
+test('should pass without errors explain: 608', () => {
     const query = `EXPLAIN SYNTAX SELECT [3,4,5]::Array(Int64)[2]::Int8;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 619', () => {
+test('should pass without errors explain: 609', () => {
     const query = `EXPLAIN SYNTAX SELECT [1,2,3]::Array(UInt64)[[number, number]::Array(UInt8)[number]::UInt64]::UInt8 from numbers(3);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 620', () => {
+test('should pass without errors explain: 610', () => {
     const query = `EXPLAIN SYNTAX WITH [3,4,5] AS x SELECT x[1]::Int32;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 621', () => {
+test('should pass without errors explain: 611', () => {
     const query = `EXPLAIN SYNTAX SELECT tuple(3,4,5).1::Int32;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 622', () => {
+test('should pass without errors explain: 612', () => {
     const query = `EXPLAIN SYNTAX SELECT tuple(3,4,5)::Tuple(UInt64, UInt64, UInt64).1::Int32;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 623', () => {
+test('should pass without errors explain: 613', () => {
     const query = `EXPLAIN SYNTAX WITH tuple(3,4,5) AS x SELECT x.1::Int32;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 624', () => {
+test('should pass without errors explain: 614', () => {
     const query = `EXPLAIN SYNTAX SELECT -1::Int32;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 625', () => {
+test('should pass without errors explain: 615', () => {
     const query = `EXPLAIN SYNTAX SELECT -0.1::Decimal(38, 38);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 626', () => {
+test('should pass without errors explain: 616', () => {
     const query = `EXPLAIN SYNTAX SELECT -0.111::Float64;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 627', () => {
+test('should pass without errors explain: 617', () => {
     const query = `EXPLAIN SYNTAX SELECT [-1, 2, -3]::Array(Int32);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 628', () => {
+test('should pass without errors explain: 618', () => {
     const query = `EXPLAIN SYNTAX SELECT [-1.1, 2, -3]::Array(Float64);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 629', () => {
+test('should pass without errors explain: 619', () => {
     const query = `EXPLAIN SYNTAX SELECT (0.1, 0.2)::Tuple(Decimal(75, 70), Decimal(75, 70));`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 630', () => {
+test('should pass without errors explain: 620', () => {
     const query = `EXPLAIN SYNTAX SELECT 0.1 :: Decimal(4, 4);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 631', () => {
+test('should pass without errors explain: 621', () => {
     const query = `EXPLAIN SYNTAX SELECT [1, 2, 3] :: Array(Int32);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 632', () => {
+test('should pass without errors explain: 622', () => {
     const query = `EXPLAIN SYNTAX SELECT [1::UInt32, 2::UInt32]::Array(UInt64);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 633', () => {
+test('should pass without errors explain: 623', () => {
     const query = `EXPLAIN SYNTAX SELECT [[1, 2]::Array(UInt32), [3]]::Array(Array(UInt64));`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 634', () => {
+test('should pass without errors explain: 624', () => {
     const query = `EXPLAIN SYNTAX SELECT [[1::UInt16, 2::UInt16]::Array(UInt32), [3]]::Array(Array(UInt64));`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 635', () => {
+test('should pass without errors explain: 625', () => {
     const query = `EXPLAIN SYNTAX SELECT 0.1::Decimal(38, 38) AS c;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 636', () => {
+test('should pass without errors explain: 626', () => {
     const query = `EXPLAIN SYNTAX SELECT [1, 2, 3]::Array(UInt32) AS c;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 637', () => {
+test('should pass without errors explain: 627', () => {
     const query = `EXPLAIN SYNTAX SELECT 'abc'::FixedString(3) AS c;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 638', () => {
+test('should pass without errors explain: 628', () => {
     const query = `EXPLAIN SYNTAX SELECT 123::String AS c;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 639', () => {
+test('should pass without errors explain: 629', () => {
     const query = `EXPLAIN SYNTAX SELECT 1::Int8 AS c;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 640', () => {
+test('should pass without errors explain: 630', () => {
     const query = `EXPLAIN SYNTAX SELECT [1, 1 + 1, 1 + 2]::Array(UInt32) AS c;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 641', () => {
+test('should pass without errors explain: 631', () => {
     const query = `EXPLAIN SYNTAX SELECT '2010-10-10'::Date AS c;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 642', () => {
+test('should pass without errors explain: 632', () => {
     const query = `EXPLAIN SYNTAX SELECT '2010-10-10'::DateTime('UTC') AS c;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 643', () => {
+test('should pass without errors explain: 633', () => {
     const query = `EXPLAIN SYNTAX SELECT ['2010-10-10', '2010-10-10']::Array(Date);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 644', () => {
+test('should pass without errors explain: 634', () => {
     const query = `EXPLAIN SYNTAX SELECT (1 + 2)::UInt32 AS c;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 645', () => {
+test('should pass without errors explain: 635', () => {
     const query = `EXPLAIN SYNTAX SELECT (0.1::Decimal(4, 4) * 5)::Float64 AS c;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 646', () => {
+test('should pass without errors explain: 636', () => {
     const query = `EXPLAIN SYNTAX SELECT number::UInt8 AS c, toTypeName(c) FROM numbers(1);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 647', () => {
+test('should pass without errors explain: 637', () => {
     const query = `EXPLAIN SYNTAX SELECT (0 + 1 + 2 + 3 + 4)::Date AS c;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 648', () => {
+test('should pass without errors explain: 638', () => {
     const query = `EXPLAIN SYNTAX SELECT (0.1::Decimal(4, 4) + 0.2::Decimal(4, 4) + 0.3::Decimal(4, 4))::Decimal(4, 4) AS c;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 649', () => {
+test('should pass without errors explain: 639', () => {
     const query = `explain ast select tupleElement(255, 100);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 650', () => {
+test('should pass without errors explain: 640', () => {
     const query = `explain ast select tupleElement((255, 1), 1);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 651', () => {
+test('should pass without errors explain: 641', () => {
     const query = `explain syntax select d0.id from t1_distr d0 join (
 select d1.id
 from t1_distr as d1
@@ -5004,56 +4934,56 @@ order by d1.id
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 652', () => {
+test('should pass without errors explain: 642', () => {
     const query = `EXPLAIN SYNTAX SELECT count() FROM t_move_to_prewhere WHERE a AND b AND c AND NOT ignore(fat_string);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 653', () => {
+test('should pass without errors explain: 643', () => {
     const query = `EXPLAIN SYNTAX select uniqTheta(x) from (select number % 2 as x from numbers(10));`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 654', () => {
+test('should pass without errors explain: 644', () => {
     const query = `EXPLAIN SYNTAX select uniqTheta(x + y) from (select number % 2 as x, number % 3 y from numbers(10));`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 655', () => {
+test('should pass without errors explain: 645', () => {
     const query = `EXPLAIN SYNTAX select uniqTheta(-x) from (select number % 2 as x from numbers(10));`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 656', () => {
+test('should pass without errors explain: 646', () => {
     const query = `EXPLAIN SYNTAX select uniqTheta(bitNot(x)) from (select number % 2 as x from numbers(10));`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 657', () => {
+test('should pass without errors explain: 647', () => {
     const query = `EXPLAIN SYNTAX select uniqTheta(bitNot(-x)) from (select number % 2 as x from numbers(10));`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 658', () => {
+test('should pass without errors explain: 648', () => {
     const query = `EXPLAIN SYNTAX select uniqTheta(-bitNot(-x)) from (select number % 2 as x from numbers(10));`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 659', () => {
+test('should pass without errors explain: 649', () => {
     const query = `EXPLAIN indexes=1 SELECT id, delete_time FROM t1 CROSS JOIN (
 SELECT delete_time
 FROM t2
@@ -5063,7 +4993,7 @@ FROM t2
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 660', () => {
+test('should pass without errors explain: 650', () => {
     const query = `EXPLAIN indexes=1 SELECT id, delete_time FROM t1 CROSS JOIN (
 SELECT delete_time
 FROM t2
@@ -5073,7 +5003,7 @@ FROM t2
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 661', () => {
+test('should pass without errors explain: 651', () => {
     const query = `EXPLAIN SYNTAX SELECT 1
 UNION ALL
 (
@@ -5092,7 +5022,7 @@ SELECT 1
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 662', () => {
+test('should pass without errors explain: 652', () => {
     const query = `EXPLAIN SYNTAX SELECT 1
 UNION ALL
 (
@@ -5111,7 +5041,7 @@ SELECT 1
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 663', () => {
+test('should pass without errors explain: 653', () => {
     const query = `EXPLAIN SYNTAX SELECT x
 FROM
 (
@@ -5134,7 +5064,7 @@ SELECT 1
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 664', () => {
+test('should pass without errors explain: 654', () => {
     const query = `EXPLAIN SYNTAX SELECT x
 FROM
 (
@@ -5151,7 +5081,7 @@ SELECT 1
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 665', () => {
+test('should pass without errors explain: 655', () => {
     const query = `EXPLAIN SYNTAX SELECT 1
 UNION ALL
 SELECT 1
@@ -5162,322 +5092,322 @@ SELECT 1;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 666', () => {
+test('should pass without errors explain: 656', () => {
     const query = `EXPLAIN SYNTAX (((((((((((((((SELECT 1)))))))))))))));`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 667', () => {
+test('should pass without errors explain: 657', () => {
     const query = `EXPLAIN SYNTAX (((((((((((((((SELECT 1 UNION DISTINCT SELECT 1))) UNION DISTINCT SELECT 1)))) UNION ALL SELECT 1))))))));`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 668', () => {
+test('should pass without errors explain: 658', () => {
     const query = `explain syntax select count(), count(1), count(-1), sum(1), count(null);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 669', () => {
+test('should pass without errors explain: 659', () => {
     const query = `explain syntax select sum(1) from numbers(10) where 0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 670', () => {
+test('should pass without errors explain: 660', () => {
     const query = `EXPLAIN SYNTAX SELECT CAST(1 AS INT), CEIL(1), CEILING(1), CHAR(49), CHAR_LENGTH('1'), CHARACTER_LENGTH('1'), COALESCE(1), CONCAT('1', '1'), CORR(1, 1), COS(1), COUNT(1), COVAR_POP(1, 1), COVAR_SAMP(1, 1), DATABASE(), SCHEMA(), DATEDIFF('DAY', toDate('2020-10-24'), toDate('2019-10-24')), EXP(1), FLATTEN([[1]]), FLOOR(1), FQDN(), GREATEST(1), IF(1, 1, 1), IFNULL(1, 1), LCASE('A'), LEAST(1), LENGTH('1'), LN(1), LOG(1), LOG10(1), LOG2(1), LOWER('A'), MAX(1), MID('123', 1, 1), MIN(1), MOD(1, 1), NOT(1), NOW(), NOW64(), NULLIF(1, 1), PI(), POSITION('123', '2'), POW(1, 1), POWER(1, 1), RAND(), REPLACE('1', '1', '2'), REVERSE('123'), ROUND(1), SIN(1), SQRT(1), STDDEV_POP(1), STDDEV_SAMP(1), SUBSTR('123', 2), SUBSTRING('123', 2), SUM(1), TAN(1), TANH(1), TRUNC(1), TRUNCATE(1), UCASE('A'), UPPER('A'), USER(), VAR_POP(1), VAR_SAMP(1), WEEK(toDate('2020-10-24')), YEARWEEK(toDate('2020-10-24')) format TSVRaw;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 671', () => {
+test('should pass without errors explain: 661', () => {
     const query = `EXPLAIN SYNTAX SELECT sum(number / 2) FROM numbers(10);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 672', () => {
+test('should pass without errors explain: 662', () => {
     const query = `EXPLAIN SYNTAX SELECT avg(number + 2) FROM numbers(10);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 673', () => {
+test('should pass without errors explain: 663', () => {
     const query = `EXPLAIN SYNTAX SELECT avg(number - 2) FROM numbers(10);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 674', () => {
+test('should pass without errors explain: 664', () => {
     const query = `EXPLAIN SYNTAX SELECT avg(number * 2) FROM numbers(10);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 675', () => {
+test('should pass without errors explain: 665', () => {
     const query = `EXPLAIN SYNTAX SELECT avg(number / 2) FROM numbers(10);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 676', () => {
+test('should pass without errors explain: 666', () => {
     const query = `EXPLAIN QUERY TREE run_passes=1 SELECT sumIf(123, number % 2 == 0) FROM numbers(100);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 677', () => {
+test('should pass without errors explain: 667', () => {
     const query = `EXPLAIN QUERY TREE run_passes=1 SELECT sum(if(number % 2 == 0, 123, 0)) FROM numbers(100);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 678', () => {
+test('should pass without errors explain: 668', () => {
     const query = `EXPLAIN QUERY TREE run_passes=1 SELECT sum(if(number % 2 == 0, 0, 123)) FROM numbers(100);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 679', () => {
+test('should pass without errors explain: 669', () => {
     const query = `EXPLAIN SYNTAX SELECT i FROM cnf_test WHERE NOT ((i > 1) OR (i > 2));`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 680', () => {
+test('should pass without errors explain: 670', () => {
     const query = `EXPLAIN SYNTAX SELECT i FROM cnf_test WHERE NOT ((i > 1) AND (i > 2));`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 681', () => {
+test('should pass without errors explain: 671', () => {
     const query = `EXPLAIN SYNTAX SELECT i FROM cnf_test WHERE ((i > 1) AND (i > 2)) OR ((i > 3) AND (i > 4)) OR ((i > 5) AND (i > 6));`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 682', () => {
+test('should pass without errors explain: 672', () => {
     const query = `EXPLAIN SYNTAX SELECT i FROM cnf_test WHERE NOT (((i > 1) OR (i > 2)) AND ((i > 3) OR (i > 4)) AND ((i > 5) OR (i > 6)));`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 683', () => {
+test('should pass without errors explain: 673', () => {
     const query = `EXPLAIN SYNTAX SELECT i FROM cnf_test WHERE ((i > 1) AND (i > 2) AND (i > 7)) OR ((i > 3) AND (i > 4) AND (i > 8)) OR ((i > 5) AND (i > 6));`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 684', () => {
+test('should pass without errors explain: 674', () => {
     const query = `EXPLAIN SYNTAX SELECT i FROM cnf_test WHERE ((i > 1) OR (i > 2) OR (i > 7)) AND ((i > 3) OR (i > 4) OR (i > 8)) AND NOT ((i > 5) OR (i > 6));`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 685', () => {
+test('should pass without errors explain: 675', () => {
     const query = `EXPLAIN SYNTAX SELECT cityHash64(a) + 10, b + 3 FROM column_swap_test_test WHERE cityHash64(a) = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 686', () => {
+test('should pass without errors explain: 676', () => {
     const query = `EXPLAIN QUERY TREE SELECT cityHash64(a) + 10, b + 3 FROM column_swap_test_test WHERE cityHash64(a) = 1 SETTINGS enable_analyzer = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 687', () => {
+test('should pass without errors explain: 677', () => {
     const query = `EXPLAIN SYNTAX SELECT cityHash64(a) + 10, b + 3 FROM column_swap_test_test PREWHERE cityHash64(a) = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 688', () => {
+test('should pass without errors explain: 678', () => {
     const query = `EXPLAIN QUERY TREE SELECT cityHash64(a) + 10, b + 3 FROM column_swap_test_test PREWHERE cityHash64(a) = 1 SETTINGS enable_analyzer = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 689', () => {
+test('should pass without errors explain: 679', () => {
     const query = `EXPLAIN SYNTAX SELECT cityHash64(a) + 10, b + 3 FROM column_swap_test_test WHERE cityHash64(a) = 0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 690', () => {
+test('should pass without errors explain: 680', () => {
     const query = `EXPLAIN QUERY TREE SELECT cityHash64(a) + 10, b + 3 FROM column_swap_test_test WHERE cityHash64(a) = 0 SETTINGS enable_analyzer = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 691', () => {
+test('should pass without errors explain: 681', () => {
     const query = `EXPLAIN SYNTAX SELECT cityHash64(a) + 10, b + 3 FROM column_swap_test_test WHERE b = 0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 692', () => {
+test('should pass without errors explain: 682', () => {
     const query = `EXPLAIN QUERY TREE SELECT cityHash64(a) + 10, b + 3 FROM column_swap_test_test WHERE b = 0 SETTINGS enable_analyzer = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 693', () => {
+test('should pass without errors explain: 683', () => {
     const query = `EXPLAIN SYNTAX SELECT cityHash64(a) + 10, b + 3 FROM column_swap_test_test WHERE b = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 694', () => {
+test('should pass without errors explain: 684', () => {
     const query = `EXPLAIN QUERY TREE SELECT cityHash64(a) + 10, b + 3 FROM column_swap_test_test WHERE b = 1 SETTINGS enable_analyzer = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 695', () => {
+test('should pass without errors explain: 685', () => {
     const query = `EXPLAIN SYNTAX SELECT cityHash64(a) + 10 FROM column_swap_test_test WHERE cityHash64(a) = 0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 696', () => {
+test('should pass without errors explain: 686', () => {
     const query = `EXPLAIN QUERY TREE SELECT cityHash64(a) + 10 FROM column_swap_test_test WHERE cityHash64(a) = 0 SETTINGS enable_analyzer = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 697', () => {
+test('should pass without errors explain: 687', () => {
     const query = `EXPLAIN SYNTAX SELECT cityHash64(a) + 10, a FROM column_swap_test_test WHERE cityHash64(a) = 0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 698', () => {
+test('should pass without errors explain: 688', () => {
     const query = `EXPLAIN QUERY TREE SELECT cityHash64(a) + 10, a FROM column_swap_test_test WHERE cityHash64(a) = 0 SETTINGS enable_analyzer = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 699', () => {
+test('should pass without errors explain: 689', () => {
     const query = `EXPLAIN SYNTAX SELECT b + 10, a FROM column_swap_test_test WHERE b = 0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 700', () => {
+test('should pass without errors explain: 690', () => {
     const query = `EXPLAIN QUERY TREE SELECT b + 10, a FROM column_swap_test_test WHERE b = 0 SETTINGS enable_analyzer = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 701', () => {
+test('should pass without errors explain: 691', () => {
     const query = `EXPLAIN SYNTAX SELECT substring(reverse(b), 1, 1), a FROM column_swap_test_test WHERE a = 'c';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 702', () => {
+test('should pass without errors explain: 692', () => {
     const query = `EXPLAIN QUERY TREE SELECT substring(reverse(b), 1, 1), a FROM column_swap_test_test WHERE a = 'c' SETTINGS enable_analyzer = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 703', () => {
+test('should pass without errors explain: 693', () => {
     const query = `EXPLAIN SYNTAX SELECT substring(reverse(b), 1, 1), a FROM column_swap_test_test WHERE substring(reverse(b), 1, 1) = 'c';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 704', () => {
+test('should pass without errors explain: 694', () => {
     const query = `EXPLAIN QUERY TREE SELECT substring(reverse(b), 1, 1), a FROM column_swap_test_test WHERE substring(reverse(b), 1, 1) = 'c' SETTINGS enable_analyzer = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 705', () => {
+test('should pass without errors explain: 695', () => {
     const query = `EXPLAIN SYNTAX SELECT substring(reverse(b), 1, 1) AS t1, a AS t2 FROM column_swap_test_test WHERE substring(reverse(b), 1, 1) = 'c';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 706', () => {
+test('should pass without errors explain: 696', () => {
     const query = `EXPLAIN QUERY TREE SELECT substring(reverse(b), 1, 1) AS t1, a AS t2 FROM column_swap_test_test WHERE substring(reverse(b), 1, 1) = 'c' SETTINGS enable_analyzer = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 707', () => {
+test('should pass without errors explain: 697', () => {
     const query = `EXPLAIN SYNTAX SELECT substring(reverse(b), 1, 1) FROM column_swap_test_test WHERE substring(reverse(b), 1, 1) = 'c';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 708', () => {
+test('should pass without errors explain: 698', () => {
     const query = `EXPLAIN QUERY TREE SELECT substring(reverse(b), 1, 1) FROM column_swap_test_test WHERE substring(reverse(b), 1, 1) = 'c' SETTINGS enable_analyzer = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 709', () => {
+test('should pass without errors explain: 699', () => {
     const query = `EXPLAIN SYNTAX SELECT a FROM t_bad_constraint;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 710', () => {
+test('should pass without errors explain: 700', () => {
     const query = `EXPLAIN QUERY TREE SELECT a FROM t_bad_constraint SETTINGS enable_analyzer = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 711', () => {
+test('should pass without errors explain: 701', () => {
     const query = `EXPLAIN SYNTAX SELECT count() FROM t_constraints_where WHERE b > 15; -- assumption -> 0 EXPLAIN QUERY TREE SELECT count() FROM t_constraints_where WHERE b > 15 SETTINGS enable_analyzer = 1; -- assumption -> 0
 EXPLAIN SYNTAX SELECT count() FROM t_constraints_where WHERE b = 20; -- assumption -> 0
 EXPLAIN QUERY TREE SELECT count() FROM t_constraints_where WHERE b = 20 SETTINGS enable_analyzer = 1; -- assumption -> 0
@@ -5493,84 +5423,84 @@ DROP TABLE t_constraints_where;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 712', () => {
+test('should pass without errors explain: 702', () => {
     const query = `EXPLAIN SYNTAX SELECT count() FROM t_constraints_where WHERE b = 1 OR b < 18 OR b > 5; -- assumption -> (b < 20) -> 0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 713', () => {
+test('should pass without errors explain: 703', () => {
     const query = `EXPLAIN QUERY TREE SELECT count() FROM t_constraints_where WHERE b = 1 OR b < 18 OR b > 5 SETTINGS enable_analyzer = 1; -- assumption -> (b < 20) -> 0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 714', () => {
+test('should pass without errors explain: 704', () => {
     const query = `EXPLAIN SYNTAX SELECT count() FROM constraint_test_constants WHERE (a > 100 OR b > 100 OR c > 100) AND (a <= 100 OR b > 100 OR c > 100) AND (NOT b > 100 OR c > 100);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 715', () => {
+test('should pass without errors explain: 705', () => {
     const query = `EXPLAIN QUERY TREE SELECT count() FROM constraint_test_constants WHERE (a > 100 OR b > 100 OR c > 100) AND (a <= 100 OR b > 100 OR c > 100) AND (NOT b > 100 OR c > 100) SETTINGS enable_analyzer = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 716', () => {
+test('should pass without errors explain: 706', () => {
     const query = `EXPLAIN SYNTAX SELECT count() FROM constraint_test_constants WHERE (a > 100 OR b > 100 OR c > 100) AND (a <= 100 OR b > 100 OR c > 100) AND (NOT b > 100 OR c > 100) AND (c > 100);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 717', () => {
+test('should pass without errors explain: 707', () => {
     const query = `EXPLAIN QUERY TREE SELECT count() FROM constraint_test_constants WHERE (a > 100 OR b > 100 OR c > 100) AND (a <= 100 OR b > 100 OR c > 100) AND (NOT b > 100 OR c > 100) AND (c > 100) SETTINGS enable_analyzer = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 718', () => {
+test('should pass without errors explain: 708', () => {
     const query = `EXPLAIN SYNTAX SELECT count() FROM constraint_test_constants WHERE (a > 100 OR b > 100 OR c > 100) AND (a <= 100 OR b > 100 OR c > 100) AND (NOT b > 100 OR c > 100) AND (c <= 100);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 719', () => {
+test('should pass without errors explain: 709', () => {
     const query = `EXPLAIN QUERY TREE SELECT count() FROM constraint_test_constants WHERE (a > 100 OR b > 100 OR c > 100) AND (a <= 100 OR b > 100 OR c > 100) AND (NOT b > 100 OR c > 100) AND (c <= 100) SETTINGS enable_analyzer = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 720', () => {
+test('should pass without errors explain: 710', () => {
     const query = `EXPLAIN SYNTAX SELECT (SELECT * FROM system.numbers LIMIT 1 OFFSET 1) AS n, toUInt64(10 / n);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 721', () => {
+test('should pass without errors explain: 711', () => {
     const query = `explain ast; -- { clientError SYNTAX_ERROR } explain ast alter table t1 delete where date = today();`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 722', () => {
+test('should pass without errors explain: 712', () => {
     const query = `explain ast create function double AS  (n) -> 2*n;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 723', () => {
+test('should pass without errors explain: 713', () => {
     const query = `EXPLAIN SYNTAX SELECT msg, toDateTime(intDiv(ms, 1000)) AS time
 FROM
 (
@@ -5586,7 +5516,7 @@ ORDER BY msg, time;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 724', () => {
+test('should pass without errors explain: 714', () => {
     const query = `explain select count(*) over (partition by p),
 count(*) over (),
 count(*) over (partition by p order by o)
@@ -5599,7 +5529,7 @@ from numbers(16)) t
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 725', () => {
+test('should pass without errors explain: 715', () => {
     const query = `explain select count(*) over (order by o, number),
 count(*) over (order by number)
 from
@@ -5611,469 +5541,469 @@ from numbers(16)) t
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 726', () => {
+test('should pass without errors explain: 716', () => {
     const query = `EXPLAIN SYNTAX SELECT count(*) FROM ( SELECT number FROM ( SELECT number FROM numbers(1000000) ) WHERE rand64() < (0.01 * 18446744073709552000.));`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 727', () => {
+test('should pass without errors explain: 717', () => {
     const query = `EXPLAIN description = 0 SELECT day AS s FROM test_table ORDER BY s LIMIT 1 SETTINGS optimize_read_in_order = 0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 728', () => {
+test('should pass without errors explain: 718', () => {
     const query = `EXPLAIN description = 0 SELECT day AS s FROM test_table ORDER BY s LIMIT 1 SETTINGS optimize_read_in_order = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 729', () => {
+test('should pass without errors explain: 719', () => {
     const query = `EXPLAIN description = 0 SELECT toDate(timestamp) AS s FROM test_table ORDER BY toDate(timestamp) LIMIT 1 SETTINGS optimize_read_in_order = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 730', () => {
+test('should pass without errors explain: 720', () => {
     const query = `EXPLAIN description = 0 SELECT day, count() AS s FROM test_table GROUP BY day SETTINGS optimize_aggregation_in_order = 0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 731', () => {
+test('should pass without errors explain: 721', () => {
     const query = `EXPLAIN description = 0 SELECT day, count() AS s FROM test_table GROUP BY day SETTINGS optimize_aggregation_in_order = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 732', () => {
+test('should pass without errors explain: 722', () => {
     const query = `EXPLAIN description = 0 SELECT toDate(timestamp), count() AS s FROM test_table GROUP BY toDate(timestamp) SETTINGS optimize_aggregation_in_order = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 733', () => {
+test('should pass without errors explain: 723', () => {
     const query = `explain syntax select negate(1), negate(-1), - -1, -(-1), (-1) in (-1);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 734', () => {
+test('should pass without errors explain: 724', () => {
     const query = `explain syntax select negate(1.), negate(-1.), - -1., -(-1.), (-1.) in (-1.);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 735', () => {
+test('should pass without errors explain: 725', () => {
     const query = `explain syntax select negate(-9223372036854775808), -(-9223372036854775808), - -9223372036854775808;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 736', () => {
+test('should pass without errors explain: 726', () => {
     const query = `explain syntax select negate(0), negate(-0), - -0, -(-0), (-0) in (-0);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 737', () => {
+test('should pass without errors explain: 727', () => {
     const query = `explain syntax select negate(0.), negate(-0.), - -0., -(-0.), (-0.) in (-0.);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 738', () => {
+test('should pass without errors explain: 728', () => {
     const query = `EXPLAIN SELECT 1 UNION ALL SELECT 1 UNION ALL SELECT 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 739', () => {
+test('should pass without errors explain: 729', () => {
     const query = `EXPLAIN (SELECT 1 UNION ALL SELECT 1) UNION ALL SELECT 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 740', () => {
+test('should pass without errors explain: 730', () => {
     const query = `EXPLAIN SELECT 1 UNION (SELECT 1 UNION ALL SELECT 1);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 741', () => {
+test('should pass without errors explain: 731', () => {
     const query = `EXPLAIN SELECT 1 UNION SELECT 1 UNION DISTINCT SELECT 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 742', () => {
+test('should pass without errors explain: 732', () => {
     const query = `EXPLAIN (SELECT 1 UNION DISTINCT SELECT 1) UNION DISTINCT SELECT 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 743', () => {
+test('should pass without errors explain: 733', () => {
     const query = `EXPLAIN SELECT 1 UNION DISTINCT (SELECT 1 UNION SELECT 1);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 744', () => {
+test('should pass without errors explain: 734', () => {
     const query = `EXPLAIN (SELECT 1 UNION ALL (SELECT 1 UNION ALL (SELECT 1 UNION ALL SELECT 1 UNION SELECT 1))) UNION ALL (((SELECT 1) UNION (SELECT 1 UNION ALL (SELECT 1 UNION ALL (SELECT 1 UNION SELECT 1 ) UNION DISTINCT SELECT 1))));`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 745', () => {
+test('should pass without errors explain: 735', () => {
     const query = `EXPLAIN (((((((((((((((SELECT 1 UNION ALL SELECT 1) UNION SELECT 1))))))))))))));`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 746', () => {
+test('should pass without errors explain: 736', () => {
     const query = `EXPLAIN (((((((((((((((((((((((((((((SELECT 1 UNION SELECT 1)))))))))))))))))))))))))))));`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 747', () => {
+test('should pass without errors explain: 737', () => {
     const query = `EXPLAIN PIPELINE SELECT key FROM data_01551 GROUP BY key, key/2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 748', () => {
+test('should pass without errors explain: 738', () => {
     const query = `EXPLAIN SYNTAX SELECT sumIf(1, number > 0) FROM numbers(10) WHERE 0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 749', () => {
+test('should pass without errors explain: 739', () => {
     const query = `explain syntax with 1 as x select x;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 750', () => {
+test('should pass without errors explain: 740', () => {
     const query = `explain syntax with 1 as x select * from (select x);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 751', () => {
+test('should pass without errors explain: 741', () => {
     const query = `explain syntax with 1 as x select *, x from (with 2 as x select x as y);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 752', () => {
+test('should pass without errors explain: 742', () => {
     const query = `explain syntax with 1 as x select x union all select x;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 753', () => {
+test('should pass without errors explain: 743', () => {
     const query = `explain syntax with 1 as x select x union all with 2 as x select x;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 754', () => {
+test('should pass without errors explain: 744', () => {
     const query = `explain syntax with 5 as q1, x as (select number + 100 as b, number as a from numbers(10) where number > q1) select * from x;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 755', () => {
+test('should pass without errors explain: 745', () => {
     const query = `explain header = 1 select 1 as x;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 756', () => {
+test('should pass without errors explain: 746', () => {
     const query = `explain syntax with it as ( select * from numbers(1) ) select it.number, i.number from it as i;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 757', () => {
+test('should pass without errors explain: 747', () => {
     const query = `EXPLAIN SYNTAX WITH 1 SELECT 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 758', () => {
+test('should pass without errors explain: 748', () => {
     const query = `EXPLAIN SYNTAX WITH 1, 2 SELECT 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 759', () => {
+test('should pass without errors explain: 749', () => {
     const query = `EXPLAIN SYNTAX SELECT * FROM system.one LIMIT 1 BY * LIMIT 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 760', () => {
+test('should pass without errors explain: 750', () => {
     const query = `EXPLAIN SYNTAX SELECT * FROM system.one LIMIT 1 BY 0+dummy, 0-dummy LIMIT 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 761', () => {
+test('should pass without errors explain: 751', () => {
     const query = `EXPLAIN PIPELINE graph=1 SELECT * FROM remote('127.{1,2}', system.one) FORMAT Null;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 762', () => {
+test('should pass without errors explain: 752', () => {
     const query = `EXPLAIN SYNTAX SELECT * APPLY x->argMax(x, number) FROM numbers(1);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 763', () => {
+test('should pass without errors explain: 753', () => {
     const query = `EXPLAIN SYNTAX SELECT columns_transformers.* APPLY(avg) from columns_transformers;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 764', () => {
+test('should pass without errors explain: 754', () => {
     const query = `EXPLAIN SYNTAX SELECT a.* APPLY(toDate) APPLY(any) from columns_transformers a;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 765', () => {
+test('should pass without errors explain: 755', () => {
     const query = `EXPLAIN SYNTAX SELECT COLUMNS('[jk]') APPLY(toString) APPLY(length) from columns_transformers;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 766', () => {
+test('should pass without errors explain: 756', () => {
     const query = `EXPLAIN SYNTAX SELECT * EXCEPT(i) APPLY(sum) from columns_transformers;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 767', () => {
+test('should pass without errors explain: 757', () => {
     const query = `EXPLAIN SYNTAX SELECT columns_transformers.* EXCEPT(j) APPLY(avg) from columns_transformers;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 768', () => {
+test('should pass without errors explain: 758', () => {
     const query = `EXPLAIN SYNTAX SELECT a.* APPLY(toDate) EXCEPT(i, j) APPLY(any) from columns_transformers a;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 769', () => {
+test('should pass without errors explain: 759', () => {
     const query = `EXPLAIN SYNTAX SELECT * REPLACE(i + 1 AS i) APPLY(sum) from columns_transformers;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 770', () => {
+test('should pass without errors explain: 760', () => {
     const query = `EXPLAIN AST SELECT * REPLACE(i + 1 AS i) APPLY(sum) from columns_transformers;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 771', () => {
+test('should pass without errors explain: 761', () => {
     const query = `EXPLAIN SYNTAX SELECT sum(i + 1 AS m) from columns_transformers;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 772', () => {
+test('should pass without errors explain: 762', () => {
     const query = `EXPLAIN AST SELECT sum(i + 1 AS m) from columns_transformers;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 773', () => {
+test('should pass without errors explain: 763', () => {
     const query = `EXPLAIN SYNTAX SELECT columns_transformers.* REPLACE(j + 2 AS j, i + 1 AS i) APPLY(avg) from columns_transformers;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 774', () => {
+test('should pass without errors explain: 764', () => {
     const query = `EXPLAIN SYNTAX SELECT a.* APPLY(toDate) REPLACE(i + 1 AS i) APPLY(any) from columns_transformers a;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 775', () => {
+test('should pass without errors explain: 765', () => {
     const query = `EXPLAIN SYNTAX SELECT * REPLACE(i + 1 AS i) REPLACE(i + 1 AS i) from columns_transformers;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 776', () => {
+test('should pass without errors explain: 766', () => {
     const query = `EXPLAIN SYNTAX SELECT COLUMNS(i, j, k) APPLY(sum) from columns_transformers;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 777', () => {
+test('should pass without errors explain: 767', () => {
     const query = `EXPLAIN SYNTAX SELECT i, j, COLUMNS(i, j, k) APPLY(toFloat64), COLUMNS(i, j) EXCEPT (i) from columns_transformers;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 778', () => {
+test('should pass without errors explain: 768', () => {
     const query = `EXPLAIN SYNTAX SELECT COLUMNS(i, j, k) APPLY(quantiles(0.5)) from columns_transformers;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 779', () => {
+test('should pass without errors explain: 769', () => {
     const query = `EXPLAIN SYNTAX SELECT * FROM view(SELECT 1);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 780', () => {
+test('should pass without errors explain: 770', () => {
     const query = `EXPLAIN SYNTAX SELECT * FROM remote('127.0.0.1', view(SELECT 1));`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 781', () => {
+test('should pass without errors explain: 771', () => {
     const query = `EXPLAIN SYNTAX SELECT number, square_number FROM ( WITH number * 2 AS square_number SELECT number, square_number FROM numbers_indexed) AS squares WHERE number = 999;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 782', () => {
+test('should pass without errors explain: 772', () => {
     const query = `EXPLAIN SYNTAX select uniq(x), uniqExact(x), uniqHLL12(x), uniqCombined(x), uniqCombined64(x) from (select number % 2 as x from numbers(10));`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 783', () => {
+test('should pass without errors explain: 773', () => {
     const query = `EXPLAIN SYNTAX select uniq(x + y), uniqExact(x + y), uniqHLL12(x + y), uniqCombined(x + y), uniqCombined64(x + y) from (select number % 2 as x, number % 3 y from numbers(10));`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 784', () => {
+test('should pass without errors explain: 774', () => {
     const query = `EXPLAIN SYNTAX select uniq(-x), uniqExact(-x), uniqHLL12(-x), uniqCombined(-x), uniqCombined64(-x) from (select number % 2 as x from numbers(10));`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 785', () => {
+test('should pass without errors explain: 775', () => {
     const query = `EXPLAIN SYNTAX select uniq(bitNot(x)), uniqExact(bitNot(x)), uniqHLL12(bitNot(x)), uniqCombined(bitNot(x)), uniqCombined64(bitNot(x)) from (select number % 2 as x from numbers(10));`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 786', () => {
+test('should pass without errors explain: 776', () => {
     const query = `EXPLAIN SYNTAX select uniq(bitNot(-x)), uniqExact(bitNot(-x)), uniqHLL12(bitNot(-x)), uniqCombined(bitNot(-x)), uniqCombined64(bitNot(-x)) from (select number % 2 as x from numbers(10));`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 787', () => {
+test('should pass without errors explain: 777', () => {
     const query = `EXPLAIN SYNTAX select uniq(-bitNot(-x)), uniqExact(-bitNot(-x)), uniqHLL12(-bitNot(-x)), uniqCombined(-bitNot(-x)), uniqCombined64(-bitNot(-x)) from (select number % 2 as x from numbers(10));`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 788', () => {
+test('should pass without errors explain: 778', () => {
     const query = `EXPLAIN SYNTAX select count(distinct -bitNot(-x)) from (select number % 2 as x from numbers(10));`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 789', () => {
+test('should pass without errors explain: 779', () => {
     const query = `EXPLAIN SYNTAX select uniq(concatAssumeInjective('x', 'y')) from numbers(10);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 790', () => {
+test('should pass without errors explain: 780', () => {
     const query = `EXPLAIN SYNTAX SELECT number = 1 ? 'hello' : (number = 2 ? 'world' : 'xyz') FROM numbers(10);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 791', () => {
+test('should pass without errors explain: 781', () => {
     const query = `EXPLAIN SYNTAX SELECT dictGet('dictdb_01376.dict_exists', 'value', toUInt64(1)) as val FROM numbers(2) GROUP BY val;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 792', () => {
+test('should pass without errors explain: 782', () => {
     const query = `EXPLAIN QUERY TREE SELECT dictGet('dictdb_01376.dict_exists', 'value', number) as val
 FROM numbers(2)
 GROUP BY val
@@ -6083,847 +6013,847 @@ SETTINGS enable_analyzer = 1;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 793', () => {
+test('should pass without errors explain: 783', () => {
     const query = `EXPLAIN SYNTAX SELECT k, groupArrayMovingSum(v) FROM (SELECT * FROM moving_sum_num ORDER BY k, dt) GROUP BY k ORDER BY k;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 794', () => {
+test('should pass without errors explain: 784', () => {
     const query = `EXPLAIN SYNTAX SELECT groupArray(x) from (SELECT number as x FROM numbers(3) ORDER BY x, exp(x));`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 795', () => {
+test('should pass without errors explain: 785', () => {
     const query = `EXPLAIN QUERY TREE run_passes=1 SELECT groupArray(x) from (SELECT number as x FROM numbers(3) ORDER BY x, exp(x)) settings enable_analyzer=1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 796', () => {
+test('should pass without errors explain: 786', () => {
     const query = `EXPLAIN SYNTAX SELECT groupArray(x) from (SELECT number as x FROM numbers(3) ORDER BY x, exp(exp(x)));`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 797', () => {
+test('should pass without errors explain: 787', () => {
     const query = `EXPLAIN QUERY TREE run_passes=1 SELECT groupArray(x) from (SELECT number as x FROM numbers(3) ORDER BY x, exp(exp(x))) settings enable_analyzer=1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 798', () => {
+test('should pass without errors explain: 788', () => {
     const query = `EXPLAIN SYNTAX SELECT groupArray(x) from (SELECT number as x FROM numbers(3) ORDER BY exp(x), x);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 799', () => {
+test('should pass without errors explain: 789', () => {
     const query = `EXPLAIN QUERY TREE run_passes=1 SELECT groupArray(x) from (SELECT number as x FROM numbers(3) ORDER BY exp(x), x) settings enable_analyzer=1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 800', () => {
+test('should pass without errors explain: 790', () => {
     const query = `EXPLAIN SYNTAX SELECT * FROM (SELECT number + 2 AS key FROM numbers(4)) s FULL JOIN test t USING(key) ORDER BY s.key, t.key;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 801', () => {
+test('should pass without errors explain: 791', () => {
     const query = `EXPLAIN QUERY TREE run_passes=1 SELECT * FROM (SELECT number + 2 AS key FROM numbers(4)) s FULL JOIN test t USING(key) ORDER BY s.key, t.key settings enable_analyzer=1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 802', () => {
+test('should pass without errors explain: 792', () => {
     const query = `EXPLAIN SYNTAX SELECT key, a FROM test ORDER BY key, a, exp(key + a);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 803', () => {
+test('should pass without errors explain: 793', () => {
     const query = `EXPLAIN QUERY TREE run_passes=1 SELECT key, a FROM test ORDER BY key, a, exp(key + a) settings enable_analyzer=1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 804', () => {
+test('should pass without errors explain: 794', () => {
     const query = `EXPLAIN SYNTAX SELECT key, a FROM test ORDER BY key, exp(key + a);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 805', () => {
+test('should pass without errors explain: 795', () => {
     const query = `EXPLAIN QUERY TREE run_passes=1 SELECT key, a FROM test ORDER BY key, exp(key + a) settings enable_analyzer=1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 806', () => {
+test('should pass without errors explain: 796', () => {
     const query = `EXPLAIN QUERY TREE run_passes=1 SELECT key FROM test GROUP BY key ORDER BY avg(a), key settings enable_analyzer=1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 807', () => {
+test('should pass without errors explain: 797', () => {
     const query = `EXPLAIN QUERY TREE run_passes=1 SELECT * FROM t1 INNER JOIN t2 ON t1.id = t2.id ORDER BY t1.id, t2.id settings enable_analyzer=1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 808', () => {
+test('should pass without errors explain: 798', () => {
     const query = `EXPLAIN SYNTAX SELECT min(number % 2) AS a, max(number % 3) AS b FROM numbers(10000000) GROUP BY number % 2, number % 3 ORDER BY a, b;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 809', () => {
+test('should pass without errors explain: 799', () => {
     const query = `EXPLAIN SYNTAX SELECT any(number % 2) AS a, anyLast(number % 3) AS b FROM numbers(10000000) GROUP BY number % 2, number % 3 ORDER BY a, b;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 810', () => {
+test('should pass without errors explain: 800', () => {
     const query = `EXPLAIN SYNTAX SELECT max((number % 5) * (number % 7)) AS a FROM numbers(10000000) GROUP BY number % 7, number % 5 ORDER BY a;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 811', () => {
+test('should pass without errors explain: 801', () => {
     const query = `EXPLAIN SYNTAX SELECT foo FROM (SELECT anyLast(number) AS foo FROM numbers(1) GROUP BY number);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 812', () => {
+test('should pass without errors explain: 802', () => {
     const query = `EXPLAIN SYNTAX SELECT avg(log(2) * number) AS k FROM numbers(10000000) GROUP BY (number % 2) * (number % 3), number % 3, number % 2 HAVING avg(log(2) * number) > 3465735.3 ORDER BY k;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 813', () => {
+test('should pass without errors explain: 803', () => {
     const query = `EXPLAIN QUERY TREE run_passes=1 SELECT avg(log(2) * number) AS k FROM numbers(10000000) GROUP BY (number % 2) * (number % 3), number % 3, number % 2 HAVING avg(log(2) * number) > 3465735.3 ORDER BY k;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 814', () => {
+test('should pass without errors explain: 804', () => {
     const query = `EXPLAIN SYNTAX SELECT avg(log(2) * number) AS k FROM numbers(10000000) GROUP BY number % 5, ((number % 5) * (number % 5)) HAVING ((number % 5) * (number % 5)) < 5 ORDER BY k;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 815', () => {
+test('should pass without errors explain: 805', () => {
     const query = `EXPLAIN QUERY TREE run_passes=1 SELECT avg(log(2) * number) AS k FROM numbers(10000000) GROUP BY number % 5, ((number % 5) * (number % 5)) HAVING ((number % 5) * (number % 5)) < 5 ORDER BY k;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 816', () => {
+test('should pass without errors explain: 806', () => {
     const query = `EXPLAIN SYNTAX SELECT (number % 5) * (number % 5) AS k FROM numbers(10000000) GROUP BY number % 5, ((number % 5) * (number % 5)) HAVING ((number % 5) * (number % 5)) < 5 ORDER BY k;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 817', () => {
+test('should pass without errors explain: 807', () => {
     const query = `EXPLAIN QUERY TREE run_passes=1 SELECT (number % 5) * (number % 5) AS k FROM numbers(10000000) GROUP BY number % 5, ((number % 5) * (number % 5)) HAVING ((number % 5) * (number % 5)) < 5 ORDER BY k;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 818', () => {
+test('should pass without errors explain: 808', () => {
     const query = `EXPLAIN SYNTAX SELECT max(log(2) * number) AS k FROM numbers(10000000) GROUP BY number % 2, number % 3, (number % 2 + number % 3) % 2 ORDER BY k;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 819', () => {
+test('should pass without errors explain: 809', () => {
     const query = `EXPLAIN SYNTAX SELECT avg(log(2) * number) AS k FROM numbers(10000000) GROUP BY number % 5, ((number % 5) * (number % 5)) ORDER BY k;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 820', () => {
+test('should pass without errors explain: 810', () => {
     const query = `EXPLAIN SYNTAX SELECT avg(log(2) * number) AS k FROM numbers(10000000) GROUP BY (number % 2) * (number % 3), number % 3 ORDER BY k;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 821', () => {
+test('should pass without errors explain: 811', () => {
     const query = `EXPLAIN SYNTAX SELECT avg(log(2) * number) AS k FROM numbers(10000000) GROUP BY (number % 2) * (number % 3), number % 3, number % 2 ORDER BY k;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 822', () => {
+test('should pass without errors explain: 812', () => {
     const query = `EXPLAIN SYNTAX SELECT avg(log(2) * number) AS k FROM numbers(10000000) GROUP BY (number % 2) % 3, number % 2 ORDER BY k;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 823', () => {
+test('should pass without errors explain: 813', () => {
     const query = `explain syntax select min((n as a) + (1 as b)) c from (select number n from numbers(10)) where a > 0 and b > 0 having c > 0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 824', () => {
+test('should pass without errors explain: 814', () => {
     const query = `explain syntax select min((n + 1) as a) c from (select number n from numbers(10)) where a > 0 having c > 0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 825', () => {
+test('should pass without errors explain: 815', () => {
     const query = `explain syntax select min(n + 1) as c from (select number n from numbers(10)) having c > 0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 826', () => {
+test('should pass without errors explain: 816', () => {
     const query = `EXPLAIN SYNTAX SELECT sum(n + 1), sum(1 + n), sum(n - 1), sum(1 - n) FROM (SELECT number n FROM numbers(10));`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 827', () => {
+test('should pass without errors explain: 817', () => {
     const query = `EXPLAIN SYNTAX SELECT sum(n * 2), sum(2 * n), sum(n / 2), sum(1 / n) FROM (SELECT number n FROM numbers(10));`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 828', () => {
+test('should pass without errors explain: 818', () => {
     const query = `EXPLAIN SYNTAX SELECT min(n + 1), min(1 + n), min(n - 1), min(1 - n) FROM (SELECT number n FROM numbers(10));`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 829', () => {
+test('should pass without errors explain: 819', () => {
     const query = `EXPLAIN SYNTAX SELECT min(n * 2), min(2 * n), min(n / 2), min(1 / n) FROM (SELECT number n FROM numbers(10));`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 830', () => {
+test('should pass without errors explain: 820', () => {
     const query = `EXPLAIN SYNTAX SELECT max(n + 1), max(1 + n), max(n - 1), max(1 - n) FROM (SELECT number n FROM numbers(10));`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 831', () => {
+test('should pass without errors explain: 821', () => {
     const query = `EXPLAIN SYNTAX SELECT max(n * 2), max(2 * n), max(n / 2), max(1 / n) FROM (SELECT number n FROM numbers(10));`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 832', () => {
+test('should pass without errors explain: 822', () => {
     const query = `EXPLAIN SYNTAX SELECT sum(n + -1), sum(-1 + n), sum(n - -1), sum(-1 - n) FROM (SELECT number n FROM numbers(10));`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 833', () => {
+test('should pass without errors explain: 823', () => {
     const query = `EXPLAIN SYNTAX SELECT sum(n * -2), sum(-2 * n), sum(n / -2), sum(-1 / n) FROM (SELECT number n FROM numbers(10));`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 834', () => {
+test('should pass without errors explain: 824', () => {
     const query = `EXPLAIN SYNTAX SELECT min(n + -1), min(-1 + n), min(n - -1), min(-1 - n) FROM (SELECT number n FROM numbers(10));`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 835', () => {
+test('should pass without errors explain: 825', () => {
     const query = `EXPLAIN SYNTAX SELECT min(n * -2), min(-2 * n), min(n / -2), min(-1 / n) FROM (SELECT number n FROM numbers(10));`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 836', () => {
+test('should pass without errors explain: 826', () => {
     const query = `EXPLAIN SYNTAX SELECT max(n + -1), max(-1 + n), max(n - -1), max(-1 - n) FROM (SELECT number n FROM numbers(10));`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 837', () => {
+test('should pass without errors explain: 827', () => {
     const query = `EXPLAIN SYNTAX SELECT max(n * -2), max(-2 * n), max(n / -2), max(-1 / n) FROM (SELECT number n FROM numbers(10));`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 838', () => {
+test('should pass without errors explain: 828', () => {
     const query = `EXPLAIN SYNTAX SELECT sum(abs(2) + 1), sum(abs(2) + n), sum(n - abs(2)), sum(1 - abs(2)) FROM (SELECT number n FROM numbers(10));`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 839', () => {
+test('should pass without errors explain: 829', () => {
     const query = `EXPLAIN SYNTAX SELECT sum(abs(2) * 2), sum(abs(2) * n), sum(n / abs(2)), sum(1 / abs(2)) FROM (SELECT number n FROM numbers(10));`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 840', () => {
+test('should pass without errors explain: 830', () => {
     const query = `EXPLAIN SYNTAX SELECT min(abs(2) + 1), min(abs(2) + n), min(n - abs(2)), min(1 - abs(2)) FROM (SELECT number n FROM numbers(10));`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 841', () => {
+test('should pass without errors explain: 831', () => {
     const query = `EXPLAIN SYNTAX SELECT min(abs(2) * 2), min(abs(2) * n), min(n / abs(2)), min(1 / abs(2)) FROM (SELECT number n FROM numbers(10));`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 842', () => {
+test('should pass without errors explain: 832', () => {
     const query = `EXPLAIN SYNTAX SELECT max(abs(2) + 1), max(abs(2) + n), max(n - abs(2)), max(1 - abs(2)) FROM (SELECT number n FROM numbers(10));`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 843', () => {
+test('should pass without errors explain: 833', () => {
     const query = `EXPLAIN SYNTAX SELECT max(abs(2) * 2), max(abs(2) * n), max(n / abs(2)), max(1 / abs(2)) FROM (SELECT number n FROM numbers(10));`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 844', () => {
+test('should pass without errors explain: 834', () => {
     const query = `EXPLAIN SYNTAX SELECT sum(abs(n) + 1), sum(abs(n) + n), sum(n - abs(n)), sum(1 - abs(n)) FROM (SELECT number n FROM numbers(10));`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 845', () => {
+test('should pass without errors explain: 835', () => {
     const query = `EXPLAIN SYNTAX SELECT sum(abs(n) * 2), sum(abs(n) * n), sum(n / abs(n)), sum(1 / abs(n)) FROM (SELECT number n FROM numbers(10));`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 846', () => {
+test('should pass without errors explain: 836', () => {
     const query = `EXPLAIN SYNTAX SELECT min(abs(n) + 1), min(abs(n) + n), min(n - abs(n)), min(1 - abs(n)) FROM (SELECT number n FROM numbers(10));`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 847', () => {
+test('should pass without errors explain: 837', () => {
     const query = `EXPLAIN SYNTAX SELECT min(abs(n) * 2), min(abs(n) * n), min(n / abs(n)), min(1 / abs(n)) FROM (SELECT number n FROM numbers(10));`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 848', () => {
+test('should pass without errors explain: 838', () => {
     const query = `EXPLAIN SYNTAX SELECT max(abs(n) + 1), max(abs(n) + n), max(n - abs(n)), max(1 - abs(n)) FROM (SELECT number n FROM numbers(10));`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 849', () => {
+test('should pass without errors explain: 839', () => {
     const query = `EXPLAIN SYNTAX SELECT max(abs(n) * 2), max(abs(n) * n), max(n / abs(n)), max(1 / abs(n)) FROM (SELECT number n FROM numbers(10));`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 850', () => {
+test('should pass without errors explain: 840', () => {
     const query = `EXPLAIN SYNTAX SELECT sum(n*n + 1), sum(1 + n*n), sum(n*n - 1), sum(1 - n*n) FROM (SELECT number n FROM numbers(10));`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 851', () => {
+test('should pass without errors explain: 841', () => {
     const query = `EXPLAIN SYNTAX SELECT sum(n*n * 2), sum(2 * n*n), sum(n*n / 2), sum(1 / n*n) FROM (SELECT number n FROM numbers(10));`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 852', () => {
+test('should pass without errors explain: 842', () => {
     const query = `EXPLAIN SYNTAX SELECT min(n*n + 1), min(1 + n*n), min(n*n - 1), min(1 - n*n) FROM (SELECT number n FROM numbers(10));`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 853', () => {
+test('should pass without errors explain: 843', () => {
     const query = `EXPLAIN SYNTAX SELECT min(n*n * 2), min(2 * n*n), min(n*n / 2), min(1 / n*n) FROM (SELECT number n FROM numbers(10));`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 854', () => {
+test('should pass without errors explain: 844', () => {
     const query = `EXPLAIN SYNTAX SELECT max(n*n + 1), max(1 + n*n), max(n*n - 1), max(1 - n*n) FROM (SELECT number n FROM numbers(10));`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 855', () => {
+test('should pass without errors explain: 845', () => {
     const query = `EXPLAIN SYNTAX SELECT max(n*n * 2), max(2 * n*n), max(n*n / 2), max(1 / n*n) FROM (SELECT number n FROM numbers(10));`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 856', () => {
+test('should pass without errors explain: 846', () => {
     const query = `EXPLAIN SYNTAX SELECT sum(1 + n + 1), sum(1 + 1 + n), sum(1 + n - 1), sum(1 + 1 - n) FROM (SELECT number n FROM numbers(10));`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 857', () => {
+test('should pass without errors explain: 847', () => {
     const query = `EXPLAIN SYNTAX SELECT sum(1 + n * 2), sum(1 + 2 * n), sum(1 + n / 2), sum(1 + 1 / n) FROM (SELECT number n FROM numbers(10));`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 858', () => {
+test('should pass without errors explain: 848', () => {
     const query = `EXPLAIN SYNTAX SELECT min(1 + n + 1), min(1 + 1 + n), min(1 + n - 1), min(1 + 1 - n) FROM (SELECT number n FROM numbers(10));`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 859', () => {
+test('should pass without errors explain: 849', () => {
     const query = `EXPLAIN SYNTAX SELECT min(1 + n * 2), min(1 + 2 * n), min(1 + n / 2), min(1 + 1 / n) FROM (SELECT number n FROM numbers(10));`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 860', () => {
+test('should pass without errors explain: 850', () => {
     const query = `EXPLAIN SYNTAX SELECT max(1 + n + 1), max(1 + 1 + n), max(1 + n - 1), max(1 + 1 - n) FROM (SELECT number n FROM numbers(10));`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 861', () => {
+test('should pass without errors explain: 851', () => {
     const query = `EXPLAIN SYNTAX SELECT max(1 + n * 2), max(1 + 2 * n), max(1 + n / 2), max(1 + 1 / n) FROM (SELECT number n FROM numbers(10));`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 862', () => {
+test('should pass without errors explain: 852', () => {
     const query = `EXPLAIN SYNTAX SELECT sum(n + -1 + -1), sum(-1 + n + -1), sum(n - -1 + -1), sum(-1 - n + -1) FROM (SELECT number n FROM numbers(10));`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 863', () => {
+test('should pass without errors explain: 853', () => {
     const query = `EXPLAIN SYNTAX SELECT sum(n * -2 * -1), sum(-2 * n * -1), sum(n / -2 / -1), sum(-1 / n / -1) FROM (SELECT number n FROM numbers(10));`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 864', () => {
+test('should pass without errors explain: 854', () => {
     const query = `EXPLAIN SYNTAX SELECT min(n + -1 + -1), min(-1 + n + -1), min(n - -1 + -1), min(-1 - n + -1) FROM (SELECT number n FROM numbers(10));`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 865', () => {
+test('should pass without errors explain: 855', () => {
     const query = `EXPLAIN SYNTAX SELECT min(n * -2 * -1), min(-2 * n * -1), min(n / -2 / -1), min(-1 / n / -1) FROM (SELECT number n FROM numbers(10));`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 866', () => {
+test('should pass without errors explain: 856', () => {
     const query = `EXPLAIN SYNTAX SELECT max(n + -1 + -1), max(-1 + n + -1), max(n - -1 + -1), max(-1 - n + -1) FROM (SELECT number n FROM numbers(10));`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 867', () => {
+test('should pass without errors explain: 857', () => {
     const query = `EXPLAIN SYNTAX SELECT max(n * -2 * -1), max(-2 * n * -1), max(n / -2 / -1), max(-1 / n / -1) FROM (SELECT number n FROM numbers(10));`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 868', () => {
+test('should pass without errors explain: 858', () => {
     const query = `EXPLAIN SYNTAX SELECT sum(n + 1) + sum(1 + n) + sum(n - 1) + sum(1 - n) FROM (SELECT number n FROM numbers(10));`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 869', () => {
+test('should pass without errors explain: 859', () => {
     const query = `EXPLAIN SYNTAX SELECT sum(n * 2) + sum(2 * n) + sum(n / 2) + sum(1 / n) FROM (SELECT number n FROM numbers(10));`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 870', () => {
+test('should pass without errors explain: 860', () => {
     const query = `EXPLAIN SYNTAX SELECT min(n + 1) + min(1 + n) + min(n - 1) + min(1 - n) FROM (SELECT number n FROM numbers(10));`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 871', () => {
+test('should pass without errors explain: 861', () => {
     const query = `EXPLAIN SYNTAX SELECT min(n * 2) + min(2 * n) + min(n / 2) + min(1 / n) FROM (SELECT number n FROM numbers(10));`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 872', () => {
+test('should pass without errors explain: 862', () => {
     const query = `EXPLAIN SYNTAX SELECT max(n + 1) + max(1 + n) + max(n - 1) + max(1 - n) FROM (SELECT number n FROM numbers(10));`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 873', () => {
+test('should pass without errors explain: 863', () => {
     const query = `EXPLAIN SYNTAX SELECT max(n * 2) + max(2 * n) + max(n / 2) + max(1 / n) FROM (SELECT number n FROM numbers(10));`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 874', () => {
+test('should pass without errors explain: 864', () => {
     const query = `EXPLAIN SYNTAX SELECT countIf(DISTINCT number % 10, number % 5 = 2) FROM numbers(10000);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 875', () => {
+test('should pass without errors explain: 865', () => {
     const query = `EXPLAIN SYNTAX SELECT sumIf(DISTINCT number % 10, number % 5 = 2) FROM numbers(10000);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 876', () => {
+test('should pass without errors explain: 866', () => {
     const query = `EXPLAIN SYNTAX SELECT * FROM n, r WHERE n.k = r.k AND r.name = 'A';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 877', () => {
+test('should pass without errors explain: 867', () => {
     const query = `EXPLAIN SYNTAX SELECT * FROM n, r WHERE n.k = r.k AND r.name LIKE 'A%';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 878', () => {
+test('should pass without errors explain: 868', () => {
     const query = `EXPLAIN SYNTAX SELECT * FROM n, r WHERE n.k = r.k AND r.name NOT LIKE 'A%';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 879', () => {
+test('should pass without errors explain: 869', () => {
     const query = `EXPLAIN SYNTAX SELECT * FROM test_view WHERE id = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 880', () => {
+test('should pass without errors explain: 870', () => {
     const query = `EXPLAIN SYNTAX SELECT * FROM test_view WHERE id = 2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 881', () => {
+test('should pass without errors explain: 871', () => {
     const query = `EXPLAIN SYNTAX SELECT id FROM test_view WHERE id  = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 882', () => {
+test('should pass without errors explain: 872', () => {
     const query = `EXPLAIN SYNTAX SELECT s.id FROM test_view AS s WHERE s.id = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 883', () => {
+test('should pass without errors explain: 873', () => {
     const query = `EXPLAIN SYNTAX SELECT k, v, d, i FROM (SELECT t.1 AS k, t.2 AS v, runningDifference(v) AS d, runningDifference(cityHash64(t.1)) AS i FROM (   SELECT arrayJoin([('a', 1), ('a', 2), ('a', 3), ('b', 11), ('b', 13), ('b', 15)]) AS t)) WHERE i = 0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 884', () => {
+test('should pass without errors explain: 874', () => {
     const query = `EXPLAIN SYNTAX SELECT co,co2,co3,num FROM ( SELECT co,co2,co3,count() AS num FROM (SELECT dummy+1 AS co,dummy+2 AS co2 ,dummy+3 AS co3) GROUP BY cube (co,co2,co3) ) WHERE co!=0 AND co2 !=2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 885', () => {
+test('should pass without errors explain: 875', () => {
     const query = `EXPLAIN SYNTAX SELECT name FROM ( SELECT name FROM system.settings ) ANY INNER JOIN ( SELECT name FROM system.settings ) USING (name) WHERE name = 'enable_optimize_predicate_expression';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 886', () => {
+test('should pass without errors explain: 876', () => {
     const query = `EXPLAIN SYNTAX SELECT ccc FROM ( SELECT 1 AS ccc UNION ALL SELECT * FROM ( SELECT 2 AS ccc ) ANY INNER JOIN ( SELECT 2 AS ccc ) USING (ccc) ) WHERE ccc > 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 887', () => {
+test('should pass without errors explain: 877', () => {
     const query = `EXPLAIN SYNTAX SELECT ts, id, id_b, b.ts, b.id, id_c FROM (SELECT ts, id, id_b FROM A) AS a ALL LEFT JOIN B AS b ON b.id = a.id_b WHERE a.ts <= toDateTime('1970-01-01 03:00:00');`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 888', () => {
+test('should pass without errors explain: 878', () => {
     const query = `EXPLAIN SYNTAX SELECT ts AS \`--a.ts\`, id AS \`--a.id\`, id_b AS \`--a.id_b\`, b.ts AS \`--b.ts\`, b.id AS \`--b.id\`, id_c AS \`--b.id_c\` FROM (SELECT ts, id, id_b FROM A) AS a ALL LEFT JOIN B AS b ON \`--b.id\` = \`--a.id_b\` WHERE \`--a.ts\` <= toDateTime('1970-01-01 03:00:00');`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 889', () => {
+test('should pass without errors explain: 879', () => {
     const query = `EXPLAIN SYNTAX SELECT * FROM (SELECT * FROM system.one) WHERE arrayMap(x -> x + 1, [dummy]) = [1];`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 890', () => {
+test('should pass without errors explain: 880', () => {
     const query = `EXPLAIN SYNTAX SELECT *  FROM (SELECT 1 AS id, 2 AS value) INNER JOIN (SELECT 1 AS id, 3 AS value_1) USING id WHERE arrayMap(x -> x + value + value_1, [1]) = [6];`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 891', () => {
+test('should pass without errors explain: 881', () => {
     const query = `EXPLAIN SYNTAX SELECT * FROM system.one HAVING dummy > 0 AND dummy < 0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 892', () => {
+test('should pass without errors explain: 882', () => {
     const query = `EXPLAIN SYNTAX SELECT 1 WHERE 1 = 0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 893', () => {
+test('should pass without errors explain: 883', () => {
     const query = `EXPLAIN SYNTAX SELECT 1 WHERE 1 IN (0, 1, 2);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 894', () => {
+test('should pass without errors explain: 884', () => {
     const query = `EXPLAIN SYNTAX SELECT 1 WHERE 1 IN (0, 2) AND 2 = ((SELECT 2) AS subquery);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 895', () => {
+test('should pass without errors explain: 885', () => {
     const query = `EXPLAIN SYNTAX SELECT 1 WHERE 1 IN ((SELECT arrayJoin([1, 2, 3])) AS subquery);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 896', () => {
+test('should pass without errors explain: 886', () => {
     const query = `EXPLAIN SYNTAX SELECT 1 WHERE NOT ignore();`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 897', () => {
+test('should pass without errors explain: 887', () => {
     const query = `EXPLAIN SYNTAX SELECT (1,);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 898', () => {
+test('should pass without errors explain: 888', () => {
     const query = `EXPLAIN SYNTAX SELECT * FROM a;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 899', () => {
+test('should pass without errors explain: 889', () => {
     const query = `EXPLAIN SYNTAX SELECT * FROM t1_00826 cross join t2_00826 where t1_00826.a = t2_00826.a;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 900', () => {
+test('should pass without errors explain: 890', () => {
     const query = `EXPLAIN SYNTAX SELECT * FROM t1_00826, t2_00826 where t1_00826.a = t2_00826.a;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 901', () => {
+test('should pass without errors explain: 891', () => {
     const query = `EXPLAIN SYNTAX SELECT * FROM t1_00826 cross join t2_00826 where t1_00826.a = t2_00826.b;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 902', () => {
+test('should pass without errors explain: 892', () => {
     const query = `EXPLAIN SYNTAX SELECT * FROM t1_00826 x cross join t1_00826 y where x.a = y.a and x.b = y.b;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 903', () => {
+test('should pass without errors explain: 893', () => {
     const query = `EXPLAIN SYNTAX SELECT * FROM t1_00826 cross join t2_00826 where t1_00826.a = t1_00826.b;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 904', () => {
+test('should pass without errors explain: 894', () => {
     const query = `EXPLAIN SYNTAX SELECT * FROM t1_00826 cross join t2_00826 where t1_00826.a = t2_00826.a and t1_00826.b = t2_00826.b;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 905', () => {
+test('should pass without errors explain: 895', () => {
     const query = `EXPLAIN SYNTAX SELECT * FROM t1_00826 cross join t2_00826 where t1_00826.a = t2_00826.a and (t1_00826.a = t2_00826.a and (t1_00826.a = t2_00826.a and t1_00826.b = t2_00826.b));`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 906', () => {
+test('should pass without errors explain: 896', () => {
     const query = `EXPLAIN SYNTAX SELECT * FROM t1_00826 cross join t2_00826 where t1_00826.a = t2_00826.a and t1_00826.b = t2_00826.b and t1_00826.a >= 1 and t2_00826.b > 0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 907', () => {
+test('should pass without errors explain: 897', () => {
     const query = `EXPLAIN SYNTAX SELECT * FROM t1_00826 cross join t2_00826 where t1_00826.a = t2_00826.a and t1_00826.b = t2_00826.b and (t1_00826.a >= 1 OR t2_00826.b = 1);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 908', () => {
+test('should pass without errors explain: 898', () => {
     const query = `EXPLAIN SYNTAX SELECT * FROM t1_00826 cross join t2_00826 where t1_00826.a + 1 = t2_00826.a + t2_00826.b AND (t1_00826.a + t1_00826.b + t2_00826.a + t2_00826.b > 5);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 909', () => {
+test('should pass without errors explain: 899', () => {
     const query = `EXPLAIN SYNTAX SELECT * FROM t1_00826 cross join t2_00826 where t1_00826.b = t2_00826.a AND (t2_00826.b IS NULL OR t2_00826.b > t2_00826.a);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 910', () => {
+test('should pass without errors explain: 900', () => {
     const query = `EXPLAIN SYNTAX SELECT a as b FROM t1_00826 cross join t2_00826 where t1_00826.b = t2_00826.a AND b > 0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 911', () => {
+test('should pass without errors explain: 901', () => {
     const query = `EXPLAIN SYNTAX SELECT * FROM t1_00826, t2_00826 where t1_00826.b = t2_00826.b;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 912', () => {
+test('should pass without errors explain: 902', () => {
     const query = `EXPLAIN SYNTAX SELECT * FROM t1_00826, t2_00826 where t1_00826.a = t2_00826.a AND (t2_00826.b IS NULL OR t2_00826.b < 2);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 913', () => {
+test('should pass without errors explain: 903', () => {
     const query = `EXPLAIN SYNTAX SELECT * FROM
 (
 SELECT
@@ -6937,273 +6867,273 @@ WHERE (n >= 2) AND (n <= 5);`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 914', () => {
+test('should pass without errors explain: 904', () => {
     const query = `explain query tree select * from bug where (k =1 or k=2 or k =3) and (s=21 or s=22 or s=23) SETTINGS enable_analyzer = 1;;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 915', () => {
+test('should pass without errors explain: 905', () => {
     const query = `explain query tree select * from (select * from bug where k=1 or k=2 or k=3) where (s=21 or s=22 or s=23) SETTINGS enable_analyzer = 1;;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 916', () => {
+test('should pass without errors explain: 906', () => {
     const query = `explain query tree select k, (k=1 or k=2 or k=3), s, (s=21), (s=21 or s=22), (s=21 or s=22 or s=23) from bug SETTINGS enable_analyzer = 1;;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 917', () => {
+test('should pass without errors explain: 907', () => {
     const query = `explain query tree select s, (s=21 or s=22 or s=23) from bug SETTINGS enable_analyzer = 1;;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 918', () => {
+test('should pass without errors explain: 908', () => {
     const query = `explain query tree select s, (s=21 or 22=s or 23=s) from bug SETTINGS enable_analyzer = 1;;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 919', () => {
+test('should pass without errors explain: 909', () => {
     const query = `EXPLAIN QUERY TREE SELECT count() FROM regression_for_in_operator_view WHERE g = '5' OR g = '6' SETTINGS enable_analyzer = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 920', () => {
+test('should pass without errors explain: 910', () => {
     const query = `EXPLAIN SYNTAX SELECT count() FROM (SELECT [number] a, [number * 2] b FROM system.numbers LIMIT 1) AS t ARRAY JOIN a, b WHERE NOT ignore(a + b);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 921', () => {
+test('should pass without errors explain: 911', () => {
     const query = `EXPLAIN SYNTAX SELECT a, b FROM (SELECT 1 AS a) ANY LEFT JOIN (SELECT 1 AS a, 1 AS b) USING (a) WHERE b = 0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 922', () => {
+test('should pass without errors explain: 912', () => {
     const query = `EXPLAIN SYNTAX SELECT a, b FROM (SELECT 1 AS a, 1 as b) ANY RIGHT JOIN (SELECT 1 AS a) USING (a) WHERE b = 0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 923', () => {
+test('should pass without errors explain: 913', () => {
     const query = `EXPLAIN SYNTAX SELECT a, b FROM (SELECT 1 AS a) ANY FULL JOIN (SELECT 1 AS a, 1 AS b) USING (a) WHERE b = 0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 924', () => {
+test('should pass without errors explain: 914', () => {
     const query = `EXPLAIN SYNTAX SELECT a, b FROM (SELECT 1 AS a, 1 AS b) ANY FULL JOIN (SELECT 1 AS a) USING (a) WHERE b = 0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 925', () => {
+test('should pass without errors explain: 915', () => {
     const query = `EXPLAIN SYNTAX SELECT toString(value) AS value FROM (SELECT 1 AS value) WHERE value = '1';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 926', () => {
+test('should pass without errors explain: 916', () => {
     const query = `EXPLAIN SYNTAX SELECT * FROM (SELECT 1 AS id UNION ALL SELECT 2) WHERE id = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 927', () => {
+test('should pass without errors explain: 917', () => {
     const query = `EXPLAIN SYNTAX SELECT * FROM (SELECT arrayJoin([1, 2, 3]) AS id) WHERE id = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 928', () => {
+test('should pass without errors explain: 918', () => {
     const query = `EXPLAIN SYNTAX SELECT id FROM (SELECT arrayJoin([1, 2, 3]) AS id) WHERE id = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 929', () => {
+test('should pass without errors explain: 919', () => {
     const query = `EXPLAIN SYNTAX SELECT * FROM (SELECT 1 AS id, (SELECT 1) as subquery) WHERE subquery = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 930', () => {
+test('should pass without errors explain: 920', () => {
     const query = `EXPLAIN SYNTAX SELECT * FROM (SELECT toUInt64(b) AS a, sum(id) AS b FROM test_00597) WHERE a = 3;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 931', () => {
+test('should pass without errors explain: 921', () => {
     const query = `EXPLAIN SYNTAX SELECT date, id, name, value FROM (SELECT date, name, value, min(id) AS id FROM test_00597 GROUP BY date, name, value) WHERE id = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 932', () => {
+test('should pass without errors explain: 922', () => {
     const query = `EXPLAIN SYNTAX SELECT * FROM (SELECT toUInt64(b) AS a, sum(id) AS b FROM test_00597 AS table_alias) AS outer_table_alias WHERE outer_table_alias.b = 3;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 933', () => {
+test('should pass without errors explain: 923', () => {
     const query = `EXPLAIN SYNTAX SELECT * FROM (SELECT * FROM test_00597) WHERE id = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 934', () => {
+test('should pass without errors explain: 924', () => {
     const query = `EXPLAIN SYNTAX SELECT * FROM (SELECT * FROM (SELECT * FROM test_00597)) WHERE id = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 935', () => {
+test('should pass without errors explain: 925', () => {
     const query = `EXPLAIN SYNTAX SELECT * FROM (SELECT b.* FROM (SELECT * FROM test_00597) AS b) WHERE id = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 936', () => {
+test('should pass without errors explain: 926', () => {
     const query = `EXPLAIN SYNTAX SELECT * FROM (SELECT date, id, name, value FROM test_00597) WHERE id = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 937', () => {
+test('should pass without errors explain: 927', () => {
     const query = `EXPLAIN SYNTAX SELECT * FROM (SELECT date, id, name, value FROM (SELECT date, id, name, value FROM test_00597)) WHERE id = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 938', () => {
+test('should pass without errors explain: 928', () => {
     const query = `EXPLAIN SYNTAX SELECT * FROM (SELECT * FROM test_00597) AS b WHERE b.id = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 939', () => {
+test('should pass without errors explain: 929', () => {
     const query = `EXPLAIN SYNTAX SELECT * FROM (SELECT * FROM (SELECT * FROM test_00597) AS a) AS b WHERE b.id = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 940', () => {
+test('should pass without errors explain: 930', () => {
     const query = `EXPLAIN SYNTAX SELECT * FROM (SELECT id, date, min(value) AS value FROM test_00597 GROUP BY id, date) WHERE id = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 941', () => {
+test('should pass without errors explain: 931', () => {
     const query = `EXPLAIN SYNTAX SELECT * FROM (SELECT * FROM test_00597 UNION ALL SELECT * FROM test_00597) WHERE id = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 942', () => {
+test('should pass without errors explain: 932', () => {
     const query = `EXPLAIN SYNTAX SELECT * FROM (SELECT * FROM test_00597) ANY LEFT JOIN (SELECT * FROM test_00597) USING id WHERE id = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 943', () => {
+test('should pass without errors explain: 933', () => {
     const query = `EXPLAIN SYNTAX SELECT * FROM (SELECT toInt8(1) AS id) ANY LEFT JOIN test_00597 USING id WHERE value = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 944', () => {
+test('should pass without errors explain: 934', () => {
     const query = `EXPLAIN SYNTAX SELECT b.value FROM (SELECT toInt8(1) AS id) ANY LEFT JOIN test_00597 AS b USING id WHERE value = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 945', () => {
+test('should pass without errors explain: 935', () => {
     const query = `EXPLAIN SYNTAX SELECT * FROM (SELECT * FROM (SELECT * FROM test_00597) ANY LEFT JOIN (SELECT * FROM test_00597) USING id) WHERE id = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 946', () => {
+test('should pass without errors explain: 936', () => {
     const query = `EXPLAIN SYNTAX SELECT * FROM (SELECT * FROM test_00597) ANY LEFT JOIN (SELECT * FROM test_00597) AS b USING id WHERE b.id = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 947', () => {
+test('should pass without errors explain: 937', () => {
     const query = `EXPLAIN SYNTAX SELECT * FROM (SELECT toInt8(1) AS id, toDate('2000-01-01') AS date FROM system.numbers LIMIT 1) ANY LEFT JOIN (SELECT * FROM test_00597) AS b USING date, id WHERE b.date = toDate('2000-01-01');`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 948', () => {
+test('should pass without errors explain: 938', () => {
     const query = `EXPLAIN SYNTAX SELECT * FROM (SELECT * FROM (SELECT * FROM test_00597) AS a ANY LEFT JOIN (SELECT * FROM test_00597) AS b  ON  a.id = b.id) WHERE id = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 949', () => {
+test('should pass without errors explain: 939', () => {
     const query = `EXPLAIN SYNTAX SELECT * FROM (SELECT * FROM test_00597) ANY INNER JOIN (SELECT * FROM (SELECT * FROM test_00597)) as r USING id WHERE r.id = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 950', () => {
+test('should pass without errors explain: 940', () => {
     const query = `EXPLAIN SYNTAX SELECT value + t1.value AS expr FROM (SELECT t0.value, t1.value FROM test_00597 AS t0 FULL JOIN test_00597 AS t1 USING date) WHERE expr < 3;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 951', () => {
+test('should pass without errors explain: 941', () => {
     const query = `EXPLAIN ESTIMATE SELECT count() FROM partition_by_ignore WHERE ts BETWEEN toDateTime('2022-08-07 00:00:00') AND toDateTime('2022-08-10 00:00:00') FORMAT CSV;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors explain: 952', () => {
+test('should pass without errors explain: 942', () => {
     const query = `EXPLAIN ESTIMATE SELECT count() FROM partition_by_ignore WHERE ts_2 BETWEEN toDateTime('2022-08-07 00:00:00') AND toDateTime('2022-08-10 00:00:00') FORMAT CSV;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);

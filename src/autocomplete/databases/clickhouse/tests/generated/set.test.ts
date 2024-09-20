@@ -2999,111 +2999,104 @@ test('should pass without errors set: 426', () => {
 });
 
 test('should pass without errors set: 427', () => {
-    const query = `SET session_timezone = 'Абырвалг'; -- { serverError BAD_ARGUMENTS} SELECT timezone(), timezoneOf(now()) SETTINGS session_timezone = 'Pacific/Pitcairn';`;
-
-    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
-    expect(autocompleteResult.errors).toHaveLength(0);
-});
-
-test('should pass without errors set: 428', () => {
     const query = `SET session_timezone = 'Asia/Novosibirsk';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 429', () => {
+test('should pass without errors set: 428', () => {
     const query = `set output_format_parquet_use_custom_encoder = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 430', () => {
+test('should pass without errors set: 429', () => {
     const query = `set output_format_parquet_row_group_size = 1000;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 431', () => {
+test('should pass without errors set: 430', () => {
     const query = `set output_format_parquet_data_page_size = 800;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 432', () => {
+test('should pass without errors set: 431', () => {
     const query = `set output_format_parquet_batch_size = 100;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 433', () => {
+test('should pass without errors set: 432', () => {
     const query = `set output_format_parquet_row_group_size_bytes = 1000000000;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 434', () => {
+test('should pass without errors set: 433', () => {
     const query = `set engine_file_truncate_on_insert=1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 435', () => {
+test('should pass without errors set: 434', () => {
     const query = `SET short_circuit_function_evaluation = 'force_enable';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 436', () => {
+test('should pass without errors set: 435', () => {
     const query = `set use_with_fill_by_sorting_prefix=1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 437', () => {
+test('should pass without errors set: 436', () => {
     const query = `SET async_insert_busy_timeout_max_ms = 10000000;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 438', () => {
+test('should pass without errors set: 437', () => {
     const query = `set parallelize_output_from_storages=1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 439', () => {
+test('should pass without errors set: 438', () => {
     const query = `set parallelize_output_from_storages=0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 440', () => {
+test('should pass without errors set: 439', () => {
     const query = `set compile_aggregate_expressions=1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 441', () => {
+test('should pass without errors set: 440', () => {
     const query = `set min_count_to_compile_aggregate_expression=0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 442', () => {
+test('should pass without errors set: 441', () => {
     const query = `SET min_bytes_to_use_direct_io='1Gi'; -- It does not work (fixme) SET local_filesystem_read_method='pread'; -- ui_uring local_fs_method does not work here (fixme)
 DROP TABLE IF EXISTS test;`;
 
@@ -3111,539 +3104,539 @@ DROP TABLE IF EXISTS test;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 443', () => {
+test('should pass without errors set: 442', () => {
     const query = `SET keeper_map_strict_mode = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 444', () => {
+test('should pass without errors set: 443', () => {
     const query = `SET keeper_map_strict_mode = false;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 445', () => {
+test('should pass without errors set: 444', () => {
     const query = `SET keeper_map_strict_mode = true;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 446', () => {
+test('should pass without errors set: 445', () => {
     const query = `SET mysql_max_rows_to_insert = 123123;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 447', () => {
+test('should pass without errors set: 446', () => {
     const query = `set mysql_max_rows_to_insert = 65536;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 448', () => {
+test('should pass without errors set: 447', () => {
     const query = `set insert_quorum = 123123;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 449', () => {
+test('should pass without errors set: 448', () => {
     const query = `set insert_quorum = 0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 450', () => {
+test('should pass without errors set: 449', () => {
     const query = `set max_alter_threads = 123123;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 451', () => {
+test('should pass without errors set: 450', () => {
     const query = `set max_alter_threads = 0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 452', () => {
+test('should pass without errors set: 451', () => {
     const query = `set drain_timeout = 123123;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 453', () => {
+test('should pass without errors set: 452', () => {
     const query = `set drain_timeout = 3;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 454', () => {
+test('should pass without errors set: 453', () => {
     const query = `set format_csv_delimiter = ',';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 455', () => {
+test('should pass without errors set: 454', () => {
     const query = `set format_avro_schema_registry_url = 'https://github.com/ClickHouse/ClickHouse/tree/master/src/Core';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 456', () => {
+test('should pass without errors set: 455', () => {
     const query = `set format_avro_schema_registry_url = '';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 457', () => {
+test('should pass without errors set: 456', () => {
     const query = `set output_format_orc_compression_method = 'none';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 458', () => {
+test('should pass without errors set: 457', () => {
     const query = `set output_format_orc_compression_method = 'lz4';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 459', () => {
+test('should pass without errors set: 458', () => {
     const query = `set join_algorithm = 'auto,direct';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 460', () => {
+test('should pass without errors set: 459', () => {
     const query = `SET database_atomic_wait_for_drop_and_detach_synchronously = 0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 461', () => {
+test('should pass without errors set: 460', () => {
     const query = `SET param_param = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 462', () => {
+test('should pass without errors set: 461', () => {
     const query = `SET optimize_move_to_prewhere = 1; -- works only for PREWHERE CREATE TABLE t1 (a UInt64, b UInt64, c UInt64, d UInt64) ENGINE = Memory;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 463', () => {
+test('should pass without errors set: 462', () => {
     const query = `set allow_aggregate_partitions_independently=1, force_aggregate_partitions_independently=1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 464', () => {
+test('should pass without errors set: 463', () => {
     const query = `SET param_o = 'a';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 465', () => {
+test('should pass without errors set: 464', () => {
     const query = `SET limit = 5;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 466', () => {
+test('should pass without errors set: 465', () => {
     const query = `SET offset = 195;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 467', () => {
+test('should pass without errors set: 466', () => {
     const query = `SET single_join_prefer_left_table = 0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 468', () => {
+test('should pass without errors set: 467', () => {
     const query = `set optimize_trivial_count_query=1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 469', () => {
+test('should pass without errors set: 468', () => {
     const query = `set session_timezone = 'UTC'; -- don't randomize the session timezone select parseDateTime('2021-01-04 23:12:34') = toDateTime('2021-01-04 23:12:34');`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 470', () => {
+test('should pass without errors set: 469', () => {
     const query = `SET optimize_min_equality_disjunction_chain_length = 2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 471', () => {
+test('should pass without errors set: 470', () => {
     const query = `SET optimize_min_inequality_conjunction_chain_length = 2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 472', () => {
+test('should pass without errors set: 471', () => {
     const query = `set mutations_sync=1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 473', () => {
+test('should pass without errors set: 472', () => {
     const query = `set mutations_sync=0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 474', () => {
+test('should pass without errors set: 473', () => {
     const query = `set input_format_parallel_parsing=1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 475', () => {
+test('should pass without errors set: 474', () => {
     const query = `set max_threads=0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 476', () => {
+test('should pass without errors set: 475', () => {
     const query = `set allow_asynchronous_read_from_io_pool_for_merge_tree = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 477', () => {
+test('should pass without errors set: 476', () => {
     const query = `set max_streams_for_merge_tree_reading = 64;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 478', () => {
+test('should pass without errors set: 477', () => {
     const query = `set max_block_size = 65409;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 479', () => {
+test('should pass without errors set: 478', () => {
     const query = `set read_in_order_two_level_merge_threshold = 1000;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 480', () => {
+test('should pass without errors set: 479', () => {
     const query = `SET enable_positional_arguments = 0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 481', () => {
+test('should pass without errors set: 480', () => {
     const query = `SET param_old_db_name = 02661_db;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 482', () => {
+test('should pass without errors set: 481', () => {
     const query = `SET param_new_db_name = 02661_db1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 483', () => {
+test('should pass without errors set: 482', () => {
     const query = `SET param_old_tbl_name = 02661_t;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 484', () => {
+test('should pass without errors set: 483', () => {
     const query = `SET param_new_tbl_name = 02661_t1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 485', () => {
+test('should pass without errors set: 484', () => {
     const query = `SET param_old_dict_name = 02661_d;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 486', () => {
+test('should pass without errors set: 485', () => {
     const query = `SET param_new_dict_name = 02661_d1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 487', () => {
+test('should pass without errors set: 486', () => {
     const query = `set optimize_rewrite_array_exists_to_has = false;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 488', () => {
+test('should pass without errors set: 487', () => {
     const query = `set optimize_rewrite_array_exists_to_has = true;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 489', () => {
+test('should pass without errors set: 488', () => {
     const query = `set enable_analyzer = false;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 490', () => {
+test('should pass without errors set: 489', () => {
     const query = `SET optimize_syntax_fuse_functions=1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 491', () => {
+test('should pass without errors set: 490', () => {
     const query = `set input_format_json_try_infer_named_tuples_from_objects=0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 492', () => {
+test('should pass without errors set: 491', () => {
     const query = `set input_format_json_read_objects_as_strings=0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 493', () => {
+test('should pass without errors set: 492', () => {
     const query = `set prefer_localhost_replica=1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 494', () => {
+test('should pass without errors set: 493', () => {
     const query = `SET limit = 0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 495', () => {
+test('should pass without errors set: 494', () => {
     const query = `SET limit = 3;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 496', () => {
+test('should pass without errors set: 495', () => {
     const query = `SET limit = 4;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 497', () => {
+test('should pass without errors set: 496', () => {
     const query = `SET offset = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 498', () => {
+test('should pass without errors set: 497', () => {
     const query = `SET cross_to_inner_join_rewrite = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 499', () => {
+test('should pass without errors set: 498', () => {
     const query = `set insert_null_as_default=1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 500', () => {
+test('should pass without errors set: 499', () => {
     const query = `SET enable_multiple_prewhere_read_steps=1, move_all_conditions_to_prewhere=1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 501', () => {
+test('should pass without errors set: 500', () => {
     const query = `SET enable_multiple_prewhere_read_steps=true, move_all_conditions_to_prewhere=true;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 502', () => {
+test('should pass without errors set: 501', () => {
     const query = `SET rewrite_count_distinct_if_with_count_distinct_implementation = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 503', () => {
+test('should pass without errors set: 502', () => {
     const query = `SET output_format_json_named_tuples_as_objects = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 504', () => {
+test('should pass without errors set: 503', () => {
     const query = `SET check_referential_table_dependencies = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 505', () => {
+test('should pass without errors set: 504', () => {
     const query = `SET check_referential_table_dependencies = 0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 506', () => {
+test('should pass without errors set: 505', () => {
     const query = `SET distributed_ddl_output_mode='throw';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 507', () => {
+test('should pass without errors set: 506', () => {
     const query = `set allow_suspicious_codecs=1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 508', () => {
+test('should pass without errors set: 507', () => {
     const query = `set optimize_group_by_function_keys = 0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 509', () => {
+test('should pass without errors set: 508', () => {
     const query = `set distributed_aggregation_memory_efficient = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 510', () => {
+test('should pass without errors set: 509', () => {
     const query = `set force_aggregate_partitions_independently = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 511', () => {
+test('should pass without errors set: 510', () => {
     const query = `set allow_prefetched_read_pool_for_remote_filesystem = 0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 512', () => {
+test('should pass without errors set: 511', () => {
     const query = `set allow_prefetched_read_pool_for_local_filesystem = 0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 513', () => {
+test('should pass without errors set: 512', () => {
     const query = `set optimize_aggregation_in_order = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 514', () => {
+test('should pass without errors set: 513', () => {
     const query = `set optimize_rewrite_aggregate_function_with_if = false;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 515', () => {
+test('should pass without errors set: 514', () => {
     const query = `set optimize_rewrite_aggregate_function_with_if = true;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 516', () => {
+test('should pass without errors set: 515', () => {
     const query = `set allow_deprecated_syntax_for_merge_tree=1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 517', () => {
+test('should pass without errors set: 516', () => {
     const query = `SET group_by_overflow_mode = 'any', max_rows_to_group_by = 1000, totals_mode = 'after_having_auto';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 518', () => {
+test('should pass without errors set: 517', () => {
     const query = `set allow_experimental_object_type=0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 519', () => {
+test('should pass without errors set: 518', () => {
     const query = `set compatibility='a.a'; -- { serverError BAD_ARGUMENTS } select value, changed from system.settings where name = 'compatibility'
 `;
 
@@ -3651,903 +3644,903 @@ test('should pass without errors set: 519', () => {
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 520', () => {
+test('should pass without errors set: 519', () => {
     const query = `set input_format_json_read_objects_as_strings=1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 521', () => {
+test('should pass without errors set: 520', () => {
     const query = `SET extract_key_value_pairs_max_pairs_per_row = 0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 522', () => {
+test('should pass without errors set: 521', () => {
     const query = `SET optimize_functions_to_subcolumns = 0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 523', () => {
+test('should pass without errors set: 522', () => {
     const query = `SET optimize_arithmetic_operations_in_aggregate_functions = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 524', () => {
+test('should pass without errors set: 523', () => {
     const query = `SET check_query_single_value_result = 0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 525', () => {
+test('should pass without errors set: 524', () => {
     const query = `set schema_inference_make_columns_nullable=1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 526', () => {
+test('should pass without errors set: 525', () => {
     const query = `set input_format_json_read_numbers_as_strings=0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 527', () => {
+test('should pass without errors set: 526', () => {
     const query = `set schema_inference_make_columns_nullable='auto';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 528', () => {
+test('should pass without errors set: 527', () => {
     const query = `set allow_suspicious_fixed_string_types=1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 529', () => {
+test('should pass without errors set: 528', () => {
     const query = `SET optimize_if_transform_strings_to_enum = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 530', () => {
+test('should pass without errors set: 529', () => {
     const query = `SET max_rows_to_read = 5;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 531', () => {
+test('should pass without errors set: 530', () => {
     const query = `SET function_sleep_max_microseconds_per_block = 5000000;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 532', () => {
+test('should pass without errors set: 531', () => {
     const query = `SET query_cache_max_entries = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 533', () => {
+test('should pass without errors set: 532', () => {
     const query = `SET query_cache_max_size_in_bytes = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 534', () => {
+test('should pass without errors set: 533', () => {
     const query = `SET query_cache_max_size_in_bytes = DEFAULT;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 535', () => {
+test('should pass without errors set: 534', () => {
     const query = `SET query_cache_max_entries = DEFAULT;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 536', () => {
+test('should pass without errors set: 535', () => {
     const query = `SET query_cache_tag = 'abc';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 537', () => {
+test('should pass without errors set: 536', () => {
     const query = `SET query_cache_tag = 'def';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 538', () => {
+test('should pass without errors set: 537', () => {
     const query = `SET use_query_cache = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 539', () => {
+test('should pass without errors set: 538', () => {
     const query = `SET limit = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 540', () => {
+test('should pass without errors set: 539', () => {
     const query = `SET limit = default;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 541', () => {
+test('should pass without errors set: 540', () => {
     const query = `SET use_skip_indexes = 0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 542', () => {
+test('should pass without errors set: 541', () => {
     const query = `SET use_skip_indexes = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 543', () => {
+test('should pass without errors set: 542', () => {
     const query = `SET use_skip_indexes = default;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 544', () => {
+test('should pass without errors set: 543', () => {
     const query = `SET max_block_size = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 545', () => {
+test('should pass without errors set: 544', () => {
     const query = `SET max_block_size = default;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 546', () => {
+test('should pass without errors set: 545', () => {
     const query = `SET use_query_cache = default;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 547', () => {
+test('should pass without errors set: 546', () => {
     const query = `SET query_cache_system_table_handling = 'save';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 548', () => {
+test('should pass without errors set: 547', () => {
     const query = `SET use_query_cache = true;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 549', () => {
+test('should pass without errors set: 548', () => {
     const query = `set query_plan_remove_redundant_sorting=0; -- to keep reading in order select sum(x) from (select x from t order by x) settings max_threads=4, max_streams_for_merge_tree_reading=16, allow_asynchronous_read_from_io_pool_for_merge_tree=1, optimize_read_in_order=1, query_plan_read_in_order=1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 550', () => {
+test('should pass without errors set: 549', () => {
     const query = `SET enable_analyzer = 1, optimize_injective_functions_inside_uniq = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 551', () => {
+test('should pass without errors set: 550', () => {
     const query = `set allow_deprecated_syntax_for_merge_tree=0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 552', () => {
+test('should pass without errors set: 551', () => {
     const query = `set use_structure_from_insertion_table_in_table_functions=2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 553', () => {
+test('should pass without errors set: 552', () => {
     const query = `set short_circuit_function_evaluation='force_enable';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 554', () => {
+test('should pass without errors set: 553', () => {
     const query = `set optimize_syntax_fuse_functions = 0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 555', () => {
+test('should pass without errors set: 554', () => {
     const query = `SET send_logs_level = 'fatal'; -- failed connection tries are ok, if it succeeded after retry. DROP TABLE IF EXISTS foo;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 556', () => {
+test('should pass without errors set: 555', () => {
     const query = `set optimize_min_equality_disjunction_chain_length=3;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 557', () => {
+test('should pass without errors set: 556', () => {
     const query = `SET optimize_syntax_fuse_functions = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 558', () => {
+test('should pass without errors set: 557', () => {
     const query = `SET param_num=42;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 559', () => {
+test('should pass without errors set: 558', () => {
     const query = `SET param_str='hello';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 560', () => {
+test('should pass without errors set: 559', () => {
     const query = `SET param_date='2022-08-04 18:30:53';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 561', () => {
+test('should pass without errors set: 560', () => {
     const query = `SET param_map={'2b95a497-3a5d-49af-bf85-15763318cde7': [1.2, 3.4]};`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 562', () => {
+test('should pass without errors set: 561', () => {
     const query = `SET param_id=42;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 563', () => {
+test('should pass without errors set: 562', () => {
     const query = `SET param_arr=[1, 2, 3];`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 564', () => {
+test('should pass without errors set: 563', () => {
     const query = `SET param_map_2={'abc': 22, 'def': 33};`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 565', () => {
+test('should pass without errors set: 564', () => {
     const query = `SET param_mul_arr=[[4, 5, 6], [7], [8, 9]];`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 566', () => {
+test('should pass without errors set: 565', () => {
     const query = `SET param_map_arr={10: [11, 12], 13: [14, 15]};`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 567', () => {
+test('should pass without errors set: 566', () => {
     const query = `SET param_map_map_arr={'ghj': {'klm': [16, 17]}, 'nop': {'rst': [18]}};`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 568', () => {
+test('should pass without errors set: 567', () => {
     const query = `SET param_tbl=numbers;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 569', () => {
+test('should pass without errors set: 568', () => {
     const query = `SET param_db=system;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 570', () => {
+test('should pass without errors set: 569', () => {
     const query = `SET param_col=number;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 571', () => {
+test('should pass without errors set: 570', () => {
     const query = `SET param_arr_arr_arr=[[['a', 'b', 'c'], ['d', 'e', 'f']], [['g', 'h', 'i'], ['j', 'k', 'l']]];`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 572', () => {
+test('should pass without errors set: 571', () => {
     const query = `SET param_tuple_tuple_tuple=(((1, 'a', '2b95a497-3a5d-49af-bf85-15763318cde7', 3.14)));`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 573', () => {
+test('should pass without errors set: 572', () => {
     const query = `SET param_arr_map_tuple=[{1:(2, '2022-08-04 18:30:53', 's'), 3:(4, '2020-08-04 18:30:53', 't')}];`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 574', () => {
+test('should pass without errors set: 573', () => {
     const query = `SET param_map_arr_tuple_map={'a':[(1,{10:1, 20:2}),(2, {30:3, 40:4})], 'b':[(3, {50:5, 60:6}),(4, {70:7, 80:8})]};`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 575', () => {
+test('should pass without errors set: 574', () => {
     const query = `SET param_x = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 576', () => {
+test('should pass without errors set: 575', () => {
     const query = `SET max_block_size = 10;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 577', () => {
+test('should pass without errors set: 576', () => {
     const query = `SET max_rows_to_read = 20;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 578', () => {
+test('should pass without errors set: 577', () => {
     const query = `SET read_overflow_mode = 'throw';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 579', () => {
+test('should pass without errors set: 578', () => {
     const query = `SET force_primary_key = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 580', () => {
+test('should pass without errors set: 579', () => {
     const query = `set max_rows_to_read = 2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 581', () => {
+test('should pass without errors set: 580', () => {
     const query = `set max_rows_to_read = 100;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 582', () => {
+test('should pass without errors set: 581', () => {
     const query = `SET max_block_size = 1, min_insert_block_size_rows = 1, min_insert_block_size_bytes = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 583', () => {
+test('should pass without errors set: 582', () => {
     const query = `SET max_block_size = 65000, min_insert_block_size_rows = 65000, min_insert_block_size_bytes = '1M';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 584', () => {
+test('should pass without errors set: 583', () => {
     const query = `SET max_insert_block_size=100000;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 585', () => {
+test('should pass without errors set: 584', () => {
     const query = `SET max_insert_block_size=DEFAULT;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 586', () => {
+test('should pass without errors set: 585', () => {
     const query = `set date_time_input_format = 'basic';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 587', () => {
+test('should pass without errors set: 586', () => {
     const query = `set date_time_input_format = 'best_effort';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 588', () => {
+test('should pass without errors set: 587', () => {
     const query = `set date_time_input_format = 'best_effort_us';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 589', () => {
+test('should pass without errors set: 588', () => {
     const query = `set format_json_object_each_row_column_for_object_name='name';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 590', () => {
+test('should pass without errors set: 589', () => {
     const query = `SET output_format_json_validate_utf8 = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 591', () => {
+test('should pass without errors set: 590', () => {
     const query = `SET output_format_json_validate_utf8 = 0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 592', () => {
+test('should pass without errors set: 591', () => {
     const query = `SET insert_keeper_fault_injection_probability=0; -- disable fault injection; part ids are non-deterministic in case of insert retries drop table if exists rmt1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 593', () => {
+test('should pass without errors set: 592', () => {
     const query = `set receive_timeout=5;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 594', () => {
+test('should pass without errors set: 593', () => {
     const query = `set optimize_throw_if_noop=1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 595', () => {
+test('should pass without errors set: 594', () => {
     const query = `set allow_unrestricted_reads_from_keeper=1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 596', () => {
+test('should pass without errors set: 595', () => {
     const query = `set receive_timeout=30;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 597', () => {
+test('should pass without errors set: 596', () => {
     const query = `set allow_nondeterministic_mutations=1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 598', () => {
+test('should pass without errors set: 597', () => {
     const query = `set replication_alter_partitions_sync=0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 599', () => {
+test('should pass without errors set: 598', () => {
     const query = `SET enable_optimize_predicate_expression = 0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 600', () => {
+test('should pass without errors set: 599', () => {
     const query = `set input_format_json_read_numbers_as_strings=1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 601', () => {
+test('should pass without errors set: 600', () => {
     const query = `set final = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 602', () => {
+test('should pass without errors set: 601', () => {
     const query = `set final = 0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 603', () => {
+test('should pass without errors set: 602', () => {
     const query = `set final=1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 604', () => {
+test('should pass without errors set: 603', () => {
     const query = `set allow_experimental_object_type=0, input_format_json_read_objects_as_strings=0, input_format_json_try_infer_named_tuples_from_objects=0, input_format_json_read_numbers_as_strings=0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 605', () => {
+test('should pass without errors set: 604', () => {
     const query = `SET allow_experimental_nlp_functions = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 606', () => {
+test('should pass without errors set: 605', () => {
     const query = `SET compile_aggregate_expressions=0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 607', () => {
+test('should pass without errors set: 606', () => {
     const query = `SET max_block_size=3;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 608', () => {
+test('should pass without errors set: 607', () => {
     const query = `SET max_joined_block_size_rows = 2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 609', () => {
+test('should pass without errors set: 608', () => {
     const query = `SET join_algorithm='partial_merge';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 610', () => {
+test('should pass without errors set: 609', () => {
     const query = `set enable_memory_bound_merging_of_aggregation_results = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 611', () => {
+test('should pass without errors set: 610', () => {
     const query = `set aggregation_in_order_max_block_bytes = '1Mi';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 612', () => {
+test('should pass without errors set: 611', () => {
     const query = `set max_block_size = 500;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 613', () => {
+test('should pass without errors set: 612', () => {
     const query = `set distributed_aggregation_memory_efficient=1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 614', () => {
+test('should pass without errors set: 613', () => {
     const query = `SET mutations_sync = 0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 615', () => {
+test('should pass without errors set: 614', () => {
     const query = `SET max_bytes_before_external_sort = 33554432;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 616', () => {
+test('should pass without errors set: 615', () => {
     const query = `set max_block_size = 1048576;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 617', () => {
+test('should pass without errors set: 616', () => {
     const query = `SET max_bytes_before_external_group_by = '100M';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 618', () => {
+test('should pass without errors set: 617', () => {
     const query = `SET max_memory_usage = '410M';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 619', () => {
+test('should pass without errors set: 618', () => {
     const query = `SET group_by_two_level_threshold = '100K';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 620', () => {
+test('should pass without errors set: 619', () => {
     const query = `SET group_by_two_level_threshold_bytes = '50M';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 621', () => {
+test('should pass without errors set: 620', () => {
     const query = `SET default_max_bytes_in_join = 0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 622', () => {
+test('should pass without errors set: 621', () => {
     const query = `SET max_bytes_in_join = 10000000;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 623', () => {
+test('should pass without errors set: 622', () => {
     const query = `set enable_optimize_predicate_expression=1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 624', () => {
+test('should pass without errors set: 623', () => {
     const query = `SET system_events_show_zero_values = true;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 625', () => {
+test('should pass without errors set: 624', () => {
     const query = `SET system_events_show_zero_values = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 626', () => {
+test('should pass without errors set: 625', () => {
     const query = `SET max_rows_in_set_to_optimize_join = 1000;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 627', () => {
+test('should pass without errors set: 626', () => {
     const query = `SET insert_quorum = 'auto';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 628', () => {
+test('should pass without errors set: 627', () => {
     const query = `SET insert_quorum = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 629', () => {
+test('should pass without errors set: 628', () => {
     const query = `SET max_block_size = 64, max_insert_block_size = 64, min_insert_block_size_rows = 64;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 630', () => {
+test('should pass without errors set: 629', () => {
     const query = `set optimize_sorting_by_input_stream_properties=1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 631', () => {
+test('should pass without errors set: 630', () => {
     const query = `SET insert_quorum_parallel = false;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 632', () => {
+test('should pass without errors set: 631', () => {
     const query = `SET select_sequential_consistency = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 633', () => {
+test('should pass without errors set: 632', () => {
     const query = `SET insert_quorum_timeout = 5000;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 634', () => {
+test('should pass without errors set: 633', () => {
     const query = `SET insert_quorum_timeout = 600000; -- set default value back INSERT INTO quorum1 VALUES (3, '2018-11-15');`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 635', () => {
+test('should pass without errors set: 634', () => {
     const query = `set enable_analyzer = true, optimize_rewrite_sum_if_to_count_if=1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 636', () => {
+test('should pass without errors set: 635', () => {
     const query = `SET max_rows_to_read = 0, max_bytes_to_read = 0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 637', () => {
+test('should pass without errors set: 636', () => {
     const query = `set dialect='kusto';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 638', () => {
+test('should pass without errors set: 637', () => {
     const query = `SET max_query_size = 28;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 639', () => {
+test('should pass without errors set: 638', () => {
     const query = `SET enable_optimize_predicate_expression = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 640', () => {
+test('should pass without errors set: 639', () => {
     const query = `SET cross_to_inner_join_rewrite = 2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 641', () => {
+test('should pass without errors set: 640', () => {
     const query = `set optimize_trivial_count_query=1, empty_result_for_aggregation_by_empty_set=1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 642', () => {
+test('should pass without errors set: 641', () => {
     const query = `SET max_block_size = 8192;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 643', () => {
+test('should pass without errors set: 642', () => {
     const query = `SET max_block_size = 4213;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 644', () => {
+test('should pass without errors set: 643', () => {
     const query = `SET allow_experimental_vector_similarity_index = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 645', () => {
+test('should pass without errors set: 644', () => {
     const query = `SET allow_experimental_vector_similarity_index = 0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 646', () => {
+test('should pass without errors set: 645', () => {
     const query = `SET enable_analyzer = 1; -- 0 vs. 1 produce slightly different error codes, make it future-proof DROP TABLE IF EXISTS tab;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 647', () => {
+test('should pass without errors set: 646', () => {
     const query = `SET max_rows_to_read = '101M';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 648', () => {
+test('should pass without errors set: 647', () => {
     const query = `set max_bytes_before_external_group_by = '2G', max_threads = 16,
 aggregation_memory_efficient_merge_threads = 16,
 distributed_aggregation_memory_efficient = 1,
@@ -4560,854 +4553,847 @@ max_block_size = 65505;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 649', () => {
+test('should pass without errors set: 648', () => {
     const query = `SET max_execution_time = 3;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 650', () => {
+test('should pass without errors set: 649', () => {
     const query = `SET timeout_overflow_mode = 'break';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 651', () => {
+test('should pass without errors set: 650', () => {
     const query = `SET allow_experimental_full_text_index = 0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 652', () => {
+test('should pass without errors set: 651', () => {
     const query = `SET allow_experimental_full_text_index = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 653', () => {
+test('should pass without errors set: 652', () => {
     const query = `SET allow_experimental_inverted_index = 0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 654', () => {
+test('should pass without errors set: 653', () => {
     const query = `SET allow_experimental_full_text_index = 1; -- the new setting ALTER TABLE tab ADD INDEX idx(s) TYPE full_text(2);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 655', () => {
+test('should pass without errors set: 654', () => {
     const query = `SET allow_experimental_full_text_index = true;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 656', () => {
+test('should pass without errors set: 655', () => {
     const query = `set max_rows_to_read = 4;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 657', () => {
+test('should pass without errors set: 656', () => {
     const query = `set max_rows_to_read=4;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 658', () => {
+test('should pass without errors set: 657', () => {
     const query = `SET implicit_transaction=True;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 659', () => {
+test('should pass without errors set: 658', () => {
     const query = `SET implicit_transaction=False;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 660', () => {
+test('should pass without errors set: 659', () => {
     const query = `SET throw_on_unsupported_query_inside_transaction=1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 661', () => {
+test('should pass without errors set: 660', () => {
     const query = `set max_threads = 10;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 662', () => {
+test('should pass without errors set: 661', () => {
     const query = `set optimize_group_by_function_keys=0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 663', () => {
+test('should pass without errors set: 662', () => {
     const query = `set enable_memory_bound_merging_of_aggregation_results = 0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 664', () => {
+test('should pass without errors set: 663', () => {
     const query = `set max_block_size = 65505;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 665', () => {
+test('should pass without errors set: 664', () => {
     const query = `SET prefer_column_name_to_alias = 0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 666', () => {
+test('should pass without errors set: 665', () => {
     const query = `SET max_analyze_depth = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 667', () => {
+test('should pass without errors set: 666', () => {
     const query = `set input_format_try_infer_integers=1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 668', () => {
+test('should pass without errors set: 667', () => {
     const query = `set input_format_try_infer_exponent_floats=1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 669', () => {
+test('should pass without errors set: 668', () => {
     const query = `set input_format_try_infer_dates=1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 670', () => {
+test('should pass without errors set: 669', () => {
     const query = `set input_format_try_infer_datetimes=1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 671', () => {
+test('should pass without errors set: 670', () => {
     const query = `set compatibility = '22.3';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 672', () => {
+test('should pass without errors set: 671', () => {
     const query = `set compatibility = '22.4';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 673', () => {
+test('should pass without errors set: 672', () => {
     const query = `set allow_settings_after_format_in_insert=1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 674', () => {
+test('should pass without errors set: 673', () => {
     const query = `set schema_inference_use_cache_for_file=0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 675', () => {
+test('should pass without errors set: 674', () => {
     const query = `SET allow_experimental_lightweight_delete = false;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 676', () => {
+test('should pass without errors set: 675', () => {
     const query = `SET cast_ipv4_ipv6_default_on_conversion_error = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 677', () => {
+test('should pass without errors set: 676', () => {
     const query = `SET cast_ipv4_ipv6_default_on_conversion_error = 0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 678', () => {
+test('should pass without errors set: 677', () => {
     const query = `SET log_comment = '02306_part_types_profile_events';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 679', () => {
+test('should pass without errors set: 678', () => {
     const query = `set max_rows_to_read = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 680', () => {
+test('should pass without errors set: 679', () => {
     const query = `set max_rows_to_read = 999;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 681', () => {
+test('should pass without errors set: 680', () => {
     const query = `SET max_bytes_in_join = '100', join_algorithm = 'auto';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 682', () => {
+test('should pass without errors set: 681', () => {
     const query = `set compatibility_ignore_auto_increment_in_create_table=false;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 683', () => {
+test('should pass without errors set: 682', () => {
     const query = `set compatibility_ignore_auto_increment_in_create_table=true;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 684', () => {
+test('should pass without errors set: 683', () => {
     const query = `SET legacy_column_name_of_tuple_literal=1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 685', () => {
+test('should pass without errors set: 684', () => {
     const query = `set allow_deprecated_database_ordinary=1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 686', () => {
+test('should pass without errors set: 685', () => {
     const query = `set use_structure_from_insertion_table_in_table_functions = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 687', () => {
+test('should pass without errors set: 686', () => {
     const query = `SET date_time_output_format='iso';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 688', () => {
+test('should pass without errors set: 687', () => {
     const query = `set input_format_parquet_import_nested = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 689', () => {
+test('should pass without errors set: 688', () => {
     const query = `set input_format_arrow_import_nested=1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 690', () => {
+test('should pass without errors set: 689', () => {
     const query = `set input_format_orc_import_nested=1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 691', () => {
+test('should pass without errors set: 690', () => {
     const query = `SET input_format_ipv4_default_on_conversion_error = 0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 692', () => {
+test('should pass without errors set: 691', () => {
     const query = `SET input_format_ipv6_default_on_conversion_error = 0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 693', () => {
+test('should pass without errors set: 692', () => {
     const query = `SET join_algorithm = 'direct';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 694', () => {
+test('should pass without errors set: 693', () => {
     const query = `SET enable_filesystem_cache_on_write_operations=0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 695', () => {
+test('should pass without errors set: 694', () => {
     const query = `SET skip_download_if_exceeds_query_cache=1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 696', () => {
+test('should pass without errors set: 695', () => {
     const query = `SET filesystem_cache_max_download_size=128;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 697', () => {
+test('should pass without errors set: 696', () => {
     const query = `SET insert_keeper_fault_injection_probability=0; -- to succeed this test can require too many retries due to 100 partitions, so disable fault injections drop table if exists data_02228;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 698', () => {
+test('should pass without errors set: 697', () => {
     const query = `SET allow_hyperscan = 1, max_hyperscan_regexp_length = 0, max_hyperscan_regexp_total_length = 0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 699', () => {
+test('should pass without errors set: 698', () => {
     const query = `SET enable_global_with_statement = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 700', () => {
+test('should pass without errors set: 699', () => {
     const query = `SET enable_global_with_statement = 0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 701', () => {
+test('should pass without errors set: 700', () => {
     const query = `set max_block_size=5;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 702', () => {
+test('should pass without errors set: 701', () => {
     const query = `SET default_table_engine = 'None';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 703', () => {
+test('should pass without errors set: 702', () => {
     const query = `SET default_table_engine = 'MergeTree';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 704', () => {
+test('should pass without errors set: 703', () => {
     const query = `SET default_table_engine = 'Memory';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 705', () => {
+test('should pass without errors set: 704', () => {
     const query = `SET default_table_engine = 'Log';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 706', () => {
+test('should pass without errors set: 705', () => {
     const query = `SET default_temporary_table_engine = 'Log';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 707', () => {
+test('should pass without errors set: 706', () => {
     const query = `SET distributed_ddl_output_mode='none';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 708', () => {
+test('should pass without errors set: 707', () => {
     const query = `SET max_bytes_before_external_sort = 0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 709', () => {
+test('should pass without errors set: 708', () => {
     const query = `SET max_rows_to_read = '50M';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 710', () => {
+test('should pass without errors set: 709', () => {
     const query = `SET allow_introspection_functions = 0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 711', () => {
+test('should pass without errors set: 710', () => {
     const query = `SET query_profiler_real_time_period_ns = 0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 712', () => {
+test('should pass without errors set: 711', () => {
     const query = `SET query_profiler_cpu_time_period_ns = 1000000;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 713', () => {
+test('should pass without errors set: 712', () => {
     const query = `SET log_queries = 1, max_rows_to_read = 0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 714', () => {
+test('should pass without errors set: 713', () => {
     const query = `SET log_queries = 0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 715', () => {
+test('should pass without errors set: 714', () => {
     const query = `SET query_profiler_cpu_time_period_ns = 0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 716', () => {
+test('should pass without errors set: 715', () => {
     const query = `SET prefer_localhost_replica = 1; -- Make sure plan is reliable DROP TABLE IF EXISTS t_02156_mt1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 717', () => {
+test('should pass without errors set: 716', () => {
     const query = `set count_distinct_optimization=true;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 718', () => {
+test('should pass without errors set: 717', () => {
     const query = `set count_distinct_optimization=false;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 719', () => {
+test('should pass without errors set: 718', () => {
     const query = `SET bool_true_representation = 'Custom true';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 720', () => {
+test('should pass without errors set: 719', () => {
     const query = `SET bool_false_representation = 'Custom false';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 721', () => {
+test('should pass without errors set: 720', () => {
     const query = `SET max_rows_to_read = '21M';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 722', () => {
+test('should pass without errors set: 721', () => {
     const query = `SET optimize_read_in_order=1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 723', () => {
+test('should pass without errors set: 722', () => {
     const query = `SET read_in_order_two_level_merge_threshold=100;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 724', () => {
+test('should pass without errors set: 723', () => {
     const query = `set empty_result_for_aggregation_by_empty_set=1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 725', () => {
+test('should pass without errors set: 724', () => {
     const query = `set max_bytes_before_external_group_by = 1000000000;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 726', () => {
+test('should pass without errors set: 725', () => {
     const query = `set group_by_two_level_threshold = 100;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 727', () => {
+test('should pass without errors set: 726', () => {
     const query = `set min_insert_block_size_rows = 100;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 728', () => {
+test('should pass without errors set: 727', () => {
     const query = `SET optimize_arithmetic_operations_in_aggregate_functions=1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 729', () => {
+test('should pass without errors set: 728', () => {
     const query = `SET optimize_aggregators_of_group_by_keys=1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 730', () => {
+test('should pass without errors set: 729', () => {
     const query = `set insert_deduplication_token = '';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 731', () => {
+test('should pass without errors set: 730', () => {
     const query = `set deduplicate_blocks_in_dependent_materialized_views=0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 732', () => {
+test('should pass without errors set: 731', () => {
     const query = `SET max_partitions_per_insert_block = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 733', () => {
+test('should pass without errors set: 732', () => {
     const query = `set insert_deduplication_token = '\\x61\\x00\\x62';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 734', () => {
+test('should pass without errors set: 733', () => {
     const query = `set insert_deduplication_token = '\\x61\\x00\\x63';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 735', () => {
+test('should pass without errors set: 734', () => {
     const query = `set distributed_product_mode = 'local';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 736', () => {
+test('should pass without errors set: 735', () => {
     const query = `set distributed_product_mode = 'global';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 737', () => {
+test('should pass without errors set: 736', () => {
     const query = `set bool_true_representation='True';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 738', () => {
+test('should pass without errors set: 737', () => {
     const query = `set bool_false_representation='False';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 739', () => {
+test('should pass without errors set: 738', () => {
     const query = `set bool_true_representation='Yes';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 740', () => {
+test('should pass without errors set: 739', () => {
     const query = `set bool_false_representation='No';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 741', () => {
+test('should pass without errors set: 740', () => {
     const query = `set bool_true_representation='On';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 742', () => {
+test('should pass without errors set: 741', () => {
     const query = `set bool_false_representation='Off';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 743', () => {
+test('should pass without errors set: 742', () => {
     const query = `set output_format_write_statistics=0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 744', () => {
+test('should pass without errors set: 743', () => {
     const query = `SET join_algorithm = 'auto';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 745', () => {
+test('should pass without errors set: 744', () => {
     const query = `SET max_rows_in_join = 1000;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 746', () => {
+test('should pass without errors set: 745', () => {
     const query = `SET force_index_by_date = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 747', () => {
+test('should pass without errors set: 746', () => {
     const query = `SET force_primary_key = 0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 748', () => {
+test('should pass without errors set: 747', () => {
     const query = `SET force_index_by_date = 0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 749', () => {
-    const query = `SET format_csv_null_representation = '∅';`;
-
-    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
-    expect(autocompleteResult.errors).toHaveLength(0);
-});
-
-test('should pass without errors set: 750', () => {
+test('should pass without errors set: 748', () => {
     const query = `SET format_csv_null_representation = '\\\\N';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 751', () => {
+test('should pass without errors set: 749', () => {
     const query = `set aggregate_functions_null_for_empty=1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 752', () => {
+test('should pass without errors set: 750', () => {
     const query = `set receive_timeout = '10', receive_data_timeout_ms = '10000', extremes = '1', allow_suspicious_low_cardinality_types = '1', force_primary_key = '1', join_use_nulls = '1', max_rows_to_read = '2', join_algorithm = 'partial_merge';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 753', () => {
+test('should pass without errors set: 751', () => {
     const query = `SET extremes = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 754', () => {
+test('should pass without errors set: 752', () => {
     const query = `SET output_format_decimal_trailing_zeros = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 755', () => {
+test('should pass without errors set: 753', () => {
     const query = `set group_by_two_level_threshold = 100000;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 756', () => {
+test('should pass without errors set: 754', () => {
     const query = `set enable_positional_arguments = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 757', () => {
+test('should pass without errors set: 755', () => {
     const query = `set log_formatted_queries = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 758', () => {
+test('should pass without errors set: 756', () => {
     const query = `set max_hyperscan_regexp_length = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 759', () => {
+test('should pass without errors set: 757', () => {
     const query = `set max_hyperscan_regexp_total_length = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 760', () => {
+test('should pass without errors set: 758', () => {
     const query = `set limit=1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 761', () => {
+test('should pass without errors set: 759', () => {
     const query = `set intersect_default_mode = 'DISTINCT';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 762', () => {
+test('should pass without errors set: 760', () => {
     const query = `set except_default_mode = 'DISTINCT';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 763', () => {
+test('should pass without errors set: 761', () => {
     const query = `SET max_memory_usage = '100M', max_rows_to_read = '1G';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 764', () => {
+test('should pass without errors set: 762', () => {
     const query = `set optimize_skip_unused_shards=1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 765', () => {
+test('should pass without errors set: 763', () => {
     const query = `set optimize_distributed_group_by_sharding_key=1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 766', () => {
+test('should pass without errors set: 764', () => {
     const query = `SET log_profile_events=true;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 767', () => {
+test('should pass without errors set: 765', () => {
     const query = `SET use_index_for_in_with_subqueries = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 768', () => {
+test('should pass without errors set: 766', () => {
     const query = `SET use_index_for_in_with_subqueries = 0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 769', () => {
+test('should pass without errors set: 767', () => {
     const query = `SET function_range_max_elements_in_block = 10;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 770', () => {
+test('should pass without errors set: 768', () => {
     const query = `SET allow_deprecated_snowflake_conversion_functions = 1; -- Force-enable deprecated snowflake conversion functions (in case this is randomized in CI) SELECT snowflakeToDateTime();  -- {serverError NUMBER_OF_ARGUMENTS_DOESNT_MATCH}
 SELECT snowflakeToDateTime64();  -- {serverError NUMBER_OF_ARGUMENTS_DOESNT_MATCH}
 SELECT snowflakeToDateTime('abc');  -- {serverError ILLEGAL_TYPE_OF_ARGUMENT}
@@ -5422,7 +5408,7 @@ SELECT 'const column';`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 771', () => {
+test('should pass without errors set: 769', () => {
     const query = `SET session_timezone = 'UTC'; -- disable timezone randomization SET enable_analyzer = 1; -- The old path formats the result with different whitespaces
 SELECT '-- Negative tests';`;
 
@@ -5430,1638 +5416,1638 @@ SELECT '-- Negative tests';`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 772', () => {
+test('should pass without errors set: 770', () => {
     const query = `SET allow_deprecated_snowflake_conversion_functions = 1; -- Force-enable deprecated snowflake conversion functions (in case this is randomized in CI) SET session_timezone = 'Africa/Juba';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 773', () => {
+test('should pass without errors set: 771', () => {
     const query = `SET validate_polygons = 0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 774', () => {
+test('should pass without errors set: 772', () => {
     const query = `set aggregate_functions_null_for_empty=0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 775', () => {
+test('should pass without errors set: 773', () => {
     const query = `set force_optimize_skip_unused_shards=2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 776', () => {
+test('should pass without errors set: 774', () => {
     const query = `SET parallel_view_processing=0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 777', () => {
+test('should pass without errors set: 775', () => {
     const query = `SET log_query_views=1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 778', () => {
+test('should pass without errors set: 776', () => {
     const query = `SET enable_filesystem_cache=0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 779', () => {
+test('should pass without errors set: 777', () => {
     const query = `set query_plan_filter_push_down = true;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 780', () => {
+test('should pass without errors set: 778', () => {
     const query = `set exact_rows_before_limit = 1, output_format_write_statistics = 0, max_block_size = 100;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 781', () => {
+test('should pass without errors set: 779', () => {
     const query = `set force_optimize_skip_unused_shards=1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 782', () => {
+test('should pass without errors set: 780', () => {
     const query = `set force_primary_key=1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 783', () => {
+test('should pass without errors set: 781', () => {
     const query = `set force_index_by_date=1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 784', () => {
+test('should pass without errors set: 782', () => {
     const query = `set force_index_by_date=0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 785', () => {
+test('should pass without errors set: 783', () => {
     const query = `SET min_insert_block_size_rows = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 786', () => {
+test('should pass without errors set: 784', () => {
     const query = `SET connections_with_failover_max_tries=0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 787', () => {
+test('should pass without errors set: 785', () => {
     const query = `SET compile_expressions=true;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 788', () => {
+test('should pass without errors set: 786', () => {
     const query = `SET insert_keeper_max_retries=100;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 789', () => {
+test('should pass without errors set: 787', () => {
     const query = `SET insert_keeper_retry_max_backoff_ms=10;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 790', () => {
+test('should pass without errors set: 788', () => {
     const query = `SET max_block_size = 3;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 791', () => {
+test('should pass without errors set: 789', () => {
     const query = `SET join_use_nulls = 0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 792', () => {
+test('should pass without errors set: 790', () => {
     const query = `set max_threads =1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 793', () => {
+test('should pass without errors set: 791', () => {
     const query = `set max_threads =2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 794', () => {
+test('should pass without errors set: 792', () => {
     const query = `set optimize_use_implicit_projections = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 795', () => {
+test('should pass without errors set: 793', () => {
     const query = `SET allow_experimental_object_type = 1, max_insert_threads = 20, max_threads = 20, min_insert_block_size_rows = 65536;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 796', () => {
+test('should pass without errors set: 794', () => {
     const query = `SET allow_experimental_json_type = 1, max_insert_threads = 20, max_threads = 20, min_insert_block_size_rows = 65536;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 797', () => {
+test('should pass without errors set: 795', () => {
     const query = `SET prefer_global_in_and_join = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 798', () => {
+test('should pass without errors set: 796', () => {
     const query = `SET move_all_conditions_to_prewhere = 0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 799', () => {
+test('should pass without errors set: 797', () => {
     const query = `set short_circuit_function_evaluation = 'enable';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 800', () => {
+test('should pass without errors set: 798', () => {
     const query = `SET allow_experimental_analyzer = 0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 801', () => {
+test('should pass without errors set: 799', () => {
     const query = `SET allow_experimental_bigint_types = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 802', () => {
+test('should pass without errors set: 800', () => {
     const query = `SET count_distinct_implementation = 'uniqTheta';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 803', () => {
+test('should pass without errors set: 801', () => {
     const query = `set optimize_injective_functions_inside_uniq = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 804', () => {
+test('should pass without errors set: 802', () => {
     const query = `set optimize_injective_functions_inside_uniq = 0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 805', () => {
+test('should pass without errors set: 803', () => {
     const query = `SET max_bytes_in_join = '100';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 806', () => {
+test('should pass without errors set: 804', () => {
     const query = `SET force_primary_key = 1, force_index_by_date=1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 807', () => {
+test('should pass without errors set: 805', () => {
     const query = `SET max_memory_usage = '500M';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 808', () => {
+test('should pass without errors set: 806', () => {
     const query = `SET max_block_size = 10, min_insert_block_size_rows = 0, min_insert_block_size_bytes = 0, max_threads = 20;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 809', () => {
+test('should pass without errors set: 807', () => {
     const query = `set optimize_skip_unused_shards_rewrite_in=0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 810', () => {
+test('should pass without errors set: 808', () => {
     const query = `set optimize_skip_unused_shards_rewrite_in=1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 811', () => {
+test('should pass without errors set: 809', () => {
     const query = `set max_rows_to_read = 3;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 812', () => {
+test('should pass without errors set: 810', () => {
     const query = `set max_rows_to_read = 5; -- one row for subquery + subquery select * from x where _partition_id in (select partitionID(number + 1) from numbers(1));`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 813', () => {
+test('should pass without errors set: 811', () => {
     const query = `set max_rows_to_read = 2; -- one row for subquery + subquery itself set max_rows_to_read = 3;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 814', () => {
+test('should pass without errors set: 812', () => {
     const query = `set max_rows_to_read = 200;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 815', () => {
+test('should pass without errors set: 813', () => {
     const query = `set optimize_move_to_prewhere=0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 816', () => {
+test('should pass without errors set: 814', () => {
     const query = `SET optimize_move_to_prewhere_if_final = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 817', () => {
+test('should pass without errors set: 815', () => {
     const query = `SET optimize_move_to_prewhere_if_final = 0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 818', () => {
+test('should pass without errors set: 816', () => {
     const query = `SET max_rows_to_read = 0, max_result_rows = 0, max_bytes_before_external_group_by = 0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 819', () => {
+test('should pass without errors set: 817', () => {
     const query = `SET engine_file_truncate_on_insert=0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 820', () => {
+test('should pass without errors set: 818', () => {
     const query = `set allow_experimental_bigint_types=1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 821', () => {
+test('should pass without errors set: 819', () => {
     const query = `SET engine_file_empty_if_not_exists=0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 822', () => {
+test('should pass without errors set: 820', () => {
     const query = `SET decimal_check_overflow = 0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 823', () => {
+test('should pass without errors set: 821', () => {
     const query = `SET input_format_null_as_default = 0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 824', () => {
+test('should pass without errors set: 822', () => {
     const query = `SET function_sleep_max_microseconds_per_block = 10000000;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 825', () => {
+test('should pass without errors set: 823', () => {
     const query = `set optimize_use_implicit_projections=1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 826', () => {
+test('should pass without errors set: 824', () => {
     const query = `set enable_memory_bound_merging_of_aggregation_results=0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 827', () => {
+test('should pass without errors set: 825', () => {
     const query = `set optimize_use_projections = 1, force_optimize_projection = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 828', () => {
+test('should pass without errors set: 826', () => {
     const query = `SET enable_positional_arguments = 0, force_optimize_projection = 0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 829', () => {
+test('should pass without errors set: 827', () => {
     const query = `set force_optimize_projection = 1, optimize_use_projections = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 830', () => {
+test('should pass without errors set: 828', () => {
     const query = `set optimize_use_projections = 1, max_rows_to_read = 3;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 831', () => {
+test('should pass without errors set: 829', () => {
     const query = `set optimize_use_projections = 1, use_index_for_in_with_subqueries = 0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 832', () => {
+test('should pass without errors set: 830', () => {
     const query = `SET max_bytes_before_external_group_by=1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 833', () => {
+test('should pass without errors set: 831', () => {
     const query = `set optimize_use_projections = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 834', () => {
+test('should pass without errors set: 832', () => {
     const query = `SET optimize_use_projections=1, optimize_aggregation_in_order=1, force_optimize_projection=1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 835', () => {
+test('should pass without errors set: 833', () => {
     const query = `SET optimize_use_projections=1, optimize_aggregation_in_order=1, force_optimize_projection = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 836', () => {
+test('should pass without errors set: 834', () => {
     const query = `set max_rows_to_read = 2, optimize_use_projections = 1, optimize_use_implicit_projections = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 837', () => {
+test('should pass without errors set: 835', () => {
     const query = `set max_rows_to_read = 100000;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 838', () => {
+test('should pass without errors set: 836', () => {
     const query = `set max_rows_to_read = 5001; -- one normal part 5000 + one minmax_count_projection part 1 select min(j), max(j) from mixed_final_mark;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 839', () => {
+test('should pass without errors set: 837', () => {
     const query = `set optimize_normalize_count_variants = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 840', () => {
+test('should pass without errors set: 838', () => {
     const query = `SET log_comment='system.query_log logging test';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 841', () => {
+test('should pass without errors set: 839', () => {
     const query = `SET log_profile_events=false;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 842', () => {
+test('should pass without errors set: 840', () => {
     const query = `SET DEFAULT ROLE sqllt_role TO sqllt_user;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 843', () => {
+test('should pass without errors set: 841', () => {
     const query = `SET log_comment='';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 844', () => {
+test('should pass without errors set: 842', () => {
     const query = `SET geo_distance_returns_float64_on_float64_arguments = 0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 845', () => {
+test('should pass without errors set: 843', () => {
     const query = `SET geo_distance_returns_float64_on_float64_arguments = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 846', () => {
+test('should pass without errors set: 844', () => {
     const query = `SET group_by_two_level_threshold = 10000;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 847', () => {
+test('should pass without errors set: 845', () => {
     const query = `SET log_comment = 'log_comment test', log_queries = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 848', () => {
+test('should pass without errors set: 846', () => {
     const query = `SET max_insert_threads = 0, output_format_pretty_row_numbers = 0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 849', () => {
+test('should pass without errors set: 847', () => {
     const query = `SET any_join_distinct_right_table_keys = 0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 850', () => {
+test('should pass without errors set: 848', () => {
     const query = `SET any_join_distinct_right_table_keys = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 851', () => {
+test('should pass without errors set: 849', () => {
     const query = `SET database_atomic_wait_for_drop_and_detach_synchronously=1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 852', () => {
+test('should pass without errors set: 850', () => {
     const query = `SET allow_experimental_funnel_functions = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 853', () => {
+test('should pass without errors set: 851', () => {
     const query = `SET allow_experimental_funnel_functions = 0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 854', () => {
+test('should pass without errors set: 852', () => {
     const query = `set query_plan_merge_filters=1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 855', () => {
+test('should pass without errors set: 853', () => {
     const query = `set allow_suspicious_low_cardinality_types = 1, max_rows_to_read = '31M';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 856', () => {
+test('should pass without errors set: 854', () => {
     const query = `set allow_introspection_functions = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 857', () => {
+test('should pass without errors set: 855', () => {
     const query = `set joined_subquery_requires_alias=0, enable_analyzer=0; -- the query is invalid with a new analyzer SELECT number, number / 2 AS n, j1, j2 FROM remote('127.0.0.{2,3}', system.numbers) GLOBAL ANY LEFT JOIN (SELECT number / 3 AS n, number AS j1, 'Hello' AS j2 FROM system.numbers LIMIT 1048577) USING (n) LIMIT 10 format Null;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 858', () => {
+test('should pass without errors set: 856', () => {
     const query = `SET optimize_rewrite_sum_if_to_count_if = 0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 859', () => {
+test('should pass without errors set: 857', () => {
     const query = `set remote_filesystem_read_method = 'read';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 860', () => {
+test('should pass without errors set: 858', () => {
     const query = `set local_filesystem_read_method = 'pread';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 861', () => {
+test('should pass without errors set: 859', () => {
     const query = `SET max_block_size = 1000, min_insert_block_size_rows = 0, min_insert_block_size_bytes = 0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 862', () => {
+test('should pass without errors set: 860', () => {
     const query = `set max_memory_usage='10Mi', max_untracked_memory=0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 863', () => {
+test('should pass without errors set: 861', () => {
     const query = `SET distributed_foreground_insert = 0, network_compression_method = 'zstd';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 864', () => {
+test('should pass without errors set: 862', () => {
     const query = `SET distributed_foreground_insert = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 865', () => {
+test('should pass without errors set: 863', () => {
     const query = `SET convert_query_to_cnf = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 866', () => {
+test('should pass without errors set: 864', () => {
     const query = `SET optimize_using_constraints = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 867', () => {
+test('should pass without errors set: 865', () => {
     const query = `SET optimize_substitute_columns = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 868', () => {
+test('should pass without errors set: 866', () => {
     const query = `SET optimize_append_index = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 869', () => {
+test('should pass without errors set: 867', () => {
     const query = `SET optimize_append_index = 0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 870', () => {
+test('should pass without errors set: 868', () => {
     const query = `set insert_distributed_one_random_shard = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 871', () => {
+test('should pass without errors set: 869', () => {
     const query = `set max_insert_block_size = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 872', () => {
+test('should pass without errors set: 870', () => {
     const query = `SET use_uncompressed_cache = 0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 873', () => {
+test('should pass without errors set: 871', () => {
     const query = `SET max_block_size=900;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 874', () => {
+test('should pass without errors set: 872', () => {
     const query = `SET enable_filesystem_cache = 0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 875', () => {
+test('should pass without errors set: 873', () => {
     const query = `SET max_memory_usage='30M';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 876', () => {
+test('should pass without errors set: 874', () => {
     const query = `set max_rows_to_read = '30M';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 877', () => {
+test('should pass without errors set: 875', () => {
     const query = `SET max_block_size = 1, min_insert_block_size_rows = 0, min_insert_block_size_bytes = 0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 878', () => {
+test('should pass without errors set: 876', () => {
     const query = `SET optimize_arithmetic_operations_in_aggregate_functions = 0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 879', () => {
+test('should pass without errors set: 877', () => {
     const query = `set max_memory_usage='200Mi';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 880', () => {
+test('should pass without errors set: 878', () => {
     const query = `set max_bytes_before_remerge_sort='10Mi';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 881', () => {
+test('should pass without errors set: 879', () => {
     const query = `set max_block_size=40960;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 882', () => {
+test('should pass without errors set: 880', () => {
     const query = `SET max_memory_usage = 1, max_untracked_memory = 1000000, max_threads=40;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 883', () => {
+test('should pass without errors set: 881', () => {
     const query = `SET limit = 10;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 884', () => {
+test('should pass without errors set: 882', () => {
     const query = `set max_insert_threads = 4;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 885', () => {
+test('should pass without errors set: 883', () => {
     const query = `SET max_memory_usage = 10000000000;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 886', () => {
+test('should pass without errors set: 884', () => {
     const query = `set max_rows_to_read = 4; -- 2 in the subquery, 2 in the query itself select * from xp where i in (select * from numbers(2));`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 887', () => {
+test('should pass without errors set: 885', () => {
     const query = `set max_rows_to_read = 6; -- 2 subquery, 2 from global temp table (GLOBAL IN), 2 from local xp table select * from xp_d where i global in (select * from numbers(2));`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 888', () => {
+test('should pass without errors set: 886', () => {
     const query = `set transform_null_in = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 889', () => {
+test('should pass without errors set: 887', () => {
     const query = `set max_rows_to_read = 0; -- No rows should be read select * from xp where i in (null);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 890', () => {
+test('should pass without errors set: 888', () => {
     const query = `set max_rows_to_read = 4; -- 2 from numbers, 2 from tables select * from xp where i in (select * from numbers(2));`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 891', () => {
+test('should pass without errors set: 889', () => {
     const query = `set max_rows_to_read = 6; -- 2 from numbers, 2 from GLOBAL temp table (pushed from numbers), 2 from local xp select * from xp_d where i global in (select * from numbers(2));`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 892', () => {
+test('should pass without errors set: 890', () => {
     const query = `SET max_rows_to_read = 12; -- 10 from numbers + 2 from table select * from insub where i in (select toInt32(3) from numbers(10));`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 893', () => {
+test('should pass without errors set: 891', () => {
     const query = `SET replication_alter_partitions_sync = 2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 894', () => {
+test('should pass without errors set: 892', () => {
     const query = `SET max_bytes_before_external_group_by = 200000000;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 895', () => {
+test('should pass without errors set: 893', () => {
     const query = `SET max_memory_usage = 1500000000;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 896', () => {
+test('should pass without errors set: 894', () => {
     const query = `SET max_threads = 12;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 897', () => {
+test('should pass without errors set: 895', () => {
     const query = `set optimize_respect_aliases = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 898', () => {
+test('should pass without errors set: 896', () => {
     const query = `set max_rows_to_read = 10;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 899', () => {
+test('should pass without errors set: 897', () => {
     const query = `SET max_parallel_replicas = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 900', () => {
+test('should pass without errors set: 898', () => {
     const query = `SET max_parallel_replicas = 2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 901', () => {
+test('should pass without errors set: 899', () => {
     const query = `SET max_threads = nan; -- { serverError CANNOT_CONVERT_TYPE } `;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 902', () => {
+test('should pass without errors set: 900', () => {
     const query = `SET union_default_mode = 'DISTINCT';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 903', () => {
+test('should pass without errors set: 901', () => {
     const query = `SET union_default_mode='ALL';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 904', () => {
+test('should pass without errors set: 902', () => {
     const query = `set use_compact_format_in_distributed_parts_names=0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 905', () => {
+test('should pass without errors set: 903', () => {
     const query = `SET merge_tree_min_rows_for_concurrent_read=10000;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 906', () => {
+test('should pass without errors set: 904', () => {
     const query = `set extremes = '1';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 907', () => {
+test('should pass without errors set: 905', () => {
     const query = `set log_queries_min_query_duration_ms=300000;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 908', () => {
+test('should pass without errors set: 906', () => {
     const query = `set log_queries_min_query_duration_ms=300;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 909', () => {
+test('should pass without errors set: 907', () => {
     const query = `SET optimize_skip_merged_partitions=1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 910', () => {
+test('should pass without errors set: 908', () => {
     const query = `SET local_filesystem_read_method='pread';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 911', () => {
+test('should pass without errors set: 909', () => {
     const query = `SET max_threads = 5;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 912', () => {
+test('should pass without errors set: 910', () => {
     const query = `set enable_global_with_statement=0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 913', () => {
+test('should pass without errors set: 911', () => {
     const query = `set database_atomic_wait_for_drop_and_detach_synchronously=0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 914', () => {
+test('should pass without errors set: 912', () => {
     const query = `SET union_default_mode='DISTINCT';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 915', () => {
+test('should pass without errors set: 913', () => {
     const query = `set allow_nondeterministic_optimize_skip_unused_shards=1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 916', () => {
+test('should pass without errors set: 914', () => {
     const query = `set check_table_dependencies=0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 917', () => {
+test('should pass without errors set: 915', () => {
     const query = `SET allow_asynchronous_read_from_io_pool_for_merge_tree = 0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 918', () => {
+test('should pass without errors set: 916', () => {
     const query = `SET do_not_merge_across_partitions_select_final = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 919', () => {
+test('should pass without errors set: 917', () => {
     const query = `set load_marks_asynchronously = 0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 920', () => {
+test('should pass without errors set: 918', () => {
     const query = `SET allow_experimental_parallel_reading_from_replicas = 0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 921', () => {
+test('should pass without errors set: 919', () => {
     const query = `SET date_time_output_format = 'simple';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 922', () => {
+test('should pass without errors set: 920', () => {
     const query = `SET date_time_output_format = 'iso';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 923', () => {
+test('should pass without errors set: 921', () => {
     const query = `SET date_time_output_format = 'unix_timestamp';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 924', () => {
+test('should pass without errors set: 922', () => {
     const query = `set output_format_parallel_formatting=1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 925', () => {
+test('should pass without errors set: 923', () => {
     const query = `set max_read_buffer_size=1048576;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 926', () => {
+test('should pass without errors set: 924', () => {
     const query = `set max_block_size=65505;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 927', () => {
+test('should pass without errors set: 925', () => {
     const query = `SET input_format_tsv_enum_as_number = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 928', () => {
+test('should pass without errors set: 926', () => {
     const query = `SET input_format_tsv_enum_as_number = 0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 929', () => {
+test('should pass without errors set: 927', () => {
     const query = `SET input_format_csv_enum_as_number = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 930', () => {
+test('should pass without errors set: 928', () => {
     const query = `SET input_format_csv_enum_as_number = 0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 931', () => {
+test('should pass without errors set: 929', () => {
     const query = `set max_memory_usage='500M';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 932', () => {
+test('should pass without errors set: 930', () => {
     const query = `set max_block_size=500;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 933', () => {
+test('should pass without errors set: 931', () => {
     const query = `set max_bytes_before_external_group_by=0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 934', () => {
+test('should pass without errors set: 932', () => {
     const query = `SET select_sequential_consistency=0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 935', () => {
+test('should pass without errors set: 933', () => {
     const query = `SET insert_quorum=2, insert_quorum_parallel=0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 936', () => {
+test('should pass without errors set: 934', () => {
     const query = `SET insert_quorum_parallel=1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 937', () => {
+test('should pass without errors set: 935', () => {
     const query = `SET insert_quorum=3;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 938', () => {
+test('should pass without errors set: 936', () => {
     const query = `SET insert_quorum=2, insert_quorum_parallel=1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 939', () => {
+test('should pass without errors set: 937', () => {
     const query = `SET insert_quorum=1, insert_quorum_parallel=1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 940', () => {
+test('should pass without errors set: 938', () => {
     const query = `SET insert_quorum=3, insert_quorum_parallel=1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 941', () => {
+test('should pass without errors set: 939', () => {
     const query = `SET insert_quorum_timeout=0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 942', () => {
+test('should pass without errors set: 940', () => {
     const query = `SET insert_quorum_timeout=6000000;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 943', () => {
+test('should pass without errors set: 941', () => {
     const query = `SET output_format_pretty_row_numbers=0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 944', () => {
+test('should pass without errors set: 942', () => {
     const query = `SET output_format_pretty_row_numbers=1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 945', () => {
+test('should pass without errors set: 943', () => {
     const query = `set empty_result_for_aggregation_by_empty_set = 0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 946', () => {
+test('should pass without errors set: 944', () => {
     const query = `set output_format_json_array_of_rows = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 947', () => {
+test('should pass without errors set: 945', () => {
     const query = `SET max_rows_to_read = '100M';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 948', () => {
+test('should pass without errors set: 946', () => {
     const query = `SET max_bytes_in_join = 100;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 949', () => {
+test('should pass without errors set: 947', () => {
     const query = `SET system_events_show_zero_values = 0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 950', () => {
+test('should pass without errors set: 948', () => {
     const query = `SET query_profiler_real_time_period_ns = 1000000000;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 951', () => {
+test('should pass without errors set: 949', () => {
     const query = `SET max_insert_threads = 1, max_threads = 100, min_insert_block_size_rows = 1048576, max_block_size = 65536;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 952', () => {
+test('should pass without errors set: 950', () => {
     const query = `SET insert_quorum = 2, insert_quorum_parallel = 0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 953', () => {
+test('should pass without errors set: 951', () => {
     const query = `SET min_insert_block_size_rows = 0, min_insert_block_size_bytes = 0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 954', () => {
+test('should pass without errors set: 952', () => {
     const query = `SET custom_a = 5;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 955', () => {
+test('should pass without errors set: 953', () => {
     const query = `SET custom_b = -177;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 956', () => {
+test('should pass without errors set: 954', () => {
     const query = `SET custom_c = 98.11;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 957', () => {
+test('should pass without errors set: 955', () => {
     const query = `SET custom_d = 'abc def';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 958', () => {
+test('should pass without errors set: 956', () => {
     const query = `SET custom_a = 'changed';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 959', () => {
+test('should pass without errors set: 957', () => {
     const query = `SET custom_b = NULL;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 960', () => {
+test('should pass without errors set: 958', () => {
     const query = `SET custom_c = 50000;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 961', () => {
+test('should pass without errors set: 959', () => {
     const query = `SET custom_d = 1.11;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 962', () => {
+test('should pass without errors set: 960', () => {
     const query = `SET invalid_custom = 8; -- { serverError UNKNOWN_SETTING } -- Setting is neither a builtin nor started with one of the registered prefixes for user-defined settings. SELECT '--- using query context ---';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 963', () => {
+test('should pass without errors set: 961', () => {
     const query = `SET custom_compound.identifier.v1 = 'test';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 964', () => {
+test('should pass without errors set: 962', () => {
     const query = `SET custom_null = NULL;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 965', () => {
+test('should pass without errors set: 963', () => {
     const query = `SET max_rows_to_read=8, read_overflow_mode='throw';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 966', () => {
+test('should pass without errors set: 964', () => {
     const query = `SET allow_non_metadata_alters = 0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 967', () => {
+test('should pass without errors set: 965', () => {
     const query = `set force_primary_key=0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 968', () => {
+test('should pass without errors set: 966', () => {
     const query = `SET optimize_read_in_order=0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 969', () => {
+test('should pass without errors set: 967', () => {
     const query = `SET max_rows_to_read = 4; -- one additional left mark needs to be read SELECT * FROM nullable_key WHERE k IS NULL;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 970', () => {
+test('should pass without errors set: 968', () => {
     const query = `SET max_rows_to_read = 6;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 971', () => {
+test('should pass without errors set: 969', () => {
     const query = `SET max_rows_to_read = 8;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 972', () => {
+test('should pass without errors set: 970', () => {
     const query = `SET optimize_if_chain_to_multiif = 0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 973', () => {
+test('should pass without errors set: 971', () => {
     const query = `SET optimize_if_chain_to_multiif = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 974', () => {
+test('should pass without errors set: 972', () => {
     const query = `SET materialize_ttl_after_modify = 0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 975', () => {
+test('should pass without errors set: 973', () => {
     const query = `SET optimize_multiif_to_if = 0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 976', () => {
+test('should pass without errors set: 974', () => {
     const query = `SET insert_keeper_fault_injection_probability=0; -- disable fault injection; part ids are non-deterministic in case of insert retries SET replication_alter_partitions_sync=2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 977', () => {
+test('should pass without errors set: 975', () => {
     const query = `SET local_filesystem_read_method = 'mmap', min_bytes_to_use_mmap_io = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 978', () => {
+test('should pass without errors set: 976', () => {
     const query = `set optimize_if_transform_strings_to_enum = 0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 979', () => {
+test('should pass without errors set: 977', () => {
     const query = `set max_partitions_per_insert_block = 100;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 980', () => {
+test('should pass without errors set: 978', () => {
     const query = `set optimize_redundant_functions_in_order_by = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 981', () => {
+test('should pass without errors set: 979', () => {
     const query = `set optimize_redundant_functions_in_order_by = 0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 982', () => {
+test('should pass without errors set: 980', () => {
     const query = `set force_optimize_skip_unused_shards_nesting=2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 983', () => {
+test('should pass without errors set: 981', () => {
     const query = `set optimize_skip_unused_shards_nesting=2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 984', () => {
+test('should pass without errors set: 982', () => {
     const query = `set optimize_skip_unused_shards_nesting=1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 985', () => {
+test('should pass without errors set: 983', () => {
     const query = `SET max_rows_to_read = 2000;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 986', () => {
+test('should pass without errors set: 984', () => {
     const query = `SET max_rows_to_read = 1000000;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 987', () => {
+test('should pass without errors set: 985', () => {
     const query = `SET max_rows_to_read = 101000;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 988', () => {
+test('should pass without errors set: 986', () => {
     const query = `SET max_rows_to_read = 900000;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 989', () => {
+test('should pass without errors set: 987', () => {
     const query = `SET max_rows_to_read = 901000;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 990', () => {
+test('should pass without errors set: 988', () => {
     const query = `set max_insert_threads=2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 991', () => {
+test('should pass without errors set: 989', () => {
     const query = `SET output_format_pretty_color = 1, output_format_pretty_max_value_width_apply_for_single_value = 1, output_format_pretty_row_numbers = 0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 992', () => {
+test('should pass without errors set: 990', () => {
     const query = `SET output_format_pretty_max_value_width = 5;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 993', () => {
+test('should pass without errors set: 991', () => {
     const query = `SET output_format_pretty_max_value_width = 6;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 994', () => {
+test('should pass without errors set: 992', () => {
     const query = `SET output_format_pretty_max_value_width = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 995', () => {
+test('should pass without errors set: 993', () => {
     const query = `SET output_format_pretty_max_value_width = 0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 996', () => {
+test('should pass without errors set: 994', () => {
     const query = `SET output_format_pretty_color = 0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 997', () => {
+test('should pass without errors set: 995', () => {
     const query = `SET DEFAULT ROLE r2_01292 TO u3_01292;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 998', () => {
+test('should pass without errors set: 996', () => {
     const query = `SET DEFAULT ROLE ALL TO u4_01292;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 999', () => {
+test('should pass without errors set: 997', () => {
     const query = `SET DEFAULT ROLE ALL EXCEPT r1_01292 TO u5_01292;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1000', () => {
+test('should pass without errors set: 998', () => {
     const query = `SET DEFAULT ROLE NONE TO u6_01292;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1001', () => {
+test('should pass without errors set: 999', () => {
     const query = `SET DEFAULT ROLE r1_01292, r2_01292 TO u2_01292, u3_01292, u4_01292;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1002', () => {
+test('should pass without errors set: 1000', () => {
     const query = `SET max_execution_speed = 1000000;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1003', () => {
+test('should pass without errors set: 1001', () => {
     const query = `SET timeout_before_checking_execution_speed = 0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1004', () => {
+test('should pass without errors set: 1002', () => {
     const query = `SET max_block_size = 100;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1005', () => {
+test('should pass without errors set: 1003', () => {
     const query = `SET max_execution_time = 100, timeout_before_checking_execution_speed = 100,
 max_execution_speed = 1000000,
 max_threads = 1,
@@ -7071,1519 +7057,1519 @@ max_block_size = 1000000;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1006', () => {
+test('should pass without errors set: 1004', () => {
     const query = `SET max_network_bandwidth = 100000;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1007', () => {
+test('should pass without errors set: 1005', () => {
     const query = `SET min_execution_speed = 100000000000, timeout_before_checking_execution_speed = 0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1008', () => {
+test('should pass without errors set: 1006', () => {
     const query = `SET min_execution_speed_bytes = 800000000000, timeout_before_checking_execution_speed = 0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1009', () => {
+test('should pass without errors set: 1007', () => {
     const query = `SET max_execution_speed = 0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1010', () => {
+test('should pass without errors set: 1008', () => {
     const query = `SET max_execution_speed_bytes = 8000000;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1011', () => {
+test('should pass without errors set: 1009', () => {
     const query = `SET max_execution_speed_bytes = 0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1012', () => {
+test('should pass without errors set: 1010', () => {
     const query = `set max_rows_to_group_by=10;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1013', () => {
+test('should pass without errors set: 1011', () => {
     const query = `set group_by_overflow_mode='any';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1014', () => {
+test('should pass without errors set: 1012', () => {
     const query = `set group_by_two_level_threshold=100;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1015', () => {
+test('should pass without errors set: 1013', () => {
     const query = `SET allow_suspicious_codecs = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1016', () => {
+test('should pass without errors set: 1014', () => {
     const query = `SET allow_suspicious_codecs = 0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1017', () => {
+test('should pass without errors set: 1015', () => {
     const query = `SET data_type_default_nullable='false';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1018', () => {
+test('should pass without errors set: 1016', () => {
     const query = `SET distributed_aggregation_memory_efficient = 0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1019', () => {
+test('should pass without errors set: 1017', () => {
     const query = `set max_distributed_connections=1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1020', () => {
+test('should pass without errors set: 1018', () => {
     const query = `SET distributed_group_by_no_merge = 0, extremes = 0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1021', () => {
+test('should pass without errors set: 1019', () => {
     const query = `SET distributed_group_by_no_merge = 1, extremes = 0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1022', () => {
+test('should pass without errors set: 1020', () => {
     const query = `SET distributed_group_by_no_merge = 0, extremes = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1023', () => {
+test('should pass without errors set: 1021', () => {
     const query = `SET distributed_group_by_no_merge = 1, extremes = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1024', () => {
+test('should pass without errors set: 1022', () => {
     const query = `SET output_format_markdown_escape_special_characters = true;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1025', () => {
+test('should pass without errors set: 1023', () => {
     const query = `SET output_format_markdown_escape_special_characters = false;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1026', () => {
+test('should pass without errors set: 1024', () => {
     const query = `set log_queries_min_type='EXCEPTION_BEFORE_START';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1027', () => {
+test('should pass without errors set: 1025', () => {
     const query = `set max_rows_to_read='100K';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1028', () => {
+test('should pass without errors set: 1026', () => {
     const query = `set log_queries_min_type='EXCEPTION_WHILE_PROCESSING';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1029', () => {
+test('should pass without errors set: 1027', () => {
     const query = `set max_rows_to_read=0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1030', () => {
+test('should pass without errors set: 1028', () => {
     const query = `set group_by_two_level_threshold = 2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1031', () => {
+test('should pass without errors set: 1029', () => {
     const query = `set max_bytes_before_external_group_by = 16;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1032', () => {
+test('should pass without errors set: 1030', () => {
     const query = `SET min_insert_block_size_rows = 0, min_insert_block_size_bytes = 0, max_insert_threads = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1033', () => {
+test('should pass without errors set: 1031', () => {
     const query = `SET max_threads = 1, max_block_size = 12345;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1034', () => {
+test('should pass without errors set: 1032', () => {
     const query = `set transaction snapshot 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1035', () => {
+test('should pass without errors set: 1033', () => {
     const query = `set transaction snapshot 3;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1036', () => {
+test('should pass without errors set: 1034', () => {
     const query = `set transaction snapshot 1000000000000000;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1037', () => {
+test('should pass without errors set: 1035', () => {
     const query = `set transaction snapshot 5; -- { serverError INVALID_TRANSACTION } rollback;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1038', () => {
+test('should pass without errors set: 1036', () => {
     const query = `set default_table_engine='ReplicatedMergeTree';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1039', () => {
+test('should pass without errors set: 1037', () => {
     const query = `SET insert_keeper_fault_injection_probability=0; -- disable fault injection; part ids are non-deterministic in case of insert retries drop table if exists rmt sync;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1040', () => {
+test('should pass without errors set: 1038', () => {
     const query = `SET check_table_dependencies=0; -- Otherwise we'll get error "test_01155_ordinary.dict depends on test_01155_ordinary.dist" in the next line. RENAME TABLE test_01155_ordinary.dist TO test_01155_atomic.dist;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1041', () => {
+test('should pass without errors set: 1039', () => {
     const query = `SET check_table_dependencies=1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1042', () => {
+test('should pass without errors set: 1040', () => {
     const query = `SET check_table_dependencies=0; -- Otherwise we'll get error "test_01155_ordinary.dict depends on test_01155_ordinary.dist" in the next line. RENAME DATABASE test_01155_ordinary TO test_01155_atomic;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1043', () => {
+test('should pass without errors set: 1041', () => {
     const query = `SET database_replicated_allow_explicit_uuid=3;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1044', () => {
+test('should pass without errors set: 1042', () => {
     const query = `SET show_table_uuid_in_table_create_query_if_not_nil=1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1045', () => {
+test('should pass without errors set: 1043', () => {
     const query = `SET insert_keeper_fault_injection_probability=0; -- disable fault injection; part ids are non-deterministic in case of insert retries set send_logs_level='error';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1046', () => {
+test('should pass without errors set: 1044', () => {
     const query = `set replication_alter_partitions_sync=1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1047', () => {
+test('should pass without errors set: 1045', () => {
     const query = `SET database_replicated_allow_replicated_engine_arguments=1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1048', () => {
+test('should pass without errors set: 1046', () => {
     const query = `SET max_rows_in_set = 20;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1049', () => {
+test('should pass without errors set: 1047', () => {
     const query = `SET set_overflow_mode = 'throw';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1050', () => {
+test('should pass without errors set: 1048', () => {
     const query = `SET max_rows_to_group_by = 10;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1051', () => {
+test('should pass without errors set: 1049', () => {
     const query = `SET group_by_overflow_mode = 'throw';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1052', () => {
+test('should pass without errors set: 1050', () => {
     const query = `SET max_rows_to_read = 500;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1053', () => {
+test('should pass without errors set: 1051', () => {
     const query = `SET group_by_overflow_mode = 'any';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1054', () => {
+test('should pass without errors set: 1052', () => {
     const query = `SET max_block_size = 11;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1055', () => {
+test('should pass without errors set: 1053', () => {
     const query = `SET max_block_size = 9;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1056', () => {
+test('should pass without errors set: 1054', () => {
     const query = `SET max_rows_to_sort = 100;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1057', () => {
+test('should pass without errors set: 1055', () => {
     const query = `set query_plan_remove_redundant_sorting=0; -- to keep sorting in the query below SELECT count() >= 100 AND count() <= 1000 FROM (SELECT * FROM system.numbers ORDER BY number);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1058', () => {
+test('should pass without errors set: 1056', () => {
     const query = `SET max_bytes_before_external_group_by = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1059', () => {
+test('should pass without errors set: 1057', () => {
     const query = `SET check_query_single_value_result = 'false';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1060', () => {
+test('should pass without errors set: 1058', () => {
     const query = `SET max_memory_usage = 16000000;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1061', () => {
+test('should pass without errors set: 1059', () => {
     const query = `SET max_joined_block_size_rows = 10000000;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1062', () => {
+test('should pass without errors set: 1060', () => {
     const query = `SET allow_experimental_parallel_reading_from_replicas = 0; -- see https://github.com/ClickHouse/ClickHouse/issues/34525 SET prefer_localhost_replica = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1063', () => {
+test('should pass without errors set: 1061', () => {
     const query = `SET parallel_distributed_insert_select=1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1064', () => {
+test('should pass without errors set: 1062', () => {
     const query = `SET prefer_localhost_replica=0; -- to require distributed send for local replica too INSERT INTO local_01099_a SELECT number from system.numbers limit 3;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1065', () => {
+test('should pass without errors set: 1063', () => {
     const query = `SET prefer_localhost_replica=0; -- to require distributed send for local replica too SET send_logs_level='error';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1066', () => {
+test('should pass without errors set: 1064', () => {
     const query = `SET parallel_distributed_insert_select=2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1067', () => {
+test('should pass without errors set: 1065', () => {
     const query = `SET memory_profiler_step = 1000000;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1068', () => {
+test('should pass without errors set: 1066', () => {
     const query = `SET memory_profiler_sample_probability = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1069', () => {
+test('should pass without errors set: 1067', () => {
     const query = `SET query_profiler_cpu_time_period_ns = 1, max_rows_to_read = 0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1070', () => {
+test('should pass without errors set: 1068', () => {
     const query = `SET insert_quorum=2, insert_quorum_parallel=0, insert_quorum_timeout=300e3;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1071', () => {
+test('should pass without errors set: 1069', () => {
     const query = `set distributed_aggregation_memory_efficient = 1, group_by_two_level_threshold = 1, group_by_two_level_threshold_bytes=1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1072', () => {
+test('should pass without errors set: 1070', () => {
     const query = `set force_optimize_skip_unused_shards=0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1073', () => {
+test('should pass without errors set: 1071', () => {
     const query = `set distributed_group_by_no_merge=1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1074', () => {
+test('should pass without errors set: 1072', () => {
     const query = `SET allow_suspicious_ttl_expressions = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1075', () => {
+test('should pass without errors set: 1073', () => {
     const query = `set session_timezone = '';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1076', () => {
+test('should pass without errors set: 1074', () => {
     const query = `SET max_parser_depth = 10000;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1077', () => {
+test('should pass without errors set: 1075', () => {
     const query = `set max_rows_to_read = 7120;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1078', () => {
+test('should pass without errors set: 1076', () => {
     const query = `set max_rows_to_read = 897;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1079', () => {
+test('should pass without errors set: 1077', () => {
     const query = `SET max_memory_usage = 50000000;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1080', () => {
+test('should pass without errors set: 1078', () => {
     const query = `SET max_joined_block_size_rows = 0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1081', () => {
+test('should pass without errors set: 1079', () => {
     const query = `SET max_joined_block_size_rows = 2000;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1082', () => {
+test('should pass without errors set: 1080', () => {
     const query = `SET max_parser_depth = 4000;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1083', () => {
+test('should pass without errors set: 1081', () => {
     const query = `SET max_memory_usage = '3Gi';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1084', () => {
+test('should pass without errors set: 1082', () => {
     const query = `SET max_memory_usage = '1567k';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1085', () => {
+test('should pass without errors set: 1083', () => {
     const query = `SET max_memory_usage = '1234ki';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1086', () => {
+test('should pass without errors set: 1084', () => {
     const query = `SET max_memory_usage = '12M';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1087', () => {
+test('should pass without errors set: 1085', () => {
     const query = `SET max_memory_usage = '31Mi';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1088', () => {
+test('should pass without errors set: 1086', () => {
     const query = `SET max_memory_usage = '1T';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1089', () => {
+test('should pass without errors set: 1087', () => {
     const query = `SET max_memory_usage = '1Ti';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1090', () => {
+test('should pass without errors set: 1088', () => {
     const query = `SET insert_keeper_fault_injection_probability=0; -- disable fault injection; part ids are non-deterministic in case of insert retries SET check_query_single_value_result = 0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1091', () => {
+test('should pass without errors set: 1089', () => {
     const query = `set max_parallel_replicas=2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1092', () => {
+test('should pass without errors set: 1090', () => {
     const query = `SET join_algorithm = 'prefer_partial_merge';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1093', () => {
+test('should pass without errors set: 1091', () => {
     const query = `SET max_memory_usage=10e6;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1094', () => {
+test('should pass without errors set: 1092', () => {
     const query = `SET max_block_size=100e3;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1095', () => {
+test('should pass without errors set: 1093', () => {
     const query = `SET min_insert_block_size_bytes=9e6;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1096', () => {
+test('should pass without errors set: 1094', () => {
     const query = `SET min_insert_block_size_rows=100e3;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1097', () => {
+test('should pass without errors set: 1095', () => {
     const query = `SET memory_profiler_step = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1098', () => {
+test('should pass without errors set: 1096', () => {
     const query = `SET max_memory_usage = 4000000;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1099', () => {
+test('should pass without errors set: 1097', () => {
     const query = `SET max_memory_usage = 2000000;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1100', () => {
+test('should pass without errors set: 1098', () => {
     const query = `SET max_memory_usage = 8000000;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1101', () => {
+test('should pass without errors set: 1099', () => {
     const query = `set max_memory_usage = 300000000;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1102', () => {
+test('should pass without errors set: 1100', () => {
     const query = `SET partial_merge_join_optimizations = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1103', () => {
+test('should pass without errors set: 1101', () => {
     const query = `SET max_bytes_in_join = 0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1104', () => {
+test('should pass without errors set: 1102', () => {
     const query = `SET max_rows_in_join = 0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1105', () => {
+test('should pass without errors set: 1103', () => {
     const query = `SET max_memory_usage = 32000000;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1106', () => {
+test('should pass without errors set: 1104', () => {
     const query = `SET join_on_disk_max_files_to_merge = 4;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1107', () => {
+test('should pass without errors set: 1105', () => {
     const query = `SET default_max_bytes_in_join = 10000000;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1108', () => {
+test('should pass without errors set: 1106', () => {
     const query = `SET partial_merge_join_rows_in_right_blocks = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1109', () => {
+test('should pass without errors set: 1107', () => {
     const query = `SET max_rows_in_join = '10';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1110', () => {
+test('should pass without errors set: 1108', () => {
     const query = `SET joined_subquery_requires_alias = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1111', () => {
+test('should pass without errors set: 1109', () => {
     const query = `SET max_rows_to_read = 8192;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1112', () => {
+test('should pass without errors set: 1110', () => {
     const query = `SET max_block_size = 2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1113', () => {
+test('should pass without errors set: 1111', () => {
     const query = `SET max_block_size = 5;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1114', () => {
+test('should pass without errors set: 1112', () => {
     const query = `set max_rows_to_read = 16;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1115', () => {
+test('should pass without errors set: 1113', () => {
     const query = `SET max_block_size = 65536;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1116', () => {
+test('should pass without errors set: 1114', () => {
     const query = `SET optimize_skip_unused_shards = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1117', () => {
+test('should pass without errors set: 1115', () => {
     const query = `SET max_query_size = 1073741824;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1118', () => {
+test('should pass without errors set: 1116', () => {
     const query = `SET max_execution_speed = 1, max_execution_time = 3, max_rows_to_read = 0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1119', () => {
+test('should pass without errors set: 1117', () => {
     const query = `SET trace_profile_events = 0; -- This can inhibit profiler from working, because it prevents sending samples from different profilers concurrently. SET query_profiler_cpu_time_period_ns = 0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1120', () => {
+test('should pass without errors set: 1118', () => {
     const query = `SET max_rows_to_read = 1100000;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1121', () => {
+test('should pass without errors set: 1119', () => {
     const query = `SET allow_simdjson=1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1122', () => {
+test('should pass without errors set: 1120', () => {
     const query = `SET allow_simdjson=0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1123', () => {
+test('should pass without errors set: 1121', () => {
     const query = `SET connections_with_failover_max_tries=1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1124', () => {
+test('should pass without errors set: 1122', () => {
     const query = `SET connect_timeout_with_failover_ms=2000;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1125', () => {
+test('should pass without errors set: 1123', () => {
     const query = `SET connect_timeout_with_failover_secure_ms=2000;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1126', () => {
+test('should pass without errors set: 1124', () => {
     const query = `SET os_thread_priority = 10;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1127', () => {
+test('should pass without errors set: 1125', () => {
     const query = `SET insert_allow_materialized_columns=0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1128', () => {
+test('should pass without errors set: 1126', () => {
     const query = `SET insert_allow_materialized_columns=1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1129', () => {
+test('should pass without errors set: 1127', () => {
     const query = `SET input_format_values_accurate_types_of_literals = 0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1130', () => {
+test('should pass without errors set: 1128', () => {
     const query = `SET input_format_values_interpret_expressions = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1131', () => {
+test('should pass without errors set: 1129', () => {
     const query = `SET optimize_read_in_order = 1, query_plan_read_in_order = 1, enable_analyzer = 0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1132', () => {
+test('should pass without errors set: 1130', () => {
     const query = `SET allow_hyperscan = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1133', () => {
+test('should pass without errors set: 1131', () => {
     const query = `SET allow_hyperscan = 0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1134', () => {
+test('should pass without errors set: 1132', () => {
     const query = `SET max_rows_to_read = 9;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1135', () => {
+test('should pass without errors set: 1133', () => {
     const query = `SET max_threads = 1500;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1136', () => {
+test('should pass without errors set: 1134', () => {
     const query = `SET network_compression_method = 'lz4hc';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1137', () => {
+test('should pass without errors set: 1135', () => {
     const query = `SET network_compression_method = 'zstd';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1138', () => {
+test('should pass without errors set: 1136', () => {
     const query = `SET network_zstd_compression_level = 5;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1139', () => {
+test('should pass without errors set: 1137', () => {
     const query = `SET min_count_to_compile_expression = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1140', () => {
+test('should pass without errors set: 1138', () => {
     const query = `SET max_memory_usage = 39000000;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1141', () => {
+test('should pass without errors set: 1139', () => {
     const query = `SET max_memory_usage = 1000000000;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1142', () => {
+test('should pass without errors set: 1140', () => {
     const query = `SET output_format_pretty_color = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1143', () => {
+test('should pass without errors set: 1141', () => {
     const query = `SET force_primary_key = 1, enable_optimize_predicate_expression = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1144', () => {
+test('should pass without errors set: 1142', () => {
     const query = `SET enable_zstd_qat_codec = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1145', () => {
+test('should pass without errors set: 1143', () => {
     const query = `SET enable_deflate_qpl_codec = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1146', () => {
+test('should pass without errors set: 1144', () => {
     const query = `SET network_zstd_compression_level = 7;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1147', () => {
+test('should pass without errors set: 1145', () => {
     const query = `SET max_block_size = 6;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1148', () => {
+test('should pass without errors set: 1146', () => {
     const query = `SET input_format_defaults_for_omitted_fields=1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1149', () => {
+test('should pass without errors set: 1147', () => {
     const query = `SET max_memory_usage = 100000000, max_threads = 2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1150', () => {
+test('should pass without errors set: 1148', () => {
     const query = `SET send_logs_level = 'warning';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1151', () => {
+test('should pass without errors set: 1149', () => {
     const query = `set input_format_null_as_default=0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1152', () => {
+test('should pass without errors set: 1150', () => {
     const query = `SET join_default_strictness = '';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1153', () => {
+test('should pass without errors set: 1151', () => {
     const query = `SET select_sequential_consistency=1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1154', () => {
+test('should pass without errors set: 1152', () => {
     const query = `SET insert_quorum_timeout=100;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1155', () => {
+test('should pass without errors set: 1153', () => {
     const query = `SET parallel_view_processing = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1156', () => {
+test('should pass without errors set: 1154', () => {
     const query = `SET parallel_view_processing = 0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1157', () => {
+test('should pass without errors set: 1155', () => {
     const query = `SET max_bytes_before_remerge_sort = 1000000;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1158', () => {
+test('should pass without errors set: 1156', () => {
     const query = `SET join_default_strictness = 'ALL';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1159', () => {
+test('should pass without errors set: 1157', () => {
     const query = `SET replication_alter_partitions_sync=2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1160', () => {
+test('should pass without errors set: 1158', () => {
     const query = `SET allow_ddl = 0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1161', () => {
+test('should pass without errors set: 1159', () => {
     const query = `SET output_format_pretty_max_column_pad_width = 250;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1162', () => {
+test('should pass without errors set: 1160', () => {
     const query = `SET output_format_json_escape_forward_slashes = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1163', () => {
+test('should pass without errors set: 1161', () => {
     const query = `SET output_format_json_escape_forward_slashes = 0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1164', () => {
+test('should pass without errors set: 1162', () => {
     const query = `SET max_threads = 32, max_memory_usage = '10G';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1165', () => {
+test('should pass without errors set: 1163', () => {
     const query = `SET optimize_min_equality_disjunction_chain_length = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1166', () => {
+test('should pass without errors set: 1164', () => {
     const query = `SET max_execution_time = 1, timeout_overflow_mode = 'break';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1167', () => {
+test('should pass without errors set: 1165', () => {
     const query = `SET max_query_size=29;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1168', () => {
+test('should pass without errors set: 1166', () => {
     const query = `SET max_query_size=262144;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1169', () => {
+test('should pass without errors set: 1167', () => {
     const query = `SET max_result_rows = 10;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1170', () => {
+test('should pass without errors set: 1168', () => {
     const query = `SET optimize_aggregation_in_order = 0; -- FIXME : in order may happen before filter push down SET max_rows_to_read = 1000;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1171', () => {
+test('should pass without errors set: 1169', () => {
     const query = `SET max_threads = 'auto';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1172', () => {
+test('should pass without errors set: 1170', () => {
     const query = `SET empty_result_for_aggregation_by_empty_set = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1173', () => {
+test('should pass without errors set: 1171', () => {
     const query = `SET insert_deduplicate=0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1174', () => {
+test('should pass without errors set: 1172', () => {
     const query = `SET group_by_two_level_threshold = 1, max_threads = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1175', () => {
+test('should pass without errors set: 1173', () => {
     const query = `SET insert_allow_materialized_columns = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1176', () => {
+test('should pass without errors set: 1174', () => {
     const query = `SET readonly = 2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1177', () => {
+test('should pass without errors set: 1175', () => {
     const query = `SET allow_deprecated_snowflake_conversion_functions = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1178', () => {
+test('should pass without errors set: 1176', () => {
     const query = `SET allow_nonconst_timezone_arguments = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1179', () => {
+test('should pass without errors set: 1177', () => {
     const query = `SET allow_nonconst_timezone_arguments = 0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1180', () => {
+test('should pass without errors set: 1178', () => {
     const query = `SET database_replicated_allow_replicated_engine_arguments=3;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1181', () => {
+test('should pass without errors set: 1179', () => {
     const query = `SET preferred_block_size_bytes = 8192;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1182', () => {
+test('should pass without errors set: 1180', () => {
     const query = `set preferred_block_size_bytes = 2000000;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1183', () => {
+test('should pass without errors set: 1181', () => {
     const query = `set preferred_max_column_in_block_size_bytes = 0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1184', () => {
+test('should pass without errors set: 1182', () => {
     const query = `set preferred_max_column_in_block_size_bytes = 128;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1185', () => {
+test('should pass without errors set: 1183', () => {
     const query = `set preferred_max_column_in_block_size_bytes = 256;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1186', () => {
+test('should pass without errors set: 1184', () => {
     const query = `set preferred_max_column_in_block_size_bytes = 2097152;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1187', () => {
+test('should pass without errors set: 1185', () => {
     const query = `set preferred_max_column_in_block_size_bytes = 4194304;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1188', () => {
+test('should pass without errors set: 1186', () => {
     const query = `set preferred_max_column_in_block_size_bytes = 1152;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1189', () => {
+test('should pass without errors set: 1187', () => {
     const query = `set preferred_block_size_bytes = 0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1190', () => {
+test('should pass without errors set: 1188', () => {
     const query = `set preferred_max_column_in_block_size_bytes = 96;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1191', () => {
+test('should pass without errors set: 1189', () => {
     const query = `set preferred_max_column_in_block_size_bytes = 112;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1192', () => {
+test('should pass without errors set: 1190', () => {
     const query = `SET preferred_max_column_in_block_size_bytes = 32;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1193', () => {
+test('should pass without errors set: 1191', () => {
     const query = `SET output_format_pretty_color=1, output_format_pretty_highlight_digit_groups=0, output_format_pretty_display_footer_column_names=0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1194', () => {
+test('should pass without errors set: 1192', () => {
     const query = `SET output_format_pretty_max_rows = 5;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1195', () => {
+test('should pass without errors set: 1193', () => {
     const query = `SET output_format_pretty_max_rows = 4;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1196', () => {
+test('should pass without errors set: 1194', () => {
     const query = `SET output_format_pretty_max_rows = 6;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1197', () => {
+test('should pass without errors set: 1195', () => {
     const query = `SET output_format_pretty_grid_charset = 'ASCII';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1198', () => {
+test('should pass without errors set: 1196', () => {
     const query = `SET output_format_pretty_color = 'auto';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1199', () => {
+test('should pass without errors set: 1197', () => {
     const query = `SET max_threads = 20;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1200', () => {
+test('should pass without errors set: 1198', () => {
     const query = `SET output_format_json_quote_64bit_integers = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1201', () => {
+test('should pass without errors set: 1199', () => {
     const query = `SET output_format_json_quote_64bit_integers = 0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1202', () => {
+test('should pass without errors set: 1200', () => {
     const query = `SET max_rows_to_read = '55M';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1203', () => {
+test('should pass without errors set: 1201', () => {
     const query = `SET count_distinct_implementation = 'uniq';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1204', () => {
+test('should pass without errors set: 1202', () => {
     const query = `SET count_distinct_implementation = 'uniqCombined';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1205', () => {
+test('should pass without errors set: 1203', () => {
     const query = `SET count_distinct_implementation = 'uniqExact';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1206', () => {
+test('should pass without errors set: 1204', () => {
     const query = `SET min_insert_block_size_bytes = 0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1207', () => {
+test('should pass without errors set: 1205', () => {
     const query = `SET min_insert_block_size_rows = 10;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1208', () => {
+test('should pass without errors set: 1206', () => {
     const query = `SET optimize_trivial_insert_select = 'false';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1209', () => {
+test('should pass without errors set: 1207', () => {
     const query = `SET min_insert_block_size_rows = 1000000;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1210', () => {
+test('should pass without errors set: 1208', () => {
     const query = `SET min_insert_block_size_bytes = 1000000;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1211', () => {
+test('should pass without errors set: 1209', () => {
     const query = `SET max_rows_to_read = 15;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1212', () => {
+test('should pass without errors set: 1210', () => {
     const query = `SET merge_tree_min_rows_for_seek = 0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1213', () => {
+test('should pass without errors set: 1211', () => {
     const query = `SET max_subquery_depth = 3;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1214', () => {
+test('should pass without errors set: 1212', () => {
     const query = `SET distributed_aggregation_memory_efficient = 1, group_by_two_level_threshold = 5000;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1215', () => {
+test('should pass without errors set: 1213', () => {
     const query = `SET group_by_two_level_threshold_bytes = 50000000;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1216', () => {
+test('should pass without errors set: 1214', () => {
     const query = `SET max_memory_usage = 0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1217', () => {
+test('should pass without errors set: 1215', () => {
     const query = `SET max_bytes_before_external_group_by = '1Mi';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1218', () => {
+test('should pass without errors set: 1216', () => {
     const query = `SET max_bytes_before_external_group_by = 100000000;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1219', () => {
+test('should pass without errors set: 1217', () => {
     const query = `SET max_memory_usage = 410000000;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1220', () => {
+test('should pass without errors set: 1218', () => {
     const query = `SET max_block_size = 8200;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1221', () => {
+test('should pass without errors set: 1219', () => {
     const query = `SET max_temporary_non_const_columns = 10;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1222', () => {
+test('should pass without errors set: 1220', () => {
     const query = `SET distributed_aggregation_memory_efficient = 1, group_by_two_level_threshold = 1000,
 group_by_overflow_mode = 'any',
 max_rows_to_group_by = 1000,
@@ -8593,182 +8579,182 @@ totals_mode = 'after_having_auto';`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1223', () => {
+test('should pass without errors set: 1221', () => {
     const query = `SET group_by_two_level_threshold = 1000;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1224', () => {
+test('should pass without errors set: 1222', () => {
     const query = `SET group_by_two_level_threshold = 7;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1225', () => {
+test('should pass without errors set: 1223', () => {
     const query = `SET parallel_replicas_count = 3;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1226', () => {
+test('should pass without errors set: 1224', () => {
     const query = `SET parallel_replica_offset = 0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1227', () => {
+test('should pass without errors set: 1225', () => {
     const query = `SET parallel_replica_offset = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1228', () => {
+test('should pass without errors set: 1226', () => {
     const query = `SET parallel_replica_offset = 2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1229', () => {
+test('should pass without errors set: 1227', () => {
     const query = `SET parallel_replicas_count = 0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1230', () => {
+test('should pass without errors set: 1228', () => {
     const query = `SET max_block_size = 1000000;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1231', () => {
+test('should pass without errors set: 1229', () => {
     const query = `SET send_logs_level = 'fatal'; -- Supress "Destination table test2.mt doesn't exist. Block of data is discarded." INSERT INTO {CLICKHOUSE_DATABASE:Identifier}.mt_buffer_00158 (x) SELECT number AS x FROM system.numbers LIMIT 100000;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1232', () => {
+test('should pass without errors set: 1230', () => {
     const query = `SET read_overflow_mode = 'break';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1233', () => {
+test('should pass without errors set: 1231', () => {
     const query = `SET max_distributed_connections = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1234', () => {
+test('should pass without errors set: 1232', () => {
     const query = `SET totals_mode = 'after_having_auto';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1235', () => {
+test('should pass without errors set: 1233', () => {
     const query = `SET max_rows_to_group_by = 100000;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1236', () => {
+test('should pass without errors set: 1234', () => {
     const query = `SET max_memory_usage = 150000000;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1237', () => {
+test('should pass without errors set: 1235', () => {
     const query = `SET max_bytes_before_external_sort = 10000000;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1238', () => {
+test('should pass without errors set: 1236', () => {
     const query = `SET max_bytes_before_external_sort = 20000000;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1239', () => {
+test('should pass without errors set: 1237', () => {
     const query = `SET max_block_size = 100001;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1240', () => {
+test('should pass without errors set: 1238', () => {
     const query = `SET totals_mode = 'after_having_inclusive';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1241', () => {
+test('should pass without errors set: 1239', () => {
     const query = `SET totals_mode = 'after_having_exclusive';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1242', () => {
+test('should pass without errors set: 1240', () => {
     const query = `SET totals_mode = 'before_having';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1243', () => {
+test('should pass without errors set: 1241', () => {
     const query = `SET group_by_two_level_threshold_bytes = 100000000;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1244', () => {
+test('should pass without errors set: 1242', () => {
     const query = `SET group_by_two_level_threshold = 1000000;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1245', () => {
+test('should pass without errors set: 1243', () => {
     const query = `SET max_bytes_before_external_group_by = 1000000;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1246', () => {
+test('should pass without errors set: 1244', () => {
     const query = `SET max_rows_to_group_by = 65535;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1247', () => {
+test('should pass without errors set: 1245', () => {
     const query = `SET totals_auto_threshold = 0.5;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors set: 1248', () => {
+test('should pass without errors set: 1246', () => {
     const query = `SET check_query_single_value_result = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);

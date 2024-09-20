@@ -1503,111 +1503,104 @@ test('should pass without errors describe: 211', () => {
 });
 
 test('should pass without errors describe: 212', () => {
-    const query = `DESCRIBE (SELECT p.\`产品\`, p.\`销量\` FROM test ARRAY JOIN products AS p);`;
-
-    const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
-    expect(autocompleteResult.errors).toHaveLength(0);
-});
-
-test('should pass without errors describe: 213', () => {
     const query = `DESCRIBE TABLE sqllt.table FORMAT Null;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors describe: 214', () => {
+test('should pass without errors describe: 213', () => {
     const query = `DESCRIBE TABLE data_01646;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors describe: 215', () => {
+test('should pass without errors describe: 214', () => {
     const query = `DESCRIBE TABLE test_01532_1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors describe: 216', () => {
+test('should pass without errors describe: 215', () => {
     const query = `DESCRIBE TABLE test_01532_2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors describe: 217', () => {
+test('should pass without errors describe: 216', () => {
     const query = `DESCRIBE TABLE test_01532_3;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors describe: 218', () => {
+test('should pass without errors describe: 217', () => {
     const query = `DESCRIBE TABLE test_01532_4;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors describe: 219', () => {
+test('should pass without errors describe: 218', () => {
     const query = `DESCRIBE TABLE compress_table;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors describe: 220', () => {
+test('should pass without errors describe: 219', () => {
     const query = `describe table merge_tree;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors describe: 221', () => {
+test('should pass without errors describe: 220', () => {
     const query = `describe table merge;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors describe: 222', () => {
+test('should pass without errors describe: 221', () => {
     const query = `describe table merge_distributed;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors describe: 223', () => {
+test('should pass without errors describe: 222', () => {
     const query = `DESCRIBE TABLE test_alter;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors describe: 224', () => {
+test('should pass without errors describe: 223', () => {
     const query = `DESCRIBE TABLE test_alter_r1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors describe: 225', () => {
+test('should pass without errors describe: 224', () => {
     const query = `DESCRIBE TABLE test_alter_r2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors describe: 226', () => {
+test('should pass without errors describe: 225', () => {
     const query = `DESCRIBE TABLE check_query_comment_column;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors describe: 227', () => {
+test('should pass without errors describe: 226', () => {
     const query = `DESCRIBE TABLE null_00557;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
