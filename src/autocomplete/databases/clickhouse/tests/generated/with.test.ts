@@ -3,7 +3,7 @@
 /* eslint no-irregular-whitespace: "off" */
 import {parseClickHouseQueryWithoutCursor} from '../../index';
 
-test('should pass without errors with: 1', () => {
+test('[WITH] should pass without errors: 1', () => {
     const query = `WITH (SELECT groupConcat(',')(st) FROM t) AS a, (SELECT groupConcat(',')(st :: String) FROM t) AS b
 SELECT equals(a, b);`;
 
@@ -11,7 +11,7 @@ SELECT equals(a, b);`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 2', () => {
+test('[WITH] should pass without errors: 2', () => {
     const query = `with activity as ( select
 groupUniqArrayState(toDate('2025-01-01 01:00:00')) as dates_seen,
 toDateTime('2025-01-01 01:00:00') as last_seen
@@ -27,14 +27,14 @@ where last_seen < toDateTime('2020-01-01 00:00:00');`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 3', () => {
+test('[WITH] should pass without errors: 3', () => {
     const query = `WITH wkt(CAST([[(1, 1), (2, 2), (3, 3), (1, 1)]], 'Array(Array(Tuple(Float64, Float64)))')) as x SELECT x, toTypeName(x), readWKTPolygon(x) as y, toTypeName(y);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 4', () => {
+test('[WITH] should pass without errors: 4', () => {
     const query = `WITH ( SELECT CAST(toFixedString(toFixedString(materialize(toFixedString('111111111111111111111111111111111111111', 39)), 39), 39), 'UInt128')
 ) AS v
 SELECT
@@ -49,14 +49,14 @@ coalesce(1, 10, 10, materialize(NULL));`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 5', () => {
+test('[WITH] should pass without errors: 5', () => {
     const query = `WITH '{ "v":1.1}' AS raw SELECT JSONExtract(raw, 'float') AS float32_1, JSONExtract(concat(tuple('1970-01-05', 10, materialize(10), 10, 10, 10, toUInt256(10), 10, toNullable(10), 10, 10), materialize(toUInt256(0)), ', ', 2, 2, toLowCardinality(toLowCardinality(2))), raw, toLowCardinality('v'), 'Float32') AS float32_2, JSONExtractFloat(raw) AS float64_1, JSONExtract(raw, 'v', 'double') AS float64_2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 6', () => {
+test('[WITH] should pass without errors: 6', () => {
     const query = `WITH (num > 1) AND (arraySum(arrayMap(y -> ((y > 1) AND (y < num) AND ((num % y) = 0)), range(toUInt64(sqrt(num)) + 1))) = 0) AS is_prime_slow
 SELECT
 num,
@@ -86,7 +86,7 @@ SETTINGS max_block_size = 64, max_threads=16;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 7', () => {
+test('[WITH] should pass without errors: 7', () => {
     const query = `WITH 4096 AS w, 4096 AS h, w * h AS pixels,
 arrayJoin(coverage) AS num,
 num DIV (32768 * 32768 DIV pixels) AS idx,
@@ -104,14 +104,14 @@ WITH FILL FROM 0 TO 10;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 8', () => {
+test('[WITH] should pass without errors: 8', () => {
     const query = `WITH (Select min(number), max(number) from seq) as range Select * from numbers(range.1, range.2);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 9', () => {
+test('[WITH] should pass without errors: 9', () => {
     const query = `WITH tmp1 AS
 (
 SELECT
@@ -131,7 +131,7 @@ WHERE (fs1 IN ('test')) SETTINGS enable_multiple_prewhere_read_steps = 0;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 10', () => {
+test('[WITH] should pass without errors: 10', () => {
     const query = `WITH tmp1 AS
 (
 SELECT
@@ -151,7 +151,7 @@ WHERE (fs1 IN ('test'));`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 11', () => {
+test('[WITH] should pass without errors: 11', () => {
     const query = `WITH (60 * 60) * 24 AS d select toStartOfDay(x) as k, sum(y) as v,
 (z + d) * (z + d - 1) / 2 - (toUInt64(k - toDateTime('2000-01-01', 'UTC')) as z) * (z - 1) / 2 as est,
 est - v as delta
@@ -162,42 +162,42 @@ settings max_threads=8, optimize_aggregation_in_order=1, split_parts_ranges_into
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 12', () => {
+test('[WITH] should pass without errors: 12', () => {
     const query = `WITH 'OK' AS s SELECT * FROM param_test(test_str=s);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 13', () => {
+test('[WITH] should pass without errors: 13', () => {
     const query = `WITH (SELECT 123) AS s SELECT * FROM param_test(test_str=s);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 14', () => {
+test('[WITH] should pass without errors: 14', () => {
     const query = `WITH (SELECT 100 + 20 + 3) AS s SELECT * FROM param_test(test_str=s);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 15', () => {
+test('[WITH] should pass without errors: 15', () => {
     const query = `WITH (SELECT number FROM numbers(123, 1)) AS s SELECT * FROM param_test(test_str=s);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 16', () => {
+test('[WITH] should pass without errors: 16', () => {
     const query = `WITH CAST(123, 'String') AS s SELECT * FROM param_test(test_str=s);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 17', () => {
+test('[WITH] should pass without errors: 17', () => {
     const query = `WITH (SELECT uuid FROM system.tables WHERE database = currentDatabase() AND table = 't_ind_merge_2') AS uuid,
 extractAllGroupsVertical(message, 'containing (\\\\d+) columns \\((\\\\d+) merged, (\\\\d+) gathered\\)')[1] AS groups
 SELECT
@@ -212,7 +212,7 @@ ORDER BY event_time_microseconds;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 18', () => {
+test('[WITH] should pass without errors: 18', () => {
     const query = `WITH (SELECT uuid FROM system.tables WHERE database = currentDatabase() AND table = 't_ind_merge_1') AS uuid,
 extractAllGroupsVertical(message, 'containing (\\\\d+) columns \\((\\\\d+) merged, (\\\\d+) gathered\\)')[1] AS groups
 SELECT
@@ -227,14 +227,14 @@ ORDER BY event_time_microseconds;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 19', () => {
+test('[WITH] should pass without errors: 19', () => {
     const query = `WITH wkt(CAST([(1, 1), (2, 2), (3, 3)], 'Array(Tuple(Float64, Float64))')) as x SELECT x, toTypeName(x), readWKTRing(x) as y, toTypeName(y);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 20', () => {
+test('[WITH] should pass without errors: 20', () => {
     const query = `WITH RECURSIVE search_tree AS ( SELECT id, parent_id, [parent_id] AS path, toUInt64(0) AS depth
 FROM test_table
 UNION ALL
@@ -247,7 +247,7 @@ SELECT * FROM search_tree ORDER BY depth, id, parent_id;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 21', () => {
+test('[WITH] should pass without errors: 21', () => {
     const query = `WITH RECURSIVE search_tree AS ( SELECT id, parent_id, [parent_id] AS path, toUInt64(0) AS depth
 FROM remote('127.0.0.1', currentDatabase(), test_table)
 UNION ALL
@@ -260,7 +260,7 @@ SELECT * FROM search_tree ORDER BY depth, id, parent_id;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 22', () => {
+test('[WITH] should pass without errors: 22', () => {
     const query = `WITH RECURSIVE search_tree AS ( SELECT id, parent_id, [parent_id] AS path, toUInt64(0) AS depth
 FROM remote('127.0.0.{1,2}', currentDatabase(), test_table)
 UNION ALL
@@ -273,35 +273,35 @@ SELECT * FROM search_tree ORDER BY depth, id, parent_id;;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 23', () => {
+test('[WITH] should pass without errors: 23', () => {
     const query = `WITH 'https://www3.botinok.co.edu.il/~kozlevich/CGI-BIN/WEBSIT~0.DLL?longptr=0xFFFFFFFF&ONERR=CONTINUE#!PGNUM=99' AS url SELECT URLHash(url, arrayJoin(range(10)));`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 24', () => {
+test('[WITH] should pass without errors: 24', () => {
     const query = `WITH 'https://www3.botinok.co.edu.il/~kozlevich/CGI-BIN/WEBSIT~0.DLL?longptr=0xFFFFFFFF&ONERR=CONTINUE#!PGNUM=99' AS url SELECT URLHash(materialize(url), arrayJoin(range(10)));`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 25', () => {
+test('[WITH] should pass without errors: 25', () => {
     const query = `WITH 'https://www3.botinok.co.edu.il/~kozlevich/CGI-BIN/WEBSIT~0.DLL?longptr=0xFFFFFFFF&ONERR=CONTINUE#!PGNUM=99' AS url SELECT cityHash64(substring(x, -1, 1) IN ('/', '?', '#') ? substring(x, 1, -1) : x), arrayJoin(URLHierarchy(url)) AS x;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 26', () => {
+test('[WITH] should pass without errors: 26', () => {
     const query = `WITH 'https://www3.botinok.co.edu.il/~kozlevich/CGI-BIN/WEBSIT~0.DLL?longptr=0xFFFFFFFF&ONERR=CONTINUE#!PGNUM=99' AS url SELECT cityHash64(substring(x, -1, 1) IN ('/', '?', '#') ? substring(x, 1, -1) : x), arrayJoin(URLHierarchy(materialize(url))) AS x;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 27', () => {
+test('[WITH] should pass without errors: 27', () => {
     const query = `WITH build AS ( SELECT
 k,
 toDateTime('2001-01-01 00:00:00') + INTERVAL number MINUTE AS t,
@@ -322,7 +322,7 @@ FROM probe ASOF JOIN build USING (k, t);`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 28', () => {
+test('[WITH] should pass without errors: 28', () => {
     const query = `WITH build AS ( SELECT
 k * 2 AS k,
 toDateTime('2001-01-01 00:00:00') + INTERVAL number MINUTE AS t,
@@ -343,7 +343,7 @@ FROM probe ASOF JOIN build USING (k, t);`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 29', () => {
+test('[WITH] should pass without errors: 29', () => {
     const query = `WITH build AS ( SELECT
 k,
 toDateTime('2001-01-01 00:00:00') + INTERVAL number MINUTE AS t,
@@ -364,7 +364,7 @@ FROM probe ASOF JOIN build USING (k, t);`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 30', () => {
+test('[WITH] should pass without errors: 30', () => {
     const query = `WITH build AS ( SELECT
 k,
 toDateTime('2001-01-01 00:00:00') + INTERVAL number MINUTE AS t,
@@ -385,7 +385,7 @@ FROM probe ASOF JOIN build USING (k, t);`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 31', () => {
+test('[WITH] should pass without errors: 31', () => {
     const query = `WITH build AS ( SELECT
 k,
 toDateTime('2001-01-01 00:00:00') + INTERVAL number MINUTE AS t,
@@ -406,7 +406,7 @@ FROM probe ASOF JOIN build USING (k, t);`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 32', () => {
+test('[WITH] should pass without errors: 32', () => {
     const query = `WITH build AS ( SELECT
 k,
 toDateTime('2001-01-01 00:00:00') + INTERVAL number MINUTE AS t,
@@ -427,7 +427,7 @@ FROM probe ASOF JOIN build USING (k, t);`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 33', () => {
+test('[WITH] should pass without errors: 33', () => {
     const query = `WITH build AS ( SELECT
 k,
 toDateTime('2001-01-01 00:00:00') + INTERVAL number MINUTE AS t,
@@ -448,7 +448,7 @@ FROM probe ASOF JOIN build USING (k, t);`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 34', () => {
+test('[WITH] should pass without errors: 34', () => {
     const query = `WITH build AS ( SELECT
 k,
 toDateTime('2001-01-01 00:00:00') + INTERVAL number MINUTE AS t,
@@ -469,7 +469,7 @@ FROM probe ASOF JOIN build USING (k, t);`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 35', () => {
+test('[WITH] should pass without errors: 35', () => {
     const query = `WITH build AS ( SELECT
 k,
 toDateTime('2001-01-01 00:00:00') + INTERVAL number MINUTE AS t,
@@ -490,7 +490,7 @@ FROM probe ASOF JOIN build USING (k, t);`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 36', () => {
+test('[WITH] should pass without errors: 36', () => {
     const query = `WITH build AS ( SELECT
 k,
 toDateTime('2001-01-01 00:00:00') + INTERVAL number MINUTE AS t,
@@ -511,7 +511,7 @@ FROM probe ASOF JOIN build USING (k, t);`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 37', () => {
+test('[WITH] should pass without errors: 37', () => {
     const query = `WITH CAST(tuple(1), 'Tuple (value UInt64)') AS compound_value SELECT id, test_table.* APPLY x -> compound_value.*
 FROM test_table
 WHERE arrayMap(x -> toString(x) AS lambda, [NULL, 256, 257, NULL, NULL])
@@ -523,7 +523,7 @@ DROP TABLE test_table;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 38', () => {
+test('[WITH] should pass without errors: 38', () => {
     const query = `WITH merged_test AS( 	SELECT * FROM  t Final
 )
 SELECT * FROM  merged_test;`;
@@ -532,7 +532,7 @@ SELECT * FROM  merged_test;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 39', () => {
+test('[WITH] should pass without errors: 39', () => {
     const query = `WITH cte1 as ( SELECT '1234' as x
 ), cte2 as (
 SELECT '1234' as x
@@ -547,7 +547,7 @@ limit 1;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 40', () => {
+test('[WITH] should pass without errors: 40', () => {
     const query = `with x as (
 select number
 from numbers(10)
@@ -565,42 +565,42 @@ ORDER BY ALL;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 41', () => {
+test('[WITH] should pass without errors: 41', () => {
     const query = `WITH {test_a:UInt32} as column SELECT column as number FROM numbers(2) FORMAT TSVWithNames;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 42', () => {
+test('[WITH] should pass without errors: 42', () => {
     const query = `WITH {test_a:UInt32} as column SELECT {test_a:UInt32} as number FROM numbers(2) FORMAT TSVWithNames;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 43', () => {
+test('[WITH] should pass without errors: 43', () => {
     const query = `WITH {test_a:UInt32} as column SELECT column FROM numbers(2) FORMAT TSVWithNames;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 44', () => {
+test('[WITH] should pass without errors: 44', () => {
     const query = `WITH avg(a) OVER () AS a SELECT a, id FROM test SETTINGS allow_experimental_window_functions = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 45', () => {
+test('[WITH] should pass without errors: 45', () => {
     const query = `WITH avg(a) OVER () AS a2 SELECT a2, id FROM test SETTINGS allow_experimental_window_functions = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 46', () => {
+test('[WITH] should pass without errors: 46', () => {
     const query = `with a as (select 1 as column_a) , b as (select 2 as column_b) select * FROM remote('127.0.0.{1,2}', currentDatabase(), t) as c
 inner join a on ID=column_a inner join b on ID=column_b;`;
 
@@ -608,7 +608,7 @@ inner join a on ID=column_a inner join b on ID=column_b;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 47', () => {
+test('[WITH] should pass without errors: 47', () => {
     const query = `WITH data AS (
 SELECT
 rand64() AS val1,
@@ -662,7 +662,7 @@ FORMAT Null;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 48', () => {
+test('[WITH] should pass without errors: 48', () => {
     const query = `with block_0 as ( select * from loans
 ),
 block_1 as (
@@ -674,14 +674,14 @@ select loan_number from block_1 where loan_number > 3 order by loan_number setti
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 49', () => {
+test('[WITH] should pass without errors: 49', () => {
     const query = `WITH 123 AS x SELECT 555 FROM (SELECT a, x FROM (SELECT 1 AS a, 2 AS b));`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 50', () => {
+test('[WITH] should pass without errors: 50', () => {
     const query = `WITH t AS (SELECT 1) SELECT t, (SELECT * FROM t) FROM t; -- { serverError UNKNOWN_IDENTIFIER } SELECT x FROM (SELECT y FROM VALUES ('y UInt16', (2)) WHERE (1 AS x) = y) AS t;  -- { serverError UNKNOWN_IDENTIFIER }
 SELECT t.x FROM (SELECT * FROM (SELECT 1 AS x) AS t); -- { serverError UNKNOWN_IDENTIFIER }
 SELECT x FROM (SELECT * FROM (SELECT 99 AS x) AS t);`;
@@ -690,7 +690,7 @@ SELECT x FROM (SELECT * FROM (SELECT 99 AS x) AS t);`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 51', () => {
+test('[WITH] should pass without errors: 51', () => {
     const query = `WITH ['asynchronous_metric_log', 'asynchronous_insert_log', 'opentelemetry_span_log', 'coverage_log'] AS known_tables,
 'event_date, event_time' as default_sorting_key
 SELECT
@@ -702,28 +702,28 @@ WHERE (database = 'system') AND (engine = 'MergeTree') AND (NOT arraySum(arrayMa
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 52', () => {
+test('[WITH] should pass without errors: 52', () => {
     const query = `WITH 0 AS l, 10 AS r SELECT number * 2 FROM numbers(5) ORDER BY 1 WITH FILL FROM l TO r;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 53', () => {
+test('[WITH] should pass without errors: 53', () => {
     const query = `WITH 0 AS l, 10 AS r SELECT number * 2 FROM numbers(5) ORDER BY 1 WITH FILL FROM l TO l + r;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 54', () => {
+test('[WITH] should pass without errors: 54', () => {
     const query = `with dummy + 1 as dummy select dummy from system.one;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 55', () => {
+test('[WITH] should pass without errors: 55', () => {
     const query = `WITH dummy + 3 AS dummy SELECT dummy + 1 AS y
 FROM system.one
 SETTINGS enable_global_with_statement = 1;`;
@@ -732,7 +732,7 @@ SETTINGS enable_global_with_statement = 1;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 56', () => {
+test('[WITH] should pass without errors: 56', () => {
     const query = `WITH max(dt) AS maxDt SELECT maxDt
 FROM test;`;
 
@@ -740,7 +740,7 @@ FROM test;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 57', () => {
+test('[WITH] should pass without errors: 57', () => {
     const query = `WITH max(number) AS maxDt SELECT maxDt
 FROM numbers(10);`;
 
@@ -748,7 +748,7 @@ FROM numbers(10);`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 58', () => {
+test('[WITH] should pass without errors: 58', () => {
     const query = `WITH ( SELECT max(i)
 FROM t1
 ) AS value
@@ -763,7 +763,7 @@ FROM t1;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 59', () => {
+test('[WITH] should pass without errors: 59', () => {
     const query = `with (select 25) as something
 select *, something
 from numbers(toUInt64(assumeNotNull(something)));`;
@@ -772,7 +772,7 @@ from numbers(toUInt64(assumeNotNull(something)));`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 60', () => {
+test('[WITH] should pass without errors: 60', () => {
     const query = `with d as (select 'key'::Varchar(255) c, 'x'::Varchar(255) s) SELECT r1, c as r2
 FROM (
 SELECT t as s, c as r1
@@ -786,21 +786,21 @@ SETTINGS join_use_nulls=1;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 61', () => {
+test('[WITH] should pass without errors: 61', () => {
     const query = `WITH toInt64(2) AS new_x SELECT new_x AS x FROM (SELECT 1 AS x) t;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 62', () => {
+test('[WITH] should pass without errors: 62', () => {
     const query = `WITH toInt64(2) AS new_x SELECT * replace(new_x as x)  FROM (SELECT 1 AS x) t;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 63', () => {
+test('[WITH] should pass without errors: 63', () => {
     const query = `WITH a as key
 SELECT
 a as k1,
@@ -815,28 +815,28 @@ ORDER BY k1, k2;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 64', () => {
+test('[WITH] should pass without errors: 64', () => {
     const query = `WITH a as key SELECT key as k1 FROM test GROUP BY key ORDER BY key;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 65', () => {
+test('[WITH] should pass without errors: 65', () => {
     const query = `WITH a as key SELECT key as k1 FROM test ORDER BY key;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 66', () => {
+test('[WITH] should pass without errors: 66', () => {
     const query = `WITH 10 as k SELECT k as key, * FROM repl_tbl WHERE key = k;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 67', () => {
+test('[WITH] should pass without errors: 67', () => {
     const query = `WITH with_table as ( SELECT p.a_id, p.b_id, p.c_id FROM parent p
 LEFT JOIN join_table_1 jt1 ON jt1.a_id = p.a_id AND jt1.b_id = p.b_id
 LEFT JOIN join_table_2 jt2 ON jt2.c_id = p.c_id
@@ -850,7 +850,7 @@ GROUP BY p.a_id, p.b_id;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 68', () => {
+test('[WITH] should pass without errors: 68', () => {
     const query = `WITH RECURSIVE foo AS (SELECT 1 AS i
 UNION ALL
 (SELECT i+1 FROM foo WHERE i < 10
@@ -862,7 +862,7 @@ SELECT i+1 FROM foo WHERE i < 5)
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 69', () => {
+test('[WITH] should pass without errors: 69', () => {
     const query = `WITH RECURSIVE foo AS (SELECT 1 AS i
 UNION ALL
 SELECT * FROM
@@ -875,7 +875,7 @@ SELECT i+1 FROM foo WHERE i < 5) AS t
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 70', () => {
+test('[WITH] should pass without errors: 70', () => {
     const query = `WITH RECURSIVE foo AS (SELECT 1 AS i
 UNION ALL
 (SELECT i+1 FROM foo WHERE i < 10
@@ -887,7 +887,7 @@ SELECT i+1 FROM foo WHERE i < 5)
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 71', () => {
+test('[WITH] should pass without errors: 71', () => {
     const query = `WITH RECURSIVE foo AS (SELECT 1 AS i
 UNION ALL
 (SELECT i+1 FROM foo WHERE i < 10
@@ -899,7 +899,7 @@ SELECT i+1 FROM foo WHERE i < 5)
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 72', () => {
+test('[WITH] should pass without errors: 72', () => {
     const query = `WITH RECURSIVE t AS ( WITH RECURSIVE s AS (
 SELECT toUInt64(1) AS i
 UNION ALL
@@ -915,7 +915,7 @@ SELECT * FROM t;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 73', () => {
+test('[WITH] should pass without errors: 73', () => {
     const query = `WITH RECURSIVE tab AS (SELECT * FROM values('id_key UInt64, link UInt64', (1,17), (2,17), (3,17), (4,17), (6,17), (5,17))),
 iter AS (
 SELECT 0 AS id_key, 'base' AS row_type, 17 AS link
@@ -945,7 +945,7 @@ SELECT * FROM iter;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 74', () => {
+test('[WITH] should pass without errors: 74', () => {
     const query = `WITH RECURSIVE x AS (SELECT 1 AS n INTERSECT SELECT n+1 FROM x) SELECT * FROM x; -- {serverError UNSUPPORTED_METHOD}
 WITH RECURSIVE x AS (SELECT 1 AS n INTERSECT ALL SELECT n+1 FROM x)
 SELECT * FROM x; -- {serverError UNSUPPORTED_METHOD}
@@ -963,7 +963,7 @@ DROP TABLE IF EXISTS y;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 75', () => {
+test('[WITH] should pass without errors: 75', () => {
     const query = `WITH toString(number) as str
 SELECT
 *,
@@ -975,7 +975,7 @@ ORDER BY str;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 76', () => {
+test('[WITH] should pass without errors: 76', () => {
     const query = `WITH test AS (
 SELECT
 *,
@@ -989,7 +989,7 @@ ORDER BY toString(number);`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 77', () => {
+test('[WITH] should pass without errors: 77', () => {
     const query = `WITH RECURSIVE y AS (SELECT 1 AS id),
 x AS (SELECT * FROM y UNION ALL SELECT id+1 FROM x WHERE id < 5)
 SELECT * FROM x ORDER BY id;`;
@@ -998,7 +998,7 @@ SELECT * FROM x ORDER BY id;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 78', () => {
+test('[WITH] should pass without errors: 78', () => {
     const query = `WITH RECURSIVE x AS (SELECT * FROM y UNION ALL SELECT id+1 FROM x WHERE id < 5),
 y AS (SELECT 1 AS id)
 SELECT * FROM x ORDER BY id;`;
@@ -1007,7 +1007,7 @@ SELECT * FROM x ORDER BY id;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 79', () => {
+test('[WITH] should pass without errors: 79', () => {
     const query = `WITH RECURSIVE x AS
 (SELECT 1 AS id UNION ALL SELECT id+1 FROM x WHERE id < 5),
 y AS
@@ -1018,7 +1018,7 @@ SELECT y.*, x.* FROM y LEFT JOIN x USING (id) ORDER BY y.id;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 80', () => {
+test('[WITH] should pass without errors: 80', () => {
     const query = `WITH RECURSIVE x AS
 (SELECT 1 AS id UNION ALL SELECT id+1 FROM x WHERE id < 5),
 y AS
@@ -1029,7 +1029,7 @@ SELECT y.*, x.* FROM y LEFT JOIN x USING (id) ORDER BY y.id;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 81', () => {
+test('[WITH] should pass without errors: 81', () => {
     const query = `WITH RECURSIVE x AS
 (SELECT 1 AS id UNION ALL SELECT id+1 FROM x WHERE id < 3 ),
 y AS
@@ -1042,7 +1042,7 @@ SELECT * FROM z ORDER BY id;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 82', () => {
+test('[WITH] should pass without errors: 82', () => {
     const query = `WITH RECURSIVE x AS
 (SELECT 1 AS id UNION ALL SELECT id+1 FROM x WHERE id < 3 ),
 y AS
@@ -1055,7 +1055,7 @@ SELECT * FROM z ORDER BY id;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 83', () => {
+test('[WITH] should pass without errors: 83', () => {
     const query = `WITH RECURSIVE search_graph AS ( 	SELECT *, false AS is_cycle, [tuple(g.f, g.t)] AS path FROM graph g
 	UNION ALL
 	SELECT g.*, has(path, tuple(g.f, g.t)), arrayConcat(sg.path, [tuple(g.f, g.t)])
@@ -1068,7 +1068,7 @@ SELECT * FROM search_graph;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 84', () => {
+test('[WITH] should pass without errors: 84', () => {
     const query = `WITH RECURSIVE search_graph AS ( 	SELECT *, false AS is_cycle, [tuple(g.f, g.t)] AS path FROM graph g
 	UNION ALL
 	SELECT g.*, has(path, tuple(g.f, g.t)), arrayConcat(sg.path, [tuple(g.f, g.t)])
@@ -1081,7 +1081,7 @@ SELECT * FROM search_graph ORDER BY path;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 85', () => {
+test('[WITH] should pass without errors: 85', () => {
     const query = `WITH subquery AS ( SELECT
 toUInt64(time) AS time,
 toHour(03038_table.time)
@@ -1095,7 +1095,7 @@ ORDER BY subquery.time ASC;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 86', () => {
+test('[WITH] should pass without errors: 86', () => {
     const query = `WITH RECURSIVE t AS ( SELECT 1 AS id, []::Array(UInt64) AS path
 UNION ALL
 SELECT tree.id, arrayConcat(t.path, [tree.id])
@@ -1111,7 +1111,7 @@ ORDER BY t1.id, t2.id;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 87', () => {
+test('[WITH] should pass without errors: 87', () => {
     const query = `WITH RECURSIVE t AS ( SELECT 1 AS id, []::Array(UInt64) AS path
 UNION ALL
 SELECT tree.id, arrayConcat(t.path, [tree.id])
@@ -1128,7 +1128,7 @@ ORDER BY t1.id;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 88', () => {
+test('[WITH] should pass without errors: 88', () => {
     const query = `WITH RECURSIVE t AS ( SELECT 1 AS id, []::Array(UInt64) AS path
 UNION ALL
 SELECT tree.id, arrayConcat(t.path, [tree.id])
@@ -1141,7 +1141,7 @@ SELECT t1.id, t2.path, tuple(t2.*) FROM t AS t1 JOIN t AS t2 ON
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 89', () => {
+test('[WITH] should pass without errors: 89', () => {
     const query = `WITH 10 AS n SELECT *
 FROM numbers(n);`;
 
@@ -1149,7 +1149,7 @@ FROM numbers(n);`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 90', () => {
+test('[WITH] should pass without errors: 90', () => {
     const query = `WITH cast(10, 'UInt64') AS n SELECT *
 FROM numbers(n);`;
 
@@ -1157,7 +1157,7 @@ FROM numbers(n);`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 91', () => {
+test('[WITH] should pass without errors: 91', () => {
     const query = `WITH RECURSIVE subdepartment AS (
 SELECT name as root_name, * FROM department WHERE name = 'A'
 UNION ALL
@@ -1170,7 +1170,7 @@ SELECT * FROM subdepartment ORDER BY name;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 92', () => {
+test('[WITH] should pass without errors: 92', () => {
     const query = `WITH RECURSIVE subdepartment AS (
 SELECT 1 AS level, * FROM department WHERE name = 'A'
 UNION ALL
@@ -1183,7 +1183,7 @@ SELECT * FROM subdepartment ORDER BY name;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 93', () => {
+test('[WITH] should pass without errors: 93', () => {
     const query = `WITH RECURSIVE subdepartment AS (
 SELECT 1 AS level, * FROM department WHERE name = 'A'
 UNION ALL
@@ -1196,7 +1196,7 @@ SELECT * FROM subdepartment WHERE level >= 2 ORDER BY name;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 94', () => {
+test('[WITH] should pass without errors: 94', () => {
     const query = `WITH RECURSIVE subdepartment AS (
 SELECT * FROM department WHERE name = 'A'
 )
@@ -1206,7 +1206,7 @@ SELECT * FROM subdepartment ORDER BY name;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 95', () => {
+test('[WITH] should pass without errors: 95', () => {
     const query = `WITH RECURSIVE q AS ( SELECT * FROM department
 UNION ALL
 (WITH x AS (SELECT * FROM q)
@@ -1218,7 +1218,7 @@ SELECT * FROM q LIMIT 24;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 96', () => {
+test('[WITH] should pass without errors: 96', () => {
     const query = `WITH RECURSIVE q AS ( SELECT * FROM department
 UNION ALL
 (WITH RECURSIVE x AS (
@@ -1234,7 +1234,7 @@ SELECT * FROM q LIMIT 32;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 97', () => {
+test('[WITH] should pass without errors: 97', () => {
     const query = `WITH RECURSIVE t AS ( SELECT 1 AS i, 2 AS j
 UNION ALL
 SELECT t2.i, t.j+1 FROM
@@ -1246,7 +1246,7 @@ SELECT * FROM t;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 98', () => {
+test('[WITH] should pass without errors: 98', () => {
     const query = `WITH RECURSIVE t AS ( SELECT 1 AS n
 UNION ALL
 SELECT n+1 FROM t WHERE n < 100
@@ -1257,7 +1257,7 @@ SELECT sum(n) FROM t;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 99', () => {
+test('[WITH] should pass without errors: 99', () => {
     const query = `WITH RECURSIVE t AS ( SELECT 1 AS n
 UNION ALL
 SELECT n+1 FROM t WHERE n < 5
@@ -1268,7 +1268,7 @@ SELECT * FROM t;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 100', () => {
+test('[WITH] should pass without errors: 100', () => {
     const query = `WITH RECURSIVE t AS ( SELECT 1 AS n
 UNION ALL
 SELECT n+1 FROM t)
@@ -1278,7 +1278,7 @@ SELECT * FROM t LIMIT 10;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 101', () => {
+test('[WITH] should pass without errors: 101', () => {
     const query = `WITH RECURSIVE t AS ( SELECT 'foo' AS n
 UNION ALL
 SELECT n || ' bar' FROM t WHERE length(n) < 20
@@ -1289,7 +1289,7 @@ SELECT n, toTypeName(n) FROM t;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 102', () => {
+test('[WITH] should pass without errors: 102', () => {
     const query = `WITH RECURSIVE t AS ( SELECT '7' AS n
 UNION ALL
 SELECT n+1 FROM t WHERE n < 10
@@ -1317,7 +1317,7 @@ SELECT * FROM w1;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 103', () => {
+test('[WITH] should pass without errors: 103', () => {
     const query = `WITH RECURSIVE search_tree AS ( SELECT id, link, data
 FROM tree t
 WHERE t.id = 0
@@ -1332,7 +1332,7 @@ SELECT * FROM search_tree;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 104', () => {
+test('[WITH] should pass without errors: 104', () => {
     const query = `WITH RECURSIVE search_tree AS ( SELECT id, link, data, [t.id] AS path
 FROM tree t
 WHERE t.id = 0
@@ -1347,7 +1347,7 @@ SELECT * FROM search_tree;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 105', () => {
+test('[WITH] should pass without errors: 105', () => {
     const query = `WITH helper AS (
 SELECT
 *
@@ -1365,56 +1365,56 @@ SELECT ColumnB FROM helper;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 106', () => {
+test('[WITH] should pass without errors: 106', () => {
     const query = `WITH RECURSIVE recursive_cte AS (SELECT 1 AS n UNION ALL SELECT n + 1 FROM recursive_cte WHERE n < 10) SELECT n FROM recursive_cte;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 107', () => {
+test('[WITH] should pass without errors: 107', () => {
     const query = `WITH RECURSIVE recursive_cte AS (SELECT toUInt8(1) AS n UNION ALL SELECT toUInt8(n + 1) FROM recursive_cte WHERE n < 10) SELECT n FROM recursive_cte;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 108', () => {
+test('[WITH] should pass without errors: 108', () => {
     const query = `WITH RECURSIVE recursive_cte AS (SELECT toUInt16(1) AS n UNION ALL SELECT toUInt8(n + 1) FROM recursive_cte WHERE n < 10) SELECT n FROM recursive_cte;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 109', () => {
+test('[WITH] should pass without errors: 109', () => {
     const query = `WITH RECURSIVE recursive_cte AS (SELECT materialize(toUInt16(1)) AS n UNION ALL SELECT toUInt8(n + 1) FROM recursive_cte WHERE n < 10) SELECT n FROM recursive_cte;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 110', () => {
+test('[WITH] should pass without errors: 110', () => {
     const query = `WITH RECURSIVE recursive_cte AS (SELECT toUInt16(1) AS n UNION ALL SELECT materialize(toUInt8(n + 1)) FROM recursive_cte WHERE n < 10) SELECT n FROM recursive_cte;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 111', () => {
+test('[WITH] should pass without errors: 111', () => {
     const query = `WITH RECURSIVE recursive_cte AS (SELECT toUInt16(1) AS n, '1' AS concat UNION ALL SELECT materialize(toUInt8(n + 1)), concat || toString(n + 1) FROM recursive_cte WHERE n < 10) SELECT n, concat FROM recursive_cte;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 112', () => {
+test('[WITH] should pass without errors: 112', () => {
     const query = `WITH RECURSIVE recursive_cte AS (SELECT 1 AS n UNION ALL SELECT n + 1 FROM recursive_cte) SELECT n FROM recursive_cte LIMIT 5;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 113', () => {
+test('[WITH] should pass without errors: 113', () => {
     const query = `WITH (SELECT number FROM system.numbers LIMIT 1) as w1,
 (SELECT number FROM system.numbers LIMIT 1) as w2,
 (SELECT number FROM system.numbers LIMIT 1) as w3,
@@ -1432,21 +1432,21 @@ WHERE number < 5;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 114', () => {
+test('[WITH] should pass without errors: 114', () => {
     const query = `WITH (SELECT v FROM vecs_Float32 limit 1) AS a SELECT count(dp) FROM (SELECT dotProduct(a, v) AS dp FROM vecs_Float32);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 115', () => {
+test('[WITH] should pass without errors: 115', () => {
     const query = `WITH 'Hello'::Enum8('Hello', 'World') AS enum1, 'test'::Enum8('test', 'best') AS enum2 SELECT [enum1, 'Goodbye', enum2];`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 116', () => {
+test('[WITH] should pass without errors: 116', () => {
     const query = `WITH ( SELECT dummy AS x
 FROM system.one
 ) AS y
@@ -1460,7 +1460,7 @@ GROUP BY y;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 117', () => {
+test('[WITH] should pass without errors: 117', () => {
     const query = `WITH ( SELECT dummy AS x
 FROM system.one
 ) AS y
@@ -1474,7 +1474,7 @@ GROUP BY y;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 118', () => {
+test('[WITH] should pass without errors: 118', () => {
     const query = `WITH (
 SELECT
 (query_id, query_start_time, query_start_time_microseconds)
@@ -1502,7 +1502,7 @@ GROUP BY type;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 119', () => {
+test('[WITH] should pass without errors: 119', () => {
     const query = `with d1 as ( select
 1 as a,
 2 as b
@@ -1527,7 +1527,7 @@ from joined;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 120', () => {
+test('[WITH] should pass without errors: 120', () => {
     const query = `WITH a AS ( SELECT 0 AS key, 'a' AS acol ),
 b AS ( SELECT 2 AS key )
 SELECT a.key
@@ -1540,7 +1540,7 @@ LEFT JOIN a AS a1 ON 1
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 121', () => {
+test('[WITH] should pass without errors: 121', () => {
     const query = `WITH a AS ( SELECT 0 AS key, 'a' AS acol ),
 b AS ( SELECT 2 AS key )
 SELECT a.acol, a1.acol
@@ -1553,7 +1553,7 @@ LEFT JOIN a AS a1 ON a1.key = a.key
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 122', () => {
+test('[WITH] should pass without errors: 122', () => {
     const query = `WITH a AS ( SELECT 0 AS key, 'a' AS acol ),
 b AS ( SELECT 2 AS key )
 SELECT a.acol, a1.acol
@@ -1568,7 +1568,7 @@ SETTINGS join_use_nulls = 0
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 123', () => {
+test('[WITH] should pass without errors: 123', () => {
     const query = `WITH a AS ( SELECT 0 AS key, 'a' AS acol ),
 b AS ( SELECT 2 AS key )
 SELECT a.acol, a1.acol
@@ -1582,14 +1582,14 @@ ORDER BY 1
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 124', () => {
+test('[WITH] should pass without errors: 124', () => {
     const query = `WITH filtered_groups AS (SELECT a FROM pr_1 WHERE a >= 100) SELECT count() FROM pr_2 INNER JOIN filtered_groups ON pr_2.a = filtered_groups.a;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 125', () => {
+test('[WITH] should pass without errors: 125', () => {
     const query = `WITH filtered_groups AS (SELECT a FROM pr_1 WHERE a >= 100) SELECT count() FROM pr_2 INNER JOIN filtered_groups ON pr_2.a = filtered_groups.a
 SETTINGS allow_experimental_parallel_reading_from_replicas = 1, parallel_replicas_for_non_replicated_merge_tree = 1, cluster_for_parallel_replicas = 'test_cluster_one_shard_three_replicas_localhost', max_parallel_replicas = 3;`;
 
@@ -1597,7 +1597,7 @@ SETTINGS allow_experimental_parallel_reading_from_replicas = 1, parallel_replica
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 126', () => {
+test('[WITH] should pass without errors: 126', () => {
     const query = `WITH filtered_groups AS (SELECT a FROM pr_1 WHERE a >= 100) SELECT count() FROM pr_2 INNER JOIN filtered_groups ON pr_2.a = filtered_groups.a
 SETTINGS enable_analyzer = 0, allow_experimental_parallel_reading_from_replicas = 2, parallel_replicas_for_non_replicated_merge_tree = 1, cluster_for_parallel_replicas = 'test_cluster_one_shard_three_replicas_localhost', max_parallel_replicas = 3; -- { serverError SUPPORT_IS_DISABLED }
 WITH filtered_groups AS (SELECT a FROM pr_1 WHERE a >= 100)
@@ -1610,7 +1610,7 @@ SETTINGS allow_experimental_parallel_reading_from_replicas = 1, parallel_replica
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 127', () => {
+test('[WITH] should pass without errors: 127', () => {
     const query = `WITH cte1 AS
 (
 SELECT n
@@ -1630,7 +1630,7 @@ SETTINGS allow_experimental_parallel_reading_from_replicas = 1, parallel_replica
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 128', () => {
+test('[WITH] should pass without errors: 128', () => {
     const query = `WITH arraySlice(arrayReverseSort(x -> (x.2, x.1), arrayZip(untuple(sumMap(([k], [1]))))), 1, 5) AS topKExact,
 arraySlice(arrayReverseSort(x -> (x.2, x.1), arrayZip(untuple(sumMap(([k], [w]))))), 1, 5) AS topKWeightedExact
 SELECT
@@ -1653,28 +1653,28 @@ FROM numbers(1000)
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 129', () => {
+test('[WITH] should pass without errors: 129', () => {
     const query = `WITH arrayJoin(['Hello', 'world'])::Enum('Hello', 'world') AS x SELECT x, transform(x, ['Hello', 'world'], [123, 456], 0);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 130', () => {
+test('[WITH] should pass without errors: 130', () => {
     const query = `WITH arrayJoin(['Hello', 'world'])::Enum('Hello', 'world') AS x SELECT x, transform(x, ['Hello', 'world', 'goodbye'], [123, 456], 0); -- { serverError UNKNOWN_ELEMENT_OF_ENUM } WITH arrayJoin(['Hello', 'world'])::Enum('Hello', 'world') AS x SELECT x, transform(x, ['Hello', 'world'], ['test', 'best']::Array(Enum('test' = 123, 'best' = 456, '' = 0)), ''::Enum('test' = 123, 'best' = 456, '' = 0)) AS y;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 131', () => {
+test('[WITH] should pass without errors: 131', () => {
     const query = `WITH (SELECT '111111111111111111111111111111111111111'::UInt128) AS v SELECT sum(x), max(v) FROM test;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 132', () => {
+test('[WITH] should pass without errors: 132', () => {
     const query = `WITH toIPv6('FFFF:0000:FFFF:0000:FFFF:0000:FFFF:0000') AS ip1, toIPv6('0000:FFFF:0000:FFFF:0000:FFFF:0000:FFFF') AS ip2, CAST('226854911280625642308916404954512140970', 'UInt128') AS n1, CAST('113427455640312821154458202477256070485', 'UInt128') AS n2
 SELECT bin(ip1), bin(ip2), bin(n1), bin(n2),
 bin(bitAnd(ip1, n1)), bin(bitAnd(n1, ip1)), bin(bitAnd(ip2, n1)), bin(bitAnd(n1, ip2)),
@@ -1686,21 +1686,21 @@ bin(bitOr(ip1, n2)), bin(bitOr(n2, ip1)), bin(bitOr(ip2, n2)), bin(bitOr(n2, ip2
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 133', () => {
+test('[WITH] should pass without errors: 133', () => {
     const query = `WITH 1::Nullable(UInt64) as my_literal Select sum(number + my_literal) from numbers(0);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 134', () => {
+test('[WITH] should pass without errors: 134', () => {
     const query = `WITH 1::Nullable(UInt64) as my_literal Select sum(number) + my_literal * count() from numbers(0);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 135', () => {
+test('[WITH] should pass without errors: 135', () => {
     const query = `WITH (path = 'test1') OR match(path, 'test2') OR (match(path, 'test3') AND match(path, 'test2')) OR match(path, 'test4') OR (path = 'test5') OR (path = 'test6') AS alias_in_error SELECT count(1)
 FROM test_bug_optimization
 WHERE alias_in_error;`;
@@ -1709,7 +1709,7 @@ WHERE alias_in_error;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 136', () => {
+test('[WITH] should pass without errors: 136', () => {
     const query = `WITH x AS (SELECT in((SELECT * FROM y))),
 y AS (SELECT 1)
 SELECT * FROM x; -- { serverError NUMBER_OF_ARGUMENTS_DOESNT_MATCH }
@@ -1719,7 +1719,7 @@ SELECT * FROM x; -- { serverError NUMBER_OF_ARGUMENTS_DOESNT_MATCH }
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 137', () => {
+test('[WITH] should pass without errors: 137', () => {
     const query = `WITH cte_1 AS (select
 subq_1.c_5_c1698_16 as c_2_c1702_3,
 subq_1.c_5_c1694_12 as c_2_c1703_4
@@ -1745,7 +1745,7 @@ on (ref_14.pkey = ref_16.vkey);`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 138', () => {
+test('[WITH] should pass without errors: 138', () => {
     const query = `WITH minSimpleState(value) AS c SELECT toTypeName(c), c
 FROM (
 SELECT NULL as value
@@ -1757,7 +1757,7 @@ SELECT 1 as value
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 139', () => {
+test('[WITH] should pass without errors: 139', () => {
     const query = `WITH 'hours' AS maximum_unit,
 arrayJoin([1.12, 60.2, 123.33, 24.45, 35.57, 66.64, 67.79, 48.88, 99.96, 3600]) AS elapsed
 SELECT
@@ -1767,7 +1767,7 @@ formatReadableTimeDelta(elapsed, maximum_unit) AS time_delta;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 140', () => {
+test('[WITH] should pass without errors: 140', () => {
     const query = `WITH 'milliseconds' AS maximum_unit,
 arrayJoin([1.12, 60.2, 123.33, 24.45, 35.57, 66.64, 67.79797979, 48.888888, 99.96, 3600]) AS elapsed
 SELECT
@@ -1777,7 +1777,7 @@ formatReadableTimeDelta(elapsed, maximum_unit) AS time_delta;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 141', () => {
+test('[WITH] should pass without errors: 141', () => {
     const query = `WITH 'milliseconds' AS maximum_unit,
 arrayJoin([0, 1.0005]) AS elapsed
 SELECT
@@ -1787,7 +1787,7 @@ formatReadableTimeDelta(elapsed, maximum_unit);`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 142', () => {
+test('[WITH] should pass without errors: 142', () => {
     const query = `WITH 44100 AS sample_frequency
 , number AS tick
 , tick / sample_frequency AS time
@@ -1802,7 +1802,7 @@ LIMIT 5;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 143', () => {
+test('[WITH] should pass without errors: 143', () => {
     const query = `WITH 44100 AS sample_frequency
 , number AS tick
 , tick / sample_frequency AS time
@@ -1897,49 +1897,49 @@ LIMIT 10;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 144', () => {
+test('[WITH] should pass without errors: 144', () => {
     const query = `WITH subquery AS (SELECT []) SELECT t.* FROM 02834_t AS t JOIN subquery ON arrayExists(x -> x = 1, t.arr); -- { serverError INVALID_JOIN_ON_EXPRESSION } DROP TABLE 02834_t;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 145', () => {
+test('[WITH] should pass without errors: 145', () => {
     const query = `WITH test_aliases AS (SELECT number FROM numbers(20)), alias2 AS (SELECT number FROM test_aliases) SELECT number FROM alias2 SETTINGS enable_global_with_statement = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 146', () => {
+test('[WITH] should pass without errors: 146', () => {
     const query = `WITH (1,2,3) || ('a','b','c') || ('2020-10-08'::Date, '2020-11-08'::Date) AS t SELECT t, t.1, t.2, t.3, t.4, t.5, t.6, t.7, t.8;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 147', () => {
+test('[WITH] should pass without errors: 147', () => {
     const query = `WITH (tup || tup) AS res SELECT res, res.1, res.2, res.3, res.4 FROM t_02833;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 148', () => {
+test('[WITH] should pass without errors: 148', () => {
     const query = `WITH (tup || (3, 4)) AS res SELECT res, res.1, res.2, res.3, res.4 FROM t_02833;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 149', () => {
+test('[WITH] should pass without errors: 149', () => {
     const query = `WITH ((3, 4) || tup) AS res SELECT res, res.1, res.2, res.3, res.4 FROM t_02833;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 150', () => {
+test('[WITH] should pass without errors: 150', () => {
     const query = `WITH (SELECT value IN ('ON', '1') FROM system.build_options WHERE name = 'USE_JEMALLOC') AS jemalloc_enabled,
 (SELECT count() FROM system.jemalloc_bins) AS total_bins,
 (SELECT count() FROM system.jemalloc_bins WHERE large) AS large_bins,
@@ -1957,21 +1957,21 @@ SELECT
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 151', () => {
+test('[WITH] should pass without errors: 151', () => {
     const query = `with c as ( select 1 ID, toDate('2023-06-24') dt, 0 p ) select multiIf(t.ID = 1, formatRowNoNewline('JSONEachRow', dd), '') AS params     from (select ID, case when p = 0 then toString(date_add(hour, p, dt)) else '2022-01-01' end as dd from c) t;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 152', () => {
+test('[WITH] should pass without errors: 152', () => {
     const query = `with c as ( select 1 ID, toDate('2023-06-24') dt, 0 p ) select multiIf(t.ID = 1, formatRowNoNewline('JSONEachRow', dd), '') AS params, dd from (select ID, case when p = 0 then toString(date_add(hour, p, dt)) else '2022-01-01' end as dd from c) t;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 153', () => {
+test('[WITH] should pass without errors: 153', () => {
     const query = `WITH toDateTime('2023-06-30 23:59:30') AS dt_ref,
 now() AS dt_now, 
 date_sub(DAY, 1, dt_now) as dt_before,
@@ -1997,7 +1997,7 @@ FORMAT Vertical;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 154', () => {
+test('[WITH] should pass without errors: 154', () => {
     const query = `WITH toDateTime('2023-06-30 23:59:30') AS dt_ref,
 now() AS dt_now, 
 date_add(DAY, 1, dt_now) as dt_after,
@@ -2023,7 +2023,7 @@ FORMAT Vertical;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 155', () => {
+test('[WITH] should pass without errors: 155', () => {
     const query = `WITH test_cte AS (
 SELECT
 ref_10.c11 as c_2_c2350_1,
@@ -2040,28 +2040,28 @@ SELECT ref_13.c_2_c2350_1 as c_2_c2357_3 FROM test_cte as ref_13 WHERE (ref_13.c
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 156', () => {
+test('[WITH] should pass without errors: 156', () => {
     const query = `with (select count() > 0 from remote('127.2', system.settings)) as s select s;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 157', () => {
+test('[WITH] should pass without errors: 157', () => {
     const query = `with (select count() > 0 from remote('127.2', remote('127.2', system.settings))) as s select s;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 158', () => {
+test('[WITH] should pass without errors: 158', () => {
     const query = `with (select count() > 0 from remote('127.2', view(select count() from remote('127.2', system.settings)))) as s select s;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 159', () => {
+test('[WITH] should pass without errors: 159', () => {
     const query = `WITH 18 AS precision,
 toUInt256(-1) AS int,
 toUInt256(toFloat64(int)) AS converted,
@@ -2076,21 +2076,21 @@ substring(int_str, 1, precision) = substring(converted_str, 1, precision) AS hav
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 160', () => {
+test('[WITH] should pass without errors: 160', () => {
     const query = `with toDateTime64('2023-01-01 00:00:00.000000001', 9, 'US/Eastern') as c select c+v1 as c_v1, c+v2 as c_v2, c+v3 as c_v3, date_diff(second, c, c_v1), date_diff(hour, c, c_v2), date_diff(second, c, c_v3) from saved_intervals_tmp;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 161', () => {
+test('[WITH] should pass without errors: 161', () => {
     const query = `with toDateTime64('2023-01-01 00:00:00.000000001', 9, 'US/Eastern') as c select c+v1 as c_v1, c+v2 as c_v2, c+v3 as c_v3, date_diff(second, c, c_v1), date_diff(hour, c, c_v2), date_diff(second, c, c_v3) from saved_intervals_mgt;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 162', () => {
+test('[WITH] should pass without errors: 162', () => {
     const query = `WITH toIPv4('127.0.0.10') AS ip SELECT
 ip = 2130706442::UInt32,
 ip = 0::UInt32,
@@ -2104,196 +2104,196 @@ ip != 2130706442::UInt32;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 163', () => {
+test('[WITH] should pass without errors: 163', () => {
     const query = `WITH [(1, 2)] AS arr1 SELECT arrayMap((x, y) -> (y, x), arr1);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 164', () => {
+test('[WITH] should pass without errors: 164', () => {
     const query = `WITH [(1, 2)] AS arr1 SELECT arrayMap(x -> x.1, arr1);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 165', () => {
+test('[WITH] should pass without errors: 165', () => {
     const query = `WITH [(1, 2)] AS arr1, [(3, 4)] AS arr2 SELECT arrayMap((x, y) -> (y.1, x.2), arr1, arr2);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 166', () => {
+test('[WITH] should pass without errors: 166', () => {
     const query = `WITH ((position(path, '/a') > 0) AND (NOT (position(path, 'a') > 0))) OR (path = '/b') OR (path = '/b/') as alias1 SELECT max(alias1) FROM remote('127.0.0.{1,2}', currentDatabase(), test_local) WHERE (id = 299386662);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 167', () => {
+test('[WITH] should pass without errors: 167', () => {
     const query = `WITH ('a', 'b')::Tuple(c1 String, c2 String) AS t SELECT t.c1, t.c2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 168', () => {
+test('[WITH] should pass without errors: 168', () => {
     const query = `WITH materialize(('a', 'b')::Tuple(c1 String, c2 String)) AS t SELECT t.c1, t.c2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 169', () => {
+test('[WITH] should pass without errors: 169', () => {
     const query = `WITH (1, ('a', 'b'))::Tuple(c1 UInt64, t1 Tuple(c1 String, c2 String)) AS t SELECT t.c1, t.t1.c1, t.t1.c2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 170', () => {
+test('[WITH] should pass without errors: 170', () => {
     const query = `WITH materialize((1, ('a', 'b'))::Tuple(c1 UInt64, t1 Tuple(c1 String, c2 String))) AS t SELECT t.c1, t.t1.c1, t.t1.c2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 171', () => {
+test('[WITH] should pass without errors: 171', () => {
     const query = `WITH [1, 2, 3] AS arr SELECT arr.size0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 172', () => {
+test('[WITH] should pass without errors: 172', () => {
     const query = `WITH materialize([1, 2, 3]) AS arr SELECT arr.size0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 173', () => {
+test('[WITH] should pass without errors: 173', () => {
     const query = `WITH [1, 2, NULL] AS arr SELECT arr.null;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 174', () => {
+test('[WITH] should pass without errors: 174', () => {
     const query = `WITH materialize([1, 2, NULL]) AS arr SELECT arr.null;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 175', () => {
+test('[WITH] should pass without errors: 175', () => {
     const query = `WITH [[1, 2], [], [3]] AS arr SELECT arr.size0, arr.size1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 176', () => {
+test('[WITH] should pass without errors: 176', () => {
     const query = `WITH materialize([[1, 2], [], [3]]) AS arr SELECT arr.size0, arr.size1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 177', () => {
+test('[WITH] should pass without errors: 177', () => {
     const query = `WITH map('foo', 1, 'bar', 2) AS m SELECT m.keys, m.values;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 178', () => {
+test('[WITH] should pass without errors: 178', () => {
     const query = `WITH materialize(map('foo', 1, 'bar', 2)) AS m SELECT m.keys, m.values;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 179', () => {
+test('[WITH] should pass without errors: 179', () => {
     const query = `WITH map('foo', 1, 'bar', 2) AS m SELECT m.*;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 180', () => {
+test('[WITH] should pass without errors: 180', () => {
     const query = `WITH map('foo', (1, 2), 'bar', (3, 4))::Map(String, Tuple(a UInt64, b UInt64)) AS m SELECT m.keys, m.values, m.values.a, m.values.b;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 181', () => {
+test('[WITH] should pass without errors: 181', () => {
     const query = `WITH materialize(map('foo', (1, 2), 'bar', (3, 4))::Map(String, Tuple(a UInt64, b UInt64))) AS m SELECT m.keys, m.values, m.values.a, m.values.b;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 182', () => {
+test('[WITH] should pass without errors: 182', () => {
     const query = `WITH map('foo', (1, 2), 'bar', (3, 4))::Map(String, Tuple(a UInt64, b UInt64)) AS m SELECT m.keys, m.values, m.values.*;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 183', () => {
+test('[WITH] should pass without errors: 183', () => {
     const query = `WITH materialize(map('foo', (1, 2), 'bar', (3, 4))::Map(String, Tuple(a UInt64, b UInt64))) AS m SELECT m.keys, m.values, m.values.*;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 184', () => {
+test('[WITH] should pass without errors: 184', () => {
     const query = `WITH [1, 2, 3] AS arr SELECT arr.*; -- { serverError UNSUPPORTED_METHOD } SELECT getSubcolumn([1, 2, 3], 'size0');`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 185', () => {
+test('[WITH] should pass without errors: 185', () => {
     const query = `WITH 1 as a SELECT a, FROM numbers(1);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 186', () => {
+test('[WITH] should pass without errors: 186', () => {
     const query = `WITH 1 as from SELECT from, from + from, from in [0], FROM numbers(1);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 187', () => {
+test('[WITH] should pass without errors: 187', () => {
     const query = `with arrayJoin([0, 1, 2, 10]) as x select quantilesGK(100, 0.5, 0.4, 0.1)(x);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 188', () => {
+test('[WITH] should pass without errors: 188', () => {
     const query = `with arrayJoin([0, 6, 7, 9, 10]) as x select quantileGK(100, 0.5)(x);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 189', () => {
+test('[WITH] should pass without errors: 189', () => {
     const query = `with number + 1 as col select quantilesGK(10000, 0.25, 0.5, 0.75)(col), count(col), quantilesGK(10000, 0.0, 1.0)(col), sum(col) from numbers(1000);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 190', () => {
+test('[WITH] should pass without errors: 190', () => {
     const query = `WITH ( SELECT uuid
 FROM system.tables
 WHERE (database = currentDatabase()) AND (name = '02581_trips')
@@ -2313,21 +2313,21 @@ GROUP BY mutation_version ORDER BY mutation_version FORMAT TSVWithNames;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 191', () => {
+test('[WITH] should pass without errors: 191', () => {
     const query = `WITH pow(NULL, 256) AS four SELECT NULL AS two GROUP BY GROUPING SETS ((pow(two, 65536)));`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 192', () => {
+test('[WITH] should pass without errors: 192', () => {
     const query = `WITH (SELECT pow(two, 1) GROUP BY GROUPING SETS ((pow(1, 9)))) AS four SELECT 2 AS two GROUP BY pow(1, two);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 193', () => {
+test('[WITH] should pass without errors: 193', () => {
     const query = `WITH splitByChar('_', part_name) AS name_parts, name_parts[2]::UInt64 AS min_block,
 name_parts[3]::UInt64 AS max_block
 SELECT min_block, max_block, event_type, merge_algorithm, part_type FROM system.part_log
@@ -2340,7 +2340,7 @@ min_block = 1 AND max_block = 2;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 194', () => {
+test('[WITH] should pass without errors: 194', () => {
     const query = `WITH splitByChar('_', part_name) AS name_parts, name_parts[2]::UInt64 AS min_block,
 name_parts[3]::UInt64 AS max_block
 SELECT min_block, max_block, event_type, merge_algorithm, part_type FROM system.part_log
@@ -2353,63 +2353,63 @@ min_block = 1 AND max_block = 3;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 195', () => {
+test('[WITH] should pass without errors: 195', () => {
     const query = `with toDate('2023-01-09') as date_mon, date_mon - 1 as date_sun select toDayOfWeek(date_mon), toDayOfWeek(date_sun);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 196', () => {
+test('[WITH] should pass without errors: 196', () => {
     const query = `with toDate('2023-01-09') as date_mon, date_mon - 1 as date_sun select toDayOfWeek(date_mon, 0), toDayOfWeek(date_sun, 0);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 197', () => {
+test('[WITH] should pass without errors: 197', () => {
     const query = `with toDate('2023-01-09') as date_mon, date_mon - 1 as date_sun select toDayOfWeek(date_mon, 1), toDayOfWeek(date_sun, 1);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 198', () => {
+test('[WITH] should pass without errors: 198', () => {
     const query = `with toDate('2023-01-09') as date_mon, date_mon - 1 as date_sun select toDayOfWeek(date_mon, 2), toDayOfWeek(date_sun, 2);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 199', () => {
+test('[WITH] should pass without errors: 199', () => {
     const query = `with toDate('2023-01-09') as date_mon, date_mon - 1 as date_sun select toDayOfWeek(date_mon, 3), toDayOfWeek(date_sun, 3);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 200', () => {
+test('[WITH] should pass without errors: 200', () => {
     const query = `with toDate('2023-01-09') as date_mon, date_mon - 1 as date_sun select toDayOfWeek(date_mon, 4), toDayOfWeek(date_sun, 4);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 201', () => {
+test('[WITH] should pass without errors: 201', () => {
     const query = `with toDate('2023-01-09') as date_mon, date_mon - 1 as date_sun select toDayOfWeek(date_mon, 5), toDayOfWeek(date_sun, 5);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 202', () => {
+test('[WITH] should pass without errors: 202', () => {
     const query = `with toUInt64(id) as id_with select day, count(id_with) from test where day >= '2023-01-01' group by day limit 1000;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 203', () => {
+test('[WITH] should pass without errors: 203', () => {
     const query = `with NULL as pid select a.col1, sum(a.col2) as summ
 from table1 a
 prewhere (pid is null or a.col2 = pid)
@@ -2419,7 +2419,7 @@ group by a.col1;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 204', () => {
+test('[WITH] should pass without errors: 204', () => {
     const query = `with 123 as pid select a.col1, sum(a.col2) as summ
 from table1 a
 prewhere (pid is null or a.col2 = pid)
@@ -2429,7 +2429,7 @@ group by a.col1;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 205', () => {
+test('[WITH] should pass without errors: 205', () => {
     const query = `WITH extractKeyValuePairs('name:neymar, age:31 team:psg,nationality:brazil') AS s_map,
 CAST(
 arrayMap(
@@ -2444,7 +2444,7 @@ x;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 206', () => {
+test('[WITH] should pass without errors: 206', () => {
     const query = `WITH extractKeyValuePairs('1name:neymar, 4ge:31 _team:_psg,\$nationality:@brazil') AS s_map,
 CAST(
 arrayMap(
@@ -2459,7 +2459,7 @@ x;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 207', () => {
+test('[WITH] should pass without errors: 207', () => {
     const query = `WITH extractKeyValuePairs('_:_, @:@ #:#,\$:\$') AS s_map,
 CAST(
 arrayMap(
@@ -2474,7 +2474,7 @@ x;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 208', () => {
+test('[WITH] should pass without errors: 208', () => {
     const query = `WITH extractKeyValuePairs('name:ney!mar, age:3! t&am:@psg,nationality:br4z!l') AS s_map,
 CAST(
 arrayMap(
@@ -2489,7 +2489,7 @@ x;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 209', () => {
+test('[WITH] should pass without errors: 209', () => {
     const query = `WITH extractKeyValuePairs('currency:\\\$USD, amount\\z:\$5\\h') AS s_map,
 CAST(
 arrayMap(
@@ -2504,7 +2504,7 @@ x;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 210', () => {
+test('[WITH] should pass without errors: 210', () => {
     const query = `WITH extractKeyValuePairsWithEscaping('valid_key:valid_value key:invalid_escape_sequence\\\\', ':', ' ', '"') AS s_map,
 CAST(
 arrayMap(
@@ -2519,7 +2519,7 @@ x;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 211', () => {
+test('[WITH] should pass without errors: 211', () => {
     const query = `WITH extractKeyValuePairs('name:"neymar", "age":31 "team":"psg"') AS s_map,
 CAST(
 arrayMap(
@@ -2534,7 +2534,7 @@ x;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 212', () => {
+test('[WITH] should pass without errors: 212', () => {
     const query = `WITH extractKeyValuePairs('name:"", age: , nationality:') AS s_map,
 CAST(
 arrayMap(
@@ -2549,7 +2549,7 @@ x;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 213', () => {
+test('[WITH] should pass without errors: 213', () => {
     const query = `WITH extractKeyValuePairs('"":abc, :def') AS s_map,
 CAST(
 arrayMap(
@@ -2564,7 +2564,7 @@ x;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 214', () => {
+test('[WITH] should pass without errors: 214', () => {
     const query = `WITH extractKeyValuePairs('name:neymar;age:31;team:psg;random_key:value_with_comma,still_part_of_value:still_part_of_value;anotherkey:anothervalue', ':', ';') AS s_map,
 CAST(
 arrayMap(
@@ -2579,7 +2579,7 @@ x;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 215', () => {
+test('[WITH] should pass without errors: 215', () => {
     const query = `WITH extractKeyValuePairs('name:neymar;age:31;team:psg;nationality:brazil,last_key:last_value', ':', ';,') AS s_map,
 CAST(
 arrayMap(
@@ -2594,7 +2594,7 @@ x;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 216', () => {
+test('[WITH] should pass without errors: 216', () => {
     const query = `WITH extractKeyValuePairs('name:\\'neymar\\';\\'age\\':31;team:psg;nationality:brazil,last_key:last_value', ':', ';,', '\\'') AS s_map,
 CAST(
 arrayMap(
@@ -2609,7 +2609,7 @@ x;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 217', () => {
+test('[WITH] should pass without errors: 217', () => {
     const query = `WITH extractKeyValuePairs('name:neymar, age:31 team:psg,nationality:brazil', ':', ', ', '"') AS s_map,
 CAST(
 arrayMap(
@@ -2624,7 +2624,7 @@ x;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 218', () => {
+test('[WITH] should pass without errors: 218', () => {
     const query = `WITH extractKeyValuePairs('name:ney!mar, age:3! t&am:@psg,nationality:br4z!l', ':', ', ', '"') AS s_map,
 CAST(
 arrayMap(
@@ -2639,7 +2639,7 @@ x;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 219', () => {
+test('[WITH] should pass without errors: 219', () => {
     const query = `WITH extractKeyValuePairs('currency:\\\$USD, amount\\z:\$5\\h', ':', ', ', '"') AS s_map,
 CAST(
 arrayMap(
@@ -2654,7 +2654,7 @@ x;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 220', () => {
+test('[WITH] should pass without errors: 220', () => {
     const query = `WITH extractKeyValuePairs('key1:header\\nbody key2:start_of_text\\tend_of_text', ':', ', ', '"') AS s_map,
 CAST(
 arrayMap(
@@ -2669,7 +2669,7 @@ x;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 221', () => {
+test('[WITH] should pass without errors: 221', () => {
     const query = `WITH extractKeyValuePairs('name:"neymar", "age":31 "team":"psg"', ':', ', ', '"') AS s_map,
 CAST(
 arrayMap(
@@ -2684,7 +2684,7 @@ x;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 222', () => {
+test('[WITH] should pass without errors: 222', () => {
     const query = `WITH extractKeyValuePairs('name:"", age: , nationality:', ':', ', ', '"') AS s_map,
 CAST(
 arrayMap(
@@ -2699,7 +2699,7 @@ x;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 223', () => {
+test('[WITH] should pass without errors: 223', () => {
     const query = `WITH extractKeyValuePairs('"":abc, :def', ':', ', ', '"') AS s_map,
 CAST(
 arrayMap(
@@ -2714,7 +2714,7 @@ x;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 224', () => {
+test('[WITH] should pass without errors: 224', () => {
     const query = `WITH extractKeyValuePairs('name:neymar;age:31;team:psg;nationality:brazil', ':', ';', '"') AS s_map,
 CAST(
 arrayMap(
@@ -2729,7 +2729,7 @@ x;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 225', () => {
+test('[WITH] should pass without errors: 225', () => {
     const query = `WITH extractKeyValuePairs('name:neymar;age:31;team:psg;nationality:brazil,last_key:last_value', ':', ';,', '"') AS s_map,
 CAST(
 arrayMap(
@@ -2744,7 +2744,7 @@ x;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 226', () => {
+test('[WITH] should pass without errors: 226', () => {
     const query = `WITH extractKeyValuePairs('not_important', ':', ',:', '\\'') AS s_map,
 CAST(
 arrayMap(
@@ -2850,7 +2850,7 @@ SET extract_key_value_pairs_max_pairs_per_row = 1;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 227', () => {
+test('[WITH] should pass without errors: 227', () => {
     const query = `WITH extractKeyValuePairs('key1:value1,key2:value2') AS s_map,
 CAST(
 arrayMap(
@@ -2866,7 +2866,7 @@ SET extract_key_value_pairs_max_pairs_per_row = 2;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 228', () => {
+test('[WITH] should pass without errors: 228', () => {
     const query = `WITH extractKeyValuePairs('key1:value1,key2:value2') AS s_map,
 CAST(
 arrayMap(
@@ -2881,7 +2881,7 @@ x;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 229', () => {
+test('[WITH] should pass without errors: 229', () => {
     const query = `WITH extractKeyValuePairs('not_important', ':', '12345678', '\\'') AS s_map,
 CAST(
 arrayMap(
@@ -2896,7 +2896,7 @@ x;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 230', () => {
+test('[WITH] should pass without errors: 230', () => {
     const query = `WITH extractKeyValuePairs('formula=1+2=3 argument1=1 argument2=2 result=3, char="=" char2== string="foo=bar"', '=') AS s_map,
 CAST(
 arrayMap(
@@ -2911,7 +2911,7 @@ x;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 231', () => {
+test('[WITH] should pass without errors: 231', () => {
     const query = `WITH extractKeyValuePairs('{"a":"1", "b":"2"}') as s_map,
 CAST(
 arrayMap(
@@ -2926,7 +2926,7 @@ x;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 232', () => {
+test('[WITH] should pass without errors: 232', () => {
     const query = `WITH sTr_tO_mAp('name:neymar, age:31 team:psg,nationality:brazil') AS s_map,
 CAST(
 arrayMap(
@@ -2941,7 +2941,7 @@ x;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 233', () => {
+test('[WITH] should pass without errors: 233', () => {
     const query = `WITH mapFromString('name:neymar, age:31 team:psg,nationality:brazil') AS s_map,
 CAST(
 arrayMap(
@@ -2956,448 +2956,448 @@ x;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 234', () => {
+test('[WITH] should pass without errors: 234', () => {
     const query = `with '2018-01-12 22:33:44.55' as s, toDateTime64(s, 6) as datetime64 SELECT fromUnixTimestampInJodaSyntax(datetime64, 'S', 'UTC');`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 235', () => {
+test('[WITH] should pass without errors: 235', () => {
     const query = `with '2018-01-12 22:33:44.55' as s, toDateTime64(s, 6) as datetime64 SELECT fromUnixTimestampInJodaSyntax(datetime64, 'SS', 'UTC');`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 236', () => {
+test('[WITH] should pass without errors: 236', () => {
     const query = `with '2018-01-12 22:33:44.55' as s, toDateTime64(s, 6) as datetime64 SELECT fromUnixTimestampInJodaSyntax(datetime64, 'SSS', 'UTC');`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 237', () => {
+test('[WITH] should pass without errors: 237', () => {
     const query = `with '2018-01-12 22:33:44.55' as s, toDateTime64(s, 6) as datetime64 SELECT fromUnixTimestampInJodaSyntax(datetime64, 'SSSS', 'UTC');`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 238', () => {
+test('[WITH] should pass without errors: 238', () => {
     const query = `with '2018-01-12 22:33:44.55' as s, toDateTime64(s, 6) as datetime64 SELECT fromUnixTimestampInJodaSyntax(datetime64, 'SSSSS', 'UTC');`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 239', () => {
+test('[WITH] should pass without errors: 239', () => {
     const query = `with '2018-01-12 22:33:44.55' as s, toDateTime64(s, 6) as datetime64 SELECT fromUnixTimestampInJodaSyntax(datetime64, 'SSSSSS', 'UTC');`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 240', () => {
+test('[WITH] should pass without errors: 240', () => {
     const query = `with '2018-01-12 22:33:44.55' as s, toDateTime64(s, 6) as datetime64 SELECT fromUnixTimestampInJodaSyntax(datetime64, 'SSSSSSS', 'UTC');`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 241', () => {
+test('[WITH] should pass without errors: 241', () => {
     const query = `with '2018-01-12 22:33:44.55' as s, toDateTime64(s, 6) as datetime64 SELECT fromUnixTimestampInJodaSyntax(datetime64, 'SSSSSSSS', 'UTC');`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 242', () => {
+test('[WITH] should pass without errors: 242', () => {
     const query = `with '2018-01-12 22:33:44.55' as s, toDateTime64(s, 6) as datetime64 SELECT fromUnixTimestampInJodaSyntax(datetime64, 'SSSSSSSSS', 'UTC');`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 243', () => {
+test('[WITH] should pass without errors: 243', () => {
     const query = `with '2018-01-12 22:33:44' as s, toDateTime(s) as datetime, toDateTime64(s, 6) as datetime64, toDate(s) as date, toDate32(s) as date32 SELECT formatDateTimeInJodaSyntax(datetime, 'G'), formatDateTimeInJodaSyntax(datetime64, 'G'), formatDateTimeInJodaSyntax(date, 'G'), formatDateTimeInJodaSyntax(date32, 'G');`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 244', () => {
+test('[WITH] should pass without errors: 244', () => {
     const query = `with '2018-01-12 22:33:44' as s, toDateTime(s) as datetime, toDateTime64(s, 6) as datetime64, toDate(s) as date, toDate32(s) as date32 SELECT formatDateTimeInJodaSyntax(datetime, 'GG'), formatDateTimeInJodaSyntax(datetime64, 'GG'), formatDateTimeInJodaSyntax(date, 'GG'), formatDateTimeInJodaSyntax(date32, 'GG');`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 245', () => {
+test('[WITH] should pass without errors: 245', () => {
     const query = `with '2018-01-12 22:33:44' as s, toDateTime(s) as datetime, toDateTime64(s, 6) as datetime64, toDate(s) as date, toDate32(s) as date32 SELECT formatDateTimeInJodaSyntax(datetime, 'GGG'), formatDateTimeInJodaSyntax(datetime64, 'GGG'), formatDateTimeInJodaSyntax(date, 'GGG'), formatDateTimeInJodaSyntax(date32, 'GGG');`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 246', () => {
+test('[WITH] should pass without errors: 246', () => {
     const query = `with '2018-01-12 22:33:44' as s, toDateTime(s) as datetime, toDateTime64(s, 6) as datetime64, toDate(s) as date, toDate32(s) as date32 SELECT formatDateTimeInJodaSyntax(datetime, 'GGGG'), formatDateTimeInJodaSyntax(datetime64, 'GGGG'), formatDateTimeInJodaSyntax(date, 'GGGG'), formatDateTimeInJodaSyntax(date32, 'GGGG');`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 247', () => {
+test('[WITH] should pass without errors: 247', () => {
     const query = `with '2018-01-12 22:33:44' as s, toDateTime(s) as datetime, toDateTime64(s, 6) as datetime64, toDate(s) as date, toDate32(s) as date32 SELECT formatDateTimeInJodaSyntax(datetime, 'GGGGG'), formatDateTimeInJodaSyntax(datetime64, 'GGGGG'), formatDateTimeInJodaSyntax(date, 'GGGGG'), formatDateTimeInJodaSyntax(date32, 'GGGGG');`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 248', () => {
+test('[WITH] should pass without errors: 248', () => {
     const query = `with '2018-01-12 22:33:44' as s, toDateTime(s) as datetime, toDateTime64(s, 6) as datetime64, toDate(s) as date, toDate32(s) as date32 SELECT formatDateTimeInJodaSyntax(datetime, 'C'), formatDateTimeInJodaSyntax(datetime64, 'C'), formatDateTimeInJodaSyntax(date, 'C'), formatDateTimeInJodaSyntax(date32, 'C');`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 249', () => {
+test('[WITH] should pass without errors: 249', () => {
     const query = `with '2018-01-12 22:33:44' as s, toDateTime(s) as datetime, toDateTime64(s, 6) as datetime64, toDate(s) as date, toDate32(s) as date32 SELECT formatDateTimeInJodaSyntax(datetime, 'CC'), formatDateTimeInJodaSyntax(datetime64, 'CC'), formatDateTimeInJodaSyntax(date, 'CC'), formatDateTimeInJodaSyntax(date32, 'CC');`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 250', () => {
+test('[WITH] should pass without errors: 250', () => {
     const query = `with '2018-01-12 22:33:44' as s, toDateTime(s) as datetime, toDateTime64(s, 6) as datetime64, toDate(s) as date, toDate32(s) as date32 SELECT formatDateTimeInJodaSyntax(datetime, 'CCC'), formatDateTimeInJodaSyntax(datetime64, 'CCC'), formatDateTimeInJodaSyntax(date, 'CCC'), formatDateTimeInJodaSyntax(date32, 'CCC');`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 251', () => {
+test('[WITH] should pass without errors: 251', () => {
     const query = `with '2018-01-12 22:33:44' as s, toDateTime(s) as datetime, toDateTime64(s, 6) as datetime64, toDate(s) as date, toDate32(s) as date32 SELECT formatDateTimeInJodaSyntax(datetime, 'Y'), formatDateTimeInJodaSyntax(datetime64, 'Y'), formatDateTimeInJodaSyntax(date, 'Y'), formatDateTimeInJodaSyntax(date32, 'Y');`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 252', () => {
+test('[WITH] should pass without errors: 252', () => {
     const query = `with '2018-01-12 22:33:44' as s, toDateTime(s) as datetime, toDateTime64(s, 6) as datetime64, toDate(s) as date, toDate32(s) as date32 SELECT formatDateTimeInJodaSyntax(datetime, 'YY'), formatDateTimeInJodaSyntax(datetime64, 'YY'), formatDateTimeInJodaSyntax(date, 'YY'), formatDateTimeInJodaSyntax(date32, 'YY');`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 253', () => {
+test('[WITH] should pass without errors: 253', () => {
     const query = `with '2018-01-12 22:33:44' as s, toDateTime(s) as datetime, toDateTime64(s, 6) as datetime64, toDate(s) as date, toDate32(s) as date32 SELECT formatDateTimeInJodaSyntax(datetime, 'YYY'), formatDateTimeInJodaSyntax(datetime64, 'YYY'), formatDateTimeInJodaSyntax(date, 'YYY'), formatDateTimeInJodaSyntax(date32, 'YYY');`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 254', () => {
+test('[WITH] should pass without errors: 254', () => {
     const query = `with '2018-01-12 22:33:44' as s, toDateTime(s) as datetime, toDateTime64(s, 6) as datetime64, toDate(s) as date, toDate32(s) as date32 SELECT formatDateTimeInJodaSyntax(datetime, 'YYYY'), formatDateTimeInJodaSyntax(datetime64, 'YYYY'), formatDateTimeInJodaSyntax(date, 'YYYY'), formatDateTimeInJodaSyntax(date32, 'YYYY');`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 255', () => {
+test('[WITH] should pass without errors: 255', () => {
     const query = `with '2018-01-12 22:33:44' as s, toDateTime(s) as datetime, toDateTime64(s, 6) as datetime64, toDate(s) as date, toDate32(s) as date32 SELECT formatDateTimeInJodaSyntax(datetime, 'YYYYY'), formatDateTimeInJodaSyntax(datetime64, 'YYYYY'), formatDateTimeInJodaSyntax(date, 'YYYYY'), formatDateTimeInJodaSyntax(date32, 'YYYYY');`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 256', () => {
+test('[WITH] should pass without errors: 256', () => {
     const query = `with '2018-01-12 22:33:44' as s, toDateTime(s) as datetime, toDateTime64(s, 6) as datetime64, toDate(s) as date, toDate32(s) as date32 SELECT formatDateTimeInJodaSyntax(datetime, 'e'), formatDateTimeInJodaSyntax(datetime64, 'e'), formatDateTimeInJodaSyntax(date, 'e'), formatDateTimeInJodaSyntax(date32, 'e');`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 257', () => {
+test('[WITH] should pass without errors: 257', () => {
     const query = `with '2018-01-12 22:33:44' as s, toDateTime(s) as datetime, toDateTime64(s, 6) as datetime64, toDate(s) as date, toDate32(s) as date32 SELECT formatDateTimeInJodaSyntax(datetime, 'ee'), formatDateTimeInJodaSyntax(datetime64, 'ee'), formatDateTimeInJodaSyntax(date, 'ee'), formatDateTimeInJodaSyntax(date32, 'ee');`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 258', () => {
+test('[WITH] should pass without errors: 258', () => {
     const query = `with '2018-01-12 22:33:44' as s, toDateTime(s) as datetime, toDateTime64(s, 6) as datetime64, toDate(s) as date, toDate32(s) as date32 SELECT formatDateTimeInJodaSyntax(datetime, 'EEE'), formatDateTimeInJodaSyntax(datetime64, 'EEE'), formatDateTimeInJodaSyntax(date, 'EEE'), formatDateTimeInJodaSyntax(date32, 'EEE');`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 259', () => {
+test('[WITH] should pass without errors: 259', () => {
     const query = `with '2018-01-12 22:33:44' as s, toDateTime(s) as datetime, toDateTime64(s, 6) as datetime64, toDate(s) as date, toDate32(s) as date32 SELECT formatDateTimeInJodaSyntax(datetime, 'EEEE'), formatDateTimeInJodaSyntax(datetime64, 'EEEE'), formatDateTimeInJodaSyntax(date, 'EEEE'), formatDateTimeInJodaSyntax(date32, 'EEEE');`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 260', () => {
+test('[WITH] should pass without errors: 260', () => {
     const query = `with '2018-01-12 22:33:44' as s, toDateTime(s) as datetime, toDateTime64(s, 6) as datetime64, toDate(s) as date, toDate32(s) as date32 SELECT formatDateTimeInJodaSyntax(datetime, 'EEEEE'), formatDateTimeInJodaSyntax(datetime64, 'EEEEE'), formatDateTimeInJodaSyntax(date, 'EEEEE'), formatDateTimeInJodaSyntax(date32, 'EEEEE');`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 261', () => {
+test('[WITH] should pass without errors: 261', () => {
     const query = `with '2018-01-12 22:33:44' as s, toDateTime(s) as datetime, toDateTime64(s, 6) as datetime64, toDate(s) as date, toDate32(s) as date32 SELECT formatDateTimeInJodaSyntax(datetime, 'D'), formatDateTimeInJodaSyntax(datetime64, 'D'), formatDateTimeInJodaSyntax(date, 'D'), formatDateTimeInJodaSyntax(date32, 'D');`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 262', () => {
+test('[WITH] should pass without errors: 262', () => {
     const query = `with '2018-01-12 22:33:44' as s, toDateTime(s) as datetime, toDateTime64(s, 6) as datetime64, toDate(s) as date, toDate32(s) as date32 SELECT formatDateTimeInJodaSyntax(datetime, 'DD'), formatDateTimeInJodaSyntax(datetime64, 'DD'), formatDateTimeInJodaSyntax(date, 'DD'), formatDateTimeInJodaSyntax(date32, 'DD');`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 263', () => {
+test('[WITH] should pass without errors: 263', () => {
     const query = `with '2018-01-12 22:33:44' as s, toDateTime(s) as datetime, toDateTime64(s, 6) as datetime64, toDate(s) as date, toDate32(s) as date32 SELECT formatDateTimeInJodaSyntax(datetime, 'DDD'), formatDateTimeInJodaSyntax(datetime64, 'DDD'), formatDateTimeInJodaSyntax(date, 'DDD'), formatDateTimeInJodaSyntax(date32, 'DDD');`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 264', () => {
+test('[WITH] should pass without errors: 264', () => {
     const query = `with '2018-01-12 22:33:44' as s, toDateTime(s) as datetime, toDateTime64(s, 6) as datetime64, toDate(s) as date, toDate32(s) as date32 SELECT formatDateTimeInJodaSyntax(datetime, 'M'), formatDateTimeInJodaSyntax(datetime64, 'M'), formatDateTimeInJodaSyntax(date, 'M'), formatDateTimeInJodaSyntax(date32, 'M');`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 265', () => {
+test('[WITH] should pass without errors: 265', () => {
     const query = `with '2018-01-12 22:33:44' as s, toDateTime(s) as datetime, toDateTime64(s, 6) as datetime64, toDate(s) as date, toDate32(s) as date32 SELECT formatDateTimeInJodaSyntax(datetime, 'MM'), formatDateTimeInJodaSyntax(datetime64, 'MM'), formatDateTimeInJodaSyntax(date, 'MM'), formatDateTimeInJodaSyntax(date32, 'MM');`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 266', () => {
+test('[WITH] should pass without errors: 266', () => {
     const query = `with '2018-01-12 22:33:44' as s, toDateTime(s) as datetime, toDateTime64(s, 6) as datetime64, toDate(s) as date, toDate32(s) as date32 SELECT formatDateTimeInJodaSyntax(datetime, 'MMM'), formatDateTimeInJodaSyntax(datetime64, 'MMM'), formatDateTimeInJodaSyntax(date, 'MMM'), formatDateTimeInJodaSyntax(date32, 'MMM');`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 267', () => {
+test('[WITH] should pass without errors: 267', () => {
     const query = `with '2018-01-12 22:33:44' as s, toDateTime(s) as datetime, toDateTime64(s, 6) as datetime64, toDate(s) as date, toDate32(s) as date32 SELECT formatDateTimeInJodaSyntax(datetime, 'MMMM'), formatDateTimeInJodaSyntax(datetime64, 'MMMM'), formatDateTimeInJodaSyntax(date, 'MMMM'), formatDateTimeInJodaSyntax(date32, 'MMMM');`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 268', () => {
+test('[WITH] should pass without errors: 268', () => {
     const query = `with '2018-01-12 22:33:44' as s, toDateTime(s) as datetime, toDateTime64(s, 6) as datetime64, toDate(s) as date, toDate32(s) as date32 SELECT formatDateTimeInJodaSyntax(datetime, 'a'), formatDateTimeInJodaSyntax(datetime64, 'a'), formatDateTimeInJodaSyntax(date, 'a'), formatDateTimeInJodaSyntax(date32, 'a');`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 269', () => {
+test('[WITH] should pass without errors: 269', () => {
     const query = `with '2018-01-12 22:33:44' as s, toDateTime(s) as datetime, toDateTime64(s, 6) as datetime64, toDate(s) as date, toDate32(s) as date32 SELECT formatDateTimeInJodaSyntax(datetime, 'aa'), formatDateTimeInJodaSyntax(datetime64, 'aa'), formatDateTimeInJodaSyntax(date, 'aa'), formatDateTimeInJodaSyntax(date32, 'aa');`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 270', () => {
+test('[WITH] should pass without errors: 270', () => {
     const query = `with '2018-01-12 22:33:44' as s, toDateTime(s) as datetime, toDateTime64(s, 6) as datetime64, toDate(s) as date, toDate32(s) as date32 SELECT formatDateTimeInJodaSyntax(datetime, 'aaa'), formatDateTimeInJodaSyntax(datetime64, 'aaa'), formatDateTimeInJodaSyntax(date, 'aaa'), formatDateTimeInJodaSyntax(date32, 'aaa');`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 271', () => {
+test('[WITH] should pass without errors: 271', () => {
     const query = `with '2018-01-12 22:33:44' as s, toDateTime(s) as datetime, toDateTime64(s, 6) as datetime64, toDate(s) as date, toDate32(s) as date32 SELECT formatDateTimeInJodaSyntax(datetime, 'K'), formatDateTimeInJodaSyntax(datetime64, 'K'), formatDateTimeInJodaSyntax(date, 'K'), formatDateTimeInJodaSyntax(date32, 'K');`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 272', () => {
+test('[WITH] should pass without errors: 272', () => {
     const query = `with '2018-01-12 22:33:44' as s, toDateTime(s) as datetime, toDateTime64(s, 6) as datetime64, toDate(s) as date, toDate32(s) as date32 SELECT formatDateTimeInJodaSyntax(datetime, 'KK'), formatDateTimeInJodaSyntax(datetime64, 'KK'), formatDateTimeInJodaSyntax(date, 'KK'), formatDateTimeInJodaSyntax(date32, 'KK');`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 273', () => {
+test('[WITH] should pass without errors: 273', () => {
     const query = `with '2018-01-12 22:33:44' as s, toDateTime(s) as datetime, toDateTime64(s, 6) as datetime64, toDate(s) as date, toDate32(s) as date32 SELECT formatDateTimeInJodaSyntax(datetime, 'KKK'), formatDateTimeInJodaSyntax(datetime64, 'KKK'), formatDateTimeInJodaSyntax(date, 'KKK'), formatDateTimeInJodaSyntax(date32, 'KKK');`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 274', () => {
+test('[WITH] should pass without errors: 274', () => {
     const query = `with '2018-01-12 22:33:44' as s, toDateTime(s) as datetime, toDateTime64(s, 6) as datetime64, toDate(s) as date, toDate32(s) as date32 SELECT formatDateTimeInJodaSyntax(datetime, 'h'), formatDateTimeInJodaSyntax(datetime64, 'h'), formatDateTimeInJodaSyntax(date, 'h'), formatDateTimeInJodaSyntax(date32, 'h');`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 275', () => {
+test('[WITH] should pass without errors: 275', () => {
     const query = `with '2018-01-12 22:33:44' as s, toDateTime(s) as datetime, toDateTime64(s, 6) as datetime64, toDate(s) as date, toDate32(s) as date32 SELECT formatDateTimeInJodaSyntax(datetime, 'hh'), formatDateTimeInJodaSyntax(datetime64, 'hh'), formatDateTimeInJodaSyntax(date, 'hh'), formatDateTimeInJodaSyntax(date32, 'hh');`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 276', () => {
+test('[WITH] should pass without errors: 276', () => {
     const query = `with '2018-01-12 22:33:44' as s, toDateTime(s) as datetime, toDateTime64(s, 6) as datetime64, toDate(s) as date, toDate32(s) as date32 SELECT formatDateTimeInJodaSyntax(datetime, 'hhh'), formatDateTimeInJodaSyntax(datetime64, 'hhh'), formatDateTimeInJodaSyntax(date, 'hhh'), formatDateTimeInJodaSyntax(date32, 'hhh');`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 277', () => {
+test('[WITH] should pass without errors: 277', () => {
     const query = `with '2018-01-12 22:33:44' as s, toDateTime(s) as datetime, toDateTime64(s, 6) as datetime64, toDate(s) as date, toDate32(s) as date32 SELECT formatDateTimeInJodaSyntax(datetime, 's'), formatDateTimeInJodaSyntax(datetime64, 's'), formatDateTimeInJodaSyntax(date, 's'), formatDateTimeInJodaSyntax(date32, 's');`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 278', () => {
+test('[WITH] should pass without errors: 278', () => {
     const query = `with '2018-01-12 22:33:44' as s, toDateTime(s) as datetime, toDateTime64(s, 6) as datetime64, toDate(s) as date, toDate32(s) as date32 SELECT formatDateTimeInJodaSyntax(datetime, 'ss'), formatDateTimeInJodaSyntax(datetime64, 'ss'), formatDateTimeInJodaSyntax(date, 'ss'), formatDateTimeInJodaSyntax(date32, 'ss');`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 279', () => {
+test('[WITH] should pass without errors: 279', () => {
     const query = `with '2018-01-12 22:33:44' as s, toDateTime(s) as datetime, toDateTime64(s, 6) as datetime64, toDate(s) as date, toDate32(s) as date32 SELECT formatDateTimeInJodaSyntax(datetime, 'sss'), formatDateTimeInJodaSyntax(datetime64, 'sss'), formatDateTimeInJodaSyntax(date, 'sss'), formatDateTimeInJodaSyntax(date32, 'sss');`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 280', () => {
+test('[WITH] should pass without errors: 280', () => {
     const query = `with '2018-01-12 22:33:44' as s, toDateTime(s, 'UTC') as datetime, toDateTime64(s, 6, 'UTC') as datetime64, toDate(s) as date, toDate32(s) as date32 select formatDateTimeInJodaSyntax(datetime, 'zzzz'), formatDateTimeInJodaSyntax(datetime64, 'zzzz');`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 281', () => {
+test('[WITH] should pass without errors: 281', () => {
     const query = `with '2018-01-12 22:33:44' as s, toDateTime(s) as datetime, toDateTime64(s, 6) as datetime64, toDate(s) as date, toDate32(s) as date32 SELECT formatDateTimeInJodaSyntax(datetime, 'G123DDD'), formatDateTimeInJodaSyntax(datetime64, 'G123DDD'), formatDateTimeInJodaSyntax(date, 'G123DDD'), formatDateTimeInJodaSyntax(date32, 'G123DDD');`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 282', () => {
+test('[WITH] should pass without errors: 282', () => {
     const query = `with '2018-01-12 22:33:44' as s, toDateTime(s) as datetime, toDateTime64(s, 6) as datetime64, toDate(s) as date, toDate32(s) as date32 SELECT formatDateTimeInJodaSyntax(datetime, 'G\\'\\'DDD'), formatDateTimeInJodaSyntax(datetime64, 'G\\'\\'DDD'), formatDateTimeInJodaSyntax(date, 'G\\'\\'DDD'), formatDateTimeInJodaSyntax(date32, 'G\\'\\'DDD');`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 283', () => {
+test('[WITH] should pass without errors: 283', () => {
     const query = `with '2018-01-12 22:33:44' as s, toDateTime(s) as datetime, toDateTime64(s, 6) as datetime64, toDate(s) as date, toDate32(s) as date32 SELECT formatDateTimeInJodaSyntax(datetime, 'G\\'aaa\\'DDD'), formatDateTimeInJodaSyntax(datetime64, 'G\\'aaa\\'DDD'), formatDateTimeInJodaSyntax(date, 'G\\'aaa\\'DDD'), formatDateTimeInJodaSyntax(date32, 'G\\'aaa\\'DDD');`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 284', () => {
+test('[WITH] should pass without errors: 284', () => {
     const query = `with '2018-01-12 22:33:44' as s, toDateTime(s) as datetime, toDateTime64(s, 6) as datetime64, toDate(s) as date, toDate32(s) as date32 SELECT formatDateTimeInJodaSyntax(datetime, 'G\\'a\\'\\'aa\\'DDD'), formatDateTimeInJodaSyntax(datetime64, 'G\\'a\\'\\'aa\\'DDD'), formatDateTimeInJodaSyntax(date, 'G\\'a\\'\\'aa\\'DDD'), formatDateTimeInJodaSyntax(date32, 'G\\'a\\'\\'aa\\'DDD');`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 285', () => {
+test('[WITH] should pass without errors: 285', () => {
     const query = `with '2018-01-12 22:33:44' as s, toDateTime(s) as datetime, toDateTime64(s, 6) as datetime64, toDate(s) as date, toDate32(s) as date32 SELECT formatDateTimeInJodaSyntax(datetime, 'x'), formatDateTimeInJodaSyntax(datetime64, 'x'), formatDateTimeInJodaSyntax(date, 'x'), formatDateTimeInJodaSyntax(date32, 'x');`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 286', () => {
+test('[WITH] should pass without errors: 286', () => {
     const query = `with '2018-01-12 22:33:44' as s, toDateTime(s) as datetime, toDateTime64(s, 6) as datetime64, toDate(s) as date, toDate32(s) as date32 SELECT formatDateTimeInJodaSyntax(datetime, 'w'), formatDateTimeInJodaSyntax(datetime64, 'w'), formatDateTimeInJodaSyntax(date, 'w'), formatDateTimeInJodaSyntax(date32, 'w');`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 287', () => {
+test('[WITH] should pass without errors: 287', () => {
     const query = `with '2018-01-12 22:33:44.55' as s, toDateTime64(s, 6) as datetime64 SELECT formatDateTimeInJodaSyntax(datetime64, 'S');`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 288', () => {
+test('[WITH] should pass without errors: 288', () => {
     const query = `with '2018-01-12 22:33:44.55' as s, toDateTime64(s, 6) as datetime64 SELECT formatDateTimeInJodaSyntax(datetime64, 'SS');`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 289', () => {
+test('[WITH] should pass without errors: 289', () => {
     const query = `with '2018-01-12 22:33:44.55' as s, toDateTime64(s, 6) as datetime64 SELECT formatDateTimeInJodaSyntax(datetime64, 'SSS');`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 290', () => {
+test('[WITH] should pass without errors: 290', () => {
     const query = `with '2018-01-12 22:33:44.55' as s, toDateTime64(s, 6) as datetime64 SELECT formatDateTimeInJodaSyntax(datetime64, 'SSSS');`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 291', () => {
+test('[WITH] should pass without errors: 291', () => {
     const query = `with '2018-01-12 22:33:44.55' as s, toDateTime64(s, 6) as datetime64 SELECT formatDateTimeInJodaSyntax(datetime64, 'SSSSS');`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 292', () => {
+test('[WITH] should pass without errors: 292', () => {
     const query = `with '2018-01-12 22:33:44.55' as s, toDateTime64(s, 6) as datetime64 SELECT formatDateTimeInJodaSyntax(datetime64, 'SSSSSS');`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 293', () => {
+test('[WITH] should pass without errors: 293', () => {
     const query = `with '2018-01-12 22:33:44.55' as s, toDateTime64(s, 6) as datetime64 SELECT formatDateTimeInJodaSyntax(datetime64, 'SSSSSSS');`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 294', () => {
+test('[WITH] should pass without errors: 294', () => {
     const query = `with '2018-01-12 22:33:44.55' as s, toDateTime64(s, 6) as datetime64 SELECT formatDateTimeInJodaSyntax(datetime64, 'SSSSSSSS');`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 295', () => {
+test('[WITH] should pass without errors: 295', () => {
     const query = `with '2018-01-12 22:33:44.55' as s, toDateTime64(s, 6) as datetime64 SELECT formatDateTimeInJodaSyntax(datetime64, 'SSSSSSSSS');`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 296', () => {
+test('[WITH] should pass without errors: 296', () => {
     const query = `with '2018-01-12 22:33:44.55' as s, toDateTime64(s, 6) as datetime64 SELECT formatDateTimeInJodaSyntax(datetime64, 'SSSSSSSSSS');`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 297', () => {
+test('[WITH] should pass without errors: 297', () => {
     const query = `WITH splitByChar('_', _file)[3]::UInt64 AS num SELECT count(), min(num), max(num)
 FROM  s3(s3_conn, filename = 'test_02495_*', format = Parquet)
 WHERE num >= 5;`;
@@ -3406,28 +3406,28 @@ WHERE num >= 5;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 298', () => {
+test('[WITH] should pass without errors: 298', () => {
     const query = `WITH a AS (SELECT t1.number AS n1, t2.number AS n2 FROM numbers(1) AS t1, numbers(1) AS t2), b AS (SELECT sum(n1) AS s FROM a) SELECT * FROM b AS l, a AS r;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 299', () => {
+test('[WITH] should pass without errors: 299', () => {
     const query = `WITH a AS (SELECT number FROM numbers(1)), b AS (SELECT number FROM a) SELECT * FROM b as l, a as r;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 300', () => {
+test('[WITH] should pass without errors: 300', () => {
     const query = `WITH a AS (SELECT number FROM numbers(1)), b AS (SELECT number FROM a) SELECT * FROM a as l, b as r;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 301', () => {
+test('[WITH] should pass without errors: 301', () => {
     const query = `with (select uuid from system.tables where database = currentDatabase() and table = 'data_02491') as table_uuid_ select
 table_uuid != toUUIDOrDefault(Null),
 event_type,
@@ -3444,154 +3444,154 @@ order by event_time_microseconds;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 302', () => {
+test('[WITH] should pass without errors: 302', () => {
     const query = `WITH cte_subquery AS (SELECT 1) SELECT * FROM cte_subquery AS cte_subquery;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 303', () => {
+test('[WITH] should pass without errors: 303', () => {
     const query = `WITH cte_subquery AS (SELECT 1) SELECT * FROM cte_subquery AS cte_subquery, cte_subquery AS subquery;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 304', () => {
+test('[WITH] should pass without errors: 304', () => {
     const query = `WITH subquery AS (SELECT sum(number) FROM numbers(10)) SELECT * FROM subquery;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 305', () => {
+test('[WITH] should pass without errors: 305', () => {
     const query = `WITH subquery AS (SELECT sum(number) FROM numbers(10)) SELECT (SELECT * FROM subquery);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 306', () => {
+test('[WITH] should pass without errors: 306', () => {
     const query = `WITH map(1, 2, 3, NULL) AS m SELECT m[toNullable(1)], m[toNullable(2)], m[toNullable(3)];`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 307', () => {
+test('[WITH] should pass without errors: 307', () => {
     const query = `WITH map(1, 2, 3, NULL) AS m SELECT m[materialize(toNullable(1))], m[materialize(toNullable(2))], m[materialize(toNullable(3))];`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 308', () => {
+test('[WITH] should pass without errors: 308', () => {
     const query = `WITH materialize(map(1, 2, 3, NULL)) AS m SELECT m[toNullable(1)], m[toNullable(2)], m[toNullable(3)];`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 309', () => {
+test('[WITH] should pass without errors: 309', () => {
     const query = `WITH materialize(map(1, 2, 3, NULL)) AS m SELECT m[materialize(toNullable(1))], m[materialize(toNullable(2))], m[materialize(toNullable(3))];`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 310', () => {
+test('[WITH] should pass without errors: 310', () => {
     const query = `WITH map('a', 2, 'b', NULL) AS m SELECT m[toNullable('a')], m[toNullable('b')], m[toNullable('c')];`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 311', () => {
+test('[WITH] should pass without errors: 311', () => {
     const query = `WITH map('a', 2, 'b', NULL) AS m SELECT m[materialize(toNullable('a'))], m[materialize(toNullable('b'))], m[materialize(toNullable('c'))];`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 312', () => {
+test('[WITH] should pass without errors: 312', () => {
     const query = `WITH materialize(map('a', 2, 'b', NULL)) AS m SELECT m[toNullable('a')], m[toNullable('b')], m[toNullable('c')];`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 313', () => {
+test('[WITH] should pass without errors: 313', () => {
     const query = `WITH materialize(map('a', 2, 'b', NULL)) AS m SELECT m[materialize(toNullable('a'))], m[materialize(toNullable('b'))], m[materialize(toNullable('c'))];`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 314', () => {
+test('[WITH] should pass without errors: 314', () => {
     const query = `WITH map(1, 2, 3, NULL) AS m SELECT m[1], m[2], m[3];`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 315', () => {
+test('[WITH] should pass without errors: 315', () => {
     const query = `WITH map(1, 2, 3, NULL) AS m SELECT m[materialize(1)], m[materialize(2)], m[materialize(3)];`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 316', () => {
+test('[WITH] should pass without errors: 316', () => {
     const query = `WITH materialize(map(1, 2, 3, NULL)) AS m SELECT m[1], m[2], m[3];`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 317', () => {
+test('[WITH] should pass without errors: 317', () => {
     const query = `WITH materialize(map(1, 2, 3, NULL)) AS m SELECT m[materialize(1)], m[materialize(2)], m[materialize(3)];`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 318', () => {
+test('[WITH] should pass without errors: 318', () => {
     const query = `WITH map('a', 2, 'b', NULL) AS m SELECT m['a'], m['b'], m['c'];`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 319', () => {
+test('[WITH] should pass without errors: 319', () => {
     const query = `WITH map('a', 2, 'b', NULL) AS m SELECT m[materialize('a')], m[materialize('b')], m[materialize('c')];`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 320', () => {
+test('[WITH] should pass without errors: 320', () => {
     const query = `WITH materialize(map('a', 2, 'b', NULL)) AS m SELECT m['a'], m['b'], m['c'];`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 321', () => {
+test('[WITH] should pass without errors: 321', () => {
     const query = `WITH materialize(map('a', 2, 'b', NULL)) AS m SELECT m[materialize('a')], m[materialize('b')], m[materialize('c')];`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 322', () => {
+test('[WITH] should pass without errors: 322', () => {
     const query = `WITH tuple(INTERVAL 1 SECOND) - INTERVAL 1 SECOND as expr SELECT expr, toTypeName(expr);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 323', () => {
+test('[WITH] should pass without errors: 323', () => {
     const query = `WITH INTERVAL 1 SECOND + tuple(INTERVAL 1 SECOND) as expr SELECT expr, toTypeName(expr); -- { serverError ILLEGAL_TYPE_OF_ARGUMENT } WITH INTERVAL 1 SECOND - tuple(INTERVAL 1 SECOND) as expr SELECT expr, toTypeName(expr); -- { serverError ILLEGAL_TYPE_OF_ARGUMENT }
 SELECT '---';`;
 
@@ -3599,63 +3599,63 @@ SELECT '---';`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 324', () => {
+test('[WITH] should pass without errors: 324', () => {
     const query = `WITH INTERVAL 1 SECOND + INTERVAL 1 SECOND + INTERVAL 1 SECOND as expr SELECT expr, toTypeName(expr);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 325', () => {
+test('[WITH] should pass without errors: 325', () => {
     const query = `WITH INTERVAL 1 HOUR + INTERVAL 1 SECOND + INTERVAL 1 SECOND as expr SELECT expr, toTypeName(expr);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 326', () => {
+test('[WITH] should pass without errors: 326', () => {
     const query = `WITH INTERVAL 1 SECOND + INTERVAL 1 HOUR + INTERVAL 1 SECOND as expr SELECT expr, toTypeName(expr);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 327', () => {
+test('[WITH] should pass without errors: 327', () => {
     const query = `WITH INTERVAL 1 SECOND + INTERVAL 1 SECOND + INTERVAL 1 HOUR as expr SELECT expr, toTypeName(expr);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 328', () => {
+test('[WITH] should pass without errors: 328', () => {
     const query = `WITH - INTERVAL 1 SECOND - INTERVAL 1 SECOND - INTERVAL 1 SECOND as expr SELECT expr, toTypeName(expr);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 329', () => {
+test('[WITH] should pass without errors: 329', () => {
     const query = `WITH - INTERVAL 1 HOUR - INTERVAL 1 SECOND - INTERVAL 1 SECOND as expr SELECT expr, toTypeName(expr);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 330', () => {
+test('[WITH] should pass without errors: 330', () => {
     const query = `WITH - INTERVAL 1 SECOND - INTERVAL 1 HOUR - INTERVAL 1 SECOND as expr SELECT expr, toTypeName(expr);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 331', () => {
+test('[WITH] should pass without errors: 331', () => {
     const query = `WITH - INTERVAL 1 SECOND - INTERVAL 1 SECOND - INTERVAL 1 HOUR as expr SELECT expr, toTypeName(expr);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 332', () => {
+test('[WITH] should pass without errors: 332', () => {
     const query = `WITH '2022-01-30'::Date + INTERVAL 1 MONTH + INTERVAL 1 DAY AS e1, '2022-01-30'::Date + (INTERVAL 1 MONTH + INTERVAL 1 DAY) AS e2,
 '2022-01-30'::Date + (INTERVAL 1 MONTH, INTERVAL 1 DAY) AS e3,
 '2022-01-30'::Date + INTERVAL '1 MONTH 1 DAY' AS e4
@@ -3665,7 +3665,7 @@ SELECT e1 == e2 AND e2 == e3 AND e3 == e4, e1;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 333', () => {
+test('[WITH] should pass without errors: 333', () => {
     const query = `WITH '2022-01-30'::Date + INTERVAL 1 DAY + INTERVAL 1 MONTH AS e1, '2022-01-30'::Date + (INTERVAL 1 DAY + INTERVAL 1 MONTH) AS e2,
 '2022-01-30'::Date + (INTERVAL 1 DAY, INTERVAL 1 MONTH) AS e3,
 '2022-01-30'::Date + INTERVAL '1 DAY 1 MONTH' AS e4
@@ -3675,7 +3675,7 @@ SELECT e1 == e2 AND e2 == e3 AND e3 == e4, e1;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 334', () => {
+test('[WITH] should pass without errors: 334', () => {
     const query = `WITH '2022-10-11'::Date + INTERVAL -1 SECOND + INTERVAL 2 MINUTE + INTERVAL -3 MONTH + INTERVAL 1 YEAR AS e1, '2022-10-11'::Date + (INTERVAL -1 SECOND + INTERVAL 2 MINUTE + INTERVAL -3 MONTH + INTERVAL 1 YEAR) AS e2,
 '2022-10-11'::Date + (INTERVAL -1 SECOND, INTERVAL 2 MINUTE, INTERVAL -3 MONTH, INTERVAL 1 YEAR) AS e3,
 '2022-10-11'::Date + INTERVAL '-1 SECOND 2 MINUTE -3 MONTH 1 YEAR' AS e4
@@ -3685,7 +3685,7 @@ SELECT e1 == e2 AND e2 == e3 AND e3 == e4, e1;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 335', () => {
+test('[WITH] should pass without errors: 335', () => {
     const query = `WITH '2022-10-11'::DateTime - INTERVAL 1 QUARTER - INTERVAL -3 WEEK - INTERVAL 1 YEAR - INTERVAL 1 HOUR AS e1, '2022-10-11'::DateTime + (- INTERVAL 1 QUARTER - INTERVAL -3 WEEK - INTERVAL 1 YEAR - INTERVAL 1 HOUR) AS e2,
 '2022-10-11'::DateTime - (INTERVAL 1 QUARTER, INTERVAL -3 WEEK, INTERVAL 1 YEAR, INTERVAL 1 HOUR) AS e3,
 '2022-10-11'::DateTime - INTERVAL '1 QUARTER -3 WEEK 1 YEAR 1 HOUR' AS e4
@@ -3695,7 +3695,7 @@ SELECT e1 == e2 AND e2 == e3 AND e3 == e4, e1;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 336', () => {
+test('[WITH] should pass without errors: 336', () => {
     const query = `WITH '2022-10-11'::DateTime64 - INTERVAL 1 YEAR - INTERVAL 4 MONTH - INTERVAL 1 SECOND AS e1, '2022-10-11'::DateTime64 + (- INTERVAL 1 YEAR - INTERVAL 4 MONTH - INTERVAL 1 SECOND) AS e2,
 '2022-10-11'::DateTime64 - (INTERVAL 1 YEAR, INTERVAL 4 MONTH, INTERVAL 1 SECOND) AS e3,
 '2022-10-11'::DateTime64 - INTERVAL '1 YEAR 4 MONTH 1 SECOND' AS e4
@@ -3705,14 +3705,14 @@ SELECT e1 == e2 AND e2 == e3 AND e3 == e4, e1;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 337', () => {
+test('[WITH] should pass without errors: 337', () => {
     const query = `WITH 1 as n FROM numbers(1) SELECT number * n;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 338', () => {
+test('[WITH] should pass without errors: 338', () => {
     const query = `WITH arrayJoin([1, 2, 3, nan, 4, 5]) AS data,
 arrayJoin([nan, 1, 2, 3, 4]) AS data2,
 arrayJoin([1, 2, 3, 4, nan]) AS data3,
@@ -3729,7 +3729,7 @@ min(data5);`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 339', () => {
+test('[WITH] should pass without errors: 339', () => {
     const query = `WITH arrayJoin([1, 2, 3, nan, 4, 5]) AS data,
 arrayJoin([nan, 1, 2, 3, 4]) AS data2,
 arrayJoin([1, 2, 3, 4, nan]) AS data3,
@@ -3746,84 +3746,84 @@ max(data5);`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 340', () => {
+test('[WITH] should pass without errors: 340', () => {
     const query = `WITH x -> toString(x) AS lambda SELECT arrayMap(x -> lambda(x), [1,2,3]);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 341', () => {
+test('[WITH] should pass without errors: 341', () => {
     const query = `WITH x -> toString(x) AS lambda SELECT arrayMap(x -> arrayMap(y -> concat(lambda(x), '_', lambda(y)), [1,2,3]), [1,2,3]);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 342', () => {
+test('[WITH] should pass without errors: 342', () => {
     const query = `WITH x -> toString(id) AS lambda SELECT arrayMap(x -> lambda(x), [1,2,3]) FROM test_table;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 343', () => {
+test('[WITH] should pass without errors: 343', () => {
     const query = `WITH x -> toString(id) AS lambda SELECT arrayMap(x -> arrayMap(y -> lambda(y), [1,2,3]), [1,2,3]) FROM test_table;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 344', () => {
+test('[WITH] should pass without errors: 344', () => {
     const query = `WITH x -> toString(id) AS lambda SELECT arrayMap(x -> arrayMap(y -> concat(lambda(x), '_', lambda(y)), [1,2,3]), [1,2,3]) FROM test_table;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 345', () => {
+test('[WITH] should pass without errors: 345', () => {
     const query = `WITH x -> plus(lambda(1), x) AS lambda SELECT lambda(1048576); -- { serverError UNSUPPORTED_METHOD };`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 346', () => {
+test('[WITH] should pass without errors: 346', () => {
     const query = `WITH lambda(lambda(plus(x, x, -1)), tuple(x), x + 2147483646) AS lambda, x -> plus(lambda(1), x, 2) AS lambda SELECT 1048576, lambda(1048576); -- { serverError UNSUPPORTED_METHOD };`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 347', () => {
+test('[WITH] should pass without errors: 347', () => {
     const query = `WITH cte_subquery AS (SELECT 1) SELECT * FROM cte_subquery;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 348', () => {
+test('[WITH] should pass without errors: 348', () => {
     const query = `WITH cte_subquery AS (SELECT * FROM test_table) SELECT * FROM cte_subquery;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 349', () => {
+test('[WITH] should pass without errors: 349', () => {
     const query = `WITH cte_subquery AS (SELECT 1 UNION DISTINCT SELECT 1) SELECT * FROM cte_subquery;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 350', () => {
+test('[WITH] should pass without errors: 350', () => {
     const query = `WITH cte_subquery AS (SELECT * FROM test_table UNION DISTINCT SELECT * FROM test_table) SELECT * FROM cte_subquery;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 351', () => {
+test('[WITH] should pass without errors: 351', () => {
     const query = `WITH  'John' AS name,  toDate('1990-01-01') AS birthdate SELECT * FROM numbers(10)
 WHERE (number, name, birthdate) IN (userid_set2);`;
 
@@ -3831,49 +3831,49 @@ WHERE (number, name, birthdate) IN (userid_set2);`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 352', () => {
+test('[WITH] should pass without errors: 352', () => {
     const query = `WITH (x -> x + 1) AS lambda SELECT lambda(1);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 353', () => {
+test('[WITH] should pass without errors: 353', () => {
     const query = `WITH (x -> x + 1) AS lambda SELECT lambda.nested(1); -- { serverError BAD_ARGUMENTS } SELECT '--';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 354', () => {
+test('[WITH] should pass without errors: 354', () => {
     const query = `WITH 'test_dictionary' AS dictionary SELECT dictGet(dictionary, 'value', toUInt64(0));`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 355', () => {
+test('[WITH] should pass without errors: 355', () => {
     const query = `WITH 'invalid_dictionary' AS dictionary SELECT dictGet(dictionary, 'value', toUInt64(0)); -- { serverError BAD_ARGUMENTS } DROP DICTIONARY test_dictionary;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 356', () => {
+test('[WITH] should pass without errors: 356', () => {
     const query = `WITH 'test_table_join' AS join_table SELECT joinGet(join_table, 'value', toUInt64(0));`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 357', () => {
+test('[WITH] should pass without errors: 357', () => {
     const query = `WITH 'invalid_test_table_join' AS join_table SELECT joinGet(join_table, 'value', toUInt64(0)); -- { serverError UNKNOWN_TABLE } DROP TABLE test_table_join;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 358', () => {
+test('[WITH] should pass without errors: 358', () => {
     const query = `WITH groupArray((table, bytes))::Map(String, UInt64) AS stats SELECT
 length(stats), stats['t_modify_from_lc_1'] < stats['t_modify_from_lc_2']
 FROM
@@ -3887,56 +3887,56 @@ GROUP BY table
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 359', () => {
+test('[WITH] should pass without errors: 359', () => {
     const query = `WITH cte_test_table_for_in AS (SELECT id FROM test_table_for_in) SELECT id, value FROM test_table WHERE id IN cte_test_table_for_in;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 360', () => {
+test('[WITH] should pass without errors: 360', () => {
     const query = `WITH cte_test_table_for_in AS (SELECT id FROM test_table_for_in) SELECT id, value FROM test_table WHERE id IN (SELECT id FROM cte_test_table_for_in UNION DISTINCT SELECT id FROM cte_test_table_for_in);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 361', () => {
+test('[WITH] should pass without errors: 361', () => {
     const query = `WITH ( SELECT toLowCardinality('a') ) AS bar SELECT bar`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 362', () => {
+test('[WITH] should pass without errors: 362', () => {
     const query = `WITH [1, 2, 3] AS constant_array SELECT id, value FROM test_table ARRAY JOIN constant_array AS value;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 363', () => {
+test('[WITH] should pass without errors: 363', () => {
     const query = `WITH [1, 2, 3] AS constant_array SELECT id, value, value_1 FROM test_table ARRAY JOIN constant_array AS value_1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 364', () => {
+test('[WITH] should pass without errors: 364', () => {
     const query = `WITH 'CSV', '1,2,"[1,2,3]","[[\\'abc\\'], [], [\\'d\\', \\'e\\']]"' AS format_value SELECT c1, c2, c3, c4 FROM format('CSV', format_value);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 365', () => {
+test('[WITH] should pass without errors: 365', () => {
     const query = `WITH concat('1,2,"[1,2,3]",','"[[\\'abc\\'], [], [\\'d\\', \\'e\\']]"') AS format_value SELECT c1, c2, c3, c4 FROM format('CSV', format_value);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 366', () => {
+test('[WITH] should pass without errors: 366', () => {
     const query = `WITH v1 AS (SELECT t1.c2, t2.c2, t2.c3 FROM t1 ASOF JOIN t2 USING (c1, c2))
 SELECT count() FROM v1 WHERE c3 = 'b';`;
 
@@ -3944,14 +3944,14 @@ SELECT count() FROM v1 WHERE c3 = 'b';`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 367', () => {
+test('[WITH] should pass without errors: 367', () => {
     const query = `WITH b AS bb SELECT bb FROM t2 WHERE a IN (SELECT a FROM t1);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 368', () => {
+test('[WITH] should pass without errors: 368', () => {
     const query = `WITH [0.0, 2.0] AS reference_vec SELECT id, vec, L2Distance(vec, reference_vec)
 FROM tab
 ORDER BY L2Distance(vec, reference_vec)
@@ -3961,7 +3961,7 @@ LIMIT 3;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 369', () => {
+test('[WITH] should pass without errors: 369', () => {
     const query = `WITH [0.0, 2.0] AS reference_vec SELECT id, vec, cosineDistance(vec, reference_vec)
 FROM tab
 ORDER BY cosineDistance(vec, reference_vec)
@@ -3971,7 +3971,7 @@ LIMIT 3;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 370', () => {
+test('[WITH] should pass without errors: 370', () => {
     const query = `WITH [0.0, 2.0] AS reference_vec SELECT id, vec, L2Distance(vec, reference_vec)
 FROM tab_f64
 ORDER BY L2Distance(vec, reference_vec)
@@ -3981,7 +3981,7 @@ LIMIT 3;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 371', () => {
+test('[WITH] should pass without errors: 371', () => {
     const query = `WITH [0.0, 2.0] AS reference_vec SELECT id, vec, L2Distance(vec, reference_vec)
 FROM tab_f32
 ORDER BY L2Distance(vec, reference_vec)
@@ -3991,7 +3991,7 @@ LIMIT 3;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 372', () => {
+test('[WITH] should pass without errors: 372', () => {
     const query = `WITH [0.0, 2.0] AS reference_vec SELECT id, vec, L2Distance(vec, reference_vec)
 FROM tab_f16
 ORDER BY L2Distance(vec, reference_vec)
@@ -4001,7 +4001,7 @@ LIMIT 3;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 373', () => {
+test('[WITH] should pass without errors: 373', () => {
     const query = `WITH [0.0, 2.0] AS reference_vec SELECT id, vec, L2Distance(vec, reference_vec)
 FROM tab_bf16
 ORDER BY L2Distance(vec, reference_vec)
@@ -4011,7 +4011,7 @@ LIMIT 3;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 374', () => {
+test('[WITH] should pass without errors: 374', () => {
     const query = `WITH [0.0, 2.0] AS reference_vec SELECT id, vec, L2Distance(vec, reference_vec)
 FROM tab_i8
 ORDER BY L2Distance(vec, reference_vec)
@@ -4021,7 +4021,7 @@ LIMIT 3;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 375', () => {
+test('[WITH] should pass without errors: 375', () => {
     const query = `WITH [0.0, 2.0] AS reference_vec SELECT id, vec, L2Distance(vec, reference_vec)
 FROM tab
 ORDER BY L2Distance(vec, reference_vec)
@@ -4032,7 +4032,7 @@ DROP TABLE tab;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 376', () => {
+test('[WITH] should pass without errors: 376', () => {
     const query = `WITH [1.0, 0.0] AS reference_vec SELECT id, vec, L2Distance(vec, reference_vec)
 FROM tab
 ORDER BY L2Distance(vec, reference_vec)
@@ -4042,7 +4042,7 @@ LIMIT 1;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 377', () => {
+test('[WITH] should pass without errors: 377', () => {
     const query = `WITH [9000.0, 0.0] AS reference_vec SELECT id, vec, L2Distance(vec, reference_vec)
 FROM tab
 ORDER BY L2Distance(vec, reference_vec)
@@ -4052,259 +4052,259 @@ LIMIT 1;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 378', () => {
+test('[WITH] should pass without errors: 378', () => {
     const query = `WITH 1 AS a SELECT (SELECT a);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 379', () => {
+test('[WITH] should pass without errors: 379', () => {
     const query = `WITH 1 AS global_a SELECT a FROM (SELECT global_a AS a) AS b;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 380', () => {
+test('[WITH] should pass without errors: 380', () => {
     const query = `WITH 1 AS global_a SELECT b.a FROM (SELECT global_a AS a) AS b;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 381', () => {
+test('[WITH] should pass without errors: 381', () => {
     const query = `WITH 1 AS a SELECT (SELECT * FROM (SELECT * FROM (SELECT a + 1)));`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 382', () => {
+test('[WITH] should pass without errors: 382', () => {
     const query = `WITH subquery AS (SELECT 1 AS a) SELECT * FROM subquery;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 383', () => {
+test('[WITH] should pass without errors: 383', () => {
     const query = `WITH subquery AS (SELECT 1 AS a) SELECT a FROM subquery;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 384', () => {
+test('[WITH] should pass without errors: 384', () => {
     const query = `WITH subquery AS (SELECT 1 AS a) SELECT subquery.a FROM subquery;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 385', () => {
+test('[WITH] should pass without errors: 385', () => {
     const query = `WITH subquery AS (SELECT 1 AS a) SELECT subquery.* FROM subquery;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 386', () => {
+test('[WITH] should pass without errors: 386', () => {
     const query = `WITH subquery AS (SELECT 1 AS a) SELECT subquery.* APPLY toString FROM subquery;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 387', () => {
+test('[WITH] should pass without errors: 387', () => {
     const query = `WITH subquery AS (SELECT 1 AS a) SELECT subquery_alias.a FROM subquery AS subquery_alias;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 388', () => {
+test('[WITH] should pass without errors: 388', () => {
     const query = `WITH subquery AS (SELECT 1 AS a) SELECT subquery_alias.* FROM subquery AS subquery_alias;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 389', () => {
+test('[WITH] should pass without errors: 389', () => {
     const query = `WITH subquery AS (SELECT 1 AS a) SELECT subquery_alias.* APPLY toString FROM subquery AS subquery_alias;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 390', () => {
+test('[WITH] should pass without errors: 390', () => {
     const query = `WITH subquery_1 AS (SELECT 1 AS a), subquery_2 AS (SELECT 1 + subquery_1.a FROM subquery_1) SELECT * FROM subquery_2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 391', () => {
+test('[WITH] should pass without errors: 391', () => {
     const query = `WITH subquery_1 AS (SELECT 1 AS a), subquery_2 AS (SELECT (1 + subquery_1.a) AS a FROM subquery_1) SELECT subquery_2.a FROM subquery_2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 392', () => {
+test('[WITH] should pass without errors: 392', () => {
     const query = `WITH x -> x + 1 AS lambda, x -> x + 1 AS lambda SELECT lambda(1);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 393', () => {
+test('[WITH] should pass without errors: 393', () => {
     const query = `WITH x -> x + 1 AS lambda SELECT lambda(1);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 394', () => {
+test('[WITH] should pass without errors: 394', () => {
     const query = `WITH x -> toString(x) AS lambda SELECT lambda(1), lambda(NULL), lambda([1,2,3]);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 395', () => {
+test('[WITH] should pass without errors: 395', () => {
     const query = `WITH x -> toString(x) AS lambda_1, lambda_1 AS lambda_2, lambda_2 AS lambda_3 SELECT lambda_1(1), lambda_2(NULL), lambda_3([1,2,3]);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 396', () => {
+test('[WITH] should pass without errors: 396', () => {
     const query = `WITH x -> x + 1 AS lambda SELECT lambda(id) FROM test_table;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 397', () => {
+test('[WITH] should pass without errors: 397', () => {
     const query = `WITH x -> toString(x) AS lambda SELECT lambda(id), lambda(value) FROM test_table;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 398', () => {
+test('[WITH] should pass without errors: 398', () => {
     const query = `WITH x -> x + 1 AS lambda SELECT arrayMap(lambda, [1,2,3]);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 399', () => {
+test('[WITH] should pass without errors: 399', () => {
     const query = `WITH x -> toString(x) AS lambda_1 SELECT arrayMap(lambda_1 AS lambda_2, [1,2,3]), arrayMap(lambda_2, ['1', '2', '3']);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 400', () => {
+test('[WITH] should pass without errors: 400', () => {
     const query = `WITH x -> concat(concat(toString(x.id), '_'), x.value) AS lambda SELECT cast((1, 'Value'), 'Tuple (id UInt64, value String)') AS value, lambda(value);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 401', () => {
+test('[WITH] should pass without errors: 401', () => {
     const query = `WITH x -> concat(concat(x.value_0_level_0, '_'), x.value_1_level_0) AS lambda SELECT lambda(value) FROM test_table_tuple;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 402', () => {
+test('[WITH] should pass without errors: 402', () => {
     const query = `WITH x -> * AS lambda SELECT lambda(1);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 403', () => {
+test('[WITH] should pass without errors: 403', () => {
     const query = `WITH x -> * AS lambda SELECT lambda(1) FROM test_table;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 404', () => {
+test('[WITH] should pass without errors: 404', () => {
     const query = `WITH cast(tuple(1), 'Tuple (value UInt64)') AS compound_value SELECT arrayMap(x -> compound_value.*, [1,2,3]);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 405', () => {
+test('[WITH] should pass without errors: 405', () => {
     const query = `WITH cast(tuple(1, 1), 'Tuple (value_1 UInt64, value_2 UInt64)') AS compound_value SELECT arrayMap(x -> compound_value.*, [1,2,3]); -- { serverError UNSUPPORTED_METHOD } WITH cast(tuple(1, 1), 'Tuple (value_1 UInt64, value_2 UInt64)') AS compound_value SELECT arrayMap(x -> plus(compound_value.*), [1,2,3]);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 406', () => {
+test('[WITH] should pass without errors: 406', () => {
     const query = `WITH cast(tuple(1), 'Tuple (value UInt64)') AS compound_value SELECT id, test_table.* APPLY x -> compound_value.* FROM test_table;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 407', () => {
+test('[WITH] should pass without errors: 407', () => {
     const query = `WITH cast(tuple(1, 1), 'Tuple (value_1 UInt64, value_2 UInt64)') AS compound_value SELECT id, test_table.* APPLY x -> compound_value.* FROM test_table; -- { serverError UNSUPPORTED_METHOD } WITH cast(tuple(1, 1), 'Tuple (value_1 UInt64, value_2 UInt64)') AS compound_value SELECT id, test_table.* APPLY x -> plus(compound_value.*) FROM test_table;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 408', () => {
+test('[WITH] should pass without errors: 408', () => {
     const query = `WITH x -> untuple(x) AS lambda SELECT cast((1, 'Value'), 'Tuple (id UInt64, value String)') AS value, lambda(value);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 409', () => {
+test('[WITH] should pass without errors: 409', () => {
     const query = `WITH (functor, x) -> functor(x) AS lambda, x -> x + 1 AS functor_1, x -> toString(x) AS functor_2 SELECT lambda(functor_1, 1), lambda(functor_2, 1);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 410', () => {
+test('[WITH] should pass without errors: 410', () => {
     const query = `WITH (functor, x) -> functor(x) AS lambda, x -> x + 1 AS functor_1, x -> toString(x) AS functor_2 SELECT lambda(functor_1, id), lambda(functor_2, id) FROM test_table;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 411', () => {
+test('[WITH] should pass without errors: 411', () => {
     const query = `WITH 222 AS lambda SELECT arrayMap(lambda(tuple(x), x + 1), [1, 2, 3]);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 412', () => {
+test('[WITH] should pass without errors: 412', () => {
     const query = `WITH 222 AS lambda SELECT arrayMap(lambda((x, ), x + 1), [1, 2, 3]);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 413', () => {
+test('[WITH] should pass without errors: 413', () => {
     const query = `WITH x -> x + 1 AS lambda SELECT arrayMap(lambda(tuple(x), x + 1), [1, 2, 3]), lambda(1);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 414', () => {
+test('[WITH] should pass without errors: 414', () => {
     const query = `WITH (x, y) -> y AS lambda SELECT arrayMap(lambda(tuple(x), x + 1), [1, 2, 3]), lambda(tuple(x), x + 1), 1 AS x; -- { serverError BAD_ARGUMENTS }
 WITH (x, y) -> y AS lambda2
 SELECT arrayMap(lambda(tuple(x), x + 1), [1, 2, 3]), lambda2(tuple(x), x + 1), 1 AS x;`;
@@ -4313,7 +4313,7 @@ SELECT arrayMap(lambda(tuple(x), x + 1), [1, 2, 3]), lambda2(tuple(x), x + 1), 1
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 415', () => {
+test('[WITH] should pass without errors: 415', () => {
     const query = `with rhs as (select * from remote('127.{1,2}', view(select dummy d1, dummy d2 from system.one))) select lhs.d2 from remote('127.{1,2}', view(select dummy d1, dummy d2 from system.one)) lhs global join rhs using (d1) order by rhs.d2 settings enable_analyzer=0; -- { serverError ALIAS_REQUIRED } with rhs as (select * from remote('127.{1,2}', view(select dummy d1, dummy d2 from system.one))) select lhs.d2 from remote('127.{1,2}', view(select dummy d1, dummy d2 from system.one)) lhs global join rhs using (d1) order by rhs.d2 settings enable_analyzer=1; -- It works with analyzer; rhs is an alias itself.
 with rhs as (select * from remote('127.{1,2}', view(select dummy d1, dummy d2 from system.one))) select lhs.d2 from remote('127.{1,2}', view(select dummy d1, dummy d2 from system.one)) lhs global join rhs using (d1) order by rhs.d2 settings joined_subquery_requires_alias=0;`;
 
@@ -4321,49 +4321,49 @@ with rhs as (select * from remote('127.{1,2}', view(select dummy d1, dummy d2 fr
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 416', () => {
+test('[WITH] should pass without errors: 416', () => {
     const query = `with rhs_ as (select * from remote('127.{1,2}', view(select dummy d1, dummy d2 from system.one))) select lhs.d2 from remote('127.{1,2}', view(select dummy d1, dummy d2 from system.one)) lhs global join rhs_ rhs using (d1) order by rhs.d2 settings joined_subquery_requires_alias=0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 417', () => {
+test('[WITH] should pass without errors: 417', () => {
     const query = `WITH 1 as a SELECT a;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 418', () => {
+test('[WITH] should pass without errors: 418', () => {
     const query = `WITH a as b SELECT 1 as a, b;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 419', () => {
+test('[WITH] should pass without errors: 419', () => {
     const query = `WITH value_1 as value_2, id_1 as id_2, id AS id_1, value AS value_1 SELECT id_2, value_2 FROM test_table;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 420', () => {
+test('[WITH] should pass without errors: 420', () => {
     const query = `WITH id AS value SELECT value FROM test_table;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 421', () => {
+test('[WITH] should pass without errors: 421', () => {
     const query = `WITH path('clickhouse.com/a/b/c') AS x SELECT x AS path;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 422', () => {
+test('[WITH] should pass without errors: 422', () => {
     const query = `WITH toDateTime64('1959-09-16 19:20:12.999999998', 9, 'UTC') AS dt1,
 toDateTime64('1959-09-16 19:20:12.999999999', 9, 'UTC') AS dt2
 SELECT
@@ -4376,7 +4376,7 @@ dt1 < dt2,
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 423', () => {
+test('[WITH] should pass without errors: 423', () => {
     const query = `WITH toDateTime64('1969-12-31 23:59:59.999999998', 9, 'UTC') AS dt1,
 toDateTime64('1969-12-31 23:59:59.999999999', 9, 'UTC') AS dt2
 SELECT
@@ -4389,7 +4389,7 @@ dt1 < dt2,
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 424', () => {
+test('[WITH] should pass without errors: 424', () => {
     const query = `WITH toDateTime64('2001-12-31 23:59:59.999999998', 9, 'UTC') AS dt1,
 toDateTime64('2001-12-31 23:59:59.999999999', 9, 'UTC') AS dt2
 SELECT
@@ -4402,7 +4402,7 @@ dt1 < dt2,
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 425', () => {
+test('[WITH] should pass without errors: 425', () => {
     const query = `WITH toDateTime64('2282-12-31 23:59:59.999998', 6, 'UTC') AS dt1,
 toDateTime64('2282-12-31 23:59:59.999999', 6, 'UTC') AS dt2
 SELECT
@@ -4415,7 +4415,7 @@ dt1 < dt2,
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 426', () => {
+test('[WITH] should pass without errors: 426', () => {
     const query = `WITH (SELECT 1) as v0 SELECT v0, v > 0 FROM (
 WITH (SELECT 1) AS v1, (SELECT 2) AS v2
 SELECT v1 AS v
@@ -4427,7 +4427,7 @@ SELECT v2 AS v
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 427', () => {
+test('[WITH] should pass without errors: 427', () => {
     const query = `WITH CAST([-547274980, 1790553898, 1981517754, 1908431500, 1352428565, -573412550, -552499284, 2096941042], 'Array(Int32)') AS a SELECT
 L1Norm(a),
 L2Norm(a),
@@ -4441,7 +4441,7 @@ LinfNorm(a);`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 428', () => {
+test('[WITH] should pass without errors: 428', () => {
     const query = `WITH CAST([-547274980, 1790553898, 1981517754, 1908431500, 1352428565, -573412550, -552499284, 2096941042], 'Array(Int32)') AS a SELECT
 L1Distance(a, a),
 L2Distance(a, a),
@@ -4453,7 +4453,7 @@ cosineDistance(a, a);`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 429', () => {
+test('[WITH] should pass without errors: 429', () => {
     const query = `with top_repos as ( select repo_name from github_events where event_type = 'WatchEvent' and toDate(created_at) = today() - 1 group by repo_name order by count() desc limit 100 union distinct select repo_name from github_events where event_type = 'WatchEvent' and toMonday(created_at) = toMonday(today() - interval 1 week) group by repo_name order by count() desc limit 100 union distinct select repo_name from github_events where event_type = 'WatchEvent' and toStartOfMonth(created_at) = toStartOfMonth(today()) - interval 1 month group by repo_name order by count() desc limit 100 union distinct select repo_name from github_events where event_type = 'WatchEvent' and toYear(created_at) = toYear(today()) - 1 group by repo_name order by count() desc limit 100 ),
 last_day as ( select repo_name, count() as count_last_day, rowNumberInAllBlocks() + 1 as position_last_day from github_events where repo_name in (select repo_name from top_repos) and toDate(created_at) = today() - 1 group by repo_name order by count_last_day desc ),
 last_week as ( select repo_name, count() as count_last_week, rowNumberInAllBlocks() + 1 as position_last_week from github_events where repo_name in (select repo_name from top_repos) and toMonday(created_at) = toMonday(today()) - interval 1 week group by repo_name order by count_last_week desc ),
@@ -4464,7 +4464,7 @@ select d.repo_name, columns('count') from last_day d join last_week w on d.repo_
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 430', () => {
+test('[WITH] should pass without errors: 430', () => {
     const query = `WITH arrayJoin(['a', 'a', 'b', 'b']) AS field SELECT
 field,
 count() OVER (PARTITION BY field)
@@ -4475,7 +4475,7 @@ LIMIT 1;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 431', () => {
+test('[WITH] should pass without errors: 431', () => {
     const query = `WITH toDate('2021-09-12') AS date_value,
 toDateTime('2021-09-12 11:22:33') AS date_time_value,
 toDateTime64('2021-09-12 11:22:33', 3) AS date_time_64_value
@@ -4485,7 +4485,7 @@ SELECT toLastDayOfMonth(date_value), toLastDayOfMonth(date_time_value), toLastDa
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 432', () => {
+test('[WITH] should pass without errors: 432', () => {
     const query = `WITH toDate('2021-03-12') AS date_value,
 toDateTime('2021-03-12 11:22:33') AS date_time_value,
 toDateTime64('2021-03-12 11:22:33', 3) AS date_time_64_value
@@ -4495,7 +4495,7 @@ SELECT toLastDayOfMonth(date_value), toLastDayOfMonth(date_time_value), toLastDa
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 433', () => {
+test('[WITH] should pass without errors: 433', () => {
     const query = `WITH toDate('2021-02-12') AS date_value,
 toDateTime('2021-02-12 11:22:33') AS date_time_value,
 toDateTime64('2021-02-12 11:22:33', 3) AS date_time_64_value
@@ -4505,7 +4505,7 @@ SELECT toLastDayOfMonth(date_value), toLastDayOfMonth(date_time_value), toLastDa
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 434', () => {
+test('[WITH] should pass without errors: 434', () => {
     const query = `WITH toDate('2020-02-12') AS date_value,
 toDateTime('2020-02-12 11:22:33') AS date_time_value,
 toDateTime64('2020-02-12 11:22:33', 3) AS date_time_64_value
@@ -4515,7 +4515,7 @@ SELECT toLastDayOfMonth(date_value), toLastDayOfMonth(date_time_value), toLastDa
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 435', () => {
+test('[WITH] should pass without errors: 435', () => {
     const query = `WITH toDate('2021-12-12') AS date_value,
 toDateTime('2021-12-12 11:22:33') AS date_time_value,
 toDateTime64('2021-12-12 11:22:33', 3) AS date_time_64_value
@@ -4525,7 +4525,7 @@ SELECT toLastDayOfMonth(date_value), toLastDayOfMonth(date_time_value), toLastDa
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 436', () => {
+test('[WITH] should pass without errors: 436', () => {
     const query = `WITH toDate('2020-12-12') AS date_value,
 toDateTime('2020-12-12 11:22:33') AS date_time_value,
 toDateTime64('2020-12-12 11:22:33', 3) AS date_time_64_value
@@ -4535,7 +4535,7 @@ SELECT toLastDayOfMonth(date_value), toLastDayOfMonth(date_time_value), toLastDa
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 437', () => {
+test('[WITH] should pass without errors: 437', () => {
     const query = `WITH toDate('2020-12-12') AS date_value
 SELECT last_day(date_value), LAST_DAY(date_value);`;
 
@@ -4543,7 +4543,7 @@ SELECT last_day(date_value), LAST_DAY(date_value);`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 438', () => {
+test('[WITH] should pass without errors: 438', () => {
     const query = `WITH toDate('1970-01-01') AS date_value,
 toDateTime('1970-01-01 11:22:33') AS date_time_value,
 toDateTime64('1900-01-01 11:22:33', 3) AS date_time_64_value
@@ -4554,49 +4554,49 @@ SETTINGS enable_extended_results_for_datetime_functions = true;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 439', () => {
+test('[WITH] should pass without errors: 439', () => {
     const query = `WITH 'number: 1' as year SELECT extract(year, '\\\\d+');`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 440', () => {
+test('[WITH] should pass without errors: 440', () => {
     const query = `WITH 'number: 2' as mm SELECT extract(mm, '\\\\d+');`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 441', () => {
+test('[WITH] should pass without errors: 441', () => {
     const query = `WITH 'number: 3' as s SELECT extract(s, '\\\\d+');`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 442', () => {
+test('[WITH] should pass without errors: 442', () => {
     const query = `WITH 'test' AS u SELECT count() FROM ev WHERE a IN (SELECT a FROM idx) SETTINGS enable_global_with_statement = 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 443', () => {
+test('[WITH] should pass without errors: 443', () => {
     const query = `WITH 'test' AS u SELECT count() FROM ev WHERE a IN (SELECT a FROM idx) SETTINGS enable_global_with_statement = 0;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 444', () => {
+test('[WITH] should pass without errors: 444', () => {
     const query = `WITH h3ToGeo(arrayJoin([579205133326352383,589753847883235327,594082350283882495])) AS p SELECT round(p.1, 2), round(p.2, 2);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 445', () => {
+test('[WITH] should pass without errors: 445', () => {
     const query = `WITH (SELECT * FROM data_02222) AS bm1,
 (SELECT * FROM data_02222) AS bm2,
 (SELECT * FROM data_02222) AS bm3,
@@ -4613,7 +4613,7 @@ SELECT bm1, bm2, bm3, bm4, bm5, bm6, bm7, bm8, bm9, bm10 FROM data_02222;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 446', () => {
+test('[WITH] should pass without errors: 446', () => {
     const query = `WITH t AS (
 SELECT number AS n
 FROM numbers(10000)
@@ -4626,7 +4626,7 @@ WHERE a.n < 5000;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 447', () => {
+test('[WITH] should pass without errors: 447', () => {
     const query = `WITH t AS (
 SELECT number AS n
 FROM numbers(10000)
@@ -4639,7 +4639,7 @@ WHERE t.n < 5000;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 448', () => {
+test('[WITH] should pass without errors: 448', () => {
     const query = `WITH (
 SELECT query_id
 FROM system.query_log
@@ -4664,98 +4664,98 @@ ORDER BY name;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 449', () => {
+test('[WITH] should pass without errors: 449', () => {
     const query = `WITH minSampleSizeContinous(20, 10, 0.05, 0.8, 0.05) AS res SELECT 'continous const 1', roundBankers(res.1, 2), roundBankers(res.2, 2), roundBankers(res.3, 2);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 450', () => {
+test('[WITH] should pass without errors: 450', () => {
     const query = `WITH minSampleSizeContinous(0.0, 10.0, 0.05, 0.8, 0.05) AS res SELECT 'continous const 2', roundBankers(res.1, 2), roundBankers(res.2, 2), roundBankers(res.3, 2);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 451', () => {
+test('[WITH] should pass without errors: 451', () => {
     const query = `WITH minSampleSizeContinous(20, 10.0, 0.05, 0.8, 0.05) AS res SELECT 'continous const 3', roundBankers(res.1, 2), roundBankers(res.2, 2), roundBankers(res.3, 2);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 452', () => {
+test('[WITH] should pass without errors: 452', () => {
     const query = `WITH minSampleSizeContinous(20.0, 10, 0.05, 0.8, 0.05) AS res SELECT 'continous const 4', roundBankers(res.1, 2), roundBankers(res.2, 2), roundBankers(res.3, 2);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 453', () => {
+test('[WITH] should pass without errors: 453', () => {
     const query = `WITH minSampleSizeContinous(baseline, sigma, 0.05, 0.8, 0.05) AS res SELECT 'continous UInt64 1', roundBankers(res.1, 2), roundBankers(res.2, 2), roundBankers(res.3, 2) FROM minimum_sample_size_continuos ORDER BY roundBankers(res.1, 2);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 454', () => {
+test('[WITH] should pass without errors: 454', () => {
     const query = `WITH minSampleSizeContinous(20, sigma, 0.05, 0.8, 0.05) AS res SELECT 'continous UInt64 2', roundBankers(res.1, 2), roundBankers(res.2, 2), roundBankers(res.3, 2) FROM minimum_sample_size_continuos ORDER BY roundBankers(res.1, 2);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 455', () => {
+test('[WITH] should pass without errors: 455', () => {
     const query = `WITH minSampleSizeContinous(baseline, 10, 0.05, 0.8, 0.05) AS res SELECT 'continous UInt64 3', roundBankers(res.1, 2), roundBankers(res.2, 2), roundBankers(res.3, 2) FROM minimum_sample_size_continuos ORDER BY roundBankers(res.1, 2);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 456', () => {
+test('[WITH] should pass without errors: 456', () => {
     const query = `WITH minSampleSizeContinous(baseline, sigma, 0.05, 0.8, 0.05) AS res SELECT 'continous Float64 1', roundBankers(res.1, 2), roundBankers(res.2, 2), roundBankers(res.3, 2) FROM minimum_sample_size_continuos ORDER BY roundBankers(res.1, 2);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 457', () => {
+test('[WITH] should pass without errors: 457', () => {
     const query = `WITH minSampleSizeContinous(20, sigma, 0.05, 0.8, 0.05) AS res SELECT 'continous Float64 2', roundBankers(res.1, 2), roundBankers(res.2, 2), roundBankers(res.3, 2) FROM minimum_sample_size_continuos ORDER BY roundBankers(res.1, 2);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 458', () => {
+test('[WITH] should pass without errors: 458', () => {
     const query = `WITH minSampleSizeConversion(0.9, 0.01, 0.8, 0.05) AS res SELECT 'conversion const 1', roundBankers(res.1, 2), roundBankers(res.2, 2), roundBankers(res.3, 2);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 459', () => {
+test('[WITH] should pass without errors: 459', () => {
     const query = `WITH minSampleSizeConversion(0.0, 0.01, 0.8, 0.05) AS res SELECT 'conversion const 2', roundBankers(res.1, 2), roundBankers(res.2, 2), roundBankers(res.3, 2);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 460', () => {
+test('[WITH] should pass without errors: 460', () => {
     const query = `WITH minSampleSizeConversion(p1, 0.01, 0.8, 0.05) AS res SELECT 'conversion Float64 1', roundBankers(res.1, 2), roundBankers(res.2, 2), roundBankers(res.3, 2) FROM minimum_sample_size_conversion ORDER BY roundBankers(res.1, 2);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 461', () => {
+test('[WITH] should pass without errors: 461', () => {
     const query = `WITH minSampleSizeConversion(0.9, 0.01, 0.8, 0.05) AS res SELECT 'conversion Float64 2', roundBankers(res.1, 2), roundBankers(res.2, 2), roundBankers(res.3, 2) FROM minimum_sample_size_conversion ORDER BY roundBankers(res.1, 2);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 462', () => {
+test('[WITH] should pass without errors: 462', () => {
     const query = `WITH (
 SELECT initial_query_id
 FROM system.query_log
@@ -4773,7 +4773,7 @@ WHERE initial_query_id = q_id;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 463', () => {
+test('[WITH] should pass without errors: 463', () => {
     const query = `WITH (
 SELECT initial_query_id
 FROM system.query_log
@@ -4791,14 +4791,14 @@ WHERE initial_query_id = q_id;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 464', () => {
+test('[WITH] should pass without errors: 464', () => {
     const query = `WITH map(1, 'Test') AS value, 'Array(Tuple(UInt64, String))' AS type SELECT value, cast(value, type), cast(materialize(value), type);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 465', () => {
+test('[WITH] should pass without errors: 465', () => {
     const query = `WITH map(1, 'Test') AS value, 'Array(Tuple(UInt64, UInt64))' AS type SELECT value, cast(value, type), cast(materialize(value), type); --{serverError CANNOT_PARSE_TEXT}
 WITH map(1, '1234') AS value, 'Array(Tuple(UInt64, UInt64))' AS type
 SELECT value, cast(value, type), cast(materialize(value), type);`;
@@ -4807,56 +4807,56 @@ SELECT value, cast(value, type), cast(materialize(value), type);`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 466', () => {
+test('[WITH] should pass without errors: 466', () => {
     const query = `WITH map(1, [1, 2, 3]) AS value, 'Array(Tuple(UInt64, Array(String)))' AS type SELECT value, cast(value, type), cast(materialize(value), type);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 467', () => {
+test('[WITH] should pass without errors: 467', () => {
     const query = `WITH map(1, ['1', '2', '3']) AS value, 'Array(Tuple(UInt64, Array(UInt64)))' AS type SELECT value, cast(value, type), cast(materialize(value), type);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 468', () => {
+test('[WITH] should pass without errors: 468', () => {
     const query = `WITH map(1, map(1, '1234')) AS value, 'Array(Tuple(UInt64, Map(UInt64, String)))' AS type SELECT value, cast(value, type), cast(materialize(value), type);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 469', () => {
+test('[WITH] should pass without errors: 469', () => {
     const query = `WITH map(1, map(1, '1234')) AS value, 'Array(Tuple(UInt64, Map(UInt64, UInt64)))' AS type SELECT value, cast(value, type), cast(materialize(value), type);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 470', () => {
+test('[WITH] should pass without errors: 470', () => {
     const query = `WITH map(1, map(1, '1234')) AS value, 'Array(Tuple(UInt64, Array(Tuple(UInt64, String))))' AS type SELECT value, cast(value, type), cast(materialize(value), type);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 471', () => {
+test('[WITH] should pass without errors: 471', () => {
     const query = `WITH map(1, map(1, '1234')) as value, 'Array(Tuple(UInt64, Array(Tuple(UInt64, UInt64))))' AS type SELECT value, cast(value, type), cast(materialize(value), type);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 472', () => {
+test('[WITH] should pass without errors: 472', () => {
     const query = `WITH map(1, 'val1', 2, 'val2') AS map SELECT CAST(map, 'Array(Tuple(k UInt32, v String))') AS c, toTypeName(c);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 473', () => {
+test('[WITH] should pass without errors: 473', () => {
     const query = `WITH ( SELECT sleep(0.0001) FROM system.one ) as a1,
 ( SELECT sleep(0.0001) FROM system.one ) as a2,
 ( SELECT sleep(0.0001) FROM system.one ) as a3,
@@ -4870,7 +4870,7 @@ SETTINGS enable_global_with_statement = 1;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 474', () => {
+test('[WITH] should pass without errors: 474', () => {
     const query = `WITH ( SELECT sleep(0.0001) FROM system.one ) as a1,
 ( SELECT sleep(0.0001) FROM system.one ) as a2,
 ( SELECT sleep(0.0001) FROM system.one ) as a3,
@@ -4884,7 +4884,7 @@ SETTINGS enable_global_with_statement = 0;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 475', () => {
+test('[WITH] should pass without errors: 475', () => {
     const query = `WITH ( SELECT sleep(0.0001) FROM system.one ) as a1,
 ( SELECT sleep(0.0001) FROM system.one ) as a2,
 ( SELECT sleep(0.0001) FROM system.one ) as a3,
@@ -4898,7 +4898,7 @@ SETTINGS enable_analyzer = 1;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 476', () => {
+test('[WITH] should pass without errors: 476', () => {
     const query = `WITH (range(0, number % 10), range(0, number % 10))::Map(UInt64, UInt64) AS m1, (range(0, number % 10, 2), arrayMap(x -> x * x, range(0, number % 10, 2)))::Map(UInt64, UInt64) AS m2
 SELECT DISTINCT mapUpdate(m1, m2) FROM numbers (100000);`;
 
@@ -4906,14 +4906,14 @@ SELECT DISTINCT mapUpdate(m1, m2) FROM numbers (100000);`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 477', () => {
+test('[WITH] should pass without errors: 477', () => {
     const query = `WITH 2 AS \`b.c\`, [4, 5] AS a, 6 AS u, 3 AS v, 2 AS d, TRUE AS e, 1 AS f, 0 AS g, 2 AS h, 'Hello' AS i, 'World' AS j, 'hi' AS w, NULL AS k, (1, 2) AS l, 2 AS m, 3 AS n, [] AS o, [1] AS p, 1 AS q, q AS r, 1 AS s, 1 AS t SELECT INTERVAL CASE CASE WHEN NOT -a[\`b.c\`] * u DIV v + d IS NOT NULL AND e OR f BETWEEN g AND h THEN i ELSE j END WHEN w THEN k END || [l, (m, n)] MINUTE IS NULL OR NOT o::Array(INT) = p <> q < r > s != t AS upyachka;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 478', () => {
+test('[WITH] should pass without errors: 478', () => {
     const query = `WITH lineWithInlines AS
 (
 SELECT DISTINCT addressToLineWithInlines(arrayJoin(trace)) AS lineWithInlines FROM system.trace_log WHERE query_id =
@@ -4927,7 +4927,7 @@ SELECT 'has inlines:', or(max(length(lineWithInlines)) > 1, max(locate(lineWithI
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 479', () => {
+test('[WITH] should pass without errors: 479', () => {
     const query = `WITH toDate('2021-01-14') AS date_value,
 toDateTime('2021-01-14 11:22:33') AS date_time_value,
 toDateTime64('2021-01-14 11:22:33', 3) AS date_time_64_value
@@ -4937,7 +4937,7 @@ SELECT monthName(date_value), monthName(date_time_value), monthName(date_time_64
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 480', () => {
+test('[WITH] should pass without errors: 480', () => {
     const query = `WITH toDate('2021-02-14') AS date_value,
 toDateTime('2021-02-14 11:22:33') AS date_time_value,
 toDateTime64('2021-02-14 11:22:33', 3) AS date_time_64_value
@@ -4947,7 +4947,7 @@ SELECT monthName(date_value), monthName(date_time_value), monthName(date_time_64
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 481', () => {
+test('[WITH] should pass without errors: 481', () => {
     const query = `WITH toDate('2021-03-14') AS date_value,
 toDateTime('2021-03-14 11:22:33') AS date_time_value,
 toDateTime64('2021-03-14 11:22:33', 3) AS date_time_64_value
@@ -4957,7 +4957,7 @@ SELECT monthName(date_value), monthName(date_time_value), monthName(date_time_64
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 482', () => {
+test('[WITH] should pass without errors: 482', () => {
     const query = `WITH toDate('2021-04-14') AS date_value,
 toDateTime('2021-04-14 11:22:33') AS date_time_value,
 toDateTime64('2021-04-14 11:22:33', 3) AS date_time_64_value
@@ -4967,7 +4967,7 @@ SELECT monthName(date_value), monthName(date_time_value), monthName(date_time_64
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 483', () => {
+test('[WITH] should pass without errors: 483', () => {
     const query = `WITH toDate('2021-05-14') AS date_value,
 toDateTime('2021-05-14 11:22:33') AS date_time_value,
 toDateTime64('2021-05-14 11:22:33', 3) AS date_time_64_value
@@ -4977,7 +4977,7 @@ SELECT monthName(date_value), monthName(date_time_value), monthName(date_time_64
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 484', () => {
+test('[WITH] should pass without errors: 484', () => {
     const query = `WITH toDate('2021-06-14') AS date_value,
 toDateTime('2021-06-14 11:22:33') AS date_time_value,
 toDateTime64('2021-06-14 11:22:33', 3) AS date_time_64_value
@@ -4987,7 +4987,7 @@ SELECT monthName(date_value), monthName(date_time_value), monthName(date_time_64
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 485', () => {
+test('[WITH] should pass without errors: 485', () => {
     const query = `WITH toDate('2021-07-14') AS date_value,
 toDateTime('2021-07-14 11:22:33') AS date_time_value,
 toDateTime64('2021-07-14 11:22:33', 3) AS date_time_64_value
@@ -4997,7 +4997,7 @@ SELECT monthName(date_value), monthName(date_time_value), monthName(date_time_64
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 486', () => {
+test('[WITH] should pass without errors: 486', () => {
     const query = `WITH toDate('2021-08-14') AS date_value,
 toDateTime('2021-08-14 11:22:33') AS date_time_value,
 toDateTime64('2021-08-14 11:22:33', 3) AS date_time_64_value
@@ -5007,7 +5007,7 @@ SELECT monthName(date_value), monthName(date_time_value), monthName(date_time_64
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 487', () => {
+test('[WITH] should pass without errors: 487', () => {
     const query = `WITH toDate('2021-09-14') AS date_value,
 toDateTime('2021-09-14 11:22:33') AS date_time_value,
 toDateTime64('2021-09-14 11:22:33', 3) AS date_time_64_value
@@ -5017,7 +5017,7 @@ SELECT monthName(date_value), monthName(date_time_value), monthName(date_time_64
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 488', () => {
+test('[WITH] should pass without errors: 488', () => {
     const query = `WITH toDate('2021-10-14') AS date_value,
 toDateTime('2021-10-14 11:22:33') AS date_time_value,
 toDateTime64('2021-10-14 11:22:33', 3) AS date_time_64_value
@@ -5027,7 +5027,7 @@ SELECT monthName(date_value), monthName(date_time_value), monthName(date_time_64
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 489', () => {
+test('[WITH] should pass without errors: 489', () => {
     const query = `WITH toDate('2021-11-14') AS date_value,
 toDateTime('2021-11-14 11:22:33') AS date_time_value,
 toDateTime64('2021-11-14 11:22:33', 3) AS date_time_64_value
@@ -5037,7 +5037,7 @@ SELECT monthName(date_value), monthName(date_time_value), monthName(date_time_64
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 490', () => {
+test('[WITH] should pass without errors: 490', () => {
     const query = `WITH toDate('2021-12-14') AS date_value,
 toDateTime('2021-12-14 11:22:33') AS date_time_value,
 toDateTime64('2021-12-14 11:22:33', 3) AS date_time_64_value
@@ -5047,7 +5047,7 @@ SELECT monthName(date_value), monthName(date_time_value), monthName(date_time_64
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 491', () => {
+test('[WITH] should pass without errors: 491', () => {
     const query = `with generateUUIDv4() as uuid, replace(toString(uuid), '-', '') as str1,
 lower(hex(uuid)) as str2
 select str1 = str2;`;
@@ -5056,7 +5056,7 @@ select str1 = str2;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 492', () => {
+test('[WITH] should pass without errors: 492', () => {
     const query = `WITH * APPLY lambda(e); -- { clientError SYNTAX_ERROR } SELECT * APPLY lambda(); -- { clientError SYNTAX_ERROR }
 SELECT * APPLY lambda(1); -- { clientError SYNTAX_ERROR }
 SELECT * APPLY lambda(x); -- { clientError SYNTAX_ERROR }
@@ -5073,7 +5073,7 @@ SELECT * APPLY lambda(tuple(x), 1) FROM numbers(5);`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 493', () => {
+test('[WITH] should pass without errors: 493', () => {
     const query = `WITH (
 SELECT initial_query_id
 FROM system.query_log
@@ -5090,7 +5090,7 @@ WHERE initial_query_id = q_id FORMAT Vertical;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 494', () => {
+test('[WITH] should pass without errors: 494', () => {
     const query = `WITH (
 SELECT initial_query_id
 FROM system.query_log
@@ -5109,105 +5109,105 @@ FORMAT Vertical;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 495', () => {
+test('[WITH] should pass without errors: 495', () => {
     const query = `WITH 'aes-256-ecb' as mode, 'Hello World!' as plaintext, 'test_key________________________' as key SELECT hex(aes_encrypt_mysql(mode, toNullable(plaintext), key));`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 496', () => {
+test('[WITH] should pass without errors: 496', () => {
     const query = `WITH 'aes-256-ecb' as mode, unhex('D1B43643E1D0E9390E39BA4EAE150851') as ciphertext, 'test_key________________________' as key SELECT hex(aes_decrypt_mysql(mode, toNullable(ciphertext), key));`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 497', () => {
+test('[WITH] should pass without errors: 497', () => {
     const query = `WITH 'aes-256-ecb' as mode, 'test_key________________________' as key SELECT mode, encrypt(mode, CAST(null as Nullable(String)), key);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 498', () => {
+test('[WITH] should pass without errors: 498', () => {
     const query = `WITH 'aes-256-gcm' as mode, 'test_key________________________' as key, 'test_iv_____' as iv SELECT mode, encrypt(mode, CAST(null as Nullable(String)), key, iv);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 499', () => {
+test('[WITH] should pass without errors: 499', () => {
     const query = `WITH 'aes-256-ecb' as mode, 'test_key________________________' as key SELECT mode, hex(encrypt(mode, toNullable('Hello World!'), key));`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 500', () => {
+test('[WITH] should pass without errors: 500', () => {
     const query = `WITH 'aes-256-gcm' as mode, 'test_key________________________' as key, 'test_iv_____' as iv SELECT mode, hex(encrypt(mode, toNullable('Hello World!'), key, iv));`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 501', () => {
+test('[WITH] should pass without errors: 501', () => {
     const query = `WITH 'aes-256-ecb' as mode, 'test_key________________________' as key SELECT mode, decrypt(mode, CAST(null as Nullable(String)), key);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 502', () => {
+test('[WITH] should pass without errors: 502', () => {
     const query = `WITH 'aes-256-gcm' as mode, 'test_key________________________' as key, 'test_iv_____' as iv SELECT mode, decrypt(mode, CAST(null as Nullable(String)), key, iv);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 503', () => {
+test('[WITH] should pass without errors: 503', () => {
     const query = `WITH 'aes-256-ecb' as mode, unhex('D1B43643E1D0E9390E39BA4EAE150851') as ciphertext, 'test_key________________________' as key SELECT mode, decrypt(mode, toNullable(ciphertext), key);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 504', () => {
+test('[WITH] should pass without errors: 504', () => {
     const query = `WITH 'aes-256-gcm' as mode, unhex('219E6478A1A3BB5B686DA4BAD70323F192EFEDCCBBD6F49E78A7E2F6') as ciphertext, 'test_key________________________' as key, 'test_iv_____' as iv SELECT mode, decrypt(mode, toNullable(ciphertext), key, iv);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 505', () => {
+test('[WITH] should pass without errors: 505', () => {
     const query = `WITH (1, 2) AS t SELECT t.1, t.2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 506', () => {
+test('[WITH] should pass without errors: 506', () => {
     const query = `WITH (1, 2)::Tuple(a UInt32, b UInt32) AS t SELECT t.1, tupleElement(t, 'b');`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 507', () => {
+test('[WITH] should pass without errors: 507', () => {
     const query = `WITH splitByChar(' ', getOSKernelVersion()) AS version_pair SELECT version_pair[1] `;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 508', () => {
+test('[WITH] should pass without errors: 508', () => {
     const query = `with lowerUTF8(str) as l_, upperUTF8(str) as u_, '0x' || hex(str) as h_ select length(str), if(l_ == '\\xe2', h_, l_), if(u_ == '\\xe2', h_, u_) from utf8_overlap format CSV;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 509', () => {
+test('[WITH] should pass without errors: 509', () => {
     const query = `WITH lower('\\RealVNC\\WinVNC4 /v password') as CommandLine SELECT
 CommandLine LIKE '%\\\\\\\\realvnc\\\\\\\\winvnc4%password%' as t1,
 CommandLine LIKE '%\\\\\\\\realvnc\\\\\\\\winvnc4 %password%' as t2,
@@ -5220,133 +5220,133 @@ CommandLine LIKE '%\\\\\\\\winvnc4%password%' as t6;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 510', () => {
+test('[WITH] should pass without errors: 510', () => {
     const query = `WITH number % 10 = 0 AS value, number AS time SELECT exponentialMovingAverage(1)(value, time) AS exp_smooth FROM remote('127.0.0.{1..10}', numbers_mt(1000));`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 511', () => {
+test('[WITH] should pass without errors: 511', () => {
     const query = `WITH number % 10 = 0 AS value, number AS time SELECT exponentialMovingAverage(1)(value, time) AS exp_smooth FROM remote('127.0.0.{1..10}', numbers_mt(10000));`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 512', () => {
+test('[WITH] should pass without errors: 512', () => {
     const query = `WITH number % 10 = 0 AS value, number AS time SELECT exponentialMovingAverage(1)(value, time) AS exp_smooth FROM remote('127.0.0.{1..10}', numbers_mt(100000));`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 513', () => {
+test('[WITH] should pass without errors: 513', () => {
     const query = `WITH number % 10 = 0 AS value, number AS time SELECT exponentialMovingAverage(1)(value, time) AS exp_smooth FROM remote('127.0.0.{1..10}', numbers_mt(1000000));`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 514', () => {
+test('[WITH] should pass without errors: 514', () => {
     const query = `WITH number % 10 = 0 AS value, number AS time SELECT exponentialMovingAverage(1)(value, time) AS exp_smooth FROM numbers_mt(10);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 515', () => {
+test('[WITH] should pass without errors: 515', () => {
     const query = `WITH number % 10 = 0 AS value, number AS time SELECT exponentialMovingAverage(1)(value, time) AS exp_smooth FROM numbers_mt(100);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 516', () => {
+test('[WITH] should pass without errors: 516', () => {
     const query = `WITH number % 10 = 0 AS value, number AS time SELECT exponentialMovingAverage(1)(value, time) AS exp_smooth FROM numbers_mt(1000);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 517', () => {
+test('[WITH] should pass without errors: 517', () => {
     const query = `WITH number % 10 = 0 AS value, number AS time SELECT exponentialMovingAverage(1)(value, time) AS exp_smooth FROM numbers_mt(10000);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 518', () => {
+test('[WITH] should pass without errors: 518', () => {
     const query = `WITH number % 10 = 0 AS value, number AS time SELECT exponentialMovingAverage(1)(value, time) AS exp_smooth FROM numbers_mt(100000);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 519', () => {
+test('[WITH] should pass without errors: 519', () => {
     const query = `WITH number % 10 = 0 AS value, number AS time SELECT exponentialMovingAverage(1)(value, time) AS exp_smooth FROM numbers_mt(1000000);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 520', () => {
+test('[WITH] should pass without errors: 520', () => {
     const query = `WITH number % 10 = 0 AS value, number AS time SELECT exponentialMovingAverage(1)(value, time) AS exp_smooth FROM numbers_mt(10000000);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 521', () => {
+test('[WITH] should pass without errors: 521', () => {
     const query = `WITH number DIV 50 AS k, toUInt32(number % 50) AS value SELECT k, sparkbar(50, 0, 99)(number, value) FROM numbers(100) GROUP BY k ORDER BY k;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 522', () => {
+test('[WITH] should pass without errors: 522', () => {
     const query = `WITH map(1, 2, 3, 4) AS m SELECT m[number] FROM numbers(5);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 523', () => {
+test('[WITH] should pass without errors: 523', () => {
     const query = `WITH map('1', 2, '3', 4) AS m SELECT m[toString(number)] FROM numbers(5);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 524', () => {
+test('[WITH] should pass without errors: 524', () => {
     const query = `WITH map(1, 2, 3, 4) AS m SELECT m[3];`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 525', () => {
+test('[WITH] should pass without errors: 525', () => {
     const query = `WITH map('1', 2, '3', 4) AS m SELECT m['3'];`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 526', () => {
+test('[WITH] should pass without errors: 526', () => {
     const query = `with (select count() from (select * from test union distinct select * from test except select * from test where toUInt8(name) > 3)) as max select count() from (select * from test union all select * from test where toUInt8(name) < max);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 527', () => {
+test('[WITH] should pass without errors: 527', () => {
     const query = `with (select count() from (select * from test union distinct select * from test except select * from test where toUInt8(name) > 3)) as max select count() from (select * from test except select * from test where toUInt8(name) < max);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 528', () => {
+test('[WITH] should pass without errors: 528', () => {
     const query = `WITH 1 AS max_size SELECT groupArray(max_size)(col)
 FROM
 (SELECT col FROM (
@@ -5359,7 +5359,7 @@ SELECT 2
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 529', () => {
+test('[WITH] should pass without errors: 529', () => {
     const query = `WITH 0.1 AS level SELECT quantile(level)(number)
 FROM numbers(1000);`;
 
@@ -5367,7 +5367,7 @@ FROM numbers(1000);`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 530', () => {
+test('[WITH] should pass without errors: 530', () => {
     const query = `WITH 0.1 AS level,
 1 AS max_size
 SELECT groupArray(max_size)(col)
@@ -5381,49 +5381,49 @@ FROM numbers(1000)
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 531', () => {
+test('[WITH] should pass without errors: 531', () => {
     const query = `with res as (select first_col from (select first_col, second_col as total from tp2 order by 2 desc) limit 1) select * from res;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 532', () => {
+test('[WITH] should pass without errors: 532', () => {
     const query = `with (select number from numbers(10) intersect select 5) as a select a * 10;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 533', () => {
+test('[WITH] should pass without errors: 533', () => {
     const query = `with (select 5 except select 1) as a select a except select 5;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 534', () => {
+test('[WITH] should pass without errors: 534', () => {
     const query = `with (select number from numbers(10) intersect select 5) as a select a intersect select 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 535', () => {
+test('[WITH] should pass without errors: 535', () => {
     const query = `with (select number from numbers(10) intersect select 5) as a select a except select 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 536', () => {
+test('[WITH] should pass without errors: 536', () => {
     const query = `with (select count() from (select 1 union distinct select 2 except select 1)) as max select count() from (select 1 union all select max) limit 100;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 537', () => {
+test('[WITH] should pass without errors: 537', () => {
     const query = `WITH toDateTime('1970-06-17 07:39:21', 'Africa/Monrovia') as t SELECT toUnixTimestamp(t),
 timeZoneOffset(t),
 formatDateTime(t, '%F %T', 'Africa/Monrovia'),
@@ -5448,7 +5448,7 @@ FORMAT Vertical;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 538', () => {
+test('[WITH] should pass without errors: 538', () => {
     const query = `WITH CAST(1426860704886947840 AS Int64) AS i64,
 'UTC' AS tz
 SELECT
@@ -5463,7 +5463,7 @@ toTypeName(dt64);`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 539', () => {
+test('[WITH] should pass without errors: 539', () => {
     const query = `WITH CAST(1426860704886947840 AS Int64) AS i64,
 'Asia/Shanghai' AS tz
 SELECT
@@ -5478,7 +5478,7 @@ toTypeName(dt64);`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 540', () => {
+test('[WITH] should pass without errors: 540', () => {
     const query = `WITH 7204436857747984384 AS sf
 SELECT
 sf,
@@ -5491,7 +5491,7 @@ Vertical;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 541', () => {
+test('[WITH] should pass without errors: 541', () => {
     const query = `WITH 1426981498778550272 AS sf,
 1288834974657 AS epoch
 SELECT
@@ -5505,7 +5505,7 @@ Vertical;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 542', () => {
+test('[WITH] should pass without errors: 542', () => {
     const query = `WITH 7204436857747984384 AS sf,
 0 AS epoch, -- default epoch
 'Asia/Shanghai' AS tz
@@ -5520,7 +5520,7 @@ Vertical;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 543', () => {
+test('[WITH] should pass without errors: 543', () => {
     const query = `WITH 7204436857747984384 AS sf,
 0 AS epoch, -- default epoch
 materialize('Asia/Shanghai') AS tz
@@ -5537,7 +5537,7 @@ allow_nonconst_timezone_arguments = 1;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 544', () => {
+test('[WITH] should pass without errors: 544', () => {
     const query = `WITH generateSnowflakeID() AS snowflake
 SELECT
 snowflakeIDToDateTime(snowflake),
@@ -5549,7 +5549,7 @@ Null;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 545', () => {
+test('[WITH] should pass without errors: 545', () => {
     const query = `WITH toDateTime('2021-08-15 18:57:56') AS dt,
 toDateTime64('2021-08-15 18:57:56.492', 3) AS dt64,
 1288834974657 AS twitter_epoch
@@ -5567,7 +5567,7 @@ Vertical;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 546', () => {
+test('[WITH] should pass without errors: 546', () => {
     const query = `WITH toDateTime64('2021-08-15 18:57:56.492', 0, 'UTC') AS dt64_0,
 toDateTime64('2021-08-15 18:57:56.492', 1, 'UTC') AS dt64_1,
 toDateTime64('2021-08-15 18:57:56.492', 2, 'UTC') AS dt64_2,
@@ -5586,7 +5586,7 @@ Vertical;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 547', () => {
+test('[WITH] should pass without errors: 547', () => {
     const query = `WITH now64(0) AS dt64_0,
 now64(1) AS dt64_1,
 now64(2) AS dt64_2,
@@ -5603,7 +5603,7 @@ Vertical;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 548', () => {
+test('[WITH] should pass without errors: 548', () => {
     const query = `WITH toDateTime64('2023-11-11 11:11:11.1231', 4, 'UTC') AS dt64_4
 SELECT
 dt64_4,
@@ -5615,21 +5615,21 @@ Vertical;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 549', () => {
+test('[WITH] should pass without errors: 549', () => {
     const query = `WITH toDateTime('2021-08-15 18:57:56', 'Asia/Shanghai') AS dt SELECT dt, dateTimeToSnowflake(dt), materialize(dateTimeToSnowflake(dt));`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 550', () => {
+test('[WITH] should pass without errors: 550', () => {
     const query = `WITH toDateTime64('2021-08-15 18:57:56.492', 3, 'Asia/Shanghai') AS dt64 SELECT dt64, dateTime64ToSnowflake(dt64), materialize(dateTime64ToSnowflake(dt64));`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 551', () => {
+test('[WITH] should pass without errors: 551', () => {
     const query = `WITH toDateTime64('2021-08-15 18:57:56.492', 0, 'UTC') AS dt64_0, toDateTime64('2021-08-15 18:57:56.492', 1, 'UTC') AS dt64_1,
 toDateTime64('2021-08-15 18:57:56.492', 2, 'UTC') AS dt64_2,
 toDateTime64('2021-08-15 18:57:56.492', 3, 'UTC') AS dt64_3,
@@ -5644,7 +5644,7 @@ dateTime64ToSnowflake(dt64_4);`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 552', () => {
+test('[WITH] should pass without errors: 552', () => {
     const query = `WITH now64(0, 'UTC') AS dt64_0, now64(1, 'UTC') AS dt64_1,
 now64(2, 'UTC') AS dt64_2,
 now64(3, 'UTC') AS dt64_3
@@ -5657,7 +5657,7 @@ snowflakeToDateTime64(dateTime64ToSnowflake(dt64_3), 'UTC') == dt64_3;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 553', () => {
+test('[WITH] should pass without errors: 553', () => {
     const query = `WITH toDate('2000-01-01') as a, toDateTime('2000-01-01', 'Asia/Istanbul') as b SELECT if(value, b, a) as result, toTypeName(result)
 FROM predicate_table;`;
 
@@ -5665,7 +5665,7 @@ FROM predicate_table;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 554', () => {
+test('[WITH] should pass without errors: 554', () => {
     const query = `WITH toDateTime('2000-01-01', 'Asia/Istanbul') as a, toDateTime64('2000-01-01', 5, 'Asia/Istanbul') as b SELECT if(value, b, a) as result, toTypeName(result)
 FROM predicate_table;`;
 
@@ -5673,21 +5673,21 @@ FROM predicate_table;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 555', () => {
+test('[WITH] should pass without errors: 555', () => {
     const query = `with '{"string_value":null}' as json select JSONExtract(json, 'string_value', 'Nullable(String)');`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 556', () => {
+test('[WITH] should pass without errors: 556', () => {
     const query = `with '{"string_value":null}' as json select JSONExtract(json, 'string_value', 'LowCardinality(Nullable(String))');`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 557', () => {
+test('[WITH] should pass without errors: 557', () => {
     const query = `WITH arrayJoin(['a', 'b']) AS z SELECT
 z,
 sumMergeForEach(x) AS x
@@ -5703,7 +5703,7 @@ ORDER BY z;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 558', () => {
+test('[WITH] should pass without errors: 558', () => {
     const query = `WITH A as (SELECT rowNumberInAllBlocks() R,addDays(toDate('2021-05-18'), R) TVV from numbers(5)), B as (SELECT rowNumberInAllBlocks() R,toDateTime(NULL) TVV from numbers(1))
 SELECT
 joinGet('DATE_INFO_DICT',  'SHAMSI',   toDate(A.TVV) ) TV1,
@@ -5715,7 +5715,7 @@ ORDER BY TV1;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 559', () => {
+test('[WITH] should pass without errors: 559', () => {
     const query = `WITH A as (SELECT rowNumberInAllBlocks() R,addDays(toDate('2021-05-18'), R) TVV from numbers(5)), B as (SELECT rowNumberInAllBlocks() R,toDateTime(NULL) TVV from numbers(1))
 SELECT
 joinGetOrNull('DATE_INFO_DICT',    'SHAMSI',   toDate(A.TVV) ) TV1,
@@ -5727,7 +5727,7 @@ ORDER BY TV1;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 560', () => {
+test('[WITH] should pass without errors: 560', () => {
     const query = `WITH (d < '2018-01-01') AND (d < '2018-01-02') AS x SELECT 1
 FROM t
 WHERE x;`;
@@ -5736,49 +5736,49 @@ WHERE x;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 561', () => {
+test('[WITH] should pass without errors: 561', () => {
     const query = `WITH h3ToGeo(h3_index) AS p SELECT round(p.1, 3), round(p.2, 3) FROM h3_indexes ORDER BY h3_index;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 562', () => {
+test('[WITH] should pass without errors: 562', () => {
     const query = `with t as s select t from tab where s > '2020-01-01 01:01:01';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 563', () => {
+test('[WITH] should pass without errors: 563', () => {
     const query = `with t + 1 as s select t from tab where s > '2020-01-01 01:01:01';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 564', () => {
+test('[WITH] should pass without errors: 564', () => {
     const query = `with x + y as s select x, y from tab where s = 2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 565', () => {
+test('[WITH] should pass without errors: 565', () => {
     const query = `WITH [3,4,5] AS x SELECT x[1]::Int32;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 566', () => {
+test('[WITH] should pass without errors: 566', () => {
     const query = `WITH tuple(3,4,5) AS x SELECT x.1::Int32;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 567', () => {
+test('[WITH] should pass without errors: 567', () => {
     const query = `WITH toDate('2021-04-14') AS date_value,
 toDate32('2021-04-14') AS date_32_value,
 toDateTime('2021-04-14 11:22:33') AS date_time_value,
@@ -5789,7 +5789,7 @@ SELECT dateName('year', date_value), dateName('year', date_32_value), dateName('
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 568', () => {
+test('[WITH] should pass without errors: 568', () => {
     const query = `WITH toDate('2021-04-14') AS date_value,
 toDate32('2021-04-14') AS date_32_value,
 toDateTime('2021-04-14 11:22:33') AS date_time_value,
@@ -5800,7 +5800,7 @@ SELECT dateName('quarter', date_value), dateName('quarter', date_32_value), date
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 569', () => {
+test('[WITH] should pass without errors: 569', () => {
     const query = `WITH toDate('2021-04-14') AS date_value,
 toDate32('2021-04-14') AS date_32_value,
 toDateTime('2021-04-14 11:22:33') AS date_time_value,
@@ -5811,7 +5811,7 @@ SELECT dateName('month', date_value), dateName('month', date_32_value), dateName
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 570', () => {
+test('[WITH] should pass without errors: 570', () => {
     const query = `WITH toDate('2021-04-14') AS date_value,
 toDate32('2021-04-14') AS date_32_value,
 toDateTime('2021-04-14 11:22:33') AS date_time_value,
@@ -5822,7 +5822,7 @@ SELECT dateName('dayofyear', date_value), dateName('dayofyear', date_32_value), 
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 571', () => {
+test('[WITH] should pass without errors: 571', () => {
     const query = `WITH toDate('2021-04-14') AS date_value,
 toDate32('2021-04-14') AS date_32_value,
 toDateTime('2021-04-14 11:22:33') AS date_time_value,
@@ -5833,7 +5833,7 @@ SELECT dateName('day', date_value), dateName('day', date_32_value), dateName('da
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 572', () => {
+test('[WITH] should pass without errors: 572', () => {
     const query = `WITH toDate('2021-04-14') AS date_value,
 toDate32('2021-04-14') AS date_32_value,
 toDateTime('2021-04-14 11:22:33') AS date_time_value,
@@ -5844,7 +5844,7 @@ SELECT dateName('week', date_value), dateName('week', date_32_value), dateName('
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 573', () => {
+test('[WITH] should pass without errors: 573', () => {
     const query = `WITH toDate('2021-04-14') AS date_value,
 toDate32('2021-04-14') AS date_32_value,
 toDateTime('2021-04-14 11:22:33') AS date_time_value,
@@ -5855,7 +5855,7 @@ SELECT dateName('weekday', date_value), dateName('weekday', date_32_value), date
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 574', () => {
+test('[WITH] should pass without errors: 574', () => {
     const query = `WITH toDateTime('2021-04-14 11:22:33') AS date_time_value,
 toDateTime64('2021-04-14 11:22:33', 3) AS date_time_64_value
 SELECT dateName('hour', date_time_value), dateName('hour', date_time_64_value);`;
@@ -5864,7 +5864,7 @@ SELECT dateName('hour', date_time_value), dateName('hour', date_time_64_value);`
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 575', () => {
+test('[WITH] should pass without errors: 575', () => {
     const query = `WITH toDateTime('2021-04-14 11:22:33') AS date_time_value,
 toDateTime64('2021-04-14 11:22:33', 3) AS date_time_64_value
 SELECT dateName('minute', date_time_value), dateName('minute', date_time_64_value);`;
@@ -5873,7 +5873,7 @@ SELECT dateName('minute', date_time_value), dateName('minute', date_time_64_valu
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 576', () => {
+test('[WITH] should pass without errors: 576', () => {
     const query = `WITH toDateTime('2021-04-14 11:22:33') AS date_time_value,
 toDateTime64('2021-04-14 11:22:33', 3) AS date_time_64_value
 SELECT dateName('second', date_time_value), dateName('second', date_time_64_value);`;
@@ -5882,7 +5882,7 @@ SELECT dateName('second', date_time_value), dateName('second', date_time_64_valu
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 577', () => {
+test('[WITH] should pass without errors: 577', () => {
     const query = `WITH toDateTime('2021-04-14 23:22:33', 'UTC') as date
 SELECT
 dateName('weekday', date, 'UTC'),
@@ -5894,7 +5894,7 @@ dateName('second', date, 'UTC');`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 578', () => {
+test('[WITH] should pass without errors: 578', () => {
     const query = `WITH toDateTime('2021-04-14 23:22:33', 'UTC') as date
 SELECT
 dateName('weekday', date, 'Asia/Istanbul'),
@@ -5906,119 +5906,119 @@ dateName('second', date, 'Asia/Istanbul');`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 579', () => {
+test('[WITH] should pass without errors: 579', () => {
     const query = `WITH arrayJoin(['192.168.99.255', '192.168.100.1', '192.168.103.255', '192.168.104.0']) as addr, '192.168.100.0/22' as prefix SELECT addr, prefix, isIPAddressInRange(addr, prefix);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 580', () => {
+test('[WITH] should pass without errors: 580', () => {
     const query = `WITH arrayJoin(['::192.168.99.255', '::192.168.100.1', '::192.168.103.255', '::192.168.104.0']) as addr, '::192.168.100.0/118' as prefix SELECT addr, prefix, isIPAddressInRange(addr, prefix);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 581', () => {
+test('[WITH] should pass without errors: 581', () => {
     const query = `WITH '192.168.100.1' as addr, arrayJoin(['192.168.100.0/22', '192.168.100.0/24', '192.168.100.0/32']) as prefix SELECT addr, prefix, isIPAddressInRange(addr, prefix);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 582', () => {
+test('[WITH] should pass without errors: 582', () => {
     const query = `WITH '::192.168.100.1' as addr, arrayJoin(['::192.168.100.0/118', '::192.168.100.0/120', '::192.168.100.0/128']) as prefix SELECT addr, prefix, isIPAddressInRange(addr, prefix);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 583', () => {
+test('[WITH] should pass without errors: 583', () => {
     const query = `WITH arrayJoin(['192.168.100.1', '192.168.103.255']) as addr, arrayJoin(['192.168.100.0/22', '192.168.100.0/24']) as prefix SELECT addr, prefix, isIPAddressInRange(addr, prefix);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 584', () => {
+test('[WITH] should pass without errors: 584', () => {
     const query = `WITH arrayJoin(['::192.168.100.1', '::192.168.103.255']) as addr, arrayJoin(['::192.168.100.0/118', '::192.168.100.0/120']) as prefix SELECT addr, prefix, isIPAddressInRange(addr, prefix);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 585', () => {
+test('[WITH] should pass without errors: 585', () => {
     const query = `with (select currentDatabase()) as id_no select *, ignore(id_no) from dist_01756 where dummy in (0, 2);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 586', () => {
+test('[WITH] should pass without errors: 586', () => {
     const query = `with (select currentDatabase()) as id_02 select *, ignore(id_02) from dist_01756 where dummy in (0, 2);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 587', () => {
+test('[WITH] should pass without errors: 587', () => {
     const query = `with (select currentDatabase()) as id_2 select *, ignore(id_2) from dist_01756 where dummy in (2);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 588', () => {
+test('[WITH] should pass without errors: 588', () => {
     const query = `with (select currentDatabase()) as id_00 select *, ignore(id_00) from dist_01756 where dummy in (0);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 589', () => {
+test('[WITH] should pass without errors: 589', () => {
     const query = `with (select currentDatabase()) as key_signed select *, ignore(key_signed) from cluster(test_cluster_two_shards, currentDatabase(), data_01756_signed, key) where key in (-1, -2);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 590', () => {
+test('[WITH] should pass without errors: 590', () => {
     const query = `WITH (SELECT count(distinct colU) from tabA) AS withA, (SELECT count(distinct colU) from tabA) AS withB SELECT withA / withB AS ratio FROM (SELECT date AS period, colX FROM (SELECT date, if(colA IN (SELECT colB FROM tabC), 0, colA) AS colX FROM tabB) AS tempB GROUP BY period, colX) AS main; -- {serverError UNKNOWN_TABLE} `;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 591', () => {
+test('[WITH] should pass without errors: 591', () => {
     const query = `WITH toStartOfHour(ts) AS a SELECT sum(value) v FROM normal WHERE ts > '2021-12-06 22:00:00' GROUP BY a ORDER BY v LIMIT 5;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 592', () => {
+test('[WITH] should pass without errors: 592', () => {
     const query = `WITH toStartOfHour(ts) AS a SELECT sum(value) v FROM normal WHERE ts > '2021-12-06 22:00:00' GROUP BY toStartOfHour(ts), a ORDER BY v LIMIT 5;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 593', () => {
+test('[WITH] should pass without errors: 593', () => {
     const query = `WITH toStartOfHour(ts) AS a SELECT sum(value) v FROM agg WHERE ts > '2021-12-06 22:00:00' GROUP BY a ORDER BY v LIMIT 5;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 594', () => {
+test('[WITH] should pass without errors: 594', () => {
     const query = `WITH toStartOfHour(ts) AS a SELECT sum(value) v FROM agg WHERE ts > '2021-12-06 22:00:00' GROUP BY toStartOfHour(ts), a ORDER BY v LIMIT 5;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 595', () => {
+test('[WITH] should pass without errors: 595', () => {
     const query = `WITH '{ "v":1.1}' AS raw SELECT
 JSONExtract(raw, 'v', 'float') AS float32_1,
 JSONExtract(raw, 'v', 'Float32') AS float32_2,
@@ -6029,7 +6029,7 @@ JSONExtract(raw, 'v', 'double') AS float64_2;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 596', () => {
+test('[WITH] should pass without errors: 596', () => {
     const query = `WITH '{ "v":1E-2}' AS raw SELECT
 JSONExtract(raw, 'v', 'float') AS float32_1,
 JSONExtract(raw, 'v', 'Float32') AS float32_2,
@@ -6040,7 +6040,7 @@ JSONExtract(raw, 'v', 'double') AS float64_2;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 597', () => {
+test('[WITH] should pass without errors: 597', () => {
     const query = `WITH concat(addressToLine(arrayJoin(trace) AS addr), '#') AS symbol SELECT count() > 7
 FROM trace_log AS t
 WHERE (query_id =
@@ -6072,7 +6072,7 @@ DROP TABLE IF EXISTS trace_log;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 598', () => {
+test('[WITH] should pass without errors: 598', () => {
     const query = `WITH ( (
 SELECT query_start_time_microseconds
 FROM system.query_log
@@ -6111,14 +6111,14 @@ SELECT if(dateDiff('second', toDateTime(time_with_microseconds), toDateTime(t)) 
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 599', () => {
+test('[WITH] should pass without errors: 599', () => {
     const query = `with i as k select * from alias_key_condition where k = (select i from alias_key_condition where i = 3);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 600', () => {
+test('[WITH] should pass without errors: 600', () => {
     const query = `WITH  sum(if((a >= 0) AND (b != 100) AND (c = 0), 1, 0)) AS r1, 
 sum(if((a >= 0) AND (b != 100) AND (c > 220), 1, 0)) AS r2 
 SELECT 
@@ -6133,140 +6133,140 @@ ORDER BY t ASC;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 601', () => {
+test('[WITH] should pass without errors: 601', () => {
     const query = `WITH ['2023-04-05 00:25:23', '2023-04-05 00:25:24']::Array(DateTime) AS dt SELECT arrayMax(dt), arrayMin(dt), arrayDifference(dt);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 602', () => {
+test('[WITH] should pass without errors: 602', () => {
     const query = `WITH ['2023-04-05 00:25:23.123', '2023-04-05 00:25:24.124']::Array(DateTime64(3)) AS dt SELECT arrayMax(dt), arrayMin(dt), arrayDifference(dt);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 603', () => {
+test('[WITH] should pass without errors: 603', () => {
     const query = `WITH ['2023-04-05', '2023-04-06']::Array(Date) AS d SELECT arrayMax(d), arrayMin(d), arrayDifference(d);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 604', () => {
+test('[WITH] should pass without errors: 604', () => {
     const query = `WITH ['2023-04-05', '2023-04-06']::Array(Date32) AS d SELECT arrayMax(d), arrayMin(d), arrayDifference(d);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 605', () => {
+test('[WITH] should pass without errors: 605', () => {
     const query = `with number + 1 as x select intDiv(number, 3) as y, sum(x + y) over (partition by y order by x rows unbounded preceding) from numbers(7);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 606', () => {
+test('[WITH] should pass without errors: 606', () => {
     const query = `with anySimpleState(number) as c select toTypeName(c), c from numbers(1);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 607', () => {
+test('[WITH] should pass without errors: 607', () => {
     const query = `with anyLastSimpleState(number) as c select toTypeName(c), c from numbers(1);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 608', () => {
+test('[WITH] should pass without errors: 608', () => {
     const query = `with minSimpleState(number) as c select toTypeName(c), c from numbers(1);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 609', () => {
+test('[WITH] should pass without errors: 609', () => {
     const query = `with maxSimpleState(number) as c select toTypeName(c), c from numbers(1);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 610', () => {
+test('[WITH] should pass without errors: 610', () => {
     const query = `with sumSimpleState(number) as c select toTypeName(c), c from numbers(1);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 611', () => {
+test('[WITH] should pass without errors: 611', () => {
     const query = `with sumWithOverflowSimpleState(number) as c select toTypeName(c), c from numbers(1);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 612', () => {
+test('[WITH] should pass without errors: 612', () => {
     const query = `with groupBitAndSimpleState(number) as c select toTypeName(c), c from numbers(1);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 613', () => {
+test('[WITH] should pass without errors: 613', () => {
     const query = `with groupBitOrSimpleState(number) as c select toTypeName(c), c from numbers(1);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 614', () => {
+test('[WITH] should pass without errors: 614', () => {
     const query = `with groupBitXorSimpleState(number) as c select toTypeName(c), c from numbers(1);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 615', () => {
+test('[WITH] should pass without errors: 615', () => {
     const query = `with sumMapSimpleState(([number], [number])) as c select toTypeName(c), c from numbers(1);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 616', () => {
+test('[WITH] should pass without errors: 616', () => {
     const query = `with minMapSimpleState(([number], [number])) as c select toTypeName(c), c from numbers(1);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 617', () => {
+test('[WITH] should pass without errors: 617', () => {
     const query = `with maxMapSimpleState(([number], [number])) as c select toTypeName(c), c from numbers(1);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 618', () => {
+test('[WITH] should pass without errors: 618', () => {
     const query = `with groupArrayArraySimpleState([number]) as c select toTypeName(c), c from numbers(1);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 619', () => {
+test('[WITH] should pass without errors: 619', () => {
     const query = `with groupUniqArrayArraySimpleState([number]) as c select toTypeName(c), c from numbers(1);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 620', () => {
+test('[WITH] should pass without errors: 620', () => {
     const query = `WITH arrayJoin(range(2)) AS delta SELECT
 toDate(time) + toIntervalDay(delta) AS dt
 FROM
@@ -6279,7 +6279,7 @@ ORDER BY dt ASC;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 621', () => {
+test('[WITH] should pass without errors: 621', () => {
     const query = `WITH arrayJoin([0, 1]) AS delta SELECT
 toDate(time) + toIntervalDay(delta) AS dt
 FROM
@@ -6292,77 +6292,77 @@ ORDER BY dt ASC;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 622', () => {
+test('[WITH] should pass without errors: 622', () => {
     const query = `WITH mannWhitneyUTest(left, right) AS pair SELECT roundBankers(pair.1, 16) as t_stat, roundBankers(pair.2, 16) as p_value from mann_whitney_test;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 623', () => {
+test('[WITH] should pass without errors: 623', () => {
     const query = `WITH mannWhitneyUTest('two-sided', 1)(left, right) as pair SELECT roundBankers(pair.1, 16) as t_stat, roundBankers(pair.2, 16) as p_value from mann_whitney_test;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 624', () => {
+test('[WITH] should pass without errors: 624', () => {
     const query = `WITH mannWhitneyUTest('two-sided')(left, right) as pair SELECT roundBankers(pair.1, 16) as t_stat, roundBankers(pair.2, 16) as p_value from mann_whitney_test;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 625', () => {
+test('[WITH] should pass without errors: 625', () => {
     const query = `WITH mannWhitneyUTest('two-sided')(1, right) AS pair SELECT roundBankers(pair.1, 16) AS t_stat, roundBankers(pair.2, 16) AS p_value FROM mann_whitney_test; --{serverError BAD_ARGUMENTS} DROP TABLE IF EXISTS mann_whitney_test;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 626', () => {
+test('[WITH] should pass without errors: 626', () => {
     const query = `with 1 as x select x;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 627', () => {
+test('[WITH] should pass without errors: 627', () => {
     const query = `with 1 as x select * from (select x);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 628', () => {
+test('[WITH] should pass without errors: 628', () => {
     const query = `with 1 as x select *, x from (with 2 as x select x as y);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 629', () => {
+test('[WITH] should pass without errors: 629', () => {
     const query = `with 1 as x select x union all select x;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 630', () => {
+test('[WITH] should pass without errors: 630', () => {
     const query = `with 5 as q1, x as (select number+100 as b, number as a from numbers(10) where number > q1) select * from x;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 631', () => {
+test('[WITH] should pass without errors: 631', () => {
     const query = `with it as ( select * from numbers(1) ) select it.number, i.number from it as i;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 632', () => {
+test('[WITH] should pass without errors: 632', () => {
     const query = `WITH x AS (SELECT * FROM cte1),
 y AS (SELECT * FROM cte2),
 z AS (SELECT * FROM x WHERE a % 2 = 1),
@@ -6375,7 +6375,7 @@ WHERE a in (SELECT * FROM z) AND a <= (SELECT max(a) FROM w);`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 633', () => {
+test('[WITH] should pass without errors: 633', () => {
     const query = `WITH x AS (SELECT * FROM cte1),
 y AS (SELECT * FROM cte2),
 z AS (SELECT * FROM x WHERE a % 3 = 1),
@@ -6388,7 +6388,7 @@ WHERE a in (SELECT * FROM z) AND a <= (SELECT max(a) FROM w);`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 634', () => {
+test('[WITH] should pass without errors: 634', () => {
     const query = `WITH x AS (SELECT * FROM cte1),
 y AS (SELECT * FROM cte2),
 z AS (SELECT * FROM x WHERE a % 3 = 1),
@@ -6401,7 +6401,7 @@ WHERE a in (SELECT * FROM z);`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 635', () => {
+test('[WITH] should pass without errors: 635', () => {
     const query = `WITH x AS (SELECT a-4000 a FROM cte1 WHERE cte1.a >700),
 y AS (SELECT * FROM cte2),
 z AS (SELECT * FROM x WHERE a % 3 = 1),
@@ -6414,7 +6414,7 @@ WHERE a in (SELECT * FROM z);`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 636', () => {
+test('[WITH] should pass without errors: 636', () => {
     const query = `WITH x AS (SELECT a-4000 a FROM cte1 WHERE cte1.a >700),
 y AS (SELECT * FROM cte2),
 z AS (SELECT * FROM x WHERE a % 3 = 1),
@@ -6427,7 +6427,7 @@ WHERE a in (SELECT * FROM z) AND a <100;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 637', () => {
+test('[WITH] should pass without errors: 637', () => {
     const query = `WITH x AS (SELECT a-4000 a FROM cte1 WHERE cte1.a >700),
 y AS (SELECT * FROM cte2),
 z AS (SELECT * FROM x WHERE a % 3 = 1),
@@ -6439,7 +6439,7 @@ WHERE  a <100;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 638', () => {
+test('[WITH] should pass without errors: 638', () => {
     const query = `WITH x AS (SELECT a-4000 a FROM cte1 AS t WHERE cte1.a >700),
 y AS (SELECT * FROM cte2),
 z AS (SELECT * FROM x WHERE a % 3 = 1),
@@ -6452,7 +6452,7 @@ WHERE  a <100;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 639', () => {
+test('[WITH] should pass without errors: 639', () => {
     const query = `WITH x AS (SELECT a-4000 a FROM cte1 t WHERE t.a >700),
 y AS (SELECT x.a a FROM x left JOIN cte1 USING (a)),
 z AS (SELECT * FROM x WHERE a % 3 = 1),
@@ -6465,7 +6465,7 @@ WHERE a <100;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 640', () => {
+test('[WITH] should pass without errors: 640', () => {
     const query = `WITH x AS (SELECT number AS a FROM numbers(10)),
 y AS (SELECT number AS a FROM numbers(5))
 SELECT * FROM x WHERE a in (SELECT a FROM y)
@@ -6475,7 +6475,7 @@ ORDER BY a;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 641', () => {
+test('[WITH] should pass without errors: 641', () => {
     const query = `WITH x AS (SELECT number AS a FROM numbers(10)),
 y AS (SELECT number AS a FROM numbers(5))
 SELECT * FROM x left JOIN y USING a
@@ -6485,7 +6485,7 @@ ORDER BY a;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 642', () => {
+test('[WITH] should pass without errors: 642', () => {
     const query = `WITH x AS (SELECT number AS a FROM numbers(10)),
 y AS (SELECT number AS a FROM numbers(5))
 SELECT * FROM x JOIN y USING a
@@ -6495,7 +6495,7 @@ ORDER BY x.a;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 643', () => {
+test('[WITH] should pass without errors: 643', () => {
     const query = `WITH x AS (SELECT number AS a FROM numbers(10)),
 y AS (SELECT number AS a FROM numbers(5)),
 z AS (SELECT toUInt64(1) b)
@@ -6505,7 +6505,7 @@ SELECT * FROM x JOIN y USING a WHERE a in (SELECT * FROM z);`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 644', () => {
+test('[WITH] should pass without errors: 644', () => {
     const query = `WITH x AS (SELECT number AS a FROM numbers(10)),
 y AS (SELECT number AS a FROM numbers(5)),
 z AS (SELECT * FROM x WHERE a % 2),
@@ -6517,7 +6517,7 @@ ORDER BY x.a;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 645', () => {
+test('[WITH] should pass without errors: 645', () => {
     const query = `WITH x AS (SELECT number AS a FROM numbers(10)),
 y AS (SELECT number AS a FROM numbers(5)),
 z AS (SELECT * FROM x WHERE a % 2),
@@ -6528,7 +6528,7 @@ SELECT max(a) FROM x JOIN y USING a WHERE a in (SELECT * FROM z) AND a > (SELECT
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 646', () => {
+test('[WITH] should pass without errors: 646', () => {
     const query = `WITH x AS (SELECT number AS a FROM numbers(10)),
 y AS (SELECT number AS a FROM numbers(5)),
 z AS (SELECT * FROM x WHERE a % 2),
@@ -6540,154 +6540,154 @@ ORDER BY x.a;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 647', () => {
+test('[WITH] should pass without errors: 647', () => {
     const query = `WITH test1 AS (SELECT * FROM numbers(5)) SELECT * FROM test1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 648', () => {
+test('[WITH] should pass without errors: 648', () => {
     const query = `WITH test1 AS (SELECT i + 1, j + 1 FROM test1) SELECT * FROM test1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 649', () => {
+test('[WITH] should pass without errors: 649', () => {
     const query = `WITH test1 AS (SELECT i + 1, j + 1 FROM test1) SELECT * FROM (SELECT * FROM test1);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 650', () => {
+test('[WITH] should pass without errors: 650', () => {
     const query = `WITH test1 AS (SELECT i + 1, j + 1 FROM test1) SELECT toInt64(4) i, toInt64(5) j FROM numbers(3) WHERE (i, j) IN test1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 651', () => {
+test('[WITH] should pass without errors: 651', () => {
     const query = `WITH test1 AS (SELECT number-1 as n FROM numbers(42))  SELECT max(n+1)+1 z FROM test1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 652', () => {
+test('[WITH] should pass without errors: 652', () => {
     const query = `WITH test1 AS (SELECT number-1 as n FROM numbers(42))  SELECT max(n+1)+1 z FROM test1 join test1 x using n having z - 1 = (select min(n-1)+41 from test1) + 2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 653', () => {
+test('[WITH] should pass without errors: 653', () => {
     const query = `WITH test1 AS (SELECT number-1 as n FROM numbers(4442) order by n limit 100) SELECT max(n) FROM test1 where n=422;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 654', () => {
+test('[WITH] should pass without errors: 654', () => {
     const query = `WITH test1 AS (SELECT number-1 as n FROM numbers(4442) order by n limit 100) SELECT max(n) FROM test1 where n=42;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 655', () => {
+test('[WITH] should pass without errors: 655', () => {
     const query = `WITH test1 AS (SELECT n FROM with_test where n <= 40)  SELECT max(n+1)+1 z FROM test1 join test1 x using (n) having max(n+1)+1 - 1 = (select min(n-1)+41 from test1) + 2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 656', () => {
+test('[WITH] should pass without errors: 656', () => {
     const query = `WITH test1 AS (SELECT n FROM with_test where n <= 40)  SELECT max(n+1)+1 z FROM test1 join test1 x using (n) having z - 1 = (select min(n-1)+41 from test1) + 2;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 657', () => {
+test('[WITH] should pass without errors: 657', () => {
     const query = `WITH test1 AS (SELECT  n FROM with_test order by n limit 100) SELECT max(n) FROM test1 where n=422;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 658', () => {
+test('[WITH] should pass without errors: 658', () => {
     const query = `WITH test1 AS (SELECT n FROM with_test order by n limit 100) SELECT max(n) FROM test1 where n=42;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 659', () => {
+test('[WITH] should pass without errors: 659', () => {
     const query = `WITH test1 AS (SELECT n FROM with_test where n = 42  order by n limit 100) SELECT max(n) FROM test1 where n=42;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 660', () => {
+test('[WITH] should pass without errors: 660', () => {
     const query = `WITH test1 AS (SELECT n FROM with_test where n = 42 or 1=1 order by n limit 100) SELECT max(n) FROM test1 where n=42;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 661', () => {
+test('[WITH] should pass without errors: 661', () => {
     const query = `WITH test1 AS (SELECT n, null as b FROM with_test where n = 42 or b is null order by n limit 100) SELECT max(n) FROM test1 where n=42;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 662', () => {
+test('[WITH] should pass without errors: 662', () => {
     const query = `WITH test1 AS (SELECT n, null b FROM with_test where b is null) SELECT max(n) FROM test1 where n=42;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 663', () => {
+test('[WITH] should pass without errors: 663', () => {
     const query = `WITH test1 AS (SELECT n, null b FROM with_test where b is null or 1=1) SELECT max(n) FROM test1 where n=45;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 664', () => {
+test('[WITH] should pass without errors: 664', () => {
     const query = `WITH test1 AS (SELECT n, null b FROM with_test where b is null and n = 42) SELECT max(n) FROM test1 where n=45;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 665', () => {
+test('[WITH] should pass without errors: 665', () => {
     const query = `WITH test1 AS (SELECT n, null b FROM with_test where 1=1 and n = 42 order by n) SELECT max(n) FROM test1 where n=45;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 666', () => {
+test('[WITH] should pass without errors: 666', () => {
     const query = `WITH test1 AS (SELECT n, null b, n+1 m FROM with_test where 1=0 or n = 42 order by n limit 4) SELECT max(n) m FROM test1 where test1.m=43 having max(n)=42;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 667', () => {
+test('[WITH] should pass without errors: 667', () => {
     const query = `WITH test1 AS (SELECT n, null b, n+1 m FROM with_test where  n = 42 order by n limit 4) SELECT max(n) m FROM test1 where b is null and test1.m=43 having m=42 limit 4;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 668', () => {
+test('[WITH] should pass without errors: 668', () => {
     const query = `with test1 as (select n, null b, n+1 m from with_test where  n = 42 order by n limit 4),
 test2 as (select n + 1 as x, n - 1 as y from test1),
 test3 as (select x * y as z from test2)
@@ -6697,7 +6697,7 @@ select z + 1 as q from test3;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 669', () => {
+test('[WITH] should pass without errors: 669', () => {
     const query = `WITH round(exp(number), 6) AS x, toUInt64(x) AS y, toInt32(min2(x, 2147483647)) AS z SELECT formatReadableQuantity(x), formatReadableQuantity(y), formatReadableQuantity(z)
 FROM system.numbers
 LIMIT 45;`;
@@ -6706,7 +6706,7 @@ LIMIT 45;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 670', () => {
+test('[WITH] should pass without errors: 670', () => {
     const query = `WITH ( SELECT event_time_microseconds, event_time
 FROM system.metric_log
 ORDER BY event_time DESC
@@ -6718,7 +6718,7 @@ SELECT if(dateDiff('second', toDateTime(time.1), toDateTime(time.2)) = 0, 'ok', 
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 671', () => {
+test('[WITH] should pass without errors: 671', () => {
     const query = `WITH ( SELECT event_time_microseconds, event_time
 FROM system.trace_log
 ORDER BY event_time DESC
@@ -6730,7 +6730,7 @@ SELECT if(dateDiff('second', toDateTime(time.1), toDateTime(time.2)) = 0, 'ok', 
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 672', () => {
+test('[WITH] should pass without errors: 672', () => {
     const query = `WITH ( SELECT event_time_microseconds, event_time
 FROM system.query_log
 WHERE current_database = currentDatabase()
@@ -6743,7 +6743,7 @@ SELECT if(dateDiff('second', toDateTime(time.1), toDateTime(time.2)) = 0, 'ok', 
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 673', () => {
+test('[WITH] should pass without errors: 673', () => {
     const query = `WITH ( SELECT event_time_microseconds, event_time
 FROM system.query_thread_log
 WHERE current_database = currentDatabase()
@@ -6756,7 +6756,7 @@ SELECT if(dateDiff('second', toDateTime(time.1), toDateTime(time.2)) = 0, 'ok', 
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 674', () => {
+test('[WITH] should pass without errors: 674', () => {
     const query = `WITH ( (
 SELECT query_start_time_microseconds
 FROM system.query_log
@@ -6782,70 +6782,70 @@ SET log_query_threads = 1;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 675', () => {
+test('[WITH] should pass without errors: 675', () => {
     const query = `WITH number * 2 AS square_number SELECT number, square_number FROM numbers_indexed WHERE number = 999;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 676', () => {
+test('[WITH] should pass without errors: 676', () => {
     const query = `WITH 8.5 AS a, 2.5 AS b SELECT a % b, -a % b, a % -b, -a % -b;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 677', () => {
+test('[WITH] should pass without errors: 677', () => {
     const query = `WITH 10.125 AS a, 2.5 AS b SELECT a % b, -a % b, a % -b, -a % -b;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 678', () => {
+test('[WITH] should pass without errors: 678', () => {
     const query = `WITH 8.5 AS a, 2.5 AS b SELECT mod(a, b), MOD(-a, b), modulo(a, -b), moduloOrZero(-a, -b);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 679', () => {
+test('[WITH] should pass without errors: 679', () => {
     const query = `WITH 8.5 AS a, 2.5 AS b SELECT a MOD b, -a MOD b, a MOD -b, -a MOD -b;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 680', () => {
+test('[WITH] should pass without errors: 680', () => {
     const query = `WITH 10.125 AS a, 2.5 AS b SELECT a MOD b, -a MOD b, a MOD -b, -a MOD -b;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 681', () => {
+test('[WITH] should pass without errors: 681', () => {
     const query = `WITH CAST(round(sqrt(number)) % 4 AS Enum('' = 0, 'hello' = 1, 'world' = 2, 'test' = 3)) AS x SELECT topK(10)(x) FROM numbers(1000);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 682', () => {
+test('[WITH] should pass without errors: 682', () => {
     const query = `WITH toDateTime64('2019-09-16 19:20:12.3456789102019-09-16 19:20:12.345678910', 0) AS dt64 SELECT dt64; -- { serverError CANNOT_PARSE_TEXT } SELECT toDateTime64('2011-11-11 11:11:11.1234567890123456789', 0);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 683', () => {
+test('[WITH] should pass without errors: 683', () => {
     const query = `WITH materialize(CAST(NULL, 'Nullable(Float64)')) AS test SELECT test, toTypeName(test), IF(test = 0, 1, 0);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 684', () => {
+test('[WITH] should pass without errors: 684', () => {
     const query = `WITH (SELECT [0, 1, 2, 3]) AS arr1
 SELECT arraySort(arrayIntersect(argMax(seqs, create_time), arr1)) AS common, id
 FROM tags
@@ -6857,7 +6857,7 @@ ORDER BY id;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 685', () => {
+test('[WITH] should pass without errors: 685', () => {
     const query = `with (select groupArray(id) from bbb) as ids select *
 from aaa
 where has(ids, id)
@@ -6867,28 +6867,28 @@ order by id;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 686', () => {
+test('[WITH] should pass without errors: 686', () => {
     const query = `WITH CAST(NULL as Nullable(String)) as input, 'aes-256-ofb' as mode SELECT toTypeName(input), hex(aes_encrypt_mysql(mode, input, key32,iv)) FROM encryption_test LIMIT 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 687', () => {
+test('[WITH] should pass without errors: 687', () => {
     const query = `WITH CAST('text' as Nullable(String)) as input, 'aes-256-ofb' as mode SELECT toTypeName(input), hex(aes_encrypt_mysql(mode, input, key32, iv)) FROM encryption_test LIMIT 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 688', () => {
+test('[WITH] should pass without errors: 688', () => {
     const query = `WITH CAST('text' as LowCardinality(String)) as input, 'aes-256-ofb' as mode SELECT toTypeName(input), hex(aes_encrypt_mysql(mode, input, key32, iv)) FROM encryption_test LIMIT 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 689', () => {
+test('[WITH] should pass without errors: 689', () => {
     const query = `WITH unhex('eebc1f57487f51921c0465665f8ae6d1658bb26de6f8a069a3520293a572078f') as key,
 unhex('67ba0510262ae487d737ee6298f77e0c') as tag,
 unhex('99aa3e68ed8173a0eed06684') as iv,
@@ -6903,7 +6903,7 @@ ciphertext_actual = concat(hex(ciphertext), hex(tag));`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 690', () => {
+test('[WITH] should pass without errors: 690', () => {
     const query = `WITH unhex('eebc1f57487f51921c0465665f8ae6d1658bb26de6f8a069a3520293a572078f') as key,
 unhex('67ba0510262ae487d737ee6298f77e0c') as tag,
 unhex('99aa3e68ed8173a0eed06684') as iv,
@@ -6918,7 +6918,7 @@ plaintext_actual = hex(plaintext);`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 691', () => {
+test('[WITH] should pass without errors: 691', () => {
     const query = `WITH 	toDateTime64('2019-09-16 19:20:12.345678910', 3) AS dt64
 SELECT
 	dt64,
@@ -6930,7 +6930,7 @@ SELECT
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 692', () => {
+test('[WITH] should pass without errors: 692', () => {
     const query = `WITH 	toDateTime64('2019-09-16 19:20:12.345678910', 6) AS dt64
 SELECT
 	dt64,
@@ -6942,7 +6942,7 @@ SELECT
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 693', () => {
+test('[WITH] should pass without errors: 693', () => {
     const query = `WITH 	toDateTime64('2019-09-16 19:20:12.345678910', 9) AS dt64
 SELECT
 	dt64,
@@ -6954,7 +6954,7 @@ SELECT
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 694', () => {
+test('[WITH] should pass without errors: 694', () => {
     const query = `WITH 	'UTC' as timezone,
 	toDateTime64('2019-09-16 19:20:12.345678910', 3, timezone) AS dt64
 SELECT
@@ -6968,7 +6968,7 @@ SELECT
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 695', () => {
+test('[WITH] should pass without errors: 695', () => {
     const query = `WITH 	'Asia/Makassar' as timezone,
 	toDateTime64('2019-09-16 19:20:12.345678910', 3, timezone) AS dt64
 SELECT
@@ -6982,7 +6982,7 @@ SELECT
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 696', () => {
+test('[WITH] should pass without errors: 696', () => {
     const query = `WITH 	CAST(1234567891011 AS Int64) AS val
 SELECT
 	val,
@@ -6994,7 +6994,7 @@ SELECT
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 697', () => {
+test('[WITH] should pass without errors: 697', () => {
     const query = `WITH 	'UTC' as timezone,
 	CAST(1234567891011 AS Int64) AS val
 SELECT
@@ -7008,49 +7008,49 @@ SELECT
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 698', () => {
+test('[WITH] should pass without errors: 698', () => {
     const query = `WITH toDateTime64('2019-09-16 19:20:12.345678910', 3, 'Asia/Istanbul') AS dt64 SELECT dt64, toUnixTimestamp64Milli(dt64), toUnixTimestamp64Micro(dt64), toUnixTimestamp64Nano(dt64);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 699', () => {
+test('[WITH] should pass without errors: 699', () => {
     const query = `WITH toDateTime64('2019-09-16 19:20:12.345678910', 6, 'Asia/Istanbul') AS dt64 SELECT dt64, toUnixTimestamp64Milli(dt64), toUnixTimestamp64Micro(dt64), toUnixTimestamp64Nano(dt64);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 700', () => {
+test('[WITH] should pass without errors: 700', () => {
     const query = `WITH toDateTime64('2019-09-16 19:20:12.345678910', 9, 'Asia/Istanbul') AS dt64 SELECT dt64, toUnixTimestamp64Milli(dt64), toUnixTimestamp64Micro(dt64), toUnixTimestamp64Nano(dt64);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 701', () => {
+test('[WITH] should pass without errors: 701', () => {
     const query = `WITH toDateTime64('2019-09-16 19:20:12.345678910', 3, 'Asia/Istanbul') AS x SELECT materialize(x) as dt64, toUnixTimestamp64Milli(dt64), toUnixTimestamp64Micro(dt64), toUnixTimestamp64Nano(dt64);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 702', () => {
+test('[WITH] should pass without errors: 702', () => {
     const query = `WITH toDateTime64('2019-09-16 19:20:12.345678910', 6, 'Asia/Istanbul') AS x SELECT materialize(x) as dt64, toUnixTimestamp64Milli(dt64), toUnixTimestamp64Micro(dt64), toUnixTimestamp64Nano(dt64);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 703', () => {
+test('[WITH] should pass without errors: 703', () => {
     const query = `WITH toDateTime64('2019-09-16 19:20:12.345678910', 9, 'Asia/Istanbul') AS x SELECT materialize(x) as dt64, toUnixTimestamp64Milli(dt64), toUnixTimestamp64Micro(dt64), toUnixTimestamp64Nano(dt64);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 704', () => {
+test('[WITH] should pass without errors: 704', () => {
     const query = `WITH (
 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100,
 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125, 126, 127, 128, 129, 130, 131, 132, 133, 134, 135, 136, 137, 138, 139, 140, 141, 142, 143, 144, 145, 146, 147, 148, 149, 150, 151, 152, 153, 154, 155, 156, 157, 158, 159, 160, 161, 162, 163, 164, 165, 166, 167, 168, 169, 170, 171, 172, 173, 174, 175, 176, 177, 178, 179, 180, 181, 182, 183, 184, 185, 186, 187, 188, 189, 190, 191, 192, 193, 194, 195, 196, 197, 198, 199, 200,
@@ -7074,7 +7074,7 @@ tuple.1000;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 705', () => {
+test('[WITH] should pass without errors: 705', () => {
     const query = `WITH 	CAST(1234567891011 AS Int64) AS i64,
 	'UTC' AS tz
 SELECT
@@ -7089,7 +7089,7 @@ SELECT
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 706', () => {
+test('[WITH] should pass without errors: 706', () => {
     const query = `WITH 	CAST(1234567891011 AS Int64) AS i64,
 	'Asia/Makassar' AS tz
 SELECT
@@ -7104,7 +7104,7 @@ SELECT
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 707', () => {
+test('[WITH] should pass without errors: 707', () => {
     const query = `WITH 	CAST(1234567891011 AS Int64) AS i64,
 	'UTC' AS tz
 SELECT
@@ -7117,7 +7117,7 @@ SELECT
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 708', () => {
+test('[WITH] should pass without errors: 708', () => {
     const query = `WITH 10413688942 AS timestamp,
 CAST(10413688942123 AS Int64) AS milli,
 CAST(10413688942123456 AS Int64) AS micro,
@@ -7133,7 +7133,7 @@ fromUnixTimestamp64Nano(nano, tz);`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 709', () => {
+test('[WITH] should pass without errors: 709', () => {
     const query = `WITH -2208985199 AS timestamp,
 CAST(-2208985199123 AS Int64) AS milli,
 CAST(-2208985199123456 AS Int64) AS micro,
@@ -7149,35 +7149,35 @@ fromUnixTimestamp64Nano(nano, tz);`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 710', () => {
+test('[WITH] should pass without errors: 710', () => {
     const query = `WITH toDateTime64('2019-09-16 19:20:11', 0, 'UTC') AS dt64 SELECT toStartOfSecond(dt64) AS res, toTypeName(res);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 711', () => {
+test('[WITH] should pass without errors: 711', () => {
     const query = `WITH toDateTime64('2019-09-16 19:20:11.123', 3, 'UTC') AS dt64 SELECT toStartOfSecond(dt64) AS res, toTypeName(res);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 712', () => {
+test('[WITH] should pass without errors: 712', () => {
     const query = `WITH toDateTime64('2019-09-16 19:20:11.123', 9, 'UTC') AS dt64 SELECT toStartOfSecond(dt64) AS res, toTypeName(res);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 713', () => {
+test('[WITH] should pass without errors: 713', () => {
     const query = `WITH toDateTime64('2019-09-16 19:20:11.123', 3, 'UTC') AS dt64 SELECT toStartOfSecond(materialize(dt64)) AS res, toTypeName(res);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 714', () => {
+test('[WITH] should pass without errors: 714', () => {
     const query = `WITH '2020-02-05 14:34:12.333' as S, toDateTime64(S, 3) as DT64 SELECT DT64 = materialize(S); -- {serverError ILLEGAL_TYPE_OF_ARGUMENT} WITH '2020-02-05 14:34:12.333' as S, toDateTime64(S, 3) as DT64 SELECT materialize(S) = toDateTime64(S, 3); -- {serverError ILLEGAL_TYPE_OF_ARGUMENT}
 WITH '2020-02-05 14:34:12.333' as S, toDateTime64(S, 3) as DT64 SELECT * WHERE DT64 = materialize(S); -- {serverError ILLEGAL_TYPE_OF_ARGUMENT}
 WITH '2020-02-05 14:34:12.333' as S, toDateTime64(S, 3) as DT64 SELECT * WHERE materialize(S) = DT64; -- {serverError ILLEGAL_TYPE_OF_ARGUMENT}
@@ -7188,133 +7188,133 @@ SELECT * WHERE toDateTime64(123.345, 3) == '2020-02-05 14:34:12.3333333333333333
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 715', () => {
+test('[WITH] should pass without errors: 715', () => {
     const query = `WITH '2020-02-05 14:34:12.333' as S, toDateTime64(S, 3) as DT64 SELECT DT64 = S;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 716', () => {
+test('[WITH] should pass without errors: 716', () => {
     const query = `WITH '2020-02-05 14:34:12.333' as S, toDateTime64(S, 3) as DT64 SELECT S = DT64;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 717', () => {
+test('[WITH] should pass without errors: 717', () => {
     const query = `WITH '2020-02-05 14:34:12.333' as S, toDateTime64(S, 3) as DT64 SELECT materialize(DT64) = S;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 718', () => {
+test('[WITH] should pass without errors: 718', () => {
     const query = `WITH '2020-02-05 14:34:12.333' as S, toDateTime64(S, 3) as DT64 SELECT S = materialize(DT64);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 719', () => {
+test('[WITH] should pass without errors: 719', () => {
     const query = `WITH '2020-02-05 14:34:12.333' as S, toDateTime64(S, 3) as DT64 SELECT * WHERE DT64 = S;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 720', () => {
+test('[WITH] should pass without errors: 720', () => {
     const query = `WITH '2020-02-05 14:34:12.333' as S, toDateTime64(S, 3) as DT64 SELECT * WHERE S = DT64;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 721', () => {
+test('[WITH] should pass without errors: 721', () => {
     const query = `WITH '2020-02-05 14:34:12.333' as S, toDateTime64(S, 3) as DT64 SELECT * WHERE materialize(DT64) = S;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 722', () => {
+test('[WITH] should pass without errors: 722', () => {
     const query = `WITH '2020-02-05 14:34:12.333' as S, toDateTime64(S, 3) as DT64 SELECT * WHERE S = materialize(DT64);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 723', () => {
+test('[WITH] should pass without errors: 723', () => {
     const query = `WITH '2020-02-05 14:34:12.333' as S, toDateTime64(S, 3) as DT64 SELECT * WHERE DT64 <= S;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 724', () => {
+test('[WITH] should pass without errors: 724', () => {
     const query = `WITH '2020-02-05 14:34:12.333' as S, toDateTime64(S, 3) as DT64 SELECT * WHERE DT64 >= S;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 725', () => {
+test('[WITH] should pass without errors: 725', () => {
     const query = `WITH '2020-02-05 14:34:12.333' as S, toDateTime64(S, 3) as DT64 SELECT * WHERE S <= DT64;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 726', () => {
+test('[WITH] should pass without errors: 726', () => {
     const query = `WITH '2020-02-05 14:34:12.333' as S, toDateTime64(S, 3) as DT64 SELECT * WHERE S >= DT64;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 727', () => {
+test('[WITH] should pass without errors: 727', () => {
     const query = `WITH '2020-02-05 14:34:12.333' as S, toDateTime64(S, 3) as DT64 SELECT * WHERE DT64 < S;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 728', () => {
+test('[WITH] should pass without errors: 728', () => {
     const query = `WITH '2020-02-05 14:34:12.333' as S, toDateTime64(S, 3) as DT64 SELECT * WHERE DT64 > S;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 729', () => {
+test('[WITH] should pass without errors: 729', () => {
     const query = `WITH '2020-02-05 14:34:12.333' as S, toDateTime64(S, 3) as DT64 SELECT * WHERE DT64 != S;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 730', () => {
+test('[WITH] should pass without errors: 730', () => {
     const query = `WITH '2020-02-05 14:34:12.333' as S, toDateTime64(S, 3) as DT64 SELECT * WHERE S < DT64;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 731', () => {
+test('[WITH] should pass without errors: 731', () => {
     const query = `WITH '2020-02-05 14:34:12.333' as S, toDateTime64(S, 3) as DT64 SELECT * WHERE S > DT64;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 732', () => {
+test('[WITH] should pass without errors: 732', () => {
     const query = `WITH '2020-02-05 14:34:12.333' as S, toDateTime64(S, 3) as DT64 SELECT * WHERE S != DT64;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 733', () => {
+test('[WITH] should pass without errors: 733', () => {
     const query = `WITH 'abb' AS b, 'abc' AS c, 'abd' AS d, toFixedString(b, 5) AS bf, toFixedString(c, 5) AS cf, toFixedString(d, 5) AS df SELECT
 b = b, b > b, b < b,
 b = c, b > c, b < c,
@@ -7358,7 +7358,7 @@ FORMAT Vertical;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 734', () => {
+test('[WITH] should pass without errors: 734', () => {
     const query = `WITH A as (SELECT rowNumberInAllBlocks() R, addDays(toDate('2017-04-01'), R) TVV from numbers(5)),
 B as (SELECT rowNumberInAllBlocks() R, toDateTime(NULL) TVV from numbers(1))
 SELECT
@@ -7369,7 +7369,7 @@ from A LEFT JOIN B USING (R) order by TV1;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 735', () => {
+test('[WITH] should pass without errors: 735', () => {
     const query = `with [ 'Seconds',
 'Bool',
 'Int64',
@@ -7395,7 +7395,7 @@ test('should pass without errors with: 735', () => {
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 736', () => {
+test('[WITH] should pass without errors: 736', () => {
     const query = `with [ 'Seconds',
 'Bool',
 'Int64',
@@ -7409,7 +7409,7 @@ test('should pass without errors with: 736', () => {
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 737', () => {
+test('[WITH] should pass without errors: 737', () => {
     const query = `WITH [(39.82535, 21.26649), (39.63179, 21.4366), (39.94803, 21.56766)] AS outer,
 [(39.84994, 21.44025), (39.82728, 21.4666), (39.82667, 21.46592)] AS inner,
 (39.840202, 21.451471) AS point
@@ -7421,7 +7421,7 @@ pointInPolygon(point, outer, inner) AS inside_outer;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 738', () => {
+test('[WITH] should pass without errors: 738', () => {
     const query = `WITH toDateTime('2020-06-16 03:00:00') AS date_time SELECT date_time ORDER BY date_time ASC
 WITH FILL
 FROM toDateTime('2020-06-16 00:00:00')
@@ -7432,14 +7432,14 @@ STEP 1800;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 739', () => {
+test('[WITH] should pass without errors: 739', () => {
     const query = `with 3 as "1" select 1, "1"; -- { serverError AMBIGUOUS_COLUMN_NAME } select 1, * from (select 2 x) a left join (select 1, 3 y) b on y = x;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 740', () => {
+test('[WITH] should pass without errors: 740', () => {
     const query = `WITH arrayMap(x -> x + 1, range(50)) as data
 SELECT
 arrayReduceInRanges('groupArray', [(a, c), (b, d)], data) =
@@ -7457,35 +7457,35 @@ FROM numbers(20)
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 741', () => {
+test('[WITH] should pass without errors: 741', () => {
     const query = `WITH addressToSymbol(arrayJoin(trace)) AS symbol SELECT count() > 0 FROM system.trace_log t WHERE event_date >= yesterday() AND trace_type = 'Memory' AND query_id = (SELECT query_id FROM system.query_log WHERE current_database = currentDatabase() AND event_date >= yesterday() AND query LIKE '%test memory profiler%' AND has(used_table_functions, 'numbers') AND log_comment = '01092_memory_profiler' ORDER BY event_time DESC LIMIT 1);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 742', () => {
+test('[WITH] should pass without errors: 742', () => {
     const query = `WITH addressToSymbol(arrayJoin(trace)) AS symbol SELECT count() > 0 FROM system.trace_log t WHERE event_date >= yesterday() AND trace_type = 'MemoryPeak' AND query_id = (SELECT query_id FROM system.query_log WHERE current_database = currentDatabase() AND event_date >= yesterday() AND query LIKE '%test memory profiler%' AND has(used_table_functions, 'numbers') AND log_comment = '01092_memory_profiler' ORDER BY event_time DESC LIMIT 1);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 743', () => {
+test('[WITH] should pass without errors: 743', () => {
     const query = `WITH addressToSymbol(arrayJoin(trace)) AS symbol SELECT count() > 0 FROM system.trace_log t WHERE event_date >= yesterday() AND trace_type = 'MemorySample' AND query_id = (SELECT query_id FROM system.query_log WHERE current_database = currentDatabase() AND event_date >= yesterday() AND query LIKE '%test memory profiler%' AND has(used_table_functions, 'numbers') AND log_comment = '01092_memory_profiler' ORDER BY event_time DESC LIMIT 1);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 744', () => {
+test('[WITH] should pass without errors: 744', () => {
     const query = `WITH 01091 AS id SELECT 1;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 745', () => {
+test('[WITH] should pass without errors: 745', () => {
     const query = `WITH (
 SELECT query_id
 FROM system.query_log
@@ -7501,14 +7501,14 @@ WHERE (event_date >= (today() - 1)) AND (query_id = id) AND (thread_id != master
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 746', () => {
+test('[WITH] should pass without errors: 746', () => {
     const query = `with 01091 as id select sum(number) from numbers(1000000);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 747', () => {
+test('[WITH] should pass without errors: 747', () => {
     const query = `WITH (
 SELECT query_id
 FROM system.query_log
@@ -7524,14 +7524,14 @@ WHERE (event_date >= (today() - 1)) AND (query_id = id) AND (thread_id != master
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 748', () => {
+test('[WITH] should pass without errors: 748', () => {
     const query = `with 01091 as id select sum(number) from numbers_mt(1000000);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 749', () => {
+test('[WITH] should pass without errors: 749', () => {
     const query = `WITH (
 SELECT query_id
 FROM system.query_log
@@ -7547,28 +7547,28 @@ WHERE (event_date >= (today() - 1)) AND (query_id = id) AND (thread_id != master
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 750', () => {
+test('[WITH] should pass without errors: 750', () => {
     const query = `WITH '{"a": "hello", "b": 12345678901234567890}' AS json SELECT JSONExtractRaw(json, 'a');`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 751', () => {
+test('[WITH] should pass without errors: 751', () => {
     const query = `WITH number - 90 AS lat SELECT DISTINCT greatCircleAngle(0, 0, 0, lat) = abs(lat) FROM numbers(180);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 752', () => {
+test('[WITH] should pass without errors: 752', () => {
     const query = `WITH number - 180 AS lon SELECT lon, round(greatCircleAngle(0, 0, lon, 0) - abs(lon) AS err, 2) FROM numbers(360) WHERE abs(err) > 0.01;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 753', () => {
+test('[WITH] should pass without errors: 753', () => {
     const query = `WITH '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ' AS x,
 replaceRegexpAll(x, '.', ' ') AS spaces,
 concat(substring(spaces, 1, rand(1) % 62), substring(x, 1, rand(2) % 62), substring(spaces, 1, rand(3) % 62)) AS s,
@@ -7594,63 +7594,63 @@ WHERE NOT ((sl = slr) AND (sr = srr) AND (t = tr))
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 754', () => {
+test('[WITH] should pass without errors: 754', () => {
     const query = `WITH addressToLine(arrayJoin(trace) AS addr) || '#' || demangle(addressToSymbol(addr)) AS symbol SELECT count() > 0 FROM system.trace_log t WHERE query_id = (SELECT query_id FROM system.query_log WHERE current_database = currentDatabase() AND query LIKE '%test real time query profiler%' AND query NOT LIKE '%system%' ORDER BY event_time DESC LIMIT 1) AND symbol LIKE '%FunctionSleep%';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 755', () => {
+test('[WITH] should pass without errors: 755', () => {
     const query = `WITH addressToLine(arrayJoin(trace) AS addr) || '#' || demangle(addressToSymbol(addr)) AS symbol SELECT count() > 0 FROM system.trace_log t WHERE query_id = (SELECT query_id FROM system.query_log WHERE current_database = currentDatabase() AND query LIKE '%test cpu time query profiler%' AND query NOT LIKE '%system%' ORDER BY event_time DESC LIMIT 1) AND symbol LIKE '%Source%';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 756', () => {
+test('[WITH] should pass without errors: 756', () => {
     const query = `WITH (SELECT stochasticLinearRegressionState(1, 2, 3)) AS model SELECT evalMLMethod(model, toFloat64(1), toFloat64(1));`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 757', () => {
+test('[WITH] should pass without errors: 757', () => {
     const query = `with (select state from model) as model select round(evalMLMethod(model, predict1, predict2, predict3, predict4, predict5, predict6, predict7), 12) from defaults;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 758', () => {
+test('[WITH] should pass without errors: 758', () => {
     const query = `WITH (1, 2) AS liter_prepared_set SELECT COUNT() FROM single_column_bloom_filter WHERE i32 IN liter_prepared_set SETTINGS max_rows_to_read = 6;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 759', () => {
+test('[WITH] should pass without errors: 759', () => {
     const query = `WITH ((1, 2), (2, 3)) AS liter_prepared_set SELECT COUNT() FROM single_column_bloom_filter WHERE (i32, i32) IN liter_prepared_set SETTINGS max_rows_to_read = 6;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 760', () => {
+test('[WITH] should pass without errors: 760', () => {
     const query = `WITH ((1, 1), (2, 2)) AS liter_prepared_set SELECT COUNT() FROM single_column_bloom_filter WHERE (i32, i64) IN liter_prepared_set SETTINGS max_rows_to_read = 6;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 761', () => {
+test('[WITH] should pass without errors: 761', () => {
     const query = `WITH ((1, (1, 1)), (2, (2, 2))) AS liter_prepared_set SELECT COUNT() FROM single_column_bloom_filter WHERE (i64, (i64, i32)) IN liter_prepared_set SETTINGS max_rows_to_read = 6;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 762', () => {
+test('[WITH] should pass without errors: 762', () => {
     const query = `WITH toDate('2018-12-25') + number AS d,
 toDate32(d) AS d32,
 toDateTime(d) AS dt,
@@ -7671,7 +7671,7 @@ FROM numbers(10);`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 763', () => {
+test('[WITH] should pass without errors: 763', () => {
     const query = `WITH toDate('2018-12-25') + number AS d,
 toDate32(d) AS d32,
 toDateTime(d) AS dt,
@@ -7692,217 +7692,217 @@ FROM numbers(10);`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 764', () => {
+test('[WITH] should pass without errors: 764', () => {
     const query = `WITH IPv6CIDRToRange(IPv6StringToNum('2001:0db8:0000:85a3:0000:0000:ac1f:8001'), 32) as ip_range SELECT COUNT(*) FROM ipv6_range WHERE ip BETWEEN tupleElement(ip_range, 1) AND tupleElement(ip_range, 2);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 765', () => {
+test('[WITH] should pass without errors: 765', () => {
     const query = `WITH IPv6CIDRToRange(IPv6StringToNum('2001:0db8:0000:85a3:0000:0000:ac1f:8001'), 25) as ip_range SELECT COUNT(*) FROM ipv6_range WHERE ip BETWEEN tupleElement(ip_range, 1) AND tupleElement(ip_range, 2);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 766', () => {
+test('[WITH] should pass without errors: 766', () => {
     const query = `WITH IPv6CIDRToRange(IPv6StringToNum('2001:0db8:0000:85a3:0000:0000:ac1f:8001'), 26) as ip_range SELECT COUNT(*) FROM ipv6_range WHERE ip BETWEEN tupleElement(ip_range, 1) AND tupleElement(ip_range, 2);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 767', () => {
+test('[WITH] should pass without errors: 767', () => {
     const query = `WITH IPv6CIDRToRange(IPv6StringToNum('2001:0db8:0000:85a3:0000:0000:ac1f:8001'), 64) as ip_range SELECT COUNT(*) FROM ipv6_range WHERE ip BETWEEN tupleElement(ip_range, 1) AND tupleElement(ip_range, 2);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 768', () => {
+test('[WITH] should pass without errors: 768', () => {
     const query = `WITH IPv6CIDRToRange(IPv6StringToNum('2001:0db8:0000:85a3:0000:0000:ac1f:8001'), 0) as ip_range SELECT COUNT(*) FROM ipv6_range WHERE ip BETWEEN tupleElement(ip_range, 1) AND tupleElement(ip_range, 2);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 769', () => {
+test('[WITH] should pass without errors: 769', () => {
     const query = `WITH IPv4CIDRToRange(toIPv4('192.168.0.0'), 8) as ip_range SELECT COUNT(*) FROM ipv4_range WHERE ip BETWEEN tupleElement(ip_range, 1) AND tupleElement(ip_range, 2);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 770', () => {
+test('[WITH] should pass without errors: 770', () => {
     const query = `WITH IPv4CIDRToRange(toIPv4('192.168.0.0'), 13) as ip_range SELECT COUNT(*) FROM ipv4_range WHERE ip BETWEEN tupleElement(ip_range, 1) AND tupleElement(ip_range, 2);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 771', () => {
+test('[WITH] should pass without errors: 771', () => {
     const query = `WITH IPv4CIDRToRange(toIPv4('192.168.0.0'), 16) as ip_range SELECT COUNT(*) FROM ipv4_range WHERE ip BETWEEN tupleElement(ip_range, 1) AND tupleElement(ip_range, 2);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 772', () => {
+test('[WITH] should pass without errors: 772', () => {
     const query = `WITH IPv4CIDRToRange(toIPv4('192.168.0.0'), 0) as ip_range SELECT COUNT(*) FROM ipv4_range WHERE ip BETWEEN tupleElement(ip_range, 1) AND tupleElement(ip_range, 2);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 773', () => {
+test('[WITH] should pass without errors: 773', () => {
     const query = `WITH IPv4CIDRToRange(ip, cidr) as ip_range SELECT ip, cidr, IPv4NumToString(tupleElement(ip_range, 1)), ip_range FROM ipv4_range;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 774', () => {
+test('[WITH] should pass without errors: 774', () => {
     const query = `WITH 'Europe/Minsk' as timezone SELECT timezone, timeZoneOf(now64(3, timezone)) == timezone;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 775', () => {
+test('[WITH] should pass without errors: 775', () => {
     const query = `WITH arrayJoin(finalizeAggregation((SELECT histogramState(3)(number) FROM numbers(10, 190)) + (SELECT histogramState(3)(number) FROM numbers(0, 100)))) AS hist SELECT round(hist.1) AS l, round(hist.2) AS r, round(hist.3) AS cnt;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 776', () => {
+test('[WITH] should pass without errors: 776', () => {
     const query = `WITH arrayJoin(finalizeAggregation((SELECT histogramState(3)(number) FROM numbers(0, 100)) + (SELECT histogramState(3)(number) FROM numbers(10, 190)))) AS hist SELECT round(hist.1) AS l, round(hist.2) AS r, round(hist.3) AS cnt;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 777', () => {
+test('[WITH] should pass without errors: 777', () => {
     const query = `WITH substring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 1, number) AS prefix, prefix || 'x' AS a, prefix || 'y' AS b SELECT a = b, a < b, a > b, a <= b, a >= b FROM numbers(40);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 778', () => {
+test('[WITH] should pass without errors: 778', () => {
     const query = `WITH substring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 1, number) AS prefix, prefix || 'y' AS a, prefix || 'x' AS b SELECT a = b, a < b, a > b, a <= b, a >= b FROM numbers(40);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 779', () => {
+test('[WITH] should pass without errors: 779', () => {
     const query = `WITH substring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 1, number) AS prefix, prefix || 'x' AS a, prefix || 'x' AS b SELECT a = b, a < b, a > b, a <= b, a >= b FROM numbers(40);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 780', () => {
+test('[WITH] should pass without errors: 780', () => {
     const query = `WITH substring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 1, number) AS prefix, prefix || 'x' || prefix AS a, prefix || 'y' || prefix AS b SELECT a = b, a < b, a > b, a <= b, a >= b FROM numbers(40);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 781', () => {
+test('[WITH] should pass without errors: 781', () => {
     const query = `WITH substring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 1, number) AS prefix, prefix || 'y' || prefix AS a, prefix || 'x' || prefix AS b SELECT a = b, a < b, a > b, a <= b, a >= b FROM numbers(40);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 782', () => {
+test('[WITH] should pass without errors: 782', () => {
     const query = `WITH substring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 1, number) AS prefix, prefix || 'x' || prefix AS a, prefix || 'x' || prefix AS b SELECT a = b, a < b, a > b, a <= b, a >= b FROM numbers(40);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 783', () => {
+test('[WITH] should pass without errors: 783', () => {
     const query = `WITH substring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 1, number) AS prefix, prefix || 'x' || prefix AS a, prefix || 'y' AS b SELECT a = b, a < b, a > b, a <= b, a >= b FROM numbers(40);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 784', () => {
+test('[WITH] should pass without errors: 784', () => {
     const query = `WITH substring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 1, number) AS prefix, prefix || 'y' || prefix AS a, prefix || 'x' AS b SELECT a = b, a < b, a > b, a <= b, a >= b FROM numbers(40);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 785', () => {
+test('[WITH] should pass without errors: 785', () => {
     const query = `WITH substring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 1, number) AS prefix, prefix || 'x' || prefix AS a, prefix || 'x' AS b SELECT a = b, a < b, a > b, a <= b, a >= b FROM numbers(40);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 786', () => {
+test('[WITH] should pass without errors: 786', () => {
     const query = `WITH arrayJoin(['aaa', 'bbb']) AS a, 'aaa\\0bbb' AS b SELECT a = b, a < b, a > b, a <= b, a >= b;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 787', () => {
+test('[WITH] should pass without errors: 787', () => {
     const query = `WITH arrayJoin(['aaa', 'zzz']) AS a, 'aaa\\0bbb' AS b SELECT a = b, a < b, a > b, a <= b, a >= b;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 788', () => {
+test('[WITH] should pass without errors: 788', () => {
     const query = `WITH arrayJoin(['aaa', 'bbb']) AS a, materialize('aaa\\0bbb') AS b SELECT a = b, a < b, a > b, a <= b, a >= b;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 789', () => {
+test('[WITH] should pass without errors: 789', () => {
     const query = `WITH arrayJoin(['aaa', 'zzz']) AS a, materialize('aaa\\0bbb') AS b SELECT a = b, a < b, a > b, a <= b, a >= b;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 790', () => {
+test('[WITH] should pass without errors: 790', () => {
     const query = `with (select sumState(1)) as s select sumMerge(s);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 791', () => {
+test('[WITH] should pass without errors: 791', () => {
     const query = `with (select sumState(number) from (select * from system.numbers limit 10)) as s select sumMerge(s);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 792', () => {
+test('[WITH] should pass without errors: 792', () => {
     const query = `with (select quantileState(0.5)(number) from (select * from system.numbers limit 10)) as s select quantileMerge(s);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 793', () => {
+test('[WITH] should pass without errors: 793', () => {
     const query = `WITH number AS k SELECT k FROM system.numbers LIMIT 10;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 794', () => {
+test('[WITH] should pass without errors: 794', () => {
     const query = `WITH (
 SELECT arrayCumSum(groupArray(amount))
 FROM
@@ -7932,133 +7932,133 @@ ORDER BY business_dttm
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 795', () => {
+test('[WITH] should pass without errors: 795', () => {
     const query = `WITH dummy AS myName SELECT myName FROM system.one;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 796', () => {
+test('[WITH] should pass without errors: 796', () => {
     const query = `WITH dummy AS myName SELECT myName + 1 FROM system.one;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 797', () => {
+test('[WITH] should pass without errors: 797', () => {
     const query = `WITH toDateTime(1 + rand() % 0xFFFFFFFF) AS t SELECT count() FROM numbers(1000000) WHERE formatDateTime(t, '%F %T') != toString(t);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 798', () => {
+test('[WITH] should pass without errors: 798', () => {
     const query = `WITH toDateTime(1 + rand() % 0xFFFFFFFF) AS t SELECT count() FROM numbers(1000000) WHERE formatDateTime(t, '%Y-%m-%d %H:%i:%S') != toString(t);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 799', () => {
+test('[WITH] should pass without errors: 799', () => {
     const query = `WITH toDateTime(1 + rand() % 0xFFFFFFFF) AS t SELECT count() FROM numbers(1000000) WHERE formatDateTime(t, '%Y-%m-%d %R:%S') != toString(t);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 800', () => {
+test('[WITH] should pass without errors: 800', () => {
     const query = `WITH toDateTime(1 + rand() % 0xFFFFFFFF) AS t SELECT count() FROM numbers(1000000) WHERE formatDateTime(t, '%F %R:%S') != toString(t);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 801', () => {
+test('[WITH] should pass without errors: 801', () => {
     const query = `WITH toDate(today() + rand() % 4096) AS t SELECT count() FROM numbers(1000000) WHERE formatDateTime(t, '%F') != toString(t);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 802', () => {
+test('[WITH] should pass without errors: 802', () => {
     const query = `WITH toDate(today() + rand() % 4096) AS t SELECT count() FROM numbers(1000000) WHERE formatDateTime(t, '%F %T', 'Asia/Istanbul') != toString(toDateTime(t, 'Asia/Istanbul'));`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 803', () => {
+test('[WITH] should pass without errors: 803', () => {
     const query = `WITH toDateTime(1000000000 + rand64() % 1000000000) AS time SELECT max(abs(toYear(time) - toISOYear(time))) <= 1 FROM numbers(10000);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 804', () => {
+test('[WITH] should pass without errors: 804', () => {
     const query = `WITH toDateTime(1000000000 + rand64() % 1000000000) AS time SELECT DISTINCT toISOWeek(time) BETWEEN 1 AND 53 FROM numbers(1000000);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 805', () => {
+test('[WITH] should pass without errors: 805', () => {
     const query = `WITH arrayJoin(['hello', 'world']) AS s SELECT count(), arraySort(groupUniqArray(s)), anyHeavy(s) FROM remote('127.0.0.{2,3}', system.one);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 806', () => {
+test('[WITH] should pass without errors: 806', () => {
     const query = `WITH arrayJoin(histogram(3)(sin(number))) AS res select round(res.1, 2), round(res.2, 2), round(res.3, 2) from (select * from system.numbers limit 10);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 807', () => {
+test('[WITH] should pass without errors: 807', () => {
     const query = `WITH arrayJoin(histogram(1)(sin(number-40))) AS res SELECT round(res.1, 2), round(res.2, 2), round(res.3, 2) from (select * from system.numbers limit 80);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 808', () => {
+test('[WITH] should pass without errors: 808', () => {
     const query = `WITH toDate('2000-01-01') + rand() % (30000) AS EventDate SELECT * FROM numbers(1000000) WHERE EventDate != toDate(concat(toString(toYear(EventDate)), '-', toString(toMonth(EventDate)), '-', toString(toDayOfMonth(EventDate))));`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 809', () => {
+test('[WITH] should pass without errors: 809', () => {
     const query = `WITH toDateTime(1509138000) + number * 300 AS t SELECT toHour(t, 'Asia/Kolkata') AS h, toString(toStartOfHour(t, 'Asia/Kolkata'), 'Asia/Kolkata') AS h_start FROM system.numbers LIMIT 12;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 810', () => {
+test('[WITH] should pass without errors: 810', () => {
     const query = `with pow(2,2) as four select pow(four, 2), 2 as two, pow(two, 2);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 811', () => {
+test('[WITH] should pass without errors: 811', () => {
     const query = `with (select pow(two,2)) as four select pow(four, 2), 2 as two, pow(two, 2);`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 812', () => {
+test('[WITH] should pass without errors: 812', () => {
     const query = `with 'string' as str select str || '_abc';`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 813', () => {
+test('[WITH] should pass without errors: 813', () => {
     const query = `with generateUUIDv4() as uuid, identity(lower(hex(reverse(reinterpretAsString(uuid))))) as str,
 reinterpretAsUUID(reverse(unhex(str))) as uuid2
 select uuid = uuid2;`;
@@ -8067,7 +8067,7 @@ select uuid = uuid2;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 814', () => {
+test('[WITH] should pass without errors: 814', () => {
     const query = `WITH round(exp(number), 6) AS x, x > 0xFFFFFFFFFFFFFFFF ? 0xFFFFFFFFFFFFFFFF : toUInt64(x) AS y, x > 0x7FFFFFFF ? 0x7FFFFFFF : toInt32(x) AS z SELECT FORMAT_BYTES(x), format_bytes(y), formatReadableSize(z)
 FROM system.numbers
 LIMIT 70;`;
@@ -8076,7 +8076,7 @@ LIMIT 70;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 815', () => {
+test('[WITH] should pass without errors: 815', () => {
     const query = `WITH round(exp(number), 6) AS x, x > 0xFFFFFFFFFFFFFFFF ? 0xFFFFFFFFFFFFFFFF : toUInt64(x) AS y, x > 0x7FFFFFFF ? 0x7FFFFFFF : toInt32(x) AS z SELECT formatReadableDecimalSize(x), formatReadableDecimalSize(y), formatReadableDecimalSize(z)
 FROM system.numbers
 LIMIT 70;`;
@@ -8085,7 +8085,7 @@ LIMIT 70;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 816', () => {
+test('[WITH] should pass without errors: 816', () => {
     const query = `WITH a AS (select (select 1 WHERE 0) as b) select 1
 from system.one
 cross join a
@@ -8095,7 +8095,7 @@ where a.b = 0;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 817', () => {
+test('[WITH] should pass without errors: 817', () => {
     const query = `WITH cte_0 AS (select
 subq_0.c6 as c2,
 case when 0<>0 then ((select c_zeij from t_q1ht4gq_5 order by c_zeij limit 1 offset 1)
@@ -8125,14 +8125,14 @@ where ref_15.c4 > ref_15.c2));`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 818', () => {
+test('[WITH] should pass without errors: 818', () => {
     const query = `WITH (1, 2) AS a SELECT 1 IN a, 3 IN a;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 819', () => {
+test('[WITH] should pass without errors: 819', () => {
     const query = `WITH 0.001 AS threshold SELECT
 'runtime messages',
 greatest(coalesce(sum(length(message_format_string) = 0) / countOrNull(), 0) as v, threshold),
@@ -8156,7 +8156,7 @@ AND source_file not like '%/AWSLogger.cpp%';`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 820', () => {
+test('[WITH] should pass without errors: 820', () => {
     const query = `WITH 0.05 AS threshold SELECT
 'runtime exceptions',
 greatest(coalesce(sum(length(message_format_string) = 0) / countOrNull(), 0) as v, threshold),
@@ -8178,7 +8178,7 @@ AND (message like '%DB::Exception%' or message like '%Coordination::Exception%')
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 821', () => {
+test('[WITH] should pass without errors: 821', () => {
     const query = `WITH 0.01 AS threshold SELECT
 'unknown runtime exceptions',
 greatest(coalesce(sum(length(message_format_string) = 0) / countOrNull(), 0) as v, threshold),
@@ -8200,7 +8200,7 @@ AND message not like '% Received from %' and message not like '%(SYNTAX_ERROR)%'
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 822', () => {
+test('[WITH] should pass without errors: 822', () => {
     const query = `WITH 1 AS max_messages select 'messages shorter than 10',
 (uniqExact(message_format_string) as c) <= max_messages,
 c <= max_messages ? [] : groupUniqArray(message_format_string)
@@ -8211,7 +8211,7 @@ where length(message_format_string) < 10 and message_format_string not in known_
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 823', () => {
+test('[WITH] should pass without errors: 823', () => {
     const query = `WITH 3 AS max_messages select 'messages shorter than 16',
 (uniqExact(message_format_string) as c) <= max_messages,
 c <= max_messages ? [] : groupUniqArray(message_format_string)
@@ -8222,7 +8222,7 @@ where length(message_format_string) < 16 and message_format_string not in known_
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 824', () => {
+test('[WITH] should pass without errors: 824', () => {
     const query = `WITH 3 AS max_messages select 'exceptions shorter than 30',
 (uniqExact(message_format_string) as c) <= max_messages,
 c <= max_messages ? [] : groupUniqArray(message_format_string)
@@ -8233,7 +8233,7 @@ where message ilike '%DB::Exception%' and if(length(extract(toValidUTF8(message)
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 825', () => {
+test('[WITH] should pass without errors: 825', () => {
     const query = `WITH 0.30 as threshold select
 'noisy messages',
 greatest(coalesce(((select message_format_string, count() from logs group by message_format_string order by count() desc limit 1) as top_message).2, 0) / (select count() from logs), threshold) as r,
@@ -8243,7 +8243,7 @@ r <= threshold ? '' : top_message.1;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 826', () => {
+test('[WITH] should pass without errors: 826', () => {
     const query = `with 0.16 as threshold select
 'noisy Trace messages',
 greatest(coalesce(((select message_format_string, count() from logs where level = 'Trace' and message_format_string not in ('Access granted: {}{}', '{} -> {}', 'Query to stage {}{}', 'Query from stage {} to stage {}{}')
@@ -8254,7 +8254,7 @@ r <= threshold ? '' : top_message.1;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 827', () => {
+test('[WITH] should pass without errors: 827', () => {
     const query = `WITH 0.09 as threshold select 'noisy Debug messages',
 greatest(coalesce(((select message_format_string, count() from logs where level = 'Debug' group by message_format_string order by count() desc limit 1) as top_message).2, 0) / (select count() from logs), threshold) as r,
 r <= threshold ? '' : top_message.1;`;
@@ -8263,7 +8263,7 @@ r <= threshold ? '' : top_message.1;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 828', () => {
+test('[WITH] should pass without errors: 828', () => {
     const query = `WITH 0.05 as threshold select 'noisy Info messages',
 greatest(coalesce(((select message_format_string, count() from logs
 where level = 'Information'
@@ -8275,7 +8275,7 @@ r <= threshold ? '' : top_message.1;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 829', () => {
+test('[WITH] should pass without errors: 829', () => {
     const query = `with 0.01 as threshold select
 'noisy Warning messages',
 greatest(coalesce(((select message_format_string, count() from logs where level = 'Warning' and message_format_string not in ('Not enabled four letter command {}')
@@ -8286,7 +8286,7 @@ r <= threshold ? '' : top_message.1;`;
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should pass without errors with: 830', () => {
+test('[WITH] should pass without errors: 830', () => {
     const query = `WITH 0.03 as threshold select 'noisy Error messages',
 greatest(coalesce(((select message_format_string, count() from logs where level = 'Error' group by message_format_string order by count() desc limit 1) as top_message).2, 0) / (select count() from logs), threshold) as r,
 r <= threshold ? '' : top_message.1;`;

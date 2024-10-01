@@ -3,7 +3,7 @@
 /* eslint no-irregular-whitespace: "off" */
 import {parseClickHouseQueryWithoutCursor} from '../../index';
 
-test('should pass without errors rollback: 1', () => {
+test('[ROLLBACK] should pass without errors: 1', () => {
     const query = `ROLLBACK;`;
 
     const autocompleteResult = parseClickHouseQueryWithoutCursor(query);
