@@ -4,7 +4,6 @@ module.exports = {
     moduleNameMapper: {
         '^(\\.{1,2}/.*)\\.js$': '$1',
     },
-    testPathIgnorePatterns: ['tests/generated/.+'],
     transform: {
         '^.+\\.ts$': [
             'ts-jest',
