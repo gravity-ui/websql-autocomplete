@@ -1,37 +1,28 @@
 import {parseClickHouseQueryWithCursor} from '../../index';
 
-// TODO: support grant statement
-
-test('should not report errors', () => {
+test('should not report errors on table wildcard identifier', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor(
-        'GRANT ON CLUSTER cluster_name CREATE, SELECT(column1, column2) ON db.table TO test_user1, user2 WITH GRANT OPTION WITH REPLACE OPTION;|',
+        'GRANT ON CLUSTER test_cluster CREATE ON *.* TO test_user1;|',
     );
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should not report errors', () => {
+test('should not report errors on database wildcard identifier', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor(
-        'GRANT ON CLUSTER cluster_name CREATE, SELECT(column1, column2) ON *.* TO test_user1;|',
+        'GRANT ON CLUSTER test_cluster CREATE ON *.table TO test_user1;|',
     );
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should not report errors', () => {
+test('should not report errors on wildcard identifier', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor(
-        'GRANT ON CLUSTER cluster_name CREATE, SELECT(column1, column2) ON *.table TO test_user1;|',
-    );
-    expect(autocompleteResult.errors).toHaveLength(0);
-});
-
-test('should not report errors', () => {
-    const autocompleteResult = parseClickHouseQueryWithCursor(
-        'GRANT ON CLUSTER cluster_name CREATE, SELECT(column1, column2) ON * TO test_user1;|',
+        'GRANT ON CLUSTER test_cluster CREATE ON * TO test_user1;|',
     );
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
 test('should suggest current user', () => {
-    const autocompleteResult = parseClickHouseQueryWithCursor('GRANT SELECT ON table TO |');
+    const autocompleteResult = parseClickHouseQueryWithCursor('GRANT SELECT ON test_table TO |');
     expect(autocompleteResult.suggestKeywords).toEqual([
         {
             value: 'CURRENT_USER',
@@ -122,7 +113,7 @@ test('should suggest privileges after GRANT', () => {
         },
     ]);
 });
-test('should suggest another privileges after comma', () => {
+test('should suggest privileges after comma', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor('GRANT SELECT, |');
     expect(autocompleteResult.suggestKeywords).toEqual([
         {
@@ -208,6 +199,80 @@ test('should suggest cluster', () => {
     expect(autocompleteResult.suggestKeywords).toEqual([
         {
             value: 'CLUSTER',
+        },
+    ]);
+});
+
+test('should suggest keywords after privilege identifier', () => {
+    const autocompleteResult = parseClickHouseQueryWithCursor('GRANT SELECT |');
+    expect(autocompleteResult.suggestKeywords).toEqual([
+        {
+            value: 'ON',
+        },
+    ]);
+});
+
+test('should suggest keywords after table identifier', () => {
+    const autocompleteResult = parseClickHouseQueryWithCursor('GRANT SELECT ON test_table |');
+    expect(autocompleteResult.suggestKeywords).toEqual([
+        {
+            value: 'TO',
+        },
+    ]);
+});
+
+test('should suggest current user', () => {
+    const autocompleteResult = parseClickHouseQueryWithCursor('GRANT SELECT ON test_table TO |');
+    expect(autocompleteResult.suggestKeywords).toEqual([
+        {
+            value: 'CURRENT_USER',
+        },
+    ]);
+});
+
+test('should suggest keywords after user identifier', () => {
+    const autocompleteResult = parseClickHouseQueryWithCursor(
+        'GRANT SELECT ON test_table TO test_user |',
+    );
+    expect(autocompleteResult.suggestKeywords).toEqual([
+        {
+            value: 'WITH',
+        },
+    ]);
+});
+
+test('should suggest keywords after WITH', () => {
+    const autocompleteResult = parseClickHouseQueryWithCursor(
+        'GRANT SELECT ON test_table TO test_user WITH |',
+    );
+    expect(autocompleteResult.suggestKeywords).toEqual([
+        {
+            value: 'REPLACE',
+        },
+        {
+            value: 'GRANT',
+        },
+    ]);
+});
+
+test('should suggest keywords after WITH GRANT', () => {
+    const autocompleteResult = parseClickHouseQueryWithCursor(
+        'GRANT SELECT ON test_table TO test_user WITH GRANT |',
+    );
+    expect(autocompleteResult.suggestKeywords).toEqual([
+        {
+            value: 'OPTION',
+        },
+    ]);
+});
+
+test('should suggest keywords after WITH REPLACE', () => {
+    const autocompleteResult = parseClickHouseQueryWithCursor(
+        'GRANT SELECT ON test_table TO test_user WITH REPLACE |',
+    );
+    expect(autocompleteResult.suggestKeywords).toEqual([
+        {
+            value: 'OPTION',
         },
     ]);
 });
