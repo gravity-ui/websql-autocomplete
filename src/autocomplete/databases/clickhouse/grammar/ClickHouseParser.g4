@@ -20,8 +20,10 @@ statements
     ;
 
 statement
+    // TODO: rename notInsertStatement
     : notInsertStatement (INTO OUTFILE STRING_LITERAL)? (FORMAT identifierOrNull)? (SEMICOLON)?
     | insertStatement
+    | grantStatement
     ;
 
 notInsertStatement
@@ -334,6 +336,74 @@ explainStatement
     | EXPLAIN PLAN notInsertStatement       # ExplainPlanStatement
     | EXPLAIN QUERY TREE notInsertStatement # ExplainQueryTreeStatement
     | EXPLAIN ESTIMATE notInsertStatement   # ExplainEstimateStatement
+    ;
+
+// GRANT statement
+grantStatement
+    // TODO: use columnsClause in privileges where it needed
+    : GRANT clusterClause? privilege (COMMA privilege)* ON (tableIdentifier | (ASTERISK DOT)? (ASTERISK | identifier)) TO userExpressionList (WITH GRANT OPTION)? (WITH REPLACE OPTION)?
+    ;
+
+userExpressionList
+    : userIdentifier (COMMA userIdentifier)*
+    ;
+
+userIdentifier
+    : CURRENT_USER
+    | identifier
+    ;
+
+selectPrivilege
+    : SELECT
+    | SELECT columnsClause
+    ;
+
+insertPrivilege
+    : INSERT
+    | INSERT columnsClause
+    ;
+
+createPrivilege
+    : CREATE (DATABASE | TABLE | VIEW | DICTIONARY | FUNCTION)?
+    | CREATE (ARBITRARY TEMPORARY | TEMPORARY)? TABLE
+    ;
+
+dropPrivilege
+    : DROP (DATABASE | TABLE | VIEW | DICTIONARY)?
+    ;
+
+showPrivilege
+    : SHOW (DATABASES | TABLES | COLUMNS | DICTIONARIES)?
+    ;
+
+introspectionPrivilege
+    : (INTROSPECTION FUNCTIONS? | ADDRESSTOLINE | ADDRESSTOSYMBOL | DEMANGLE)
+    ;
+
+sourcePrivilege
+    : SOURCES
+    | FILE
+    | URL
+    | REMOTE
+    | MYSQL
+    | ODBC
+    | JDBC
+    | HDFS
+    | S3
+    ;
+
+privilege
+    // TODO: implement alter, access management, system
+    : selectPrivilege
+    | insertPrivilege
+    | createPrivilege
+    | dropPrivilege
+    | TRUNCATE
+    | KILL QUERY
+    | OPTIMIZE
+    | showPrivilege
+    | introspectionPrivilege
+    | sourcePrivilege
     ;
 
 // INSERT statement
@@ -736,6 +806,7 @@ interval
     ;
 
 keyword
+    // TODO: doublecheck added keywords
     : // except NULL_SQL, INF, NAN_SQL
     AFTER
     | ALIAS
@@ -916,6 +987,54 @@ keyword
     | WHERE
     | WINDOW
     | WITH
+    | USER
+    | FETCH
+    | REFRESH
+    | POLICY
+    | QUOTA
+    | ROLE
+    | PROFILE
+    | ARBITRARY
+    | COLUMNS
+    | ACCESS
+    | SHOW_USERS
+    | SHOW_ROLES
+    | SHOW_ROW_POLICIES
+    | SHOW_QUOTAS
+    | SHOW_SETTINGS_PROFILES
+    | SHUTDOWN
+    | CACHE
+    | DNS
+    | MARK
+    | UNCOMPRESSED
+    | CONFIG
+    | EMBEDDED
+    | FUNCTIONS
+    | MOVES
+    | REPLICATION
+    | QUEUES
+    | RESTART
+    | DICTGET
+    | DICTHAS
+    | DICTGETHIERARCHY
+    | DICTISIN
+    | MANAGEMENT
+    | ADMIN
+    | INTROSPECTION
+    | ADDRESSTOLINE
+    | ADDRESSTOSYMBOL
+    | DEMANGLE
+    | SOURCES
+    | FILE
+    | URL
+    | REMOTE
+    | MYSQL
+    | ODBC
+    | JDBC
+    | HDFS
+    | S3
+    | SETTING
+    | OPTION
     ;
 
 keywordForAlias
