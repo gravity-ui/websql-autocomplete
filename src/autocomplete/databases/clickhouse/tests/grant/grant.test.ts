@@ -30,6 +30,15 @@ test('should not report errors', () => {
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
+test('should suggest current user', () => {
+    const autocompleteResult = parseClickHouseQueryWithCursor('GRANT SELECT ON table TO |');
+    expect(autocompleteResult.suggestKeywords).toEqual([
+        {
+            value: 'CURRENT_USER',
+        },
+    ]);
+});
+
 test('should suggest privileges after GRANT', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor('GRANT |');
     expect(autocompleteResult.suggestKeywords).toEqual([
@@ -95,6 +104,18 @@ test('should suggest privileges after GRANT', () => {
         },
         {
             value: 'S3',
+        },
+        {
+            value: 'DICTGET',
+        },
+        {
+            value: 'DICTGETHIERARCHY',
+        },
+        {
+            value: 'DICTHAS',
+        },
+        {
+            value: 'DICTISIN',
         },
         {
             value: 'ON',
@@ -166,6 +187,18 @@ test('should suggest another privileges after comma', () => {
         },
         {
             value: 'S3',
+        },
+        {
+            value: 'DICTGET',
+        },
+        {
+            value: 'DICTGETHIERARCHY',
+        },
+        {
+            value: 'DICTHAS',
+        },
+        {
+            value: 'DICTISIN',
         },
     ]);
 });

@@ -203,7 +203,7 @@ WINDOW       : W I N D O W;
 WITH         : W I T H;
 YEAR         : Y E A R | Y Y Y Y;
 
-// TODO: NEW KEYS ADD TO keyword RULE
+// TODO: sort all keywords
 
 GRANT                  : G R A N T;
 USER                   : U S E R;

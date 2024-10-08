@@ -354,13 +354,11 @@ userIdentifier
     ;
 
 selectPrivilege
-    : SELECT
-    | SELECT columnsClause
+    : SELECT columnsClause?
     ;
 
 insertPrivilege
-    : INSERT
-    | INSERT columnsClause
+    : INSERT columnsClause?
     ;
 
 createPrivilege
@@ -377,7 +375,10 @@ showPrivilege
     ;
 
 introspectionPrivilege
-    : (INTROSPECTION FUNCTIONS? | ADDRESSTOLINE | ADDRESSTOSYMBOL | DEMANGLE)
+    : INTROSPECTION FUNCTIONS?
+    | ADDRESSTOLINE
+    | ADDRESSTOSYMBOL
+    | DEMANGLE
     ;
 
 sourcePrivilege
@@ -392,6 +393,13 @@ sourcePrivilege
     | S3
     ;
 
+dictPrivilege
+    : DICTGET
+    | DICTHAS
+    | DICTGETHIERARCHY
+    | DICTISIN
+    ;
+
 privilege
     // TODO: implement alter, access management, system
     : selectPrivilege
@@ -404,6 +412,7 @@ privilege
     | showPrivilege
     | introspectionPrivilege
     | sourcePrivilege
+    | dictPrivilege
     ;
 
 // INSERT statement
