@@ -1,3 +1,4 @@
+import {TableOrViewSuggestion} from '../../../../shared';
 import {parseClickHouseQueryWithCursor} from '../../index';
 
 test('should not report errors on table wildcard identifier', () => {
@@ -9,7 +10,7 @@ test('should not report errors on table wildcard identifier', () => {
 
 test('should not report errors on database wildcard identifier', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor(
-        'GRANT ON CLUSTER test_cluster CREATE ON *.table TO test_user1;|',
+        'GRANT ON CLUSTER test_cluster CREATE ON *.test_table TO test_user1;|',
     );
     expect(autocompleteResult.errors).toHaveLength(0);
 });
@@ -19,6 +20,20 @@ test('should not report errors on wildcard identifier', () => {
         'GRANT ON CLUSTER test_cluster CREATE ON * TO test_user1;|',
     );
     expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should suggest tables or views', () => {
+    const autocompleteResult = parseClickHouseQueryWithCursor(
+        'GRANT ON CLUSTER test_cluster CREATE ON | TO test_user;',
+    );
+    expect(autocompleteResult.suggestViewsOrTables).toEqual(TableOrViewSuggestion.ALL);
+});
+
+test('should suggest databases', () => {
+    const autocompleteResult = parseClickHouseQueryWithCursor(
+        'GRANT ON CLUSTER test_cluster CREATE ON | TO test_user;',
+    );
+    expect(autocompleteResult.suggestDatabases).toEqual(true);
 });
 
 test('should suggest current user', () => {
@@ -109,6 +124,57 @@ test('should suggest privileges after GRANT', () => {
             value: 'DICTISIN',
         },
         {
+            value: 'ALTER',
+        },
+        {
+            value: 'DELETE',
+        },
+        {
+            value: 'UPDATE',
+        },
+        {
+            value: 'ADD',
+        },
+        {
+            value: 'CLEAR',
+        },
+        {
+            value: 'COMMENT',
+        },
+        {
+            value: 'MODIFY',
+        },
+        {
+            value: 'RENAME',
+        },
+        {
+            value: 'MATERIALIZE',
+        },
+        {
+            value: 'INDEX',
+        },
+        {
+            value: 'CONSTRAINT',
+        },
+        {
+            value: 'MOVE',
+        },
+        {
+            value: 'FETCH',
+        },
+        {
+            value: 'FREEZE',
+        },
+        {
+            value: 'REFRESH',
+        },
+        {
+            value: 'ALL',
+        },
+        {
+            value: 'NONE',
+        },
+        {
             value: 'ON',
         },
     ]);
@@ -190,6 +256,57 @@ test('should suggest privileges after comma', () => {
         },
         {
             value: 'DICTISIN',
+        },
+        {
+            value: 'ALTER',
+        },
+        {
+            value: 'DELETE',
+        },
+        {
+            value: 'UPDATE',
+        },
+        {
+            value: 'ADD',
+        },
+        {
+            value: 'CLEAR',
+        },
+        {
+            value: 'COMMENT',
+        },
+        {
+            value: 'MODIFY',
+        },
+        {
+            value: 'RENAME',
+        },
+        {
+            value: 'MATERIALIZE',
+        },
+        {
+            value: 'INDEX',
+        },
+        {
+            value: 'CONSTRAINT',
+        },
+        {
+            value: 'MOVE',
+        },
+        {
+            value: 'FETCH',
+        },
+        {
+            value: 'FREEZE',
+        },
+        {
+            value: 'REFRESH',
+        },
+        {
+            value: 'ALL',
+        },
+        {
+            value: 'NONE',
         },
     ]);
 });

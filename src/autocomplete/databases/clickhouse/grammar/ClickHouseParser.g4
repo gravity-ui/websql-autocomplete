@@ -339,9 +339,9 @@ explainStatement
     ;
 
 // GRANT statement
+
 grantStatement
-    // TODO: use columnsClause in privileges where it needed
-    : GRANT clusterClause? privilege (COMMA privilege)* ON (tableIdentifier | (ASTERISK DOT)? (ASTERISK | identifier)) TO userExpressionList (WITH GRANT OPTION)? (WITH REPLACE OPTION)?
+    : GRANT clusterClause? privilege (COMMA privilege)* ON (databaseIdentifier | tableIdentifier | (ASTERISK DOT)? (ASTERISK | identifier)) TO userExpressionList (WITH GRANT OPTION)? (WITH REPLACE OPTION)?
     ;
 
 userExpressionList
@@ -400,8 +400,31 @@ dictPrivilege
     | DICTISIN
     ;
 
+alterPrivilege
+    : ALTER (DELETE | UPDATE)? columnsClause?
+    | (DELETE | UPDATE) columnsClause?
+    | ALTER TABLE
+    | ALTER (ADD | DROP | MODIFY | COMMENT | CLEAR | RENAME)? COLUMN columnsClause?
+    | (ADD | DROP | MODIFY | COMMENT | CLEAR | RENAME) COLUMN columnsClause?
+    | ALTER (ADD | DROP | MATERIALIZE | CLEAR)? INDEX
+    | (ADD | DROP | MATERIALIZE | CLEAR)? INDEX
+    | ALTER MODIFY? (ORDER | SAMPLE) BY
+    | MODIFY (ORDER | SAMPLE) BY
+    | ALTER? (ADD | DROP)? CONSTRAINT
+    | ALTER (MODIFY | MATERIALIZE)? TTL
+    | (MODIFY | MATERIALIZE) TTL
+    | ALTER SETTINGS
+    | (ALTER | ALTER MODIFY | MODIFY) SETTING
+    | ALTER? (MOVE | FETCH) (PARTITION | PART)
+    | ALTER? FREEZE PARTITION
+    | ALTER VIEW REFRESH?
+    | ALTER LIVE VIEW REFRESH
+    | REFRESH VIEW
+    | ALTER (VIEW | TABLE) MODIFY QUERY
+    ;
+
 privilege
-    // TODO: implement alter, access management, system
+    // TODO: implement access management, system
     : selectPrivilege
     | insertPrivilege
     | createPrivilege
@@ -413,6 +436,9 @@ privilege
     | introspectionPrivilege
     | sourcePrivilege
     | dictPrivilege
+    | alterPrivilege
+    | ALL
+    | NONE
     ;
 
 // INSERT statement

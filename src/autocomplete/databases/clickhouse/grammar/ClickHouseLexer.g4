@@ -256,6 +256,7 @@ HDFS                   : H D F S;
 S3                     : S '3';
 SETTING                : S E T T I N G;
 OPTION                 : O P T I O N;
+NONE                   : N O N E;
 
 JSON_FALSE : 'false';
 JSON_TRUE  : 'true';
