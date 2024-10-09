@@ -1,23 +1,23 @@
 import {TableOrViewSuggestion} from '../../../../shared';
-import {parseClickHouseQueryWithCursor} from '../../index';
+import {parseClickHouseQueryWithCursor, parseClickHouseQueryWithoutCursor} from '../../index';
 
 test('should not report errors on table wildcard identifier', () => {
-    const autocompleteResult = parseClickHouseQueryWithCursor(
-        'GRANT ON CLUSTER test_cluster CREATE ON *.* TO test_user1;|',
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(
+        'GRANT ON CLUSTER test_cluster CREATE ON *.* TO test_user1;',
     );
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
 test('should not report errors on database wildcard identifier', () => {
-    const autocompleteResult = parseClickHouseQueryWithCursor(
-        'GRANT ON CLUSTER test_cluster CREATE ON *.test_table TO test_user1;|',
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(
+        'GRANT ON CLUSTER test_cluster CREATE ON *.test_table TO test_user1;',
     );
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
 test('should not report errors on wildcard identifier', () => {
-    const autocompleteResult = parseClickHouseQueryWithCursor(
-        'GRANT ON CLUSTER test_cluster CREATE ON * TO test_user1;|',
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(
+        'GRANT ON CLUSTER test_cluster CREATE ON * TO test_user1;',
     );
     expect(autocompleteResult.errors).toHaveLength(0);
 });
@@ -327,6 +327,16 @@ test('should suggest keywords after privilege identifier', () => {
             value: 'ON',
         },
     ]);
+});
+
+test('should suggest tables or views', () => {
+    const autocompleteResult = parseClickHouseQueryWithCursor('GRANT SELECT ON |');
+    expect(autocompleteResult.suggestViewsOrTables).toEqual(TableOrViewSuggestion.ALL);
+});
+
+test('should suggest databases', () => {
+    const autocompleteResult = parseClickHouseQueryWithCursor('GRANT SELECT ON |');
+    expect(autocompleteResult.suggestDatabases).toEqual(true);
 });
 
 test('should suggest keywords after table identifier', () => {
