@@ -4,10 +4,90 @@ test('should not report errors', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor(
         `
           GRANT ON CLUSTER test_cluster
+            ALTER(test_column1, test_column2),
+            ALTER TABLE,
+            ALTER UPDATE(test_column1, test_column2),
+            ALTER DELETE(test_column1, test_column2),
+            UPDATE(test_column1, test_column2),
+            DELETE(test_column1, test_column2),
+            ALTER COLUMN(test_column1, test_column2),
+            ALTER ADD COLUMN(test_column1, test_column2),
+            ALTER DROP COLUMN(test_column1, test_column2),
+            ALTER MODIFY COLUMN(test_column1, test_column2),
+            ALTER COMMENT COLUMN(test_column1, test_column2),
+            ALTER CLEAR COLUMN(test_column1, test_column2),
+            ALTER RENAME COLUMN(test_column1, test_column2),
+            ADD COLUMN(test_column1, test_column2),
+            DROP COLUMN(test_column1, test_column2),
+            MODIFY COLUMN(test_column1, test_column2),
+            COMMENT COLUMN(test_column1, test_column2),
+            CLEAR COLUMN(test_column1, test_column2),
+            RENAME COLUMN(test_column1, test_column2),
+            ALTER INDEX,
+            ALTER ORDER BY,
+            ALTER SAMPLE BY,
+            ALTER MODIFY ORDER BY,
+            ALTER MODIFY SAMPLE BY,
+            ALTER ADD INDEX,
+            ALTER DROP INDEX,
+            ALTER MATERIALIZE INDEX,
+            ALTER CLEAR INDEX,
+            INDEX,
+            MODIFY ORDER BY,
+            MODIFY SAMPLE BY,
+            ADD INDEX,
+            DROP INDEX,
+            MATERIALIZE INDEX,
+            CLEAR INDEX,
+            ALTER CONSTRAINT,
+            ALTER ADD CONSTRAINT,
+            ALTER DROP CONSTRAINT,
+            CONSTRAINT,
+            ADD CONSTRAINT,
+            DROP CONSTRAINT,
+            ALTER TTL,
+            ALTER MATERIALIZE TTL,
+            ALTER MODIFY TTL,
+            MODIFY TTL,
+            MATERIALIZE TTL,
+            ALTER SETTINGS,
+            ALTER SETTING,
+            ALTER MODIFY SETTING,
+            MODIFY SETTING,
+            ALTER MOVE PARTITION,
+            ALTER MOVE PART,
+            MOVE PARTITION,
+            MOVE PART,
+            ALTER FETCH PARTITION,
+            ALTER FETCH PART,
+            FETCH PARTITION,
+            FETCH PART,
+            ALTER FREEZE PARTITION,
+            FREEZE PARTITION,
+            ALTER VIEW,
+            ALTER VIEW REFRESH,
+            ALTER VIEW MODIFY QUERY,
+            ALTER LIVE VIEW REFRESH,
+            REFRESH VIEW,
+            ALTER TABLE MODIFY QUERY
+          ON *.* TO test_user1, test_user2
+          WITH GRANT OPTION
+          WITH REPLACE OPTION;|
+        `,
+    );
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should not report errors without optional parameters', () => {
+    const autocompleteResult = parseClickHouseQueryWithCursor(
+        `
+          GRANT
             ALTER,
             ALTER TABLE,
             ALTER UPDATE,
             ALTER DELETE,
+            UPDATE,
+            DELETE,
             ALTER COLUMN,
             ALTER ADD COLUMN,
             ALTER DROP COLUMN,
@@ -68,17 +148,9 @@ test('should not report errors', () => {
             ALTER LIVE VIEW REFRESH,
             REFRESH VIEW,
             ALTER TABLE MODIFY QUERY
-          ON *.* TO test_user1, test_user2
-          WITH GRANT OPTION
-          WITH REPLACE OPTION;|
+          ON test_table
+          TO test_user1;|
         `,
-    );
-    expect(autocompleteResult.errors).toHaveLength(0);
-});
-
-test('should not report errors without optional parameters', () => {
-    const autocompleteResult = parseClickHouseQueryWithCursor(
-        'GRANT ALTER ON test_table TO test_user1;|',
     );
     expect(autocompleteResult.errors).toHaveLength(0);
 });
