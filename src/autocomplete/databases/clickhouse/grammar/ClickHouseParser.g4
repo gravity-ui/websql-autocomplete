@@ -423,7 +423,7 @@ alterPrivilege
     ;
 
 privilege
-    // TODO: implement access management, system
+    // TODO: implement all left privileges
     : selectPrivilege
     | insertPrivilege
     | createPrivilege
