@@ -3,12 +3,12 @@ import {parseClickHouseQueryWithCursor} from '../../index';
 test('should not report errors', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor(
         `
-					GRANT ON CLUSTER test_cluster
-						NONE
-					ON *.* TO test_user1, test_user2
-					WITH GRANT OPTION
-					WITH REPLACE OPTION;|
-				`,
+          GRANT ON CLUSTER test_cluster
+            NONE
+          ON *.* TO test_user1, test_user2
+          WITH GRANT OPTION
+          WITH REPLACE OPTION;|
+        `,
     );
     expect(autocompleteResult.errors).toHaveLength(0);
 });
