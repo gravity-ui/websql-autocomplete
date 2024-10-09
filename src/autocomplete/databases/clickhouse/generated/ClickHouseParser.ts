@@ -3268,6 +3268,7 @@ export class ClickHouseParser extends antlr.Parser {
             case ClickHouseParser.WINDOW:
             case ClickHouseParser.WITH:
             case ClickHouseParser.YEAR:
+            case ClickHouseParser.GRANT:
             case ClickHouseParser.USER:
             case ClickHouseParser.FETCH:
             case ClickHouseParser.REFRESH:
@@ -3277,6 +3278,7 @@ export class ClickHouseParser extends antlr.Parser {
             case ClickHouseParser.PROFILE:
             case ClickHouseParser.ARBITRARY:
             case ClickHouseParser.COLUMNS:
+            case ClickHouseParser.CURRENT_USER:
             case ClickHouseParser.ACCESS:
             case ClickHouseParser.SHOW_USERS:
             case ClickHouseParser.SHOW_ROLES:
@@ -3287,6 +3289,7 @@ export class ClickHouseParser extends antlr.Parser {
             case ClickHouseParser.CACHE:
             case ClickHouseParser.DNS:
             case ClickHouseParser.MARK:
+            case ClickHouseParser.PART:
             case ClickHouseParser.UNCOMPRESSED:
             case ClickHouseParser.CONFIG:
             case ClickHouseParser.EMBEDDED:
@@ -3316,6 +3319,7 @@ export class ClickHouseParser extends antlr.Parser {
             case ClickHouseParser.S3:
             case ClickHouseParser.SETTING:
             case ClickHouseParser.OPTION:
+            case ClickHouseParser.NONE:
             case ClickHouseParser.JSON_FALSE:
             case ClickHouseParser.JSON_TRUE:
             case ClickHouseParser.IDENTIFIER:
@@ -3388,7 +3392,7 @@ export class ClickHouseParser extends antlr.Parser {
             this.state = 885;
             this.errorHandler.sync(this);
             _la = this.tokenStream.LA(1);
-            while ((((_la) & ~0x1F) === 0 && ((1 << _la) & 4294967292) !== 0) || ((((_la - 32)) & ~0x1F) === 0 && ((1 << (_la - 32)) & 4290772991) !== 0) || ((((_la - 64)) & ~0x1F) === 0 && ((1 << (_la - 64)) & 4294705151) !== 0) || ((((_la - 96)) & ~0x1F) === 0 && ((1 << (_la - 96)) & 2146303999) !== 0) || ((((_la - 129)) & ~0x1F) === 0 && ((1 << (_la - 129)) & 4294967215) !== 0) || ((((_la - 161)) & ~0x1F) === 0 && ((1 << (_la - 161)) & 4294950911) !== 0) || ((((_la - 193)) & ~0x1F) === 0 && ((1 << (_la - 193)) & 4286574587) !== 0) || ((((_la - 225)) & ~0x1F) === 0 && ((1 << (_la - 225)) & 31457279) !== 0)) {
+            while ((((_la) & ~0x1F) === 0 && ((1 << _la) & 4294967292) !== 0) || ((((_la - 32)) & ~0x1F) === 0 && ((1 << (_la - 32)) & 4290772991) !== 0) || ((((_la - 64)) & ~0x1F) === 0 && ((1 << (_la - 64)) & 4294705151) !== 0) || ((((_la - 96)) & ~0x1F) === 0 && ((1 << (_la - 96)) & 2146303999) !== 0) || ((((_la - 129)) & ~0x1F) === 0 && ((1 << (_la - 129)) & 4294967215) !== 0) || ((((_la - 161)) & ~0x1F) === 0 && ((1 << (_la - 161)) & 4294950911) !== 0) || ((((_la - 193)) & ~0x1F) === 0 && ((1 << (_la - 193)) & 4294967295) !== 0) || ((((_la - 225)) & ~0x1F) === 0 && ((1 << (_la - 225)) & 33554431) !== 0)) {
                 {
                 {
                 this.state = 882;
@@ -3499,7 +3503,7 @@ export class ClickHouseParser extends antlr.Parser {
             this.state = 913;
             this.errorHandler.sync(this);
             _la = this.tokenStream.LA(1);
-            while ((((_la) & ~0x1F) === 0 && ((1 << _la) & 4294967292) !== 0) || ((((_la - 32)) & ~0x1F) === 0 && ((1 << (_la - 32)) & 4290772991) !== 0) || ((((_la - 64)) & ~0x1F) === 0 && ((1 << (_la - 64)) & 4294705151) !== 0) || ((((_la - 96)) & ~0x1F) === 0 && ((1 << (_la - 96)) & 2146303999) !== 0) || ((((_la - 129)) & ~0x1F) === 0 && ((1 << (_la - 129)) & 4294967215) !== 0) || ((((_la - 161)) & ~0x1F) === 0 && ((1 << (_la - 161)) & 4294950911) !== 0) || ((((_la - 193)) & ~0x1F) === 0 && ((1 << (_la - 193)) & 4286574587) !== 0) || ((((_la - 225)) & ~0x1F) === 0 && ((1 << (_la - 225)) & 31457279) !== 0)) {
+            while ((((_la) & ~0x1F) === 0 && ((1 << _la) & 4294967292) !== 0) || ((((_la - 32)) & ~0x1F) === 0 && ((1 << (_la - 32)) & 4290772991) !== 0) || ((((_la - 64)) & ~0x1F) === 0 && ((1 << (_la - 64)) & 4294705151) !== 0) || ((((_la - 96)) & ~0x1F) === 0 && ((1 << (_la - 96)) & 2146303999) !== 0) || ((((_la - 129)) & ~0x1F) === 0 && ((1 << (_la - 129)) & 4294967215) !== 0) || ((((_la - 161)) & ~0x1F) === 0 && ((1 << (_la - 161)) & 4294950911) !== 0) || ((((_la - 193)) & ~0x1F) === 0 && ((1 << (_la - 193)) & 4294967295) !== 0) || ((((_la - 225)) & ~0x1F) === 0 && ((1 << (_la - 225)) & 33554431) !== 0)) {
                 {
                 {
                 this.state = 910;
@@ -3812,6 +3816,7 @@ export class ClickHouseParser extends antlr.Parser {
             case ClickHouseParser.WINDOW:
             case ClickHouseParser.WITH:
             case ClickHouseParser.YEAR:
+            case ClickHouseParser.GRANT:
             case ClickHouseParser.USER:
             case ClickHouseParser.FETCH:
             case ClickHouseParser.REFRESH:
@@ -3821,6 +3826,7 @@ export class ClickHouseParser extends antlr.Parser {
             case ClickHouseParser.PROFILE:
             case ClickHouseParser.ARBITRARY:
             case ClickHouseParser.COLUMNS:
+            case ClickHouseParser.CURRENT_USER:
             case ClickHouseParser.ACCESS:
             case ClickHouseParser.SHOW_USERS:
             case ClickHouseParser.SHOW_ROLES:
@@ -3831,6 +3837,7 @@ export class ClickHouseParser extends antlr.Parser {
             case ClickHouseParser.CACHE:
             case ClickHouseParser.DNS:
             case ClickHouseParser.MARK:
+            case ClickHouseParser.PART:
             case ClickHouseParser.UNCOMPRESSED:
             case ClickHouseParser.CONFIG:
             case ClickHouseParser.EMBEDDED:
@@ -3860,6 +3867,7 @@ export class ClickHouseParser extends antlr.Parser {
             case ClickHouseParser.S3:
             case ClickHouseParser.SETTING:
             case ClickHouseParser.OPTION:
+            case ClickHouseParser.NONE:
             case ClickHouseParser.JSON_FALSE:
             case ClickHouseParser.JSON_TRUE:
             case ClickHouseParser.IDENTIFIER:
@@ -4302,7 +4310,7 @@ export class ClickHouseParser extends antlr.Parser {
                 this.state = 1030;
                 this.errorHandler.sync(this);
                 _la = this.tokenStream.LA(1);
-                if ((((_la) & ~0x1F) === 0 && ((1 << _la) & 4294967292) !== 0) || ((((_la - 32)) & ~0x1F) === 0 && ((1 << (_la - 32)) & 4290772991) !== 0) || ((((_la - 64)) & ~0x1F) === 0 && ((1 << (_la - 64)) & 4294967295) !== 0) || ((((_la - 96)) & ~0x1F) === 0 && ((1 << (_la - 96)) & 2147483647) !== 0) || ((((_la - 129)) & ~0x1F) === 0 && ((1 << (_la - 129)) & 4294967215) !== 0) || ((((_la - 161)) & ~0x1F) === 0 && ((1 << (_la - 161)) & 4294950911) !== 0) || ((((_la - 193)) & ~0x1F) === 0 && ((1 << (_la - 193)) & 4286574587) !== 0) || ((((_la - 225)) & ~0x1F) === 0 && ((1 << (_la - 225)) & 3219128319) !== 0) || ((((_la - 262)) & ~0x1F) === 0 && ((1 << (_la - 262)) & 8835) !== 0)) {
+                if ((((_la) & ~0x1F) === 0 && ((1 << _la) & 4294967292) !== 0) || ((((_la - 32)) & ~0x1F) === 0 && ((1 << (_la - 32)) & 4290772991) !== 0) || ((((_la - 64)) & ~0x1F) === 0 && ((1 << (_la - 64)) & 4294967295) !== 0) || ((((_la - 96)) & ~0x1F) === 0 && ((1 << (_la - 96)) & 2147483647) !== 0) || ((((_la - 129)) & ~0x1F) === 0 && ((1 << (_la - 129)) & 4294967215) !== 0) || ((((_la - 161)) & ~0x1F) === 0 && ((1 << (_la - 161)) & 4294950911) !== 0) || ((((_la - 193)) & ~0x1F) === 0 && ((1 << (_la - 193)) & 4294967295) !== 0) || ((((_la - 225)) & ~0x1F) === 0 && ((1 << (_la - 225)) & 3221225471) !== 0) || ((((_la - 262)) & ~0x1F) === 0 && ((1 << (_la - 262)) & 8835) !== 0)) {
                     {
                     this.state = 1029;
                     this.columnExpressionList();
@@ -4678,7 +4686,7 @@ export class ClickHouseParser extends antlr.Parser {
                 this.state = 1109;
                 this.errorHandler.sync(this);
                 _la = this.tokenStream.LA(1);
-                if ((((_la) & ~0x1F) === 0 && ((1 << _la) & 4294967292) !== 0) || ((((_la - 32)) & ~0x1F) === 0 && ((1 << (_la - 32)) & 4290772991) !== 0) || ((((_la - 64)) & ~0x1F) === 0 && ((1 << (_la - 64)) & 4294967295) !== 0) || ((((_la - 96)) & ~0x1F) === 0 && ((1 << (_la - 96)) & 2147483647) !== 0) || ((((_la - 129)) & ~0x1F) === 0 && ((1 << (_la - 129)) & 4294967215) !== 0) || ((((_la - 161)) & ~0x1F) === 0 && ((1 << (_la - 161)) & 4294950911) !== 0) || ((((_la - 193)) & ~0x1F) === 0 && ((1 << (_la - 193)) & 4286574587) !== 0) || ((((_la - 225)) & ~0x1F) === 0 && ((1 << (_la - 225)) & 3219128319) !== 0) || ((((_la - 262)) & ~0x1F) === 0 && ((1 << (_la - 262)) & 8835) !== 0)) {
+                if ((((_la) & ~0x1F) === 0 && ((1 << _la) & 4294967292) !== 0) || ((((_la - 32)) & ~0x1F) === 0 && ((1 << (_la - 32)) & 4290772991) !== 0) || ((((_la - 64)) & ~0x1F) === 0 && ((1 << (_la - 64)) & 4294967295) !== 0) || ((((_la - 96)) & ~0x1F) === 0 && ((1 << (_la - 96)) & 2147483647) !== 0) || ((((_la - 129)) & ~0x1F) === 0 && ((1 << (_la - 129)) & 4294967215) !== 0) || ((((_la - 161)) & ~0x1F) === 0 && ((1 << (_la - 161)) & 4294950911) !== 0) || ((((_la - 193)) & ~0x1F) === 0 && ((1 << (_la - 193)) & 4294967295) !== 0) || ((((_la - 225)) & ~0x1F) === 0 && ((1 << (_la - 225)) & 3221225471) !== 0) || ((((_la - 262)) & ~0x1F) === 0 && ((1 << (_la - 262)) & 8835) !== 0)) {
                     {
                     this.state = 1108;
                     this.columnExpressionList();
@@ -5395,6 +5403,7 @@ export class ClickHouseParser extends antlr.Parser {
                 case ClickHouseParser.WINDOW:
                 case ClickHouseParser.WITH:
                 case ClickHouseParser.YEAR:
+                case ClickHouseParser.GRANT:
                 case ClickHouseParser.USER:
                 case ClickHouseParser.FETCH:
                 case ClickHouseParser.REFRESH:
@@ -5404,6 +5413,7 @@ export class ClickHouseParser extends antlr.Parser {
                 case ClickHouseParser.PROFILE:
                 case ClickHouseParser.ARBITRARY:
                 case ClickHouseParser.COLUMNS:
+                case ClickHouseParser.CURRENT_USER:
                 case ClickHouseParser.ACCESS:
                 case ClickHouseParser.SHOW_USERS:
                 case ClickHouseParser.SHOW_ROLES:
@@ -5414,6 +5424,7 @@ export class ClickHouseParser extends antlr.Parser {
                 case ClickHouseParser.CACHE:
                 case ClickHouseParser.DNS:
                 case ClickHouseParser.MARK:
+                case ClickHouseParser.PART:
                 case ClickHouseParser.UNCOMPRESSED:
                 case ClickHouseParser.CONFIG:
                 case ClickHouseParser.EMBEDDED:
@@ -5443,6 +5454,7 @@ export class ClickHouseParser extends antlr.Parser {
                 case ClickHouseParser.S3:
                 case ClickHouseParser.SETTING:
                 case ClickHouseParser.OPTION:
+                case ClickHouseParser.NONE:
                 case ClickHouseParser.JSON_FALSE:
                 case ClickHouseParser.JSON_TRUE:
                 case ClickHouseParser.IDENTIFIER:
@@ -5550,257 +5562,21 @@ export class ClickHouseParser extends antlr.Parser {
         try {
             this.state = 1248;
             this.errorHandler.sync(this);
-            switch (this.tokenStream.LA(1)) {
-            case ClickHouseParser.CURRENT_USER:
+            switch (this.interpreter.adaptivePredict(this.tokenStream, 140, this.context) ) {
+            case 1:
                 this.enterOuterAlt(localContext, 1);
                 {
                 this.state = 1246;
                 this.match(ClickHouseParser.CURRENT_USER);
                 }
                 break;
-            case ClickHouseParser.AFTER:
-            case ClickHouseParser.ALIAS:
-            case ClickHouseParser.ALL:
-            case ClickHouseParser.ALTER:
-            case ClickHouseParser.AND:
-            case ClickHouseParser.ANTI:
-            case ClickHouseParser.ANY:
-            case ClickHouseParser.ARRAY:
-            case ClickHouseParser.AS:
-            case ClickHouseParser.ASCENDING:
-            case ClickHouseParser.ASOF:
-            case ClickHouseParser.AST:
-            case ClickHouseParser.ASYNC:
-            case ClickHouseParser.ATTACH:
-            case ClickHouseParser.BETWEEN:
-            case ClickHouseParser.BOTH:
-            case ClickHouseParser.BY:
-            case ClickHouseParser.CASE:
-            case ClickHouseParser.CAST:
-            case ClickHouseParser.CHECK:
-            case ClickHouseParser.CLEAR:
-            case ClickHouseParser.CLUSTER:
-            case ClickHouseParser.CODEC:
-            case ClickHouseParser.COLLATE:
-            case ClickHouseParser.COLUMN:
-            case ClickHouseParser.COMMENT:
-            case ClickHouseParser.CONSTRAINT:
-            case ClickHouseParser.CREATE:
-            case ClickHouseParser.CROSS:
-            case ClickHouseParser.CUBE:
-            case ClickHouseParser.CURRENT:
-            case ClickHouseParser.DATABASE:
-            case ClickHouseParser.DATABASES:
-            case ClickHouseParser.DATE:
-            case ClickHouseParser.DAY:
-            case ClickHouseParser.DEDUPLICATE:
-            case ClickHouseParser.DEFAULT:
-            case ClickHouseParser.DELAY:
-            case ClickHouseParser.DELETE:
-            case ClickHouseParser.DESC:
-            case ClickHouseParser.DESCENDING:
-            case ClickHouseParser.DESCRIBE:
-            case ClickHouseParser.DETACH:
-            case ClickHouseParser.DICTIONARIES:
-            case ClickHouseParser.DICTIONARY:
-            case ClickHouseParser.DISK:
-            case ClickHouseParser.DISTINCT:
-            case ClickHouseParser.DISTRIBUTED:
-            case ClickHouseParser.DROP:
-            case ClickHouseParser.ELSE:
-            case ClickHouseParser.END:
-            case ClickHouseParser.ENGINE:
-            case ClickHouseParser.EVENTS:
-            case ClickHouseParser.EXISTS:
-            case ClickHouseParser.EXPLAIN:
-            case ClickHouseParser.EXPRESSION:
-            case ClickHouseParser.EXTRACT:
-            case ClickHouseParser.FETCHES:
-            case ClickHouseParser.FINAL:
-            case ClickHouseParser.FIRST:
-            case ClickHouseParser.FLUSH:
-            case ClickHouseParser.FOLLOWING:
-            case ClickHouseParser.FOR:
-            case ClickHouseParser.FORMAT:
-            case ClickHouseParser.FREEZE:
-            case ClickHouseParser.FROM:
-            case ClickHouseParser.FULL:
-            case ClickHouseParser.FUNCTION:
-            case ClickHouseParser.GLOBAL:
-            case ClickHouseParser.GRANULARITY:
-            case ClickHouseParser.GROUP:
-            case ClickHouseParser.HAVING:
-            case ClickHouseParser.HIERARCHICAL:
-            case ClickHouseParser.HOUR:
-            case ClickHouseParser.ID:
-            case ClickHouseParser.IF:
-            case ClickHouseParser.ILIKE:
-            case ClickHouseParser.IN:
-            case ClickHouseParser.INDEX:
-            case ClickHouseParser.INJECTIVE:
-            case ClickHouseParser.INNER:
-            case ClickHouseParser.INSERT:
-            case ClickHouseParser.INTERVAL:
-            case ClickHouseParser.INTO:
-            case ClickHouseParser.IS:
-            case ClickHouseParser.IS_OBJECT_ID:
-            case ClickHouseParser.JOIN:
-            case ClickHouseParser.KEY:
-            case ClickHouseParser.KILL:
-            case ClickHouseParser.LAST:
-            case ClickHouseParser.LAYOUT:
-            case ClickHouseParser.LEADING:
-            case ClickHouseParser.LEFT:
-            case ClickHouseParser.LIFETIME:
-            case ClickHouseParser.LIKE:
-            case ClickHouseParser.LIMIT:
-            case ClickHouseParser.LIVE:
-            case ClickHouseParser.LOCAL:
-            case ClickHouseParser.LOGS:
-            case ClickHouseParser.MATERIALIZE:
-            case ClickHouseParser.MATERIALIZED:
-            case ClickHouseParser.MAX:
-            case ClickHouseParser.MERGES:
-            case ClickHouseParser.MIN:
-            case ClickHouseParser.MINUTE:
-            case ClickHouseParser.MODIFY:
-            case ClickHouseParser.MONTH:
-            case ClickHouseParser.MOVE:
-            case ClickHouseParser.MUTATION:
-            case ClickHouseParser.NO:
-            case ClickHouseParser.NOT:
-            case ClickHouseParser.NULLS:
-            case ClickHouseParser.OFFSET:
-            case ClickHouseParser.ON:
-            case ClickHouseParser.OPTIMIZE:
-            case ClickHouseParser.OR:
-            case ClickHouseParser.ORDER:
-            case ClickHouseParser.OUTER:
-            case ClickHouseParser.OUTFILE:
-            case ClickHouseParser.OVER:
-            case ClickHouseParser.PARTITION:
-            case ClickHouseParser.POPULATE:
-            case ClickHouseParser.PRECEDING:
-            case ClickHouseParser.PREWHERE:
-            case ClickHouseParser.PRIMARY:
-            case ClickHouseParser.QUARTER:
-            case ClickHouseParser.RANGE:
-            case ClickHouseParser.RELOAD:
-            case ClickHouseParser.REMOVE:
-            case ClickHouseParser.RENAME:
-            case ClickHouseParser.REPLACE:
-            case ClickHouseParser.REPLICA:
-            case ClickHouseParser.REPLICATED:
-            case ClickHouseParser.RIGHT:
-            case ClickHouseParser.ROLLUP:
-            case ClickHouseParser.ROW:
-            case ClickHouseParser.ROWS:
-            case ClickHouseParser.SAMPLE:
-            case ClickHouseParser.SECOND:
-            case ClickHouseParser.SELECT:
-            case ClickHouseParser.SEMI:
-            case ClickHouseParser.SENDS:
-            case ClickHouseParser.SET:
-            case ClickHouseParser.SETTINGS:
-            case ClickHouseParser.SHOW:
-            case ClickHouseParser.SOURCE:
-            case ClickHouseParser.START:
-            case ClickHouseParser.STOP:
-            case ClickHouseParser.SUBSTRING:
-            case ClickHouseParser.SYNC:
-            case ClickHouseParser.SYNTAX:
-            case ClickHouseParser.SYSTEM:
-            case ClickHouseParser.TABLE:
-            case ClickHouseParser.TABLES:
-            case ClickHouseParser.TEMPORARY:
-            case ClickHouseParser.TEST:
-            case ClickHouseParser.THEN:
-            case ClickHouseParser.TIES:
-            case ClickHouseParser.TIMEOUT:
-            case ClickHouseParser.TIMESTAMP:
-            case ClickHouseParser.TO:
-            case ClickHouseParser.TOP:
-            case ClickHouseParser.TOTALS:
-            case ClickHouseParser.TRAILING:
-            case ClickHouseParser.TRIM:
-            case ClickHouseParser.TRUNCATE:
-            case ClickHouseParser.TTL:
-            case ClickHouseParser.TYPE:
-            case ClickHouseParser.UNBOUNDED:
-            case ClickHouseParser.UNION:
-            case ClickHouseParser.UPDATE:
-            case ClickHouseParser.USE:
-            case ClickHouseParser.USING:
-            case ClickHouseParser.UUID:
-            case ClickHouseParser.VALUES:
-            case ClickHouseParser.VIEW:
-            case ClickHouseParser.VOLUME:
-            case ClickHouseParser.WATCH:
-            case ClickHouseParser.WEEK:
-            case ClickHouseParser.WHEN:
-            case ClickHouseParser.WHERE:
-            case ClickHouseParser.WINDOW:
-            case ClickHouseParser.WITH:
-            case ClickHouseParser.YEAR:
-            case ClickHouseParser.USER:
-            case ClickHouseParser.FETCH:
-            case ClickHouseParser.REFRESH:
-            case ClickHouseParser.POLICY:
-            case ClickHouseParser.QUOTA:
-            case ClickHouseParser.ROLE:
-            case ClickHouseParser.PROFILE:
-            case ClickHouseParser.ARBITRARY:
-            case ClickHouseParser.COLUMNS:
-            case ClickHouseParser.ACCESS:
-            case ClickHouseParser.SHOW_USERS:
-            case ClickHouseParser.SHOW_ROLES:
-            case ClickHouseParser.SHOW_ROW_POLICIES:
-            case ClickHouseParser.SHOW_QUOTAS:
-            case ClickHouseParser.SHOW_SETTINGS_PROFILES:
-            case ClickHouseParser.SHUTDOWN:
-            case ClickHouseParser.CACHE:
-            case ClickHouseParser.DNS:
-            case ClickHouseParser.MARK:
-            case ClickHouseParser.UNCOMPRESSED:
-            case ClickHouseParser.CONFIG:
-            case ClickHouseParser.EMBEDDED:
-            case ClickHouseParser.FUNCTIONS:
-            case ClickHouseParser.MOVES:
-            case ClickHouseParser.REPLICATION:
-            case ClickHouseParser.QUEUES:
-            case ClickHouseParser.RESTART:
-            case ClickHouseParser.DICTGET:
-            case ClickHouseParser.DICTGETHIERARCHY:
-            case ClickHouseParser.DICTHAS:
-            case ClickHouseParser.DICTISIN:
-            case ClickHouseParser.MANAGEMENT:
-            case ClickHouseParser.ADMIN:
-            case ClickHouseParser.INTROSPECTION:
-            case ClickHouseParser.ADDRESSTOLINE:
-            case ClickHouseParser.ADDRESSTOSYMBOL:
-            case ClickHouseParser.DEMANGLE:
-            case ClickHouseParser.SOURCES:
-            case ClickHouseParser.FILE:
-            case ClickHouseParser.URL:
-            case ClickHouseParser.REMOTE:
-            case ClickHouseParser.MYSQL:
-            case ClickHouseParser.ODBC:
-            case ClickHouseParser.JDBC:
-            case ClickHouseParser.HDFS:
-            case ClickHouseParser.S3:
-            case ClickHouseParser.SETTING:
-            case ClickHouseParser.OPTION:
-            case ClickHouseParser.JSON_FALSE:
-            case ClickHouseParser.JSON_TRUE:
-            case ClickHouseParser.IDENTIFIER:
+            case 2:
                 this.enterOuterAlt(localContext, 2);
                 {
                 this.state = 1247;
                 this.identifier();
                 }
                 break;
-            default:
-                throw new antlr.NoViableAltException(this);
             }
         }
         catch (re) {
@@ -9702,7 +9478,7 @@ export class ClickHouseParser extends antlr.Parser {
                 this.state = 1989;
                 this.errorHandler.sync(this);
                 _la = this.tokenStream.LA(1);
-                if ((((_la) & ~0x1F) === 0 && ((1 << _la) & 4294967292) !== 0) || ((((_la - 32)) & ~0x1F) === 0 && ((1 << (_la - 32)) & 4290772991) !== 0) || ((((_la - 64)) & ~0x1F) === 0 && ((1 << (_la - 64)) & 4294967295) !== 0) || ((((_la - 96)) & ~0x1F) === 0 && ((1 << (_la - 96)) & 2147483647) !== 0) || ((((_la - 129)) & ~0x1F) === 0 && ((1 << (_la - 129)) & 4294967215) !== 0) || ((((_la - 161)) & ~0x1F) === 0 && ((1 << (_la - 161)) & 4294950911) !== 0) || ((((_la - 193)) & ~0x1F) === 0 && ((1 << (_la - 193)) & 4286574587) !== 0) || ((((_la - 225)) & ~0x1F) === 0 && ((1 << (_la - 225)) & 3219128319) !== 0) || ((((_la - 262)) & ~0x1F) === 0 && ((1 << (_la - 262)) & 8835) !== 0)) {
+                if ((((_la) & ~0x1F) === 0 && ((1 << _la) & 4294967292) !== 0) || ((((_la - 32)) & ~0x1F) === 0 && ((1 << (_la - 32)) & 4290772991) !== 0) || ((((_la - 64)) & ~0x1F) === 0 && ((1 << (_la - 64)) & 4294967295) !== 0) || ((((_la - 96)) & ~0x1F) === 0 && ((1 << (_la - 96)) & 2147483647) !== 0) || ((((_la - 129)) & ~0x1F) === 0 && ((1 << (_la - 129)) & 4294967215) !== 0) || ((((_la - 161)) & ~0x1F) === 0 && ((1 << (_la - 161)) & 4294950911) !== 0) || ((((_la - 193)) & ~0x1F) === 0 && ((1 << (_la - 193)) & 4294967295) !== 0) || ((((_la - 225)) & ~0x1F) === 0 && ((1 << (_la - 225)) & 3221225471) !== 0) || ((((_la - 262)) & ~0x1F) === 0 && ((1 << (_la - 262)) & 8835) !== 0)) {
                     {
                     this.state = 1988;
                     this.columnExpressionList();
@@ -9785,7 +9561,7 @@ export class ClickHouseParser extends antlr.Parser {
                 this.state = 2006;
                 this.errorHandler.sync(this);
                 _la = this.tokenStream.LA(1);
-                if ((((_la) & ~0x1F) === 0 && ((1 << _la) & 4294967292) !== 0) || ((((_la - 32)) & ~0x1F) === 0 && ((1 << (_la - 32)) & 4290772991) !== 0) || ((((_la - 64)) & ~0x1F) === 0 && ((1 << (_la - 64)) & 4294705151) !== 0) || ((((_la - 96)) & ~0x1F) === 0 && ((1 << (_la - 96)) & 2146303999) !== 0) || ((((_la - 129)) & ~0x1F) === 0 && ((1 << (_la - 129)) & 4294967215) !== 0) || ((((_la - 161)) & ~0x1F) === 0 && ((1 << (_la - 161)) & 4294950911) !== 0) || ((((_la - 193)) & ~0x1F) === 0 && ((1 << (_la - 193)) & 4286574587) !== 0) || ((((_la - 225)) & ~0x1F) === 0 && ((1 << (_la - 225)) & 31457279) !== 0)) {
+                if ((((_la) & ~0x1F) === 0 && ((1 << _la) & 4294967292) !== 0) || ((((_la - 32)) & ~0x1F) === 0 && ((1 << (_la - 32)) & 4290772991) !== 0) || ((((_la - 64)) & ~0x1F) === 0 && ((1 << (_la - 64)) & 4294705151) !== 0) || ((((_la - 96)) & ~0x1F) === 0 && ((1 << (_la - 96)) & 2146303999) !== 0) || ((((_la - 129)) & ~0x1F) === 0 && ((1 << (_la - 129)) & 4294967215) !== 0) || ((((_la - 161)) & ~0x1F) === 0 && ((1 << (_la - 161)) & 4294950911) !== 0) || ((((_la - 193)) & ~0x1F) === 0 && ((1 << (_la - 193)) & 4294967295) !== 0) || ((((_la - 225)) & ~0x1F) === 0 && ((1 << (_la - 225)) & 33554431) !== 0)) {
                     {
                     this.state = 2003;
                     this.tableIdentifier();
@@ -10054,7 +9830,7 @@ export class ClickHouseParser extends antlr.Parser {
                 this.state = 2080;
                 this.errorHandler.sync(this);
                 _la = this.tokenStream.LA(1);
-                if ((((_la) & ~0x1F) === 0 && ((1 << _la) & 4294967292) !== 0) || ((((_la - 32)) & ~0x1F) === 0 && ((1 << (_la - 32)) & 4290772991) !== 0) || ((((_la - 64)) & ~0x1F) === 0 && ((1 << (_la - 64)) & 4294967295) !== 0) || ((((_la - 96)) & ~0x1F) === 0 && ((1 << (_la - 96)) & 2147483647) !== 0) || ((((_la - 129)) & ~0x1F) === 0 && ((1 << (_la - 129)) & 4294967215) !== 0) || ((((_la - 161)) & ~0x1F) === 0 && ((1 << (_la - 161)) & 4294950911) !== 0) || ((((_la - 193)) & ~0x1F) === 0 && ((1 << (_la - 193)) & 4286574587) !== 0) || ((((_la - 225)) & ~0x1F) === 0 && ((1 << (_la - 225)) & 3219128319) !== 0) || ((((_la - 262)) & ~0x1F) === 0 && ((1 << (_la - 262)) & 8835) !== 0)) {
+                if ((((_la) & ~0x1F) === 0 && ((1 << _la) & 4294967292) !== 0) || ((((_la - 32)) & ~0x1F) === 0 && ((1 << (_la - 32)) & 4290772991) !== 0) || ((((_la - 64)) & ~0x1F) === 0 && ((1 << (_la - 64)) & 4294967295) !== 0) || ((((_la - 96)) & ~0x1F) === 0 && ((1 << (_la - 96)) & 2147483647) !== 0) || ((((_la - 129)) & ~0x1F) === 0 && ((1 << (_la - 129)) & 4294967215) !== 0) || ((((_la - 161)) & ~0x1F) === 0 && ((1 << (_la - 161)) & 4294950911) !== 0) || ((((_la - 193)) & ~0x1F) === 0 && ((1 << (_la - 193)) & 4294967295) !== 0) || ((((_la - 225)) & ~0x1F) === 0 && ((1 << (_la - 225)) & 3221225471) !== 0) || ((((_la - 262)) & ~0x1F) === 0 && ((1 << (_la - 262)) & 8835) !== 0)) {
                     {
                     this.state = 2079;
                     this.columnExpressionList();
@@ -10087,7 +9863,7 @@ export class ClickHouseParser extends antlr.Parser {
                 this.state = 2092;
                 this.errorHandler.sync(this);
                 _la = this.tokenStream.LA(1);
-                if ((((_la) & ~0x1F) === 0 && ((1 << _la) & 4294967292) !== 0) || ((((_la - 32)) & ~0x1F) === 0 && ((1 << (_la - 32)) & 4290772991) !== 0) || ((((_la - 64)) & ~0x1F) === 0 && ((1 << (_la - 64)) & 4294967295) !== 0) || ((((_la - 96)) & ~0x1F) === 0 && ((1 << (_la - 96)) & 2147483647) !== 0) || ((((_la - 129)) & ~0x1F) === 0 && ((1 << (_la - 129)) & 4294967215) !== 0) || ((((_la - 161)) & ~0x1F) === 0 && ((1 << (_la - 161)) & 4294950911) !== 0) || ((((_la - 193)) & ~0x1F) === 0 && ((1 << (_la - 193)) & 4286574587) !== 0) || ((((_la - 225)) & ~0x1F) === 0 && ((1 << (_la - 225)) & 3219128319) !== 0) || ((((_la - 262)) & ~0x1F) === 0 && ((1 << (_la - 262)) & 8835) !== 0)) {
+                if ((((_la) & ~0x1F) === 0 && ((1 << _la) & 4294967292) !== 0) || ((((_la - 32)) & ~0x1F) === 0 && ((1 << (_la - 32)) & 4290772991) !== 0) || ((((_la - 64)) & ~0x1F) === 0 && ((1 << (_la - 64)) & 4294967295) !== 0) || ((((_la - 96)) & ~0x1F) === 0 && ((1 << (_la - 96)) & 2147483647) !== 0) || ((((_la - 129)) & ~0x1F) === 0 && ((1 << (_la - 129)) & 4294967215) !== 0) || ((((_la - 161)) & ~0x1F) === 0 && ((1 << (_la - 161)) & 4294950911) !== 0) || ((((_la - 193)) & ~0x1F) === 0 && ((1 << (_la - 193)) & 4294967295) !== 0) || ((((_la - 225)) & ~0x1F) === 0 && ((1 << (_la - 225)) & 3221225471) !== 0) || ((((_la - 262)) & ~0x1F) === 0 && ((1 << (_la - 262)) & 8835) !== 0)) {
                     {
                     this.state = 2091;
                     this.columnExpressionList();
@@ -10120,7 +9896,7 @@ export class ClickHouseParser extends antlr.Parser {
                     this.state = 2102;
                     this.errorHandler.sync(this);
                     _la = this.tokenStream.LA(1);
-                    if ((((_la) & ~0x1F) === 0 && ((1 << _la) & 4294967292) !== 0) || ((((_la - 32)) & ~0x1F) === 0 && ((1 << (_la - 32)) & 4290772991) !== 0) || ((((_la - 64)) & ~0x1F) === 0 && ((1 << (_la - 64)) & 4294967295) !== 0) || ((((_la - 96)) & ~0x1F) === 0 && ((1 << (_la - 96)) & 2147483647) !== 0) || ((((_la - 129)) & ~0x1F) === 0 && ((1 << (_la - 129)) & 4294967215) !== 0) || ((((_la - 161)) & ~0x1F) === 0 && ((1 << (_la - 161)) & 4294950911) !== 0) || ((((_la - 193)) & ~0x1F) === 0 && ((1 << (_la - 193)) & 4286574587) !== 0) || ((((_la - 225)) & ~0x1F) === 0 && ((1 << (_la - 225)) & 3219128319) !== 0) || ((((_la - 262)) & ~0x1F) === 0 && ((1 << (_la - 262)) & 8835) !== 0)) {
+                    if ((((_la) & ~0x1F) === 0 && ((1 << _la) & 4294967292) !== 0) || ((((_la - 32)) & ~0x1F) === 0 && ((1 << (_la - 32)) & 4290772991) !== 0) || ((((_la - 64)) & ~0x1F) === 0 && ((1 << (_la - 64)) & 4294967295) !== 0) || ((((_la - 96)) & ~0x1F) === 0 && ((1 << (_la - 96)) & 2147483647) !== 0) || ((((_la - 129)) & ~0x1F) === 0 && ((1 << (_la - 129)) & 4294967215) !== 0) || ((((_la - 161)) & ~0x1F) === 0 && ((1 << (_la - 161)) & 4294950911) !== 0) || ((((_la - 193)) & ~0x1F) === 0 && ((1 << (_la - 193)) & 4294967295) !== 0) || ((((_la - 225)) & ~0x1F) === 0 && ((1 << (_la - 225)) & 3221225471) !== 0) || ((((_la - 262)) & ~0x1F) === 0 && ((1 << (_la - 262)) & 8835) !== 0)) {
                         {
                         this.state = 2101;
                         this.columnExpressionList();
@@ -10147,7 +9923,7 @@ export class ClickHouseParser extends antlr.Parser {
                 this.state = 2112;
                 this.errorHandler.sync(this);
                 _la = this.tokenStream.LA(1);
-                if ((((_la) & ~0x1F) === 0 && ((1 << _la) & 4294967292) !== 0) || ((((_la - 32)) & ~0x1F) === 0 && ((1 << (_la - 32)) & 4290772991) !== 0) || ((((_la - 64)) & ~0x1F) === 0 && ((1 << (_la - 64)) & 4294967295) !== 0) || ((((_la - 96)) & ~0x1F) === 0 && ((1 << (_la - 96)) & 2147483647) !== 0) || ((((_la - 129)) & ~0x1F) === 0 && ((1 << (_la - 129)) & 4294967215) !== 0) || ((((_la - 161)) & ~0x1F) === 0 && ((1 << (_la - 161)) & 4294950911) !== 0) || ((((_la - 193)) & ~0x1F) === 0 && ((1 << (_la - 193)) & 4286574587) !== 0) || ((((_la - 225)) & ~0x1F) === 0 && ((1 << (_la - 225)) & 3219128319) !== 0) || ((((_la - 262)) & ~0x1F) === 0 && ((1 << (_la - 262)) & 8835) !== 0)) {
+                if ((((_la) & ~0x1F) === 0 && ((1 << _la) & 4294967292) !== 0) || ((((_la - 32)) & ~0x1F) === 0 && ((1 << (_la - 32)) & 4290772991) !== 0) || ((((_la - 64)) & ~0x1F) === 0 && ((1 << (_la - 64)) & 4294967295) !== 0) || ((((_la - 96)) & ~0x1F) === 0 && ((1 << (_la - 96)) & 2147483647) !== 0) || ((((_la - 129)) & ~0x1F) === 0 && ((1 << (_la - 129)) & 4294967215) !== 0) || ((((_la - 161)) & ~0x1F) === 0 && ((1 << (_la - 161)) & 4294950911) !== 0) || ((((_la - 193)) & ~0x1F) === 0 && ((1 << (_la - 193)) & 4294967295) !== 0) || ((((_la - 225)) & ~0x1F) === 0 && ((1 << (_la - 225)) & 3221225471) !== 0) || ((((_la - 262)) & ~0x1F) === 0 && ((1 << (_la - 262)) & 8835) !== 0)) {
                     {
                     this.state = 2111;
                     this.columnArgumentList();
@@ -10197,7 +9973,7 @@ export class ClickHouseParser extends antlr.Parser {
                 this.state = 2124;
                 this.errorHandler.sync(this);
                 _la = this.tokenStream.LA(1);
-                if ((((_la) & ~0x1F) === 0 && ((1 << _la) & 4294967292) !== 0) || ((((_la - 32)) & ~0x1F) === 0 && ((1 << (_la - 32)) & 4290772991) !== 0) || ((((_la - 64)) & ~0x1F) === 0 && ((1 << (_la - 64)) & 4294705151) !== 0) || ((((_la - 96)) & ~0x1F) === 0 && ((1 << (_la - 96)) & 2146303999) !== 0) || ((((_la - 129)) & ~0x1F) === 0 && ((1 << (_la - 129)) & 4294967215) !== 0) || ((((_la - 161)) & ~0x1F) === 0 && ((1 << (_la - 161)) & 4294950911) !== 0) || ((((_la - 193)) & ~0x1F) === 0 && ((1 << (_la - 193)) & 4286574587) !== 0) || ((((_la - 225)) & ~0x1F) === 0 && ((1 << (_la - 225)) & 31457279) !== 0)) {
+                if ((((_la) & ~0x1F) === 0 && ((1 << _la) & 4294967292) !== 0) || ((((_la - 32)) & ~0x1F) === 0 && ((1 << (_la - 32)) & 4290772991) !== 0) || ((((_la - 64)) & ~0x1F) === 0 && ((1 << (_la - 64)) & 4294705151) !== 0) || ((((_la - 96)) & ~0x1F) === 0 && ((1 << (_la - 96)) & 2146303999) !== 0) || ((((_la - 129)) & ~0x1F) === 0 && ((1 << (_la - 129)) & 4294967215) !== 0) || ((((_la - 161)) & ~0x1F) === 0 && ((1 << (_la - 161)) & 4294950911) !== 0) || ((((_la - 193)) & ~0x1F) === 0 && ((1 << (_la - 193)) & 4294967295) !== 0) || ((((_la - 225)) & ~0x1F) === 0 && ((1 << (_la - 225)) & 33554431) !== 0)) {
                     {
                     this.state = 2121;
                     this.tableIdentifier();
@@ -10259,7 +10035,7 @@ export class ClickHouseParser extends antlr.Parser {
                 this.state = 2141;
                 this.errorHandler.sync(this);
                 _la = this.tokenStream.LA(1);
-                if ((((_la) & ~0x1F) === 0 && ((1 << _la) & 4294967292) !== 0) || ((((_la - 32)) & ~0x1F) === 0 && ((1 << (_la - 32)) & 4290772991) !== 0) || ((((_la - 64)) & ~0x1F) === 0 && ((1 << (_la - 64)) & 4294967295) !== 0) || ((((_la - 96)) & ~0x1F) === 0 && ((1 << (_la - 96)) & 2147483647) !== 0) || ((((_la - 129)) & ~0x1F) === 0 && ((1 << (_la - 129)) & 4294967215) !== 0) || ((((_la - 161)) & ~0x1F) === 0 && ((1 << (_la - 161)) & 4294950911) !== 0) || ((((_la - 193)) & ~0x1F) === 0 && ((1 << (_la - 193)) & 4286574587) !== 0) || ((((_la - 225)) & ~0x1F) === 0 && ((1 << (_la - 225)) & 3219128319) !== 0) || ((((_la - 262)) & ~0x1F) === 0 && ((1 << (_la - 262)) & 8835) !== 0)) {
+                if ((((_la) & ~0x1F) === 0 && ((1 << _la) & 4294967292) !== 0) || ((((_la - 32)) & ~0x1F) === 0 && ((1 << (_la - 32)) & 4290772991) !== 0) || ((((_la - 64)) & ~0x1F) === 0 && ((1 << (_la - 64)) & 4294967295) !== 0) || ((((_la - 96)) & ~0x1F) === 0 && ((1 << (_la - 96)) & 2147483647) !== 0) || ((((_la - 129)) & ~0x1F) === 0 && ((1 << (_la - 129)) & 4294967215) !== 0) || ((((_la - 161)) & ~0x1F) === 0 && ((1 << (_la - 161)) & 4294950911) !== 0) || ((((_la - 193)) & ~0x1F) === 0 && ((1 << (_la - 193)) & 4294967295) !== 0) || ((((_la - 225)) & ~0x1F) === 0 && ((1 << (_la - 225)) & 3221225471) !== 0) || ((((_la - 262)) & ~0x1F) === 0 && ((1 << (_la - 262)) & 8835) !== 0)) {
                     {
                     this.state = 2140;
                     this.columnExpressionList();
@@ -10923,6 +10699,7 @@ export class ClickHouseParser extends antlr.Parser {
             case ClickHouseParser.WINDOW:
             case ClickHouseParser.WITH:
             case ClickHouseParser.YEAR:
+            case ClickHouseParser.GRANT:
             case ClickHouseParser.USER:
             case ClickHouseParser.FETCH:
             case ClickHouseParser.REFRESH:
@@ -10932,6 +10709,7 @@ export class ClickHouseParser extends antlr.Parser {
             case ClickHouseParser.PROFILE:
             case ClickHouseParser.ARBITRARY:
             case ClickHouseParser.COLUMNS:
+            case ClickHouseParser.CURRENT_USER:
             case ClickHouseParser.ACCESS:
             case ClickHouseParser.SHOW_USERS:
             case ClickHouseParser.SHOW_ROLES:
@@ -10942,6 +10720,7 @@ export class ClickHouseParser extends antlr.Parser {
             case ClickHouseParser.CACHE:
             case ClickHouseParser.DNS:
             case ClickHouseParser.MARK:
+            case ClickHouseParser.PART:
             case ClickHouseParser.UNCOMPRESSED:
             case ClickHouseParser.CONFIG:
             case ClickHouseParser.EMBEDDED:
@@ -10971,6 +10750,7 @@ export class ClickHouseParser extends antlr.Parser {
             case ClickHouseParser.S3:
             case ClickHouseParser.SETTING:
             case ClickHouseParser.OPTION:
+            case ClickHouseParser.NONE:
             case ClickHouseParser.JSON_FALSE:
             case ClickHouseParser.JSON_TRUE:
             case ClickHouseParser.IDENTIFIER:
@@ -11196,7 +10976,7 @@ export class ClickHouseParser extends antlr.Parser {
             this.state = 2290;
             this.errorHandler.sync(this);
             _la = this.tokenStream.LA(1);
-            if ((((_la) & ~0x1F) === 0 && ((1 << _la) & 4294967292) !== 0) || ((((_la - 32)) & ~0x1F) === 0 && ((1 << (_la - 32)) & 4290772991) !== 0) || ((((_la - 64)) & ~0x1F) === 0 && ((1 << (_la - 64)) & 4294967295) !== 0) || ((((_la - 96)) & ~0x1F) === 0 && ((1 << (_la - 96)) & 2147483647) !== 0) || ((((_la - 129)) & ~0x1F) === 0 && ((1 << (_la - 129)) & 4294967215) !== 0) || ((((_la - 161)) & ~0x1F) === 0 && ((1 << (_la - 161)) & 4294950911) !== 0) || ((((_la - 193)) & ~0x1F) === 0 && ((1 << (_la - 193)) & 4286574587) !== 0) || ((((_la - 225)) & ~0x1F) === 0 && ((1 << (_la - 225)) & 1071644671) !== 0) || ((((_la - 262)) & ~0x1F) === 0 && ((1 << (_la - 262)) & 8195) !== 0)) {
+            if ((((_la) & ~0x1F) === 0 && ((1 << _la) & 4294967292) !== 0) || ((((_la - 32)) & ~0x1F) === 0 && ((1 << (_la - 32)) & 4290772991) !== 0) || ((((_la - 64)) & ~0x1F) === 0 && ((1 << (_la - 64)) & 4294967295) !== 0) || ((((_la - 96)) & ~0x1F) === 0 && ((1 << (_la - 96)) & 2147483647) !== 0) || ((((_la - 129)) & ~0x1F) === 0 && ((1 << (_la - 129)) & 4294967215) !== 0) || ((((_la - 161)) & ~0x1F) === 0 && ((1 << (_la - 161)) & 4294950911) !== 0) || ((((_la - 193)) & ~0x1F) === 0 && ((1 << (_la - 193)) & 4294967295) !== 0) || ((((_la - 225)) & ~0x1F) === 0 && ((1 << (_la - 225)) & 1073741823) !== 0) || ((((_la - 262)) & ~0x1F) === 0 && ((1 << (_la - 262)) & 8195) !== 0)) {
                 {
                 this.state = 2289;
                 this.tableArgList();
@@ -11607,7 +11387,7 @@ export class ClickHouseParser extends antlr.Parser {
             {
             this.state = 2344;
             _la = this.tokenStream.LA(1);
-            if(!((((_la) & ~0x1F) === 0 && ((1 << _la) & 4294967292) !== 0) || ((((_la - 32)) & ~0x1F) === 0 && ((1 << (_la - 32)) & 4290772975) !== 0) || ((((_la - 64)) & ~0x1F) === 0 && ((1 << (_la - 64)) & 4294701055) !== 0) || ((((_la - 96)) & ~0x1F) === 0 && ((1 << (_la - 96)) & 2146283519) !== 0) || ((((_la - 129)) & ~0x1F) === 0 && ((1 << (_la - 129)) & 4294442895) !== 0) || ((((_la - 161)) & ~0x1F) === 0 && ((1 << (_la - 161)) & 4026515455) !== 0) || ((((_la - 193)) & ~0x1F) === 0 && ((1 << (_la - 193)) & 4286574585) !== 0) || ((((_la - 225)) & ~0x1F) === 0 && ((1 << (_la - 225)) & 14680063) !== 0))) {
+            if(!((((_la) & ~0x1F) === 0 && ((1 << _la) & 4294967292) !== 0) || ((((_la - 32)) & ~0x1F) === 0 && ((1 << (_la - 32)) & 4290772975) !== 0) || ((((_la - 64)) & ~0x1F) === 0 && ((1 << (_la - 64)) & 4294701055) !== 0) || ((((_la - 96)) & ~0x1F) === 0 && ((1 << (_la - 96)) & 2146283519) !== 0) || ((((_la - 129)) & ~0x1F) === 0 && ((1 << (_la - 129)) & 4294442895) !== 0) || ((((_la - 161)) & ~0x1F) === 0 && ((1 << (_la - 161)) & 4026515455) !== 0) || ((((_la - 193)) & ~0x1F) === 0 && ((1 << (_la - 193)) & 4294967293) !== 0) || ((((_la - 225)) & ~0x1F) === 0 && ((1 << (_la - 225)) & 16777215) !== 0))) {
             this.errorHandler.recoverInline(this);
             }
             else {
@@ -11905,6 +11685,7 @@ export class ClickHouseParser extends antlr.Parser {
             case ClickHouseParser.WHERE:
             case ClickHouseParser.WINDOW:
             case ClickHouseParser.WITH:
+            case ClickHouseParser.GRANT:
             case ClickHouseParser.USER:
             case ClickHouseParser.FETCH:
             case ClickHouseParser.REFRESH:
@@ -11914,6 +11695,7 @@ export class ClickHouseParser extends antlr.Parser {
             case ClickHouseParser.PROFILE:
             case ClickHouseParser.ARBITRARY:
             case ClickHouseParser.COLUMNS:
+            case ClickHouseParser.CURRENT_USER:
             case ClickHouseParser.ACCESS:
             case ClickHouseParser.SHOW_USERS:
             case ClickHouseParser.SHOW_ROLES:
@@ -11924,6 +11706,7 @@ export class ClickHouseParser extends antlr.Parser {
             case ClickHouseParser.CACHE:
             case ClickHouseParser.DNS:
             case ClickHouseParser.MARK:
+            case ClickHouseParser.PART:
             case ClickHouseParser.UNCOMPRESSED:
             case ClickHouseParser.CONFIG:
             case ClickHouseParser.EMBEDDED:
@@ -11953,6 +11736,7 @@ export class ClickHouseParser extends antlr.Parser {
             case ClickHouseParser.S3:
             case ClickHouseParser.SETTING:
             case ClickHouseParser.OPTION:
+            case ClickHouseParser.NONE:
             case ClickHouseParser.JSON_FALSE:
             case ClickHouseParser.JSON_TRUE:
                 this.enterOuterAlt(localContext, 3);
@@ -12169,6 +11953,7 @@ export class ClickHouseParser extends antlr.Parser {
             case ClickHouseParser.WINDOW:
             case ClickHouseParser.WITH:
             case ClickHouseParser.YEAR:
+            case ClickHouseParser.GRANT:
             case ClickHouseParser.USER:
             case ClickHouseParser.FETCH:
             case ClickHouseParser.REFRESH:
@@ -12178,6 +11963,7 @@ export class ClickHouseParser extends antlr.Parser {
             case ClickHouseParser.PROFILE:
             case ClickHouseParser.ARBITRARY:
             case ClickHouseParser.COLUMNS:
+            case ClickHouseParser.CURRENT_USER:
             case ClickHouseParser.ACCESS:
             case ClickHouseParser.SHOW_USERS:
             case ClickHouseParser.SHOW_ROLES:
@@ -12188,6 +11974,7 @@ export class ClickHouseParser extends antlr.Parser {
             case ClickHouseParser.CACHE:
             case ClickHouseParser.DNS:
             case ClickHouseParser.MARK:
+            case ClickHouseParser.PART:
             case ClickHouseParser.UNCOMPRESSED:
             case ClickHouseParser.CONFIG:
             case ClickHouseParser.EMBEDDED:
@@ -12217,6 +12004,7 @@ export class ClickHouseParser extends antlr.Parser {
             case ClickHouseParser.S3:
             case ClickHouseParser.SETTING:
             case ClickHouseParser.OPTION:
+            case ClickHouseParser.NONE:
             case ClickHouseParser.JSON_FALSE:
             case ClickHouseParser.JSON_TRUE:
             case ClickHouseParser.IDENTIFIER:
@@ -12622,171 +12410,171 @@ export class ClickHouseParser extends antlr.Parser {
         68,68,80,80,1,0,156,157,3,0,17,17,95,95,173,173,3,0,256,256,274,
         274,283,283,2,0,261,262,275,275,2,0,79,79,98,98,1,0,251,252,2,0,
         262,262,275,275,8,0,36,36,76,76,108,108,110,110,134,134,148,148,
-        189,189,194,194,18,0,2,35,37,53,55,75,77,81,83,107,109,109,111,112,
-        114,115,117,126,129,132,136,147,149,174,176,188,190,193,196,204,
-        206,215,217,245,247,248,4,0,35,35,62,62,77,77,91,91,2716,0,283,1,
-        0,0,0,2,295,1,0,0,0,4,312,1,0,0,0,6,337,1,0,0,0,8,339,1,0,0,0,10,
-        348,1,0,0,0,12,357,1,0,0,0,14,368,1,0,0,0,16,596,1,0,0,0,18,598,
-        1,0,0,0,20,606,1,0,0,0,22,610,1,0,0,0,24,617,1,0,0,0,26,619,1,0,
-        0,0,28,625,1,0,0,0,30,631,1,0,0,0,32,647,1,0,0,0,34,674,1,0,0,0,
-        36,694,1,0,0,0,38,712,1,0,0,0,40,742,1,0,0,0,42,769,1,0,0,0,44,798,
-        1,0,0,0,46,800,1,0,0,0,48,811,1,0,0,0,50,838,1,0,0,0,52,865,1,0,
-        0,0,54,869,1,0,0,0,56,878,1,0,0,0,58,891,1,0,0,0,60,906,1,0,0,0,
-        62,919,1,0,0,0,64,935,1,0,0,0,66,940,1,0,0,0,68,946,1,0,0,0,70,949,
-        1,0,0,0,72,952,1,0,0,0,74,970,1,0,0,0,76,972,1,0,0,0,78,1002,1,0,
-        0,0,80,1006,1,0,0,0,82,1010,1,0,0,0,84,1014,1,0,0,0,86,1023,1,0,
-        0,0,88,1045,1,0,0,0,90,1079,1,0,0,0,92,1081,1,0,0,0,94,1084,1,0,
-        0,0,96,1091,1,0,0,0,98,1094,1,0,0,0,100,1106,1,0,0,0,102,1114,1,
-        0,0,0,104,1124,1,0,0,0,106,1161,1,0,0,0,108,1176,1,0,0,0,110,1199,
-        1,0,0,0,112,1201,1,0,0,0,114,1238,1,0,0,0,116,1248,1,0,0,0,118,1250,
-        1,0,0,0,120,1254,1,0,0,0,122,1269,1,0,0,0,124,1271,1,0,0,0,126,1275,
-        1,0,0,0,128,1286,1,0,0,0,130,1288,1,0,0,0,132,1290,1,0,0,0,134,1384,
-        1,0,0,0,136,1401,1,0,0,0,138,1403,1,0,0,0,140,1418,1,0,0,0,142,1438,
-        1,0,0,0,144,1440,1,0,0,0,146,1457,1,0,0,0,148,1466,1,0,0,0,150,1481,
-        1,0,0,0,152,1499,1,0,0,0,154,1513,1,0,0,0,156,1527,1,0,0,0,158,1530,
-        1,0,0,0,160,1581,1,0,0,0,162,1584,1,0,0,0,164,1590,1,0,0,0,166,1594,
-        1,0,0,0,168,1600,1,0,0,0,170,1607,1,0,0,0,172,1610,1,0,0,0,174,1613,
-        1,0,0,0,176,1623,1,0,0,0,178,1626,1,0,0,0,180,1630,1,0,0,0,182,1634,
-        1,0,0,0,184,1639,1,0,0,0,186,1645,1,0,0,0,188,1660,1,0,0,0,190,1725,
-        1,0,0,0,192,1733,1,0,0,0,194,1744,1,0,0,0,196,1746,1,0,0,0,198,1752,
-        1,0,0,0,200,1757,1,0,0,0,202,1765,1,0,0,0,204,1777,1,0,0,0,206,1782,
-        1,0,0,0,208,1790,1,0,0,0,210,1795,1,0,0,0,212,1803,1,0,0,0,214,1807,
-        1,0,0,0,216,1811,1,0,0,0,218,1820,1,0,0,0,220,1834,1,0,0,0,222,1836,
-        1,0,0,0,224,1881,1,0,0,0,226,1917,1,0,0,0,228,1919,1,0,0,0,230,1934,
-        1,0,0,0,232,1937,1,0,0,0,234,1993,1,0,0,0,236,1995,1,0,0,0,238,2014,
-        1,0,0,0,240,2145,1,0,0,0,242,2221,1,0,0,0,244,2231,1,0,0,0,246,2252,
-        1,0,0,0,248,2260,1,0,0,0,250,2274,1,0,0,0,252,2287,1,0,0,0,254,2297,
-        1,0,0,0,256,2301,1,0,0,0,258,2312,1,0,0,0,260,2314,1,0,0,0,262,2324,
-        1,0,0,0,264,2327,1,0,0,0,266,2340,1,0,0,0,268,2342,1,0,0,0,270,2344,
-        1,0,0,0,272,2346,1,0,0,0,274,2350,1,0,0,0,276,2355,1,0,0,0,278,2359,
-        1,0,0,0,280,2361,1,0,0,0,282,284,3,2,1,0,283,282,1,0,0,0,283,284,
-        1,0,0,0,284,285,1,0,0,0,285,286,5,0,0,1,286,1,1,0,0,0,287,289,3,
-        4,2,0,288,290,5,282,0,0,289,288,1,0,0,0,289,290,1,0,0,0,290,296,
-        1,0,0,0,291,292,3,4,2,0,292,293,5,282,0,0,293,294,3,2,1,0,294,296,
-        1,0,0,0,295,287,1,0,0,0,295,291,1,0,0,0,296,3,1,0,0,0,297,301,3,
-        6,3,0,298,299,5,87,0,0,299,300,5,124,0,0,300,302,5,254,0,0,301,298,
-        1,0,0,0,301,302,1,0,0,0,302,305,1,0,0,0,303,304,5,66,0,0,304,306,
-        3,278,139,0,305,303,1,0,0,0,305,306,1,0,0,0,306,308,1,0,0,0,307,
-        309,5,282,0,0,308,307,1,0,0,0,308,309,1,0,0,0,309,313,1,0,0,0,310,
-        313,3,138,69,0,311,313,3,112,56,0,312,297,1,0,0,0,312,310,1,0,0,
-        0,312,311,1,0,0,0,313,5,1,0,0,0,314,338,3,14,7,0,315,338,3,26,13,
-        0,316,338,3,28,14,0,317,338,3,44,22,0,318,338,3,104,52,0,319,338,
-        3,30,15,0,320,338,3,106,53,0,321,338,3,108,54,0,322,338,3,110,55,
-        0,323,338,3,146,73,0,324,338,3,148,74,0,325,338,3,150,75,0,326,338,
-        3,154,77,0,327,338,3,222,111,0,328,338,3,224,112,0,329,338,3,226,
-        113,0,330,338,3,228,114,0,331,338,3,230,115,0,332,338,3,232,116,
-        0,333,335,3,8,4,0,334,333,1,0,0,0,334,335,1,0,0,0,335,336,1,0,0,
-        0,336,338,3,158,79,0,337,314,1,0,0,0,337,315,1,0,0,0,337,316,1,0,
-        0,0,337,317,1,0,0,0,337,318,1,0,0,0,337,319,1,0,0,0,337,320,1,0,
-        0,0,337,321,1,0,0,0,337,322,1,0,0,0,337,323,1,0,0,0,337,324,1,0,
-        0,0,337,325,1,0,0,0,337,326,1,0,0,0,337,327,1,0,0,0,337,328,1,0,
-        0,0,337,329,1,0,0,0,337,330,1,0,0,0,337,331,1,0,0,0,337,332,1,0,
-        0,0,337,334,1,0,0,0,338,7,1,0,0,0,339,340,5,193,0,0,340,345,3,10,
-        5,0,341,342,5,260,0,0,342,344,3,10,5,0,343,341,1,0,0,0,344,347,1,
-        0,0,0,345,343,1,0,0,0,345,346,1,0,0,0,346,9,1,0,0,0,347,345,1,0,
-        0,0,348,350,3,276,138,0,349,351,3,12,6,0,350,349,1,0,0,0,350,351,
-        1,0,0,0,351,352,1,0,0,0,352,353,5,10,0,0,353,354,5,271,0,0,354,355,
-        3,6,3,0,355,356,5,281,0,0,356,11,1,0,0,0,357,358,5,271,0,0,358,363,
-        3,276,138,0,359,360,5,260,0,0,360,362,3,276,138,0,361,359,1,0,0,
-        0,362,365,1,0,0,0,363,361,1,0,0,0,363,364,1,0,0,0,364,366,1,0,0,
-        0,365,363,1,0,0,0,366,367,5,281,0,0,367,13,1,0,0,0,368,369,5,5,0,
-        0,369,370,5,162,0,0,370,372,3,254,127,0,371,373,3,66,33,0,372,371,
-        1,0,0,0,372,373,1,0,0,0,373,374,1,0,0,0,374,379,3,16,8,0,375,376,
-        5,260,0,0,376,378,3,16,8,0,377,375,1,0,0,0,378,381,1,0,0,0,379,377,
-        1,0,0,0,379,380,1,0,0,0,380,15,1,0,0,0,381,379,1,0,0,0,382,383,5,
-        1,0,0,383,387,5,26,0,0,384,385,5,78,0,0,385,386,5,115,0,0,386,388,
-        5,56,0,0,387,384,1,0,0,0,387,388,1,0,0,0,388,389,1,0,0,0,389,392,
-        3,90,45,0,390,391,5,2,0,0,391,393,3,248,124,0,392,390,1,0,0,0,392,
-        393,1,0,0,0,393,597,1,0,0,0,394,395,5,1,0,0,395,399,5,81,0,0,396,
-        397,5,78,0,0,397,398,5,115,0,0,398,400,5,56,0,0,399,396,1,0,0,0,
-        399,400,1,0,0,0,400,401,1,0,0,0,401,404,3,94,47,0,402,403,5,2,0,
-        0,403,405,3,248,124,0,404,402,1,0,0,0,404,405,1,0,0,0,405,597,1,
-        0,0,0,406,407,5,1,0,0,407,411,5,133,0,0,408,409,5,78,0,0,409,410,
-        5,115,0,0,410,412,5,56,0,0,411,408,1,0,0,0,411,412,1,0,0,0,412,413,
-        1,0,0,0,413,416,3,96,48,0,414,415,5,2,0,0,415,417,3,248,124,0,416,
-        414,1,0,0,0,416,417,1,0,0,0,417,597,1,0,0,0,418,419,5,15,0,0,419,
-        422,3,24,12,0,420,421,5,68,0,0,421,423,3,254,127,0,422,420,1,0,0,
-        0,422,423,1,0,0,0,423,597,1,0,0,0,424,425,5,22,0,0,425,428,5,26,
-        0,0,426,427,5,78,0,0,427,429,5,56,0,0,428,426,1,0,0,0,428,429,1,
-        0,0,0,429,430,1,0,0,0,430,433,3,248,124,0,431,432,5,80,0,0,432,434,
-        3,24,12,0,433,431,1,0,0,0,433,434,1,0,0,0,434,597,1,0,0,0,435,436,
-        5,22,0,0,436,439,5,81,0,0,437,438,5,78,0,0,438,440,5,56,0,0,439,
-        437,1,0,0,0,439,440,1,0,0,0,440,441,1,0,0,0,441,444,3,248,124,0,
-        442,443,5,80,0,0,443,445,3,24,12,0,444,442,1,0,0,0,444,445,1,0,0,
-        0,445,597,1,0,0,0,446,447,5,22,0,0,447,450,5,133,0,0,448,449,5,78,
-        0,0,449,451,5,56,0,0,450,448,1,0,0,0,450,451,1,0,0,0,451,452,1,0,
-        0,0,452,455,3,248,124,0,453,454,5,80,0,0,454,456,3,24,12,0,455,453,
-        1,0,0,0,455,456,1,0,0,0,456,597,1,0,0,0,457,458,5,27,0,0,458,461,
-        5,26,0,0,459,460,5,78,0,0,460,462,5,56,0,0,461,459,1,0,0,0,461,462,
-        1,0,0,0,462,463,1,0,0,0,463,464,3,248,124,0,464,465,5,254,0,0,465,
-        597,1,0,0,0,466,467,5,40,0,0,467,468,5,191,0,0,468,597,3,240,120,
-        0,469,470,5,44,0,0,470,597,3,24,12,0,471,472,5,50,0,0,472,475,5,
-        26,0,0,473,474,5,78,0,0,474,476,5,56,0,0,475,473,1,0,0,0,475,476,
-        1,0,0,0,476,477,1,0,0,0,477,597,3,248,124,0,478,479,5,50,0,0,479,
-        482,5,81,0,0,480,481,5,78,0,0,481,483,5,56,0,0,482,480,1,0,0,0,482,
-        483,1,0,0,0,483,484,1,0,0,0,484,597,3,248,124,0,485,486,5,50,0,0,
-        486,489,5,133,0,0,487,488,5,78,0,0,488,490,5,56,0,0,489,487,1,0,
-        0,0,489,490,1,0,0,0,490,491,1,0,0,0,491,597,3,248,124,0,492,493,
-        5,50,0,0,493,597,3,24,12,0,494,496,5,67,0,0,495,497,3,24,12,0,496,
-        495,1,0,0,0,496,497,1,0,0,0,497,597,1,0,0,0,498,499,5,103,0,0,499,
-        502,5,81,0,0,500,501,5,78,0,0,501,503,5,56,0,0,502,500,1,0,0,0,502,
-        503,1,0,0,0,503,504,1,0,0,0,504,507,3,248,124,0,505,506,5,80,0,0,
-        506,508,3,24,12,0,507,505,1,0,0,0,507,508,1,0,0,0,508,597,1,0,0,
-        0,509,510,5,103,0,0,510,513,5,133,0,0,511,512,5,78,0,0,512,514,5,
-        56,0,0,513,511,1,0,0,0,513,514,1,0,0,0,514,515,1,0,0,0,515,518,3,
-        248,124,0,516,517,5,80,0,0,517,519,3,24,12,0,518,516,1,0,0,0,518,
-        519,1,0,0,0,519,597,1,0,0,0,520,521,5,109,0,0,521,524,5,26,0,0,522,
-        523,5,78,0,0,523,525,5,56,0,0,524,522,1,0,0,0,524,525,1,0,0,0,525,
-        526,1,0,0,0,526,527,3,248,124,0,527,528,3,98,49,0,528,597,1,0,0,
-        0,529,530,5,109,0,0,530,533,5,26,0,0,531,532,5,78,0,0,532,534,5,
-        56,0,0,533,531,1,0,0,0,533,534,1,0,0,0,534,535,1,0,0,0,535,536,3,
-        248,124,0,536,537,5,27,0,0,537,538,5,254,0,0,538,597,1,0,0,0,539,
-        540,5,109,0,0,540,543,5,26,0,0,541,542,5,78,0,0,542,544,5,56,0,0,
-        543,541,1,0,0,0,543,544,1,0,0,0,544,545,1,0,0,0,545,546,3,248,124,
-        0,546,547,5,138,0,0,547,548,3,22,11,0,548,597,1,0,0,0,549,550,5,
-        109,0,0,550,553,5,26,0,0,551,552,5,78,0,0,552,554,5,56,0,0,553,551,
-        1,0,0,0,553,554,1,0,0,0,554,555,1,0,0,0,555,597,3,90,45,0,556,557,
-        5,109,0,0,557,558,5,122,0,0,558,559,5,18,0,0,559,597,3,240,120,0,
-        560,561,5,109,0,0,561,597,3,84,42,0,562,563,5,111,0,0,563,573,3,
-        24,12,0,564,565,5,170,0,0,565,566,5,47,0,0,566,574,5,254,0,0,567,
-        568,5,170,0,0,568,569,5,187,0,0,569,574,5,254,0,0,570,571,5,170,
-        0,0,571,572,5,162,0,0,572,574,3,254,127,0,573,564,1,0,0,0,573,567,
-        1,0,0,0,573,570,1,0,0,0,574,597,1,0,0,0,575,576,5,138,0,0,576,597,
-        5,177,0,0,577,578,5,139,0,0,578,581,5,26,0,0,579,580,5,78,0,0,580,
-        582,5,56,0,0,581,579,1,0,0,0,581,582,1,0,0,0,582,583,1,0,0,0,583,
-        584,3,248,124,0,584,585,5,170,0,0,585,586,3,248,124,0,586,597,1,
-        0,0,0,587,588,5,140,0,0,588,589,3,24,12,0,589,590,5,68,0,0,590,591,
-        3,254,127,0,591,597,1,0,0,0,592,593,5,181,0,0,593,594,3,18,9,0,594,
-        595,3,172,86,0,595,597,1,0,0,0,596,382,1,0,0,0,596,394,1,0,0,0,596,
-        406,1,0,0,0,596,418,1,0,0,0,596,424,1,0,0,0,596,435,1,0,0,0,596,
-        446,1,0,0,0,596,457,1,0,0,0,596,466,1,0,0,0,596,469,1,0,0,0,596,
-        471,1,0,0,0,596,478,1,0,0,0,596,485,1,0,0,0,596,492,1,0,0,0,596,
-        494,1,0,0,0,596,498,1,0,0,0,596,509,1,0,0,0,596,520,1,0,0,0,596,
-        529,1,0,0,0,596,539,1,0,0,0,596,549,1,0,0,0,596,556,1,0,0,0,596,
-        560,1,0,0,0,596,562,1,0,0,0,596,575,1,0,0,0,596,577,1,0,0,0,596,
-        587,1,0,0,0,596,592,1,0,0,0,597,17,1,0,0,0,598,603,3,20,10,0,599,
-        600,5,260,0,0,600,602,3,20,10,0,601,599,1,0,0,0,602,605,1,0,0,0,
-        603,601,1,0,0,0,603,604,1,0,0,0,604,19,1,0,0,0,605,603,1,0,0,0,606,
-        607,3,248,124,0,607,608,5,265,0,0,608,609,3,240,120,0,609,21,1,0,
-        0,0,610,611,7,0,0,0,611,23,1,0,0,0,612,613,5,126,0,0,613,618,3,240,
-        120,0,614,615,5,126,0,0,615,616,5,77,0,0,616,618,5,254,0,0,617,612,
-        1,0,0,0,617,614,1,0,0,0,618,25,1,0,0,0,619,620,5,15,0,0,620,621,
-        5,46,0,0,621,623,3,254,127,0,622,624,3,66,33,0,623,622,1,0,0,0,623,
-        624,1,0,0,0,624,27,1,0,0,0,625,626,5,21,0,0,626,627,5,162,0,0,627,
-        629,3,254,127,0,628,630,3,24,12,0,629,628,1,0,0,0,629,630,1,0,0,
-        0,630,29,1,0,0,0,631,632,5,40,0,0,632,633,5,68,0,0,633,635,3,254,
-        127,0,634,636,3,66,33,0,635,634,1,0,0,0,635,636,1,0,0,0,636,638,
-        1,0,0,0,637,639,3,172,86,0,638,637,1,0,0,0,638,639,1,0,0,0,639,31,
-        1,0,0,0,640,648,5,15,0,0,641,644,5,29,0,0,642,643,5,121,0,0,643,
-        645,5,140,0,0,644,642,1,0,0,0,644,645,1,0,0,0,645,648,1,0,0,0,646,
-        648,5,140,0,0,647,640,1,0,0,0,647,641,1,0,0,0,647,646,1,0,0,0,648,
-        650,1,0,0,0,649,651,5,164,0,0,650,649,1,0,0,0,650,651,1,0,0,0,651,
-        652,1,0,0,0,652,656,5,162,0,0,653,654,5,78,0,0,654,655,5,115,0,0,
-        655,657,5,56,0,0,656,653,1,0,0,0,656,657,1,0,0,0,657,658,1,0,0,0,
-        658,660,3,254,127,0,659,661,3,68,34,0,660,659,1,0,0,0,660,661,1,
-        0,0,0,661,663,1,0,0,0,662,664,3,66,33,0,663,662,1,0,0,0,663,664,
-        1,0,0,0,664,666,1,0,0,0,665,667,3,74,37,0,666,665,1,0,0,0,666,667,
-        1,0,0,0,667,669,1,0,0,0,668,670,3,76,38,0,669,668,1,0,0,0,669,670,
+        189,189,194,194,15,0,2,35,37,53,55,75,77,81,83,107,109,109,111,112,
+        114,115,117,126,129,132,136,147,149,174,176,188,190,193,195,248,
+        4,0,35,35,62,62,77,77,91,91,2716,0,283,1,0,0,0,2,295,1,0,0,0,4,312,
+        1,0,0,0,6,337,1,0,0,0,8,339,1,0,0,0,10,348,1,0,0,0,12,357,1,0,0,
+        0,14,368,1,0,0,0,16,596,1,0,0,0,18,598,1,0,0,0,20,606,1,0,0,0,22,
+        610,1,0,0,0,24,617,1,0,0,0,26,619,1,0,0,0,28,625,1,0,0,0,30,631,
+        1,0,0,0,32,647,1,0,0,0,34,674,1,0,0,0,36,694,1,0,0,0,38,712,1,0,
+        0,0,40,742,1,0,0,0,42,769,1,0,0,0,44,798,1,0,0,0,46,800,1,0,0,0,
+        48,811,1,0,0,0,50,838,1,0,0,0,52,865,1,0,0,0,54,869,1,0,0,0,56,878,
+        1,0,0,0,58,891,1,0,0,0,60,906,1,0,0,0,62,919,1,0,0,0,64,935,1,0,
+        0,0,66,940,1,0,0,0,68,946,1,0,0,0,70,949,1,0,0,0,72,952,1,0,0,0,
+        74,970,1,0,0,0,76,972,1,0,0,0,78,1002,1,0,0,0,80,1006,1,0,0,0,82,
+        1010,1,0,0,0,84,1014,1,0,0,0,86,1023,1,0,0,0,88,1045,1,0,0,0,90,
+        1079,1,0,0,0,92,1081,1,0,0,0,94,1084,1,0,0,0,96,1091,1,0,0,0,98,
+        1094,1,0,0,0,100,1106,1,0,0,0,102,1114,1,0,0,0,104,1124,1,0,0,0,
+        106,1161,1,0,0,0,108,1176,1,0,0,0,110,1199,1,0,0,0,112,1201,1,0,
+        0,0,114,1238,1,0,0,0,116,1248,1,0,0,0,118,1250,1,0,0,0,120,1254,
+        1,0,0,0,122,1269,1,0,0,0,124,1271,1,0,0,0,126,1275,1,0,0,0,128,1286,
+        1,0,0,0,130,1288,1,0,0,0,132,1290,1,0,0,0,134,1384,1,0,0,0,136,1401,
+        1,0,0,0,138,1403,1,0,0,0,140,1418,1,0,0,0,142,1438,1,0,0,0,144,1440,
+        1,0,0,0,146,1457,1,0,0,0,148,1466,1,0,0,0,150,1481,1,0,0,0,152,1499,
+        1,0,0,0,154,1513,1,0,0,0,156,1527,1,0,0,0,158,1530,1,0,0,0,160,1581,
+        1,0,0,0,162,1584,1,0,0,0,164,1590,1,0,0,0,166,1594,1,0,0,0,168,1600,
+        1,0,0,0,170,1607,1,0,0,0,172,1610,1,0,0,0,174,1613,1,0,0,0,176,1623,
+        1,0,0,0,178,1626,1,0,0,0,180,1630,1,0,0,0,182,1634,1,0,0,0,184,1639,
+        1,0,0,0,186,1645,1,0,0,0,188,1660,1,0,0,0,190,1725,1,0,0,0,192,1733,
+        1,0,0,0,194,1744,1,0,0,0,196,1746,1,0,0,0,198,1752,1,0,0,0,200,1757,
+        1,0,0,0,202,1765,1,0,0,0,204,1777,1,0,0,0,206,1782,1,0,0,0,208,1790,
+        1,0,0,0,210,1795,1,0,0,0,212,1803,1,0,0,0,214,1807,1,0,0,0,216,1811,
+        1,0,0,0,218,1820,1,0,0,0,220,1834,1,0,0,0,222,1836,1,0,0,0,224,1881,
+        1,0,0,0,226,1917,1,0,0,0,228,1919,1,0,0,0,230,1934,1,0,0,0,232,1937,
+        1,0,0,0,234,1993,1,0,0,0,236,1995,1,0,0,0,238,2014,1,0,0,0,240,2145,
+        1,0,0,0,242,2221,1,0,0,0,244,2231,1,0,0,0,246,2252,1,0,0,0,248,2260,
+        1,0,0,0,250,2274,1,0,0,0,252,2287,1,0,0,0,254,2297,1,0,0,0,256,2301,
+        1,0,0,0,258,2312,1,0,0,0,260,2314,1,0,0,0,262,2324,1,0,0,0,264,2327,
+        1,0,0,0,266,2340,1,0,0,0,268,2342,1,0,0,0,270,2344,1,0,0,0,272,2346,
+        1,0,0,0,274,2350,1,0,0,0,276,2355,1,0,0,0,278,2359,1,0,0,0,280,2361,
+        1,0,0,0,282,284,3,2,1,0,283,282,1,0,0,0,283,284,1,0,0,0,284,285,
+        1,0,0,0,285,286,5,0,0,1,286,1,1,0,0,0,287,289,3,4,2,0,288,290,5,
+        282,0,0,289,288,1,0,0,0,289,290,1,0,0,0,290,296,1,0,0,0,291,292,
+        3,4,2,0,292,293,5,282,0,0,293,294,3,2,1,0,294,296,1,0,0,0,295,287,
+        1,0,0,0,295,291,1,0,0,0,296,3,1,0,0,0,297,301,3,6,3,0,298,299,5,
+        87,0,0,299,300,5,124,0,0,300,302,5,254,0,0,301,298,1,0,0,0,301,302,
+        1,0,0,0,302,305,1,0,0,0,303,304,5,66,0,0,304,306,3,278,139,0,305,
+        303,1,0,0,0,305,306,1,0,0,0,306,308,1,0,0,0,307,309,5,282,0,0,308,
+        307,1,0,0,0,308,309,1,0,0,0,309,313,1,0,0,0,310,313,3,138,69,0,311,
+        313,3,112,56,0,312,297,1,0,0,0,312,310,1,0,0,0,312,311,1,0,0,0,313,
+        5,1,0,0,0,314,338,3,14,7,0,315,338,3,26,13,0,316,338,3,28,14,0,317,
+        338,3,44,22,0,318,338,3,104,52,0,319,338,3,30,15,0,320,338,3,106,
+        53,0,321,338,3,108,54,0,322,338,3,110,55,0,323,338,3,146,73,0,324,
+        338,3,148,74,0,325,338,3,150,75,0,326,338,3,154,77,0,327,338,3,222,
+        111,0,328,338,3,224,112,0,329,338,3,226,113,0,330,338,3,228,114,
+        0,331,338,3,230,115,0,332,338,3,232,116,0,333,335,3,8,4,0,334,333,
+        1,0,0,0,334,335,1,0,0,0,335,336,1,0,0,0,336,338,3,158,79,0,337,314,
+        1,0,0,0,337,315,1,0,0,0,337,316,1,0,0,0,337,317,1,0,0,0,337,318,
+        1,0,0,0,337,319,1,0,0,0,337,320,1,0,0,0,337,321,1,0,0,0,337,322,
+        1,0,0,0,337,323,1,0,0,0,337,324,1,0,0,0,337,325,1,0,0,0,337,326,
+        1,0,0,0,337,327,1,0,0,0,337,328,1,0,0,0,337,329,1,0,0,0,337,330,
+        1,0,0,0,337,331,1,0,0,0,337,332,1,0,0,0,337,334,1,0,0,0,338,7,1,
+        0,0,0,339,340,5,193,0,0,340,345,3,10,5,0,341,342,5,260,0,0,342,344,
+        3,10,5,0,343,341,1,0,0,0,344,347,1,0,0,0,345,343,1,0,0,0,345,346,
+        1,0,0,0,346,9,1,0,0,0,347,345,1,0,0,0,348,350,3,276,138,0,349,351,
+        3,12,6,0,350,349,1,0,0,0,350,351,1,0,0,0,351,352,1,0,0,0,352,353,
+        5,10,0,0,353,354,5,271,0,0,354,355,3,6,3,0,355,356,5,281,0,0,356,
+        11,1,0,0,0,357,358,5,271,0,0,358,363,3,276,138,0,359,360,5,260,0,
+        0,360,362,3,276,138,0,361,359,1,0,0,0,362,365,1,0,0,0,363,361,1,
+        0,0,0,363,364,1,0,0,0,364,366,1,0,0,0,365,363,1,0,0,0,366,367,5,
+        281,0,0,367,13,1,0,0,0,368,369,5,5,0,0,369,370,5,162,0,0,370,372,
+        3,254,127,0,371,373,3,66,33,0,372,371,1,0,0,0,372,373,1,0,0,0,373,
+        374,1,0,0,0,374,379,3,16,8,0,375,376,5,260,0,0,376,378,3,16,8,0,
+        377,375,1,0,0,0,378,381,1,0,0,0,379,377,1,0,0,0,379,380,1,0,0,0,
+        380,15,1,0,0,0,381,379,1,0,0,0,382,383,5,1,0,0,383,387,5,26,0,0,
+        384,385,5,78,0,0,385,386,5,115,0,0,386,388,5,56,0,0,387,384,1,0,
+        0,0,387,388,1,0,0,0,388,389,1,0,0,0,389,392,3,90,45,0,390,391,5,
+        2,0,0,391,393,3,248,124,0,392,390,1,0,0,0,392,393,1,0,0,0,393,597,
+        1,0,0,0,394,395,5,1,0,0,395,399,5,81,0,0,396,397,5,78,0,0,397,398,
+        5,115,0,0,398,400,5,56,0,0,399,396,1,0,0,0,399,400,1,0,0,0,400,401,
+        1,0,0,0,401,404,3,94,47,0,402,403,5,2,0,0,403,405,3,248,124,0,404,
+        402,1,0,0,0,404,405,1,0,0,0,405,597,1,0,0,0,406,407,5,1,0,0,407,
+        411,5,133,0,0,408,409,5,78,0,0,409,410,5,115,0,0,410,412,5,56,0,
+        0,411,408,1,0,0,0,411,412,1,0,0,0,412,413,1,0,0,0,413,416,3,96,48,
+        0,414,415,5,2,0,0,415,417,3,248,124,0,416,414,1,0,0,0,416,417,1,
+        0,0,0,417,597,1,0,0,0,418,419,5,15,0,0,419,422,3,24,12,0,420,421,
+        5,68,0,0,421,423,3,254,127,0,422,420,1,0,0,0,422,423,1,0,0,0,423,
+        597,1,0,0,0,424,425,5,22,0,0,425,428,5,26,0,0,426,427,5,78,0,0,427,
+        429,5,56,0,0,428,426,1,0,0,0,428,429,1,0,0,0,429,430,1,0,0,0,430,
+        433,3,248,124,0,431,432,5,80,0,0,432,434,3,24,12,0,433,431,1,0,0,
+        0,433,434,1,0,0,0,434,597,1,0,0,0,435,436,5,22,0,0,436,439,5,81,
+        0,0,437,438,5,78,0,0,438,440,5,56,0,0,439,437,1,0,0,0,439,440,1,
+        0,0,0,440,441,1,0,0,0,441,444,3,248,124,0,442,443,5,80,0,0,443,445,
+        3,24,12,0,444,442,1,0,0,0,444,445,1,0,0,0,445,597,1,0,0,0,446,447,
+        5,22,0,0,447,450,5,133,0,0,448,449,5,78,0,0,449,451,5,56,0,0,450,
+        448,1,0,0,0,450,451,1,0,0,0,451,452,1,0,0,0,452,455,3,248,124,0,
+        453,454,5,80,0,0,454,456,3,24,12,0,455,453,1,0,0,0,455,456,1,0,0,
+        0,456,597,1,0,0,0,457,458,5,27,0,0,458,461,5,26,0,0,459,460,5,78,
+        0,0,460,462,5,56,0,0,461,459,1,0,0,0,461,462,1,0,0,0,462,463,1,0,
+        0,0,463,464,3,248,124,0,464,465,5,254,0,0,465,597,1,0,0,0,466,467,
+        5,40,0,0,467,468,5,191,0,0,468,597,3,240,120,0,469,470,5,44,0,0,
+        470,597,3,24,12,0,471,472,5,50,0,0,472,475,5,26,0,0,473,474,5,78,
+        0,0,474,476,5,56,0,0,475,473,1,0,0,0,475,476,1,0,0,0,476,477,1,0,
+        0,0,477,597,3,248,124,0,478,479,5,50,0,0,479,482,5,81,0,0,480,481,
+        5,78,0,0,481,483,5,56,0,0,482,480,1,0,0,0,482,483,1,0,0,0,483,484,
+        1,0,0,0,484,597,3,248,124,0,485,486,5,50,0,0,486,489,5,133,0,0,487,
+        488,5,78,0,0,488,490,5,56,0,0,489,487,1,0,0,0,489,490,1,0,0,0,490,
+        491,1,0,0,0,491,597,3,248,124,0,492,493,5,50,0,0,493,597,3,24,12,
+        0,494,496,5,67,0,0,495,497,3,24,12,0,496,495,1,0,0,0,496,497,1,0,
+        0,0,497,597,1,0,0,0,498,499,5,103,0,0,499,502,5,81,0,0,500,501,5,
+        78,0,0,501,503,5,56,0,0,502,500,1,0,0,0,502,503,1,0,0,0,503,504,
+        1,0,0,0,504,507,3,248,124,0,505,506,5,80,0,0,506,508,3,24,12,0,507,
+        505,1,0,0,0,507,508,1,0,0,0,508,597,1,0,0,0,509,510,5,103,0,0,510,
+        513,5,133,0,0,511,512,5,78,0,0,512,514,5,56,0,0,513,511,1,0,0,0,
+        513,514,1,0,0,0,514,515,1,0,0,0,515,518,3,248,124,0,516,517,5,80,
+        0,0,517,519,3,24,12,0,518,516,1,0,0,0,518,519,1,0,0,0,519,597,1,
+        0,0,0,520,521,5,109,0,0,521,524,5,26,0,0,522,523,5,78,0,0,523,525,
+        5,56,0,0,524,522,1,0,0,0,524,525,1,0,0,0,525,526,1,0,0,0,526,527,
+        3,248,124,0,527,528,3,98,49,0,528,597,1,0,0,0,529,530,5,109,0,0,
+        530,533,5,26,0,0,531,532,5,78,0,0,532,534,5,56,0,0,533,531,1,0,0,
+        0,533,534,1,0,0,0,534,535,1,0,0,0,535,536,3,248,124,0,536,537,5,
+        27,0,0,537,538,5,254,0,0,538,597,1,0,0,0,539,540,5,109,0,0,540,543,
+        5,26,0,0,541,542,5,78,0,0,542,544,5,56,0,0,543,541,1,0,0,0,543,544,
+        1,0,0,0,544,545,1,0,0,0,545,546,3,248,124,0,546,547,5,138,0,0,547,
+        548,3,22,11,0,548,597,1,0,0,0,549,550,5,109,0,0,550,553,5,26,0,0,
+        551,552,5,78,0,0,552,554,5,56,0,0,553,551,1,0,0,0,553,554,1,0,0,
+        0,554,555,1,0,0,0,555,597,3,90,45,0,556,557,5,109,0,0,557,558,5,
+        122,0,0,558,559,5,18,0,0,559,597,3,240,120,0,560,561,5,109,0,0,561,
+        597,3,84,42,0,562,563,5,111,0,0,563,573,3,24,12,0,564,565,5,170,
+        0,0,565,566,5,47,0,0,566,574,5,254,0,0,567,568,5,170,0,0,568,569,
+        5,187,0,0,569,574,5,254,0,0,570,571,5,170,0,0,571,572,5,162,0,0,
+        572,574,3,254,127,0,573,564,1,0,0,0,573,567,1,0,0,0,573,570,1,0,
+        0,0,574,597,1,0,0,0,575,576,5,138,0,0,576,597,5,177,0,0,577,578,
+        5,139,0,0,578,581,5,26,0,0,579,580,5,78,0,0,580,582,5,56,0,0,581,
+        579,1,0,0,0,581,582,1,0,0,0,582,583,1,0,0,0,583,584,3,248,124,0,
+        584,585,5,170,0,0,585,586,3,248,124,0,586,597,1,0,0,0,587,588,5,
+        140,0,0,588,589,3,24,12,0,589,590,5,68,0,0,590,591,3,254,127,0,591,
+        597,1,0,0,0,592,593,5,181,0,0,593,594,3,18,9,0,594,595,3,172,86,
+        0,595,597,1,0,0,0,596,382,1,0,0,0,596,394,1,0,0,0,596,406,1,0,0,
+        0,596,418,1,0,0,0,596,424,1,0,0,0,596,435,1,0,0,0,596,446,1,0,0,
+        0,596,457,1,0,0,0,596,466,1,0,0,0,596,469,1,0,0,0,596,471,1,0,0,
+        0,596,478,1,0,0,0,596,485,1,0,0,0,596,492,1,0,0,0,596,494,1,0,0,
+        0,596,498,1,0,0,0,596,509,1,0,0,0,596,520,1,0,0,0,596,529,1,0,0,
+        0,596,539,1,0,0,0,596,549,1,0,0,0,596,556,1,0,0,0,596,560,1,0,0,
+        0,596,562,1,0,0,0,596,575,1,0,0,0,596,577,1,0,0,0,596,587,1,0,0,
+        0,596,592,1,0,0,0,597,17,1,0,0,0,598,603,3,20,10,0,599,600,5,260,
+        0,0,600,602,3,20,10,0,601,599,1,0,0,0,602,605,1,0,0,0,603,601,1,
+        0,0,0,603,604,1,0,0,0,604,19,1,0,0,0,605,603,1,0,0,0,606,607,3,248,
+        124,0,607,608,5,265,0,0,608,609,3,240,120,0,609,21,1,0,0,0,610,611,
+        7,0,0,0,611,23,1,0,0,0,612,613,5,126,0,0,613,618,3,240,120,0,614,
+        615,5,126,0,0,615,616,5,77,0,0,616,618,5,254,0,0,617,612,1,0,0,0,
+        617,614,1,0,0,0,618,25,1,0,0,0,619,620,5,15,0,0,620,621,5,46,0,0,
+        621,623,3,254,127,0,622,624,3,66,33,0,623,622,1,0,0,0,623,624,1,
+        0,0,0,624,27,1,0,0,0,625,626,5,21,0,0,626,627,5,162,0,0,627,629,
+        3,254,127,0,628,630,3,24,12,0,629,628,1,0,0,0,629,630,1,0,0,0,630,
+        29,1,0,0,0,631,632,5,40,0,0,632,633,5,68,0,0,633,635,3,254,127,0,
+        634,636,3,66,33,0,635,634,1,0,0,0,635,636,1,0,0,0,636,638,1,0,0,
+        0,637,639,3,172,86,0,638,637,1,0,0,0,638,639,1,0,0,0,639,31,1,0,
+        0,0,640,648,5,15,0,0,641,644,5,29,0,0,642,643,5,121,0,0,643,645,
+        5,140,0,0,644,642,1,0,0,0,644,645,1,0,0,0,645,648,1,0,0,0,646,648,
+        5,140,0,0,647,640,1,0,0,0,647,641,1,0,0,0,647,646,1,0,0,0,648,650,
+        1,0,0,0,649,651,5,164,0,0,650,649,1,0,0,0,650,651,1,0,0,0,651,652,
+        1,0,0,0,652,656,5,162,0,0,653,654,5,78,0,0,654,655,5,115,0,0,655,
+        657,5,56,0,0,656,653,1,0,0,0,656,657,1,0,0,0,657,658,1,0,0,0,658,
+        660,3,254,127,0,659,661,3,68,34,0,660,659,1,0,0,0,660,661,1,0,0,
+        0,661,663,1,0,0,0,662,664,3,66,33,0,663,662,1,0,0,0,663,664,1,0,
+        0,0,664,666,1,0,0,0,665,667,3,74,37,0,666,665,1,0,0,0,666,667,1,
+        0,0,0,667,669,1,0,0,0,668,670,3,76,38,0,669,668,1,0,0,0,669,670,
         1,0,0,0,670,672,1,0,0,0,671,673,3,72,36,0,672,671,1,0,0,0,672,673,
         1,0,0,0,673,33,1,0,0,0,674,675,7,1,0,0,675,679,5,33,0,0,676,677,
         5,78,0,0,677,678,5,115,0,0,678,680,5,56,0,0,679,676,1,0,0,0,679,
@@ -21568,6 +21356,9 @@ export class KeywordContext extends antlr.ParserRuleContext {
     public WITH(): antlr.TerminalNode | null {
         return this.getToken(ClickHouseParser.WITH, 0);
     }
+    public GRANT(): antlr.TerminalNode | null {
+        return this.getToken(ClickHouseParser.GRANT, 0);
+    }
     public USER(): antlr.TerminalNode | null {
         return this.getToken(ClickHouseParser.USER, 0);
     }
@@ -21594,6 +21385,9 @@ export class KeywordContext extends antlr.ParserRuleContext {
     }
     public COLUMNS(): antlr.TerminalNode | null {
         return this.getToken(ClickHouseParser.COLUMNS, 0);
+    }
+    public CURRENT_USER(): antlr.TerminalNode | null {
+        return this.getToken(ClickHouseParser.CURRENT_USER, 0);
     }
     public ACCESS(): antlr.TerminalNode | null {
         return this.getToken(ClickHouseParser.ACCESS, 0);
@@ -21625,6 +21419,9 @@ export class KeywordContext extends antlr.ParserRuleContext {
     public MARK(): antlr.TerminalNode | null {
         return this.getToken(ClickHouseParser.MARK, 0);
     }
+    public PART(): antlr.TerminalNode | null {
+        return this.getToken(ClickHouseParser.PART, 0);
+    }
     public UNCOMPRESSED(): antlr.TerminalNode | null {
         return this.getToken(ClickHouseParser.UNCOMPRESSED, 0);
     }
@@ -21652,11 +21449,11 @@ export class KeywordContext extends antlr.ParserRuleContext {
     public DICTGET(): antlr.TerminalNode | null {
         return this.getToken(ClickHouseParser.DICTGET, 0);
     }
-    public DICTHAS(): antlr.TerminalNode | null {
-        return this.getToken(ClickHouseParser.DICTHAS, 0);
-    }
     public DICTGETHIERARCHY(): antlr.TerminalNode | null {
         return this.getToken(ClickHouseParser.DICTGETHIERARCHY, 0);
+    }
+    public DICTHAS(): antlr.TerminalNode | null {
+        return this.getToken(ClickHouseParser.DICTHAS, 0);
     }
     public DICTISIN(): antlr.TerminalNode | null {
         return this.getToken(ClickHouseParser.DICTISIN, 0);
@@ -21711,6 +21508,9 @@ export class KeywordContext extends antlr.ParserRuleContext {
     }
     public OPTION(): antlr.TerminalNode | null {
         return this.getToken(ClickHouseParser.OPTION, 0);
+    }
+    public NONE(): antlr.TerminalNode | null {
+        return this.getToken(ClickHouseParser.NONE, 0);
     }
     public override get ruleIndex(): number {
         return ClickHouseParser.RULE_keyword;

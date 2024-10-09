@@ -20,7 +20,6 @@ statements
     ;
 
 statement
-    // TODO: rename notInsertStatement
     : notInsertStatement (INTO OUTFILE STRING_LITERAL)? (FORMAT identifierOrNull)? (SEMICOLON)?
     | insertStatement
     | grantStatement
@@ -841,7 +840,6 @@ interval
     ;
 
 keyword
-    // TODO: doublecheck added keywords
     : // except NULL_SQL, INF, NAN_SQL
     AFTER
     | ALIAS
@@ -1022,6 +1020,7 @@ keyword
     | WHERE
     | WINDOW
     | WITH
+    | GRANT
     | USER
     | FETCH
     | REFRESH
@@ -1031,6 +1030,7 @@ keyword
     | PROFILE
     | ARBITRARY
     | COLUMNS
+    | CURRENT_USER
     | ACCESS
     | SHOW_USERS
     | SHOW_ROLES
@@ -1041,6 +1041,7 @@ keyword
     | CACHE
     | DNS
     | MARK
+    | PART
     | UNCOMPRESSED
     | CONFIG
     | EMBEDDED
@@ -1050,8 +1051,8 @@ keyword
     | QUEUES
     | RESTART
     | DICTGET
-    | DICTHAS
     | DICTGETHIERARCHY
+    | DICTHAS
     | DICTISIN
     | MANAGEMENT
     | ADMIN
@@ -1070,6 +1071,7 @@ keyword
     | S3
     | SETTING
     | OPTION
+    | NONE
     ;
 
 keywordForAlias
