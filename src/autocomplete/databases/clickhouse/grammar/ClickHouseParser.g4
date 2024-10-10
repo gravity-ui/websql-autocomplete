@@ -504,6 +504,8 @@ privilege
     | accessManagementPrivilege
     | systemPrivilege
     | namedCollectionAdminPrivilege
+    | TABLE ENGINE
+    | ADMIN OPTION
     ;
 
 // INSERT statement

@@ -259,6 +259,12 @@ test('should suggest privileges after GRANT', () => {
             value: 'USE',
         },
         {
+            value: 'TABLE',
+        },
+        {
+            value: 'ADMIN',
+        },
+        {
             value: 'ON',
         },
     ]);
@@ -477,6 +483,12 @@ test('should suggest privileges after comma', () => {
         },
         {
             value: 'USE',
+        },
+        {
+            value: 'TABLE',
+        },
+        {
+            value: 'ADMIN',
         },
     ]);
 });
