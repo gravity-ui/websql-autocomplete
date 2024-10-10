@@ -477,7 +477,10 @@ systemPrivilege
     ;
 
 namedCollectionAdminPrivilege
-    : NAMED COLLECTION (ADMIN | CONTROL)
+    : NAMED COLLECTION (ADMIN | CONTROL | USAGE)?
+    | (CREATE | DROP | ALTER)? NAMED COLLECTION
+    | SHOW NAMED COLLECTIONS SECRETS?
+    | USE NAMED COLLECTION
     ;
 
 privilege

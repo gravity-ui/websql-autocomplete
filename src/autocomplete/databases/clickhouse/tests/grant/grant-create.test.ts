@@ -19,7 +19,8 @@ test('should not report errors', () => {
             CREATE QUOTA,
             CREATE SETTINGS PROFILE,
             CREATE PROFILE,
-            CREATE SQL SECURITY NONE
+            CREATE SQL SECURITY NONE,
+            CREATE NAMED COLLECTION
           ON *.* TO test_user1, test_user2
           WITH GRANT OPTION
           WITH REPLACE OPTION;
@@ -38,6 +39,9 @@ test('should not report errors without optional parameters', () => {
 test('should suggest keywords after CREATE', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor('GRANT CREATE |');
     expect(autocompleteResult.suggestKeywords).toEqual([
+        {
+            value: 'NAMED',
+        },
         {
             value: 'SQL',
         },
@@ -157,6 +161,15 @@ test('should suggest keywords after SECURITY', () => {
     expect(autocompleteResult.suggestKeywords).toEqual([
         {
             value: 'NONE',
+        },
+    ]);
+});
+
+test('should suggest keywords after NAMED', () => {
+    const autocompleteResult = parseClickHouseQueryWithCursor('GRANT CREATE NAMED |');
+    expect(autocompleteResult.suggestKeywords).toEqual([
+        {
+            value: 'COLLECTION',
         },
     ]);
 });

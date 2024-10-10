@@ -122,6 +122,7 @@ import { DictPrivilegeContext } from "./ClickHouseParser.js";
 import { AlterPrivilegeContext } from "./ClickHouseParser.js";
 import { AccessManagementPrivilegeContext } from "./ClickHouseParser.js";
 import { SystemPrivilegeContext } from "./ClickHouseParser.js";
+import { NamedCollectionAdminPrivilegeContext } from "./ClickHouseParser.js";
 import { PrivilegeContext } from "./ClickHouseParser.js";
 import { InsertStatementContext } from "./ClickHouseParser.js";
 import { ColumnsClauseContext } from "./ClickHouseParser.js";
@@ -965,6 +966,12 @@ export class ClickHouseParserVisitor<Result> extends AbstractParseTreeVisitor<Re
      * @return the visitor result
      */
     visitSystemPrivilege?: (ctx: SystemPrivilegeContext) => Result;
+    /**
+     * Visit a parse tree produced by `ClickHouseParser.namedCollectionAdminPrivilege`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitNamedCollectionAdminPrivilege?: (ctx: NamedCollectionAdminPrivilegeContext) => Result;
     /**
      * Visit a parse tree produced by `ClickHouseParser.privilege`.
      * @param ctx the parse tree

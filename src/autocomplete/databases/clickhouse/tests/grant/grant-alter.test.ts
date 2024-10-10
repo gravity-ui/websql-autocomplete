@@ -111,7 +111,8 @@ test('should not report errors without optional parameters', () => {
             ALTER VIEW,
             ALTER VIEW REFRESH,
             ALTER VIEW MODIFY QUERY,
-            ALTER LIVE VIEW REFRESH
+            ALTER LIVE VIEW REFRESH,
+            ALTER NAMED COLLECTION
           ON test_table
           TO test_user1;
         `,
@@ -122,6 +123,9 @@ test('should not report errors without optional parameters', () => {
 test('should suggest keywords after ALTER', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor('GRANT ALTER |');
     expect(autocompleteResult.suggestKeywords).toEqual([
+        {
+            value: 'NAMED',
+        },
         {
             value: 'PROFILE',
         },
@@ -502,6 +506,15 @@ test('should suggest keywords after ALTER SETTINGS', () => {
         },
         {
             value: 'ON',
+        },
+    ]);
+});
+
+test('should suggest keywords after ALTER NAMED', () => {
+    const autocompleteResult = parseClickHouseQueryWithCursor('GRANT ALTER NAMED |');
+    expect(autocompleteResult.suggestKeywords).toEqual([
+        {
+            value: 'COLLECTION',
         },
     ]);
 });

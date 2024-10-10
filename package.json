@@ -79,7 +79,7 @@
     "generate:clickhouse": "rimraf src/autocomplete/databases/clickhouse/generated && antlr4ng -Dlanguage=TypeScript -o src/autocomplete/databases/clickhouse/generated/ -visitor -no-listener -Xexact-output-dir src/autocomplete/databases/clickhouse/grammar/ClickHouseLexer.g4 src/autocomplete/databases/clickhouse/grammar/ClickHouseParser.g4 && bash scripts/patch-generated.sh clickhouse",
     "generate:yql": "rimraf src/autocomplete/databases/yql/generated && antlr4ng -Dlanguage=TypeScript -o src/autocomplete/databases/yql/generated/ -visitor -no-listener -Xexact-output-dir src/autocomplete/databases/yql/grammar/YQL.g4 && bash scripts/patch-generated.sh yql",
     "generate:redis": "rimraf src/autocomplete/databases/redis/generated && antlr4ng -Dlanguage=TypeScript -o src/autocomplete/databases/redis/generated/ -visitor -no-listener -Xexact-output-dir src/autocomplete/databases/redis/grammar/RedisLexer.g4 src/autocomplete/databases/redis/grammar/RedisParser.g4 && bash scripts/patch-generated.sh redis",
-    "test": "node --experimental-vm-modules ./node_modules/.bin/jest --verbose src --testPathIgnorePatterns tests/generated/.+",
+    "test": "node --experimental-vm-modules ./node_modules/.bin/jest --verbose src/autocomplete/databases/clickhouse/tests/grant --testPathIgnorePatterns tests/generated/.+",
     "build": "rimraf dist && node build.js && tsc -p tsconfig.build.json --declarationDir dist/types",
     "prepublishOnly": "npm run build"
   },

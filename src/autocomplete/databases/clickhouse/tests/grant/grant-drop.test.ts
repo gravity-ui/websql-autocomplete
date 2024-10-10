@@ -25,7 +25,8 @@ test('should not report errors', () => {
             DROP MARK CACHE,
             DROP MARKS,
             DROP UNCOMPRESSED CACHE,
-            DROP UNCOMPRESSED
+            DROP UNCOMPRESSED,
+            DROP NAMED COLLECTION
           ON *.* TO test_user1, test_user2
           WITH GRANT OPTION
           WITH REPLACE OPTION;
@@ -37,6 +38,9 @@ test('should not report errors', () => {
 test('should suggest keywords after DROP', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor('GRANT DROP |');
     expect(autocompleteResult.suggestKeywords).toEqual([
+        {
+            value: 'NAMED',
+        },
         {
             value: 'DNS',
         },
@@ -147,6 +151,15 @@ test('should suggest keywords after UNCOMPRESSED', () => {
         },
         {
             value: 'ON',
+        },
+    ]);
+});
+
+test('should suggest keywords after NAMED', () => {
+    const autocompleteResult = parseClickHouseQueryWithCursor('GRANT DROP NAMED |');
+    expect(autocompleteResult.suggestKeywords).toEqual([
+        {
+            value: 'COLLECTION',
         },
     ]);
 });

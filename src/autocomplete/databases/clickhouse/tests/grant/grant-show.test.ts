@@ -23,7 +23,9 @@ test('should not report errors', () => {
             SHOW CREATE QUOTA,
             SHOW PROFILES,
             SHOW CREATE SETTINGS PROFILE,
-            SHOW CREATE PROFILE
+            SHOW CREATE PROFILE,
+            SHOW NAMED COLLECTIONS SECRETS,
+            SHOW NAMED COLLECTIONS
           ON *.* TO test_user1, test_user2
           WITH GRANT OPTION
           WITH REPLACE OPTION;
@@ -42,6 +44,9 @@ test('should not report errors without optional parameters', () => {
 test('should suggest keywords after SHOW', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor('GRANT SHOW |');
     expect(autocompleteResult.suggestKeywords).toEqual([
+        {
+            value: 'NAMED',
+        },
         {
             value: 'CREATE',
         },
@@ -65,6 +70,34 @@ test('should suggest keywords after SHOW', () => {
         },
         {
             value: 'COLUMNS',
+        },
+        {
+            value: 'ON',
+        },
+    ]);
+});
+
+test('should not report errors without optional parameters', () => {
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(
+        'GRANT SHOW ON test_table TO test_user1;',
+    );
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should suggest keywords after NAMED', () => {
+    const autocompleteResult = parseClickHouseQueryWithCursor('GRANT SHOW NAMED |');
+    expect(autocompleteResult.suggestKeywords).toEqual([
+        {
+            value: 'COLLECTIONS',
+        },
+    ]);
+});
+
+test('should suggest keywords after COLLECTIONS', () => {
+    const autocompleteResult = parseClickHouseQueryWithCursor('GRANT SHOW NAMED COLLECTIONS |');
+    expect(autocompleteResult.suggestKeywords).toEqual([
+        {
+            value: 'SECRETS',
         },
         {
             value: 'ON',
