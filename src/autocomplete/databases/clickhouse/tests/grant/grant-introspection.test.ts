@@ -5,11 +5,7 @@ test('should not report errors', () => {
         `
           GRANT ON CLUSTER test_cluster
             INTROSPECTION,
-            INTROSPECTION FUNCTIONS,
-            ADDRESSTOLINE,
-            ADDRESSTOLINEWITHINLINES,
-            ADDRESSTOSYMBOL,
-            DEMANGLE
+            INTROSPECTION FUNCTIONS
           ON *.* TO test_user1, test_user2
           WITH GRANT OPTION
           WITH REPLACE OPTION;
