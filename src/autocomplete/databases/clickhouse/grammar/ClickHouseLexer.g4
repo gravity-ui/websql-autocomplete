@@ -223,6 +223,7 @@ SHUTDOWN                      : S H U T D O W N;
 CACHE                         : C A C H E;
 DNS                           : D N S;
 MARK                          : M A R K;
+MARKS                         : M A R K S;
 PART                          : P A R T;
 UNCOMPRESSED                  : U N C O M P R E S S E D;
 CONFIG                        : C O N F I G;

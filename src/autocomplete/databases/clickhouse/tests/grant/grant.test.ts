@@ -229,6 +229,30 @@ test('should suggest privileges after GRANT', () => {
             value: 'SECURITY',
         },
         {
+            value: 'SYSTEM',
+        },
+        {
+            value: 'SHUTDOWN',
+        },
+        {
+            value: 'RELOAD',
+        },
+        {
+            value: 'START',
+        },
+        {
+            value: 'STOP',
+        },
+        {
+            value: 'SYNC',
+        },
+        {
+            value: 'RESTART',
+        },
+        {
+            value: 'FLUSH',
+        },
+        {
             value: 'ON',
         },
     ]);
@@ -416,6 +440,31 @@ test('should suggest privileges after comma', () => {
         },
         {
             value: 'SECURITY',
+        },
+
+        {
+            value: 'SYSTEM',
+        },
+        {
+            value: 'SHUTDOWN',
+        },
+        {
+            value: 'RELOAD',
+        },
+        {
+            value: 'START',
+        },
+        {
+            value: 'STOP',
+        },
+        {
+            value: 'SYNC',
+        },
+        {
+            value: 'RESTART',
+        },
+        {
+            value: 'FLUSH',
         },
     ]);
 });

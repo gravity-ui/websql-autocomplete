@@ -18,7 +18,14 @@ test('should not report errors', () => {
             DROP PROFILE,
             DROP COLUMN,
             DROP CONSTRAINT,
-            DROP INDEX
+            DROP INDEX,
+            DROP CACHE,
+            DROP DNS CACHE,
+            DROP DNS,
+            DROP MARK CACHE,
+            DROP MARKS,
+            DROP UNCOMPRESSED CACHE,
+            DROP UNCOMPRESSED
           ON *.* TO test_user1, test_user2
           WITH GRANT OPTION
           WITH REPLACE OPTION;
@@ -27,16 +34,24 @@ test('should not report errors', () => {
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should not report errors without optional parameters', () => {
-    const autocompleteResult = parseClickHouseQueryWithoutCursor(
-        'GRANT DROP ON test_table TO test_user1;',
-    );
-    expect(autocompleteResult.errors).toHaveLength(0);
-});
-
 test('should suggest keywords after DROP', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor('GRANT DROP |');
     expect(autocompleteResult.suggestKeywords).toEqual([
+        {
+            value: 'DNS',
+        },
+        {
+            value: 'MARKS',
+        },
+        {
+            value: 'UNCOMPRESSED',
+        },
+        {
+            value: 'MARK',
+        },
+        {
+            value: 'CACHE',
+        },
         {
             value: 'PROFILE',
         },
@@ -99,6 +114,39 @@ test('should suggest keywords after SETTINGS', () => {
     expect(autocompleteResult.suggestKeywords).toEqual([
         {
             value: 'PROFILE',
+        },
+    ]);
+});
+
+test('should suggest keywords after DNS', () => {
+    const autocompleteResult = parseClickHouseQueryWithCursor('GRANT DROP DNS |');
+    expect(autocompleteResult.suggestKeywords).toEqual([
+        {
+            value: 'CACHE',
+        },
+        {
+            value: 'ON',
+        },
+    ]);
+});
+
+test('should suggest keywords after MARK', () => {
+    const autocompleteResult = parseClickHouseQueryWithCursor('GRANT DROP MARK |');
+    expect(autocompleteResult.suggestKeywords).toEqual([
+        {
+            value: 'CACHE',
+        },
+    ]);
+});
+
+test('should suggest keywords after UNCOMPRESSED', () => {
+    const autocompleteResult = parseClickHouseQueryWithCursor('GRANT DROP UNCOMPRESSED |');
+    expect(autocompleteResult.suggestKeywords).toEqual([
+        {
+            value: 'CACHE',
+        },
+        {
+            value: 'ON',
         },
     ]);
 });

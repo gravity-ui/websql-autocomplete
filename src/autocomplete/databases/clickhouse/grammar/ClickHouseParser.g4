@@ -454,6 +454,32 @@ accessManagementPrivilege
     | SECURITY NONE
     ;
 
+systemPrivilege
+    : SYSTEM (SHUTDOWN | KILL)?
+    | SHUTDOWN
+    | SYSTEM? DROP CACHE
+    | SYSTEM DROP (DNS | MARK | UNCOMPRESSED) CACHE?
+    | DROP (DNS | MARK | UNCOMPRESSED) CACHE
+    | DROP (DNS | MARKS | UNCOMPRESSED)
+    | SYSTEM RELOAD (CONFIG | DICTIONARY | EMBEDDED? DICTIONARIES)?
+    | RELOAD (CONFIG | DICTIONARY | EMBEDDED? DICTIONARIES)
+    | SYSTEM (STOP | START)? TTL? MERGES
+    | (STOP | START) TTL? MERGES
+    | SYSTEM (STOP | START)? (FETCHES | MOVES | SENDS)
+    | (STOP | START) (FETCHES | MOVES | SENDS)
+    | SYSTEM (STOP | START)? (DISTRIBUTED | REPLICATED) SENDS
+    | (STOP | START) (DISTRIBUTED | REPLICATED) SENDS
+    | SYSTEM (STOP | START)? REPLICATION QUEUES
+    | (STOP | START) REPLICATION QUEUES
+    | SYSTEM? (SYNC | RESTART) REPLICA
+    | SYSTEM FLUSH (DISTRIBUTED | LOGS)?
+    | FLUSH (DISTRIBUTED | LOGS)
+    ;
+
+namedCollectionAdminPrivilege
+    : NAMED COLLECTION (ADMIN | CONTROL)
+    ;
+
 privilege
     // TODO: implement all left privileges
     : selectPrivilege
@@ -473,6 +499,8 @@ privilege
     | OPTIMIZE
     | DISPLAYSECRETSINSHOWANDSELECT
     | accessManagementPrivilege
+    | systemPrivilege
+    | namedCollectionAdminPrivilege
     ;
 
 // INSERT statement
