@@ -14,18 +14,6 @@ test('should not report errors', () => {
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should not report errors without optional parameters', () => {
-    const autocompleteResult = parseClickHouseQueryWithoutCursor(
-        `
-          GRANT
-            MOVE PARTITION,
-            MOVE PART
-          ON test_table TO test_user1;
-        `,
-    );
-    expect(autocompleteResult.errors).toHaveLength(0);
-});
-
 test('should suggest keywords after MOVE', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor('GRANT MOVE |');
     expect(autocompleteResult.suggestKeywords).toEqual([

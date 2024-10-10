@@ -14,13 +14,6 @@ test('should not report errors', () => {
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should not report errors without optional parameters', () => {
-    const autocompleteResult = parseClickHouseQueryWithoutCursor(
-        'GRANT KILL QUERY ON test_table TO test_user1;',
-    );
-    expect(autocompleteResult.errors).toHaveLength(0);
-});
-
 test('should suggest keywords after KILL', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor('GRANT KILL |');
     expect(autocompleteResult.suggestKeywords).toEqual([

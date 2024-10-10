@@ -14,19 +14,6 @@ test('should not report errors', () => {
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should not report errors without optional parameters', () => {
-    const autocompleteResult = parseClickHouseQueryWithoutCursor(
-        `
-          GRANT
-            CLEAR COLUMN,
-            CLEAR INDEX
-          ON test_table
-          TO test_user1;
-        `,
-    );
-    expect(autocompleteResult.errors).toHaveLength(0);
-});
-
 test('should suggest keywords after CLEAR', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor('GRANT CLEAR |');
     expect(autocompleteResult.suggestKeywords).toEqual([

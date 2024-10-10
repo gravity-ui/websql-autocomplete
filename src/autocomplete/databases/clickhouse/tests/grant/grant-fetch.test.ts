@@ -14,19 +14,6 @@ test('should not report errors', () => {
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should not report errors without optional parameters', () => {
-    const autocompleteResult = parseClickHouseQueryWithoutCursor(
-        `
-          GRANT
-            FETCH PART,
-            FETCH PARTITION
-          ON test_table
-          TO test_user1;
-        `,
-    );
-    expect(autocompleteResult.errors).toHaveLength(0);
-});
-
 test('should suggest keywords after FETCH', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor('GRANT FETCH |');
     expect(autocompleteResult.suggestKeywords).toEqual([

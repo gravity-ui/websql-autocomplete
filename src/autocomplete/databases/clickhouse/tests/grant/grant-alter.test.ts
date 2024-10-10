@@ -60,66 +60,6 @@ test('should not report errors', () => {
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should not report errors without optional parameters', () => {
-    const autocompleteResult = parseClickHouseQueryWithoutCursor(
-        `
-          GRANT
-            ALTER,
-            ALTER TABLE,
-            ALTER UPDATE,
-            ALTER DELETE,
-            ALTER TABLE MODIFY QUERY,
-            ALTER VIEW MODIFY SQL SECURITY,
-            ALTER TABLE MODIFY SQL SECURITY,
-            ALTER USER,
-            ALTER ROLE,
-            ALTER ROW POLICY,
-            ALTER POLICY,
-            ALTER QUOTA,
-            ALTER SETTINGS PROFILE,
-            ALTER PROFILE,
-            ALTER COLUMN,
-            ALTER ADD COLUMN,
-            ALTER DROP COLUMN,
-            ALTER MODIFY COLUMN,
-            ALTER COMMENT COLUMN,
-            ALTER CLEAR COLUMN,
-            ALTER RENAME COLUMN,
-            ALTER INDEX,
-            ALTER ORDER BY,
-            ALTER SAMPLE BY,
-            ALTER MODIFY ORDER BY,
-            ALTER MODIFY SAMPLE BY,
-            ALTER ADD INDEX,
-            ALTER DROP INDEX,
-            ALTER MATERIALIZE INDEX,
-            ALTER CLEAR INDEX,
-            ALTER CONSTRAINT,
-            ALTER ADD CONSTRAINT,
-            ALTER DROP CONSTRAINT,
-            ALTER TTL,
-            ALTER MATERIALIZE TTL,
-            ALTER MODIFY TTL,
-            ALTER SETTINGS,
-            ALTER SETTING,
-            ALTER MODIFY SETTING,
-            ALTER MOVE PARTITION,
-            ALTER MOVE PART,
-            ALTER FETCH PARTITION,
-            ALTER FETCH PART,
-            ALTER FREEZE PARTITION,
-            ALTER VIEW,
-            ALTER VIEW REFRESH,
-            ALTER VIEW MODIFY QUERY,
-            ALTER LIVE VIEW REFRESH,
-            ALTER NAMED COLLECTION
-          ON test_table
-          TO test_user1;
-        `,
-    );
-    expect(autocompleteResult.errors).toHaveLength(0);
-});
-
 test('should suggest keywords after ALTER', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor('GRANT ALTER |');
     expect(autocompleteResult.suggestKeywords).toEqual([

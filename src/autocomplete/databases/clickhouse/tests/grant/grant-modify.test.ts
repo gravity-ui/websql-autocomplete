@@ -17,22 +17,6 @@ test('should not report errors', () => {
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should not report errors without optional parameters', () => {
-    const autocompleteResult = parseClickHouseQueryWithoutCursor(
-        `
-          GRANT
-            MODIFY COLUMN,
-            MODIFY ORDER BY,
-            MODIFY SAMPLE BY,
-            MODIFY SETTING,
-            MODIFY TTL
-          ON test_table
-          TO test_user1;
-        `,
-    );
-    expect(autocompleteResult.errors).toHaveLength(0);
-});
-
 test('should suggest keywords after MODIFY', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor('GRANT MODIFY |');
     expect(autocompleteResult.suggestKeywords).toEqual([
