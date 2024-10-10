@@ -79,6 +79,9 @@ test('should suggest privileges after GRANT', () => {
             value: 'ADDRESSTOLINE',
         },
         {
+            value: 'ADDRESSTOLINEWITHINLINES',
+        },
+        {
             value: 'ADDRESSTOSYMBOL',
         },
         {
@@ -110,6 +113,24 @@ test('should suggest privileges after GRANT', () => {
         },
         {
             value: 'S3',
+        },
+        {
+            value: 'AZURE',
+        },
+        {
+            value: 'HIVE',
+        },
+        {
+            value: 'MONGO',
+        },
+        {
+            value: 'POSTGRES',
+        },
+        {
+            value: 'REDIS',
+        },
+        {
+            value: 'SQLITE',
         },
         {
             value: 'DICTGET',
@@ -173,6 +194,39 @@ test('should suggest privileges after GRANT', () => {
         },
         {
             value: 'NONE',
+        },
+        {
+            value: 'DISPLAYSECRETSINSHOWANDSELECT',
+        },
+        {
+            value: 'ACCESS',
+        },
+        {
+            value: 'ROLE',
+        },
+        {
+            value: 'SHOW_USERS',
+        },
+        {
+            value: 'SHOW_ROLES',
+        },
+        {
+            value: 'SHOW_ROW_POLICIES',
+        },
+        {
+            value: 'SHOW_QUOTAS',
+        },
+        {
+            value: 'SHOW_SETTINGS_PROFILES',
+        },
+        {
+            value: 'ALLOW',
+        },
+        {
+            value: 'SQL',
+        },
+        {
+            value: 'SECURITY',
         },
         {
             value: 'ON',
@@ -213,6 +267,9 @@ test('should suggest privileges after comma', () => {
             value: 'ADDRESSTOLINE',
         },
         {
+            value: 'ADDRESSTOLINEWITHINLINES',
+        },
+        {
             value: 'ADDRESSTOSYMBOL',
         },
         {
@@ -244,6 +301,24 @@ test('should suggest privileges after comma', () => {
         },
         {
             value: 'S3',
+        },
+        {
+            value: 'AZURE',
+        },
+        {
+            value: 'HIVE',
+        },
+        {
+            value: 'MONGO',
+        },
+        {
+            value: 'POSTGRES',
+        },
+        {
+            value: 'REDIS',
+        },
+        {
+            value: 'SQLITE',
         },
         {
             value: 'DICTGET',
@@ -307,6 +382,40 @@ test('should suggest privileges after comma', () => {
         },
         {
             value: 'NONE',
+        },
+        {
+            value: 'DISPLAYSECRETSINSHOWANDSELECT',
+        },
+
+        {
+            value: 'ACCESS',
+        },
+        {
+            value: 'ROLE',
+        },
+        {
+            value: 'SHOW_USERS',
+        },
+        {
+            value: 'SHOW_ROLES',
+        },
+        {
+            value: 'SHOW_ROW_POLICIES',
+        },
+        {
+            value: 'SHOW_QUOTAS',
+        },
+        {
+            value: 'SHOW_SETTINGS_PROFILES',
+        },
+        {
+            value: 'ALLOW',
+        },
+        {
+            value: 'SQL',
+        },
+        {
+            value: 'SECURITY',
         },
     ]);
 });

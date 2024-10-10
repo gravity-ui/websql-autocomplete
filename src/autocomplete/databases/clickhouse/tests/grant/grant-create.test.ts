@@ -31,6 +31,30 @@ test('should suggest keywords after CREATE', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor('GRANT CREATE |');
     expect(autocompleteResult.suggestKeywords).toEqual([
         {
+            value: 'SQL',
+        },
+        {
+            value: 'PROFILE',
+        },
+        {
+            value: 'SETTINGS',
+        },
+        {
+            value: 'QUOTA',
+        },
+        {
+            value: 'POLICY',
+        },
+        {
+            value: 'ROW',
+        },
+        {
+            value: 'ROLE',
+        },
+        {
+            value: 'USER',
+        },
+        {
             value: 'TABLE',
         },
         {
@@ -68,6 +92,15 @@ test('should suggest keywords after ARBITRARY', () => {
 
 test('should suggest keywords after TEMPORARY', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor('GRANT CREATE TEMPORARY |');
+    expect(autocompleteResult.suggestKeywords).toEqual([
+        {
+            value: 'TABLE',
+        },
+    ]);
+});
+
+test('should suggest keywords after ARBITRARY TEMPORARY', () => {
+    const autocompleteResult = parseClickHouseQueryWithCursor('GRANT CREATE ARBITRARY TEMPORARY |');
     expect(autocompleteResult.suggestKeywords).toEqual([
         {
             value: 'TABLE',

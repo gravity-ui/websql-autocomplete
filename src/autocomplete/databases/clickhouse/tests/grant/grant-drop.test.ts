@@ -28,6 +28,27 @@ test('should suggest keywords after DROP', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor('GRANT DROP |');
     expect(autocompleteResult.suggestKeywords).toEqual([
         {
+            value: 'PROFILE',
+        },
+        {
+            value: 'SETTINGS',
+        },
+        {
+            value: 'QUOTA',
+        },
+        {
+            value: 'POLICY',
+        },
+        {
+            value: 'ROW',
+        },
+        {
+            value: 'ROLE',
+        },
+        {
+            value: 'USER',
+        },
+        {
             value: 'CONSTRAINT',
         },
         {

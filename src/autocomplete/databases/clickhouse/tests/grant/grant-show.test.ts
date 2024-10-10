@@ -28,6 +28,18 @@ test('should suggest keywords after SHOW', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor('GRANT SHOW |');
     expect(autocompleteResult.suggestKeywords).toEqual([
         {
+            value: 'CREATE',
+        },
+        {
+            value: 'PROFILES',
+        },
+        {
+            value: 'POLICIES',
+        },
+        {
+            value: 'ACCESS',
+        },
+        {
             value: 'DATABASES',
         },
         {

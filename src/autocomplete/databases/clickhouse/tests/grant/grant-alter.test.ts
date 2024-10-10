@@ -1,5 +1,5 @@
 import {parseClickHouseQueryWithCursor, parseClickHouseQueryWithoutCursor} from '../../index';
-
+// TODO: restructurize
 test('should not report errors', () => {
     const autocompleteResult = parseClickHouseQueryWithoutCursor(
         `
@@ -69,7 +69,9 @@ test('should not report errors', () => {
             ALTER VIEW MODIFY QUERY,
             ALTER LIVE VIEW REFRESH,
             REFRESH VIEW,
-            ALTER TABLE MODIFY QUERY
+            ALTER TABLE MODIFY QUERY,
+            ALTER VIEW MODIFY SQL SECURITY,
+            ALTER TABLE MODIFY SQL SECURITY
           ON *.* TO test_user1, test_user2
           WITH GRANT OPTION
           WITH REPLACE OPTION;
@@ -147,7 +149,9 @@ test('should not report errors without optional parameters', () => {
             ALTER VIEW MODIFY QUERY,
             ALTER LIVE VIEW REFRESH,
             REFRESH VIEW,
-            ALTER TABLE MODIFY QUERY
+            ALTER TABLE MODIFY QUERY,
+            ALTER VIEW MODIFY SQL SECURITY,
+            ALTER TABLE MODIFY SQL SECURITY
           ON test_table
           TO test_user1;
         `,
@@ -158,6 +162,27 @@ test('should not report errors without optional parameters', () => {
 test('should suggest keywords after ALTER', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor('GRANT ALTER |');
     expect(autocompleteResult.suggestKeywords).toEqual([
+        {
+            value: 'PROFILE',
+        },
+        {
+            value: 'SETTINGS',
+        },
+        {
+            value: 'QUOTA',
+        },
+        {
+            value: 'POLICY',
+        },
+        {
+            value: 'ROW',
+        },
+        {
+            value: 'ROLE',
+        },
+        {
+            value: 'USER',
+        },
         {
             value: 'TABLE',
         },
@@ -181,9 +206,6 @@ test('should suggest keywords after ALTER', () => {
         },
         {
             value: 'SETTING',
-        },
-        {
-            value: 'SETTINGS',
         },
         {
             value: 'TTL',
@@ -591,7 +613,19 @@ test('should suggest keywords after ALTER VIEW MODIFY', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor('GRANT ALTER VIEW MODIFY |');
     expect(autocompleteResult.suggestKeywords).toEqual([
         {
+            value: 'SQL',
+        },
+        {
             value: 'QUERY',
+        },
+    ]);
+});
+
+test('should suggest keywords after ALTER VIEW MODIFY SQL', () => {
+    const autocompleteResult = parseClickHouseQueryWithCursor('GRANT ALTER VIEW MODIFY SQL |');
+    expect(autocompleteResult.suggestKeywords).toEqual([
+        {
+            value: 'SECURITY',
         },
     ]);
 });
@@ -600,7 +634,19 @@ test('should suggest keywords after ALTER TABLE MODIFY', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor('GRANT ALTER TABLE MODIFY |');
     expect(autocompleteResult.suggestKeywords).toEqual([
         {
+            value: 'SQL',
+        },
+        {
             value: 'QUERY',
+        },
+    ]);
+});
+
+test('should suggest keywords after ALTER TABLE MODIFY SQL', () => {
+    const autocompleteResult = parseClickHouseQueryWithCursor('GRANT ALTER TABLE MODIFY SQL |');
+    expect(autocompleteResult.suggestKeywords).toEqual([
+        {
+            value: 'SECURITY',
         },
     ]);
 });

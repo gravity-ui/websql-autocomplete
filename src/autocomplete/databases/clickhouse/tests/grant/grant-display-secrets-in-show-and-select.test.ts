@@ -4,11 +4,9 @@ test('should not report errors', () => {
     const autocompleteResult = parseClickHouseQueryWithoutCursor(
         `
           GRANT ON CLUSTER test_cluster
-            DICTGET,
-            DICTHAS,
-            DICTGETHIERARCHY,
-            DICTISIN
-          ON *.* TO test_user1, test_user2
+            DISPLAYSECRETSINSHOWANDSELECT
+          ON test_db.test_table
+          TO test_user1, test_user2
           WITH GRANT OPTION
           WITH REPLACE OPTION;
         `,
@@ -18,14 +16,7 @@ test('should not report errors', () => {
 
 test('should not report errors without optional parameters', () => {
     const autocompleteResult = parseClickHouseQueryWithoutCursor(
-        `
-          GRANT
-            DICTGET,
-            DICTHAS,
-            DICTGETHIERARCHY,
-            DICTISIN
-          ON test_table TO test_user1;
-        `,
+        'GRANT DISPLAYSECRETSINSHOWANDSELECT ON test_table TO test_user1;',
     );
     expect(autocompleteResult.errors).toHaveLength(0);
 });

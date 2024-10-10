@@ -376,20 +376,27 @@ showPrivilege
 introspectionPrivilege
     : INTROSPECTION FUNCTIONS?
     | ADDRESSTOLINE
+    | ADDRESSTOLINEWITHINLINES
     | ADDRESSTOSYMBOL
     | DEMANGLE
     ;
 
 sourcePrivilege
     : SOURCES
+    | AZURE
     | FILE
-    | URL
-    | REMOTE
+    | HDFS
+    | HIVE
+    | JDBC
+    | MONGO
     | MYSQL
     | ODBC
-    | JDBC
-    | HDFS
+    | POSTGRES
+    | REDIS
+    | REMOTE
     | S3
+    | SQLITE
+    | URL
     ;
 
 dictPrivilege
@@ -419,7 +426,32 @@ alterPrivilege
     | ALTER VIEW REFRESH?
     | ALTER LIVE VIEW REFRESH
     | REFRESH VIEW
-    | ALTER (VIEW | TABLE) MODIFY QUERY
+    | ALTER (VIEW | TABLE) MODIFY (QUERY | SQL SECURITY)
+    ;
+
+accessManagementPrivilege
+    : ACCESS MANAGEMENT
+    | (CREATE | ALTER | DROP) USER
+    | (CREATE | ALTER | DROP) ROLE
+    | ROLE ADMIN
+    | (CREATE | ALTER | DROP) ROW? POLICY
+    | (CREATE | ALTER | DROP) QUOTA
+    | (CREATE | ALTER | DROP) SETTINGS? PROFILE
+    | SHOW ACCESS
+    | SHOW_USERS
+    | SHOW CREATE USER
+    | SHOW_ROLES
+    | SHOW CREATE ROLE
+    | SHOW_ROW_POLICIES
+    | SHOW POLICIES
+    | SHOW CREATE ROW? POLICY
+    | SHOW_QUOTAS
+    | SHOW CREATE QUOTA
+    | SHOW_SETTINGS_PROFILES
+    | SHOW PROFILES
+    | SHOW CREATE SETTINGS? PROFILE
+    | (ALLOW | CREATE)? SQL SECURITY NONE
+    | SECURITY NONE
     ;
 
 privilege
@@ -438,6 +470,9 @@ privilege
     | alterPrivilege
     | ALL
     | NONE
+    | OPTIMIZE
+    | DISPLAYSECRETSINSHOWANDSELECT
+    | accessManagementPrivilege
     ;
 
 // INSERT statement
