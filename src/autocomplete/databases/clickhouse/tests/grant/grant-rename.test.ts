@@ -17,6 +17,9 @@ test('should suggest keywords after RENAME', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor('GRANT RENAME |');
     expect(autocompleteResult.suggestKeywords).toEqual([
         {
+            value: 'TO',
+        },
+        {
             value: 'COLUMN',
         },
     ]);

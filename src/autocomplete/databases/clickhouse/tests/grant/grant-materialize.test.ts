@@ -18,6 +18,9 @@ test('should suggest keywords after MATERIALIZE', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor('GRANT MATERIALIZE |');
     expect(autocompleteResult.suggestKeywords).toEqual([
         {
+            value: 'TO',
+        },
+        {
             value: 'TTL',
         },
         {

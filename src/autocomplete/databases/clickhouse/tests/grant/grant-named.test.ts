@@ -21,12 +21,10 @@ test('should suggest keywords after NAMED', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor('GRANT NAMED |');
     expect(autocompleteResult.suggestKeywords).toEqual([
         {
+            value: 'TO',
+        },
+        {
             value: 'COLLECTION',
         },
     ]);
-});
-
-test('should suggest keywords after COLLECTION', () => {
-    const autocompleteResult = parseClickHouseQueryWithCursor('GRANT COLLECTION |');
-    expect(autocompleteResult.suggestKeywords).toEqual([]);
 });

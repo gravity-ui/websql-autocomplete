@@ -33,6 +33,9 @@ test('should suggest keywords after CREATE', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor('GRANT CREATE |');
     expect(autocompleteResult.suggestKeywords).toEqual([
         {
+            value: 'TO',
+        },
+        {
             value: 'NAMED',
         },
         {

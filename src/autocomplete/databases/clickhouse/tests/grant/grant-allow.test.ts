@@ -17,6 +17,9 @@ test('should suggest keywords after ALLOW', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor('GRANT ALLOW |');
     expect(autocompleteResult.suggestKeywords).toEqual([
         {
+            value: 'TO',
+        },
+        {
             value: 'SQL',
         },
     ]);

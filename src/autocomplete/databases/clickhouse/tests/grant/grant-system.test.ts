@@ -60,6 +60,9 @@ test('should suggest keywords after SYSTEM', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor('GRANT SYSTEM |');
     expect(autocompleteResult.suggestKeywords).toEqual([
         {
+            value: 'TO',
+        },
+        {
             value: 'FLUSH',
         },
         {

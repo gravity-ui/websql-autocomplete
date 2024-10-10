@@ -17,6 +17,9 @@ test('should suggest keywords after REFRESH', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor('GRANT REFRESH |');
     expect(autocompleteResult.suggestKeywords).toEqual([
         {
+            value: 'TO',
+        },
+        {
             value: 'VIEW',
         },
     ]);

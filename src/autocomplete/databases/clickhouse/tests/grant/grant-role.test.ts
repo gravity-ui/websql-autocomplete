@@ -17,6 +17,9 @@ test('should suggest keywords after ROLE', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor('GRANT ROLE |');
     expect(autocompleteResult.suggestKeywords).toEqual([
         {
+            value: 'TO',
+        },
+        {
             value: 'ADMIN',
         },
     ]);

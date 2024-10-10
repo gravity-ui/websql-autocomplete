@@ -20,6 +20,9 @@ test('should suggest keywords after RELOAD', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor('GRANT RELOAD |');
     expect(autocompleteResult.suggestKeywords).toEqual([
         {
+            value: 'TO',
+        },
+        {
             value: 'DICTIONARIES',
         },
         {

@@ -18,6 +18,9 @@ test('should suggest keywords after CLEAR', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor('GRANT CLEAR |');
     expect(autocompleteResult.suggestKeywords).toEqual([
         {
+            value: 'TO',
+        },
+        {
             value: 'INDEX',
         },
         {

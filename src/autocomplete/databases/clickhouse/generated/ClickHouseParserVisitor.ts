@@ -109,6 +109,7 @@ import { ExplainPlanStatementContext } from "./ClickHouseParser.js";
 import { ExplainQueryTreeStatementContext } from "./ClickHouseParser.js";
 import { ExplainEstimateStatementContext } from "./ClickHouseParser.js";
 import { GrantStatementContext } from "./ClickHouseParser.js";
+import { RoleIdentifierContext } from "./ClickHouseParser.js";
 import { UserExpressionListContext } from "./ClickHouseParser.js";
 import { UserIdentifierContext } from "./ClickHouseParser.js";
 import { SelectPrivilegeContext } from "./ClickHouseParser.js";
@@ -888,6 +889,12 @@ export class ClickHouseParserVisitor<Result> extends AbstractParseTreeVisitor<Re
      * @return the visitor result
      */
     visitGrantStatement?: (ctx: GrantStatementContext) => Result;
+    /**
+     * Visit a parse tree produced by `ClickHouseParser.roleIdentifier`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitRoleIdentifier?: (ctx: RoleIdentifierContext) => Result;
     /**
      * Visit a parse tree produced by `ClickHouseParser.userExpressionList`.
      * @param ctx the parse tree

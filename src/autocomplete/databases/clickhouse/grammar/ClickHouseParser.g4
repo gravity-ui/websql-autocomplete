@@ -341,6 +341,11 @@ explainStatement
 
 grantStatement
     : GRANT clusterClause? privilege (COMMA privilege)* ON (databaseIdentifier | tableIdentifier | (ASTERISK DOT)? (ASTERISK | identifier)) TO userExpressionList (WITH GRANT OPTION)? (WITH REPLACE OPTION)?
+    | GRANT clusterClause? roleIdentifier TO userExpressionList (WITH ADMIN OPTION)? (WITH REPLACE OPTION)?
+    ;
+
+roleIdentifier
+    : identifier
     ;
 
 userExpressionList
@@ -1140,6 +1145,43 @@ keyword
     | SETTING
     | OPTION
     | NONE
+    | ADD
+    | ADDRESSTOLINEWITHINLINES
+    | AFTER
+    | ALLOW
+    | AZURE
+    | COLLECTION
+    | COLLECTIONS
+    | CONTROL
+    | DAY
+    | DISPLAYSECRETSINSHOWANDSELECT
+    | ESTIMATE
+    | HIVE
+    | HOUR
+    | INF
+    | MARKS
+    | MINUTE
+    | MONGO
+    | MONTH
+    | NAMED
+    | PIPELINE
+    | PLAN
+    | POLICIES
+    | POSTGRES
+    | PROFILES
+    | PROJECTION
+    | QUARTER
+    | QUERY
+    | REDIS
+    | SECOND
+    | SECRETS
+    | SECURITY
+    | SQL
+    | SQLITE
+    | TREE
+    | USAGE
+    | WEEK
+    | YEAR
     ;
 
 keywordForAlias

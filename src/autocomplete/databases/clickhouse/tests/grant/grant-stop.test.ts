@@ -24,6 +24,9 @@ test('should suggest keywords after STOP', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor('GRANT STOP |');
     expect(autocompleteResult.suggestKeywords).toEqual([
         {
+            value: 'TO',
+        },
+        {
             value: 'REPLICATION',
         },
         {

@@ -17,6 +17,9 @@ test('should suggest keywords after SYNC', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor('GRANT SYNC |');
     expect(autocompleteResult.suggestKeywords).toEqual([
         {
+            value: 'TO',
+        },
+        {
             value: 'REPLICA',
         },
     ]);

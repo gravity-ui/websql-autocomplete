@@ -24,6 +24,9 @@ test('should suggest keywords after START', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor('GRANT START |');
     expect(autocompleteResult.suggestKeywords).toEqual([
         {
+            value: 'TO',
+        },
+        {
             value: 'REPLICATION',
         },
         {

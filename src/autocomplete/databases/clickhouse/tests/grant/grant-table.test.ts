@@ -17,6 +17,9 @@ test('should suggest keywords after TABLE', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor('GRANT TABLE |');
     expect(autocompleteResult.suggestKeywords).toEqual([
         {
+            value: 'TO',
+        },
+        {
             value: 'ENGINE',
         },
     ]);

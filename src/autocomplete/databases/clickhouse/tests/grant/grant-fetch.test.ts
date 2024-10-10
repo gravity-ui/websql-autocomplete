@@ -18,6 +18,9 @@ test('should suggest keywords after FETCH', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor('GRANT FETCH |');
     expect(autocompleteResult.suggestKeywords).toEqual([
         {
+            value: 'TO',
+        },
+        {
             value: 'PARTITION',
         },
         {

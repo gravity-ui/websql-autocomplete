@@ -17,6 +17,9 @@ test('should suggest keywords after FREEZE', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor('GRANT FREEZE |');
     expect(autocompleteResult.suggestKeywords).toEqual([
         {
+            value: 'TO',
+        },
+        {
             value: 'PARTITION',
         },
     ]);

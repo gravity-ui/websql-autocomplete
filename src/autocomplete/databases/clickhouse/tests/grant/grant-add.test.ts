@@ -19,6 +19,9 @@ test('should suggest keywords after ADD', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor('GRANT ADD |');
     expect(autocompleteResult.suggestKeywords).toEqual([
         {
+            value: 'TO',
+        },
+        {
             value: 'CONSTRAINT',
         },
         {

@@ -22,6 +22,9 @@ test('should suggest keywords after INTROSPECTION', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor('GRANT INTROSPECTION |');
     expect(autocompleteResult.suggestKeywords).toEqual([
         {
+            value: 'TO',
+        },
+        {
             value: 'FUNCTIONS',
         },
         {

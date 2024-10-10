@@ -17,6 +17,9 @@ test('should suggest keywords after COMMENT', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor('GRANT COMMENT |');
     expect(autocompleteResult.suggestKeywords).toEqual([
         {
+            value: 'TO',
+        },
+        {
             value: 'COLUMN',
         },
     ]);

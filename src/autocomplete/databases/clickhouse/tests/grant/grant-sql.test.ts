@@ -17,6 +17,9 @@ test('should suggest keywords after SQL', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor('GRANT SQL |');
     expect(autocompleteResult.suggestKeywords).toEqual([
         {
+            value: 'TO',
+        },
+        {
             value: 'SECURITY',
         },
     ]);

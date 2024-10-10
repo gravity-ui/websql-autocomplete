@@ -17,6 +17,9 @@ test('should suggest keywords after ACCESS', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor('GRANT ACCESS |');
     expect(autocompleteResult.suggestKeywords).toEqual([
         {
+            value: 'TO',
+        },
+        {
             value: 'MANAGEMENT',
         },
     ]);

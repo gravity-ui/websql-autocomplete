@@ -18,6 +18,9 @@ test('should suggest keywords after KILL', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor('GRANT KILL |');
     expect(autocompleteResult.suggestKeywords).toEqual([
         {
+            value: 'TO',
+        },
+        {
             value: 'QUERY',
         },
     ]);

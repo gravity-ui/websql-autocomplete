@@ -17,6 +17,9 @@ test('should suggest keywords after ADMIN', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor('GRANT ADMIN |');
     expect(autocompleteResult.suggestKeywords).toEqual([
         {
+            value: 'TO',
+        },
+        {
             value: 'OPTION',
         },
     ]);

@@ -18,6 +18,9 @@ test('should suggest keywords after FLUSH', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor('GRANT FLUSH |');
     expect(autocompleteResult.suggestKeywords).toEqual([
         {
+            value: 'TO',
+        },
+        {
             value: 'DISTRIBUTED',
         },
         {

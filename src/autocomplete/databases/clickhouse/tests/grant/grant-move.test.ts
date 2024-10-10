@@ -18,6 +18,9 @@ test('should suggest keywords after MOVE', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor('GRANT MOVE |');
     expect(autocompleteResult.suggestKeywords).toEqual([
         {
+            value: 'TO',
+        },
+        {
             value: 'PARTITION',
         },
         {

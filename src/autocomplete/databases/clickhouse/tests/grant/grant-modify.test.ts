@@ -21,6 +21,9 @@ test('should suggest keywords after MODIFY', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor('GRANT MODIFY |');
     expect(autocompleteResult.suggestKeywords).toEqual([
         {
+            value: 'TO',
+        },
+        {
             value: 'SETTING',
         },
         {

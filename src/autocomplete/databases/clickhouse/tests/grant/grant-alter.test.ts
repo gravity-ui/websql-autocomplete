@@ -64,6 +64,9 @@ test('should suggest keywords after ALTER', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor('GRANT ALTER |');
     expect(autocompleteResult.suggestKeywords).toEqual([
         {
+            value: 'TO',
+        },
+        {
             value: 'NAMED',
         },
         {

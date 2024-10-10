@@ -22,6 +22,44 @@ test('should not report errors on wildcard identifier', () => {
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
+test('should not report errors', () => {
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(
+        `
+            GRANT ON CLUSTER test_cluster
+                test_role
+            TO test_user1, test_user2, CURRENT_USER
+            WITH ADMIN OPTION
+            WITH REPLACE OPTION;
+        `,
+    );
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should not report errors', () => {
+    const autocompleteResult = parseClickHouseQueryWithoutCursor('GRANT test_role TO test_user1;');
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should not report errors', () => {
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(
+        `
+            GRANT ON CLUSTER test_cluster
+                CREATE ON *.*
+            TO test_user1, test_user2, CURRENT_USER
+            WITH ADMIN OPTION
+            WITH REPLACE OPTION;
+        `,
+    );
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should not report errors', () => {
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(
+        'GRANT CREATE ON *.* TO test_user;',
+    );
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
 test('should suggest tables or views', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor(
         'GRANT ON CLUSTER test_cluster CREATE ON | TO test_user;',
@@ -48,6 +86,9 @@ test('should suggest current user', () => {
 test('should suggest privileges after GRANT', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor('GRANT |');
     expect(autocompleteResult.suggestKeywords).toEqual([
+        {
+            value: 'ON',
+        },
         {
             value: 'SELECT',
         },
@@ -263,9 +304,6 @@ test('should suggest privileges after GRANT', () => {
         },
         {
             value: 'ADMIN',
-        },
-        {
-            value: 'ON',
         },
     ]);
 });
@@ -497,6 +535,9 @@ test('should suggest cluster', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor('GRANT ON |');
     expect(autocompleteResult.suggestKeywords).toEqual([
         {
+            value: 'TO',
+        },
+        {
             value: 'CLUSTER',
         },
     ]);
@@ -505,6 +546,9 @@ test('should suggest cluster', () => {
 test('should suggest keywords after privilege identifier', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor('GRANT SELECT |');
     expect(autocompleteResult.suggestKeywords).toEqual([
+        {
+            value: 'TO',
+        },
         {
             value: 'ON',
         },
