@@ -334,8 +334,22 @@ test('should suggest tables or views', () => {
     expect(autocompleteResult.suggestViewsOrTables).toEqual(TableOrViewSuggestion.ALL);
 });
 
+test('should suggest tables or views', () => {
+    const autocompleteResult = parseClickHouseQueryWithCursor(
+        'GRANT ON CLUSTER test_cluster SELECT ON |',
+    );
+    expect(autocompleteResult.suggestViewsOrTables).toEqual(TableOrViewSuggestion.ALL);
+});
+
 test('should suggest databases', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor('GRANT SELECT ON |');
+    expect(autocompleteResult.suggestDatabases).toEqual(true);
+});
+
+test('should suggest databases', () => {
+    const autocompleteResult = parseClickHouseQueryWithCursor(
+        'GRANT ON CLUSTER test_cluster SELECT ON |',
+    );
     expect(autocompleteResult.suggestDatabases).toEqual(true);
 });
 
