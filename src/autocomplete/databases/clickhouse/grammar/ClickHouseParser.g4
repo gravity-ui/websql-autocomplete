@@ -340,21 +340,31 @@ explainStatement
 // GRANT statement
 
 grantStatement
-    : GRANT clusterClause? privilege (COMMA privilege)* ON (databaseIdentifier | tableIdentifier | (ASTERISK DOT)? (ASTERISK | identifier)) TO userExpressionList (WITH GRANT OPTION)? (WITH REPLACE OPTION)?
-    | GRANT clusterClause? roleIdentifier TO userExpressionList (WITH ADMIN OPTION)? (WITH REPLACE OPTION)?
+    : GRANT clusterClause? privilegeList ON grantSubjectIdentifier TO userOrRoleExpressionList (WITH GRANT OPTION)? (WITH REPLACE OPTION)?
+    | GRANT clusterClause? roleIdentifier TO userOrRoleExpressionList (WITH ADMIN OPTION)? (WITH REPLACE OPTION)?
+    | GRANT CURRENT GRANTS ((LPAREN privilegeList ON grantSubjectIdentifier RPAREN) | ON grantSubjectIdentifier) TO userOrRoleExpressionList (WITH GRANT OPTION)? (WITH REPLACE OPTION)?
+    ;
+
+grantSubjectIdentifier
+    : (databaseIdentifier | tableIdentifier | (ASTERISK DOT)? (ASTERISK | identifier))
+    ;
+
+privilegeList
+    : privilege (COMMA privilege)*
     ;
 
 roleIdentifier
     : identifier
     ;
 
-userExpressionList
-    : userIdentifier (COMMA userIdentifier)*
+userOrRoleExpressionList
+    : userOrRoleIdentifier (COMMA userOrRoleIdentifier)*
     ;
 
-userIdentifier
+userOrRoleIdentifier
     : CURRENT_USER
     | identifier
+    | roleIdentifier
     ;
 
 selectPrivilege
@@ -1182,6 +1192,7 @@ keyword
     | USAGE
     | WEEK
     | YEAR
+    | GRANTS
     ;
 
 keywordForAlias

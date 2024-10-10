@@ -46,7 +46,7 @@ test('should not report errors', () => {
             GRANT ON CLUSTER test_cluster
                 CREATE ON *.*
             TO test_user1, test_user2, CURRENT_USER
-            WITH ADMIN OPTION
+            WITH GRANT OPTION
             WITH REPLACE OPTION;
         `,
     );
@@ -86,6 +86,9 @@ test('should suggest current user', () => {
 test('should suggest privileges after GRANT', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor('GRANT |');
     expect(autocompleteResult.suggestKeywords).toEqual([
+        {
+            value: 'CURRENT',
+        },
         {
             value: 'ON',
         },

@@ -109,9 +109,11 @@ import { ExplainPlanStatementContext } from "./ClickHouseParser.js";
 import { ExplainQueryTreeStatementContext } from "./ClickHouseParser.js";
 import { ExplainEstimateStatementContext } from "./ClickHouseParser.js";
 import { GrantStatementContext } from "./ClickHouseParser.js";
+import { GrantSubjectIdentifierContext } from "./ClickHouseParser.js";
+import { PrivilegeListContext } from "./ClickHouseParser.js";
 import { RoleIdentifierContext } from "./ClickHouseParser.js";
-import { UserExpressionListContext } from "./ClickHouseParser.js";
-import { UserIdentifierContext } from "./ClickHouseParser.js";
+import { UserOrRoleExpressionListContext } from "./ClickHouseParser.js";
+import { UserOrRoleIdentifierContext } from "./ClickHouseParser.js";
 import { SelectPrivilegeContext } from "./ClickHouseParser.js";
 import { InsertPrivilegeContext } from "./ClickHouseParser.js";
 import { CreatePrivilegeContext } from "./ClickHouseParser.js";
@@ -890,23 +892,35 @@ export class ClickHouseParserVisitor<Result> extends AbstractParseTreeVisitor<Re
      */
     visitGrantStatement?: (ctx: GrantStatementContext) => Result;
     /**
+     * Visit a parse tree produced by `ClickHouseParser.grantSubjectIdentifier`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitGrantSubjectIdentifier?: (ctx: GrantSubjectIdentifierContext) => Result;
+    /**
+     * Visit a parse tree produced by `ClickHouseParser.privilegeList`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitPrivilegeList?: (ctx: PrivilegeListContext) => Result;
+    /**
      * Visit a parse tree produced by `ClickHouseParser.roleIdentifier`.
      * @param ctx the parse tree
      * @return the visitor result
      */
     visitRoleIdentifier?: (ctx: RoleIdentifierContext) => Result;
     /**
-     * Visit a parse tree produced by `ClickHouseParser.userExpressionList`.
+     * Visit a parse tree produced by `ClickHouseParser.userOrRoleExpressionList`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitUserExpressionList?: (ctx: UserExpressionListContext) => Result;
+    visitUserOrRoleExpressionList?: (ctx: UserOrRoleExpressionListContext) => Result;
     /**
-     * Visit a parse tree produced by `ClickHouseParser.userIdentifier`.
+     * Visit a parse tree produced by `ClickHouseParser.userOrRoleIdentifier`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitUserIdentifier?: (ctx: UserIdentifierContext) => Result;
+    visitUserOrRoleIdentifier?: (ctx: UserOrRoleIdentifierContext) => Result;
     /**
      * Visit a parse tree produced by `ClickHouseParser.selectPrivilege`.
      * @param ctx the parse tree

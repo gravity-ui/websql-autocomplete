@@ -274,6 +274,7 @@ DISPLAYSECRETSINSHOWANDSELECT : D I S P L A Y S E C R E T S I N S H O W A N D S 
 POLICIES                      : P O L I C I E S;
 PROFILES                      : P R O F I L E S;
 ALLOW                         : A L L O W;
+GRANTS                        : G R A N T S;
 
 JSON_FALSE : 'false';
 JSON_TRUE  : 'true';
