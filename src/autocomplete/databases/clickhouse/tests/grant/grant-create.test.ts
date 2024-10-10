@@ -11,7 +11,15 @@ test('should not report errors', () => {
             CREATE TEMPORARY TABLE,
             CREATE VIEW,
             CREATE DICTIONARY,
-            CREATE FUNCTION
+            CREATE FUNCTION,
+            CREATE USER,
+            CREATE ROLE,
+            CREATE ROW POLICY,
+            CREATE POLICY,
+            CREATE QUOTA,
+            CREATE SETTINGS PROFILE,
+            CREATE PROFILE,
+            CREATE SQL SECURITY NONE
           ON *.* TO test_user1, test_user2
           WITH GRANT OPTION
           WITH REPLACE OPTION;
@@ -113,6 +121,42 @@ test('should suggest keywords after ARBITRARY TEMPORARY', () => {
     expect(autocompleteResult.suggestKeywords).toEqual([
         {
             value: 'TABLE',
+        },
+    ]);
+});
+
+test('should suggest keywords after ROW', () => {
+    const autocompleteResult = parseClickHouseQueryWithCursor('GRANT CREATE ROW |');
+    expect(autocompleteResult.suggestKeywords).toEqual([
+        {
+            value: 'POLICY',
+        },
+    ]);
+});
+
+test('should suggest keywords after SETTINGS', () => {
+    const autocompleteResult = parseClickHouseQueryWithCursor('GRANT CREATE SETTINGS |');
+    expect(autocompleteResult.suggestKeywords).toEqual([
+        {
+            value: 'PROFILE',
+        },
+    ]);
+});
+
+test('should suggest keywords after SQL', () => {
+    const autocompleteResult = parseClickHouseQueryWithCursor('GRANT CREATE SQL |');
+    expect(autocompleteResult.suggestKeywords).toEqual([
+        {
+            value: 'SECURITY',
+        },
+    ]);
+});
+
+test('should suggest keywords after SECURITY', () => {
+    const autocompleteResult = parseClickHouseQueryWithCursor('GRANT CREATE SQL SECURITY |');
+    expect(autocompleteResult.suggestKeywords).toEqual([
+        {
+            value: 'NONE',
         },
     ]);
 });

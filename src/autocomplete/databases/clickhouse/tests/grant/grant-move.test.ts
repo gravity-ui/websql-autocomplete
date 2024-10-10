@@ -4,7 +4,8 @@ test('should not report errors', () => {
     const autocompleteResult = parseClickHouseQueryWithoutCursor(
         `
           GRANT ON CLUSTER test_cluster
-            ACCESS MANAGEMENT
+            MOVE PARTITION,
+            MOVE PART
           ON *.* TO test_user1, test_user2
           WITH GRANT OPTION
           WITH REPLACE OPTION;
@@ -15,16 +16,24 @@ test('should not report errors', () => {
 
 test('should not report errors without optional parameters', () => {
     const autocompleteResult = parseClickHouseQueryWithoutCursor(
-        'GRANT ACCESS MANAGEMENT ON test_table TO test_user1;',
+        `
+          GRANT
+            MOVE PARTITION,
+            MOVE PART
+          ON test_table TO test_user1;
+        `,
     );
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should suggest keywords after ACCESS', () => {
-    const autocompleteResult = parseClickHouseQueryWithCursor('GRANT ACCESS |');
+test('should suggest keywords after MOVE', () => {
+    const autocompleteResult = parseClickHouseQueryWithCursor('GRANT MOVE |');
     expect(autocompleteResult.suggestKeywords).toEqual([
         {
-            value: 'MANAGEMENT',
+            value: 'PARTITION',
+        },
+        {
+            value: 'PART',
         },
     ]);
 });

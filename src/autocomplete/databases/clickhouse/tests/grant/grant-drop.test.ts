@@ -8,7 +8,17 @@ test('should not report errors', () => {
             DROP DATABASE,
             DROP TABLE,
             DROP VIEW,
-            DROP DICTIONARY
+            DROP DICTIONARY,
+            DROP USER,
+            DROP ROLE,
+            DROP ROW POLICY,
+            DROP POLICY,
+            DROP QUOTA,
+            DROP SETTINGS PROFILE,
+            DROP PROFILE,
+            DROP COLUMN,
+            DROP CONSTRAINT,
+            DROP INDEX
           ON *.* TO test_user1, test_user2
           WITH GRANT OPTION
           WITH REPLACE OPTION;
@@ -71,6 +81,24 @@ test('should suggest keywords after DROP', () => {
         },
         {
             value: 'ON',
+        },
+    ]);
+});
+
+test('should suggest keywords after ROW', () => {
+    const autocompleteResult = parseClickHouseQueryWithCursor('GRANT DROP ROW |');
+    expect(autocompleteResult.suggestKeywords).toEqual([
+        {
+            value: 'POLICY',
+        },
+    ]);
+});
+
+test('should suggest keywords after SETTINGS', () => {
+    const autocompleteResult = parseClickHouseQueryWithCursor('GRANT DROP SETTINGS |');
+    expect(autocompleteResult.suggestKeywords).toEqual([
+        {
+            value: 'PROFILE',
         },
     ]);
 });
