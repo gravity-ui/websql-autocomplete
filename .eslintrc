@@ -12,12 +12,12 @@
         "consistent-return": "off",
         "no-negated-condition": "off",
         "@typescript-eslint/explicit-function-return-type": "error",
-        "@typescript-eslint/array-type": ["error", { "default": "array" }],
+        "@typescript-eslint/array-type": ["error", {"default": "array"}],
         "object-shorthand": "error",
         "no-implicit-globals": "off",
         "camelcase": "off",
         "complexity": "off",
-        "filenames/match-regex": [2, "^[a-z-\\.]+$", true],
+        "filenames/match-regex": [2, "^[a-z-0-9\\.]+$", true],
         "padding-line-between-statements": [
             "error",
             {"blankLine": "always", "prev": "function", "next": "*"},
@@ -25,29 +25,32 @@
             {"blankLine": "always", "prev": "export", "next": "*"},
             {"blankLine": "always", "prev": "*", "next": "export"}
         ],
-        "import/no-restricted-paths": ["error", {
-            "zones": [
-                {
-                    "target": "./src/autocomplete/databases/clickhouse/**/*",
-                    "from": "./src/autocomplete/databases/!(clickhouse)/**/*"
-                },
-                {
-                    "target": "./src/autocomplete/databases/mysql/**/*",
-                    "from": "./src/autocomplete/databases/!(mysql)/**/*"
-                },
-                {
-                    "target": "./src/autocomplete/databases/postgresql/**/*",
-                    "from": "./src/autocomplete/databases/!(postgresql)/**/*"
-                },
-                {
-                    "target": "./src/autocomplete/databases/yql/**/*",
-                    "from": "./src/autocomplete/databases/!(yql)/**/*"
-                },
-                {
-                    "target": "./src/autocomplete/databases/redis/**/*",
-                    "from": "./src/autocomplete/databases/!(redis)/**/*"
-                }
-            ]
-        }]
+        "import/no-restricted-paths": [
+            "error",
+            {
+                "zones": [
+                    {
+                        "target": "./src/autocomplete/databases/clickhouse/**/*",
+                        "from": "./src/autocomplete/databases/!(clickhouse)/**/*"
+                    },
+                    {
+                        "target": "./src/autocomplete/databases/mysql/**/*",
+                        "from": "./src/autocomplete/databases/!(mysql)/**/*"
+                    },
+                    {
+                        "target": "./src/autocomplete/databases/postgresql/**/*",
+                        "from": "./src/autocomplete/databases/!(postgresql)/**/*"
+                    },
+                    {
+                        "target": "./src/autocomplete/databases/yql/**/*",
+                        "from": "./src/autocomplete/databases/!(yql)/**/*"
+                    },
+                    {
+                        "target": "./src/autocomplete/databases/redis/**/*",
+                        "from": "./src/autocomplete/databases/!(redis)/**/*"
+                    }
+                ]
+            }
+        ]
     }
 }

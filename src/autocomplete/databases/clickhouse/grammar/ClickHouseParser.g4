@@ -22,6 +22,7 @@ statements
 statement
     : notInsertStatement (INTO OUTFILE STRING_LITERAL)? (FORMAT identifierOrNull)? (SEMICOLON)?
     | insertStatement
+    | grantStatement
     ;
 
 notInsertStatement
@@ -334,6 +335,109 @@ explainStatement
     | EXPLAIN PLAN notInsertStatement       # ExplainPlanStatement
     | EXPLAIN QUERY TREE notInsertStatement # ExplainQueryTreeStatement
     | EXPLAIN ESTIMATE notInsertStatement   # ExplainEstimateStatement
+    ;
+
+// GRANT statement
+
+grantStatement
+    : GRANT clusterClause? privilege (COMMA privilege)* ON (databaseIdentifier | tableIdentifier | (ASTERISK DOT)? (ASTERISK | identifier)) TO userExpressionList (WITH GRANT OPTION)? (WITH REPLACE OPTION)?
+    ;
+
+userExpressionList
+    : userIdentifier (COMMA userIdentifier)*
+    ;
+
+userIdentifier
+    : CURRENT_USER
+    | identifier
+    ;
+
+selectPrivilege
+    : SELECT columnsClause?
+    ;
+
+insertPrivilege
+    : INSERT columnsClause?
+    ;
+
+createPrivilege
+    : CREATE (DATABASE | TABLE | VIEW | DICTIONARY | FUNCTION)?
+    | CREATE (ARBITRARY TEMPORARY | TEMPORARY)? TABLE
+    ;
+
+dropPrivilege
+    : DROP (DATABASE | TABLE | VIEW | DICTIONARY)?
+    ;
+
+showPrivilege
+    : SHOW (DATABASES | TABLES | COLUMNS | DICTIONARIES)?
+    ;
+
+introspectionPrivilege
+    : INTROSPECTION FUNCTIONS?
+    | ADDRESSTOLINE
+    | ADDRESSTOSYMBOL
+    | DEMANGLE
+    ;
+
+sourcePrivilege
+    : SOURCES
+    | FILE
+    | URL
+    | REMOTE
+    | MYSQL
+    | ODBC
+    | JDBC
+    | HDFS
+    | S3
+    ;
+
+dictPrivilege
+    : DICTGET
+    | DICTHAS
+    | DICTGETHIERARCHY
+    | DICTISIN
+    ;
+
+alterPrivilege
+    : ALTER (DELETE | UPDATE)? columnsClause?
+    | (DELETE | UPDATE) columnsClause?
+    | ALTER TABLE
+    | ALTER (ADD | DROP | MODIFY | COMMENT | CLEAR | RENAME)? COLUMN columnsClause?
+    | (ADD | DROP | MODIFY | COMMENT | CLEAR | RENAME) COLUMN columnsClause?
+    | ALTER (ADD | DROP | MATERIALIZE | CLEAR)? INDEX
+    | (ADD | DROP | MATERIALIZE | CLEAR)? INDEX
+    | ALTER MODIFY? (ORDER | SAMPLE) BY
+    | MODIFY (ORDER | SAMPLE) BY
+    | ALTER? (ADD | DROP)? CONSTRAINT
+    | ALTER (MODIFY | MATERIALIZE)? TTL
+    | (MODIFY | MATERIALIZE) TTL
+    | ALTER SETTINGS
+    | (ALTER | ALTER MODIFY | MODIFY) SETTING
+    | ALTER? (MOVE | FETCH) (PARTITION | PART)
+    | ALTER? FREEZE PARTITION
+    | ALTER VIEW REFRESH?
+    | ALTER LIVE VIEW REFRESH
+    | REFRESH VIEW
+    | ALTER (VIEW | TABLE) MODIFY QUERY
+    ;
+
+privilege
+    // TODO: implement all left privileges
+    : selectPrivilege
+    | insertPrivilege
+    | createPrivilege
+    | dropPrivilege
+    | TRUNCATE
+    | KILL QUERY
+    | OPTIMIZE
+    | showPrivilege
+    | introspectionPrivilege
+    | sourcePrivilege
+    | dictPrivilege
+    | alterPrivilege
+    | ALL
+    | NONE
     ;
 
 // INSERT statement
@@ -916,6 +1020,58 @@ keyword
     | WHERE
     | WINDOW
     | WITH
+    | GRANT
+    | USER
+    | FETCH
+    | REFRESH
+    | POLICY
+    | QUOTA
+    | ROLE
+    | PROFILE
+    | ARBITRARY
+    | COLUMNS
+    | CURRENT_USER
+    | ACCESS
+    | SHOW_USERS
+    | SHOW_ROLES
+    | SHOW_ROW_POLICIES
+    | SHOW_QUOTAS
+    | SHOW_SETTINGS_PROFILES
+    | SHUTDOWN
+    | CACHE
+    | DNS
+    | MARK
+    | PART
+    | UNCOMPRESSED
+    | CONFIG
+    | EMBEDDED
+    | FUNCTIONS
+    | MOVES
+    | REPLICATION
+    | QUEUES
+    | RESTART
+    | DICTGET
+    | DICTGETHIERARCHY
+    | DICTHAS
+    | DICTISIN
+    | MANAGEMENT
+    | ADMIN
+    | INTROSPECTION
+    | ADDRESSTOLINE
+    | ADDRESSTOSYMBOL
+    | DEMANGLE
+    | SOURCES
+    | FILE
+    | URL
+    | REMOTE
+    | MYSQL
+    | ODBC
+    | JDBC
+    | HDFS
+    | S3
+    | SETTING
+    | OPTION
+    | NONE
     ;
 
 keywordForAlias
