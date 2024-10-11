@@ -310,6 +310,7 @@ test('should suggest privileges after GRANT', () => {
         },
     ]);
 });
+
 test('should suggest privileges after comma', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor('GRANT SELECT, |');
     expect(autocompleteResult.suggestKeywords).toEqual([
