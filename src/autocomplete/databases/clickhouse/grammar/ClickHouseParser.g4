@@ -341,7 +341,7 @@ explainStatement
 // REVOKE statement
 
 revokeStatement
-    : REVOKE clusterClause? privilegeList ON grantSubjectIdentifier FROM (userExpressionList | ALL | ALL EXCEPT userExpressionList)
+    : REVOKE clusterClause? (GRANT OPTION FOR)? privilegeList ON grantSubjectIdentifier FROM (userExpressionList | ALL | ALL EXCEPT userExpressionList)
     | REVOKE clusterClause? (ADMIN OPTION FOR)? roleExpressionList FROM (userOrRoleExpressionList | ALL | ALL EXCEPT userOrRoleExpressionList)
     ;
 

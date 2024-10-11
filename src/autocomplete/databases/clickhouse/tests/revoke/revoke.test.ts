@@ -374,6 +374,8 @@ test('should suggest privileges', () => {
         {value: 'NAMED'},
         {value: 'USE'},
         {value: 'TABLE'},
+        {value: 'USAGE'},
+        {value: 'GRANT'},
     ]);
 });
 
@@ -464,6 +466,7 @@ test('should suggest another privileges after comma', () => {
         {value: 'USE'},
         {value: 'TABLE'},
         {value: 'ADMIN'},
+        {value: 'USAGE'},
     ]);
 });
 
@@ -475,6 +478,27 @@ test('should suggest keywords after OPTION', () => {
         },
         {
             value: 'ON',
+        },
+    ]);
+});
+
+test('should suggest keywords after GRANT', () => {
+    const autocompleteResult = parseClickHouseQueryWithCursor('REVOKE GRANT |');
+    expect(autocompleteResult.suggestKeywords).toEqual([
+        {
+            value: 'FROM',
+        },
+        {
+            value: 'OPTION',
+        },
+    ]);
+});
+
+test('should suggest keywords after OPTION', () => {
+    const autocompleteResult = parseClickHouseQueryWithCursor('REVOKE GRANT OPTION |');
+    expect(autocompleteResult.suggestKeywords).toEqual([
+        {
+            value: 'FOR',
         },
     ]);
 });
