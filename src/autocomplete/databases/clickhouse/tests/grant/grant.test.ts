@@ -24,6 +24,20 @@ test('should not report errors on wildcard identifier', () => {
 
 test('should not report errors', () => {
     const autocompleteResult = parseClickHouseQueryWithoutCursor(
+        'GRANT ON CLUSTER test_cluster CREATE ON *, SELECT ON *, ALTER ON * TO test_user1, test_user2;',
+    );
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should not report errors', () => {
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(
+        'GRANT test_role1, test_role2 TO test_user1;',
+    );
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should not report errors', () => {
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(
         `
             GRANT ON CLUSTER test_cluster
                 test_role
@@ -160,6 +174,7 @@ test('should suggest privileges after GRANT', () => {
         {value: 'USE'},
         {value: 'TABLE'},
         {value: 'ADMIN'},
+        {value: 'USAGE'},
     ]);
 });
 
@@ -238,6 +253,7 @@ test('should suggest privileges after comma', () => {
         {value: 'USE'},
         {value: 'TABLE'},
         {value: 'ADMIN'},
+        {value: 'USAGE'},
     ]);
 });
 

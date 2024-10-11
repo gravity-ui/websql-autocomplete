@@ -248,7 +248,8 @@ test('should not report errors', () => {
         TABLE ENGINE,
         TRUNCATE,
         UPDATE,
-        URL
+        URL,
+        USAGE
       ON *.*
       FROM test_user1, test_user2, CURRENT_USER;
     `);

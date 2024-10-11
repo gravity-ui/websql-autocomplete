@@ -354,14 +354,15 @@ roleExpressionList
     ;
 
 // GRANT statement
+
 grantStatement
-    : GRANT clusterClause? privilegeList ON grantSubjectIdentifier TO userOrRoleExpressionList (WITH GRANT OPTION)? (WITH REPLACE OPTION)?
-    | GRANT clusterClause? roleIdentifier TO userOrRoleExpressionList (WITH ADMIN OPTION)? (WITH REPLACE OPTION)?
+    : GRANT clusterClause? (privilegeList ON grantSubjectIdentifier) (COMMA privilegeList ON grantSubjectIdentifier)* TO userOrRoleExpressionList (WITH GRANT OPTION)? (WITH REPLACE OPTION)?
+    | GRANT clusterClause? roleExpressionList TO userOrRoleExpressionList (WITH ADMIN OPTION)? (WITH REPLACE OPTION)?
     | GRANT CURRENT GRANTS ((LPAREN privilegeList ON grantSubjectIdentifier RPAREN) | ON grantSubjectIdentifier) TO userOrRoleExpressionList (WITH GRANT OPTION)? (WITH REPLACE OPTION)?
     ;
 
 grantSubjectIdentifier
-    : (databaseIdentifier | tableIdentifier | (ASTERISK DOT)? (ASTERISK | identifier))
+    : (databaseIdentifier | tableIdentifier | ((ASTERISK | identifier) DOT)? (ASTERISK | identifier))
     ;
 
 privilegeList
@@ -539,6 +540,7 @@ privilege
     | namedCollectionAdminPrivilege
     | TABLE ENGINE
     | ADMIN OPTION
+    | USAGE
     ;
 
 // INSERT statement
