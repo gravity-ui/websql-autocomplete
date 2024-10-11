@@ -275,6 +275,8 @@ POLICIES                      : P O L I C I E S;
 PROFILES                      : P R O F I L E S;
 ALLOW                         : A L L O W;
 GRANTS                        : G R A N T S;
+EXCEPT                        : E X C E P T;
+REVOKE                        : R E V O K E;
 
 JSON_FALSE : 'false';
 JSON_TRUE  : 'true';

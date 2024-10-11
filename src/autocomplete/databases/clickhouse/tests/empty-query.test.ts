@@ -30,6 +30,7 @@ test('should suggest properly for an empty query', () => {
         {value: 'WATCH'},
         {value: 'INSERT'},
         {value: 'GRANT'},
+        {value: 'REVOKE'},
     ];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
     expect(autocompleteResult.suggestTemplates).toEqual(true);
