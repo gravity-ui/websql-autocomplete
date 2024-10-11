@@ -1,5 +1,12 @@
 # Changelog
 
+## [11.1.0](https://github.com/gravity-ui/websql-autocomplete/compare/v11.0.0...v11.1.0) (2024-10-11)
+
+
+### Features
+
+* Support grant command for Clickhouse ([#227](https://github.com/gravity-ui/websql-autocomplete/issues/227)) ([4902a69](https://github.com/gravity-ui/websql-autocomplete/commit/4902a6946f0329187514753de0a4f192d2f56072))
+
 ## [11.0.0](https://github.com/gravity-ui/websql-autocomplete/compare/v10.3.0...v11.0.0) (2024-09-12)
 
 
