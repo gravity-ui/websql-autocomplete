@@ -340,16 +340,31 @@ explainStatement
 // GRANT statement
 
 grantStatement
-    : GRANT clusterClause? privilege (COMMA privilege)* ON (databaseIdentifier | tableIdentifier | (ASTERISK DOT)? (ASTERISK | identifier)) TO userExpressionList (WITH GRANT OPTION)? (WITH REPLACE OPTION)?
+    : GRANT clusterClause? privilegeList ON grantSubjectIdentifier TO userOrRoleExpressionList (WITH GRANT OPTION)? (WITH REPLACE OPTION)?
+    | GRANT clusterClause? roleIdentifier TO userOrRoleExpressionList (WITH ADMIN OPTION)? (WITH REPLACE OPTION)?
+    | GRANT CURRENT GRANTS ((LPAREN privilegeList ON grantSubjectIdentifier RPAREN) | ON grantSubjectIdentifier) TO userOrRoleExpressionList (WITH GRANT OPTION)? (WITH REPLACE OPTION)?
     ;
 
-userExpressionList
-    : userIdentifier (COMMA userIdentifier)*
+grantSubjectIdentifier
+    : (databaseIdentifier | tableIdentifier | (ASTERISK DOT)? (ASTERISK | identifier))
     ;
 
-userIdentifier
+privilegeList
+    : privilege (COMMA privilege)*
+    ;
+
+roleIdentifier
+    : identifier
+    ;
+
+userOrRoleExpressionList
+    : userOrRoleIdentifier (COMMA userOrRoleIdentifier)*
+    ;
+
+userOrRoleIdentifier
     : CURRENT_USER
     | identifier
+    | roleIdentifier
     ;
 
 selectPrivilege
@@ -376,20 +391,27 @@ showPrivilege
 introspectionPrivilege
     : INTROSPECTION FUNCTIONS?
     | ADDRESSTOLINE
+    | ADDRESSTOLINEWITHINLINES
     | ADDRESSTOSYMBOL
     | DEMANGLE
     ;
 
 sourcePrivilege
     : SOURCES
+    | AZURE
     | FILE
-    | URL
-    | REMOTE
+    | HDFS
+    | HIVE
+    | JDBC
+    | MONGO
     | MYSQL
     | ODBC
-    | JDBC
-    | HDFS
+    | POSTGRES
+    | REDIS
+    | REMOTE
     | S3
+    | SQLITE
+    | URL
     ;
 
 dictPrivilege
@@ -419,7 +441,61 @@ alterPrivilege
     | ALTER VIEW REFRESH?
     | ALTER LIVE VIEW REFRESH
     | REFRESH VIEW
-    | ALTER (VIEW | TABLE) MODIFY QUERY
+    | ALTER (VIEW | TABLE) MODIFY (QUERY | SQL SECURITY)
+    ;
+
+accessManagementPrivilege
+    : ACCESS MANAGEMENT
+    | (CREATE | ALTER | DROP) USER
+    | (CREATE | ALTER | DROP) ROLE
+    | ROLE ADMIN
+    | (CREATE | ALTER | DROP) ROW? POLICY
+    | (CREATE | ALTER | DROP) QUOTA
+    | (CREATE | ALTER | DROP) SETTINGS? PROFILE
+    | SHOW ACCESS
+    | SHOW_USERS
+    | SHOW CREATE USER
+    | SHOW_ROLES
+    | SHOW CREATE ROLE
+    | SHOW_ROW_POLICIES
+    | SHOW POLICIES
+    | SHOW CREATE ROW? POLICY
+    | SHOW_QUOTAS
+    | SHOW CREATE QUOTA
+    | SHOW_SETTINGS_PROFILES
+    | SHOW PROFILES
+    | SHOW CREATE SETTINGS? PROFILE
+    | (ALLOW | CREATE)? SQL SECURITY NONE
+    | SECURITY NONE
+    ;
+
+systemPrivilege
+    : SYSTEM (SHUTDOWN | KILL)?
+    | SHUTDOWN
+    | SYSTEM? DROP CACHE
+    | SYSTEM DROP (DNS | MARK | UNCOMPRESSED) CACHE?
+    | DROP (DNS | MARK | UNCOMPRESSED) CACHE
+    | DROP (DNS | MARKS | UNCOMPRESSED)
+    | SYSTEM RELOAD (CONFIG | DICTIONARY | EMBEDDED? DICTIONARIES)?
+    | RELOAD (CONFIG | DICTIONARY | EMBEDDED? DICTIONARIES)
+    | SYSTEM (STOP | START)? TTL? MERGES
+    | (STOP | START) TTL? MERGES
+    | SYSTEM (STOP | START)? (FETCHES | MOVES | SENDS)
+    | (STOP | START) (FETCHES | MOVES | SENDS)
+    | SYSTEM (STOP | START)? (DISTRIBUTED | REPLICATED) SENDS
+    | (STOP | START) (DISTRIBUTED | REPLICATED) SENDS
+    | SYSTEM (STOP | START)? REPLICATION QUEUES
+    | (STOP | START) REPLICATION QUEUES
+    | SYSTEM? (SYNC | RESTART) REPLICA
+    | SYSTEM FLUSH (DISTRIBUTED | LOGS)?
+    | FLUSH (DISTRIBUTED | LOGS)
+    ;
+
+namedCollectionAdminPrivilege
+    : NAMED COLLECTION (ADMIN | CONTROL | USAGE)?
+    | (CREATE | DROP | ALTER)? NAMED COLLECTION
+    | SHOW NAMED COLLECTIONS SECRETS?
+    | USE NAMED COLLECTION
     ;
 
 privilege
@@ -438,6 +514,13 @@ privilege
     | alterPrivilege
     | ALL
     | NONE
+    | OPTIMIZE
+    | DISPLAYSECRETSINSHOWANDSELECT
+    | accessManagementPrivilege
+    | systemPrivilege
+    | namedCollectionAdminPrivilege
+    | TABLE ENGINE
+    | ADMIN OPTION
     ;
 
 // INSERT statement
@@ -1072,6 +1155,44 @@ keyword
     | SETTING
     | OPTION
     | NONE
+    | ADD
+    | ADDRESSTOLINEWITHINLINES
+    | AFTER
+    | ALLOW
+    | AZURE
+    | COLLECTION
+    | COLLECTIONS
+    | CONTROL
+    | DAY
+    | DISPLAYSECRETSINSHOWANDSELECT
+    | ESTIMATE
+    | HIVE
+    | HOUR
+    | INF
+    | MARKS
+    | MINUTE
+    | MONGO
+    | MONTH
+    | NAMED
+    | PIPELINE
+    | PLAN
+    | POLICIES
+    | POSTGRES
+    | PROFILES
+    | PROJECTION
+    | QUARTER
+    | QUERY
+    | REDIS
+    | SECOND
+    | SECRETS
+    | SECURITY
+    | SQL
+    | SQLITE
+    | TREE
+    | USAGE
+    | WEEK
+    | YEAR
+    | GRANTS
     ;
 
 keywordForAlias

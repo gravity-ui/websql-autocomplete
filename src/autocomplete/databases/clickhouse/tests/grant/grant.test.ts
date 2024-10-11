@@ -22,6 +22,44 @@ test('should not report errors on wildcard identifier', () => {
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
+test('should not report errors', () => {
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(
+        `
+            GRANT ON CLUSTER test_cluster
+                test_role
+            TO test_user1, test_user2, CURRENT_USER
+            WITH ADMIN OPTION
+            WITH REPLACE OPTION;
+        `,
+    );
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should not report errors', () => {
+    const autocompleteResult = parseClickHouseQueryWithoutCursor('GRANT test_role TO test_user1;');
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should not report errors', () => {
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(
+        `
+            GRANT ON CLUSTER test_cluster
+                CREATE ON *.*
+            TO test_user1, test_user2, CURRENT_USER
+            WITH GRANT OPTION
+            WITH REPLACE OPTION;
+        `,
+    );
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should not report errors', () => {
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(
+        'GRANT CREATE ON *.* TO test_user;',
+    );
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
 test('should suggest tables or views', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor(
         'GRANT ON CLUSTER test_cluster CREATE ON | TO test_user;',
@@ -48,6 +86,12 @@ test('should suggest current user', () => {
 test('should suggest privileges after GRANT', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor('GRANT |');
     expect(autocompleteResult.suggestKeywords).toEqual([
+        {
+            value: 'CURRENT',
+        },
+        {
+            value: 'ON',
+        },
         {
             value: 'SELECT',
         },
@@ -77,6 +121,9 @@ test('should suggest privileges after GRANT', () => {
         },
         {
             value: 'ADDRESSTOLINE',
+        },
+        {
+            value: 'ADDRESSTOLINEWITHINLINES',
         },
         {
             value: 'ADDRESSTOSYMBOL',
@@ -110,6 +157,24 @@ test('should suggest privileges after GRANT', () => {
         },
         {
             value: 'S3',
+        },
+        {
+            value: 'AZURE',
+        },
+        {
+            value: 'HIVE',
+        },
+        {
+            value: 'MONGO',
+        },
+        {
+            value: 'POSTGRES',
+        },
+        {
+            value: 'REDIS',
+        },
+        {
+            value: 'SQLITE',
         },
         {
             value: 'DICTGET',
@@ -175,7 +240,73 @@ test('should suggest privileges after GRANT', () => {
             value: 'NONE',
         },
         {
-            value: 'ON',
+            value: 'DISPLAYSECRETSINSHOWANDSELECT',
+        },
+        {
+            value: 'ACCESS',
+        },
+        {
+            value: 'ROLE',
+        },
+        {
+            value: 'SHOW_USERS',
+        },
+        {
+            value: 'SHOW_ROLES',
+        },
+        {
+            value: 'SHOW_ROW_POLICIES',
+        },
+        {
+            value: 'SHOW_QUOTAS',
+        },
+        {
+            value: 'SHOW_SETTINGS_PROFILES',
+        },
+        {
+            value: 'ALLOW',
+        },
+        {
+            value: 'SQL',
+        },
+        {
+            value: 'SECURITY',
+        },
+        {
+            value: 'SYSTEM',
+        },
+        {
+            value: 'SHUTDOWN',
+        },
+        {
+            value: 'RELOAD',
+        },
+        {
+            value: 'START',
+        },
+        {
+            value: 'STOP',
+        },
+        {
+            value: 'SYNC',
+        },
+        {
+            value: 'RESTART',
+        },
+        {
+            value: 'FLUSH',
+        },
+        {
+            value: 'NAMED',
+        },
+        {
+            value: 'USE',
+        },
+        {
+            value: 'TABLE',
+        },
+        {
+            value: 'ADMIN',
         },
     ]);
 });
@@ -213,6 +344,9 @@ test('should suggest privileges after comma', () => {
             value: 'ADDRESSTOLINE',
         },
         {
+            value: 'ADDRESSTOLINEWITHINLINES',
+        },
+        {
             value: 'ADDRESSTOSYMBOL',
         },
         {
@@ -244,6 +378,24 @@ test('should suggest privileges after comma', () => {
         },
         {
             value: 'S3',
+        },
+        {
+            value: 'AZURE',
+        },
+        {
+            value: 'HIVE',
+        },
+        {
+            value: 'MONGO',
+        },
+        {
+            value: 'POSTGRES',
+        },
+        {
+            value: 'REDIS',
+        },
+        {
+            value: 'SQLITE',
         },
         {
             value: 'DICTGET',
@@ -308,12 +460,86 @@ test('should suggest privileges after comma', () => {
         {
             value: 'NONE',
         },
+        {
+            value: 'DISPLAYSECRETSINSHOWANDSELECT',
+        },
+
+        {
+            value: 'ACCESS',
+        },
+        {
+            value: 'ROLE',
+        },
+        {
+            value: 'SHOW_USERS',
+        },
+        {
+            value: 'SHOW_ROLES',
+        },
+        {
+            value: 'SHOW_ROW_POLICIES',
+        },
+        {
+            value: 'SHOW_QUOTAS',
+        },
+        {
+            value: 'SHOW_SETTINGS_PROFILES',
+        },
+        {
+            value: 'ALLOW',
+        },
+        {
+            value: 'SQL',
+        },
+        {
+            value: 'SECURITY',
+        },
+
+        {
+            value: 'SYSTEM',
+        },
+        {
+            value: 'SHUTDOWN',
+        },
+        {
+            value: 'RELOAD',
+        },
+        {
+            value: 'START',
+        },
+        {
+            value: 'STOP',
+        },
+        {
+            value: 'SYNC',
+        },
+        {
+            value: 'RESTART',
+        },
+        {
+            value: 'FLUSH',
+        },
+        {
+            value: 'NAMED',
+        },
+        {
+            value: 'USE',
+        },
+        {
+            value: 'TABLE',
+        },
+        {
+            value: 'ADMIN',
+        },
     ]);
 });
 
 test('should suggest cluster', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor('GRANT ON |');
     expect(autocompleteResult.suggestKeywords).toEqual([
+        {
+            value: 'TO',
+        },
         {
             value: 'CLUSTER',
         },
@@ -323,6 +549,9 @@ test('should suggest cluster', () => {
 test('should suggest keywords after privilege identifier', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor('GRANT SELECT |');
     expect(autocompleteResult.suggestKeywords).toEqual([
+        {
+            value: 'TO',
+        },
         {
             value: 'ON',
         },
