@@ -300,225 +300,79 @@ test('should not report errors', () => {
 test('should suggest privileges', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor('REVOKE |');
     expect(autocompleteResult.suggestKeywords).toEqual([
-        {
-            value: 'ADMIN',
-        },
-        {
-            value: 'ON',
-        },
-        {
-            value: 'SELECT',
-        },
-        {
-            value: 'INSERT',
-        },
-        {
-            value: 'CREATE',
-        },
-        {
-            value: 'DROP',
-        },
-        {
-            value: 'TRUNCATE',
-        },
-        {
-            value: 'KILL',
-        },
-        {
-            value: 'OPTIMIZE',
-        },
-        {
-            value: 'SHOW',
-        },
-        {
-            value: 'INTROSPECTION',
-        },
-        {
-            value: 'ADDRESSTOLINE',
-        },
-        {
-            value: 'ADDRESSTOLINEWITHINLINES',
-        },
-        {
-            value: 'ADDRESSTOSYMBOL',
-        },
-        {
-            value: 'DEMANGLE',
-        },
-        {
-            value: 'SOURCES',
-        },
-        {
-            value: 'FILE',
-        },
-        {
-            value: 'URL',
-        },
-        {
-            value: 'REMOTE',
-        },
-        {
-            value: 'MYSQL',
-        },
-        {
-            value: 'ODBC',
-        },
-        {
-            value: 'JDBC',
-        },
-        {
-            value: 'HDFS',
-        },
-        {
-            value: 'S3',
-        },
-        {
-            value: 'AZURE',
-        },
-        {
-            value: 'HIVE',
-        },
-        {
-            value: 'MONGO',
-        },
-        {
-            value: 'POSTGRES',
-        },
-        {
-            value: 'REDIS',
-        },
-        {
-            value: 'SQLITE',
-        },
-        {
-            value: 'DICTGET',
-        },
-        {
-            value: 'DICTGETHIERARCHY',
-        },
-        {
-            value: 'DICTHAS',
-        },
-        {
-            value: 'DICTISIN',
-        },
-        {
-            value: 'ALTER',
-        },
-        {
-            value: 'DELETE',
-        },
-        {
-            value: 'UPDATE',
-        },
-        {
-            value: 'ADD',
-        },
-        {
-            value: 'CLEAR',
-        },
-        {
-            value: 'COMMENT',
-        },
-        {
-            value: 'MODIFY',
-        },
-        {
-            value: 'RENAME',
-        },
-        {
-            value: 'MATERIALIZE',
-        },
-        {
-            value: 'INDEX',
-        },
-        {
-            value: 'CONSTRAINT',
-        },
-        {
-            value: 'MOVE',
-        },
-        {
-            value: 'FETCH',
-        },
-        {
-            value: 'FREEZE',
-        },
-        {
-            value: 'REFRESH',
-        },
-        {
-            value: 'ALL',
-        },
-        {
-            value: 'NONE',
-        },
-        {
-            value: 'DISPLAYSECRETSINSHOWANDSELECT',
-        },
-        {
-            value: 'ACCESS',
-        },
-        {
-            value: 'ROLE',
-        },
-        {
-            value: 'SHOW_USERS',
-        },
-        {
-            value: 'SHOW_ROLES',
-        },
-        {
-            value: 'SHOW_ROW_POLICIES',
-        },
-        {
-            value: 'SHOW_QUOTAS',
-        },
-        {
-            value: 'SHOW_SETTINGS_PROFILES',
-        },
-        {
-            value: 'ALLOW',
-        },
-        {
-            value: 'SQL',
-        },
-        {
-            value: 'SECURITY',
-        },
-        {
-            value: 'SYSTEM',
-        },
-        {
-            value: 'SHUTDOWN',
-        },
-        {
-            value: 'RELOAD',
-        },
-        {
-            value: 'START',
-        },
-        {
-            value: 'STOP',
-        },
-        {
-            value: 'SYNC',
-        },
-        {
-            value: 'RESTART',
-        },
-        {
-            value: 'FLUSH',
-        },
-        {
-            value: 'NAMED',
-        },
-        {
-            value: 'USE',
-        },
-        {
-            value: 'TABLE',
-        },
+        {value: 'ADMIN'},
+        {value: 'ON'},
+        {value: 'SELECT'},
+        {value: 'INSERT'},
+        {value: 'CREATE'},
+        {value: 'DROP'},
+        {value: 'TRUNCATE'},
+        {value: 'KILL'},
+        {value: 'OPTIMIZE'},
+        {value: 'SHOW'},
+        {value: 'INTROSPECTION'},
+        {value: 'ADDRESSTOLINE'},
+        {value: 'ADDRESSTOLINEWITHINLINES'},
+        {value: 'ADDRESSTOSYMBOL'},
+        {value: 'DEMANGLE'},
+        {value: 'SOURCES'},
+        {value: 'FILE'},
+        {value: 'URL'},
+        {value: 'REMOTE'},
+        {value: 'MYSQL'},
+        {value: 'ODBC'},
+        {value: 'JDBC'},
+        {value: 'HDFS'},
+        {value: 'S3'},
+        {value: 'AZURE'},
+        {value: 'HIVE'},
+        {value: 'MONGO'},
+        {value: 'POSTGRES'},
+        {value: 'REDIS'},
+        {value: 'SQLITE'},
+        {value: 'DICTGET'},
+        {value: 'DICTGETHIERARCHY'},
+        {value: 'DICTHAS'},
+        {value: 'DICTISIN'},
+        {value: 'ALTER'},
+        {value: 'DELETE'},
+        {value: 'UPDATE'},
+        {value: 'ADD'},
+        {value: 'CLEAR'},
+        {value: 'COMMENT'},
+        {value: 'MODIFY'},
+        {value: 'RENAME'},
+        {value: 'MATERIALIZE'},
+        {value: 'INDEX'},
+        {value: 'CONSTRAINT'},
+        {value: 'MOVE'},
+        {value: 'FETCH'},
+        {value: 'FREEZE'},
+        {value: 'REFRESH'},
+        {value: 'ALL'},
+        {value: 'NONE'},
+        {value: 'DISPLAYSECRETSINSHOWANDSELECT'},
+        {value: 'ACCESS'},
+        {value: 'ROLE'},
+        {value: 'SHOW_USERS'},
+        {value: 'SHOW_ROLES'},
+        {value: 'SHOW_ROW_POLICIES'},
+        {value: 'SHOW_QUOTAS'},
+        {value: 'SHOW_SETTINGS_PROFILES'},
+        {value: 'ALLOW'},
+        {value: 'SQL'},
+        {value: 'SECURITY'},
+        {value: 'SYSTEM'},
+        {value: 'SHUTDOWN'},
+        {value: 'RELOAD'},
+        {value: 'START'},
+        {value: 'STOP'},
+        {value: 'SYNC'},
+        {value: 'RESTART'},
+        {value: 'FLUSH'},
+        {value: 'NAMED'},
+        {value: 'USE'},
+        {value: 'TABLE'},
     ]);
 });
 
@@ -537,222 +391,78 @@ test('should suggest keywords after ON', () => {
 test('should suggest another privileges after comma', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor('REVOKE SELECT, |');
     expect(autocompleteResult.suggestKeywords).toEqual([
-        {
-            value: 'SELECT',
-        },
-        {
-            value: 'INSERT',
-        },
-        {
-            value: 'CREATE',
-        },
-        {
-            value: 'DROP',
-        },
-        {
-            value: 'TRUNCATE',
-        },
-        {
-            value: 'KILL',
-        },
-        {
-            value: 'OPTIMIZE',
-        },
-        {
-            value: 'SHOW',
-        },
-        {
-            value: 'INTROSPECTION',
-        },
-        {
-            value: 'ADDRESSTOLINE',
-        },
-        {
-            value: 'ADDRESSTOLINEWITHINLINES',
-        },
-        {
-            value: 'ADDRESSTOSYMBOL',
-        },
-        {
-            value: 'DEMANGLE',
-        },
-        {
-            value: 'SOURCES',
-        },
-        {
-            value: 'FILE',
-        },
-        {
-            value: 'URL',
-        },
-        {
-            value: 'REMOTE',
-        },
-        {
-            value: 'MYSQL',
-        },
-        {
-            value: 'ODBC',
-        },
-        {
-            value: 'JDBC',
-        },
-        {
-            value: 'HDFS',
-        },
-        {
-            value: 'S3',
-        },
-        {
-            value: 'AZURE',
-        },
-        {
-            value: 'HIVE',
-        },
-        {
-            value: 'MONGO',
-        },
-        {
-            value: 'POSTGRES',
-        },
-        {
-            value: 'REDIS',
-        },
-        {
-            value: 'SQLITE',
-        },
-        {
-            value: 'DICTGET',
-        },
-        {
-            value: 'DICTGETHIERARCHY',
-        },
-        {
-            value: 'DICTHAS',
-        },
-        {
-            value: 'DICTISIN',
-        },
-        {
-            value: 'ALTER',
-        },
-        {
-            value: 'DELETE',
-        },
-        {
-            value: 'UPDATE',
-        },
-        {
-            value: 'ADD',
-        },
-        {
-            value: 'CLEAR',
-        },
-        {
-            value: 'COMMENT',
-        },
-        {
-            value: 'MODIFY',
-        },
-        {
-            value: 'RENAME',
-        },
-        {
-            value: 'MATERIALIZE',
-        },
-        {
-            value: 'INDEX',
-        },
-        {
-            value: 'CONSTRAINT',
-        },
-        {
-            value: 'MOVE',
-        },
-        {
-            value: 'FETCH',
-        },
-        {
-            value: 'FREEZE',
-        },
-        {
-            value: 'REFRESH',
-        },
-        {
-            value: 'ALL',
-        },
-        {
-            value: 'NONE',
-        },
-        {
-            value: 'DISPLAYSECRETSINSHOWANDSELECT',
-        },
-        {
-            value: 'ACCESS',
-        },
-        {
-            value: 'ROLE',
-        },
-        {
-            value: 'SHOW_USERS',
-        },
-        {
-            value: 'SHOW_ROLES',
-        },
-        {
-            value: 'SHOW_ROW_POLICIES',
-        },
-        {
-            value: 'SHOW_QUOTAS',
-        },
-        {
-            value: 'SHOW_SETTINGS_PROFILES',
-        },
-        {
-            value: 'ALLOW',
-        },
-        {
-            value: 'SQL',
-        },
-        {
-            value: 'SECURITY',
-        },
-        {
-            value: 'SYSTEM',
-        },
-        {
-            value: 'SHUTDOWN',
-        },
-        {
-            value: 'RELOAD',
-        },
-        {
-            value: 'START',
-        },
-        {
-            value: 'STOP',
-        },
-        {
-            value: 'SYNC',
-        },
-        {
-            value: 'RESTART',
-        },
-        {
-            value: 'FLUSH',
-        },
-        {
-            value: 'NAMED',
-        },
-        {
-            value: 'USE',
-        },
-        {
-            value: 'TABLE',
-        },
-        {
-            value: 'ADMIN',
-        },
+        {value: 'SELECT'},
+        {value: 'INSERT'},
+        {value: 'CREATE'},
+        {value: 'DROP'},
+        {value: 'TRUNCATE'},
+        {value: 'KILL'},
+        {value: 'OPTIMIZE'},
+        {value: 'SHOW'},
+        {value: 'INTROSPECTION'},
+        {value: 'ADDRESSTOLINE'},
+        {value: 'ADDRESSTOLINEWITHINLINES'},
+        {value: 'ADDRESSTOSYMBOL'},
+        {value: 'DEMANGLE'},
+        {value: 'SOURCES'},
+        {value: 'FILE'},
+        {value: 'URL'},
+        {value: 'REMOTE'},
+        {value: 'MYSQL'},
+        {value: 'ODBC'},
+        {value: 'JDBC'},
+        {value: 'HDFS'},
+        {value: 'S3'},
+        {value: 'AZURE'},
+        {value: 'HIVE'},
+        {value: 'MONGO'},
+        {value: 'POSTGRES'},
+        {value: 'REDIS'},
+        {value: 'SQLITE'},
+        {value: 'DICTGET'},
+        {value: 'DICTGETHIERARCHY'},
+        {value: 'DICTHAS'},
+        {value: 'DICTISIN'},
+        {value: 'ALTER'},
+        {value: 'DELETE'},
+        {value: 'UPDATE'},
+        {value: 'ADD'},
+        {value: 'CLEAR'},
+        {value: 'COMMENT'},
+        {value: 'MODIFY'},
+        {value: 'RENAME'},
+        {value: 'MATERIALIZE'},
+        {value: 'INDEX'},
+        {value: 'CONSTRAINT'},
+        {value: 'MOVE'},
+        {value: 'FETCH'},
+        {value: 'FREEZE'},
+        {value: 'REFRESH'},
+        {value: 'ALL'},
+        {value: 'NONE'},
+        {value: 'DISPLAYSECRETSINSHOWANDSELECT'},
+        {value: 'ACCESS'},
+        {value: 'ROLE'},
+        {value: 'SHOW_USERS'},
+        {value: 'SHOW_ROLES'},
+        {value: 'SHOW_ROW_POLICIES'},
+        {value: 'SHOW_QUOTAS'},
+        {value: 'SHOW_SETTINGS_PROFILES'},
+        {value: 'ALLOW'},
+        {value: 'SQL'},
+        {value: 'SECURITY'},
+        {value: 'SYSTEM'},
+        {value: 'SHUTDOWN'},
+        {value: 'RELOAD'},
+        {value: 'START'},
+        {value: 'STOP'},
+        {value: 'SYNC'},
+        {value: 'RESTART'},
+        {value: 'FLUSH'},
+        {value: 'NAMED'},
+        {value: 'USE'},
+        {value: 'TABLE'},
+        {value: 'ADMIN'},
     ]);
 });
 
