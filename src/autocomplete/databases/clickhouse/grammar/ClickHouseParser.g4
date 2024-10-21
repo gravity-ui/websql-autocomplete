@@ -341,7 +341,7 @@ explainStatement
 // REVOKE statement
 
 revokeStatement
-    : REVOKE clusterClause? (GRANT OPTION FOR)? privilegeList ON grantSubjectIdentifier FROM (userExpressionList | ALL | ALL EXCEPT userExpressionList)
+    : REVOKE clusterClause? (GRANT OPTION FOR)? privilegeList ON accessSubjectIdentifier FROM (userExpressionList | ALL | ALL EXCEPT userExpressionList)
     | REVOKE clusterClause? (ADMIN OPTION FOR)? roleExpressionList FROM (userOrRoleExpressionList | ALL | ALL EXCEPT userOrRoleExpressionList)
     ;
 
@@ -356,12 +356,12 @@ roleExpressionList
 // GRANT statement
 
 grantStatement
-    : GRANT clusterClause? (privilegeList ON grantSubjectIdentifier) (COMMA privilegeList ON grantSubjectIdentifier)* TO userOrRoleExpressionList (WITH GRANT OPTION)? (WITH REPLACE OPTION)?
+    : GRANT clusterClause? (privilegeList ON accessSubjectIdentifier) (COMMA privilegeList ON accessSubjectIdentifier)* TO userOrRoleExpressionList (WITH GRANT OPTION)? (WITH REPLACE OPTION)?
     | GRANT clusterClause? roleExpressionList TO userOrRoleExpressionList (WITH ADMIN OPTION)? (WITH REPLACE OPTION)?
-    | GRANT CURRENT GRANTS ((LPAREN privilegeList ON grantSubjectIdentifier RPAREN) | ON grantSubjectIdentifier) TO userOrRoleExpressionList (WITH GRANT OPTION)? (WITH REPLACE OPTION)?
+    | GRANT CURRENT GRANTS ((LPAREN privilegeList ON accessSubjectIdentifier RPAREN) | ON accessSubjectIdentifier) TO userOrRoleExpressionList (WITH GRANT OPTION)? (WITH REPLACE OPTION)?
     ;
 
-grantSubjectIdentifier
+accessSubjectIdentifier
     : (databaseIdentifier | tableIdentifier | ((ASTERISK | identifier) DOT)? (ASTERISK | identifier))
     ;
 

@@ -112,7 +112,7 @@ import { RevokeStatementContext } from "./ClickHouseParser.js";
 import { UserExpressionListContext } from "./ClickHouseParser.js";
 import { RoleExpressionListContext } from "./ClickHouseParser.js";
 import { GrantStatementContext } from "./ClickHouseParser.js";
-import { GrantSubjectIdentifierContext } from "./ClickHouseParser.js";
+import { AccessSubjectIdentifierContext } from "./ClickHouseParser.js";
 import { PrivilegeListContext } from "./ClickHouseParser.js";
 import { RoleIdentifierContext } from "./ClickHouseParser.js";
 import { UserIdentifierContext } from "./ClickHouseParser.js";
@@ -914,11 +914,11 @@ export class ClickHouseParserVisitor<Result> extends AbstractParseTreeVisitor<Re
      */
     visitGrantStatement?: (ctx: GrantStatementContext) => Result;
     /**
-     * Visit a parse tree produced by `ClickHouseParser.grantSubjectIdentifier`.
+     * Visit a parse tree produced by `ClickHouseParser.accessSubjectIdentifier`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitGrantSubjectIdentifier?: (ctx: GrantSubjectIdentifierContext) => Result;
+    visitAccessSubjectIdentifier?: (ctx: AccessSubjectIdentifierContext) => Result;
     /**
      * Visit a parse tree produced by `ClickHouseParser.privilegeList`.
      * @param ctx the parse tree

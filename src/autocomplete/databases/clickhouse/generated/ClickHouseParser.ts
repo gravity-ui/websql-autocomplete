@@ -390,7 +390,7 @@ export class ClickHouseParser extends antlr.Parser {
     public static readonly RULE_userExpressionList = 57;
     public static readonly RULE_roleExpressionList = 58;
     public static readonly RULE_grantStatement = 59;
-    public static readonly RULE_grantSubjectIdentifier = 60;
+    public static readonly RULE_accessSubjectIdentifier = 60;
     public static readonly RULE_privilegeList = 61;
     public static readonly RULE_roleIdentifier = 62;
     public static readonly RULE_userIdentifier = 63;
@@ -581,7 +581,7 @@ export class ClickHouseParser extends antlr.Parser {
         "tableIndexDefinition", "tableProjectionDefinition", "codecExpression", 
         "codecArgExpression", "ttlExpression", "describeStatement", "dropStatement", 
         "existsStatement", "explainStatement", "revokeStatement", "userExpressionList", 
-        "roleExpressionList", "grantStatement", "grantSubjectIdentifier", 
+        "roleExpressionList", "grantStatement", "accessSubjectIdentifier", 
         "privilegeList", "roleIdentifier", "userIdentifier", "userOrRoleExpressionList", 
         "userOrRoleIdentifier", "selectPrivilege", "insertPrivilege", "createPrivilege", 
         "dropPrivilege", "showPrivilege", "introspectionPrivilege", "sourcePrivilege", 
@@ -5014,7 +5014,7 @@ export class ClickHouseParser extends antlr.Parser {
                 this.state = 1232;
                 this.match(ClickHouseParser.ON);
                 this.state = 1233;
-                this.grantSubjectIdentifier();
+                this.accessSubjectIdentifier();
                 this.state = 1234;
                 this.match(ClickHouseParser.FROM);
                 this.state = 1240;
@@ -5230,7 +5230,7 @@ export class ClickHouseParser extends antlr.Parser {
                 this.state = 1283;
                 this.match(ClickHouseParser.ON);
                 this.state = 1284;
-                this.grantSubjectIdentifier();
+                this.accessSubjectIdentifier();
                 }
                 this.state = 1293;
                 this.errorHandler.sync(this);
@@ -5245,7 +5245,7 @@ export class ClickHouseParser extends antlr.Parser {
                     this.state = 1288;
                     this.match(ClickHouseParser.ON);
                     this.state = 1289;
-                    this.grantSubjectIdentifier();
+                    this.accessSubjectIdentifier();
                     }
                     }
                     this.state = 1295;
@@ -5359,7 +5359,7 @@ export class ClickHouseParser extends antlr.Parser {
                     this.state = 1330;
                     this.match(ClickHouseParser.ON);
                     this.state = 1331;
-                    this.grantSubjectIdentifier();
+                    this.accessSubjectIdentifier();
                     this.state = 1332;
                     this.match(ClickHouseParser.RPAREN);
                     }
@@ -5370,7 +5370,7 @@ export class ClickHouseParser extends antlr.Parser {
                     this.state = 1334;
                     this.match(ClickHouseParser.ON);
                     this.state = 1335;
-                    this.grantSubjectIdentifier();
+                    this.accessSubjectIdentifier();
                     }
                     break;
                 default:
@@ -5425,9 +5425,9 @@ export class ClickHouseParser extends antlr.Parser {
         }
         return localContext;
     }
-    public grantSubjectIdentifier(): GrantSubjectIdentifierContext {
-        let localContext = new GrantSubjectIdentifierContext(this.context, this.state);
-        this.enterRule(localContext, 120, ClickHouseParser.RULE_grantSubjectIdentifier);
+    public accessSubjectIdentifier(): AccessSubjectIdentifierContext {
+        let localContext = new AccessSubjectIdentifierContext(this.context, this.state);
+        this.enterRule(localContext, 120, ClickHouseParser.RULE_accessSubjectIdentifier);
         try {
             this.enterOuterAlt(localContext, 1);
             {
@@ -18207,8 +18207,8 @@ export class RevokeStatementContext extends antlr.ParserRuleContext {
     public ON(): antlr.TerminalNode | null {
         return this.getToken(ClickHouseParser.ON, 0);
     }
-    public grantSubjectIdentifier(): GrantSubjectIdentifierContext | null {
-        return this.getRuleContext(0, GrantSubjectIdentifierContext);
+    public accessSubjectIdentifier(): AccessSubjectIdentifierContext | null {
+        return this.getRuleContext(0, AccessSubjectIdentifierContext);
     }
     public FROM(): antlr.TerminalNode {
         return this.getToken(ClickHouseParser.FROM, 0)!;
@@ -18363,14 +18363,14 @@ export class GrantStatementContext extends antlr.ParserRuleContext {
     		return this.getToken(ClickHouseParser.ON, i);
     	}
     }
-    public grantSubjectIdentifier(): GrantSubjectIdentifierContext[];
-    public grantSubjectIdentifier(i: number): GrantSubjectIdentifierContext | null;
-    public grantSubjectIdentifier(i?: number): GrantSubjectIdentifierContext[] | GrantSubjectIdentifierContext | null {
+    public accessSubjectIdentifier(): AccessSubjectIdentifierContext[];
+    public accessSubjectIdentifier(i: number): AccessSubjectIdentifierContext | null;
+    public accessSubjectIdentifier(i?: number): AccessSubjectIdentifierContext[] | AccessSubjectIdentifierContext | null {
         if (i === undefined) {
-            return this.getRuleContexts(GrantSubjectIdentifierContext);
+            return this.getRuleContexts(AccessSubjectIdentifierContext);
         }
 
-        return this.getRuleContext(i, GrantSubjectIdentifierContext);
+        return this.getRuleContext(i, AccessSubjectIdentifierContext);
     }
     public clusterClause(): ClusterClauseContext | null {
         return this.getRuleContext(0, ClusterClauseContext);
@@ -18436,7 +18436,7 @@ export class GrantStatementContext extends antlr.ParserRuleContext {
 }
 
 
-export class GrantSubjectIdentifierContext extends antlr.ParserRuleContext {
+export class AccessSubjectIdentifierContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
@@ -18468,11 +18468,11 @@ export class GrantSubjectIdentifierContext extends antlr.ParserRuleContext {
         return this.getToken(ClickHouseParser.DOT, 0);
     }
     public override get ruleIndex(): number {
-        return ClickHouseParser.RULE_grantSubjectIdentifier;
+        return ClickHouseParser.RULE_accessSubjectIdentifier;
     }
     public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
-        if (visitor.visitGrantSubjectIdentifier) {
-            return visitor.visitGrantSubjectIdentifier(this);
+        if (visitor.visitAccessSubjectIdentifier) {
+            return visitor.visitAccessSubjectIdentifier(this);
         } else {
             return visitor.visitChildren(this);
         }

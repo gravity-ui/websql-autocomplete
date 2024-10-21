@@ -685,7 +685,7 @@ revokeStatement
 userExpressionList
 roleExpressionList
 grantStatement
-grantSubjectIdentifier
+accessSubjectIdentifier
 privilegeList
 roleIdentifier
 userIdentifier
