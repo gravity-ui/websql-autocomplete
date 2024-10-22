@@ -1,5 +1,18 @@
 # Changelog
 
+## [11.1.0](https://github.com/gravity-ui/websql-autocomplete/compare/v11.0.0...v11.1.0) (2024-10-22)
+
+
+### Features
+
+* Support grant command for Clickhouse ([#227](https://github.com/gravity-ui/websql-autocomplete/issues/227)) ([4902a69](https://github.com/gravity-ui/websql-autocomplete/commit/4902a6946f0329187514753de0a4f192d2f56072))
+* Support revoke command/grant command improvements for Clickhouse ([#229](https://github.com/gravity-ui/websql-autocomplete/issues/229)) ([80f32b0](https://github.com/gravity-ui/websql-autocomplete/commit/80f32b0e9a1912ae886e96cd4cebadd267e80432))
+
+
+### Bug Fixes
+
+* decimal in Redis lexer ([#225](https://github.com/gravity-ui/websql-autocomplete/issues/225)) ([5c3469a](https://github.com/gravity-ui/websql-autocomplete/commit/5c3469a1301d33d197eea44175d52c31c3d7fbfc))
+
 ## [11.0.0](https://github.com/gravity-ui/websql-autocomplete/compare/v10.3.0...v11.0.0) (2024-09-12)
 
 
