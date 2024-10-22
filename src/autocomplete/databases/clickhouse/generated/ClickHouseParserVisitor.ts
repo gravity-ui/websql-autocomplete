@@ -108,10 +108,16 @@ import { ExplainPipelineStatementContext } from "./ClickHouseParser.js";
 import { ExplainPlanStatementContext } from "./ClickHouseParser.js";
 import { ExplainQueryTreeStatementContext } from "./ClickHouseParser.js";
 import { ExplainEstimateStatementContext } from "./ClickHouseParser.js";
+import { RevokeStatementContext } from "./ClickHouseParser.js";
+import { UserExpressionListContext } from "./ClickHouseParser.js";
+import { RoleExpressionListContext } from "./ClickHouseParser.js";
 import { GrantStatementContext } from "./ClickHouseParser.js";
-import { GrantSubjectIdentifierContext } from "./ClickHouseParser.js";
+import { WithGrantOrReplaceOptionContext } from "./ClickHouseParser.js";
+import { WithReplaceOptionContext } from "./ClickHouseParser.js";
+import { AccessSubjectIdentifierContext } from "./ClickHouseParser.js";
 import { PrivilegeListContext } from "./ClickHouseParser.js";
 import { RoleIdentifierContext } from "./ClickHouseParser.js";
+import { UserIdentifierContext } from "./ClickHouseParser.js";
 import { UserOrRoleExpressionListContext } from "./ClickHouseParser.js";
 import { UserOrRoleIdentifierContext } from "./ClickHouseParser.js";
 import { SelectPrivilegeContext } from "./ClickHouseParser.js";
@@ -886,17 +892,47 @@ export class ClickHouseParserVisitor<Result> extends AbstractParseTreeVisitor<Re
      */
     visitExplainEstimateStatement?: (ctx: ExplainEstimateStatementContext) => Result;
     /**
+     * Visit a parse tree produced by `ClickHouseParser.revokeStatement`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitRevokeStatement?: (ctx: RevokeStatementContext) => Result;
+    /**
+     * Visit a parse tree produced by `ClickHouseParser.userExpressionList`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitUserExpressionList?: (ctx: UserExpressionListContext) => Result;
+    /**
+     * Visit a parse tree produced by `ClickHouseParser.roleExpressionList`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitRoleExpressionList?: (ctx: RoleExpressionListContext) => Result;
+    /**
      * Visit a parse tree produced by `ClickHouseParser.grantStatement`.
      * @param ctx the parse tree
      * @return the visitor result
      */
     visitGrantStatement?: (ctx: GrantStatementContext) => Result;
     /**
-     * Visit a parse tree produced by `ClickHouseParser.grantSubjectIdentifier`.
+     * Visit a parse tree produced by `ClickHouseParser.withGrantOrReplaceOption`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitGrantSubjectIdentifier?: (ctx: GrantSubjectIdentifierContext) => Result;
+    visitWithGrantOrReplaceOption?: (ctx: WithGrantOrReplaceOptionContext) => Result;
+    /**
+     * Visit a parse tree produced by `ClickHouseParser.withReplaceOption`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitWithReplaceOption?: (ctx: WithReplaceOptionContext) => Result;
+    /**
+     * Visit a parse tree produced by `ClickHouseParser.accessSubjectIdentifier`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitAccessSubjectIdentifier?: (ctx: AccessSubjectIdentifierContext) => Result;
     /**
      * Visit a parse tree produced by `ClickHouseParser.privilegeList`.
      * @param ctx the parse tree
@@ -909,6 +945,12 @@ export class ClickHouseParserVisitor<Result> extends AbstractParseTreeVisitor<Re
      * @return the visitor result
      */
     visitRoleIdentifier?: (ctx: RoleIdentifierContext) => Result;
+    /**
+     * Visit a parse tree produced by `ClickHouseParser.userIdentifier`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitUserIdentifier?: (ctx: UserIdentifierContext) => Result;
     /**
      * Visit a parse tree produced by `ClickHouseParser.userOrRoleExpressionList`.
      * @param ctx the parse tree

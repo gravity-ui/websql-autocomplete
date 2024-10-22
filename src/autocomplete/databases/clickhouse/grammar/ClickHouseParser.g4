@@ -23,6 +23,7 @@ statement
     : notInsertStatement (INTO OUTFILE STRING_LITERAL)? (FORMAT identifierOrNull)? (SEMICOLON)?
     | insertStatement
     | grantStatement
+    | revokeStatement
     ;
 
 notInsertStatement
@@ -337,16 +338,39 @@ explainStatement
     | EXPLAIN ESTIMATE notInsertStatement   # ExplainEstimateStatement
     ;
 
+// REVOKE statement
+
+revokeStatement
+    : REVOKE clusterClause? (GRANT OPTION FOR)? privilegeList ON accessSubjectIdentifier FROM (userExpressionList | ALL | ALL EXCEPT userExpressionList)
+    | REVOKE clusterClause? (ADMIN OPTION FOR)? roleExpressionList FROM (userOrRoleExpressionList | ALL | ALL EXCEPT userOrRoleExpressionList)
+    ;
+
+userExpressionList
+    : userIdentifier (COMMA userIdentifier)*
+    ;
+
+roleExpressionList
+    : roleIdentifier (COMMA roleIdentifier)*
+    ;
+
 // GRANT statement
 
 grantStatement
-    : GRANT clusterClause? privilegeList ON grantSubjectIdentifier TO userOrRoleExpressionList (WITH GRANT OPTION)? (WITH REPLACE OPTION)?
-    | GRANT clusterClause? roleIdentifier TO userOrRoleExpressionList (WITH ADMIN OPTION)? (WITH REPLACE OPTION)?
-    | GRANT CURRENT GRANTS ((LPAREN privilegeList ON grantSubjectIdentifier RPAREN) | ON grantSubjectIdentifier) TO userOrRoleExpressionList (WITH GRANT OPTION)? (WITH REPLACE OPTION)?
+    : GRANT clusterClause? (privilegeList ON accessSubjectIdentifier) (COMMA privilegeList ON accessSubjectIdentifier)* TO userOrRoleExpressionList withGrantOrReplaceOption
+    | GRANT clusterClause? roleExpressionList TO userOrRoleExpressionList (WITH ADMIN OPTION)? withReplaceOption?
+    | GRANT CURRENT GRANTS ((LPAREN privilegeList ON accessSubjectIdentifier RPAREN) | ON accessSubjectIdentifier) TO userOrRoleExpressionList withGrantOrReplaceOption
     ;
 
-grantSubjectIdentifier
-    : (databaseIdentifier | tableIdentifier | (ASTERISK DOT)? (ASTERISK | identifier))
+withGrantOrReplaceOption
+    : (WITH GRANT OPTION)? withReplaceOption?
+    ;
+
+withReplaceOption
+    : WITH REPLACE OPTION
+    ;
+
+accessSubjectIdentifier
+    : (databaseIdentifier | tableIdentifier | ((ASTERISK | identifier) DOT)? (ASTERISK | identifier))
     ;
 
 privilegeList
@@ -357,13 +381,17 @@ roleIdentifier
     : identifier
     ;
 
+userIdentifier
+    : CURRENT_USER
+    | identifier
+    ;
+
 userOrRoleExpressionList
     : userOrRoleIdentifier (COMMA userOrRoleIdentifier)*
     ;
 
 userOrRoleIdentifier
-    : CURRENT_USER
-    | identifier
+    : userIdentifier
     | roleIdentifier
     ;
 
@@ -499,7 +527,6 @@ namedCollectionAdminPrivilege
     ;
 
 privilege
-    // TODO: implement all left privileges
     : selectPrivilege
     | insertPrivilege
     | createPrivilege
@@ -521,6 +548,7 @@ privilege
     | namedCollectionAdminPrivilege
     | TABLE ENGINE
     | ADMIN OPTION
+    | USAGE
     ;
 
 // INSERT statement
@@ -1193,6 +1221,8 @@ keyword
     | WEEK
     | YEAR
     | GRANTS
+    | EXCEPT
+    | REVOKE
     ;
 
 keywordForAlias
