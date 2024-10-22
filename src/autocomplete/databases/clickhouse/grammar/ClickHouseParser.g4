@@ -356,9 +356,17 @@ roleExpressionList
 // GRANT statement
 
 grantStatement
-    : GRANT clusterClause? (privilegeList ON accessSubjectIdentifier) (COMMA privilegeList ON accessSubjectIdentifier)* TO userOrRoleExpressionList (WITH GRANT OPTION)? (WITH REPLACE OPTION)?
-    | GRANT clusterClause? roleExpressionList TO userOrRoleExpressionList (WITH ADMIN OPTION)? (WITH REPLACE OPTION)?
-    | GRANT CURRENT GRANTS ((LPAREN privilegeList ON accessSubjectIdentifier RPAREN) | ON accessSubjectIdentifier) TO userOrRoleExpressionList (WITH GRANT OPTION)? (WITH REPLACE OPTION)?
+    : GRANT clusterClause? (privilegeList ON accessSubjectIdentifier) (COMMA privilegeList ON accessSubjectIdentifier)* TO userOrRoleExpressionList withGrantOrReplaceOption
+    | GRANT clusterClause? roleExpressionList TO userOrRoleExpressionList (WITH ADMIN OPTION)? withReplaceOption?
+    | GRANT CURRENT GRANTS ((LPAREN privilegeList ON accessSubjectIdentifier RPAREN) | ON accessSubjectIdentifier) TO userOrRoleExpressionList withGrantOrReplaceOption
+    ;
+
+withGrantOrReplaceOption
+    : (WITH GRANT OPTION)? withReplaceOption?
+    ;
+
+withReplaceOption
+    : WITH REPLACE OPTION
     ;
 
 accessSubjectIdentifier

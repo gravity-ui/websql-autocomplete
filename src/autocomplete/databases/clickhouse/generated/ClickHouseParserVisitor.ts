@@ -112,6 +112,8 @@ import { RevokeStatementContext } from "./ClickHouseParser.js";
 import { UserExpressionListContext } from "./ClickHouseParser.js";
 import { RoleExpressionListContext } from "./ClickHouseParser.js";
 import { GrantStatementContext } from "./ClickHouseParser.js";
+import { WithGrantOrReplaceOptionContext } from "./ClickHouseParser.js";
+import { WithReplaceOptionContext } from "./ClickHouseParser.js";
 import { AccessSubjectIdentifierContext } from "./ClickHouseParser.js";
 import { PrivilegeListContext } from "./ClickHouseParser.js";
 import { RoleIdentifierContext } from "./ClickHouseParser.js";
@@ -913,6 +915,18 @@ export class ClickHouseParserVisitor<Result> extends AbstractParseTreeVisitor<Re
      * @return the visitor result
      */
     visitGrantStatement?: (ctx: GrantStatementContext) => Result;
+    /**
+     * Visit a parse tree produced by `ClickHouseParser.withGrantOrReplaceOption`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitWithGrantOrReplaceOption?: (ctx: WithGrantOrReplaceOptionContext) => Result;
+    /**
+     * Visit a parse tree produced by `ClickHouseParser.withReplaceOption`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitWithReplaceOption?: (ctx: WithReplaceOptionContext) => Result;
     /**
      * Visit a parse tree produced by `ClickHouseParser.accessSubjectIdentifier`.
      * @param ctx the parse tree

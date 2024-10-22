@@ -1,6 +1,6 @@
 import {parseClickHouseQueryWithCursor, parseClickHouseQueryWithoutCursor} from '../../index';
 
-test('should not report errors', () => {
+test('should not report errors on all revoke grants', () => {
     const autocompleteResult = parseClickHouseQueryWithoutCursor(`
       REVOKE ON CLUSTER test_cluster
         ADD CONSTRAINT,
@@ -256,21 +256,21 @@ test('should not report errors', () => {
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should not report errors', () => {
+test('should not report errors on revoke select', () => {
     const autocompleteResult = parseClickHouseQueryWithoutCursor(`
       REVOKE SELECT ON * FROM ALL;  
     `);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should not report errors', () => {
+test('should not report errors on revoke select and user list', () => {
     const autocompleteResult = parseClickHouseQueryWithoutCursor(`
       REVOKE SELECT ON * FROM ALL EXCEPT CURRENT_USER, test_user1, test_user2;  
     `);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should not report errors', () => {
+test('should not report errors on user list', () => {
     const autocompleteResult = parseClickHouseQueryWithoutCursor(`
       REVOKE test_role FROM CURRENT_ROLE, test_user1, test_user2;
     `);
@@ -284,14 +284,14 @@ test('should not report errors', () => {
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should not report errors', () => {
+test('should not report errors on except statement', () => {
     const autocompleteResult = parseClickHouseQueryWithoutCursor(`
       REVOKE test_role FROM ALL EXCEPT CURRENT_USER, test_user1, test_user2;
     `);
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should not report errors', () => {
+test('should not report errors on revoke roles', () => {
     const autocompleteResult = parseClickHouseQueryWithoutCursor(`
       REVOKE test_role1, test_role2 FROM CURRENT_USER, test_user1, test_user2;
     `);

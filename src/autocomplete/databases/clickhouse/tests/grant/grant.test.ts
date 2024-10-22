@@ -15,28 +15,28 @@ test('should not report errors on database wildcard identifier', () => {
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should not report errors on wildcard identifier', () => {
+test('should not report errors on grant wildcard identifier', () => {
     const autocompleteResult = parseClickHouseQueryWithoutCursor(
         'GRANT ON CLUSTER test_cluster CREATE ON * TO test_user1;',
     );
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should not report errors', () => {
+test('should not report errors on grant wildcard identifiers', () => {
     const autocompleteResult = parseClickHouseQueryWithoutCursor(
         'GRANT ON CLUSTER test_cluster CREATE ON *, SELECT ON *, ALTER ON * TO test_user1, test_user2;',
     );
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should not report errors', () => {
+test('should not report errors on roles', () => {
     const autocompleteResult = parseClickHouseQueryWithoutCursor(
         'GRANT test_role1, test_role2 TO test_user1;',
     );
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should not report errors', () => {
+test('should not report errors on optional clauses', () => {
     const autocompleteResult = parseClickHouseQueryWithoutCursor(
         `
             GRANT ON CLUSTER test_cluster
@@ -49,12 +49,12 @@ test('should not report errors', () => {
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should not report errors', () => {
+test('should not report errors on role', () => {
     const autocompleteResult = parseClickHouseQueryWithoutCursor('GRANT test_role TO test_user1;');
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should not report errors', () => {
+test('should not report errors on users and wildcard', () => {
     const autocompleteResult = parseClickHouseQueryWithoutCursor(
         `
             GRANT ON CLUSTER test_cluster
