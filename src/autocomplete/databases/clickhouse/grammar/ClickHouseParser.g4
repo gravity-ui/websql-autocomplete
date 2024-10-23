@@ -562,14 +562,29 @@ columnsClause
     ;
 
 dataClause
-    : FORMAT identifier                   # DataClauseFormat
-    | valuesStatement                     # DataClauseValues
+    : FORMAT identifier # DataClauseFormat
+    // TODO: Maybe in this case Values is case sensitive, doublecheck
+    | FORMAT? valuesStatement             # DataClauseValues
     | selectUnionStatement SEMICOLON? EOF # DataClauseSelect
+    ;
+
+literalList
+    : literal (COMMA literal)*
+    ;
+
+valueLiteral
+    : literal
+    | LBRACKET literalList? RBRACKET
+    | identifier LPAREN literalList RPAREN
+    ;
+
+valuesClause
+    : LPAREN (valueLiteral (COMMA valueLiteral)*) RPAREN
     ;
 
 valuesStatement
     // Todo: support expressions instead of literals
-    : VALUES LPAREN literal? RPAREN (COMMA LPAREN literal? RPAREN)*
+    : VALUES valuesClause (COMMA valuesClause)*
     ;
 
 // KILL statement

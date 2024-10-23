@@ -119,3 +119,27 @@ test('should not report errors', () => {
 
     expect(autocompleteResult.errors).toHaveLength(0);
 });
+
+test('should not report errors on values list', () => {
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(
+        'INSERT INTO test_table(id) VALUES (1), (2)',
+    );
+
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should not report errors on values list with multiple arguments', () => {
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(
+        'INSERT INTO test_table(id) VALUES (1, [2]), (1, [2])',
+    );
+
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should not report errors on called functions in value arguments', () => {
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(
+        "INSERT INTO test_table VALUES (1, test('2'));",
+    );
+
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
