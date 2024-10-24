@@ -554,7 +554,7 @@ privilege
 // INSERT statement
 
 insertStatement
-    : INSERT INTO TABLE? (tableIdentifier | FUNCTION tableFunctionExpression) columnsClause? dataClause
+    : INSERT INTO TABLE? (tableIdentifier | FUNCTION tableFunctionExpression) columnsClause? settingsClause? dataClause
     ;
 
 columnsClause

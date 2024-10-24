@@ -36,6 +36,7 @@ test('should suggest properly after table name', () => {
         {value: 'VALUES'},
         {value: 'WITH'},
         {value: 'SELECT'},
+        {value: 'SETTINGS'},
     ];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
@@ -68,6 +69,7 @@ test('should suggest properly after table name', () => {
         {value: 'VALUES'},
         {value: 'WITH'},
         {value: 'SELECT'},
+        {value: 'SETTINGS'},
     ];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
@@ -139,6 +141,22 @@ test('should not report errors on values list with multiple arguments', () => {
 test('should not report errors on called functions in value arguments', () => {
     const autocompleteResult = parseClickHouseQueryWithoutCursor(
         "INSERT INTO test_table VALUES (1, test('2'));",
+    );
+
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should not report errors on setting declaration', () => {
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(
+        'INSERT INTO test_table SETTINGS test_setting = 1 VALUES (1);',
+    );
+
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should not report errors on setting declarations', () => {
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(
+        "INSERT INTO test_table SETTINGS test_setting1 = 1, test_setting2 = '2' VALUES (1);",
     );
 
     expect(autocompleteResult.errors).toHaveLength(0);
