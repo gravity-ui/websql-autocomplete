@@ -554,7 +554,12 @@ privilege
 // INSERT statement
 
 insertStatement
-    : INSERT INTO TABLE? (tableIdentifier | FUNCTION tableFunctionExpression) columnsClause? settingsClause? dataClause
+    : INSERT INTO TABLE? (tableIdentifier | FUNCTION tableFunctionExpression) columnsOrExceptClause? settingsClause? dataClause
+    ;
+
+columnsOrExceptClause
+    : columnsClause
+    | LPAREN ASTERISK (EXCEPT columnsClause)? RPAREN
     ;
 
 columnsClause

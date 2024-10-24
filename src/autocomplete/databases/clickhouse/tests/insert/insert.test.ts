@@ -44,7 +44,11 @@ test('should suggest properly after table name', () => {
 test('should suggest properly after table name with a bracket', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor('INSERT INTO test_table( | ');
 
-    const keywordsSuggestion: KeywordSuggestion[] = [{value: 'WITH'}, {value: 'SELECT'}];
+    const keywordsSuggestion: KeywordSuggestion[] = [
+        {value: 'WITH'},
+        {value: 'SELECT'},
+        {value: '*'},
+    ];
     const columnSuggestion: ColumnSuggestion = {tables: [{name: 'test_table'}]};
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
     expect(autocompleteResult.suggestColumns).toEqual(columnSuggestion);
@@ -160,4 +164,29 @@ test('should not report errors on setting declarations', () => {
     );
 
     expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should not report errors on asterisk as columns identifier', () => {
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(
+        'INSERT INTO test_table (*) VALUES (1);',
+    );
+
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should not report errors on except columns', () => {
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(
+        'INSERT INTO test_table (* EXCEPT(test_column1, test_column2)) VALUES (1);',
+    );
+
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should suggest columns in except context', () => {
+    const autocompleteResult = parseClickHouseQueryWithCursor(
+        'INSERT INTO test_table (* EXCEPT(|)) VALUES (1);',
+    );
+    const columnSuggestion: ColumnSuggestion = {tables: [{name: 'test_table'}]};
+
+    expect(autocompleteResult.suggestColumns).toEqual(columnSuggestion);
 });
