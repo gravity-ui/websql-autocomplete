@@ -140,6 +140,7 @@ import { DataClauseValuesContext } from "./ClickHouseParser.js";
 import { DataClauseSelectContext } from "./ClickHouseParser.js";
 import { LiteralListContext } from "./ClickHouseParser.js";
 import { ValueLiteralContext } from "./ClickHouseParser.js";
+import { ValueIdentifierContext } from "./ClickHouseParser.js";
 import { ValuesClauseContext } from "./ClickHouseParser.js";
 import { ValuesStatementContext } from "./ClickHouseParser.js";
 import { KillMutationStatementContext } from "./ClickHouseParser.js";
@@ -1089,6 +1090,12 @@ export class ClickHouseParserVisitor<Result> extends AbstractParseTreeVisitor<Re
      * @return the visitor result
      */
     visitValueLiteral?: (ctx: ValueLiteralContext) => Result;
+    /**
+     * Visit a parse tree produced by `ClickHouseParser.valueIdentifier`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitValueIdentifier?: (ctx: ValueIdentifierContext) => Result;
     /**
      * Visit a parse tree produced by `ClickHouseParser.valuesClause`.
      * @param ctx the parse tree
