@@ -144,7 +144,7 @@ test('should not report errors on values list with multiple arguments', () => {
 
 test('should not report errors on called functions in value arguments', () => {
     const autocompleteResult = parseClickHouseQueryWithoutCursor(
-        "INSERT INTO test_table VALUES (1, test('2'));",
+        "INSERT INTO test_table VALUES (1, test_function1('2'), test_function2());",
     );
 
     expect(autocompleteResult.errors).toHaveLength(0);
@@ -189,4 +189,12 @@ test('should suggest columns in except context', () => {
     const columnSuggestion: ColumnSuggestion = {tables: [{name: 'test_table'}]};
 
     expect(autocompleteResult.suggestColumns).toEqual(columnSuggestion);
+});
+
+test('should not report errors on arrays in values', () => {
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(
+        "INSERT INTO test_table(id) VALUES (1, [2, [3], [4], [5, 6, 7, '8', [9]]]), (1, [2])",
+    );
+
+    expect(autocompleteResult.errors).toHaveLength(0);
 });

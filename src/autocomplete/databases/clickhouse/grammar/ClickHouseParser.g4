@@ -577,14 +577,23 @@ literalList
     : literal (COMMA literal)*
     ;
 
-valueLiteral
+literalOrArrayIdentifier
     : literal
-    | LBRACKET literalList? RBRACKET
-    | identifier LPAREN literalList RPAREN
+    | arrayIdentifier
+    ;
+
+arrayIdentifier
+    : LBRACKET (literalOrArrayIdentifier (COMMA literalOrArrayIdentifier)*)? RBRACKET
+    ;
+
+valueIdentifier
+    : literal
+    | arrayIdentifier
+    | identifier LPAREN literalList? RPAREN
     ;
 
 valuesClause
-    : LPAREN (valueLiteral (COMMA valueLiteral)*) RPAREN
+    : LPAREN (valueIdentifier (COMMA valueIdentifier)*) RPAREN
     ;
 
 valuesStatement
