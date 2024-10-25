@@ -658,7 +658,6 @@ valuesClause
     ;
 
 valuesStatement
-    // Todo: support expressions instead of literals
     : VALUES valuesClause (COMMA? valuesClause)*
     ;
 

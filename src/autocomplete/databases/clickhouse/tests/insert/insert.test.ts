@@ -215,6 +215,14 @@ test('should not report errors on polygon values', () => {
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
+test('should not report errors on any expected type in array', () => {
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(
+        "INSERT INTO test_table(id) VALUES ([1, '2', (3, 4), [5, '6', test_function(7, '8')]])",
+    );
+
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
 test('should suggest format types', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor(
         'INSERT INTO test_table(id) FORMAT |',
