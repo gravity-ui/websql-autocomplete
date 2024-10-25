@@ -577,28 +577,28 @@ literalList
     : literal (COMMA literal)*
     ;
 
-literalOrArrayIdentifier
+valueIdentifier
     : literal
+    | LPAREN numberLiteral COMMA numberLiteral RPAREN
+    | identifier LPAREN (literalList)? RPAREN
+    ;
+
+valueOrArrayIdentifier
+    : valueIdentifier
     | arrayIdentifier
     ;
 
 arrayIdentifier
-    : LBRACKET (literalOrArrayIdentifier (COMMA literalOrArrayIdentifier)*)? RBRACKET
-    ;
-
-valueIdentifier
-    : literal
-    | arrayIdentifier
-    | identifier LPAREN literalList? RPAREN
+    : LBRACKET (valueOrArrayIdentifier (COMMA valueOrArrayIdentifier)*)? RBRACKET
     ;
 
 valuesClause
-    : LPAREN (valueIdentifier (COMMA valueIdentifier)*) RPAREN
+    : LPAREN (valueOrArrayIdentifier (COMMA valueOrArrayIdentifier)*) RPAREN
     ;
 
 valuesStatement
     // Todo: support expressions instead of literals
-    : VALUES valuesClause (COMMA valuesClause)*
+    : VALUES valuesClause (COMMA? valuesClause)*
     ;
 
 // KILL statement

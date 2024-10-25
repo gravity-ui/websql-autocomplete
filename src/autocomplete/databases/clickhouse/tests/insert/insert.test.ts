@@ -142,6 +142,14 @@ test('should not report errors on values list with multiple arguments', () => {
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
+test('should not report errors on values list with and without commas', () => {
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(
+        'INSERT INTO test_table(id) VALUES (1, [2]), (1, [2]) (1, [2]) (1, [2])',
+    );
+
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
 test('should not report errors on called functions in value arguments', () => {
     const autocompleteResult = parseClickHouseQueryWithoutCursor(
         "INSERT INTO test_table VALUES (1, test_function1('2'), test_function2());",
@@ -194,6 +202,14 @@ test('should suggest columns in except context', () => {
 test('should not report errors on arrays in values', () => {
     const autocompleteResult = parseClickHouseQueryWithoutCursor(
         "INSERT INTO test_table(id) VALUES (1, [2, [3], [4], [5, 6, 7, '8', [9]]]), (1, [2])",
+    );
+
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should not report errors on polygon values', () => {
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(
+        'INSERT INTO test_table(id) VALUES ((1, 2), [(3, 4), [(5, 6)]])',
     );
 
     expect(autocompleteResult.errors).toHaveLength(0);

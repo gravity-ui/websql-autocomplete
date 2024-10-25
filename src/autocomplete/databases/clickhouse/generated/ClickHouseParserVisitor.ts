@@ -140,9 +140,9 @@ import { DataClauseFormatContext } from "./ClickHouseParser.js";
 import { DataClauseValuesContext } from "./ClickHouseParser.js";
 import { DataClauseSelectContext } from "./ClickHouseParser.js";
 import { LiteralListContext } from "./ClickHouseParser.js";
-import { LiteralOrArrayIdentifierContext } from "./ClickHouseParser.js";
-import { ArrayIdentifierContext } from "./ClickHouseParser.js";
 import { ValueIdentifierContext } from "./ClickHouseParser.js";
+import { ValueOrArrayIdentifierContext } from "./ClickHouseParser.js";
+import { ArrayIdentifierContext } from "./ClickHouseParser.js";
 import { ValuesClauseContext } from "./ClickHouseParser.js";
 import { ValuesStatementContext } from "./ClickHouseParser.js";
 import { KillMutationStatementContext } from "./ClickHouseParser.js";
@@ -1093,23 +1093,23 @@ export class ClickHouseParserVisitor<Result> extends AbstractParseTreeVisitor<Re
      */
     visitLiteralList?: (ctx: LiteralListContext) => Result;
     /**
-     * Visit a parse tree produced by `ClickHouseParser.literalOrArrayIdentifier`.
+     * Visit a parse tree produced by `ClickHouseParser.valueIdentifier`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitLiteralOrArrayIdentifier?: (ctx: LiteralOrArrayIdentifierContext) => Result;
+    visitValueIdentifier?: (ctx: ValueIdentifierContext) => Result;
+    /**
+     * Visit a parse tree produced by `ClickHouseParser.valueOrArrayIdentifier`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitValueOrArrayIdentifier?: (ctx: ValueOrArrayIdentifierContext) => Result;
     /**
      * Visit a parse tree produced by `ClickHouseParser.arrayIdentifier`.
      * @param ctx the parse tree
      * @return the visitor result
      */
     visitArrayIdentifier?: (ctx: ArrayIdentifierContext) => Result;
-    /**
-     * Visit a parse tree produced by `ClickHouseParser.valueIdentifier`.
-     * @param ctx the parse tree
-     * @return the visitor result
-     */
-    visitValueIdentifier?: (ctx: ValueIdentifierContext) => Result;
     /**
      * Visit a parse tree produced by `ClickHouseParser.valuesClause`.
      * @param ctx the parse tree
