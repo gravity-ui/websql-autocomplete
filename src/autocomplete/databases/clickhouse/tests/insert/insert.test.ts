@@ -214,3 +214,139 @@ test('should not report errors on polygon values', () => {
 
     expect(autocompleteResult.errors).toHaveLength(0);
 });
+
+test('should suggest format types', () => {
+    const autocompleteResult = parseClickHouseQueryWithCursor(
+        'INSERT INTO test_table(id) FORMAT |',
+    );
+
+    expect(autocompleteResult.suggestKeywords).toEqual([
+        {value: 'VALUES'},
+        {value: 'TabSeparated'},
+        {value: 'TabSeparatedRaw'},
+        {value: 'TabSeparatedWithNames'},
+        {value: 'TabSeparatedWithNamesAndTypes'},
+        {value: 'TabSeparatedRawWithNames'},
+        {value: 'TabSeparatedRawWithNamesAndTypes'},
+        {value: 'Template'},
+        {value: 'TemplateIgnoreSpaces'},
+        {value: 'CSV'},
+        {value: 'CSVWithNames'},
+        {value: 'CSVWithNamesAndTypes'},
+        {value: 'CustomSeparated'},
+        {value: 'CustomSeparatedWithNames'},
+        {value: 'CustomSeparatedWithNamesAndTypes'},
+        {value: 'Values'},
+        {value: 'JSON'},
+        {value: 'JSONAsString'},
+        {value: 'JSONAsObject'},
+        {value: 'JSONStrings'},
+        {value: 'JSONColumns'},
+        {value: 'JSONColumnsWithMetadata'},
+        {value: 'JSONCompact'},
+        {value: 'JSONCompactColumns'},
+        {value: 'JSONEachRow'},
+        {value: 'JSONStringsEachRow'},
+        {value: 'JSONCompactEachRow'},
+        {value: 'JSONCompactEachRowWithNames'},
+        {value: 'JSONCompactEachRowWithNamesAndTypes'},
+        {value: 'JSONCompactStringsEachRow'},
+        {value: 'JSONCompactStringsEachRowWithNames'},
+        {value: 'JSONCompactStringsEachRowWithNamesAndTypes'},
+        {value: 'JSONObjectEachRow'},
+        {value: 'BSONEachRow'},
+        {value: 'TSKV'},
+        {value: 'Protobuf'},
+        {value: 'ProtobufSingle'},
+        {value: 'ProtobufList'},
+        {value: 'Avro'},
+        {value: 'AvroConfluent'},
+        {value: 'Parquet'},
+        {value: 'ParquetMetadata'},
+        {value: 'Arrow'},
+        {value: 'ArrowStream'},
+        {value: 'ORC'},
+        {value: 'One'},
+        {value: 'Npy'},
+        {value: 'RowBinary'},
+        {value: 'RowBinaryWithNames'},
+        {value: 'RowBinaryWithNamesAndTypes'},
+        {value: 'RowBinaryWithDefaults'},
+        {value: 'Native'},
+        {value: 'CapnProto'},
+        {value: 'LineAsString'},
+        {value: 'Regexp'},
+        {value: 'RawBLOB'},
+        {value: 'MsgPack'},
+        {value: 'MySQLDump'},
+        {value: 'DWARF'},
+        {value: 'Form'},
+    ]);
+});
+
+test('should not throw error on any format type', () => {
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(`
+        INSERT INTO test_table FORMAT VALUES ('test_value');
+        INSERT INTO test_table FORMAT TabSeparated test_value;
+        INSERT INTO test_table FORMAT TabSeparatedRaw test_value;
+        INSERT INTO test_table FORMAT TabSeparatedWithNames test_value;
+        INSERT INTO test_table FORMAT TabSeparatedWithNamesAndTypes test_value;
+        INSERT INTO test_table FORMAT TabSeparatedRawWithNames test_value;
+        INSERT INTO test_table FORMAT TabSeparatedRawWithNamesAndTypes test_value;
+        INSERT INTO test_table FORMAT Template test_value;
+        INSERT INTO test_table FORMAT TemplateIgnoreSpaces test_value;
+        INSERT INTO test_table FORMAT CSV test_value;
+        INSERT INTO test_table FORMAT CSVWithNames test_value;
+        INSERT INTO test_table FORMAT CSVWithNamesAndTypes test_value;
+        INSERT INTO test_table FORMAT CustomSeparated test_value;
+        INSERT INTO test_table FORMAT CustomSeparatedWithNames test_value;
+        INSERT INTO test_table FORMAT CustomSeparatedWithNamesAndTypes test_value;
+        INSERT INTO test_table FORMAT Values ('test_value');
+        INSERT INTO test_table FORMAT JSON test_value;
+        INSERT INTO test_table FORMAT JSONAsString test_value;
+        INSERT INTO test_table FORMAT JSONAsObject test_value;
+        INSERT INTO test_table FORMAT JSONStrings test_value;
+        INSERT INTO test_table FORMAT JSONColumns test_value;
+        INSERT INTO test_table FORMAT JSONColumnsWithMetadata test_value;
+        INSERT INTO test_table FORMAT JSONCompact test_value;
+        INSERT INTO test_table FORMAT JSONCompactColumns test_value;
+        INSERT INTO test_table FORMAT JSONEachRow test_value;
+        INSERT INTO test_table FORMAT JSONStringsEachRow test_value;
+        INSERT INTO test_table FORMAT JSONCompactEachRow test_value;
+        INSERT INTO test_table FORMAT JSONCompactEachRowWithNames test_value;
+        INSERT INTO test_table FORMAT JSONCompactEachRowWithNamesAndTypes test_value;
+        INSERT INTO test_table FORMAT JSONCompactStringsEachRow test_value;
+        INSERT INTO test_table FORMAT JSONCompactStringsEachRowWithNames test_value;
+        INSERT INTO test_table FORMAT JSONCompactStringsEachRowWithNamesAndTypes test_value;
+        INSERT INTO test_table FORMAT JSONObjectEachRow test_value;
+        INSERT INTO test_table FORMAT BSONEachRow test_value;
+        INSERT INTO test_table FORMAT TSKV test_value;
+        INSERT INTO test_table FORMAT Protobuf test_value;
+        INSERT INTO test_table FORMAT ProtobufSingle test_value;
+        INSERT INTO test_table FORMAT ProtobufList test_value;
+        INSERT INTO test_table FORMAT Avro test_value;
+        INSERT INTO test_table FORMAT AvroConfluent test_value;
+        INSERT INTO test_table FORMAT Parquet test_value;
+        INSERT INTO test_table FORMAT ParquetMetadata test_value;
+        INSERT INTO test_table FORMAT Arrow test_value;
+        INSERT INTO test_table FORMAT ArrowStream test_value;
+        INSERT INTO test_table FORMAT ORC test_value;
+        INSERT INTO test_table FORMAT One test_value;
+        INSERT INTO test_table FORMAT Npy test_value;
+        INSERT INTO test_table FORMAT RowBinary test_value;
+        INSERT INTO test_table FORMAT RowBinaryWithNames test_value;
+        INSERT INTO test_table FORMAT RowBinaryWithNamesAndTypes test_value;
+        INSERT INTO test_table FORMAT RowBinaryWithDefaults test_value;
+        INSERT INTO test_table FORMAT Native test_value;
+        INSERT INTO test_table FORMAT CapnProto test_value;
+        INSERT INTO test_table FORMAT LineAsString test_value;
+        INSERT INTO test_table FORMAT Regexp test_value;
+        INSERT INTO test_table FORMAT RawBLOB test_value;
+        INSERT INTO test_table FORMAT MsgPack test_value;
+        INSERT INTO test_table FORMAT MySQLDump test_value;
+        INSERT INTO test_table FORMAT DWARF test_value;
+        INSERT INTO test_table FORMAT Form test_value;
+    `);
+
+    expect(autocompleteResult.errors).toHaveLength(0);
+});

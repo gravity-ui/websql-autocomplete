@@ -136,6 +136,7 @@ import { PrivilegeContext } from "./ClickHouseParser.js";
 import { InsertStatementContext } from "./ClickHouseParser.js";
 import { ColumnsOrExceptClauseContext } from "./ClickHouseParser.js";
 import { ColumnsClauseContext } from "./ClickHouseParser.js";
+import { InsertFormatTypeContext } from "./ClickHouseParser.js";
 import { DataClauseFormatContext } from "./ClickHouseParser.js";
 import { DataClauseValuesContext } from "./ClickHouseParser.js";
 import { DataClauseSelectContext } from "./ClickHouseParser.js";
@@ -1065,6 +1066,12 @@ export class ClickHouseParserVisitor<Result> extends AbstractParseTreeVisitor<Re
      * @return the visitor result
      */
     visitColumnsClause?: (ctx: ColumnsClauseContext) => Result;
+    /**
+     * Visit a parse tree produced by `ClickHouseParser.insertFormatType`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitInsertFormatType?: (ctx: InsertFormatTypeContext) => Result;
     /**
      * Visit a parse tree produced by the `DataClauseFormat`
      * labeled alternative in `ClickHouseParser.dataClause`.
