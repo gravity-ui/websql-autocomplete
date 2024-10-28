@@ -61,6 +61,9 @@ import { CreateDictionaryStatementContext } from "./ClickHouseParser.js";
 import { CreateLiveViewStatementContext } from "./ClickHouseParser.js";
 import { CreateMaterializedViewStatementContext } from "./ClickHouseParser.js";
 import { CreateViewStatementContext } from "./ClickHouseParser.js";
+import { IdentificationTypeContext } from "./ClickHouseParser.js";
+import { UserIdentificationClauseContext } from "./ClickHouseParser.js";
+import { CreateUserStatementContext } from "./ClickHouseParser.js";
 import { CreateStatementContext } from "./ClickHouseParser.js";
 import { DictionarySchemaClauseContext } from "./ClickHouseParser.js";
 import { DictionaryAttributeDefinitionContext } from "./ClickHouseParser.js";
@@ -598,6 +601,24 @@ export class ClickHouseParserVisitor<Result> extends AbstractParseTreeVisitor<Re
      * @return the visitor result
      */
     visitCreateViewStatement?: (ctx: CreateViewStatementContext) => Result;
+    /**
+     * Visit a parse tree produced by `ClickHouseParser.identificationType`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitIdentificationType?: (ctx: IdentificationTypeContext) => Result;
+    /**
+     * Visit a parse tree produced by `ClickHouseParser.userIdentificationClause`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitUserIdentificationClause?: (ctx: UserIdentificationClauseContext) => Result;
+    /**
+     * Visit a parse tree produced by `ClickHouseParser.createUserStatement`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitCreateUserStatement?: (ctx: CreateUserStatementContext) => Result;
     /**
      * Visit a parse tree produced by `ClickHouseParser.createStatement`.
      * @param ctx the parse tree

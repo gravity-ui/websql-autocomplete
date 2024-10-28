@@ -277,6 +277,15 @@ ALLOW                         : A L L O W;
 GRANTS                        : G R A N T S;
 EXCEPT                        : E X C E P T;
 REVOKE                        : R E V O K E;
+IDENTIFIED                    : I D E N T I F I E D;
+PLAINTEXT_PASSWORD            : P L A I N T E X T UNDERSCORE P A S S W O R D;
+SHA256_PASSWORD               : S H A '256' UNDERSCORE P A S S W O R D;
+SHA256_HASH                   : S H A '256' UNDERSCORE H A S H;
+DOUBLE_SHA1_PASSWORD          : D O U B L E UNDERSCORE S H A '1' UNDERSCORE P A S S W O R D;
+DOUBLE_SHA1_HASH              : D O U B L E UNDERSCORE S H A '1' UNDERSCORE H A S H;
+NO_PASSWORD                   : N O UNDERSCORE P A S S W O R D;
+LDAP                          : L D A P;
+SERVER                        : S E R V E R;
 
 FORMAT_TAB_SEPARATED                                      : 'TabSeparated';
 FORMAT_TAB_SEPARATED_RAW                                  : 'TabSeparatedRaw';

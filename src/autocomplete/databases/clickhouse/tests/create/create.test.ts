@@ -5,6 +5,7 @@ test('should suggest properly after CREATE', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor('CREATE |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [
+        {value: 'USER'},
         {value: 'VIEW'},
         {value: 'OR'},
         {value: 'TABLE'},

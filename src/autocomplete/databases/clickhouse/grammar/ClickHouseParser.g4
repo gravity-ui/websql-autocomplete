@@ -163,6 +163,25 @@ createViewStatement
     : (ATTACH | CREATE) (OR REPLACE)? VIEW (IF NOT EXISTS)? tableIdentifier uuidClause? clusterClause? tableSchemaClause? subqueryClause
     ;
 
+identificationType
+    : PLAINTEXT_PASSWORD
+    | SHA256_PASSWORD
+    | SHA256_HASH
+    | DOUBLE_SHA1_PASSWORD
+    | DOUBLE_SHA1_HASH
+    ;
+
+userIdentificationClause
+    : NOT IDENTIFIED
+    | IDENTIFIED (WITH identificationType)? BY STRING_LITERAL
+    | IDENTIFIED WITH NO_PASSWORD
+    | IDENTIFIED WITH LDAP SERVER STRING_LITERAL
+    ;
+
+createUserStatement
+    : CREATE USER ((OR REPLACE) | (IF NOT EXISTS))? identifier (COMMA identifier)* clusterClause? userIdentificationClause
+    ;
+
 createStatement
     : createDatabaseStatement
     | createDictionaryStatement
@@ -170,6 +189,7 @@ createStatement
     | createMaterializedViewStatement
     | createTableStatement
     | createViewStatement
+    | createUserStatement
     ;
 
 dictionarySchemaClause
