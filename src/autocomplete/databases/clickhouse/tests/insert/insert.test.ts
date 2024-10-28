@@ -36,6 +36,7 @@ test('should suggest properly after table name', () => {
         {value: 'VALUES'},
         {value: 'WITH'},
         {value: 'SELECT'},
+        {value: 'SETTINGS'},
     ];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
@@ -43,7 +44,11 @@ test('should suggest properly after table name', () => {
 test('should suggest properly after table name with a bracket', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor('INSERT INTO test_table( | ');
 
-    const keywordsSuggestion: KeywordSuggestion[] = [{value: 'WITH'}, {value: 'SELECT'}];
+    const keywordsSuggestion: KeywordSuggestion[] = [
+        {value: 'WITH'},
+        {value: 'SELECT'},
+        {value: '*'},
+    ];
     const columnSuggestion: ColumnSuggestion = {tables: [{name: 'test_table'}]};
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
     expect(autocompleteResult.suggestColumns).toEqual(columnSuggestion);
@@ -68,6 +73,7 @@ test('should suggest properly after table name', () => {
         {value: 'VALUES'},
         {value: 'WITH'},
         {value: 'SELECT'},
+        {value: 'SETTINGS'},
     ];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
@@ -116,6 +122,239 @@ test('should not report errors', () => {
     const autocompleteResult = parseClickHouseQueryWithoutCursor(
         'INSERT INTO test_table(id) VALUES(1);',
     );
+
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should not report errors on values list', () => {
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(
+        'INSERT INTO test_table(id) VALUES (1), (2)',
+    );
+
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should not report errors on values list with multiple arguments', () => {
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(
+        'INSERT INTO test_table(id) VALUES (1, [2]), (1, [2])',
+    );
+
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should not report errors on values list with and without commas', () => {
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(
+        'INSERT INTO test_table(id) VALUES (1, [2]), (1, [2]) (1, [2]) (1, [2])',
+    );
+
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should not report errors on called functions in value arguments', () => {
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(
+        "INSERT INTO test_table VALUES (1, test_function1('2'), test_function2());",
+    );
+
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should not report errors on setting declaration', () => {
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(
+        'INSERT INTO test_table SETTINGS test_setting = 1 VALUES (1);',
+    );
+
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should not report errors on setting declarations', () => {
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(
+        "INSERT INTO test_table SETTINGS test_setting1 = 1, test_setting2 = '2' VALUES (1);",
+    );
+
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should not report errors on asterisk as columns identifier', () => {
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(
+        'INSERT INTO test_table (*) VALUES (1);',
+    );
+
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should not report errors on except columns', () => {
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(
+        'INSERT INTO test_table (* EXCEPT(test_column1, test_column2)) VALUES (1);',
+    );
+
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should suggest columns in except context', () => {
+    const autocompleteResult = parseClickHouseQueryWithCursor(
+        'INSERT INTO test_table (* EXCEPT(|)) VALUES (1);',
+    );
+    const columnSuggestion: ColumnSuggestion = {tables: [{name: 'test_table'}]};
+
+    expect(autocompleteResult.suggestColumns).toEqual(columnSuggestion);
+});
+
+test('should not report errors on arrays in values', () => {
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(
+        "INSERT INTO test_table(id) VALUES (1, [2, [3], [4], [5, 6, 7, '8', [9]]]), (1, [2])",
+    );
+
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should not report errors on polygon values', () => {
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(
+        'INSERT INTO test_table(id) VALUES ((1, 2), [(3, 4), [(5, 6)]])',
+    );
+
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should not report errors on any expected type in array', () => {
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(
+        "INSERT INTO test_table(id) VALUES ([1, '2', (3, 4), [5, '6', test_function(7, '8')]])",
+    );
+
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should suggest format types', () => {
+    const autocompleteResult = parseClickHouseQueryWithCursor(
+        'INSERT INTO test_table(id) FORMAT |',
+    );
+
+    expect(autocompleteResult.suggestKeywords).toEqual([
+        {value: 'VALUES'},
+        {value: 'TabSeparated'},
+        {value: 'TabSeparatedRaw'},
+        {value: 'TabSeparatedWithNames'},
+        {value: 'TabSeparatedWithNamesAndTypes'},
+        {value: 'TabSeparatedRawWithNames'},
+        {value: 'TabSeparatedRawWithNamesAndTypes'},
+        {value: 'Template'},
+        {value: 'TemplateIgnoreSpaces'},
+        {value: 'CSV'},
+        {value: 'CSVWithNames'},
+        {value: 'CSVWithNamesAndTypes'},
+        {value: 'CustomSeparated'},
+        {value: 'CustomSeparatedWithNames'},
+        {value: 'CustomSeparatedWithNamesAndTypes'},
+        {value: 'Values'},
+        {value: 'JSON'},
+        {value: 'JSONAsString'},
+        {value: 'JSONAsObject'},
+        {value: 'JSONStrings'},
+        {value: 'JSONColumns'},
+        {value: 'JSONColumnsWithMetadata'},
+        {value: 'JSONCompact'},
+        {value: 'JSONCompactColumns'},
+        {value: 'JSONEachRow'},
+        {value: 'JSONStringsEachRow'},
+        {value: 'JSONCompactEachRow'},
+        {value: 'JSONCompactEachRowWithNames'},
+        {value: 'JSONCompactEachRowWithNamesAndTypes'},
+        {value: 'JSONCompactStringsEachRow'},
+        {value: 'JSONCompactStringsEachRowWithNames'},
+        {value: 'JSONCompactStringsEachRowWithNamesAndTypes'},
+        {value: 'JSONObjectEachRow'},
+        {value: 'BSONEachRow'},
+        {value: 'TSKV'},
+        {value: 'Protobuf'},
+        {value: 'ProtobufSingle'},
+        {value: 'ProtobufList'},
+        {value: 'Avro'},
+        {value: 'AvroConfluent'},
+        {value: 'Parquet'},
+        {value: 'ParquetMetadata'},
+        {value: 'Arrow'},
+        {value: 'ArrowStream'},
+        {value: 'ORC'},
+        {value: 'One'},
+        {value: 'Npy'},
+        {value: 'RowBinary'},
+        {value: 'RowBinaryWithNames'},
+        {value: 'RowBinaryWithNamesAndTypes'},
+        {value: 'RowBinaryWithDefaults'},
+        {value: 'Native'},
+        {value: 'CapnProto'},
+        {value: 'LineAsString'},
+        {value: 'Regexp'},
+        {value: 'RawBLOB'},
+        {value: 'MsgPack'},
+        {value: 'MySQLDump'},
+        {value: 'DWARF'},
+        {value: 'Form'},
+    ]);
+});
+
+test('should not throw error on any format type', () => {
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(`
+        INSERT INTO test_table FORMAT VALUES ('test_value');
+        INSERT INTO test_table FORMAT TabSeparated test_value;
+        INSERT INTO test_table FORMAT TabSeparatedRaw test_value;
+        INSERT INTO test_table FORMAT TabSeparatedWithNames test_value;
+        INSERT INTO test_table FORMAT TabSeparatedWithNamesAndTypes test_value;
+        INSERT INTO test_table FORMAT TabSeparatedRawWithNames test_value;
+        INSERT INTO test_table FORMAT TabSeparatedRawWithNamesAndTypes test_value;
+        INSERT INTO test_table FORMAT Template test_value;
+        INSERT INTO test_table FORMAT TemplateIgnoreSpaces test_value;
+        INSERT INTO test_table FORMAT CSV test_value;
+        INSERT INTO test_table FORMAT CSVWithNames test_value;
+        INSERT INTO test_table FORMAT CSVWithNamesAndTypes test_value;
+        INSERT INTO test_table FORMAT CustomSeparated test_value;
+        INSERT INTO test_table FORMAT CustomSeparatedWithNames test_value;
+        INSERT INTO test_table FORMAT CustomSeparatedWithNamesAndTypes test_value;
+        INSERT INTO test_table FORMAT Values ('test_value');
+        INSERT INTO test_table FORMAT JSON test_value;
+        INSERT INTO test_table FORMAT JSONAsString test_value;
+        INSERT INTO test_table FORMAT JSONAsObject test_value;
+        INSERT INTO test_table FORMAT JSONStrings test_value;
+        INSERT INTO test_table FORMAT JSONColumns test_value;
+        INSERT INTO test_table FORMAT JSONColumnsWithMetadata test_value;
+        INSERT INTO test_table FORMAT JSONCompact test_value;
+        INSERT INTO test_table FORMAT JSONCompactColumns test_value;
+        INSERT INTO test_table FORMAT JSONEachRow test_value;
+        INSERT INTO test_table FORMAT JSONStringsEachRow test_value;
+        INSERT INTO test_table FORMAT JSONCompactEachRow test_value;
+        INSERT INTO test_table FORMAT JSONCompactEachRowWithNames test_value;
+        INSERT INTO test_table FORMAT JSONCompactEachRowWithNamesAndTypes test_value;
+        INSERT INTO test_table FORMAT JSONCompactStringsEachRow test_value;
+        INSERT INTO test_table FORMAT JSONCompactStringsEachRowWithNames test_value;
+        INSERT INTO test_table FORMAT JSONCompactStringsEachRowWithNamesAndTypes test_value;
+        INSERT INTO test_table FORMAT JSONObjectEachRow test_value;
+        INSERT INTO test_table FORMAT BSONEachRow test_value;
+        INSERT INTO test_table FORMAT TSKV test_value;
+        INSERT INTO test_table FORMAT Protobuf test_value;
+        INSERT INTO test_table FORMAT ProtobufSingle test_value;
+        INSERT INTO test_table FORMAT ProtobufList test_value;
+        INSERT INTO test_table FORMAT Avro test_value;
+        INSERT INTO test_table FORMAT AvroConfluent test_value;
+        INSERT INTO test_table FORMAT Parquet test_value;
+        INSERT INTO test_table FORMAT ParquetMetadata test_value;
+        INSERT INTO test_table FORMAT Arrow test_value;
+        INSERT INTO test_table FORMAT ArrowStream test_value;
+        INSERT INTO test_table FORMAT ORC test_value;
+        INSERT INTO test_table FORMAT One test_value;
+        INSERT INTO test_table FORMAT Npy test_value;
+        INSERT INTO test_table FORMAT RowBinary test_value;
+        INSERT INTO test_table FORMAT RowBinaryWithNames test_value;
+        INSERT INTO test_table FORMAT RowBinaryWithNamesAndTypes test_value;
+        INSERT INTO test_table FORMAT RowBinaryWithDefaults test_value;
+        INSERT INTO test_table FORMAT Native test_value;
+        INSERT INTO test_table FORMAT CapnProto test_value;
+        INSERT INTO test_table FORMAT LineAsString test_value;
+        INSERT INTO test_table FORMAT Regexp test_value;
+        INSERT INTO test_table FORMAT RawBLOB test_value;
+        INSERT INTO test_table FORMAT MsgPack test_value;
+        INSERT INTO test_table FORMAT MySQLDump test_value;
+        INSERT INTO test_table FORMAT DWARF test_value;
+        INSERT INTO test_table FORMAT Form test_value;
+    `);
 
     expect(autocompleteResult.errors).toHaveLength(0);
 });
