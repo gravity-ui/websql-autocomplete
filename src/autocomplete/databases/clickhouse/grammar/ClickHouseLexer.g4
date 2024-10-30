@@ -286,6 +286,25 @@ DOUBLE_SHA1_HASH              : D O U B L E UNDERSCORE S H A '1' UNDERSCORE H A 
 NO_PASSWORD                   : N O UNDERSCORE P A S S W O R D;
 LDAP                          : L D A P;
 SERVER                        : S E R V E R;
+KERBEROS                      : K E R B E R O S;
+REALM                         : R E A L M;
+SSL_CERTIFICATE               : S S L UNDERSCORE C E R T I F I C A T E;
+SAN                           : S A N;
+CN                            : C N;
+SSH_KEY                       : S S H UNDERSCORE K E Y;
+HTTP                          : H T T P;
+SCHEME                        : S C H E M E;
+BCRYPT_PASSWORD               : B C R Y P T UNDERSCORE P A S S W O R D;
+BCRYPT_HASH                   : B C R Y P T UNDERSCORE H A S H;
+VALID                         : V A L I D;
+UNTIL                         : U N T I L;
+GRANTEES                      : G R A N T E E S;
+NAME                          : N A M E;
+REGEXP                        : R E G E X P;
+IP                            : I P;
+HOST                          : H O S T;
+READONLY                      : R E A D O N L Y;
+WRITABLE                      : W R I T A B L E;
 
 FORMAT_TAB_SEPARATED                                      : 'TabSeparated';
 FORMAT_TAB_SEPARATED_RAW                                  : 'TabSeparatedRaw';

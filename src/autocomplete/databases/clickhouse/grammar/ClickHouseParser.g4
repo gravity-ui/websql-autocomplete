@@ -163,23 +163,72 @@ createViewStatement
     : (ATTACH | CREATE) (OR REPLACE)? VIEW (IF NOT EXISTS)? tableIdentifier uuidClause? clusterClause? tableSchemaClause? subqueryClause
     ;
 
-identificationType
+stringIdentificationType
     : PLAINTEXT_PASSWORD
     | SHA256_PASSWORD
     | SHA256_HASH
     | DOUBLE_SHA1_PASSWORD
     | DOUBLE_SHA1_HASH
+    | BCRYPT_PASSWORD
+    | BCRYPT_HASH
+    ;
+
+keyTypeClause
+    : KEY STRING_LITERAL TYPE STRING_LITERAL
+    ;
+
+otherIdentificationType
+    : NO_PASSWORD
+    | LDAP SERVER STRING_LITERAL
+    | KERBEROS (REALM STRING_LITERAL)
+    | SSL_CERTIFICATE (SAN | CN) STRING_LITERAL
+    | SSH_KEY BY keyTypeClause (COMMA keyTypeClause)*
+    | HTTP SERVER STRING_LITERAL (SCHEME STRING_LITERAL)?
     ;
 
 userIdentificationClause
     : NOT IDENTIFIED
-    | IDENTIFIED (WITH identificationType)? BY STRING_LITERAL
-    | IDENTIFIED WITH NO_PASSWORD
-    | IDENTIFIED WITH LDAP SERVER STRING_LITERAL
+    | IDENTIFIED (WITH stringIdentificationType)? BY STRING_LITERAL
+    | IDENTIFIED WITH otherIdentificationType
+    ;
+
+validUntilClause
+    : VALID UNTIL STRING_LITERAL
+    ;
+
+grantsProvider
+    : userIdentifier
+    | roleIdentifier
+    | ANY
+    | NONE
+    ;
+
+granteesClause
+    : GRANTEES grantsProvider (COMMA grantsProvider)* (EXCEPT userOrRoleExpressionList)?
+    ;
+
+hostType
+    : LOCAL
+    | ANY
+    | NONE
+    | (NAME | REGEXP | IP | LIKE) STRING_LITERAL
+    ;
+
+hostClause
+    : HOST hostType (COMMA hostType)*
+    ;
+
+createUserSettingExpression
+    : identifier EQ_SINGLE literal (MIN EQ_SINGLE? literal)? (MAX EQ_SINGLE? literal)? (READONLY | WRITABLE)?
+    | PROFILE STRING_LITERAL
+    ;
+
+createUserSettingsClause
+    : SETTINGS createUserSettingExpression (COMMA createUserSettingExpression)*
     ;
 
 createUserStatement
-    : CREATE USER ((OR REPLACE) | (IF NOT EXISTS))? identifier (COMMA identifier)* clusterClause? userIdentificationClause
+    : CREATE USER ((OR REPLACE) | (IF NOT EXISTS))? identifier (COMMA identifier)* clusterClause? userIdentificationClause hostClause? validUntilClause? (IN STRING_LITERAL)? (DEFAULT ROLE roleExpressionList)? (DEFAULT DATABASE (databaseIdentifier | NONE))? granteesClause? createUserSettingsClause?
     ;
 
 createStatement
