@@ -58,7 +58,7 @@ namedQuery
     ;
 
 columnAliases
-    : LPAREN identifier (COMMA identifier)* RPAREN
+    : LPAREN identifierList RPAREN
     ;
 
 // ALTER statement
@@ -232,7 +232,7 @@ inAccessStorageClause
     ;
 
 createUserStatement
-    : CREATE USER replaceOrIfNotExistsClause? identifier (COMMA identifier)* clusterClause? userIdentificationClause hostClause? validUntilClause? inAccessStorageClause? (DEFAULT ROLE roleExpressionList)? (DEFAULT DATABASE (databaseIdentifier | NONE))? granteesClause? extendedSettingsClause?
+    : CREATE USER replaceOrIfNotExistsClause? identifierList clusterClause? userIdentificationClause hostClause? validUntilClause? inAccessStorageClause? (DEFAULT ROLE roleExpressionList)? (DEFAULT DATABASE (databaseIdentifier | NONE))? granteesClause? extendedSettingsClause?
     ;
 
 replaceOrIfNotExistsClause
@@ -328,8 +328,28 @@ createQuotaStatement
     : CREATE QUOTA replaceOrIfNotExistsClause? identifier clusterClause? inAccessStorageClause? quotaKeyedByClause? quotaForList? (TO subjectExpressionList)?
     ;
 
+identifierList
+    : identifier (COMMA identifier)*
+    ;
+
 createRoleStatement
-    : CREATE ROLE replaceOrIfNotExistsClause? identifier (COMMA identifier)* clusterClause? inAccessStorageClause? extendedSettingsClause?
+    : CREATE ROLE replaceOrIfNotExistsClause? identifierList clusterClause? inAccessStorageClause? extendedSettingsClause?
+    ;
+
+createSettingsProfileStatement
+    : CREATE SETTINGS PROFILE replaceOrIfNotExistsClause? identifierList clusterClause? inAccessStorageClause? extendedSettingsClause? (TO subjectExpressionList)?
+    ;
+
+namedCollectionExpression
+    : identifier EQ_SINGLE stringOrNumberLiteral (NOT? OVERRIDABLE)?
+    ;
+
+namedCollectionClause
+    : namedCollectionExpression (COMMA namedCollectionExpression)*
+    ;
+
+createNamedCollectionStatement
+    : CREATE NAMED COLLECTION (IF NOT EXISTS)? identifier clusterClause? AS namedCollectionClause
     ;
 
 createStatement
@@ -343,6 +363,8 @@ createStatement
     | createRowPolicyStatement
     | createQuotaStatement
     | createRoleStatement
+    | createSettingsProfileStatement
+    | createNamedCollectionStatement
     ;
 
 dictionarySchemaClause
@@ -1146,7 +1168,7 @@ columnArgumentExpression
     ;
 
 columnLambdaExpression
-    : (LPAREN identifier (COMMA identifier)* RPAREN | identifier (COMMA identifier)*) ARROW_SYMBOL columnExpression
+    : (LPAREN identifierList RPAREN | identifierList) ARROW_SYMBOL columnExpression
     ;
 
 columnIdentifier

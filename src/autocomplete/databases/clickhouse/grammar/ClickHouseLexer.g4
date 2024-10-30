@@ -387,6 +387,7 @@ TRACKING                                   : T R A C K I N G;
 ONLY                                       : O N L Y;
 CONST                                      : C O N S T;
 CHANGEABLE_IN_READONLY                     : C H A N G E A B L E UNDERSCORE I N UNDERSCORE R E A D O N L Y;
+OVERRIDABLE                                : O V E R R I D A B L E;
 
 JSON_FALSE : 'false';
 JSON_TRUE  : 'true';
