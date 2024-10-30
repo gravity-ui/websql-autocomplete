@@ -26,6 +26,7 @@ test('should not report errors on extended statement', () => {
 
     expect(autocompleteResult.errors).toHaveLength(0);
 });
+
 test('should suggest properly after quota', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor('CREATE QUOTA |');
 

@@ -146,6 +146,8 @@ test('should suggest properly after settings expression', () => {
     const keywordsSuggestion: KeywordSuggestion[] = [
         {value: 'READONLY'},
         {value: 'WRITABLE'},
+        {value: 'CONST'},
+        {value: 'CHANGEABLE_IN_READONLY'},
         {value: 'MAX'},
         {value: 'MIN'},
         {value: 'FORMAT'},

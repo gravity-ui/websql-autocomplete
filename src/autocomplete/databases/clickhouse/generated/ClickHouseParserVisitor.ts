@@ -70,8 +70,8 @@ import { GrantsProviderContext } from "./ClickHouseParser.js";
 import { GranteesClauseContext } from "./ClickHouseParser.js";
 import { HostTypeContext } from "./ClickHouseParser.js";
 import { HostClauseContext } from "./ClickHouseParser.js";
-import { CreateUserSettingExpressionContext } from "./ClickHouseParser.js";
-import { CreateUserSettingsClauseContext } from "./ClickHouseParser.js";
+import { ExtendedSettingExpressionContext } from "./ClickHouseParser.js";
+import { ExtendedSettingsClauseContext } from "./ClickHouseParser.js";
 import { InAccessStorageClauseContext } from "./ClickHouseParser.js";
 import { CreateUserStatementContext } from "./ClickHouseParser.js";
 import { ReplaceOrIfNotExistsClauseContext } from "./ClickHouseParser.js";
@@ -91,6 +91,7 @@ import { QuotaRestrictionClauseContext } from "./ClickHouseParser.js";
 import { QuotaForClauseContext } from "./ClickHouseParser.js";
 import { QuotaForListContext } from "./ClickHouseParser.js";
 import { CreateQuotaStatementContext } from "./ClickHouseParser.js";
+import { CreateRoleStatementContext } from "./ClickHouseParser.js";
 import { CreateStatementContext } from "./ClickHouseParser.js";
 import { DictionarySchemaClauseContext } from "./ClickHouseParser.js";
 import { DictionaryAttributeDefinitionContext } from "./ClickHouseParser.js";
@@ -684,17 +685,17 @@ export class ClickHouseParserVisitor<Result> extends AbstractParseTreeVisitor<Re
      */
     visitHostClause?: (ctx: HostClauseContext) => Result;
     /**
-     * Visit a parse tree produced by `ClickHouseParser.createUserSettingExpression`.
+     * Visit a parse tree produced by `ClickHouseParser.extendedSettingExpression`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitCreateUserSettingExpression?: (ctx: CreateUserSettingExpressionContext) => Result;
+    visitExtendedSettingExpression?: (ctx: ExtendedSettingExpressionContext) => Result;
     /**
-     * Visit a parse tree produced by `ClickHouseParser.createUserSettingsClause`.
+     * Visit a parse tree produced by `ClickHouseParser.extendedSettingsClause`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitCreateUserSettingsClause?: (ctx: CreateUserSettingsClauseContext) => Result;
+    visitExtendedSettingsClause?: (ctx: ExtendedSettingsClauseContext) => Result;
     /**
      * Visit a parse tree produced by `ClickHouseParser.inAccessStorageClause`.
      * @param ctx the parse tree
@@ -809,6 +810,12 @@ export class ClickHouseParserVisitor<Result> extends AbstractParseTreeVisitor<Re
      * @return the visitor result
      */
     visitCreateQuotaStatement?: (ctx: CreateQuotaStatementContext) => Result;
+    /**
+     * Visit a parse tree produced by `ClickHouseParser.createRoleStatement`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitCreateRoleStatement?: (ctx: CreateRoleStatementContext) => Result;
     /**
      * Visit a parse tree produced by `ClickHouseParser.createStatement`.
      * @param ctx the parse tree

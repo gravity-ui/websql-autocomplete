@@ -218,13 +218,13 @@ hostClause
     : HOST hostType (COMMA hostType)*
     ;
 
-createUserSettingExpression
-    : identifier EQ_SINGLE literal (MIN EQ_SINGLE? literal)? (MAX EQ_SINGLE? literal)? (READONLY | WRITABLE)?
+extendedSettingExpression
+    : identifier EQ_SINGLE literal (MIN EQ_SINGLE? literal)? (MAX EQ_SINGLE? literal)? (CONST | READONLY | WRITABLE | CHANGEABLE_IN_READONLY)?
     | PROFILE STRING_LITERAL
     ;
 
-createUserSettingsClause
-    : SETTINGS createUserSettingExpression (COMMA createUserSettingExpression)*
+extendedSettingsClause
+    : SETTINGS extendedSettingExpression (COMMA extendedSettingExpression)*
     ;
 
 inAccessStorageClause
@@ -232,7 +232,7 @@ inAccessStorageClause
     ;
 
 createUserStatement
-    : CREATE USER replaceOrIfNotExistsClause? identifier (COMMA identifier)* clusterClause? userIdentificationClause hostClause? validUntilClause? inAccessStorageClause? (DEFAULT ROLE roleExpressionList)? (DEFAULT DATABASE (databaseIdentifier | NONE))? granteesClause? createUserSettingsClause?
+    : CREATE USER replaceOrIfNotExistsClause? identifier (COMMA identifier)* clusterClause? userIdentificationClause hostClause? validUntilClause? inAccessStorageClause? (DEFAULT ROLE roleExpressionList)? (DEFAULT DATABASE (databaseIdentifier | NONE))? granteesClause? extendedSettingsClause?
     ;
 
 replaceOrIfNotExistsClause
@@ -328,6 +328,10 @@ createQuotaStatement
     : CREATE QUOTA replaceOrIfNotExistsClause? identifier clusterClause? inAccessStorageClause? quotaKeyedByClause? quotaForList? (TO subjectExpressionList)?
     ;
 
+createRoleStatement
+    : CREATE ROLE replaceOrIfNotExistsClause? identifier (COMMA identifier)* clusterClause? inAccessStorageClause? extendedSettingsClause?
+    ;
+
 createStatement
     : createDatabaseStatement
     | createDictionaryStatement
@@ -338,6 +342,7 @@ createStatement
     | createUserStatement
     | createRowPolicyStatement
     | createQuotaStatement
+    | createRoleStatement
     ;
 
 dictionarySchemaClause
