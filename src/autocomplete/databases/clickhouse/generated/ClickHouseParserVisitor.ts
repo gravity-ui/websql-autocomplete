@@ -79,7 +79,18 @@ import { PolicyAssignmentSubjectContext } from "./ClickHouseParser.js";
 import { PolicyExpressionContext } from "./ClickHouseParser.js";
 import { IdentifierOrLiteralContext } from "./ClickHouseParser.js";
 import { ConditionClauseContext } from "./ClickHouseParser.js";
+import { SubjectOrAllOrExceptContext } from "./ClickHouseParser.js";
+import { SubjectExpressionContext } from "./ClickHouseParser.js";
 import { CreateRowPolicyStatementContext } from "./ClickHouseParser.js";
+import { QuotaKeyTypeContext } from "./ClickHouseParser.js";
+import { QuotaKeyedByClauseContext } from "./ClickHouseParser.js";
+import { QuotaRestrictionTypeContext } from "./ClickHouseParser.js";
+import { StringOrNumberLiteralContext } from "./ClickHouseParser.js";
+import { QuotaRestrictionExpressionContext } from "./ClickHouseParser.js";
+import { QuotaRestrictionClauseContext } from "./ClickHouseParser.js";
+import { QuotaForClauseContext } from "./ClickHouseParser.js";
+import { QuotaForListContext } from "./ClickHouseParser.js";
+import { CreateQuotaStatementContext } from "./ClickHouseParser.js";
 import { CreateStatementContext } from "./ClickHouseParser.js";
 import { DictionarySchemaClauseContext } from "./ClickHouseParser.js";
 import { DictionaryAttributeDefinitionContext } from "./ClickHouseParser.js";
@@ -128,6 +139,7 @@ import { ExplainPlanStatementContext } from "./ClickHouseParser.js";
 import { ExplainQueryTreeStatementContext } from "./ClickHouseParser.js";
 import { ExplainEstimateStatementContext } from "./ClickHouseParser.js";
 import { RevokeStatementContext } from "./ClickHouseParser.js";
+import { SubjectExpressionListContext } from "./ClickHouseParser.js";
 import { UserExpressionListContext } from "./ClickHouseParser.js";
 import { RoleExpressionListContext } from "./ClickHouseParser.js";
 import { GrantStatementContext } from "./ClickHouseParser.js";
@@ -726,11 +738,77 @@ export class ClickHouseParserVisitor<Result> extends AbstractParseTreeVisitor<Re
      */
     visitConditionClause?: (ctx: ConditionClauseContext) => Result;
     /**
+     * Visit a parse tree produced by `ClickHouseParser.subjectOrAllOrExcept`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitSubjectOrAllOrExcept?: (ctx: SubjectOrAllOrExceptContext) => Result;
+    /**
+     * Visit a parse tree produced by `ClickHouseParser.subjectExpression`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitSubjectExpression?: (ctx: SubjectExpressionContext) => Result;
+    /**
      * Visit a parse tree produced by `ClickHouseParser.createRowPolicyStatement`.
      * @param ctx the parse tree
      * @return the visitor result
      */
     visitCreateRowPolicyStatement?: (ctx: CreateRowPolicyStatementContext) => Result;
+    /**
+     * Visit a parse tree produced by `ClickHouseParser.quotaKeyType`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitQuotaKeyType?: (ctx: QuotaKeyTypeContext) => Result;
+    /**
+     * Visit a parse tree produced by `ClickHouseParser.quotaKeyedByClause`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitQuotaKeyedByClause?: (ctx: QuotaKeyedByClauseContext) => Result;
+    /**
+     * Visit a parse tree produced by `ClickHouseParser.quotaRestrictionType`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitQuotaRestrictionType?: (ctx: QuotaRestrictionTypeContext) => Result;
+    /**
+     * Visit a parse tree produced by `ClickHouseParser.stringOrNumberLiteral`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitStringOrNumberLiteral?: (ctx: StringOrNumberLiteralContext) => Result;
+    /**
+     * Visit a parse tree produced by `ClickHouseParser.quotaRestrictionExpression`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitQuotaRestrictionExpression?: (ctx: QuotaRestrictionExpressionContext) => Result;
+    /**
+     * Visit a parse tree produced by `ClickHouseParser.quotaRestrictionClause`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitQuotaRestrictionClause?: (ctx: QuotaRestrictionClauseContext) => Result;
+    /**
+     * Visit a parse tree produced by `ClickHouseParser.quotaForClause`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitQuotaForClause?: (ctx: QuotaForClauseContext) => Result;
+    /**
+     * Visit a parse tree produced by `ClickHouseParser.quotaForList`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitQuotaForList?: (ctx: QuotaForListContext) => Result;
+    /**
+     * Visit a parse tree produced by `ClickHouseParser.createQuotaStatement`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitCreateQuotaStatement?: (ctx: CreateQuotaStatementContext) => Result;
     /**
      * Visit a parse tree produced by `ClickHouseParser.createStatement`.
      * @param ctx the parse tree
@@ -1037,6 +1115,12 @@ export class ClickHouseParserVisitor<Result> extends AbstractParseTreeVisitor<Re
      * @return the visitor result
      */
     visitRevokeStatement?: (ctx: RevokeStatementContext) => Result;
+    /**
+     * Visit a parse tree produced by `ClickHouseParser.subjectExpressionList`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitSubjectExpressionList?: (ctx: SubjectExpressionListContext) => Result;
     /**
      * Visit a parse tree produced by `ClickHouseParser.userExpressionList`.
      * @param ctx the parse tree

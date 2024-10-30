@@ -259,8 +259,73 @@ conditionClause
     | identifierOrLiteral (EQ_SINGLE | NOT_EQ | GT | LT) identifierOrLiteral
     ;
 
+subjectOrAllOrExcept
+    : userOrRoleIdentifier
+    | ALL
+    | ALL EXCEPT userOrRoleExpressionList
+    ;
+
+subjectExpression
+    : userOrRoleIdentifier
+    | ALL
+    | ALL EXCEPT userOrRoleExpressionList
+    ;
+
 createRowPolicyStatement
-    : CREATE ROW? POLICY replaceOrIfNotExistsClause? policyExpression (COMMA policyExpression)* inAccessStorageClause? (FOR SELECT)? USING conditionClause (AS (PERMISSIVE | RESTRICTIVE))? (TO (roleExpressionList | ALL | ALL EXCEPT roleExpressionList))?
+    : CREATE ROW? POLICY replaceOrIfNotExistsClause? policyExpression (COMMA policyExpression)* inAccessStorageClause? (FOR SELECT)? USING conditionClause (AS (PERMISSIVE | RESTRICTIVE))? (TO subjectExpressionList)?
+    ;
+
+quotaKeyType
+    : USER_NAME
+    | IP_ADDRESS
+    | CLIENT_KEY (COMMA (USER_NAME | IP_ADDRESS))?
+    | NOT KEYED
+    | CLIENT_KEY_OR_USER_NAME
+    | CLIENT_KEY_OR_IP_ADDRESS
+    ;
+
+quotaKeyedByClause
+    : KEYED BY quotaKeyType
+    ;
+
+quotaRestrictionType
+    : QUERIES
+    | QUERY_SELECTS
+    | QUERY_INSERTS
+    | ERRORS
+    | RESULT_ROWS
+    | RESULT_BYTES
+    | READ_ROWS
+    | READ_BYTES
+    | EXECUTION_TIME
+    | FAILED_SEQUENTIAL_AUTHENTICATIONS
+    ;
+
+stringOrNumberLiteral
+    : STRING_LITERAL
+    | numberLiteral
+    ;
+
+quotaRestrictionExpression
+    : MAX quotaRestrictionType EQ_SINGLE stringOrNumberLiteral
+    ;
+
+quotaRestrictionClause
+    : quotaRestrictionExpression (COMMA quotaRestrictionExpression)*
+    | NO LIMITS
+    | TRACKING ONLY
+    ;
+
+quotaForClause
+    : FOR RANDOMIZED? INTERVAL numberLiteral interval quotaRestrictionClause
+    ;
+
+quotaForList
+    : quotaForClause (COMMA? quotaForClause)*
+    ;
+
+createQuotaStatement
+    : CREATE QUOTA replaceOrIfNotExistsClause? identifier clusterClause? inAccessStorageClause? quotaKeyedByClause? quotaForList? (TO subjectExpressionList)?
     ;
 
 createStatement
@@ -272,6 +337,7 @@ createStatement
     | createViewStatement
     | createUserStatement
     | createRowPolicyStatement
+    | createQuotaStatement
     ;
 
 dictionarySchemaClause
@@ -443,8 +509,12 @@ explainStatement
 // REVOKE statement
 
 revokeStatement
-    : REVOKE clusterClause? (GRANT OPTION FOR)? privilegeList ON accessSubjectIdentifier FROM (userExpressionList | ALL | ALL EXCEPT userExpressionList)
-    | REVOKE clusterClause? (ADMIN OPTION FOR)? roleExpressionList FROM (userOrRoleExpressionList | ALL | ALL EXCEPT userOrRoleExpressionList)
+    : REVOKE clusterClause? (GRANT OPTION FOR)? privilegeList ON accessSubjectIdentifier FROM subjectExpressionList
+    | REVOKE clusterClause? (ADMIN OPTION FOR)? roleExpressionList FROM subjectExpressionList
+    ;
+
+subjectExpressionList
+    : subjectExpression (COMMA subjectExpression)*
     ;
 
 userExpressionList

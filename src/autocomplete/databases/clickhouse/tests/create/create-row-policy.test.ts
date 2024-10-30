@@ -17,7 +17,7 @@ test('should not report errors on extended statement', () => {
         IN test_access_storage
         FOR SELECT USING test_column = 1
         AS PERMISSIVE
-        TO test_role1, test_role2;
+        TO test_role, test_user, CURRENT_USER;
     `);
 
     expect(autocompleteResult.errors).toHaveLength(0);
@@ -101,7 +101,7 @@ test('should suggest properly after to', () => {
         'CREATE ROW POLICY test_policy ON test_table USING test_column = 1 TO |',
     );
 
-    const keywordsSuggestion: KeywordSuggestion[] = [{value: 'ALL'}];
+    const keywordsSuggestion: KeywordSuggestion[] = [{value: 'CURRENT_USER'}, {value: 'ALL'}];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
