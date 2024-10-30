@@ -77,7 +77,9 @@ import { CreateUserStatementContext } from "./ClickHouseParser.js";
 import { ReplaceOrIfNotExistsClauseContext } from "./ClickHouseParser.js";
 import { PolicyAssignmentSubjectContext } from "./ClickHouseParser.js";
 import { PolicyExpressionContext } from "./ClickHouseParser.js";
-import { IdentifierOrLiteralContext } from "./ClickHouseParser.js";
+import { IdentifierOrLiteralOrFunctionContext } from "./ClickHouseParser.js";
+import { FunctionExpressionContext } from "./ClickHouseParser.js";
+import { ConditionExpressionContext } from "./ClickHouseParser.js";
 import { ConditionClauseContext } from "./ClickHouseParser.js";
 import { SubjectOrAllOrExceptContext } from "./ClickHouseParser.js";
 import { SubjectExpressionContext } from "./ClickHouseParser.js";
@@ -732,11 +734,23 @@ export class ClickHouseParserVisitor<Result> extends AbstractParseTreeVisitor<Re
      */
     visitPolicyExpression?: (ctx: PolicyExpressionContext) => Result;
     /**
-     * Visit a parse tree produced by `ClickHouseParser.identifierOrLiteral`.
+     * Visit a parse tree produced by `ClickHouseParser.identifierOrLiteralOrFunction`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitIdentifierOrLiteral?: (ctx: IdentifierOrLiteralContext) => Result;
+    visitIdentifierOrLiteralOrFunction?: (ctx: IdentifierOrLiteralOrFunctionContext) => Result;
+    /**
+     * Visit a parse tree produced by `ClickHouseParser.functionExpression`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitFunctionExpression?: (ctx: FunctionExpressionContext) => Result;
+    /**
+     * Visit a parse tree produced by `ClickHouseParser.conditionExpression`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitConditionExpression?: (ctx: ConditionExpressionContext) => Result;
     /**
      * Visit a parse tree produced by `ClickHouseParser.conditionClause`.
      * @param ctx the parse tree

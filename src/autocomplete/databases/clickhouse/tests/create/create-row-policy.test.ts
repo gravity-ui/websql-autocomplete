@@ -15,7 +15,15 @@ test('should not report errors on extended statement', () => {
             test_policy1 ON CLUSTER test_cluster1 ON test_database1.test_table1,
             test_policy2 ON CLUSTER test_cluster2 ON test_database2.test_table2
         IN test_access_storage
-        FOR SELECT USING test_column = 1
+        FOR SELECT USING
+            test_column1 = 1 AND
+            test_column2 == 1 AND
+            test_column3 > 1 AND
+            test_column3 >= 1 AND
+            test_column3 < 1 AND
+            test_column3 <= 1 AND
+            test_column3 != 1 AND
+            test_function1(1, 2) != test_function2()
         AS PERMISSIVE
         TO test_role, test_user, CURRENT_USER;
     `);

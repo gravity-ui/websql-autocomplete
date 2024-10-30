@@ -249,14 +249,23 @@ policyExpression
     : identifier clusterClause? ON policyAssignmentSubject
     ;
 
-identifierOrLiteral
+identifierOrLiteralOrFunction
     : identifier
     | literal
+    | functionExpression
+    ;
+
+functionExpression
+    : identifier LPAREN (literal (COMMA literal)* | functionExpression)? RPAREN
+    ;
+
+conditionExpression
+    : identifierOrLiteralOrFunction
+    | identifierOrLiteralOrFunction (EQ_SINGLE | NOT_EQ | GT | LT | EQ_DOUBLE | GE | LE) identifierOrLiteralOrFunction
     ;
 
 conditionClause
-    : identifierOrLiteral
-    | identifierOrLiteral (EQ_SINGLE | NOT_EQ | GT | LT) identifierOrLiteral
+    : conditionExpression (AND conditionExpression)*
     ;
 
 subjectOrAllOrExcept
@@ -285,7 +294,7 @@ quotaKeyType
     ;
 
 quotaKeyedByClause
-    : KEYED BY quotaKeyType
+    : (KEYED | KEY) BY quotaKeyType
     ;
 
 quotaRestrictionType
@@ -313,6 +322,7 @@ quotaRestrictionExpression
 quotaRestrictionClause
     : quotaRestrictionExpression (COMMA quotaRestrictionExpression)*
     | NO LIMITS
+    | NOT KEYED
     | TRACKING ONLY
     ;
 
@@ -325,7 +335,7 @@ quotaForList
     ;
 
 createQuotaStatement
-    : CREATE QUOTA replaceOrIfNotExistsClause? identifier clusterClause? inAccessStorageClause? quotaKeyedByClause? quotaForList? (TO subjectExpressionList)?
+    : CREATE QUOTA replaceOrIfNotExistsClause? identifierList clusterClause? inAccessStorageClause? quotaKeyedByClause? quotaForList? (NOT KEYED)? (TO subjectExpressionList)?
     ;
 
 identifierList
@@ -840,7 +850,7 @@ literalList
 valueIdentifier
     : literal
     | LPAREN numberLiteral COMMA numberLiteral RPAREN
-    | identifier LPAREN (literalList)? RPAREN
+    | functionExpression
     ;
 
 valueOrArrayIdentifier
