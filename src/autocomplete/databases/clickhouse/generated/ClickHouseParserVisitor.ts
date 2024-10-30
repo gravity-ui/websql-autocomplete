@@ -72,7 +72,13 @@ import { HostTypeContext } from "./ClickHouseParser.js";
 import { HostClauseContext } from "./ClickHouseParser.js";
 import { CreateUserSettingExpressionContext } from "./ClickHouseParser.js";
 import { CreateUserSettingsClauseContext } from "./ClickHouseParser.js";
+import { InAccessStorageClauseContext } from "./ClickHouseParser.js";
 import { CreateUserStatementContext } from "./ClickHouseParser.js";
+import { ReplaceOrIfNotExistsClauseContext } from "./ClickHouseParser.js";
+import { PolicyAssignmentSubjectContext } from "./ClickHouseParser.js";
+import { PolicyExpressionContext } from "./ClickHouseParser.js";
+import { IdentifierOrLiteralContext } from "./ClickHouseParser.js";
+import { ConditionClauseContext } from "./ClickHouseParser.js";
 import { CreateRowPolicyStatementContext } from "./ClickHouseParser.js";
 import { CreateStatementContext } from "./ClickHouseParser.js";
 import { DictionarySchemaClauseContext } from "./ClickHouseParser.js";
@@ -678,11 +684,47 @@ export class ClickHouseParserVisitor<Result> extends AbstractParseTreeVisitor<Re
      */
     visitCreateUserSettingsClause?: (ctx: CreateUserSettingsClauseContext) => Result;
     /**
+     * Visit a parse tree produced by `ClickHouseParser.inAccessStorageClause`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitInAccessStorageClause?: (ctx: InAccessStorageClauseContext) => Result;
+    /**
      * Visit a parse tree produced by `ClickHouseParser.createUserStatement`.
      * @param ctx the parse tree
      * @return the visitor result
      */
     visitCreateUserStatement?: (ctx: CreateUserStatementContext) => Result;
+    /**
+     * Visit a parse tree produced by `ClickHouseParser.replaceOrIfNotExistsClause`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitReplaceOrIfNotExistsClause?: (ctx: ReplaceOrIfNotExistsClauseContext) => Result;
+    /**
+     * Visit a parse tree produced by `ClickHouseParser.policyAssignmentSubject`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitPolicyAssignmentSubject?: (ctx: PolicyAssignmentSubjectContext) => Result;
+    /**
+     * Visit a parse tree produced by `ClickHouseParser.policyExpression`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitPolicyExpression?: (ctx: PolicyExpressionContext) => Result;
+    /**
+     * Visit a parse tree produced by `ClickHouseParser.identifierOrLiteral`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitIdentifierOrLiteral?: (ctx: IdentifierOrLiteralContext) => Result;
+    /**
+     * Visit a parse tree produced by `ClickHouseParser.conditionClause`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitConditionClause?: (ctx: ConditionClauseContext) => Result;
     /**
      * Visit a parse tree produced by `ClickHouseParser.createRowPolicyStatement`.
      * @param ctx the parse tree

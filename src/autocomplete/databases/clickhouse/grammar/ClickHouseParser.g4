@@ -227,8 +227,40 @@ createUserSettingsClause
     : SETTINGS createUserSettingExpression (COMMA createUserSettingExpression)*
     ;
 
+inAccessStorageClause
+    : IN (identifier | STRING_LITERAL)
+    ;
+
 createUserStatement
-    : CREATE USER ((OR REPLACE) | (IF NOT EXISTS))? identifier (COMMA identifier)* clusterClause? userIdentificationClause hostClause? validUntilClause? (IN STRING_LITERAL)? (DEFAULT ROLE roleExpressionList)? (DEFAULT DATABASE (databaseIdentifier | NONE))? granteesClause? createUserSettingsClause?
+    : CREATE USER replaceOrIfNotExistsClause? identifier (COMMA identifier)* clusterClause? userIdentificationClause hostClause? validUntilClause? inAccessStorageClause? (DEFAULT ROLE roleExpressionList)? (DEFAULT DATABASE (databaseIdentifier | NONE))? granteesClause? createUserSettingsClause?
+    ;
+
+replaceOrIfNotExistsClause
+    : OR REPLACE
+    | IF NOT EXISTS
+    ;
+
+policyAssignmentSubject
+    : tableIdentifier
+    | identifier DOT ASTERISK
+    ;
+
+policyExpression
+    : identifier clusterClause? ON policyAssignmentSubject
+    ;
+
+identifierOrLiteral
+    : identifier
+    | literal
+    ;
+
+conditionClause
+    : identifierOrLiteral
+    | identifierOrLiteral (EQ_SINGLE | NOT_EQ | GT | LT) identifierOrLiteral
+    ;
+
+createRowPolicyStatement
+    : CREATE ROW? POLICY replaceOrIfNotExistsClause? policyExpression (COMMA policyExpression)* inAccessStorageClause? (FOR SELECT)? USING conditionClause (AS (PERMISSIVE | RESTRICTIVE))? (TO (roleExpressionList | ALL | ALL EXCEPT roleExpressionList))?
     ;
 
 createStatement
@@ -239,6 +271,7 @@ createStatement
     | createTableStatement
     | createViewStatement
     | createUserStatement
+    | createRowPolicyStatement
     ;
 
 dictionarySchemaClause
@@ -1381,6 +1414,36 @@ keyword
     | GRANTS
     | EXCEPT
     | REVOKE
+    | IDENTIFIED
+    | PLAINTEXT_PASSWORD
+    | SHA256_PASSWORD
+    | SHA256_HASH
+    | DOUBLE_SHA1_PASSWORD
+    | DOUBLE_SHA1_HASH
+    | NO_PASSWORD
+    | LDAP
+    | SERVER
+    | KERBEROS
+    | REALM
+    | SSL_CERTIFICATE
+    | SAN
+    | CN
+    | SSH_KEY
+    | HTTP
+    | SCHEME
+    | BCRYPT_PASSWORD
+    | BCRYPT_HASH
+    | VALID
+    | UNTIL
+    | GRANTEES
+    | NAME
+    | REGEXP
+    | IP
+    | HOST
+    | READONLY
+    | WRITABLE
+    | PERMISSIVE
+    | RESTRICTIVE
     ;
 
 keywordForAlias

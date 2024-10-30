@@ -4,7 +4,7 @@ import {KeywordSuggestion} from '../../../../shared/autocomplete-types';
 test('should suggest properly after USER', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor('CREATE USER |');
 
-    const keywordsSuggestion: KeywordSuggestion[] = [{value: 'IF'}, {value: 'OR'}];
+    const keywordsSuggestion: KeywordSuggestion[] = [{value: 'OR'}, {value: 'IF'}];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 

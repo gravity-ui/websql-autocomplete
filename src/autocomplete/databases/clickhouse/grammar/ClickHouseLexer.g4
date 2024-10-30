@@ -305,6 +305,8 @@ IP                            : I P;
 HOST                          : H O S T;
 READONLY                      : R E A D O N L Y;
 WRITABLE                      : W R I T A B L E;
+PERMISSIVE                    : P E R M I S S I V E;
+RESTRICTIVE                   : R E S T R I C T I V E;
 
 FORMAT_TAB_SEPARATED                                      : 'TabSeparated';
 FORMAT_TAB_SEPARATED_RAW                                  : 'TabSeparatedRaw';
