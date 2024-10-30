@@ -63,3 +63,11 @@ test('should not throw error on statement comment', () => {
 
     expect(autocompleteResult.errors).toHaveLength(0);
 });
+
+test('should not throw error on statement comment', () => {
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(
+        "CREATE DATABASE 123_db ENGINE = Memory COMMENT 'test_comment';",
+    );
+
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
