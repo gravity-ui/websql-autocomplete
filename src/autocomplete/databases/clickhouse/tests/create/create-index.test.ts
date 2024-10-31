@@ -27,14 +27,14 @@ test('should not report errors on extended statement', () => {
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should suggest properly after if', () => {
+test('should suggest properly after IF', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor('CREATE INDEX IF |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [{value: 'ON'}, {value: 'NOT'}];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
-test('should suggest properly after not', () => {
+test('should suggest properly after NOT', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor('CREATE INDEX IF NOT |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [{value: 'EXISTS'}];

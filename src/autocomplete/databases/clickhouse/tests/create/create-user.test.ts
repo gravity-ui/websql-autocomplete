@@ -19,21 +19,21 @@ test('should suggest properly after user name', () => {
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
-test('should suggest properly after not', () => {
+test('should suggest properly after NOT', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor('CREATE USER test_user NOT |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [{value: 'IDENTIFIED'}];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
-test('should suggest properly after identified', () => {
+test('should suggest properly after IDENTIFIED', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor('CREATE USER test_user IDENTIFIED |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [{value: 'WITH'}, {value: 'BY'}];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
-test('should suggest properly after if', () => {
+test('should suggest properly after IF', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor('CREATE USER IF |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [
@@ -44,14 +44,14 @@ test('should suggest properly after if', () => {
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
-test('should suggest properly after not', () => {
+test('should suggest properly after NOT', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor('CREATE USER IF NOT |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [{value: 'IDENTIFIED'}, {value: 'EXISTS'}];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
-test('should suggest properly after or', () => {
+test('should suggest properly after OR', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor('CREATE USER OR |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [
@@ -63,14 +63,14 @@ test('should suggest properly after or', () => {
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
-test('should suggest properly after identified', () => {
+test('should suggest properly after IDENTIFIED', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor('CREATE USER test_user IDENTIFIED |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [{value: 'WITH'}, {value: 'BY'}];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
-test('should suggest properly after with', () => {
+test('should suggest properly after WITH', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor(
         'CREATE USER test_user IDENTIFIED WITH |',
     );
@@ -111,7 +111,7 @@ test('should suggest properly after user identification declaration', () => {
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
-test('should suggest properly after default', () => {
+test('should suggest properly after DEFAULT', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor(
         'CREATE USER test_user IDENTIFIED WITH NO_PASSWORD DEFAULT |',
     );
@@ -120,7 +120,7 @@ test('should suggest properly after default', () => {
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
-test('should suggest properly after database', () => {
+test('should suggest properly after DATABASE', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor(
         'CREATE USER test_user IDENTIFIED WITH NO_PASSWORD DEFAULT DATABASE |',
     );
@@ -129,7 +129,7 @@ test('should suggest properly after database', () => {
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
-test('should suggest properly after settings', () => {
+test('should suggest properly after SETTINGS', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor(
         'CREATE USER test_user IDENTIFIED WITH NO_PASSWORD SETTINGS |',
     );
@@ -156,7 +156,7 @@ test('should suggest properly after settings expression', () => {
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
-test('should suggest properly after host', () => {
+test('should suggest properly after HOST', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor(
         'CREATE USER test_user IDENTIFIED WITH NO_PASSWORD HOST |',
     );
@@ -187,7 +187,7 @@ test('should suggest properly after grantees identifier', () => {
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
-test('should suggest properly after ldap', () => {
+test('should suggest properly after LDAP', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor(
         'CREATE USER test_user IDENTIFIED WITH LDAP |',
     );
@@ -196,7 +196,7 @@ test('should suggest properly after ldap', () => {
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
-test('should suggest properly after kerberos', () => {
+test('should suggest properly after KERBEROS', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor(
         'CREATE USER test_user IDENTIFIED WITH KERBEROS |',
     );
@@ -205,7 +205,7 @@ test('should suggest properly after kerberos', () => {
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
-test('should suggest properly after ssl_certificate', () => {
+test('should suggest properly after SSL_CERTIFICATE', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor(
         'CREATE USER test_user IDENTIFIED WITH SSL_CERTIFICATE |',
     );
@@ -214,7 +214,7 @@ test('should suggest properly after ssl_certificate', () => {
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
-test('should suggest properly after ssh_key', () => {
+test('should suggest properly after SSH_KEY', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor(
         'CREATE USER test_user IDENTIFIED WITH SSH_KEY |',
     );
@@ -223,7 +223,7 @@ test('should suggest properly after ssh_key', () => {
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
-test('should suggest properly after by', () => {
+test('should suggest properly after BY', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor(
         'CREATE USER test_user IDENTIFIED WITH SSH_KEY BY |',
     );

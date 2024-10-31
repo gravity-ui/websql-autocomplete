@@ -23,21 +23,21 @@ test('should not report errors on extended statement', () => {
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should suggest properly after settings', () => {
+test('should suggest properly after SETTINGS', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor('CREATE SETTINGS |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [{value: 'PROFILE'}];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
-test('should suggest properly after profile', () => {
+test('should suggest properly after PROFILE', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor('CREATE SETTINGS PROFILE |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [{value: 'OR'}, {value: 'IF'}];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
-test('should suggest properly after or', () => {
+test('should suggest properly after OR', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor('CREATE SETTINGS PROFILE OR |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [
@@ -52,7 +52,7 @@ test('should suggest properly after or', () => {
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
-test('should suggest properly after if', () => {
+test('should suggest properly after IF', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor('CREATE SETTINGS PROFILE IF |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [
@@ -67,7 +67,7 @@ test('should suggest properly after if', () => {
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
-test('should suggest properly after not', () => {
+test('should suggest properly after NOT', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor('CREATE SETTINGS PROFILE IF NOT |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [{value: 'EXISTS'}];
@@ -90,7 +90,7 @@ test('should suggest properly after settings profile identifier', () => {
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
-test('should suggest properly after on', () => {
+test('should suggest properly after ON', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor(
         'CREATE SETTINGS PROFILE test_settings_profile ON |',
     );
@@ -99,7 +99,7 @@ test('should suggest properly after on', () => {
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
-test('should suggest properly after settings', () => {
+test('should suggest properly after SETTINGS', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor(
         'CREATE SETTINGS PROFILE test_settings_profile SETTINGS |',
     );

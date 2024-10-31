@@ -42,14 +42,14 @@ test('should not report errors on extended statement', () => {
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should suggest properly after quota', () => {
+test('should suggest properly after QUOTA', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor('CREATE QUOTA |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [{value: 'OR'}, {value: 'IF'}];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
-test('should suggest properly after or', () => {
+test('should suggest properly after OR', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor('CREATE QUOTA OR |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [
@@ -67,7 +67,7 @@ test('should suggest properly after or', () => {
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
-test('should suggest properly after if', () => {
+test('should suggest properly after IF', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor('CREATE QUOTA IF |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [
@@ -84,7 +84,7 @@ test('should suggest properly after if', () => {
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
-test('should suggest properly after not', () => {
+test('should suggest properly after NOT', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor('CREATE QUOTA IF NOT |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [{value: 'KEYED'}, {value: 'EXISTS'}];
@@ -98,14 +98,14 @@ test('should suggest properly after ON', () => {
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
-test('should suggest properly after keyed', () => {
+test('should suggest properly after KEYED', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor('CREATE QUOTA test_quota KEYED |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [{value: 'BY'}];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
-test('should suggest properly after by', () => {
+test('should suggest properly after BY', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor('CREATE QUOTA test_quota KEYED BY |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [
@@ -119,7 +119,7 @@ test('should suggest properly after by', () => {
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
-test('should suggest properly after for', () => {
+test('should suggest properly after FOR', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor('CREATE QUOTA test_quota FOR |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [{value: 'INTERVAL'}, {value: 'RANDOMIZED'}];
@@ -158,7 +158,7 @@ test('should suggest properly after interval declaration', () => {
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
-test('should suggest properly after no', () => {
+test('should suggest properly after NO', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor(
         'CREATE QUOTA test_quota FOR INTERVAL 1 year NO |',
     );
@@ -167,7 +167,7 @@ test('should suggest properly after no', () => {
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
-test('should suggest properly after tracking', () => {
+test('should suggest properly after TRACKING', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor(
         'CREATE QUOTA test_quota FOR INTERVAL 1 year TRACKING |',
     );
@@ -176,7 +176,7 @@ test('should suggest properly after tracking', () => {
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
-test('should suggest properly after max', () => {
+test('should suggest properly after MAX', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor(
         'CREATE QUOTA test_quota FOR INTERVAL 1 MINUTE MAX |',
     );
@@ -196,14 +196,14 @@ test('should suggest properly after max', () => {
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
-test('should suggest properly after to', () => {
+test('should suggest properly after TO', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor('CREATE QUOTA test_quota TO |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [{value: 'CURRENT_USER'}, {value: 'ALL'}];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
-test('should suggest properly after all', () => {
+test('should suggest properly after ALL', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor('CREATE QUOTA test_quota TO ALL |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [

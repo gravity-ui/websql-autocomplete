@@ -22,35 +22,35 @@ test('should not report errors on extended statement', () => {
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should suggest properly after named', () => {
+test('should suggest properly after NAMED', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor('CREATE NAMED |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [{value: 'COLLECTION'}];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
-test('should suggest properly after collection', () => {
+test('should suggest properly after COLLECTION', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor('CREATE NAMED COLLECTION |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [{value: 'IF'}];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
-test('should suggest properly after if', () => {
+test('should suggest properly after IF', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor('CREATE NAMED COLLECTION IF |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [{value: 'AS'}, {value: 'ON'}, {value: 'NOT'}];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
-test('should suggest properly after not', () => {
+test('should suggest properly after NOT', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor('CREATE NAMED COLLECTION IF NOT |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [{value: 'EXISTS'}];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
-test('should suggest properly after on', () => {
+test('should suggest properly after ON', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor(
         'CREATE NAMED COLLECTION test_named_collection ON |',
     );

@@ -20,7 +20,7 @@ test('should not report errors on extended statement', () => {
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should suggest properly after settings', () => {
+test('should suggest properly after SETTINGS', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor('CREATE ROLE test_role SETTINGS |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [{value: 'PROFILE'}];

@@ -31,35 +31,35 @@ test('should not report errors on extended statement', () => {
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should suggest properly after row', () => {
+test('should suggest properly after ROW', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor('CREATE ROW |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [{value: 'POLICY'}];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
-test('should suggest properly after policy', () => {
+test('should suggest properly after POLICY', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor('CREATE ROW POLICY |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [{value: 'OR'}, {value: 'IF'}];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
-test('should suggest properly after or', () => {
+test('should suggest properly after OR', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor('CREATE ROW POLICY OR |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [{value: 'ON'}, {value: 'REPLACE'}];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
-test('should suggest properly after if', () => {
+test('should suggest properly after IF', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor('CREATE ROW POLICY IF |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [{value: 'ON'}, {value: 'NOT'}];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
-test('should suggest properly after not', () => {
+test('should suggest properly after NOT', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor('CREATE ROW POLICY IF NOT |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [{value: 'EXISTS'}];
@@ -86,7 +86,7 @@ test('should suggest properly after table identifier', () => {
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
-test('should suggest properly after for', () => {
+test('should suggest properly after FOR', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor(
         'CREATE ROW POLICY test_policy ON test_table FOR |',
     );
@@ -95,7 +95,7 @@ test('should suggest properly after for', () => {
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
-test('should suggest properly after as', () => {
+test('should suggest properly after AS', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor(
         'CREATE ROW POLICY test_policy ON test_table USING test_column = 1 AS |',
     );
@@ -104,7 +104,7 @@ test('should suggest properly after as', () => {
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
-test('should suggest properly after to', () => {
+test('should suggest properly after TO', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor(
         'CREATE ROW POLICY test_policy ON test_table USING test_column = 1 TO |',
     );
@@ -113,7 +113,7 @@ test('should suggest properly after to', () => {
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
-test('should suggest properly after all', () => {
+test('should suggest properly after ALL', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor(
         'CREATE ROW POLICY test_policy ON test_table USING test_column = 1 TO ALL |',
     );

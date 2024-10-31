@@ -64,7 +64,7 @@ test('should not throw error on statement comment', () => {
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should not throw error on statement comment', () => {
+test('should not throw error on database name with digit at start', () => {
     const autocompleteResult = parseClickHouseQueryWithoutCursor(
         "CREATE DATABASE 123_db ENGINE = Memory COMMENT 'test_comment';",
     );
