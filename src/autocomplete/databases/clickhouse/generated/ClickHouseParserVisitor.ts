@@ -103,6 +103,8 @@ import { CreateNamedCollectionStatementContext } from "./ClickHouseParser.js";
 import { ExpressionOperandContext } from "./ClickHouseParser.js";
 import { ExpressionContext } from "./ClickHouseParser.js";
 import { CreateFunctionStatementContext } from "./ClickHouseParser.js";
+import { OrderTypeContext } from "./ClickHouseParser.js";
+import { CreateIndexStatementContext } from "./ClickHouseParser.js";
 import { CreateStatementContext } from "./ClickHouseParser.js";
 import { DictionarySchemaClauseContext } from "./ClickHouseParser.js";
 import { DictionaryAttributeDefinitionContext } from "./ClickHouseParser.js";
@@ -893,6 +895,18 @@ export class ClickHouseParserVisitor<Result> extends AbstractParseTreeVisitor<Re
      * @return the visitor result
      */
     visitCreateFunctionStatement?: (ctx: CreateFunctionStatementContext) => Result;
+    /**
+     * Visit a parse tree produced by `ClickHouseParser.orderType`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitOrderType?: (ctx: OrderTypeContext) => Result;
+    /**
+     * Visit a parse tree produced by `ClickHouseParser.createIndexStatement`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitCreateIndexStatement?: (ctx: CreateIndexStatementContext) => Result;
     /**
      * Visit a parse tree produced by `ClickHouseParser.createStatement`.
      * @param ctx the parse tree

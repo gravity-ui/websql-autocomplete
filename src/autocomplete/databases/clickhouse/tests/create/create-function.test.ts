@@ -48,3 +48,17 @@ test('should suggest properly after function identifier', () => {
     const keywordsSuggestion: KeywordSuggestion[] = [{value: 'AS'}, {value: 'ON'}];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
+
+test('should suggest properly after if', () => {
+    const autocompleteResult = parseClickHouseQueryWithCursor('CREATE FUNCTION IF |');
+
+    const keywordsSuggestion: KeywordSuggestion[] = [{value: 'AS'}, {value: 'ON'}, {value: 'NOT'}];
+    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
+});
+
+test('should suggest properly after not', () => {
+    const autocompleteResult = parseClickHouseQueryWithCursor('CREATE FUNCTION IF NOT |');
+
+    const keywordsSuggestion: KeywordSuggestion[] = [{value: 'EXISTS'}];
+    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
+});

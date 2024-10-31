@@ -381,6 +381,17 @@ createFunctionStatement
     : CREATE FUNCTION (IF NOT EXISTS)? identifier clusterClause? AS (LPAREN identifierList? RPAREN | identifier) ARROW_SYMBOL expression
     ;
 
+orderType
+    : DESC
+    | DESCENDING
+    | ASC
+    | ASCENDING
+    ;
+
+createIndexStatement
+    : CREATE INDEX (IF NOT EXISTS)? identifier ON tableIdentifier LPAREN identifier orderType? (COMMA identifier orderType?)* RPAREN (TYPE identifier)? (GRANULARITY numberLiteral)?
+    ;
+
 createStatement
     : createDatabaseStatement
     | createDictionaryStatement
@@ -395,6 +406,7 @@ createStatement
     | createSettingsProfileStatement
     | createNamedCollectionStatement
     | createFunctionStatement
+    | createIndexStatement
     ;
 
 dictionarySchemaClause
@@ -1022,7 +1034,7 @@ orderExpressionList
     ;
 
 orderExpression
-    : columnExpression (ASCENDING | DESCENDING | DESC)? (NULLS (FIRST | LAST))? (COLLATE STRING_LITERAL)?
+    : columnExpression (ASCENDING | ASC | DESCENDING | DESC)? (NULLS (FIRST | LAST))? (COLLATE STRING_LITERAL)?
     ;
 
 ratioExpression
@@ -1280,6 +1292,7 @@ keyword
     | ARRAY
     | AS
     | ASCENDING
+    | ASC
     | ASOF
     | AST
     | ASYNC
