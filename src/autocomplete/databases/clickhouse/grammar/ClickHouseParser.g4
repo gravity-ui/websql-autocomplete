@@ -227,12 +227,12 @@ extendedSettingsClause
     : SETTINGS extendedSettingExpression (COMMA extendedSettingExpression)*
     ;
 
-inAccessStorageClause
+inClause
     : IN (identifier | STRING_LITERAL)
     ;
 
 createUserStatement
-    : CREATE USER replaceOrIfNotExistsClause? identifierList clusterClause? userIdentificationClause hostClause? validUntilClause? inAccessStorageClause? (DEFAULT ROLE roleExpressionList)? (DEFAULT DATABASE (databaseIdentifier | NONE))? granteesClause? extendedSettingsClause?
+    : CREATE USER replaceOrIfNotExistsClause? identifierList clusterClause? userIdentificationClause hostClause? validUntilClause? inClause? (DEFAULT ROLE roleExpressionList)? (DEFAULT DATABASE (databaseIdentifier | NONE))? granteesClause? extendedSettingsClause?
     ;
 
 replaceOrIfNotExistsClause
@@ -240,13 +240,13 @@ replaceOrIfNotExistsClause
     | IF NOT EXISTS
     ;
 
-policyAssignmentSubject
+tableIdentifierOrAnyTable
     : tableIdentifier
     | identifier DOT ASTERISK
     ;
 
 policyExpression
-    : identifier clusterClause? ON policyAssignmentSubject
+    : identifier clusterClause? ON tableIdentifierOrAnyTable
     ;
 
 identifierOrLiteralOrFunction
@@ -281,7 +281,7 @@ subjectExpression
     ;
 
 createRowPolicyStatement
-    : CREATE ROW? POLICY replaceOrIfNotExistsClause? policyExpression (COMMA policyExpression)* inAccessStorageClause? (FOR SELECT)? USING conditionClause (AS (PERMISSIVE | RESTRICTIVE))? (TO subjectExpressionList)?
+    : CREATE ROW? POLICY replaceOrIfNotExistsClause? policyExpression (COMMA policyExpression)* inClause? (FOR SELECT)? USING conditionClause (AS (PERMISSIVE | RESTRICTIVE))? (TO subjectExpressionList)?
     ;
 
 quotaKeyType
@@ -339,7 +339,7 @@ quotaForList
     ;
 
 createQuotaStatement
-    : CREATE QUOTA replaceOrIfNotExistsClause? identifierList clusterClause? inAccessStorageClause? quotaKeyedByClause? quotaForList? (NOT KEYED)? (TO subjectExpressionList)?
+    : CREATE QUOTA replaceOrIfNotExistsClause? identifierList clusterClause? inClause? quotaKeyedByClause? quotaForList? (NOT KEYED)? (TO subjectExpressionList)?
     ;
 
 identifierList
@@ -347,11 +347,11 @@ identifierList
     ;
 
 createRoleStatement
-    : CREATE ROLE replaceOrIfNotExistsClause? identifierList clusterClause? inAccessStorageClause? extendedSettingsClause?
+    : CREATE ROLE replaceOrIfNotExistsClause? identifierList clusterClause? inClause? extendedSettingsClause?
     ;
 
 createSettingsProfileStatement
-    : CREATE SETTINGS PROFILE replaceOrIfNotExistsClause? identifierList clusterClause? inAccessStorageClause? extendedSettingsClause? (TO subjectExpressionList)?
+    : CREATE SETTINGS PROFILE replaceOrIfNotExistsClause? identifierList clusterClause? inClause? extendedSettingsClause? (TO subjectExpressionList)?
     ;
 
 namedCollectionExpression

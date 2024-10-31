@@ -475,10 +475,10 @@ export class ClickHouseParser extends antlr.Parser {
     public static readonly RULE_hostClause = 30;
     public static readonly RULE_extendedSettingExpression = 31;
     public static readonly RULE_extendedSettingsClause = 32;
-    public static readonly RULE_inAccessStorageClause = 33;
+    public static readonly RULE_inClause = 33;
     public static readonly RULE_createUserStatement = 34;
     public static readonly RULE_replaceOrIfNotExistsClause = 35;
-    public static readonly RULE_policyAssignmentSubject = 36;
+    public static readonly RULE_tableIdentifierOrAnyTable = 36;
     public static readonly RULE_policyExpression = 37;
     public static readonly RULE_identifierOrLiteralOrFunction = 38;
     public static readonly RULE_functionExpression = 39;
@@ -777,17 +777,16 @@ export class ClickHouseParser extends antlr.Parser {
         "stringIdentificationType", "keyTypeClause", "otherIdentificationType", 
         "userIdentificationClause", "validUntilClause", "grantsProvider", 
         "granteesClause", "hostType", "hostClause", "extendedSettingExpression", 
-        "extendedSettingsClause", "inAccessStorageClause", "createUserStatement", 
-        "replaceOrIfNotExistsClause", "policyAssignmentSubject", "policyExpression", 
-        "identifierOrLiteralOrFunction", "functionExpression", "conditionExpression", 
-        "conditionClause", "subjectOrAllOrExcept", "subjectExpression", 
-        "createRowPolicyStatement", "quotaKeyType", "quotaKeyedByClause", 
-        "quotaRestrictionType", "stringOrNumberLiteral", "quotaRestrictionExpression", 
-        "quotaRestrictionClause", "quotaForClause", "intervalOperand", "quotaForList", 
-        "createQuotaStatement", "identifierList", "createRoleStatement", 
-        "createSettingsProfileStatement", "namedCollectionExpression", "namedCollectionClause", 
-        "createNamedCollectionStatement", "expressionOperand", "expression", 
-        "createFunctionStatement", "orderType", "createIndexStatement", 
+        "extendedSettingsClause", "inClause", "createUserStatement", "replaceOrIfNotExistsClause", 
+        "tableIdentifierOrAnyTable", "policyExpression", "identifierOrLiteralOrFunction", 
+        "functionExpression", "conditionExpression", "conditionClause", 
+        "subjectOrAllOrExcept", "subjectExpression", "createRowPolicyStatement", 
+        "quotaKeyType", "quotaKeyedByClause", "quotaRestrictionType", "stringOrNumberLiteral", 
+        "quotaRestrictionExpression", "quotaRestrictionClause", "quotaForClause", 
+        "intervalOperand", "quotaForList", "createQuotaStatement", "identifierList", 
+        "createRoleStatement", "createSettingsProfileStatement", "namedCollectionExpression", 
+        "namedCollectionClause", "createNamedCollectionStatement", "expressionOperand", 
+        "expression", "createFunctionStatement", "orderType", "createIndexStatement", 
         "createStatement", "dictionarySchemaClause", "dictionaryAttributeDefinition", 
         "dictionaryEngineClause", "dictionaryPrimaryKeyClause", "dictionaryArgumentExpression", 
         "sourceClause", "lifetimeClause", "layoutClause", "rangeClause", 
@@ -3639,9 +3638,9 @@ export class ClickHouseParser extends antlr.Parser {
         }
         return localContext;
     }
-    public inAccessStorageClause(): InAccessStorageClauseContext {
-        let localContext = new InAccessStorageClauseContext(this.context, this.state);
-        this.enterRule(localContext, 66, ClickHouseParser.RULE_inAccessStorageClause);
+    public inClause(): InClauseContext {
+        let localContext = new InClauseContext(this.context, this.state);
+        this.enterRule(localContext, 66, ClickHouseParser.RULE_inClause);
         try {
             this.enterOuterAlt(localContext, 1);
             {
@@ -4122,7 +4121,7 @@ export class ClickHouseParser extends antlr.Parser {
             if (_la === 81) {
                 {
                 this.state = 1062;
-                this.inAccessStorageClause();
+                this.inClause();
                 }
             }
 
@@ -4247,9 +4246,9 @@ export class ClickHouseParser extends antlr.Parser {
         }
         return localContext;
     }
-    public policyAssignmentSubject(): PolicyAssignmentSubjectContext {
-        let localContext = new PolicyAssignmentSubjectContext(this.context, this.state);
-        this.enterRule(localContext, 72, ClickHouseParser.RULE_policyAssignmentSubject);
+    public tableIdentifierOrAnyTable(): TableIdentifierOrAnyTableContext {
+        let localContext = new TableIdentifierOrAnyTableContext(this.context, this.state);
+        this.enterRule(localContext, 72, ClickHouseParser.RULE_tableIdentifierOrAnyTable);
         try {
             this.state = 1096;
             this.errorHandler.sync(this);
@@ -4308,7 +4307,7 @@ export class ClickHouseParser extends antlr.Parser {
             this.state = 1102;
             this.match(ClickHouseParser.ON);
             this.state = 1103;
-            this.policyAssignmentSubject();
+            this.tableIdentifierOrAnyTable();
             }
         }
         catch (re) {
@@ -5073,7 +5072,7 @@ export class ClickHouseParser extends antlr.Parser {
             if (_la === 81) {
                 {
                 this.state = 1174;
-                this.inAccessStorageClause();
+                this.inClause();
                 }
             }
 
@@ -5597,7 +5596,7 @@ export class ClickHouseParser extends antlr.Parser {
             if (_la === 81) {
                 {
                 this.state = 1265;
-                this.inAccessStorageClause();
+                this.inClause();
                 }
             }
 
@@ -5739,7 +5738,7 @@ export class ClickHouseParser extends antlr.Parser {
             if (_la === 81) {
                 {
                 this.state = 1299;
-                this.inAccessStorageClause();
+                this.inClause();
                 }
             }
 
@@ -5809,7 +5808,7 @@ export class ClickHouseParser extends antlr.Parser {
             if (_la === 81) {
                 {
                 this.state = 1315;
-                this.inAccessStorageClause();
+                this.inClause();
                 }
             }
 
@@ -22590,7 +22589,7 @@ export class ExtendedSettingsClauseContext extends antlr.ParserRuleContext {
 }
 
 
-export class InAccessStorageClauseContext extends antlr.ParserRuleContext {
+export class InClauseContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
@@ -22604,11 +22603,11 @@ export class InAccessStorageClauseContext extends antlr.ParserRuleContext {
         return this.getToken(ClickHouseParser.STRING_LITERAL, 0);
     }
     public override get ruleIndex(): number {
-        return ClickHouseParser.RULE_inAccessStorageClause;
+        return ClickHouseParser.RULE_inClause;
     }
     public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
-        if (visitor.visitInAccessStorageClause) {
-            return visitor.visitInAccessStorageClause(this);
+        if (visitor.visitInClause) {
+            return visitor.visitInClause(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -22644,8 +22643,8 @@ export class CreateUserStatementContext extends antlr.ParserRuleContext {
     public validUntilClause(): ValidUntilClauseContext | null {
         return this.getRuleContext(0, ValidUntilClauseContext);
     }
-    public inAccessStorageClause(): InAccessStorageClauseContext | null {
-        return this.getRuleContext(0, InAccessStorageClauseContext);
+    public inClause(): InClauseContext | null {
+        return this.getRuleContext(0, InClauseContext);
     }
     public DEFAULT(): antlr.TerminalNode[];
     public DEFAULT(i: number): antlr.TerminalNode | null;
@@ -22722,7 +22721,7 @@ export class ReplaceOrIfNotExistsClauseContext extends antlr.ParserRuleContext {
 }
 
 
-export class PolicyAssignmentSubjectContext extends antlr.ParserRuleContext {
+export class TableIdentifierOrAnyTableContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
@@ -22739,11 +22738,11 @@ export class PolicyAssignmentSubjectContext extends antlr.ParserRuleContext {
         return this.getToken(ClickHouseParser.ASTERISK, 0);
     }
     public override get ruleIndex(): number {
-        return ClickHouseParser.RULE_policyAssignmentSubject;
+        return ClickHouseParser.RULE_tableIdentifierOrAnyTable;
     }
     public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
-        if (visitor.visitPolicyAssignmentSubject) {
-            return visitor.visitPolicyAssignmentSubject(this);
+        if (visitor.visitTableIdentifierOrAnyTable) {
+            return visitor.visitTableIdentifierOrAnyTable(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -22761,8 +22760,8 @@ export class PolicyExpressionContext extends antlr.ParserRuleContext {
     public ON(): antlr.TerminalNode {
         return this.getToken(ClickHouseParser.ON, 0)!;
     }
-    public policyAssignmentSubject(): PolicyAssignmentSubjectContext {
-        return this.getRuleContext(0, PolicyAssignmentSubjectContext)!;
+    public tableIdentifierOrAnyTable(): TableIdentifierOrAnyTableContext {
+        return this.getRuleContext(0, TableIdentifierOrAnyTableContext)!;
     }
     public clusterClause(): ClusterClauseContext | null {
         return this.getRuleContext(0, ClusterClauseContext);
@@ -23039,8 +23038,8 @@ export class CreateRowPolicyStatementContext extends antlr.ParserRuleContext {
     		return this.getToken(ClickHouseParser.COMMA, i);
     	}
     }
-    public inAccessStorageClause(): InAccessStorageClauseContext | null {
-        return this.getRuleContext(0, InAccessStorageClauseContext);
+    public inClause(): InClauseContext | null {
+        return this.getRuleContext(0, InClauseContext);
     }
     public FOR(): antlr.TerminalNode | null {
         return this.getToken(ClickHouseParser.FOR, 0);
@@ -23407,8 +23406,8 @@ export class CreateQuotaStatementContext extends antlr.ParserRuleContext {
     public clusterClause(): ClusterClauseContext | null {
         return this.getRuleContext(0, ClusterClauseContext);
     }
-    public inAccessStorageClause(): InAccessStorageClauseContext | null {
-        return this.getRuleContext(0, InAccessStorageClauseContext);
+    public inClause(): InClauseContext | null {
+        return this.getRuleContext(0, InClauseContext);
     }
     public quotaKeyedByClause(): QuotaKeyedByClauseContext | null {
         return this.getRuleContext(0, QuotaKeyedByClauseContext);
@@ -23495,8 +23494,8 @@ export class CreateRoleStatementContext extends antlr.ParserRuleContext {
     public clusterClause(): ClusterClauseContext | null {
         return this.getRuleContext(0, ClusterClauseContext);
     }
-    public inAccessStorageClause(): InAccessStorageClauseContext | null {
-        return this.getRuleContext(0, InAccessStorageClauseContext);
+    public inClause(): InClauseContext | null {
+        return this.getRuleContext(0, InClauseContext);
     }
     public extendedSettingsClause(): ExtendedSettingsClauseContext | null {
         return this.getRuleContext(0, ExtendedSettingsClauseContext);
@@ -23536,8 +23535,8 @@ export class CreateSettingsProfileStatementContext extends antlr.ParserRuleConte
     public clusterClause(): ClusterClauseContext | null {
         return this.getRuleContext(0, ClusterClauseContext);
     }
-    public inAccessStorageClause(): InAccessStorageClauseContext | null {
-        return this.getRuleContext(0, InAccessStorageClauseContext);
+    public inClause(): InClauseContext | null {
+        return this.getRuleContext(0, InClauseContext);
     }
     public extendedSettingsClause(): ExtendedSettingsClauseContext | null {
         return this.getRuleContext(0, ExtendedSettingsClauseContext);

@@ -882,10 +882,10 @@ hostType
 hostClause
 extendedSettingExpression
 extendedSettingsClause
-inAccessStorageClause
+inClause
 createUserStatement
 replaceOrIfNotExistsClause
-policyAssignmentSubject
+tableIdentifierOrAnyTable
 policyExpression
 identifierOrLiteralOrFunction
 functionExpression
