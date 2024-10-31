@@ -516,10 +516,10 @@ test('should suggest keywords after FROM', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor('REVOKE SELECT ON *.* FROM |');
     expect(autocompleteResult.suggestKeywords).toEqual([
         {
-            value: 'ALL',
+            value: 'CURRENT_USER',
         },
         {
-            value: 'CURRENT_USER',
+            value: 'ALL',
         },
     ]);
 });
