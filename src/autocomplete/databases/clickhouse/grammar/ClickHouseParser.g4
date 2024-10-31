@@ -256,7 +256,7 @@ identifierOrLiteralOrFunction
     ;
 
 functionExpression
-    : identifier LPAREN (literal (COMMA literal)* | functionExpression)? RPAREN
+    : identifier LPAREN ((literal | identifier) (COMMA literal | identifier)* | functionExpression)? RPAREN
     ;
 
 conditionExpression
@@ -327,7 +327,11 @@ quotaRestrictionClause
     ;
 
 quotaForClause
-    : FOR RANDOMIZED? INTERVAL numberLiteral interval quotaRestrictionClause
+    : FOR RANDOMIZED? intervalOperand quotaRestrictionClause
+    ;
+
+intervalOperand
+    : INTERVAL numberLiteral interval
     ;
 
 quotaForList
@@ -362,6 +366,21 @@ createNamedCollectionStatement
     : CREATE NAMED COLLECTION (IF NOT EXISTS)? identifier clusterClause? AS namedCollectionClause
     ;
 
+expressionOperand
+    : functionExpression
+    | identifier
+    | literal
+    | intervalOperand
+    ;
+
+expression
+    : expressionOperand ((ASTERISK | PLUS | DASH | CONCAT | PERCENT) expressionOperand)*
+    ;
+
+createFunctionStatement
+    : CREATE FUNCTION (IF NOT EXISTS)? identifier clusterClause? AS (LPAREN identifierList? RPAREN | identifier) ARROW_SYMBOL expression
+    ;
+
 createStatement
     : createDatabaseStatement
     | createDictionaryStatement
@@ -375,6 +394,7 @@ createStatement
     | createRoleStatement
     | createSettingsProfileStatement
     | createNamedCollectionStatement
+    | createFunctionStatement
     ;
 
 dictionarySchemaClause

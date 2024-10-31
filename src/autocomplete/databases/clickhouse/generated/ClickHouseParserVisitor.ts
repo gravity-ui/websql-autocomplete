@@ -91,6 +91,7 @@ import { StringOrNumberLiteralContext } from "./ClickHouseParser.js";
 import { QuotaRestrictionExpressionContext } from "./ClickHouseParser.js";
 import { QuotaRestrictionClauseContext } from "./ClickHouseParser.js";
 import { QuotaForClauseContext } from "./ClickHouseParser.js";
+import { IntervalOperandContext } from "./ClickHouseParser.js";
 import { QuotaForListContext } from "./ClickHouseParser.js";
 import { CreateQuotaStatementContext } from "./ClickHouseParser.js";
 import { IdentifierListContext } from "./ClickHouseParser.js";
@@ -99,6 +100,9 @@ import { CreateSettingsProfileStatementContext } from "./ClickHouseParser.js";
 import { NamedCollectionExpressionContext } from "./ClickHouseParser.js";
 import { NamedCollectionClauseContext } from "./ClickHouseParser.js";
 import { CreateNamedCollectionStatementContext } from "./ClickHouseParser.js";
+import { ExpressionOperandContext } from "./ClickHouseParser.js";
+import { ExpressionContext } from "./ClickHouseParser.js";
+import { CreateFunctionStatementContext } from "./ClickHouseParser.js";
 import { CreateStatementContext } from "./ClickHouseParser.js";
 import { DictionarySchemaClauseContext } from "./ClickHouseParser.js";
 import { DictionaryAttributeDefinitionContext } from "./ClickHouseParser.js";
@@ -818,6 +822,12 @@ export class ClickHouseParserVisitor<Result> extends AbstractParseTreeVisitor<Re
      */
     visitQuotaForClause?: (ctx: QuotaForClauseContext) => Result;
     /**
+     * Visit a parse tree produced by `ClickHouseParser.intervalOperand`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitIntervalOperand?: (ctx: IntervalOperandContext) => Result;
+    /**
      * Visit a parse tree produced by `ClickHouseParser.quotaForList`.
      * @param ctx the parse tree
      * @return the visitor result
@@ -865,6 +875,24 @@ export class ClickHouseParserVisitor<Result> extends AbstractParseTreeVisitor<Re
      * @return the visitor result
      */
     visitCreateNamedCollectionStatement?: (ctx: CreateNamedCollectionStatementContext) => Result;
+    /**
+     * Visit a parse tree produced by `ClickHouseParser.expressionOperand`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitExpressionOperand?: (ctx: ExpressionOperandContext) => Result;
+    /**
+     * Visit a parse tree produced by `ClickHouseParser.expression`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitExpression?: (ctx: ExpressionContext) => Result;
+    /**
+     * Visit a parse tree produced by `ClickHouseParser.createFunctionStatement`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitCreateFunctionStatement?: (ctx: CreateFunctionStatementContext) => Result;
     /**
      * Visit a parse tree produced by `ClickHouseParser.createStatement`.
      * @param ctx the parse tree
