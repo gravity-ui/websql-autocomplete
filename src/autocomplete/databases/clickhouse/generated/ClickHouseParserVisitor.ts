@@ -19,6 +19,9 @@ import { NotInsertStatementContext } from "./ClickHouseParser.js";
 import { CommonTableExpressionStatementContext } from "./ClickHouseParser.js";
 import { NamedQueryContext } from "./ClickHouseParser.js";
 import { ColumnAliasesContext } from "./ClickHouseParser.js";
+import { AlterStatementContext } from "./ClickHouseParser.js";
+import { AlterUserStatementContext } from "./ClickHouseParser.js";
+import { RenameClauseContext } from "./ClickHouseParser.js";
 import { AlterTableStatementContext } from "./ClickHouseParser.js";
 import { AlterTableClauseAddColumnContext } from "./ClickHouseParser.js";
 import { AlterTableClauseAddIndexContext } from "./ClickHouseParser.js";
@@ -73,6 +76,7 @@ import { HostClauseContext } from "./ClickHouseParser.js";
 import { ExtendedSettingExpressionContext } from "./ClickHouseParser.js";
 import { ExtendedSettingsClauseContext } from "./ClickHouseParser.js";
 import { InClauseContext } from "./ClickHouseParser.js";
+import { DefaultRoleClauseContext } from "./ClickHouseParser.js";
 import { CreateUserStatementContext } from "./ClickHouseParser.js";
 import { ReplaceOrIfNotExistsClauseContext } from "./ClickHouseParser.js";
 import { TableIdentifierOrAnyTableContext } from "./ClickHouseParser.js";
@@ -362,8 +366,25 @@ export class ClickHouseParserVisitor<Result> extends AbstractParseTreeVisitor<Re
      */
     visitColumnAliases?: (ctx: ColumnAliasesContext) => Result;
     /**
-     * Visit a parse tree produced by the `AlterTableStatement`
-     * labeled alternative in `ClickHouseParser.alterStatement`.
+     * Visit a parse tree produced by `ClickHouseParser.alterStatement`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitAlterStatement?: (ctx: AlterStatementContext) => Result;
+    /**
+     * Visit a parse tree produced by `ClickHouseParser.alterUserStatement`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitAlterUserStatement?: (ctx: AlterUserStatementContext) => Result;
+    /**
+     * Visit a parse tree produced by `ClickHouseParser.renameClause`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitRenameClause?: (ctx: RenameClauseContext) => Result;
+    /**
+     * Visit a parse tree produced by `ClickHouseParser.alterTableStatement`.
      * @param ctx the parse tree
      * @return the visitor result
      */
@@ -715,6 +736,12 @@ export class ClickHouseParserVisitor<Result> extends AbstractParseTreeVisitor<Re
      * @return the visitor result
      */
     visitInClause?: (ctx: InClauseContext) => Result;
+    /**
+     * Visit a parse tree produced by `ClickHouseParser.defaultRoleClause`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitDefaultRoleClause?: (ctx: DefaultRoleClauseContext) => Result;
     /**
      * Visit a parse tree produced by `ClickHouseParser.createUserStatement`.
      * @param ctx the parse tree

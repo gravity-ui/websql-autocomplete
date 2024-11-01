@@ -64,7 +64,20 @@ columnAliases
 // ALTER statement
 
 alterStatement
-    : ALTER TABLE tableIdentifier clusterClause? alterTableClause (COMMA alterTableClause)* # AlterTableStatement
+    : alterTableStatement
+    | alterUserStatement
+    ;
+
+alterUserStatement
+    : ALTER USER (IF NOT EXISTS)? identifier (renameClause | COMMA identifierList)? clusterClause? userIdentificationClause? ((ADD | DROP)? hostClause)? validUntilClause? defaultRoleClause? granteesClause? extendedSettingsClause?
+    ;
+
+renameClause
+    : RENAME TO identifier
+    ;
+
+alterTableStatement
+    : ALTER TABLE tableIdentifier clusterClause? alterTableClause (COMMA alterTableClause)*
     ;
 
 alterTableClause
@@ -231,8 +244,12 @@ inClause
     : IN (identifier | STRING_LITERAL)
     ;
 
+defaultRoleClause
+    : DEFAULT ROLE roleExpressionList
+    ;
+
 createUserStatement
-    : CREATE USER replaceOrIfNotExistsClause? identifierList clusterClause? userIdentificationClause hostClause? validUntilClause? inClause? (DEFAULT ROLE roleExpressionList)? (DEFAULT DATABASE (databaseIdentifier | NONE))? granteesClause? extendedSettingsClause?
+    : CREATE USER replaceOrIfNotExistsClause? identifierList clusterClause? userIdentificationClause? hostClause? validUntilClause? inClause? defaultRoleClause? (DEFAULT DATABASE (databaseIdentifier | NONE))? granteesClause? extendedSettingsClause?
     ;
 
 replaceOrIfNotExistsClause

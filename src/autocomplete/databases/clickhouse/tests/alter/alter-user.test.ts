@@ -2,25 +2,27 @@ import {parseClickHouseQueryWithCursor, parseClickHouseQueryWithoutCursor} from 
 import {KeywordSuggestion} from '../../../../shared/autocomplete-types';
 
 test('should suggest properly after USER', () => {
-    const autocompleteResult = parseClickHouseQueryWithCursor('CREATE USER |');
+    const autocompleteResult = parseClickHouseQueryWithCursor('ALTER USER |');
 
-    const keywordsSuggestion: KeywordSuggestion[] = [{value: 'OR'}, {value: 'IF'}];
+    const keywordsSuggestion: KeywordSuggestion[] = [{value: 'IF'}];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
 test('should suggest properly after user name', () => {
-    const autocompleteResult = parseClickHouseQueryWithCursor('CREATE USER test_user |');
+    const autocompleteResult = parseClickHouseQueryWithCursor('ALTER USER test_user |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [
         {value: 'SETTINGS'},
         {value: 'GRANTEES'},
         {value: 'DEFAULT'},
-        {value: 'IN'},
         {value: 'VALID'},
         {value: 'HOST'},
+        {value: 'ADD'},
+        {value: 'DROP'},
         {value: 'NOT'},
         {value: 'IDENTIFIED'},
         {value: 'ON'},
+        {value: 'RENAME'},
         {value: 'FORMAT'},
         {value: 'INTO'},
     ];
@@ -28,32 +30,34 @@ test('should suggest properly after user name', () => {
 });
 
 test('should suggest properly after NOT', () => {
-    const autocompleteResult = parseClickHouseQueryWithCursor('CREATE USER test_user NOT |');
+    const autocompleteResult = parseClickHouseQueryWithCursor('ALTER USER test_user NOT |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [{value: 'IDENTIFIED'}];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
 test('should suggest properly after IDENTIFIED', () => {
-    const autocompleteResult = parseClickHouseQueryWithCursor('CREATE USER test_user IDENTIFIED |');
+    const autocompleteResult = parseClickHouseQueryWithCursor('ALTER USER test_user IDENTIFIED |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [{value: 'WITH'}, {value: 'BY'}];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
 test('should suggest properly after IF', () => {
-    const autocompleteResult = parseClickHouseQueryWithCursor('CREATE USER IF |');
+    const autocompleteResult = parseClickHouseQueryWithCursor('ALTER USER IF |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [
         {value: 'SETTINGS'},
         {value: 'GRANTEES'},
         {value: 'DEFAULT'},
-        {value: 'IN'},
         {value: 'VALID'},
         {value: 'HOST'},
+        {value: 'ADD'},
+        {value: 'DROP'},
         {value: 'NOT'},
         {value: 'IDENTIFIED'},
         {value: 'ON'},
+        {value: 'RENAME'},
         {value: 'FORMAT'},
         {value: 'INTO'},
     ];
@@ -61,34 +65,21 @@ test('should suggest properly after IF', () => {
 });
 
 test('should suggest properly after NOT', () => {
-    const autocompleteResult = parseClickHouseQueryWithCursor('CREATE USER IF NOT |');
+    const autocompleteResult = parseClickHouseQueryWithCursor('ALTER USER IF NOT |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [{value: 'IDENTIFIED'}, {value: 'EXISTS'}];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
-test('should suggest properly after OR', () => {
-    const autocompleteResult = parseClickHouseQueryWithCursor('CREATE USER OR |');
+test('should suggest properly after RENAME', () => {
+    const autocompleteResult = parseClickHouseQueryWithCursor('ALTER USER test_user RENAME |');
 
-    const keywordsSuggestion: KeywordSuggestion[] = [
-        {value: 'SETTINGS'},
-        {value: 'GRANTEES'},
-        {value: 'DEFAULT'},
-        {value: 'IN'},
-        {value: 'VALID'},
-        {value: 'HOST'},
-        {value: 'NOT'},
-        {value: 'IDENTIFIED'},
-        {value: 'ON'},
-        {value: 'REPLACE'},
-        {value: 'FORMAT'},
-        {value: 'INTO'},
-    ];
+    const keywordsSuggestion: KeywordSuggestion[] = [{value: 'TO'}];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
 test('should suggest properly after IDENTIFIED', () => {
-    const autocompleteResult = parseClickHouseQueryWithCursor('CREATE USER test_user IDENTIFIED |');
+    const autocompleteResult = parseClickHouseQueryWithCursor('ALTER USER test_user IDENTIFIED |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [{value: 'WITH'}, {value: 'BY'}];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
@@ -96,7 +87,7 @@ test('should suggest properly after IDENTIFIED', () => {
 
 test('should suggest properly after WITH', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor(
-        'CREATE USER test_user IDENTIFIED WITH |',
+        'ALTER USER test_user IDENTIFIED WITH |',
     );
 
     const keywordsSuggestion: KeywordSuggestion[] = [
@@ -119,16 +110,17 @@ test('should suggest properly after WITH', () => {
 
 test('should suggest properly after user identification declaration', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor(
-        'CREATE USER test_user IDENTIFIED WITH NO_PASSWORD |',
+        'ALTER USER test_user IDENTIFIED WITH NO_PASSWORD |',
     );
 
     const keywordsSuggestion: KeywordSuggestion[] = [
         {value: 'SETTINGS'},
         {value: 'GRANTEES'},
         {value: 'DEFAULT'},
-        {value: 'IN'},
         {value: 'VALID'},
         {value: 'HOST'},
+        {value: 'ADD'},
+        {value: 'DROP'},
         {value: 'FORMAT'},
         {value: 'INTO'},
     ];
@@ -137,25 +129,16 @@ test('should suggest properly after user identification declaration', () => {
 
 test('should suggest properly after DEFAULT', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor(
-        'CREATE USER test_user IDENTIFIED WITH NO_PASSWORD DEFAULT |',
+        'ALTER USER test_user IDENTIFIED WITH NO_PASSWORD DEFAULT |',
     );
 
-    const keywordsSuggestion: KeywordSuggestion[] = [{value: 'DATABASE'}, {value: 'ROLE'}];
-    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
-});
-
-test('should suggest properly after DATABASE', () => {
-    const autocompleteResult = parseClickHouseQueryWithCursor(
-        'CREATE USER test_user IDENTIFIED WITH NO_PASSWORD DEFAULT DATABASE |',
-    );
-
-    const keywordsSuggestion: KeywordSuggestion[] = [{value: 'NONE'}];
+    const keywordsSuggestion: KeywordSuggestion[] = [{value: 'ROLE'}];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
 test('should suggest properly after SETTINGS', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor(
-        'CREATE USER test_user IDENTIFIED WITH NO_PASSWORD SETTINGS |',
+        'ALTER USER test_user IDENTIFIED WITH NO_PASSWORD SETTINGS |',
     );
 
     const keywordsSuggestion: KeywordSuggestion[] = [{value: 'PROFILE'}];
@@ -164,7 +147,7 @@ test('should suggest properly after SETTINGS', () => {
 
 test('should suggest properly after settings expression', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor(
-        "CREATE USER test_user IDENTIFIED WITH NO_PASSWORD SETTINGS test_variable = 'test_value' |",
+        "ALTER USER test_user IDENTIFIED WITH NO_PASSWORD SETTINGS test_variable = 'test_value' |",
     );
 
     const keywordsSuggestion: KeywordSuggestion[] = [
@@ -182,7 +165,7 @@ test('should suggest properly after settings expression', () => {
 
 test('should suggest properly after HOST', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor(
-        'CREATE USER test_user IDENTIFIED WITH NO_PASSWORD HOST |',
+        'ALTER USER test_user IDENTIFIED WITH NO_PASSWORD HOST |',
     );
 
     const keywordsSuggestion: KeywordSuggestion[] = [
@@ -199,7 +182,7 @@ test('should suggest properly after HOST', () => {
 
 test('should suggest properly after grantees identifier', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor(
-        'CREATE USER test_user IDENTIFIED WITH NO_PASSWORD GRANTEES test_user |',
+        'ALTER USER test_user IDENTIFIED WITH NO_PASSWORD GRANTEES test_user |',
     );
 
     const keywordsSuggestion: KeywordSuggestion[] = [
@@ -213,7 +196,7 @@ test('should suggest properly after grantees identifier', () => {
 
 test('should suggest properly after LDAP', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor(
-        'CREATE USER test_user IDENTIFIED WITH LDAP |',
+        'ALTER USER test_user IDENTIFIED WITH LDAP |',
     );
 
     const keywordsSuggestion: KeywordSuggestion[] = [{value: 'SERVER'}];
@@ -222,7 +205,7 @@ test('should suggest properly after LDAP', () => {
 
 test('should suggest properly after KERBEROS', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor(
-        'CREATE USER test_user IDENTIFIED WITH KERBEROS |',
+        'ALTER USER test_user IDENTIFIED WITH KERBEROS |',
     );
 
     const keywordsSuggestion: KeywordSuggestion[] = [{value: 'REALM'}];
@@ -231,7 +214,7 @@ test('should suggest properly after KERBEROS', () => {
 
 test('should suggest properly after SSL_CERTIFICATE', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor(
-        'CREATE USER test_user IDENTIFIED WITH SSL_CERTIFICATE |',
+        'ALTER USER test_user IDENTIFIED WITH SSL_CERTIFICATE |',
     );
 
     const keywordsSuggestion: KeywordSuggestion[] = [{value: 'SAN'}, {value: 'CN'}];
@@ -240,7 +223,7 @@ test('should suggest properly after SSL_CERTIFICATE', () => {
 
 test('should suggest properly after SSH_KEY', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor(
-        'CREATE USER test_user IDENTIFIED WITH SSH_KEY |',
+        'ALTER USER test_user IDENTIFIED WITH SSH_KEY |',
     );
 
     const keywordsSuggestion: KeywordSuggestion[] = [{value: 'BY'}];
@@ -249,7 +232,7 @@ test('should suggest properly after SSH_KEY', () => {
 
 test('should suggest properly after BY', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor(
-        'CREATE USER test_user IDENTIFIED WITH SSH_KEY BY |',
+        'ALTER USER test_user IDENTIFIED WITH SSH_KEY BY |',
     );
 
     const keywordsSuggestion: KeywordSuggestion[] = [{value: 'KEY'}];
@@ -258,7 +241,7 @@ test('should suggest properly after BY', () => {
 
 test('should suggest properly after key identifier', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor(
-        "CREATE USER test_user IDENTIFIED WITH SSH_KEY BY KEY 'test_key' |",
+        "ALTER USER test_user IDENTIFIED WITH SSH_KEY BY KEY 'test_key' |",
     );
 
     const keywordsSuggestion: KeywordSuggestion[] = [{value: 'TYPE'}];
@@ -267,7 +250,7 @@ test('should suggest properly after key identifier', () => {
 
 test('should suggest next ssh_key identification properly after comma', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor(
-        "CREATE USER test_user IDENTIFIED WITH SSH_KEY BY KEY 'test_key' TYPE 'test_type', |",
+        "ALTER USER test_user IDENTIFIED WITH SSH_KEY BY KEY 'test_key' TYPE 'test_type', |",
     );
 
     const keywordsSuggestion: KeywordSuggestion[] = [{value: 'KEY'}];
@@ -276,25 +259,25 @@ test('should suggest next ssh_key identification properly after comma', () => {
 
 test('should not report errors', () => {
     const autocompleteResult = parseClickHouseQueryWithoutCursor(`
-        CREATE USER test_user;
-        CREATE USER test_user NOT IDENTIFIED;
-        CREATE USER test_user IDENTIFIED BY 'test_password';
-        CREATE USER test_user IDENTIFIED WITH LDAP SERVER 'test_server';
-        CREATE USER test_user IDENTIFIED WITH NO_PASSWORD;
-        CREATE USER test_user IDENTIFIED WITH PLAINTEXT_PASSWORD BY 'test_password';
-        CREATE USER test_user IDENTIFIED WITH SHA256_PASSWORD BY 'test_password';
-        CREATE USER test_user IDENTIFIED WITH SHA256_HASH BY 'test_password';
-        CREATE USER test_user IDENTIFIED WITH DOUBLE_SHA1_PASSWORD BY 'test_password';
-        CREATE USER test_user IDENTIFIED WITH DOUBLE_SHA1_HASH BY 'test_password';
-        CREATE USER test_user IDENTIFIED WITH BCRYPT_PASSWORD BY 'test_password';
-        CREATE USER test_user IDENTIFIED WITH BCRYPT_HASH BY 'test_password';
-        CREATE USER test_user IDENTIFIED WITH KERBEROS REALM 'test_string';
-        CREATE USER test_user IDENTIFIED WITH SSL_CERTIFICATE CN 'test_string';
-        CREATE USER test_user IDENTIFIED WITH SSL_CERTIFICATE SAN 'test_string';
-        CREATE USER test_user IDENTIFIED WITH SSH_KEY BY KEY 'test_key1' TYPE 'test_type';
-        CREATE USER test_user IDENTIFIED WITH SSH_KEY BY KEY 'test_key1' TYPE 'test_type1', KEY 'test_key2' TYPE 'test_type2';
-        CREATE USER test_user IDENTIFIED WITH HTTP SERVER 'test_server';
-        CREATE USER test_user IDENTIFIED WITH HTTP SERVER 'test_server' scheme 'test_scheme';
+        ALTER USER test_user;
+        ALTER USER test_user NOT IDENTIFIED;
+        ALTER USER test_user IDENTIFIED BY 'test_password';
+        ALTER USER test_user IDENTIFIED WITH LDAP SERVER 'test_server';
+        ALTER USER test_user IDENTIFIED WITH NO_PASSWORD;
+        ALTER USER test_user IDENTIFIED WITH PLAINTEXT_PASSWORD BY 'test_password';
+        ALTER USER test_user IDENTIFIED WITH SHA256_PASSWORD BY 'test_password';
+        ALTER USER test_user IDENTIFIED WITH SHA256_HASH BY 'test_password';
+        ALTER USER test_user IDENTIFIED WITH DOUBLE_SHA1_PASSWORD BY 'test_password';
+        ALTER USER test_user IDENTIFIED WITH DOUBLE_SHA1_HASH BY 'test_password';
+        ALTER USER test_user IDENTIFIED WITH BCRYPT_PASSWORD BY 'test_password';
+        ALTER USER test_user IDENTIFIED WITH BCRYPT_HASH BY 'test_password';
+        ALTER USER test_user IDENTIFIED WITH KERBEROS REALM 'test_string';
+        ALTER USER test_user IDENTIFIED WITH SSL_CERTIFICATE CN 'test_string';
+        ALTER USER test_user IDENTIFIED WITH SSL_CERTIFICATE SAN 'test_string';
+        ALTER USER test_user IDENTIFIED WITH SSH_KEY BY KEY 'test_key1' TYPE 'test_type';
+        ALTER USER test_user IDENTIFIED WITH SSH_KEY BY KEY 'test_key1' TYPE 'test_type1', KEY 'test_key2' TYPE 'test_type2';
+        ALTER USER test_user IDENTIFIED WITH HTTP SERVER 'test_server';
+        ALTER USER test_user IDENTIFIED WITH HTTP SERVER 'test_server' scheme 'test_scheme';
     `);
 
     expect(autocompleteResult.errors).toHaveLength(0);
@@ -302,13 +285,12 @@ test('should not report errors', () => {
 
 test('should not report errors on extended statements', () => {
     const autocompleteResult = parseClickHouseQueryWithoutCursor(`
-        CREATE USER
-            test_user
+        ALTER USER
+            test_user1 RENAME TO test_user2
         NOT IDENTIFIED
         HOST NAME 'test_name', REGEXP 'test_regexp', IP 'test_ip', LIKE 'test_string', ANY, NONE, LOCAL
-        VALID UNTIL '2025-01-01' IN 'test_access_storage_type'
+        VALID UNTIL '2025-01-01'
         DEFAULT ROLE test_role1, test_role2
-        DEFAULT DATABASE test_database
         GRANTEES test_user1, test_role2, ANY, NONE EXCEPT test_user1, test_role2
         SETTINGS
             test_variable1 = 'test_value1' MIN = 'test_value_min1' MAX = 'test_value_max1' READONLY,
@@ -316,13 +298,12 @@ test('should not report errors on extended statements', () => {
             PROFILE 'test_profile'
         ;
 
-        CREATE USER
-            test_user
+        ALTER USER
+            test_user1, test_user2, test_user3
         IDENTIFIED BY 'test_password'
         HOST NAME 'test_name', REGEXP 'test_regexp', IP 'test_ip', LIKE 'test_string', ANY, NONE, LOCAL
-        VALID UNTIL '2025-01-01' IN 'test_access_storage_type'
+        VALID UNTIL '2025-01-01'
         DEFAULT ROLE test_role1, test_role2
-        DEFAULT DATABASE test_database
         GRANTEES test_user1, test_role2, ANY, NONE EXCEPT test_user1, test_role2
         SETTINGS
             test_variable1 = 'test_value1' MIN = 'test_value_min1' MAX = 'test_value_max1' READONLY,
@@ -330,13 +311,12 @@ test('should not report errors on extended statements', () => {
             PROFILE 'test_profile'
         ;
 
-        CREATE USER
+        ALTER USER
             test_user
         IDENTIFIED WITH LDAP SERVER 'test_server'
-        HOST NAME 'test_name', REGEXP 'test_regexp', IP 'test_ip', LIKE 'test_string', ANY, NONE, LOCAL
-        VALID UNTIL '2025-01-01' IN 'test_access_storage_type'
+        ADD HOST NAME 'test_name', REGEXP 'test_regexp', IP 'test_ip', LIKE 'test_string', ANY, NONE, LOCAL
+        VALID UNTIL '2025-01-01'
         DEFAULT ROLE test_role1, test_role2
-        DEFAULT DATABASE test_database
         GRANTEES test_user1, test_role2, ANY, NONE EXCEPT test_user1, test_role2
         SETTINGS
             test_variable1 = 'test_value1' MIN = 'test_value_min1' MAX = 'test_value_max1' READONLY,
@@ -344,13 +324,12 @@ test('should not report errors on extended statements', () => {
             PROFILE 'test_profile'
         ;
 
-        CREATE USER
+        ALTER USER
             test_user
         IDENTIFIED WITH NO_PASSWORD
-        HOST NAME 'test_name', REGEXP 'test_regexp', IP 'test_ip', LIKE 'test_string', ANY, NONE, LOCAL
-        VALID UNTIL '2025-01-01' IN 'test_access_storage_type'
+        DROP HOST NAME 'test_name', REGEXP 'test_regexp', IP 'test_ip', LIKE 'test_string', ANY, NONE, LOCAL
+        VALID UNTIL '2025-01-01'
         DEFAULT ROLE test_role1, test_role2
-        DEFAULT DATABASE test_database
         GRANTEES test_user1, test_role2, ANY, NONE EXCEPT test_user1, test_role2
         SETTINGS
             test_variable1 = 'test_value1' MIN = 'test_value_min1' MAX = 'test_value_max1' READONLY,
@@ -358,13 +337,12 @@ test('should not report errors on extended statements', () => {
             PROFILE 'test_profile'
         ;
 
-        CREATE USER
+        ALTER USER
             test_user
         IDENTIFIED WITH PLAINTEXT_PASSWORD BY 'test_password'
         HOST NAME 'test_name', REGEXP 'test_regexp', IP 'test_ip', LIKE 'test_string', ANY, NONE, LOCAL
-        VALID UNTIL '2025-01-01' IN 'test_access_storage_type'
+        VALID UNTIL '2025-01-01'
         DEFAULT ROLE test_role1, test_role2
-        DEFAULT DATABASE test_database
         GRANTEES test_user1, test_role2, ANY, NONE EXCEPT test_user1, test_role2
         SETTINGS
             test_variable1 = 'test_value1' MIN = 'test_value_min1' MAX = 'test_value_max1' READONLY,
@@ -372,13 +350,12 @@ test('should not report errors on extended statements', () => {
             PROFILE 'test_profile'
         ;
 
-        CREATE USER
+        ALTER USER
             test_user
         IDENTIFIED WITH SHA256_PASSWORD BY 'test_password'
         HOST NAME 'test_name', REGEXP 'test_regexp', IP 'test_ip', LIKE 'test_string', ANY, NONE, LOCAL
-        VALID UNTIL '2025-01-01' IN 'test_access_storage_type'
+        VALID UNTIL '2025-01-01'
         DEFAULT ROLE test_role1, test_role2
-        DEFAULT DATABASE test_database
         GRANTEES test_user1, test_role2, ANY, NONE EXCEPT test_user1, test_role2
         SETTINGS
             test_variable1 = 'test_value1' MIN = 'test_value_min1' MAX = 'test_value_max1' READONLY,
@@ -386,13 +363,12 @@ test('should not report errors on extended statements', () => {
             PROFILE 'test_profile'
         ;
 
-        CREATE USER
+        ALTER USER
             test_user
         IDENTIFIED WITH SHA256_HASH BY 'test_password'
         HOST NAME 'test_name', REGEXP 'test_regexp', IP 'test_ip', LIKE 'test_string', ANY, NONE, LOCAL
-        VALID UNTIL '2025-01-01' IN 'test_access_storage_type'
+        VALID UNTIL '2025-01-01'
         DEFAULT ROLE test_role1, test_role2
-        DEFAULT DATABASE test_database
         GRANTEES test_user1, test_role2, ANY, NONE EXCEPT test_user1, test_role2
         SETTINGS
             test_variable1 = 'test_value1' MIN = 'test_value_min1' MAX = 'test_value_max1' READONLY,
@@ -400,13 +376,12 @@ test('should not report errors on extended statements', () => {
             PROFILE 'test_profile'
         ;
 
-        CREATE USER
+        ALTER USER
             test_user
         IDENTIFIED WITH DOUBLE_SHA1_PASSWORD BY 'test_password'
         HOST NAME 'test_name', REGEXP 'test_regexp', IP 'test_ip', LIKE 'test_string', ANY, NONE, LOCAL
-        VALID UNTIL '2025-01-01' IN 'test_access_storage_type'
+        VALID UNTIL '2025-01-01'
         DEFAULT ROLE test_role1, test_role2
-        DEFAULT DATABASE test_database
         GRANTEES test_user1, test_role2, ANY, NONE EXCEPT test_user1, test_role2
         SETTINGS
             test_variable1 = 'test_value1' MIN = 'test_value_min1' MAX = 'test_value_max1' READONLY,
@@ -414,13 +389,12 @@ test('should not report errors on extended statements', () => {
             PROFILE 'test_profile'
         ;
 
-        CREATE USER
+        ALTER USER
             test_user
         IDENTIFIED WITH DOUBLE_SHA1_HASH BY 'test_password'
         HOST NAME 'test_name', REGEXP 'test_regexp', IP 'test_ip', LIKE 'test_string', ANY, NONE, LOCAL
-        VALID UNTIL '2025-01-01' IN 'test_access_storage_type'
+        VALID UNTIL '2025-01-01'
         DEFAULT ROLE test_role1, test_role2
-        DEFAULT DATABASE test_database
         GRANTEES test_user1, test_role2, ANY, NONE EXCEPT test_user1, test_role2
         SETTINGS
             test_variable1 = 'test_value1' MIN = 'test_value_min1' MAX = 'test_value_max1' READONLY,
@@ -428,13 +402,12 @@ test('should not report errors on extended statements', () => {
             PROFILE 'test_profile'
         ;
 
-        CREATE USER
+        ALTER USER
             test_user
         IDENTIFIED WITH BCRYPT_PASSWORD BY 'test_password'
         HOST NAME 'test_name', REGEXP 'test_regexp', IP 'test_ip', LIKE 'test_string', ANY, NONE, LOCAL
-        VALID UNTIL '2025-01-01' IN 'test_access_storage_type'
+        VALID UNTIL '2025-01-01'
         DEFAULT ROLE test_role1, test_role2
-        DEFAULT DATABASE test_database
         GRANTEES test_user1, test_role2, ANY, NONE EXCEPT test_user1, test_role2
         SETTINGS
             test_variable1 = 'test_value1' MIN = 'test_value_min1' MAX = 'test_value_max1' READONLY,
@@ -442,13 +415,12 @@ test('should not report errors on extended statements', () => {
             PROFILE 'test_profile'
         ;
 
-        CREATE USER
+        ALTER USER
             test_user
         IDENTIFIED WITH BCRYPT_HASH BY 'test_password'
         HOST NAME 'test_name', REGEXP 'test_regexp', IP 'test_ip', LIKE 'test_string', ANY, NONE, LOCAL
-        VALID UNTIL '2025-01-01' IN 'test_access_storage_type'
+        VALID UNTIL '2025-01-01'
         DEFAULT ROLE test_role1, test_role2
-        DEFAULT DATABASE test_database
         GRANTEES test_user1, test_role2, ANY, NONE EXCEPT test_user1, test_role2
         SETTINGS
             test_variable1 = 'test_value1' MIN = 'test_value_min1' MAX = 'test_value_max1' READONLY,
@@ -456,13 +428,12 @@ test('should not report errors on extended statements', () => {
             PROFILE 'test_profile'
         ;
 
-        CREATE USER
+        ALTER USER
             test_user
         IDENTIFIED WITH KERBEROS REALM 'test_string'
         HOST NAME 'test_name', REGEXP 'test_regexp', IP 'test_ip', LIKE 'test_string', ANY, NONE, LOCAL
-        VALID UNTIL '2025-01-01' IN 'test_access_storage_type'
+        VALID UNTIL '2025-01-01'
         DEFAULT ROLE test_role1, test_role2
-        DEFAULT DATABASE test_database
         GRANTEES test_user1, test_role2, ANY, NONE EXCEPT test_user1, test_role2
         SETTINGS
             test_variable1 = 'test_value1' MIN = 'test_value_min1' MAX = 'test_value_max1' READONLY,
@@ -470,13 +441,12 @@ test('should not report errors on extended statements', () => {
             PROFILE 'test_profile'
         ;
 
-        CREATE USER
+        ALTER USER
             test_user
         IDENTIFIED WITH SSL_CERTIFICATE CN 'test_string'
         HOST NAME 'test_name', REGEXP 'test_regexp', IP 'test_ip', LIKE 'test_string', ANY, NONE, LOCAL
-        VALID UNTIL '2025-01-01' IN 'test_access_storage_type'
+        VALID UNTIL '2025-01-01'
         DEFAULT ROLE test_role1, test_role2
-        DEFAULT DATABASE test_database
         GRANTEES test_user1, test_role2, ANY, NONE EXCEPT test_user1, test_role2
         SETTINGS
             test_variable1 = 'test_value1' MIN = 'test_value_min1' MAX = 'test_value_max1' READONLY,
@@ -484,13 +454,12 @@ test('should not report errors on extended statements', () => {
             PROFILE 'test_profile'
         ;
 
-        CREATE USER
+        ALTER USER
             test_user
         IDENTIFIED WITH SSL_CERTIFICATE SAN 'test_string'
         HOST NAME 'test_name', REGEXP 'test_regexp', IP 'test_ip', LIKE 'test_string', ANY, NONE, LOCAL
-        VALID UNTIL '2025-01-01' IN 'test_access_storage_type'
+        VALID UNTIL '2025-01-01'
         DEFAULT ROLE test_role1, test_role2
-        DEFAULT DATABASE test_database
         GRANTEES test_user1, test_role2, ANY, NONE EXCEPT test_user1, test_role2
         SETTINGS
             test_variable1 = 'test_value1' MIN = 'test_value_min1' MAX = 'test_value_max1' READONLY,
@@ -498,13 +467,12 @@ test('should not report errors on extended statements', () => {
             PROFILE 'test_profile'
         ;
 
-        CREATE USER
+        ALTER USER
             test_user
         IDENTIFIED WITH SSH_KEY BY KEY 'test_key1' TYPE 'test_type'
         HOST NAME 'test_name', REGEXP 'test_regexp', IP 'test_ip', LIKE 'test_string', ANY, NONE, LOCAL
-        VALID UNTIL '2025-01-01' IN 'test_access_storage_type'
+        VALID UNTIL '2025-01-01'
         DEFAULT ROLE test_role1, test_role2
-        DEFAULT DATABASE test_database
         GRANTEES test_user1, test_role2, ANY, NONE EXCEPT test_user1, test_role2
         SETTINGS
             test_variable1 = 'test_value1' MIN = 'test_value_min1' MAX = 'test_value_max1' READONLY,
@@ -512,13 +480,12 @@ test('should not report errors on extended statements', () => {
             PROFILE 'test_profile'
         ;
 
-        CREATE USER
+        ALTER USER
             test_user
         IDENTIFIED WITH SSH_KEY BY KEY 'test_key1' TYPE 'test_type1', KEY 'test_key2' TYPE 'test_type2'
         HOST NAME 'test_name', REGEXP 'test_regexp', IP 'test_ip', LIKE 'test_string', ANY, NONE, LOCAL
-        VALID UNTIL '2025-01-01' IN 'test_access_storage_type'
+        VALID UNTIL '2025-01-01'
         DEFAULT ROLE test_role1, test_role2
-        DEFAULT DATABASE test_database
         GRANTEES test_user1, test_role2, ANY, NONE EXCEPT test_user1, test_role2
         SETTINGS
             test_variable1 = 'test_value1' MIN = 'test_value_min1' MAX = 'test_value_max1' READONLY,
@@ -526,13 +493,12 @@ test('should not report errors on extended statements', () => {
             PROFILE 'test_profile'
         ;
 
-        CREATE USER
+        ALTER USER
             test_user
         IDENTIFIED WITH HTTP SERVER 'test_server'
         HOST NAME 'test_name', REGEXP 'test_regexp', IP 'test_ip', LIKE 'test_string', ANY, NONE, LOCAL
-        VALID UNTIL '2025-01-01' IN 'test_access_storage_type'
+        VALID UNTIL '2025-01-01'
         DEFAULT ROLE test_role1, test_role2
-        DEFAULT DATABASE test_database
         GRANTEES test_user1, test_role2, ANY, NONE EXCEPT test_user1, test_role2
         SETTINGS
             test_variable1 = 'test_value1' MIN = 'test_value_min1' MAX = 'test_value_max1' READONLY,
@@ -540,13 +506,12 @@ test('should not report errors on extended statements', () => {
             PROFILE 'test_profile'
         ;
 
-        CREATE USER
+        ALTER USER
             test_user
         IDENTIFIED WITH HTTP SERVER 'test_server' scheme 'test_scheme'
         HOST NAME 'test_name', REGEXP 'test_regexp', IP 'test_ip', LIKE 'test_string', ANY, NONE, LOCAL
-        VALID UNTIL '2025-01-01' IN 'test_access_storage_type'
+        VALID UNTIL '2025-01-01'
         DEFAULT ROLE test_role1, test_role2
-        DEFAULT DATABASE test_database
         GRANTEES test_user1, test_role2, ANY, NONE EXCEPT test_user1, test_role2
         SETTINGS
             test_variable1 = 'test_value1' MIN = 'test_value_min1' MAX = 'test_value_max1' READONLY,
