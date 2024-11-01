@@ -3,7 +3,7 @@ import {parseClickHouseQueryWithCursor} from '../../index';
 
 test('should suggest keywords after ALTER', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor('ALTER |');
-    const keywords: KeywordSuggestion[] = [{value: 'USER'}, {value: 'TABLE'}];
+    const keywords: KeywordSuggestion[] = [{value: 'QUOTA'}, {value: 'USER'}, {value: 'TABLE'}];
 
     expect(autocompleteResult.suggestKeywords).toEqual(keywords);
 });

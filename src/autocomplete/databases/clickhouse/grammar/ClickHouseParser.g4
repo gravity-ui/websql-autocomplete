@@ -66,6 +66,11 @@ columnAliases
 alterStatement
     : alterTableStatement
     | alterUserStatement
+    | alterQuotaStatement
+    ;
+
+alterQuotaStatement
+    : ALTER QUOTA (IF EXISTS)? identifier clusterClause? renameClause? quotaKeyClause? quotaForList? (TO subjectExpressionList)?
     ;
 
 alterUserStatement
