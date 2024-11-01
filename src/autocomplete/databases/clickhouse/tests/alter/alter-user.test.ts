@@ -58,16 +58,10 @@ test('should suggest properly after IF', () => {
         {value: 'IDENTIFIED'},
         {value: 'ON'},
         {value: 'RENAME'},
+        {value: 'EXISTS'},
         {value: 'FORMAT'},
         {value: 'INTO'},
     ];
-    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
-});
-
-test('should suggest properly after NOT', () => {
-    const autocompleteResult = parseClickHouseQueryWithCursor('ALTER USER IF NOT |');
-
-    const keywordsSuggestion: KeywordSuggestion[] = [{value: 'IDENTIFIED'}, {value: 'EXISTS'}];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 

@@ -89,7 +89,7 @@ import { SubjectOrAllOrExceptContext } from "./ClickHouseParser.js";
 import { SubjectExpressionContext } from "./ClickHouseParser.js";
 import { CreateRowPolicyStatementContext } from "./ClickHouseParser.js";
 import { QuotaKeyTypeContext } from "./ClickHouseParser.js";
-import { QuotaKeyedByClauseContext } from "./ClickHouseParser.js";
+import { QuotaKeyClauseContext } from "./ClickHouseParser.js";
 import { QuotaRestrictionTypeContext } from "./ClickHouseParser.js";
 import { StringOrNumberLiteralContext } from "./ClickHouseParser.js";
 import { QuotaRestrictionExpressionContext } from "./ClickHouseParser.js";
@@ -815,11 +815,11 @@ export class ClickHouseParserVisitor<Result> extends AbstractParseTreeVisitor<Re
      */
     visitQuotaKeyType?: (ctx: QuotaKeyTypeContext) => Result;
     /**
-     * Visit a parse tree produced by `ClickHouseParser.quotaKeyedByClause`.
+     * Visit a parse tree produced by `ClickHouseParser.quotaKeyClause`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitQuotaKeyedByClause?: (ctx: QuotaKeyedByClauseContext) => Result;
+    visitQuotaKeyClause?: (ctx: QuotaKeyClauseContext) => Result;
     /**
      * Visit a parse tree produced by `ClickHouseParser.quotaRestrictionType`.
      * @param ctx the parse tree

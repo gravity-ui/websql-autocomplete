@@ -69,7 +69,7 @@ alterStatement
     ;
 
 alterUserStatement
-    : ALTER USER (IF NOT EXISTS)? identifier (renameClause | COMMA identifierList)? clusterClause? userIdentificationClause? ((ADD | DROP)? hostClause)? validUntilClause? defaultRoleClause? granteesClause? extendedSettingsClause?
+    : ALTER USER (IF EXISTS)? identifier (renameClause | COMMA identifierList)? clusterClause? userIdentificationClause? ((ADD | DROP)? hostClause)? validUntilClause? defaultRoleClause? granteesClause? extendedSettingsClause?
     ;
 
 renameClause
@@ -305,13 +305,13 @@ quotaKeyType
     : USER_NAME
     | IP_ADDRESS
     | CLIENT_KEY (COMMA (USER_NAME | IP_ADDRESS))?
-    | NOT KEYED
     | CLIENT_KEY_OR_USER_NAME
     | CLIENT_KEY_OR_IP_ADDRESS
     ;
 
-quotaKeyedByClause
+quotaKeyClause
     : (KEYED | KEY) BY quotaKeyType
+    | NOT KEYED
     ;
 
 quotaRestrictionType
@@ -339,7 +339,6 @@ quotaRestrictionExpression
 quotaRestrictionClause
     : quotaRestrictionExpression (COMMA quotaRestrictionExpression)*
     | NO LIMITS
-    | NOT KEYED
     | TRACKING ONLY
     ;
 
@@ -356,7 +355,7 @@ quotaForList
     ;
 
 createQuotaStatement
-    : CREATE QUOTA replaceOrIfNotExistsClause? identifierList clusterClause? inClause? quotaKeyedByClause? quotaForList? (NOT KEYED)? (TO subjectExpressionList)?
+    : CREATE QUOTA replaceOrIfNotExistsClause? identifierList clusterClause? inClause? quotaKeyClause? quotaForList? (TO subjectExpressionList)?
     ;
 
 identifierList
