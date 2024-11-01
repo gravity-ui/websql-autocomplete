@@ -20,6 +20,7 @@ import { CommonTableExpressionStatementContext } from "./ClickHouseParser.js";
 import { NamedQueryContext } from "./ClickHouseParser.js";
 import { ColumnAliasesContext } from "./ClickHouseParser.js";
 import { AlterStatementContext } from "./ClickHouseParser.js";
+import { AlterNamedCollectionStatementContext } from "./ClickHouseParser.js";
 import { AlterRoleStatementContext } from "./ClickHouseParser.js";
 import { AlterPolicyExpressionContext } from "./ClickHouseParser.js";
 import { AlterRowPolicyStatementContext } from "./ClickHouseParser.js";
@@ -108,7 +109,7 @@ import { IdentifierListContext } from "./ClickHouseParser.js";
 import { CreateRoleStatementContext } from "./ClickHouseParser.js";
 import { CreateSettingsProfileStatementContext } from "./ClickHouseParser.js";
 import { NamedCollectionExpressionContext } from "./ClickHouseParser.js";
-import { NamedCollectionClauseContext } from "./ClickHouseParser.js";
+import { NamedCollectionExpressionListContext } from "./ClickHouseParser.js";
 import { CreateNamedCollectionStatementContext } from "./ClickHouseParser.js";
 import { ExpressionOperandContext } from "./ClickHouseParser.js";
 import { ExpressionContext } from "./ClickHouseParser.js";
@@ -377,6 +378,12 @@ export class ClickHouseParserVisitor<Result> extends AbstractParseTreeVisitor<Re
      * @return the visitor result
      */
     visitAlterStatement?: (ctx: AlterStatementContext) => Result;
+    /**
+     * Visit a parse tree produced by `ClickHouseParser.alterNamedCollectionStatement`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitAlterNamedCollectionStatement?: (ctx: AlterNamedCollectionStatementContext) => Result;
     /**
      * Visit a parse tree produced by `ClickHouseParser.alterRoleStatement`.
      * @param ctx the parse tree
@@ -935,11 +942,11 @@ export class ClickHouseParserVisitor<Result> extends AbstractParseTreeVisitor<Re
      */
     visitNamedCollectionExpression?: (ctx: NamedCollectionExpressionContext) => Result;
     /**
-     * Visit a parse tree produced by `ClickHouseParser.namedCollectionClause`.
+     * Visit a parse tree produced by `ClickHouseParser.namedCollectionExpressionList`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitNamedCollectionClause?: (ctx: NamedCollectionClauseContext) => Result;
+    visitNamedCollectionExpressionList?: (ctx: NamedCollectionExpressionListContext) => Result;
     /**
      * Visit a parse tree produced by `ClickHouseParser.createNamedCollectionStatement`.
      * @param ctx the parse tree

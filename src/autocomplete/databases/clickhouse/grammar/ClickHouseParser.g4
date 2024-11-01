@@ -69,6 +69,11 @@ alterStatement
     | alterQuotaStatement
     | alterRowPolicyStatement
     | alterRoleStatement
+    | alterNamedCollectionStatement
+    ;
+
+alterNamedCollectionStatement
+    : ALTER NAMED COLLECTION (IF EXISTS)? identifier clusterClause? (SET namedCollectionExpressionList | DELETE identifierList)?
     ;
 
 alterRoleStatement
@@ -401,12 +406,12 @@ namedCollectionExpression
     : identifier EQ_SINGLE stringOrNumberLiteral (NOT? OVERRIDABLE)?
     ;
 
-namedCollectionClause
+namedCollectionExpressionList
     : namedCollectionExpression (COMMA namedCollectionExpression)*
     ;
 
 createNamedCollectionStatement
-    : CREATE NAMED COLLECTION (IF NOT EXISTS)? identifier clusterClause? AS namedCollectionClause
+    : CREATE NAMED COLLECTION (IF NOT EXISTS)? identifier clusterClause? AS namedCollectionExpressionList
     ;
 
 expressionOperand
