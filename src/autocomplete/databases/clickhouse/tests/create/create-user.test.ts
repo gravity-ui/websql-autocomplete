@@ -313,6 +313,8 @@ test('should not report errors on extended statements', () => {
         SETTINGS
             test_variable1 = 'test_value1' MIN = 'test_value_min1' MAX = 'test_value_max1' READONLY,
             test_variable2 = 'test_value2' MIN 'test_value_min2' MAX 'test_value_max2' WRITABLE,
+            test_variable3 = 'test_value3' MIN 'test_value_min3' MAX 'test_value_max3' CONST,
+            test_variable4 = 'test_value4' MIN 'test_value_min4' MAX 'test_value_max4' CHANGEABLE_IN_READONLY,
             PROFILE 'test_profile'
         ;
 

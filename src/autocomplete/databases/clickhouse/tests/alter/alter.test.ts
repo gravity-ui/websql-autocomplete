@@ -4,6 +4,7 @@ import {parseClickHouseQueryWithCursor} from '../../index';
 test('should suggest keywords after ALTER', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor('ALTER |');
     const keywords: KeywordSuggestion[] = [
+        {value: 'ROLE'},
         {value: 'POLICY'},
         {value: 'ROW'},
         {value: 'QUOTA'},

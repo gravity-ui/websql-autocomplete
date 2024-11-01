@@ -68,6 +68,11 @@ alterStatement
     | alterUserStatement
     | alterQuotaStatement
     | alterRowPolicyStatement
+    | alterRoleStatement
+    ;
+
+alterRoleStatement
+    : ALTER ROLE (IF EXISTS)? identifier (renameClause | COMMA identifierList)? clusterClause? extendedSettingsClause?
     ;
 
 alterPolicyExpression

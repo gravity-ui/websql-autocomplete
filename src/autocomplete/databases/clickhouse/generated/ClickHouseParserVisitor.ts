@@ -20,6 +20,7 @@ import { CommonTableExpressionStatementContext } from "./ClickHouseParser.js";
 import { NamedQueryContext } from "./ClickHouseParser.js";
 import { ColumnAliasesContext } from "./ClickHouseParser.js";
 import { AlterStatementContext } from "./ClickHouseParser.js";
+import { AlterRoleStatementContext } from "./ClickHouseParser.js";
 import { AlterPolicyExpressionContext } from "./ClickHouseParser.js";
 import { AlterRowPolicyStatementContext } from "./ClickHouseParser.js";
 import { AlterQuotaStatementContext } from "./ClickHouseParser.js";
@@ -376,6 +377,12 @@ export class ClickHouseParserVisitor<Result> extends AbstractParseTreeVisitor<Re
      * @return the visitor result
      */
     visitAlterStatement?: (ctx: AlterStatementContext) => Result;
+    /**
+     * Visit a parse tree produced by `ClickHouseParser.alterRoleStatement`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitAlterRoleStatement?: (ctx: AlterRoleStatementContext) => Result;
     /**
      * Visit a parse tree produced by `ClickHouseParser.alterPolicyExpression`.
      * @param ctx the parse tree
