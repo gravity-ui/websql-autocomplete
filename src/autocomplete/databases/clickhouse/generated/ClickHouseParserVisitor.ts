@@ -57,6 +57,7 @@ import { AlterTableClauseRemoveTTLContext } from "./ClickHouseParser.js";
 import { AlterTableClauseRenameContext } from "./ClickHouseParser.js";
 import { AlterTableClauseReplaceContext } from "./ClickHouseParser.js";
 import { AlterTableClauseUpdateContext } from "./ClickHouseParser.js";
+import { AlterTableClauseResetContext } from "./ClickHouseParser.js";
 import { AssignmentExpressionListContext } from "./ClickHouseParser.js";
 import { AssignmentExpressionContext } from "./ClickHouseParser.js";
 import { TableColumnPropertyTypeContext } from "./ClickHouseParser.js";
@@ -632,6 +633,13 @@ export class ClickHouseParserVisitor<Result> extends AbstractParseTreeVisitor<Re
      * @return the visitor result
      */
     visitAlterTableClauseUpdate?: (ctx: AlterTableClauseUpdateContext) => Result;
+    /**
+     * Visit a parse tree produced by the `AlterTableClauseReset`
+     * labeled alternative in `ClickHouseParser.alterTableClause`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitAlterTableClauseReset?: (ctx: AlterTableClauseResetContext) => Result;
     /**
      * Visit a parse tree produced by `ClickHouseParser.assignmentExpressionList`.
      * @param ctx the parse tree

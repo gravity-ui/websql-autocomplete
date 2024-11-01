@@ -25,6 +25,25 @@ test('should suggest keywords after TABLE', () => {
     expect(autocompleteResult.suggestViewsOrTables).toEqual(TableOrViewSuggestion.TABLES);
 });
 
+test('should suggest keywords after MODIFY', () => {
+    const autocompleteResult = parseClickHouseQueryWithCursor('ALTER TABLE test_table MODIFY |');
+
+    const keywords: KeywordSuggestion[] = [
+        {value: 'SETTING'},
+        {value: 'TTL'},
+        {value: 'ORDER'},
+        {value: 'COLUMN'},
+    ];
+    expect(autocompleteResult.suggestKeywords).toEqual(keywords);
+});
+
+test('should suggest keywords after RESET', () => {
+    const autocompleteResult = parseClickHouseQueryWithCursor('ALTER TABLE test_table RESET |');
+
+    const keywords: KeywordSuggestion[] = [{value: 'SETTING'}];
+    expect(autocompleteResult.suggestKeywords).toEqual(keywords);
+});
+
 test('should suggest tables after ALTER TABLE between statements', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor(
         'DROP VIEW before_view; ALTER TABLE | ; DROP VIEW after_view;',
@@ -52,6 +71,7 @@ test('should suggest keywords after table name', () => {
         {value: 'RENAME'},
         {value: 'REPLACE'},
         {value: 'UPDATE'},
+        {value: 'RESET'},
         {value: 'ON'},
     ];
     expect(autocompleteResult.suggestKeywords).toEqual(keywords);

@@ -138,6 +138,8 @@ alterTableClause
     | RENAME COLUMN (IF EXISTS)? columnIdentifier TO columnIdentifier                                      # AlterTableClauseRename
     | REPLACE partitionClause FROM tableIdentifier                                                         # AlterTableClauseReplace
     | UPDATE assignmentExpressionList whereClause                                                          # AlterTableClauseUpdate
+    | MODIFY SETTING settingExpressionList                                                                 # AlterTableClauseModify
+    | RESET SETTING identifierList                                                                         # AlterTableClauseReset
     ;
 
 assignmentExpressionList
@@ -1732,6 +1734,7 @@ keyword
     | CHANGEABLE_IN_READONLY
     | OVERRIDABLE
     | INHERIT
+    | RESET
     ;
 
 keywordForAlias
