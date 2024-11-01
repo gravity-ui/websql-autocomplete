@@ -67,6 +67,15 @@ alterStatement
     : alterTableStatement
     | alterUserStatement
     | alterQuotaStatement
+    | alterRowPolicyStatement
+    ;
+
+alterPolicyExpression
+    : identifier clusterClause? ON tableIdentifier renameClause?
+    ;
+
+alterRowPolicyStatement
+    : ALTER ROW? POLICY (IF EXISTS)? alterPolicyExpression (COMMA alterPolicyExpression)* (FOR SELECT)? usingClause? asPermissiveOrRestrictive? (TO subjectExpressionList)?
     ;
 
 alterQuotaStatement
@@ -267,7 +276,7 @@ tableIdentifierOrAnyTable
     | identifier DOT ASTERISK
     ;
 
-policyExpression
+createPolicyExpression
     : identifier clusterClause? ON tableIdentifierOrAnyTable
     ;
 
@@ -302,8 +311,16 @@ subjectExpression
     | ALL EXCEPT userOrRoleExpressionList
     ;
 
+asPermissiveOrRestrictive
+    : AS (PERMISSIVE | RESTRICTIVE)
+    ;
+
+usingClause
+    : USING (conditionClause | NONE)
+    ;
+
 createRowPolicyStatement
-    : CREATE ROW? POLICY replaceOrIfNotExistsClause? policyExpression (COMMA policyExpression)* inClause? (FOR SELECT)? USING conditionClause (AS (PERMISSIVE | RESTRICTIVE))? (TO subjectExpressionList)?
+    : CREATE ROW? POLICY replaceOrIfNotExistsClause? createPolicyExpression (COMMA createPolicyExpression)* inClause? (FOR SELECT)? usingClause? asPermissiveOrRestrictive? (TO subjectExpressionList)?
     ;
 
 quotaKeyType

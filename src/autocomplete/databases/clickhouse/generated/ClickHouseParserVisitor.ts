@@ -20,6 +20,8 @@ import { CommonTableExpressionStatementContext } from "./ClickHouseParser.js";
 import { NamedQueryContext } from "./ClickHouseParser.js";
 import { ColumnAliasesContext } from "./ClickHouseParser.js";
 import { AlterStatementContext } from "./ClickHouseParser.js";
+import { AlterPolicyExpressionContext } from "./ClickHouseParser.js";
+import { AlterRowPolicyStatementContext } from "./ClickHouseParser.js";
 import { AlterQuotaStatementContext } from "./ClickHouseParser.js";
 import { AlterUserStatementContext } from "./ClickHouseParser.js";
 import { RenameClauseContext } from "./ClickHouseParser.js";
@@ -81,13 +83,15 @@ import { DefaultRoleClauseContext } from "./ClickHouseParser.js";
 import { CreateUserStatementContext } from "./ClickHouseParser.js";
 import { ReplaceOrIfNotExistsClauseContext } from "./ClickHouseParser.js";
 import { TableIdentifierOrAnyTableContext } from "./ClickHouseParser.js";
-import { PolicyExpressionContext } from "./ClickHouseParser.js";
+import { CreatePolicyExpressionContext } from "./ClickHouseParser.js";
 import { IdentifierOrLiteralOrFunctionContext } from "./ClickHouseParser.js";
 import { FunctionExpressionContext } from "./ClickHouseParser.js";
 import { ConditionExpressionContext } from "./ClickHouseParser.js";
 import { ConditionClauseContext } from "./ClickHouseParser.js";
 import { SubjectOrAllOrExceptContext } from "./ClickHouseParser.js";
 import { SubjectExpressionContext } from "./ClickHouseParser.js";
+import { AsPermissiveOrRestrictiveContext } from "./ClickHouseParser.js";
+import { UsingClauseContext } from "./ClickHouseParser.js";
 import { CreateRowPolicyStatementContext } from "./ClickHouseParser.js";
 import { QuotaKeyTypeContext } from "./ClickHouseParser.js";
 import { QuotaKeyClauseContext } from "./ClickHouseParser.js";
@@ -372,6 +376,18 @@ export class ClickHouseParserVisitor<Result> extends AbstractParseTreeVisitor<Re
      * @return the visitor result
      */
     visitAlterStatement?: (ctx: AlterStatementContext) => Result;
+    /**
+     * Visit a parse tree produced by `ClickHouseParser.alterPolicyExpression`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitAlterPolicyExpression?: (ctx: AlterPolicyExpressionContext) => Result;
+    /**
+     * Visit a parse tree produced by `ClickHouseParser.alterRowPolicyStatement`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitAlterRowPolicyStatement?: (ctx: AlterRowPolicyStatementContext) => Result;
     /**
      * Visit a parse tree produced by `ClickHouseParser.alterQuotaStatement`.
      * @param ctx the parse tree
@@ -768,11 +784,11 @@ export class ClickHouseParserVisitor<Result> extends AbstractParseTreeVisitor<Re
      */
     visitTableIdentifierOrAnyTable?: (ctx: TableIdentifierOrAnyTableContext) => Result;
     /**
-     * Visit a parse tree produced by `ClickHouseParser.policyExpression`.
+     * Visit a parse tree produced by `ClickHouseParser.createPolicyExpression`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitPolicyExpression?: (ctx: PolicyExpressionContext) => Result;
+    visitCreatePolicyExpression?: (ctx: CreatePolicyExpressionContext) => Result;
     /**
      * Visit a parse tree produced by `ClickHouseParser.identifierOrLiteralOrFunction`.
      * @param ctx the parse tree
@@ -809,6 +825,18 @@ export class ClickHouseParserVisitor<Result> extends AbstractParseTreeVisitor<Re
      * @return the visitor result
      */
     visitSubjectExpression?: (ctx: SubjectExpressionContext) => Result;
+    /**
+     * Visit a parse tree produced by `ClickHouseParser.asPermissiveOrRestrictive`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitAsPermissiveOrRestrictive?: (ctx: AsPermissiveOrRestrictiveContext) => Result;
+    /**
+     * Visit a parse tree produced by `ClickHouseParser.usingClause`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitUsingClause?: (ctx: UsingClauseContext) => Result;
     /**
      * Visit a parse tree produced by `ClickHouseParser.createRowPolicyStatement`.
      * @param ctx the parse tree
