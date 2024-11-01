@@ -20,6 +20,7 @@ import { CommonTableExpressionStatementContext } from "./ClickHouseParser.js";
 import { NamedQueryContext } from "./ClickHouseParser.js";
 import { ColumnAliasesContext } from "./ClickHouseParser.js";
 import { AlterStatementContext } from "./ClickHouseParser.js";
+import { AlterSettingsProfileStatementContext } from "./ClickHouseParser.js";
 import { AlterNamedCollectionStatementContext } from "./ClickHouseParser.js";
 import { AlterRoleStatementContext } from "./ClickHouseParser.js";
 import { AlterPolicyExpressionContext } from "./ClickHouseParser.js";
@@ -79,7 +80,8 @@ import { GranteesClauseContext } from "./ClickHouseParser.js";
 import { HostTypeContext } from "./ClickHouseParser.js";
 import { HostClauseContext } from "./ClickHouseParser.js";
 import { ExtendedSettingExpressionContext } from "./ClickHouseParser.js";
-import { ExtendedSettingsClauseContext } from "./ClickHouseParser.js";
+import { ExtendedSettingExpressionWithProfileClauseContext } from "./ClickHouseParser.js";
+import { ExtendedSettingsWithProfileClauseContext } from "./ClickHouseParser.js";
 import { InClauseContext } from "./ClickHouseParser.js";
 import { DefaultRoleClauseContext } from "./ClickHouseParser.js";
 import { CreateUserStatementContext } from "./ClickHouseParser.js";
@@ -107,6 +109,8 @@ import { QuotaForListContext } from "./ClickHouseParser.js";
 import { CreateQuotaStatementContext } from "./ClickHouseParser.js";
 import { IdentifierListContext } from "./ClickHouseParser.js";
 import { CreateRoleStatementContext } from "./ClickHouseParser.js";
+import { ExtendedSettingExpressionWithProfileOrInheritClauseContext } from "./ClickHouseParser.js";
+import { ExtendedSettingsWithInheritClauseContext } from "./ClickHouseParser.js";
 import { CreateSettingsProfileStatementContext } from "./ClickHouseParser.js";
 import { NamedCollectionExpressionContext } from "./ClickHouseParser.js";
 import { NamedCollectionExpressionListContext } from "./ClickHouseParser.js";
@@ -378,6 +382,12 @@ export class ClickHouseParserVisitor<Result> extends AbstractParseTreeVisitor<Re
      * @return the visitor result
      */
     visitAlterStatement?: (ctx: AlterStatementContext) => Result;
+    /**
+     * Visit a parse tree produced by `ClickHouseParser.alterSettingsProfileStatement`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitAlterSettingsProfileStatement?: (ctx: AlterSettingsProfileStatementContext) => Result;
     /**
      * Visit a parse tree produced by `ClickHouseParser.alterNamedCollectionStatement`.
      * @param ctx the parse tree
@@ -762,11 +772,17 @@ export class ClickHouseParserVisitor<Result> extends AbstractParseTreeVisitor<Re
      */
     visitExtendedSettingExpression?: (ctx: ExtendedSettingExpressionContext) => Result;
     /**
-     * Visit a parse tree produced by `ClickHouseParser.extendedSettingsClause`.
+     * Visit a parse tree produced by `ClickHouseParser.extendedSettingExpressionWithProfileClause`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitExtendedSettingsClause?: (ctx: ExtendedSettingsClauseContext) => Result;
+    visitExtendedSettingExpressionWithProfileClause?: (ctx: ExtendedSettingExpressionWithProfileClauseContext) => Result;
+    /**
+     * Visit a parse tree produced by `ClickHouseParser.extendedSettingsWithProfileClause`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitExtendedSettingsWithProfileClause?: (ctx: ExtendedSettingsWithProfileClauseContext) => Result;
     /**
      * Visit a parse tree produced by `ClickHouseParser.inClause`.
      * @param ctx the parse tree
@@ -929,6 +945,18 @@ export class ClickHouseParserVisitor<Result> extends AbstractParseTreeVisitor<Re
      * @return the visitor result
      */
     visitCreateRoleStatement?: (ctx: CreateRoleStatementContext) => Result;
+    /**
+     * Visit a parse tree produced by `ClickHouseParser.extendedSettingExpressionWithProfileOrInheritClause`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitExtendedSettingExpressionWithProfileOrInheritClause?: (ctx: ExtendedSettingExpressionWithProfileOrInheritClauseContext) => Result;
+    /**
+     * Visit a parse tree produced by `ClickHouseParser.extendedSettingsWithInheritClause`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitExtendedSettingsWithInheritClause?: (ctx: ExtendedSettingsWithInheritClauseContext) => Result;
     /**
      * Visit a parse tree produced by `ClickHouseParser.createSettingsProfileStatement`.
      * @param ctx the parse tree

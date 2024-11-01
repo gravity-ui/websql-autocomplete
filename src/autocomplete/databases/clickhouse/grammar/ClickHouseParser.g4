@@ -70,14 +70,19 @@ alterStatement
     | alterRowPolicyStatement
     | alterRoleStatement
     | alterNamedCollectionStatement
+    | alterSettingsProfileStatement
+    ;
+
+alterSettingsProfileStatement
+    : ALTER SETTINGS PROFILE (IF EXISTS)? identifier (renameClause | COMMA identifierList)? clusterClause? extendedSettingsWithInheritClause? (TO subjectExpressionList)?
     ;
 
 alterNamedCollectionStatement
-    : ALTER NAMED COLLECTION (IF EXISTS)? identifier clusterClause? (SET namedCollectionExpressionList | DELETE identifierList)?
+    : ALTER NAMED COLLECTION (IF EXISTS)? identifier clusterClause? ((SET namedCollectionExpressionList) | (DELETE identifierList))?
     ;
 
 alterRoleStatement
-    : ALTER ROLE (IF EXISTS)? identifier (renameClause | COMMA identifierList)? clusterClause? extendedSettingsClause?
+    : ALTER ROLE (IF EXISTS)? identifier (renameClause | COMMA identifierList)? clusterClause? extendedSettingsWithProfileClause?
     ;
 
 alterPolicyExpression
@@ -93,7 +98,7 @@ alterQuotaStatement
     ;
 
 alterUserStatement
-    : ALTER USER (IF EXISTS)? identifier (renameClause | COMMA identifierList)? clusterClause? userIdentificationClause? ((ADD | DROP)? hostClause)? validUntilClause? defaultRoleClause? granteesClause? extendedSettingsClause?
+    : ALTER USER (IF EXISTS)? identifier (renameClause | COMMA identifierList)? clusterClause? userIdentificationClause? ((ADD | DROP)? hostClause)? validUntilClause? defaultRoleClause? granteesClause? extendedSettingsWithProfileClause?
     ;
 
 renameClause
@@ -257,11 +262,15 @@ hostClause
 
 extendedSettingExpression
     : identifier EQ_SINGLE literal (MIN EQ_SINGLE? literal)? (MAX EQ_SINGLE? literal)? (CONST | READONLY | WRITABLE | CHANGEABLE_IN_READONLY)?
+    ;
+
+extendedSettingExpressionWithProfileClause
+    : extendedSettingExpression
     | PROFILE STRING_LITERAL
     ;
 
-extendedSettingsClause
-    : SETTINGS extendedSettingExpression (COMMA extendedSettingExpression)*
+extendedSettingsWithProfileClause
+    : SETTINGS extendedSettingExpressionWithProfileClause (COMMA extendedSettingExpressionWithProfileClause)*
     ;
 
 inClause
@@ -273,7 +282,7 @@ defaultRoleClause
     ;
 
 createUserStatement
-    : CREATE USER replaceOrIfNotExistsClause? identifierList clusterClause? userIdentificationClause? hostClause? validUntilClause? inClause? defaultRoleClause? (DEFAULT DATABASE (databaseIdentifier | NONE))? granteesClause? extendedSettingsClause?
+    : CREATE USER replaceOrIfNotExistsClause? identifierList clusterClause? userIdentificationClause? hostClause? validUntilClause? inClause? defaultRoleClause? (DEFAULT DATABASE (databaseIdentifier | NONE))? granteesClause? extendedSettingsWithProfileClause?
     ;
 
 replaceOrIfNotExistsClause
@@ -395,11 +404,20 @@ identifierList
     ;
 
 createRoleStatement
-    : CREATE ROLE replaceOrIfNotExistsClause? identifierList clusterClause? inClause? extendedSettingsClause?
+    : CREATE ROLE replaceOrIfNotExistsClause? identifierList clusterClause? inClause? extendedSettingsWithProfileClause?
+    ;
+
+extendedSettingExpressionWithProfileOrInheritClause
+    : extendedSettingExpressionWithProfileClause
+    | INHERIT STRING_LITERAL
+    ;
+
+extendedSettingsWithInheritClause
+    : SETTINGS extendedSettingExpressionWithProfileOrInheritClause (COMMA extendedSettingExpressionWithProfileOrInheritClause)*
     ;
 
 createSettingsProfileStatement
-    : CREATE SETTINGS PROFILE replaceOrIfNotExistsClause? identifierList clusterClause? inClause? extendedSettingsClause? (TO subjectExpressionList)?
+    : CREATE SETTINGS PROFILE replaceOrIfNotExistsClause? identifierList clusterClause? inClause? extendedSettingsWithInheritClause? (TO subjectExpressionList)?
     ;
 
 namedCollectionExpression
@@ -1713,6 +1731,7 @@ keyword
     | CONST
     | CHANGEABLE_IN_READONLY
     | OVERRIDABLE
+    | INHERIT
     ;
 
 keywordForAlias
