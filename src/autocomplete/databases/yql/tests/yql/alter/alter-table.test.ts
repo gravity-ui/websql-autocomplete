@@ -21,10 +21,12 @@ test('should suggest keywords after table name', () => {
 });
 test('should suggest keywords after ALTER', () => {
     const autocompleteResult = parseYqlQueryWithCursor('ALTER TABLE test_table ALTER |');
+
     const keywords: KeywordSuggestion[] = [
+        {value: 'COLUMN'},
+        {value: 'INDEX'},
         {value: 'CHANGEFEED'},
         {value: 'FAMILY'},
-        {value: 'COLUMN'},
     ];
 
     expect(autocompleteResult.suggestKeywords).toEqual(keywords);
@@ -48,7 +50,7 @@ test('should suggest table name after ALTER COLUMN between statements', () => {
 
 test('should suggest SET after column name', () => {
     const autocompleteResult = parseYqlQueryWithCursor('ALTER TABLE test_table ALTER COLUMN id |');
-    const keywords: KeywordSuggestion[] = [{value: 'SET'}];
+    const keywords: KeywordSuggestion[] = [{value: 'DROP'}, {value: 'SET'}];
 
     expect(autocompleteResult.suggestKeywords).toEqual(keywords);
 });

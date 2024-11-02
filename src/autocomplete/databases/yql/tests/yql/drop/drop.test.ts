@@ -4,6 +4,8 @@ import {KeywordSuggestion} from '../../../../../shared/autocomplete-types';
 test('should suggest keywords after DROP', () => {
     const autocompleteResult = parseYqlQueryWithCursor('DROP |');
     const keywords: KeywordSuggestion[] = [
+        {value: 'RESOURCE'},
+        {value: 'BACKUP'},
         {value: 'VIEW'},
         {value: 'TOPIC'},
         {value: 'ASYNC'},
@@ -20,14 +22,14 @@ test('should suggest keywords after DROP', () => {
 
 test('should suggest after VIEW', () => {
     const autocompleteResult = parseYqlQueryWithCursor('DROP VIEW |');
-    const keywords: KeywordSuggestion[] = [];
+    const keywords: KeywordSuggestion[] = [{value: 'IF'}];
 
     expect(autocompleteResult.suggestKeywords).toEqual(keywords);
     expect(autocompleteResult.suggestEntity).toEqual(['view']);
 });
 test('should suggest after TOPIC', () => {
     const autocompleteResult = parseYqlQueryWithCursor('DROP TOPIC |');
-    const keywords: KeywordSuggestion[] = [];
+    const keywords: KeywordSuggestion[] = [{value: 'IF'}];
 
     expect(autocompleteResult.suggestKeywords).toEqual(keywords);
     expect(autocompleteResult.suggestEntity).toEqual(['topic']);

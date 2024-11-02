@@ -4,7 +4,7 @@ import {KeywordSuggestion} from '../../../../../shared/autocomplete-types';
 test('should suggest properly after TOPIC', () => {
     const autocompleteResult = parseYqlQueryWithCursor('CREATE TOPIC |');
 
-    const keywordsSuggestion: KeywordSuggestion[] = [];
+    const keywordsSuggestion: KeywordSuggestion[] = [{value: 'IF'}];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
     expect(autocompleteResult.suggestEntity).toBeFalsy();
 });

@@ -5,6 +5,8 @@ test('should suggest keywords after ALTER', () => {
     const autocompleteResult = parseYqlQueryWithCursor('ALTER |');
 
     const keywords: KeywordSuggestion[] = [
+        {value: 'RESOURCE'},
+        {value: 'BACKUP'},
         {value: 'ASYNC'},
         {value: 'TABLESTORE'},
         {value: 'TOPIC'},
@@ -35,7 +37,7 @@ test('should suggest keywords after TABLESTORE', () => {
 });
 test('should suggest keywords after TOPIC', () => {
     const autocompleteResult = parseYqlQueryWithCursor('ALTER TOPIC |');
-    const keywords: KeywordSuggestion[] = [];
+    const keywords: KeywordSuggestion[] = [{value: 'IF'}];
     expect(autocompleteResult.suggestKeywords).toEqual(keywords);
     expect(autocompleteResult.suggestEntity).toEqual(['topic']);
 });
