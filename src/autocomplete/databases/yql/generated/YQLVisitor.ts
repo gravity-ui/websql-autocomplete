@@ -223,6 +223,21 @@ import { Object_featuresContext } from "./YQLParser.js";
 import { Object_type_refContext } from "./YQLParser.js";
 import { Create_table_stmtContext } from "./YQLParser.js";
 import { Create_table_entryContext } from "./YQLParser.js";
+import { Create_backup_collection_stmtContext } from "./YQLParser.js";
+import { Alter_backup_collection_stmtContext } from "./YQLParser.js";
+import { Drop_backup_collection_stmtContext } from "./YQLParser.js";
+import { Create_backup_collection_entriesContext } from "./YQLParser.js";
+import { Create_backup_collection_entries_manyContext } from "./YQLParser.js";
+import { Table_listContext } from "./YQLParser.js";
+import { Alter_backup_collection_actionsContext } from "./YQLParser.js";
+import { Alter_backup_collection_actionContext } from "./YQLParser.js";
+import { Alter_backup_collection_entriesContext } from "./YQLParser.js";
+import { Alter_backup_collection_entryContext } from "./YQLParser.js";
+import { Backup_collectionContext } from "./YQLParser.js";
+import { Backup_collection_settingsContext } from "./YQLParser.js";
+import { Backup_collection_settings_entryContext } from "./YQLParser.js";
+import { Backup_stmtContext } from "./YQLParser.js";
+import { Restore_stmtContext } from "./YQLParser.js";
 import { Table_inheritsContext } from "./YQLParser.js";
 import { Table_partition_byContext } from "./YQLParser.js";
 import { With_table_settingsContext } from "./YQLParser.js";
@@ -238,6 +253,7 @@ import { Alter_table_store_actionContext } from "./YQLParser.js";
 import { Alter_table_add_columnContext } from "./YQLParser.js";
 import { Alter_table_drop_columnContext } from "./YQLParser.js";
 import { Alter_table_alter_columnContext } from "./YQLParser.js";
+import { Alter_table_alter_column_drop_not_nullContext } from "./YQLParser.js";
 import { Alter_table_add_column_familyContext } from "./YQLParser.js";
 import { Alter_table_alter_column_familyContext } from "./YQLParser.js";
 import { Alter_table_set_table_setting_uncompatContext } from "./YQLParser.js";
@@ -250,6 +266,7 @@ import { Alter_table_rename_index_toContext } from "./YQLParser.js";
 import { Alter_table_add_changefeedContext } from "./YQLParser.js";
 import { Alter_table_alter_changefeedContext } from "./YQLParser.js";
 import { Alter_table_drop_changefeedContext } from "./YQLParser.js";
+import { Alter_table_alter_indexContext } from "./YQLParser.js";
 import { Column_schemaContext } from "./YQLParser.js";
 import { Family_relationContext } from "./YQLParser.js";
 import { Opt_column_constraintsContext } from "./YQLParser.js";
@@ -259,6 +276,10 @@ import { Table_indexContext } from "./YQLParser.js";
 import { Table_index_typeContext } from "./YQLParser.js";
 import { Global_indexContext } from "./YQLParser.js";
 import { Local_indexContext } from "./YQLParser.js";
+import { Index_subtypeContext } from "./YQLParser.js";
+import { With_index_settingsContext } from "./YQLParser.js";
+import { Index_setting_entryContext } from "./YQLParser.js";
+import { Index_setting_valueContext } from "./YQLParser.js";
 import { ChangefeedContext } from "./YQLParser.js";
 import { Changefeed_settingsContext } from "./YQLParser.js";
 import { Changefeed_settings_entryContext } from "./YQLParser.js";
@@ -272,6 +293,7 @@ import { Family_settings_entryContext } from "./YQLParser.js";
 import { Family_setting_valueContext } from "./YQLParser.js";
 import { Split_boundariesContext } from "./YQLParser.js";
 import { Literal_value_listContext } from "./YQLParser.js";
+import { Alter_table_alter_index_actionContext } from "./YQLParser.js";
 import { Drop_table_stmtContext } from "./YQLParser.js";
 import { Create_user_stmtContext } from "./YQLParser.js";
 import { Alter_user_stmtContext } from "./YQLParser.js";
@@ -285,6 +307,14 @@ import { Revoke_permissions_stmtContext } from "./YQLParser.js";
 import { Permission_idContext } from "./YQLParser.js";
 import { Permission_nameContext } from "./YQLParser.js";
 import { Permission_name_targetContext } from "./YQLParser.js";
+import { Create_resource_pool_stmtContext } from "./YQLParser.js";
+import { Alter_resource_pool_stmtContext } from "./YQLParser.js";
+import { Alter_resource_pool_actionContext } from "./YQLParser.js";
+import { Drop_resource_pool_stmtContext } from "./YQLParser.js";
+import { Create_resource_pool_classifier_stmtContext } from "./YQLParser.js";
+import { Alter_resource_pool_classifier_stmtContext } from "./YQLParser.js";
+import { Alter_resource_pool_classifier_actionContext } from "./YQLParser.js";
+import { Drop_resource_pool_classifier_stmtContext } from "./YQLParser.js";
 import { Create_replication_stmtContext } from "./YQLParser.js";
 import { Replication_targetContext } from "./YQLParser.js";
 import { Replication_settingsContext } from "./YQLParser.js";
@@ -364,6 +394,9 @@ import { Subselect_stmtContext } from "./YQLParser.js";
 import { Named_nodes_stmtContext } from "./YQLParser.js";
 import { Commit_stmtContext } from "./YQLParser.js";
 import { Rollback_stmtContext } from "./YQLParser.js";
+import { Analyze_tableContext } from "./YQLParser.js";
+import { Analyze_table_listContext } from "./YQLParser.js";
+import { Analyze_stmtContext } from "./YQLParser.js";
 import { IdentifierContext } from "./YQLParser.js";
 import { IdContext } from "./YQLParser.js";
 import { Id_schemaContext } from "./YQLParser.js";
@@ -1692,6 +1725,96 @@ export class YQLVisitor<Result> extends AbstractParseTreeVisitor<Result> {
      */
     visitCreate_table_entry?: (ctx: Create_table_entryContext) => Result;
     /**
+     * Visit a parse tree produced by `YQLParser.create_backup_collection_stmt`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitCreate_backup_collection_stmt?: (ctx: Create_backup_collection_stmtContext) => Result;
+    /**
+     * Visit a parse tree produced by `YQLParser.alter_backup_collection_stmt`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitAlter_backup_collection_stmt?: (ctx: Alter_backup_collection_stmtContext) => Result;
+    /**
+     * Visit a parse tree produced by `YQLParser.drop_backup_collection_stmt`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitDrop_backup_collection_stmt?: (ctx: Drop_backup_collection_stmtContext) => Result;
+    /**
+     * Visit a parse tree produced by `YQLParser.create_backup_collection_entries`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitCreate_backup_collection_entries?: (ctx: Create_backup_collection_entriesContext) => Result;
+    /**
+     * Visit a parse tree produced by `YQLParser.create_backup_collection_entries_many`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitCreate_backup_collection_entries_many?: (ctx: Create_backup_collection_entries_manyContext) => Result;
+    /**
+     * Visit a parse tree produced by `YQLParser.table_list`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitTable_list?: (ctx: Table_listContext) => Result;
+    /**
+     * Visit a parse tree produced by `YQLParser.alter_backup_collection_actions`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitAlter_backup_collection_actions?: (ctx: Alter_backup_collection_actionsContext) => Result;
+    /**
+     * Visit a parse tree produced by `YQLParser.alter_backup_collection_action`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitAlter_backup_collection_action?: (ctx: Alter_backup_collection_actionContext) => Result;
+    /**
+     * Visit a parse tree produced by `YQLParser.alter_backup_collection_entries`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitAlter_backup_collection_entries?: (ctx: Alter_backup_collection_entriesContext) => Result;
+    /**
+     * Visit a parse tree produced by `YQLParser.alter_backup_collection_entry`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitAlter_backup_collection_entry?: (ctx: Alter_backup_collection_entryContext) => Result;
+    /**
+     * Visit a parse tree produced by `YQLParser.backup_collection`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitBackup_collection?: (ctx: Backup_collectionContext) => Result;
+    /**
+     * Visit a parse tree produced by `YQLParser.backup_collection_settings`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitBackup_collection_settings?: (ctx: Backup_collection_settingsContext) => Result;
+    /**
+     * Visit a parse tree produced by `YQLParser.backup_collection_settings_entry`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitBackup_collection_settings_entry?: (ctx: Backup_collection_settings_entryContext) => Result;
+    /**
+     * Visit a parse tree produced by `YQLParser.backup_stmt`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitBackup_stmt?: (ctx: Backup_stmtContext) => Result;
+    /**
+     * Visit a parse tree produced by `YQLParser.restore_stmt`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitRestore_stmt?: (ctx: Restore_stmtContext) => Result;
+    /**
      * Visit a parse tree produced by `YQLParser.table_inherits`.
      * @param ctx the parse tree
      * @return the visitor result
@@ -1782,6 +1905,12 @@ export class YQLVisitor<Result> extends AbstractParseTreeVisitor<Result> {
      */
     visitAlter_table_alter_column?: (ctx: Alter_table_alter_columnContext) => Result;
     /**
+     * Visit a parse tree produced by `YQLParser.alter_table_alter_column_drop_not_null`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitAlter_table_alter_column_drop_not_null?: (ctx: Alter_table_alter_column_drop_not_nullContext) => Result;
+    /**
      * Visit a parse tree produced by `YQLParser.alter_table_add_column_family`.
      * @param ctx the parse tree
      * @return the visitor result
@@ -1854,6 +1983,12 @@ export class YQLVisitor<Result> extends AbstractParseTreeVisitor<Result> {
      */
     visitAlter_table_drop_changefeed?: (ctx: Alter_table_drop_changefeedContext) => Result;
     /**
+     * Visit a parse tree produced by `YQLParser.alter_table_alter_index`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitAlter_table_alter_index?: (ctx: Alter_table_alter_indexContext) => Result;
+    /**
      * Visit a parse tree produced by `YQLParser.column_schema`.
      * @param ctx the parse tree
      * @return the visitor result
@@ -1907,6 +2042,30 @@ export class YQLVisitor<Result> extends AbstractParseTreeVisitor<Result> {
      * @return the visitor result
      */
     visitLocal_index?: (ctx: Local_indexContext) => Result;
+    /**
+     * Visit a parse tree produced by `YQLParser.index_subtype`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitIndex_subtype?: (ctx: Index_subtypeContext) => Result;
+    /**
+     * Visit a parse tree produced by `YQLParser.with_index_settings`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitWith_index_settings?: (ctx: With_index_settingsContext) => Result;
+    /**
+     * Visit a parse tree produced by `YQLParser.index_setting_entry`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitIndex_setting_entry?: (ctx: Index_setting_entryContext) => Result;
+    /**
+     * Visit a parse tree produced by `YQLParser.index_setting_value`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitIndex_setting_value?: (ctx: Index_setting_valueContext) => Result;
     /**
      * Visit a parse tree produced by `YQLParser.changefeed`.
      * @param ctx the parse tree
@@ -1986,6 +2145,12 @@ export class YQLVisitor<Result> extends AbstractParseTreeVisitor<Result> {
      */
     visitLiteral_value_list?: (ctx: Literal_value_listContext) => Result;
     /**
+     * Visit a parse tree produced by `YQLParser.alter_table_alter_index_action`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitAlter_table_alter_index_action?: (ctx: Alter_table_alter_index_actionContext) => Result;
+    /**
      * Visit a parse tree produced by `YQLParser.drop_table_stmt`.
      * @param ctx the parse tree
      * @return the visitor result
@@ -2063,6 +2228,54 @@ export class YQLVisitor<Result> extends AbstractParseTreeVisitor<Result> {
      * @return the visitor result
      */
     visitPermission_name_target?: (ctx: Permission_name_targetContext) => Result;
+    /**
+     * Visit a parse tree produced by `YQLParser.create_resource_pool_stmt`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitCreate_resource_pool_stmt?: (ctx: Create_resource_pool_stmtContext) => Result;
+    /**
+     * Visit a parse tree produced by `YQLParser.alter_resource_pool_stmt`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitAlter_resource_pool_stmt?: (ctx: Alter_resource_pool_stmtContext) => Result;
+    /**
+     * Visit a parse tree produced by `YQLParser.alter_resource_pool_action`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitAlter_resource_pool_action?: (ctx: Alter_resource_pool_actionContext) => Result;
+    /**
+     * Visit a parse tree produced by `YQLParser.drop_resource_pool_stmt`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitDrop_resource_pool_stmt?: (ctx: Drop_resource_pool_stmtContext) => Result;
+    /**
+     * Visit a parse tree produced by `YQLParser.create_resource_pool_classifier_stmt`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitCreate_resource_pool_classifier_stmt?: (ctx: Create_resource_pool_classifier_stmtContext) => Result;
+    /**
+     * Visit a parse tree produced by `YQLParser.alter_resource_pool_classifier_stmt`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitAlter_resource_pool_classifier_stmt?: (ctx: Alter_resource_pool_classifier_stmtContext) => Result;
+    /**
+     * Visit a parse tree produced by `YQLParser.alter_resource_pool_classifier_action`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitAlter_resource_pool_classifier_action?: (ctx: Alter_resource_pool_classifier_actionContext) => Result;
+    /**
+     * Visit a parse tree produced by `YQLParser.drop_resource_pool_classifier_stmt`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitDrop_resource_pool_classifier_stmt?: (ctx: Drop_resource_pool_classifier_stmtContext) => Result;
     /**
      * Visit a parse tree produced by `YQLParser.create_replication_stmt`.
      * @param ctx the parse tree
@@ -2537,6 +2750,24 @@ export class YQLVisitor<Result> extends AbstractParseTreeVisitor<Result> {
      * @return the visitor result
      */
     visitRollback_stmt?: (ctx: Rollback_stmtContext) => Result;
+    /**
+     * Visit a parse tree produced by `YQLParser.analyze_table`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitAnalyze_table?: (ctx: Analyze_tableContext) => Result;
+    /**
+     * Visit a parse tree produced by `YQLParser.analyze_table_list`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitAnalyze_table_list?: (ctx: Analyze_table_listContext) => Result;
+    /**
+     * Visit a parse tree produced by `YQLParser.analyze_stmt`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitAnalyze_stmt?: (ctx: Analyze_stmtContext) => Result;
     /**
      * Visit a parse tree produced by `YQLParser.identifier`.
      * @param ctx the parse tree

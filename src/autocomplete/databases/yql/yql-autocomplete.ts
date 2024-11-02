@@ -68,6 +68,7 @@ const rulesToVisit = new Set([
 
     YQLParser.RULE_keyword,
     YQLParser.RULE_keyword_compat,
+    YQLParser.RULE_keyword_as_compat,
     YQLParser.RULE_keyword_expr_uncompat,
     YQLParser.RULE_keyword_table_uncompat,
     YQLParser.RULE_keyword_select_uncompat,

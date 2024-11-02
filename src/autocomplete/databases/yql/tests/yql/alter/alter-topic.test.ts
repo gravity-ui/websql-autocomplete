@@ -3,7 +3,7 @@ import {parseYqlQueryWithCursor, parseYqlQueryWithoutCursor} from '../../../inde
 
 test('should suggest keywords after TOPIC ', () => {
     const autocompleteResult = parseYqlQueryWithCursor('ALTER TOPIC |');
-    const keywords: KeywordSuggestion[] = [];
+    const keywords: KeywordSuggestion[] = [{value: 'IF'}];
     expect(autocompleteResult.suggestKeywords).toEqual(keywords);
     expect(autocompleteResult.suggestEntity).toEqual(['topic']);
 });
