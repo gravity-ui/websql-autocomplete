@@ -15,6 +15,6 @@ test('should report errors on DECR command without arguments', () => {
 test('should suggest keys after DECR', () => {
     const autocompleteResult = parseRedisQueryWithCursor('DECR |');
 
-    expect(autocompleteResult.suggestKeys).toEqual(true);
+    expect(autocompleteResult.suggestStrings).toEqual(true);
     expect(autocompleteResult.suggestKeywords).toEqual([]);
 });

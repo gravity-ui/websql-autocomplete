@@ -12,6 +12,11 @@ export {extractRedisCommandsFromQuery, RedisCommands} from './redis-tokenize';
 
 export interface RedisAutocompleteResult extends AutocompleteResultBase {
     suggestKeys?: boolean;
+    suggestStrings?: boolean;
+    suggestLists?: boolean;
+    suggestSets?: boolean;
+    suggestSortedSets?: boolean;
+    suggestHashes?: boolean;
 }
 
 export function parseRedisQueryWithoutCursor(

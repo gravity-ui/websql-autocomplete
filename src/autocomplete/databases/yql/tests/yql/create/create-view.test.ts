@@ -4,14 +4,14 @@ import {KeywordSuggestion} from '../../../../../shared/autocomplete-types';
 test('should suggest properly after VIEW', () => {
     const autocompleteResult = parseYqlQueryWithCursor('CREATE VIEW |');
 
-    const keywordsSuggestion: KeywordSuggestion[] = [];
+    const keywordsSuggestion: KeywordSuggestion[] = [{value: 'IF'}];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
 test('should suggest properly after view name', () => {
     const autocompleteResult = parseYqlQueryWithCursor('CREATE VIEW test_view |');
 
-    const keywordsSuggestion: KeywordSuggestion[] = [{value: 'WITH'}];
+    const keywordsSuggestion: KeywordSuggestion[] = [{value: 'AS'}, {value: 'WITH'}];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 

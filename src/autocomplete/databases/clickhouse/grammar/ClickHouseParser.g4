@@ -22,6 +22,8 @@ statements
 statement
     : notInsertStatement (INTO OUTFILE STRING_LITERAL)? (FORMAT identifierOrNull)? (SEMICOLON)?
     | insertStatement
+    | grantStatement
+    | revokeStatement
     ;
 
 notInsertStatement
@@ -56,7 +58,7 @@ namedQuery
     ;
 
 columnAliases
-    : LPAREN identifier (COMMA identifier)* RPAREN
+    : LPAREN identifierList RPAREN
     ;
 
 // ALTER statement
@@ -142,7 +144,7 @@ createTableStatement
     ;
 
 createDatabaseStatement
-    : (ATTACH | CREATE) DATABASE (IF NOT EXISTS)? identifier clusterClause? engineExpression
+    : (ATTACH | CREATE) DATABASE (IF NOT EXISTS)? identifier clusterClause? engineExpression? (COMMENT STRING_LITERAL)?
     ;
 
 createDictionaryStatement
@@ -161,6 +163,235 @@ createViewStatement
     : (ATTACH | CREATE) (OR REPLACE)? VIEW (IF NOT EXISTS)? tableIdentifier uuidClause? clusterClause? tableSchemaClause? subqueryClause
     ;
 
+stringIdentificationType
+    : PLAINTEXT_PASSWORD
+    | SHA256_PASSWORD
+    | SHA256_HASH
+    | DOUBLE_SHA1_PASSWORD
+    | DOUBLE_SHA1_HASH
+    | BCRYPT_PASSWORD
+    | BCRYPT_HASH
+    ;
+
+keyTypeClause
+    : KEY STRING_LITERAL TYPE STRING_LITERAL
+    ;
+
+otherIdentificationType
+    : NO_PASSWORD
+    | LDAP SERVER STRING_LITERAL
+    | KERBEROS (REALM STRING_LITERAL)
+    | SSL_CERTIFICATE (SAN | CN) STRING_LITERAL
+    | SSH_KEY BY keyTypeClause (COMMA keyTypeClause)*
+    | HTTP SERVER STRING_LITERAL (SCHEME STRING_LITERAL)?
+    ;
+
+userIdentificationClause
+    : NOT IDENTIFIED
+    | IDENTIFIED (WITH stringIdentificationType)? BY STRING_LITERAL
+    | IDENTIFIED WITH otherIdentificationType
+    ;
+
+validUntilClause
+    : VALID UNTIL STRING_LITERAL
+    ;
+
+grantsProvider
+    : userIdentifier
+    | roleIdentifier
+    | ANY
+    | NONE
+    ;
+
+granteesClause
+    : GRANTEES grantsProvider (COMMA grantsProvider)* (EXCEPT userOrRoleExpressionList)?
+    ;
+
+hostType
+    : LOCAL
+    | ANY
+    | NONE
+    | (NAME | REGEXP | IP | LIKE) STRING_LITERAL
+    ;
+
+hostClause
+    : HOST hostType (COMMA hostType)*
+    ;
+
+extendedSettingExpression
+    : identifier EQ_SINGLE literal (MIN EQ_SINGLE? literal)? (MAX EQ_SINGLE? literal)? (CONST | READONLY | WRITABLE | CHANGEABLE_IN_READONLY)?
+    | PROFILE STRING_LITERAL
+    ;
+
+extendedSettingsClause
+    : SETTINGS extendedSettingExpression (COMMA extendedSettingExpression)*
+    ;
+
+inClause
+    : IN (identifier | STRING_LITERAL)
+    ;
+
+createUserStatement
+    : CREATE USER replaceOrIfNotExistsClause? identifierList clusterClause? userIdentificationClause hostClause? validUntilClause? inClause? (DEFAULT ROLE roleExpressionList)? (DEFAULT DATABASE (databaseIdentifier | NONE))? granteesClause? extendedSettingsClause?
+    ;
+
+replaceOrIfNotExistsClause
+    : OR REPLACE
+    | IF NOT EXISTS
+    ;
+
+tableIdentifierOrAnyTable
+    : tableIdentifier
+    | identifier DOT ASTERISK
+    ;
+
+policyExpression
+    : identifier clusterClause? ON tableIdentifierOrAnyTable
+    ;
+
+identifierOrLiteralOrFunction
+    : identifier
+    | literal
+    | functionExpression
+    ;
+
+functionExpression
+    : identifier LPAREN ((literal | identifier) (COMMA literal | identifier)* | functionExpression)? RPAREN
+    ;
+
+conditionExpression
+    : identifierOrLiteralOrFunction
+    | identifierOrLiteralOrFunction (EQ_SINGLE | NOT_EQ | GT | LT | EQ_DOUBLE | GE | LE) identifierOrLiteralOrFunction
+    ;
+
+conditionClause
+    : conditionExpression (AND conditionExpression)*
+    ;
+
+subjectOrAllOrExcept
+    : userOrRoleIdentifier
+    | ALL
+    | ALL EXCEPT userOrRoleExpressionList
+    ;
+
+subjectExpression
+    : userOrRoleIdentifier
+    | ALL
+    | ALL EXCEPT userOrRoleExpressionList
+    ;
+
+createRowPolicyStatement
+    : CREATE ROW? POLICY replaceOrIfNotExistsClause? policyExpression (COMMA policyExpression)* inClause? (FOR SELECT)? USING conditionClause (AS (PERMISSIVE | RESTRICTIVE))? (TO subjectExpressionList)?
+    ;
+
+quotaKeyType
+    : USER_NAME
+    | IP_ADDRESS
+    | CLIENT_KEY (COMMA (USER_NAME | IP_ADDRESS))?
+    | NOT KEYED
+    | CLIENT_KEY_OR_USER_NAME
+    | CLIENT_KEY_OR_IP_ADDRESS
+    ;
+
+quotaKeyedByClause
+    : (KEYED | KEY) BY quotaKeyType
+    ;
+
+quotaRestrictionType
+    : QUERIES
+    | QUERY_SELECTS
+    | QUERY_INSERTS
+    | ERRORS
+    | RESULT_ROWS
+    | RESULT_BYTES
+    | READ_ROWS
+    | READ_BYTES
+    | EXECUTION_TIME
+    | FAILED_SEQUENTIAL_AUTHENTICATIONS
+    ;
+
+stringOrNumberLiteral
+    : STRING_LITERAL
+    | numberLiteral
+    ;
+
+quotaRestrictionExpression
+    : MAX quotaRestrictionType EQ_SINGLE stringOrNumberLiteral
+    ;
+
+quotaRestrictionClause
+    : quotaRestrictionExpression (COMMA quotaRestrictionExpression)*
+    | NO LIMITS
+    | NOT KEYED
+    | TRACKING ONLY
+    ;
+
+quotaForClause
+    : FOR RANDOMIZED? intervalOperand quotaRestrictionClause
+    ;
+
+intervalOperand
+    : INTERVAL numberLiteral interval
+    ;
+
+quotaForList
+    : quotaForClause (COMMA? quotaForClause)*
+    ;
+
+createQuotaStatement
+    : CREATE QUOTA replaceOrIfNotExistsClause? identifierList clusterClause? inClause? quotaKeyedByClause? quotaForList? (NOT KEYED)? (TO subjectExpressionList)?
+    ;
+
+identifierList
+    : identifier (COMMA identifier)*
+    ;
+
+createRoleStatement
+    : CREATE ROLE replaceOrIfNotExistsClause? identifierList clusterClause? inClause? extendedSettingsClause?
+    ;
+
+createSettingsProfileStatement
+    : CREATE SETTINGS PROFILE replaceOrIfNotExistsClause? identifierList clusterClause? inClause? extendedSettingsClause? (TO subjectExpressionList)?
+    ;
+
+namedCollectionExpression
+    : identifier EQ_SINGLE stringOrNumberLiteral (NOT? OVERRIDABLE)?
+    ;
+
+namedCollectionClause
+    : namedCollectionExpression (COMMA namedCollectionExpression)*
+    ;
+
+createNamedCollectionStatement
+    : CREATE NAMED COLLECTION (IF NOT EXISTS)? identifier clusterClause? AS namedCollectionClause
+    ;
+
+expressionOperand
+    : functionExpression
+    | identifier
+    | literal
+    | intervalOperand
+    ;
+
+expression
+    : expressionOperand ((ASTERISK | PLUS | DASH | CONCAT | PERCENT) expressionOperand)*
+    ;
+
+createFunctionStatement
+    : CREATE FUNCTION (IF NOT EXISTS)? identifier clusterClause? AS (LPAREN identifierList? RPAREN | identifier) ARROW_SYMBOL expression
+    ;
+
+orderType
+    : DESC
+    | DESCENDING
+    | ASC
+    | ASCENDING
+    ;
+
+createIndexStatement
+    : CREATE INDEX (IF NOT EXISTS)? identifier ON tableIdentifier LPAREN identifier orderType? (COMMA identifier orderType?)* RPAREN (TYPE identifier)? (GRANULARITY numberLiteral)?
+    ;
+
 createStatement
     : createDatabaseStatement
     | createDictionaryStatement
@@ -168,6 +399,14 @@ createStatement
     | createMaterializedViewStatement
     | createTableStatement
     | createViewStatement
+    | createUserStatement
+    | createRowPolicyStatement
+    | createQuotaStatement
+    | createRoleStatement
+    | createSettingsProfileStatement
+    | createNamedCollectionStatement
+    | createFunctionStatement
+    | createIndexStatement
     ;
 
 dictionarySchemaClause
@@ -336,25 +575,331 @@ explainStatement
     | EXPLAIN ESTIMATE notInsertStatement   # ExplainEstimateStatement
     ;
 
+// REVOKE statement
+
+revokeStatement
+    : REVOKE clusterClause? (GRANT OPTION FOR)? privilegeList ON accessSubjectIdentifier FROM subjectExpressionList
+    | REVOKE clusterClause? (ADMIN OPTION FOR)? roleExpressionList FROM subjectExpressionList
+    ;
+
+subjectExpressionList
+    : subjectExpression (COMMA subjectExpression)*
+    ;
+
+userExpressionList
+    : userIdentifier (COMMA userIdentifier)*
+    ;
+
+roleExpressionList
+    : roleIdentifier (COMMA roleIdentifier)*
+    ;
+
+// GRANT statement
+
+grantStatement
+    : GRANT clusterClause? (privilegeList ON accessSubjectIdentifier) (COMMA privilegeList ON accessSubjectIdentifier)* TO userOrRoleExpressionList withGrantOrReplaceOption
+    | GRANT clusterClause? roleExpressionList TO userOrRoleExpressionList (WITH ADMIN OPTION)? withReplaceOption?
+    | GRANT CURRENT GRANTS ((LPAREN privilegeList ON accessSubjectIdentifier RPAREN) | ON accessSubjectIdentifier) TO userOrRoleExpressionList withGrantOrReplaceOption
+    ;
+
+withGrantOrReplaceOption
+    : (WITH GRANT OPTION)? withReplaceOption?
+    ;
+
+withReplaceOption
+    : WITH REPLACE OPTION
+    ;
+
+accessSubjectIdentifier
+    : (databaseIdentifier | tableIdentifier | ((ASTERISK | identifier) DOT)? (ASTERISK | identifier))
+    ;
+
+privilegeList
+    : privilege (COMMA privilege)*
+    ;
+
+roleIdentifier
+    : identifier
+    ;
+
+userIdentifier
+    : CURRENT_USER
+    | identifier
+    ;
+
+userOrRoleExpressionList
+    : userOrRoleIdentifier (COMMA userOrRoleIdentifier)*
+    ;
+
+userOrRoleIdentifier
+    : userIdentifier
+    | roleIdentifier
+    ;
+
+selectPrivilege
+    : SELECT columnsClause?
+    ;
+
+insertPrivilege
+    : INSERT columnsClause?
+    ;
+
+createPrivilege
+    : CREATE (DATABASE | TABLE | VIEW | DICTIONARY | FUNCTION)?
+    | CREATE (ARBITRARY TEMPORARY | TEMPORARY)? TABLE
+    ;
+
+dropPrivilege
+    : DROP (DATABASE | TABLE | VIEW | DICTIONARY)?
+    ;
+
+showPrivilege
+    : SHOW (DATABASES | TABLES | COLUMNS | DICTIONARIES)?
+    ;
+
+introspectionPrivilege
+    : INTROSPECTION FUNCTIONS?
+    | ADDRESSTOLINE
+    | ADDRESSTOLINEWITHINLINES
+    | ADDRESSTOSYMBOL
+    | DEMANGLE
+    ;
+
+sourcePrivilege
+    : SOURCES
+    | AZURE
+    | FILE
+    | HDFS
+    | HIVE
+    | JDBC
+    | MONGO
+    | MYSQL
+    | ODBC
+    | POSTGRES
+    | REDIS
+    | REMOTE
+    | S3
+    | SQLITE
+    | URL
+    ;
+
+dictPrivilege
+    : DICTGET
+    | DICTHAS
+    | DICTGETHIERARCHY
+    | DICTISIN
+    ;
+
+alterPrivilege
+    : ALTER (DELETE | UPDATE)? columnsClause?
+    | (DELETE | UPDATE) columnsClause?
+    | ALTER TABLE
+    | ALTER (ADD | DROP | MODIFY | COMMENT | CLEAR | RENAME)? COLUMN columnsClause?
+    | (ADD | DROP | MODIFY | COMMENT | CLEAR | RENAME) COLUMN columnsClause?
+    | ALTER (ADD | DROP | MATERIALIZE | CLEAR)? INDEX
+    | (ADD | DROP | MATERIALIZE | CLEAR)? INDEX
+    | ALTER MODIFY? (ORDER | SAMPLE) BY
+    | MODIFY (ORDER | SAMPLE) BY
+    | ALTER? (ADD | DROP)? CONSTRAINT
+    | ALTER (MODIFY | MATERIALIZE)? TTL
+    | (MODIFY | MATERIALIZE) TTL
+    | ALTER SETTINGS
+    | (ALTER | ALTER MODIFY | MODIFY) SETTING
+    | ALTER? (MOVE | FETCH) (PARTITION | PART)
+    | ALTER? FREEZE PARTITION
+    | ALTER VIEW REFRESH?
+    | ALTER LIVE VIEW REFRESH
+    | REFRESH VIEW
+    | ALTER (VIEW | TABLE) MODIFY (QUERY | SQL SECURITY)
+    ;
+
+accessManagementPrivilege
+    : ACCESS MANAGEMENT
+    | (CREATE | ALTER | DROP) USER
+    | (CREATE | ALTER | DROP) ROLE
+    | ROLE ADMIN
+    | (CREATE | ALTER | DROP) ROW? POLICY
+    | (CREATE | ALTER | DROP) QUOTA
+    | (CREATE | ALTER | DROP) SETTINGS? PROFILE
+    | SHOW ACCESS
+    | SHOW_USERS
+    | SHOW CREATE USER
+    | SHOW_ROLES
+    | SHOW CREATE ROLE
+    | SHOW_ROW_POLICIES
+    | SHOW POLICIES
+    | SHOW CREATE ROW? POLICY
+    | SHOW_QUOTAS
+    | SHOW CREATE QUOTA
+    | SHOW_SETTINGS_PROFILES
+    | SHOW PROFILES
+    | SHOW CREATE SETTINGS? PROFILE
+    | (ALLOW | CREATE)? SQL SECURITY NONE
+    | SECURITY NONE
+    ;
+
+systemPrivilege
+    : SYSTEM (SHUTDOWN | KILL)?
+    | SHUTDOWN
+    | SYSTEM? DROP CACHE
+    | SYSTEM DROP (DNS | MARK | UNCOMPRESSED) CACHE?
+    | DROP (DNS | MARK | UNCOMPRESSED) CACHE
+    | DROP (DNS | MARKS | UNCOMPRESSED)
+    | SYSTEM RELOAD (CONFIG | DICTIONARY | EMBEDDED? DICTIONARIES)?
+    | RELOAD (CONFIG | DICTIONARY | EMBEDDED? DICTIONARIES)
+    | SYSTEM (STOP | START)? TTL? MERGES
+    | (STOP | START) TTL? MERGES
+    | SYSTEM (STOP | START)? (FETCHES | MOVES | SENDS)
+    | (STOP | START) (FETCHES | MOVES | SENDS)
+    | SYSTEM (STOP | START)? (DISTRIBUTED | REPLICATED) SENDS
+    | (STOP | START) (DISTRIBUTED | REPLICATED) SENDS
+    | SYSTEM (STOP | START)? REPLICATION QUEUES
+    | (STOP | START) REPLICATION QUEUES
+    | SYSTEM? (SYNC | RESTART) REPLICA
+    | SYSTEM FLUSH (DISTRIBUTED | LOGS)?
+    | FLUSH (DISTRIBUTED | LOGS)
+    ;
+
+namedCollectionAdminPrivilege
+    : NAMED COLLECTION (ADMIN | CONTROL | USAGE)?
+    | (CREATE | DROP | ALTER)? NAMED COLLECTION
+    | SHOW NAMED COLLECTIONS SECRETS?
+    | USE NAMED COLLECTION
+    ;
+
+privilege
+    : selectPrivilege
+    | insertPrivilege
+    | createPrivilege
+    | dropPrivilege
+    | TRUNCATE
+    | KILL QUERY
+    | OPTIMIZE
+    | showPrivilege
+    | introspectionPrivilege
+    | sourcePrivilege
+    | dictPrivilege
+    | alterPrivilege
+    | ALL
+    | NONE
+    | OPTIMIZE
+    | DISPLAYSECRETSINSHOWANDSELECT
+    | accessManagementPrivilege
+    | systemPrivilege
+    | namedCollectionAdminPrivilege
+    | TABLE ENGINE
+    | ADMIN OPTION
+    | USAGE
+    ;
+
 // INSERT statement
 
 insertStatement
-    : INSERT INTO TABLE? (tableIdentifier | FUNCTION tableFunctionExpression) columnsClause? dataClause
+    : INSERT INTO TABLE? (tableIdentifier | FUNCTION tableFunctionExpression) columnsOrExceptClause? settingsClause? dataClause
+    ;
+
+columnsOrExceptClause
+    : columnsClause
+    | LPAREN ASTERISK (EXCEPT columnsClause)? RPAREN
     ;
 
 columnsClause
     : LPAREN columnIdentifier (COMMA columnIdentifier)* RPAREN
     ;
 
+insertFormatType
+    : TABSEPARATED
+    | TABSEPARATEDRAW
+    | TABSEPARATEDWITHNAMES
+    | TABSEPARATEDWITHNAMESANDTYPES
+    | TABSEPARATEDRAWWITHNAMES
+    | TABSEPARATEDRAWWITHNAMESANDTYPES
+    | TEMPLATE
+    | TEMPLATEIGNORESPACES
+    | CSV
+    | CSVWITHNAMES
+    | CSVWITHNAMESANDTYPES
+    | CUSTOMSEPARATED
+    | CUSTOMSEPARATEDWITHNAMES
+    | CUSTOMSEPARATEDWITHNAMESANDTYPES
+    | VALUES
+    | JSON
+    | JSONASSTRING
+    | JSONASOBJECT
+    | JSONSTRINGS
+    | JSONCOLUMNS
+    | JSONCOLUMNSWITHMETADATA
+    | JSONCOMPACT
+    | JSONCOMPACTCOLUMNS
+    | JSONEACHROW
+    | JSONSTRINGSEACHROW
+    | JSONCOMPACTEACHROW
+    | JSONCOMPACTEACHROWWITHNAMES
+    | JSONCOMPACTEACHROWWITHNAMESANDTYPES
+    | JSONCOMPACTSTRINGSEACHROW
+    | JSONCOMPACTSTRINGSEACHROWWITHNAMES
+    | JSONCOMPACTSTRINGSEACHROWWITHNAMESANDTYPES
+    | JSONOBJECTEACHROW
+    | BSONEACHROW
+    | TSKV
+    | PROTOBUF
+    | PROTOBUFSINGLE
+    | PROTOBUFLIST
+    | AVRO
+    | AVROCONFLUENT
+    | PARQUET
+    | PARQUETMETADATA
+    | ARROW
+    | ARROWSTREAM
+    | ORC
+    | ONE
+    | NPY
+    | ROWBINARY
+    | ROWBINARYWITHNAMES
+    | ROWBINARYWITHNAMESANDTYPES
+    | ROWBINARYWITHDEFAULTS
+    | NATIVE
+    | CAPNPROTO
+    | LINEASSTRING
+    | REGEXP
+    | RAWBLOB
+    | MSGPACK
+    | MYSQLDUMP
+    | DWARF
+    | FORM
+    ;
+
 dataClause
-    : FORMAT identifier                   # DataClauseFormat
-    | valuesStatement                     # DataClauseValues
+    : FORMAT insertFormatType identifier+ # DataClauseFormat
+    | FORMAT? valuesStatement             # DataClauseValues
     | selectUnionStatement SEMICOLON? EOF # DataClauseSelect
     ;
 
+literalList
+    : literal (COMMA literal)*
+    ;
+
+valueIdentifier
+    : literal
+    | LPAREN numberLiteral COMMA numberLiteral RPAREN
+    | functionExpression
+    ;
+
+valueOrArrayIdentifier
+    : valueIdentifier
+    | arrayIdentifier
+    ;
+
+arrayIdentifier
+    : LBRACKET (valueOrArrayIdentifier (COMMA valueOrArrayIdentifier)*)? RBRACKET
+    ;
+
+valuesClause
+    : LPAREN (valueOrArrayIdentifier (COMMA valueOrArrayIdentifier)*) RPAREN
+    ;
+
 valuesStatement
-    // Todo: support expressions instead of literals
-    : VALUES LPAREN literal? RPAREN (COMMA LPAREN literal? RPAREN)*
+    : VALUES valuesClause (COMMA? valuesClause)*
     ;
 
 // KILL statement
@@ -489,7 +1034,7 @@ orderExpressionList
     ;
 
 orderExpression
-    : columnExpression (ASCENDING | DESCENDING | DESC)? (NULLS (FIRST | LAST))? (COLLATE STRING_LITERAL)?
+    : columnExpression (ASCENDING | ASC | DESCENDING | DESC)? (NULLS (FIRST | LAST))? (COLLATE STRING_LITERAL)?
     ;
 
 ratioExpression
@@ -665,7 +1210,7 @@ columnArgumentExpression
     ;
 
 columnLambdaExpression
-    : (LPAREN identifier (COMMA identifier)* RPAREN | identifier (COMMA identifier)*) ARROW columnExpression
+    : (LPAREN identifierList RPAREN | identifierList) ARROW_SYMBOL columnExpression
     ;
 
 columnIdentifier
@@ -747,6 +1292,7 @@ keyword
     | ARRAY
     | AS
     | ASCENDING
+    | ASC
     | ASOF
     | AST
     | ASYNC
@@ -916,6 +1462,209 @@ keyword
     | WHERE
     | WINDOW
     | WITH
+    | GRANT
+    | USER
+    | FETCH
+    | REFRESH
+    | POLICY
+    | QUOTA
+    | ROLE
+    | PROFILE
+    | ARBITRARY
+    | COLUMNS
+    | CURRENT_USER
+    | ACCESS
+    | SHOW_USERS
+    | SHOW_ROLES
+    | SHOW_ROW_POLICIES
+    | SHOW_QUOTAS
+    | SHOW_SETTINGS_PROFILES
+    | SHUTDOWN
+    | CACHE
+    | DNS
+    | MARK
+    | PART
+    | UNCOMPRESSED
+    | CONFIG
+    | EMBEDDED
+    | FUNCTIONS
+    | MOVES
+    | REPLICATION
+    | QUEUES
+    | RESTART
+    | DICTGET
+    | DICTGETHIERARCHY
+    | DICTHAS
+    | DICTISIN
+    | MANAGEMENT
+    | ADMIN
+    | INTROSPECTION
+    | ADDRESSTOLINE
+    | ADDRESSTOSYMBOL
+    | DEMANGLE
+    | SOURCES
+    | FILE
+    | URL
+    | REMOTE
+    | MYSQL
+    | ODBC
+    | JDBC
+    | HDFS
+    | S3
+    | SETTING
+    | OPTION
+    | NONE
+    | ADD
+    | ADDRESSTOLINEWITHINLINES
+    | AFTER
+    | ALLOW
+    | AZURE
+    | COLLECTION
+    | COLLECTIONS
+    | CONTROL
+    | DAY
+    | DISPLAYSECRETSINSHOWANDSELECT
+    | ESTIMATE
+    | HIVE
+    | HOUR
+    | INF
+    | MARKS
+    | MINUTE
+    | MONGO
+    | MONTH
+    | NAMED
+    | PIPELINE
+    | PLAN
+    | POLICIES
+    | POSTGRES
+    | PROFILES
+    | PROJECTION
+    | QUARTER
+    | QUERY
+    | REDIS
+    | SECOND
+    | SECRETS
+    | SECURITY
+    | SQL
+    | SQLITE
+    | TREE
+    | USAGE
+    | WEEK
+    | YEAR
+    | GRANTS
+    | EXCEPT
+    | REVOKE
+    | IDENTIFIED
+    | PLAINTEXT_PASSWORD
+    | SHA256_PASSWORD
+    | SHA256_HASH
+    | DOUBLE_SHA1_PASSWORD
+    | DOUBLE_SHA1_HASH
+    | NO_PASSWORD
+    | LDAP
+    | SERVER
+    | KERBEROS
+    | REALM
+    | SSL_CERTIFICATE
+    | SAN
+    | CN
+    | SSH_KEY
+    | HTTP
+    | SCHEME
+    | BCRYPT_PASSWORD
+    | BCRYPT_HASH
+    | VALID
+    | UNTIL
+    | GRANTEES
+    | NAME
+    | REGEXP
+    | IP
+    | HOST
+    | READONLY
+    | WRITABLE
+    | PERMISSIVE
+    | RESTRICTIVE
+    | TABSEPARATED
+    | TABSEPARATEDRAW
+    | TABSEPARATEDWITHNAMES
+    | TABSEPARATEDWITHNAMESANDTYPES
+    | TABSEPARATEDRAWWITHNAMES
+    | TABSEPARATEDRAWWITHNAMESANDTYPES
+    | TEMPLATE
+    | TEMPLATEIGNORESPACES
+    | CSV
+    | CSVWITHNAMES
+    | CSVWITHNAMESANDTYPES
+    | CUSTOMSEPARATED
+    | CUSTOMSEPARATEDWITHNAMES
+    | CUSTOMSEPARATEDWITHNAMESANDTYPES
+    | JSON
+    | JSONASSTRING
+    | JSONASOBJECT
+    | JSONSTRINGS
+    | JSONCOLUMNS
+    | JSONCOLUMNSWITHMETADATA
+    | JSONCOMPACT
+    | JSONCOMPACTCOLUMNS
+    | JSONEACHROW
+    | JSONSTRINGSEACHROW
+    | JSONCOMPACTEACHROW
+    | JSONCOMPACTEACHROWWITHNAMES
+    | JSONCOMPACTEACHROWWITHNAMESANDTYPES
+    | JSONCOMPACTSTRINGSEACHROW
+    | JSONCOMPACTSTRINGSEACHROWWITHNAMES
+    | JSONCOMPACTSTRINGSEACHROWWITHNAMESANDTYPES
+    | JSONOBJECTEACHROW
+    | BSONEACHROW
+    | TSKV
+    | PROTOBUF
+    | PROTOBUFSINGLE
+    | PROTOBUFLIST
+    | AVRO
+    | AVROCONFLUENT
+    | PARQUET
+    | PARQUETMETADATA
+    | ARROW
+    | ARROWSTREAM
+    | ORC
+    | ONE
+    | NPY
+    | ROWBINARY
+    | ROWBINARYWITHNAMES
+    | ROWBINARYWITHNAMESANDTYPES
+    | ROWBINARYWITHDEFAULTS
+    | NATIVE
+    | CAPNPROTO
+    | LINEASSTRING
+    | RAWBLOB
+    | MSGPACK
+    | MYSQLDUMP
+    | DWARF
+    | FORM
+    | KEYED
+    | RANDOMIZED
+    | USER_NAME
+    | IP_ADDRESS
+    | FORWARDED_IP_ADDRESS
+    | CLIENT_KEY
+    | CLIENT_KEY_OR_USER_NAME
+    | CLIENT_KEY_OR_IP_ADDRESS
+    | QUERIES
+    | QUERY_SELECTS
+    | QUERY_INSERTS
+    | ERRORS
+    | RESULT_ROWS
+    | RESULT_BYTES
+    | READ_ROWS
+    | READ_BYTES
+    | EXECUTION_TIME
+    | FAILED_SEQUENTIAL_AUTHENTICATIONS
+    | LIMITS
+    | TRACKING
+    | ONLY
+    | CONST
+    | CHANGEABLE_IN_READONLY
+    | OVERRIDABLE
     ;
 
 keywordForAlias

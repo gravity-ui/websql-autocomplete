@@ -15,6 +15,6 @@ test('should report errors on GET command without arguments', () => {
 test('should suggest keys after GET', () => {
     const autocompleteResult = parseRedisQueryWithCursor('GET |');
 
-    expect(autocompleteResult.suggestKeys).toEqual(true);
+    expect(autocompleteResult.suggestStrings).toEqual(true);
     expect(autocompleteResult.suggestKeywords).toEqual([]);
 });

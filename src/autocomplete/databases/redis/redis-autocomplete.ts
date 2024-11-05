@@ -24,15 +24,31 @@ const ignoredTokens = new Set([
     RedisParser.DOUBLE_QUOTE,
     RedisParser.DECIMAL_LITERAL,
     RedisParser.IDENTIFIER,
+    RedisParser.POSITIVE_DECIMAL_LITERAL,
+    RedisParser.DECIMAL_SCORE_LITERAL,
 ]);
 
-const rulesToVisit = new Set([RedisParser.RULE_keyName]);
+const rulesToVisit = new Set([
+    RedisParser.RULE_keyName,
+    RedisParser.RULE_databaseName,
+    RedisParser.RULE_stringKeyName,
+    RedisParser.RULE_listKeyName,
+    RedisParser.RULE_setKeyName,
+    RedisParser.RULE_sortedSetKeyName,
+    RedisParser.RULE_hashKeyName,
+]);
 
 function processVisitedRules(
     rules: c3.CandidatesCollection['rules'],
     cursorTokenIndex: number,
 ): ProcessVisitedRulesResult<RedisAutocompleteResult> {
+    let suggestDatabases = false;
     let suggestKeys = false;
+    let suggestStrings = false;
+    let suggestLists = false;
+    let suggestSets = false;
+    let suggestSortedSets = false;
+    let suggestHashes = false;
 
     for (const [ruleId, rule] of rules) {
         if (!isStartingToWriteRule(cursorTokenIndex, rule)) {
@@ -40,15 +56,45 @@ function processVisitedRules(
         }
 
         switch (ruleId) {
+            case RedisParser.RULE_databaseName: {
+                suggestDatabases = true;
+                break;
+            }
             case RedisParser.RULE_keyName: {
                 suggestKeys = true;
+                break;
+            }
+            case RedisParser.RULE_stringKeyName: {
+                suggestStrings = true;
+                break;
+            }
+            case RedisParser.RULE_listKeyName: {
+                suggestLists = true;
+                break;
+            }
+            case RedisParser.RULE_setKeyName: {
+                suggestSets = true;
+                break;
+            }
+            case RedisParser.RULE_sortedSetKeyName: {
+                suggestSortedSets = true;
+                break;
+            }
+            case RedisParser.RULE_hashKeyName: {
+                suggestHashes = true;
                 break;
             }
         }
     }
 
     return {
+        suggestDatabases,
         suggestKeys,
+        suggestStrings,
+        suggestLists,
+        suggestSets,
+        suggestSortedSets,
+        suggestHashes,
     };
 }
 
@@ -64,11 +110,25 @@ function enrichAutocompleteResult(
     cursor: CursorPosition,
     query: string,
 ): RedisAutocompleteResult {
-    const {suggestKeys} = processVisitedRules(rules, cursorTokenIndex);
+    const {
+        suggestDatabases,
+        suggestKeys,
+        suggestStrings,
+        suggestLists,
+        suggestSets,
+        suggestSortedSets,
+        suggestHashes,
+    } = processVisitedRules(rules, cursorTokenIndex);
     const suggestTemplates = shouldSuggestTemplates(query, cursor);
     const result: RedisAutocompleteResult = {
         ...baseResult,
+        suggestDatabases,
         suggestKeys,
+        suggestStrings,
+        suggestLists,
+        suggestSets,
+        suggestSortedSets,
+        suggestHashes,
         suggestTemplates,
     };
 

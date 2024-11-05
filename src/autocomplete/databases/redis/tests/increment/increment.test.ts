@@ -15,6 +15,6 @@ test('should report errors on INCR command without arguments', () => {
 test('should suggest keys after INCR', () => {
     const autocompleteResult = parseRedisQueryWithCursor('INCR |');
 
-    expect(autocompleteResult.suggestKeys).toEqual(true);
+    expect(autocompleteResult.suggestStrings).toEqual(true);
     expect(autocompleteResult.suggestKeywords).toEqual([]);
 });

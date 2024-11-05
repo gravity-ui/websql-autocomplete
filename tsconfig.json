@@ -13,5 +13,6 @@
     "checkJs": false,
     "declaration": true
   },
-  "include": ["src/**/*"]
+  "include": ["src/**/*"],
+  "exclude": ["src/autocomplete/databases/clickhouse/tests/generated/**/*"]
 }
