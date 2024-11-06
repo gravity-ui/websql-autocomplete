@@ -11,6 +11,7 @@ export const tokenDictionary: TokenDictionary = {
     CLOSING_BRACKET: YQLParser.RPAREN,
     ALTER: YQLParser.ALTER,
     INSERT: YQLParser.INSERT,
+    UPSERT: YQLParser.UPSERT,
     UPDATE: YQLParser.UPDATE,
     JOIN: YQLParser.JOIN,
     SEMICOLON: YQLParser.SEMICOLON,
