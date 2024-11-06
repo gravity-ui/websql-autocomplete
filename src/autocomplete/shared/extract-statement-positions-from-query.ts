@@ -25,8 +25,8 @@ export function extractStatementPositionsFromQuery<L extends LexerType, P extend
     Lexer: LexerConstructor<L>,
     Parser: ParserConstructor<P>,
     whitespaceToken: number,
-    emptyTokens: number[],
-    closeStatementToken: number,
+    emptySpaceTokens: number[],
+    endStatementToken: number,
     statementRule: number,
     getParseTree: GetParseTree<P>,
 ): ExtractStatementPositionsResult {
@@ -57,8 +57,8 @@ export function extractStatementPositionsFromQuery<L extends LexerType, P extend
 
     for (let index = 0; index < tokenStream.size - 1; index++) {
         const token = tokenStream.get(index);
-        const isCloseStatementToken = token.type === closeStatementToken;
-        const isEmptyToken = emptyTokens.includes(token.type);
+        const isEndStatementToken = token.type === endStatementToken;
+        const isEmptyToken = emptySpaceTokens.includes(token.type);
 
         if (!processingNewStatement && isEmptyToken) {
             continue;
@@ -69,13 +69,13 @@ export function extractStatementPositionsFromQuery<L extends LexerType, P extend
             statementStartIndex = token.start;
         }
 
-        if (isCloseStatementToken && statementStartIndex === token.start) {
+        if (isEndStatementToken && statementStartIndex === token.start) {
             processingNewStatement = false;
             continue;
         }
 
         const isLastToken = index === tokenStream.size - 2;
-        if (isCloseStatementToken || isLastToken) {
+        if (isEndStatementToken || isLastToken) {
             const tokenTextLength = token.text?.length || 0;
             const statementEndIndex = token.start + tokenTextLength;
 
@@ -87,7 +87,7 @@ export function extractStatementPositionsFromQuery<L extends LexerType, P extend
             statementPositions.push(statementAbsolutePosition);
         }
 
-        if (isCloseStatementToken) {
+        if (isEndStatementToken) {
             processingNewStatement = false;
         }
     }
