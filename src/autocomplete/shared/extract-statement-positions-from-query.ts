@@ -69,9 +69,11 @@ export function extractStatementsUsingTokens(
     let statementStartIndex = 0;
     let processingNewStatement = false;
 
+    // Last token is EOF, so we want to get second to last
+    const lastTokenIndex = tokenStream.size - 2;
     const statementPositions: StatementPosition[] = [];
 
-    for (let index = 0; index < tokenStream.size - 1; index++) {
+    for (let index = 0; index <= lastTokenIndex; index++) {
         const token = tokenStream.get(index);
         const isEndStatementToken = token.type === endStatementToken;
         const isEmptyToken = emptySpaceTokens.includes(token.type);
@@ -90,7 +92,7 @@ export function extractStatementsUsingTokens(
             continue;
         }
 
-        const isLastToken = index === tokenStream.size - 2;
+        const isLastToken = index === lastTokenIndex;
         if (isEndStatementToken || isLastToken) {
             const tokenTextLength = token.text?.length || 0;
             const statementEndIndex = token.start + tokenTextLength;
