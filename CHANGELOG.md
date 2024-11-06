@@ -5,7 +5,7 @@
 
 ### ⚠ BREAKING CHANGES
 
-* support extract statements api ([#216](https://github.com/gravity-ui/websql-autocomplete/issues/216))
+* rename startIndex to column in tokenize ([#216](https://github.com/gravity-ui/websql-autocomplete/issues/216))
 
 ### Features
 
@@ -15,6 +15,7 @@
 * Support grant command for Clickhouse ([#227](https://github.com/gravity-ui/websql-autocomplete/issues/227)) ([4902a69](https://github.com/gravity-ui/websql-autocomplete/commit/4902a6946f0329187514753de0a4f192d2f56072))
 * Support revoke command/grant command improvements for Clickhouse ([#229](https://github.com/gravity-ui/websql-autocomplete/issues/229)) ([80f32b0](https://github.com/gravity-ui/websql-autocomplete/commit/80f32b0e9a1912ae886e96cd4cebadd267e80432))
 * **YQL:** update grammar ([#232](https://github.com/gravity-ui/websql-autocomplete/issues/232)) ([b0d0f35](https://github.com/gravity-ui/websql-autocomplete/commit/b0d0f351acf92ccad362348b33d4d07af6fc72d4))
+* support extract statements api ([#216](https://github.com/gravity-ui/websql-autocomplete/issues/216))
 
 
 ### Bug Fixes
