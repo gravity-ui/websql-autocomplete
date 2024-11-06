@@ -38,7 +38,7 @@ export function extractStatementPositionsFromQuery<L extends LexerType, P extend
     parser.addErrorListener(errorListener);
     getParseTree(parser);
 
-    const autocompleteStatementPositions = parseAutocompleteStatements(
+    const autocompleteStatementPositions = extractStatementsUsingAutocomplete(
         parser,
         tokenStream,
         statementRule,
@@ -50,6 +50,14 @@ export function extractStatementPositionsFromQuery<L extends LexerType, P extend
         };
     }
 
+    return extractStatementsUsingTokens(tokenStream, emptySpaceTokens, endStatementToken);
+}
+
+export function extractStatementsUsingTokens(
+    tokenStream: TokenStream,
+    emptySpaceTokens: number[],
+    endStatementToken: number,
+): ExtractStatementPositionsResult {
     let statementStartIndex = 0;
     let processingNewStatement = false;
 
@@ -95,7 +103,7 @@ export function extractStatementPositionsFromQuery<L extends LexerType, P extend
     return {statementPositions, strategy: StatementExtractionStrategy.Tokens};
 }
 
-export function parseAutocompleteStatements<P extends ParserType>(
+export function extractStatementsUsingAutocomplete<P extends ParserType>(
     parser: P,
     tokenStream: TokenStream,
     statementRule: number,
