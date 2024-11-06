@@ -1,54 +1,83 @@
-import {LexerConstructor} from './autocomplete-types';
-import {Token, tokenize} from './tokenize';
-import type {Lexer as LexerType} from 'antlr4ng';
+import * as c3 from 'antlr4-c3';
+import type {Lexer as LexerType, Parser as ParserType, Token, TokenStream} from 'antlr4ng';
+
+import {GetParseTree, LexerConstructor, ParserConstructor} from './autocomplete-types';
+import {createParser} from './query';
+import {SqlErrorListener} from './sql-error-listener';
 
 export interface StatementPosition {
     startIndex: number;
     endIndex: number;
 }
 
-export function extractStatementPositionsFromQuery<L extends LexerType>(
+export enum StatementExtractionStrategy {
+    Autocomplete = 'autocomplete',
+    Tokens = 'tokens',
+}
+
+export interface ExtractStatementPositionsResult {
+    statementPositions: StatementPosition[];
+    strategy: StatementExtractionStrategy;
+}
+
+export function extractStatementPositionsFromQuery<L extends LexerType, P extends ParserType>(
     query: string,
     Lexer: LexerConstructor<L>,
-    symbolicNames: (string | null)[],
-    whiteSpaceToken: number,
+    Parser: ParserConstructor<P>,
+    whitespaceToken: number,
     emptyTokens: number[],
     closeStatementToken: number,
-): StatementPosition[] {
-    const {tokens} = tokenize(Lexer, symbolicNames, whiteSpaceToken, query);
+    statementRule: number,
+    getParseTree: GetParseTree<P>,
+): ExtractStatementPositionsResult {
+    const parser = createParser(Lexer, Parser, query);
+    const {tokenStream} = parser;
+    const errorListener = new SqlErrorListener(whitespaceToken);
+
+    parser.removeErrorListeners();
+    parser.addErrorListener(errorListener);
+    getParseTree(parser);
+
+    const autocompleteStatementPositions = parseAutocompleteStatements(
+        parser,
+        tokenStream,
+        statementRule,
+    );
+    if (autocompleteStatementPositions.length) {
+        return {
+            statementPositions: autocompleteStatementPositions,
+            strategy: StatementExtractionStrategy.Autocomplete,
+        };
+    }
 
     let statementStartIndex = 0;
     let processingNewStatement = false;
-    let lastStatementToken: Token;
 
     const statementPositions: StatementPosition[] = [];
 
-    tokens.forEach((token, index) => {
+    for (let index = 0; index < tokenStream.size - 1; index++) {
+        const token = tokenStream.get(index);
         const isCloseStatementToken = token.type === closeStatementToken;
         const isEmptyToken = emptyTokens.includes(token.type);
 
         if (!processingNewStatement && isEmptyToken) {
-            return;
+            continue;
         }
 
         if (!processingNewStatement) {
             processingNewStatement = true;
-            statementStartIndex = token.startIndex;
+            statementStartIndex = token.start;
         }
 
-        if (!isEmptyToken && !isCloseStatementToken) {
-            lastStatementToken = token;
-        }
-
-        if (isCloseStatementToken && statementStartIndex === token.startIndex) {
+        if (isCloseStatementToken && statementStartIndex === token.start) {
             processingNewStatement = false;
-            return;
+            continue;
         }
 
-        const isLastToken = index === tokens.length - 1;
+        const isLastToken = index === tokenStream.size - 2;
         if (isCloseStatementToken || isLastToken) {
-            const tokenTextLength = lastStatementToken.text?.length || 0;
-            const statementEndIndex = lastStatementToken.startIndex + tokenTextLength;
+            const tokenTextLength = token.text?.length || 0;
+            const statementEndIndex = token.start + tokenTextLength;
 
             const statementAbsolutePosition: StatementPosition = {
                 startIndex: statementStartIndex,
@@ -61,7 +90,51 @@ export function extractStatementPositionsFromQuery<L extends LexerType>(
         if (isCloseStatementToken) {
             processingNewStatement = false;
         }
-    });
+    }
 
+    return {statementPositions, strategy: StatementExtractionStrategy.Tokens};
+}
+
+export function parseAutocompleteStatements<P extends ParserType>(
+    parser: P,
+    tokenStream: TokenStream,
+    statementRule: number,
+): StatementPosition[] {
+    const core = new c3.CodeCompletionCore(parser);
+    core.preferredRules = new Set([statementRule]);
+
+    // Last token is EOF, so we want to get second to last
+    let currentToken = tokenStream.get(tokenStream.size - 2);
+    const statementPositions: StatementPosition[] = [];
+
+    while (currentToken?.tokenIndex > 0) {
+        const {rules} = core.collectCandidates(currentToken.tokenIndex);
+        let startToken: Token | undefined;
+
+        for (const [ruleId, {startTokenIndex}] of rules) {
+            if (ruleId === statementRule) {
+                startToken = tokenStream.get(startTokenIndex);
+                break;
+            }
+        }
+
+        if (!startToken) {
+            break;
+        }
+
+        // Skip comments
+        if (startToken.tokenIndex > currentToken.tokenIndex) {
+            currentToken = tokenStream.get(currentToken.tokenIndex - 1);
+            continue;
+        }
+
+        statementPositions.push({
+            startIndex: startToken.start,
+            endIndex: currentToken.start + (currentToken.text?.length || 0),
+        });
+        currentToken = tokenStream.get(startToken.tokenIndex - 1);
+    }
+
+    statementPositions.reverse();
     return statementPositions;
 }

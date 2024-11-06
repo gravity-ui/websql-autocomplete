@@ -3,12 +3,15 @@ import {redisAutocompleteData} from './redis-autocomplete';
 import {parseQuery, parseQueryWithoutCursor} from '../../shared/autocomplete';
 import {separateQueryAndCursor} from '../../shared';
 import {
-    StatementPosition,
-    extractStatementPositionsFromQuery,
+    ExtractStatementPositionsResult,
+    StatementExtractionStrategy,
 } from '../../shared/extract-statement-positions-from-query';
-import {RedisLexer} from './generated/RedisLexer';
+import {
+    RedisCommands,
+    extractRedisCommandsFromQuery as extractRedisCommandsFromQueryRaw,
+} from './redis-tokenize';
 
-export {extractRedisCommandsFromQuery, RedisCommands} from './redis-tokenize';
+export {RedisCommands} from './redis-tokenize';
 
 export interface RedisAutocompleteResult extends AutocompleteResultBase {
     suggestKeys?: boolean;
@@ -49,13 +52,16 @@ export function parseRedisQueryWithCursor(queryWithCursor: string): RedisAutocom
     return parseRedisQuery(...separateQueryAndCursor(queryWithCursor));
 }
 
-export function extractRedisStatementPositionsFromQuery(query: string): StatementPosition[] {
-    return extractStatementPositionsFromQuery(
-        query,
-        redisAutocompleteData.Lexer,
-        RedisLexer.symbolicNames,
-        redisAutocompleteData.tokenDictionary.SPACE,
-        [redisAutocompleteData.tokenDictionary.SPACE],
-        RedisLexer.NEWLINE,
-    );
+export function extractRedisStatementPositionsFromQuery(
+    query: string,
+): ExtractStatementPositionsResult {
+    // Redis logic differs from others, it's easier to split statements via tokenize
+    return {
+        statementPositions: extractRedisCommandsFromQueryRaw(query).statementPositions,
+        strategy: StatementExtractionStrategy.Tokens,
+    };
+}
+
+export function extractRedisCommandsFromQuery(query: string): RedisCommands {
+    return extractRedisCommandsFromQueryRaw(query).commands;
 }

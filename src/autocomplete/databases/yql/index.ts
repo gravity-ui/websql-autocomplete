@@ -6,9 +6,10 @@ import {YqlAutocompleteResult, YqlTokenizeResult} from './types';
 import {tokenize} from '../../shared/tokenize';
 import {YQLLexer} from './generated/YQLLexer';
 import {
-    StatementPosition,
+    ExtractStatementPositionsResult,
     extractStatementPositionsFromQuery,
 } from '../../shared/extract-statement-positions-from-query';
+import {YQLParser} from './generated/YQLParser';
 
 export type {YqlAutocompleteResult};
 
@@ -79,13 +80,17 @@ export function tokenizeYqlQuery(query: string): YqlTokenizeResult {
     );
 }
 
-export function extractYqlStatementPositionsFromQuery(query: string): StatementPosition[] {
+export function extractYqlStatementPositionsFromQuery(
+    query: string,
+): ExtractStatementPositionsResult {
     return extractStatementPositionsFromQuery(
         query,
         yqlAutocompleteData.Lexer,
-        YQLLexer.symbolicNames,
+        yqlAutocompleteData.Parser,
         yqlAutocompleteData.tokenDictionary.SPACE,
         [yqlAutocompleteData.tokenDictionary.SPACE],
         yqlAutocompleteData.tokenDictionary.SEMICOLON,
+        YQLParser.RULE_sql_stmt,
+        yqlAutocompleteData.getParseTree,
     );
 }

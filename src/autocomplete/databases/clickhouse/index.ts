@@ -8,10 +8,10 @@ import {clickHouseAutocompleteData} from './clickhouse-autocomplete';
 import {parseQuery, parseQueryWithoutCursor} from '../../shared/autocomplete';
 import {separateQueryAndCursor} from '../../shared/parse-query-with-cursor';
 import {
-    StatementPosition,
+    ExtractStatementPositionsResult,
     extractStatementPositionsFromQuery,
 } from '../../shared/extract-statement-positions-from-query';
-import {ClickHouseLexer} from './generated/ClickHouseLexer';
+import {ClickHouseParser} from './generated/ClickHouseParser';
 
 export interface ClickHouseAutocompleteResult extends SqlAutocompleteResult {
     suggestViewsOrTables?: TableOrViewSuggestion;
@@ -53,13 +53,17 @@ export function parseClickHouseQueryWithCursor(
     return parseClickHouseQuery(...separateQueryAndCursor(queryWithCursor));
 }
 
-export function extractClickHouseStatementPositionsFromQuery(query: string): StatementPosition[] {
+export function extractClickHouseStatementPositionsFromQuery(
+    query: string,
+): ExtractStatementPositionsResult {
     return extractStatementPositionsFromQuery(
         query,
         clickHouseAutocompleteData.Lexer,
-        ClickHouseLexer.symbolicNames,
+        clickHouseAutocompleteData.Parser,
         clickHouseAutocompleteData.tokenDictionary.SPACE,
         [clickHouseAutocompleteData.tokenDictionary.SPACE],
         clickHouseAutocompleteData.tokenDictionary.SEMICOLON,
+        ClickHouseParser.RULE_statement,
+        clickHouseAutocompleteData.getParseTree,
     );
 }
