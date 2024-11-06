@@ -110,49 +110,72 @@ alterTableStatement
     ;
 
 alterTableClause
-    : ADD COLUMN (IF NOT EXISTS)? tableColumnDefinition (AFTER columnIdentifier)? settingsClause?                          # AlterTableClauseAddColumn
-    | ADD INDEX (IF NOT EXISTS)? tableIndexDefinition (AFTER columnIdentifier)?                                            # AlterTableClauseAddIndex
-    | ADD PROJECTION (IF NOT EXISTS)? tableProjectionDefinition (AFTER columnIdentifier)? settingsClause?                  # AlterTableClauseAddProjection
-    | ATTACH partitionClause (FROM tableIdentifier)? settingsClause?                                                       # AlterTableClauseAttach
-    | CLEAR COLUMN (IF EXISTS)? columnIdentifier (IN partitionClause)?                                                     # AlterTableClauseClearColumn
-    | CLEAR INDEX (IF EXISTS)? columnIdentifier (IN partitionClause)?                                                      # AlterTableClauseClearIndex
-    | CLEAR PROJECTION (IF EXISTS)? columnIdentifier (IN partitionClause)?                                                 # AlterTableClauseClearProjection
-    | COMMENT COLUMN (IF EXISTS)? columnIdentifier STRING_LITERAL                                                          # AlterTableClauseComment
-    | DELETE WHERE columnExpression settingsClause?                                                                        # AlterTableClauseDelete
-    | DETACH partitionOrPartClause                                                                                         # AlterTableClauseDetach
-    | DROP COLUMN (IF EXISTS)? columnIdentifier settingsClause?                                                            # AlterTableClauseDropColumn
-    | DROP INDEX (IF EXISTS)? columnIdentifier settingsClause?                                                             # AlterTableClauseDropIndex
-    | DROP PROJECTION (IF EXISTS)? columnIdentifier settingsClause?                                                        # AlterTableClauseDropProjection
-    | DROP partitionOrPartClause settingsClause?                                                                           # AlterTableClauseDropPartition
-    | FREEZE partitionClause? (WITH NAME STRING_LITERAL)?                                                                  # AlterTableClauseFreezeOrUnfreezePartition
-    | UNFREEZE partitionClause? WITH NAME STRING_LITERAL                                                                   # AlterTableClauseFreezeOrUnfreezePartition
-    | MATERIALIZE INDEX (IF EXISTS)? columnIdentifier (IN partitionClause)? settingsClause?                                # AlterTableClauseMaterializeIndex
-    | MATERIALIZE PROJECTION (IF EXISTS)? columnIdentifier (IN partitionClause)? settingsClause?                           # AlterTableClauseMaterializeProjection
-    | MODIFY COLUMN (IF EXISTS)? columnIdentifier codecExpression settingsClause?                                          # AlterTableClauseModifyCodec
-    | MODIFY COLUMN (IF EXISTS)? columnIdentifier COMMENT STRING_LITERAL settingsClause?                                   # AlterTableClauseModifyComment
-    | MODIFY COLUMN (IF EXISTS)? columnIdentifier REMOVE tableColumnPropertyType settingsClause?                           # AlterTableClauseModifyRemove
-    | MODIFY COLUMN (IF EXISTS)? tableColumnDefinition settingsClause?                                                     # AlterTableClauseModify
-    | MODIFY ORDER BY columnExpression                                                                                     # AlterTableClauseModifyOrderBy
-    | MODIFY ttlClause settingsClause?                                                                                     # AlterTableClauseModifyTTL
-    | MOVE partitionClause ( TO DISK STRING_LITERAL | TO VOLUME STRING_LITERAL | TO TABLE tableIdentifier) settingsClause? # AlterTableClauseMovePartition
-    | REMOVE TTL                                                                                                           # AlterTableClauseRemoveTTL
-    | RENAME COLUMN (IF EXISTS)? columnIdentifier TO columnIdentifier settingsClause?                                      # AlterTableClauseRename
-    | REPLACE partitionClause FROM tableIdentifier                                                                         # AlterTableClauseReplace
-    | UPDATE assignmentExpressionList whereClause settingsClause?                                                          # AlterTableClauseUpdate
-    | MODIFY SETTING settingExpressionList settingsClause?                                                                 # AlterTableClauseModify
-    | RESET SETTING identifierList                                                                                         # AlterTableClauseReset
-    | DROP DETACHED (PARTITION | PART) (STRING_LITERAL | ALL) settingsClause?                                              # AlterTableDropDetachedPartition
-    | FORGET PARTITION partitionExpression                                                                                 # AlterTableForgetPartitionClause
-    | (DROP | CLEAR | MATERIALIZE) STATISTICS (IF EXISTS)? columnExpressionList                                            # AlterTableDropOrClearOrMaterializeStatistics
-    | ADD STATISTICS (IF NOT EXISTS)? columnExpressionList TYPE identifierList                                             # AlterTableAddStatistics
-    | MODIFY STATISTICS columnExpressionList TYPE identifierList                                                           # AlterTableModifyStatistics
-    | FETCH partitionOrPartClause FROM STRING_LITERAL settingsClause?                                                      # AlterTableFetchPartition
-    // TODO: maybe better to group all rules
-    | updateInPartitionClause                                     # AlterTableUpdateInPartition
-    | DELETE (IN partitionClause)? WHERE filterByNumberExpression # AlterTableUpdateInPartition
+    : alterTableAddClause
+    | alterTableClearClause
+    | COMMENT COLUMN (IF EXISTS)? columnIdentifier STRING_LITERAL
+    | DETACH partitionOrPartClause
+    | alterTableDropClause
+    | FREEZE partitionClause? (WITH NAME STRING_LITERAL)?
+    | UNFREEZE partitionClause? WITH NAME STRING_LITERAL
+    | alterTableMaterializeClause
+    | alterTableModifyClause
+    | MOVE partitionClause ( TO DISK STRING_LITERAL | TO VOLUME STRING_LITERAL | TO TABLE tableIdentifier) settingsClause?
+    | REMOVE TTL
+    | RENAME COLUMN (IF EXISTS)? columnIdentifier TO columnIdentifier settingsClause?
+    | REPLACE partitionClause FROM tableIdentifier
+    | UPDATE assignmentExpressionList whereClause settingsClause?
+    | RESET SETTING identifierList
+    | FORGET PARTITION partitionExpression
+    | (DROP | CLEAR | MATERIALIZE) STATISTICS (IF EXISTS)? columnExpressionList
+    | FETCH partitionOrPartClause FROM STRING_LITERAL settingsClause?
+    | alterTableUpdateClause
+    | alterTableDeleteClause
     ;
 
-updateInPartitionClause
+alterTableDeleteClause
+    : DELETE WHERE columnExpression settingsClause?
+    | DELETE (IN partitionClause)? WHERE filterByNumberExpression
+    ;
+
+alterTableMaterializeClause
+    : MATERIALIZE INDEX (IF EXISTS)? columnIdentifier (IN partitionClause)? settingsClause?
+    | MATERIALIZE PROJECTION (IF EXISTS)? columnIdentifier (IN partitionClause)? settingsClause?
+    ;
+
+alterTableDropClause
+    : DROP COLUMN (IF EXISTS)? columnIdentifier settingsClause?
+    | DROP INDEX (IF EXISTS)? columnIdentifier settingsClause?
+    | DROP PROJECTION (IF EXISTS)? columnIdentifier settingsClause?
+    | DROP partitionOrPartClause settingsClause?
+    | DROP DETACHED (PARTITION | PART) (STRING_LITERAL | ALL) settingsClause?
+    ;
+
+alterTableClearClause
+    : CLEAR COLUMN (IF EXISTS)? columnIdentifier (IN partitionClause)?
+    | CLEAR INDEX (IF EXISTS)? columnIdentifier (IN partitionClause)?
+    | CLEAR PROJECTION (IF EXISTS)? columnIdentifier (IN partitionClause)?
+    ;
+
+alterTableAddClause
+    : ADD COLUMN (IF NOT EXISTS)? tableColumnDefinition (AFTER columnIdentifier)? settingsClause?
+    | ADD INDEX (IF NOT EXISTS)? tableIndexDefinition (AFTER columnIdentifier)?
+    | ADD PROJECTION (IF NOT EXISTS)? tableProjectionDefinition (AFTER columnIdentifier)? settingsClause?
+    | ATTACH partitionClause (FROM tableIdentifier)? settingsClause?
+    | ADD STATISTICS (IF NOT EXISTS)? columnExpressionList TYPE identifierList
+    ;
+
+alterTableModifyClause
+    : MODIFY COLUMN (IF EXISTS)? columnIdentifier codecExpression settingsClause?
+    | MODIFY COLUMN (IF EXISTS)? columnIdentifier COMMENT STRING_LITERAL settingsClause?
+    | MODIFY COLUMN (IF EXISTS)? columnIdentifier REMOVE tableColumnPropertyType settingsClause?
+    | MODIFY COLUMN (IF EXISTS)? tableColumnDefinition settingsClause?
+    | MODIFY STATISTICS columnExpressionList TYPE identifierList
+    | MODIFY SETTING settingExpressionList settingsClause?
+    | MODIFY ORDER BY columnExpression
+    | MODIFY ttlClause settingsClause?
+    ;
+
+alterTableUpdateClause
     : UPDATE columnEqualExpression (COMMA columnEqualExpression)* (IN partitionClause)? WHERE filterByNumberExpression
     ;
 

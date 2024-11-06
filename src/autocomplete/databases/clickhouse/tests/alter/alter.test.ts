@@ -29,10 +29,10 @@ test('should suggest keywords after MODIFY', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor('ALTER TABLE test_table MODIFY |');
 
     const keywords: KeywordSuggestion[] = [
-        {value: 'STATISTICS'},
-        {value: 'SETTING'},
         {value: 'TTL'},
         {value: 'ORDER'},
+        {value: 'SETTING'},
+        {value: 'STATISTICS'},
         {value: 'COLUMN'},
     ];
     expect(autocompleteResult.suggestKeywords).toEqual(keywords);
@@ -61,7 +61,6 @@ test('should suggest keywords after table name', () => {
         {value: 'ATTACH'},
         {value: 'CLEAR'},
         {value: 'COMMENT'},
-        {value: 'DELETE'},
         {value: 'DETACH'},
         {value: 'DROP'},
         {value: 'FREEZE'},
@@ -76,6 +75,7 @@ test('should suggest keywords after table name', () => {
         {value: 'RESET'},
         {value: 'FORGET'},
         {value: 'FETCH'},
+        {value: 'DELETE'},
         {value: 'ON'},
     ];
     expect(autocompleteResult.suggestKeywords).toEqual(keywords);
