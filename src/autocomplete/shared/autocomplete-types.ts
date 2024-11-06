@@ -13,6 +13,12 @@ import * as c3 from 'antlr4-c3';
 import {TokenPosition} from './cursor';
 import {TableQueryPosition, TokenDictionary} from './tables';
 
+export {
+    StatementPosition,
+    ExtractStatementPositionsResult,
+    StatementExtractionStrategy,
+} from './extract-statement-positions-from-query';
+
 export interface AutocompleteResultBase {
     errors: ParserSyntaxError[];
     suggestKeywords?: KeywordSuggestion[];

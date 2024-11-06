@@ -6,6 +6,8 @@ import {SqlErrorListener} from './sql-error-listener';
 export type Token = {
     ruleName: string;
     startIndex: number;
+    line: number;
+    column: number;
     type: number;
     text?: string;
 };
@@ -41,7 +43,9 @@ export function tokenize<L extends LexerType>(
             if (tokenName) {
                 tokens.push({
                     ruleName: tokenName,
-                    startIndex: token.column,
+                    startIndex: token.start,
+                    column: token.column,
+                    line: token.line,
                     type: token.type,
                     text: token.text,
                 });

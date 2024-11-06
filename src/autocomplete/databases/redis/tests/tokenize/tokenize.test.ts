@@ -1,4 +1,5 @@
-import {RedisCommands, extractRedisCommandsFromQuery} from '../../redis-tokenize';
+import {RedisCommands} from '../../redis-tokenize';
+import {extractRedisCommandsFromQuery} from '../..';
 
 test('should extract commands from simple query', () => {
     const result = extractRedisCommandsFromQuery('SET test_key test_value');

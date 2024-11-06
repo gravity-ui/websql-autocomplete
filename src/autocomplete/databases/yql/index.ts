@@ -5,6 +5,11 @@ import {separateQueryAndCursor} from '../../shared/parse-query-with-cursor';
 import {YqlAutocompleteResult, YqlTokenizeResult} from './types';
 import {tokenize} from '../../shared/tokenize';
 import {YQLLexer} from './generated/YQLLexer';
+import {
+    ExtractStatementPositionsResult,
+    extractStatementPositionsFromQuery,
+} from '../../shared/extract-statement-positions-from-query';
+import {YQLParser} from './generated/YQLParser';
 
 export type {YqlAutocompleteResult};
 
@@ -72,5 +77,20 @@ export function tokenizeYqlQuery(query: string): YqlTokenizeResult {
         YQLLexer.symbolicNames,
         yqlAutocompleteData.tokenDictionary.SPACE,
         query,
+    );
+}
+
+export function extractYqlStatementPositionsFromQuery(
+    query: string,
+): ExtractStatementPositionsResult {
+    return extractStatementPositionsFromQuery(
+        query,
+        yqlAutocompleteData.Lexer,
+        yqlAutocompleteData.Parser,
+        yqlAutocompleteData.tokenDictionary.SPACE,
+        [yqlAutocompleteData.tokenDictionary.SPACE],
+        yqlAutocompleteData.tokenDictionary.SEMICOLON,
+        YQLParser.RULE_sql_stmt,
+        yqlAutocompleteData.getParseTree,
     );
 }
