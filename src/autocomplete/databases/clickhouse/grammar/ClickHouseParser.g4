@@ -119,12 +119,13 @@ alterTableClause
     | CLEAR PROJECTION (IF EXISTS)? columnIdentifier ( IN partitionClause)?                                # AlterTableClauseClearProjection
     | COMMENT COLUMN (IF EXISTS)? columnIdentifier STRING_LITERAL                                          # AlterTableClauseComment
     | DELETE WHERE columnExpression                                                                        # AlterTableClauseDelete
-    | DETACH partitionClause                                                                               # AlterTableClauseDetach
+    | DETACH partitionOrPartClause                                                                         # AlterTableClauseDetach
     | DROP COLUMN (IF EXISTS)? columnIdentifier                                                            # AlterTableClauseDropColumn
     | DROP INDEX (IF EXISTS)? columnIdentifier                                                             # AlterTableClauseDropIndex
     | DROP PROJECTION (IF EXISTS)? columnIdentifier                                                        # AlterTableClauseDropProjection
-    | DROP partitionClause                                                                                 # AlterTableClauseDropPartition
-    | FREEZE partitionClause?                                                                              # AlterTableClauseFreezePartition
+    | DROP partitionOrPartClause                                                                           # AlterTableClauseDropPartition
+    | FREEZE partitionClause? (WITH NAME STRING_LITERAL)?                                                  # AlterTableClauseFreezeOrUnfreezePartition
+    | UNFREEZE partitionClause? WITH NAME STRING_LITERAL                                                   # AlterTableClauseFreezeOrUnfreezePartition
     | MATERIALIZE INDEX (IF EXISTS)? columnIdentifier ( IN partitionClause)?                               # AlterTableClauseMaterializeIndex
     | MATERIALIZE PROJECTION (IF EXISTS)? columnIdentifier ( IN partitionClause)?                          # AlterTableClauseMaterializeProjection
     | MODIFY COLUMN (IF EXISTS)? columnIdentifier codecExpression                                          # AlterTableClauseModifyCodec
@@ -140,6 +141,38 @@ alterTableClause
     | UPDATE assignmentExpressionList whereClause                                                          # AlterTableClauseUpdate
     | MODIFY SETTING settingExpressionList                                                                 # AlterTableClauseModify
     | RESET SETTING identifierList                                                                         # AlterTableClauseReset
+    | DROP DETACHED (PARTITION | PART) (STRING_LITERAL | ALL)                                              # AlterTableDropDetachedPartition
+    | FORGET PARTITION partitionExpression                                                                 # AlterTableForgetPartitionClause
+    | (DROP | CLEAR | MATERIALIZE) STATISTICS (IF EXISTS)? columnExpressionList                            # AlterTableDropOrClearOrMaterializeStatistics
+    | ADD STATISTICS (IF NOT EXISTS)? columnExpressionList TYPE identifierList                             # AlterTableAddStatistics
+    | MODIFY STATISTICS columnExpressionList TYPE identifierList                                           # AlterTableModifyStatistics
+    | FETCH partitionOrPartClause FROM STRING_LITERAL                                                      # AlterTableFetchPartition
+    | updateInPartitionClause                                                                              # AlterTableUpdateInPartition
+    | deleteInPartitionClause                                                                              # AlterTableUpdateInPartition
+    ;
+
+fetchPartitionClause
+    : FETCH partitionOrPartClause FROM STRING_LITERAL
+    ;
+
+updateInPartitionClause
+    : UPDATE columnEqualExpression (COMMA columnEqualExpression)* (IN partitionClause)? WHERE filterByNumberExpression
+    ;
+
+deleteInPartitionClause
+    : DELETE (IN partitionClause)? WHERE filterByNumberExpression
+    ;
+
+filterByNumberExpression
+    : identifierEqualNumber (COMMA identifierEqualNumber)
+    ;
+
+identifierEqualNumber
+    : identifier EQ_SINGLE numberLiteral
+    ;
+
+columnEqualExpression
+    : columnExpression EQ_SINGLE expression
     ;
 
 assignmentExpressionList
@@ -159,9 +192,19 @@ tableColumnPropertyType
     | TTL
     ;
 
+partitionExpression
+    : functionExpression
+    | literal
+    | ID STRING_LITERAL
+    ;
+
 partitionClause
-    : PARTITION columnExpression // actually we expect here any form of tuple of literals
-    | PARTITION ID STRING_LITERAL
+    : PARTITION partitionExpression
+    ;
+
+partitionOrPartClause
+    : partitionClause
+    | PART partitionExpression
     ;
 
 // ATTACH statement
@@ -1735,6 +1778,10 @@ keyword
     | OVERRIDABLE
     | INHERIT
     | RESET
+    | DETACHED
+    | FORGET
+    | STATISTICS
+    | UNFREEZE
     ;
 
 keywordForAlias

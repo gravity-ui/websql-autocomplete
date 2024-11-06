@@ -391,6 +391,10 @@ CHANGEABLE_IN_READONLY                     : C H A N G E A B L E UNDERSCORE I N 
 OVERRIDABLE                                : O V E R R I D A B L E;
 INHERIT                                    : I N H E R I T;
 RESET                                      : R E S E T;
+DETACHED                                   : D E T A C H E D;
+FORGET                                     : F O R G E T;
+STATISTICS                                 : S T A T I S T I C S;
+UNFREEZE                                   : U N F R E E Z E;
 
 JSON_FALSE : 'false';
 JSON_TRUE  : 'true';
