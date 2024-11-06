@@ -50,14 +50,22 @@ export function extractStatementPositionsFromQuery<L extends LexerType, P extend
         };
     }
 
-    return extractStatementsUsingTokens(tokenStream, emptySpaceTokens, endStatementToken);
+    const tokenStatementPositions = extractStatementsUsingTokens(
+        tokenStream,
+        emptySpaceTokens,
+        endStatementToken,
+    );
+    return {
+        statementPositions: tokenStatementPositions,
+        strategy: StatementExtractionStrategy.Tokens,
+    };
 }
 
 export function extractStatementsUsingTokens(
     tokenStream: TokenStream,
     emptySpaceTokens: number[],
     endStatementToken: number,
-): ExtractStatementPositionsResult {
+): StatementPosition[] {
     let statementStartIndex = 0;
     let processingNewStatement = false;
 
@@ -100,7 +108,7 @@ export function extractStatementsUsingTokens(
         }
     }
 
-    return {statementPositions, strategy: StatementExtractionStrategy.Tokens};
+    return statementPositions;
 }
 
 export function extractStatementsUsingAutocomplete<P extends ParserType>(
