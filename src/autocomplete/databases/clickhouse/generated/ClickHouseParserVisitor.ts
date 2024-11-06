@@ -65,9 +65,7 @@ import { AlterTableAddStatisticsContext } from "./ClickHouseParser.js";
 import { AlterTableModifyStatisticsContext } from "./ClickHouseParser.js";
 import { AlterTableFetchPartitionContext } from "./ClickHouseParser.js";
 import { AlterTableUpdateInPartitionContext } from "./ClickHouseParser.js";
-import { FetchPartitionClauseContext } from "./ClickHouseParser.js";
 import { UpdateInPartitionClauseContext } from "./ClickHouseParser.js";
-import { DeleteInPartitionClauseContext } from "./ClickHouseParser.js";
 import { FilterByNumberExpressionContext } from "./ClickHouseParser.js";
 import { IdentifierEqualNumberContext } from "./ClickHouseParser.js";
 import { ColumnEqualExpressionContext } from "./ClickHouseParser.js";
@@ -705,23 +703,11 @@ export class ClickHouseParserVisitor<Result> extends AbstractParseTreeVisitor<Re
      */
     visitAlterTableUpdateInPartition?: (ctx: AlterTableUpdateInPartitionContext) => Result;
     /**
-     * Visit a parse tree produced by `ClickHouseParser.fetchPartitionClause`.
-     * @param ctx the parse tree
-     * @return the visitor result
-     */
-    visitFetchPartitionClause?: (ctx: FetchPartitionClauseContext) => Result;
-    /**
      * Visit a parse tree produced by `ClickHouseParser.updateInPartitionClause`.
      * @param ctx the parse tree
      * @return the visitor result
      */
     visitUpdateInPartitionClause?: (ctx: UpdateInPartitionClauseContext) => Result;
-    /**
-     * Visit a parse tree produced by `ClickHouseParser.deleteInPartitionClause`.
-     * @param ctx the parse tree
-     * @return the visitor result
-     */
-    visitDeleteInPartitionClause?: (ctx: DeleteInPartitionClauseContext) => Result;
     /**
      * Visit a parse tree produced by `ClickHouseParser.filterByNumberExpression`.
      * @param ctx the parse tree
