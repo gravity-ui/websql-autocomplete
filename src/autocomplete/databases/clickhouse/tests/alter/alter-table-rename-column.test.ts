@@ -35,3 +35,13 @@ test('should not report errors', () => {
 
     expect(autocompleteResult.errors).toHaveLength(0);
 });
+
+test('should not report errors', () => {
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(`
+        ALTER TABLE test_table
+            RENAME COLUMN id TO name
+            SETTINGS test_setting = 1;
+    `);
+
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
