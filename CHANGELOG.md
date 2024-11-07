@@ -1,5 +1,13 @@
 # Changelog
 
+## [12.1.0](https://github.com/gravity-ui/websql-autocomplete/compare/v12.0.0...v12.1.0) (2024-11-07)
+
+
+### Features
+
+* Improve ALTER command for ClickHouse ([#233](https://github.com/gravity-ui/websql-autocomplete/issues/233)) ([3b8e2e1](https://github.com/gravity-ui/websql-autocomplete/commit/3b8e2e1ce4d5f8ee8ca4029007df785912655764))
+* **YQL:** support UPSERT and all columns suggestions ([#234](https://github.com/gravity-ui/websql-autocomplete/issues/234)) ([037ef37](https://github.com/gravity-ui/websql-autocomplete/commit/037ef37eb9014666d24b98c4137521197e0b991b))
+
 ## [12.0.0](https://github.com/gravity-ui/websql-autocomplete/compare/v11.0.0...v12.0.0) (2024-11-06)
 
 
