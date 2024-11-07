@@ -106,7 +106,7 @@ renameClause
     ;
 
 alterTableStatement
-    : ALTER TABLE tableIdentifier clusterClause? alterTableClause (COMMA alterTableClause)*
+    : ALTER TABLE tableIdentifier clusterClause? alterTableClause (COMMA alterTableClause)* settingsClause?
     ;
 
 alterTableClause
@@ -119,35 +119,35 @@ alterTableClause
     | UNFREEZE partitionClause? WITH NAME STRING_LITERAL
     | alterTableMaterializeClause
     | alterTableModifyClause
-    | MOVE partitionClause ( TO DISK STRING_LITERAL | TO VOLUME STRING_LITERAL | TO TABLE tableIdentifier) settingsClause?
+    | MOVE partitionClause ( TO DISK STRING_LITERAL | TO VOLUME STRING_LITERAL | TO TABLE tableIdentifier)
     | REMOVE TTL
-    | RENAME COLUMN (IF EXISTS)? columnIdentifier TO columnIdentifier settingsClause?
+    | RENAME COLUMN (IF EXISTS)? columnIdentifier TO columnIdentifier
     | REPLACE partitionClause FROM tableIdentifier
-    | UPDATE assignmentExpressionList whereClause settingsClause?
+    | UPDATE assignmentExpressionList whereClause
     | RESET SETTING identifierList
     | FORGET PARTITION partitionExpression
     | (DROP | CLEAR | MATERIALIZE) STATISTICS (IF EXISTS)? columnExpressionList
-    | FETCH partitionOrPartClause FROM STRING_LITERAL settingsClause?
+    | FETCH partitionOrPartClause FROM STRING_LITERAL
     | alterTableUpdateClause
     | alterTableDeleteClause
     ;
 
 alterTableDeleteClause
-    : DELETE WHERE columnExpression settingsClause?
+    : DELETE WHERE columnExpression
     | DELETE (IN partitionClause)? WHERE filterByNumberExpression
     ;
 
 alterTableMaterializeClause
-    : MATERIALIZE INDEX (IF EXISTS)? columnIdentifier (IN partitionClause)? settingsClause?
-    | MATERIALIZE PROJECTION (IF EXISTS)? columnIdentifier (IN partitionClause)? settingsClause?
+    : MATERIALIZE INDEX (IF EXISTS)? columnIdentifier (IN partitionClause)?
+    | MATERIALIZE PROJECTION (IF EXISTS)? columnIdentifier (IN partitionClause)?
     ;
 
 alterTableDropClause
-    : DROP COLUMN (IF EXISTS)? columnIdentifier settingsClause?
-    | DROP INDEX (IF EXISTS)? columnIdentifier settingsClause?
-    | DROP PROJECTION (IF EXISTS)? columnIdentifier settingsClause?
-    | DROP partitionOrPartClause settingsClause?
-    | DROP DETACHED (PARTITION | PART) (STRING_LITERAL | ALL) settingsClause?
+    : DROP COLUMN (IF EXISTS)? columnIdentifier
+    | DROP INDEX (IF EXISTS)? columnIdentifier
+    | DROP PROJECTION (IF EXISTS)? columnIdentifier
+    | DROP partitionOrPartClause
+    | DROP DETACHED (PARTITION | PART) (STRING_LITERAL | ALL)
     ;
 
 alterTableClearClause
@@ -157,22 +157,22 @@ alterTableClearClause
     ;
 
 alterTableAddClause
-    : ADD COLUMN (IF NOT EXISTS)? tableColumnDefinition (AFTER columnIdentifier)? settingsClause?
+    : ADD COLUMN (IF NOT EXISTS)? tableColumnDefinition (AFTER columnIdentifier)?
     | ADD INDEX (IF NOT EXISTS)? tableIndexDefinition (AFTER columnIdentifier)?
-    | ADD PROJECTION (IF NOT EXISTS)? tableProjectionDefinition (AFTER columnIdentifier)? settingsClause?
-    | ATTACH partitionClause (FROM tableIdentifier)? settingsClause?
+    | ADD PROJECTION (IF NOT EXISTS)? tableProjectionDefinition (AFTER columnIdentifier)?
+    | ATTACH partitionClause (FROM tableIdentifier)?
     | ADD STATISTICS (IF NOT EXISTS)? columnExpressionList TYPE identifierList
     ;
 
 alterTableModifyClause
-    : MODIFY COLUMN (IF EXISTS)? columnIdentifier codecExpression settingsClause?
-    | MODIFY COLUMN (IF EXISTS)? columnIdentifier COMMENT STRING_LITERAL settingsClause?
-    | MODIFY COLUMN (IF EXISTS)? columnIdentifier REMOVE tableColumnPropertyType settingsClause?
-    | MODIFY COLUMN (IF EXISTS)? tableColumnDefinition settingsClause?
+    : MODIFY COLUMN (IF EXISTS)? columnIdentifier codecExpression
+    | MODIFY COLUMN (IF EXISTS)? columnIdentifier COMMENT STRING_LITERAL
+    | MODIFY COLUMN (IF EXISTS)? columnIdentifier REMOVE tableColumnPropertyType
+    | MODIFY COLUMN (IF EXISTS)? tableColumnDefinition
     | MODIFY STATISTICS columnExpressionList TYPE identifierList
-    | MODIFY SETTING settingExpressionList settingsClause?
+    | MODIFY SETTING settingExpressionList
     | MODIFY ORDER BY columnExpression
-    | MODIFY ttlClause settingsClause?
+    | MODIFY ttlClause
     ;
 
 alterTableUpdateClause
