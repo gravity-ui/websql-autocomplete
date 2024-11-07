@@ -1,5 +1,6 @@
 import {parseYqQueryWithCursor} from '../../../index';
-import {ColumnSuggestion, KeywordSuggestion} from '../../../../../shared/autocomplete-types';
+import {KeywordSuggestion} from '../../../../../shared/autocomplete-types';
+import {YQLColumnsSuggestion} from '../../../types';
 
 test('should suggest properly after INSERT', () => {
     const autocompleteResult = parseYqQueryWithCursor('INSERT |');
@@ -50,7 +51,7 @@ test('should suggest properly after table name with a bracket', () => {
         {value: 'FROM'},
         {value: 'SELECT'},
     ];
-    const columnSuggestion: ColumnSuggestion = {tables: [{name: 'test_table'}]};
+    const columnSuggestion: YQLColumnsSuggestion = {tables: [{name: 'test_table'}], all: true};
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
     expect(autocompleteResult.suggestColumns).toEqual(columnSuggestion);
 });

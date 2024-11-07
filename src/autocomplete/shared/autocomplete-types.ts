@@ -91,6 +91,7 @@ export type GetParseTree<P> = (
 
 export type ProcessVisitedRulesResult<A extends AutocompleteResultBase> = Partial<A> & {
     shouldSuggestColumns?: boolean;
+    shouldSuggestAllColumns?: boolean;
     shouldSuggestColumnAliases?: boolean;
     shouldSuggestConstraints?: boolean;
     shouldSuggestTableIndexes?: boolean;

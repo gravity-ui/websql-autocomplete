@@ -299,6 +299,7 @@ function getEnrichAutocompleteResult(parseTreeGetter: GetParseTree<YQLParser>) {
     ): YqlAutocompleteResult => {
         const {
             shouldSuggestColumns,
+            shouldSuggestAllColumns,
             shouldSuggestColumnAliases,
             shouldSuggestTableIndexes,
             ...suggestionsFromRules
@@ -327,7 +328,12 @@ function getEnrichAutocompleteResult(parseTreeGetter: GetParseTree<YQLParser>) {
             );
 
             if (shouldSuggestColumns && tableContextSuggestion) {
-                result.suggestColumns = {tables: tableContextSuggestion.tables};
+                result.suggestColumns = {
+                    tables: tableContextSuggestion.tables,
+                };
+                if (shouldSuggestAllColumns) {
+                    result.suggestColumns.all = true;
+                }
             }
             if (shouldSuggestTableIndexes && tableContextSuggestion) {
                 result.suggestTableIndexes = {tables: tableContextSuggestion.tables};

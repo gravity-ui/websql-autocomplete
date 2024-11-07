@@ -1,5 +1,6 @@
 import {parseYqQueryWithCursor, parseYqQueryWithoutCursor} from '../../../index';
-import {ColumnSuggestion, KeywordSuggestion} from '../../../../../shared/autocomplete-types';
+import {KeywordSuggestion} from '../../../../../shared/autocomplete-types';
+import {YQLColumnsSuggestion} from '../../../types';
 
 test('should suggest properly after SELECT', () => {
     const autocompleteResult = parseYqQueryWithCursor('SELECT |');
@@ -137,7 +138,7 @@ test('should suggest table hints after WITH', () => {
 
 test('should suggest table name for column', () => {
     const autocompleteResult = parseYqQueryWithCursor('SELECT | FROM test_table');
-    const columnSuggestions: ColumnSuggestion = {tables: [{name: 'test_table'}]};
+    const columnSuggestions: YQLColumnsSuggestion = {tables: [{name: 'test_table'}], all: true};
 
     expect(autocompleteResult.suggestColumns).toEqual(columnSuggestions);
 });
@@ -146,43 +147,50 @@ test('should suggest table name for column between statements', () => {
     const autocompleteResult = parseYqQueryWithCursor(
         'SELECT * FROM before_table; SELECT | FROM test_table ; SELECT * FROM after_table;',
     );
-    const columnSuggestions: ColumnSuggestion = {tables: [{name: 'test_table'}]};
+    const columnSuggestions: YQLColumnsSuggestion = {tables: [{name: 'test_table'}], all: true};
 
     expect(autocompleteResult.suggestColumns).toEqual(columnSuggestions);
 });
 
 test('should suggest table name and alias for column', () => {
     const autocompleteResult = parseYqQueryWithCursor('SELECT | FROM test_table t');
-    const columnSuggestions: ColumnSuggestion = {tables: [{name: 'test_table', alias: 't'}]};
+    const columnSuggestions: YQLColumnsSuggestion = {
+        tables: [{name: 'test_table', alias: 't'}],
+        all: true,
+    };
 
     expect(autocompleteResult.suggestColumns).toEqual(columnSuggestions);
 });
 
 test('should suggest table name and alias (with AS) for column', () => {
     const autocompleteResult = parseYqQueryWithCursor('SELECT | FROM test_table AS t');
-    const columnSuggestions: ColumnSuggestion = {tables: [{name: 'test_table', alias: 't'}]};
+    const columnSuggestions: YQLColumnsSuggestion = {
+        tables: [{name: 'test_table', alias: 't'}],
+        all: true,
+    };
 
     expect(autocompleteResult.suggestColumns).toEqual(columnSuggestions);
 });
 
 test('should suggest table name and alias for second column', () => {
     const autocompleteResult = parseYqQueryWithCursor('SELECT id, | FROM test_table AS t');
-    const columnSuggestions: ColumnSuggestion = {tables: [{name: 'test_table', alias: 't'}]};
+    const columnSuggestions: YQLColumnsSuggestion = {tables: [{name: 'test_table', alias: 't'}]};
 
     expect(autocompleteResult.suggestColumns).toEqual(columnSuggestions);
 });
 
 test('should suggest table name and alias for second column if first equals to keyword', () => {
     const autocompleteResult = parseYqQueryWithCursor('SELECT key, | FROM test_table AS t');
-    const columnSuggestions: ColumnSuggestion = {tables: [{name: 'test_table', alias: 't'}]};
+    const columnSuggestions: YQLColumnsSuggestion = {tables: [{name: 'test_table', alias: 't'}]};
 
     expect(autocompleteResult.suggestColumns).toEqual(columnSuggestions);
 });
 
 test('should suggest multiple table names for column', () => {
     const autocompleteResult = parseYqQueryWithCursor('SELECT | FROM test_table_1, test_table_2');
-    const columnSuggestions: ColumnSuggestion = {
+    const columnSuggestions: YQLColumnsSuggestion = {
         tables: [{name: 'test_table_1'}, {name: 'test_table_2'}],
+        all: true,
     };
 
     expect(autocompleteResult.suggestColumns).toEqual(columnSuggestions);
@@ -192,8 +200,9 @@ test('should suggest multiple table names for column between statements', () => 
     const autocompleteResult = parseYqQueryWithCursor(
         'SELECT * FROM before_table; SELECT | FROM test_table_1, test_table_2 ; SELECT * FROM after_table;',
     );
-    const columnSuggestions: ColumnSuggestion = {
+    const columnSuggestions: YQLColumnsSuggestion = {
         tables: [{name: 'test_table_1'}, {name: 'test_table_2'}],
+        all: true,
     };
 
     expect(autocompleteResult.suggestColumns).toEqual(columnSuggestions);
@@ -203,11 +212,12 @@ test('should suggest multiple table names and aliases for column', () => {
     const autocompleteResult = parseYqQueryWithCursor(
         'SELECT | FROM test_table_1 t1, test_table_2 t2',
     );
-    const columnSuggestions: ColumnSuggestion = {
+    const columnSuggestions: YQLColumnsSuggestion = {
         tables: [
             {name: 'test_table_1', alias: 't1'},
             {name: 'test_table_2', alias: 't2'},
         ],
+        all: true,
     };
 
     expect(autocompleteResult.suggestColumns).toEqual(columnSuggestions);
@@ -217,11 +227,12 @@ test('should suggest multiple table names and aliases (with AS) for column', () 
     const autocompleteResult = parseYqQueryWithCursor(
         'SELECT | FROM test_table_1 AS t1, test_table_2 AS t2',
     );
-    const columnSuggestions: ColumnSuggestion = {
+    const columnSuggestions: YQLColumnsSuggestion = {
         tables: [
             {name: 'test_table_1', alias: 't1'},
             {name: 'test_table_2', alias: 't2'},
         ],
+        all: true,
     };
 
     expect(autocompleteResult.suggestColumns).toEqual(columnSuggestions);

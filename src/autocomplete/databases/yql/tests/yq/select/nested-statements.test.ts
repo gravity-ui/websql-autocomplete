@@ -1,5 +1,6 @@
 import {parseYqQueryWithCursor, parseYqQueryWithoutCursor} from '../../../index';
-import {ColumnSuggestion, KeywordSuggestion} from '../../../../../shared/autocomplete-types';
+import {KeywordSuggestion} from '../../../../../shared/autocomplete-types';
+import {YQLColumnsSuggestion} from '../../../types';
 
 test('should suggest nested SELECT', () => {
     const autocompleteResult = parseYqQueryWithCursor('SELECT * FROM (|');
@@ -10,7 +11,7 @@ test('should suggest nested SELECT', () => {
 
 test('should suggest table name for nested SELECT column', () => {
     const autocompleteResult = parseYqQueryWithCursor('SELECT * FROM (SELECT | FROM test_table');
-    const columnSuggestion: ColumnSuggestion = {tables: [{name: 'test_table'}]};
+    const columnSuggestion: YQLColumnsSuggestion = {tables: [{name: 'test_table'}], all: true};
 
     expect(autocompleteResult.suggestColumns).toEqual(columnSuggestion);
 });
@@ -19,7 +20,7 @@ test('should suggest table name for nested SELECT column between statements', ()
     const autocompleteResult = parseYqQueryWithCursor(
         'SELECT * FROM before_table; SELECT * FROM (SELECT | FROM test_table ; SELECT * FROM after_table;',
     );
-    const columnSuggestion: ColumnSuggestion = {tables: [{name: 'test_table'}]};
+    const columnSuggestion: YQLColumnsSuggestion = {tables: [{name: 'test_table'}], all: true};
 
     expect(autocompleteResult.suggestColumns).toEqual(columnSuggestion);
 });
@@ -28,7 +29,7 @@ test('should suggest table name for nested WHERE condition', () => {
     const autocompleteResult = parseYqQueryWithCursor(
         'SELECT * FROM (SELECT * FROM test_table WHERE |',
     );
-    const columnSuggestion: ColumnSuggestion = {tables: [{name: 'test_table'}]};
+    const columnSuggestion: YQLColumnsSuggestion = {tables: [{name: 'test_table'}]};
 
     expect(autocompleteResult.suggestColumns).toEqual(columnSuggestion);
 });
@@ -37,7 +38,7 @@ test('should suggest table name for nested JOIN condition', () => {
     const autocompleteResult = parseYqQueryWithCursor(
         'SELECT * FROM (SELECT * FROM test_table_1 t1 JOIN test_table_2 t2 ON |',
     );
-    const columnSuggestion: ColumnSuggestion = {
+    const columnSuggestion: YQLColumnsSuggestion = {
         tables: [
             {name: 'test_table_1', alias: 't1'},
             {name: 'test_table_2', alias: 't2'},
@@ -58,7 +59,7 @@ test('should suggest table name for double nested SELECT column', () => {
     const autocompleteResult = parseYqQueryWithCursor(
         'SELECT * FROM (SELECT * FROM (SELECT | FROM test_table',
     );
-    const columnSuggestion: ColumnSuggestion = {tables: [{name: 'test_table'}]};
+    const columnSuggestion: YQLColumnsSuggestion = {tables: [{name: 'test_table'}], all: true};
 
     expect(autocompleteResult.suggestColumns).toEqual(columnSuggestion);
 });
@@ -67,7 +68,7 @@ test('should suggest table name for double nested SELECT column between statemen
     const autocompleteResult = parseYqQueryWithCursor(
         'SELECT * FROM before_table; SELECT * FROM (SELECT * FROM (SELECT | FROM test_table ; SELECT * FROM after_table;',
     );
-    const columnSuggestion: ColumnSuggestion = {tables: [{name: 'test_table'}]};
+    const columnSuggestion: YQLColumnsSuggestion = {tables: [{name: 'test_table'}], all: true};
 
     expect(autocompleteResult.suggestColumns).toEqual(columnSuggestion);
 });
@@ -76,7 +77,7 @@ test('should suggest table name for double nested WHERE condition', () => {
     const autocompleteResult = parseYqQueryWithCursor(
         'SELECT * FROM (SELECT * FROM (SELECT * FROM test_table WHERE |',
     );
-    const columnSuggestion: ColumnSuggestion = {tables: [{name: 'test_table'}]};
+    const columnSuggestion: YQLColumnsSuggestion = {tables: [{name: 'test_table'}]};
 
     expect(autocompleteResult.suggestColumns).toEqual(columnSuggestion);
 });
@@ -85,7 +86,7 @@ test('should suggest table name for double nested JOIN condition', () => {
     const autocompleteResult = parseYqQueryWithCursor(
         'SELECT * FROM (SELECT * FROM (SELECT * FROM test_table_1 t1 JOIN test_table_2 t2 ON |',
     );
-    const columnSuggestion: ColumnSuggestion = {
+    const columnSuggestion: YQLColumnsSuggestion = {
         tables: [
             {name: 'test_table_1', alias: 't1'},
             {name: 'test_table_2', alias: 't2'},

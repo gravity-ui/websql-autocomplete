@@ -21,6 +21,36 @@ export const tokenDictionary: TokenDictionary = {
 type AnyRuleInList = (rules: number | number[]) => boolean;
 type AllRulesInList = (rules: number[]) => boolean;
 
+function isFirstPreviousTokenOfType(
+    tokenStream: TokenStream,
+    dictionary: TokenDictionary,
+    tokenIndex: number,
+    tokenType: number,
+): boolean | undefined {
+    const firstIndex = tokenIndex - 1;
+
+    let token = tokenStream.get(firstIndex);
+
+    if (token.type === tokenType) {
+        return true;
+    }
+
+    let currentIndex = firstIndex - 1;
+
+    while (token?.type === dictionary.SPACE) {
+        const found = tokenStream.get(currentIndex);
+
+        if (found.type === tokenType) {
+            return true;
+        }
+        token = found;
+
+        currentIndex--;
+    }
+
+    return undefined;
+}
+
 function getRuleCheckHelpers(ruleList: c3.RuleList): {
     anyRuleInList: AnyRuleInList;
     allRulesInList: AllRulesInList;
@@ -296,6 +326,36 @@ function getColumnsSuggestions({
     );
 }
 
+function getAllColumnsSuggestions(props: GetParticularSuggestionProps): boolean | undefined {
+    const shouldSuggestColumns = getColumnsSuggestions(props);
+    if (!shouldSuggestColumns) {
+        return false;
+    }
+    const {tokenStream, cursorTokenIndex, anyRuleInList, allRulesInList} = props;
+    const isIntoTable =
+        anyRuleInList([YQLParser.RULE_into_table_stmt, YQLParser.RULE_into_table_stmt_yq]) &&
+        anyRuleInList(YQLParser.RULE_into_values_source);
+    if (isIntoTable) {
+        return isFirstPreviousTokenOfType(
+            tokenStream,
+            tokenDictionary,
+            cursorTokenIndex,
+            YQLParser.LPAREN,
+        );
+    }
+
+    const isSelect = allRulesInList([YQLParser.RULE_select_stmt, YQLParser.RULE_result_column]);
+    if (isSelect) {
+        return isFirstPreviousTokenOfType(
+            tokenStream,
+            tokenDictionary,
+            cursorTokenIndex,
+            YQLParser.SELECT,
+        );
+    }
+    return undefined;
+}
+
 function getSimpleTypesSuggestions({
     anyRuleInList,
     allRulesInList,
@@ -449,6 +509,7 @@ export function getGranularSuggestions(
     const suggestExternalDatasource = getExternalDatasourceSuggestions(props);
     const shouldSuggestTableIndexes = getTableIndexesSuggestions(props);
     const shouldSuggestColumns = getColumnsSuggestions(props);
+    const shouldSuggestAllColumns = getAllColumnsSuggestions(props);
     const suggestSimpleTypes = getSimpleTypesSuggestions(props);
     const suggestPragmas = getPragmasSuggestions(props);
     const suggestUdfs = getUdfsSuggestions(props);
@@ -462,6 +523,7 @@ export function getGranularSuggestions(
         suggestWindowFunctions,
         shouldSuggestTableIndexes,
         shouldSuggestColumns,
+        shouldSuggestAllColumns,
         shouldSuggestColumnAliases: shouldSuggestColumns,
         suggestSimpleTypes,
         suggestPragmas,
