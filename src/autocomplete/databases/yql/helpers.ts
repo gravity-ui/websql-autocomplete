@@ -26,29 +26,19 @@ function isFirstPreviousTokenOfType(
     dictionary: TokenDictionary,
     tokenIndex: number,
     tokenType: number,
-): boolean | undefined {
-    const firstIndex = tokenIndex - 1;
+): boolean {
+    let currentIndex = tokenIndex - 1;
+    let token;
 
-    let token = tokenStream.get(firstIndex);
-
-    if (token.type === tokenType) {
-        return true;
-    }
-
-    let currentIndex = firstIndex - 1;
-
-    while (token?.type === dictionary.SPACE) {
-        const found = tokenStream.get(currentIndex);
-
-        if (found.type === tokenType) {
+    do {
+        token = tokenStream.get(currentIndex);
+        if (token?.type === tokenType) {
             return true;
         }
-        token = found;
-
         currentIndex--;
-    }
+    } while (token?.type === dictionary.SPACE);
 
-    return undefined;
+    return false;
 }
 
 function getRuleCheckHelpers(ruleList: c3.RuleList): {
@@ -274,11 +264,9 @@ function getExternalDatasourceSuggestions({
     ]);
 }
 
-function getTableIndexesSuggestions({
-    anyRuleInList,
-}: GetParticularSuggestionProps): boolean | undefined {
+function checkShouldSuggestTableIndexes({anyRuleInList}: GetParticularSuggestionProps): boolean {
     if (!anyRuleInList(YQLParser.RULE_an_id)) {
-        return;
+        return false;
     }
 
     return anyRuleInList([
@@ -287,11 +275,11 @@ function getTableIndexesSuggestions({
     ]);
 }
 
-function getColumnsSuggestions({
+function checkShouldSuggestColumns({
     anyRuleInList,
     tokenStream,
     cursorTokenIndex,
-}: GetParticularSuggestionProps): boolean | undefined {
+}: GetParticularSuggestionProps): boolean {
     if (
         !anyRuleInList([YQLParser.RULE_an_id, YQLParser.RULE_id_expr]) ||
         anyRuleInList([
@@ -301,7 +289,7 @@ function getColumnsSuggestions({
             YQLParser.RULE_lambda_stmt,
         ])
     ) {
-        return;
+        return false;
     }
 
     const existingColumnInSelect =
@@ -326,8 +314,8 @@ function getColumnsSuggestions({
     );
 }
 
-function getAllColumnsSuggestions(props: GetParticularSuggestionProps): boolean | undefined {
-    const shouldSuggestColumns = getColumnsSuggestions(props);
+function checkShouldSuggestAllColumns(props: GetParticularSuggestionProps): boolean {
+    const shouldSuggestColumns = checkShouldSuggestColumns(props);
     if (!shouldSuggestColumns) {
         return false;
     }
@@ -353,7 +341,7 @@ function getAllColumnsSuggestions(props: GetParticularSuggestionProps): boolean 
             YQLParser.SELECT,
         );
     }
-    return undefined;
+    return false;
 }
 
 function getSimpleTypesSuggestions({
@@ -415,9 +403,7 @@ function getAggregateFunctionsSuggestions({
     return;
 }
 
-function getTableHintsSuggestions({
-    allRulesInList,
-}: GetParticularSuggestionProps): boolean | undefined {
+function checkShouldSuggestTableHints({allRulesInList}: GetParticularSuggestionProps): boolean {
     return allRulesInList([YQLParser.RULE_an_id_hint, YQLParser.RULE_table_hint]);
 }
 
@@ -507,16 +493,16 @@ export function getGranularSuggestions(
     const suggestReplication = getReplicationSuggestions(props);
     const suggestExternalTable = getExternalTableSuggestions(props);
     const suggestExternalDatasource = getExternalDatasourceSuggestions(props);
-    const shouldSuggestTableIndexes = getTableIndexesSuggestions(props);
-    const shouldSuggestColumns = getColumnsSuggestions(props);
-    const shouldSuggestAllColumns = getAllColumnsSuggestions(props);
+    const shouldSuggestTableIndexes = checkShouldSuggestTableIndexes(props);
+    const shouldSuggestColumns = checkShouldSuggestColumns(props);
+    const shouldSuggestAllColumns = checkShouldSuggestAllColumns(props);
     const suggestSimpleTypes = getSimpleTypesSuggestions(props);
     const suggestPragmas = getPragmasSuggestions(props);
     const suggestUdfs = getUdfsSuggestions(props);
     const suggestTableFunctions = getTableFunctionsSuggestions(props);
     const suggestFunctions = getFunctionsSuggestions(props);
     const suggestAggregateFunctions = getAggregateFunctionsSuggestions(props);
-    const shouldSuggestTableHints = getTableHintsSuggestions(props);
+    const shouldSuggestTableHints = checkShouldSuggestTableHints(props);
     const suggestEntitySettings = getEntitySettingsSuggestions(props);
 
     return {
