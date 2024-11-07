@@ -30,6 +30,7 @@ export interface TokenDictionary {
     CLOSING_BRACKET: number;
     ALTER: number;
     INSERT: number;
+    UPSERT?: number;
     UPDATE: number;
     JOIN: number;
     SEMICOLON: number;
@@ -168,7 +169,7 @@ export function getTableQueryPosition(
             }
         }
 
-        if (token.type === dictionary.INSERT) {
+        if (token.type === dictionary.INSERT || token.type === dictionary.UPSERT) {
             return {
                 start: token.start,
                 end,

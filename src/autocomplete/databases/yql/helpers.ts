@@ -11,6 +11,7 @@ export const tokenDictionary: TokenDictionary = {
     CLOSING_BRACKET: YQLParser.RPAREN,
     ALTER: YQLParser.ALTER,
     INSERT: YQLParser.INSERT,
+    UPSERT: YQLParser.UPSERT,
     UPDATE: YQLParser.UPDATE,
     JOIN: YQLParser.JOIN,
     SEMICOLON: YQLParser.SEMICOLON,
@@ -19,6 +20,26 @@ export const tokenDictionary: TokenDictionary = {
 
 type AnyRuleInList = (rules: number | number[]) => boolean;
 type AllRulesInList = (rules: number[]) => boolean;
+
+function isFirstPreviousTokenOfType(
+    tokenStream: TokenStream,
+    dictionary: TokenDictionary,
+    tokenIndex: number,
+    tokenType: number,
+): boolean {
+    let currentIndex = tokenIndex - 1;
+    let token;
+
+    do {
+        token = tokenStream.get(currentIndex);
+        if (token?.type === tokenType) {
+            return true;
+        }
+        currentIndex--;
+    } while (token?.type === dictionary.SPACE);
+
+    return false;
+}
 
 function getRuleCheckHelpers(ruleList: c3.RuleList): {
     anyRuleInList: AnyRuleInList;
@@ -243,11 +264,9 @@ function getExternalDatasourceSuggestions({
     ]);
 }
 
-function getTableIndexesSuggestions({
-    anyRuleInList,
-}: GetParticularSuggestionProps): boolean | undefined {
+function checkShouldSuggestTableIndexes({anyRuleInList}: GetParticularSuggestionProps): boolean {
     if (!anyRuleInList(YQLParser.RULE_an_id)) {
-        return;
+        return false;
     }
 
     return anyRuleInList([
@@ -256,11 +275,11 @@ function getTableIndexesSuggestions({
     ]);
 }
 
-function getColumnsSuggestions({
+function checkShouldSuggestColumns({
     anyRuleInList,
     tokenStream,
     cursorTokenIndex,
-}: GetParticularSuggestionProps): boolean | undefined {
+}: GetParticularSuggestionProps): boolean {
     if (
         !anyRuleInList([YQLParser.RULE_an_id, YQLParser.RULE_id_expr]) ||
         anyRuleInList([
@@ -270,7 +289,7 @@ function getColumnsSuggestions({
             YQLParser.RULE_lambda_stmt,
         ])
     ) {
-        return;
+        return false;
     }
 
     const existingColumnInSelect =
@@ -293,6 +312,36 @@ function getColumnsSuggestions({
         existingColumnInAlterTableAlterColumn ||
         existingColumnInSelect
     );
+}
+
+function checkShouldSuggestAllColumns(props: GetParticularSuggestionProps): boolean {
+    const shouldSuggestColumns = checkShouldSuggestColumns(props);
+    if (!shouldSuggestColumns) {
+        return false;
+    }
+    const {tokenStream, cursorTokenIndex, anyRuleInList, allRulesInList} = props;
+    const isIntoTable =
+        anyRuleInList([YQLParser.RULE_into_table_stmt, YQLParser.RULE_into_table_stmt_yq]) &&
+        anyRuleInList(YQLParser.RULE_into_values_source);
+    if (isIntoTable) {
+        return isFirstPreviousTokenOfType(
+            tokenStream,
+            tokenDictionary,
+            cursorTokenIndex,
+            YQLParser.LPAREN,
+        );
+    }
+
+    const isSelect = allRulesInList([YQLParser.RULE_select_stmt, YQLParser.RULE_result_column]);
+    if (isSelect) {
+        return isFirstPreviousTokenOfType(
+            tokenStream,
+            tokenDictionary,
+            cursorTokenIndex,
+            YQLParser.SELECT,
+        );
+    }
+    return false;
 }
 
 function getSimpleTypesSuggestions({
@@ -354,9 +403,7 @@ function getAggregateFunctionsSuggestions({
     return;
 }
 
-function getTableHintsSuggestions({
-    allRulesInList,
-}: GetParticularSuggestionProps): boolean | undefined {
+function checkShouldSuggestTableHints({allRulesInList}: GetParticularSuggestionProps): boolean {
     return allRulesInList([YQLParser.RULE_an_id_hint, YQLParser.RULE_table_hint]);
 }
 
@@ -446,21 +493,23 @@ export function getGranularSuggestions(
     const suggestReplication = getReplicationSuggestions(props);
     const suggestExternalTable = getExternalTableSuggestions(props);
     const suggestExternalDatasource = getExternalDatasourceSuggestions(props);
-    const shouldSuggestTableIndexes = getTableIndexesSuggestions(props);
-    const shouldSuggestColumns = getColumnsSuggestions(props);
+    const shouldSuggestTableIndexes = checkShouldSuggestTableIndexes(props);
+    const shouldSuggestColumns = checkShouldSuggestColumns(props);
+    const shouldSuggestAllColumns = checkShouldSuggestAllColumns(props);
     const suggestSimpleTypes = getSimpleTypesSuggestions(props);
     const suggestPragmas = getPragmasSuggestions(props);
     const suggestUdfs = getUdfsSuggestions(props);
     const suggestTableFunctions = getTableFunctionsSuggestions(props);
     const suggestFunctions = getFunctionsSuggestions(props);
     const suggestAggregateFunctions = getAggregateFunctionsSuggestions(props);
-    const shouldSuggestTableHints = getTableHintsSuggestions(props);
+    const shouldSuggestTableHints = checkShouldSuggestTableHints(props);
     const suggestEntitySettings = getEntitySettingsSuggestions(props);
 
     return {
         suggestWindowFunctions,
         shouldSuggestTableIndexes,
         shouldSuggestColumns,
+        shouldSuggestAllColumns,
         shouldSuggestColumnAliases: shouldSuggestColumns,
         suggestSimpleTypes,
         suggestPragmas,

@@ -1,33 +1,22 @@
-import {parseYqQueryWithCursor} from '../../../index';
+import {parseYqlQueryWithCursor} from '../../../index';
 import {KeywordSuggestion} from '../../../../../shared/autocomplete-types';
 import {YQLColumnsSuggestion} from '../../../types';
 
-test('should suggest properly after INSERT', () => {
-    const autocompleteResult = parseYqQueryWithCursor('INSERT |');
-
-    const keywordsSuggestion: KeywordSuggestion[] = [{value: 'OR'}, {value: 'INTO'}];
-    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
-});
-test('should suggest properly after OR', () => {
-    const autocompleteResult = parseYqQueryWithCursor('INSERT OR |');
-
-    const keywordsSuggestion: KeywordSuggestion[] = [
-        {value: 'IGNORE'},
-        {value: 'REVERT'},
-        {value: 'ABORT'},
-    ];
+test('should suggest properly after UPSERT', () => {
+    const autocompleteResult = parseYqlQueryWithCursor('UPSERT |');
+    const keywordsSuggestion: KeywordSuggestion[] = [{value: 'OBJECT'}, {value: 'INTO'}];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
 test('should suggest properly after INTO', () => {
-    const autocompleteResult = parseYqQueryWithCursor('INSERT INTO |');
+    const autocompleteResult = parseYqlQueryWithCursor('UPSERT INTO |');
     const keywordsSuggestion: KeywordSuggestion[] = [];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
     expect(autocompleteResult.suggestEntity).toEqual(['table']);
 });
 
 test('should suggest properly after table name', () => {
-    const autocompleteResult = parseYqQueryWithCursor('INSERT INTO test_table |');
+    const autocompleteResult = parseYqlQueryWithCursor('UPSERT INTO test_table |');
     const keywordsSuggestion: KeywordSuggestion[] = [
         {value: 'WITH'},
         {value: 'ERASE'},
@@ -43,7 +32,7 @@ test('should suggest properly after table name', () => {
 });
 
 test('should suggest properly after table name with a bracket', () => {
-    const autocompleteResult = parseYqQueryWithCursor('INSERT INTO test_table(|');
+    const autocompleteResult = parseYqlQueryWithCursor('UPSERT INTO test_table( |');
     const keywordsSuggestion: KeywordSuggestion[] = [
         {value: 'DISCARD'},
         {value: 'PROCESS'},
@@ -55,10 +44,17 @@ test('should suggest properly after table name with a bracket', () => {
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
     expect(autocompleteResult.suggestColumns).toEqual(columnSuggestion);
 });
+test('should suggest properly after table name with a bracket and column', () => {
+    const autocompleteResult = parseYqlQueryWithCursor('UPSERT INTO test_table( col1, |');
+    const keywordsSuggestion: KeywordSuggestion[] = [];
+    const columnSuggestion: YQLColumnsSuggestion = {tables: [{name: 'test_table'}]};
+    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(autocompleteResult.suggestColumns).toEqual(columnSuggestion);
+});
 
 test('should suggest properly after table name', () => {
-    const autocompleteResult = parseYqQueryWithCursor(
-        'INSERT INTO test_table(test_column_1, test_column_2) |',
+    const autocompleteResult = parseYqlQueryWithCursor(
+        'UPSERT INTO test_table(test_column_1, test_column_2) |',
     );
     const keywordsSuggestion: KeywordSuggestion[] = [
         {value: 'VALUES'},
@@ -72,18 +68,18 @@ test('should suggest properly after table name', () => {
 });
 
 test('should suggest properly after VALUES', () => {
-    const autocompleteResult = parseYqQueryWithCursor(
-        'INSERT INTO test_table(test_column_1, test_column_2) VALUES (|',
+    const autocompleteResult = parseYqlQueryWithCursor(
+        'UPSERT INTO test_table(test_column_1, test_column_2) VALUES (|',
     );
 
     expect(autocompleteResult.suggestColumns).toBeFalsy();
 });
 
 test('should suggest properly after values', () => {
-    const autocompleteResult = parseYqQueryWithCursor(
-        'INSERT INTO test_table(test_column_1, test_column_2) VALUES (123, 321) |',
+    const autocompleteResult = parseYqlQueryWithCursor(
+        'UPSERT INTO test_table(test_column_1, test_column_2) VALUES (123, 321) |',
     );
 
-    const keywordsSuggestion: KeywordSuggestion[] = [];
+    const keywordsSuggestion: KeywordSuggestion[] = [{value: 'RETURNING'}];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });

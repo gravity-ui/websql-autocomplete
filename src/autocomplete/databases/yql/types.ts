@@ -1,4 +1,8 @@
-import {SqlAutocompleteResult, TableIndexSuggestion} from '../../shared/autocomplete-types';
+import {
+    ColumnSuggestion,
+    SqlAutocompleteResult,
+    TableIndexSuggestion,
+} from '../../shared/autocomplete-types';
 import {TokenizeResult} from '../../shared/tokenize';
 
 export type EntitySuggestion =
@@ -31,6 +35,7 @@ export interface InternalSuggestions
         Partial<Record<EntitySuggestion, boolean>> {
     shouldSuggestTableIndexes?: boolean;
     shouldSuggestColumns?: boolean;
+    shouldSuggestAllColumns?: boolean;
     shouldSuggestColumnAliases?: boolean;
 }
 
@@ -48,7 +53,9 @@ export type YQLEntity =
     | 'tableIndex'
     | 'topicConsumer';
 
-export interface YqlAutocompleteResult extends SqlAutocompleteResult {
+export type YQLColumnsSuggestion = ColumnSuggestion & {all?: boolean};
+
+export interface YqlAutocompleteResult extends Omit<SqlAutocompleteResult, 'suggestColumns'> {
     suggestTableIndexes?: TableIndexSuggestion;
     suggestEntity?: YQLEntity[];
     suggestSimpleTypes?: boolean;
@@ -58,6 +65,7 @@ export interface YqlAutocompleteResult extends SqlAutocompleteResult {
     suggestPragmas?: boolean;
     suggestTableHints?: string;
     suggestEntitySettings?: YQLEntity;
+    suggestColumns?: YQLColumnsSuggestion;
 }
 
 export interface YqlTokenizeResult extends TokenizeResult {}
