@@ -1,4 +1,4 @@
-import {parseClickHouseQueryWithoutCursor} from '../../index';
+import {parseClickHouseQueryWithCursor, parseClickHouseQueryWithoutCursor} from '../../index';
 
 test('should not report errors on statistics clause', () => {
     const autocompleteResult = parseClickHouseQueryWithoutCursor(`
@@ -12,7 +12,7 @@ test('should not report errors on statistics clause', () => {
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should not report errors on statistics clause in extended statement', () => {
+test('should not report errors on extended statistics clause', () => {
     const autocompleteResult = parseClickHouseQueryWithoutCursor(`
         ALTER TABLE test_table
             ADD STATISTICS IF NOT EXISTS test_column1, test_column2 TYPE test_type
@@ -32,4 +32,72 @@ test('should not report errors on statistics clause in extended statement', () =
     `);
 
     expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should suggest properly after ADD', () => {
+    const autocompleteResult = parseClickHouseQueryWithCursor(`
+        ALTER TABLE test_table ADD |
+    `);
+
+    expect(autocompleteResult.suggestKeywords).toEqual([
+        {value: 'STATISTICS'},
+        {value: 'PROJECTION'},
+        {value: 'INDEX'},
+        {value: 'COLUMN'},
+    ]);
+});
+
+test('should suggest properly after MODIFY', () => {
+    const autocompleteResult = parseClickHouseQueryWithCursor(`
+        ALTER TABLE test_table MODIFY |
+    `);
+
+    expect(autocompleteResult.suggestKeywords).toEqual([
+        {value: 'TTL'},
+        {value: 'ORDER'},
+        {value: 'SETTING'},
+        {value: 'STATISTICS'},
+        {value: 'COLUMN'},
+    ]);
+});
+
+test('should suggest properly after DROP', () => {
+    const autocompleteResult = parseClickHouseQueryWithCursor(`
+        ALTER TABLE test_table DROP |
+    `);
+
+    expect(autocompleteResult.suggestKeywords).toEqual([
+        {value: 'STATISTICS'},
+        {value: 'DETACHED'},
+        {value: 'PARTITION'},
+        {value: 'PART'},
+        {value: 'PROJECTION'},
+        {value: 'INDEX'},
+        {value: 'COLUMN'},
+    ]);
+});
+
+test('should suggest properly after CLEAR', () => {
+    const autocompleteResult = parseClickHouseQueryWithCursor(`
+        ALTER TABLE test_table CLEAR |
+    `);
+
+    expect(autocompleteResult.suggestKeywords).toEqual([
+        {value: 'STATISTICS'},
+        {value: 'PROJECTION'},
+        {value: 'INDEX'},
+        {value: 'COLUMN'},
+    ]);
+});
+
+test('should suggest properly after MATERIALIZE', () => {
+    const autocompleteResult = parseClickHouseQueryWithCursor(`
+        ALTER TABLE test_table MATERIALIZE |
+    `);
+
+    expect(autocompleteResult.suggestKeywords).toEqual([
+        {value: 'STATISTICS'},
+        {value: 'PROJECTION'},
+        {value: 'INDEX'},
+    ]);
 });
