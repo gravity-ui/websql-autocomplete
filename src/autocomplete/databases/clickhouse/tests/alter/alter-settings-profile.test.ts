@@ -3,7 +3,7 @@ import {KeywordSuggestion} from '../../../../shared';
 
 test('should not report errors', () => {
     const autocompleteResult = parseClickHouseQueryWithoutCursor(
-        'CREATE SETTINGS PROFILE test_settings_profile;',
+        'ALTER SETTINGS PROFILE test_settings_profile;',
     );
 
     expect(autocompleteResult.errors).toHaveLength(0);
@@ -11,19 +11,14 @@ test('should not report errors', () => {
 
 test('should not report errors on extended statement', () => {
     const autocompleteResult = parseClickHouseQueryWithoutCursor(`
-      CREATE SETTINGS PROFILE test_settings_profile1, test_settings_profile2 ON CLUSTER test_cluster
-        IN test_access_storage_type
+      ALTER SETTINGS PROFILE test_settings_profile1, test_settings_profile2 ON CLUSTER test_cluster
         SETTINGS
-            test_variable1 = 'test_value1' MIN = 'test_value_min1' MAX = 'test_value_max1' READONLY,
-            test_variable2 = 'test_value2' MIN 'test_value_min2' MAX 'test_value_max2' WRITABLE,
-            test_variable3 = 'test_value3' MIN 'test_value_min3' MAX 'test_value_max3' CONST,
-            test_variable4 = 'test_value4' MIN 'test_value_min4' MAX 'test_value_max4' CHANGEABLE_IN_READONLY,
-            INHERIT 'test_profile'
+          test_variable1 = 'test_value1' MIN = 'test_value_min1' MAX = 'test_value_max1' READONLY,
+          test_variable2 = 'test_value2' MIN 'test_value_min2' MAX 'test_value_max2' WRITABLE,
+          INHERIT 'test_profile'
         TO test_role1, test_user1, ALL, ALL EXCEPT test_role2, test_user2, CURRENT_USER;
 
-    
-      CREATE SETTINGS PROFILE test_settings_profile1, test_settings_profile2 ON CLUSTER test_cluster
-        IN test_access_storage_type
+      ALTER SETTINGS PROFILE test_settings_profile1 RENAME TO test_settings_profile2 ON CLUSTER test_cluster
         SETTINGS
             test_variable1 = 'test_value1' MIN = 'test_value_min1' MAX = 'test_value_max1' READONLY,
             test_variable2 = 'test_value2' MIN 'test_value_min2' MAX 'test_value_max2' WRITABLE,
@@ -37,28 +32,29 @@ test('should not report errors on extended statement', () => {
 });
 
 test('should suggest properly after SETTINGS', () => {
-    const autocompleteResult = parseClickHouseQueryWithCursor('CREATE SETTINGS |');
+    const autocompleteResult = parseClickHouseQueryWithCursor('ALTER SETTINGS |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [{value: 'PROFILE'}];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
 test('should suggest properly after PROFILE', () => {
-    const autocompleteResult = parseClickHouseQueryWithCursor('CREATE SETTINGS PROFILE |');
+    const autocompleteResult = parseClickHouseQueryWithCursor('ALTER SETTINGS PROFILE |');
 
-    const keywordsSuggestion: KeywordSuggestion[] = [{value: 'OR'}, {value: 'IF'}];
+    const keywordsSuggestion: KeywordSuggestion[] = [{value: 'IF'}];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
-test('should suggest properly after OR', () => {
-    const autocompleteResult = parseClickHouseQueryWithCursor('CREATE SETTINGS PROFILE OR |');
+test('should suggest properly after settings profile identifier', () => {
+    const autocompleteResult = parseClickHouseQueryWithCursor(
+        'ALTER SETTINGS PROFILE test_settings_profile |',
+    );
 
     const keywordsSuggestion: KeywordSuggestion[] = [
         {value: 'TO'},
         {value: 'SETTINGS'},
-        {value: 'IN'},
         {value: 'ON'},
-        {value: 'REPLACE'},
+        {value: 'RENAME'},
         {value: 'FORMAT'},
         {value: 'INTO'},
     ];
@@ -66,37 +62,30 @@ test('should suggest properly after OR', () => {
 });
 
 test('should suggest properly after IF', () => {
-    const autocompleteResult = parseClickHouseQueryWithCursor('CREATE SETTINGS PROFILE IF |');
+    const autocompleteResult = parseClickHouseQueryWithCursor('ALTER SETTINGS PROFILE IF |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [
         {value: 'TO'},
         {value: 'SETTINGS'},
-        {value: 'IN'},
         {value: 'ON'},
-        {value: 'NOT'},
+        {value: 'RENAME'},
+        {value: 'EXISTS'},
         {value: 'FORMAT'},
         {value: 'INTO'},
     ];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
-test('should suggest properly after NOT', () => {
-    const autocompleteResult = parseClickHouseQueryWithCursor('CREATE SETTINGS PROFILE IF NOT |');
-
-    const keywordsSuggestion: KeywordSuggestion[] = [{value: 'EXISTS'}];
-    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
-});
-
 test('should suggest properly after settings profile identifier', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor(
-        'CREATE SETTINGS PROFILE test_settings_profile |',
+        'ALTER SETTINGS PROFILE test_settings_profile |',
     );
 
     const keywordsSuggestion: KeywordSuggestion[] = [
         {value: 'TO'},
         {value: 'SETTINGS'},
-        {value: 'IN'},
         {value: 'ON'},
+        {value: 'RENAME'},
         {value: 'FORMAT'},
         {value: 'INTO'},
     ];
@@ -105,7 +94,7 @@ test('should suggest properly after settings profile identifier', () => {
 
 test('should suggest properly after ON', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor(
-        'CREATE SETTINGS PROFILE test_settings_profile ON |',
+        'ALTER SETTINGS PROFILE test_settings_profile ON |',
     );
 
     const keywordsSuggestion: KeywordSuggestion[] = [{value: 'CLUSTER'}];
@@ -114,7 +103,7 @@ test('should suggest properly after ON', () => {
 
 test('should suggest properly after SETTINGS', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor(
-        'CREATE SETTINGS PROFILE test_settings_profile SETTINGS |',
+        'ALTER SETTINGS PROFILE test_settings_profile SETTINGS |',
     );
 
     const keywordsSuggestion: KeywordSuggestion[] = [{value: 'PROFILE'}, {value: 'INHERIT'}];
@@ -123,7 +112,7 @@ test('should suggest properly after SETTINGS', () => {
 
 test('should suggest properly after settings expression', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor(
-        "CREATE SETTINGS PROFILE test_settings_profile SETTINGS test_variable = 'test_value' |",
+        "ALTER SETTINGS PROFILE test_settings_profile SETTINGS test_variable = 'test_value' |",
     );
 
     const keywordsSuggestion: KeywordSuggestion[] = [

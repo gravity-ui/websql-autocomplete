@@ -2,15 +2,14 @@ import {parseClickHouseQueryWithCursor, parseClickHouseQueryWithoutCursor} from 
 import {KeywordSuggestion} from '../../../../shared';
 
 test('should not report errors', () => {
-    const autocompleteResult = parseClickHouseQueryWithoutCursor('CREATE QUOTA test_quota;');
+    const autocompleteResult = parseClickHouseQueryWithoutCursor('ALTER QUOTA test_quota;');
 
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
 test('should not report errors on extended statement', () => {
     const autocompleteResult = parseClickHouseQueryWithoutCursor(`
-      CREATE QUOTA IF NOT EXISTS test_quota ON CLUSTER test_cluster
-        IN test_access_storage_type KEYED BY user_name
+      ALTER QUOTA IF EXISTS test_quota ON CLUSTER test_cluster KEYED BY user_name
         FOR RANDOMIZED INTERVAL 1 second MAX queries = 10,
         FOR RANDOMIZED INTERVAL 1 minute MAX query_selects = 10,
         FOR RANDOMIZED INTERVAL 1 hour MAX query_inserts = 10
@@ -23,8 +22,7 @@ test('should not report errors on extended statement', () => {
         FOR RANDOMIZED INTERVAL 1 year TRACKING ONLY
       TO test_role1, test_user1, ALL, ALL EXCEPT test_role2, test_user2, CURRENT_USER;
 
-      CREATE QUOTA IF NOT EXISTS test_quota ON CLUSTER test_cluster
-        IN test_access_storage_type KEY BY user_name
+      ALTER QUOTA IF EXISTS test_quota ON CLUSTER test_cluster KEY BY user_name
         FOR RANDOMIZED INTERVAL 1 second MAX queries = 10,
         FOR RANDOMIZED INTERVAL 1 minute MAX query_selects = 10,
         FOR RANDOMIZED INTERVAL 1 hour MAX query_inserts = 10
@@ -37,8 +35,7 @@ test('should not report errors on extended statement', () => {
         FOR RANDOMIZED INTERVAL 1 year TRACKING ONLY
       TO test_role1, test_user1, ALL, ALL EXCEPT test_role2, test_user2, CURRENT_USER;
 
-      CREATE QUOTA IF NOT EXISTS test_quota ON CLUSTER test_cluster
-        IN test_access_storage_type NOT KEYED
+      ALTER QUOTA IF EXISTS test_quota1 ON CLUSTER test_cluster RENAME TO test_quota2 NOT KEYED
         FOR RANDOMIZED INTERVAL 1 second MAX queries = 10,
         FOR RANDOMIZED INTERVAL 1 minute MAX query_selects = 10,
         FOR RANDOMIZED INTERVAL 1 hour MAX query_inserts = 10
@@ -56,32 +53,14 @@ test('should not report errors on extended statement', () => {
 });
 
 test('should suggest properly after QUOTA', () => {
-    const autocompleteResult = parseClickHouseQueryWithCursor('CREATE QUOTA |');
+    const autocompleteResult = parseClickHouseQueryWithCursor('ALTER QUOTA |');
 
-    const keywordsSuggestion: KeywordSuggestion[] = [{value: 'OR'}, {value: 'IF'}];
-    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
-});
-
-test('should suggest properly after OR', () => {
-    const autocompleteResult = parseClickHouseQueryWithCursor('CREATE QUOTA OR |');
-
-    const keywordsSuggestion: KeywordSuggestion[] = [
-        {value: 'TO'},
-        {value: 'FOR'},
-        {value: 'KEY'},
-        {value: 'KEYED'},
-        {value: 'NOT'},
-        {value: 'IN'},
-        {value: 'ON'},
-        {value: 'REPLACE'},
-        {value: 'FORMAT'},
-        {value: 'INTO'},
-    ];
+    const keywordsSuggestion: KeywordSuggestion[] = [{value: 'IF'}];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
 test('should suggest properly after IF', () => {
-    const autocompleteResult = parseClickHouseQueryWithCursor('CREATE QUOTA IF |');
+    const autocompleteResult = parseClickHouseQueryWithCursor('ALTER QUOTA IF |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [
         {value: 'TO'},
@@ -89,37 +68,38 @@ test('should suggest properly after IF', () => {
         {value: 'KEY'},
         {value: 'KEYED'},
         {value: 'NOT'},
-        {value: 'IN'},
+        {value: 'RENAME'},
         {value: 'ON'},
+        {value: 'EXISTS'},
         {value: 'FORMAT'},
         {value: 'INTO'},
     ];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
-test('should suggest properly after NOT', () => {
-    const autocompleteResult = parseClickHouseQueryWithCursor('CREATE QUOTA IF NOT |');
-
-    const keywordsSuggestion: KeywordSuggestion[] = [{value: 'KEYED'}, {value: 'EXISTS'}];
-    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
-});
-
 test('should suggest properly after ON', () => {
-    const autocompleteResult = parseClickHouseQueryWithCursor('CREATE QUOTA test_quota ON |');
+    const autocompleteResult = parseClickHouseQueryWithCursor('ALTER QUOTA test_quota ON |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [{value: 'CLUSTER'}];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
 test('should suggest properly after KEYED', () => {
-    const autocompleteResult = parseClickHouseQueryWithCursor('CREATE QUOTA test_quota KEYED |');
+    const autocompleteResult = parseClickHouseQueryWithCursor('ALTER QUOTA test_quota KEYED |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [{value: 'BY'}];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
+test('should suggest properly after NOT', () => {
+    const autocompleteResult = parseClickHouseQueryWithCursor('ALTER QUOTA test_quota NOT |');
+
+    const keywordsSuggestion: KeywordSuggestion[] = [{value: 'KEYED'}];
+    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
+});
+
 test('should suggest properly after BY', () => {
-    const autocompleteResult = parseClickHouseQueryWithCursor('CREATE QUOTA test_quota KEYED BY |');
+    const autocompleteResult = parseClickHouseQueryWithCursor('ALTER QUOTA test_quota KEYED BY |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [
         {value: 'USER_NAME'},
@@ -132,7 +112,7 @@ test('should suggest properly after BY', () => {
 });
 
 test('should suggest properly after FOR', () => {
-    const autocompleteResult = parseClickHouseQueryWithCursor('CREATE QUOTA test_quota FOR |');
+    const autocompleteResult = parseClickHouseQueryWithCursor('ALTER QUOTA test_quota FOR |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [{value: 'INTERVAL'}, {value: 'RANDOMIZED'}];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
@@ -140,7 +120,7 @@ test('should suggest properly after FOR', () => {
 
 test('should suggest properly after interval identifier', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor(
-        'CREATE QUOTA test_quota FOR INTERVAL 1 |',
+        'ALTER QUOTA test_quota FOR INTERVAL 1 |',
     );
 
     const keywordsSuggestion: KeywordSuggestion[] = [
@@ -158,7 +138,7 @@ test('should suggest properly after interval identifier', () => {
 
 test('should suggest properly after interval declaration', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor(
-        'CREATE QUOTA test_quota FOR INTERVAL 1 year |',
+        'ALTER QUOTA test_quota FOR INTERVAL 1 year |',
     );
 
     const keywordsSuggestion: KeywordSuggestion[] = [
@@ -171,7 +151,7 @@ test('should suggest properly after interval declaration', () => {
 
 test('should suggest properly after NO', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor(
-        'CREATE QUOTA test_quota FOR INTERVAL 1 year NO |',
+        'ALTER QUOTA test_quota FOR INTERVAL 1 year NO |',
     );
 
     const keywordsSuggestion: KeywordSuggestion[] = [{value: 'LIMITS'}];
@@ -180,7 +160,7 @@ test('should suggest properly after NO', () => {
 
 test('should suggest properly after TRACKING', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor(
-        'CREATE QUOTA test_quota FOR INTERVAL 1 year TRACKING |',
+        'ALTER QUOTA test_quota FOR INTERVAL 1 year TRACKING |',
     );
 
     const keywordsSuggestion: KeywordSuggestion[] = [{value: 'ONLY'}];
@@ -189,7 +169,7 @@ test('should suggest properly after TRACKING', () => {
 
 test('should suggest properly after MAX', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor(
-        'CREATE QUOTA test_quota FOR INTERVAL 1 MINUTE MAX |',
+        'ALTER QUOTA test_quota FOR INTERVAL 1 MINUTE MAX |',
     );
 
     const keywordsSuggestion: KeywordSuggestion[] = [
@@ -208,14 +188,14 @@ test('should suggest properly after MAX', () => {
 });
 
 test('should suggest properly after TO', () => {
-    const autocompleteResult = parseClickHouseQueryWithCursor('CREATE QUOTA test_quota TO |');
+    const autocompleteResult = parseClickHouseQueryWithCursor('ALTER QUOTA test_quota TO |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [{value: 'CURRENT_USER'}, {value: 'ALL'}];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
 test('should suggest properly after ALL', () => {
-    const autocompleteResult = parseClickHouseQueryWithCursor('CREATE QUOTA test_quota TO ALL |');
+    const autocompleteResult = parseClickHouseQueryWithCursor('ALTER QUOTA test_quota TO ALL |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [
         {value: 'EXCEPT'},

@@ -2,14 +2,14 @@ import {parseClickHouseQueryWithCursor, parseClickHouseQueryWithoutCursor} from 
 import {KeywordSuggestion} from '../../../../shared';
 
 test('should not report errors', () => {
-    const autocompleteResult = parseClickHouseQueryWithoutCursor('CREATE ROLE test_role;');
+    const autocompleteResult = parseClickHouseQueryWithoutCursor('ALTER ROLE test_role;');
 
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
 test('should not report errors on extended statement', () => {
     const autocompleteResult = parseClickHouseQueryWithoutCursor(`
-    CREATE ROLE IF NOT EXISTS test_role1, test_role2 ON CLUSTER test_cluster IN test_access_storage_type
+    ALTER ROLE IF EXISTS test_role1, test_role2 ON CLUSTER test_cluster
       SETTINGS
           test_variable1 = 'test_value1' MIN = 'test_value_min1' MAX = 'test_value_max1' READONLY,
           test_variable2 = 'test_value2' MIN 'test_value_min2' MAX 'test_value_max2' WRITABLE,
@@ -22,57 +22,42 @@ test('should not report errors on extended statement', () => {
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should suggest properly after IF', () => {
-    const autocompleteResult = parseClickHouseQueryWithCursor('CREATE ROLE IF |');
-
-    const keywordsSuggestion: KeywordSuggestion[] = [
-        {value: 'SETTINGS'},
-        {value: 'IN'},
-        {value: 'ON'},
-        {value: 'NOT'},
-        {value: 'FORMAT'},
-        {value: 'INTO'},
-    ];
-    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
-});
-
-test('should suggest properly after NOT', () => {
-    const autocompleteResult = parseClickHouseQueryWithCursor('CREATE ROLE IF NOT |');
-
-    const keywordsSuggestion: KeywordSuggestion[] = [{value: 'EXISTS'}];
-    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
-});
-
-test('should suggest properly after OR', () => {
-    const autocompleteResult = parseClickHouseQueryWithCursor('CREATE ROLE OR |');
-
-    const keywordsSuggestion: KeywordSuggestion[] = [
-        {value: 'SETTINGS'},
-        {value: 'IN'},
-        {value: 'ON'},
-        {value: 'REPLACE'},
-        {value: 'FORMAT'},
-        {value: 'INTO'},
-    ];
-    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
-});
-
 test('should suggest properly after ROLE', () => {
-    const autocompleteResult = parseClickHouseQueryWithCursor('CREATE ROLE |');
+    const autocompleteResult = parseClickHouseQueryWithCursor('ALTER ROLE |');
 
-    const keywordsSuggestion: KeywordSuggestion[] = [{value: 'OR'}, {value: 'IF'}];
+    const keywordsSuggestion: KeywordSuggestion[] = [{value: 'IF'}];
+    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
+});
+
+test('should suggest properly after role identifier', () => {
+    const autocompleteResult = parseClickHouseQueryWithCursor('ALTER ROLE test_role |');
+
+    const keywordsSuggestion: KeywordSuggestion[] = [
+        {value: 'SETTINGS'},
+        {value: 'ON'},
+        {value: 'RENAME'},
+        {value: 'FORMAT'},
+        {value: 'INTO'},
+    ];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
 test('should suggest properly after ON', () => {
-    const autocompleteResult = parseClickHouseQueryWithCursor('CREATE ROLE test_role ON |');
+    const autocompleteResult = parseClickHouseQueryWithCursor('ALTER ROLE test_role ON |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [{value: 'CLUSTER'}];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
+test('should suggest properly after RENAME', () => {
+    const autocompleteResult = parseClickHouseQueryWithCursor('ALTER ROLE test_role RENAME |');
+
+    const keywordsSuggestion: KeywordSuggestion[] = [{value: 'TO'}];
+    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
+});
+
 test('should suggest properly after SETTINGS', () => {
-    const autocompleteResult = parseClickHouseQueryWithCursor('CREATE ROLE test_role SETTINGS |');
+    const autocompleteResult = parseClickHouseQueryWithCursor('ALTER ROLE test_role SETTINGS |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [{value: 'PROFILE'}];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
@@ -80,7 +65,7 @@ test('should suggest properly after SETTINGS', () => {
 
 test('should suggest properly after settings expression', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor(
-        "CREATE ROLE test_role SETTINGS test_variable = 'test_value' |",
+        "ALTER ROLE test_role SETTINGS test_variable = 'test_value' |",
     );
 
     const keywordsSuggestion: KeywordSuggestion[] = [

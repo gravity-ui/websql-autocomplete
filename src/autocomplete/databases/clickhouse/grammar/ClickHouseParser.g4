@@ -64,38 +64,131 @@ columnAliases
 // ALTER statement
 
 alterStatement
-    : ALTER TABLE tableIdentifier clusterClause? alterTableClause (COMMA alterTableClause)* # AlterTableStatement
+    : alterTableStatement
+    | alterUserStatement
+    | alterQuotaStatement
+    | alterRowPolicyStatement
+    | alterRoleStatement
+    | alterNamedCollectionStatement
+    | alterSettingsProfileStatement
+    ;
+
+alterSettingsProfileStatement
+    : ALTER SETTINGS PROFILE (IF EXISTS)? identifier (renameClause | COMMA identifierList)? clusterClause? extendedSettingsWithInheritClause? (TO subjectExpressionList)?
+    ;
+
+alterNamedCollectionStatement
+    : ALTER NAMED COLLECTION (IF EXISTS)? identifier clusterClause? ((SET namedCollectionExpressionList) | (DELETE identifierList))?
+    ;
+
+alterRoleStatement
+    : ALTER ROLE (IF EXISTS)? identifier (renameClause | COMMA identifierList)? clusterClause? extendedSettingsWithProfileClause?
+    ;
+
+alterPolicyExpression
+    : identifier clusterClause? ON tableIdentifier renameClause?
+    ;
+
+alterRowPolicyStatement
+    : ALTER ROW? POLICY (IF EXISTS)? alterPolicyExpression (COMMA alterPolicyExpression)* (FOR SELECT)? usingClause? asPermissiveOrRestrictive? (TO subjectExpressionList)?
+    ;
+
+alterQuotaStatement
+    : ALTER QUOTA (IF EXISTS)? identifier clusterClause? renameClause? quotaKeyClause? quotaForList? (TO subjectExpressionList)?
+    ;
+
+alterUserStatement
+    : ALTER USER (IF EXISTS)? identifier (renameClause | COMMA identifierList)? clusterClause? userIdentificationClause? ((ADD | DROP)? hostClause)? validUntilClause? defaultRoleClause? granteesClause? extendedSettingsWithProfileClause?
+    ;
+
+renameClause
+    : RENAME TO identifier
+    ;
+
+alterTableStatement
+    : ALTER TABLE tableIdentifier clusterClause? alterTableClause (COMMA alterTableClause)* settingsClause?
     ;
 
 alterTableClause
-    : ADD COLUMN (IF NOT EXISTS)? tableColumnDefinition (AFTER columnIdentifier)?                          # AlterTableClauseAddColumn
-    | ADD INDEX (IF NOT EXISTS)? tableIndexDefinition ( AFTER columnIdentifier)?                           # AlterTableClauseAddIndex
-    | ADD PROJECTION (IF NOT EXISTS)? tableProjectionDefinition ( AFTER columnIdentifier)?                 # AlterTableClauseAddProjection
-    | ATTACH partitionClause (FROM tableIdentifier)?                                                       # AlterTableClauseAttach
-    | CLEAR COLUMN (IF EXISTS)? columnIdentifier ( IN partitionClause)?                                    # AlterTableClauseClearColumn
-    | CLEAR INDEX (IF EXISTS)? columnIdentifier ( IN partitionClause)?                                     # AlterTableClauseClearIndex
-    | CLEAR PROJECTION (IF EXISTS)? columnIdentifier ( IN partitionClause)?                                # AlterTableClauseClearProjection
-    | COMMENT COLUMN (IF EXISTS)? columnIdentifier STRING_LITERAL                                          # AlterTableClauseComment
-    | DELETE WHERE columnExpression                                                                        # AlterTableClauseDelete
-    | DETACH partitionClause                                                                               # AlterTableClauseDetach
-    | DROP COLUMN (IF EXISTS)? columnIdentifier                                                            # AlterTableClauseDropColumn
-    | DROP INDEX (IF EXISTS)? columnIdentifier                                                             # AlterTableClauseDropIndex
-    | DROP PROJECTION (IF EXISTS)? columnIdentifier                                                        # AlterTableClauseDropProjection
-    | DROP partitionClause                                                                                 # AlterTableClauseDropPartition
-    | FREEZE partitionClause?                                                                              # AlterTableClauseFreezePartition
-    | MATERIALIZE INDEX (IF EXISTS)? columnIdentifier ( IN partitionClause)?                               # AlterTableClauseMaterializeIndex
-    | MATERIALIZE PROJECTION (IF EXISTS)? columnIdentifier ( IN partitionClause)?                          # AlterTableClauseMaterializeProjection
-    | MODIFY COLUMN (IF EXISTS)? columnIdentifier codecExpression                                          # AlterTableClauseModifyCodec
-    | MODIFY COLUMN (IF EXISTS)? columnIdentifier COMMENT STRING_LITERAL                                   # AlterTableClauseModifyComment
-    | MODIFY COLUMN (IF EXISTS)? columnIdentifier REMOVE tableColumnPropertyType                           # AlterTableClauseModifyRemove
-    | MODIFY COLUMN (IF EXISTS)? tableColumnDefinition                                                     # AlterTableClauseModify
-    | MODIFY ORDER BY columnExpression                                                                     # AlterTableClauseModifyOrderBy
-    | MODIFY ttlClause                                                                                     # AlterTableClauseModifyTTL
-    | MOVE partitionClause ( TO DISK STRING_LITERAL | TO VOLUME STRING_LITERAL | TO TABLE tableIdentifier) # AlterTableClauseMovePartition
-    | REMOVE TTL                                                                                           # AlterTableClauseRemoveTTL
-    | RENAME COLUMN (IF EXISTS)? columnIdentifier TO columnIdentifier                                      # AlterTableClauseRename
-    | REPLACE partitionClause FROM tableIdentifier                                                         # AlterTableClauseReplace
-    | UPDATE assignmentExpressionList whereClause                                                          # AlterTableClauseUpdate
+    : alterTableAddClause
+    | alterTableClearClause
+    | COMMENT COLUMN (IF EXISTS)? columnIdentifier STRING_LITERAL
+    | DETACH partitionOrPartClause
+    | alterTableDropClause
+    | FREEZE partitionClause? (WITH NAME STRING_LITERAL)?
+    | UNFREEZE partitionClause? WITH NAME STRING_LITERAL
+    | alterTableMaterializeClause
+    | alterTableModifyClause
+    | MOVE partitionClause ( TO DISK STRING_LITERAL | TO VOLUME STRING_LITERAL | TO TABLE tableIdentifier)
+    | REMOVE TTL
+    | RENAME COLUMN (IF EXISTS)? columnIdentifier TO columnIdentifier
+    | REPLACE partitionClause FROM tableIdentifier
+    | UPDATE assignmentExpressionList whereClause
+    | RESET SETTING identifierList
+    | FORGET PARTITION partitionExpression
+    | (DROP | CLEAR | MATERIALIZE) STATISTICS (IF EXISTS)? columnExpressionList
+    | FETCH partitionOrPartClause FROM STRING_LITERAL
+    | alterTableUpdateClause
+    | alterTableDeleteClause
+    ;
+
+alterTableDeleteClause
+    : DELETE WHERE columnExpression
+    | DELETE (IN partitionClause)? WHERE filterByNumberExpression
+    ;
+
+alterTableMaterializeClause
+    : MATERIALIZE INDEX (IF EXISTS)? columnIdentifier (IN partitionClause)?
+    | MATERIALIZE PROJECTION (IF EXISTS)? columnIdentifier (IN partitionClause)?
+    ;
+
+alterTableDropClause
+    : DROP COLUMN (IF EXISTS)? columnIdentifier
+    | DROP INDEX (IF EXISTS)? columnIdentifier
+    | DROP PROJECTION (IF EXISTS)? columnIdentifier
+    | DROP partitionOrPartClause
+    | DROP DETACHED (PARTITION | PART) (STRING_LITERAL | ALL)
+    ;
+
+alterTableClearClause
+    : CLEAR COLUMN (IF EXISTS)? columnIdentifier (IN partitionClause)?
+    | CLEAR INDEX (IF EXISTS)? columnIdentifier (IN partitionClause)?
+    | CLEAR PROJECTION (IF EXISTS)? columnIdentifier (IN partitionClause)?
+    ;
+
+alterTableAddClause
+    : ADD COLUMN (IF NOT EXISTS)? tableColumnDefinition (AFTER columnIdentifier)?
+    | ADD INDEX (IF NOT EXISTS)? tableIndexDefinition (AFTER columnIdentifier)?
+    | ADD PROJECTION (IF NOT EXISTS)? tableProjectionDefinition (AFTER columnIdentifier)?
+    | ATTACH partitionClause (FROM tableIdentifier)?
+    | ADD STATISTICS (IF NOT EXISTS)? columnExpressionList TYPE identifierList
+    ;
+
+alterTableModifyClause
+    : MODIFY COLUMN (IF EXISTS)? columnIdentifier codecExpression
+    | MODIFY COLUMN (IF EXISTS)? columnIdentifier COMMENT STRING_LITERAL
+    | MODIFY COLUMN (IF EXISTS)? columnIdentifier REMOVE tableColumnPropertyType
+    | MODIFY COLUMN (IF EXISTS)? tableColumnDefinition
+    | MODIFY STATISTICS columnExpressionList TYPE identifierList
+    | MODIFY SETTING settingExpressionList
+    | MODIFY ORDER BY columnExpression
+    | MODIFY ttlClause
+    ;
+
+alterTableUpdateClause
+    : UPDATE columnEqualExpression (COMMA columnEqualExpression)* (IN partitionClause)? WHERE filterByNumberExpression
+    ;
+
+filterByNumberExpression
+    : identifierEqualNumber (COMMA identifierEqualNumber)
+    ;
+
+identifierEqualNumber
+    : identifier EQ_SINGLE numberLiteral
+    ;
+
+columnEqualExpression
+    : columnExpression EQ_SINGLE expression
     ;
 
 assignmentExpressionList
@@ -115,9 +208,20 @@ tableColumnPropertyType
     | TTL
     ;
 
+partitionExpression
+    : functionExpression
+    | literal
+    | ID STRING_LITERAL
+    | ALL
+    ;
+
 partitionClause
-    : PARTITION columnExpression // actually we expect here any form of tuple of literals
-    | PARTITION ID STRING_LITERAL
+    : PARTITION partitionExpression
+    ;
+
+partitionOrPartClause
+    : partitionClause
+    | PART partitionExpression
     ;
 
 // ATTACH statement
@@ -220,19 +324,27 @@ hostClause
 
 extendedSettingExpression
     : identifier EQ_SINGLE literal (MIN EQ_SINGLE? literal)? (MAX EQ_SINGLE? literal)? (CONST | READONLY | WRITABLE | CHANGEABLE_IN_READONLY)?
+    ;
+
+extendedSettingExpressionWithProfileClause
+    : extendedSettingExpression
     | PROFILE STRING_LITERAL
     ;
 
-extendedSettingsClause
-    : SETTINGS extendedSettingExpression (COMMA extendedSettingExpression)*
+extendedSettingsWithProfileClause
+    : SETTINGS extendedSettingExpressionWithProfileClause (COMMA extendedSettingExpressionWithProfileClause)*
     ;
 
 inClause
     : IN (identifier | STRING_LITERAL)
     ;
 
+defaultRoleClause
+    : DEFAULT ROLE roleExpressionList
+    ;
+
 createUserStatement
-    : CREATE USER replaceOrIfNotExistsClause? identifierList clusterClause? userIdentificationClause hostClause? validUntilClause? inClause? (DEFAULT ROLE roleExpressionList)? (DEFAULT DATABASE (databaseIdentifier | NONE))? granteesClause? extendedSettingsClause?
+    : CREATE USER replaceOrIfNotExistsClause? identifierList clusterClause? userIdentificationClause? hostClause? validUntilClause? inClause? defaultRoleClause? (DEFAULT DATABASE (databaseIdentifier | NONE))? granteesClause? extendedSettingsWithProfileClause?
     ;
 
 replaceOrIfNotExistsClause
@@ -245,7 +357,7 @@ tableIdentifierOrAnyTable
     | identifier DOT ASTERISK
     ;
 
-policyExpression
+createPolicyExpression
     : identifier clusterClause? ON tableIdentifierOrAnyTable
     ;
 
@@ -280,21 +392,29 @@ subjectExpression
     | ALL EXCEPT userOrRoleExpressionList
     ;
 
+asPermissiveOrRestrictive
+    : AS (PERMISSIVE | RESTRICTIVE)
+    ;
+
+usingClause
+    : USING (conditionClause | NONE)
+    ;
+
 createRowPolicyStatement
-    : CREATE ROW? POLICY replaceOrIfNotExistsClause? policyExpression (COMMA policyExpression)* inClause? (FOR SELECT)? USING conditionClause (AS (PERMISSIVE | RESTRICTIVE))? (TO subjectExpressionList)?
+    : CREATE ROW? POLICY replaceOrIfNotExistsClause? createPolicyExpression (COMMA createPolicyExpression)* inClause? (FOR SELECT)? usingClause? asPermissiveOrRestrictive? (TO subjectExpressionList)?
     ;
 
 quotaKeyType
     : USER_NAME
     | IP_ADDRESS
     | CLIENT_KEY (COMMA (USER_NAME | IP_ADDRESS))?
-    | NOT KEYED
     | CLIENT_KEY_OR_USER_NAME
     | CLIENT_KEY_OR_IP_ADDRESS
     ;
 
-quotaKeyedByClause
+quotaKeyClause
     : (KEYED | KEY) BY quotaKeyType
+    | NOT KEYED
     ;
 
 quotaRestrictionType
@@ -322,7 +442,6 @@ quotaRestrictionExpression
 quotaRestrictionClause
     : quotaRestrictionExpression (COMMA quotaRestrictionExpression)*
     | NO LIMITS
-    | NOT KEYED
     | TRACKING ONLY
     ;
 
@@ -339,7 +458,7 @@ quotaForList
     ;
 
 createQuotaStatement
-    : CREATE QUOTA replaceOrIfNotExistsClause? identifierList clusterClause? inClause? quotaKeyedByClause? quotaForList? (NOT KEYED)? (TO subjectExpressionList)?
+    : CREATE QUOTA replaceOrIfNotExistsClause? identifierList clusterClause? inClause? quotaKeyClause? quotaForList? (TO subjectExpressionList)?
     ;
 
 identifierList
@@ -347,23 +466,32 @@ identifierList
     ;
 
 createRoleStatement
-    : CREATE ROLE replaceOrIfNotExistsClause? identifierList clusterClause? inClause? extendedSettingsClause?
+    : CREATE ROLE replaceOrIfNotExistsClause? identifierList clusterClause? inClause? extendedSettingsWithProfileClause?
+    ;
+
+extendedSettingExpressionWithProfileOrInheritClause
+    : extendedSettingExpressionWithProfileClause
+    | INHERIT STRING_LITERAL
+    ;
+
+extendedSettingsWithInheritClause
+    : SETTINGS extendedSettingExpressionWithProfileOrInheritClause (COMMA extendedSettingExpressionWithProfileOrInheritClause)*
     ;
 
 createSettingsProfileStatement
-    : CREATE SETTINGS PROFILE replaceOrIfNotExistsClause? identifierList clusterClause? inClause? extendedSettingsClause? (TO subjectExpressionList)?
+    : CREATE SETTINGS PROFILE replaceOrIfNotExistsClause? identifierList clusterClause? inClause? extendedSettingsWithInheritClause? (TO subjectExpressionList)?
     ;
 
 namedCollectionExpression
     : identifier EQ_SINGLE stringOrNumberLiteral (NOT? OVERRIDABLE)?
     ;
 
-namedCollectionClause
+namedCollectionExpressionList
     : namedCollectionExpression (COMMA namedCollectionExpression)*
     ;
 
 createNamedCollectionStatement
-    : CREATE NAMED COLLECTION (IF NOT EXISTS)? identifier clusterClause? AS namedCollectionClause
+    : CREATE NAMED COLLECTION (IF NOT EXISTS)? identifier clusterClause? AS namedCollectionExpressionList
     ;
 
 expressionOperand
@@ -1665,6 +1793,12 @@ keyword
     | CONST
     | CHANGEABLE_IN_READONLY
     | OVERRIDABLE
+    | INHERIT
+    | RESET
+    | DETACHED
+    | FORGET
+    | STATISTICS
+    | UNFREEZE
     ;
 
 keywordForAlias

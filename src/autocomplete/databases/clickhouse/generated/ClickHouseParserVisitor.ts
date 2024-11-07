@@ -19,39 +19,33 @@ import { NotInsertStatementContext } from "./ClickHouseParser.js";
 import { CommonTableExpressionStatementContext } from "./ClickHouseParser.js";
 import { NamedQueryContext } from "./ClickHouseParser.js";
 import { ColumnAliasesContext } from "./ClickHouseParser.js";
+import { AlterStatementContext } from "./ClickHouseParser.js";
+import { AlterSettingsProfileStatementContext } from "./ClickHouseParser.js";
+import { AlterNamedCollectionStatementContext } from "./ClickHouseParser.js";
+import { AlterRoleStatementContext } from "./ClickHouseParser.js";
+import { AlterPolicyExpressionContext } from "./ClickHouseParser.js";
+import { AlterRowPolicyStatementContext } from "./ClickHouseParser.js";
+import { AlterQuotaStatementContext } from "./ClickHouseParser.js";
+import { AlterUserStatementContext } from "./ClickHouseParser.js";
+import { RenameClauseContext } from "./ClickHouseParser.js";
 import { AlterTableStatementContext } from "./ClickHouseParser.js";
-import { AlterTableClauseAddColumnContext } from "./ClickHouseParser.js";
-import { AlterTableClauseAddIndexContext } from "./ClickHouseParser.js";
-import { AlterTableClauseAddProjectionContext } from "./ClickHouseParser.js";
-import { AlterTableClauseAttachContext } from "./ClickHouseParser.js";
-import { AlterTableClauseClearColumnContext } from "./ClickHouseParser.js";
-import { AlterTableClauseClearIndexContext } from "./ClickHouseParser.js";
-import { AlterTableClauseClearProjectionContext } from "./ClickHouseParser.js";
-import { AlterTableClauseCommentContext } from "./ClickHouseParser.js";
-import { AlterTableClauseDeleteContext } from "./ClickHouseParser.js";
-import { AlterTableClauseDetachContext } from "./ClickHouseParser.js";
-import { AlterTableClauseDropColumnContext } from "./ClickHouseParser.js";
-import { AlterTableClauseDropIndexContext } from "./ClickHouseParser.js";
-import { AlterTableClauseDropProjectionContext } from "./ClickHouseParser.js";
-import { AlterTableClauseDropPartitionContext } from "./ClickHouseParser.js";
-import { AlterTableClauseFreezePartitionContext } from "./ClickHouseParser.js";
-import { AlterTableClauseMaterializeIndexContext } from "./ClickHouseParser.js";
-import { AlterTableClauseMaterializeProjectionContext } from "./ClickHouseParser.js";
-import { AlterTableClauseModifyCodecContext } from "./ClickHouseParser.js";
-import { AlterTableClauseModifyCommentContext } from "./ClickHouseParser.js";
-import { AlterTableClauseModifyRemoveContext } from "./ClickHouseParser.js";
-import { AlterTableClauseModifyContext } from "./ClickHouseParser.js";
-import { AlterTableClauseModifyOrderByContext } from "./ClickHouseParser.js";
-import { AlterTableClauseModifyTTLContext } from "./ClickHouseParser.js";
-import { AlterTableClauseMovePartitionContext } from "./ClickHouseParser.js";
-import { AlterTableClauseRemoveTTLContext } from "./ClickHouseParser.js";
-import { AlterTableClauseRenameContext } from "./ClickHouseParser.js";
-import { AlterTableClauseReplaceContext } from "./ClickHouseParser.js";
-import { AlterTableClauseUpdateContext } from "./ClickHouseParser.js";
+import { AlterTableClauseContext } from "./ClickHouseParser.js";
+import { AlterTableDeleteClauseContext } from "./ClickHouseParser.js";
+import { AlterTableMaterializeClauseContext } from "./ClickHouseParser.js";
+import { AlterTableDropClauseContext } from "./ClickHouseParser.js";
+import { AlterTableClearClauseContext } from "./ClickHouseParser.js";
+import { AlterTableAddClauseContext } from "./ClickHouseParser.js";
+import { AlterTableModifyClauseContext } from "./ClickHouseParser.js";
+import { AlterTableUpdateClauseContext } from "./ClickHouseParser.js";
+import { FilterByNumberExpressionContext } from "./ClickHouseParser.js";
+import { IdentifierEqualNumberContext } from "./ClickHouseParser.js";
+import { ColumnEqualExpressionContext } from "./ClickHouseParser.js";
 import { AssignmentExpressionListContext } from "./ClickHouseParser.js";
 import { AssignmentExpressionContext } from "./ClickHouseParser.js";
 import { TableColumnPropertyTypeContext } from "./ClickHouseParser.js";
+import { PartitionExpressionContext } from "./ClickHouseParser.js";
 import { PartitionClauseContext } from "./ClickHouseParser.js";
+import { PartitionOrPartClauseContext } from "./ClickHouseParser.js";
 import { AttachDictionaryStatementContext } from "./ClickHouseParser.js";
 import { CheckStatementContext } from "./ClickHouseParser.js";
 import { DeleteStatementContext } from "./ClickHouseParser.js";
@@ -71,21 +65,25 @@ import { GranteesClauseContext } from "./ClickHouseParser.js";
 import { HostTypeContext } from "./ClickHouseParser.js";
 import { HostClauseContext } from "./ClickHouseParser.js";
 import { ExtendedSettingExpressionContext } from "./ClickHouseParser.js";
-import { ExtendedSettingsClauseContext } from "./ClickHouseParser.js";
+import { ExtendedSettingExpressionWithProfileClauseContext } from "./ClickHouseParser.js";
+import { ExtendedSettingsWithProfileClauseContext } from "./ClickHouseParser.js";
 import { InClauseContext } from "./ClickHouseParser.js";
+import { DefaultRoleClauseContext } from "./ClickHouseParser.js";
 import { CreateUserStatementContext } from "./ClickHouseParser.js";
 import { ReplaceOrIfNotExistsClauseContext } from "./ClickHouseParser.js";
 import { TableIdentifierOrAnyTableContext } from "./ClickHouseParser.js";
-import { PolicyExpressionContext } from "./ClickHouseParser.js";
+import { CreatePolicyExpressionContext } from "./ClickHouseParser.js";
 import { IdentifierOrLiteralOrFunctionContext } from "./ClickHouseParser.js";
 import { FunctionExpressionContext } from "./ClickHouseParser.js";
 import { ConditionExpressionContext } from "./ClickHouseParser.js";
 import { ConditionClauseContext } from "./ClickHouseParser.js";
 import { SubjectOrAllOrExceptContext } from "./ClickHouseParser.js";
 import { SubjectExpressionContext } from "./ClickHouseParser.js";
+import { AsPermissiveOrRestrictiveContext } from "./ClickHouseParser.js";
+import { UsingClauseContext } from "./ClickHouseParser.js";
 import { CreateRowPolicyStatementContext } from "./ClickHouseParser.js";
 import { QuotaKeyTypeContext } from "./ClickHouseParser.js";
-import { QuotaKeyedByClauseContext } from "./ClickHouseParser.js";
+import { QuotaKeyClauseContext } from "./ClickHouseParser.js";
 import { QuotaRestrictionTypeContext } from "./ClickHouseParser.js";
 import { StringOrNumberLiteralContext } from "./ClickHouseParser.js";
 import { QuotaRestrictionExpressionContext } from "./ClickHouseParser.js";
@@ -96,9 +94,11 @@ import { QuotaForListContext } from "./ClickHouseParser.js";
 import { CreateQuotaStatementContext } from "./ClickHouseParser.js";
 import { IdentifierListContext } from "./ClickHouseParser.js";
 import { CreateRoleStatementContext } from "./ClickHouseParser.js";
+import { ExtendedSettingExpressionWithProfileOrInheritClauseContext } from "./ClickHouseParser.js";
+import { ExtendedSettingsWithInheritClauseContext } from "./ClickHouseParser.js";
 import { CreateSettingsProfileStatementContext } from "./ClickHouseParser.js";
 import { NamedCollectionExpressionContext } from "./ClickHouseParser.js";
-import { NamedCollectionClauseContext } from "./ClickHouseParser.js";
+import { NamedCollectionExpressionListContext } from "./ClickHouseParser.js";
 import { CreateNamedCollectionStatementContext } from "./ClickHouseParser.js";
 import { ExpressionOperandContext } from "./ClickHouseParser.js";
 import { ExpressionContext } from "./ClickHouseParser.js";
@@ -362,208 +362,131 @@ export class ClickHouseParserVisitor<Result> extends AbstractParseTreeVisitor<Re
      */
     visitColumnAliases?: (ctx: ColumnAliasesContext) => Result;
     /**
-     * Visit a parse tree produced by the `AlterTableStatement`
-     * labeled alternative in `ClickHouseParser.alterStatement`.
+     * Visit a parse tree produced by `ClickHouseParser.alterStatement`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitAlterStatement?: (ctx: AlterStatementContext) => Result;
+    /**
+     * Visit a parse tree produced by `ClickHouseParser.alterSettingsProfileStatement`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitAlterSettingsProfileStatement?: (ctx: AlterSettingsProfileStatementContext) => Result;
+    /**
+     * Visit a parse tree produced by `ClickHouseParser.alterNamedCollectionStatement`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitAlterNamedCollectionStatement?: (ctx: AlterNamedCollectionStatementContext) => Result;
+    /**
+     * Visit a parse tree produced by `ClickHouseParser.alterRoleStatement`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitAlterRoleStatement?: (ctx: AlterRoleStatementContext) => Result;
+    /**
+     * Visit a parse tree produced by `ClickHouseParser.alterPolicyExpression`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitAlterPolicyExpression?: (ctx: AlterPolicyExpressionContext) => Result;
+    /**
+     * Visit a parse tree produced by `ClickHouseParser.alterRowPolicyStatement`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitAlterRowPolicyStatement?: (ctx: AlterRowPolicyStatementContext) => Result;
+    /**
+     * Visit a parse tree produced by `ClickHouseParser.alterQuotaStatement`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitAlterQuotaStatement?: (ctx: AlterQuotaStatementContext) => Result;
+    /**
+     * Visit a parse tree produced by `ClickHouseParser.alterUserStatement`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitAlterUserStatement?: (ctx: AlterUserStatementContext) => Result;
+    /**
+     * Visit a parse tree produced by `ClickHouseParser.renameClause`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitRenameClause?: (ctx: RenameClauseContext) => Result;
+    /**
+     * Visit a parse tree produced by `ClickHouseParser.alterTableStatement`.
      * @param ctx the parse tree
      * @return the visitor result
      */
     visitAlterTableStatement?: (ctx: AlterTableStatementContext) => Result;
     /**
-     * Visit a parse tree produced by the `AlterTableClauseAddColumn`
-     * labeled alternative in `ClickHouseParser.alterTableClause`.
+     * Visit a parse tree produced by `ClickHouseParser.alterTableClause`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitAlterTableClauseAddColumn?: (ctx: AlterTableClauseAddColumnContext) => Result;
+    visitAlterTableClause?: (ctx: AlterTableClauseContext) => Result;
     /**
-     * Visit a parse tree produced by the `AlterTableClauseAddIndex`
-     * labeled alternative in `ClickHouseParser.alterTableClause`.
+     * Visit a parse tree produced by `ClickHouseParser.alterTableDeleteClause`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitAlterTableClauseAddIndex?: (ctx: AlterTableClauseAddIndexContext) => Result;
+    visitAlterTableDeleteClause?: (ctx: AlterTableDeleteClauseContext) => Result;
     /**
-     * Visit a parse tree produced by the `AlterTableClauseAddProjection`
-     * labeled alternative in `ClickHouseParser.alterTableClause`.
+     * Visit a parse tree produced by `ClickHouseParser.alterTableMaterializeClause`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitAlterTableClauseAddProjection?: (ctx: AlterTableClauseAddProjectionContext) => Result;
+    visitAlterTableMaterializeClause?: (ctx: AlterTableMaterializeClauseContext) => Result;
     /**
-     * Visit a parse tree produced by the `AlterTableClauseAttach`
-     * labeled alternative in `ClickHouseParser.alterTableClause`.
+     * Visit a parse tree produced by `ClickHouseParser.alterTableDropClause`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitAlterTableClauseAttach?: (ctx: AlterTableClauseAttachContext) => Result;
+    visitAlterTableDropClause?: (ctx: AlterTableDropClauseContext) => Result;
     /**
-     * Visit a parse tree produced by the `AlterTableClauseClearColumn`
-     * labeled alternative in `ClickHouseParser.alterTableClause`.
+     * Visit a parse tree produced by `ClickHouseParser.alterTableClearClause`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitAlterTableClauseClearColumn?: (ctx: AlterTableClauseClearColumnContext) => Result;
+    visitAlterTableClearClause?: (ctx: AlterTableClearClauseContext) => Result;
     /**
-     * Visit a parse tree produced by the `AlterTableClauseClearIndex`
-     * labeled alternative in `ClickHouseParser.alterTableClause`.
+     * Visit a parse tree produced by `ClickHouseParser.alterTableAddClause`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitAlterTableClauseClearIndex?: (ctx: AlterTableClauseClearIndexContext) => Result;
+    visitAlterTableAddClause?: (ctx: AlterTableAddClauseContext) => Result;
     /**
-     * Visit a parse tree produced by the `AlterTableClauseClearProjection`
-     * labeled alternative in `ClickHouseParser.alterTableClause`.
+     * Visit a parse tree produced by `ClickHouseParser.alterTableModifyClause`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitAlterTableClauseClearProjection?: (ctx: AlterTableClauseClearProjectionContext) => Result;
+    visitAlterTableModifyClause?: (ctx: AlterTableModifyClauseContext) => Result;
     /**
-     * Visit a parse tree produced by the `AlterTableClauseComment`
-     * labeled alternative in `ClickHouseParser.alterTableClause`.
+     * Visit a parse tree produced by `ClickHouseParser.alterTableUpdateClause`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitAlterTableClauseComment?: (ctx: AlterTableClauseCommentContext) => Result;
+    visitAlterTableUpdateClause?: (ctx: AlterTableUpdateClauseContext) => Result;
     /**
-     * Visit a parse tree produced by the `AlterTableClauseDelete`
-     * labeled alternative in `ClickHouseParser.alterTableClause`.
+     * Visit a parse tree produced by `ClickHouseParser.filterByNumberExpression`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitAlterTableClauseDelete?: (ctx: AlterTableClauseDeleteContext) => Result;
+    visitFilterByNumberExpression?: (ctx: FilterByNumberExpressionContext) => Result;
     /**
-     * Visit a parse tree produced by the `AlterTableClauseDetach`
-     * labeled alternative in `ClickHouseParser.alterTableClause`.
+     * Visit a parse tree produced by `ClickHouseParser.identifierEqualNumber`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitAlterTableClauseDetach?: (ctx: AlterTableClauseDetachContext) => Result;
+    visitIdentifierEqualNumber?: (ctx: IdentifierEqualNumberContext) => Result;
     /**
-     * Visit a parse tree produced by the `AlterTableClauseDropColumn`
-     * labeled alternative in `ClickHouseParser.alterTableClause`.
+     * Visit a parse tree produced by `ClickHouseParser.columnEqualExpression`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitAlterTableClauseDropColumn?: (ctx: AlterTableClauseDropColumnContext) => Result;
-    /**
-     * Visit a parse tree produced by the `AlterTableClauseDropIndex`
-     * labeled alternative in `ClickHouseParser.alterTableClause`.
-     * @param ctx the parse tree
-     * @return the visitor result
-     */
-    visitAlterTableClauseDropIndex?: (ctx: AlterTableClauseDropIndexContext) => Result;
-    /**
-     * Visit a parse tree produced by the `AlterTableClauseDropProjection`
-     * labeled alternative in `ClickHouseParser.alterTableClause`.
-     * @param ctx the parse tree
-     * @return the visitor result
-     */
-    visitAlterTableClauseDropProjection?: (ctx: AlterTableClauseDropProjectionContext) => Result;
-    /**
-     * Visit a parse tree produced by the `AlterTableClauseDropPartition`
-     * labeled alternative in `ClickHouseParser.alterTableClause`.
-     * @param ctx the parse tree
-     * @return the visitor result
-     */
-    visitAlterTableClauseDropPartition?: (ctx: AlterTableClauseDropPartitionContext) => Result;
-    /**
-     * Visit a parse tree produced by the `AlterTableClauseFreezePartition`
-     * labeled alternative in `ClickHouseParser.alterTableClause`.
-     * @param ctx the parse tree
-     * @return the visitor result
-     */
-    visitAlterTableClauseFreezePartition?: (ctx: AlterTableClauseFreezePartitionContext) => Result;
-    /**
-     * Visit a parse tree produced by the `AlterTableClauseMaterializeIndex`
-     * labeled alternative in `ClickHouseParser.alterTableClause`.
-     * @param ctx the parse tree
-     * @return the visitor result
-     */
-    visitAlterTableClauseMaterializeIndex?: (ctx: AlterTableClauseMaterializeIndexContext) => Result;
-    /**
-     * Visit a parse tree produced by the `AlterTableClauseMaterializeProjection`
-     * labeled alternative in `ClickHouseParser.alterTableClause`.
-     * @param ctx the parse tree
-     * @return the visitor result
-     */
-    visitAlterTableClauseMaterializeProjection?: (ctx: AlterTableClauseMaterializeProjectionContext) => Result;
-    /**
-     * Visit a parse tree produced by the `AlterTableClauseModifyCodec`
-     * labeled alternative in `ClickHouseParser.alterTableClause`.
-     * @param ctx the parse tree
-     * @return the visitor result
-     */
-    visitAlterTableClauseModifyCodec?: (ctx: AlterTableClauseModifyCodecContext) => Result;
-    /**
-     * Visit a parse tree produced by the `AlterTableClauseModifyComment`
-     * labeled alternative in `ClickHouseParser.alterTableClause`.
-     * @param ctx the parse tree
-     * @return the visitor result
-     */
-    visitAlterTableClauseModifyComment?: (ctx: AlterTableClauseModifyCommentContext) => Result;
-    /**
-     * Visit a parse tree produced by the `AlterTableClauseModifyRemove`
-     * labeled alternative in `ClickHouseParser.alterTableClause`.
-     * @param ctx the parse tree
-     * @return the visitor result
-     */
-    visitAlterTableClauseModifyRemove?: (ctx: AlterTableClauseModifyRemoveContext) => Result;
-    /**
-     * Visit a parse tree produced by the `AlterTableClauseModify`
-     * labeled alternative in `ClickHouseParser.alterTableClause`.
-     * @param ctx the parse tree
-     * @return the visitor result
-     */
-    visitAlterTableClauseModify?: (ctx: AlterTableClauseModifyContext) => Result;
-    /**
-     * Visit a parse tree produced by the `AlterTableClauseModifyOrderBy`
-     * labeled alternative in `ClickHouseParser.alterTableClause`.
-     * @param ctx the parse tree
-     * @return the visitor result
-     */
-    visitAlterTableClauseModifyOrderBy?: (ctx: AlterTableClauseModifyOrderByContext) => Result;
-    /**
-     * Visit a parse tree produced by the `AlterTableClauseModifyTTL`
-     * labeled alternative in `ClickHouseParser.alterTableClause`.
-     * @param ctx the parse tree
-     * @return the visitor result
-     */
-    visitAlterTableClauseModifyTTL?: (ctx: AlterTableClauseModifyTTLContext) => Result;
-    /**
-     * Visit a parse tree produced by the `AlterTableClauseMovePartition`
-     * labeled alternative in `ClickHouseParser.alterTableClause`.
-     * @param ctx the parse tree
-     * @return the visitor result
-     */
-    visitAlterTableClauseMovePartition?: (ctx: AlterTableClauseMovePartitionContext) => Result;
-    /**
-     * Visit a parse tree produced by the `AlterTableClauseRemoveTTL`
-     * labeled alternative in `ClickHouseParser.alterTableClause`.
-     * @param ctx the parse tree
-     * @return the visitor result
-     */
-    visitAlterTableClauseRemoveTTL?: (ctx: AlterTableClauseRemoveTTLContext) => Result;
-    /**
-     * Visit a parse tree produced by the `AlterTableClauseRename`
-     * labeled alternative in `ClickHouseParser.alterTableClause`.
-     * @param ctx the parse tree
-     * @return the visitor result
-     */
-    visitAlterTableClauseRename?: (ctx: AlterTableClauseRenameContext) => Result;
-    /**
-     * Visit a parse tree produced by the `AlterTableClauseReplace`
-     * labeled alternative in `ClickHouseParser.alterTableClause`.
-     * @param ctx the parse tree
-     * @return the visitor result
-     */
-    visitAlterTableClauseReplace?: (ctx: AlterTableClauseReplaceContext) => Result;
-    /**
-     * Visit a parse tree produced by the `AlterTableClauseUpdate`
-     * labeled alternative in `ClickHouseParser.alterTableClause`.
-     * @param ctx the parse tree
-     * @return the visitor result
-     */
-    visitAlterTableClauseUpdate?: (ctx: AlterTableClauseUpdateContext) => Result;
+    visitColumnEqualExpression?: (ctx: ColumnEqualExpressionContext) => Result;
     /**
      * Visit a parse tree produced by `ClickHouseParser.assignmentExpressionList`.
      * @param ctx the parse tree
@@ -583,11 +506,23 @@ export class ClickHouseParserVisitor<Result> extends AbstractParseTreeVisitor<Re
      */
     visitTableColumnPropertyType?: (ctx: TableColumnPropertyTypeContext) => Result;
     /**
+     * Visit a parse tree produced by `ClickHouseParser.partitionExpression`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitPartitionExpression?: (ctx: PartitionExpressionContext) => Result;
+    /**
      * Visit a parse tree produced by `ClickHouseParser.partitionClause`.
      * @param ctx the parse tree
      * @return the visitor result
      */
     visitPartitionClause?: (ctx: PartitionClauseContext) => Result;
+    /**
+     * Visit a parse tree produced by `ClickHouseParser.partitionOrPartClause`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitPartitionOrPartClause?: (ctx: PartitionOrPartClauseContext) => Result;
     /**
      * Visit a parse tree produced by the `AttachDictionaryStatement`
      * labeled alternative in `ClickHouseParser.attachStatement`.
@@ -704,17 +639,29 @@ export class ClickHouseParserVisitor<Result> extends AbstractParseTreeVisitor<Re
      */
     visitExtendedSettingExpression?: (ctx: ExtendedSettingExpressionContext) => Result;
     /**
-     * Visit a parse tree produced by `ClickHouseParser.extendedSettingsClause`.
+     * Visit a parse tree produced by `ClickHouseParser.extendedSettingExpressionWithProfileClause`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitExtendedSettingsClause?: (ctx: ExtendedSettingsClauseContext) => Result;
+    visitExtendedSettingExpressionWithProfileClause?: (ctx: ExtendedSettingExpressionWithProfileClauseContext) => Result;
+    /**
+     * Visit a parse tree produced by `ClickHouseParser.extendedSettingsWithProfileClause`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitExtendedSettingsWithProfileClause?: (ctx: ExtendedSettingsWithProfileClauseContext) => Result;
     /**
      * Visit a parse tree produced by `ClickHouseParser.inClause`.
      * @param ctx the parse tree
      * @return the visitor result
      */
     visitInClause?: (ctx: InClauseContext) => Result;
+    /**
+     * Visit a parse tree produced by `ClickHouseParser.defaultRoleClause`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitDefaultRoleClause?: (ctx: DefaultRoleClauseContext) => Result;
     /**
      * Visit a parse tree produced by `ClickHouseParser.createUserStatement`.
      * @param ctx the parse tree
@@ -734,11 +681,11 @@ export class ClickHouseParserVisitor<Result> extends AbstractParseTreeVisitor<Re
      */
     visitTableIdentifierOrAnyTable?: (ctx: TableIdentifierOrAnyTableContext) => Result;
     /**
-     * Visit a parse tree produced by `ClickHouseParser.policyExpression`.
+     * Visit a parse tree produced by `ClickHouseParser.createPolicyExpression`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitPolicyExpression?: (ctx: PolicyExpressionContext) => Result;
+    visitCreatePolicyExpression?: (ctx: CreatePolicyExpressionContext) => Result;
     /**
      * Visit a parse tree produced by `ClickHouseParser.identifierOrLiteralOrFunction`.
      * @param ctx the parse tree
@@ -776,6 +723,18 @@ export class ClickHouseParserVisitor<Result> extends AbstractParseTreeVisitor<Re
      */
     visitSubjectExpression?: (ctx: SubjectExpressionContext) => Result;
     /**
+     * Visit a parse tree produced by `ClickHouseParser.asPermissiveOrRestrictive`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitAsPermissiveOrRestrictive?: (ctx: AsPermissiveOrRestrictiveContext) => Result;
+    /**
+     * Visit a parse tree produced by `ClickHouseParser.usingClause`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitUsingClause?: (ctx: UsingClauseContext) => Result;
+    /**
      * Visit a parse tree produced by `ClickHouseParser.createRowPolicyStatement`.
      * @param ctx the parse tree
      * @return the visitor result
@@ -788,11 +747,11 @@ export class ClickHouseParserVisitor<Result> extends AbstractParseTreeVisitor<Re
      */
     visitQuotaKeyType?: (ctx: QuotaKeyTypeContext) => Result;
     /**
-     * Visit a parse tree produced by `ClickHouseParser.quotaKeyedByClause`.
+     * Visit a parse tree produced by `ClickHouseParser.quotaKeyClause`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitQuotaKeyedByClause?: (ctx: QuotaKeyedByClauseContext) => Result;
+    visitQuotaKeyClause?: (ctx: QuotaKeyClauseContext) => Result;
     /**
      * Visit a parse tree produced by `ClickHouseParser.quotaRestrictionType`.
      * @param ctx the parse tree
@@ -854,6 +813,18 @@ export class ClickHouseParserVisitor<Result> extends AbstractParseTreeVisitor<Re
      */
     visitCreateRoleStatement?: (ctx: CreateRoleStatementContext) => Result;
     /**
+     * Visit a parse tree produced by `ClickHouseParser.extendedSettingExpressionWithProfileOrInheritClause`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitExtendedSettingExpressionWithProfileOrInheritClause?: (ctx: ExtendedSettingExpressionWithProfileOrInheritClauseContext) => Result;
+    /**
+     * Visit a parse tree produced by `ClickHouseParser.extendedSettingsWithInheritClause`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitExtendedSettingsWithInheritClause?: (ctx: ExtendedSettingsWithInheritClauseContext) => Result;
+    /**
      * Visit a parse tree produced by `ClickHouseParser.createSettingsProfileStatement`.
      * @param ctx the parse tree
      * @return the visitor result
@@ -866,11 +837,11 @@ export class ClickHouseParserVisitor<Result> extends AbstractParseTreeVisitor<Re
      */
     visitNamedCollectionExpression?: (ctx: NamedCollectionExpressionContext) => Result;
     /**
-     * Visit a parse tree produced by `ClickHouseParser.namedCollectionClause`.
+     * Visit a parse tree produced by `ClickHouseParser.namedCollectionExpressionList`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitNamedCollectionClause?: (ctx: NamedCollectionClauseContext) => Result;
+    visitNamedCollectionExpressionList?: (ctx: NamedCollectionExpressionListContext) => Result;
     /**
      * Visit a parse tree produced by `ClickHouseParser.createNamedCollectionStatement`.
      * @param ctx the parse tree
