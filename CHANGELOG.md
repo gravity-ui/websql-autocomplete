@@ -1,5 +1,12 @@
 # Changelog
 
+## [12.1.1](https://github.com/gravity-ui/websql-autocomplete/compare/v12.1.0...v12.1.1) (2024-11-08)
+
+
+### Bug Fixes
+
+* **YQL:** explicitely export types ([#236](https://github.com/gravity-ui/websql-autocomplete/issues/236)) ([4d1989b](https://github.com/gravity-ui/websql-autocomplete/commit/4d1989b686e5bb4786cb42f96912165d07b86398))
+
 ## [12.1.0](https://github.com/gravity-ui/websql-autocomplete/compare/v12.0.0...v12.1.0) (2024-11-07)
 
 
