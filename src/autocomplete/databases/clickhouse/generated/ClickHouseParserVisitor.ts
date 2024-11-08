@@ -182,9 +182,7 @@ import { InsertStatementContext } from "./ClickHouseParser.js";
 import { ColumnsOrExceptClauseContext } from "./ClickHouseParser.js";
 import { ColumnsClauseContext } from "./ClickHouseParser.js";
 import { InsertFormatTypeExceptValuesContext } from "./ClickHouseParser.js";
-import { DataClauseFormatContext } from "./ClickHouseParser.js";
-import { DataClauseValuesContext } from "./ClickHouseParser.js";
-import { DataClauseSelectContext } from "./ClickHouseParser.js";
+import { DataClauseContext } from "./ClickHouseParser.js";
 import { AnyContext } from "./ClickHouseParser.js";
 import { SpecialSymbolContext } from "./ClickHouseParser.js";
 import { LiteralListContext } from "./ClickHouseParser.js";
@@ -1361,26 +1359,11 @@ export class ClickHouseParserVisitor<Result> extends AbstractParseTreeVisitor<Re
      */
     visitInsertFormatTypeExceptValues?: (ctx: InsertFormatTypeExceptValuesContext) => Result;
     /**
-     * Visit a parse tree produced by the `DataClauseFormat`
-     * labeled alternative in `ClickHouseParser.dataClause`.
+     * Visit a parse tree produced by `ClickHouseParser.dataClause`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitDataClauseFormat?: (ctx: DataClauseFormatContext) => Result;
-    /**
-     * Visit a parse tree produced by the `DataClauseValues`
-     * labeled alternative in `ClickHouseParser.dataClause`.
-     * @param ctx the parse tree
-     * @return the visitor result
-     */
-    visitDataClauseValues?: (ctx: DataClauseValuesContext) => Result;
-    /**
-     * Visit a parse tree produced by the `DataClauseSelect`
-     * labeled alternative in `ClickHouseParser.dataClause`.
-     * @param ctx the parse tree
-     * @return the visitor result
-     */
-    visitDataClauseSelect?: (ctx: DataClauseSelectContext) => Result;
+    visitDataClause?: (ctx: DataClauseContext) => Result;
     /**
      * Visit a parse tree produced by `ClickHouseParser.any`.
      * @param ctx the parse tree

@@ -14392,7 +14392,6 @@ export class ClickHouseParser extends antlr.Parser {
             this.errorHandler.sync(this);
             switch (this.interpreter.adaptivePredict(this.tokenStream, 369, this.context) ) {
             case 1:
-                localContext = new DataClauseFormatContext(localContext);
                 this.enterOuterAlt(localContext, 1);
                 {
                 this.state = 2763;
@@ -14418,7 +14417,6 @@ export class ClickHouseParser extends antlr.Parser {
                 }
                 break;
             case 2:
-                localContext = new DataClauseValuesContext(localContext);
                 this.enterOuterAlt(localContext, 2);
                 {
                 this.state = 2772;
@@ -14436,7 +14434,6 @@ export class ClickHouseParser extends antlr.Parser {
                 }
                 break;
             case 3:
-                localContext = new DataClauseSelectContext(localContext);
                 this.enterOuterAlt(localContext, 3);
                 {
                 this.state = 2775;
@@ -29441,42 +29438,11 @@ export class DataClauseContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
-    public override get ruleIndex(): number {
-        return ClickHouseParser.RULE_dataClause;
-    }
-    public override copyFrom(ctx: DataClauseContext): void {
-        super.copyFrom(ctx);
-    }
-}
-export class DataClauseValuesContext extends DataClauseContext {
-    public constructor(ctx: DataClauseContext) {
-        super(ctx.parent, ctx.invokingState);
-        super.copyFrom(ctx);
-    }
-    public valuesStatement(): ValuesStatementContext {
-        return this.getRuleContext(0, ValuesStatementContext)!;
-    }
     public FORMAT(): antlr.TerminalNode | null {
         return this.getToken(ClickHouseParser.FORMAT, 0);
     }
-    public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
-        if (visitor.visitDataClauseValues) {
-            return visitor.visitDataClauseValues(this);
-        } else {
-            return visitor.visitChildren(this);
-        }
-    }
-}
-export class DataClauseFormatContext extends DataClauseContext {
-    public constructor(ctx: DataClauseContext) {
-        super(ctx.parent, ctx.invokingState);
-        super.copyFrom(ctx);
-    }
-    public FORMAT(): antlr.TerminalNode {
-        return this.getToken(ClickHouseParser.FORMAT, 0)!;
-    }
-    public insertFormatTypeExceptValues(): InsertFormatTypeExceptValuesContext {
-        return this.getRuleContext(0, InsertFormatTypeExceptValuesContext)!;
+    public insertFormatTypeExceptValues(): InsertFormatTypeExceptValuesContext | null {
+        return this.getRuleContext(0, InsertFormatTypeExceptValuesContext);
     }
     public any_(): AnyContext[];
     public any_(i: number): AnyContext | null;
@@ -29487,31 +29453,24 @@ export class DataClauseFormatContext extends DataClauseContext {
 
         return this.getRuleContext(i, AnyContext);
     }
-    public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
-        if (visitor.visitDataClauseFormat) {
-            return visitor.visitDataClauseFormat(this);
-        } else {
-            return visitor.visitChildren(this);
-        }
+    public valuesStatement(): ValuesStatementContext | null {
+        return this.getRuleContext(0, ValuesStatementContext);
     }
-}
-export class DataClauseSelectContext extends DataClauseContext {
-    public constructor(ctx: DataClauseContext) {
-        super(ctx.parent, ctx.invokingState);
-        super.copyFrom(ctx);
+    public selectUnionStatement(): SelectUnionStatementContext | null {
+        return this.getRuleContext(0, SelectUnionStatementContext);
     }
-    public selectUnionStatement(): SelectUnionStatementContext {
-        return this.getRuleContext(0, SelectUnionStatementContext)!;
-    }
-    public EOF(): antlr.TerminalNode {
-        return this.getToken(ClickHouseParser.EOF, 0)!;
+    public EOF(): antlr.TerminalNode | null {
+        return this.getToken(ClickHouseParser.EOF, 0);
     }
     public SEMICOLON(): antlr.TerminalNode | null {
         return this.getToken(ClickHouseParser.SEMICOLON, 0);
     }
+    public override get ruleIndex(): number {
+        return ClickHouseParser.RULE_dataClause;
+    }
     public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
-        if (visitor.visitDataClauseSelect) {
-            return visitor.visitDataClauseSelect(this);
+        if (visitor.visitDataClause) {
+            return visitor.visitDataClause(this);
         } else {
             return visitor.visitChildren(this);
         }
