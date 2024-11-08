@@ -13,28 +13,34 @@
   ],
   "exports": {
     "./clickhouse": {
+      "types": "./dist/types/databases/clickhouse/index.d.ts",
       "require": "./dist/databases/clickhouse/index.cjs",
-      "default": "./dist/databases/clickhouse/index.js"
+      "import": "./dist/databases/clickhouse/index.js"
     },
     "./mysql": {
+      "types": "./dist/types/databases/mysql/index.d.ts",
       "require": "./dist/databases/mysql/index.cjs",
-      "default": "./dist/databases/mysql/index.js"
+      "import": "./dist/databases/mysql/index.js"
     },
     "./postgresql": {
+      "types": "./dist/types/databases/postgresql/index.d.ts",
       "require": "./dist/databases/postgresql/index.cjs",
-      "default": "./dist/databases/postgresql/index.js"
+      "import": "./dist/databases/postgresql/index.js"
     },
     "./yql": {
+      "types": "./dist/types/databases/yql/index.d.ts",
       "require": "./dist/databases/yql/index.cjs",
-      "default": "./dist/databases/yql/index.js"
+      "import": "./dist/databases/yql/index.js"
     },
     "./redis": {
+      "types": "./dist/types/databases/redis/index.d.ts",
       "require": "./dist/databases/redis/index.cjs",
-      "default": "./dist/databases/redis/index.js"
+      "import": "./dist/databases/redis/index.js"
     },
     "./shared": {
+      "types": "./dist/types/shared/index.d.ts",
       "require": "./dist/shared/autocomplete-types.cjs",
-      "default": "./dist/shared/autocomplete-types.js"
+      "import": "./dist/shared/autocomplete-types.js"
     }
   },
   "typesVersions": {
