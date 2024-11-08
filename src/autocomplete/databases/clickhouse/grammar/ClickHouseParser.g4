@@ -997,49 +997,13 @@ insertFormatTypeExceptValues
     ;
 
 dataClause
-    : FORMAT insertFormatTypeExceptValues any*
+    : FORMAT insertFormatTypeExceptValues any
     | FORMAT? valuesStatement
     | selectUnionStatement SEMICOLON? EOF
     ;
 
 any
-    : identifier
-    | literal
-    | specialSymbol
-    | UNKNOWN_CHAR
-    ;
-
-specialSymbol
-    : ARROW_SYMBOL
-    | ASTERISK
-    | BACKQUOTE
-    | BACKSLASH
-    | COLON
-    | COMMA
-    | CONCAT
-    | DASH
-    | DOT
-    | EQ_DOUBLE
-    | EQ_SINGLE
-    | GE
-    | GT
-    | LBRACE
-    | LBRACKET
-    | LE
-    | LPAREN
-    | LT
-    | NOT_EQ
-    | PERCENT
-    | PLUS
-    | QUESTIONMARK
-    | QUOTE_DOUBLE
-    | QUOTE_SINGLE
-    | RBRACE
-    | RBRACKET
-    | RPAREN
-    | SEMICOLON
-    | SLASH
-    | UNDERSCORE
+    : .*?
     ;
 
 literalList

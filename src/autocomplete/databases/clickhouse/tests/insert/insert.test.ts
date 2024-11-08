@@ -939,3 +939,11 @@ test('should not suggest after format type', () => {
 
     expect(autocompleteResult.suggestKeywords).toEqual([]);
 });
+
+test('should not suggest after any value', () => {
+    const autocompleteResult = parseClickHouseQueryWithCursor(
+        'INSERT INTO test_table FORMAT JSON test_value|;',
+    );
+
+    expect(autocompleteResult.suggestKeywords).toEqual([]);
+});

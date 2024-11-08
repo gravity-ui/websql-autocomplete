@@ -184,7 +184,6 @@ import { ColumnsClauseContext } from "./ClickHouseParser.js";
 import { InsertFormatTypeExceptValuesContext } from "./ClickHouseParser.js";
 import { DataClauseContext } from "./ClickHouseParser.js";
 import { AnyContext } from "./ClickHouseParser.js";
-import { SpecialSymbolContext } from "./ClickHouseParser.js";
 import { LiteralListContext } from "./ClickHouseParser.js";
 import { ValueIdentifierContext } from "./ClickHouseParser.js";
 import { ValueOrArrayIdentifierContext } from "./ClickHouseParser.js";
@@ -1370,12 +1369,6 @@ export class ClickHouseParserVisitor<Result> extends AbstractParseTreeVisitor<Re
      * @return the visitor result
      */
     visitAny?: (ctx: AnyContext) => Result;
-    /**
-     * Visit a parse tree produced by `ClickHouseParser.specialSymbol`.
-     * @param ctx the parse tree
-     * @return the visitor result
-     */
-    visitSpecialSymbol?: (ctx: SpecialSymbolContext) => Result;
     /**
      * Visit a parse tree produced by `ClickHouseParser.literalList`.
      * @param ctx the parse tree
