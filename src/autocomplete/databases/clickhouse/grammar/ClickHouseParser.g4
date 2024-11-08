@@ -238,7 +238,7 @@ checkStatement
 // DELETE statement
 
 deleteStatement
-    : DELETE FROM tableIdentifier clusterClause? whereClause?
+    : DELETE FROM tableIdentifier clusterClause? whereClause? settingsClause?
     ;
 
 // CREATE statement
