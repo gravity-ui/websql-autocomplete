@@ -2,7 +2,7 @@ import {CursorPosition} from '../../shared/autocomplete-types';
 import {yqlAutocompleteData, yqlAutocompleteDataYQ} from './yql-autocomplete';
 import {parseQuery, parseQueryWithoutCursor} from '../../shared/autocomplete';
 import {separateQueryAndCursor} from '../../shared/parse-query-with-cursor';
-import {YqlAutocompleteResult, YqlTokenizeResult} from './types';
+import {YQLEntity, YqlAutocompleteResult, YqlTokenizeResult} from './types';
 import {tokenize} from '../../shared/tokenize';
 import {YQLLexer} from './generated/YQLLexer';
 import {
@@ -10,8 +10,6 @@ import {
     extractStatementPositionsFromQuery,
 } from '../../shared/extract-statement-positions-from-query';
 import {YQLParser} from './generated/YQLParser';
-
-export type {YqlAutocompleteResult};
 
 export function parseYqlQueryWithoutCursor(query: string): Pick<YqlAutocompleteResult, 'errors'> {
     return parseQueryWithoutCursor(
@@ -94,3 +92,5 @@ export function extractYqlStatementPositionsFromQuery(
         yqlAutocompleteData.getParseTree,
     );
 }
+
+export type {YqlAutocompleteResult, YqlTokenizeResult, YQLEntity};
