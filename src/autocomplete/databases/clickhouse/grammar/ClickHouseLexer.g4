@@ -444,6 +444,8 @@ fragment OCT_DIGIT : [0-7];
 fragment DEC_DIGIT : [0-9];
 fragment HEX_DIGIT : [0-9a-fA-F];
 
+// Special symbols
+// Don't forget to add all new symbols to the parser rule "specialSymbol"
 ARROW_SYMBOL : '->';
 ASTERISK     : '*';
 BACKQUOTE    : '`';
@@ -480,3 +482,6 @@ UNDERSCORE   : '_';
 MULTI_LINE_COMMENT  : '/*' .*? '*/'                            -> skip;
 SINGLE_LINE_COMMENT : '--' ~('\n' | '\r')* ('\n' | '\r' | EOF) -> skip;
 WHITESPACE          : [ \u000B\u000C\t\r\n]                    -> channel(HIDDEN); // '\n' can be part of multiline single query
+
+// Fallback
+UNKNOWN_CHAR: .;

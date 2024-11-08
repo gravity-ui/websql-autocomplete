@@ -291,69 +291,651 @@ test('should suggest format types', () => {
     ]);
 });
 
-test('should not throw error on any format type', () => {
+test('should not throw error on TabSeparated format type values', () => {
     const autocompleteResult = parseClickHouseQueryWithoutCursor(`
-        INSERT INTO test_table FORMAT VALUES ('test_value');
-        INSERT INTO test_table FORMAT TabSeparated test_value;
-        INSERT INTO test_table FORMAT TabSeparatedRaw test_value;
-        INSERT INTO test_table FORMAT TabSeparatedWithNames test_value;
-        INSERT INTO test_table FORMAT TabSeparatedWithNamesAndTypes test_value;
-        INSERT INTO test_table FORMAT TabSeparatedRawWithNames test_value;
-        INSERT INTO test_table FORMAT TabSeparatedRawWithNamesAndTypes test_value;
-        INSERT INTO test_table FORMAT Template test_value;
-        INSERT INTO test_table FORMAT TemplateIgnoreSpaces test_value;
-        INSERT INTO test_table FORMAT CSV test_value;
-        INSERT INTO test_table FORMAT CSVWithNames test_value;
-        INSERT INTO test_table FORMAT CSVWithNamesAndTypes test_value;
-        INSERT INTO test_table FORMAT CustomSeparated test_value;
-        INSERT INTO test_table FORMAT CustomSeparatedWithNames test_value;
-        INSERT INTO test_table FORMAT CustomSeparatedWithNamesAndTypes test_value;
-        INSERT INTO test_table FORMAT Values ('test_value');
-        INSERT INTO test_table FORMAT JSON test_value;
-        INSERT INTO test_table FORMAT JSONAsString test_value;
-        INSERT INTO test_table FORMAT JSONAsObject test_value;
-        INSERT INTO test_table FORMAT JSONStrings test_value;
-        INSERT INTO test_table FORMAT JSONColumns test_value;
-        INSERT INTO test_table FORMAT JSONColumnsWithMetadata test_value;
-        INSERT INTO test_table FORMAT JSONCompact test_value;
-        INSERT INTO test_table FORMAT JSONCompactColumns test_value;
-        INSERT INTO test_table FORMAT JSONEachRow test_value;
-        INSERT INTO test_table FORMAT JSONStringsEachRow test_value;
-        INSERT INTO test_table FORMAT JSONCompactEachRow test_value;
-        INSERT INTO test_table FORMAT JSONCompactEachRowWithNames test_value;
-        INSERT INTO test_table FORMAT JSONCompactEachRowWithNamesAndTypes test_value;
-        INSERT INTO test_table FORMAT JSONCompactStringsEachRow test_value;
-        INSERT INTO test_table FORMAT JSONCompactStringsEachRowWithNames test_value;
-        INSERT INTO test_table FORMAT JSONCompactStringsEachRowWithNamesAndTypes test_value;
-        INSERT INTO test_table FORMAT JSONObjectEachRow test_value;
-        INSERT INTO test_table FORMAT BSONEachRow test_value;
-        INSERT INTO test_table FORMAT TSKV test_value;
-        INSERT INTO test_table FORMAT Protobuf test_value;
-        INSERT INTO test_table FORMAT ProtobufSingle test_value;
-        INSERT INTO test_table FORMAT ProtobufList test_value;
-        INSERT INTO test_table FORMAT Avro test_value;
-        INSERT INTO test_table FORMAT AvroConfluent test_value;
-        INSERT INTO test_table FORMAT Parquet test_value;
-        INSERT INTO test_table FORMAT ParquetMetadata test_value;
-        INSERT INTO test_table FORMAT Arrow test_value;
-        INSERT INTO test_table FORMAT ArrowStream test_value;
-        INSERT INTO test_table FORMAT ORC test_value;
-        INSERT INTO test_table FORMAT One test_value;
-        INSERT INTO test_table FORMAT Npy test_value;
-        INSERT INTO test_table FORMAT RowBinary test_value;
-        INSERT INTO test_table FORMAT RowBinaryWithNames test_value;
-        INSERT INTO test_table FORMAT RowBinaryWithNamesAndTypes test_value;
-        INSERT INTO test_table FORMAT RowBinaryWithDefaults test_value;
-        INSERT INTO test_table FORMAT Native test_value;
-        INSERT INTO test_table FORMAT CapnProto test_value;
-        INSERT INTO test_table FORMAT LineAsString test_value;
-        INSERT INTO test_table FORMAT Regexp test_value;
-        INSERT INTO test_table FORMAT RawBLOB test_value;
-        INSERT INTO test_table FORMAT MsgPack test_value;
-        INSERT INTO test_table FORMAT MySQLDump test_value;
-        INSERT INTO test_table FORMAT DWARF test_value;
-        INSERT INTO test_table FORMAT Form test_value;
+      INSERT INTO test_table FORMAT TabSeparated
+        test_value1	test_value2	test_value3
+        test_value1	test_value2	test_value3
+      ;
     `);
 
     expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should not throw error on TabSeparatedRaw format type values', () => {
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(`
+      INSERT INTO test_table FORMAT TabSeparatedRaw
+        test_value1	test_value2	test_value3
+        test_value1	test_value2	test_value3
+      ;
+    `);
+
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should not throw error on TabSeparatedWithNames format type values', () => {
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(`
+      INSERT INTO test_table FORMAT TabSeparatedWithNames
+        test_column1 test_column2 test_column3
+        test_value1	test_value2	test_value3
+        test_value1	test_value2	test_value3
+      ;
+    `);
+
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should not throw error on TabSeparatedWithNamesAndTypes format type values', () => {
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(`
+      INSERT INTO test_table FORMAT TabSeparatedWithNamesAndTypes
+        test_column1 test_column2 test_column3
+        test_type1  test_type2 test_type3
+        test_value1	test_value2	test_value3
+        test_value1	test_value2	test_value3
+      ;
+    `);
+
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should not throw error on TabSeparatedRawWithNames format type values', () => {
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(`
+      INSERT INTO test_table FORMAT TabSeparatedRawWithNames
+        test_column1 test_column2 test_column3
+        test_value1	test_value2	test_value3
+        test_value1	test_value2	test_value3
+      ;
+    `);
+
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should not throw error on TabSeparatedRawWithNamesAndTypes format type values', () => {
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(`
+      INSERT INTO test_table FORMAT TabSeparatedRawWithNamesAndTypes
+        test_column1 test_column2 test_column3
+        test_type1  test_type2 test_type3
+        test_value1	test_value2	test_value3
+        test_value1	test_value2	test_value3
+      ;
+    `);
+
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should not throw error on Template format type values', () => {
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(`
+      INSERT INTO test_table FORMAT Template;
+    `);
+
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should not throw error on TemplateIgnoreSpaces format type values', () => {
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(`
+      INSERT INTO test_table FORMAT TemplateIgnoreSpaces;
+    `);
+
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should not throw error on CSV format type values', () => {
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(`
+      INSERT INTO test_table FORMAT CSV
+        test_value1, test_value2, test_value3
+        test_value1, test_value2, test_value3
+        test_value1, test_value2, test_value3
+      ;
+    `);
+
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should not throw error on CSVWithNames format type values', () => {
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(`
+      INSERT INTO test_table FORMAT CSVWithNames
+        test_column1, test_column2, test_column3,
+        test_value1, test_value2, test_value3
+        test_value1, test_value2, test_value3
+        test_value1, test_value2, test_value3
+      ;
+    `);
+
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should not throw error on CSVWithNamesAndTypes format type values', () => {
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(`
+      INSERT INTO test_table FORMAT CSVWithNamesAndTypes
+        test_column1 test_column2 test_column3
+        test_type1  test_type2 test_type3
+        test_value1	test_value2	test_value3
+        test_value1	test_value2	test_value3
+      ;
+    `);
+
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should not throw error on CustomSeparated format type values', () => {
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(`
+      INSERT INTO test_table FORMAT CustomSeparated;
+    `);
+
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should not throw error on CustomSeparatedWithNames format type values', () => {
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(`
+      INSERT INTO test_table FORMAT CustomSeparatedWithNames;
+    `);
+
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should not throw error on CustomSeparatedWithNamesAndTypes format type values', () => {
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(`
+      INSERT INTO test_table FORMAT CustomSeparatedWithNamesAndTypes;
+    `);
+
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should not throw error on Values format type values', () => {
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(`
+      INSERT INTO test_table FORMAT Values ('test_value1', 1), ('test_value2', 2);
+    `);
+
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should not throw error on JSON format type values', () => {
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(`
+      INSERT INTO test_table FORMAT JSON
+        {
+          "test_field1": 1,
+          "test_field2": "text",
+          "test_field3": null,
+          "test_field4": [1,2,3]
+        }
+      ;
+    `);
+
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should not throw error on JSONAsString format type values', () => {
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(`
+      INSERT INTO test_table FORMAT JSONAsString
+        {
+          "test_field1": 1,
+          "test_field2": "text",
+          "test_field3": null,
+          "test_field4": "[1,2,3]"
+        }
+      ;
+    `);
+
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should not throw error on JSONAsObject format type values', () => {
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(`
+      INSERT INTO test_table FORMAT JSONAsObject
+        {
+          "test_field1": 1,
+          "test_field2": "text",
+          "test_field3": null,
+          "test_field4": "[1,2,3]"
+        }
+      ;
+    `);
+
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should not throw error on JSONStrings format type values', () => {
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(`
+      INSERT INTO test_table FORMAT JSONStrings
+        {
+          "test_field1": 1,
+          "test_field2": "text",
+          "test_field3": null,
+          "test_field4": "[1,2,3]"
+        }
+      ;
+    `);
+
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should not throw error on JSONColumns format type values', () => {
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(`
+      INSERT INTO test_table FORMAT JSONColumns
+        {
+          "test_field1": 1,
+          "test_field2": "text",
+          "test_field3": null,
+          "test_field4": "[1,2,3]"
+        }
+      ;
+    `);
+
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should not throw error on JSONColumnsWithMetadata format type values', () => {
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(`
+      INSERT INTO test_table FORMAT JSONColumnsWithMetadata
+        {
+          "test_field1": 1,
+          "test_field2": "text",
+          "test_field3": null,
+          "test_field4": "[1,2,3]"
+        }
+      ;
+    `);
+
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should not throw error on JSONCompact format type values', () => {
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(`
+      INSERT INTO test_table FORMAT JSONCompact
+        {
+          "test_field1": 1,
+          "test_field2": "text",
+          "test_field3": null,
+          "test_field4": "[1,2,3]"
+        }
+      ;
+    `);
+
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should not throw error on JSONCompactColumns format type values', () => {
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(`
+      INSERT INTO test_table FORMAT JSONCompactColumns
+        {
+          "test_field1": 1,
+          "test_field2": "text",
+          "test_field3": null,
+          "test_field4": "[1,2,3]"
+        }
+      ;
+    `);
+
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should not throw error on JSONEachRow format type values', () => {
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(`
+      INSERT INTO test_table FORMAT JSONEachRow
+        {
+          "test_field1": 1,
+          "test_field2": "text",
+          "test_field3": null,
+          "test_field4": "[1,2,3]"
+        }
+      ;
+    `);
+
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should not throw error on JSONStringsEachRow format type values', () => {
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(`
+      INSERT INTO test_table FORMAT JSONStringsEachRow
+        {
+          "test_field1": 1,
+          "test_field2": "text",
+          "test_field3": null,
+          "test_field4": "[1,2,3]"
+        }
+      ;
+    `);
+
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should not throw error on JSONCompactEachRow format type values', () => {
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(`
+      INSERT INTO test_table FORMAT JSONCompactEachRow
+        {
+          "test_field1": 1,
+          "test_field2": "text",
+          "test_field3": null,
+          "test_field4": "[1,2,3]"
+        }
+      ;
+    `);
+
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should not throw error on JSONCompactEachRowWithNames format type values', () => {
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(`
+      INSERT INTO test_table FORMAT JSONCompactEachRowWithNames
+        {
+          "test_field1": 1,
+          "test_field2": "text",
+          "test_field3": null,
+          "test_field4": "[1,2,3]"
+        }
+      ;
+    `);
+
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should not throw error on JSONCompactEachRowWithNamesAndTypes format type values', () => {
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(`
+      INSERT INTO test_table FORMAT JSONCompactEachRowWithNamesAndTypes
+        {
+          "test_field1": 1,
+          "test_field2": "text",
+          "test_field3": null,
+          "test_field4": "[1,2,3]"
+        }
+      ;
+    `);
+
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should not throw error on JSONCompactStringsEachRow format type values', () => {
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(`
+      INSERT INTO test_table FORMAT JSONCompactStringsEachRow
+        {
+          "test_field1": 1,
+          "test_field2": "text",
+          "test_field3": null,
+          "test_field4": "[1,2,3]"
+        }
+      ;
+    `);
+
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should not throw error on JSONCompactStringsEachRowWithNames format type values', () => {
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(`
+      INSERT INTO test_table FORMAT JSONCompactStringsEachRowWithNames
+        {
+          "test_field1": 1,
+          "test_field2": "text",
+          "test_field3": null,
+          "test_field4": "[1,2,3]"
+        }
+      ;
+    `);
+
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should not throw error on JSONCompactStringsEachRowWithNamesAndTypes format type values', () => {
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(`
+      INSERT INTO test_table FORMAT JSONCompactStringsEachRowWithNamesAndTypes
+        {
+          "test_field1": 1,
+          "test_field2": "text",
+          "test_field3": null,
+          "test_field4": "[1,2,3]"
+        }
+      ;
+    `);
+
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should not throw error on JSONObjectEachRow format type values', () => {
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(`
+      INSERT INTO test_table FORMAT JSONObjectEachRow
+        {
+          "test_field1": 1,
+          "test_field2": "text",
+          "test_field3": null,
+          "test_field4": "[1,2,3]"
+        }
+      ;
+    `);
+
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should not throw error on BSONEachRow format type', () => {
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(`
+      INSERT INTO test_table FORMAT BSONEachRow;
+    `);
+
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should not throw error on TSKV format type', () => {
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(`
+      INSERT INTO test_table FORMAT TSKV;
+    `);
+
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should not throw error on Protobuf format type', () => {
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(`
+      INSERT INTO test_table FORMAT Protobuf;
+    `);
+
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should not throw error on ProtobufSingle format type', () => {
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(`
+      INSERT INTO test_table FORMAT ProtobufSingle;
+    `);
+
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should not throw error on ProtobufList format type', () => {
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(`
+      INSERT INTO test_table FORMAT ProtobufList;
+    `);
+
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should not throw error on Avro format type', () => {
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(`
+      INSERT INTO test_table FORMAT Avro;
+    `);
+
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should not throw error on AvroConfluent format type', () => {
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(`
+      INSERT INTO test_table FORMAT AvroConfluent;
+    `);
+
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should not throw error on Parquet format type', () => {
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(`
+      INSERT INTO test_table FORMAT Parquet;
+    `);
+
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should not throw error on ParquetMetadata format type', () => {
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(`
+      INSERT INTO test_table FORMAT ParquetMetadata;
+    `);
+
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should not throw error on Arrow format type', () => {
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(`
+      INSERT INTO test_table FORMAT Arrow;
+    `);
+
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should not throw error on ArrowStream format type', () => {
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(`
+      INSERT INTO test_table FORMAT ArrowStream;
+    `);
+
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should not throw error on ORC format type', () => {
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(`
+      INSERT INTO test_table FORMAT ORC;
+    `);
+
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should not throw error on One format type', () => {
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(`
+      INSERT INTO test_table FORMAT One;
+    `);
+
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should not throw error on Npy format type', () => {
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(`
+      INSERT INTO test_table FORMAT Npy;
+    `);
+
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should not throw error on RowBinary format type values', () => {
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(`
+      INSERT INTO test_table FORMAT RowBinary;
+    `);
+
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should not throw error on RowBinaryWithNames format type values', () => {
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(`
+      INSERT INTO test_table FORMAT RowBinaryWithNames;
+    `);
+
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should not throw error on RowBinaryWithNamesAndTypes format type values', () => {
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(`
+      INSERT INTO test_table FORMAT RowBinaryWithNamesAndTypes;
+    `);
+
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should not throw error on RowBinaryWithDefaults format type values', () => {
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(`
+      INSERT INTO test_table FORMAT RowBinaryWithDefaults;
+    `);
+
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should not throw error on Native format type values', () => {
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(`
+      INSERT INTO test_table FORMAT Native;
+    `);
+
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should not throw error on CapnProto format type values', () => {
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(`
+      INSERT INTO test_table FORMAT CapnProto;
+    `);
+
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should not throw error on LineAsString format type values', () => {
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(`
+      INSERT INTO test_table FORMAT LineAsString;
+    `);
+
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should not throw error on Regexp format type values', () => {
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(`
+      INSERT INTO test_table FORMAT Regexp;
+    `);
+
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should not throw error on RawBLOB format type values', () => {
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(`
+      INSERT INTO test_table FORMAT RawBLOB;
+    `);
+
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should not throw error on MsgPack format type values', () => {
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(`
+      INSERT INTO test_table FORMAT MsgPack;
+    `);
+
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should not throw error on MySQLDump format type values', () => {
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(`
+      INSERT INTO test_table FORMAT MySQLDump;
+    `);
+
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should not throw error on DWARF format type values', () => {
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(`
+      INSERT INTO test_table FORMAT DWARF;
+    `);
+
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should not throw error on Form format type values', () => {
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(`
+      INSERT INTO test_table FORMAT Form;
+    `);
+
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should not throw error on any input in format value', () => {
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(`
+      INSERT INTO test_table FORMAT JSON
+        !@#$%^&*()_+±§\`~,./?"|[]{}-+=
+        1234567890
+        qwertyuiopasdfghjklzxcvbnm<>;:
+      ;
+    `);
+
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should not suggest after format type', () => {
+    const autocompleteResult = parseClickHouseQueryWithCursor(
+        'INSERT INTO test_table FORMAT JSON |;',
+    );
+
+    expect(autocompleteResult.suggestKeywords).toEqual([]);
 });
