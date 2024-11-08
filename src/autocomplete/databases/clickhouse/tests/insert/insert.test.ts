@@ -926,7 +926,7 @@ test('should not throw error on any input in format value', () => {
         !@#$%^&*()_+±§\`~,./?"|[]{}-+=
         1234567890
         qwertyuiopasdfghjklzxcvbnm<>;:
-      ;
+      ;;;;;;;;;;;;;;
     `);
 
     expect(autocompleteResult.errors).toHaveLength(0);
