@@ -1,5 +1,12 @@
 # Changelog
 
+## [12.1.2](https://github.com/gravity-ui/websql-autocomplete/compare/v12.1.1...v12.1.2) (2024-11-08)
+
+
+### Bug Fixes
+
+* **package.json:** improve exports section ([#238](https://github.com/gravity-ui/websql-autocomplete/issues/238)) ([7f23ab1](https://github.com/gravity-ui/websql-autocomplete/commit/7f23ab1066d26a00d15586ebc2c84a8b573696d5))
+
 ## [12.1.1](https://github.com/gravity-ui/websql-autocomplete/compare/v12.1.0...v12.1.1) (2024-11-08)
 
 
