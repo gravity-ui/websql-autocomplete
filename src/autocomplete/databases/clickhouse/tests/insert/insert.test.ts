@@ -932,6 +932,18 @@ test('should not throw error on any input in format value', () => {
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
+test('should not throw error on statements as format values', () => {
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(`
+      INSERT INTO test_table FORMAT JSON
+        SELECT * FROM test_table;
+        INSERT INTO test_table2 VALUES (1, 2);
+        CREATE TABLE test_table3;
+      ;
+    `);
+
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
 test('should not suggest after format type', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor(
         'INSERT INTO test_table FORMAT JSON |;',
