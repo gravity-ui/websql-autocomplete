@@ -935,7 +935,7 @@ columnsClause
     : LPAREN columnIdentifier (COMMA columnIdentifier)* RPAREN
     ;
 
-insertFormatType
+insertFormatTypeExceptValues
     : TABSEPARATED
     | TABSEPARATEDRAW
     | TABSEPARATEDWITHNAMES
@@ -950,7 +950,6 @@ insertFormatType
     | CUSTOMSEPARATED
     | CUSTOMSEPARATEDWITHNAMES
     | CUSTOMSEPARATEDWITHNAMESANDTYPES
-    | VALUES
     | JSON
     | JSONASSTRING
     | JSONASOBJECT
@@ -998,9 +997,13 @@ insertFormatType
     ;
 
 dataClause
-    : FORMAT insertFormatType identifier+ # DataClauseFormat
-    | FORMAT? valuesStatement             # DataClauseValues
-    | selectUnionStatement SEMICOLON? EOF # DataClauseSelect
+    : FORMAT insertFormatTypeExceptValues anyValue
+    | FORMAT? valuesStatement
+    | selectUnionStatement SEMICOLON? EOF
+    ;
+
+anyValue
+    : .*?
     ;
 
 literalList
