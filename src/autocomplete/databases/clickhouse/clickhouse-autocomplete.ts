@@ -98,7 +98,7 @@ const rulesToVisit = new Set([
     ClickHouseParser.RULE_columnIdentifier,
     ClickHouseParser.RULE_identifierOrNull,
     ClickHouseParser.RULE_literal,
-    ClickHouseParser.RULE_any,
+    ClickHouseParser.RULE_anyValue,
 ]);
 
 class ClickHouseSymbolTableVisitor

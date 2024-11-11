@@ -997,12 +997,12 @@ insertFormatTypeExceptValues
     ;
 
 dataClause
-    : FORMAT insertFormatTypeExceptValues any
+    : FORMAT insertFormatTypeExceptValues anyValue
     | FORMAT? valuesStatement
     | selectUnionStatement SEMICOLON? EOF
     ;
 
-any
+anyValue
     : .*?
     ;
 

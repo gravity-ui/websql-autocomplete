@@ -607,7 +607,7 @@ export class ClickHouseParser extends antlr.Parser {
     public static readonly RULE_columnsClause = 155;
     public static readonly RULE_insertFormatTypeExceptValues = 156;
     public static readonly RULE_dataClause = 157;
-    public static readonly RULE_any = 158;
+    public static readonly RULE_anyValue = 158;
     public static readonly RULE_literalList = 159;
     public static readonly RULE_valueIdentifier = 160;
     public static readonly RULE_valueOrArrayIdentifier = 161;
@@ -851,7 +851,7 @@ export class ClickHouseParser extends antlr.Parser {
         "introspectionPrivilege", "sourcePrivilege", "dictPrivilege", "alterPrivilege", 
         "accessManagementPrivilege", "systemPrivilege", "namedCollectionAdminPrivilege", 
         "privilege", "insertStatement", "columnsOrExceptClause", "columnsClause", 
-        "insertFormatTypeExceptValues", "dataClause", "any", "literalList", 
+        "insertFormatTypeExceptValues", "dataClause", "anyValue", "literalList", 
         "valueIdentifier", "valueOrArrayIdentifier", "arrayIdentifier", 
         "valuesClause", "valuesStatement", "killStatement", "optimizeStatement", 
         "renameStatement", "projectionSelectStatement", "selectUnionStatement", 
@@ -14397,7 +14397,7 @@ export class ClickHouseParser extends antlr.Parser {
                 this.state = 2762;
                 this.insertFormatTypeExceptValues();
                 this.state = 2763;
-                this.any_();
+                this.anyValue();
                 }
                 break;
             case 2:
@@ -14451,9 +14451,9 @@ export class ClickHouseParser extends antlr.Parser {
         }
         return localContext;
     }
-    public any_(): AnyContext {
-        let localContext = new AnyContext(this.context, this.state);
-        this.enterRule(localContext, 316, ClickHouseParser.RULE_any);
+    public anyValue(): AnyValueContext {
+        let localContext = new AnyValueContext(this.context, this.state);
+        this.enterRule(localContext, 316, ClickHouseParser.RULE_anyValue);
         try {
             let alternative: number;
             this.enterOuterAlt(localContext, 1);
@@ -29381,8 +29381,8 @@ export class DataClauseContext extends antlr.ParserRuleContext {
     public insertFormatTypeExceptValues(): InsertFormatTypeExceptValuesContext | null {
         return this.getRuleContext(0, InsertFormatTypeExceptValuesContext);
     }
-    public any(): AnyContext | null {
-        return this.getRuleContext(0, AnyContext);
+    public anyValue(): AnyValueContext | null {
+        return this.getRuleContext(0, AnyValueContext);
     }
     public valuesStatement(): ValuesStatementContext | null {
         return this.getRuleContext(0, ValuesStatementContext);
@@ -29409,16 +29409,16 @@ export class DataClauseContext extends antlr.ParserRuleContext {
 }
 
 
-export class AnyContext extends antlr.ParserRuleContext {
+export class AnyValueContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
     public override get ruleIndex(): number {
-        return ClickHouseParser.RULE_any;
+        return ClickHouseParser.RULE_anyValue;
     }
     public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
-        if (visitor.visitAny) {
-            return visitor.visitAny(this);
+        if (visitor.visitAnyValue) {
+            return visitor.visitAnyValue(this);
         } else {
             return visitor.visitChildren(this);
         }

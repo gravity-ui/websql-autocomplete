@@ -1021,7 +1021,7 @@ columnsOrExceptClause
 columnsClause
 insertFormatTypeExceptValues
 dataClause
-any
+anyValue
 literalList
 valueIdentifier
 valueOrArrayIdentifier

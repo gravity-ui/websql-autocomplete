@@ -444,8 +444,6 @@ fragment OCT_DIGIT : [0-7];
 fragment DEC_DIGIT : [0-9];
 fragment HEX_DIGIT : [0-9a-fA-F];
 
-// Special symbols
-// Don't forget to add all new symbols to the parser rule "specialSymbol"
 ARROW_SYMBOL : '->';
 ASTERISK     : '*';
 BACKQUOTE    : '`';
