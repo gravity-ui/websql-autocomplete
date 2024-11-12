@@ -15569,51 +15569,41 @@ export class ClickHouseParser extends antlr.Parser {
             this.state = 2933;
             this.errorHandler.sync(this);
             _la = this.tokenStream.LA(1);
-            if (_la === 193) {
+            if (_la === 132) {
                 {
                 this.state = 2932;
-                this.windowClause();
+                this.prewhereClause();
                 }
             }
 
             this.state = 2936;
             this.errorHandler.sync(this);
             _la = this.tokenStream.LA(1);
-            if (_la === 132) {
+            if (_la === 192) {
                 {
                 this.state = 2935;
-                this.prewhereClause();
+                this.whereClause();
                 }
             }
 
             this.state = 2939;
             this.errorHandler.sync(this);
             _la = this.tokenStream.LA(1);
-            if (_la === 192) {
-                {
-                this.state = 2938;
-                this.whereClause();
-                }
-            }
-
-            this.state = 2942;
-            this.errorHandler.sync(this);
-            _la = this.tokenStream.LA(1);
             if (_la === 74) {
                 {
-                this.state = 2941;
+                this.state = 2938;
                 this.groupByClause();
                 }
             }
 
-            this.state = 2946;
+            this.state = 2943;
             this.errorHandler.sync(this);
-            switch (this.interpreter.adaptivePredict(this.tokenStream, 401, this.context) ) {
+            switch (this.interpreter.adaptivePredict(this.tokenStream, 400, this.context) ) {
             case 1:
                 {
-                this.state = 2944;
+                this.state = 2941;
                 this.match(ClickHouseParser.WITH);
-                this.state = 2945;
+                this.state = 2942;
                 _la = this.tokenStream.LA(1);
                 if(!(_la === 32 || _la === 145)) {
                 this.errorHandler.recoverInline(this);
@@ -15625,25 +15615,35 @@ export class ClickHouseParser extends antlr.Parser {
                 }
                 break;
             }
-            this.state = 2950;
+            this.state = 2947;
             this.errorHandler.sync(this);
             _la = this.tokenStream.LA(1);
             if (_la === 194) {
                 {
-                this.state = 2948;
+                this.state = 2945;
                 this.match(ClickHouseParser.WITH);
-                this.state = 2949;
+                this.state = 2946;
                 this.match(ClickHouseParser.TOTALS);
+                }
+            }
+
+            this.state = 2950;
+            this.errorHandler.sync(this);
+            _la = this.tokenStream.LA(1);
+            if (_la === 75) {
+                {
+                this.state = 2949;
+                this.havingClause();
                 }
             }
 
             this.state = 2953;
             this.errorHandler.sync(this);
             _la = this.tokenStream.LA(1);
-            if (_la === 75) {
+            if (_la === 193) {
                 {
                 this.state = 2952;
-                this.havingClause();
+                this.windowClause();
                 }
             }
 
@@ -20869,8 +20869,8 @@ export class ClickHouseParser extends antlr.Parser {
         1,170,1,170,1,170,1,170,3,170,2914,8,170,1,171,3,171,2917,8,171,
         1,171,1,171,3,171,2921,8,171,1,171,3,171,2924,8,171,1,171,1,171,
         3,171,2928,8,171,1,171,3,171,2931,8,171,1,171,3,171,2934,8,171,1,
-        171,3,171,2937,8,171,1,171,3,171,2940,8,171,1,171,3,171,2943,8,171,
-        1,171,1,171,3,171,2947,8,171,1,171,1,171,3,171,2951,8,171,1,171,
+        171,3,171,2937,8,171,1,171,3,171,2940,8,171,1,171,1,171,3,171,2944,
+        8,171,1,171,1,171,3,171,2948,8,171,1,171,3,171,2951,8,171,1,171,
         3,171,2954,8,171,1,171,3,171,2957,8,171,1,171,3,171,2960,8,171,1,
         171,3,171,2963,8,171,1,171,3,171,2966,8,171,1,172,1,172,1,172,1,
         173,1,173,1,173,1,173,3,173,2975,8,173,1,174,1,174,1,174,1,175,3,
@@ -21919,15 +21919,15 @@ export class ClickHouseParser extends antlr.Parser {
         2923,2922,1,0,0,0,2923,2924,1,0,0,0,2924,2925,1,0,0,0,2925,2927,
         3,420,210,0,2926,2928,3,348,174,0,2927,2926,1,0,0,0,2927,2928,1,
         0,0,0,2928,2930,1,0,0,0,2929,2931,3,350,175,0,2930,2929,1,0,0,0,
-        2930,2931,1,0,0,0,2931,2933,1,0,0,0,2932,2934,3,352,176,0,2933,2932,
-        1,0,0,0,2933,2934,1,0,0,0,2934,2936,1,0,0,0,2935,2937,3,354,177,
+        2930,2931,1,0,0,0,2931,2933,1,0,0,0,2932,2934,3,354,177,0,2933,2932,
+        1,0,0,0,2933,2934,1,0,0,0,2934,2936,1,0,0,0,2935,2937,3,356,178,
         0,2936,2935,1,0,0,0,2936,2937,1,0,0,0,2937,2939,1,0,0,0,2938,2940,
-        3,356,178,0,2939,2938,1,0,0,0,2939,2940,1,0,0,0,2940,2942,1,0,0,
-        0,2941,2943,3,358,179,0,2942,2941,1,0,0,0,2942,2943,1,0,0,0,2943,
-        2946,1,0,0,0,2944,2945,5,194,0,0,2945,2947,7,45,0,0,2946,2944,1,
-        0,0,0,2946,2947,1,0,0,0,2947,2950,1,0,0,0,2948,2949,5,194,0,0,2949,
-        2951,5,173,0,0,2950,2948,1,0,0,0,2950,2951,1,0,0,0,2951,2953,1,0,
-        0,0,2952,2954,3,360,180,0,2953,2952,1,0,0,0,2953,2954,1,0,0,0,2954,
+        3,358,179,0,2939,2938,1,0,0,0,2939,2940,1,0,0,0,2940,2943,1,0,0,
+        0,2941,2942,5,194,0,0,2942,2944,7,45,0,0,2943,2941,1,0,0,0,2943,
+        2944,1,0,0,0,2944,2947,1,0,0,0,2945,2946,5,194,0,0,2946,2948,5,173,
+        0,0,2947,2945,1,0,0,0,2947,2948,1,0,0,0,2948,2950,1,0,0,0,2949,2951,
+        3,360,180,0,2950,2949,1,0,0,0,2950,2951,1,0,0,0,2951,2953,1,0,0,
+        0,2952,2954,3,352,176,0,2953,2952,1,0,0,0,2953,2954,1,0,0,0,2954,
         2956,1,0,0,0,2955,2957,3,362,181,0,2956,2955,1,0,0,0,2956,2957,1,
         0,0,0,2957,2959,1,0,0,0,2958,2960,3,366,183,0,2959,2958,1,0,0,0,
         2959,2960,1,0,0,0,2960,2962,1,0,0,0,2961,2963,3,368,184,0,2962,2961,
@@ -22238,7 +22238,7 @@ export class ClickHouseParser extends antlr.Parser {
         2694,2721,2726,2731,2734,2737,2746,2749,2757,2769,2774,2778,2783,
         2791,2802,2806,2814,2817,2827,2835,2840,2846,2850,2856,2859,2862,
         2865,2879,2883,2887,2892,2895,2905,2913,2916,2920,2923,2927,2930,
-        2933,2936,2939,2942,2946,2950,2953,2956,2959,2962,2965,2974,2980,
+        2933,2936,2939,2943,2947,2950,2953,2956,2959,2962,2965,2974,2980,
         3007,3029,3037,3040,3046,3054,3057,3063,3065,3069,3074,3077,3080,
         3084,3088,3091,3093,3096,3100,3104,3107,3109,3111,3114,3119,3130,
         3136,3141,3148,3153,3157,3161,3166,3173,3181,3184,3187,3206,3220,
@@ -29934,9 +29934,6 @@ export class SelectStatementContext extends antlr.ParserRuleContext {
     public arrayJoinClause(): ArrayJoinClauseContext | null {
         return this.getRuleContext(0, ArrayJoinClauseContext);
     }
-    public windowClause(): WindowClauseContext | null {
-        return this.getRuleContext(0, WindowClauseContext);
-    }
     public prewhereClause(): PrewhereClauseContext | null {
         return this.getRuleContext(0, PrewhereClauseContext);
     }
@@ -29960,6 +29957,9 @@ export class SelectStatementContext extends antlr.ParserRuleContext {
     }
     public havingClause(): HavingClauseContext | null {
         return this.getRuleContext(0, HavingClauseContext);
+    }
+    public windowClause(): WindowClauseContext | null {
+        return this.getRuleContext(0, WindowClauseContext);
     }
     public orderByClause(): OrderByClauseContext | null {
         return this.getRuleContext(0, OrderByClauseContext);

@@ -1069,7 +1069,7 @@ selectStatementWithParentheses
     ;
 
 selectStatement
-    : withClause? SELECT DISTINCT? topClause? columnExpressionList fromClause? arrayJoinClause? windowClause? prewhereClause? whereClause? groupByClause? (WITH (CUBE | ROLLUP))? (WITH TOTALS)? havingClause? orderByClause? limitByClause? limitClause? settingsClause?
+    : withClause? SELECT DISTINCT? topClause? columnExpressionList fromClause? arrayJoinClause? prewhereClause? whereClause? groupByClause? (WITH (CUBE | ROLLUP))? (WITH TOTALS)? havingClause? windowClause? orderByClause? limitByClause? limitClause? settingsClause?
     ;
 
 withClause
