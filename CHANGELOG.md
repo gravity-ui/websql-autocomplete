@@ -6,7 +6,7 @@
 ### Features
 
 * Allow to set any value after `FORMAT TYPE` for INSERT command in ClickHouse ([#240](https://github.com/gravity-ui/websql-autocomplete/issues/240)) ([b315855](https://github.com/gravity-ui/websql-autocomplete/commit/b315855e5165b944ac63f761e1cd61cccfa0df12))
-* support settings clause in delete command ([#241](https://github.com/gravity-ui/websql-autocomplete/issues/241)) ([5ddd428](https://github.com/gravity-ui/websql-autocomplete/commit/5ddd4282dfc898fe00e934e3295a6e8d68e37024))
+* Support settings clause for DELETE command in ClickHouse ([#241](https://github.com/gravity-ui/websql-autocomplete/issues/241)) ([5ddd428](https://github.com/gravity-ui/websql-autocomplete/commit/5ddd4282dfc898fe00e934e3295a6e8d68e37024))
 
 ## [12.1.2](https://github.com/gravity-ui/websql-autocomplete/compare/v12.1.1...v12.1.2) (2024-11-08)
 
