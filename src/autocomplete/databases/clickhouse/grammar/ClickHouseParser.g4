@@ -46,7 +46,7 @@ notInsertStatement
     | truncateStatement // DDL
     | useStatement
     | watchStatement
-    | commonTableExpressionStatement? selectStatement ((EXCEPT | INTERSECT) selectStatement)*
+    | commonTableExpressionStatement? selectStatement ((EXCEPT | INTERSECT) (ALL | DISTINCT)? selectStatement)*
     ;
 
 commonTableExpressionStatement
@@ -1333,6 +1333,7 @@ columnExpression
     | LPAREN columnExpressionList RPAREN                                                    # ColumnExpressionTuple
     | LBRACKET columnExpressionList? RBRACKET                                               # ColumnExpressionArray
     | columnIdentifier                                                                      # ColumnExpressionIdentifier
+    | ASTERISK EXCEPT columnIdentifier                                                      # ColumnExpressionExcept
     ;
 
 columnArgumentList

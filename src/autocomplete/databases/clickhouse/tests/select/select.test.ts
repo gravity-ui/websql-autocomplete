@@ -46,19 +46,26 @@ test('should not report errors on multiple except clause', () => {
         FROM
             test_database.test_table1
             
-        EXCEPT
+        EXCEPT DISTINCT
 
         SELECT
             test_column4, test_column5, test_column6
         FROM
             test_database.test_table2
 
-        EXCEPT
+        EXCEPT ALL
 
         SELECT
             test_column7, test_column8, test_column9
         FROM
             test_database.test_table3
+
+        EXCEPT
+
+        SELECT
+            test_column10, test_column11, test_column12
+        FROM
+            test_database.test_table4
         ;
     `);
 
@@ -108,19 +115,26 @@ test('should not report errors on multiple intersect clause', () => {
         FROM
             test_database.test_table1
             
-        INTERSECT
+        INTERSECT ALL
 
         SELECT
             test_column4, test_column5, test_column6
         FROM
             test_database.test_table2
 
-        INTERSECT
+        INTERSECT DISTINCT
 
         SELECT
             test_column7, test_column8, test_column9
         FROM
             test_database.test_table3
+
+        INTERSECT
+
+        SELECT
+            test_column10, test_column11, test_column12
+        FROM
+            test_database.test_table4
         ;
     `);
 
@@ -130,24 +144,9 @@ test('should not report errors on multiple intersect clause', () => {
 test('should not report errors on except and intersect clause', () => {
     const autocompleteResult = parseClickHouseQueryWithoutCursor(`
         SELECT
-            test_column1, test_column2, test_column3
+            * EXCEPT test_column1, test_column2, test_column3
         FROM
-            test_database.test_table1
-            
-        EXCEPT
-
-        SELECT
-            test_column4, test_column5, test_column6
-        FROM
-            test_database.test_table2
-
-        INTERSECT
-
-        SELECT
-            test_column7, test_column8, test_column9
-        FROM
-            test_database.test_table3
-        ;
+            test_database.test_table1;
     `);
 
     expect(autocompleteResult.errors).toHaveLength(0);
@@ -180,6 +179,7 @@ test('should suggest properly after *', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor('SELECT * |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [
+        {value: 'EXCEPT'},
         {value: 'AS'},
         {value: 'DATE'},
         {value: 'FIRST'},
@@ -208,7 +208,6 @@ test('should suggest properly after *', () => {
         {value: 'LEFT'},
         {value: 'ARRAY'},
         {value: 'FROM'},
-        {value: 'EXCEPT'},
         {value: 'INTERSECT'},
         {value: 'UNION'},
         {value: 'FORMAT'},

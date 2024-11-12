@@ -276,6 +276,7 @@ import { ColumnExpressionTupleAccessContext } from "./ClickHouseParser.js";
 import { ColumnExpressionParensContext } from "./ClickHouseParser.js";
 import { ColumnExpressionWinFunctionTargetContext } from "./ClickHouseParser.js";
 import { ColumnExpressionAliasContext } from "./ClickHouseParser.js";
+import { ColumnExpressionExceptContext } from "./ClickHouseParser.js";
 import { ColumnExpressionPrecedence3Context } from "./ClickHouseParser.js";
 import { ColumnExpressionTimestampContext } from "./ClickHouseParser.js";
 import { ColumnExpressionPrecedence2Context } from "./ClickHouseParser.js";
@@ -1967,6 +1968,13 @@ export class ClickHouseParserVisitor<Result> extends AbstractParseTreeVisitor<Re
      * @return the visitor result
      */
     visitColumnExpressionAlias?: (ctx: ColumnExpressionAliasContext) => Result;
+    /**
+     * Visit a parse tree produced by the `ColumnExpressionExcept`
+     * labeled alternative in `ClickHouseParser.columnExpression`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitColumnExpressionExcept?: (ctx: ColumnExpressionExceptContext) => Result;
     /**
      * Visit a parse tree produced by the `ColumnExpressionPrecedence3`
      * labeled alternative in `ClickHouseParser.columnExpression`.
