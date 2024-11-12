@@ -128,3 +128,44 @@ test('should suggest properly after ORDER BY between statements in nested statem
     expect(autocompleteResult.suggestColumns).toEqual(columnSuggestion);
     expect(autocompleteResult.suggestColumnAliases).toEqual(columnAliasSuggestion);
 });
+
+test('should suggest properly after column identifier', () => {
+    const autocompleteResult = parseClickHouseQueryWithCursor(
+        'SELECT count(*) as count, test_column t1 FROM test_table as t ORDER BY test_column |',
+    );
+    const keywordsSuggestion: KeywordSuggestion[] = [
+        {value: 'AS'},
+        {value: 'DATE'},
+        {value: 'FIRST'},
+        {value: 'ID'},
+        {value: 'KEY'},
+        {value: 'IS'},
+        {value: 'BETWEEN'},
+        {value: 'NOT'},
+        {value: 'OR'},
+        {value: 'AND'},
+        {value: 'ILIKE'},
+        {value: 'LIKE'},
+        {value: 'IN'},
+        {value: 'GLOBAL'},
+        {value: '*'},
+        {value: 'INTERPOLATE'},
+        {value: 'STEP'},
+        {value: 'TO'},
+        {value: 'FROM'},
+        {value: 'WITH'},
+        {value: 'COLLATE'},
+        {value: 'NULLS'},
+        {value: 'ASC'},
+        {value: 'ASCENDING'},
+        {value: 'DESC'},
+        {value: 'DESCENDING'},
+        {value: 'SETTINGS'},
+        {value: 'LIMIT'},
+        {value: 'UNION'},
+        {value: 'FORMAT'},
+        {value: 'INTO'},
+    ];
+
+    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
+});

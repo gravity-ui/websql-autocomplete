@@ -224,6 +224,7 @@ import { SampleClauseContext } from "./ClickHouseParser.js";
 import { LimitExpressionContext } from "./ClickHouseParser.js";
 import { OrderExpressionListContext } from "./ClickHouseParser.js";
 import { OrderExpressionContext } from "./ClickHouseParser.js";
+import { InterpolateClauseContext } from "./ClickHouseParser.js";
 import { RatioExpressionContext } from "./ClickHouseParser.js";
 import { SettingExpressionListContext } from "./ClickHouseParser.js";
 import { SettingExpressionContext } from "./ClickHouseParser.js";
@@ -1617,6 +1618,12 @@ export class ClickHouseParserVisitor<Result> extends AbstractParseTreeVisitor<Re
      * @return the visitor result
      */
     visitOrderExpression?: (ctx: OrderExpressionContext) => Result;
+    /**
+     * Visit a parse tree produced by `ClickHouseParser.interpolateClause`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitInterpolateClause?: (ctx: InterpolateClauseContext) => Result;
     /**
      * Visit a parse tree produced by `ClickHouseParser.ratioExpression`.
      * @param ctx the parse tree

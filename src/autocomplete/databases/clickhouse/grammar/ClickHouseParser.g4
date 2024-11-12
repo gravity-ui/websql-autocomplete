@@ -1165,7 +1165,11 @@ orderExpressionList
     ;
 
 orderExpression
-    : columnExpression (ASCENDING | ASC | DESCENDING | DESC)? (NULLS (FIRST | LAST))? (COLLATE STRING_LITERAL)?
+    : columnExpression (ASCENDING | ASC | DESCENDING | DESC)? (NULLS (FIRST | LAST))? (COLLATE STRING_LITERAL)? (WITH FILL)? (FROM numberLiteral)? (TO numberLiteral)? (STEP numberLiteral)? interpolateClause?
+    ;
+
+interpolateClause
+    : INTERPOLATE LPAREN (literal | columnIdentifier) (AS expression RPAREN)?
     ;
 
 ratioExpression
@@ -1802,6 +1806,10 @@ keyword
     | FORGET
     | STATISTICS
     | UNFREEZE
+    | FILL
+    | STEP
+    | INTERPOLATE
+    | INTERSECT
     ;
 
 keywordForAlias
