@@ -1060,7 +1060,7 @@ projectionSelectStatement
 // SELECT statement
 
 selectUnionStatement
-    : selectStatementWithParentheses (UNION ALL selectStatementWithParentheses)*
+    : selectStatementWithParentheses (UNION (ALL | DISTINCT) selectStatementWithParentheses)*
     ;
 
 selectStatementWithParentheses

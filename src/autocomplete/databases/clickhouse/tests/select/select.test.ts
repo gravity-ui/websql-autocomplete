@@ -36,7 +36,7 @@ test('should not report errors', () => {
         INTO OUTFILE 'test_filename';
     `);
 
-    expect(autocompleteResult.errors).toEqual([]);
+    expect(autocompleteResult.errors).toHaveLength(0);
 });
 
 test('should not report errors on multiple except clause', () => {
@@ -62,7 +62,43 @@ test('should not report errors on multiple except clause', () => {
         ;
     `);
 
-    expect(autocompleteResult.errors).toEqual([]);
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should not report errors on multiple union clause', () => {
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(`
+        SELECT
+            test_column1, test_column2, test_column3
+        FROM
+            test_database.test_table1
+            
+        UNION DISTINCT
+
+        SELECT
+            test_column4, test_column5, test_column6
+        FROM
+            test_database.test_table2
+            
+        UNION ALL
+
+        SELECT
+            test_column7, test_column8, test_column9
+        FROM
+            test_database.test_table3;
+    `);
+
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should suggest properly after UNION', () => {
+    const autocompleteResult = parseClickHouseQueryWithCursor(`
+        SELECT test_column1, test_column2, test_column3
+        FROM test_database.test_table1
+
+        UNION |
+    `);
+
+    expect(autocompleteResult.suggestKeywords).toEqual([{value: 'ALL'}, {value: 'DISTINCT'}]);
 });
 
 test('should not report errors on multiple intersect clause', () => {
@@ -88,7 +124,7 @@ test('should not report errors on multiple intersect clause', () => {
         ;
     `);
 
-    expect(autocompleteResult.errors).toEqual([]);
+    expect(autocompleteResult.errors).toHaveLength(0);
 });
 
 test('should not report errors on except and intersect clause', () => {
@@ -114,7 +150,7 @@ test('should not report errors on except and intersect clause', () => {
         ;
     `);
 
-    expect(autocompleteResult.errors).toEqual([]);
+    expect(autocompleteResult.errors).toHaveLength(0);
 });
 
 test('should suggest properly after SELECT', () => {
