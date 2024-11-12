@@ -1,4 +1,4 @@
-import {parseClickHouseQueryWithCursor} from '../../index';
+import {parseClickHouseQueryWithCursor, parseClickHouseQueryWithoutCursor} from '../../index';
 import {
     ColumnAliasSuggestion,
     ColumnSuggestion,
@@ -168,4 +168,24 @@ test('should suggest properly after column identifier', () => {
     ];
 
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
+});
+
+test('should not report errors', () => {
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(`
+        SELECT * FROM
+            test_table
+        ORDER BY
+            test_column1
+                WITH FILL
+                FROM 0 TO 1
+                STEP 0.1
+                INTERPOLATE (test_column AS test_column + 1),
+            test_column2
+                WITH FILL
+                FROM 0 TO 1
+                STEP 0.1
+                INTERPOLATE (test_column AS test_column + 1);
+    `);
+
+    expect(autocompleteResult.errors).toHaveLength(0);
 });
