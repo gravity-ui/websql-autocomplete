@@ -5,6 +5,118 @@ import {
     TableOrViewSuggestion,
 } from '../../../../shared/autocomplete-types';
 
+test('should not report errors', () => {
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(`
+        SELECT
+            DISTINCT ON (test_column1)
+            test_column2, test_column3, test_column4
+        FROM
+            test_database.test_table1 FINAL
+        SAMPLE
+            0.1 OFFSET 0.5
+        GLOBAL ANY INNER JOIN test_table2 ON test_column1 = test_column2
+        PREWHERE
+            test_column1 = 1
+            test_column2 = 'text'
+        WHERE test_column1 = 1
+        GROUP BY test_column2 WITH ROLLUP WITH TOTALS
+        HAVING
+            test_column1 = 1
+            test_column2 = 'text'
+        WINDOW
+            test_column1 AS
+            (ORDER BY test_column2 DESC)
+        ORDER BY
+            test_column1
+            WITH FILL
+        LIMIT 10 BY columns
+        LIMIT 10 WITH TIES
+        SETTINGS
+            test_setting = 1
+        INTO OUTFILE 'test_filename';
+    `);
+
+    expect(autocompleteResult.errors).toEqual([]);
+});
+
+test('should not report errors on multiple except clause', () => {
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(`
+        SELECT
+            test_column1, test_column2, test_column3
+        FROM
+            test_database.test_table1
+            
+        EXCEPT
+
+        SELECT
+            test_column4, test_column5, test_column6
+        FROM
+            test_database.test_table2
+
+        EXCEPT
+
+        SELECT
+            test_column7, test_column8, test_column9
+        FROM
+            test_database.test_table3
+        ;
+    `);
+
+    expect(autocompleteResult.errors).toEqual([]);
+});
+
+test('should not report errors on multiple intersect clause', () => {
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(`
+        SELECT
+            test_column1, test_column2, test_column3
+        FROM
+            test_database.test_table1
+            
+        INTERSECT
+
+        SELECT
+            test_column4, test_column5, test_column6
+        FROM
+            test_database.test_table2
+
+        INTERSECT
+
+        SELECT
+            test_column7, test_column8, test_column9
+        FROM
+            test_database.test_table3
+        ;
+    `);
+
+    expect(autocompleteResult.errors).toEqual([]);
+});
+
+test('should not report errors on except and intersect clause', () => {
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(`
+        SELECT
+            test_column1, test_column2, test_column3
+        FROM
+            test_database.test_table1
+            
+        EXCEPT
+
+        SELECT
+            test_column4, test_column5, test_column6
+        FROM
+            test_database.test_table2
+
+        INTERSECT
+
+        SELECT
+            test_column7, test_column8, test_column9
+        FROM
+            test_database.test_table3
+        ;
+    `);
+
+    expect(autocompleteResult.errors).toEqual([]);
+});
+
 test('should suggest properly after SELECT', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor('SELECT |');
 
@@ -50,16 +162,18 @@ test('should suggest properly after *', () => {
         {value: 'SETTINGS'},
         {value: 'LIMIT'},
         {value: 'ORDER'},
+        {value: 'WINDOW'},
         {value: 'HAVING'},
         {value: 'WITH'},
         {value: 'GROUP'},
         {value: 'WHERE'},
         {value: 'PREWHERE'},
-        {value: 'WINDOW'},
         {value: 'INNER'},
         {value: 'LEFT'},
         {value: 'ARRAY'},
         {value: 'FROM'},
+        {value: 'EXCEPT'},
+        {value: 'INTERSECT'},
         {value: 'UNION'},
         {value: 'FORMAT'},
         {value: 'INTO'},
@@ -110,13 +224,15 @@ test('should suggest properly after table name', () => {
         {value: 'SETTINGS'},
         {value: 'LIMIT'},
         {value: 'ORDER'},
+        {value: 'WINDOW'},
         {value: 'HAVING'},
         {value: 'WITH'},
         {value: 'GROUP'},
         {value: 'WHERE'},
         {value: 'PREWHERE'},
-        {value: 'WINDOW'},
         {value: 'ARRAY'},
+        {value: 'EXCEPT'},
+        {value: 'INTERSECT'},
         {value: 'UNION'},
         {value: 'FORMAT'},
         {value: 'INTO'},

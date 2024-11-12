@@ -46,7 +46,7 @@ notInsertStatement
     | truncateStatement // DDL
     | useStatement
     | watchStatement
-    | commonTableExpressionStatement? selectStatement
+    | commonTableExpressionStatement? selectStatement ((EXCEPT | INTERSECT) selectStatement)*
     ;
 
 commonTableExpressionStatement

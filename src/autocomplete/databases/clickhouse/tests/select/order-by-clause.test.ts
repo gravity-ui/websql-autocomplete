@@ -162,6 +162,8 @@ test('should suggest properly after column identifier', () => {
         {value: 'DESCENDING'},
         {value: 'SETTINGS'},
         {value: 'LIMIT'},
+        {value: 'EXCEPT'},
+        {value: 'INTERSECT'},
         {value: 'UNION'},
         {value: 'FORMAT'},
         {value: 'INTO'},
