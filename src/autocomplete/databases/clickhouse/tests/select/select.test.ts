@@ -105,7 +105,8 @@ test('should suggest properly after UNION', () => {
         UNION |
     `);
 
-    expect(autocompleteResult.suggestKeywords).toEqual([{value: 'ALL'}, {value: 'DISTINCT'}]);
+    const keywordsSuggestion: KeywordSuggestion[] = [{value: 'ALL'}, {value: 'DISTINCT'}];
+    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
 test('should not report errors on multiple intersect clause', () => {
