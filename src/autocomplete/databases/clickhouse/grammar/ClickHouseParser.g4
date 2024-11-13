@@ -1308,7 +1308,7 @@ columnExpression
     | identifier (LPAREN columnExpressionList? RPAREN) OVER LPAREN windowExpression RPAREN               # ColumnExpressionWinFunction
     | identifier (LPAREN columnExpressionList? RPAREN) OVER identifier                                   # ColumnExpressionWinFunctionTarget
     | identifier (LPAREN columnExpressionList? RPAREN)? LPAREN DISTINCT? columnArgumentList? RPAREN      # ColumnExpressionFunction
-    | literal                                                                                            # ColumnExpressionLiteral
+    | literal (DOUBLECOLON columnTypeExpression)*                                                        # ColumnExpressionLiteral
 
     // FIXME(ilezhankin): this part looks very ugly, maybe there is another way to express it
     | columnExpression LBRACKET columnExpression RBRACKET # ColumnExpressionArrayAccess
@@ -1348,7 +1348,7 @@ columnExpression
     | LPAREN columnExpression RPAREN                                                        # ColumnExpressionParens   // single-column only
     | LPAREN columnExpressionList RPAREN                                                    # ColumnExpressionTuple
     | LBRACKET columnExpressionList? RBRACKET                                               # ColumnExpressionArray
-    | columnIdentifier                                                                      # ColumnExpressionIdentifier
+    | columnIdentifier (DOUBLECOLON columnTypeExpression)*                                  # ColumnExpressionIdentifier
     | ASTERISK EXCEPT columnIdentifier                                                      # ColumnExpressionExcept
     ;
 

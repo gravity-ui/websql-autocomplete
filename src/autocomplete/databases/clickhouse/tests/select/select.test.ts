@@ -9,7 +9,7 @@ test('should not report errors', () => {
     const autocompleteResult = parseClickHouseQueryWithoutCursor(`
         SELECT
             DISTINCT ON (test_column1)
-            test_column2, test_column3, test_column4
+            test_column2::String, test_column3::UInt16, test_column4
         FROM
             test_database.test_table1 FINAL
         SAMPLE

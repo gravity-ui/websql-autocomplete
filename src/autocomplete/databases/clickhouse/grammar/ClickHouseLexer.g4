@@ -453,6 +453,7 @@ ASTERISK     : '*';
 BACKQUOTE    : '`';
 BACKSLASH    : '\\';
 COLON        : ':';
+DOUBLECOLON  : '::';
 COMMA        : ',';
 CONCAT       : '||';
 DASH         : '-';
