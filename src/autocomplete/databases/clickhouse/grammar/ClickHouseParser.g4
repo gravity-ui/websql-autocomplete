@@ -367,8 +367,13 @@ identifierOrLiteralOrFunction
     | functionExpression
     ;
 
+functionArgument
+    : identifierOrLiteralOrFunction
+    | arrayIdentifier
+    ;
+
 functionExpression
-    : identifier LPAREN ((literal | identifier) (COMMA literal | identifier)* | functionExpression)? RPAREN
+    : identifier LPAREN (functionArgument (COMMA functionArgument)*)? RPAREN
     ;
 
 conditionExpression
@@ -1080,8 +1085,19 @@ topClause
     : TOP DECIMAL_LITERAL (WITH TIES)?
     ;
 
+fromValuesValue
+    : arrayIdentifier
+    | identifierOrLiteralOrFunction
+    | fromValuesExpression
+    ;
+
+fromValuesExpression
+    : LPAREN (fromValuesValue) (COMMA ( fromValuesValue))* RPAREN
+    ;
+
 fromClause
     : FROM joinExpression
+    | FROM VALUES fromValuesExpression
     ;
 
 arrayJoinClause

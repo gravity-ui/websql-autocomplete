@@ -74,6 +74,7 @@ import { ReplaceOrIfNotExistsClauseContext } from "./ClickHouseParser.js";
 import { TableIdentifierOrAnyTableContext } from "./ClickHouseParser.js";
 import { CreatePolicyExpressionContext } from "./ClickHouseParser.js";
 import { IdentifierOrLiteralOrFunctionContext } from "./ClickHouseParser.js";
+import { FunctionArgumentContext } from "./ClickHouseParser.js";
 import { FunctionExpressionContext } from "./ClickHouseParser.js";
 import { ConditionExpressionContext } from "./ClickHouseParser.js";
 import { ConditionClauseContext } from "./ClickHouseParser.js";
@@ -199,6 +200,8 @@ import { SelectStatementWithParenthesesContext } from "./ClickHouseParser.js";
 import { SelectStatementContext } from "./ClickHouseParser.js";
 import { WithClauseContext } from "./ClickHouseParser.js";
 import { TopClauseContext } from "./ClickHouseParser.js";
+import { FromValuesValueContext } from "./ClickHouseParser.js";
+import { FromValuesExpressionContext } from "./ClickHouseParser.js";
 import { FromClauseContext } from "./ClickHouseParser.js";
 import { ArrayJoinClauseContext } from "./ClickHouseParser.js";
 import { WindowClauseContext } from "./ClickHouseParser.js";
@@ -693,6 +696,12 @@ export class ClickHouseParserVisitor<Result> extends AbstractParseTreeVisitor<Re
      * @return the visitor result
      */
     visitIdentifierOrLiteralOrFunction?: (ctx: IdentifierOrLiteralOrFunctionContext) => Result;
+    /**
+     * Visit a parse tree produced by `ClickHouseParser.functionArgument`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitFunctionArgument?: (ctx: FunctionArgumentContext) => Result;
     /**
      * Visit a parse tree produced by `ClickHouseParser.functionExpression`.
      * @param ctx the parse tree
@@ -1462,6 +1471,18 @@ export class ClickHouseParserVisitor<Result> extends AbstractParseTreeVisitor<Re
      * @return the visitor result
      */
     visitTopClause?: (ctx: TopClauseContext) => Result;
+    /**
+     * Visit a parse tree produced by `ClickHouseParser.fromValuesValue`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitFromValuesValue?: (ctx: FromValuesValueContext) => Result;
+    /**
+     * Visit a parse tree produced by `ClickHouseParser.fromValuesExpression`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitFromValuesExpression?: (ctx: FromValuesExpressionContext) => Result;
     /**
      * Visit a parse tree produced by `ClickHouseParser.fromClause`.
      * @param ctx the parse tree

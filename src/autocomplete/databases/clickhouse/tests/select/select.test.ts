@@ -152,6 +152,18 @@ test('should not report errors on except and intersect clause', () => {
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
+test('should not report errors on from values clause', () => {
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(`
+        SELECT * FROM VALUES (
+            1, '2', [1, 2, 3],
+            test_function1(test_function2(1, '2', [1,2,3])),
+            test_function3(test_function4(1, '2', [1,2,3]))
+        )
+    `);
+
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
 test('should suggest properly after SELECT', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor('SELECT |');
 
@@ -219,7 +231,7 @@ test('should suggest properly after *', () => {
 test('should suggest properly after FROM', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor('SELECT * FROM |');
 
-    const keywordsSuggestion: KeywordSuggestion[] = [];
+    const keywordsSuggestion: KeywordSuggestion[] = [{value: 'VALUES'}];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
     expect(autocompleteResult.suggestViewsOrTables).toEqual(TableOrViewSuggestion.ALL);
 });
