@@ -5,7 +5,7 @@ import {
     TableOrViewSuggestion,
 } from '../../../../shared/autocomplete-types';
 
-test('should not report errors', () => {
+test('should not report errors on extended statement', () => {
     const autocompleteResult = parseClickHouseQueryWithoutCursor(`
         SELECT
             DISTINCT ON (test_column1)
@@ -435,4 +435,30 @@ test('should not report errors', () => {
     const autocompleteResult = parseClickHouseQueryWithoutCursor('SELECT c1, c2 FROM test_table;');
 
     expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should suggest properly after EXCEPT', () => {
+    const autocompleteResult = parseClickHouseQueryWithCursor('SELECT * FROM test_table EXCEPT |');
+
+    const keywordsSuggestion: KeywordSuggestion[] = [
+        {value: 'WITH'},
+        {value: 'SELECT'},
+        {value: 'ALL'},
+        {value: 'DISTINCT'},
+    ];
+    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
+});
+
+test('should suggest properly after INTERSECT', () => {
+    const autocompleteResult = parseClickHouseQueryWithCursor(
+        'SELECT * FROM test_table INTERSECT |',
+    );
+
+    const keywordsSuggestion: KeywordSuggestion[] = [
+        {value: 'WITH'},
+        {value: 'SELECT'},
+        {value: 'ALL'},
+        {value: 'DISTINCT'},
+    ];
+    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
