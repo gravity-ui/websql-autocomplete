@@ -197,6 +197,7 @@ import { RenameStatementContext } from "./ClickHouseParser.js";
 import { ProjectionSelectStatementContext } from "./ClickHouseParser.js";
 import { SelectUnionStatementContext } from "./ClickHouseParser.js";
 import { SelectStatementWithParenthesesContext } from "./ClickHouseParser.js";
+import { DistinctClauseContext } from "./ClickHouseParser.js";
 import { SelectStatementContext } from "./ClickHouseParser.js";
 import { WithClauseContext } from "./ClickHouseParser.js";
 import { TopClauseContext } from "./ClickHouseParser.js";
@@ -1453,6 +1454,12 @@ export class ClickHouseParserVisitor<Result> extends AbstractParseTreeVisitor<Re
      * @return the visitor result
      */
     visitSelectStatementWithParentheses?: (ctx: SelectStatementWithParenthesesContext) => Result;
+    /**
+     * Visit a parse tree produced by `ClickHouseParser.distinctClause`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitDistinctClause?: (ctx: DistinctClauseContext) => Result;
     /**
      * Visit a parse tree produced by `ClickHouseParser.selectStatement`.
      * @param ctx the parse tree

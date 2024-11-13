@@ -1073,8 +1073,12 @@ selectStatementWithParentheses
     | LPAREN selectUnionStatement RPAREN
     ;
 
+distinctClause
+    : DISTINCT (ON LPAREN columnExpressionList RPAREN)?
+    ;
+
 selectStatement
-    : withClause? SELECT DISTINCT? topClause? columnExpressionList fromClause? arrayJoinClause? prewhereClause? whereClause? groupByClause? (WITH (CUBE | ROLLUP))? (WITH TOTALS)? havingClause? windowClause? orderByClause? limitByClause? limitClause? settingsClause?
+    : withClause? SELECT distinctClause? topClause? columnExpressionList fromClause? arrayJoinClause? prewhereClause? whereClause? groupByClause? (WITH (CUBE | ROLLUP))? (WITH TOTALS)? havingClause? windowClause? orderByClause? limitByClause? limitClause? settingsClause?
     ;
 
 withClause
