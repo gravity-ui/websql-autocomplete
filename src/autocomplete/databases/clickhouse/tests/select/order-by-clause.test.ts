@@ -172,6 +172,41 @@ test('should suggest properly after column identifier', () => {
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
+test('should suggest properly after WITH', () => {
+    const autocompleteResult = parseClickHouseQueryWithCursor(`
+        SELECT * FROM
+            test_table
+        ORDER BY
+            test_column1
+                WITH |
+    `);
+
+    expect(autocompleteResult.suggestKeywords).toEqual([{value: 'FILL'}]);
+});
+
+test('should suggest properly after from value', () => {
+    const autocompleteResult = parseClickHouseQueryWithCursor(`
+        SELECT * FROM
+            test_table
+        ORDER BY
+            test_column1
+                FROM 0 |
+    `);
+
+    expect(autocompleteResult.suggestKeywords).toEqual([
+        {value: 'INTERPOLATE'},
+        {value: 'STEP'},
+        {value: 'TO'},
+        {value: 'SETTINGS'},
+        {value: 'LIMIT'},
+        {value: 'EXCEPT'},
+        {value: 'INTERSECT'},
+        {value: 'UNION'},
+        {value: 'FORMAT'},
+        {value: 'INTO'},
+    ]);
+});
+
 test('should not report errors', () => {
     const autocompleteResult = parseClickHouseQueryWithoutCursor(`
         SELECT * FROM
