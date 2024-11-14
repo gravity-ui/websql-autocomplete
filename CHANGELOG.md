@@ -1,5 +1,12 @@
 # Changelog
 
+## [12.3.0](https://github.com/gravity-ui/websql-autocomplete/compare/v12.2.0...v12.3.0) (2024-11-14)
+
+
+### Features
+
+* Improve SELECT command for ClickHouse ([#243](https://github.com/gravity-ui/websql-autocomplete/issues/243)) ([81968db](https://github.com/gravity-ui/websql-autocomplete/commit/81968dba91c4e7b6e8c199e1d93795ac612b4f33))
+
 ## [12.2.0](https://github.com/gravity-ui/websql-autocomplete/compare/v12.1.2...v12.2.0) (2024-11-11)
 
 
