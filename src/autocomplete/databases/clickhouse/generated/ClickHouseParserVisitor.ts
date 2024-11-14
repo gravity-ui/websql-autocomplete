@@ -201,7 +201,7 @@ import { DistinctClauseContext } from "./ClickHouseParser.js";
 import { SelectStatementContext } from "./ClickHouseParser.js";
 import { WithClauseContext } from "./ClickHouseParser.js";
 import { TopClauseContext } from "./ClickHouseParser.js";
-import { FromValuesValueContext } from "./ClickHouseParser.js";
+import { FromValuesExpressionValueContext } from "./ClickHouseParser.js";
 import { FromValuesExpressionContext } from "./ClickHouseParser.js";
 import { FromClauseContext } from "./ClickHouseParser.js";
 import { ArrayJoinClauseContext } from "./ClickHouseParser.js";
@@ -1479,11 +1479,11 @@ export class ClickHouseParserVisitor<Result> extends AbstractParseTreeVisitor<Re
      */
     visitTopClause?: (ctx: TopClauseContext) => Result;
     /**
-     * Visit a parse tree produced by `ClickHouseParser.fromValuesValue`.
+     * Visit a parse tree produced by `ClickHouseParser.fromValuesExpressionValue`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitFromValuesValue?: (ctx: FromValuesValueContext) => Result;
+    visitFromValuesExpressionValue?: (ctx: FromValuesExpressionValueContext) => Result;
     /**
      * Visit a parse tree produced by `ClickHouseParser.fromValuesExpression`.
      * @param ctx the parse tree

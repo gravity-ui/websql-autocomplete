@@ -630,7 +630,7 @@ export class ClickHouseParser extends antlr.Parser {
     public static readonly RULE_selectStatement = 173;
     public static readonly RULE_withClause = 174;
     public static readonly RULE_topClause = 175;
-    public static readonly RULE_fromValuesValue = 176;
+    public static readonly RULE_fromValuesExpressionValue = 176;
     public static readonly RULE_fromValuesExpression = 177;
     public static readonly RULE_fromClause = 178;
     public static readonly RULE_arrayJoinClause = 179;
@@ -867,7 +867,7 @@ export class ClickHouseParser extends antlr.Parser {
         "arrayIdentifier", "valuesClause", "valuesStatement", "killStatement", 
         "optimizeStatement", "renameStatement", "projectionSelectStatement", 
         "selectUnionStatement", "selectStatementWithParentheses", "distinctClause", 
-        "selectStatement", "withClause", "topClause", "fromValuesValue", 
+        "selectStatement", "withClause", "topClause", "fromValuesExpressionValue", 
         "fromValuesExpression", "fromClause", "arrayJoinClause", "windowClause", 
         "prewhereClause", "whereClause", "groupByClause", "havingClause", 
         "orderByClause", "projectionOrderByClause", "limitByClause", "limitClause", 
@@ -15905,9 +15905,9 @@ export class ClickHouseParser extends antlr.Parser {
         }
         return localContext;
     }
-    public fromValuesValue(): FromValuesValueContext {
-        let localContext = new FromValuesValueContext(this.context, this.state);
-        this.enterRule(localContext, 352, ClickHouseParser.RULE_fromValuesValue);
+    public fromValuesExpressionValue(): FromValuesExpressionValueContext {
+        let localContext = new FromValuesExpressionValueContext(this.context, this.state);
+        this.enterRule(localContext, 352, ClickHouseParser.RULE_fromValuesExpressionValue);
         try {
             this.state = 3006;
             this.errorHandler.sync(this);
@@ -16362,7 +16362,7 @@ export class ClickHouseParser extends antlr.Parser {
             this.match(ClickHouseParser.LPAREN);
             {
             this.state = 3009;
-            this.fromValuesValue();
+            this.fromValuesExpressionValue();
             }
             this.state = 3014;
             this.errorHandler.sync(this);
@@ -16374,7 +16374,7 @@ export class ClickHouseParser extends antlr.Parser {
                 this.match(ClickHouseParser.COMMA);
                 {
                 this.state = 3011;
-                this.fromValuesValue();
+                this.fromValuesExpressionValue();
                 }
                 }
                 }
@@ -31005,7 +31005,7 @@ export class TopClauseContext extends antlr.ParserRuleContext {
 }
 
 
-export class FromValuesValueContext extends antlr.ParserRuleContext {
+export class FromValuesExpressionValueContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
@@ -31019,11 +31019,11 @@ export class FromValuesValueContext extends antlr.ParserRuleContext {
         return this.getRuleContext(0, FromValuesExpressionContext);
     }
     public override get ruleIndex(): number {
-        return ClickHouseParser.RULE_fromValuesValue;
+        return ClickHouseParser.RULE_fromValuesExpressionValue;
     }
     public override accept<Result>(visitor: ClickHouseParserVisitor<Result>): Result | null {
-        if (visitor.visitFromValuesValue) {
-            return visitor.visitFromValuesValue(this);
+        if (visitor.visitFromValuesExpressionValue) {
+            return visitor.visitFromValuesExpressionValue(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -31041,14 +31041,14 @@ export class FromValuesExpressionContext extends antlr.ParserRuleContext {
     public RPAREN(): antlr.TerminalNode {
         return this.getToken(ClickHouseParser.RPAREN, 0)!;
     }
-    public fromValuesValue(): FromValuesValueContext[];
-    public fromValuesValue(i: number): FromValuesValueContext | null;
-    public fromValuesValue(i?: number): FromValuesValueContext[] | FromValuesValueContext | null {
+    public fromValuesExpressionValue(): FromValuesExpressionValueContext[];
+    public fromValuesExpressionValue(i: number): FromValuesExpressionValueContext | null;
+    public fromValuesExpressionValue(i?: number): FromValuesExpressionValueContext[] | FromValuesExpressionValueContext | null {
         if (i === undefined) {
-            return this.getRuleContexts(FromValuesValueContext);
+            return this.getRuleContexts(FromValuesExpressionValueContext);
         }
 
-        return this.getRuleContext(i, FromValuesValueContext);
+        return this.getRuleContext(i, FromValuesExpressionValueContext);
     }
     public COMMA(): antlr.TerminalNode[];
     public COMMA(i: number): antlr.TerminalNode | null;

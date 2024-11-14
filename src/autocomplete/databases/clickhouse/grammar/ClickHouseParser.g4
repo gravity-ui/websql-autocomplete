@@ -1089,14 +1089,14 @@ topClause
     : TOP DECIMAL_LITERAL (WITH TIES)?
     ;
 
-fromValuesValue
+fromValuesExpressionValue
     : arrayIdentifier
     | identifierOrLiteralOrFunction
     | fromValuesExpression
     ;
 
 fromValuesExpression
-    : LPAREN (fromValuesValue) (COMMA ( fromValuesValue))* RPAREN
+    : LPAREN (fromValuesExpressionValue) (COMMA ( fromValuesExpressionValue))* RPAREN
     ;
 
 fromClause
