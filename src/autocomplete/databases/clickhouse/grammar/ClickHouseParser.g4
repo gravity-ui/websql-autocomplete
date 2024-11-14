@@ -46,7 +46,7 @@ notInsertStatement
     | truncateStatement // DDL
     | useStatement
     | watchStatement
-    | commonTableExpressionStatement? selectStatement
+    | commonTableExpressionStatement? selectStatement ((EXCEPT | INTERSECT) (ALL | DISTINCT)? selectStatement)*
     ;
 
 commonTableExpressionStatement
@@ -367,8 +367,13 @@ identifierOrLiteralOrFunction
     | functionExpression
     ;
 
+functionArgument
+    : identifierOrLiteralOrFunction
+    | arrayIdentifier
+    ;
+
 functionExpression
-    : identifier LPAREN ((literal | identifier) (COMMA literal | identifier)* | functionExpression)? RPAREN
+    : identifier LPAREN (functionArgument (COMMA functionArgument)*)? RPAREN
     ;
 
 conditionExpression
@@ -1060,7 +1065,7 @@ projectionSelectStatement
 // SELECT statement
 
 selectUnionStatement
-    : selectStatementWithParentheses (UNION ALL selectStatementWithParentheses)*
+    : selectStatementWithParentheses (UNION (ALL | DISTINCT) selectStatementWithParentheses)*
     ;
 
 selectStatementWithParentheses
@@ -1068,8 +1073,12 @@ selectStatementWithParentheses
     | LPAREN selectUnionStatement RPAREN
     ;
 
+distinctClause
+    : DISTINCT (ON LPAREN columnExpressionList RPAREN)?
+    ;
+
 selectStatement
-    : withClause? SELECT DISTINCT? topClause? columnExpressionList fromClause? arrayJoinClause? windowClause? prewhereClause? whereClause? groupByClause? (WITH (CUBE | ROLLUP))? (WITH TOTALS)? havingClause? orderByClause? limitByClause? limitClause? settingsClause?
+    : withClause? SELECT distinctClause? topClause? columnExpressionList fromClause? arrayJoinClause? prewhereClause? whereClause? groupByClause? (WITH (CUBE | ROLLUP))? (WITH TOTALS)? havingClause? windowClause? orderByClause? limitByClause? limitClause? settingsClause?
     ;
 
 withClause
@@ -1080,8 +1089,19 @@ topClause
     : TOP DECIMAL_LITERAL (WITH TIES)?
     ;
 
+fromValuesExpressionValue
+    : arrayIdentifier
+    | identifierOrLiteralOrFunction
+    | fromValuesExpression
+    ;
+
+fromValuesExpression
+    : LPAREN (fromValuesExpressionValue) (COMMA ( fromValuesExpressionValue))* RPAREN
+    ;
+
 fromClause
     : FROM joinExpression
+    | FROM VALUES fromValuesExpression
     ;
 
 arrayJoinClause
@@ -1165,7 +1185,11 @@ orderExpressionList
     ;
 
 orderExpression
-    : columnExpression (ASCENDING | ASC | DESCENDING | DESC)? (NULLS (FIRST | LAST))? (COLLATE STRING_LITERAL)?
+    : columnExpression (ASCENDING | ASC | DESCENDING | DESC)? (NULLS (FIRST | LAST))? (COLLATE STRING_LITERAL)? (WITH FILL)? (FROM numberLiteral)? (TO numberLiteral)? (STEP numberLiteral)? interpolateClause?
+    ;
+
+interpolateClause
+    : INTERPOLATE LPAREN (literal | columnIdentifier) (AS expression RPAREN)?
     ;
 
 ratioExpression
@@ -1288,7 +1312,7 @@ columnExpression
     | identifier (LPAREN columnExpressionList? RPAREN) OVER LPAREN windowExpression RPAREN               # ColumnExpressionWinFunction
     | identifier (LPAREN columnExpressionList? RPAREN) OVER identifier                                   # ColumnExpressionWinFunctionTarget
     | identifier (LPAREN columnExpressionList? RPAREN)? LPAREN DISTINCT? columnArgumentList? RPAREN      # ColumnExpressionFunction
-    | literal                                                                                            # ColumnExpressionLiteral
+    | literal (DOUBLECOLON columnTypeExpression)*                                                        # ColumnExpressionLiteral
 
     // FIXME(ilezhankin): this part looks very ugly, maybe there is another way to express it
     | columnExpression LBRACKET columnExpression RBRACKET # ColumnExpressionArrayAccess
@@ -1328,7 +1352,8 @@ columnExpression
     | LPAREN columnExpression RPAREN                                                        # ColumnExpressionParens   // single-column only
     | LPAREN columnExpressionList RPAREN                                                    # ColumnExpressionTuple
     | LBRACKET columnExpressionList? RBRACKET                                               # ColumnExpressionArray
-    | columnIdentifier                                                                      # ColumnExpressionIdentifier
+    | columnIdentifier (DOUBLECOLON columnTypeExpression)*                                  # ColumnExpressionIdentifier
+    | ASTERISK EXCEPT columnIdentifier                                                      # ColumnExpressionExcept
     ;
 
 columnArgumentList
@@ -1802,6 +1827,10 @@ keyword
     | FORGET
     | STATISTICS
     | UNFREEZE
+    | FILL
+    | STEP
+    | INTERPOLATE
+    | INTERSECT
     ;
 
 keywordForAlias

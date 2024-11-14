@@ -395,6 +395,10 @@ DETACHED                                   : D E T A C H E D;
 FORGET                                     : F O R G E T;
 STATISTICS                                 : S T A T I S T I C S;
 UNFREEZE                                   : U N F R E E Z E;
+FILL                                       : F I L L;
+STEP                                       : S T E P;
+INTERPOLATE                                : I N T E R P O L A T E;
+INTERSECT                                  : I N T E R S E C T;
 
 JSON_FALSE : 'false';
 JSON_TRUE  : 'true';
@@ -449,6 +453,7 @@ ASTERISK     : '*';
 BACKQUOTE    : '`';
 BACKSLASH    : '\\';
 COLON        : ':';
+DOUBLECOLON  : '::';
 COMMA        : ',';
 CONCAT       : '||';
 DASH         : '-';

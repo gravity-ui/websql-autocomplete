@@ -1,4 +1,4 @@
-import {parseClickHouseQueryWithCursor} from '../../index';
+import {parseClickHouseQueryWithCursor, parseClickHouseQueryWithoutCursor} from '../../index';
 import {
     ColumnAliasSuggestion,
     ColumnSuggestion,
@@ -127,4 +127,102 @@ test('should suggest properly after ORDER BY between statements in nested statem
     expect(autocompleteResult.suggestAggregateFunctions).toEqual(true);
     expect(autocompleteResult.suggestColumns).toEqual(columnSuggestion);
     expect(autocompleteResult.suggestColumnAliases).toEqual(columnAliasSuggestion);
+});
+
+test('should suggest properly after column identifier', () => {
+    const autocompleteResult = parseClickHouseQueryWithCursor(
+        'SELECT count(*) as count, test_column t1 FROM test_table as t ORDER BY test_column |',
+    );
+    const keywordsSuggestion: KeywordSuggestion[] = [
+        {value: 'AS'},
+        {value: 'DATE'},
+        {value: 'FIRST'},
+        {value: 'ID'},
+        {value: 'KEY'},
+        {value: 'IS'},
+        {value: 'BETWEEN'},
+        {value: 'NOT'},
+        {value: 'OR'},
+        {value: 'AND'},
+        {value: 'ILIKE'},
+        {value: 'LIKE'},
+        {value: 'IN'},
+        {value: 'GLOBAL'},
+        {value: '*'},
+        {value: 'INTERPOLATE'},
+        {value: 'STEP'},
+        {value: 'TO'},
+        {value: 'FROM'},
+        {value: 'WITH'},
+        {value: 'COLLATE'},
+        {value: 'NULLS'},
+        {value: 'ASC'},
+        {value: 'ASCENDING'},
+        {value: 'DESC'},
+        {value: 'DESCENDING'},
+        {value: 'SETTINGS'},
+        {value: 'LIMIT'},
+        {value: 'EXCEPT'},
+        {value: 'INTERSECT'},
+        {value: 'UNION'},
+        {value: 'FORMAT'},
+        {value: 'INTO'},
+    ];
+
+    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
+});
+
+test('should suggest properly after WITH', () => {
+    const autocompleteResult = parseClickHouseQueryWithCursor(`
+        SELECT * FROM
+            test_table
+        ORDER BY
+            test_column1
+                WITH |
+    `);
+
+    expect(autocompleteResult.suggestKeywords).toEqual([{value: 'FILL'}]);
+});
+
+test('should suggest properly after from value', () => {
+    const autocompleteResult = parseClickHouseQueryWithCursor(`
+        SELECT * FROM
+            test_table
+        ORDER BY
+            test_column1
+                FROM 0 |
+    `);
+
+    expect(autocompleteResult.suggestKeywords).toEqual([
+        {value: 'INTERPOLATE'},
+        {value: 'STEP'},
+        {value: 'TO'},
+        {value: 'SETTINGS'},
+        {value: 'LIMIT'},
+        {value: 'EXCEPT'},
+        {value: 'INTERSECT'},
+        {value: 'UNION'},
+        {value: 'FORMAT'},
+        {value: 'INTO'},
+    ]);
+});
+
+test('should not report errors', () => {
+    const autocompleteResult = parseClickHouseQueryWithoutCursor(`
+        SELECT * FROM
+            test_table
+        ORDER BY
+            test_column1
+                WITH FILL
+                FROM 0 TO 1
+                STEP 0.1
+                INTERPOLATE (test_column AS test_column + 1),
+            test_column2
+                WITH FILL
+                FROM 0 TO 1
+                STEP 0.1
+                INTERPOLATE (test_column AS test_column + 1);
+    `);
+
+    expect(autocompleteResult.errors).toHaveLength(0);
 });

@@ -74,6 +74,7 @@ import { ReplaceOrIfNotExistsClauseContext } from "./ClickHouseParser.js";
 import { TableIdentifierOrAnyTableContext } from "./ClickHouseParser.js";
 import { CreatePolicyExpressionContext } from "./ClickHouseParser.js";
 import { IdentifierOrLiteralOrFunctionContext } from "./ClickHouseParser.js";
+import { FunctionArgumentContext } from "./ClickHouseParser.js";
 import { FunctionExpressionContext } from "./ClickHouseParser.js";
 import { ConditionExpressionContext } from "./ClickHouseParser.js";
 import { ConditionClauseContext } from "./ClickHouseParser.js";
@@ -196,9 +197,12 @@ import { RenameStatementContext } from "./ClickHouseParser.js";
 import { ProjectionSelectStatementContext } from "./ClickHouseParser.js";
 import { SelectUnionStatementContext } from "./ClickHouseParser.js";
 import { SelectStatementWithParenthesesContext } from "./ClickHouseParser.js";
+import { DistinctClauseContext } from "./ClickHouseParser.js";
 import { SelectStatementContext } from "./ClickHouseParser.js";
 import { WithClauseContext } from "./ClickHouseParser.js";
 import { TopClauseContext } from "./ClickHouseParser.js";
+import { FromValuesExpressionValueContext } from "./ClickHouseParser.js";
+import { FromValuesExpressionContext } from "./ClickHouseParser.js";
 import { FromClauseContext } from "./ClickHouseParser.js";
 import { ArrayJoinClauseContext } from "./ClickHouseParser.js";
 import { WindowClauseContext } from "./ClickHouseParser.js";
@@ -224,6 +228,7 @@ import { SampleClauseContext } from "./ClickHouseParser.js";
 import { LimitExpressionContext } from "./ClickHouseParser.js";
 import { OrderExpressionListContext } from "./ClickHouseParser.js";
 import { OrderExpressionContext } from "./ClickHouseParser.js";
+import { InterpolateClauseContext } from "./ClickHouseParser.js";
 import { RatioExpressionContext } from "./ClickHouseParser.js";
 import { SettingExpressionListContext } from "./ClickHouseParser.js";
 import { SettingExpressionContext } from "./ClickHouseParser.js";
@@ -275,6 +280,7 @@ import { ColumnExpressionTupleAccessContext } from "./ClickHouseParser.js";
 import { ColumnExpressionParensContext } from "./ClickHouseParser.js";
 import { ColumnExpressionWinFunctionTargetContext } from "./ClickHouseParser.js";
 import { ColumnExpressionAliasContext } from "./ClickHouseParser.js";
+import { ColumnExpressionExceptContext } from "./ClickHouseParser.js";
 import { ColumnExpressionPrecedence3Context } from "./ClickHouseParser.js";
 import { ColumnExpressionTimestampContext } from "./ClickHouseParser.js";
 import { ColumnExpressionPrecedence2Context } from "./ClickHouseParser.js";
@@ -691,6 +697,12 @@ export class ClickHouseParserVisitor<Result> extends AbstractParseTreeVisitor<Re
      * @return the visitor result
      */
     visitIdentifierOrLiteralOrFunction?: (ctx: IdentifierOrLiteralOrFunctionContext) => Result;
+    /**
+     * Visit a parse tree produced by `ClickHouseParser.functionArgument`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitFunctionArgument?: (ctx: FunctionArgumentContext) => Result;
     /**
      * Visit a parse tree produced by `ClickHouseParser.functionExpression`.
      * @param ctx the parse tree
@@ -1443,6 +1455,12 @@ export class ClickHouseParserVisitor<Result> extends AbstractParseTreeVisitor<Re
      */
     visitSelectStatementWithParentheses?: (ctx: SelectStatementWithParenthesesContext) => Result;
     /**
+     * Visit a parse tree produced by `ClickHouseParser.distinctClause`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitDistinctClause?: (ctx: DistinctClauseContext) => Result;
+    /**
      * Visit a parse tree produced by `ClickHouseParser.selectStatement`.
      * @param ctx the parse tree
      * @return the visitor result
@@ -1460,6 +1478,18 @@ export class ClickHouseParserVisitor<Result> extends AbstractParseTreeVisitor<Re
      * @return the visitor result
      */
     visitTopClause?: (ctx: TopClauseContext) => Result;
+    /**
+     * Visit a parse tree produced by `ClickHouseParser.fromValuesExpressionValue`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitFromValuesExpressionValue?: (ctx: FromValuesExpressionValueContext) => Result;
+    /**
+     * Visit a parse tree produced by `ClickHouseParser.fromValuesExpression`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitFromValuesExpression?: (ctx: FromValuesExpressionContext) => Result;
     /**
      * Visit a parse tree produced by `ClickHouseParser.fromClause`.
      * @param ctx the parse tree
@@ -1617,6 +1647,12 @@ export class ClickHouseParserVisitor<Result> extends AbstractParseTreeVisitor<Re
      * @return the visitor result
      */
     visitOrderExpression?: (ctx: OrderExpressionContext) => Result;
+    /**
+     * Visit a parse tree produced by `ClickHouseParser.interpolateClause`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitInterpolateClause?: (ctx: InterpolateClauseContext) => Result;
     /**
      * Visit a parse tree produced by `ClickHouseParser.ratioExpression`.
      * @param ctx the parse tree
@@ -1960,6 +1996,13 @@ export class ClickHouseParserVisitor<Result> extends AbstractParseTreeVisitor<Re
      * @return the visitor result
      */
     visitColumnExpressionAlias?: (ctx: ColumnExpressionAliasContext) => Result;
+    /**
+     * Visit a parse tree produced by the `ColumnExpressionExcept`
+     * labeled alternative in `ClickHouseParser.columnExpression`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitColumnExpressionExcept?: (ctx: ColumnExpressionExceptContext) => Result;
     /**
      * Visit a parse tree produced by the `ColumnExpressionPrecedence3`
      * labeled alternative in `ClickHouseParser.columnExpression`.
