@@ -16,6 +16,7 @@ test('should suggest properly for an empty query', () => {
         {value: 'INSERT'},
         {value: 'DELETE'},
         {value: 'TRUNCATE'},
+        {value: 'COMMENT'},
         {value: 'ANALYZE'},
         {value: 'REFRESH'},
         {value: 'CALL'},

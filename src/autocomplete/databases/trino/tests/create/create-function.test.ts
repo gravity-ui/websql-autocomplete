@@ -81,6 +81,7 @@ test('should suggest properly after RETURNS and a type', () => {
         {value: 'RETURNS'},
         {value: 'CALLED'},
         {value: 'SECURITY'},
+        {value: 'COMMENT'},
     ];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });

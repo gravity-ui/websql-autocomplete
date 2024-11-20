@@ -14,7 +14,11 @@ test('should suggest properly after TABLE', () => {
 test('should suggest properly after table name', () => {
     const autocompleteResult = parseTrinoQueryWithCursor('CREATE TABLE test_table |');
 
-    const keywordsSuggestion: KeywordSuggestion[] = [{value: 'AS'}, {value: 'WITH'}];
+    const keywordsSuggestion: KeywordSuggestion[] = [
+        {value: 'AS'},
+        {value: 'WITH'},
+        {value: 'COMMENT'},
+    ];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
@@ -55,6 +59,6 @@ test('should suggest properly after the columns', () => {
         'CREATE TABLE test_table (test_column TEXT, test_column_2 TEXT) |',
     );
 
-    const keywordsSuggestion: KeywordSuggestion[] = [{value: 'WITH'}];
+    const keywordsSuggestion: KeywordSuggestion[] = [{value: 'WITH'}, {value: 'COMMENT'}];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });

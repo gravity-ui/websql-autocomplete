@@ -16,6 +16,7 @@ test('should suggest SELECT and contain suggestTemplates with EXPLAIN prefix', (
         {value: 'INSERT'},
         {value: 'DELETE'},
         {value: 'TRUNCATE'},
+        {value: 'COMMENT'},
         {value: 'REFRESH'},
         {value: 'CALL'},
         {value: 'GRANT'},
