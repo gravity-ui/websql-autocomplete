@@ -14,12 +14,6 @@ import { AbstractParseTreeVisitor } from "antlr4ng";
 
 import { ParseContext } from "./TrinoParser.js";
 import { StatementsContext } from "./TrinoParser.js";
-import { SingleStatementContext } from "./TrinoParser.js";
-import { StandaloneExpressionContext } from "./TrinoParser.js";
-import { StandalonePathSpecificationContext } from "./TrinoParser.js";
-import { StandaloneTypeContext } from "./TrinoParser.js";
-import { StandaloneRowPatternContext } from "./TrinoParser.js";
-import { StandaloneFunctionSpecificationContext } from "./TrinoParser.js";
 import { StatementDefaultContext } from "./TrinoParser.js";
 import { UseContext } from "./TrinoParser.js";
 import { CreateCatalogContext } from "./TrinoParser.js";
@@ -363,42 +357,6 @@ export class TrinoParserVisitor<Result> extends AbstractParseTreeVisitor<Result>
      * @return the visitor result
      */
     visitStatements?: (ctx: StatementsContext) => Result;
-    /**
-     * Visit a parse tree produced by `TrinoParser.singleStatement`.
-     * @param ctx the parse tree
-     * @return the visitor result
-     */
-    visitSingleStatement?: (ctx: SingleStatementContext) => Result;
-    /**
-     * Visit a parse tree produced by `TrinoParser.standaloneExpression`.
-     * @param ctx the parse tree
-     * @return the visitor result
-     */
-    visitStandaloneExpression?: (ctx: StandaloneExpressionContext) => Result;
-    /**
-     * Visit a parse tree produced by `TrinoParser.standalonePathSpecification`.
-     * @param ctx the parse tree
-     * @return the visitor result
-     */
-    visitStandalonePathSpecification?: (ctx: StandalonePathSpecificationContext) => Result;
-    /**
-     * Visit a parse tree produced by `TrinoParser.standaloneType`.
-     * @param ctx the parse tree
-     * @return the visitor result
-     */
-    visitStandaloneType?: (ctx: StandaloneTypeContext) => Result;
-    /**
-     * Visit a parse tree produced by `TrinoParser.standaloneRowPattern`.
-     * @param ctx the parse tree
-     * @return the visitor result
-     */
-    visitStandaloneRowPattern?: (ctx: StandaloneRowPatternContext) => Result;
-    /**
-     * Visit a parse tree produced by `TrinoParser.standaloneFunctionSpecification`.
-     * @param ctx the parse tree
-     * @return the visitor result
-     */
-    visitStandaloneFunctionSpecification?: (ctx: StandaloneFunctionSpecificationContext) => Result;
     /**
      * Visit a parse tree produced by the `statementDefault`
      * labeled alternative in `TrinoParser.statement`.

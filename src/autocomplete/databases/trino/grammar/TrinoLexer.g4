@@ -386,9 +386,9 @@ fragment DIGIT_: [0-9];
 
 fragment LETTER_: [A-Z];
 
-SIMPLE_COMMENT_: '--' ~[\r\n]* '\r'? '\n'? -> channel(HIDDEN);
+SIMPLE_COMMENT_: '--' ~[\r\n]* '\r'? '\n'? -> skip;
 
-BRACKETED_COMMENT_: '/*' .*? '*/' -> channel(HIDDEN);
+BRACKETED_COMMENT_: '/*' .*? '*/' -> skip;
 
 WS_: [ \r\n\t]+ -> channel(HIDDEN);
 

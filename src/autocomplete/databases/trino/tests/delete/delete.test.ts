@@ -1,5 +1,5 @@
 import {parseTrinoQueryWithCursor} from '../../index';
-import {KeywordSuggestion} from '../../../../shared/autocomplete-types';
+import {KeywordSuggestion, TableOrViewSuggestion} from '../../../../shared/autocomplete-types';
 
 test('should suggest properly after DELETE', () => {
     const autocompleteResult = parseTrinoQueryWithCursor('DELETE |');
@@ -11,20 +11,16 @@ test('should suggest properly after DELETE', () => {
 test('should suggest properly after FROM', () => {
     const autocompleteResult = parseTrinoQueryWithCursor('DELETE FROM |');
 
-    const keywordsSuggestion: KeywordSuggestion[] = [{value: 'ONLY'}];
+    const keywordsSuggestion: KeywordSuggestion[] = [];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
+
+    expect(autocompleteResult.suggestViewsOrTables).toEqual(TableOrViewSuggestion.ALL);
 });
 
 test('should suggest properly after table name', () => {
     const autocompleteResult = parseTrinoQueryWithCursor('DELETE FROM test_table |');
 
-    const keywordsSuggestion: KeywordSuggestion[] = [
-        {value: '*'},
-        {value: 'AS'},
-        {value: 'USING'},
-        {value: 'WHERE'},
-        {value: 'RETURNING'},
-    ];
+    const keywordsSuggestion: KeywordSuggestion[] = [{value: 'WHERE'}];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
@@ -32,19 +28,41 @@ test('should suggest properly after WHERE', () => {
     const autocompleteResult = parseTrinoQueryWithCursor('DELETE FROM test_table WHERE |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [
-        {value: 'NOT'},
-        {value: 'OPERATOR'},
-        {value: 'EXISTS'},
-        {value: 'ARRAY'},
-        {value: 'GROUPING'},
-        {value: 'UNIQUE'},
-        {value: 'INTERVAL'},
-        {value: 'TRUE'},
-        {value: 'FALSE'},
         {value: 'NULL'},
-        {value: 'CASE'},
+        {value: 'INTERVAL'},
+        {value: 'DOUBLE'},
+        {value: 'FALSE'},
+        {value: 'TRUE'},
+        {value: 'POSITION'},
         {value: 'ROW'},
-        {value: 'CURRENT'},
+        {value: 'LISTAGG'},
+        {value: 'FINAL'},
+        {value: 'RUNNING'},
+        {value: 'EXISTS'},
+        {value: 'CASE'},
+        {value: 'CAST'},
+        {value: 'TRY_CAST'},
+        {value: 'ARRAY'},
+        {value: 'CURRENT_DATE'},
+        {value: 'CURRENT_TIME'},
+        {value: 'CURRENT_TIMESTAMP'},
+        {value: 'LOCALTIME'},
+        {value: 'LOCALTIMESTAMP'},
+        {value: 'CURRENT_USER'},
+        {value: 'CURRENT_CATALOG'},
+        {value: 'CURRENT_SCHEMA'},
+        {value: 'CURRENT_PATH'},
+        {value: 'TRIM'},
+        {value: 'SUBSTRING'},
+        {value: 'NORMALIZE'},
+        {value: 'EXTRACT'},
+        {value: 'GROUPING'},
+        {value: 'JSON_EXISTS'},
+        {value: 'JSON_VALUE'},
+        {value: 'JSON_QUERY'},
+        {value: 'JSON_OBJECT'},
+        {value: 'JSON_ARRAY'},
+        {value: 'NOT'},
     ];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
@@ -52,88 +70,6 @@ test('should suggest properly after WHERE', () => {
 test('should suggest properly after WHERE with alias', () => {
     const autocompleteResult = parseTrinoQueryWithCursor('DELETE FROM test_table t WHERE |');
 
-    const keywordsSuggestion: KeywordSuggestion[] = [
-        {value: 'NOT'},
-        {value: 'OPERATOR'},
-        {value: 'EXISTS'},
-        {value: 'ARRAY'},
-        {value: 'GROUPING'},
-        {value: 'UNIQUE'},
-        {value: 'INTERVAL'},
-        {value: 'TRUE'},
-        {value: 'FALSE'},
-        {value: 'NULL'},
-        {value: 'CASE'},
-        {value: 'ROW'},
-        {value: 'CURRENT'},
-    ];
-    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
-});
-
-test('should suggest properly after USING', () => {
-    const autocompleteResult = parseTrinoQueryWithCursor('DELETE FROM test_table USING |');
-
-    const keywordsSuggestion: KeywordSuggestion[] = [
-        {value: 'ONLY'},
-        {value: 'ROWS'},
-        {value: 'XMLTABLE'},
-        {value: 'LATERAL'},
-    ];
-    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
-});
-
-test('should suggest properly after USING with alias', () => {
-    const autocompleteResult = parseTrinoQueryWithCursor('DELETE FROM test_table t USING |');
-
-    const keywordsSuggestion: KeywordSuggestion[] = [
-        {value: 'ONLY'},
-        {value: 'ROWS'},
-        {value: 'XMLTABLE'},
-        {value: 'LATERAL'},
-    ];
-    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
-});
-
-test('should suggest properly after RETURNING', () => {
-    const autocompleteResult = parseTrinoQueryWithCursor('DELETE FROM test_table RETURNING |');
-
-    const keywordsSuggestion: KeywordSuggestion[] = [
-        {value: '*'},
-        {value: 'NOT'},
-        {value: 'OPERATOR'},
-        {value: 'EXISTS'},
-        {value: 'ARRAY'},
-        {value: 'GROUPING'},
-        {value: 'UNIQUE'},
-        {value: 'INTERVAL'},
-        {value: 'TRUE'},
-        {value: 'FALSE'},
-        {value: 'NULL'},
-        {value: 'CASE'},
-        {value: 'ROW'},
-    ];
-    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
-});
-
-test('should suggest properly after RETURNING with alias', () => {
-    const autocompleteResult = parseTrinoQueryWithCursor(
-        'DELETE FROM test_table t RETURNING |',
-    );
-
-    const keywordsSuggestion: KeywordSuggestion[] = [
-        {value: '*'},
-        {value: 'NOT'},
-        {value: 'OPERATOR'},
-        {value: 'EXISTS'},
-        {value: 'ARRAY'},
-        {value: 'GROUPING'},
-        {value: 'UNIQUE'},
-        {value: 'INTERVAL'},
-        {value: 'TRUE'},
-        {value: 'FALSE'},
-        {value: 'NULL'},
-        {value: 'CASE'},
-        {value: 'ROW'},
-    ];
+    const keywordsSuggestion: KeywordSuggestion[] = [];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });

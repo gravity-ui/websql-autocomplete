@@ -4,7 +4,7 @@ import {KeywordSuggestion} from '../../../../shared/autocomplete-types';
 test('should suggest properly after DROP ROLE', () => {
     const autocompleteResult = parseTrinoQueryWithCursor('DROP ROLE |');
 
-    const keywordSuggestion: KeywordSuggestion[] = [{value: 'IF'}];
+    const keywordSuggestion: KeywordSuggestion[] = [];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordSuggestion);
 
     // expect(autocompleteResult.suggestRoles).toEqual(true);

@@ -2,15 +2,16 @@ import {parseTrinoQueryWithCursor, parseTrinoQueryWithoutCursor} from '../../ind
 import {KeywordSuggestion} from '../../../../shared/autocomplete-types';
 
 test('should suggest properly after DROP', () => {
-    const autocompleteResult = parseTrinoQueryWithCursor('DROP DATABASE |');
+    const autocompleteResult = parseTrinoQueryWithCursor('DROP CATALOG |');
 
     const keywords: KeywordSuggestion[] = [{value: 'IF'}];
     expect(autocompleteResult.suggestKeywords).toEqual(keywords);
 
-    expect(autocompleteResult.suggestDatabases).toEqual(true);
+    // TODO-TRINO: support catalogs
+    // expect(autocompleteResult.suggestCatalogs).toEqual(true);
 });
 
 test('should not report errors on full statement', () => {
-    const autocompleteResult = parseTrinoQueryWithoutCursor('DROP DATABASE test_database;');
+    const autocompleteResult = parseTrinoQueryWithoutCursor('DROP CATALOG test_catalog;');
     expect(autocompleteResult.errors).toHaveLength(0);
 });

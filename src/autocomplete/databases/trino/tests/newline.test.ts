@@ -7,9 +7,7 @@ test('should not report errors with newlines \n', () => {
 });
 
 test('should not report errors with newlines \r\n', () => {
-    const autocompleteResult = parseTrinoQueryWithoutCursor(
-        'SELECT *\r\n\r\n\r\nFROM test_table',
-    );
+    const autocompleteResult = parseTrinoQueryWithoutCursor('SELECT *\r\n\r\n\r\nFROM test_table');
 
     expect(autocompleteResult.errors).toHaveLength(0);
 });

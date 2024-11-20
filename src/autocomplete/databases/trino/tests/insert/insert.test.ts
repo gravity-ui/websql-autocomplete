@@ -1,9 +1,5 @@
 import {parseTrinoQueryWithCursor, parseTrinoQueryWithoutCursor} from '../../index';
-import {
-    ColumnSuggestion,
-    KeywordSuggestion,
-    TableOrViewSuggestion,
-} from '../../../../shared/autocomplete-types';
+import {KeywordSuggestion, TableOrViewSuggestion} from '../../../../shared/autocomplete-types';
 
 test('should suggest properly after INSERT', () => {
     const autocompleteResult = parseTrinoQueryWithCursor('INSERT |');
@@ -32,13 +28,10 @@ test('should suggest properly after table name', () => {
     const autocompleteResult = parseTrinoQueryWithCursor('INSERT INTO test_table |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [
-        {value: 'AS'},
-        {value: 'SELECT'},
-        {value: 'VALUES'},
-        {value: 'TABLE'},
         {value: 'WITH'},
-        {value: 'OVERRIDING'},
-        {value: 'DEFAULT'},
+        {value: 'SELECT'},
+        {value: 'TABLE'},
+        {value: 'VALUES'},
     ];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
@@ -46,7 +39,43 @@ test('should suggest properly after table name', () => {
 test('should suggest properly after VALUES', () => {
     const autocompleteResult = parseTrinoQueryWithCursor('INSERT INTO test_table VALUES |');
 
-    const keywordsSuggestion: KeywordSuggestion[] = [];
+    const keywordsSuggestion: KeywordSuggestion[] = [
+        {value: 'NULL'},
+        {value: 'INTERVAL'},
+        {value: 'DOUBLE'},
+        {value: 'FALSE'},
+        {value: 'TRUE'},
+        {value: 'POSITION'},
+        {value: 'ROW'},
+        {value: 'LISTAGG'},
+        {value: 'FINAL'},
+        {value: 'RUNNING'},
+        {value: 'EXISTS'},
+        {value: 'CASE'},
+        {value: 'CAST'},
+        {value: 'TRY_CAST'},
+        {value: 'ARRAY'},
+        {value: 'CURRENT_DATE'},
+        {value: 'CURRENT_TIME'},
+        {value: 'CURRENT_TIMESTAMP'},
+        {value: 'LOCALTIME'},
+        {value: 'LOCALTIMESTAMP'},
+        {value: 'CURRENT_USER'},
+        {value: 'CURRENT_CATALOG'},
+        {value: 'CURRENT_SCHEMA'},
+        {value: 'CURRENT_PATH'},
+        {value: 'TRIM'},
+        {value: 'SUBSTRING'},
+        {value: 'NORMALIZE'},
+        {value: 'EXTRACT'},
+        {value: 'GROUPING'},
+        {value: 'JSON_EXISTS'},
+        {value: 'JSON_VALUE'},
+        {value: 'JSON_QUERY'},
+        {value: 'JSON_OBJECT'},
+        {value: 'JSON_ARRAY'},
+        {value: 'NOT'},
+    ];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
@@ -54,18 +83,45 @@ test('should suggest properly after VALUES with a bracket', () => {
     const autocompleteResult = parseTrinoQueryWithCursor('INSERT INTO test_table VALUES ( |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [
-        {value: 'NOT'},
-        {value: 'OPERATOR'},
-        {value: 'EXISTS'},
-        {value: 'ARRAY'},
-        {value: 'GROUPING'},
-        {value: 'UNIQUE'},
-        {value: 'INTERVAL'},
-        {value: 'TRUE'},
-        {value: 'FALSE'},
         {value: 'NULL'},
-        {value: 'CASE'},
+        {value: 'INTERVAL'},
+        {value: 'DOUBLE'},
+        {value: 'FALSE'},
+        {value: 'TRUE'},
+        {value: 'POSITION'},
         {value: 'ROW'},
+        {value: 'LISTAGG'},
+        {value: 'FINAL'},
+        {value: 'RUNNING'},
+        {value: 'EXISTS'},
+        {value: 'CASE'},
+        {value: 'CAST'},
+        {value: 'TRY_CAST'},
+        {value: 'ARRAY'},
+        {value: 'CURRENT_DATE'},
+        {value: 'CURRENT_TIME'},
+        {value: 'CURRENT_TIMESTAMP'},
+        {value: 'LOCALTIME'},
+        {value: 'LOCALTIMESTAMP'},
+        {value: 'CURRENT_USER'},
+        {value: 'CURRENT_CATALOG'},
+        {value: 'CURRENT_SCHEMA'},
+        {value: 'CURRENT_PATH'},
+        {value: 'TRIM'},
+        {value: 'SUBSTRING'},
+        {value: 'NORMALIZE'},
+        {value: 'EXTRACT'},
+        {value: 'GROUPING'},
+        {value: 'JSON_EXISTS'},
+        {value: 'JSON_VALUE'},
+        {value: 'JSON_QUERY'},
+        {value: 'JSON_OBJECT'},
+        {value: 'JSON_ARRAY'},
+        {value: 'NOT'},
+        {value: 'WITH'},
+        {value: 'SELECT'},
+        {value: 'TABLE'},
+        {value: 'VALUES'},
     ];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
@@ -76,18 +132,41 @@ test('should suggest properly after VALUES with a bracket after a value', () => 
     );
 
     const keywordsSuggestion: KeywordSuggestion[] = [
-        {value: 'NOT'},
-        {value: 'OPERATOR'},
-        {value: 'EXISTS'},
-        {value: 'ARRAY'},
-        {value: 'GROUPING'},
-        {value: 'UNIQUE'},
-        {value: 'INTERVAL'},
-        {value: 'TRUE'},
-        {value: 'FALSE'},
         {value: 'NULL'},
-        {value: 'CASE'},
+        {value: 'INTERVAL'},
+        {value: 'DOUBLE'},
+        {value: 'FALSE'},
+        {value: 'TRUE'},
+        {value: 'POSITION'},
         {value: 'ROW'},
+        {value: 'LISTAGG'},
+        {value: 'FINAL'},
+        {value: 'RUNNING'},
+        {value: 'EXISTS'},
+        {value: 'CASE'},
+        {value: 'CAST'},
+        {value: 'TRY_CAST'},
+        {value: 'ARRAY'},
+        {value: 'CURRENT_DATE'},
+        {value: 'CURRENT_TIME'},
+        {value: 'CURRENT_TIMESTAMP'},
+        {value: 'LOCALTIME'},
+        {value: 'LOCALTIMESTAMP'},
+        {value: 'CURRENT_USER'},
+        {value: 'CURRENT_CATALOG'},
+        {value: 'CURRENT_SCHEMA'},
+        {value: 'CURRENT_PATH'},
+        {value: 'TRIM'},
+        {value: 'SUBSTRING'},
+        {value: 'NORMALIZE'},
+        {value: 'EXTRACT'},
+        {value: 'GROUPING'},
+        {value: 'JSON_EXISTS'},
+        {value: 'JSON_VALUE'},
+        {value: 'JSON_QUERY'},
+        {value: 'JSON_OBJECT'},
+        {value: 'JSON_ARRAY'},
+        {value: 'NOT'},
     ];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
@@ -98,16 +177,22 @@ test('should suggest properly after VALUES contents', () => {
     );
 
     const keywordsSuggestion: KeywordSuggestion[] = [
-        {value: 'INTERSECT'},
+        {value: 'AT'},
+        {value: '*'},
+        {value: 'OR'},
+        {value: 'AND'},
+        {value: 'NOT'},
+        {value: 'BETWEEN'},
+        {value: 'IN'},
+        {value: 'LIKE'},
+        {value: 'IS'},
         {value: 'EXCEPT'},
         {value: 'UNION'},
-        {value: 'ORDER'},
-        {value: 'LIMIT'},
+        {value: 'INTERSECT'},
         {value: 'FETCH'},
+        {value: 'LIMIT'},
         {value: 'OFFSET'},
-        {value: 'FOR'},
-        {value: 'ON'},
-        {value: 'RETURNING'},
+        {value: 'ORDER'},
     ];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
@@ -117,44 +202,41 @@ test('should suggest properly after table name with a bracket', () => {
 
     const keywordsSuggestion: KeywordSuggestion[] = [
         {value: 'SELECT'},
-        {value: 'VALUES'},
         {value: 'TABLE'},
-        {value: 'WITH'},
+        {value: 'VALUES'},
     ];
-    const columnSuggestion: ColumnSuggestion = {tables: [{name: 'test_table'}]};
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
-    expect(autocompleteResult.suggestColumns).toEqual(columnSuggestion);
+
+    // TODO-TRINO: support column suggestions
+    // const columnSuggestion: ColumnSuggestion = {tables: [{name: 'test_table'}]};
+    // expect(autocompleteResult.suggestColumns).toEqual(columnSuggestion);
 });
 
-test('should suggest table name for column between statements', () => {
-    const autocompleteResult = parseTrinoQueryWithCursor(
-        'ALTER TABLE before_table DROP COLUMN id; INSERT INTO test_table(| ; ALTER TABLE after_table DROP COLUMN id',
-    );
-    const columnSuggestion: ColumnSuggestion = {tables: [{name: 'test_table'}]};
-
-    expect(autocompleteResult.suggestColumns).toEqual(columnSuggestion);
-});
+// TODO-TRINO: support column suggestions
+// test('should suggest table name for column between statements', () => {
+//     const autocompleteResult = parseTrinoQueryWithCursor(
+//         'ALTER TABLE before_table DROP COLUMN id; INSERT INTO test_table(| ; ALTER TABLE after_table DROP COLUMN id',
+//     );
+//
+//     const columnSuggestion: ColumnSuggestion = {tables: [{name: 'test_table'}]};
+//     expect(autocompleteResult.suggestColumns).toEqual(columnSuggestion);
+// });
 
 test('should suggest properly after the first column', () => {
-    const autocompleteResult = parseTrinoQueryWithCursor(
-        'INSERT INTO test_table(test_column, | ',
-    );
+    const autocompleteResult = parseTrinoQueryWithCursor('INSERT INTO test_table(test_column, | ');
 
     const keywordsSuggestion: KeywordSuggestion[] = [];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
 test('should suggest properly after table with columns', () => {
-    const autocompleteResult = parseTrinoQueryWithCursor(
-        'INSERT INTO test_table(test_column) | ',
-    );
+    const autocompleteResult = parseTrinoQueryWithCursor('INSERT INTO test_table(test_column) | ');
 
     const keywordsSuggestion: KeywordSuggestion[] = [
-        {value: 'SELECT'},
-        {value: 'VALUES'},
-        {value: 'TABLE'},
         {value: 'WITH'},
-        {value: 'OVERRIDING'},
+        {value: 'SELECT'},
+        {value: 'TABLE'},
+        {value: 'VALUES'},
     ];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });

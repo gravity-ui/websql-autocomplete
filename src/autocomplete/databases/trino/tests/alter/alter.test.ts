@@ -4,42 +4,10 @@ import {parseTrinoQueryWithCursor} from '../../index';
 test('should suggest keywords after ALTER', () => {
     const autocompleteResult = parseTrinoQueryWithCursor('ALTER |');
     const keywords: KeywordSuggestion[] = [
-        {value: 'TYPE'},
-        {value: 'TEXT'},
-        {value: 'STATISTICS'},
-        {value: 'TABLESPACE'},
-        {value: 'GROUP'},
-        {value: 'USER'},
-        {value: 'ROLE'},
-        {value: 'EVENT'},
-        {value: 'TRIGGER'},
-        {value: 'RULE'},
-        {value: 'FOREIGN'},
-        {value: 'TABLE'},
-        {value: 'MATERIALIZED'},
         {value: 'VIEW'},
-        {value: 'INDEX'},
-        {value: 'SEQUENCE'},
-        {value: 'SUBSCRIPTION'},
-        {value: 'SERVER'},
+        {value: 'MATERIALIZED'},
+        {value: 'TABLE'},
         {value: 'SCHEMA'},
-        {value: 'ROUTINE'},
-        {value: 'PUBLICATION'},
-        {value: 'PROCEDURE'},
-        {value: 'POLICY'},
-        {value: 'OPERATOR'},
-        {value: 'PROCEDURAL'},
-        {value: 'LANGUAGE'},
-        {value: 'FUNCTION'},
-        {value: 'DOMAIN'},
-        {value: 'DATABASE'},
-        {value: 'CONVERSION'},
-        {value: 'COLLATION'},
-        {value: 'AGGREGATE'},
-        {value: 'SYSTEM'},
-        {value: 'LARGE'},
-        {value: 'EXTENSION'},
-        {value: 'DEFAULT'},
     ];
 
     expect(autocompleteResult.suggestKeywords).toEqual(keywords);
@@ -55,16 +23,18 @@ test('should suggest VIEW after ALTER MATERIALIZED', () => {
 test('should suggest views after ALTER MATERIALIZED VIEW', () => {
     const autocompleteResult = parseTrinoQueryWithCursor('ALTER MATERIALIZED VIEW |');
 
-    expect(autocompleteResult.suggestViewsOrTables).toEqual(TableOrViewSuggestion.VIEWS);
+    // TODO-TRINO: decouple views from tables
+    expect(autocompleteResult.suggestViewsOrTables).toEqual(TableOrViewSuggestion.ALL);
 });
 
 test('should suggest keywords after TABLE', () => {
     const autocompleteResult = parseTrinoQueryWithCursor('ALTER TABLE |');
 
-    const keywords: KeywordSuggestion[] = [{value: 'ONLY'}, {value: 'IF'}, {value: 'ALL'}];
+    const keywords: KeywordSuggestion[] = [{value: 'IF'}];
     expect(autocompleteResult.suggestKeywords).toEqual(keywords);
 
-    expect(autocompleteResult.suggestViewsOrTables).toEqual(TableOrViewSuggestion.TABLES);
+    // TODO-TRINO: decouple views from tables
+    expect(autocompleteResult.suggestViewsOrTables).toEqual(TableOrViewSuggestion.ALL);
 });
 
 test('should suggest tables after ALTER TABLE between statements', () => {
@@ -72,34 +42,20 @@ test('should suggest tables after ALTER TABLE between statements', () => {
         'DROP VIEW before_view; ALTER TABLE | ; DROP VIEW after_view;',
     );
 
-    expect(autocompleteResult.suggestViewsOrTables).toEqual(TableOrViewSuggestion.TABLES);
+    // TODO-TRINO: decouple views from tables
+    expect(autocompleteResult.suggestViewsOrTables).toEqual(TableOrViewSuggestion.ALL);
 });
 
-test('should suggest keywords after TABLE', () => {
+test('should suggest keywords after TABLE 2', () => {
     const autocompleteResult = parseTrinoQueryWithCursor('ALTER TABLE test_table |');
 
     const keywords: KeywordSuggestion[] = [
-        {value: '*'},
-        {value: 'RENAME'},
-        {value: 'ATTACH'},
-        {value: 'DETACH'},
-        {value: 'ADD'},
+        {value: 'EXECUTE'},
+        {value: 'SET'},
         {value: 'ALTER'},
         {value: 'DROP'},
-        {value: 'VALIDATE'},
-        {value: 'SET'},
-        {value: 'CLUSTER'},
-        {value: 'ENABLE'},
-        {value: 'DISABLE'},
-        {value: 'INHERIT'},
-        {value: 'NO'},
-        {value: 'OF'},
-        {value: 'NOT'},
-        {value: 'OWNER'},
-        {value: 'RESET'},
-        {value: 'REPLICA'},
-        {value: 'FORCE'},
-        {value: 'OPTIONS'},
+        {value: 'RENAME'},
+        {value: 'ADD'},
     ];
     expect(autocompleteResult.suggestKeywords).toEqual(keywords);
 });
@@ -107,9 +63,11 @@ test('should suggest keywords after TABLE', () => {
 test('should suggest tables after ALTER VIEW', () => {
     const autocompleteResult = parseTrinoQueryWithCursor('ALTER VIEW |');
 
-    const keywords: KeywordSuggestion[] = [{value: 'IF'}];
+    const keywords: KeywordSuggestion[] = [];
     expect(autocompleteResult.suggestKeywords).toEqual(keywords);
-    expect(autocompleteResult.suggestViewsOrTables).toEqual(TableOrViewSuggestion.VIEWS);
+
+    // TODO-TRINO: decouple views from tables
+    expect(autocompleteResult.suggestViewsOrTables).toEqual(TableOrViewSuggestion.ALL);
 });
 
 test('should suggest tables after ALTER VIEW between statements', () => {
@@ -117,5 +75,6 @@ test('should suggest tables after ALTER VIEW between statements', () => {
         'ALTER TABLE before_table DROP COLUMN id; ALTER VIEW | ; ALTER TABLE after_table DROP COLUMN id;',
     );
 
-    expect(autocompleteResult.suggestViewsOrTables).toEqual(TableOrViewSuggestion.VIEWS);
+    // TODO-TRINO: decouple views from tables
+    expect(autocompleteResult.suggestViewsOrTables).toEqual(TableOrViewSuggestion.ALL);
 });

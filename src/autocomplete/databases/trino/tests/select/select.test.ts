@@ -1,34 +1,55 @@
 import {parseTrinoQueryWithCursor, parseTrinoQueryWithoutCursor} from '../../index';
-import {
-    ColumnSuggestion,
-    KeywordSuggestion,
-    TableOrViewSuggestion,
-} from '../../../../shared/autocomplete-types';
+import {KeywordSuggestion, TableOrViewSuggestion} from '../../../../shared/autocomplete-types';
 
 test('should suggest properly after SELECT', () => {
     const autocompleteResult = parseTrinoQueryWithCursor('SELECT |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [
-        {value: '*'},
-        {value: 'NOT'},
-        {value: 'OPERATOR'},
-        {value: 'EXISTS'},
-        {value: 'ARRAY'},
-        {value: 'GROUPING'},
-        {value: 'UNIQUE'},
-        {value: 'INTERVAL'},
-        {value: 'TRUE'},
-        {value: 'FALSE'},
         {value: 'NULL'},
-        {value: 'CASE'},
+        {value: 'INTERVAL'},
+        {value: 'DOUBLE'},
+        {value: 'FALSE'},
+        {value: 'TRUE'},
+        {value: 'POSITION'},
         {value: 'ROW'},
+        {value: 'LISTAGG'},
+        {value: 'FINAL'},
+        {value: 'RUNNING'},
+        {value: 'EXISTS'},
+        {value: 'CASE'},
+        {value: 'CAST'},
+        {value: 'TRY_CAST'},
+        {value: 'ARRAY'},
+        {value: 'CURRENT_DATE'},
+        {value: 'CURRENT_TIME'},
+        {value: 'CURRENT_TIMESTAMP'},
+        {value: 'LOCALTIME'},
+        {value: 'LOCALTIMESTAMP'},
+        {value: 'CURRENT_USER'},
+        {value: 'CURRENT_CATALOG'},
+        {value: 'CURRENT_SCHEMA'},
+        {value: 'CURRENT_PATH'},
+        {value: 'TRIM'},
+        {value: 'SUBSTRING'},
+        {value: 'NORMALIZE'},
+        {value: 'EXTRACT'},
+        {value: 'GROUPING'},
+        {value: 'JSON_EXISTS'},
+        {value: 'JSON_VALUE'},
+        {value: 'JSON_QUERY'},
+        {value: 'JSON_OBJECT'},
+        {value: 'JSON_ARRAY'},
+        {value: 'NOT'},
+        {value: '*'},
         {value: 'ALL'},
         {value: 'DISTINCT'},
-        {value: 'INTO'},
     ];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
-    expect(autocompleteResult.suggestFunctions).toEqual(true);
-    expect(autocompleteResult.suggestAggregateFunctions).toEqual(true);
+
+    // TODO-TRINO: support functions and aggregate functions
+    // expect(autocompleteResult.suggestFunctions).toEqual(true);
+    // expect(autocompleteResult.suggestAggregateFunctions).toEqual(true);
+
     expect(autocompleteResult.suggestTemplates).toEqual(false);
 });
 
@@ -36,20 +57,18 @@ test('should suggest properly after *', () => {
     const autocompleteResult = parseTrinoQueryWithCursor('SELECT * |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [
-        {value: 'INTO'},
-        {value: 'FROM'},
-        {value: 'WHERE'},
-        {value: 'GROUP'},
-        {value: 'HAVING'},
         {value: 'WINDOW'},
-        {value: 'INTERSECT'},
+        {value: 'HAVING'},
+        {value: 'GROUP'},
+        {value: 'WHERE'},
+        {value: 'FROM'},
         {value: 'EXCEPT'},
         {value: 'UNION'},
-        {value: 'ORDER'},
-        {value: 'LIMIT'},
+        {value: 'INTERSECT'},
         {value: 'FETCH'},
+        {value: 'LIMIT'},
         {value: 'OFFSET'},
-        {value: 'FOR'},
+        {value: 'ORDER'},
     ];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
@@ -58,10 +77,9 @@ test('should suggest properly after FROM', () => {
     const autocompleteResult = parseTrinoQueryWithCursor('SELECT * FROM |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [
-        {value: 'ONLY'},
-        {value: 'ROWS'},
-        {value: 'XMLTABLE'},
+        {value: 'UNNEST'},
         {value: 'LATERAL'},
+        {value: 'TABLE'},
     ];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
     expect(autocompleteResult.suggestViewsOrTables).toEqual(TableOrViewSuggestion.ALL);
@@ -95,185 +113,176 @@ test('should suggest properly after table name', () => {
     const autocompleteResult = parseTrinoQueryWithCursor('SELECT * FROM test_table |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [
-        {value: '*'},
+        {value: 'FOR'},
         {value: 'AS'},
-        {value: 'JOIN'},
-        {value: 'FULL'},
+        {value: 'MATCH_RECOGNIZE'},
+        {value: 'TABLESAMPLE'},
+        {value: 'NATURAL'},
         {value: 'INNER'},
+        {value: 'FULL'},
         {value: 'LEFT'},
         {value: 'RIGHT'},
-        {value: 'NATURAL'},
+        {value: 'JOIN'},
         {value: 'CROSS'},
-        {value: 'TABLESAMPLE'},
-        {value: 'WHERE'},
-        {value: 'GROUP'},
-        {value: 'HAVING'},
         {value: 'WINDOW'},
-        {value: 'INTERSECT'},
+        {value: 'HAVING'},
+        {value: 'GROUP'},
+        {value: 'WHERE'},
         {value: 'EXCEPT'},
         {value: 'UNION'},
-        {value: 'ORDER'},
-        {value: 'LIMIT'},
+        {value: 'INTERSECT'},
         {value: 'FETCH'},
+        {value: 'LIMIT'},
         {value: 'OFFSET'},
-        {value: 'FOR'},
+        {value: 'ORDER'},
     ];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
-    expect(autocompleteResult.suggestViewsOrTables).toEqual(undefined);
+    expect(autocompleteResult.suggestViewsOrTables).toEqual(TableOrViewSuggestion.ALL);
 });
 
-test('should suggest table name for column', () => {
-    const autocompleteResult = parseTrinoQueryWithCursor('SELECT | FROM test_table');
-    const columnSuggestions: ColumnSuggestion = {tables: [{name: 'test_table'}]};
-
-    expect(autocompleteResult.suggestColumns).toEqual(columnSuggestions);
-});
-
-test('should suggest table name for column between statements', () => {
-    const autocompleteResult = parseTrinoQueryWithCursor(
-        'ALTER TABLE before_table DROP COLUMN id; SELECT | FROM test_table ; ALTER TABLE after_table DROP COLUMN id;',
-    );
-    const columnSuggestions: ColumnSuggestion = {tables: [{name: 'test_table'}]};
-
-    expect(autocompleteResult.suggestColumns).toEqual(columnSuggestions);
-});
-
-test('should suggest table name and alias for column', () => {
-    const autocompleteResult = parseTrinoQueryWithCursor('SELECT | FROM test_table t');
-    const columnSuggestions: ColumnSuggestion = {tables: [{name: 'test_table', alias: 't'}]};
-
-    expect(autocompleteResult.suggestColumns).toEqual(columnSuggestions);
-});
-
-test('should suggest table name and alias (with AS) for column', () => {
-    const autocompleteResult = parseTrinoQueryWithCursor('SELECT | FROM test_table AS t');
-    const columnSuggestions: ColumnSuggestion = {tables: [{name: 'test_table', alias: 't'}]};
-
-    expect(autocompleteResult.suggestColumns).toEqual(columnSuggestions);
-});
-
-test('should suggest table name and alias for second column', () => {
-    const autocompleteResult = parseTrinoQueryWithCursor('SELECT id, | FROM test_table AS t');
-    const columnSuggestions: ColumnSuggestion = {tables: [{name: 'test_table', alias: 't'}]};
-
-    expect(autocompleteResult.suggestColumns).toEqual(columnSuggestions);
-});
-
-test('should suggest multiple table names for column', () => {
-    const autocompleteResult = parseTrinoQueryWithCursor(
-        'SELECT | FROM test_table_1, test_table_2',
-    );
-    const columnSuggestions: ColumnSuggestion = {
-        tables: [{name: 'test_table_1'}, {name: 'test_table_2'}],
-    };
-
-    expect(autocompleteResult.suggestColumns).toEqual(columnSuggestions);
-});
-
-test('should suggest multiple table names for column between statements', () => {
-    const autocompleteResult = parseTrinoQueryWithCursor(
-        'ALTER TABLE before_table DROP COLUMN id; SELECT | FROM test_table_1, test_table_2 ; ALTER TABLE after_table DROP COLUMN id;',
-    );
-    const columnSuggestions: ColumnSuggestion = {
-        tables: [{name: 'test_table_1'}, {name: 'test_table_2'}],
-    };
-
-    expect(autocompleteResult.suggestColumns).toEqual(columnSuggestions);
-});
-
-test('should suggest multiple table names and aliases for column', () => {
-    const autocompleteResult = parseTrinoQueryWithCursor(
-        'SELECT | FROM test_table_1 t1, test_table_2 t2',
-    );
-    const columnSuggestions: ColumnSuggestion = {
-        tables: [
-            {name: 'test_table_1', alias: 't1'},
-            {name: 'test_table_2', alias: 't2'},
-        ],
-    };
-
-    expect(autocompleteResult.suggestColumns).toEqual(columnSuggestions);
-});
-
-test('should suggest multiple table names and aliases (with AS) for column', () => {
-    const autocompleteResult = parseTrinoQueryWithCursor(
-        'SELECT | FROM test_table_1 AS t1, test_table_2 AS t2',
-    );
-    const columnSuggestions: ColumnSuggestion = {
-        tables: [
-            {name: 'test_table_1', alias: 't1'},
-            {name: 'test_table_2', alias: 't2'},
-        ],
-    };
-
-    expect(autocompleteResult.suggestColumns).toEqual(columnSuggestions);
-});
+// TODO-TRINO: support column suggestions
+// test('should suggest table name for column', () => {
+//     const autocompleteResult = parseTrinoQueryWithCursor('SELECT | FROM test_table');
+//     const columnSuggestions: ColumnSuggestion = {tables: [{name: 'test_table'}]};
+//
+//     expect(autocompleteResult.suggestColumns).toEqual(columnSuggestions);
+// });
+//
+// test('should suggest table name for column between statements', () => {
+//     const autocompleteResult = parseTrinoQueryWithCursor(
+//         'ALTER TABLE before_table DROP COLUMN id; SELECT | FROM test_table ; ALTER TABLE after_table DROP COLUMN id;',
+//     );
+//     const columnSuggestions: ColumnSuggestion = {tables: [{name: 'test_table'}]};
+//
+//     expect(autocompleteResult.suggestColumns).toEqual(columnSuggestions);
+// });
+//
+// test('should suggest table name and alias for column', () => {
+//     const autocompleteResult = parseTrinoQueryWithCursor('SELECT | FROM test_table t');
+//     const columnSuggestions: ColumnSuggestion = {tables: [{name: 'test_table', alias: 't'}]};
+//
+//     expect(autocompleteResult.suggestColumns).toEqual(columnSuggestions);
+// });
+//
+// test('should suggest table name and alias (with AS) for column', () => {
+//     const autocompleteResult = parseTrinoQueryWithCursor('SELECT | FROM test_table AS t');
+//     const columnSuggestions: ColumnSuggestion = {tables: [{name: 'test_table', alias: 't'}]};
+//
+//     expect(autocompleteResult.suggestColumns).toEqual(columnSuggestions);
+// });
+//
+// test('should suggest table name and alias for second column', () => {
+//     const autocompleteResult = parseTrinoQueryWithCursor('SELECT id, | FROM test_table AS t');
+//     const columnSuggestions: ColumnSuggestion = {tables: [{name: 'test_table', alias: 't'}]};
+//
+//     expect(autocompleteResult.suggestColumns).toEqual(columnSuggestions);
+// });
+//
+// test('should suggest multiple table names for column', () => {
+//     const autocompleteResult = parseTrinoQueryWithCursor(
+//         'SELECT | FROM test_table_1, test_table_2',
+//     );
+//     const columnSuggestions: ColumnSuggestion = {
+//         tables: [{name: 'test_table_1'}, {name: 'test_table_2'}],
+//     };
+//
+//     expect(autocompleteResult.suggestColumns).toEqual(columnSuggestions);
+// });
+//
+// test('should suggest multiple table names for column between statements', () => {
+//     const autocompleteResult = parseTrinoQueryWithCursor(
+//         'ALTER TABLE before_table DROP COLUMN id; SELECT | FROM test_table_1, test_table_2 ; ALTER TABLE after_table DROP COLUMN id;',
+//     );
+//     const columnSuggestions: ColumnSuggestion = {
+//         tables: [{name: 'test_table_1'}, {name: 'test_table_2'}],
+//     };
+//
+//     expect(autocompleteResult.suggestColumns).toEqual(columnSuggestions);
+// });
+//
+// test('should suggest multiple table names and aliases for column', () => {
+//     const autocompleteResult = parseTrinoQueryWithCursor(
+//         'SELECT | FROM test_table_1 t1, test_table_2 t2',
+//     );
+//     const columnSuggestions: ColumnSuggestion = {
+//         tables: [
+//             {name: 'test_table_1', alias: 't1'},
+//             {name: 'test_table_2', alias: 't2'},
+//         ],
+//     };
+//
+//     expect(autocompleteResult.suggestColumns).toEqual(columnSuggestions);
+// });
+//
+// test('should suggest multiple table names and aliases (with AS) for column', () => {
+//     const autocompleteResult = parseTrinoQueryWithCursor(
+//         'SELECT | FROM test_table_1 AS t1, test_table_2 AS t2',
+//     );
+//     const columnSuggestions: ColumnSuggestion = {
+//         tables: [
+//             {name: 'test_table_1', alias: 't1'},
+//             {name: 'test_table_2', alias: 't2'},
+//         ],
+//     };
+//
+//     expect(autocompleteResult.suggestColumns).toEqual(columnSuggestions);
+// });
 
 test('should suggest properly after HAVING', () => {
-    const autocompleteResult = parseTrinoQueryWithCursor(
-        'SELECT * FROM test_table as t HAVING |',
-    );
+    const autocompleteResult = parseTrinoQueryWithCursor('SELECT * FROM test_table as t HAVING |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [
-        {value: 'NOT'},
-        {value: 'OPERATOR'},
-        {value: 'EXISTS'},
-        {value: 'ARRAY'},
-        {value: 'GROUPING'},
-        {value: 'UNIQUE'},
-        {value: 'INTERVAL'},
-        {value: 'TRUE'},
-        {value: 'FALSE'},
         {value: 'NULL'},
-        {value: 'CASE'},
+        {value: 'INTERVAL'},
+        {value: 'DOUBLE'},
+        {value: 'FALSE'},
+        {value: 'TRUE'},
+        {value: 'POSITION'},
         {value: 'ROW'},
+        {value: 'LISTAGG'},
+        {value: 'FINAL'},
+        {value: 'RUNNING'},
+        {value: 'EXISTS'},
+        {value: 'CASE'},
+        {value: 'CAST'},
+        {value: 'TRY_CAST'},
+        {value: 'ARRAY'},
+        {value: 'CURRENT_DATE'},
+        {value: 'CURRENT_TIME'},
+        {value: 'CURRENT_TIMESTAMP'},
+        {value: 'LOCALTIME'},
+        {value: 'LOCALTIMESTAMP'},
+        {value: 'CURRENT_USER'},
+        {value: 'CURRENT_CATALOG'},
+        {value: 'CURRENT_SCHEMA'},
+        {value: 'CURRENT_PATH'},
+        {value: 'TRIM'},
+        {value: 'SUBSTRING'},
+        {value: 'NORMALIZE'},
+        {value: 'EXTRACT'},
+        {value: 'GROUPING'},
+        {value: 'JSON_EXISTS'},
+        {value: 'JSON_VALUE'},
+        {value: 'JSON_QUERY'},
+        {value: 'JSON_OBJECT'},
+        {value: 'JSON_ARRAY'},
+        {value: 'NOT'},
     ];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
 test('should suggest properly after LIMIT', () => {
-    const autocompleteResult = parseTrinoQueryWithCursor(
-        'SELECT * FROM test_table as t LIMIT |',
-    );
+    const autocompleteResult = parseTrinoQueryWithCursor('SELECT * FROM test_table as t LIMIT |');
 
-    const keywordsSuggestion: KeywordSuggestion[] = [
-        {value: 'NOT'},
-        {value: 'OPERATOR'},
-        {value: 'EXISTS'},
-        {value: 'ARRAY'},
-        {value: 'GROUPING'},
-        {value: 'UNIQUE'},
-        {value: 'INTERVAL'},
-        {value: 'TRUE'},
-        {value: 'FALSE'},
-        {value: 'NULL'},
-        {value: 'CASE'},
-        {value: 'ROW'},
-        {value: 'ALL'},
-    ];
+    const keywordsSuggestion: KeywordSuggestion[] = [{value: 'ALL'}];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
     expect(autocompleteResult.suggestColumns).toBeUndefined();
 });
 
 test('should suggest properly after OFFSET', () => {
-    const autocompleteResult = parseTrinoQueryWithCursor(
-        'SELECT * FROM test_table as t OFFSET |',
-    );
+    const autocompleteResult = parseTrinoQueryWithCursor('SELECT * FROM test_table as t OFFSET |');
 
-    const keywordsSuggestion: KeywordSuggestion[] = [
-        {value: 'EXISTS'},
-        {value: 'ARRAY'},
-        {value: 'GROUPING'},
-        {value: 'UNIQUE'},
-        {value: 'INTERVAL'},
-        {value: 'TRUE'},
-        {value: 'FALSE'},
-        {value: 'NULL'},
-        {value: 'CASE'},
-        {value: 'ROW'},
-        {value: 'NOT'},
-        {value: 'OPERATOR'},
-    ];
+    const keywordsSuggestion: KeywordSuggestion[] = [];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
     expect(autocompleteResult.suggestColumns).toBeUndefined();
 });

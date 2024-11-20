@@ -21,42 +21,13 @@ options {
     tokenVocab = TrinoLexer;
 }
 
-// Modified entrypoint
 parse
-    : statements* EOF
+    : statements? EOF
     ;
 
 statements
-    : singleStatement
-    | standaloneExpression
-    | standalonePathSpecification
-    | standaloneType
-    | standaloneRowPattern SEMICOLON_?
-    | standaloneFunctionSpecification
-    ;
-
-singleStatement
-    : statement SEMICOLON_
-    ;
-
-standaloneExpression
-    : expression SEMICOLON_
-    ;
-
-standalonePathSpecification
-    : pathSpecification SEMICOLON_
-    ;
-
-standaloneType
-    : type SEMICOLON_
-    ;
-
-standaloneRowPattern
-    : rowPattern SEMICOLON_
-    ;
-
-standaloneFunctionSpecification
-    : functionSpecification SEMICOLON_
+    : statement SEMICOLON_?
+    | statement SEMICOLON_ statements
     ;
 
 statement

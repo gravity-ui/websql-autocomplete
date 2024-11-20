@@ -9,12 +9,12 @@ import {
     TableOrViewSuggestion,
 } from '../../shared/autocomplete-types.js';
 import {TrinoLexer} from './generated/TrinoLexer.js';
-import {TrinoParser,} from './generated/TrinoParser.js';
+import {TrinoParser} from './generated/TrinoParser.js';
 import {
-    isStartingToWriteRule,
-    shouldSuggestTemplates,
     TableQueryPosition,
     TokenDictionary,
+    isStartingToWriteRule,
+    shouldSuggestTemplates,
 } from '../../shared';
 import {TrinoAutocompleteResult} from './index.js';
 
@@ -95,16 +95,12 @@ function enrichAutocompleteResult(
     cursor: CursorPosition,
     query: string,
 ): TrinoAutocompleteResult {
-    const {
-        shouldSuggestColumns,
-        shouldSuggestColumnAliases,
-        shouldSuggestConstraints,
-        ...suggestionsFromRules
-    } = processVisitedRules(rules, cursorTokenIndex, tokenStream);
+    const suggestionsFromRules = processVisitedRules(rules, cursorTokenIndex, tokenStream);
     const suggestTemplates = shouldSuggestTemplates(query, cursor);
     return {
         ...baseResult,
         ...suggestionsFromRules,
+        suggestDatabases: undefined,
         suggestTemplates,
     };
 }

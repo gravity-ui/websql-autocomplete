@@ -14,8 +14,15 @@ import {TrinoParser} from './generated/TrinoParser';
 
 export interface TrinoAutocompleteResult extends SqlAutocompleteResult {
     suggestViewsOrTables?: TableOrViewSuggestion;
-    suggestSchemas?: true,
-    suggestCatalogs?: true,
+    suggestSchemas?: true;
+    suggestCatalogs?: true;
+
+    // TODO-TRINO: enrich autocomplete
+    suggestAggregateFunctions?: undefined;
+    suggestFunctions?: undefined;
+    suggestColumns?: undefined;
+    suggestColumnAliases?: undefined;
+    suggestDatabases?: undefined;
 }
 
 export function parseTrinoQueryWithoutCursor(
@@ -30,10 +37,7 @@ export function parseTrinoQueryWithoutCursor(
     );
 }
 
-export function parseTrinoQuery(
-    query: string,
-    cursor: CursorPosition,
-): TrinoAutocompleteResult {
+export function parseTrinoQuery(query: string, cursor: CursorPosition): TrinoAutocompleteResult {
     return parseQuery(
         trinoAutocompleteData.Lexer,
         trinoAutocompleteData.Parser,
@@ -47,9 +51,7 @@ export function parseTrinoQuery(
     );
 }
 
-export function parseTrinoQueryWithCursor(
-    queryWithCursor: string,
-): TrinoAutocompleteResult {
+export function parseTrinoQueryWithCursor(queryWithCursor: string): TrinoAutocompleteResult {
     return parseTrinoQuery(...separateQueryAndCursor(queryWithCursor));
 }
 
