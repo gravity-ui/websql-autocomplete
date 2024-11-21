@@ -7,8 +7,7 @@ test('should suggest properly after DROP', () => {
     const keywords: KeywordSuggestion[] = [{value: 'IF'}];
     expect(autocompleteResult.suggestKeywords).toEqual(keywords);
 
-    // TODO-TRINO: support catalogs
-    // expect(autocompleteResult.suggestCatalogs).toEqual(true);
+    expect(autocompleteResult.suggestCatalogs).toEqual(true);
 });
 
 test('should not report errors on full statement', () => {

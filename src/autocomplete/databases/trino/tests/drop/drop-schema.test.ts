@@ -7,8 +7,7 @@ test('should suggest properly after DROP SCHEMA', () => {
     const keywords: KeywordSuggestion[] = [{value: 'IF'}];
     expect(autocompleteResult.suggestKeywords).toEqual(keywords);
 
-    // TODO-TRINO: support schemas
-    // expect(autocompleteResult.suggestSchemas).toEqual(true);
+    expect(autocompleteResult.suggestSchemas).toEqual(true);
 });
 
 test('should not report errors on full statement', () => {

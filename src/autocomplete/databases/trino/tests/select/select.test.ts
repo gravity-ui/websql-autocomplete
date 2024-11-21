@@ -137,7 +137,6 @@ test('should suggest properly after table name', () => {
         {value: 'ORDER'},
     ];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
-    expect(autocompleteResult.suggestViewsOrTables).toEqual(TableOrViewSuggestion.ALL);
 });
 
 // TODO-TRINO: support column suggestions

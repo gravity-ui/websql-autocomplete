@@ -17,100 +17,104 @@ statements
     ;
 
 statement
-    : rootQuery                                          # statementDefault
-    | USE_ schema = identifier                           # use
-    | USE_ catalog = identifier DOT_ schema = identifier # use
-    | CREATE_ CATALOG_ (IF_ NOT_ EXISTS_)? catalog = identifier USING_ connectorName = identifier (
+    : rootQuery              # statementDefault
+    | USE_ schemaIdentifier  # use
+    | USE_ catalogIdentifier # useCatalog
+    | CREATE_ CATALOG_ (IF_ NOT_ EXISTS_)? catalog = identifier USING_ connectorIdentifier (
         COMMENT_ string_
-    )? (AUTHORIZATION_ principal)? (WITH_ properties)?                           # createCatalog
-    | DROP_ CATALOG_ (IF_ EXISTS_)? catalog = identifier (CASCADE_ | RESTRICT_)? # dropCatalog
+    )? (AUTHORIZATION_ principal)? (WITH_ properties)?                        # createCatalog
+    | DROP_ CATALOG_ (IF_ EXISTS_)? catalogIdentifier (CASCADE_ | RESTRICT_)? # dropCatalog
     | CREATE_ SCHEMA_ (IF_ NOT_ EXISTS_)? qualifiedName (AUTHORIZATION_ principal)? (
         WITH_ properties
-    )?                                                                   # createSchema
-    | DROP_ SCHEMA_ (IF_ EXISTS_)? qualifiedName (CASCADE_ | RESTRICT_)? # dropSchema
-    | ALTER_ SCHEMA_ qualifiedName RENAME_ TO_ identifier                # renameSchema
-    | ALTER_ SCHEMA_ qualifiedName SET_ AUTHORIZATION_ principal         # setSchemaAuthorization
+    )?                                                                      # createSchema
+    | DROP_ SCHEMA_ (IF_ EXISTS_)? schemaIdentifier (CASCADE_ | RESTRICT_)? # dropSchema
+    | ALTER_ SCHEMA_ schemaIdentifier RENAME_ TO_ identifier                # renameSchema
+    | ALTER_ SCHEMA_ schemaIdentifier SET_ AUTHORIZATION_ principal         # setSchemaAuthorization
     | CREATE_ (OR_ REPLACE_)? TABLE_ (IF_ NOT_ EXISTS_)? qualifiedName columnAliases? (
         COMMENT_ string_
     )? (WITH_ properties)? AS_ (rootQuery | LPAREN_ rootQuery RPAREN_) (WITH_ (NO_)? DATA_)? # createTableAsSelect
     | CREATE_ (OR_ REPLACE_)? TABLE_ (IF_ NOT_ EXISTS_)? qualifiedName LPAREN_ tableElement (
         COMMA_ tableElement
-    )* RPAREN_ (COMMENT_ string_)? (WITH_ properties)?                                                                               # createTable
-    | DROP_ TABLE_ (IF_ EXISTS_)? qualifiedName                                                                                      # dropTable
-    | INSERT_ INTO_ qualifiedName columnAliases? rootQuery                                                                           # insertInto
-    | DELETE_ FROM_ qualifiedName (WHERE_ booleanExpression)?                                                                        # delete
-    | TRUNCATE_ TABLE_ qualifiedName                                                                                                 # truncateTable
-    | COMMENT_ ON_ TABLE_ qualifiedName IS_ (string_ | NULL_)                                                                        # commentTable
-    | COMMENT_ ON_ VIEW_ qualifiedName IS_ (string_ | NULL_)                                                                         # commentView
-    | COMMENT_ ON_ COLUMN_ qualifiedName IS_ (string_ | NULL_)                                                                       # commentColumn
-    | ALTER_ TABLE_ (IF_ EXISTS_)? from = qualifiedName RENAME_ TO_ to = qualifiedName                                               # renameTable
-    | ALTER_ TABLE_ (IF_ EXISTS_)? tableName = qualifiedName ADD_ COLUMN_ (IF_ NOT_ EXISTS_)? column = columnDefinition              # addColumn
-    | ALTER_ TABLE_ (IF_ EXISTS_)? tableName = qualifiedName RENAME_ COLUMN_ (IF_ EXISTS_)? from = qualifiedName TO_ to = identifier # renameColumn
-    | ALTER_ TABLE_ (IF_ EXISTS_)? tableName = qualifiedName DROP_ COLUMN_ (IF_ EXISTS_)? column = qualifiedName                     # dropColumn
-    | ALTER_ TABLE_ (IF_ EXISTS_)? tableName = qualifiedName ALTER_ COLUMN_ columnName = qualifiedName SET_ DATA_ TYPE_ type         # setColumnType
-    | ALTER_ TABLE_ tableName = qualifiedName SET_ AUTHORIZATION_ principal                                                          # setTableAuthorization
-    | ALTER_ TABLE_ tableName = qualifiedName SET_ PROPERTIES_ propertyAssignments                                                   # setTableProperties
-    | ALTER_ TABLE_ tableName = qualifiedName EXECUTE_ procedureName = identifier (
+    )* RPAREN_ (COMMENT_ string_)? (WITH_ properties)?                                                                     # createTable
+    | DROP_ TABLE_ (IF_ EXISTS_)? tableIdentifier                                                                          # dropTable
+    | INSERT_ INTO_ tableIdentifier columnAliases? rootQuery                                                               # insertInto
+    | DELETE_ FROM_ tableIdentifier (WHERE_ booleanExpression)?                                                            # delete
+    | TRUNCATE_ TABLE_ tableIdentifier                                                                                     # truncateTable
+    | COMMENT_ ON_ TABLE_ tableIdentifier IS_ (string_ | NULL_)                                                            # commentTable
+    | COMMENT_ ON_ VIEW_ viewIdentifier IS_ (string_ | NULL_)                                                              # commentView
+    | COMMENT_ ON_ COLUMN_ qualifiedName IS_ (string_ | NULL_)                                                             # commentColumn
+    | ALTER_ TABLE_ (IF_ EXISTS_)? tableIdentifier RENAME_ TO_ to = qualifiedName                                          # renameTable
+    | ALTER_ TABLE_ (IF_ EXISTS_)? tableIdentifier ADD_ COLUMN_ (IF_ NOT_ EXISTS_)? column = columnDefinition              # addColumn
+    | ALTER_ TABLE_ (IF_ EXISTS_)? tableIdentifier RENAME_ COLUMN_ (IF_ EXISTS_)? from = qualifiedName TO_ to = identifier # renameColumn
+    | ALTER_ TABLE_ (IF_ EXISTS_)? tableIdentifier DROP_ COLUMN_ (IF_ EXISTS_)? column = qualifiedName                     # dropColumn
+    | ALTER_ TABLE_ (IF_ EXISTS_)? tableIdentifier ALTER_ COLUMN_ columnName = qualifiedName SET_ DATA_ TYPE_ type         # setColumnType
+    | ALTER_ TABLE_ tableIdentifier SET_ AUTHORIZATION_ principal                                                          # setTableAuthorization
+    | ALTER_ TABLE_ tableIdentifier SET_ PROPERTIES_ propertyAssignments                                                   # setTableProperties
+    | ALTER_ TABLE_ tableIdentifier EXECUTE_ procedureName = identifier (
         LPAREN_ (callArgument (COMMA_ callArgument)*)? RPAREN_
-    )? (WHERE_ where = booleanExpression)?       # tableExecute
-    | ANALYZE_ qualifiedName (WITH_ properties)? # analyze
+    )? (WHERE_ where = booleanExpression)?         # tableExecute
+    | ANALYZE_ tableIdentifier (WITH_ properties)? # analyze
     | CREATE_ (OR_ REPLACE_)? MATERIALIZED_ VIEW_ (IF_ NOT_ EXISTS_)? qualifiedName (
         GRACE_ PERIOD_ interval
     )? (COMMENT_ string_)? (WITH_ properties)? AS_ rootQuery # createMaterializedView
     | CREATE_ (OR_ REPLACE_)? VIEW_ qualifiedName (COMMENT_ string_)? (
         SECURITY_ (DEFINER_ | INVOKER_)
-    )? AS_ rootQuery                                                                                # createView
-    | REFRESH_ MATERIALIZED_ VIEW_ qualifiedName                                                    # refreshMaterializedView
-    | DROP_ MATERIALIZED_ VIEW_ (IF_ EXISTS_)? qualifiedName                                        # dropMaterializedView
-    | ALTER_ MATERIALIZED_ VIEW_ (IF_ EXISTS_)? from = qualifiedName RENAME_ TO_ to = qualifiedName # renameMaterializedView
-    | ALTER_ MATERIALIZED_ VIEW_ qualifiedName SET_ PROPERTIES_ propertyAssignments                 # setMaterializedViewProperties
-    | DROP_ VIEW_ (IF_ EXISTS_)? qualifiedName                                                      # dropView
-    | ALTER_ VIEW_ from = qualifiedName RENAME_ TO_ to = qualifiedName                              # renameView
-    | ALTER_ VIEW_ from = qualifiedName SET_ AUTHORIZATION_ principal                               # setViewAuthorization
-    | CALL_ qualifiedName LPAREN_ (callArgument (COMMA_ callArgument)*)? RPAREN_                    # call
-    | CREATE_ (OR_ REPLACE_)? functionSpecification                                                 # createFunction
-    | DROP_ FUNCTION_ (IF_ EXISTS_)? functionDeclaration                                            # dropFunction
-    | CREATE_ ROLE_ name = identifier (WITH_ ADMIN_ grantor)? (IN_ catalog = identifier)?           # createRole
-    | DROP_ ROLE_ name = identifier (IN_ catalog = identifier)?                                     # dropRole
-    | GRANT_ roles TO_ principal (COMMA_ principal)* (WITH_ ADMIN_ OPTION_)? (GRANTED_ BY_ grantor)? (
-        IN_ catalog = identifier
-    )? # grantRoles
-    | REVOKE_ (ADMIN_ OPTION_ FOR_)? roles FROM_ principal (COMMA_ principal)* (
+    )? AS_ rootQuery                                                                          # createView
+    | REFRESH_ MATERIALIZED_ VIEW_ viewIdentifier                                             # refreshMaterializedView
+    | DROP_ MATERIALIZED_ VIEW_ (IF_ EXISTS_)? viewIdentifier                                 # dropMaterializedView
+    | ALTER_ MATERIALIZED_ VIEW_ (IF_ EXISTS_)? viewIdentifier RENAME_ TO_ to = qualifiedName # renameMaterializedView
+    | ALTER_ MATERIALIZED_ VIEW_ viewIdentifier SET_ PROPERTIES_ propertyAssignments          # setMaterializedViewProperties
+    | DROP_ VIEW_ (IF_ EXISTS_)? viewIdentifier                                               # dropView
+    | ALTER_ VIEW_ viewIdentifier RENAME_ TO_ to = qualifiedName                              # renameView
+    | ALTER_ VIEW_ viewIdentifier SET_ AUTHORIZATION_ principal                               # setViewAuthorization
+    | CALL_ qualifiedName LPAREN_ (callArgument (COMMA_ callArgument)*)? RPAREN_              # call
+    | CREATE_ (OR_ REPLACE_)? functionSpecification                                           # createFunction
+    | DROP_ FUNCTION_ (IF_ EXISTS_)? functionDeclaration                                      # dropFunction
+    | CREATE_ ROLE_ identifier (WITH_ ADMIN_ grantor)? (IN_ catalog = catalogIdentifier)?     # createRole
+    | DROP_ ROLE_ roleIdentifier (IN_ catalog = catalogIdentifier)?                           # dropRole
+    | GRANT_ roleIdentifierList TO_ principal (COMMA_ principal)* (WITH_ ADMIN_ OPTION_)? (
         GRANTED_ BY_ grantor
-    )? (IN_ catalog = identifier)?                                              # revokeRoles
-    | SET_ ROLE_ (ALL_ | NONE_ | role = identifier) (IN_ catalog = identifier)? # setRole
-    | GRANT_ (privilege (COMMA_ privilege)* | ALL_ PRIVILEGES_) ON_ (SCHEMA_ | TABLE_)? qualifiedName TO_ grantee = principal (
-        WITH_ GRANT_ OPTION_
-    )?                                                                                                                       # grant
-    | DENY_ (privilege (COMMA_ privilege)* | ALL_ PRIVILEGES_) ON_ (SCHEMA_ | TABLE_)? qualifiedName TO_ grantee = principal # deny
+    )? (IN_ catalog = catalogIdentifier)? # grantRoles
+    | REVOKE_ (ADMIN_ OPTION_ FOR_)? roleIdentifierList FROM_ principal (COMMA_ principal)* (
+        GRANTED_ BY_ grantor
+    )? (IN_ catalog = catalogIdentifier)?                                           # revokeRoles
+    | SET_ ROLE_ (ALL_ | NONE_ | roleIdentifier) (IN_ catalog = catalogIdentifier)? # setRole
+    | GRANT_ (privilege (COMMA_ privilege)* | ALL_ PRIVILEGES_) ON_ (
+        SCHEMA_? schemaIdentifier
+        | TABLE_? tableIdentifier
+    ) TO_ grantee = principal (WITH_ GRANT_ OPTION_)? # grant
+    | DENY_ (privilege (COMMA_ privilege)* | ALL_ PRIVILEGES_) ON_ (
+        SCHEMA_? schemaIdentifier
+        | TABLE_? tableIdentifier
+    ) TO_ grantee = principal # deny
     | REVOKE_ (GRANT_ OPTION_ FOR_)? (privilege (COMMA_ privilege)* | ALL_ PRIVILEGES_) ON_ (
-        SCHEMA_
-        | TABLE_
-    )? qualifiedName FROM_ grantee = principal                                    # revoke
-    | SHOW_ GRANTS_ (ON_ TABLE_? qualifiedName)?                                  # showGrants
+        SCHEMA_? schemaIdentifier
+        | TABLE_? tableIdentifier
+    ) FROM_ grantee = principal                                                   # revoke
+    | SHOW_ GRANTS_ (ON_ TABLE_? tableIdentifier)?                                # showGrants
     | EXPLAIN_ (LPAREN_ explainOption (COMMA_ explainOption)* RPAREN_)? statement # explain
     | EXPLAIN_ ANALYZE_ VERBOSE_? statement                                       # explainAnalyze
-    | SHOW_ CREATE_ TABLE_ qualifiedName                                          # showCreateTable
-    | SHOW_ CREATE_ SCHEMA_ qualifiedName                                         # showCreateSchema
-    | SHOW_ CREATE_ VIEW_ qualifiedName                                           # showCreateView
-    | SHOW_ CREATE_ MATERIALIZED_ VIEW_ qualifiedName                             # showCreateMaterializedView
-    | SHOW_ TABLES_ ((FROM_ | IN_) qualifiedName)? (
+    | SHOW_ CREATE_ TABLE_ tableIdentifier                                        # showCreateTable
+    | SHOW_ CREATE_ SCHEMA_ schemaIdentifier                                      # showCreateSchema
+    | SHOW_ CREATE_ VIEW_ viewIdentifier                                          # showCreateView
+    | SHOW_ CREATE_ MATERIALIZED_ VIEW_ viewIdentifier                            # showCreateMaterializedView
+    | SHOW_ TABLES_ ((FROM_ | IN_) schemaIdentifier)? (
         LIKE_ pattern = string_ (ESCAPE_ escape = string_)?
     )? # showTables
-    | SHOW_ SCHEMAS_ ((FROM_ | IN_) identifier)? (
+    | SHOW_ SCHEMAS_ ((FROM_ | IN_) catalogIdentifier)? (
         LIKE_ pattern = string_ (ESCAPE_ escape = string_)?
     )?                                                                       # showSchemas
     | SHOW_ CATALOGS_ (LIKE_ pattern = string_ (ESCAPE_ escape = string_)?)? # showCatalogs
-    | SHOW_ COLUMNS_ (FROM_ | IN_) qualifiedName? (
+    | SHOW_ COLUMNS_ (FROM_ | IN_) tableIdentifier? (
         LIKE_ pattern = string_ (ESCAPE_ escape = string_)?
-    )?                                                   # showColumns
-    | SHOW_ STATS_ FOR_ qualifiedName                    # showStats
-    | SHOW_ STATS_ FOR_ LPAREN_ rootQuery RPAREN_        # showStatsForQuery
-    | SHOW_ CURRENT_? ROLES_ ((FROM_ | IN_) identifier)? # showRoles
-    | SHOW_ ROLE_ GRANTS_ ((FROM_ | IN_) identifier)?    # showRoleGrants
-    | DESCRIBE_ qualifiedName                            # showColumns
-    | DESC_ qualifiedName                                # showColumns
-    | SHOW_ FUNCTIONS_ ((FROM_ | IN_) qualifiedName)? (
+    )?                                                          # showColumns
+    | SHOW_ STATS_ FOR_ tableIdentifier                         # showStats
+    | SHOW_ STATS_ FOR_ LPAREN_ rootQuery RPAREN_               # showStatsForQuery
+    | SHOW_ CURRENT_? ROLES_ ((FROM_ | IN_) catalogIdentifier)? # showRoles
+    | SHOW_ ROLE_ GRANTS_ ((FROM_ | IN_) catalogIdentifier)?    # showRoleGrants
+    | DESCRIBE_ tableIdentifier                                 # showColumns
+    | DESC_ tableIdentifier                                     # showColumns
+    | SHOW_ FUNCTIONS_ ((FROM_ | IN_) schemaIdentifier)? (
         LIKE_ pattern = string_ (ESCAPE_ escape = string_)?
     )?                                                                      # showFunctions
     | SHOW_ SESSION_ (LIKE_ pattern = string_ (ESCAPE_ escape = string_)?)? # showSession
@@ -129,10 +133,10 @@ statement
     | DESCRIBE_ OUTPUT_ identifier                                          # describeOutput
     | SET_ PATH_ pathSpecification                                          # setPath
     | SET_ TIME_ ZONE_ (LOCAL_ | expression)                                # setTimeZone
-    | UPDATE_ qualifiedName SET_ updateAssignment (COMMA_ updateAssignment)* (
+    | UPDATE_ tableIdentifier SET_ updateAssignment (COMMA_ updateAssignment)* (
         WHERE_ where = booleanExpression
-    )?                                                                                        # update
-    | MERGE_ INTO_ qualifiedName (AS_? identifier)? USING_ relation ON_ expression mergeCase+ # merge
+    )?                                                                                          # update
+    | MERGE_ INTO_ tableIdentifier (AS_? identifier)? USING_ relation ON_ expression mergeCase+ # merge
     ;
 
 rootQuery
@@ -282,11 +286,12 @@ joinType
 
 joinCriteria
     : ON_ booleanExpression
-    | USING_ LPAREN_ identifier (COMMA_ identifier)* RPAREN_
+    | USING_ LPAREN_ tableIdentifier (COMMA_ tableIdentifier)* RPAREN_
     ;
 
 sampledRelation
     : patternRecognition (TABLESAMPLE_ sampleType LPAREN_ percentage = expression RPAREN_)?
+    | tableIdentifier
     ;
 
 sampleType
@@ -390,8 +395,8 @@ tableArgument
     ;
 
 tableArgumentRelation
-    : TABLE_ LPAREN_ qualifiedName RPAREN_ (AS_? identifier columnAliases?)? # tableArgumentTable
-    | TABLE_ LPAREN_ query RPAREN_ (AS_? identifier columnAliases?)?         # tableArgumentQuery
+    : TABLE_ LPAREN_ tableIdentifier RPAREN_ (AS_? identifier columnAliases?)? # tableArgumentTable
+    | TABLE_ LPAREN_ query RPAREN_ (AS_? identifier columnAliases?)?           # tableArgumentQuery
     ;
 
 descriptorArgument
@@ -840,8 +845,8 @@ principal
     | ROLE_ identifier # rolePrincipal
     ;
 
-roles
-    : identifier (COMMA_ identifier)*
+roleIdentifierList
+    : roleIdentifier (COMMA_ roleIdentifier)*
     ;
 
 identifier
@@ -850,6 +855,30 @@ identifier
     | nonReserved            # unquotedIdentifier
     | BACKQUOTED_IDENTIFIER_ # backQuotedIdentifier
     | DIGIT_IDENTIFIER_      # digitIdentifier
+    ;
+
+catalogIdentifier
+    : identifier
+    ;
+
+schemaIdentifier
+    : identifier
+    ;
+
+tableIdentifier
+    : identifier
+    ;
+
+viewIdentifier
+    : identifier
+    ;
+
+roleIdentifier
+    : identifier
+    ;
+
+connectorIdentifier
+    : identifier
     ;
 
 number

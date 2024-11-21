@@ -16,6 +16,7 @@ import { ParseContext } from "./TrinoParser.js";
 import { StatementsContext } from "./TrinoParser.js";
 import { StatementDefaultContext } from "./TrinoParser.js";
 import { UseContext } from "./TrinoParser.js";
+import { UseCatalogContext } from "./TrinoParser.js";
 import { CreateCatalogContext } from "./TrinoParser.js";
 import { DropCatalogContext } from "./TrinoParser.js";
 import { CreateSchemaContext } from "./TrinoParser.js";
@@ -324,11 +325,17 @@ import { CurrentRoleGrantorContext } from "./TrinoParser.js";
 import { UnspecifiedPrincipalContext } from "./TrinoParser.js";
 import { UserPrincipalContext } from "./TrinoParser.js";
 import { RolePrincipalContext } from "./TrinoParser.js";
-import { RolesContext } from "./TrinoParser.js";
+import { RoleIdentifierListContext } from "./TrinoParser.js";
 import { UnquotedIdentifierContext } from "./TrinoParser.js";
 import { QuotedIdentifierContext } from "./TrinoParser.js";
 import { BackQuotedIdentifierContext } from "./TrinoParser.js";
 import { DigitIdentifierContext } from "./TrinoParser.js";
+import { CatalogIdentifierContext } from "./TrinoParser.js";
+import { SchemaIdentifierContext } from "./TrinoParser.js";
+import { TableIdentifierContext } from "./TrinoParser.js";
+import { ViewIdentifierContext } from "./TrinoParser.js";
+import { RoleIdentifierContext } from "./TrinoParser.js";
+import { ConnectorIdentifierContext } from "./TrinoParser.js";
 import { DecimalLiteralContext } from "./TrinoParser.js";
 import { DoubleLiteralContext } from "./TrinoParser.js";
 import { IntegerLiteralContext } from "./TrinoParser.js";
@@ -371,6 +378,13 @@ export class TrinoParserVisitor<Result> extends AbstractParseTreeVisitor<Result>
      * @return the visitor result
      */
     visitUse?: (ctx: UseContext) => Result;
+    /**
+     * Visit a parse tree produced by the `useCatalog`
+     * labeled alternative in `TrinoParser.statement`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitUseCatalog?: (ctx: UseCatalogContext) => Result;
     /**
      * Visit a parse tree produced by the `createCatalog`
      * labeled alternative in `TrinoParser.statement`.
@@ -2445,11 +2459,11 @@ export class TrinoParserVisitor<Result> extends AbstractParseTreeVisitor<Result>
      */
     visitRolePrincipal?: (ctx: RolePrincipalContext) => Result;
     /**
-     * Visit a parse tree produced by `TrinoParser.roles`.
+     * Visit a parse tree produced by `TrinoParser.roleIdentifierList`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitRoles?: (ctx: RolesContext) => Result;
+    visitRoleIdentifierList?: (ctx: RoleIdentifierListContext) => Result;
     /**
      * Visit a parse tree produced by the `unquotedIdentifier`
      * labeled alternative in `TrinoParser.identifier`.
@@ -2478,6 +2492,42 @@ export class TrinoParserVisitor<Result> extends AbstractParseTreeVisitor<Result>
      * @return the visitor result
      */
     visitDigitIdentifier?: (ctx: DigitIdentifierContext) => Result;
+    /**
+     * Visit a parse tree produced by `TrinoParser.catalogIdentifier`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitCatalogIdentifier?: (ctx: CatalogIdentifierContext) => Result;
+    /**
+     * Visit a parse tree produced by `TrinoParser.schemaIdentifier`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitSchemaIdentifier?: (ctx: SchemaIdentifierContext) => Result;
+    /**
+     * Visit a parse tree produced by `TrinoParser.tableIdentifier`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitTableIdentifier?: (ctx: TableIdentifierContext) => Result;
+    /**
+     * Visit a parse tree produced by `TrinoParser.viewIdentifier`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitViewIdentifier?: (ctx: ViewIdentifierContext) => Result;
+    /**
+     * Visit a parse tree produced by `TrinoParser.roleIdentifier`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitRoleIdentifier?: (ctx: RoleIdentifierContext) => Result;
+    /**
+     * Visit a parse tree produced by `TrinoParser.connectorIdentifier`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitConnectorIdentifier?: (ctx: ConnectorIdentifierContext) => Result;
     /**
      * Visit a parse tree produced by the `decimalLiteral`
      * labeled alternative in `TrinoParser.number`.

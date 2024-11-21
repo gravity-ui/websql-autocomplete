@@ -52,7 +52,12 @@ function getIgnoredTokens(): number[] {
 const ignoredTokens = new Set(getIgnoredTokens());
 
 const rulesToVisit = new Set([
-    // TODO: add catalogName, schemaName, tableName
+    TrinoParser.RULE_catalogIdentifier,
+    TrinoParser.RULE_schemaIdentifier,
+    TrinoParser.RULE_tableIdentifier,
+    TrinoParser.RULE_viewIdentifier,
+
+    // We don't need to go inside of those rules, we already know that this is a identifier
     TrinoParser.RULE_identifier,
 ]);
 
@@ -61,6 +66,8 @@ function processVisitedRules(
     cursorTokenIndex: number,
     _tokenStream: TokenStream,
 ): ProcessVisitedRulesResult<TrinoAutocompleteResult> {
+    let suggestCatalogs: TrinoAutocompleteResult['suggestCatalogs'];
+    let suggestSchemas: TrinoAutocompleteResult['suggestSchemas'];
     let suggestViewsOrTables: TrinoAutocompleteResult['suggestViewsOrTables'];
 
     for (const [ruleId, rule] of rules) {
@@ -69,13 +76,26 @@ function processVisitedRules(
         }
 
         switch (ruleId) {
-            case TrinoParser.RULE_identifier: {
+            case TrinoParser.RULE_catalogIdentifier: {
+                suggestCatalogs = true;
+                break;
+            }
+            case TrinoParser.RULE_schemaIdentifier: {
+                suggestSchemas = true;
+                break;
+            }
+            // TODO-TRINO: separate tables and views
+            case TrinoParser.RULE_viewIdentifier:
+            case TrinoParser.RULE_tableIdentifier: {
                 suggestViewsOrTables = TableOrViewSuggestion.ALL;
+                break;
             }
         }
     }
 
     return {
+        suggestCatalogs,
+        suggestSchemas,
         suggestViewsOrTables,
     };
 }

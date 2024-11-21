@@ -7,8 +7,7 @@ test('should suggest after ALTER SCHEMA', () => {
     const keywordSuggestion: KeywordSuggestion[] = [];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordSuggestion);
 
-    // TODO-TRINO: support schema suggestions
-    // expect(autocompleteResult.suggestSchemas).toEqual(true);
+    expect(autocompleteResult.suggestSchemas).toEqual(true);
 });
 
 test('should not report errors', () => {

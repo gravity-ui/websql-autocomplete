@@ -7,8 +7,7 @@ test('should suggest properly after TABLE', () => {
     const keywordsSuggestion: KeywordSuggestion[] = [{value: 'IF'}];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 
-    // TODO-TRINO: support table names properly
-    // expect(autocompleteResult.suggestViewsOrTables).toBeUndefined();
+    expect(autocompleteResult.suggestViewsOrTables).toBeUndefined();
 });
 
 test('should suggest properly after table name', () => {
