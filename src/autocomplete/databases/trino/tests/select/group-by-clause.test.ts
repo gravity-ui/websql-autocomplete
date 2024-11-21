@@ -1,0 +1,249 @@
+import {parseTrinoQueryWithCursor} from '../../index';
+import {KeywordSuggestion} from '../../../../shared/autocomplete-types';
+
+test('should suggest properly after GROUP', () => {
+    const autocompleteResult = parseTrinoQueryWithCursor('SELECT * FROM test_table as t GROUP |');
+
+    const keywordsSuggestion: KeywordSuggestion[] = [{value: 'BY'}];
+    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
+});
+
+test('should suggest properly after GROUP BY', () => {
+    const autocompleteResult = parseTrinoQueryWithCursor(
+        'SELECT count(*) as count, test_column t1 FROM test_table as t GROUP BY |',
+    );
+    const keywordsSuggestion: KeywordSuggestion[] = [
+        {value: 'ALL'},
+        {value: 'DISTINCT'},
+        {value: 'NULL'},
+        {value: 'INTERVAL'},
+        {value: 'DOUBLE'},
+        {value: 'FALSE'},
+        {value: 'TRUE'},
+        {value: 'POSITION'},
+        {value: 'ROW'},
+        {value: 'LISTAGG'},
+        {value: 'FINAL'},
+        {value: 'RUNNING'},
+        {value: 'EXISTS'},
+        {value: 'CASE'},
+        {value: 'CAST'},
+        {value: 'TRY_CAST'},
+        {value: 'ARRAY'},
+        {value: 'CURRENT_DATE'},
+        {value: 'CURRENT_TIME'},
+        {value: 'CURRENT_TIMESTAMP'},
+        {value: 'LOCALTIME'},
+        {value: 'LOCALTIMESTAMP'},
+        {value: 'CURRENT_USER'},
+        {value: 'CURRENT_CATALOG'},
+        {value: 'CURRENT_SCHEMA'},
+        {value: 'CURRENT_PATH'},
+        {value: 'TRIM'},
+        {value: 'SUBSTRING'},
+        {value: 'NORMALIZE'},
+        {value: 'EXTRACT'},
+        {value: 'GROUPING'},
+        {value: 'JSON_EXISTS'},
+        {value: 'JSON_VALUE'},
+        {value: 'JSON_QUERY'},
+        {value: 'JSON_OBJECT'},
+        {value: 'JSON_ARRAY'},
+        {value: 'NOT'},
+        {value: 'ROLLUP'},
+        {value: 'CUBE'},
+    ];
+
+    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
+
+    // TODO-TRINO: suggest functions
+    // expect(autocompleteResult.suggestFunctions).toEqual(true);
+    // expect(autocompleteResult.suggestAggregateFunctions).toEqual(true);
+
+    // TODO-TRINO: support column suggestions
+    // const columnSuggestion: ColumnSuggestion = {tables: [{name: 'test_table', alias: 't'}]};
+    // expect(autocompleteResult.suggestColumns).toEqual(columnSuggestion);
+    // const columnAliasSuggestion: ColumnAliasSuggestion[] = [{name: 'count'}, {name: 't1'}];
+    // expect(autocompleteResult.suggestColumnAliases).toEqual(columnAliasSuggestion);
+});
+
+test('should suggest properly after GROUP BY between statements', () => {
+    const autocompleteResult = parseTrinoQueryWithCursor(
+        'ALTER TABLE before_table DROP COLUMN id; ' +
+            'SELECT count(*) as count, test_column t1 FROM test_table as t GROUP BY | ; ' +
+            'ALTER TABLE after_table DROP COLUMN id;',
+    );
+    const keywordsSuggestion: KeywordSuggestion[] = [
+        {value: 'ALL'},
+        {value: 'DISTINCT'},
+        {value: 'NULL'},
+        {value: 'INTERVAL'},
+        {value: 'DOUBLE'},
+        {value: 'FALSE'},
+        {value: 'TRUE'},
+        {value: 'POSITION'},
+        {value: 'ROW'},
+        {value: 'LISTAGG'},
+        {value: 'FINAL'},
+        {value: 'RUNNING'},
+        {value: 'EXISTS'},
+        {value: 'CASE'},
+        {value: 'CAST'},
+        {value: 'TRY_CAST'},
+        {value: 'ARRAY'},
+        {value: 'CURRENT_DATE'},
+        {value: 'CURRENT_TIME'},
+        {value: 'CURRENT_TIMESTAMP'},
+        {value: 'LOCALTIME'},
+        {value: 'LOCALTIMESTAMP'},
+        {value: 'CURRENT_USER'},
+        {value: 'CURRENT_CATALOG'},
+        {value: 'CURRENT_SCHEMA'},
+        {value: 'CURRENT_PATH'},
+        {value: 'TRIM'},
+        {value: 'SUBSTRING'},
+        {value: 'NORMALIZE'},
+        {value: 'EXTRACT'},
+        {value: 'GROUPING'},
+        {value: 'JSON_EXISTS'},
+        {value: 'JSON_VALUE'},
+        {value: 'JSON_QUERY'},
+        {value: 'JSON_OBJECT'},
+        {value: 'JSON_ARRAY'},
+        {value: 'NOT'},
+        {value: 'ROLLUP'},
+        {value: 'CUBE'},
+    ];
+
+    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
+
+    // TODO-TRINO: support functions
+    // expect(autocompleteResult.suggestFunctions).toEqual(true);
+    // expect(autocompleteResult.suggestAggregateFunctions).toEqual(true);
+
+    // TODO-TRINO: support column suggestions
+    // const columnSuggestion: ColumnSuggestion = {tables: [{name: 'test_table', alias: 't'}]};
+    // expect(autocompleteResult.suggestColumns).toEqual(columnSuggestion);
+    // const columnAliasSuggestion: ColumnAliasSuggestion[] = [{name: 'count'}, {name: 't1'}];
+    // expect(autocompleteResult.suggestColumnAliases).toEqual(columnAliasSuggestion);
+});
+
+test('should suggest properly after GROUP BY in nested statement', () => {
+    const autocompleteResult = parseTrinoQueryWithCursor(
+        'SELECT id as id1 FROM (SELECT count(*) as count, test_column t1 FROM test_table as t GROUP BY |',
+    );
+    const keywordsSuggestion: KeywordSuggestion[] = [
+        {value: 'ALL'},
+        {value: 'DISTINCT'},
+        {value: 'NULL'},
+        {value: 'INTERVAL'},
+        {value: 'DOUBLE'},
+        {value: 'FALSE'},
+        {value: 'TRUE'},
+        {value: 'POSITION'},
+        {value: 'ROW'},
+        {value: 'LISTAGG'},
+        {value: 'FINAL'},
+        {value: 'RUNNING'},
+        {value: 'EXISTS'},
+        {value: 'CASE'},
+        {value: 'CAST'},
+        {value: 'TRY_CAST'},
+        {value: 'ARRAY'},
+        {value: 'CURRENT_DATE'},
+        {value: 'CURRENT_TIME'},
+        {value: 'CURRENT_TIMESTAMP'},
+        {value: 'LOCALTIME'},
+        {value: 'LOCALTIMESTAMP'},
+        {value: 'CURRENT_USER'},
+        {value: 'CURRENT_CATALOG'},
+        {value: 'CURRENT_SCHEMA'},
+        {value: 'CURRENT_PATH'},
+        {value: 'TRIM'},
+        {value: 'SUBSTRING'},
+        {value: 'NORMALIZE'},
+        {value: 'EXTRACT'},
+        {value: 'GROUPING'},
+        {value: 'JSON_EXISTS'},
+        {value: 'JSON_VALUE'},
+        {value: 'JSON_QUERY'},
+        {value: 'JSON_OBJECT'},
+        {value: 'JSON_ARRAY'},
+        {value: 'NOT'},
+        {value: 'ROLLUP'},
+        {value: 'CUBE'},
+    ];
+
+    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
+
+    // TODO-TRINO: support functions
+    // expect(autocompleteResult.suggestFunctions).toEqual(true);
+    // expect(autocompleteResult.suggestAggregateFunctions).toEqual(true);
+
+    // TODO-TRINO: support column suggestions
+    // const columnSuggestion: ColumnSuggestion = {tables: [{name: 'test_table', alias: 't'}]};
+    // expect(autocompleteResult.suggestColumns).toEqual(columnSuggestion);
+    // const columnAliasSuggestion: ColumnAliasSuggestion[] = [{name: 'count'}, {name: 't1'}];
+    // expect(autocompleteResult.suggestColumnAliases).toEqual(columnAliasSuggestion);
+});
+
+test('should suggest properly after GROUP BY between statements in nested statement', () => {
+    const autocompleteResult = parseTrinoQueryWithCursor(
+        'ALTER TABLE before_table DROP COLUMN id; ' +
+            'SELECT id as id1 FROM (SELECT count(*) as count, test_column t1 FROM test_table as t GROUP BY | ; ' +
+            'ALTER TABLE after_table DROP COLUMN id;',
+    );
+    const keywordsSuggestion: KeywordSuggestion[] = [
+        {value: 'ALL'},
+        {value: 'DISTINCT'},
+        {value: 'NULL'},
+        {value: 'INTERVAL'},
+        {value: 'DOUBLE'},
+        {value: 'FALSE'},
+        {value: 'TRUE'},
+        {value: 'POSITION'},
+        {value: 'ROW'},
+        {value: 'LISTAGG'},
+        {value: 'FINAL'},
+        {value: 'RUNNING'},
+        {value: 'EXISTS'},
+        {value: 'CASE'},
+        {value: 'CAST'},
+        {value: 'TRY_CAST'},
+        {value: 'ARRAY'},
+        {value: 'CURRENT_DATE'},
+        {value: 'CURRENT_TIME'},
+        {value: 'CURRENT_TIMESTAMP'},
+        {value: 'LOCALTIME'},
+        {value: 'LOCALTIMESTAMP'},
+        {value: 'CURRENT_USER'},
+        {value: 'CURRENT_CATALOG'},
+        {value: 'CURRENT_SCHEMA'},
+        {value: 'CURRENT_PATH'},
+        {value: 'TRIM'},
+        {value: 'SUBSTRING'},
+        {value: 'NORMALIZE'},
+        {value: 'EXTRACT'},
+        {value: 'GROUPING'},
+        {value: 'JSON_EXISTS'},
+        {value: 'JSON_VALUE'},
+        {value: 'JSON_QUERY'},
+        {value: 'JSON_OBJECT'},
+        {value: 'JSON_ARRAY'},
+        {value: 'NOT'},
+        {value: 'ROLLUP'},
+        {value: 'CUBE'},
+    ];
+
+    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
+
+    // TODO-TRINO: support functions
+    // expect(autocompleteResult.suggestFunctions).toEqual(true);
+    // expect(autocompleteResult.suggestAggregateFunctions).toEqual(true);
+
+    // TODO-TRINO: support column suggestions
+    // const columnSuggestion: ColumnSuggestion = {tables: [{name: 'test_table', alias: 't'}]};
+    // expect(autocompleteResult.suggestColumns).toEqual(columnSuggestion);
+    // const columnAliasSuggestion: ColumnAliasSuggestion[] = [{name: 'count'}, {name: 't1'}];
+    // expect(autocompleteResult.suggestColumnAliases).toEqual(columnAliasSuggestion);
+});
