@@ -10,49 +10,53 @@ test('should suggest properly after UPDATE', () => {
 
 test('should suggest tables after UPDATE between statements', () => {
     const autocompleteResult = parseTrinoQueryWithCursor(
-        'ALTER TABLE before_table DROP COLUMN id; UPDATE | ; ALTER TABLE after_table DROP COLUMN id;',
+        'ALTER TABLE catalog.schema.before_table DROP COLUMN id; UPDATE | ; ALTER TABLE catalog.schema.after_table DROP COLUMN id;',
     );
 
     expect(autocompleteResult.suggestViewsOrTables).toEqual(TableOrViewSuggestion.ALL);
 });
 
 test('should suggest properly after table name', () => {
-    const autocompleteResult = parseTrinoQueryWithCursor('UPDATE test_table |');
+    const autocompleteResult = parseTrinoQueryWithCursor('UPDATE catalog.schema.test_table |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [{value: 'SET'}];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
 test('should suggest properly after SET', () => {
-    const autocompleteResult = parseTrinoQueryWithCursor('UPDATE test_table SET |');
+    const autocompleteResult = parseTrinoQueryWithCursor('UPDATE catalog.schema.test_table SET |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 
     // TODO-TRINO: Add column suggestions
-    // const columnSuggestion: ColumnSuggestion = {tables: [{name: 'test_table'}]};
+    // const columnSuggestion: ColumnSuggestion = {tables: [{name: 'catalog.schema.test_table'}]};
     // expect(autocompleteResult.suggestColumns).toEqual(columnSuggestion);
 });
 
 // TODO-TRINO: Add column suggestions
 // test('should suggest table name for column after SET between statements', () => {
 //     const autocompleteResult = parseTrinoQueryWithCursor(
-//         'ALTER TABLE before_table DROP COLUMN id; UPDATE test_table SET | ; ALTER TABLE after_table DROP COLUMN id;',
+//         'ALTER TABLE before_table DROP COLUMN id; UPDATE catalog.schema.test_table SET | ; ALTER TABLE after_table DROP COLUMN id;',
 //     );
 //
-//     const columnSuggestion: ColumnSuggestion = {tables: [{name: 'test_table'}]};
+//     const columnSuggestion: ColumnSuggestion = {tables: [{name: 'catalog.schema.test_table'}]};
 //     expect(autocompleteResult.suggestColumns).toEqual(columnSuggestion);
 // });
 
 test('should suggest properly after column', () => {
-    const autocompleteResult = parseTrinoQueryWithCursor('UPDATE test_table SET test_column |');
+    const autocompleteResult = parseTrinoQueryWithCursor(
+        'UPDATE catalog.schema.test_table SET test_column |',
+    );
 
     const keywordsSuggestion: KeywordSuggestion[] = [];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
 test('should suggest properly after column equals', () => {
-    const autocompleteResult = parseTrinoQueryWithCursor('UPDATE test_table SET test_column = |');
+    const autocompleteResult = parseTrinoQueryWithCursor(
+        'UPDATE catalog.schema.test_table SET test_column = |',
+    );
 
     const keywordsSuggestion: KeywordSuggestion[] = [
         {value: 'NULL'},
@@ -96,7 +100,7 @@ test('should suggest properly after column equals', () => {
 
 test('should suggest properly after the first column', () => {
     const autocompleteResult = parseTrinoQueryWithCursor(
-        'UPDATE test_table SET test_column = "test" |',
+        'UPDATE catalog.schema.test_table SET test_column = "test" |',
     );
 
     const keywordsSuggestion: KeywordSuggestion[] = [
@@ -117,24 +121,24 @@ test('should suggest properly after the first column', () => {
 
 // TODO-TRINO: support column suggestions
 // test('should suggest table name for second column after SET', () => {
-//     const autocompleteResult = parseTrinoQueryWithCursor('UPDATE test_table SET id = 1, |');
+//     const autocompleteResult = parseTrinoQueryWithCursor('UPDATE catalog.schema.test_table SET id = 1, |');
 //
-//     const columnSuggestion: ColumnSuggestion = {tables: [{name: 'test_table'}]};
+//     const columnSuggestion: ColumnSuggestion = {tables: [{name: 'catalog.schema.test_table'}]};
 //     expect(autocompleteResult.suggestColumns).toEqual(columnSuggestion);
 // });
 //
 // test('should suggest table name for second column after SET between statements', () => {
 //     const autocompleteResult = parseTrinoQueryWithCursor(
-//         'ALTER TABLE before_table DROP COLUMN id; UPDATE test_table SET id = 1, | ; ALTER TABLE after_table DROP COLUMN id;',
+//         'ALTER TABLE before_table DROP COLUMN id; UPDATE catalog.schema.test_table SET id = 1, | ; ALTER TABLE after_table DROP COLUMN id;',
 //     );
-//     const columnSuggestion: ColumnSuggestion = {tables: [{name: 'test_table'}]};
+//     const columnSuggestion: ColumnSuggestion = {tables: [{name: 'catalog.schema.test_table'}]};
 //
 //     expect(autocompleteResult.suggestColumns).toEqual(columnSuggestion);
 // });
 
 test('should suggest properly after WHERE', () => {
     const autocompleteResult = parseTrinoQueryWithCursor(
-        'UPDATE test_table SET test_column = "test" WHERE |',
+        'UPDATE catalog.schema.test_table SET test_column = "test" WHERE |',
     );
 
     const keywordsSuggestion: KeywordSuggestion[] = [
@@ -177,22 +181,22 @@ test('should suggest properly after WHERE', () => {
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 
     // TODO-TRINO: support column suggestions
-    // const columnSuggestion: ColumnSuggestion = {tables: [{name: 'test_table'}]};
+    // const columnSuggestion: ColumnSuggestion = {tables: [{name: 'catalog.schema.test_table'}]};
     // expect(autocompleteResult.suggestColumns).toEqual(columnSuggestion);
 });
 
 // test('should suggest table name for column after WHERE between statements', () => {
 //     const autocompleteResult = parseTrinoQueryWithCursor(
-//         'ALTER TABLE before_table DROP COLUMN id; UPDATE test_table SET id = 1 WHERE | ; ALTER TABLE after_table DROP COLUMN id;',
+//         'ALTER TABLE before_table DROP COLUMN id; UPDATE catalog.schema.test_table SET id = 1 WHERE | ; ALTER TABLE after_table DROP COLUMN id;',
 //     );
-//     const columnSuggestion: ColumnSuggestion = {tables: [{name: 'test_table'}]};
+//     const columnSuggestion: ColumnSuggestion = {tables: [{name: 'catalog.schema.test_table'}]};
 //
 //     expect(autocompleteResult.suggestColumns).toEqual(columnSuggestion);
 // });
 
 test('should suggest properly after RETURNING', () => {
     const autocompleteResult = parseTrinoQueryWithCursor(
-        'UPDATE test_table SET test_column = "test" RETURNING |',
+        'UPDATE catalog.schema.test_table SET test_column = "test" RETURNING |',
     );
 
     const keywordsSuggestion: KeywordSuggestion[] = [];
@@ -201,7 +205,7 @@ test('should suggest properly after RETURNING', () => {
 
 test('should not report errors', () => {
     const autocompleteResult = parseTrinoQueryWithoutCursor(
-        'UPDATE test_table SET id = 1 WHERE id = 1;',
+        'UPDATE catalog.schema.test_table SET id = 1 WHERE id = 1;',
     );
 
     expect(autocompleteResult.errors).toHaveLength(0);

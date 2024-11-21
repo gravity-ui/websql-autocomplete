@@ -2,63 +2,79 @@ import {parseTrinoQueryWithCursor, parseTrinoQueryWithoutCursor} from '../../ind
 import {KeywordSuggestion, TableOrViewSuggestion} from '../../../../shared/autocomplete-types';
 
 test('should suggest keywords after INNER', () => {
-    const autocompleteResult = parseTrinoQueryWithCursor('SELECT * FROM test_table INNER |');
+    const autocompleteResult = parseTrinoQueryWithCursor(
+        'SELECT * FROM catalog.schema.test_table INNER |',
+    );
     const keywords: KeywordSuggestion[] = [{value: 'JOIN'}];
 
     expect(autocompleteResult.suggestKeywords).toEqual(keywords);
 });
 
 test('should suggest keywords after LEFT', () => {
-    const autocompleteResult = parseTrinoQueryWithCursor('SELECT * FROM test_table LEFT |');
+    const autocompleteResult = parseTrinoQueryWithCursor(
+        'SELECT * FROM catalog.schema.test_table LEFT |',
+    );
     const keywords: KeywordSuggestion[] = [{value: 'OUTER'}, {value: 'JOIN'}];
 
     expect(autocompleteResult.suggestKeywords).toEqual(keywords);
 });
 
 test('should suggest keywords after RIGHT', () => {
-    const autocompleteResult = parseTrinoQueryWithCursor('SELECT * FROM test_table RIGHT |');
+    const autocompleteResult = parseTrinoQueryWithCursor(
+        'SELECT * FROM catalog.schema.test_table RIGHT |',
+    );
     const keywords: KeywordSuggestion[] = [{value: 'OUTER'}, {value: 'JOIN'}];
 
     expect(autocompleteResult.suggestKeywords).toEqual(keywords);
 });
 
 test('should suggest keywords after FULL', () => {
-    const autocompleteResult = parseTrinoQueryWithCursor('SELECT * FROM test_table FULL |');
+    const autocompleteResult = parseTrinoQueryWithCursor(
+        'SELECT * FROM catalog.schema.test_table FULL |',
+    );
     const keywords: KeywordSuggestion[] = [{value: 'OUTER'}, {value: 'JOIN'}];
 
     expect(autocompleteResult.suggestKeywords).toEqual(keywords);
 });
 
 test('should suggest keywords after LEFT OUTER', () => {
-    const autocompleteResult = parseTrinoQueryWithCursor('SELECT * FROM test_table LEFT OUTER |');
+    const autocompleteResult = parseTrinoQueryWithCursor(
+        'SELECT * FROM catalog.schema.test_table LEFT OUTER |',
+    );
     const keywords: KeywordSuggestion[] = [{value: 'JOIN'}];
 
     expect(autocompleteResult.suggestKeywords).toEqual(keywords);
 });
 
 test('should suggest keywords after RIGHT OUTER', () => {
-    const autocompleteResult = parseTrinoQueryWithCursor('SELECT * FROM test_table RIGHT OUTER |');
+    const autocompleteResult = parseTrinoQueryWithCursor(
+        'SELECT * FROM catalog.schema.test_table RIGHT OUTER |',
+    );
     const keywords: KeywordSuggestion[] = [{value: 'JOIN'}];
 
     expect(autocompleteResult.suggestKeywords).toEqual(keywords);
 });
 
 test('should suggest keywords after FULL OUTER', () => {
-    const autocompleteResult = parseTrinoQueryWithCursor('SELECT * FROM test_table FULL OUTER |');
+    const autocompleteResult = parseTrinoQueryWithCursor(
+        'SELECT * FROM catalog.schema.test_table FULL OUTER |',
+    );
     const keywords: KeywordSuggestion[] = [{value: 'JOIN'}];
 
     expect(autocompleteResult.suggestKeywords).toEqual(keywords);
 });
 
 test('should suggest tables after JOIN', () => {
-    const autocompleteResult = parseTrinoQueryWithCursor('SELECT * FROM test_table JOIN |');
+    const autocompleteResult = parseTrinoQueryWithCursor(
+        'SELECT * FROM catalog.schema.test_table JOIN |',
+    );
 
     expect(autocompleteResult.suggestViewsOrTables).toEqual(TableOrViewSuggestion.ALL);
 });
 
 test('should suggest tables after JOIN between statements', () => {
     const autocompleteResult = parseTrinoQueryWithCursor(
-        'ALTER TABLE before_table DROP COLUMN id; SELECT * FROM test_table JOIN | ; ALTER TABLE after_table DROP COLUMN id;',
+        'ALTER TABLE catalog.schema.before_table DROP COLUMN id; SELECT * FROM catalog.schema.test_table JOIN | ; ALTER TABLE catalog.schema.after_table DROP COLUMN id;',
     );
 
     expect(autocompleteResult.suggestViewsOrTables).toEqual(TableOrViewSuggestion.ALL);
@@ -66,7 +82,7 @@ test('should suggest tables after JOIN between statements', () => {
 
 test('should suggest keywords after JOIN table', () => {
     const autocompleteResult = parseTrinoQueryWithCursor(
-        'SELECT * FROM test_table_1 JOIN test_table_2 |',
+        'SELECT * FROM catalog.schema.test_table_1 JOIN catalog.schema.test_table_2 |',
     );
     const keywords: KeywordSuggestion[] = [
         {value: 'FOR'},
@@ -198,7 +214,7 @@ test('should suggest keywords after JOIN table', () => {
 
 test('should not report errors', () => {
     const autocompleteResult = parseTrinoQueryWithoutCursor(
-        'SELECT * FROM test_table_1 AS t1 JOIN test_table_2 AS t2 ON t1.id = t2.id;',
+        'SELECT * FROM catalog.schema.test_table_1 AS t1 JOIN catalog.schema.test_table_2 AS t2 ON t1.id = t2.id;',
     );
 
     expect(autocompleteResult.errors).toHaveLength(0);

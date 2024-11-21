@@ -2,14 +2,18 @@ import {parseTrinoQueryWithCursor} from '../../index';
 import {KeywordSuggestion} from '../../../../shared/autocomplete-types';
 
 test('should suggest properly after ORDER', () => {
-    const autocompleteResult = parseTrinoQueryWithCursor('SELECT * FROM test_table ORDER |');
+    const autocompleteResult = parseTrinoQueryWithCursor(
+        'SELECT * FROM catalog.schema.test_table ORDER |',
+    );
 
     const keywordsSuggestion: KeywordSuggestion[] = [{value: 'BY'}];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
 test('should suggest properly after ORDER with alias', () => {
-    const autocompleteResult = parseTrinoQueryWithCursor('SELECT * FROM test_table as t ORDER |');
+    const autocompleteResult = parseTrinoQueryWithCursor(
+        'SELECT * FROM catalog.schema.test_table as t ORDER |',
+    );
 
     const keywordsSuggestion: KeywordSuggestion[] = [{value: 'BY'}];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
@@ -17,7 +21,7 @@ test('should suggest properly after ORDER with alias', () => {
 
 test('should suggest properly after ORDER BY', () => {
     const autocompleteResult = parseTrinoQueryWithCursor(
-        'SELECT count(*) as count, test_column t1 FROM test_table as t ORDER BY |',
+        'SELECT count(*) as count, test_column t1 FROM catalog.schema.test_table as t ORDER BY |',
     );
     const keywordsSuggestion: KeywordSuggestion[] = [
         {value: 'NULL'},
@@ -72,9 +76,9 @@ test('should suggest properly after ORDER BY', () => {
 
 test('should suggest properly after ORDER BY between statements', () => {
     const autocompleteResult = parseTrinoQueryWithCursor(
-        'ALTER TABLE before_table DROP COLUMN id; ' +
-            'SELECT count(*) as count, test_column t1 FROM test_table as t ORDER BY | ; ' +
-            'ALTER TABLE after_table DROP COLUMN id;',
+        'ALTER TABLE catalog.schema.before_table DROP COLUMN id; ' +
+            'SELECT count(*) as count, test_column t1 FROM catalog.schema.test_table as t ORDER BY | ; ' +
+            'ALTER TABLE catalog.schema.after_table DROP COLUMN id;',
     );
     const keywordsSuggestion: KeywordSuggestion[] = [
         {value: 'NULL'},
@@ -130,7 +134,7 @@ test('should suggest properly after ORDER BY between statements', () => {
 
 test('should suggest properly after ORDER BY in nested statement', () => {
     const autocompleteResult = parseTrinoQueryWithCursor(
-        'SELECT id as id1 FROM (SELECT count(*) as count, test_column t1 FROM test_table as t ORDER BY |',
+        'SELECT id as id1 FROM (SELECT count(*) as count, test_column t1 FROM catalog.schema.test_table as t ORDER BY |',
     );
     const keywordsSuggestion: KeywordSuggestion[] = [
         {value: 'NULL'},
@@ -185,9 +189,9 @@ test('should suggest properly after ORDER BY in nested statement', () => {
 
 test('should suggest properly after ORDER BY between statements in nested statement', () => {
     const autocompleteResult = parseTrinoQueryWithCursor(
-        'ALTER TABLE before_table DROP COLUMN id; ' +
-            'SELECT id as id1 FROM (SELECT count(*) as count, test_column t1 FROM test_table as t ORDER BY | ; ' +
-            'ALTER TABLE after_table DROP COLUMN id;',
+        'ALTER TABLE catalog.schema.before_table DROP COLUMN id; ' +
+            'SELECT id as id1 FROM (SELECT count(*) as count, test_column t1 FROM catalog.schema.test_table as t ORDER BY | ; ' +
+            'ALTER TABLE catalog.schema.after_table DROP COLUMN id;',
     );
     const keywordsSuggestion: KeywordSuggestion[] = [
         {value: 'NULL'},

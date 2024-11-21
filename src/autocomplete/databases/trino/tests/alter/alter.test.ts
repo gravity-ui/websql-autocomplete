@@ -39,7 +39,7 @@ test('should suggest keywords after TABLE', () => {
 
 test('should suggest tables after ALTER TABLE between statements', () => {
     const autocompleteResult = parseTrinoQueryWithCursor(
-        'DROP VIEW before_view; ALTER TABLE | ; DROP VIEW after_view;',
+        'DROP VIEW catalog.schema.before_view; ALTER TABLE | ; DROP VIEW catalog.schema.after_view;',
     );
 
     // TODO-TRINO: decouple views from tables
@@ -47,7 +47,7 @@ test('should suggest tables after ALTER TABLE between statements', () => {
 });
 
 test('should suggest keywords after TABLE 2', () => {
-    const autocompleteResult = parseTrinoQueryWithCursor('ALTER TABLE test_table |');
+    const autocompleteResult = parseTrinoQueryWithCursor('ALTER TABLE catalog.schema.test_table |');
 
     const keywords: KeywordSuggestion[] = [
         {value: 'EXECUTE'},
@@ -72,7 +72,7 @@ test('should suggest tables after ALTER VIEW', () => {
 
 test('should suggest tables after ALTER VIEW between statements', () => {
     const autocompleteResult = parseTrinoQueryWithCursor(
-        'ALTER TABLE before_table DROP COLUMN id; ALTER VIEW | ; ALTER TABLE after_table DROP COLUMN id;',
+        'ALTER TABLE catalog.schema.before_table DROP COLUMN id; ALTER VIEW | ; ALTER TABLE catalog.schema.after_table DROP COLUMN id;',
     );
 
     // TODO-TRINO: decouple views from tables

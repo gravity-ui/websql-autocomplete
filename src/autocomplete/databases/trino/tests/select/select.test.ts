@@ -87,7 +87,7 @@ test('should suggest properly after FROM', () => {
 
 test('should suggest ALL tables between statements', () => {
     const autocompleteResult = parseTrinoQueryWithCursor(
-        'ALTER TABLE before_table DROP COLUMN id; SELECT * FROM | ; ALTER TABLE after_table DROP COLUMN id;',
+        'ALTER TABLE catalog.schema.before_table DROP COLUMN id; SELECT * FROM | ; ALTER TABLE catalog.schema.after_table DROP COLUMN id;',
     );
 
     expect(autocompleteResult.suggestViewsOrTables).toEqual(TableOrViewSuggestion.ALL);
@@ -95,7 +95,7 @@ test('should suggest ALL tables between statements', () => {
 
 test('should suggest tables with inline comment', () => {
     const autocompleteResult = parseTrinoQueryWithCursor(
-        'SELECT * FROM | --SELECT * FROM test_table',
+        'SELECT * FROM | --SELECT * FROM catalog.schema.test_table',
     );
 
     expect(autocompleteResult.suggestViewsOrTables).toEqual(TableOrViewSuggestion.ALL);
@@ -103,14 +103,16 @@ test('should suggest tables with inline comment', () => {
 
 test('should suggest tables with multiline comment', () => {
     const autocompleteResult = parseTrinoQueryWithCursor(
-        'SELECT * FROM | /*SELECT * FROM test_table*/',
+        'SELECT * FROM | /*SELECT * FROM catalog.schema.test_table*/',
     );
 
     expect(autocompleteResult.suggestViewsOrTables).toEqual(TableOrViewSuggestion.ALL);
 });
 
 test('should suggest properly after table name', () => {
-    const autocompleteResult = parseTrinoQueryWithCursor('SELECT * FROM test_table |');
+    const autocompleteResult = parseTrinoQueryWithCursor(
+        'SELECT * FROM catalog.schema.test_table |',
+    );
 
     const keywordsSuggestion: KeywordSuggestion[] = [
         {value: 'FOR'},
@@ -141,48 +143,48 @@ test('should suggest properly after table name', () => {
 
 // TODO-TRINO: support column suggestions
 // test('should suggest table name for column', () => {
-//     const autocompleteResult = parseTrinoQueryWithCursor('SELECT | FROM test_table');
-//     const columnSuggestions: ColumnSuggestion = {tables: [{name: 'test_table'}]};
+//     const autocompleteResult = parseTrinoQueryWithCursor('SELECT | FROM catalog.schema.test_table');
+//     const columnSuggestions: ColumnSuggestion = {tables: [{name: 'catalog.schema.test_table'}]};
 //
 //     expect(autocompleteResult.suggestColumns).toEqual(columnSuggestions);
 // });
 //
 // test('should suggest table name for column between statements', () => {
 //     const autocompleteResult = parseTrinoQueryWithCursor(
-//         'ALTER TABLE before_table DROP COLUMN id; SELECT | FROM test_table ; ALTER TABLE after_table DROP COLUMN id;',
+//         'ALTER TABLE before_table DROP COLUMN id; SELECT | FROM catalog.schema.test_table ; ALTER TABLE after_table DROP COLUMN id;',
 //     );
-//     const columnSuggestions: ColumnSuggestion = {tables: [{name: 'test_table'}]};
+//     const columnSuggestions: ColumnSuggestion = {tables: [{name: 'catalog.schema.test_table'}]};
 //
 //     expect(autocompleteResult.suggestColumns).toEqual(columnSuggestions);
 // });
 //
 // test('should suggest table name and alias for column', () => {
-//     const autocompleteResult = parseTrinoQueryWithCursor('SELECT | FROM test_table t');
-//     const columnSuggestions: ColumnSuggestion = {tables: [{name: 'test_table', alias: 't'}]};
+//     const autocompleteResult = parseTrinoQueryWithCursor('SELECT | FROM catalog.schema.test_table t');
+//     const columnSuggestions: ColumnSuggestion = {tables: [{name: 'catalog.schema.test_table', alias: 't'}]};
 //
 //     expect(autocompleteResult.suggestColumns).toEqual(columnSuggestions);
 // });
 //
 // test('should suggest table name and alias (with AS) for column', () => {
-//     const autocompleteResult = parseTrinoQueryWithCursor('SELECT | FROM test_table AS t');
-//     const columnSuggestions: ColumnSuggestion = {tables: [{name: 'test_table', alias: 't'}]};
+//     const autocompleteResult = parseTrinoQueryWithCursor('SELECT | FROM catalog.schema.test_table AS t');
+//     const columnSuggestions: ColumnSuggestion = {tables: [{name: 'catalog.schema.test_table', alias: 't'}]};
 //
 //     expect(autocompleteResult.suggestColumns).toEqual(columnSuggestions);
 // });
 //
 // test('should suggest table name and alias for second column', () => {
-//     const autocompleteResult = parseTrinoQueryWithCursor('SELECT id, | FROM test_table AS t');
-//     const columnSuggestions: ColumnSuggestion = {tables: [{name: 'test_table', alias: 't'}]};
+//     const autocompleteResult = parseTrinoQueryWithCursor('SELECT id, | FROM catalog.schema.test_table AS t');
+//     const columnSuggestions: ColumnSuggestion = {tables: [{name: 'catalog.schema.test_table', alias: 't'}]};
 //
 //     expect(autocompleteResult.suggestColumns).toEqual(columnSuggestions);
 // });
 //
 // test('should suggest multiple table names for column', () => {
 //     const autocompleteResult = parseTrinoQueryWithCursor(
-//         'SELECT | FROM test_table_1, test_table_2',
+//         'SELECT | FROM catalog.schema.test_table_1, catalog.schema.test_table_2',
 //     );
 //     const columnSuggestions: ColumnSuggestion = {
-//         tables: [{name: 'test_table_1'}, {name: 'test_table_2'}],
+//         tables: [{name: 'catalog.schema.test_table_1'}, {name: 'catalog.schema.test_table_2'}],
 //     };
 //
 //     expect(autocompleteResult.suggestColumns).toEqual(columnSuggestions);
@@ -190,10 +192,10 @@ test('should suggest properly after table name', () => {
 //
 // test('should suggest multiple table names for column between statements', () => {
 //     const autocompleteResult = parseTrinoQueryWithCursor(
-//         'ALTER TABLE before_table DROP COLUMN id; SELECT | FROM test_table_1, test_table_2 ; ALTER TABLE after_table DROP COLUMN id;',
+//         'ALTER TABLE before_table DROP COLUMN id; SELECT | FROM catalog.schema.test_table_1, catalog.schema.test_table_2 ; ALTER TABLE after_table DROP COLUMN id;',
 //     );
 //     const columnSuggestions: ColumnSuggestion = {
-//         tables: [{name: 'test_table_1'}, {name: 'test_table_2'}],
+//         tables: [{name: 'catalog.schema.test_table_1'}, {name: 'catalog.schema.test_table_2'}],
 //     };
 //
 //     expect(autocompleteResult.suggestColumns).toEqual(columnSuggestions);
@@ -201,12 +203,12 @@ test('should suggest properly after table name', () => {
 //
 // test('should suggest multiple table names and aliases for column', () => {
 //     const autocompleteResult = parseTrinoQueryWithCursor(
-//         'SELECT | FROM test_table_1 t1, test_table_2 t2',
+//         'SELECT | FROM catalog.schema.test_table_1 t1, catalog.schema.test_table_2 t2',
 //     );
 //     const columnSuggestions: ColumnSuggestion = {
 //         tables: [
-//             {name: 'test_table_1', alias: 't1'},
-//             {name: 'test_table_2', alias: 't2'},
+//             {name: 'catalog.schema.test_table_1', alias: 't1'},
+//             {name: 'catalog.schema.test_table_2', alias: 't2'},
 //         ],
 //     };
 //
@@ -215,12 +217,12 @@ test('should suggest properly after table name', () => {
 //
 // test('should suggest multiple table names and aliases (with AS) for column', () => {
 //     const autocompleteResult = parseTrinoQueryWithCursor(
-//         'SELECT | FROM test_table_1 AS t1, test_table_2 AS t2',
+//         'SELECT | FROM catalog.schema.test_table_1 AS t1, catalog.schema.test_table_2 AS t2',
 //     );
 //     const columnSuggestions: ColumnSuggestion = {
 //         tables: [
-//             {name: 'test_table_1', alias: 't1'},
-//             {name: 'test_table_2', alias: 't2'},
+//             {name: 'catalog.schema.test_table_1', alias: 't1'},
+//             {name: 'catalog.schema.test_table_2', alias: 't2'},
 //         ],
 //     };
 //
@@ -228,7 +230,9 @@ test('should suggest properly after table name', () => {
 // });
 
 test('should suggest properly after HAVING', () => {
-    const autocompleteResult = parseTrinoQueryWithCursor('SELECT * FROM test_table as t HAVING |');
+    const autocompleteResult = parseTrinoQueryWithCursor(
+        'SELECT * FROM catalog.schema.test_table as t HAVING |',
+    );
 
     const keywordsSuggestion: KeywordSuggestion[] = [
         {value: 'NULL'},
@@ -271,7 +275,9 @@ test('should suggest properly after HAVING', () => {
 });
 
 test('should suggest properly after LIMIT', () => {
-    const autocompleteResult = parseTrinoQueryWithCursor('SELECT * FROM test_table as t LIMIT |');
+    const autocompleteResult = parseTrinoQueryWithCursor(
+        'SELECT * FROM catalog.schema.test_table as t LIMIT |',
+    );
 
     const keywordsSuggestion: KeywordSuggestion[] = [{value: 'ALL'}];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
@@ -279,7 +285,9 @@ test('should suggest properly after LIMIT', () => {
 });
 
 test('should suggest properly after OFFSET', () => {
-    const autocompleteResult = parseTrinoQueryWithCursor('SELECT * FROM test_table as t OFFSET |');
+    const autocompleteResult = parseTrinoQueryWithCursor(
+        'SELECT * FROM catalog.schema.test_table as t OFFSET |',
+    );
 
     const keywordsSuggestion: KeywordSuggestion[] = [];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
@@ -287,7 +295,9 @@ test('should suggest properly after OFFSET', () => {
 });
 
 test('should not report errors', () => {
-    const autocompleteResult = parseTrinoQueryWithoutCursor('SELECT c1, c2 FROM test_table;');
+    const autocompleteResult = parseTrinoQueryWithoutCursor(
+        'SELECT c1, c2 FROM catalog.schema.test_table;',
+    );
 
     expect(autocompleteResult.errors).toHaveLength(0);
 });

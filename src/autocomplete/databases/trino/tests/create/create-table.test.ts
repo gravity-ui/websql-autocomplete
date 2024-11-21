@@ -11,7 +11,9 @@ test('should suggest properly after TABLE', () => {
 });
 
 test('should suggest properly after table name', () => {
-    const autocompleteResult = parseTrinoQueryWithCursor('CREATE TABLE test_table |');
+    const autocompleteResult = parseTrinoQueryWithCursor(
+        'CREATE TABLE catalog.schema.test_table |',
+    );
 
     const keywordsSuggestion: KeywordSuggestion[] = [
         {value: 'AS'},
@@ -22,7 +24,9 @@ test('should suggest properly after table name', () => {
 });
 
 test('should suggest properly after the first column', () => {
-    const autocompleteResult = parseTrinoQueryWithCursor('CREATE TABLE test_table (test_column |');
+    const autocompleteResult = parseTrinoQueryWithCursor(
+        'CREATE TABLE catalog.schema.test_table (test_column |',
+    );
 
     const keywordsSuggestion: KeywordSuggestion[] = [
         {value: 'ROW'},
@@ -38,7 +42,7 @@ test('should suggest properly after the first column', () => {
 
 test('should suggest properly after the second column', () => {
     const autocompleteResult = parseTrinoQueryWithCursor(
-        'CREATE TABLE test_table (test_column TEXT, test_column_2 |',
+        'CREATE TABLE catalog.schema.test_table (test_column TEXT, test_column_2 |',
     );
 
     const keywordsSuggestion: KeywordSuggestion[] = [
@@ -55,7 +59,7 @@ test('should suggest properly after the second column', () => {
 
 test('should suggest properly after the columns', () => {
     const autocompleteResult = parseTrinoQueryWithCursor(
-        'CREATE TABLE test_table (test_column TEXT, test_column_2 TEXT) |',
+        'CREATE TABLE catalog.schema.test_table (test_column TEXT, test_column_2 TEXT) |',
     );
 
     const keywordsSuggestion: KeywordSuggestion[] = [{value: 'WITH'}, {value: 'COMMENT'}];

@@ -12,7 +12,7 @@ test('should suggest after ALTER SCHEMA', () => {
 
 test('should not report errors', () => {
     const autocompleteResult = parseTrinoQueryWithoutCursor(
-        'ALTER SCHEMA test_schema RENAME TO test_schema_2;',
+        'ALTER SCHEMA test_catalog.test_schema RENAME TO test_schema_2;',
     );
     expect(autocompleteResult.errors).toHaveLength(0);
 });

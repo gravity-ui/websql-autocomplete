@@ -24,16 +24,16 @@ statement
         COMMENT_ string_
     )? (AUTHORIZATION_ principal)? (WITH_ properties)?                        # createCatalog
     | DROP_ CATALOG_ (IF_ EXISTS_)? catalogIdentifier (CASCADE_ | RESTRICT_)? # dropCatalog
-    | CREATE_ SCHEMA_ (IF_ NOT_ EXISTS_)? qualifiedName (AUTHORIZATION_ principal)? (
+    | CREATE_ SCHEMA_ (IF_ NOT_ EXISTS_)? newSchemaIdentifier (AUTHORIZATION_ principal)? (
         WITH_ properties
     )?                                                                      # createSchema
     | DROP_ SCHEMA_ (IF_ EXISTS_)? schemaIdentifier (CASCADE_ | RESTRICT_)? # dropSchema
     | ALTER_ SCHEMA_ schemaIdentifier RENAME_ TO_ identifier                # renameSchema
     | ALTER_ SCHEMA_ schemaIdentifier SET_ AUTHORIZATION_ principal         # setSchemaAuthorization
-    | CREATE_ (OR_ REPLACE_)? TABLE_ (IF_ NOT_ EXISTS_)? qualifiedName columnAliases? (
+    | CREATE_ (OR_ REPLACE_)? TABLE_ (IF_ NOT_ EXISTS_)? newTableIdentifier columnAliases? (
         COMMENT_ string_
     )? (WITH_ properties)? AS_ (rootQuery | LPAREN_ rootQuery RPAREN_) (WITH_ (NO_)? DATA_)? # createTableAsSelect
-    | CREATE_ (OR_ REPLACE_)? TABLE_ (IF_ NOT_ EXISTS_)? qualifiedName LPAREN_ tableElement (
+    | CREATE_ (OR_ REPLACE_)? TABLE_ (IF_ NOT_ EXISTS_)? newTableIdentifier LPAREN_ tableElement (
         COMMA_ tableElement
     )* RPAREN_ (COMMENT_ string_)? (WITH_ properties)?                                                                     # createTable
     | DROP_ TABLE_ (IF_ EXISTS_)? tableIdentifier                                                                          # dropTable
@@ -54,10 +54,10 @@ statement
         LPAREN_ (callArgument (COMMA_ callArgument)*)? RPAREN_
     )? (WHERE_ where = booleanExpression)?         # tableExecute
     | ANALYZE_ tableIdentifier (WITH_ properties)? # analyze
-    | CREATE_ (OR_ REPLACE_)? MATERIALIZED_ VIEW_ (IF_ NOT_ EXISTS_)? qualifiedName (
+    | CREATE_ (OR_ REPLACE_)? MATERIALIZED_ VIEW_ (IF_ NOT_ EXISTS_)? newViewIdentifier (
         GRACE_ PERIOD_ interval
     )? (COMMENT_ string_)? (WITH_ properties)? AS_ rootQuery # createMaterializedView
-    | CREATE_ (OR_ REPLACE_)? VIEW_ qualifiedName (COMMENT_ string_)? (
+    | CREATE_ (OR_ REPLACE_)? VIEW_ newViewIdentifier (COMMENT_ string_)? (
         SECURITY_ (DEFINER_ | INVOKER_)
     )? AS_ rootQuery                                                                          # createView
     | REFRESH_ MATERIALIZED_ VIEW_ viewIdentifier                                             # refreshMaterializedView
@@ -861,16 +861,28 @@ catalogIdentifier
     : identifier
     ;
 
+newSchemaIdentifier
+    : identifier DOT_ identifier
+    ;
+
 schemaIdentifier
-    : identifier
+    : identifier DOT_ identifier
+    ;
+
+newTableIdentifier
+    : identifier DOT_ identifier DOT_ identifier
     ;
 
 tableIdentifier
-    : identifier
+    : identifier DOT_ identifier DOT_ identifier
+    ;
+
+newViewIdentifier
+    : identifier DOT_ identifier DOT_ identifier
     ;
 
 viewIdentifier
-    : identifier
+    : identifier DOT_ identifier DOT_ identifier
     ;
 
 roleIdentifier

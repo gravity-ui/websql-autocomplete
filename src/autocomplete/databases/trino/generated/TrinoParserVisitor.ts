@@ -331,8 +331,11 @@ import { QuotedIdentifierContext } from "./TrinoParser.js";
 import { BackQuotedIdentifierContext } from "./TrinoParser.js";
 import { DigitIdentifierContext } from "./TrinoParser.js";
 import { CatalogIdentifierContext } from "./TrinoParser.js";
+import { NewSchemaIdentifierContext } from "./TrinoParser.js";
 import { SchemaIdentifierContext } from "./TrinoParser.js";
+import { NewTableIdentifierContext } from "./TrinoParser.js";
 import { TableIdentifierContext } from "./TrinoParser.js";
+import { NewViewIdentifierContext } from "./TrinoParser.js";
 import { ViewIdentifierContext } from "./TrinoParser.js";
 import { RoleIdentifierContext } from "./TrinoParser.js";
 import { ConnectorIdentifierContext } from "./TrinoParser.js";
@@ -2499,17 +2502,35 @@ export class TrinoParserVisitor<Result> extends AbstractParseTreeVisitor<Result>
      */
     visitCatalogIdentifier?: (ctx: CatalogIdentifierContext) => Result;
     /**
+     * Visit a parse tree produced by `TrinoParser.newSchemaIdentifier`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitNewSchemaIdentifier?: (ctx: NewSchemaIdentifierContext) => Result;
+    /**
      * Visit a parse tree produced by `TrinoParser.schemaIdentifier`.
      * @param ctx the parse tree
      * @return the visitor result
      */
     visitSchemaIdentifier?: (ctx: SchemaIdentifierContext) => Result;
     /**
+     * Visit a parse tree produced by `TrinoParser.newTableIdentifier`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitNewTableIdentifier?: (ctx: NewTableIdentifierContext) => Result;
+    /**
      * Visit a parse tree produced by `TrinoParser.tableIdentifier`.
      * @param ctx the parse tree
      * @return the visitor result
      */
     visitTableIdentifier?: (ctx: TableIdentifierContext) => Result;
+    /**
+     * Visit a parse tree produced by `TrinoParser.newViewIdentifier`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitNewViewIdentifier?: (ctx: NewViewIdentifierContext) => Result;
     /**
      * Visit a parse tree produced by `TrinoParser.viewIdentifier`.
      * @param ctx the parse tree

@@ -10,7 +10,7 @@ test.skip('should suggest properly after COMMENT ON CONSTRAINT', () => {
 
 test('should not report errors on full statement', () => {
     const autocompleteResult = parseTrinoQueryWithoutCursor(
-        "COMMENT ON TABLE test_constraint IS 'test_comment';",
+        "COMMENT ON TABLE catalog.schema.test_constraint IS 'test_comment';",
     );
     expect(autocompleteResult.errors).toHaveLength(0);
 });
