@@ -74,7 +74,8 @@ test('should suggest properly after ORDER BY', () => {
     // expect(autocompleteResult.suggestColumnAliases).toEqual(columnAliasSuggestion);
 });
 
-test('should suggest properly after ORDER BY between statements', () => {
+// TODO-TRINO: support multi-queries
+test.skip('should suggest properly after ORDER BY between statements', () => {
     const autocompleteResult = parseTrinoQueryWithCursor(
         'ALTER TABLE catalog.schema.before_table DROP COLUMN id; ' +
             'SELECT count(*) as count, test_column t1 FROM catalog.schema.test_table as t ORDER BY | ; ' +
@@ -187,7 +188,8 @@ test('should suggest properly after ORDER BY in nested statement', () => {
     // expect(autocompleteResult.suggestColumnAliases).toEqual(columnAliasSuggestion);
 });
 
-test('should suggest properly after ORDER BY between statements in nested statement', () => {
+// TODO-TRINO: support multi-queries
+test.skip('should suggest properly after ORDER BY between statements in nested statement', () => {
     const autocompleteResult = parseTrinoQueryWithCursor(
         'ALTER TABLE catalog.schema.before_table DROP COLUMN id; ' +
             'SELECT id as id1 FROM (SELECT count(*) as count, test_column t1 FROM catalog.schema.test_table as t ORDER BY | ; ' +

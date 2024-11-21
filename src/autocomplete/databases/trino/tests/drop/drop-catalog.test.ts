@@ -11,6 +11,6 @@ test('should suggest properly after DROP', () => {
 });
 
 test('should not report errors on full statement', () => {
-    const autocompleteResult = parseTrinoQueryWithoutCursor('DROP CATALOG test_catalog;');
+    const autocompleteResult = parseTrinoQueryWithoutCursor('DROP CATALOG test_catalog');
     expect(autocompleteResult.errors).toHaveLength(0);
 });

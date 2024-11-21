@@ -88,7 +88,7 @@ test('should suggest properly after RETURNS and a type', () => {
 
 test('should not report errors', () => {
     const autocompleteResult = parseTrinoQueryWithoutCursor(
-        'CREATE FUNCTION example.default.meaning_of_life() RETURNS bigint BEGIN RETURN 42; END;',
+        'CREATE FUNCTION example.default.meaning_of_life() RETURNS bigint BEGIN RETURN 42; END',
     );
 
     expect(autocompleteResult.errors).toHaveLength(0);

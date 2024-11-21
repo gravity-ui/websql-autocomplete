@@ -7,13 +7,9 @@ options {
     tokenVocab = TrinoLexer;
 }
 
+// TODO-TRINO: support multi-queries
 parse
-    : statements? EOF
-    ;
-
-statements
-    : statement SEMICOLON_?
-    | statement SEMICOLON_ statements
+    : statement? EOF
     ;
 
 statement

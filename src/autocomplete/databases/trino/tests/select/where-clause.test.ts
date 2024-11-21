@@ -137,7 +137,7 @@ test('should suggest properly after WHERE', () => {
 
 test('should not report errors', () => {
     const autocompleteResult = parseTrinoQueryWithoutCursor(
-        'SELECT * FROM catalog.schema.test_table WHERE id = 1;',
+        'SELECT * FROM catalog.schema.test_table WHERE id = 1',
     );
 
     expect(autocompleteResult.errors).toHaveLength(0);

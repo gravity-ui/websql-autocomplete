@@ -13,7 +13,6 @@ import { AbstractParseTreeVisitor } from "antlr4ng";
 
 
 import { ParseContext } from "./TrinoParser.js";
-import { StatementsContext } from "./TrinoParser.js";
 import { StatementDefaultContext } from "./TrinoParser.js";
 import { UseContext } from "./TrinoParser.js";
 import { UseCatalogContext } from "./TrinoParser.js";
@@ -361,12 +360,6 @@ export class TrinoParserVisitor<Result> extends AbstractParseTreeVisitor<Result>
      * @return the visitor result
      */
     visitParse?: (ctx: ParseContext) => Result;
-    /**
-     * Visit a parse tree produced by `TrinoParser.statements`.
-     * @param ctx the parse tree
-     * @return the visitor result
-     */
-    visitStatements?: (ctx: StatementsContext) => Result;
     /**
      * Visit a parse tree produced by the `statementDefault`
      * labeled alternative in `TrinoParser.statement`.

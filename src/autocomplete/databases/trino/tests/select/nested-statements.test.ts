@@ -101,7 +101,7 @@ test('should suggest double nested SELECT', () => {
 
 test('should not report errors', () => {
     const autocompleteResult = parseTrinoQueryWithoutCursor(
-        'SELECT * FROM (SELECT * FROM catalog.schema.test_table) t1;',
+        'SELECT * FROM (SELECT * FROM catalog.schema.test_table) t1',
     );
 
     expect(autocompleteResult.errors).toHaveLength(0);
@@ -110,7 +110,7 @@ test('should not report errors', () => {
 // TODO PostgreSQL grammar doesn't throw error here but it should
 test.skip('should report errors on missing alias', () => {
     const autocompleteResult = parseTrinoQueryWithoutCursor(
-        'SELECT * FROM (SELECT * FROM catalog.schema.test_table);',
+        'SELECT * FROM (SELECT * FROM catalog.schema.test_table)',
     );
 
     expect(autocompleteResult.errors).toHaveLength(1);
