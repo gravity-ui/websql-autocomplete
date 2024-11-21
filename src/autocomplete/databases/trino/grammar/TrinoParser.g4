@@ -857,28 +857,28 @@ catalogIdentifier
     : identifier
     ;
 
+schemaIdentifier
+    : catalogIdentifier DOT_ identifier
+    ;
+
+tableIdentifier
+    : schemaIdentifier DOT_ identifier
+    ;
+
+viewIdentifier
+    : tableIdentifier
+    ;
+
 newSchemaIdentifier
     : identifier DOT_ identifier
     ;
 
-schemaIdentifier
-    : identifier DOT_ identifier
-    ;
-
 newTableIdentifier
-    : identifier DOT_ identifier DOT_ identifier
-    ;
-
-tableIdentifier
-    : identifier DOT_ identifier DOT_ identifier
+    : newSchemaIdentifier DOT_ identifier
     ;
 
 newViewIdentifier
-    : identifier DOT_ identifier DOT_ identifier
-    ;
-
-viewIdentifier
-    : identifier DOT_ identifier DOT_ identifier
+    : newTableIdentifier
     ;
 
 roleIdentifier
