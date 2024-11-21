@@ -12,3 +12,6 @@ dist-types
 .ds_store
 
 .antlr
+
+# Intellij IDES add weird token files that we don't use
+**/grammar/*.tokens
