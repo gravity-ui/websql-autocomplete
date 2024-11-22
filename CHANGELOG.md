@@ -1,5 +1,13 @@
 # Changelog
 
+## [12.4.0](https://github.com/gravity-ui/websql-autocomplete/compare/v12.3.0...v12.4.0) (2024-11-22)
+
+
+### Features
+
+* trino autocomplete ([#245](https://github.com/gravity-ui/websql-autocomplete/issues/245)) ([d37ba50](https://github.com/gravity-ui/websql-autocomplete/commit/d37ba50007c013e4215db7766df7c5566d0e88ed))
+* upgrade trino autocomplete ([#247](https://github.com/gravity-ui/websql-autocomplete/issues/247)) ([350c1d3](https://github.com/gravity-ui/websql-autocomplete/commit/350c1d3c5ef971424fd1d2723eb83d08d0e02a1e))
+
 ## [12.3.0](https://github.com/gravity-ui/websql-autocomplete/compare/v12.2.0...v12.3.0) (2024-11-14)
 
 
