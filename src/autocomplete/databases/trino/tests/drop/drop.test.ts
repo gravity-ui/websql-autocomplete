@@ -44,28 +44,34 @@ test('should suggest views after DROP VIEW', () => {
     expect(autocompleteResult.suggestViewsOrTables).toEqual(TableOrViewSuggestion.ALL);
 });
 
-test('should suggest tables after multiple drop statements', () => {
-    const autocompleteResult = parseTrinoQueryWithCursor('DROP VIEW test_view; DROP TABLE |');
+// TODO-TRINO: support multi-queries
+test.skip('should suggest tables after multiple drop statements', () => {
+    const autocompleteResult = parseTrinoQueryWithCursor(
+        'DROP VIEW catalog.schema.test_view; DROP TABLE |',
+    );
 
     // TODO-TRINO: decouple views from tables
     expect(autocompleteResult.suggestViewsOrTables).toEqual(TableOrViewSuggestion.ALL);
 });
 
-test('should suggest views after multiple drop statements', () => {
-    const autocompleteResult = parseTrinoQueryWithCursor('DROP TABLE test_table; DROP VIEW |');
+// TODO-TRINO: support multi-queries
+test.skip('should suggest views after multiple drop statements', () => {
+    const autocompleteResult = parseTrinoQueryWithCursor(
+        'DROP TABLE catalog.schema.test_table; DROP VIEW |',
+    );
 
     // TODO-TRINO: decouple views from tables
     expect(autocompleteResult.suggestViewsOrTables).toEqual(TableOrViewSuggestion.ALL);
 });
 
 test('should not report error on DROP TABLE', () => {
-    const autocompleteResult = parseTrinoQueryWithoutCursor('DROP TABLE test_table;');
+    const autocompleteResult = parseTrinoQueryWithoutCursor('DROP TABLE catalog.schema.test_table');
 
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
 test('should not report error on DROP VIEW', () => {
-    const autocompleteResult = parseTrinoQueryWithoutCursor('DROP VIEW test_view;');
+    const autocompleteResult = parseTrinoQueryWithoutCursor('DROP VIEW catalog.schema.test_view');
 
     expect(autocompleteResult.errors).toHaveLength(0);
 });

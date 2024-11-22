@@ -18,14 +18,16 @@ test('should suggest properly after FROM', () => {
 });
 
 test('should suggest properly after table name', () => {
-    const autocompleteResult = parseTrinoQueryWithCursor('DELETE FROM test_table |');
+    const autocompleteResult = parseTrinoQueryWithCursor('DELETE FROM catalog.schema.test_table |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [{value: 'WHERE'}];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
 test('should suggest properly after WHERE', () => {
-    const autocompleteResult = parseTrinoQueryWithCursor('DELETE FROM test_table WHERE |');
+    const autocompleteResult = parseTrinoQueryWithCursor(
+        'DELETE FROM catalog.schema.test_table WHERE |',
+    );
 
     const keywordsSuggestion: KeywordSuggestion[] = [
         {value: 'NULL'},
@@ -68,7 +70,9 @@ test('should suggest properly after WHERE', () => {
 });
 
 test('should suggest properly after WHERE with alias', () => {
-    const autocompleteResult = parseTrinoQueryWithCursor('DELETE FROM test_table t WHERE |');
+    const autocompleteResult = parseTrinoQueryWithCursor(
+        'DELETE FROM catalog.schema.test_table t WHERE |',
+    );
 
     const keywordsSuggestion: KeywordSuggestion[] = [];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);

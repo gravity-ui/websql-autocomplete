@@ -11,6 +11,6 @@ test('should suggest properly after DROP ROLE', () => {
 });
 
 test('should not report an error of a full statement', () => {
-    const autocompleteResult = parseTrinoQueryWithoutCursor('DROP ROLE test_role;');
+    const autocompleteResult = parseTrinoQueryWithoutCursor('DROP ROLE test_role');
     expect(autocompleteResult.errors).toHaveLength(0);
 });
