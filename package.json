@@ -37,6 +37,11 @@
       "require": "./dist/databases/redis/index.cjs",
       "import": "./dist/databases/redis/index.js"
     },
+    "./trino": {
+      "types": "./dist/types/databases/trino/index.d.ts",
+      "require": "./dist/databases/trino/index.cjs",
+      "import": "./dist/databases/trino/index.js"
+    },
     "./shared": {
       "types": "./dist/types/shared/index.d.ts",
       "require": "./dist/shared/autocomplete-types.cjs",
@@ -59,6 +64,9 @@
       ],
       "redis": [
         "./dist/types/databases/redis/index.d.ts"
+      ],
+      "trino": [
+        "./dist/types/databases/trino/index.d.ts"
       ],
       "shared": [
         "./dist/types/shared/index.d.ts"
