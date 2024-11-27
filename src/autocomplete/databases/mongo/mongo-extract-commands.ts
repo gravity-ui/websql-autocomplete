@@ -1,11 +1,10 @@
 import json5 from 'json5';
 import {
-    AddQueryModifierModifierContext,
     CollectionOperationContext,
-    CountModifierContext,
     FilterModifierContext,
     FindMethodContext,
     FindMethodModifierContext,
+    HintModifierContext,
     InsertOneMethodContext,
     LimitModifierContext,
     MaxModifierContext,
@@ -20,29 +19,20 @@ import {MongoParserVisitor} from './generated/MongoParserVisitor';
 import {createParser} from '../../shared';
 import {MongoLexer} from './generated/MongoLexer';
 
-export enum FindModifierMethod {
-    Skip = 'skip',
-    Count = 'count',
-    Filter = 'filter',
-    Min = 'min',
-    Max = 'max',
-    ReturnKey = 'returnKey',
-    ShowRecordId = 'showRecordId',
-    AddQueryModifier = 'addQueryModifier',
-    Sort = 'sort',
-    Limit = 'limit',
-}
-
 type FindModifier =
     | {
-          method: Exclude<
-              FindModifierMethod,
-              FindModifierMethod.Sort | FindModifierMethod.AddQueryModifier
-          >;
+          method:
+              | 'skip'
+              | 'filter'
+              | 'min'
+              | 'max'
+              | 'returnKey'
+              | 'showRecordId'
+              | 'limit'
+              | 'hint';
           parameters: unknown;
       }
-    | {method: FindModifierMethod.Sort; parameters?: unknown; options?: unknown}
-    | {method: FindModifierMethod.AddQueryModifier; name: unknown; value: unknown};
+    | {method: 'sort'; parameters?: unknown; options?: unknown};
 
 interface FindCommand {
     method: 'find';
@@ -103,7 +93,7 @@ class CustomVisitor extends MongoParserVisitor<unknown> {
 function parseFindMethodContext(
     context: FindMethodContext,
 ): Pick<FindCommand, 'parameters' | 'modifiers'> {
-    const parameters = formatJson5(context.parameters().getText());
+    const parameters = formatJson5(context.findMethodArgument().getText());
 
     const modifierContexts = context.findMethodModifier();
     const modifiers: FindModifier[] = modifierContexts.map(parseFindMethodModifierContext);
@@ -121,66 +111,49 @@ function parseFindMethodModifierContext(context: FindMethodModifierContext): Fin
     switch (true) {
         case childContext instanceof SkipModifierContext:
             return {
-                method: FindModifierMethod.Skip,
-                parameters: childContext.number().getText(),
+                method: 'skip',
+                parameters: formatJson5(childContext.skipModifierArgument().getText()),
             };
         case childContext instanceof LimitModifierContext:
             return {
-                method: FindModifierMethod.Limit,
-                parameters: childContext.number().getText(),
-            };
-        case childContext instanceof CountModifierContext:
-            // TODO: MONGO doublecheck
-            return {
-                method: FindModifierMethod.Count,
-                parameters: formatJson5(childContext.parameters().getText()),
+                method: 'limit',
+                parameters: formatJson5(childContext.limitModifierArgument().getText()),
             };
         case childContext instanceof FilterModifierContext:
-            // TODO: MONGO doublecheck
             return {
-                method: FindModifierMethod.Filter,
-                parameters: formatJson5(childContext.parameters().getText()),
+                method: 'filter',
+                parameters: formatJson5(childContext.filterModifierArgument().getText()),
             };
         case childContext instanceof MinModifierContext:
-            // TODO: MONGO doublecheck
             return {
-                method: FindModifierMethod.Min,
-                parameters: formatJson5(childContext.parameters().getText()),
+                method: 'min',
+                parameters: formatJson5(childContext.minModifierArgument().getText()),
             };
         case childContext instanceof MaxModifierContext:
-            // TODO: MONGO doublecheck
             return {
-                method: FindModifierMethod.Max,
-                parameters: formatJson5(childContext.parameters().getText()),
-            };
-        case childContext instanceof AddQueryModifierModifierContext:
-            // TODO: MONGO doublecheck
-            return {
-                method: FindModifierMethod.AddQueryModifier,
-                name: formatJson5(
-                    // eslint-disable-next-line new-cap
-                    childContext.STRING().getText(),
-                ),
-                value: formatJson5(childContext.parameters().getText()),
+                method: 'max',
+                parameters: formatJson5(childContext.maxModifierArgument().getText()),
             };
         case childContext instanceof ReturnKeyModifierContext:
-            // TODO: MONGO doublecheck
             return {
-                method: FindModifierMethod.ReturnKey,
-                parameters: formatJson5(childContext.boolean().getText()),
+                method: 'returnKey',
+                parameters: formatJson5(childContext.returnKeyModifierArgument().getText()),
             };
         case childContext instanceof ShowRecordIdModifierContext:
-            // TODO: MONGO doublecheck
             return {
-                method: FindModifierMethod.ShowRecordId,
-                parameters: formatJson5(childContext.boolean().getText()),
+                method: 'showRecordId',
+                parameters: formatJson5(childContext.showRecordIdModifierArgument().getText()),
             };
         case childContext instanceof SortModifierContext:
-            // TODO: MONGO doublecheck
             return {
-                method: FindModifierMethod.Sort,
-                parameters: formatJson5(childContext.parameters().getText()),
-                options: formatJson5(childContext.option()?.getText()),
+                method: 'sort',
+                parameters: formatJson5(childContext.sortModifierArgument1().getText()),
+                options: formatJson5(childContext.sortModifierArgument2()?.getText()),
+            };
+        case childContext instanceof HintModifierContext:
+            return {
+                method: 'hint',
+                parameters: formatJson5(childContext.hintModifierArgument().getText()),
             };
         default:
             throw new Error('Unhandled modifier context' + childContext?.getText());

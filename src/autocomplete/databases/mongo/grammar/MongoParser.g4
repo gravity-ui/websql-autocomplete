@@ -43,7 +43,11 @@ insertOneParam
 
 findMethod
     // TODO: MONGO SUPPORT MODIFICATION OPTIONS AFTER FIND PARAM
-    : FIND LPAREN parameters RPAREN findMethodModifier* explainMethod?
+    : FIND LPAREN findMethodArgument RPAREN findMethodModifier* explainMethod?
+    ;
+
+findMethodArgument
+    : json5
     ;
 
 explainMethod
@@ -53,64 +57,112 @@ explainMethod
 findMethodModifier
     : DOT skipModifier
     | DOT limitModifier
-    | DOT countModifier
     | DOT filterModifier
     | DOT minModifier
     | DOT maxModifier
-    | DOT addQueryModifierModifier
+    | DOT hintModifier
     | DOT returnKeyModifier
     | DOT showRecordIdModifier
     | DOT sortModifier
     ;
 
 skipModifier
-    : SKIP_ LPAREN number RPAREN
+    : SKIP_ LPAREN skipModifierArgument RPAREN
+    ;
+
+skipModifierArgument
+    : number
     ;
 
 limitModifier
-    : LIMIT LPAREN number RPAREN
+    : LIMIT LPAREN limitModifierArgument RPAREN
     ;
 
-countModifier
-    : COUNT LPAREN parameters RPAREN
+limitModifierArgument
+    : number
     ;
 
 filterModifier
-    : FILTER LPAREN parameters RPAREN
+    : FILTER LPAREN filterModifierArgument RPAREN
+    ;
+
+filterModifierArgument
+    : obj
     ;
 
 minModifier
-    : MIN LPAREN parameters RPAREN
+    : MIN LPAREN minModifierArgument RPAREN
+    ;
+
+minModifierArgument
+    : obj
     ;
 
 maxModifier
-    : MAX LPAREN parameters RPAREN
+    : MAX LPAREN maxModifierArgument RPAREN
     ;
 
-addQueryModifierModifier
-    : ADD_QUERY_MODIFIER LPAREN STRING COMMA parameters RPAREN
+maxModifierArgument
+    : obj
+    ;
+
+hintModifier
+    : HINT LPAREN hintModifierArgument RPAREN
+    ;
+
+hintModifierArgument
+    : obj
+    | STRING
     ;
 
 returnKeyModifier
-    : RETURN_KEY LPAREN boolean RPAREN
+    : RETURN_KEY LPAREN returnKeyModifierArgument RPAREN
+    ;
+
+returnKeyModifierArgument
+    : boolean
     ;
 
 showRecordIdModifier
-    : SHOW_RECORD_ID LPAREN boolean RPAREN
+    : SHOW_RECORD_ID LPAREN showRecordIdModifierArgument RPAREN
+    ;
+
+showRecordIdModifierArgument
+    : boolean
     ;
 
 sortModifier
-    : SORT LPAREN parameters (COMMA option)? RPAREN
+    : SORT LPAREN sortModifierArgument1 (COMMA sortModifierArgument2)? RPAREN
     ;
 
-parameters
+sortModifierArgument1
     : json5
     ;
 
-option
-    : json5
+sortModifierArgument2
+    : number
+    | STRING
+    | obj
     ;
 
+// TODO: MONGO doublecheck reserved keywords
+reservedKeywords
+    : SKIP_
+    | INSERT_ONE
+    | SHOW_RECORD_ID
+    | RETURN_KEY
+    | FILTER
+    | MIN
+    | MAX
+    | SORT
+    | LIMIT
+    | ADD_QUERY_MODIFIER
+    | EXPLAIN
+    | COUNT
+    | HINT
+    ;
+
+// JSON5 rules
 json5
     : value?
     ;
@@ -158,20 +210,4 @@ arr
 
 number
     : SYMBOL? (NUMERIC_LITERAL | NUMBER)
-    ;
-
-// TODO: MONGO implement reserved keywords
-reservedKeywords
-    : SKIP_
-    | INSERT_ONE
-    | SHOW_RECORD_ID
-    | RETURN_KEY
-    | FILTER
-    | MIN
-    | MAX
-    | SORT
-    | LIMIT
-    | ADD_QUERY_MODIFIER
-    | EXPLAIN
-    | COUNT
     ;

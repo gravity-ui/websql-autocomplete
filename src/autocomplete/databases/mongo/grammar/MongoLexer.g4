@@ -25,6 +25,7 @@ LIMIT              : 'limit';
 ADD_QUERY_MODIFIER : 'addQueryModifier';
 EXPLAIN            : 'explain';
 COUNT              : 'count';
+HINT               : 'hint';
 
 LBRACKET  : '[';
 RBRACKET  : ']';
