@@ -1,10 +1,10 @@
 import {extractCommandsFromMongoQuery} from '..';
 
-test('something', () => {
+test('should extract collection methods properly', () => {
     const result = extractCommandsFromMongoQuery(`
         db.test_collection1.find({
             test_field1: 'test_value1',
-            test_object2: {
+            test_object1: {
                 test_subfield1: 1,
             }
         }).skip(1).offset(2).skip(3).offset(4);
@@ -26,7 +26,7 @@ test('something', () => {
 
     expect(result).toEqual([
         {
-            type: 'find',
+            method: 'find',
             modifiers: [
                 {method: 'skip', parameters: '1'},
                 {method: 'offset', parameters: '2'},
@@ -34,18 +34,18 @@ test('something', () => {
                 {method: 'offset', parameters: '4'},
             ],
             collectionName: 'test_collection1',
-            parameters: "{test_field1:'test_value1',test_object2:{test_subfield1:1,}}",
+            parameters: {test_field1: 'test_value1', test_object1: {test_subfield1: 1}},
         },
         {
-            type: 'find',
+            method: 'find',
             modifiers: [],
             collectionName: 'test_collection2',
-            parameters: "{test_field2:'test_value2',test_object2:{test_subfield2:23,}}",
+            parameters: {test_field2: 'test_value2', test_object2: {test_subfield2: 23}},
         },
         {
-            type: 'insertOne',
+            method: 'insertOne',
             collectionName: 'test_collection3',
-            parameters: "{test_field3:'test_value3',test_object3:{test_subfield3:23,}}",
+            parameters: {test_field3: 'test_value3', test_object3: {test_subfield3: 23}},
         },
     ]);
 });

@@ -42,6 +42,11 @@
       "require": "./dist/databases/trino/index.cjs",
       "import": "./dist/databases/trino/index.js"
     },
+    "./mongo": {
+      "types": "./dist/types/databases/mongo/index.d.ts",
+      "require": "./dist/databases/mongo/index.cjs",
+      "import": "./dist/databases/mongo/index.js"
+    },
     "./shared": {
       "types": "./dist/types/shared/index.d.ts",
       "require": "./dist/shared/autocomplete-types.cjs",
@@ -130,6 +135,7 @@
   "dependencies": {
     "antlr4-c3": "^3.4.1",
     "antlr4ng": "^3.0.4",
+    "json5": "^2.2.3",
     "zod": "^3.23.8"
   },
   "nano-staged": {

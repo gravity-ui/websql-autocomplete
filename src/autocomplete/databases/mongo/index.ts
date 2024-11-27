@@ -15,11 +15,18 @@ import {
 import {createParser} from '../../shared';
 import {MongoLexer} from './generated/MongoLexer';
 import {MongoParserVisitor} from './generated/MongoParserVisitor';
+import json5 from 'json5';
+import {z} from 'zod';
 
 export interface MongoAutocompleteResult extends SqlAutocompleteResult {}
 
+enum FindModifierMethod {
+    Skip = 'skip',
+    Offset = 'offset',
+}
+
 type FindModifier = {
-    method: 'skip' | 'offset';
+    method: FindModifierMethod;
     parameters: unknown;
 };
 
@@ -51,14 +58,14 @@ class CustomVisitor extends MongoParserVisitor<unknown> {
         const methodContext = context.collectionMethod().getChild(0);
 
         if (methodContext instanceof FindMethodContext) {
-            // TODO: MONGO parse params with JSON5
-            const parameters = methodContext.findParam().getText();
+            const parameters = json5.parse<unknown>(methodContext.findParam().getText());
             const modifiers: FindModifier[] = methodContext
                 .findModifier()
                 .map((findModifierContext) => ({
-                    // TODO: MONGO fix assertion
-                    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-                    method: findModifierContext.getChild(1)!.getText() as FindModifier['method'],
+                    // TODO: MONGO handle errors
+                    method: z
+                        .nativeEnum(FindModifierMethod)
+                        .parse(findModifierContext.getChild(1)?.getText()),
                     parameters: findModifierContext.number().getText(),
                 }));
 
@@ -67,13 +74,13 @@ class CustomVisitor extends MongoParserVisitor<unknown> {
         }
 
         if (methodContext instanceof InsertOneMethodContext) {
-            // TODO: MONGO parse params with JSON5
-            const parameters = methodContext.insertOneParam().getText();
+            const parameters = json5.parse<unknown>(methodContext.insertOneParam().getText());
 
             this.onParseCommand({collectionName, method: 'insertOne', parameters});
             return;
         }
 
+        // TODO: MONGO handle errors
         throw new Error('Unhandled method context: ' + methodContext?.getText());
     };
 }
