@@ -26,7 +26,8 @@ test('should extract collection commands properly', () => {
             test_object2: {
                 test_subfield2: 23,
             }
-        });
+        })
+            .explain();
 
         db.test_collection3.insertOne({
             test_field3: 'test_value3',
@@ -34,6 +35,22 @@ test('should extract collection commands properly', () => {
                 test_subfield3: 23,
             }
         });
+        
+        db.test_collection4.find()
+            .explain({});
+        
+        db.test_collection5.find()
+            .explain('test_string');
+        
+        db.test_collection6.find()
+            .explain(true);
+        
+        db.test_collection7.find()
+            .explain({
+                test_explain_field: 1
+            });
+
+            
     `);
 
     expect(result).toEqual({
@@ -64,11 +81,46 @@ test('should extract collection commands properly', () => {
                 modifiers: [],
                 collectionName: 'test_collection2',
                 parameters: {test_field2: 'test_value2', test_object2: {test_subfield2: 23}},
+                explain: {},
             },
             {
                 method: 'insertOne',
                 collectionName: 'test_collection3',
                 parameters: {test_field3: 'test_value3', test_object3: {test_subfield3: 23}},
+            },
+            {
+                method: 'find',
+                modifiers: [],
+                collectionName: 'test_collection4',
+                explain: {
+                    parameters: {},
+                },
+            },
+            {
+                method: 'find',
+                modifiers: [],
+                collectionName: 'test_collection5',
+                explain: {
+                    parameters: 'test_string',
+                },
+            },
+            {
+                method: 'find',
+                modifiers: [],
+                collectionName: 'test_collection6',
+                explain: {
+                    parameters: true,
+                },
+            },
+            {
+                method: 'find',
+                modifiers: [],
+                collectionName: 'test_collection7',
+                explain: {
+                    parameters: {
+                        test_explain_field: 1,
+                    },
+                },
             },
         ],
     });

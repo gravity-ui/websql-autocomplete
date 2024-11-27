@@ -40,6 +40,9 @@ interface FindCommand {
     collectionName: string;
     parameters?: unknown;
     options?: unknown;
+    explain?: {
+        parameters?: unknown;
+    };
     modifiers: FindModifier[];
 }
 
@@ -63,6 +66,11 @@ export interface UnexpectedError {
     type: 'unexpected';
     message: unknown;
 }
+
+type ExtractMongoCommandsFromQueryResult =
+    | {commands: Command[]}
+    | {parseSyntaxErrors: ParserSyntaxError[]}
+    | {parseCommandsError: ExpectedError | UnexpectedError};
 
 function newExpectedError(message: string): ExpectedError {
     return {
@@ -137,15 +145,26 @@ class CommandsVisitor extends MongoParserVisitor<unknown> {
 
 function parseFindMethodContext(
     context: FindMethodContext,
-): Pick<FindCommand, 'parameters' | 'modifiers'> {
-    const parameters = formatJson5(context.findMethodArgument().getText());
+): Pick<FindCommand, 'parameters' | 'modifiers' | 'explain'> {
+    const findParameters = formatJson5(context.findMethodArgument().getText());
 
     const modifierContexts = context.findMethodModifier();
     const modifiers: FindModifier[] = modifierContexts.map(parseFindMethodModifierContext);
 
+    const explainMethodContext = context.explainMethod();
+
+    let explain: undefined | FindCommand['explain'];
+    if (explainMethodContext) {
+        const explainParameters = formatJson5(
+            explainMethodContext.explainMethodArgument()?.getText(),
+        );
+        explain = explainParameters ? {parameters: explainParameters} : {};
+    }
+
     return {
-        parameters,
+        parameters: findParameters,
         modifiers,
+        explain,
     };
 }
 
@@ -206,15 +225,10 @@ function parseFindMethodModifierContext(context: FindMethodModifierContext): Fin
 }
 
 function formatJson5(string: string | undefined): undefined | unknown {
-    return string ? json5.parse(string) : undefined;
+    return string ? json5.parse<unknown>(string) : undefined;
 }
 
-export function extractMongoCommandsFromQuery(
-    query: string,
-):
-    | {commands: Command[]}
-    | {parseSyntaxErrors: ParserSyntaxError[]}
-    | {parseCommandsError: ExpectedError | UnexpectedError} {
+export function extractMongoCommandsFromQuery(query: string): ExtractMongoCommandsFromQueryResult {
     const parser = createParser(MongoLexer, MongoParser, query);
 
     const commands: Command[] = [];

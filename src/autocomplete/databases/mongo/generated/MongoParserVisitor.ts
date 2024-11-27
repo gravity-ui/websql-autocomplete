@@ -23,6 +23,7 @@ import { InsertOneParamContext } from "./MongoParser.js";
 import { FindMethodContext } from "./MongoParser.js";
 import { FindMethodArgumentContext } from "./MongoParser.js";
 import { ExplainMethodContext } from "./MongoParser.js";
+import { ExplainMethodArgumentContext } from "./MongoParser.js";
 import { FindMethodModifierContext } from "./MongoParser.js";
 import { SkipModifierContext } from "./MongoParser.js";
 import { SkipModifierArgumentContext } from "./MongoParser.js";
@@ -129,6 +130,12 @@ export class MongoParserVisitor<Result> extends AbstractParseTreeVisitor<Result>
      * @return the visitor result
      */
     visitExplainMethod?: (ctx: ExplainMethodContext) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.explainMethodArgument`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitExplainMethodArgument?: (ctx: ExplainMethodArgumentContext) => Result;
     /**
      * Visit a parse tree produced by `MongoParser.findMethodModifier`.
      * @param ctx the parse tree

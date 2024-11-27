@@ -51,7 +51,13 @@ findMethodArgument
     ;
 
 explainMethod
-    : DOT EXPLAIN LPAREN json5 RPAREN
+    : DOT EXPLAIN LPAREN explainMethodArgument? RPAREN
+    ;
+
+explainMethodArgument
+    : STRING
+    | boolean
+    | obj
     ;
 
 findMethodModifier
