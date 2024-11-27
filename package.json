@@ -94,6 +94,7 @@
     "generate:yql": "rimraf src/autocomplete/databases/yql/generated && antlr4ng -Dlanguage=TypeScript -o src/autocomplete/databases/yql/generated/ -visitor -no-listener -Xexact-output-dir src/autocomplete/databases/yql/grammar/YQL.g4 && bash scripts/patch-generated.sh yql",
     "generate:redis": "rimraf src/autocomplete/databases/redis/generated && antlr4ng -Dlanguage=TypeScript -o src/autocomplete/databases/redis/generated/ -visitor -no-listener -Xexact-output-dir src/autocomplete/databases/redis/grammar/RedisLexer.g4 src/autocomplete/databases/redis/grammar/RedisParser.g4 && bash scripts/patch-generated.sh redis",
     "generate:trino": "rimraf src/autocomplete/databases/trino/generated && antlr4ng -Dlanguage=TypeScript -o src/autocomplete/databases/trino/generated/ -visitor -no-listener -Xexact-output-dir src/autocomplete/databases/trino/grammar/TrinoLexer.g4 src/autocomplete/databases/trino/grammar/TrinoParser.g4 && bash scripts/patch-generated.sh trino",
+    "generate:mongo": "rimraf src/autocomplete/databases/mongo/generated && antlr4ng -Dlanguage=TypeScript -o src/autocomplete/databases/mongo/generated/ -visitor -no-listener -Xexact-output-dir src/autocomplete/databases/mongo/grammar/MongoLexer.g4 src/autocomplete/databases/mongo/grammar/MongoParser.g4 && bash scripts/patch-generated.sh mongo",
     "test": "node --experimental-vm-modules ./node_modules/.bin/jest --verbose src --testPathIgnorePatterns tests/generated/.+",
     "test:mysql": "node --experimental-vm-modules ./node_modules/.bin/jest --verbose src --testPathIgnorePatterns tests/generated/.+ --rootDir src/autocomplete/databases/mysql/tests",
     "test:postgresql": "node --experimental-vm-modules ./node_modules/.bin/jest --verbose src --testPathIgnorePatterns tests/generated/.+ --rootDir src/autocomplete/databases/postgresql/tests",
@@ -101,6 +102,7 @@
     "test:yql": "node --experimental-vm-modules ./node_modules/.bin/jest --verbose src --testPathIgnorePatterns tests/generated/.+ --rootDir src/autocomplete/databases/yql/tests",
     "test:redis": "node --experimental-vm-modules ./node_modules/.bin/jest --verbose src --testPathIgnorePatterns tests/generated/.+ --rootDir src/autocomplete/databases/redis/tests",
     "test:trino": "node --experimental-vm-modules ./node_modules/.bin/jest --verbose src --testPathIgnorePatterns tests/generated/.+ --rootDir src/autocomplete/databases/trino/tests",
+    "test:mongo": "node --experimental-vm-modules ./node_modules/.bin/jest --verbose src --testPathIgnorePatterns tests/generated/.+ --rootDir src/autocomplete/databases/mongo/tests",
     "build": "rimraf dist && node build.js && tsc -p tsconfig.build.json --declarationDir dist/types",
     "prepublishOnly": "npm run build"
   },
@@ -127,7 +129,8 @@
   },
   "dependencies": {
     "antlr4-c3": "^3.4.1",
-    "antlr4ng": "^3.0.4"
+    "antlr4ng": "^3.0.4",
+    "zod": "^3.23.8"
   },
   "nano-staged": {
     "*.{md,yaml,yml,json}": [
