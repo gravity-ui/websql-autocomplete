@@ -52,42 +52,86 @@ type Command =
       };
 
 type OnParseCommand = (command: Command) => void;
-type OnParseError = (error: unknown) => void;
+type OnParseCommandError = (error: ExpectedError | UnexpectedError) => void;
+
+export interface ExpectedError {
+    type: 'expected';
+    message: string;
+}
+
+export interface UnexpectedError {
+    type: 'unexpected';
+    message: unknown;
+}
+
+function newExpectedError(message: string): ExpectedError {
+    return {
+        type: 'expected',
+        message,
+    };
+}
+
+function newUnexpectedError(message: unknown): UnexpectedError {
+    return {
+        type: 'unexpected',
+        message,
+    };
+}
 
 class CommandsVisitor extends MongoParserVisitor<unknown> {
     onParseCommand: OnParseCommand;
-    onParseError: OnParseError;
+    onParseCommandError: OnParseCommandError;
 
-    constructor(onParseCommand: OnParseCommand, onParseError: OnParseError) {
+    constructor(onParseCommand: OnParseCommand, onParseCommandError: OnParseCommandError) {
         super();
         this.onParseCommand = onParseCommand;
-        this.onParseError = onParseError;
+        this.onParseCommandError = onParseCommandError;
     }
 
     visitCollectionOperation = (context: CollectionOperationContext): void => {
         const collectionName = context.collectionName().getText();
         const methodContext = context.collectionMethod().getChild(0);
 
-        if (methodContext instanceof FindMethodContext) {
-            const command = parseFindMethodContext(methodContext);
+        try {
+            if (methodContext instanceof FindMethodContext) {
+                const command = parseFindMethodContext(methodContext);
 
-            this.onParseCommand({
-                ...command,
-                collectionName,
-                method: 'find',
-            });
+                this.onParseCommand({
+                    ...command,
+                    collectionName,
+                    method: 'find',
+                });
+                return;
+            }
+
+            if (methodContext instanceof InsertOneMethodContext) {
+                const parameters = formatJson5(methodContext.insertOneParam().getText());
+
+                this.onParseCommand({collectionName, method: 'insertOne', parameters});
+                return;
+            }
+        } catch (error) {
+            if (
+                error &&
+                typeof error === 'object' &&
+                'type' in error &&
+                error.type === 'expected' &&
+                'message' in error &&
+                typeof error.type === 'string' &&
+                typeof error.message === 'string'
+            ) {
+                const {message} = error;
+                this.onParseCommandError(newExpectedError(message));
+                return;
+            }
+
+            this.onParseCommandError(newUnexpectedError(error));
             return;
         }
 
-        if (methodContext instanceof InsertOneMethodContext) {
-            const parameters = formatJson5(methodContext.insertOneParam().getText());
-
-            this.onParseCommand({collectionName, method: 'insertOne', parameters});
-            return;
-        }
-
-        // TODO: MONGO handle errors
-        throw new Error('Unhandled method context: ' + methodContext?.getText());
+        this.onParseCommandError(
+            newExpectedError('Method is not implemented: ' + methodContext?.getText()),
+        );
     };
 }
 
@@ -157,7 +201,7 @@ function parseFindMethodModifierContext(context: FindMethodModifierContext): Fin
                 parameters: formatJson5(childContext.hintModifierArgument().getText()),
             };
         default:
-            throw new Error('Unhandled modifier context' + childContext?.getText());
+            throw newExpectedError('Modifier is not implemented: ' + childContext?.getText());
     }
 }
 
@@ -167,7 +211,10 @@ function formatJson5(string: string | undefined): undefined | unknown {
 
 export function extractMongoCommandsFromQuery(
     query: string,
-): {commands: Command[]} | {errors: ParserSyntaxError[]} {
+):
+    | {commands: Command[]}
+    | {parseSyntaxErrors: ParserSyntaxError[]}
+    | {parseCommandsError: ExpectedError | UnexpectedError} {
     const parser = createParser(MongoLexer, MongoParser, query);
 
     const commands: Command[] = [];
@@ -175,20 +222,26 @@ export function extractMongoCommandsFromQuery(
         commands.push(command);
     };
 
-    const onParseError: OnParseError = (error) => {
-        // TODO: MONGO implement
-        console.log(error);
+    let parseCommandsError: ExpectedError | UnexpectedError | undefined;
+    const onParseCommandsError: OnParseCommandError = (error) => {
+        parseCommandsError = error;
     };
 
-    const errorListener = new SqlErrorListener(MongoParser.WS);
-    parser.addErrorListener(errorListener);
+    const syntaxErrorListener = new SqlErrorListener(MongoParser.WS);
+    parser.addErrorListener(syntaxErrorListener);
 
-    const visitor = new CommandsVisitor(onParseCommand, onParseError);
+    const visitor = new CommandsVisitor(onParseCommand, onParseCommandsError);
     getParseTree(parser).accept(visitor);
 
-    if (errorListener.errors.length) {
+    if (syntaxErrorListener.errors.length) {
         return {
-            errors: errorListener.errors,
+            parseSyntaxErrors: syntaxErrorListener.errors,
+        };
+    }
+
+    if (parseCommandsError) {
+        return {
+            parseCommandsError,
         };
     }
 

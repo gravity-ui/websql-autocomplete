@@ -74,17 +74,17 @@ test('should extract collection commands properly', () => {
     });
 });
 
-test('should throw error on invalid statement', () => {
+test('should throw error on invalid syntax', () => {
     const result = extractMongoCommandsFromQuery('db_ERROR.test_collection1.find({})');
 
     expect(result).toEqual({
-        errors: [
+        parseSyntaxErrors: [
             {
-                endColumn: 16,
-                endLine: 2,
+                endColumn: 8,
+                endLine: 1,
                 message: "mismatched input 'db_ERROR' expecting 'db'",
-                startColumn: 8,
-                startLine: 2,
+                startColumn: 0,
+                startLine: 1,
             },
         ],
     });

@@ -4,7 +4,11 @@ import {separateQueryAndCursor} from '../../shared/parse-query-with-cursor';
 import {mongoAutocompleteData} from './mongo-autocomplete';
 import {MongoParser} from './generated/MongoParser';
 
-export {extractMongoCommandsFromQuery} from './mongo-extract-commands';
+export {
+    extractMongoCommandsFromQuery,
+    ExpectedError as ExpectedParseCommandError,
+    UnexpectedError as UnexpectedParseCommandError,
+} from './mongo-extract-commands';
 
 export interface MongoAutocompleteResult extends SqlAutocompleteResult {}
 
