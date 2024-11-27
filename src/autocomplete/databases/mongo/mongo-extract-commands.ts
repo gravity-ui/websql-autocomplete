@@ -16,8 +16,9 @@ import {
     SortModifierContext,
 } from './generated/MongoParser';
 import {MongoParserVisitor} from './generated/MongoParserVisitor';
-import {createParser} from '../../shared';
+import {ParserSyntaxError, SqlErrorListener, createParser} from '../../shared';
 import {MongoLexer} from './generated/MongoLexer';
+import {getParseTree} from './mongo-autocomplete';
 
 type FindModifier =
     | {
@@ -53,7 +54,7 @@ type Command =
 type OnParseCommand = (command: Command) => void;
 type OnParseError = (error: unknown) => void;
 
-class CustomVisitor extends MongoParserVisitor<unknown> {
+class CommandsVisitor extends MongoParserVisitor<unknown> {
     onParseCommand: OnParseCommand;
     onParseError: OnParseError;
 
@@ -164,7 +165,9 @@ function formatJson5(string: string | undefined): undefined | unknown {
     return string ? json5.parse(string) : undefined;
 }
 
-export function extractMongoCommandsFromQuery(query: string): Command[] {
+export function extractMongoCommandsFromQuery(
+    query: string,
+): {commands: Command[]} | {errors: ParserSyntaxError[]} {
     const parser = createParser(MongoLexer, MongoParser, query);
 
     const commands: Command[] = [];
@@ -173,12 +176,21 @@ export function extractMongoCommandsFromQuery(query: string): Command[] {
     };
 
     const onParseError: OnParseError = (error) => {
-        // TODO: implement
+        // TODO: MONGO implement
         console.log(error);
     };
 
-    const visitor = new CustomVisitor(onParseCommand, onParseError);
-    parser.root().accept(visitor);
+    const errorListener = new SqlErrorListener(MongoParser.WS);
+    parser.addErrorListener(errorListener);
 
-    return commands;
+    const visitor = new CommandsVisitor(onParseCommand, onParseError);
+    getParseTree(parser).accept(visitor);
+
+    if (errorListener.errors.length) {
+        return {
+            errors: errorListener.errors,
+        };
+    }
+
+    return {commands};
 }

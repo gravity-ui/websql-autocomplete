@@ -7,7 +7,7 @@ import {
     CursorPosition,
     ProcessVisitedRulesResult,
 } from '../../shared/autocomplete-types.js';
-import {TableQueryPosition, TokenDictionary} from '../../shared/index.js';
+import {TokenDictionary} from '../../shared/index.js';
 import {MongoAutocompleteResult} from './index.js';
 import {MongoParser} from './generated/MongoParser.js';
 import {MongoLexer} from './generated/MongoLexer.js';
@@ -35,11 +35,7 @@ function processVisitedRules(
     return {};
 }
 
-function getParseTree(
-    parser: MongoParser,
-    // TODO: MONGO fix
-    _type?: TableQueryPosition['type'] | 'select',
-): ParseTree {
+export function getParseTree(parser: MongoParser): ParseTree {
     return parser.root();
 }
 
