@@ -2,37 +2,57 @@ import {ParseTree, TokenStream} from 'antlr4ng';
 import * as c3 from 'antlr4-c3';
 
 import {
-    AutocompleteData,
     AutocompleteResultBase,
-    CursorPosition,
     ProcessVisitedRulesResult,
 } from '../../shared/autocomplete-types.js';
-import {TokenDictionary} from '../../shared/index.js';
 import {MongoAutocompleteResult} from './index.js';
 import {MongoParser} from './generated/MongoParser.js';
 import {MongoLexer} from './generated/MongoLexer.js';
+import {isStartingToWriteRule} from '../../shared/cursor.js';
 
-const tokenDictionary: Pick<TokenDictionary, 'SPACE'> = {
+const tokenDictionary = {
     SPACE: MongoParser.WS,
 };
 
 // These are keywords that we do not want to show in autocomplete
 function getIgnoredTokens(): number[] {
-    // TODO: MONGO implement
-    return [];
+    const tokens = [];
+
+    const firstOperatorIndex = MongoParser.LBRACKET;
+    const lastOperatorIndex = MongoParser.WS;
+    for (let i = firstOperatorIndex; i <= lastOperatorIndex; i++) {
+        tokens.push(i);
+    }
+
+    tokens.push(MongoParser.EOF);
+
+    return tokens;
 }
 
 const ignoredTokens = new Set(getIgnoredTokens());
 
-const rulesToVisit = new Set([]);
+const rulesToVisit = new Set([MongoParser.RULE_collectionName]);
 
 function processVisitedRules(
-    _rules: c3.CandidatesCollection['rules'],
-    _cursorTokenIndex: number,
-    _tokenStream: TokenStream,
+    rules: c3.CandidatesCollection['rules'],
+    cursorTokenIndex: number,
 ): ProcessVisitedRulesResult<MongoAutocompleteResult> {
-    // TODO: MONGO implement
-    return {};
+    let suggestCollections;
+
+    for (const [ruleId, rule] of rules) {
+        if (!isStartingToWriteRule(cursorTokenIndex, rule)) {
+            continue;
+        }
+
+        switch (ruleId) {
+            case MongoParser.RULE_collectionName: {
+                suggestCollections = true;
+                break;
+            }
+        }
+    }
+
+    return {suggestCollections};
 }
 
 export function getParseTree(parser: MongoParser): ParseTree {
@@ -42,28 +62,19 @@ export function getParseTree(parser: MongoParser): ParseTree {
 function enrichAutocompleteResult(
     baseResult: AutocompleteResultBase,
     rules: c3.CandidatesCollection['rules'],
-    tokenStream: TokenStream,
+    _tokenStream: TokenStream,
     cursorTokenIndex: number,
-    _cursor: CursorPosition,
-    _query: string,
 ): MongoAutocompleteResult {
-    // TODO: MONGO implement
-    const suggestionsFromRules = processVisitedRules(rules, cursorTokenIndex, tokenStream);
+    const suggestionsFromRules = processVisitedRules(rules, cursorTokenIndex);
     return {
         ...baseResult,
         ...suggestionsFromRules,
     };
 }
 
-export const mongoAutocompleteData: AutocompleteData<
-    MongoAutocompleteResult,
-    MongoLexer,
-    MongoParser
-> = {
+export const mongoAutocompleteData = {
     Lexer: MongoLexer,
     Parser: MongoParser,
-    // TODO: MONGO fix
-    // @ts-ignore
     tokenDictionary,
     ignoredTokens,
     rulesToVisit,

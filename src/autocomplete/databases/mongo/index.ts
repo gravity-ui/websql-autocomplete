@@ -10,7 +10,9 @@ export {
     UnexpectedError as UnexpectedParseCommandError,
 } from './mongo-extract-commands';
 
-export interface MongoAutocompleteResult extends SqlAutocompleteResult {}
+export interface MongoAutocompleteResult extends SqlAutocompleteResult {
+    suggestCollections?: boolean;
+}
 
 export function parseMongoQueryWithoutCursor(
     query: string,

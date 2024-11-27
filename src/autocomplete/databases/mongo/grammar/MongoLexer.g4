@@ -11,8 +11,7 @@ options {
 DB   : 'db';
 FIND : 'find';
 DOT  : '.';
-
-// TODO: MONGO get rid of this postfix?
+// skip is reserved keyword by antlr, that's why we need this postfix
 SKIP_              : 'skip';
 INSERT_ONE         : 'insertOne';
 SHOW_RECORD_ID     : 'showRecordId';
