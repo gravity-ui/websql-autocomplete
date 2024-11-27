@@ -1,7 +1,7 @@
-import {extractCommandsFromMongoQuery} from '..';
+import {extractMongoCommandsFromQuery} from '..';
 
 test('should extract collection methods properly', () => {
-    const result = extractCommandsFromMongoQuery(`
+    const result = extractMongoCommandsFromQuery(`
         db.test_collection1.find({
             test_field1: 'test_value1',
             test_object1: {

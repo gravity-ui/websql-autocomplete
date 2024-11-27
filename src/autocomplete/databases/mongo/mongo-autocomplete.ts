@@ -19,20 +19,6 @@ const tokenDictionary: Pick<TokenDictionary, 'SPACE'> = {
 // These are keywords that we do not want to show in autocomplete
 function getIgnoredTokens(): number[] {
     // TODO: MONGO implement
-    // const tokens = [];
-
-    // const firstOperatorIndex = TrinoParser.EQ_;
-    // const lastOperatorIndex = TrinoParser.UNRECOGNIZED_;
-    // for (let i = firstOperatorIndex; i <= lastOperatorIndex; i++) {
-    //     // We actually want Star to appear in autocomplete
-    //     if (i !== TrinoParser.ASTERISK_) {
-    //         tokens.push(i);
-    //     }
-    // }
-
-    // tokens.push(TrinoParser.EOF);
-
-    // return tokens;
     return [];
 }
 
