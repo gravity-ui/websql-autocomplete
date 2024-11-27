@@ -15,25 +15,37 @@ test('something', () => {
                 test_subfield2: 23,
             }
         });
+
+        db.test_collection3.insertOne({
+            test_field3: 'test_value3',
+            test_object3: {
+                test_subfield3: 23,
+            }
+        });
     `);
 
     expect(result).toEqual([
         {
-            method: 'find',
+            type: 'find',
             modifiers: [
-                {method: 'skip', params: '1'},
-                {method: 'offset', params: '2'},
-                {method: 'skip', params: '3'},
-                {method: 'offset', params: '4'},
+                {method: 'skip', parameters: '1'},
+                {method: 'offset', parameters: '2'},
+                {method: 'skip', parameters: '3'},
+                {method: 'offset', parameters: '4'},
             ],
-            name: 'test_collection1',
-            params: "{test_field1:'test_value1',test_object2:{test_subfield1:1,}}",
+            collectionName: 'test_collection1',
+            parameters: "{test_field1:'test_value1',test_object2:{test_subfield1:1,}}",
         },
         {
-            method: 'find',
+            type: 'find',
             modifiers: [],
-            name: 'test_collection2',
-            params: "{test_field2:'test_value2',test_object2:{test_subfield2:23,}}",
+            collectionName: 'test_collection2',
+            parameters: "{test_field2:'test_value2',test_object2:{test_subfield2:23,}}",
+        },
+        {
+            type: 'insertOne',
+            collectionName: 'test_collection3',
+            parameters: "{test_field3:'test_value3',test_object3:{test_subfield3:23,}}",
         },
     ]);
 });

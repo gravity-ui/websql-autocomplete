@@ -29,6 +29,19 @@ collectionName
     ;
 
 collectionMethod
+    : findMethod
+    | insertOneMethod
+    ;
+
+insertOneMethod
+    : INSERTONE LPAREN insertOneParam RPAREN
+    ;
+
+insertOneParam
+    : json5
+    ;
+
+findMethod
     : FIND LPAREN findParam RPAREN findModifier*
     ;
 
@@ -85,3 +98,5 @@ arr
 number
     : SYMBOL? (NUMERIC_LITERAL | NUMBER)
     ;
+
+// TODO: MONGO implement reserved keywords

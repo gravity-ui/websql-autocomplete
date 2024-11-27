@@ -8,9 +8,10 @@ options {
     caseInsensitive = false;
 }
 
-DB   : 'db';
-FIND : 'find';
-DOT  : '.';
+DB        : 'db';
+FIND      : 'find';
+DOT       : '.';
+INSERTONE : 'insertOne';
 
 SKIP_  : 'skip';
 OFFSET : 'offset';

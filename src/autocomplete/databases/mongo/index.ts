@@ -6,57 +6,83 @@ import {
     extractStatementPositionsFromQuery,
 } from '../../shared/extract-statement-positions-from-query';
 import {mongoAutocompleteData} from './mongo-autocomplete';
-import {CollectionOperationContext, MongoParser} from './generated/MongoParser';
+import {
+    CollectionOperationContext,
+    FindMethodContext,
+    InsertOneMethodContext,
+    MongoParser,
+} from './generated/MongoParser';
 import {createParser} from '../../shared';
 import {MongoLexer} from './generated/MongoLexer';
 import {MongoParserVisitor} from './generated/MongoParserVisitor';
-import {z} from 'zod';
 
 export interface MongoAutocompleteResult extends SqlAutocompleteResult {}
 
-type ParseResult = unknown;
-type OnParseStatementCallback = (parseResult: ParseResult) => void;
+type FindModifier = {
+    method: 'skip' | 'offset';
+    parameters: unknown;
+};
 
-enum CollectionMethod {
-    Find = 'find',
-}
+type Command =
+    | {
+          method: 'find';
+          collectionName: string;
+          parameters: unknown;
+          modifiers: FindModifier[];
+      }
+    | {
+          method: 'insertOne';
+          collectionName: string;
+          parameters: unknown;
+      };
+
+type OnParseCommand = (command: Command) => void;
 
 class CustomVisitor extends MongoParserVisitor<unknown> {
-    onParseStatement: OnParseStatementCallback;
+    onParseCommand: OnParseCommand;
 
-    constructor(onParseStatement: OnParseStatementCallback) {
+    constructor(onParseCommand: OnParseCommand) {
         super();
-        this.onParseStatement = onParseStatement;
+        this.onParseCommand = onParseCommand;
     }
 
     visitCollectionOperation = (context: CollectionOperationContext): void => {
-        const name = context.collectionName().getText();
-        const rawMethod = context.collectionMethod().getChild(0)?.getText();
-        const method = z.nativeEnum(CollectionMethod).parse(rawMethod);
+        const collectionName = context.collectionName().getText();
+        const methodContext = context.collectionMethod().getChild(0);
 
-        switch (method) {
-            case CollectionMethod.Find: {
-                // TODO: MONGO parse params with JSON5
-                const params = context.collectionMethod().findParam().getText();
-                const modifiers = context
-                    .collectionMethod()
-                    .findModifier()
-                    .map((findModifierContext) => ({
-                        method: findModifierContext.getChild(1)?.getText(),
-                        params: findModifierContext.number().getText(),
-                    }));
+        if (methodContext instanceof FindMethodContext) {
+            // TODO: MONGO parse params with JSON5
+            const parameters = methodContext.findParam().getText();
+            const modifiers: FindModifier[] = methodContext
+                .findModifier()
+                .map((findModifierContext) => ({
+                    // TODO: MONGO fix assertion
+                    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+                    method: findModifierContext.getChild(1)!.getText() as FindModifier['method'],
+                    parameters: findModifierContext.number().getText(),
+                }));
 
-                this.onParseStatement({name, method, params, modifiers});
-            }
+            this.onParseCommand({collectionName, method: 'find', parameters, modifiers});
+            return;
         }
+
+        if (methodContext instanceof InsertOneMethodContext) {
+            // TODO: MONGO parse params with JSON5
+            const parameters = methodContext.insertOneParam().getText();
+
+            this.onParseCommand({collectionName, method: 'insertOne', parameters});
+            return;
+        }
+
+        throw new Error('Unhandled method context: ' + methodContext?.getText());
     };
 }
 
-export function extractCommandsFromMongoQuery(query: string): ParseResult[] {
+export function extractCommandsFromMongoQuery(query: string): Command[] {
     const parser = createParser(MongoLexer, MongoParser, query);
 
-    const parseResults: ParseResult[] = [];
-    const onParseStatement: OnParseStatementCallback = (parseResult) => {
+    const parseResults: Command[] = [];
+    const onParseStatement: OnParseCommand = (parseResult) => {
         parseResults.push(parseResult);
     };
 
