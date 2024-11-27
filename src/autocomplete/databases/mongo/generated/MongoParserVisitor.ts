@@ -21,17 +21,30 @@ import { CollectionMethodContext } from "./MongoParser.js";
 import { InsertOneMethodContext } from "./MongoParser.js";
 import { InsertOneParamContext } from "./MongoParser.js";
 import { FindMethodContext } from "./MongoParser.js";
-import { FindModifierContext } from "./MongoParser.js";
-import { SkipContext } from "./MongoParser.js";
-import { OffsetContext } from "./MongoParser.js";
-import { FindParamContext } from "./MongoParser.js";
+import { ExplainMethodContext } from "./MongoParser.js";
+import { FindMethodModifierContext } from "./MongoParser.js";
+import { SkipModifierContext } from "./MongoParser.js";
+import { LimitModifierContext } from "./MongoParser.js";
+import { CountModifierContext } from "./MongoParser.js";
+import { FilterModifierContext } from "./MongoParser.js";
+import { MinModifierContext } from "./MongoParser.js";
+import { MaxModifierContext } from "./MongoParser.js";
+import { AddQueryModifierModifierContext } from "./MongoParser.js";
+import { ReturnKeyModifierContext } from "./MongoParser.js";
+import { ShowRecordIdModifierContext } from "./MongoParser.js";
+import { SortModifierContext } from "./MongoParser.js";
+import { ParametersContext } from "./MongoParser.js";
+import { OptionContext } from "./MongoParser.js";
 import { Json5Context } from "./MongoParser.js";
 import { ObjContext } from "./MongoParser.js";
 import { PairContext } from "./MongoParser.js";
+import { BooleanContext } from "./MongoParser.js";
 import { KeyContext } from "./MongoParser.js";
+import { IdentifierContext } from "./MongoParser.js";
 import { ValueContext } from "./MongoParser.js";
 import { ArrContext } from "./MongoParser.js";
 import { NumberContext } from "./MongoParser.js";
+import { ReservedKeywordsContext } from "./MongoParser.js";
 
 
 /**
@@ -97,29 +110,89 @@ export class MongoParserVisitor<Result> extends AbstractParseTreeVisitor<Result>
      */
     visitFindMethod?: (ctx: FindMethodContext) => Result;
     /**
-     * Visit a parse tree produced by `MongoParser.findModifier`.
+     * Visit a parse tree produced by `MongoParser.explainMethod`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitFindModifier?: (ctx: FindModifierContext) => Result;
+    visitExplainMethod?: (ctx: ExplainMethodContext) => Result;
     /**
-     * Visit a parse tree produced by `MongoParser.skip`.
+     * Visit a parse tree produced by `MongoParser.findMethodModifier`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitSkip?: (ctx: SkipContext) => Result;
+    visitFindMethodModifier?: (ctx: FindMethodModifierContext) => Result;
     /**
-     * Visit a parse tree produced by `MongoParser.offset`.
+     * Visit a parse tree produced by `MongoParser.skipModifier`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitOffset?: (ctx: OffsetContext) => Result;
+    visitSkipModifier?: (ctx: SkipModifierContext) => Result;
     /**
-     * Visit a parse tree produced by `MongoParser.findParam`.
+     * Visit a parse tree produced by `MongoParser.limitModifier`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitFindParam?: (ctx: FindParamContext) => Result;
+    visitLimitModifier?: (ctx: LimitModifierContext) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.countModifier`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitCountModifier?: (ctx: CountModifierContext) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.filterModifier`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitFilterModifier?: (ctx: FilterModifierContext) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.minModifier`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitMinModifier?: (ctx: MinModifierContext) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.maxModifier`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitMaxModifier?: (ctx: MaxModifierContext) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.addQueryModifierModifier`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitAddQueryModifierModifier?: (ctx: AddQueryModifierModifierContext) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.returnKeyModifier`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitReturnKeyModifier?: (ctx: ReturnKeyModifierContext) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.showRecordIdModifier`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitShowRecordIdModifier?: (ctx: ShowRecordIdModifierContext) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.sortModifier`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitSortModifier?: (ctx: SortModifierContext) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.parameters`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitParameters?: (ctx: ParametersContext) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.option`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitOption?: (ctx: OptionContext) => Result;
     /**
      * Visit a parse tree produced by `MongoParser.json5`.
      * @param ctx the parse tree
@@ -139,11 +212,23 @@ export class MongoParserVisitor<Result> extends AbstractParseTreeVisitor<Result>
      */
     visitPair?: (ctx: PairContext) => Result;
     /**
+     * Visit a parse tree produced by `MongoParser.boolean`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitBoolean?: (ctx: BooleanContext) => Result;
+    /**
      * Visit a parse tree produced by `MongoParser.key`.
      * @param ctx the parse tree
      * @return the visitor result
      */
     visitKey?: (ctx: KeyContext) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.identifier`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitIdentifier?: (ctx: IdentifierContext) => Result;
     /**
      * Visit a parse tree produced by `MongoParser.value`.
      * @param ctx the parse tree
@@ -162,4 +247,10 @@ export class MongoParserVisitor<Result> extends AbstractParseTreeVisitor<Result>
      * @return the visitor result
      */
     visitNumber?: (ctx: NumberContext) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.reservedKeywords`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitReservedKeywords?: (ctx: ReservedKeywordsContext) => Result;
 }

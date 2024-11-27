@@ -7,36 +7,63 @@ import {
 } from '../../shared/extract-statement-positions-from-query';
 import {mongoAutocompleteData} from './mongo-autocomplete';
 import {
+    AddQueryModifierModifierContext,
     CollectionOperationContext,
+    CountModifierContext,
+    FilterModifierContext,
     FindMethodContext,
+    FindMethodModifierContext,
     InsertOneMethodContext,
+    LimitModifierContext,
+    MaxModifierContext,
+    MinModifierContext,
     MongoParser,
+    ReturnKeyModifierContext,
+    ShowRecordIdModifierContext,
+    SkipModifierContext,
+    SortModifierContext,
 } from './generated/MongoParser';
 import {createParser} from '../../shared';
 import {MongoLexer} from './generated/MongoLexer';
 import {MongoParserVisitor} from './generated/MongoParserVisitor';
 import json5 from 'json5';
-import {z} from 'zod';
 
 export interface MongoAutocompleteResult extends SqlAutocompleteResult {}
 
-enum FindModifierMethod {
+export enum FindModifierMethod {
     Skip = 'skip',
-    Offset = 'offset',
+    Count = 'count',
+    Filter = 'filter',
+    Min = 'min',
+    Max = 'max',
+    ReturnKey = 'returnKey',
+    ShowRecordId = 'showRecordId',
+    AddQueryModifier = 'addQueryModifier',
+    Sort = 'sort',
+    Limit = 'limit',
 }
 
-type FindModifier = {
-    method: FindModifierMethod;
-    parameters: unknown;
-};
+type FindModifier =
+    | {
+          method: Exclude<
+              FindModifierMethod,
+              FindModifierMethod.Sort | FindModifierMethod.AddQueryModifier
+          >;
+          parameters: unknown;
+      }
+    | {method: FindModifierMethod.Sort; parameters?: unknown; options?: unknown}
+    | {method: FindModifierMethod.AddQueryModifier; name: unknown; value: unknown};
+
+interface FindCommand {
+    method: 'find';
+    collectionName: string;
+    parameters?: unknown;
+    options?: unknown;
+    modifiers: FindModifier[];
+}
 
 type Command =
-    | {
-          method: 'find';
-          collectionName: string;
-          parameters: unknown;
-          modifiers: FindModifier[];
-      }
+    | FindCommand
     | {
           method: 'insertOne';
           collectionName: string;
@@ -44,13 +71,16 @@ type Command =
       };
 
 type OnParseCommand = (command: Command) => void;
+type OnParseError = (error: unknown) => void;
 
 class CustomVisitor extends MongoParserVisitor<unknown> {
     onParseCommand: OnParseCommand;
+    onParseError: OnParseError;
 
-    constructor(onParseCommand: OnParseCommand) {
+    constructor(onParseCommand: OnParseCommand, onParseError: OnParseError) {
         super();
         this.onParseCommand = onParseCommand;
+        this.onParseError = onParseError;
     }
 
     visitCollectionOperation = (context: CollectionOperationContext): void => {
@@ -58,23 +88,18 @@ class CustomVisitor extends MongoParserVisitor<unknown> {
         const methodContext = context.collectionMethod().getChild(0);
 
         if (methodContext instanceof FindMethodContext) {
-            const parameters = json5.parse<unknown>(methodContext.findParam().getText());
-            const modifiers: FindModifier[] = methodContext
-                .findModifier()
-                .map((findModifierContext) => ({
-                    // TODO: MONGO handle errors
-                    method: z
-                        .nativeEnum(FindModifierMethod)
-                        .parse(findModifierContext.getChild(1)?.getText()),
-                    parameters: findModifierContext.number().getText(),
-                }));
+            const command = parseFindMethodContext(methodContext);
 
-            this.onParseCommand({collectionName, method: 'find', parameters, modifiers});
+            this.onParseCommand({
+                ...command,
+                collectionName,
+                method: 'find',
+            });
             return;
         }
 
         if (methodContext instanceof InsertOneMethodContext) {
-            const parameters = json5.parse<unknown>(methodContext.insertOneParam().getText());
+            const parameters = formatJson5(methodContext.insertOneParam().getText());
 
             this.onParseCommand({collectionName, method: 'insertOne', parameters});
             return;
@@ -85,18 +110,113 @@ class CustomVisitor extends MongoParserVisitor<unknown> {
     };
 }
 
+function parseFindMethodContext(
+    context: FindMethodContext,
+): Pick<FindCommand, 'parameters' | 'modifiers'> {
+    const parameters = formatJson5(context.parameters().getText());
+
+    const modifierContexts = context.findMethodModifier();
+    const modifiers: FindModifier[] = modifierContexts.map(parseFindMethodModifierContext);
+
+    return {
+        parameters,
+        modifiers,
+    };
+}
+
+function parseFindMethodModifierContext(context: FindMethodModifierContext): FindModifier {
+    const childContext = context.getChild(1);
+
+    // This workaround allow to use instaceof in switch cases
+    switch (true) {
+        case childContext instanceof SkipModifierContext:
+            return {
+                method: FindModifierMethod.Skip,
+                parameters: childContext.number().getText(),
+            };
+        case childContext instanceof LimitModifierContext:
+            return {
+                method: FindModifierMethod.Limit,
+                parameters: childContext.number().getText(),
+            };
+        case childContext instanceof CountModifierContext:
+            // TODO: MONGO doublecheck
+            return {
+                method: FindModifierMethod.Count,
+                parameters: formatJson5(childContext.parameters().getText()),
+            };
+        case childContext instanceof FilterModifierContext:
+            // TODO: MONGO doublecheck
+            return {
+                method: FindModifierMethod.Filter,
+                parameters: formatJson5(childContext.parameters().getText()),
+            };
+        case childContext instanceof MinModifierContext:
+            // TODO: MONGO doublecheck
+            return {
+                method: FindModifierMethod.Min,
+                parameters: formatJson5(childContext.parameters().getText()),
+            };
+        case childContext instanceof MaxModifierContext:
+            // TODO: MONGO doublecheck
+            return {
+                method: FindModifierMethod.Max,
+                parameters: formatJson5(childContext.parameters().getText()),
+            };
+        case childContext instanceof AddQueryModifierModifierContext:
+            // TODO: MONGO doublecheck
+            return {
+                method: FindModifierMethod.AddQueryModifier,
+                name: formatJson5(
+                    // eslint-disable-next-line new-cap
+                    childContext.STRING().getText(),
+                ),
+                value: formatJson5(childContext.parameters().getText()),
+            };
+        case childContext instanceof ReturnKeyModifierContext:
+            // TODO: MONGO doublecheck
+            return {
+                method: FindModifierMethod.ReturnKey,
+                parameters: formatJson5(childContext.boolean().getText()),
+            };
+        case childContext instanceof ShowRecordIdModifierContext:
+            // TODO: MONGO doublecheck
+            return {
+                method: FindModifierMethod.ShowRecordId,
+                parameters: formatJson5(childContext.boolean().getText()),
+            };
+        case childContext instanceof SortModifierContext:
+            // TODO: MONGO doublecheck
+            return {
+                method: FindModifierMethod.Sort,
+                parameters: formatJson5(childContext.parameters().getText()),
+                options: formatJson5(childContext.option()?.getText()),
+            };
+        default:
+            throw new Error('Unhandled modifier context' + childContext?.getText());
+    }
+}
+
+function formatJson5(string: string | undefined): undefined | unknown {
+    return string ? json5.parse(string) : undefined;
+}
+
 export function extractCommandsFromMongoQuery(query: string): Command[] {
     const parser = createParser(MongoLexer, MongoParser, query);
 
-    const parseResults: Command[] = [];
-    const onParseStatement: OnParseCommand = (parseResult) => {
-        parseResults.push(parseResult);
+    const commands: Command[] = [];
+    const onParseCommand: OnParseCommand = (command) => {
+        commands.push(command);
     };
 
-    const visitor = new CustomVisitor(onParseStatement);
+    const onParseError: OnParseError = (error) => {
+        console.log(error);
+    };
+
+    const visitor = new CustomVisitor(onParseCommand, onParseError);
     parser.root().accept(visitor);
 
-    return parseResults;
+    return commands;
 }
 
 export function parseMongoQueryWithoutCursor(

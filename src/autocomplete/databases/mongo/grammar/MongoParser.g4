@@ -34,7 +34,7 @@ collectionMethod
     ;
 
 insertOneMethod
-    : INSERTONE LPAREN insertOneParam RPAREN
+    : INSERT_ONE LPAREN insertOneParam RPAREN
     ;
 
 insertOneParam
@@ -42,23 +42,72 @@ insertOneParam
     ;
 
 findMethod
-    : FIND LPAREN findParam RPAREN findModifier*
+    // TODO: MONGO SUPPORT MODIFICATION OPTIONS AFTER FIND PARAM
+    : FIND LPAREN parameters RPAREN findMethodModifier* explainMethod?
     ;
 
-findModifier
-    : DOT skip LPAREN number RPAREN
-    | DOT offset LPAREN number RPAREN
+explainMethod
+    : DOT EXPLAIN LPAREN json5 RPAREN
     ;
 
-skip
-    : SKIP_
+findMethodModifier
+    : DOT skipModifier
+    | DOT limitModifier
+    | DOT countModifier
+    | DOT filterModifier
+    | DOT minModifier
+    | DOT maxModifier
+    | DOT addQueryModifierModifier
+    | DOT returnKeyModifier
+    | DOT showRecordIdModifier
+    | DOT sortModifier
     ;
 
-offset
-    : OFFSET
+skipModifier
+    : SKIP_ LPAREN number RPAREN
     ;
 
-findParam
+limitModifier
+    : LIMIT LPAREN number RPAREN
+    ;
+
+countModifier
+    : COUNT LPAREN parameters RPAREN
+    ;
+
+filterModifier
+    : FILTER LPAREN parameters RPAREN
+    ;
+
+minModifier
+    : MIN LPAREN parameters RPAREN
+    ;
+
+maxModifier
+    : MAX LPAREN parameters RPAREN
+    ;
+
+addQueryModifierModifier
+    : ADD_QUERY_MODIFIER LPAREN STRING COMMA parameters RPAREN
+    ;
+
+returnKeyModifier
+    : RETURN_KEY LPAREN boolean RPAREN
+    ;
+
+showRecordIdModifier
+    : SHOW_RECORD_ID LPAREN boolean RPAREN
+    ;
+
+sortModifier
+    : SORT LPAREN parameters (COMMA option)? RPAREN
+    ;
+
+parameters
+    : json5
+    ;
+
+option
     : json5
     ;
 
@@ -75,11 +124,22 @@ pair
     : key COLON value
     ;
 
+boolean
+    : TRUE
+    | FALSE
+    ;
+
 key
     : STRING
-    | IDENTIFIER
-    | LITERAL
+    | identifier
     | NUMERIC_LITERAL
+    | boolean
+    | NULL
+    ;
+
+identifier
+    : IDENTIFIER
+    | reservedKeywords
     ;
 
 value
@@ -87,7 +147,8 @@ value
     | number
     | obj
     | arr
-    | LITERAL
+    | boolean
+    | NULL
     ;
 
 arr
@@ -100,3 +161,17 @@ number
     ;
 
 // TODO: MONGO implement reserved keywords
+reservedKeywords
+    : SKIP_
+    | INSERT_ONE
+    | SHOW_RECORD_ID
+    | RETURN_KEY
+    | FILTER
+    | MIN
+    | MAX
+    | SORT
+    | LIMIT
+    | ADD_QUERY_MODIFIER
+    | EXPLAIN
+    | COUNT
+    ;

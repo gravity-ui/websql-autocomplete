@@ -8,13 +8,23 @@ options {
     caseInsensitive = false;
 }
 
-DB        : 'db';
-FIND      : 'find';
-DOT       : '.';
-INSERTONE : 'insertOne';
+DB   : 'db';
+FIND : 'find';
+DOT  : '.';
 
-SKIP_  : 'skip';
-OFFSET : 'offset';
+// TODO: MONGO get rid of this postfix?
+SKIP_              : 'skip';
+INSERT_ONE         : 'insertOne';
+SHOW_RECORD_ID     : 'showRecordId';
+RETURN_KEY         : 'returnKey';
+FILTER             : 'filter';
+MIN                : 'min';
+MAX                : 'max';
+SORT               : 'sort';
+LIMIT              : 'limit';
+ADD_QUERY_MODIFIER : 'addQueryModifier';
+EXPLAIN            : 'explain';
+COUNT              : 'count';
 
 LBRACKET  : '[';
 RBRACKET  : ']';
@@ -28,7 +38,9 @@ SEMICOLON : ';';
 
 SINGLE_LINE_COMMENT : '//' .*? (NEWLINE | EOF) -> skip;
 MULTI_LINE_COMMENT  : '/*' .*? '*/'            -> skip;
-LITERAL             : 'true' | 'false' | 'null';
+TRUE                : 'true';
+FALSE               : 'false';
+NULL                : 'null';
 STRING              : '"' DOUBLE_QUOTE_CHAR* '"' | '\'' SINGLE_QUOTE_CHAR* '\'';
 
 fragment DOUBLE_QUOTE_CHAR: ~["\\\r\n] | ESCAPE_SEQUENCE;

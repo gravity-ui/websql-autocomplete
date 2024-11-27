@@ -73,6 +73,9 @@
       "trino": [
         "./dist/types/databases/trino/index.d.ts"
       ],
+      "mongo": [
+        "./dist/types/databases/mongo/index.d.ts"
+      ],
       "shared": [
         "./dist/types/shared/index.d.ts"
       ]
