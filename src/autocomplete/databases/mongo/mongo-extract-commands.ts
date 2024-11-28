@@ -61,7 +61,7 @@ export interface ParsingError {
 }
 
 export interface UnexpectedError {
-    type: 'unexpected';
+    type: 'unexpectedError';
     message: unknown;
 }
 
@@ -79,7 +79,7 @@ function newParsingError(message: string): ParsingError {
 
 function newUnexpectedError(message: unknown): UnexpectedError {
     return {
-        type: 'unexpected',
+        type: 'unexpectedError',
         message,
     };
 }
