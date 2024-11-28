@@ -158,10 +158,11 @@ sortModifierArgument2
     | obj
     ;
 
-// TODO: MONGO doublecheck reserved keywords
-reservedKeywords
-    : SKIP_
+reservedKeyword
+    : DB
+    | SKIP_
     | INSERT_ONE
+    | FIND
     | SHOW_RECORD_ID
     | RETURN_KEY
     | FILTER
@@ -169,9 +170,7 @@ reservedKeywords
     | MAX
     | SORT
     | LIMIT
-    | ADD_QUERY_MODIFIER
     | EXPLAIN
-    | COUNT
     | HINT
     ;
 
@@ -204,7 +203,7 @@ key
 
 identifier
     : IDENTIFIER
-    | reservedKeywords
+    | reservedKeyword
     ;
 
 value

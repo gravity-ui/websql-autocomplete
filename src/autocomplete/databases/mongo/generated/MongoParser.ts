@@ -21,10 +21,10 @@ type int = number;
 
 export class MongoParser extends antlr.Parser {
     public static readonly DB = 1;
-    public static readonly FIND = 2;
-    public static readonly DOT = 3;
-    public static readonly SKIP_ = 4;
-    public static readonly INSERT_ONE = 5;
+    public static readonly DOT = 2;
+    public static readonly SKIP_ = 3;
+    public static readonly INSERT_ONE = 4;
+    public static readonly FIND = 5;
     public static readonly SHOW_RECORD_ID = 6;
     public static readonly RETURN_KEY = 7;
     public static readonly FILTER = 8;
@@ -32,30 +32,28 @@ export class MongoParser extends antlr.Parser {
     public static readonly MAX = 10;
     public static readonly SORT = 11;
     public static readonly LIMIT = 12;
-    public static readonly ADD_QUERY_MODIFIER = 13;
-    public static readonly EXPLAIN = 14;
-    public static readonly COUNT = 15;
-    public static readonly HINT = 16;
-    public static readonly LBRACKET = 17;
-    public static readonly RBRACKET = 18;
-    public static readonly LPAREN = 19;
-    public static readonly RPAREN = 20;
-    public static readonly LBRACE = 21;
-    public static readonly RBRACE = 22;
-    public static readonly COLON = 23;
-    public static readonly COMMA = 24;
-    public static readonly SEMICOLON = 25;
-    public static readonly SINGLE_LINE_COMMENT = 26;
-    public static readonly MULTI_LINE_COMMENT = 27;
-    public static readonly TRUE = 28;
-    public static readonly FALSE = 29;
-    public static readonly NULL = 30;
-    public static readonly STRING = 31;
-    public static readonly NUMBER = 32;
-    public static readonly NUMERIC_LITERAL = 33;
-    public static readonly SYMBOL = 34;
-    public static readonly IDENTIFIER = 35;
-    public static readonly WS = 36;
+    public static readonly EXPLAIN = 13;
+    public static readonly HINT = 14;
+    public static readonly LBRACKET = 15;
+    public static readonly RBRACKET = 16;
+    public static readonly LPAREN = 17;
+    public static readonly RPAREN = 18;
+    public static readonly LBRACE = 19;
+    public static readonly RBRACE = 20;
+    public static readonly COLON = 21;
+    public static readonly COMMA = 22;
+    public static readonly SEMICOLON = 23;
+    public static readonly TRUE = 24;
+    public static readonly FALSE = 25;
+    public static readonly NULL = 26;
+    public static readonly STRING = 27;
+    public static readonly NUMBER = 28;
+    public static readonly NUMERIC_LITERAL = 29;
+    public static readonly SYMBOL = 30;
+    public static readonly IDENTIFIER = 31;
+    public static readonly SINGLE_LINE_COMMENT = 32;
+    public static readonly MULTI_LINE_COMMENT = 33;
+    public static readonly WS = 34;
     public static readonly RULE_root = 0;
     public static readonly RULE_statements = 1;
     public static readonly RULE_statement = 2;
@@ -90,7 +88,7 @@ export class MongoParser extends antlr.Parser {
     public static readonly RULE_sortModifier = 31;
     public static readonly RULE_sortModifierArgument1 = 32;
     public static readonly RULE_sortModifierArgument2 = 33;
-    public static readonly RULE_reservedKeywords = 34;
+    public static readonly RULE_reservedKeyword = 34;
     public static readonly RULE_json5 = 35;
     public static readonly RULE_obj = 36;
     public static readonly RULE_pair = 37;
@@ -102,20 +100,19 @@ export class MongoParser extends antlr.Parser {
     public static readonly RULE_number = 43;
 
     public static readonly literalNames = [
-        null, "'db'", "'find'", "'.'", "'skip'", "'insertOne'", "'showRecordId'", 
+        null, "'db'", "'.'", "'skip'", "'insertOne'", "'find'", "'showRecordId'", 
         "'returnKey'", "'filter'", "'min'", "'max'", "'sort'", "'limit'", 
-        "'addQueryModifier'", "'explain'", "'count'", "'hint'", "'['", "']'", 
-        "'('", "')'", "'{'", "'}'", "':'", "','", "';'", null, null, "'true'", 
-        "'false'", "'null'"
+        "'explain'", "'hint'", "'['", "']'", "'('", "')'", "'{'", "'}'", 
+        "':'", "','", "';'", "'true'", "'false'", "'null'"
     ];
 
     public static readonly symbolicNames = [
-        null, "DB", "FIND", "DOT", "SKIP_", "INSERT_ONE", "SHOW_RECORD_ID", 
-        "RETURN_KEY", "FILTER", "MIN", "MAX", "SORT", "LIMIT", "ADD_QUERY_MODIFIER", 
-        "EXPLAIN", "COUNT", "HINT", "LBRACKET", "RBRACKET", "LPAREN", "RPAREN", 
-        "LBRACE", "RBRACE", "COLON", "COMMA", "SEMICOLON", "SINGLE_LINE_COMMENT", 
-        "MULTI_LINE_COMMENT", "TRUE", "FALSE", "NULL", "STRING", "NUMBER", 
-        "NUMERIC_LITERAL", "SYMBOL", "IDENTIFIER", "WS"
+        null, "DB", "DOT", "SKIP_", "INSERT_ONE", "FIND", "SHOW_RECORD_ID", 
+        "RETURN_KEY", "FILTER", "MIN", "MAX", "SORT", "LIMIT", "EXPLAIN", 
+        "HINT", "LBRACKET", "RBRACKET", "LPAREN", "RPAREN", "LBRACE", "RBRACE", 
+        "COLON", "COMMA", "SEMICOLON", "TRUE", "FALSE", "NULL", "STRING", 
+        "NUMBER", "NUMERIC_LITERAL", "SYMBOL", "IDENTIFIER", "SINGLE_LINE_COMMENT", 
+        "MULTI_LINE_COMMENT", "WS"
     ];
     public static readonly ruleNames = [
         "root", "statements", "statement", "collectionOperation", "collectionName", 
@@ -126,7 +123,7 @@ export class MongoParser extends antlr.Parser {
         "minModifier", "minModifierArgument", "maxModifier", "maxModifierArgument", 
         "hintModifier", "hintModifierArgument", "returnKeyModifier", "returnKeyModifierArgument", 
         "showRecordIdModifier", "showRecordIdModifierArgument", "sortModifier", 
-        "sortModifierArgument1", "sortModifierArgument2", "reservedKeywords", 
+        "sortModifierArgument1", "sortModifierArgument2", "reservedKeyword", 
         "json5", "obj", "pair", "boolean", "key", "identifier", "value", 
         "arr", "number",
     ];
@@ -186,7 +183,7 @@ export class MongoParser extends antlr.Parser {
                 this.state = 93;
                 this.errorHandler.sync(this);
                 _la = this.tokenStream.LA(1);
-                if (_la === 25) {
+                if (_la === 23) {
                     {
                     this.state = 92;
                     this.match(MongoParser.SEMICOLON);
@@ -352,7 +349,7 @@ export class MongoParser extends antlr.Parser {
             this.state = 120;
             this.errorHandler.sync(this);
             _la = this.tokenStream.LA(1);
-            if (_la === 24) {
+            if (_la === 22) {
                 {
                 this.state = 118;
                 this.match(MongoParser.COMMA);
@@ -439,14 +436,14 @@ export class MongoParser extends antlr.Parser {
             this.state = 135;
             this.errorHandler.sync(this);
             _la = this.tokenStream.LA(1);
-            if (_la === 21) {
+            if (_la === 19) {
                 {
                 this.state = 130;
                 this.findMethodArgument1();
                 this.state = 133;
                 this.errorHandler.sync(this);
                 _la = this.tokenStream.LA(1);
-                if (_la === 24) {
+                if (_la === 22) {
                     {
                     this.state = 131;
                     this.match(MongoParser.COMMA);
@@ -479,7 +476,7 @@ export class MongoParser extends antlr.Parser {
             this.state = 145;
             this.errorHandler.sync(this);
             _la = this.tokenStream.LA(1);
-            if (_la === 3) {
+            if (_la === 2) {
                 {
                 this.state = 144;
                 this.explainMethod();
@@ -563,7 +560,7 @@ export class MongoParser extends antlr.Parser {
             this.state = 155;
             this.errorHandler.sync(this);
             _la = this.tokenStream.LA(1);
-            if ((((_la) & ~0x1F) === 0 && ((1 << _la) & 2954887168) !== 0)) {
+            if ((((_la) & ~0x1F) === 0 && ((1 << _la) & 185073664) !== 0)) {
                 {
                 this.state = 154;
                 this.explainMethodArgument();
@@ -1183,7 +1180,7 @@ export class MongoParser extends antlr.Parser {
             this.state = 247;
             this.errorHandler.sync(this);
             _la = this.tokenStream.LA(1);
-            if (_la === 24) {
+            if (_la === 22) {
                 {
                 this.state = 245;
                 this.match(MongoParser.COMMA);
@@ -1279,16 +1276,16 @@ export class MongoParser extends antlr.Parser {
         }
         return localContext;
     }
-    public reservedKeywords(): ReservedKeywordsContext {
-        let localContext = new ReservedKeywordsContext(this.context, this.state);
-        this.enterRule(localContext, 68, MongoParser.RULE_reservedKeywords);
+    public reservedKeyword(): ReservedKeywordContext {
+        let localContext = new ReservedKeywordContext(this.context, this.state);
+        this.enterRule(localContext, 68, MongoParser.RULE_reservedKeyword);
         let _la: number;
         try {
             this.enterOuterAlt(localContext, 1);
             {
             this.state = 258;
             _la = this.tokenStream.LA(1);
-            if(!((((_la) & ~0x1F) === 0 && ((1 << _la) & 131056) !== 0))) {
+            if(!((((_la) & ~0x1F) === 0 && ((1 << _la) & 32762) !== 0))) {
             this.errorHandler.recoverInline(this);
             }
             else {
@@ -1320,7 +1317,7 @@ export class MongoParser extends antlr.Parser {
             this.state = 261;
             this.errorHandler.sync(this);
             _la = this.tokenStream.LA(1);
-            if (((((_la - 17)) & ~0x1F) === 0 && ((1 << (_la - 17)) & 260113) !== 0)) {
+            if ((((_la) & ~0x1F) === 0 && ((1 << _la) & 2131263488) !== 0)) {
                 {
                 this.state = 260;
                 this.value();
@@ -1379,7 +1376,7 @@ export class MongoParser extends antlr.Parser {
                 this.state = 273;
                 this.errorHandler.sync(this);
                 _la = this.tokenStream.LA(1);
-                if (_la === 24) {
+                if (_la === 22) {
                     {
                     this.state = 272;
                     this.match(MongoParser.COMMA);
@@ -1450,7 +1447,7 @@ export class MongoParser extends antlr.Parser {
             {
             this.state = 285;
             _la = this.tokenStream.LA(1);
-            if(!(_la === 28 || _la === 29)) {
+            if(!(_la === 24 || _la === 25)) {
             this.errorHandler.recoverInline(this);
             }
             else {
@@ -1486,8 +1483,10 @@ export class MongoParser extends antlr.Parser {
                 this.match(MongoParser.STRING);
                 }
                 break;
+            case MongoParser.DB:
             case MongoParser.SKIP_:
             case MongoParser.INSERT_ONE:
+            case MongoParser.FIND:
             case MongoParser.SHOW_RECORD_ID:
             case MongoParser.RETURN_KEY:
             case MongoParser.FILTER:
@@ -1495,9 +1494,7 @@ export class MongoParser extends antlr.Parser {
             case MongoParser.MAX:
             case MongoParser.SORT:
             case MongoParser.LIMIT:
-            case MongoParser.ADD_QUERY_MODIFIER:
             case MongoParser.EXPLAIN:
-            case MongoParser.COUNT:
             case MongoParser.HINT:
             case MongoParser.IDENTIFIER:
                 this.enterOuterAlt(localContext, 2);
@@ -1559,8 +1556,10 @@ export class MongoParser extends antlr.Parser {
                 this.match(MongoParser.IDENTIFIER);
                 }
                 break;
+            case MongoParser.DB:
             case MongoParser.SKIP_:
             case MongoParser.INSERT_ONE:
+            case MongoParser.FIND:
             case MongoParser.SHOW_RECORD_ID:
             case MongoParser.RETURN_KEY:
             case MongoParser.FILTER:
@@ -1568,14 +1567,12 @@ export class MongoParser extends antlr.Parser {
             case MongoParser.MAX:
             case MongoParser.SORT:
             case MongoParser.LIMIT:
-            case MongoParser.ADD_QUERY_MODIFIER:
             case MongoParser.EXPLAIN:
-            case MongoParser.COUNT:
             case MongoParser.HINT:
                 this.enterOuterAlt(localContext, 2);
                 {
                 this.state = 295;
-                this.reservedKeywords();
+                this.reservedKeyword();
                 }
                 break;
             default:
@@ -1701,7 +1698,7 @@ export class MongoParser extends antlr.Parser {
                 this.state = 316;
                 this.errorHandler.sync(this);
                 _la = this.tokenStream.LA(1);
-                if (_la === 24) {
+                if (_la === 22) {
                     {
                     this.state = 315;
                     this.match(MongoParser.COMMA);
@@ -1746,7 +1743,7 @@ export class MongoParser extends antlr.Parser {
             this.state = 325;
             this.errorHandler.sync(this);
             _la = this.tokenStream.LA(1);
-            if (_la === 34) {
+            if (_la === 30) {
                 {
                 this.state = 324;
                 this.match(MongoParser.SYMBOL);
@@ -1755,7 +1752,7 @@ export class MongoParser extends antlr.Parser {
 
             this.state = 327;
             _la = this.tokenStream.LA(1);
-            if(!(_la === 32 || _la === 33)) {
+            if(!(_la === 28 || _la === 29)) {
             this.errorHandler.recoverInline(this);
             }
             else {
@@ -1779,7 +1776,7 @@ export class MongoParser extends antlr.Parser {
     }
 
     public static readonly _serializedATN: number[] = [
-        4,1,36,330,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,2,4,7,4,2,5,7,5,2,6,7,
+        4,1,34,330,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,2,4,7,4,2,5,7,5,2,6,7,
         6,2,7,7,7,2,8,7,8,2,9,7,9,2,10,7,10,2,11,7,11,2,12,7,12,2,13,7,13,
         2,14,7,14,2,15,7,15,2,16,7,16,2,17,7,17,2,18,7,18,2,19,7,19,2,20,
         7,20,2,21,7,21,2,22,7,22,2,23,7,23,2,24,7,24,2,25,7,25,2,26,7,26,
@@ -1807,87 +1804,87 @@ export class MongoParser extends antlr.Parser {
         3,42,317,8,42,1,42,1,42,1,42,1,42,3,42,323,8,42,1,43,3,43,326,8,
         43,1,43,1,43,1,43,0,0,44,0,2,4,6,8,10,12,14,16,18,20,22,24,26,28,
         30,32,34,36,38,40,42,44,46,48,50,52,54,56,58,60,62,64,66,68,70,72,
-        74,76,78,80,82,84,86,0,3,1,0,4,16,1,0,28,29,1,0,32,33,326,0,88,1,
-        0,0,0,2,99,1,0,0,0,4,101,1,0,0,0,6,103,1,0,0,0,8,109,1,0,0,0,10,
-        113,1,0,0,0,12,115,1,0,0,0,14,124,1,0,0,0,16,126,1,0,0,0,18,128,
-        1,0,0,0,20,147,1,0,0,0,22,149,1,0,0,0,24,151,1,0,0,0,26,162,1,0,
-        0,0,28,182,1,0,0,0,30,184,1,0,0,0,32,189,1,0,0,0,34,191,1,0,0,0,
-        36,196,1,0,0,0,38,198,1,0,0,0,40,203,1,0,0,0,42,205,1,0,0,0,44,210,
-        1,0,0,0,46,212,1,0,0,0,48,217,1,0,0,0,50,219,1,0,0,0,52,226,1,0,
-        0,0,54,228,1,0,0,0,56,233,1,0,0,0,58,235,1,0,0,0,60,240,1,0,0,0,
-        62,242,1,0,0,0,64,251,1,0,0,0,66,256,1,0,0,0,68,258,1,0,0,0,70,261,
-        1,0,0,0,72,279,1,0,0,0,74,281,1,0,0,0,76,285,1,0,0,0,78,292,1,0,
-        0,0,80,296,1,0,0,0,82,304,1,0,0,0,84,322,1,0,0,0,86,325,1,0,0,0,
-        88,89,3,2,1,0,89,90,5,0,0,1,90,1,1,0,0,0,91,93,3,4,2,0,92,94,5,25,
-        0,0,93,92,1,0,0,0,93,94,1,0,0,0,94,100,1,0,0,0,95,96,3,4,2,0,96,
-        97,5,25,0,0,97,98,3,2,1,0,98,100,1,0,0,0,99,91,1,0,0,0,99,95,1,0,
-        0,0,100,3,1,0,0,0,101,102,3,6,3,0,102,5,1,0,0,0,103,104,5,1,0,0,
-        104,105,5,3,0,0,105,106,3,8,4,0,106,107,5,3,0,0,107,108,3,10,5,0,
-        108,7,1,0,0,0,109,110,5,35,0,0,110,9,1,0,0,0,111,114,3,18,9,0,112,
-        114,3,12,6,0,113,111,1,0,0,0,113,112,1,0,0,0,114,11,1,0,0,0,115,
-        116,5,5,0,0,116,117,5,19,0,0,117,120,3,14,7,0,118,119,5,24,0,0,119,
-        121,3,16,8,0,120,118,1,0,0,0,120,121,1,0,0,0,121,122,1,0,0,0,122,
-        123,5,20,0,0,123,13,1,0,0,0,124,125,3,72,36,0,125,15,1,0,0,0,126,
-        127,3,72,36,0,127,17,1,0,0,0,128,129,5,2,0,0,129,135,5,19,0,0,130,
-        133,3,20,10,0,131,132,5,24,0,0,132,134,3,22,11,0,133,131,1,0,0,0,
-        133,134,1,0,0,0,134,136,1,0,0,0,135,130,1,0,0,0,135,136,1,0,0,0,
-        136,137,1,0,0,0,137,141,5,20,0,0,138,140,3,28,14,0,139,138,1,0,0,
-        0,140,143,1,0,0,0,141,139,1,0,0,0,141,142,1,0,0,0,142,145,1,0,0,
-        0,143,141,1,0,0,0,144,146,3,24,12,0,145,144,1,0,0,0,145,146,1,0,
-        0,0,146,19,1,0,0,0,147,148,3,72,36,0,148,21,1,0,0,0,149,150,3,72,
-        36,0,150,23,1,0,0,0,151,152,5,3,0,0,152,153,5,14,0,0,153,155,5,19,
-        0,0,154,156,3,26,13,0,155,154,1,0,0,0,155,156,1,0,0,0,156,157,1,
-        0,0,0,157,158,5,20,0,0,158,25,1,0,0,0,159,163,5,31,0,0,160,163,3,
-        76,38,0,161,163,3,72,36,0,162,159,1,0,0,0,162,160,1,0,0,0,162,161,
-        1,0,0,0,163,27,1,0,0,0,164,165,5,3,0,0,165,183,3,30,15,0,166,167,
-        5,3,0,0,167,183,3,34,17,0,168,169,5,3,0,0,169,183,3,38,19,0,170,
-        171,5,3,0,0,171,183,3,42,21,0,172,173,5,3,0,0,173,183,3,46,23,0,
-        174,175,5,3,0,0,175,183,3,50,25,0,176,177,5,3,0,0,177,183,3,54,27,
-        0,178,179,5,3,0,0,179,183,3,58,29,0,180,181,5,3,0,0,181,183,3,62,
-        31,0,182,164,1,0,0,0,182,166,1,0,0,0,182,168,1,0,0,0,182,170,1,0,
-        0,0,182,172,1,0,0,0,182,174,1,0,0,0,182,176,1,0,0,0,182,178,1,0,
-        0,0,182,180,1,0,0,0,183,29,1,0,0,0,184,185,5,4,0,0,185,186,5,19,
-        0,0,186,187,3,32,16,0,187,188,5,20,0,0,188,31,1,0,0,0,189,190,3,
-        86,43,0,190,33,1,0,0,0,191,192,5,12,0,0,192,193,5,19,0,0,193,194,
-        3,36,18,0,194,195,5,20,0,0,195,35,1,0,0,0,196,197,3,86,43,0,197,
-        37,1,0,0,0,198,199,5,8,0,0,199,200,5,19,0,0,200,201,3,40,20,0,201,
-        202,5,20,0,0,202,39,1,0,0,0,203,204,3,72,36,0,204,41,1,0,0,0,205,
-        206,5,9,0,0,206,207,5,19,0,0,207,208,3,44,22,0,208,209,5,20,0,0,
+        74,76,78,80,82,84,86,0,3,2,0,1,1,3,14,1,0,24,25,1,0,28,29,326,0,
+        88,1,0,0,0,2,99,1,0,0,0,4,101,1,0,0,0,6,103,1,0,0,0,8,109,1,0,0,
+        0,10,113,1,0,0,0,12,115,1,0,0,0,14,124,1,0,0,0,16,126,1,0,0,0,18,
+        128,1,0,0,0,20,147,1,0,0,0,22,149,1,0,0,0,24,151,1,0,0,0,26,162,
+        1,0,0,0,28,182,1,0,0,0,30,184,1,0,0,0,32,189,1,0,0,0,34,191,1,0,
+        0,0,36,196,1,0,0,0,38,198,1,0,0,0,40,203,1,0,0,0,42,205,1,0,0,0,
+        44,210,1,0,0,0,46,212,1,0,0,0,48,217,1,0,0,0,50,219,1,0,0,0,52,226,
+        1,0,0,0,54,228,1,0,0,0,56,233,1,0,0,0,58,235,1,0,0,0,60,240,1,0,
+        0,0,62,242,1,0,0,0,64,251,1,0,0,0,66,256,1,0,0,0,68,258,1,0,0,0,
+        70,261,1,0,0,0,72,279,1,0,0,0,74,281,1,0,0,0,76,285,1,0,0,0,78,292,
+        1,0,0,0,80,296,1,0,0,0,82,304,1,0,0,0,84,322,1,0,0,0,86,325,1,0,
+        0,0,88,89,3,2,1,0,89,90,5,0,0,1,90,1,1,0,0,0,91,93,3,4,2,0,92,94,
+        5,23,0,0,93,92,1,0,0,0,93,94,1,0,0,0,94,100,1,0,0,0,95,96,3,4,2,
+        0,96,97,5,23,0,0,97,98,3,2,1,0,98,100,1,0,0,0,99,91,1,0,0,0,99,95,
+        1,0,0,0,100,3,1,0,0,0,101,102,3,6,3,0,102,5,1,0,0,0,103,104,5,1,
+        0,0,104,105,5,2,0,0,105,106,3,8,4,0,106,107,5,2,0,0,107,108,3,10,
+        5,0,108,7,1,0,0,0,109,110,5,31,0,0,110,9,1,0,0,0,111,114,3,18,9,
+        0,112,114,3,12,6,0,113,111,1,0,0,0,113,112,1,0,0,0,114,11,1,0,0,
+        0,115,116,5,4,0,0,116,117,5,17,0,0,117,120,3,14,7,0,118,119,5,22,
+        0,0,119,121,3,16,8,0,120,118,1,0,0,0,120,121,1,0,0,0,121,122,1,0,
+        0,0,122,123,5,18,0,0,123,13,1,0,0,0,124,125,3,72,36,0,125,15,1,0,
+        0,0,126,127,3,72,36,0,127,17,1,0,0,0,128,129,5,5,0,0,129,135,5,17,
+        0,0,130,133,3,20,10,0,131,132,5,22,0,0,132,134,3,22,11,0,133,131,
+        1,0,0,0,133,134,1,0,0,0,134,136,1,0,0,0,135,130,1,0,0,0,135,136,
+        1,0,0,0,136,137,1,0,0,0,137,141,5,18,0,0,138,140,3,28,14,0,139,138,
+        1,0,0,0,140,143,1,0,0,0,141,139,1,0,0,0,141,142,1,0,0,0,142,145,
+        1,0,0,0,143,141,1,0,0,0,144,146,3,24,12,0,145,144,1,0,0,0,145,146,
+        1,0,0,0,146,19,1,0,0,0,147,148,3,72,36,0,148,21,1,0,0,0,149,150,
+        3,72,36,0,150,23,1,0,0,0,151,152,5,2,0,0,152,153,5,13,0,0,153,155,
+        5,17,0,0,154,156,3,26,13,0,155,154,1,0,0,0,155,156,1,0,0,0,156,157,
+        1,0,0,0,157,158,5,18,0,0,158,25,1,0,0,0,159,163,5,27,0,0,160,163,
+        3,76,38,0,161,163,3,72,36,0,162,159,1,0,0,0,162,160,1,0,0,0,162,
+        161,1,0,0,0,163,27,1,0,0,0,164,165,5,2,0,0,165,183,3,30,15,0,166,
+        167,5,2,0,0,167,183,3,34,17,0,168,169,5,2,0,0,169,183,3,38,19,0,
+        170,171,5,2,0,0,171,183,3,42,21,0,172,173,5,2,0,0,173,183,3,46,23,
+        0,174,175,5,2,0,0,175,183,3,50,25,0,176,177,5,2,0,0,177,183,3,54,
+        27,0,178,179,5,2,0,0,179,183,3,58,29,0,180,181,5,2,0,0,181,183,3,
+        62,31,0,182,164,1,0,0,0,182,166,1,0,0,0,182,168,1,0,0,0,182,170,
+        1,0,0,0,182,172,1,0,0,0,182,174,1,0,0,0,182,176,1,0,0,0,182,178,
+        1,0,0,0,182,180,1,0,0,0,183,29,1,0,0,0,184,185,5,3,0,0,185,186,5,
+        17,0,0,186,187,3,32,16,0,187,188,5,18,0,0,188,31,1,0,0,0,189,190,
+        3,86,43,0,190,33,1,0,0,0,191,192,5,12,0,0,192,193,5,17,0,0,193,194,
+        3,36,18,0,194,195,5,18,0,0,195,35,1,0,0,0,196,197,3,86,43,0,197,
+        37,1,0,0,0,198,199,5,8,0,0,199,200,5,17,0,0,200,201,3,40,20,0,201,
+        202,5,18,0,0,202,39,1,0,0,0,203,204,3,72,36,0,204,41,1,0,0,0,205,
+        206,5,9,0,0,206,207,5,17,0,0,207,208,3,44,22,0,208,209,5,18,0,0,
         209,43,1,0,0,0,210,211,3,72,36,0,211,45,1,0,0,0,212,213,5,10,0,0,
-        213,214,5,19,0,0,214,215,3,48,24,0,215,216,5,20,0,0,216,47,1,0,0,
-        0,217,218,3,72,36,0,218,49,1,0,0,0,219,220,5,16,0,0,220,221,5,19,
-        0,0,221,222,3,52,26,0,222,223,5,20,0,0,223,51,1,0,0,0,224,227,3,
-        72,36,0,225,227,5,31,0,0,226,224,1,0,0,0,226,225,1,0,0,0,227,53,
-        1,0,0,0,228,229,5,7,0,0,229,230,5,19,0,0,230,231,3,56,28,0,231,232,
-        5,20,0,0,232,55,1,0,0,0,233,234,3,76,38,0,234,57,1,0,0,0,235,236,
-        5,6,0,0,236,237,5,19,0,0,237,238,3,60,30,0,238,239,5,20,0,0,239,
+        213,214,5,17,0,0,214,215,3,48,24,0,215,216,5,18,0,0,216,47,1,0,0,
+        0,217,218,3,72,36,0,218,49,1,0,0,0,219,220,5,14,0,0,220,221,5,17,
+        0,0,221,222,3,52,26,0,222,223,5,18,0,0,223,51,1,0,0,0,224,227,3,
+        72,36,0,225,227,5,27,0,0,226,224,1,0,0,0,226,225,1,0,0,0,227,53,
+        1,0,0,0,228,229,5,7,0,0,229,230,5,17,0,0,230,231,3,56,28,0,231,232,
+        5,18,0,0,232,55,1,0,0,0,233,234,3,76,38,0,234,57,1,0,0,0,235,236,
+        5,6,0,0,236,237,5,17,0,0,237,238,3,60,30,0,238,239,5,18,0,0,239,
         59,1,0,0,0,240,241,3,76,38,0,241,61,1,0,0,0,242,243,5,11,0,0,243,
-        244,5,19,0,0,244,247,3,64,32,0,245,246,5,24,0,0,246,248,3,66,33,
-        0,247,245,1,0,0,0,247,248,1,0,0,0,248,249,1,0,0,0,249,250,5,20,0,
+        244,5,17,0,0,244,247,3,64,32,0,245,246,5,22,0,0,246,248,3,66,33,
+        0,247,245,1,0,0,0,247,248,1,0,0,0,248,249,1,0,0,0,249,250,5,18,0,
         0,250,63,1,0,0,0,251,252,3,70,35,0,252,65,1,0,0,0,253,257,3,86,43,
-        0,254,257,5,31,0,0,255,257,3,72,36,0,256,253,1,0,0,0,256,254,1,0,
+        0,254,257,5,27,0,0,255,257,3,72,36,0,256,253,1,0,0,0,256,254,1,0,
         0,0,256,255,1,0,0,0,257,67,1,0,0,0,258,259,7,0,0,0,259,69,1,0,0,
         0,260,262,3,82,41,0,261,260,1,0,0,0,261,262,1,0,0,0,262,71,1,0,0,
-        0,263,264,5,21,0,0,264,269,3,74,37,0,265,266,5,24,0,0,266,268,3,
+        0,263,264,5,19,0,0,264,269,3,74,37,0,265,266,5,22,0,0,266,268,3,
         74,37,0,267,265,1,0,0,0,268,271,1,0,0,0,269,267,1,0,0,0,269,270,
-        1,0,0,0,270,273,1,0,0,0,271,269,1,0,0,0,272,274,5,24,0,0,273,272,
-        1,0,0,0,273,274,1,0,0,0,274,275,1,0,0,0,275,276,5,22,0,0,276,280,
-        1,0,0,0,277,278,5,21,0,0,278,280,5,22,0,0,279,263,1,0,0,0,279,277,
-        1,0,0,0,280,73,1,0,0,0,281,282,3,78,39,0,282,283,5,23,0,0,283,284,
+        1,0,0,0,270,273,1,0,0,0,271,269,1,0,0,0,272,274,5,22,0,0,273,272,
+        1,0,0,0,273,274,1,0,0,0,274,275,1,0,0,0,275,276,5,20,0,0,276,280,
+        1,0,0,0,277,278,5,19,0,0,278,280,5,20,0,0,279,263,1,0,0,0,279,277,
+        1,0,0,0,280,73,1,0,0,0,281,282,3,78,39,0,282,283,5,21,0,0,283,284,
         3,82,41,0,284,75,1,0,0,0,285,286,7,1,0,0,286,77,1,0,0,0,287,293,
-        5,31,0,0,288,293,3,80,40,0,289,293,5,33,0,0,290,293,3,76,38,0,291,
-        293,5,30,0,0,292,287,1,0,0,0,292,288,1,0,0,0,292,289,1,0,0,0,292,
-        290,1,0,0,0,292,291,1,0,0,0,293,79,1,0,0,0,294,297,5,35,0,0,295,
+        5,27,0,0,288,293,3,80,40,0,289,293,5,29,0,0,290,293,3,76,38,0,291,
+        293,5,26,0,0,292,287,1,0,0,0,292,288,1,0,0,0,292,289,1,0,0,0,292,
+        290,1,0,0,0,292,291,1,0,0,0,293,79,1,0,0,0,294,297,5,31,0,0,295,
         297,3,68,34,0,296,294,1,0,0,0,296,295,1,0,0,0,297,81,1,0,0,0,298,
-        305,5,31,0,0,299,305,3,86,43,0,300,305,3,72,36,0,301,305,3,84,42,
-        0,302,305,3,76,38,0,303,305,5,30,0,0,304,298,1,0,0,0,304,299,1,0,
+        305,5,27,0,0,299,305,3,86,43,0,300,305,3,72,36,0,301,305,3,84,42,
+        0,302,305,3,76,38,0,303,305,5,26,0,0,304,298,1,0,0,0,304,299,1,0,
         0,0,304,300,1,0,0,0,304,301,1,0,0,0,304,302,1,0,0,0,304,303,1,0,
-        0,0,305,83,1,0,0,0,306,307,5,17,0,0,307,312,3,82,41,0,308,309,5,
-        24,0,0,309,311,3,82,41,0,310,308,1,0,0,0,311,314,1,0,0,0,312,310,
+        0,0,305,83,1,0,0,0,306,307,5,15,0,0,307,312,3,82,41,0,308,309,5,
+        22,0,0,309,311,3,82,41,0,310,308,1,0,0,0,311,314,1,0,0,0,312,310,
         1,0,0,0,312,313,1,0,0,0,313,316,1,0,0,0,314,312,1,0,0,0,315,317,
-        5,24,0,0,316,315,1,0,0,0,316,317,1,0,0,0,317,318,1,0,0,0,318,319,
-        5,18,0,0,319,323,1,0,0,0,320,321,5,17,0,0,321,323,5,18,0,0,322,306,
-        1,0,0,0,322,320,1,0,0,0,323,85,1,0,0,0,324,326,5,34,0,0,325,324,
+        5,22,0,0,316,315,1,0,0,0,316,317,1,0,0,0,317,318,1,0,0,0,318,319,
+        5,16,0,0,319,323,1,0,0,0,320,321,5,15,0,0,321,323,5,16,0,0,322,306,
+        1,0,0,0,322,320,1,0,0,0,323,85,1,0,0,0,324,326,5,30,0,0,325,324,
         1,0,0,0,325,326,1,0,0,0,326,327,1,0,0,0,327,328,7,2,0,0,328,87,1,
         0,0,0,25,93,99,113,120,133,135,141,145,155,162,182,226,247,256,261,
         269,273,279,292,296,304,312,316,322,325
@@ -2802,15 +2799,21 @@ export class SortModifierArgument2Context extends antlr.ParserRuleContext {
 }
 
 
-export class ReservedKeywordsContext extends antlr.ParserRuleContext {
+export class ReservedKeywordContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
+    }
+    public DB(): antlr.TerminalNode | null {
+        return this.getToken(MongoParser.DB, 0);
     }
     public SKIP_(): antlr.TerminalNode | null {
         return this.getToken(MongoParser.SKIP_, 0);
     }
     public INSERT_ONE(): antlr.TerminalNode | null {
         return this.getToken(MongoParser.INSERT_ONE, 0);
+    }
+    public FIND(): antlr.TerminalNode | null {
+        return this.getToken(MongoParser.FIND, 0);
     }
     public SHOW_RECORD_ID(): antlr.TerminalNode | null {
         return this.getToken(MongoParser.SHOW_RECORD_ID, 0);
@@ -2833,24 +2836,18 @@ export class ReservedKeywordsContext extends antlr.ParserRuleContext {
     public LIMIT(): antlr.TerminalNode | null {
         return this.getToken(MongoParser.LIMIT, 0);
     }
-    public ADD_QUERY_MODIFIER(): antlr.TerminalNode | null {
-        return this.getToken(MongoParser.ADD_QUERY_MODIFIER, 0);
-    }
     public EXPLAIN(): antlr.TerminalNode | null {
         return this.getToken(MongoParser.EXPLAIN, 0);
-    }
-    public COUNT(): antlr.TerminalNode | null {
-        return this.getToken(MongoParser.COUNT, 0);
     }
     public HINT(): antlr.TerminalNode | null {
         return this.getToken(MongoParser.HINT, 0);
     }
     public override get ruleIndex(): number {
-        return MongoParser.RULE_reservedKeywords;
+        return MongoParser.RULE_reservedKeyword;
     }
     public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
-        if (visitor.visitReservedKeywords) {
-            return visitor.visitReservedKeywords(this);
+        if (visitor.visitReservedKeyword) {
+            return visitor.visitReservedKeyword(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -3007,8 +3004,8 @@ export class IdentifierContext extends antlr.ParserRuleContext {
     public IDENTIFIER(): antlr.TerminalNode | null {
         return this.getToken(MongoParser.IDENTIFIER, 0);
     }
-    public reservedKeywords(): ReservedKeywordsContext | null {
-        return this.getRuleContext(0, ReservedKeywordsContext);
+    public reservedKeyword(): ReservedKeywordContext | null {
+        return this.getRuleContext(0, ReservedKeywordContext);
     }
     public override get ruleIndex(): number {
         return MongoParser.RULE_identifier;

@@ -46,7 +46,7 @@ import { ShowRecordIdModifierArgumentContext } from "./MongoParser.js";
 import { SortModifierContext } from "./MongoParser.js";
 import { SortModifierArgument1Context } from "./MongoParser.js";
 import { SortModifierArgument2Context } from "./MongoParser.js";
-import { ReservedKeywordsContext } from "./MongoParser.js";
+import { ReservedKeywordContext } from "./MongoParser.js";
 import { Json5Context } from "./MongoParser.js";
 import { ObjContext } from "./MongoParser.js";
 import { PairContext } from "./MongoParser.js";
@@ -271,11 +271,11 @@ export class MongoParserVisitor<Result> extends AbstractParseTreeVisitor<Result>
      */
     visitSortModifierArgument2?: (ctx: SortModifierArgument2Context) => Result;
     /**
-     * Visit a parse tree produced by `MongoParser.reservedKeywords`.
+     * Visit a parse tree produced by `MongoParser.reservedKeyword`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitReservedKeywords?: (ctx: ReservedKeywordsContext) => Result;
+    visitReservedKeyword?: (ctx: ReservedKeywordContext) => Result;
     /**
      * Visit a parse tree produced by `MongoParser.json5`.
      * @param ctx the parse tree

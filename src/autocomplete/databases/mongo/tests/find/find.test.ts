@@ -1,9 +1,21 @@
-import {parseMongoQueryWithCursor} from '../..';
+import {parseMongoQueryWithCursor, parseMongoQueryWithoutCursor} from '../..';
 
-test('should suggest properly keywords after find', () => {
-    const autocompleteResult = parseMongoQueryWithCursor('db.test_collection.|');
+test('should not report errors on find statement', () => {
+    const autocompleteResult = parseMongoQueryWithoutCursor(`
+        db.test_collection
+            .find({test_field: 'test_value'}, {test_field: 'test_value'})
+            .skip(1)
+            .limit(1)
+            .filter({test_field: 'test_value'})
+            .min({test_field: 'test_value'})
+            .max({test_field: 'test_value'})
+            .hint('test_index')
+            .returnKey(true)
+            .showRecordId(true)
+            .sort('test_field', 'DESC')
+    `);
 
-    expect(autocompleteResult.suggestKeywords).toEqual([{value: 'find'}, {value: 'insertOne'}]);
+    expect(autocompleteResult.errors).toHaveLength(0);
 });
 
 test('should suggest properly find modifiers', () => {

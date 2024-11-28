@@ -44,6 +44,7 @@ export function parseMongoQueryWithCursor(queryWithCursor: string): MongoAutocom
     return parseMongoQuery(...separateQueryAndCursor(queryWithCursor));
 }
 
-export function extractMongoStatementPositionsFromQuery(_query: string): void {
+export function extractMongoStatementPositionsFromQuery(_query: string): never {
     // TODO: MONGO implement
+    throw new Error('not implemented');
 }
