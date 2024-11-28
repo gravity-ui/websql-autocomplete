@@ -112,7 +112,7 @@ class CommandsVisitor extends MongoParserVisitor<unknown> {
                 return;
             }
         } catch (error) {
-            if (isExpectedError(error)) {
+            if (isParsingError(error)) {
                 const {message} = error;
                 this.error = newParsingError(message);
                 return;
@@ -126,12 +126,12 @@ class CommandsVisitor extends MongoParserVisitor<unknown> {
     };
 }
 
-function isExpectedError(error: unknown): error is ParsingError {
+function isParsingError(error: unknown): error is ParsingError {
     return Boolean(
         error &&
             typeof error === 'object' &&
             'type' in error &&
-            error.type === 'expected' &&
+            error.type === 'parsingError' &&
             'message' in error &&
             typeof error.type === 'string' &&
             typeof error.message === 'string',
