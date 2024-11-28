@@ -1,10 +1,10 @@
 import {extractMongoCommandsFromQuery} from '..';
 
-test('should extract collection commands properly', () => {
+test('should extract find commands properly', () => {
     const result = extractMongoCommandsFromQuery(`
         db.test_collection1.find({
-            test_field1: 'test_value1',
-            test_object1: {test_subfield1: 1}
+            test_field: 'test_value',
+            test_object: {test_subfield: 1}
         })
             .skip(1)
             .limit(2)
@@ -22,35 +22,31 @@ test('should extract collection commands properly', () => {
             .sort('test_field', 'desc');
 
         db.test_collection2.find({
-            test_field2: 'test_value2',
-            test_object2: {
-                test_subfield2: 23,
+            test_field: 'test_value',
+            test_object: {
+                test_subfield: 23,
             }
         })
             .explain();
-
-        db.test_collection3.insertOne({
-            test_field3: 'test_value3',
-            test_object3: {
-                test_subfield3: 23,
-            }
+        
+        db.test_collection4.find({}).explain({});
+        
+        db.test_collection5.find().explain('test_string');
+        
+        db.test_collection6.find().explain(true);
+        
+        db.test_collection7.find().explain({
+            test_explain_field: 1
         });
-        
-        db.test_collection4.find()
-            .explain({});
-        
-        db.test_collection5.find()
-            .explain('test_string');
-        
-        db.test_collection6.find()
-            .explain(true);
-        
-        db.test_collection7.find()
-            .explain({
-                test_explain_field: 1
-            });
 
-            
+        db.test_collection8.find(
+            {
+                test_find_field: 'test_find_value'
+            },
+            {
+                test_find_option_field: 'test_find_option_value'
+            }
+        );
     `);
 
     expect(result).toEqual({
@@ -74,24 +70,20 @@ test('should extract collection commands properly', () => {
                     {method: 'sort', options: 'desc', parameters: 'test_field'},
                 ],
                 collectionName: 'test_collection1',
-                parameters: {test_field1: 'test_value1', test_object1: {test_subfield1: 1}},
+                parameters: {test_field: 'test_value', test_object: {test_subfield: 1}},
             },
             {
                 method: 'find',
                 modifiers: [],
                 collectionName: 'test_collection2',
-                parameters: {test_field2: 'test_value2', test_object2: {test_subfield2: 23}},
+                parameters: {test_field: 'test_value', test_object: {test_subfield: 23}},
                 explain: {},
-            },
-            {
-                method: 'insertOne',
-                collectionName: 'test_collection3',
-                parameters: {test_field3: 'test_value3', test_object3: {test_subfield3: 23}},
             },
             {
                 method: 'find',
                 modifiers: [],
                 collectionName: 'test_collection4',
+                parameters: {},
                 explain: {
                     parameters: {},
                 },
@@ -121,6 +113,49 @@ test('should extract collection commands properly', () => {
                         test_explain_field: 1,
                     },
                 },
+            },
+            {
+                method: 'find',
+                modifiers: [],
+                collectionName: 'test_collection8',
+                parameters: {test_find_field: 'test_find_value'},
+                options: {test_find_option_field: 'test_find_option_value'},
+            },
+        ],
+    });
+});
+
+test('should extract insertOne commands properly', () => {
+    const result = extractMongoCommandsFromQuery(`
+        db.test_collection1.insertOne({
+            test_field: 'test_value',
+            test_object: {
+                test_subfield: 23,
+            }
+        });
+
+        db.test_collection2.insertOne(
+            {
+                test_field: 'test_value'
+            },
+            {
+                test_option: 'test_option_value'
+            }
+        );
+    `);
+
+    expect(result).toEqual({
+        commands: [
+            {
+                method: 'insertOne',
+                collectionName: 'test_collection1',
+                document: {test_field: 'test_value', test_object: {test_subfield: 23}},
+            },
+            {
+                method: 'insertOne',
+                collectionName: 'test_collection2',
+                document: {test_field: 'test_value'},
+                options: {test_option: 'test_option_value'},
             },
         ],
     });

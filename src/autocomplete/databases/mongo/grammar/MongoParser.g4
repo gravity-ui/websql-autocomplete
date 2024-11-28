@@ -34,20 +34,27 @@ collectionMethod
     ;
 
 insertOneMethod
-    : INSERT_ONE LPAREN insertOneParam RPAREN
+    : INSERT_ONE LPAREN insertOneArgument1 (COMMA insertOneArgument2)? RPAREN
     ;
 
-insertOneParam
-    : json5
+insertOneArgument1
+    : obj
+    ;
+
+insertOneArgument2
+    : obj
     ;
 
 findMethod
-    // TODO: MONGO SUPPORT MODIFICATION OPTIONS AFTER FIND PARAM
-    : FIND LPAREN findMethodArgument RPAREN findMethodModifier* explainMethod?
+    : FIND LPAREN (findMethodArgument1 (COMMA findMethodArgument2)?)? RPAREN findMethodModifier* explainMethod?
     ;
 
-findMethodArgument
-    : json5
+findMethodArgument1
+    : obj
+    ;
+
+findMethodArgument2
+    : obj
     ;
 
 explainMethod

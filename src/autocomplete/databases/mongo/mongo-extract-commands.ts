@@ -51,7 +51,8 @@ type Command =
     | {
           method: 'insertOne';
           collectionName: string;
-          parameters: unknown;
+          document: unknown;
+          options: unknown;
       };
 
 type OnParseCommand = (command: Command) => void;
@@ -113,9 +114,10 @@ class CommandsVisitor extends MongoParserVisitor<unknown> {
             }
 
             if (methodContext instanceof InsertOneMethodContext) {
-                const parameters = formatJson5(methodContext.insertOneParam().getText());
+                const document = formatJson5(methodContext.insertOneArgument1().getText());
+                const options = formatJson5(methodContext.insertOneArgument2()?.getText());
 
-                this.onParseCommand({collectionName, method: 'insertOne', parameters});
+                this.onParseCommand({collectionName, method: 'insertOne', document, options});
                 return;
             }
         } catch (error) {
@@ -145,8 +147,9 @@ class CommandsVisitor extends MongoParserVisitor<unknown> {
 
 function parseFindMethodContext(
     context: FindMethodContext,
-): Pick<FindCommand, 'parameters' | 'modifiers' | 'explain'> {
-    const findParameters = formatJson5(context.findMethodArgument().getText());
+): Pick<FindCommand, 'parameters' | 'modifiers' | 'explain' | 'options'> {
+    const findParameters = formatJson5(context.findMethodArgument1()?.getText());
+    const findOptions = formatJson5(context.findMethodArgument2()?.getText());
 
     const modifierContexts = context.findMethodModifier();
     const modifiers: FindModifier[] = modifierContexts.map(parseFindMethodModifierContext);
@@ -163,6 +166,7 @@ function parseFindMethodContext(
 
     return {
         parameters: findParameters,
+        options: findOptions,
         modifiers,
         explain,
     };
