@@ -8,8 +8,7 @@ options {
     caseInsensitive = false;
 }
 
-DB  : 'db';
-DOT : '.';
+DB: 'db';
 // skip is reserved keyword by antlr, that's why we need this postfix
 SKIP_          : 'skip';
 INSERT_ONE     : 'insertOne';
@@ -33,6 +32,7 @@ RBRACE    : '}';
 COLON     : ':';
 COMMA     : ',';
 SEMICOLON : ';';
+DOT       : '.';
 
 TRUE   : 'true';
 FALSE  : 'false';
