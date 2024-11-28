@@ -6,8 +6,8 @@ import {MongoParser} from './generated/MongoParser';
 
 export {
     extractMongoCommandsFromQuery,
-    ParsingError as ExpectedParseCommandError,
-    UnexpectedError as UnexpectedParseCommandError,
+    ParsingError as CommandsParsingError,
+    UnexpectedError as UnexpectedCommandsParsingError,
 } from './mongo-extract-commands';
 
 export interface MongoAutocompleteResult extends SqlAutocompleteResult {

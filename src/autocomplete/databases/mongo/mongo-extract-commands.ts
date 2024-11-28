@@ -86,7 +86,7 @@ function newUnexpectedError(message: unknown): UnexpectedError {
 
 class CommandsVisitor extends MongoParserVisitor<unknown> {
     commands: Command[] = [];
-    error: ParsingError | UnexpectedError | undefined;
+    error?: ParsingError | UnexpectedError;
 
     visitCollectionOperation = (context: CollectionOperationContext): void => {
         const collectionName = context.collectionName().getText();
