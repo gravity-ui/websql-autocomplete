@@ -138,8 +138,7 @@
   "dependencies": {
     "antlr4-c3": "^3.4.1",
     "antlr4ng": "^3.0.4",
-    "json5": "^2.2.3",
-    "zod": "^3.23.8"
+    "json5": "^2.2.3"
   },
   "nano-staged": {
     "*.{md,yaml,yml,json}": [
