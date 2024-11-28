@@ -55,8 +55,8 @@ export class MongoParser extends antlr.Parser {
     public static readonly MULTI_LINE_COMMENT = 33;
     public static readonly WS = 34;
     public static readonly RULE_root = 0;
-    public static readonly RULE_statements = 1;
-    public static readonly RULE_statement = 2;
+    public static readonly RULE_commands = 1;
+    public static readonly RULE_command = 2;
     public static readonly RULE_collectionOperation = 3;
     public static readonly RULE_collectionName = 4;
     public static readonly RULE_collectionMethod = 5;
@@ -90,13 +90,13 @@ export class MongoParser extends antlr.Parser {
     public static readonly RULE_sortModifierArgument2 = 33;
     public static readonly RULE_reservedKeyword = 34;
     public static readonly RULE_json5 = 35;
-    public static readonly RULE_obj = 36;
+    public static readonly RULE_object = 36;
     public static readonly RULE_pair = 37;
     public static readonly RULE_boolean = 38;
     public static readonly RULE_key = 39;
     public static readonly RULE_identifier = 40;
     public static readonly RULE_value = 41;
-    public static readonly RULE_arr = 42;
+    public static readonly RULE_array = 42;
     public static readonly RULE_number = 43;
 
     public static readonly literalNames = [
@@ -115,7 +115,7 @@ export class MongoParser extends antlr.Parser {
         "MULTI_LINE_COMMENT", "WS"
     ];
     public static readonly ruleNames = [
-        "root", "statements", "statement", "collectionOperation", "collectionName", 
+        "root", "commands", "command", "collectionOperation", "collectionName", 
         "collectionMethod", "insertOneMethod", "insertOneArgument1", "insertOneArgument2", 
         "findMethod", "findMethodArgument1", "findMethodArgument2", "explainMethod", 
         "explainMethodArgument", "findMethodModifier", "skipModifier", "skipModifierArgument", 
@@ -124,8 +124,8 @@ export class MongoParser extends antlr.Parser {
         "hintModifier", "hintModifierArgument", "returnKeyModifier", "returnKeyModifierArgument", 
         "showRecordIdModifier", "showRecordIdModifierArgument", "sortModifier", 
         "sortModifierArgument1", "sortModifierArgument2", "reservedKeyword", 
-        "json5", "obj", "pair", "boolean", "key", "identifier", "value", 
-        "arr", "number",
+        "json5", "object", "pair", "boolean", "key", "identifier", "value", 
+        "array", "number",
     ];
 
     public get grammarFileName(): string { return "MongoParser.g4"; }
@@ -149,7 +149,7 @@ export class MongoParser extends antlr.Parser {
             this.enterOuterAlt(localContext, 1);
             {
             this.state = 88;
-            this.statements();
+            this.commands();
             this.state = 89;
             this.match(MongoParser.EOF);
             }
@@ -167,9 +167,9 @@ export class MongoParser extends antlr.Parser {
         }
         return localContext;
     }
-    public statements(): StatementsContext {
-        let localContext = new StatementsContext(this.context, this.state);
-        this.enterRule(localContext, 2, MongoParser.RULE_statements);
+    public commands(): CommandsContext {
+        let localContext = new CommandsContext(this.context, this.state);
+        this.enterRule(localContext, 2, MongoParser.RULE_commands);
         let _la: number;
         try {
             this.state = 99;
@@ -179,7 +179,7 @@ export class MongoParser extends antlr.Parser {
                 this.enterOuterAlt(localContext, 1);
                 {
                 this.state = 91;
-                this.statement();
+                this.command();
                 this.state = 93;
                 this.errorHandler.sync(this);
                 _la = this.tokenStream.LA(1);
@@ -196,11 +196,11 @@ export class MongoParser extends antlr.Parser {
                 this.enterOuterAlt(localContext, 2);
                 {
                 this.state = 95;
-                this.statement();
+                this.command();
                 this.state = 96;
                 this.match(MongoParser.SEMICOLON);
                 this.state = 97;
-                this.statements();
+                this.commands();
                 }
                 break;
             }
@@ -218,9 +218,9 @@ export class MongoParser extends antlr.Parser {
         }
         return localContext;
     }
-    public statement(): StatementContext {
-        let localContext = new StatementContext(this.context, this.state);
-        this.enterRule(localContext, 4, MongoParser.RULE_statement);
+    public command(): CommandContext {
+        let localContext = new CommandContext(this.context, this.state);
+        this.enterRule(localContext, 4, MongoParser.RULE_command);
         try {
             this.enterOuterAlt(localContext, 1);
             {
@@ -382,7 +382,7 @@ export class MongoParser extends antlr.Parser {
             this.enterOuterAlt(localContext, 1);
             {
             this.state = 124;
-            this.obj();
+            this.object();
             }
         }
         catch (re) {
@@ -405,7 +405,7 @@ export class MongoParser extends antlr.Parser {
             this.enterOuterAlt(localContext, 1);
             {
             this.state = 126;
-            this.obj();
+            this.object();
             }
         }
         catch (re) {
@@ -505,7 +505,7 @@ export class MongoParser extends antlr.Parser {
             this.enterOuterAlt(localContext, 1);
             {
             this.state = 147;
-            this.obj();
+            this.object();
             }
         }
         catch (re) {
@@ -528,7 +528,7 @@ export class MongoParser extends antlr.Parser {
             this.enterOuterAlt(localContext, 1);
             {
             this.state = 149;
-            this.obj();
+            this.object();
             }
         }
         catch (re) {
@@ -610,7 +610,7 @@ export class MongoParser extends antlr.Parser {
                 this.enterOuterAlt(localContext, 3);
                 {
                 this.state = 161;
-                this.obj();
+                this.object();
                 }
                 break;
             default:
@@ -873,7 +873,7 @@ export class MongoParser extends antlr.Parser {
             this.enterOuterAlt(localContext, 1);
             {
             this.state = 203;
-            this.obj();
+            this.object();
             }
         }
         catch (re) {
@@ -925,7 +925,7 @@ export class MongoParser extends antlr.Parser {
             this.enterOuterAlt(localContext, 1);
             {
             this.state = 210;
-            this.obj();
+            this.object();
             }
         }
         catch (re) {
@@ -977,7 +977,7 @@ export class MongoParser extends antlr.Parser {
             this.enterOuterAlt(localContext, 1);
             {
             this.state = 217;
-            this.obj();
+            this.object();
             }
         }
         catch (re) {
@@ -1033,7 +1033,7 @@ export class MongoParser extends antlr.Parser {
                 this.enterOuterAlt(localContext, 1);
                 {
                 this.state = 224;
-                this.obj();
+                this.object();
                 }
                 break;
             case MongoParser.STRING:
@@ -1256,7 +1256,7 @@ export class MongoParser extends antlr.Parser {
                 this.enterOuterAlt(localContext, 3);
                 {
                 this.state = 255;
-                this.obj();
+                this.object();
                 }
                 break;
             default:
@@ -1339,9 +1339,9 @@ export class MongoParser extends antlr.Parser {
         }
         return localContext;
     }
-    public obj(): ObjContext {
-        let localContext = new ObjContext(this.context, this.state);
-        this.enterRule(localContext, 72, MongoParser.RULE_obj);
+    public object(): ObjectContext {
+        let localContext = new ObjectContext(this.context, this.state);
+        this.enterRule(localContext, 72, MongoParser.RULE_object);
         let _la: number;
         try {
             let alternative: number;
@@ -1619,14 +1619,14 @@ export class MongoParser extends antlr.Parser {
                 this.enterOuterAlt(localContext, 3);
                 {
                 this.state = 300;
-                this.obj();
+                this.object();
                 }
                 break;
             case MongoParser.LBRACKET:
                 this.enterOuterAlt(localContext, 4);
                 {
                 this.state = 301;
-                this.arr();
+                this.array();
                 }
                 break;
             case MongoParser.TRUE:
@@ -1661,9 +1661,9 @@ export class MongoParser extends antlr.Parser {
         }
         return localContext;
     }
-    public arr(): ArrContext {
-        let localContext = new ArrContext(this.context, this.state);
-        this.enterRule(localContext, 84, MongoParser.RULE_arr);
+    public array(): ArrayContext {
+        let localContext = new ArrayContext(this.context, this.state);
+        this.enterRule(localContext, 84, MongoParser.RULE_array);
         let _la: number;
         try {
             let alternative: number;
@@ -1913,8 +1913,8 @@ export class RootContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
-    public statements(): StatementsContext {
-        return this.getRuleContext(0, StatementsContext)!;
+    public commands(): CommandsContext {
+        return this.getRuleContext(0, CommandsContext)!;
     }
     public EOF(): antlr.TerminalNode {
         return this.getToken(MongoParser.EOF, 0)!;
@@ -1932,25 +1932,25 @@ export class RootContext extends antlr.ParserRuleContext {
 }
 
 
-export class StatementsContext extends antlr.ParserRuleContext {
+export class CommandsContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
-    public statement(): StatementContext {
-        return this.getRuleContext(0, StatementContext)!;
+    public command(): CommandContext {
+        return this.getRuleContext(0, CommandContext)!;
     }
     public SEMICOLON(): antlr.TerminalNode | null {
         return this.getToken(MongoParser.SEMICOLON, 0);
     }
-    public statements(): StatementsContext | null {
-        return this.getRuleContext(0, StatementsContext);
+    public commands(): CommandsContext | null {
+        return this.getRuleContext(0, CommandsContext);
     }
     public override get ruleIndex(): number {
-        return MongoParser.RULE_statements;
+        return MongoParser.RULE_commands;
     }
     public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
-        if (visitor.visitStatements) {
-            return visitor.visitStatements(this);
+        if (visitor.visitCommands) {
+            return visitor.visitCommands(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -1958,7 +1958,7 @@ export class StatementsContext extends antlr.ParserRuleContext {
 }
 
 
-export class StatementContext extends antlr.ParserRuleContext {
+export class CommandContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
@@ -1966,11 +1966,11 @@ export class StatementContext extends antlr.ParserRuleContext {
         return this.getRuleContext(0, CollectionOperationContext)!;
     }
     public override get ruleIndex(): number {
-        return MongoParser.RULE_statement;
+        return MongoParser.RULE_command;
     }
     public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
-        if (visitor.visitStatement) {
-            return visitor.visitStatement(this);
+        if (visitor.visitCommand) {
+            return visitor.visitCommand(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -2095,8 +2095,8 @@ export class InsertOneArgument1Context extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
-    public obj(): ObjContext {
-        return this.getRuleContext(0, ObjContext)!;
+    public object(): ObjectContext {
+        return this.getRuleContext(0, ObjectContext)!;
     }
     public override get ruleIndex(): number {
         return MongoParser.RULE_insertOneArgument1;
@@ -2115,8 +2115,8 @@ export class InsertOneArgument2Context extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
-    public obj(): ObjContext {
-        return this.getRuleContext(0, ObjContext)!;
+    public object(): ObjectContext {
+        return this.getRuleContext(0, ObjectContext)!;
     }
     public override get ruleIndex(): number {
         return MongoParser.RULE_insertOneArgument2;
@@ -2182,8 +2182,8 @@ export class FindMethodArgument1Context extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
-    public obj(): ObjContext {
-        return this.getRuleContext(0, ObjContext)!;
+    public object(): ObjectContext {
+        return this.getRuleContext(0, ObjectContext)!;
     }
     public override get ruleIndex(): number {
         return MongoParser.RULE_findMethodArgument1;
@@ -2202,8 +2202,8 @@ export class FindMethodArgument2Context extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
-    public obj(): ObjContext {
-        return this.getRuleContext(0, ObjContext)!;
+    public object(): ObjectContext {
+        return this.getRuleContext(0, ObjectContext)!;
     }
     public override get ruleIndex(): number {
         return MongoParser.RULE_findMethodArgument2;
@@ -2260,8 +2260,8 @@ export class ExplainMethodArgumentContext extends antlr.ParserRuleContext {
     public boolean(): BooleanContext | null {
         return this.getRuleContext(0, BooleanContext);
     }
-    public obj(): ObjContext | null {
-        return this.getRuleContext(0, ObjContext);
+    public object(): ObjectContext | null {
+        return this.getRuleContext(0, ObjectContext);
     }
     public override get ruleIndex(): number {
         return MongoParser.RULE_explainMethodArgument;
@@ -2454,8 +2454,8 @@ export class FilterModifierArgumentContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
-    public obj(): ObjContext {
-        return this.getRuleContext(0, ObjContext)!;
+    public object(): ObjectContext {
+        return this.getRuleContext(0, ObjectContext)!;
     }
     public override get ruleIndex(): number {
         return MongoParser.RULE_filterModifierArgument;
@@ -2503,8 +2503,8 @@ export class MinModifierArgumentContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
-    public obj(): ObjContext {
-        return this.getRuleContext(0, ObjContext)!;
+    public object(): ObjectContext {
+        return this.getRuleContext(0, ObjectContext)!;
     }
     public override get ruleIndex(): number {
         return MongoParser.RULE_minModifierArgument;
@@ -2552,8 +2552,8 @@ export class MaxModifierArgumentContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
-    public obj(): ObjContext {
-        return this.getRuleContext(0, ObjContext)!;
+    public object(): ObjectContext {
+        return this.getRuleContext(0, ObjectContext)!;
     }
     public override get ruleIndex(): number {
         return MongoParser.RULE_maxModifierArgument;
@@ -2601,8 +2601,8 @@ export class HintModifierArgumentContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
-    public obj(): ObjContext | null {
-        return this.getRuleContext(0, ObjContext);
+    public object(): ObjectContext | null {
+        return this.getRuleContext(0, ObjectContext);
     }
     public STRING(): antlr.TerminalNode | null {
         return this.getToken(MongoParser.STRING, 0);
@@ -2783,8 +2783,8 @@ export class SortModifierArgument2Context extends antlr.ParserRuleContext {
     public STRING(): antlr.TerminalNode | null {
         return this.getToken(MongoParser.STRING, 0);
     }
-    public obj(): ObjContext | null {
-        return this.getRuleContext(0, ObjContext);
+    public object(): ObjectContext | null {
+        return this.getRuleContext(0, ObjectContext);
     }
     public override get ruleIndex(): number {
         return MongoParser.RULE_sortModifierArgument2;
@@ -2875,7 +2875,7 @@ export class Json5Context extends antlr.ParserRuleContext {
 }
 
 
-export class ObjContext extends antlr.ParserRuleContext {
+export class ObjectContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
@@ -2904,11 +2904,11 @@ export class ObjContext extends antlr.ParserRuleContext {
     	}
     }
     public override get ruleIndex(): number {
-        return MongoParser.RULE_obj;
+        return MongoParser.RULE_object;
     }
     public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
-        if (visitor.visitObj) {
-            return visitor.visitObj(this);
+        if (visitor.visitObject) {
+            return visitor.visitObject(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -3030,11 +3030,11 @@ export class ValueContext extends antlr.ParserRuleContext {
     public number(): NumberContext | null {
         return this.getRuleContext(0, NumberContext);
     }
-    public obj(): ObjContext | null {
-        return this.getRuleContext(0, ObjContext);
+    public object(): ObjectContext | null {
+        return this.getRuleContext(0, ObjectContext);
     }
-    public arr(): ArrContext | null {
-        return this.getRuleContext(0, ArrContext);
+    public array(): ArrayContext | null {
+        return this.getRuleContext(0, ArrayContext);
     }
     public boolean(): BooleanContext | null {
         return this.getRuleContext(0, BooleanContext);
@@ -3055,7 +3055,7 @@ export class ValueContext extends antlr.ParserRuleContext {
 }
 
 
-export class ArrContext extends antlr.ParserRuleContext {
+export class ArrayContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
@@ -3084,11 +3084,11 @@ export class ArrContext extends antlr.ParserRuleContext {
     	}
     }
     public override get ruleIndex(): number {
-        return MongoParser.RULE_arr;
+        return MongoParser.RULE_array;
     }
     public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
-        if (visitor.visitArr) {
-            return visitor.visitArr(this);
+        if (visitor.visitArray) {
+            return visitor.visitArray(this);
         } else {
             return visitor.visitChildren(this);
         }

@@ -13,8 +13,8 @@ import { AbstractParseTreeVisitor } from "antlr4ng";
 
 
 import { RootContext } from "./MongoParser.js";
-import { StatementsContext } from "./MongoParser.js";
-import { StatementContext } from "./MongoParser.js";
+import { CommandsContext } from "./MongoParser.js";
+import { CommandContext } from "./MongoParser.js";
 import { CollectionOperationContext } from "./MongoParser.js";
 import { CollectionNameContext } from "./MongoParser.js";
 import { CollectionMethodContext } from "./MongoParser.js";
@@ -48,13 +48,13 @@ import { SortModifierArgument1Context } from "./MongoParser.js";
 import { SortModifierArgument2Context } from "./MongoParser.js";
 import { ReservedKeywordContext } from "./MongoParser.js";
 import { Json5Context } from "./MongoParser.js";
-import { ObjContext } from "./MongoParser.js";
+import { ObjectContext } from "./MongoParser.js";
 import { PairContext } from "./MongoParser.js";
 import { BooleanContext } from "./MongoParser.js";
 import { KeyContext } from "./MongoParser.js";
 import { IdentifierContext } from "./MongoParser.js";
 import { ValueContext } from "./MongoParser.js";
-import { ArrContext } from "./MongoParser.js";
+import { ArrayContext } from "./MongoParser.js";
 import { NumberContext } from "./MongoParser.js";
 
 
@@ -73,17 +73,17 @@ export class MongoParserVisitor<Result> extends AbstractParseTreeVisitor<Result>
      */
     visitRoot?: (ctx: RootContext) => Result;
     /**
-     * Visit a parse tree produced by `MongoParser.statements`.
+     * Visit a parse tree produced by `MongoParser.commands`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitStatements?: (ctx: StatementsContext) => Result;
+    visitCommands?: (ctx: CommandsContext) => Result;
     /**
-     * Visit a parse tree produced by `MongoParser.statement`.
+     * Visit a parse tree produced by `MongoParser.command`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitStatement?: (ctx: StatementContext) => Result;
+    visitCommand?: (ctx: CommandContext) => Result;
     /**
      * Visit a parse tree produced by `MongoParser.collectionOperation`.
      * @param ctx the parse tree
@@ -283,11 +283,11 @@ export class MongoParserVisitor<Result> extends AbstractParseTreeVisitor<Result>
      */
     visitJson5?: (ctx: Json5Context) => Result;
     /**
-     * Visit a parse tree produced by `MongoParser.obj`.
+     * Visit a parse tree produced by `MongoParser.object`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitObj?: (ctx: ObjContext) => Result;
+    visitObject?: (ctx: ObjectContext) => Result;
     /**
      * Visit a parse tree produced by `MongoParser.pair`.
      * @param ctx the parse tree
@@ -319,11 +319,11 @@ export class MongoParserVisitor<Result> extends AbstractParseTreeVisitor<Result>
      */
     visitValue?: (ctx: ValueContext) => Result;
     /**
-     * Visit a parse tree produced by `MongoParser.arr`.
+     * Visit a parse tree produced by `MongoParser.array`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitArr?: (ctx: ArrContext) => Result;
+    visitArray?: (ctx: ArrayContext) => Result;
     /**
      * Visit a parse tree produced by `MongoParser.number`.
      * @param ctx the parse tree

@@ -74,8 +74,8 @@ WS
 
 rule names:
 root
-statements
-statement
+commands
+command
 collectionOperation
 collectionName
 collectionMethod
@@ -109,13 +109,13 @@ sortModifierArgument1
 sortModifierArgument2
 reservedKeyword
 json5
-obj
+object
 pair
 boolean
 key
 identifier
 value
-arr
+array
 number
 
 

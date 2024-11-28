@@ -6,7 +6,7 @@ import {MongoParser} from './generated/MongoParser';
 
 export {
     extractMongoCommandsFromQuery,
-    ExpectedError as ExpectedParseCommandError,
+    ParsingError as ExpectedParseCommandError,
     UnexpectedError as UnexpectedParseCommandError,
 } from './mongo-extract-commands';
 

@@ -8,15 +8,15 @@ options {
 }
 
 root
-    : statements EOF
+    : commands EOF
     ;
 
-statements
-    : statement SEMICOLON?
-    | statement SEMICOLON statements
+commands
+    : command SEMICOLON?
+    | command SEMICOLON commands
     ;
 
-statement
+command
     : collectionOperation
     ;
 
@@ -38,11 +38,11 @@ insertOneMethod
     ;
 
 insertOneArgument1
-    : obj
+    : object
     ;
 
 insertOneArgument2
-    : obj
+    : object
     ;
 
 findMethod
@@ -50,11 +50,11 @@ findMethod
     ;
 
 findMethodArgument1
-    : obj
+    : object
     ;
 
 findMethodArgument2
-    : obj
+    : object
     ;
 
 explainMethod
@@ -64,7 +64,7 @@ explainMethod
 explainMethodArgument
     : STRING
     | boolean
-    | obj
+    | object
     ;
 
 findMethodModifier
@@ -100,7 +100,7 @@ filterModifier
     ;
 
 filterModifierArgument
-    : obj
+    : object
     ;
 
 minModifier
@@ -108,7 +108,7 @@ minModifier
     ;
 
 minModifierArgument
-    : obj
+    : object
     ;
 
 maxModifier
@@ -116,7 +116,7 @@ maxModifier
     ;
 
 maxModifierArgument
-    : obj
+    : object
     ;
 
 hintModifier
@@ -124,7 +124,7 @@ hintModifier
     ;
 
 hintModifierArgument
-    : obj
+    : object
     | STRING
     ;
 
@@ -155,7 +155,7 @@ sortModifierArgument1
 sortModifierArgument2
     : number
     | STRING
-    | obj
+    | object
     ;
 
 reservedKeyword
@@ -179,7 +179,7 @@ json5
     : value?
     ;
 
-obj
+object
     : LBRACE pair (COMMA pair)* COMMA? RBRACE
     | LBRACE RBRACE
     ;
@@ -209,13 +209,13 @@ identifier
 value
     : STRING
     | number
-    | obj
-    | arr
+    | object
+    | array
     | boolean
     | NULL
     ;
 
-arr
+array
     : LBRACKET value (COMMA value)* COMMA? RBRACKET
     | LBRACKET RBRACKET
     ;

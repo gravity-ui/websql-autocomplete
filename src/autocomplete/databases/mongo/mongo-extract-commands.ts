@@ -46,20 +46,17 @@ interface FindCommand {
     modifiers: FindModifier[];
 }
 
-type Command =
-    | FindCommand
-    | {
-          method: 'insertOne';
-          collectionName: string;
-          document: unknown;
-          options: unknown;
-      };
+interface InsertOneCommand {
+    method: 'insertOne';
+    collectionName: string;
+    document: unknown;
+    options: unknown;
+}
 
-type OnParseCommand = (command: Command) => void;
-type OnParseCommandError = (error: ExpectedError | UnexpectedError) => void;
+type Command = FindCommand | InsertOneCommand;
 
-export interface ExpectedError {
-    type: 'expected';
+export interface ParsingError {
+    type: 'parsingError';
     message: string;
 }
 
@@ -71,11 +68,11 @@ export interface UnexpectedError {
 type ExtractMongoCommandsFromQueryResult =
     | {commands: Command[]}
     | {parseSyntaxErrors: ParserSyntaxError[]}
-    | {parseCommandsError: ExpectedError | UnexpectedError};
+    | {parseCommandsError: ParsingError | UnexpectedError};
 
-function newExpectedError(message: string): ExpectedError {
+function newParsingError(message: string): ParsingError {
     return {
-        type: 'expected',
+        type: 'parsingError',
         message,
     };
 }
@@ -88,14 +85,8 @@ function newUnexpectedError(message: unknown): UnexpectedError {
 }
 
 class CommandsVisitor extends MongoParserVisitor<unknown> {
-    onParseCommand: OnParseCommand;
-    onParseCommandError: OnParseCommandError;
-
-    constructor(onParseCommand: OnParseCommand, onParseCommandError: OnParseCommandError) {
-        super();
-        this.onParseCommand = onParseCommand;
-        this.onParseCommandError = onParseCommandError;
-    }
+    commands: Command[] = [];
+    error: ParsingError | UnexpectedError | undefined;
 
     visitCollectionOperation = (context: CollectionOperationContext): void => {
         const collectionName = context.collectionName().getText();
@@ -105,7 +96,7 @@ class CommandsVisitor extends MongoParserVisitor<unknown> {
             if (methodContext instanceof FindMethodContext) {
                 const command = parseFindMethodContext(methodContext);
 
-                this.onParseCommand({
+                this.commands.push({
                     ...command,
                     collectionName,
                     method: 'find',
@@ -117,32 +108,34 @@ class CommandsVisitor extends MongoParserVisitor<unknown> {
                 const document = formatJson5(methodContext.insertOneArgument1().getText());
                 const options = formatJson5(methodContext.insertOneArgument2()?.getText());
 
-                this.onParseCommand({collectionName, method: 'insertOne', document, options});
+                this.commands.push({collectionName, method: 'insertOne', document, options});
                 return;
             }
         } catch (error) {
-            if (
-                error &&
-                typeof error === 'object' &&
-                'type' in error &&
-                error.type === 'expected' &&
-                'message' in error &&
-                typeof error.type === 'string' &&
-                typeof error.message === 'string'
-            ) {
+            if (isExpectedError(error)) {
                 const {message} = error;
-                this.onParseCommandError(newExpectedError(message));
+                this.error = newParsingError(message);
                 return;
             }
 
-            this.onParseCommandError(newUnexpectedError(error));
+            this.error = newUnexpectedError(error);
             return;
         }
 
-        this.onParseCommandError(
-            newExpectedError('Method is not implemented: ' + methodContext?.getText()),
-        );
+        this.error = newParsingError('Method is not implemented: ' + methodContext?.getText());
     };
+}
+
+function isExpectedError(error: unknown): error is ParsingError {
+    return Boolean(
+        error &&
+            typeof error === 'object' &&
+            'type' in error &&
+            error.type === 'expected' &&
+            'message' in error &&
+            typeof error.type === 'string' &&
+            typeof error.message === 'string',
+    );
 }
 
 function parseFindMethodContext(
@@ -156,7 +149,7 @@ function parseFindMethodContext(
 
     const explainMethodContext = context.explainMethod();
 
-    let explain: undefined | FindCommand['explain'];
+    let explain: FindCommand['explain'] | undefined;
     if (explainMethodContext) {
         const explainParameters = formatJson5(
             explainMethodContext.explainMethodArgument()?.getText(),
@@ -175,81 +168,78 @@ function parseFindMethodContext(
 function parseFindMethodModifierContext(context: FindMethodModifierContext): FindModifier {
     const childContext = context.getChild(1);
 
-    // This workaround allow to use instaceof in switch cases
-    switch (true) {
-        case childContext instanceof SkipModifierContext:
-            return {
-                method: 'skip',
-                parameters: formatJson5(childContext.skipModifierArgument().getText()),
-            };
-        case childContext instanceof LimitModifierContext:
-            return {
-                method: 'limit',
-                parameters: formatJson5(childContext.limitModifierArgument().getText()),
-            };
-        case childContext instanceof FilterModifierContext:
-            return {
-                method: 'filter',
-                parameters: formatJson5(childContext.filterModifierArgument().getText()),
-            };
-        case childContext instanceof MinModifierContext:
-            return {
-                method: 'min',
-                parameters: formatJson5(childContext.minModifierArgument().getText()),
-            };
-        case childContext instanceof MaxModifierContext:
-            return {
-                method: 'max',
-                parameters: formatJson5(childContext.maxModifierArgument().getText()),
-            };
-        case childContext instanceof ReturnKeyModifierContext:
-            return {
-                method: 'returnKey',
-                parameters: formatJson5(childContext.returnKeyModifierArgument().getText()),
-            };
-        case childContext instanceof ShowRecordIdModifierContext:
-            return {
-                method: 'showRecordId',
-                parameters: formatJson5(childContext.showRecordIdModifierArgument().getText()),
-            };
-        case childContext instanceof SortModifierContext:
-            return {
-                method: 'sort',
-                parameters: formatJson5(childContext.sortModifierArgument1().getText()),
-                options: formatJson5(childContext.sortModifierArgument2()?.getText()),
-            };
-        case childContext instanceof HintModifierContext:
-            return {
-                method: 'hint',
-                parameters: formatJson5(childContext.hintModifierArgument().getText()),
-            };
-        default:
-            throw newExpectedError('Modifier is not implemented: ' + childContext?.getText());
+    if (childContext instanceof SkipModifierContext) {
+        return {
+            method: 'skip',
+            parameters: formatJson5(childContext.skipModifierArgument().getText()),
+        };
     }
+    if (childContext instanceof LimitModifierContext) {
+        return {
+            method: 'limit',
+            parameters: formatJson5(childContext.limitModifierArgument().getText()),
+        };
+    }
+    if (childContext instanceof FilterModifierContext) {
+        return {
+            method: 'filter',
+            parameters: formatJson5(childContext.filterModifierArgument().getText()),
+        };
+    }
+    if (childContext instanceof MinModifierContext) {
+        return {
+            method: 'min',
+            parameters: formatJson5(childContext.minModifierArgument().getText()),
+        };
+    }
+    if (childContext instanceof MaxModifierContext) {
+        return {
+            method: 'max',
+            parameters: formatJson5(childContext.maxModifierArgument().getText()),
+        };
+    }
+    if (childContext instanceof ReturnKeyModifierContext) {
+        return {
+            method: 'returnKey',
+            parameters: formatJson5(childContext.returnKeyModifierArgument().getText()),
+        };
+    }
+    if (childContext instanceof ShowRecordIdModifierContext) {
+        return {
+            method: 'showRecordId',
+            parameters: formatJson5(childContext.showRecordIdModifierArgument().getText()),
+        };
+    }
+    if (childContext instanceof SortModifierContext) {
+        return {
+            method: 'sort',
+            parameters: formatJson5(childContext.sortModifierArgument1().getText()),
+            options: formatJson5(childContext.sortModifierArgument2()?.getText()),
+        };
+    }
+    if (childContext instanceof HintModifierContext) {
+        return {
+            method: 'hint',
+            parameters: formatJson5(childContext.hintModifierArgument().getText()),
+        };
+    }
+
+    throw newParsingError('Modifier is not implemented: ' + childContext?.getText());
 }
 
-function formatJson5(string: string | undefined): undefined | unknown {
+function formatJson5(string?: string): unknown | undefined {
     return string ? json5.parse<unknown>(string) : undefined;
 }
 
 export function extractMongoCommandsFromQuery(query: string): ExtractMongoCommandsFromQueryResult {
     const parser = createParser(MongoLexer, MongoParser, query);
 
-    const commands: Command[] = [];
-    const onParseCommand: OnParseCommand = (command) => {
-        commands.push(command);
-    };
-
-    let parseCommandsError: ExpectedError | UnexpectedError | undefined;
-    const onParseCommandsError: OnParseCommandError = (error) => {
-        parseCommandsError = error;
-    };
-
     const syntaxErrorListener = new SqlErrorListener(MongoParser.WS);
     parser.addErrorListener(syntaxErrorListener);
 
-    const visitor = new CommandsVisitor(onParseCommand, onParseCommandsError);
-    getParseTree(parser).accept(visitor);
+    const visitor = new CommandsVisitor();
+    const parseTree = getParseTree(parser);
+    visitor.visit(parseTree);
 
     if (syntaxErrorListener.errors.length) {
         return {
@@ -257,11 +247,11 @@ export function extractMongoCommandsFromQuery(query: string): ExtractMongoComman
         };
     }
 
-    if (parseCommandsError) {
+    if (visitor.error) {
         return {
-            parseCommandsError,
+            parseCommandsError: visitor.error,
         };
     }
 
-    return {commands};
+    return {commands: visitor.commands};
 }
