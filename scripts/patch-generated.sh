@@ -1,7 +1,13 @@
 DIALECT=$1
 
 # Check that dialect is correct
-if [ "$DIALECT" != "mysql" ] && [ "$DIALECT" != "postgresql" ] && [ "$DIALECT" != "clickhouse" ] && [ "$DIALECT" != "yql" ] && [ "$DIALECT" != "redis" ] && [ "$DIALECT" != "trino" ]
+if  [ "$DIALECT" != "mysql" ] &&
+    [ "$DIALECT" != "postgresql" ] &&
+    [ "$DIALECT" != "clickhouse" ] &&
+    [ "$DIALECT" != "yql" ] &&
+    [ "$DIALECT" != "redis" ] &&
+    [ "$DIALECT" != "trino" ] &&
+    [ "$DIALECT" != "mongo" ]
 then
   echo "dialect '$DIALECT' is not supported"
   exit 0
@@ -23,6 +29,9 @@ then
 elif [ "$DIALECT" == "trino" ]
 then
   FILE_PREFIX=src/autocomplete/databases/$DIALECT/generated/Trino
+elif [ "$DIALECT" == "mongo" ]
+then
+  FILE_PREFIX=src/autocomplete/databases/$DIALECT/generated/Mongo
 else
   FILE_PREFIX=src/autocomplete/databases/$DIALECT/generated/ClickHouse
 fi
