@@ -103,6 +103,7 @@ insertOneMethod
 
 insertOneArgument1
     : object
+    | array
     ;
 
 insertOneArgument2

@@ -142,6 +142,15 @@ test('should extract insertOne commands properly', () => {
                 test_option: 'test_option_value'
             }
         );
+
+        db.test_collection3.insertOne(
+            [{
+                test_field: 'test_value'
+            }],
+            {
+                test_option: 'test_option_value'
+            }
+        );
     `);
 
     expect(result).toEqual({
@@ -155,6 +164,12 @@ test('should extract insertOne commands properly', () => {
                 method: 'insertOne',
                 collectionName: 'test_collection2',
                 document: {test_field: 'test_value'},
+                options: {test_option: 'test_option_value'},
+            },
+            {
+                method: 'insertOne',
+                collectionName: 'test_collection3',
+                document: [{test_field: 'test_value'}],
                 options: {test_option: 'test_option_value'},
             },
         ],
