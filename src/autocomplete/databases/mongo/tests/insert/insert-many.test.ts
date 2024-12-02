@@ -5,7 +5,7 @@ test('should not report errors on insertMany statement', () => {
         db.test_collection.insertMany(
           [{
             test_field: 'test_value'
-          }],
+          }]
         );
     `);
 
