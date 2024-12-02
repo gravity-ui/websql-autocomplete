@@ -19,7 +19,7 @@ test('should not report errors on extended insertOne statement', () => {
           test_field: 'test_value'
         },
         {
-          test_field: 'test_value'
+          test_option: 'test_value'
         }
       );
   `);
