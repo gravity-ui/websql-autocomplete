@@ -18,6 +18,9 @@ import { CommandContext } from "./MongoParser.js";
 import { CollectionOperationContext } from "./MongoParser.js";
 import { CollectionNameContext } from "./MongoParser.js";
 import { CollectionMethodContext } from "./MongoParser.js";
+import { FindOneAndDeleteMethodContext } from "./MongoParser.js";
+import { FindOneAndDeleteArgument1Context } from "./MongoParser.js";
+import { FindOneAndDeleteArgument2Context } from "./MongoParser.js";
 import { FindOneMethodContext } from "./MongoParser.js";
 import { FindOneArgument1Context } from "./MongoParser.js";
 import { FindOneArgument2Context } from "./MongoParser.js";
@@ -105,6 +108,24 @@ export class MongoParserVisitor<Result> extends AbstractParseTreeVisitor<Result>
      * @return the visitor result
      */
     visitCollectionMethod?: (ctx: CollectionMethodContext) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.findOneAndDeleteMethod`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitFindOneAndDeleteMethod?: (ctx: FindOneAndDeleteMethodContext) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.findOneAndDeleteArgument1`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitFindOneAndDeleteArgument1?: (ctx: FindOneAndDeleteArgument1Context) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.findOneAndDeleteArgument2`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitFindOneAndDeleteArgument2?: (ctx: FindOneAndDeleteArgument2Context) => Result;
     /**
      * Visit a parse tree produced by `MongoParser.findOneMethod`.
      * @param ctx the parse tree

@@ -10,19 +10,20 @@ options {
 
 DB: 'db';
 // skip is reserved keyword by antlr, that's why we need this postfix
-SKIP_          : 'skip';
-INSERT_ONE     : 'insertOne';
-FIND           : 'find';
-FIND_ONE       : 'findOne';
-SHOW_RECORD_ID : 'showRecordId';
-RETURN_KEY     : 'returnKey';
-FILTER         : 'filter';
-MIN            : 'min';
-MAX            : 'max';
-SORT           : 'sort';
-LIMIT          : 'limit';
-EXPLAIN        : 'explain';
-HINT           : 'hint';
+SKIP_               : 'skip';
+INSERT_ONE          : 'insertOne';
+FIND                : 'find';
+FIND_ONE            : 'findOne';
+FIND_ONE_AND_DELETE : 'findOneAndDelete';
+SHOW_RECORD_ID      : 'showRecordId';
+RETURN_KEY          : 'returnKey';
+FILTER              : 'filter';
+MIN                 : 'min';
+MAX                 : 'max';
+SORT                : 'sort';
+LIMIT               : 'limit';
+EXPLAIN             : 'explain';
+HINT                : 'hint';
 
 LBRACKET  : '[';
 RBRACKET  : ']';

@@ -31,7 +31,20 @@ collectionName
 collectionMethod
     : findMethod
     | findOneMethod
+    | findOneAndDeleteMethod
     | insertOneMethod
+    ;
+
+findOneAndDeleteMethod
+    : FIND_ONE_AND_DELETE LPAREN findOneArgument1 (COMMA findOneArgument2)? RPAREN
+    ;
+
+findOneAndDeleteArgument1
+    : object
+    ;
+
+findOneAndDeleteArgument2
+    : object
     ;
 
 findOneMethod

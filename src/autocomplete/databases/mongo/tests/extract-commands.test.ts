@@ -200,6 +200,39 @@ test('should extract findOne commands properly', () => {
     });
 });
 
+test('should extract findOneAndDelete commands properly', () => {
+    const result = extractMongoCommandsFromQuery(`
+        db.test_collection2.findOneAndDelete({
+            test_field: 'test_value',
+        });
+
+        db.test_collection3.findOneAndDelete(
+            {
+                test_field: 'test_value'
+            },
+            {
+                test_option: 'test_option_value'
+            }
+        );
+    `);
+
+    expect(result).toEqual({
+        commands: [
+            {
+                method: 'findOneAndDelete',
+                collectionName: 'test_collection2',
+                parameters: {test_field: 'test_value'},
+            },
+            {
+                method: 'findOneAndDelete',
+                collectionName: 'test_collection3',
+                parameters: {test_field: 'test_value'},
+                options: {test_option: 'test_option_value'},
+            },
+        ],
+    });
+});
+
 test('should throw error on invalid syntax', () => {
     const result = extractMongoCommandsFromQuery('db_ERROR.test_collection1.find({})');
 

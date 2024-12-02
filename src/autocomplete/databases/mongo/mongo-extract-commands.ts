@@ -4,6 +4,7 @@ import {
     FilterModifierContext,
     FindMethodContext,
     FindMethodModifierContext,
+    FindOneAndDeleteMethodContext,
     FindOneMethodContext,
     HintModifierContext,
     InsertOneMethodContext,
@@ -54,6 +55,13 @@ interface FindOneCommand {
     options?: unknown;
 }
 
+interface FindOneAndDeleteCommand {
+    method: 'findOneAndDelete';
+    collectionName: string;
+    parameters: unknown;
+    options?: unknown;
+}
+
 interface InsertOneCommand {
     method: 'insertOne';
     collectionName: string;
@@ -61,7 +69,7 @@ interface InsertOneCommand {
     options: unknown;
 }
 
-type Command = FindCommand | FindOneCommand | InsertOneCommand;
+type Command = FindCommand | FindOneCommand | FindOneAndDeleteCommand | InsertOneCommand;
 
 export interface ParsingError {
     type: 'parsingError';
@@ -119,6 +127,19 @@ class CommandsVisitor extends MongoParserVisitor<unknown> {
                 this.commands.push({
                     collectionName,
                     method: 'findOne',
+                    parameters,
+                    options,
+                });
+                return;
+            }
+
+            if (methodContext instanceof FindOneAndDeleteMethodContext) {
+                const parameters = formatJson5(methodContext.findOneArgument1().getText());
+                const options = formatJson5(methodContext.findOneArgument2()?.getText());
+
+                this.commands.push({
+                    collectionName,
+                    method: 'findOneAndDelete',
                     parameters,
                     options,
                 });
