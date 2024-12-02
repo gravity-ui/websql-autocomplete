@@ -12,6 +12,7 @@ import {isStartingToWriteRule} from '../../shared/cursor.js';
 
 const tokenDictionary = {
     SPACE: MongoParser.WS,
+    SEMICOLON: MongoParser.SEMICOLON,
 };
 
 // These are keywords that we do not want to show in autocomplete
