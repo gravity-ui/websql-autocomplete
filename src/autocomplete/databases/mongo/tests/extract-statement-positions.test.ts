@@ -4,7 +4,7 @@ import {
 } from '../../../shared/extract-statement-positions-from-query';
 import {extractMongoStatementPositionsFromQuery} from '../index';
 
-test('should extract statements from single query', () => {
+test('should extract statements from single find query', () => {
     const query = 'db.test_collection.find();';
     const result = extractMongoStatementPositionsFromQuery(query);
     const expectedResult: ExtractStatementPositionsResult = {
@@ -20,6 +20,25 @@ test('should extract statements from single query', () => {
             result.statementPositions[0]?.endIndex,
         ),
     ).toBe('db.test_collection.find();');
+});
+
+// TODO: Fix, autocomplete strategy expected
+test('should extract statements from single insertOne query', () => {
+    const query = 'db.test_collection.insertOne({});';
+    const result = extractMongoStatementPositionsFromQuery(query);
+    const expectedResult: ExtractStatementPositionsResult = {
+        statementPositions: [{startIndex: 0, endIndex: 33}],
+        strategy: StatementExtractionStrategy.Tokens,
+    };
+
+    expect(result).toEqual(expectedResult);
+
+    expect(
+        query.slice(
+            result.statementPositions[0]?.startIndex,
+            result.statementPositions[0]?.endIndex,
+        ),
+    ).toBe('db.test_collection.insertOne({});');
 });
 
 test('should extract statements from single query with block comment inside', () => {
@@ -150,16 +169,16 @@ test('should ignore newlines', () => {
     expect(result).toEqual({statementPositions: [], strategy: StatementExtractionStrategy.Tokens});
 });
 
+// TODO: Fix, autocomplete strategy expected
 test('should extract statements from multiple query', () => {
-    const query = 'db.test_collection.find();db.test_collection.isnertOne({field: 1});';
+    const query = 'db.test_collection.find();db.test_collection.insertOne({field: 1});';
 
     const result = extractMongoStatementPositionsFromQuery(query);
     const expectedResult: ExtractStatementPositionsResult = {
         statementPositions: [
-            {startIndex: 0, endIndex: 36},
-            {startIndex: 36, endIndex: 72},
+            {startIndex: 0, endIndex: 26},
+            {startIndex: 26, endIndex: 67},
         ],
-        // TODO: Fix, StatementExtractionStrategy.Autocomplete expected
         strategy: StatementExtractionStrategy.Tokens,
     };
 
@@ -170,14 +189,14 @@ test('should extract statements from multiple query', () => {
             result.statementPositions[0]?.startIndex,
             result.statementPositions[0]?.endIndex,
         ),
-    ).toBe('db.test_collection.find({field: 1});');
+    ).toBe('db.test_collection.find();');
 
     expect(
         query.slice(
             result.statementPositions[1]?.startIndex,
             result.statementPositions[1]?.endIndex,
         ),
-    ).toBe('db.test_collection.find({field: 1});');
+    ).toBe('db.test_collection.insertOne({field: 1});');
 });
 
 // TODO: Fix, do not resolve first 2 rules because of insertOne
