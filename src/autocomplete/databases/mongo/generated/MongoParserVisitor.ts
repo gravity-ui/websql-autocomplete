@@ -18,6 +18,10 @@ import { CommandContext } from "./MongoParser.js";
 import { CollectionOperationContext } from "./MongoParser.js";
 import { CollectionNameContext } from "./MongoParser.js";
 import { CollectionMethodContext } from "./MongoParser.js";
+import { FindOneAndReplaceMethodContext } from "./MongoParser.js";
+import { FindOneAndReplaceArgument1Context } from "./MongoParser.js";
+import { FindOneAndReplaceArgument2Context } from "./MongoParser.js";
+import { FindOneAndReplaceArgument3Context } from "./MongoParser.js";
 import { FindOneAndDeleteMethodContext } from "./MongoParser.js";
 import { FindOneAndDeleteArgument1Context } from "./MongoParser.js";
 import { FindOneAndDeleteArgument2Context } from "./MongoParser.js";
@@ -108,6 +112,30 @@ export class MongoParserVisitor<Result> extends AbstractParseTreeVisitor<Result>
      * @return the visitor result
      */
     visitCollectionMethod?: (ctx: CollectionMethodContext) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.findOneAndReplaceMethod`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitFindOneAndReplaceMethod?: (ctx: FindOneAndReplaceMethodContext) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.findOneAndReplaceArgument1`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitFindOneAndReplaceArgument1?: (ctx: FindOneAndReplaceArgument1Context) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.findOneAndReplaceArgument2`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitFindOneAndReplaceArgument2?: (ctx: FindOneAndReplaceArgument2Context) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.findOneAndReplaceArgument3`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitFindOneAndReplaceArgument3?: (ctx: FindOneAndReplaceArgument3Context) => Result;
     /**
      * Visit a parse tree produced by `MongoParser.findOneAndDeleteMethod`.
      * @param ctx the parse tree

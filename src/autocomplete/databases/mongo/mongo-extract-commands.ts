@@ -5,6 +5,7 @@ import {
     FindMethodContext,
     FindMethodModifierContext,
     FindOneAndDeleteMethodContext,
+    FindOneAndReplaceMethodContext,
     FindOneMethodContext,
     HintModifierContext,
     InsertOneMethodContext,
@@ -62,6 +63,14 @@ interface FindOneAndDeleteCommand {
     options?: unknown;
 }
 
+interface FindOneAndReplaceCommand {
+    method: 'findOneAndReplace';
+    collectionName: string;
+    parameters: unknown;
+    replacement: unknown;
+    options?: unknown;
+}
+
 interface InsertOneCommand {
     method: 'insertOne';
     collectionName: string;
@@ -69,7 +78,12 @@ interface InsertOneCommand {
     options: unknown;
 }
 
-type Command = FindCommand | FindOneCommand | FindOneAndDeleteCommand | InsertOneCommand;
+type Command =
+    | FindCommand
+    | FindOneCommand
+    | FindOneAndDeleteCommand
+    | FindOneAndReplaceCommand
+    | InsertOneCommand;
 
 export interface ParsingError {
     type: 'parsingError';
@@ -134,13 +148,32 @@ class CommandsVisitor extends MongoParserVisitor<unknown> {
             }
 
             if (methodContext instanceof FindOneAndDeleteMethodContext) {
-                const parameters = formatJson5(methodContext.findOneArgument1().getText());
-                const options = formatJson5(methodContext.findOneArgument2()?.getText());
+                const parameters = formatJson5(methodContext.findOneAndDeleteArgument1().getText());
+                const options = formatJson5(methodContext.findOneAndDeleteArgument2()?.getText());
 
                 this.commands.push({
                     collectionName,
                     method: 'findOneAndDelete',
                     parameters,
+                    options,
+                });
+                return;
+            }
+
+            if (methodContext instanceof FindOneAndReplaceMethodContext) {
+                const parameters = formatJson5(
+                    methodContext.findOneAndReplaceArgument1().getText(),
+                );
+                const replacement = formatJson5(
+                    methodContext.findOneAndReplaceArgument2().getText(),
+                );
+                const options = formatJson5(methodContext.findOneAndReplaceArgument3()?.getText());
+
+                this.commands.push({
+                    collectionName,
+                    method: 'findOneAndReplace',
+                    parameters,
+                    replacement,
                     options,
                 });
                 return;
