@@ -169,7 +169,7 @@ test('should throw error on invalid syntax', () => {
             {
                 endColumn: 8,
                 endLine: 1,
-                message: "mismatched input 'db_ERROR' expecting 'db'",
+                message: "mismatched input 'db_ERROR' expecting {<EOF>, 'db'}",
                 startColumn: 0,
                 startLine: 1,
             },
