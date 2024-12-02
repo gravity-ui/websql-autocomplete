@@ -242,10 +242,11 @@ sortModifierArgument2
 
 reservedKeyword
     : DB
-    | SKIP_
-    | INSERT_ONE
-    // TODO: add new keywords
     | FIND
+    | FIND_ONE
+    | FIND_ONE_AND_DELETE
+    | FIND_ONE_AND_REPLACE
+    | FIND_ONE_AND_UPDATE
     | SHOW_RECORD_ID
     | RETURN_KEY
     | FILTER
@@ -255,6 +256,9 @@ reservedKeyword
     | LIMIT
     | EXPLAIN
     | HINT
+    | SKIP_
+    | INSERT_ONE
+    | INSERT_MANY
     ;
 
 // JSON5 rules
