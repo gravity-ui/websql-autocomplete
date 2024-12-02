@@ -204,7 +204,7 @@ test('should extract findOneAndReplace commands properly', () => {
                 test_field: 'test_value',
             },
             {
-                test_field: 'new_test_value',
+                new_test_field: 'new_test_value',
             }
         );
 
@@ -213,7 +213,7 @@ test('should extract findOneAndReplace commands properly', () => {
                 test_field: 'test_value',
             },
             {
-                test_field: 'new_test_value',
+                new_test_field: 'new_test_value',
             },
             {
                 test_option: 'test_option_value'
@@ -227,13 +227,13 @@ test('should extract findOneAndReplace commands properly', () => {
                 method: 'findOneAndReplace',
                 collectionName: 'test_collection1',
                 parameters: {test_field: 'test_value'},
-                replacement: {test_field: 'new_test_value'},
+                replacement: {new_test_field: 'new_test_value'},
             },
             {
                 method: 'findOneAndReplace',
                 collectionName: 'test_collection2',
                 parameters: {test_field: 'test_value'},
-                replacement: {test_field: 'new_test_value'},
+                replacement: {new_test_field: 'new_test_value'},
                 options: {test_option: 'test_option_value'},
             },
         ],
