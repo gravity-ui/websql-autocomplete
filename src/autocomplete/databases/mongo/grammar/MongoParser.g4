@@ -8,7 +8,7 @@ options {
 }
 
 root
-    : commands EOF
+    : commands? EOF
     ;
 
 commands

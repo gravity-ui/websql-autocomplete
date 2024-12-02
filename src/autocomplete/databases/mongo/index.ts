@@ -3,6 +3,10 @@ import {parseQuery, parseQueryWithoutCursor} from '../../shared/autocomplete';
 import {separateQueryAndCursor} from '../../shared/parse-query-with-cursor';
 import {mongoAutocompleteData} from './mongo-autocomplete';
 import {MongoParser} from './generated/MongoParser';
+import {
+    ExtractStatementPositionsResult,
+    extractStatementPositionsFromQuery,
+} from '../../shared/extract-statement-positions-from-query';
 
 export {
     extractMongoCommandsFromQuery,
@@ -44,7 +48,17 @@ export function parseMongoQueryWithCursor(queryWithCursor: string): MongoAutocom
     return parseMongoQuery(...separateQueryAndCursor(queryWithCursor));
 }
 
-export function extractMongoStatementPositionsFromQuery(_query: string): never {
-    // TODO: MONGO implement
-    throw new Error('not implemented');
+export function extractMongoStatementPositionsFromQuery(
+    query: string,
+): ExtractStatementPositionsResult {
+    return extractStatementPositionsFromQuery(
+        query,
+        mongoAutocompleteData.Lexer,
+        mongoAutocompleteData.Parser,
+        mongoAutocompleteData.tokenDictionary.SPACE,
+        [mongoAutocompleteData.tokenDictionary.SPACE],
+        mongoAutocompleteData.tokenDictionary.SEMICOLON,
+        MongoParser.RULE_command,
+        mongoAutocompleteData.getParseTree,
+    );
 }
