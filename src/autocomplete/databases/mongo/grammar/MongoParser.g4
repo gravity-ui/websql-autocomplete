@@ -33,7 +33,26 @@ collectionMethod
     | findOneMethod
     | findOneAndDeleteMethod
     | findOneAndReplaceMethod
+    | findOneAndUpdateMethod
     | insertOneMethod
+    ;
+
+findOneAndUpdateMethod
+    : FIND_ONE_AND_UPDATE LPAREN findOneAndUpdateArgument1 COMMA findOneAndUpdateArgument2 (
+        COMMA findOneAndUpdateArgument3
+    )? RPAREN
+    ;
+
+findOneAndUpdateArgument1
+    : object
+    ;
+
+findOneAndUpdateArgument2
+    : object
+    ;
+
+findOneAndUpdateArgument3
+    : object
     ;
 
 findOneAndReplaceMethod

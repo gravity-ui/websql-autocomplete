@@ -16,6 +16,7 @@ FIND                 : 'find';
 FIND_ONE             : 'findOne';
 FIND_ONE_AND_DELETE  : 'findOneAndDelete';
 FIND_ONE_AND_REPLACE : 'findOneAndReplace';
+FIND_ONE_AND_UPDATE  : 'findOneAndUpdate';
 SHOW_RECORD_ID       : 'showRecordId';
 RETURN_KEY           : 'returnKey';
 FILTER               : 'filter';

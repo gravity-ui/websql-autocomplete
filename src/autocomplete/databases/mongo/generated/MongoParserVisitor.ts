@@ -18,6 +18,10 @@ import { CommandContext } from "./MongoParser.js";
 import { CollectionOperationContext } from "./MongoParser.js";
 import { CollectionNameContext } from "./MongoParser.js";
 import { CollectionMethodContext } from "./MongoParser.js";
+import { FindOneAndUpdateMethodContext } from "./MongoParser.js";
+import { FindOneAndUpdateArgument1Context } from "./MongoParser.js";
+import { FindOneAndUpdateArgument2Context } from "./MongoParser.js";
+import { FindOneAndUpdateArgument3Context } from "./MongoParser.js";
 import { FindOneAndReplaceMethodContext } from "./MongoParser.js";
 import { FindOneAndReplaceArgument1Context } from "./MongoParser.js";
 import { FindOneAndReplaceArgument2Context } from "./MongoParser.js";
@@ -112,6 +116,30 @@ export class MongoParserVisitor<Result> extends AbstractParseTreeVisitor<Result>
      * @return the visitor result
      */
     visitCollectionMethod?: (ctx: CollectionMethodContext) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.findOneAndUpdateMethod`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitFindOneAndUpdateMethod?: (ctx: FindOneAndUpdateMethodContext) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.findOneAndUpdateArgument1`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitFindOneAndUpdateArgument1?: (ctx: FindOneAndUpdateArgument1Context) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.findOneAndUpdateArgument2`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitFindOneAndUpdateArgument2?: (ctx: FindOneAndUpdateArgument2Context) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.findOneAndUpdateArgument3`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitFindOneAndUpdateArgument3?: (ctx: FindOneAndUpdateArgument3Context) => Result;
     /**
      * Visit a parse tree produced by `MongoParser.findOneAndReplaceMethod`.
      * @param ctx the parse tree

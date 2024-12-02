@@ -276,6 +276,49 @@ test('should extract findOneAndReplace commands properly', () => {
     });
 });
 
+test('should extract findOneAndUpdate commands properly', () => {
+    const result = extractMongoCommandsFromQuery(`
+        db.test_collection1.findOneAndUpdate(
+            {
+                test_field: 'test_value',
+            },
+            {
+                test_field: 'new_test_value',
+            }
+        );
+
+        db.test_collection2.findOneAndUpdate(
+            {
+                test_field: 'test_value',
+            },
+            {
+                test_field: 'new_test_value',
+            },
+            {
+                test_option: 'test_option_value'
+            }
+        );
+    `);
+
+    expect(result).toEqual({
+        commands: [
+            {
+                method: 'findOneAndUpdate',
+                collectionName: 'test_collection1',
+                parameters: {test_field: 'test_value'},
+                values: {test_field: 'new_test_value'},
+            },
+            {
+                method: 'findOneAndUpdate',
+                collectionName: 'test_collection2',
+                parameters: {test_field: 'test_value'},
+                values: {test_field: 'new_test_value'},
+                options: {test_option: 'test_option_value'},
+            },
+        ],
+    });
+});
+
 test('should throw error on invalid syntax', () => {
     const result = extractMongoCommandsFromQuery('db_ERROR.test_collection1.find({})');
 
