@@ -4,6 +4,7 @@ import {
     FilterModifierContext,
     FindMethodContext,
     FindMethodModifierContext,
+    FindOneMethodContext,
     HintModifierContext,
     InsertOneMethodContext,
     LimitModifierContext,
@@ -46,6 +47,13 @@ interface FindCommand {
     modifiers: FindModifier[];
 }
 
+interface FindOneCommand {
+    method: 'findOne';
+    collectionName: string;
+    parameters?: unknown;
+    options?: unknown;
+}
+
 interface InsertOneCommand {
     method: 'insertOne';
     collectionName: string;
@@ -53,7 +61,7 @@ interface InsertOneCommand {
     options: unknown;
 }
 
-type Command = FindCommand | InsertOneCommand;
+type Command = FindCommand | FindOneCommand | InsertOneCommand;
 
 export interface ParsingError {
     type: 'parsingError';
@@ -100,6 +108,19 @@ class CommandsVisitor extends MongoParserVisitor<unknown> {
                     ...command,
                     collectionName,
                     method: 'find',
+                });
+                return;
+            }
+
+            if (methodContext instanceof FindOneMethodContext) {
+                const parameters = formatJson5(methodContext.findOneArgument1()?.getText());
+                const options = formatJson5(methodContext.findOneArgument2()?.getText());
+
+                this.commands.push({
+                    collectionName,
+                    method: 'findOne',
+                    parameters,
+                    options,
                 });
                 return;
             }

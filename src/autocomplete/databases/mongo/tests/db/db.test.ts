@@ -24,5 +24,9 @@ test('should suggest collections after db', () => {
 test('should suggest properly keywords after collection name', () => {
     const autocompleteResult = parseMongoQueryWithCursor('db.test_collection.|');
 
-    expect(autocompleteResult.suggestKeywords).toEqual([{value: 'find'}, {value: 'insertOne'}]);
+    expect(autocompleteResult.suggestKeywords).toEqual([
+        {value: 'find'},
+        {value: 'findOne'},
+        {value: 'insertOne'},
+    ]);
 });

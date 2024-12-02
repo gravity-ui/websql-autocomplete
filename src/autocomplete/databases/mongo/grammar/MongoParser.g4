@@ -30,7 +30,20 @@ collectionName
 
 collectionMethod
     : findMethod
+    | findOneMethod
     | insertOneMethod
+    ;
+
+findOneMethod
+    : FIND_ONE LPAREN (findOneArgument1 (COMMA findOneArgument2)?)? RPAREN
+    ;
+
+findOneArgument1
+    : object
+    ;
+
+findOneArgument2
+    : object
     ;
 
 insertOneMethod

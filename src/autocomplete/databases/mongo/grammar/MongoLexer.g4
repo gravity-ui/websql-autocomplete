@@ -13,6 +13,7 @@ DB: 'db';
 SKIP_          : 'skip';
 INSERT_ONE     : 'insertOne';
 FIND           : 'find';
+FIND_ONE       : 'findOne';
 SHOW_RECORD_ID : 'showRecordId';
 RETURN_KEY     : 'returnKey';
 FILTER         : 'filter';

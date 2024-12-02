@@ -161,6 +161,45 @@ test('should extract insertOne commands properly', () => {
     });
 });
 
+test('should extract findOne commands properly', () => {
+    const result = extractMongoCommandsFromQuery(`
+        db.test_collection1.findOne();
+
+        db.test_collection2.findOne({
+            test_field: 'test_value',
+        });
+
+        db.test_collection3.findOne(
+            {
+                test_field: 'test_value'
+            },
+            {
+                test_option: 'test_option_value'
+            }
+        );
+    `);
+
+    expect(result).toEqual({
+        commands: [
+            {
+                method: 'findOne',
+                collectionName: 'test_collection1',
+            },
+            {
+                method: 'findOne',
+                collectionName: 'test_collection2',
+                parameters: {test_field: 'test_value'},
+            },
+            {
+                method: 'findOne',
+                collectionName: 'test_collection3',
+                parameters: {test_field: 'test_value'},
+                options: {test_option: 'test_option_value'},
+            },
+        ],
+    });
+});
+
 test('should throw error on invalid syntax', () => {
     const result = extractMongoCommandsFromQuery('db_ERROR.test_collection1.find({})');
 
