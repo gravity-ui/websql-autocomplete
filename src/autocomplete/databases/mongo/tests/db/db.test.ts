@@ -27,6 +27,10 @@ test('should suggest properly keywords after collection name', () => {
     expect(autocompleteResult.suggestKeywords).toEqual([
         {value: 'find'},
         {value: 'findOne'},
+        {value: 'findOneAndDelete'},
+        {value: 'findOneAndReplace'},
+        {value: 'findOneAndUpdate'},
         {value: 'insertOne'},
+        {value: 'insertMany'},
     ]);
 });

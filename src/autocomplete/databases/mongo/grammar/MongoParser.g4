@@ -35,6 +35,36 @@ collectionMethod
     | findOneAndReplaceMethod
     | findOneAndUpdateMethod
     | insertOneMethod
+    | insertManyMethod
+    ;
+
+insertManyMethod
+    : INSERT_MANY LPAREN insertManyArgument1 (COMMA insertManyArgument2)? RPAREN
+    ;
+
+insertManyArgument1
+    : LBRACKET documentToInsert (COMMA documentToInsert)* COMMA? RBRACKET
+    ;
+
+insertManyArgument2
+    : object
+    ;
+
+insertOneMethod
+    : INSERT_ONE LPAREN insertOneArgument1 (COMMA insertOneArgument2)? RPAREN
+    ;
+
+insertOneArgument1
+    : documentToInsert
+    ;
+
+insertOneArgument2
+    : object
+    ;
+
+documentToInsert
+    : object
+    | array
     ;
 
 findOneAndUpdateMethod
@@ -94,19 +124,6 @@ findOneArgument1
     ;
 
 findOneArgument2
-    : object
-    ;
-
-insertOneMethod
-    : INSERT_ONE LPAREN insertOneArgument1 (COMMA insertOneArgument2)? RPAREN
-    ;
-
-insertOneArgument1
-    : object
-    | array
-    ;
-
-insertOneArgument2
     : object
     ;
 
@@ -227,6 +244,7 @@ reservedKeyword
     : DB
     | SKIP_
     | INSERT_ONE
+    // TODO: add new keywords
     | FIND
     | SHOW_RECORD_ID
     | RETURN_KEY

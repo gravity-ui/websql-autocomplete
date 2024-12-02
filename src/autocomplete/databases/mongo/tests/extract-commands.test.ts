@@ -125,57 +125,6 @@ test('should extract find commands properly', () => {
     });
 });
 
-test('should extract insertOne commands properly', () => {
-    const result = extractMongoCommandsFromQuery(`
-        db.test_collection1.insertOne({
-            test_field: 'test_value',
-            test_object: {
-                test_subfield: 23,
-            }
-        });
-
-        db.test_collection2.insertOne(
-            {
-                test_field: 'test_value'
-            },
-            {
-                test_option: 'test_option_value'
-            }
-        );
-
-        db.test_collection3.insertOne(
-            [{
-                test_field: 'test_value'
-            }],
-            {
-                test_option: 'test_option_value'
-            }
-        );
-    `);
-
-    expect(result).toEqual({
-        commands: [
-            {
-                method: 'insertOne',
-                collectionName: 'test_collection1',
-                document: {test_field: 'test_value', test_object: {test_subfield: 23}},
-            },
-            {
-                method: 'insertOne',
-                collectionName: 'test_collection2',
-                document: {test_field: 'test_value'},
-                options: {test_option: 'test_option_value'},
-            },
-            {
-                method: 'insertOne',
-                collectionName: 'test_collection3',
-                document: [{test_field: 'test_value'}],
-                options: {test_option: 'test_option_value'},
-            },
-        ],
-    });
-});
-
 test('should extract findOne commands properly', () => {
     const result = extractMongoCommandsFromQuery(`
         db.test_collection1.findOne();
@@ -321,14 +270,144 @@ test('should extract findOneAndUpdate commands properly', () => {
                 method: 'findOneAndUpdate',
                 collectionName: 'test_collection1',
                 parameters: {test_field: 'test_value'},
-                values: {test_field: 'new_test_value'},
+                newValues: {test_field: 'new_test_value'},
             },
             {
                 method: 'findOneAndUpdate',
                 collectionName: 'test_collection2',
                 parameters: {test_field: 'test_value'},
-                values: {test_field: 'new_test_value'},
+                newValues: {test_field: 'new_test_value'},
                 options: {test_option: 'test_option_value'},
+            },
+        ],
+    });
+});
+
+test('should extract insertOne commands properly', () => {
+    const result = extractMongoCommandsFromQuery(`
+        db.test_collection1.insertOne({
+            test_field: 'test_value',
+            test_object: {
+                test_subfield: 23,
+            }
+        });
+
+        db.test_collection2.insertOne(
+            {
+                test_field: 'test_value'
+            },
+            {
+                test_option: 'test_option_value'
+            }
+        );
+
+        db.test_collection3.insertOne(
+            [{
+                test_field: 'test_value'
+            }],
+            {
+                test_option: 'test_option_value'
+            }
+        );
+    `);
+
+    expect(result).toEqual({
+        commands: [
+            {
+                method: 'insertOne',
+                collectionName: 'test_collection1',
+                document: {test_field: 'test_value', test_object: {test_subfield: 23}},
+            },
+            {
+                method: 'insertOne',
+                collectionName: 'test_collection2',
+                document: {test_field: 'test_value'},
+                options: {test_option: 'test_option_value'},
+            },
+            {
+                method: 'insertOne',
+                collectionName: 'test_collection3',
+                document: [{test_field: 'test_value'}],
+                options: {test_option: 'test_option_value'},
+            },
+        ],
+    });
+});
+
+test('should extract insertMany commands properly', () => {
+    const result = extractMongoCommandsFromQuery(`
+        db.test_collection1.insertMany([{
+            test_field: 'test_value',
+            test_object: {
+                test_subfield: 23,
+            }
+        }]);
+
+        db.test_collection2.insertMany(
+            [
+                {
+                    test_field1: 'test_value1'
+                },
+                {
+                    test_field2: 'test_value2'
+                },
+                {
+                    test_field3: 'test_value3'
+                },
+                {
+                    test_field4: 'test_value4'
+                },
+            ],
+            {
+                test_option: 'test_option_value'
+            }
+        );
+
+        db.test_collection3.insertMany(
+            [
+                [{
+                    test_field: 'test_value'
+                }]
+            ],
+            {
+                test_option: 'test_option_value'
+            }
+        );
+
+        db.test_collection4.insertMany([[1, 2], [3, 4]]);
+    `);
+
+    expect(result).toEqual({
+        commands: [
+            {
+                method: 'insertMany',
+                collectionName: 'test_collection1',
+                documents: [{test_field: 'test_value', test_object: {test_subfield: 23}}],
+            },
+            {
+                method: 'insertMany',
+                collectionName: 'test_collection2',
+                documents: [
+                    {test_field1: 'test_value1'},
+                    {test_field2: 'test_value2'},
+                    {test_field3: 'test_value3'},
+                    {test_field4: 'test_value4'},
+                ],
+                options: {test_option: 'test_option_value'},
+            },
+            {
+                method: 'insertMany',
+                collectionName: 'test_collection3',
+                documents: [[{test_field: 'test_value'}]],
+                options: {test_option: 'test_option_value'},
+            },
+            {
+                method: 'insertMany',
+                collectionName: 'test_collection4',
+                documents: [
+                    [1, 2],
+                    [3, 4],
+                ],
             },
         ],
     });

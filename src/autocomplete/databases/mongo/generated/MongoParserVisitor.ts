@@ -18,6 +18,13 @@ import { CommandContext } from "./MongoParser.js";
 import { CollectionOperationContext } from "./MongoParser.js";
 import { CollectionNameContext } from "./MongoParser.js";
 import { CollectionMethodContext } from "./MongoParser.js";
+import { InsertManyMethodContext } from "./MongoParser.js";
+import { InsertManyArgument1Context } from "./MongoParser.js";
+import { InsertManyArgument2Context } from "./MongoParser.js";
+import { InsertOneMethodContext } from "./MongoParser.js";
+import { InsertOneArgument1Context } from "./MongoParser.js";
+import { InsertOneArgument2Context } from "./MongoParser.js";
+import { DocumentToInsertContext } from "./MongoParser.js";
 import { FindOneAndUpdateMethodContext } from "./MongoParser.js";
 import { FindOneAndUpdateArgument1Context } from "./MongoParser.js";
 import { FindOneAndUpdateArgument2Context } from "./MongoParser.js";
@@ -32,9 +39,6 @@ import { FindOneAndDeleteArgument2Context } from "./MongoParser.js";
 import { FindOneMethodContext } from "./MongoParser.js";
 import { FindOneArgument1Context } from "./MongoParser.js";
 import { FindOneArgument2Context } from "./MongoParser.js";
-import { InsertOneMethodContext } from "./MongoParser.js";
-import { InsertOneArgument1Context } from "./MongoParser.js";
-import { InsertOneArgument2Context } from "./MongoParser.js";
 import { FindMethodContext } from "./MongoParser.js";
 import { FindMethodArgument1Context } from "./MongoParser.js";
 import { FindMethodArgument2Context } from "./MongoParser.js";
@@ -116,6 +120,48 @@ export class MongoParserVisitor<Result> extends AbstractParseTreeVisitor<Result>
      * @return the visitor result
      */
     visitCollectionMethod?: (ctx: CollectionMethodContext) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.insertManyMethod`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitInsertManyMethod?: (ctx: InsertManyMethodContext) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.insertManyArgument1`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitInsertManyArgument1?: (ctx: InsertManyArgument1Context) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.insertManyArgument2`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitInsertManyArgument2?: (ctx: InsertManyArgument2Context) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.insertOneMethod`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitInsertOneMethod?: (ctx: InsertOneMethodContext) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.insertOneArgument1`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitInsertOneArgument1?: (ctx: InsertOneArgument1Context) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.insertOneArgument2`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitInsertOneArgument2?: (ctx: InsertOneArgument2Context) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.documentToInsert`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitDocumentToInsert?: (ctx: DocumentToInsertContext) => Result;
     /**
      * Visit a parse tree produced by `MongoParser.findOneAndUpdateMethod`.
      * @param ctx the parse tree
@@ -200,24 +246,6 @@ export class MongoParserVisitor<Result> extends AbstractParseTreeVisitor<Result>
      * @return the visitor result
      */
     visitFindOneArgument2?: (ctx: FindOneArgument2Context) => Result;
-    /**
-     * Visit a parse tree produced by `MongoParser.insertOneMethod`.
-     * @param ctx the parse tree
-     * @return the visitor result
-     */
-    visitInsertOneMethod?: (ctx: InsertOneMethodContext) => Result;
-    /**
-     * Visit a parse tree produced by `MongoParser.insertOneArgument1`.
-     * @param ctx the parse tree
-     * @return the visitor result
-     */
-    visitInsertOneArgument1?: (ctx: InsertOneArgument1Context) => Result;
-    /**
-     * Visit a parse tree produced by `MongoParser.insertOneArgument2`.
-     * @param ctx the parse tree
-     * @return the visitor result
-     */
-    visitInsertOneArgument2?: (ctx: InsertOneArgument2Context) => Result;
     /**
      * Visit a parse tree produced by `MongoParser.findMethod`.
      * @param ctx the parse tree

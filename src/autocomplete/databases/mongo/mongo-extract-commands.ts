@@ -9,6 +9,7 @@ import {
     FindOneAndUpdateMethodContext,
     FindOneMethodContext,
     HintModifierContext,
+    InsertManyMethodContext,
     InsertOneMethodContext,
     LimitModifierContext,
     MaxModifierContext,
@@ -87,13 +88,21 @@ interface InsertOneCommand {
     options: unknown;
 }
 
+interface InsertManyCommand {
+    method: 'insertMany';
+    collectionName: string;
+    documents: unknown;
+    options: unknown;
+}
+
 type Command =
     | FindCommand
     | FindOneCommand
     | FindOneAndDeleteCommand
     | FindOneAndReplaceCommand
     | FindOneAndUpdateCommand
-    | InsertOneCommand;
+    | InsertOneCommand
+    | InsertManyCommand;
 
 export interface ParsingError {
     type: 'parsingError';
@@ -209,6 +218,14 @@ class CommandsVisitor extends MongoParserVisitor<unknown> {
                 const options = formatJson5(methodContext.insertOneArgument2()?.getText());
 
                 this.commands.push({collectionName, method: 'insertOne', document, options});
+                return;
+            }
+
+            if (methodContext instanceof InsertManyMethodContext) {
+                const documents = formatJson5(methodContext.insertManyArgument1().getText());
+                const options = formatJson5(methodContext.insertManyArgument2()?.getText());
+
+                this.commands.push({collectionName, method: 'insertMany', documents, options});
                 return;
             }
         } catch (error) {

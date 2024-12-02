@@ -8,10 +8,7 @@ options {
     caseInsensitive = false;
 }
 
-DB: 'db';
-// skip is reserved keyword by antlr, that's why we need this postfix
-SKIP_                : 'skip';
-INSERT_ONE           : 'insertOne';
+DB                   : 'db';
 FIND                 : 'find';
 FIND_ONE             : 'findOne';
 FIND_ONE_AND_DELETE  : 'findOneAndDelete';
@@ -26,6 +23,10 @@ SORT                 : 'sort';
 LIMIT                : 'limit';
 EXPLAIN              : 'explain';
 HINT                 : 'hint';
+// skip is reserved keyword by antlr, that's why we need this postfix
+SKIP_       : 'skip';
+INSERT_ONE  : 'insertOne';
+INSERT_MANY : 'insertMany';
 
 LBRACKET  : '[';
 RBRACKET  : ']';
