@@ -8,20 +8,25 @@ options {
     caseInsensitive = false;
 }
 
-DB: 'db';
+DB                   : 'db';
+FIND                 : 'find';
+FIND_ONE             : 'findOne';
+FIND_ONE_AND_DELETE  : 'findOneAndDelete';
+FIND_ONE_AND_REPLACE : 'findOneAndReplace';
+FIND_ONE_AND_UPDATE  : 'findOneAndUpdate';
+SHOW_RECORD_ID       : 'showRecordId';
+RETURN_KEY           : 'returnKey';
+FILTER               : 'filter';
+MIN                  : 'min';
+MAX                  : 'max';
+SORT                 : 'sort';
+LIMIT                : 'limit';
+EXPLAIN              : 'explain';
+HINT                 : 'hint';
 // skip is reserved keyword by antlr, that's why we need this postfix
-SKIP_          : 'skip';
-INSERT_ONE     : 'insertOne';
-FIND           : 'find';
-SHOW_RECORD_ID : 'showRecordId';
-RETURN_KEY     : 'returnKey';
-FILTER         : 'filter';
-MIN            : 'min';
-MAX            : 'max';
-SORT           : 'sort';
-LIMIT          : 'limit';
-EXPLAIN        : 'explain';
-HINT           : 'hint';
+SKIP_       : 'skip';
+INSERT_ONE  : 'insertOne';
+INSERT_MANY : 'insertMany';
 
 LBRACKET  : '[';
 RBRACKET  : ']';

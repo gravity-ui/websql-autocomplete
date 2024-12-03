@@ -125,6 +125,164 @@ test('should extract find commands properly', () => {
     });
 });
 
+test('should extract findOne commands properly', () => {
+    const result = extractMongoCommandsFromQuery(`
+        db.test_collection1.findOne();
+
+        db.test_collection2.findOne({
+            test_field: 'test_value',
+        });
+
+        db.test_collection3.findOne(
+            {
+                test_field: 'test_value'
+            },
+            {
+                test_option: 'test_option_value'
+            }
+        );
+    `);
+
+    expect(result).toEqual({
+        commands: [
+            {
+                method: 'findOne',
+                collectionName: 'test_collection1',
+            },
+            {
+                method: 'findOne',
+                collectionName: 'test_collection2',
+                parameters: {test_field: 'test_value'},
+            },
+            {
+                method: 'findOne',
+                collectionName: 'test_collection3',
+                parameters: {test_field: 'test_value'},
+                options: {test_option: 'test_option_value'},
+            },
+        ],
+    });
+});
+
+test('should extract findOneAndDelete commands properly', () => {
+    const result = extractMongoCommandsFromQuery(`
+        db.test_collection1.findOneAndDelete({
+            test_field: 'test_value',
+        });
+
+        db.test_collection2.findOneAndDelete(
+            {
+                test_field: 'test_value'
+            },
+            {
+                test_option: 'test_option_value'
+            }
+        );
+    `);
+
+    expect(result).toEqual({
+        commands: [
+            {
+                method: 'findOneAndDelete',
+                collectionName: 'test_collection1',
+                parameters: {test_field: 'test_value'},
+            },
+            {
+                method: 'findOneAndDelete',
+                collectionName: 'test_collection2',
+                parameters: {test_field: 'test_value'},
+                options: {test_option: 'test_option_value'},
+            },
+        ],
+    });
+});
+
+test('should extract findOneAndReplace commands properly', () => {
+    const result = extractMongoCommandsFromQuery(`
+        db.test_collection1.findOneAndReplace(
+            {
+                test_field: 'test_value',
+            },
+            {
+                new_test_field: 'new_test_value',
+            }
+        );
+
+        db.test_collection2.findOneAndReplace(
+            {
+                test_field: 'test_value',
+            },
+            {
+                new_test_field: 'new_test_value',
+            },
+            {
+                test_option: 'test_option_value'
+            }
+        );
+    `);
+
+    expect(result).toEqual({
+        commands: [
+            {
+                method: 'findOneAndReplace',
+                collectionName: 'test_collection1',
+                parameters: {test_field: 'test_value'},
+                replacement: {new_test_field: 'new_test_value'},
+            },
+            {
+                method: 'findOneAndReplace',
+                collectionName: 'test_collection2',
+                parameters: {test_field: 'test_value'},
+                replacement: {new_test_field: 'new_test_value'},
+                options: {test_option: 'test_option_value'},
+            },
+        ],
+    });
+});
+
+test('should extract findOneAndUpdate commands properly', () => {
+    const result = extractMongoCommandsFromQuery(`
+        db.test_collection1.findOneAndUpdate(
+            {
+                test_field: 'test_value',
+            },
+            {
+                test_field: 'new_test_value',
+            }
+        );
+
+        db.test_collection2.findOneAndUpdate(
+            {
+                test_field: 'test_value',
+            },
+            {
+                test_field: 'new_test_value',
+            },
+            {
+                test_option: 'test_option_value'
+            }
+        );
+    `);
+
+    expect(result).toEqual({
+        commands: [
+            {
+                method: 'findOneAndUpdate',
+                collectionName: 'test_collection1',
+                parameters: {test_field: 'test_value'},
+                newValues: {test_field: 'new_test_value'},
+            },
+            {
+                method: 'findOneAndUpdate',
+                collectionName: 'test_collection2',
+                parameters: {test_field: 'test_value'},
+                newValues: {test_field: 'new_test_value'},
+                options: {test_option: 'test_option_value'},
+            },
+        ],
+    });
+});
+
 test('should extract insertOne commands properly', () => {
     const result = extractMongoCommandsFromQuery(`
         db.test_collection1.insertOne({
@@ -138,6 +296,15 @@ test('should extract insertOne commands properly', () => {
             {
                 test_field: 'test_value'
             },
+            {
+                test_option: 'test_option_value'
+            }
+        );
+
+        db.test_collection3.insertOne(
+            [{
+                test_field: 'test_value'
+            }],
             {
                 test_option: 'test_option_value'
             }
@@ -156,6 +323,91 @@ test('should extract insertOne commands properly', () => {
                 collectionName: 'test_collection2',
                 document: {test_field: 'test_value'},
                 options: {test_option: 'test_option_value'},
+            },
+            {
+                method: 'insertOne',
+                collectionName: 'test_collection3',
+                document: [{test_field: 'test_value'}],
+                options: {test_option: 'test_option_value'},
+            },
+        ],
+    });
+});
+
+test('should extract insertMany commands properly', () => {
+    const result = extractMongoCommandsFromQuery(`
+        db.test_collection1.insertMany([{
+            test_field: 'test_value',
+            test_object: {
+                test_subfield: 23,
+            }
+        }]);
+
+        db.test_collection2.insertMany(
+            [
+                {
+                    test_field1: 'test_value1'
+                },
+                {
+                    test_field2: 'test_value2'
+                },
+                {
+                    test_field3: 'test_value3'
+                },
+                {
+                    test_field4: 'test_value4'
+                },
+            ],
+            {
+                test_option: 'test_option_value'
+            }
+        );
+
+        db.test_collection3.insertMany(
+            [
+                [{
+                    test_field: 'test_value'
+                }]
+            ],
+            {
+                test_option: 'test_option_value'
+            }
+        );
+
+        db.test_collection4.insertMany([[1, 2], [3, 4]]);
+    `);
+
+    expect(result).toEqual({
+        commands: [
+            {
+                method: 'insertMany',
+                collectionName: 'test_collection1',
+                documents: [{test_field: 'test_value', test_object: {test_subfield: 23}}],
+            },
+            {
+                method: 'insertMany',
+                collectionName: 'test_collection2',
+                documents: [
+                    {test_field1: 'test_value1'},
+                    {test_field2: 'test_value2'},
+                    {test_field3: 'test_value3'},
+                    {test_field4: 'test_value4'},
+                ],
+                options: {test_option: 'test_option_value'},
+            },
+            {
+                method: 'insertMany',
+                collectionName: 'test_collection3',
+                documents: [[{test_field: 'test_value'}]],
+                options: {test_option: 'test_option_value'},
+            },
+            {
+                method: 'insertMany',
+                collectionName: 'test_collection4',
+                documents: [
+                    [1, 2],
+                    [3, 4],
+                ],
             },
         ],
     });

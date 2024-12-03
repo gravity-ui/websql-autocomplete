@@ -30,7 +30,24 @@ collectionName
 
 collectionMethod
     : findMethod
+    | findOneMethod
+    | findOneAndDeleteMethod
+    | findOneAndReplaceMethod
+    | findOneAndUpdateMethod
     | insertOneMethod
+    | insertManyMethod
+    ;
+
+insertManyMethod
+    : INSERT_MANY LPAREN insertManyArgument1 (COMMA insertManyArgument2)? RPAREN
+    ;
+
+insertManyArgument1
+    : LBRACKET documentToInsert (COMMA documentToInsert)* COMMA? RBRACKET
+    ;
+
+insertManyArgument2
+    : object
     ;
 
 insertOneMethod
@@ -38,10 +55,75 @@ insertOneMethod
     ;
 
 insertOneArgument1
-    : object
+    : documentToInsert
     ;
 
 insertOneArgument2
+    : object
+    ;
+
+documentToInsert
+    : object
+    | array
+    ;
+
+findOneAndUpdateMethod
+    : FIND_ONE_AND_UPDATE LPAREN findOneAndUpdateArgument1 COMMA findOneAndUpdateArgument2 (
+        COMMA findOneAndUpdateArgument3
+    )? RPAREN
+    ;
+
+findOneAndUpdateArgument1
+    : object
+    ;
+
+findOneAndUpdateArgument2
+    : object
+    ;
+
+findOneAndUpdateArgument3
+    : object
+    ;
+
+findOneAndReplaceMethod
+    : FIND_ONE_AND_REPLACE LPAREN findOneAndReplaceArgument1 COMMA findOneAndReplaceArgument2 (
+        COMMA findOneAndReplaceArgument3
+    )? RPAREN
+    ;
+
+findOneAndReplaceArgument1
+    : object
+    ;
+
+findOneAndReplaceArgument2
+    : object
+    ;
+
+findOneAndReplaceArgument3
+    : object
+    ;
+
+findOneAndDeleteMethod
+    : FIND_ONE_AND_DELETE LPAREN findOneAndDeleteArgument1 (COMMA findOneAndDeleteArgument2)? RPAREN
+    ;
+
+findOneAndDeleteArgument1
+    : object
+    ;
+
+findOneAndDeleteArgument2
+    : object
+    ;
+
+findOneMethod
+    : FIND_ONE LPAREN (findOneArgument1 (COMMA findOneArgument2)?)? RPAREN
+    ;
+
+findOneArgument1
+    : object
+    ;
+
+findOneArgument2
     : object
     ;
 
@@ -160,9 +242,11 @@ sortModifierArgument2
 
 reservedKeyword
     : DB
-    | SKIP_
-    | INSERT_ONE
     | FIND
+    | FIND_ONE
+    | FIND_ONE_AND_DELETE
+    | FIND_ONE_AND_REPLACE
+    | FIND_ONE_AND_UPDATE
     | SHOW_RECORD_ID
     | RETURN_KEY
     | FILTER
@@ -172,6 +256,9 @@ reservedKeyword
     | LIMIT
     | EXPLAIN
     | HINT
+    | SKIP_
+    | INSERT_ONE
+    | INSERT_MANY
     ;
 
 // JSON5 rules

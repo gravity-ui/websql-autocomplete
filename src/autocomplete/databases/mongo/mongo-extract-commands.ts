@@ -4,7 +4,12 @@ import {
     FilterModifierContext,
     FindMethodContext,
     FindMethodModifierContext,
+    FindOneAndDeleteMethodContext,
+    FindOneAndReplaceMethodContext,
+    FindOneAndUpdateMethodContext,
+    FindOneMethodContext,
     HintModifierContext,
+    InsertManyMethodContext,
     InsertOneMethodContext,
     LimitModifierContext,
     MaxModifierContext,
@@ -46,6 +51,36 @@ interface FindCommand {
     modifiers: FindModifier[];
 }
 
+interface FindOneCommand {
+    method: 'findOne';
+    collectionName: string;
+    parameters?: unknown;
+    options?: unknown;
+}
+
+interface FindOneAndDeleteCommand {
+    method: 'findOneAndDelete';
+    collectionName: string;
+    parameters: unknown;
+    options?: unknown;
+}
+
+interface FindOneAndReplaceCommand {
+    method: 'findOneAndReplace';
+    collectionName: string;
+    parameters: unknown;
+    replacement: unknown;
+    options?: unknown;
+}
+
+interface FindOneAndUpdateCommand {
+    method: 'findOneAndUpdate';
+    collectionName: string;
+    parameters: unknown;
+    newValues: unknown;
+    options?: unknown;
+}
+
 interface InsertOneCommand {
     method: 'insertOne';
     collectionName: string;
@@ -53,7 +88,21 @@ interface InsertOneCommand {
     options: unknown;
 }
 
-type Command = FindCommand | InsertOneCommand;
+interface InsertManyCommand {
+    method: 'insertMany';
+    collectionName: string;
+    documents: unknown;
+    options: unknown;
+}
+
+type Command =
+    | FindCommand
+    | FindOneCommand
+    | FindOneAndDeleteCommand
+    | FindOneAndReplaceCommand
+    | FindOneAndUpdateCommand
+    | InsertOneCommand
+    | InsertManyCommand;
 
 export interface ParsingError {
     type: 'parsingError';
@@ -104,11 +153,79 @@ class CommandsVisitor extends MongoParserVisitor<unknown> {
                 return;
             }
 
+            if (methodContext instanceof FindOneMethodContext) {
+                const parameters = formatJson5(methodContext.findOneArgument1()?.getText());
+                const options = formatJson5(methodContext.findOneArgument2()?.getText());
+
+                this.commands.push({
+                    collectionName,
+                    method: 'findOne',
+                    parameters,
+                    options,
+                });
+                return;
+            }
+
+            if (methodContext instanceof FindOneAndDeleteMethodContext) {
+                const parameters = formatJson5(methodContext.findOneAndDeleteArgument1().getText());
+                const options = formatJson5(methodContext.findOneAndDeleteArgument2()?.getText());
+
+                this.commands.push({
+                    collectionName,
+                    method: 'findOneAndDelete',
+                    parameters,
+                    options,
+                });
+                return;
+            }
+
+            if (methodContext instanceof FindOneAndReplaceMethodContext) {
+                const parameters = formatJson5(
+                    methodContext.findOneAndReplaceArgument1().getText(),
+                );
+                const replacement = formatJson5(
+                    methodContext.findOneAndReplaceArgument2().getText(),
+                );
+                const options = formatJson5(methodContext.findOneAndReplaceArgument3()?.getText());
+
+                this.commands.push({
+                    collectionName,
+                    method: 'findOneAndReplace',
+                    parameters,
+                    replacement,
+                    options,
+                });
+                return;
+            }
+
+            if (methodContext instanceof FindOneAndUpdateMethodContext) {
+                const parameters = formatJson5(methodContext.findOneAndUpdateArgument1().getText());
+                const newValues = formatJson5(methodContext.findOneAndUpdateArgument2().getText());
+                const options = formatJson5(methodContext.findOneAndUpdateArgument3()?.getText());
+
+                this.commands.push({
+                    collectionName,
+                    method: 'findOneAndUpdate',
+                    parameters,
+                    newValues,
+                    options,
+                });
+                return;
+            }
+
             if (methodContext instanceof InsertOneMethodContext) {
                 const document = formatJson5(methodContext.insertOneArgument1().getText());
                 const options = formatJson5(methodContext.insertOneArgument2()?.getText());
 
                 this.commands.push({collectionName, method: 'insertOne', document, options});
+                return;
+            }
+
+            if (methodContext instanceof InsertManyMethodContext) {
+                const documents = formatJson5(methodContext.insertManyArgument1().getText());
+                const options = formatJson5(methodContext.insertManyArgument2()?.getText());
+
+                this.commands.push({collectionName, method: 'insertMany', documents, options});
                 return;
             }
         } catch (error) {

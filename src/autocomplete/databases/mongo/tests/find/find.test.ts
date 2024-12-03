@@ -3,7 +3,7 @@ import {parseMongoQueryWithCursor, parseMongoQueryWithoutCursor} from '../..';
 test('should not report errors on find statement', () => {
     const autocompleteResult = parseMongoQueryWithoutCursor(`
         db.test_collection
-            .find({test_field: 'test_value'}, {test_field: 'test_value'})
+            .find({test_field: 'test_value'}, {test_option: 'test_value'})
             .skip(1)
             .limit(1)
             .filter({test_field: 'test_value'})
@@ -12,7 +12,7 @@ test('should not report errors on find statement', () => {
             .hint('test_index')
             .returnKey(true)
             .showRecordId(true)
-            .sort('test_field', 'DESC')
+            .sort('test_field', 'DESC');
     `);
 
     expect(autocompleteResult.errors).toHaveLength(0);
