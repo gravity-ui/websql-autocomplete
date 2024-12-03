@@ -1,5 +1,14 @@
 # Changelog
 
+## [12.5.0](https://github.com/gravity-ui/websql-autocomplete/compare/v12.4.2...v12.5.0) (2024-12-03)
+
+
+### Features
+
+* Implement `extractStatementPositions` for MongoDB ([#254](https://github.com/gravity-ui/websql-autocomplete/issues/254)) ([c783892](https://github.com/gravity-ui/websql-autocomplete/commit/c783892fed187c29e2a4ef49faf347e67f13f1dd))
+* Partial support of mongo dialect and commands extractor ([#252](https://github.com/gravity-ui/websql-autocomplete/issues/252)) ([6831e27](https://github.com/gravity-ui/websql-autocomplete/commit/6831e273394cb4bff916ab9a5398134a28065e0a))
+* Support all find/insert commands for MongoDB ([#255](https://github.com/gravity-ui/websql-autocomplete/issues/255)) ([3ae2b51](https://github.com/gravity-ui/websql-autocomplete/commit/3ae2b51f89fdfa61fb7fc941b6778e5e6546a456))
+
 ## [12.4.2](https://github.com/gravity-ui/websql-autocomplete/compare/v12.4.1...v12.4.2) (2024-11-22)
 
 
