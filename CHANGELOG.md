@@ -1,5 +1,12 @@
 # Changelog
 
+## [12.6.0](https://github.com/gravity-ui/websql-autocomplete/compare/v12.5.0...v12.6.0) (2024-12-09)
+
+
+### Features
+
+* expand export types ([#256](https://github.com/gravity-ui/websql-autocomplete/issues/256)) ([38f54e4](https://github.com/gravity-ui/websql-autocomplete/commit/38f54e4145b0e28907466f0c806ddc563cdcedac))
+
 ## [12.5.0](https://github.com/gravity-ui/websql-autocomplete/compare/v12.4.2...v12.5.0) (2024-12-03)
 
 
