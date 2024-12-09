@@ -12,6 +12,16 @@ export {
     extractMongoCommandsFromQuery,
     ParsingError as CommandsParsingError,
     UnexpectedError as UnexpectedCommandsParsingError,
+    FindModifier,
+    Command,
+    FindCommand,
+    FindOneCommand,
+    FindOneAndDeleteCommand,
+    FindOneAndReplaceCommand,
+    FindOneAndUpdateCommand,
+    InsertOneCommand,
+    InsertManyCommand,
+    ExtractMongoCommandsFromQueryResult,
 } from './mongo-extract-commands';
 
 export interface MongoAutocompleteResult extends SqlAutocompleteResult {

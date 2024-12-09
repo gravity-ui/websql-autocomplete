@@ -25,7 +25,7 @@ import {ParserSyntaxError, SqlErrorListener, createParser} from '../../shared';
 import {MongoLexer} from './generated/MongoLexer';
 import {getParseTree} from './mongo-autocomplete';
 
-type FindModifier =
+export type FindModifier =
     | {
           method:
               | 'skip'
@@ -40,7 +40,7 @@ type FindModifier =
       }
     | {method: 'sort'; parameters?: unknown; options?: unknown};
 
-interface FindCommand {
+export interface FindCommand {
     method: 'find';
     collectionName: string;
     parameters?: unknown;
@@ -51,21 +51,21 @@ interface FindCommand {
     modifiers: FindModifier[];
 }
 
-interface FindOneCommand {
+export interface FindOneCommand {
     method: 'findOne';
     collectionName: string;
     parameters?: unknown;
     options?: unknown;
 }
 
-interface FindOneAndDeleteCommand {
+export interface FindOneAndDeleteCommand {
     method: 'findOneAndDelete';
     collectionName: string;
     parameters: unknown;
     options?: unknown;
 }
 
-interface FindOneAndReplaceCommand {
+export interface FindOneAndReplaceCommand {
     method: 'findOneAndReplace';
     collectionName: string;
     parameters: unknown;
@@ -73,7 +73,7 @@ interface FindOneAndReplaceCommand {
     options?: unknown;
 }
 
-interface FindOneAndUpdateCommand {
+export interface FindOneAndUpdateCommand {
     method: 'findOneAndUpdate';
     collectionName: string;
     parameters: unknown;
@@ -81,21 +81,21 @@ interface FindOneAndUpdateCommand {
     options?: unknown;
 }
 
-interface InsertOneCommand {
+export interface InsertOneCommand {
     method: 'insertOne';
     collectionName: string;
     document: unknown;
     options: unknown;
 }
 
-interface InsertManyCommand {
+export interface InsertManyCommand {
     method: 'insertMany';
     collectionName: string;
     documents: unknown;
     options: unknown;
 }
 
-type Command =
+export type Command =
     | FindCommand
     | FindOneCommand
     | FindOneAndDeleteCommand
@@ -114,7 +114,7 @@ export interface UnexpectedError {
     message: unknown;
 }
 
-type ExtractMongoCommandsFromQueryResult =
+export type ExtractMongoCommandsFromQueryResult =
     | {commands: Command[]}
     | {parseSyntaxErrors: ParserSyntaxError[]}
     | {parseCommandsError: ParsingError | UnexpectedError};
