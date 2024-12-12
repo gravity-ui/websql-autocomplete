@@ -344,6 +344,18 @@ function checkShouldSuggestAllColumns(props: GetParticularSuggestionProps): bool
     return false;
 }
 
+function checkShouldSuggestVariables({
+    anyRuleInList,
+}: GetParticularSuggestionProps): boolean | undefined {
+    return anyRuleInList([
+        YQLParser.RULE_expr,
+        YQLParser.RULE_table_ref,
+        YQLParser.RULE_simple_table_ref_core,
+        YQLParser.RULE_pure_column_or_named,
+        YQLParser.RULE_using_call_expr,
+    ]);
+}
+
 function getSimpleTypesSuggestions({
     anyRuleInList,
     allRulesInList,
@@ -504,6 +516,7 @@ export function getGranularSuggestions(
     const suggestAggregateFunctions = getAggregateFunctionsSuggestions(props);
     const shouldSuggestTableHints = checkShouldSuggestTableHints(props);
     const suggestEntitySettings = getEntitySettingsSuggestions(props);
+    const shouldSuggestVariables = checkShouldSuggestVariables(props);
 
     return {
         suggestWindowFunctions,
@@ -511,6 +524,7 @@ export function getGranularSuggestions(
         shouldSuggestColumns,
         shouldSuggestAllColumns,
         shouldSuggestColumnAliases: shouldSuggestColumns,
+        shouldSuggestVariables,
         suggestSimpleTypes,
         suggestPragmas,
         suggestUdfs,

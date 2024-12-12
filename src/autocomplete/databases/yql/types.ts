@@ -37,6 +37,7 @@ export interface InternalSuggestions
     shouldSuggestColumns?: boolean;
     shouldSuggestAllColumns?: boolean;
     shouldSuggestColumnAliases?: boolean;
+    shouldSuggestVariables?: boolean;
 }
 
 export type YQLEntity =
@@ -66,6 +67,7 @@ export interface YqlAutocompleteResult extends Omit<SqlAutocompleteResult, 'sugg
     suggestTableHints?: string;
     suggestEntitySettings?: YQLEntity;
     suggestColumns?: YQLColumnsSuggestion;
+    suggestVariables?: string[];
 }
 
 export interface YqlTokenizeResult extends TokenizeResult {}

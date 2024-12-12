@@ -1,5 +1,6 @@
 import * as c3 from 'antlr4-c3';
 import {ColumnAliasSuggestion, SymbolTableVisitor, Table} from './autocomplete-types';
+import {ParseTree} from 'antlr4ng';
 
 export class TableSymbol extends c3.TypedSymbol {
     name: string;
@@ -63,4 +64,19 @@ export function getColumnAliasesFromSymbolTable(
     return visitor.symbolTable
         .getNestedSymbolsOfTypeSync(ColumnAliasSymbol)
         .map(({name}) => ({name}));
+}
+
+export function getScope(
+    context: ParseTree | null | undefined,
+    symbolTable: c3.SymbolTable | null,
+): c3.BaseSymbol | undefined {
+    if (!context || !symbolTable) {
+        return undefined;
+    }
+    const scope = symbolTable.symbolWithContextSync(context);
+    if (scope) {
+        return scope;
+    } else {
+        return getScope(context.parent, symbolTable);
+    }
 }

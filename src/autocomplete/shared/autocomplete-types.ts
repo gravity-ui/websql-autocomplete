@@ -95,6 +95,7 @@ export type ProcessVisitedRulesResult<A extends AutocompleteResultBase> = Partia
     shouldSuggestColumnAliases?: boolean;
     shouldSuggestConstraints?: boolean;
     shouldSuggestTableIndexes?: boolean;
+    shouldSuggestVariables?: boolean;
 };
 
 export type ProcessVisitedRules<A extends AutocompleteResultBase> = (
