@@ -67,16 +67,15 @@ export function getColumnAliasesFromSymbolTable(
 }
 
 export function getScope(
-    context: ParseTree | null | undefined,
-    symbolTable: c3.SymbolTable | null,
+    context: ParseTree,
+    symbolTable: c3.SymbolTable,
 ): c3.BaseSymbol | undefined {
-    if (!context || !symbolTable) {
-        return undefined;
-    }
     const scope = symbolTable.symbolWithContextSync(context);
     if (scope) {
         return scope;
-    } else {
-        return getScope(context.parent, symbolTable);
     }
+    if (!context.parent) {
+        return undefined;
+    }
+    return getScope(context.parent, symbolTable);
 }

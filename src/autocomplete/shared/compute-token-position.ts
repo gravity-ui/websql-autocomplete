@@ -6,43 +6,47 @@ type TokenPosition = {index: number; context: ParseTree; text: string};
 
 export function computeTokenPosition(
     parseTree: ParseTree | null,
-    tokens: TokenStream,
-    caretPosition: CursorPosition,
+    tokenStream: TokenStream,
+    cursorPosition: CursorPosition,
     identifierTokenTypes: number[] = [],
 ): TokenPosition | undefined {
     if (!parseTree) {
         return;
     }
     if (parseTree instanceof TerminalNode) {
-        return computeTokenPositionOfTerminal(
-            parseTree,
-            tokens,
-            caretPosition,
-            identifierTokenTypes,
-        );
-    } else {
-        return computeTokenPositionOfChildNode(
-            parseTree as ParserRuleContext,
-            tokens,
-            caretPosition,
-            identifierTokenTypes,
-        );
+        return computeTokenPositionOfTerminalNode(parseTree, cursorPosition, identifierTokenTypes);
     }
+    return computeTokenPositionOfChildNode(
+        parseTree as ParserRuleContext,
+        tokenStream,
+        cursorPosition,
+        identifierTokenTypes,
+    );
 }
 
-function positionOfToken(
+function getTokenPosition(
     token: Token,
     text: string,
-    caretPosition: CursorPosition,
+    cursorPosition: CursorPosition,
     identifierTokenTypes: number[],
     parseTree: ParseTree,
 ): TokenPosition | undefined {
     const start = token.column;
     const stop = token.column + text.length;
+
+    //it means token is eof
+    if (token.start > token.stop) {
+        return {
+            index: token.tokenIndex,
+            context: parseTree,
+            text: text.substring(0, cursorPosition.column),
+        };
+    }
+
     if (
-        token.line === caretPosition.line &&
-        start <= caretPosition.column &&
-        stop >= caretPosition.column
+        token.line === cursorPosition.line &&
+        start <= cursorPosition.column &&
+        stop >= cursorPosition.column
     ) {
         let index = token.tokenIndex;
         if (identifierTokenTypes.includes(token.type)) {
@@ -51,67 +55,62 @@ function positionOfToken(
         return {
             index,
             context: parseTree,
-            text: text.substring(0, caretPosition.column - start),
+            text: text.substring(0, cursorPosition.column - start),
         };
-        //it means token is eof
-    } else if (token.start > token.stop) {
-        return {
-            index: token.tokenIndex,
-            context: parseTree,
-            text: text.substring(0, caretPosition.column),
-        };
-    } else {
-        return undefined;
     }
+
+    return undefined;
 }
 
-function computeTokenPositionOfTerminal(
+function computeTokenPositionOfTerminalNode(
     parseTree: TerminalNode,
-    _tokens: TokenStream,
-    caretPosition: CursorPosition,
+    cursorPosition: CursorPosition,
     identifierTokenTypes: number[],
 ): TokenPosition | undefined {
     const token = parseTree.symbol;
     const text = parseTree.getText();
-    return positionOfToken(token, text, caretPosition, identifierTokenTypes, parseTree);
+    return getTokenPosition(token, text, cursorPosition, identifierTokenTypes, parseTree);
 }
 
 function computeTokenPositionOfChildNode(
     parseTree: ParserRuleContext,
-    tokens: TokenStream,
-    caretPosition: CursorPosition,
+    tokenStream: TokenStream,
+    cursorPosition: CursorPosition,
     identifierTokenTypes: number[],
 ): TokenPosition | undefined {
     if (
-        (parseTree.start && parseTree.start.line > caretPosition.line) ||
-        (parseTree.stop && parseTree.stop.line < caretPosition.line)
+        !parseTree.start ||
+        !parseTree.stop ||
+        parseTree.start.line > cursorPosition.line ||
+        parseTree.stop.line < cursorPosition.line
     ) {
         return undefined;
     }
+
     for (let i = 0; i < parseTree.getChildCount(); i++) {
-        const position = computeTokenPosition(
+        const tokenPosition = computeTokenPosition(
             parseTree.getChild(i),
-            tokens,
-            caretPosition,
+            tokenStream,
+            cursorPosition,
             identifierTokenTypes,
         );
-        if (position !== undefined) {
-            return position;
+        if (tokenPosition !== undefined) {
+            return tokenPosition;
         }
     }
-    if (parseTree.start && parseTree.stop) {
-        for (let i = parseTree.start.tokenIndex; i <= parseTree.stop.tokenIndex; i++) {
-            const pos = positionOfToken(
-                tokens.get(i),
-                tokens.get(i).text ?? '',
-                caretPosition,
-                identifierTokenTypes,
-                parseTree,
-            );
-            if (pos) {
-                return pos;
-            }
+
+    for (let i = parseTree.start.tokenIndex; i <= parseTree.stop.tokenIndex; i++) {
+        const tokenPosition = getTokenPosition(
+            tokenStream.get(i),
+            tokenStream.get(i).text ?? '',
+            cursorPosition,
+            identifierTokenTypes,
+            parseTree,
+        );
+        if (tokenPosition) {
+            return tokenPosition;
         }
     }
+
     return undefined;
 }

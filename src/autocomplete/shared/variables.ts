@@ -23,31 +23,36 @@ export function getVariablesSuggestions<L extends LexerType, P extends ParserTyp
     const parser = createParser(Lexer, Parser, query);
     const parseTree = getParseTree(parser);
 
-    const tokenPosion = computeTokenPosition(parseTree, tokenStream, cursor);
+    const tokenPosition = computeTokenPosition(parseTree, tokenStream, cursor);
 
-    if (!tokenPosion) {
-        throw new Error(`Could not find tokenPosion at Ln ${cursor.line}, Col ${cursor.column}`);
+    if (!tokenPosition) {
+        throw new Error(`Could not find tokenPosition at Ln ${cursor.line}, Col ${cursor.column}`);
     }
 
-    const symbolTable: c3.SymbolTable | null = symbolVariableVisitor.visit(parseTree) as any;
+    symbolVariableVisitor.visit(parseTree);
 
-    const variables = suggestVariables(symbolTable, tokenPosion.context);
+    const symbolTable = symbolVariableVisitor.symbolTable;
+
+    const variables = suggestVariables(symbolTable, tokenPosition.context);
 
     return variables;
 }
 
-function suggestVariables(symbolTable: c3.SymbolTable | null, context?: ParseTree): string[] {
+function suggestVariables(symbolTable: c3.SymbolTable, context: ParseTree): string[] {
     const scope = getScope(context, symbolTable);
     let symbols: c3.VariableSymbol[] = [];
+
+    //Local scope
     if (scope instanceof c3.ScopedSymbol) {
-        //Local scope
         symbols = scope.getNestedSymbolsOfTypeSync(c3.VariableSymbol);
-    } else if (symbolTable) {
+
         //Global scope
+    } else if (symbolTable) {
         symbols = symbolTable
             .getNestedSymbolsOfTypeSync(c3.VariableSymbol)
             //if symbol's parent has context it means it is local scoped, so no need to suggest it in global scope
-            .filter((sym) => !sym.parent?.context);
+            .filter((symbol) => !symbol.parent?.context);
     }
-    return symbols.map((s) => s.name);
+
+    return symbols.map((symbol) => symbol.name);
 }

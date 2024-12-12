@@ -92,7 +92,7 @@ const rulesToVisit = new Set([
     YQLParser.RULE_id_as_compat,
 ]);
 
-class YQLSymbolTableVisitor2 extends YQLVisitor<{}> implements ISymbolTableVisitor {
+class YQLVariableSymbolTableVisitor extends YQLVisitor<{}> implements ISymbolTableVisitor {
     symbolTable: c3.SymbolTable;
     scope: c3.ScopedSymbol;
 
@@ -101,6 +101,30 @@ class YQLSymbolTableVisitor2 extends YQLVisitor<{}> implements ISymbolTableVisit
         this.symbolTable = new c3.SymbolTable('', {allowDuplicateSymbols: true});
         this.scope = this.symbolTable.addNewSymbolOfType(c3.ScopedSymbol, undefined);
     }
+
+    addVariableSymbol = (variableGetter: (index: number) => string | undefined): void => {
+        try {
+            let index: number | null = 0;
+            while (index !== null) {
+                const variable = variableGetter(index);
+                if (variable) {
+                    this.symbolTable.addNewSymbolOfType(
+                        c3.VariableSymbol,
+                        this.scope,
+                        variable,
+                        undefined,
+                    );
+                    index++;
+                } else {
+                    index = null;
+                }
+            }
+        } catch (error) {
+            if (!(error instanceof c3.DuplicateSymbolError)) {
+                throw error;
+            }
+        }
+    };
 
     visitDeclare_stmt = (context: Declare_stmtContext): {} => {
         try {
@@ -118,64 +142,24 @@ class YQLSymbolTableVisitor2 extends YQLVisitor<{}> implements ISymbolTableVisit
 
         return this.visitChildren(context) as {};
     };
+
     visitAction_or_subquery_args = (context: Action_or_subquery_argsContext): {} => {
-        try {
-            let index: number | null = 0;
-            while (index !== null) {
-                const variable = context
-                    .opt_bind_parameter(index)
-                    ?.bind_parameter()
-                    ?.an_id_or_type()
-                    ?.getText();
-                if (variable) {
-                    this.symbolTable.addNewSymbolOfType(
-                        c3.VariableSymbol,
-                        this.scope,
-                        variable,
-                        undefined,
-                    );
-                    index++;
-                } else {
-                    index = null;
-                }
-            }
-        } catch (error) {
-            if (!(error instanceof c3.DuplicateSymbolError)) {
-                throw error;
-            }
-        }
-
+        this.addVariableSymbol(
+            (index: number) =>
+                context.opt_bind_parameter(index)?.bind_parameter()?.an_id_or_type()?.getText(),
+        );
         return this.visitChildren(context) as {};
     };
+
     visitNamed_nodes_stmt = (context: Named_nodes_stmtContext): {} => {
-        try {
-            let index: number | null = 0;
-            while (index !== null) {
-                const variable = context
-                    .bind_parameter_list()
-                    ?.bind_parameter(index)
-                    ?.an_id_or_type()
-                    ?.getText();
-                if (variable) {
-                    this.symbolTable.addNewSymbolOfType(
-                        c3.VariableSymbol,
-                        this.scope,
-                        variable,
-                        undefined,
-                    );
-                    index++;
-                } else {
-                    index = null;
-                }
-            }
-        } catch (error) {
-            if (!(error instanceof c3.DuplicateSymbolError)) {
-                throw error;
-            }
-        }
+        this.addVariableSymbol(
+            (index: number) =>
+                context.bind_parameter_list()?.bind_parameter(index)?.an_id_or_type()?.getText(),
+        );
 
         return this.visitChildren(context) as {};
     };
+
     visitDefine_action_or_subquery_stmt = (context: Define_action_or_subquery_stmtContext): {} => {
         try {
             //this variable should be in global scope
@@ -203,35 +187,20 @@ class YQLSymbolTableVisitor2 extends YQLVisitor<{}> implements ISymbolTableVisit
             ) ?? {}
         );
     };
+
     visitLambda = (context: LambdaContext): {} => {
         //this variable should be in local scope, so it should be extracted inside withScope callback
         const callback = (): {} => {
-            try {
-                const lambdaArgs = context.smart_parenthesis()?.named_expr_list();
-
-                let index: number | null = 0;
-                while (index !== null) {
-                    const variable = lambdaArgs?.named_expr(index)?.expr()?.getText();
-                    if (variable) {
-                        if (variable.startsWith('$')) {
-                            this.symbolTable.addNewSymbolOfType(
-                                c3.VariableSymbol,
-                                this.scope,
-                                variable.slice(1),
-                                undefined,
-                            );
-                        }
-
-                        index++;
-                    } else {
-                        index = null;
+            const lambdaArgs = context.smart_parenthesis()?.named_expr_list();
+            this.addVariableSymbol((index: number) => {
+                const variable = lambdaArgs?.named_expr(index)?.expr()?.getText();
+                if (variable) {
+                    if (variable.startsWith('$')) {
+                        return variable.slice(1);
                     }
                 }
-            } catch (error) {
-                if (!(error instanceof c3.DuplicateSymbolError)) {
-                    throw error;
-                }
-            }
+                return variable;
+            });
             return this.visitChildren(context) as {};
         };
 
@@ -240,7 +209,9 @@ class YQLSymbolTableVisitor2 extends YQLVisitor<{}> implements ISymbolTableVisit
 
     withScope<T>(
         tree: ParseTree,
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         type: new (...args: any[]) => c3.ScopedSymbol,
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         args: any[],
         action: () => T,
     ): T {
@@ -487,7 +458,7 @@ function getEnrichAutocompleteResult(parseTreeGetter: GetParseTree<YQLParser>) {
             shouldSuggestColumns || shouldSuggestColumnAliases || shouldSuggestTableIndexes;
 
         if (shouldSuggestVariables) {
-            const visitor = new YQLSymbolTableVisitor2();
+            const visitor = new YQLVariableSymbolTableVisitor();
             const data = getVariablesSuggestions(
                 YQLLexer,
                 YQLParser,
@@ -501,6 +472,7 @@ function getEnrichAutocompleteResult(parseTreeGetter: GetParseTree<YQLParser>) {
                 result.suggestVariables = data;
             }
         }
+        
         if (contextSuggestionsNeeded) {
             const visitor = new YQLSymbolTableVisitor();
             const {tableContextSuggestion, suggestColumnAliases} = getContextSuggestions(
