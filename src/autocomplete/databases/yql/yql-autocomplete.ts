@@ -472,7 +472,7 @@ function getEnrichAutocompleteResult(parseTreeGetter: GetParseTree<YQLParser>) {
                 result.suggestVariables = data;
             }
         }
-        
+
         if (contextSuggestionsNeeded) {
             const visitor = new YQLSymbolTableVisitor();
             const {tableContextSuggestion, suggestColumnAliases} = getContextSuggestions(
