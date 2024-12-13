@@ -4,19 +4,16 @@ import {CursorPosition} from './autocomplete-types';
 
 type TokenContext = {index: number; context: ParseTree; text: string};
 
-export function computeTokenPosition(
+export function computeTokenContext(
     parseTree: ParseTree,
     tokenStream: TokenStream,
     cursorPosition: CursorPosition,
     identifierTokenTypes: number[] = [],
 ): TokenContext | undefined {
-    if (!parseTree) {
-        return;
-    }
     if (parseTree instanceof TerminalNode) {
-        return computeTokenPositionOfTerminalNode(parseTree, cursorPosition, identifierTokenTypes);
+        return computeTokenContextOfTerminalNode(parseTree, cursorPosition, identifierTokenTypes);
     }
-    return computeTokenPositionOfChildNode(
+    return computeTokenContextOfChildNode(
         parseTree as ParserRuleContext,
         tokenStream,
         cursorPosition,
@@ -24,7 +21,7 @@ export function computeTokenPosition(
     );
 }
 
-function getTokenPosition(
+function getTokenContext(
     token: Token,
     text: string,
     cursorPosition: CursorPosition,
@@ -34,7 +31,7 @@ function getTokenPosition(
     const start = token.column;
     const stop = token.column + text.length;
 
-    //it means token is eof
+    // It means token is eof
     if (token.start > token.stop) {
         return {
             index: token.tokenIndex,
@@ -62,17 +59,17 @@ function getTokenPosition(
     return undefined;
 }
 
-function computeTokenPositionOfTerminalNode(
+function computeTokenContextOfTerminalNode(
     parseTree: TerminalNode,
     cursorPosition: CursorPosition,
     identifierTokenTypes: number[],
 ): TokenContext | undefined {
     const token = parseTree.symbol;
     const text = parseTree.getText();
-    return getTokenPosition(token, text, cursorPosition, identifierTokenTypes, parseTree);
+    return getTokenContext(token, text, cursorPosition, identifierTokenTypes, parseTree);
 }
 
-function computeTokenPositionOfChildNode(
+function computeTokenContextOfChildNode(
     parseTree: ParserRuleContext,
     tokenStream: TokenStream,
     cursorPosition: CursorPosition,
@@ -92,27 +89,27 @@ function computeTokenPositionOfChildNode(
         if (!child) {
             continue;
         }
-        const tokenPosition = computeTokenPosition(
+        const tokenContext = computeTokenContext(
             child,
             tokenStream,
             cursorPosition,
             identifierTokenTypes,
         );
-        if (tokenPosition) {
-            return tokenPosition;
+        if (tokenContext) {
+            return tokenContext;
         }
     }
 
     for (let i = parseTree.start.tokenIndex; i <= parseTree.stop.tokenIndex; i++) {
-        const tokenPosition = getTokenPosition(
+        const tokenContext = getTokenContext(
             tokenStream.get(i),
             tokenStream.get(i).text ?? '',
             cursorPosition,
             identifierTokenTypes,
             parseTree,
         );
-        if (tokenPosition) {
-            return tokenPosition;
+        if (tokenContext) {
+            return tokenContext;
         }
     }
 

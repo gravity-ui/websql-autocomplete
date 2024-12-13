@@ -162,7 +162,7 @@ class YQLVariableSymbolTableVisitor extends YQLVisitor<{}> implements ISymbolTab
 
     visitDefine_action_or_subquery_stmt = (context: Define_action_or_subquery_stmtContext): {} => {
         try {
-            // this variable should be in global scope
+            // This variable should be in global scope
             const variable = context.bind_parameter()?.an_id_or_type()?.getText();
             if (variable) {
                 this.symbolTable.addNewSymbolOfType(
@@ -189,7 +189,7 @@ class YQLVariableSymbolTableVisitor extends YQLVisitor<{}> implements ISymbolTab
     };
 
     visitLambda = (context: LambdaContext): {} => {
-        // this variable should be in local scope, so it should be extracted inside withScope callback
+        // This variable should be in local scope, so it should be extracted inside withScope callback
         const addVariables = (): {} => {
             const lambdaArgs = context.smart_parenthesis()?.named_expr_list();
             this.addVariableSymbol((index: number) => {
