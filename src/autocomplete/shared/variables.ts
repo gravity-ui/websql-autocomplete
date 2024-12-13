@@ -11,7 +11,7 @@ import {
 import {getScope} from './symbol-table';
 import {computeTokenPosition} from './compute-token-position';
 
-export function getVariablesSuggestions<L extends LexerType, P extends ParserType>(
+export function getVariableSuggestions<L extends LexerType, P extends ParserType>(
     Lexer: LexerConstructor<L>,
     Parser: ParserConstructor<P>,
     symbolVariableVisitor: SymbolTableVisitor,
@@ -31,18 +31,14 @@ export function getVariablesSuggestions<L extends LexerType, P extends ParserTyp
 
     symbolVariableVisitor.visit(parseTree);
 
-    const symbolTable = symbolVariableVisitor.symbolTable;
-
-    const variables = suggestVariables(symbolTable, tokenPosition.context);
-
-    return variables;
+    return suggestVariables(symbolVariableVisitor.symbolTable, tokenPosition.context);
 }
 
 function suggestVariables(symbolTable: c3.SymbolTable, context: ParseTree): string[] {
     const scope = getScope(context, symbolTable);
     let symbols: c3.VariableSymbol[] = [];
 
-    //Local scope
+    // Local scope
     if (scope instanceof c3.ScopedSymbol) {
         symbols = scope.getNestedSymbolsOfTypeSync(c3.VariableSymbol);
 

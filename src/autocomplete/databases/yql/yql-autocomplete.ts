@@ -34,7 +34,7 @@ import {isStartingToWriteRule} from '../../shared/cursor.js';
 import {shouldSuggestTemplates} from '../../shared/query.js';
 import {EntitySuggestionToYqlEntity, getGranularSuggestions, tokenDictionary} from './helpers';
 import {EntitySuggestion, InternalSuggestions, YqlAutocompleteResult} from './types';
-import {getVariablesSuggestions} from '../../shared/variables';
+import {getVariableSuggestions} from '../../shared/variables';
 
 // These are keywords that we do not want to show in autocomplete
 function getIgnoredTokens(): number[] {
@@ -102,11 +102,11 @@ class YQLVariableSymbolTableVisitor extends YQLVisitor<{}> implements ISymbolTab
         this.scope = this.symbolTable.addNewSymbolOfType(c3.ScopedSymbol, undefined);
     }
 
-    addVariableSymbol = (variableGetter: (index: number) => string | undefined): void => {
+    addVariableSymbol = (getVariable: (index: number) => string | undefined): void => {
         try {
             let index: number | null = 0;
             while (index !== null) {
-                const variable = variableGetter(index);
+                const variable = getVariable(index);
                 if (variable) {
                     this.symbolTable.addNewSymbolOfType(
                         c3.VariableSymbol,
@@ -162,7 +162,7 @@ class YQLVariableSymbolTableVisitor extends YQLVisitor<{}> implements ISymbolTab
 
     visitDefine_action_or_subquery_stmt = (context: Define_action_or_subquery_stmtContext): {} => {
         try {
-            //this variable should be in global scope
+            // this variable should be in global scope
             const variable = context.bind_parameter()?.an_id_or_type()?.getText();
             if (variable) {
                 this.symbolTable.addNewSymbolOfType(
@@ -189,8 +189,8 @@ class YQLVariableSymbolTableVisitor extends YQLVisitor<{}> implements ISymbolTab
     };
 
     visitLambda = (context: LambdaContext): {} => {
-        //this variable should be in local scope, so it should be extracted inside withScope callback
-        const callback = (): {} => {
+        // this variable should be in local scope, so it should be extracted inside withScope callback
+        const addVariables = (): {} => {
             const lambdaArgs = context.smart_parenthesis()?.named_expr_list();
             this.addVariableSymbol((index: number) => {
                 const variable = lambdaArgs?.named_expr(index)?.expr()?.getText();
@@ -204,7 +204,7 @@ class YQLVariableSymbolTableVisitor extends YQLVisitor<{}> implements ISymbolTab
             return this.visitChildren(context) as {};
         };
 
-        return this.withScope(context, c3.RoutineSymbol, [context.getText()], callback) ?? {};
+        return this.withScope(context, c3.RoutineSymbol, [context.getText()], addVariables) ?? {};
     };
 
     withScope<T>(
@@ -224,6 +224,7 @@ class YQLVariableSymbolTableVisitor extends YQLVisitor<{}> implements ISymbolTab
             this.scope = scope.parent as c3.ScopedSymbol;
         }
     }
+
     protected defaultResult(): c3.SymbolTable {
         return this.symbolTable;
     }
@@ -459,7 +460,7 @@ function getEnrichAutocompleteResult(parseTreeGetter: GetParseTree<YQLParser>) {
 
         if (shouldSuggestVariables) {
             const visitor = new YQLVariableSymbolTableVisitor();
-            const data = getVariablesSuggestions(
+            const data = getVariableSuggestions(
                 YQLLexer,
                 YQLParser,
                 visitor,

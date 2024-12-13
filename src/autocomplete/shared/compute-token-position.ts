@@ -2,14 +2,14 @@ import {ParseTree, ParserRuleContext, TerminalNode, Token, TokenStream} from 'an
 
 import {CursorPosition} from './autocomplete-types';
 
-type TokenPosition = {index: number; context: ParseTree; text: string};
+type TokenContext = {index: number; context: ParseTree; text: string};
 
 export function computeTokenPosition(
-    parseTree: ParseTree | null,
+    parseTree: ParseTree,
     tokenStream: TokenStream,
     cursorPosition: CursorPosition,
     identifierTokenTypes: number[] = [],
-): TokenPosition | undefined {
+): TokenContext | undefined {
     if (!parseTree) {
         return;
     }
@@ -30,7 +30,7 @@ function getTokenPosition(
     cursorPosition: CursorPosition,
     identifierTokenTypes: number[],
     parseTree: ParseTree,
-): TokenPosition | undefined {
+): TokenContext | undefined {
     const start = token.column;
     const stop = token.column + text.length;
 
@@ -66,7 +66,7 @@ function computeTokenPositionOfTerminalNode(
     parseTree: TerminalNode,
     cursorPosition: CursorPosition,
     identifierTokenTypes: number[],
-): TokenPosition | undefined {
+): TokenContext | undefined {
     const token = parseTree.symbol;
     const text = parseTree.getText();
     return getTokenPosition(token, text, cursorPosition, identifierTokenTypes, parseTree);
@@ -77,7 +77,7 @@ function computeTokenPositionOfChildNode(
     tokenStream: TokenStream,
     cursorPosition: CursorPosition,
     identifierTokenTypes: number[],
-): TokenPosition | undefined {
+): TokenContext | undefined {
     if (
         !parseTree.start ||
         !parseTree.stop ||
@@ -88,13 +88,17 @@ function computeTokenPositionOfChildNode(
     }
 
     for (let i = 0; i < parseTree.getChildCount(); i++) {
+        const child = parseTree.getChild(i);
+        if (!child) {
+            continue;
+        }
         const tokenPosition = computeTokenPosition(
-            parseTree.getChild(i),
+            child,
             tokenStream,
             cursorPosition,
             identifierTokenTypes,
         );
-        if (tokenPosition !== undefined) {
+        if (tokenPosition) {
             return tokenPosition;
         }
     }
