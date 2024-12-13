@@ -1,5 +1,12 @@
 # Changelog
 
+## [12.7.0](https://github.com/gravity-ui/websql-autocomplete/compare/v12.6.0...v12.7.0) (2024-12-13)
+
+
+### Features
+
+* **YQL:** support variables and scopes ([#258](https://github.com/gravity-ui/websql-autocomplete/issues/258)) ([2406c4d](https://github.com/gravity-ui/websql-autocomplete/commit/2406c4d23350fa6fa99c0911e23cb0d728394daa))
+
 ## [12.6.0](https://github.com/gravity-ui/websql-autocomplete/compare/v12.5.0...v12.6.0) (2024-12-09)
 
 
