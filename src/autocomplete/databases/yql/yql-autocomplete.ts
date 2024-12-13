@@ -3,9 +3,14 @@ import * as c3 from 'antlr4-c3';
 
 import {YQLLexer} from './generated/YQLLexer';
 import {
+    Action_or_subquery_argsContext,
     Alter_table_store_stmtContext,
+    Declare_stmtContext,
+    Define_action_or_subquery_stmtContext,
+    LambdaContext,
     Named_columnContext,
     Named_exprContext,
+    Named_nodes_stmtContext,
     Named_single_sourceContext,
     Result_columnContext,
     Simple_table_ref_coreContext,
@@ -29,6 +34,7 @@ import {isStartingToWriteRule} from '../../shared/cursor.js';
 import {shouldSuggestTemplates} from '../../shared/query.js';
 import {EntitySuggestionToYqlEntity, getGranularSuggestions, tokenDictionary} from './helpers';
 import {EntitySuggestion, InternalSuggestions, YqlAutocompleteResult} from './types';
+import {getVariableSuggestions} from '../../shared/variables';
 
 // These are keywords that we do not want to show in autocomplete
 function getIgnoredTokens(): number[] {
@@ -85,6 +91,144 @@ const rulesToVisit = new Set([
     YQLParser.RULE_id_hint,
     YQLParser.RULE_id_as_compat,
 ]);
+
+class YQLVariableSymbolTableVisitor extends YQLVisitor<{}> implements ISymbolTableVisitor {
+    symbolTable: c3.SymbolTable;
+    scope: c3.ScopedSymbol;
+
+    constructor() {
+        super();
+        this.symbolTable = new c3.SymbolTable('', {allowDuplicateSymbols: true});
+        this.scope = this.symbolTable.addNewSymbolOfType(c3.ScopedSymbol, undefined);
+    }
+
+    addVariableSymbol = (getVariable: (index: number) => string | undefined): void => {
+        try {
+            let index: number | null = 0;
+            while (index !== null) {
+                const variable = getVariable(index);
+                if (variable) {
+                    this.symbolTable.addNewSymbolOfType(
+                        c3.VariableSymbol,
+                        this.scope,
+                        variable,
+                        undefined,
+                    );
+                    index++;
+                } else {
+                    index = null;
+                }
+            }
+        } catch (error) {
+            if (!(error instanceof c3.DuplicateSymbolError)) {
+                throw error;
+            }
+        }
+    };
+
+    visitDeclare_stmt = (context: Declare_stmtContext): {} => {
+        try {
+            const variable = context.bind_parameter()?.an_id_or_type()?.getText();
+            if (variable) {
+                const value = context.literal_value()?.getText();
+
+                this.symbolTable.addNewSymbolOfType(c3.VariableSymbol, this.scope, variable, value);
+            }
+        } catch (error) {
+            if (!(error instanceof c3.DuplicateSymbolError)) {
+                throw error;
+            }
+        }
+
+        return this.visitChildren(context) as {};
+    };
+
+    visitAction_or_subquery_args = (context: Action_or_subquery_argsContext): {} => {
+        this.addVariableSymbol(
+            (index: number) =>
+                context.opt_bind_parameter(index)?.bind_parameter()?.an_id_or_type()?.getText(),
+        );
+        return this.visitChildren(context) as {};
+    };
+
+    visitNamed_nodes_stmt = (context: Named_nodes_stmtContext): {} => {
+        this.addVariableSymbol(
+            (index: number) =>
+                context.bind_parameter_list()?.bind_parameter(index)?.an_id_or_type()?.getText(),
+        );
+
+        return this.visitChildren(context) as {};
+    };
+
+    visitDefine_action_or_subquery_stmt = (context: Define_action_or_subquery_stmtContext): {} => {
+        try {
+            // This variable should be in global scope
+            const variable = context.bind_parameter()?.an_id_or_type()?.getText();
+            if (variable) {
+                this.symbolTable.addNewSymbolOfType(
+                    c3.VariableSymbol,
+                    this.scope,
+                    variable,
+                    undefined,
+                );
+            }
+        } catch (error) {
+            if (!(error instanceof c3.DuplicateSymbolError)) {
+                throw error;
+            }
+        }
+
+        return (
+            this.withScope(
+                context,
+                c3.RoutineSymbol,
+                [context.bind_parameter()?.an_id_or_type()?.getText()],
+                () => this.visitChildren(context),
+            ) ?? {}
+        );
+    };
+
+    visitLambda = (context: LambdaContext): {} => {
+        // This variable should be in local scope, so it should be extracted inside withScope callback
+        const addVariables = (): {} => {
+            const lambdaArgs = context.smart_parenthesis()?.named_expr_list();
+            this.addVariableSymbol((index: number) => {
+                const variable = lambdaArgs?.named_expr(index)?.expr()?.getText();
+                if (variable) {
+                    if (variable.startsWith('$')) {
+                        return variable.slice(1);
+                    }
+                }
+                return variable;
+            });
+            return this.visitChildren(context) as {};
+        };
+
+        return this.withScope(context, c3.RoutineSymbol, [context.getText()], addVariables) ?? {};
+    };
+
+    withScope<T>(
+        tree: ParseTree,
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        type: new (...args: any[]) => c3.ScopedSymbol,
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        args: any[],
+        action: () => T,
+    ): T {
+        const scope = this.symbolTable.addNewSymbolOfType(type, this.scope, ...args);
+        scope.context = tree;
+        this.scope = scope;
+        try {
+            return action();
+        } finally {
+            this.scope = scope.parent as c3.ScopedSymbol;
+        }
+    }
+
+    protected defaultResult(): c3.SymbolTable {
+        return this.symbolTable;
+    }
+}
 
 class YQLSymbolTableVisitor extends YQLVisitor<{}> implements ISymbolTableVisitor {
     symbolTable: c3.SymbolTable;
@@ -302,6 +446,7 @@ function getEnrichAutocompleteResult(parseTreeGetter: GetParseTree<YQLParser>) {
             shouldSuggestAllColumns,
             shouldSuggestColumnAliases,
             shouldSuggestTableIndexes,
+            shouldSuggestVariables,
             ...suggestionsFromRules
         } = processVisitedRules(rules, cursorTokenIndex, tokenStream);
         const suggestTemplates = shouldSuggestTemplates(query, cursor);
@@ -312,6 +457,22 @@ function getEnrichAutocompleteResult(parseTreeGetter: GetParseTree<YQLParser>) {
         };
         const contextSuggestionsNeeded =
             shouldSuggestColumns || shouldSuggestColumnAliases || shouldSuggestTableIndexes;
+
+        if (shouldSuggestVariables) {
+            const visitor = new YQLVariableSymbolTableVisitor();
+            const data = getVariableSuggestions(
+                YQLLexer,
+                YQLParser,
+                visitor,
+                parseTreeGetter,
+                tokenStream,
+                cursor,
+                query,
+            );
+            if (data.length) {
+                result.suggestVariables = data;
+            }
+        }
 
         if (contextSuggestionsNeeded) {
             const visitor = new YQLSymbolTableVisitor();
