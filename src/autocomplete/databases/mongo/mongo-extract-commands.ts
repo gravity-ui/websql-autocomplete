@@ -20,6 +20,7 @@ import {
     ShowRecordIdModifierContext,
     SkipModifierContext,
     SortModifierContext,
+    UpdateOneMethodContext,
 } from './generated/MongoParser';
 import {MongoParserVisitor} from './generated/MongoParserVisitor';
 import {ParserSyntaxError, SqlErrorListener, createParser} from '../../shared';
@@ -103,6 +104,14 @@ export interface BulkWriteCommand {
     options?: unknown;
 }
 
+export interface UpdateOneCommand {
+    method: 'updateOne';
+    collectionName: string;
+    filter: unknown;
+    updateParameters: unknown;
+    options?: unknown;
+}
+
 export type Command =
     | FindCommand
     | FindOneCommand
@@ -111,7 +120,8 @@ export type Command =
     | FindOneAndUpdateCommand
     | InsertOneCommand
     | InsertManyCommand
-    | BulkWriteCommand;
+    | BulkWriteCommand
+    | UpdateOneCommand;
 
 export interface ParsingError {
     type: 'parsingError';
@@ -246,6 +256,21 @@ class CommandsVisitor extends MongoParserVisitor<unknown> {
                     collectionName,
                     method: 'bulkWrite',
                     operations,
+                    options,
+                });
+                return;
+            }
+
+            if (methodContext instanceof UpdateOneMethodContext) {
+                const filter = formatJson5(methodContext.updateOneArgument1().getText());
+                const updateParameters = formatJson5(methodContext.updateOneArgument2()?.getText());
+                const options = formatJson5(methodContext.updateOneArgument3()?.getText());
+
+                this.commands.push({
+                    collectionName,
+                    method: 'updateOne',
+                    filter,
+                    updateParameters,
                     options,
                 });
                 return;

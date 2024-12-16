@@ -18,6 +18,10 @@ import { CommandContext } from "./MongoParser.js";
 import { CollectionOperationContext } from "./MongoParser.js";
 import { CollectionNameContext } from "./MongoParser.js";
 import { CollectionMethodContext } from "./MongoParser.js";
+import { UpdateOneMethodContext } from "./MongoParser.js";
+import { UpdateOneArgument1Context } from "./MongoParser.js";
+import { UpdateOneArgument2Context } from "./MongoParser.js";
+import { UpdateOneArgument3Context } from "./MongoParser.js";
 import { BulkWriteMethodContext } from "./MongoParser.js";
 import { BulkWriteArgument1Context } from "./MongoParser.js";
 import { BulkWriteArgument2Context } from "./MongoParser.js";
@@ -123,6 +127,30 @@ export class MongoParserVisitor<Result> extends AbstractParseTreeVisitor<Result>
      * @return the visitor result
      */
     visitCollectionMethod?: (ctx: CollectionMethodContext) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.updateOneMethod`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitUpdateOneMethod?: (ctx: UpdateOneMethodContext) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.updateOneArgument1`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitUpdateOneArgument1?: (ctx: UpdateOneArgument1Context) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.updateOneArgument2`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitUpdateOneArgument2?: (ctx: UpdateOneArgument2Context) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.updateOneArgument3`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitUpdateOneArgument3?: (ctx: UpdateOneArgument3Context) => Result;
     /**
      * Visit a parse tree produced by `MongoParser.bulkWriteMethod`.
      * @param ctx the parse tree

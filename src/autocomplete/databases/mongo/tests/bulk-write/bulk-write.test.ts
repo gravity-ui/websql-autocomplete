@@ -6,7 +6,7 @@ test('should not report errors on bulkWrite statement', () => {
           [
             {test_field: 'test_value'},
             {test_field: 'test_value'},
-            {test_field: 'test_value'},
+            {test_field: 'test_value'}
           ]
         );
     `);
@@ -22,7 +22,7 @@ test('should not report errors on extended bulkWrite statement', () => {
             {test_field: 'test_value'},
             {test_field: 'test_value'},
           ],
-          {test_options: 'test_value'}
+          {test_option: 'test_value'}
         );
     `);
 

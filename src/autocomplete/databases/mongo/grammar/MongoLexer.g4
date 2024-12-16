@@ -28,6 +28,7 @@ SKIP_       : 'skip';
 INSERT_ONE  : 'insertOne';
 INSERT_MANY : 'insertMany';
 BULK_WRITE  : 'bulkWrite';
+UPDATE_ONE  : 'updateOne';
 
 LBRACKET  : '[';
 RBRACKET  : ']';
