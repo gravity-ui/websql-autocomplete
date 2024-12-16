@@ -1,5 +1,6 @@
 import json5 from 'json5';
 import {
+    BulkWriteMethodContext,
     CollectionOperationContext,
     FilterModifierContext,
     FindMethodContext,
@@ -95,6 +96,13 @@ export interface InsertManyCommand {
     options: unknown;
 }
 
+export interface BulkWriteCommand {
+    method: 'bulkWrite';
+    collectionName: string;
+    operations: unknown;
+    options?: unknown;
+}
+
 export type Command =
     | FindCommand
     | FindOneCommand
@@ -102,7 +110,8 @@ export type Command =
     | FindOneAndReplaceCommand
     | FindOneAndUpdateCommand
     | InsertOneCommand
-    | InsertManyCommand;
+    | InsertManyCommand
+    | BulkWriteCommand;
 
 export interface ParsingError {
     type: 'parsingError';
@@ -226,6 +235,19 @@ class CommandsVisitor extends MongoParserVisitor<unknown> {
                 const options = formatJson5(methodContext.insertManyArgument2()?.getText());
 
                 this.commands.push({collectionName, method: 'insertMany', documents, options});
+                return;
+            }
+
+            if (methodContext instanceof BulkWriteMethodContext) {
+                const operations = formatJson5(methodContext.bulkWriteArgument1().getText());
+                const options = formatJson5(methodContext.bulkWriteArgument2()?.getText());
+
+                this.commands.push({
+                    collectionName,
+                    method: 'bulkWrite',
+                    operations,
+                    options,
+                });
                 return;
             }
         } catch (error) {

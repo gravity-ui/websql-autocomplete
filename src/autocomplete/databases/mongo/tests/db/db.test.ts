@@ -42,5 +42,6 @@ test('should suggest properly keywords after collection name', () => {
         {value: 'findOneAndUpdate'},
         {value: 'insertOne'},
         {value: 'insertMany'},
+        {value: 'bulkWrite'},
     ]);
 });

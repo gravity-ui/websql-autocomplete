@@ -18,6 +18,9 @@ import { CommandContext } from "./MongoParser.js";
 import { CollectionOperationContext } from "./MongoParser.js";
 import { CollectionNameContext } from "./MongoParser.js";
 import { CollectionMethodContext } from "./MongoParser.js";
+import { BulkWriteMethodContext } from "./MongoParser.js";
+import { BulkWriteArgument1Context } from "./MongoParser.js";
+import { BulkWriteArgument2Context } from "./MongoParser.js";
 import { InsertManyMethodContext } from "./MongoParser.js";
 import { InsertManyArgument1Context } from "./MongoParser.js";
 import { InsertManyArgument2Context } from "./MongoParser.js";
@@ -120,6 +123,24 @@ export class MongoParserVisitor<Result> extends AbstractParseTreeVisitor<Result>
      * @return the visitor result
      */
     visitCollectionMethod?: (ctx: CollectionMethodContext) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.bulkWriteMethod`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitBulkWriteMethod?: (ctx: BulkWriteMethodContext) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.bulkWriteArgument1`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitBulkWriteArgument1?: (ctx: BulkWriteArgument1Context) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.bulkWriteArgument2`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitBulkWriteArgument2?: (ctx: BulkWriteArgument2Context) => Result;
     /**
      * Visit a parse tree produced by `MongoParser.insertManyMethod`.
      * @param ctx the parse tree

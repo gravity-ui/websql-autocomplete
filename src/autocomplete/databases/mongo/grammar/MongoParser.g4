@@ -36,6 +36,19 @@ collectionMethod
     | findOneAndUpdateMethod
     | insertOneMethod
     | insertManyMethod
+    | bulkWriteMethod
+    ;
+
+bulkWriteMethod
+    : BULK_WRITE LPAREN bulkWriteArgument1 (COMMA bulkWriteArgument2)? RPAREN
+    ;
+
+bulkWriteArgument1
+    : array
+    ;
+
+bulkWriteArgument2
+    : object
     ;
 
 insertManyMethod
@@ -259,6 +272,7 @@ reservedKeyword
     | SKIP_
     | INSERT_ONE
     | INSERT_MANY
+    | BULK_WRITE
     ;
 
 // JSON5 rules
