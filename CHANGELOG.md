@@ -1,5 +1,12 @@
 # Changelog
 
+## [12.7.1](https://github.com/gravity-ui/websql-autocomplete/compare/v12.7.0...v12.7.1) (2024-12-17)
+
+
+### Bug Fixes
+
+* extractStatementsUsingAutocomplete sometimes not working on semicolon ([#260](https://github.com/gravity-ui/websql-autocomplete/issues/260)) ([5a672ca](https://github.com/gravity-ui/websql-autocomplete/commit/5a672cad093cc5f66f4f55c8cc07b9b6f1dbcacd))
+
 ## [12.7.0](https://github.com/gravity-ui/websql-autocomplete/compare/v12.6.0...v12.7.0) (2024-12-13)
 
 
