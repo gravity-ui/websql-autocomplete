@@ -22,13 +22,12 @@ test('should extract statements from single find query', () => {
     ).toBe('db.test_collection.find();');
 });
 
-// TODO: Fix, autocomplete strategy expected
 test('should extract statements from single insertOne query', () => {
     const query = 'db.test_collection.insertOne({});';
     const result = extractMongoStatementPositionsFromQuery(query);
     const expectedResult: ExtractStatementPositionsResult = {
         statementPositions: [{startIndex: 0, endIndex: 33}],
-        strategy: StatementExtractionStrategy.Tokens,
+        strategy: StatementExtractionStrategy.Autocomplete,
     };
 
     expect(result).toEqual(expectedResult);
@@ -169,7 +168,6 @@ test('should ignore newlines', () => {
     expect(result).toEqual({statementPositions: [], strategy: StatementExtractionStrategy.Tokens});
 });
 
-// TODO: Fix, autocomplete strategy expected
 test('should extract statements from multiple query', () => {
     const query = 'db.test_collection.find();db.test_collection.insertOne({field: 1});';
 
@@ -179,7 +177,7 @@ test('should extract statements from multiple query', () => {
             {startIndex: 0, endIndex: 26},
             {startIndex: 26, endIndex: 67},
         ],
-        strategy: StatementExtractionStrategy.Tokens,
+        strategy: StatementExtractionStrategy.Autocomplete,
     };
 
     expect(result).toEqual(expectedResult);
@@ -199,8 +197,7 @@ test('should extract statements from multiple query', () => {
     ).toBe('db.test_collection.insertOne({field: 1});');
 });
 
-// TODO: Fix, do not resolve first 2 rules because of insertOne
-test.skip('should extract three statements from query', () => {
+test('should extract three statements from query', () => {
     const query =
         'db.first_collection.find();\ndb.first_collection.insertOne({});/* comment inside */db.first_collection.find();';
 

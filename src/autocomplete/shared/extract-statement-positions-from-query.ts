@@ -42,6 +42,7 @@ export function extractStatementPositionsFromQuery<L extends LexerType, P extend
         parser,
         tokenStream,
         statementRule,
+        endStatementToken,
     );
     if (autocompleteStatementPositions.length) {
         return {
@@ -117,6 +118,7 @@ export function extractStatementsUsingAutocomplete<P extends ParserType>(
     parser: P,
     tokenStream: TokenStream,
     statementRule: number,
+    endStatementToken: number,
 ): StatementPosition[] {
     const core = new c3.CodeCompletionCore(parser);
     core.preferredRules = new Set([statementRule]);
@@ -126,9 +128,13 @@ export function extractStatementsUsingAutocomplete<P extends ParserType>(
     const statementPositions: StatementPosition[] = [];
 
     while (currentToken?.tokenIndex > 0) {
-        const {rules} = core.collectCandidates(currentToken.tokenIndex);
-        let startToken: Token | undefined;
+        let rules = core.collectCandidates(currentToken.tokenIndex).rules;
+        // Sometimes autocomplete doesn't provide suggestions on semicolon
+        if (!rules.size && currentToken.type === endStatementToken) {
+            rules = core.collectCandidates(currentToken.tokenIndex - 1).rules;
+        }
 
+        let startToken: Token | undefined;
         for (const [ruleId, {startTokenIndex}] of rules) {
             if (ruleId === statementRule) {
                 startToken = tokenStream.get(startTokenIndex);
