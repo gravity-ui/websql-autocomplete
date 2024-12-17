@@ -128,8 +128,11 @@ export function extractStatementsUsingAutocomplete<P extends ParserType>(
     const statementPositions: StatementPosition[] = [];
 
     while (currentToken?.tokenIndex > 0) {
+        // Autocomplete triggers on 'statement' rule, i.e. if a token is inside a valid statement,
+        // then a 'statement' rule will be triggered and we can get startIndex
         let rules = core.collectCandidates(currentToken.tokenIndex).rules;
-        // Sometimes autocomplete doesn't provide suggestions on semicolon
+        // Sometimes autocomplete doesn't infer statement context on semicolon
+        // So we try to get the rule from the token before semicolon
         if (!rules.size && currentToken.type === endStatementToken) {
             rules = core.collectCandidates(currentToken.tokenIndex - 1).rules;
         }
