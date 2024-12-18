@@ -20,6 +20,7 @@ import {
     ShowRecordIdModifierContext,
     SkipModifierContext,
     SortModifierContext,
+    UpdateManyMethodContext,
     UpdateOneMethodContext,
 } from './generated/MongoParser';
 import {MongoParserVisitor} from './generated/MongoParserVisitor';
@@ -112,6 +113,14 @@ export interface UpdateOneCommand {
     options?: unknown;
 }
 
+export interface UpdateManyCommand {
+    method: 'updateMany';
+    collectionName: string;
+    filter: unknown;
+    updateParameters: unknown;
+    options?: unknown;
+}
+
 export type Command =
     | FindCommand
     | FindOneCommand
@@ -121,7 +130,8 @@ export type Command =
     | InsertOneCommand
     | InsertManyCommand
     | BulkWriteCommand
-    | UpdateOneCommand;
+    | UpdateOneCommand
+    | UpdateManyCommand;
 
 export interface ParsingError {
     type: 'parsingError';
@@ -269,6 +279,23 @@ class CommandsVisitor extends MongoParserVisitor<unknown> {
                 this.commands.push({
                     collectionName,
                     method: 'updateOne',
+                    filter,
+                    updateParameters,
+                    options,
+                });
+                return;
+            }
+
+            if (methodContext instanceof UpdateManyMethodContext) {
+                const filter = formatJson5(methodContext.updateManyArgument1().getText());
+                const updateParameters = formatJson5(
+                    methodContext.updateManyArgument2()?.getText(),
+                );
+                const options = formatJson5(methodContext.updateManyArgument3()?.getText());
+
+                this.commands.push({
+                    collectionName,
+                    method: 'updateMany',
                     filter,
                     updateParameters,
                     options,

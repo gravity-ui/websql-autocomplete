@@ -720,6 +720,114 @@ test('should extract updateOne commands properly', () => {
     });
 });
 
+test('should extract updateMany commands properly', () => {
+    const result = extractMongoCommandsFromQuery(`
+        db.test_collection1.updateMany(
+            {
+                test_field: 'test_value',
+            },
+            [{
+                test_field: 'test_value',
+                test_object: {
+                    test_subfield: 23,
+                }
+            }]
+        );
+
+        db.test_collection2.updateMany(
+            {
+                test_field: 'test_value',
+            },
+            [
+                {
+                    test_field: 'test_value',
+                    test_object: {
+                        test_subfield: 23,
+                    }
+                },
+                {
+                    test_field: 'test_value',
+                    test_object: {
+                        test_subfield: 23,
+                    }
+                },
+            ],
+            {
+                test_option: 'test_option_value'
+            }
+        );
+
+        db.test_collection3.updateMany(
+            {
+                test_field: 'test_value',
+            },
+            {
+                test_field: 'test_value',
+            },
+            {
+                test_option: 'test_option_value'
+            }
+        );
+    `);
+
+    expect(result).toEqual({
+        commands: [
+            {
+                collectionName: 'test_collection1',
+                filter: {
+                    test_field: 'test_value',
+                },
+                method: 'updateMany',
+                updateParameters: [
+                    {
+                        test_field: 'test_value',
+                        test_object: {
+                            test_subfield: 23,
+                        },
+                    },
+                ],
+            },
+            {
+                collectionName: 'test_collection2',
+                filter: {
+                    test_field: 'test_value',
+                },
+                method: 'updateMany',
+                options: {
+                    test_option: 'test_option_value',
+                },
+                updateParameters: [
+                    {
+                        test_field: 'test_value',
+                        test_object: {
+                            test_subfield: 23,
+                        },
+                    },
+                    {
+                        test_field: 'test_value',
+                        test_object: {
+                            test_subfield: 23,
+                        },
+                    },
+                ],
+            },
+            {
+                collectionName: 'test_collection3',
+                filter: {
+                    test_field: 'test_value',
+                },
+                method: 'updateMany',
+                options: {
+                    test_option: 'test_option_value',
+                },
+                updateParameters: {
+                    test_field: 'test_value',
+                },
+            },
+        ],
+    });
+});
+
 test('should throw error on invalid syntax', () => {
     const result = extractMongoCommandsFromQuery('db_ERROR.test_collection1.find({})');
 

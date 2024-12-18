@@ -18,6 +18,10 @@ import { CommandContext } from "./MongoParser.js";
 import { CollectionOperationContext } from "./MongoParser.js";
 import { CollectionNameContext } from "./MongoParser.js";
 import { CollectionMethodContext } from "./MongoParser.js";
+import { UpdateManyMethodContext } from "./MongoParser.js";
+import { UpdateManyArgument1Context } from "./MongoParser.js";
+import { UpdateManyArgument2Context } from "./MongoParser.js";
+import { UpdateManyArgument3Context } from "./MongoParser.js";
 import { UpdateOneMethodContext } from "./MongoParser.js";
 import { UpdateOneArgument1Context } from "./MongoParser.js";
 import { UpdateOneArgument2Context } from "./MongoParser.js";
@@ -127,6 +131,30 @@ export class MongoParserVisitor<Result> extends AbstractParseTreeVisitor<Result>
      * @return the visitor result
      */
     visitCollectionMethod?: (ctx: CollectionMethodContext) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.updateManyMethod`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitUpdateManyMethod?: (ctx: UpdateManyMethodContext) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.updateManyArgument1`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitUpdateManyArgument1?: (ctx: UpdateManyArgument1Context) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.updateManyArgument2`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitUpdateManyArgument2?: (ctx: UpdateManyArgument2Context) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.updateManyArgument3`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitUpdateManyArgument3?: (ctx: UpdateManyArgument3Context) => Result;
     /**
      * Visit a parse tree produced by `MongoParser.updateOneMethod`.
      * @param ctx the parse tree
