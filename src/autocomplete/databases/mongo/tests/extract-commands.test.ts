@@ -774,10 +774,10 @@ test('should extract updateMany commands properly', () => {
         commands: [
             {
                 collectionName: 'test_collection1',
+                method: 'updateMany',
                 filter: {
                     test_field: 'test_value',
                 },
-                method: 'updateMany',
                 updateParameters: [
                     {
                         test_field: 'test_value',
@@ -789,12 +789,9 @@ test('should extract updateMany commands properly', () => {
             },
             {
                 collectionName: 'test_collection2',
+                method: 'updateMany',
                 filter: {
                     test_field: 'test_value',
-                },
-                method: 'updateMany',
-                options: {
-                    test_option: 'test_option_value',
                 },
                 updateParameters: [
                     {
@@ -810,18 +807,103 @@ test('should extract updateMany commands properly', () => {
                         },
                     },
                 ],
-            },
-            {
-                collectionName: 'test_collection3',
-                filter: {
-                    test_field: 'test_value',
-                },
-                method: 'updateMany',
                 options: {
                     test_option: 'test_option_value',
                 },
+            },
+            {
+                collectionName: 'test_collection3',
+                method: 'updateMany',
+                filter: {
+                    test_field: 'test_value',
+                },
                 updateParameters: {
                     test_field: 'test_value',
+                },
+                options: {
+                    test_option: 'test_option_value',
+                },
+            },
+        ],
+    });
+});
+
+test('should extract replaceOne commands properly', () => {
+    const result = extractMongoCommandsFromQuery(`
+        db.test_collection.replaceOne(
+            {
+                test_field1: 'test_value1',
+            },
+            {
+                test_field2: 'test_value2',
+            }
+        );
+
+        db.test_collection.replaceOne(
+            {
+                test_field1: 'test_value1',
+            },
+            [
+                {
+                    test_field2: 'test_value2',
+                },
+                {
+                    test_field3: 'test_value3',
+                },
+            ]
+        );
+
+        db.test_collection.replaceOne(
+            {
+                test_field1: 'test_value1',
+            },
+            {
+                test_field2: 'test_value2',
+            },
+            {
+                test_option: 'test_value',
+            }
+        );
+    `);
+
+    expect(result).toEqual({
+        commands: [
+            {
+                method: 'replaceOne',
+                collectionName: 'test_collection',
+                filter: {
+                    test_field1: 'test_value1',
+                },
+                replacement: {
+                    test_field2: 'test_value2',
+                },
+            },
+            {
+                method: 'replaceOne',
+                collectionName: 'test_collection',
+                filter: {
+                    test_field1: 'test_value1',
+                },
+                replacement: [
+                    {
+                        test_field2: 'test_value2',
+                    },
+                    {
+                        test_field3: 'test_value3',
+                    },
+                ],
+            },
+            {
+                method: 'replaceOne',
+                collectionName: 'test_collection',
+                filter: {
+                    test_field1: 'test_value1',
+                },
+                replacement: {
+                    test_field2: 'test_value2',
+                },
+                options: {
+                    test_option: 'test_value',
                 },
             },
         ],

@@ -18,6 +18,10 @@ import { CommandContext } from "./MongoParser.js";
 import { CollectionOperationContext } from "./MongoParser.js";
 import { CollectionNameContext } from "./MongoParser.js";
 import { CollectionMethodContext } from "./MongoParser.js";
+import { ReplaceOneMethodContext } from "./MongoParser.js";
+import { ReplaceOneArgument1Context } from "./MongoParser.js";
+import { ReplaceOneArgument2Context } from "./MongoParser.js";
+import { ReplaceOneArgument3Context } from "./MongoParser.js";
 import { UpdateManyMethodContext } from "./MongoParser.js";
 import { UpdateManyArgument1Context } from "./MongoParser.js";
 import { UpdateManyArgument2Context } from "./MongoParser.js";
@@ -131,6 +135,30 @@ export class MongoParserVisitor<Result> extends AbstractParseTreeVisitor<Result>
      * @return the visitor result
      */
     visitCollectionMethod?: (ctx: CollectionMethodContext) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.replaceOneMethod`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitReplaceOneMethod?: (ctx: ReplaceOneMethodContext) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.replaceOneArgument1`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitReplaceOneArgument1?: (ctx: ReplaceOneArgument1Context) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.replaceOneArgument2`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitReplaceOneArgument2?: (ctx: ReplaceOneArgument2Context) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.replaceOneArgument3`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitReplaceOneArgument3?: (ctx: ReplaceOneArgument3Context) => Result;
     /**
      * Visit a parse tree produced by `MongoParser.updateManyMethod`.
      * @param ctx the parse tree

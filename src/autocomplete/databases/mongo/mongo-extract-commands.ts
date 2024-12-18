@@ -16,6 +16,7 @@ import {
     MaxModifierContext,
     MinModifierContext,
     MongoParser,
+    ReplaceOneMethodContext,
     ReturnKeyModifierContext,
     ShowRecordIdModifierContext,
     SkipModifierContext,
@@ -121,6 +122,14 @@ export interface UpdateManyCommand {
     options?: unknown;
 }
 
+export interface ReplaceOneCommand {
+    method: 'replaceOne';
+    collectionName: string;
+    filter: unknown;
+    replacement: unknown;
+    options?: unknown;
+}
+
 export type Command =
     | FindCommand
     | FindOneCommand
@@ -131,7 +140,8 @@ export type Command =
     | InsertManyCommand
     | BulkWriteCommand
     | UpdateOneCommand
-    | UpdateManyCommand;
+    | UpdateManyCommand
+    | ReplaceOneCommand;
 
 export interface ParsingError {
     type: 'parsingError';
@@ -298,6 +308,21 @@ class CommandsVisitor extends MongoParserVisitor<unknown> {
                     method: 'updateMany',
                     filter,
                     updateParameters,
+                    options,
+                });
+                return;
+            }
+
+            if (methodContext instanceof ReplaceOneMethodContext) {
+                const filter = formatJson5(methodContext.replaceOneArgument1().getText());
+                const replacement = formatJson5(methodContext.replaceOneArgument2()?.getText());
+                const options = formatJson5(methodContext.replaceOneArgument3()?.getText());
+
+                this.commands.push({
+                    collectionName,
+                    method: 'replaceOne',
+                    filter,
+                    replacement,
                     options,
                 });
                 return;

@@ -39,6 +39,23 @@ collectionMethod
     | bulkWriteMethod
     | updateOneMethod
     | updateManyMethod
+    | replaceOneMethod
+    ;
+
+replaceOneMethod
+    : REPLACE_ONE LPAREN replaceOneArgument1 COMMA replaceOneArgument2 (COMMA replaceOneArgument3)? RPAREN
+    ;
+
+replaceOneArgument1
+    : object
+    ;
+
+replaceOneArgument2
+    : documentToInsert
+    ;
+
+replaceOneArgument3
+    : object
     ;
 
 updateManyMethod
@@ -311,6 +328,7 @@ reservedKeyword
     | BULK_WRITE
     | UPDATE_ONE
     | UPDATE_MANY
+    | REPLACE_ONE
     ;
 
 // JSON5 rules

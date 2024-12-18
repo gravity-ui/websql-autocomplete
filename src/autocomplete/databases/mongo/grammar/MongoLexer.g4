@@ -30,6 +30,7 @@ INSERT_MANY : 'insertMany';
 BULK_WRITE  : 'bulkWrite';
 UPDATE_ONE  : 'updateOne';
 UPDATE_MANY : 'updateMany';
+REPLACE_ONE : 'replaceOne';
 
 LBRACKET  : '[';
 RBRACKET  : ']';
