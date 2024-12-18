@@ -43,6 +43,15 @@ collectionMethod
     | deleteOneMethod
     | deleteManyMethod
     | renameMethod
+    | dropMethod
+    ;
+
+dropMethod
+    : DROP LPAREN dropArgument? RPAREN
+    ;
+
+dropArgument
+    : object
     ;
 
 renameMethod
@@ -371,6 +380,7 @@ reservedKeyword
     | DELETE_ONE
     | DELETE_MANY
     | RENAME
+    | DROP
     ;
 
 // JSON5 rules

@@ -4,6 +4,7 @@ import {
     CollectionOperationContext,
     DeleteManyMethodContext,
     DeleteOneMethodContext,
+    DropMethodContext,
     FilterModifierContext,
     FindMethodContext,
     FindMethodModifierContext,
@@ -154,6 +155,12 @@ export interface RenameCommand {
     options?: unknown;
 }
 
+export interface DropCommand {
+    method: 'drop';
+    collectionName: string;
+    options?: unknown;
+}
+
 export type Command =
     | FindCommand
     | FindOneCommand
@@ -168,7 +175,8 @@ export type Command =
     | ReplaceOneCommand
     | DeleteOneCommand
     | DeleteManyCommand
-    | RenameCommand;
+    | RenameCommand
+    | DropCommand;
 
 export interface ParsingError {
     type: 'parsingError';
@@ -376,6 +384,17 @@ class CommandsVisitor extends MongoParserVisitor<unknown> {
                     collectionName,
                     method: 'deleteMany',
                     filter,
+                    options,
+                });
+                return;
+            }
+
+            if (methodContext instanceof DropMethodContext) {
+                const options = formatJson5(methodContext.dropArgument()?.getText());
+
+                this.commands.push({
+                    collectionName,
+                    method: 'drop',
                     options,
                 });
                 return;

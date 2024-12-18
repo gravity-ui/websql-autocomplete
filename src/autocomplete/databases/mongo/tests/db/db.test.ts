@@ -49,5 +49,6 @@ test('should suggest properly keywords after collection name', () => {
         {value: 'deleteOne'},
         {value: 'deleteMany'},
         {value: 'rename'},
+        {value: 'drop'},
     ]);
 });

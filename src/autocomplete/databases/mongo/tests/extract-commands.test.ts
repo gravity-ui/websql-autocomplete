@@ -1035,6 +1035,34 @@ test('should extract rename commands properly', () => {
     });
 });
 
+test('should extract drop commands properly', () => {
+    const result = extractMongoCommandsFromQuery(`
+        db.test_collection.drop();
+
+        db.test_collection.drop(
+            {
+                test_option: 'test_value',
+            }
+        );
+    `);
+
+    expect(result).toEqual({
+        commands: [
+            {
+                collectionName: 'test_collection',
+                method: 'drop',
+            },
+            {
+                collectionName: 'test_collection',
+                method: 'drop',
+                options: {
+                    test_option: 'test_value',
+                },
+            },
+        ],
+    });
+});
+
 test('should throw error on invalid syntax', () => {
     const result = extractMongoCommandsFromQuery('db_ERROR.test_collection1.find({})');
 

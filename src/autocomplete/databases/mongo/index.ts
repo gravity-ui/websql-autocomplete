@@ -22,6 +22,14 @@ export {
     InsertOneCommand,
     InsertManyCommand,
     ExtractMongoCommandsFromQueryResult,
+    BulkWriteCommand,
+    UpdateOneCommand,
+    UpdateManyCommand,
+    ReplaceOneCommand,
+    DeleteOneCommand,
+    DeleteManyCommand,
+    RenameCommand,
+    DropCommand,
 } from './mongo-extract-commands';
 
 export interface MongoAutocompleteResult extends SqlAutocompleteResult {
