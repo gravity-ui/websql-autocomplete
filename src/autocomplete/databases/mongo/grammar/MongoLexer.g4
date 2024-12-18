@@ -31,6 +31,7 @@ BULK_WRITE  : 'bulkWrite';
 UPDATE_ONE  : 'updateOne';
 UPDATE_MANY : 'updateMany';
 REPLACE_ONE : 'replaceOne';
+DELETE_ONE  : 'deleteOne';
 
 LBRACKET  : '[';
 RBRACKET  : ']';

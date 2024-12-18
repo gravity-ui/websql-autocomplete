@@ -2,6 +2,7 @@ import json5 from 'json5';
 import {
     BulkWriteMethodContext,
     CollectionOperationContext,
+    DeleteOneMethodContext,
     FilterModifierContext,
     FindMethodContext,
     FindMethodModifierContext,
@@ -130,6 +131,13 @@ export interface ReplaceOneCommand {
     options?: unknown;
 }
 
+export interface DeleteOneCommand {
+    method: 'deleteOne';
+    collectionName: string;
+    filter?: unknown;
+    options?: unknown;
+}
+
 export type Command =
     | FindCommand
     | FindOneCommand
@@ -141,7 +149,8 @@ export type Command =
     | BulkWriteCommand
     | UpdateOneCommand
     | UpdateManyCommand
-    | ReplaceOneCommand;
+    | ReplaceOneCommand
+    | DeleteOneCommand;
 
 export interface ParsingError {
     type: 'parsingError';
@@ -323,6 +332,19 @@ class CommandsVisitor extends MongoParserVisitor<unknown> {
                     method: 'replaceOne',
                     filter,
                     replacement,
+                    options,
+                });
+                return;
+            }
+
+            if (methodContext instanceof DeleteOneMethodContext) {
+                const filter = formatJson5(methodContext.deleteOneArgument1()?.getText());
+                const options = formatJson5(methodContext.deleteOneArgument2()?.getText());
+
+                this.commands.push({
+                    collectionName,
+                    method: 'deleteOne',
+                    filter,
                     options,
                 });
                 return;

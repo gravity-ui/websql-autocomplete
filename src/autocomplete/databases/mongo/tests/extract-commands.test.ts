@@ -910,6 +910,53 @@ test('should extract replaceOne commands properly', () => {
     });
 });
 
+test('should extract deleteOne commands properly', () => {
+    const result = extractMongoCommandsFromQuery(`
+        db.test_collection.deleteOne(
+            {
+                test_field: 'test_value',
+            }
+        );
+        
+        db.test_collection.deleteOne(
+            {
+                test_field: 'test_value',
+            },
+            {
+                test_option: 'test_value',
+            }
+        );
+
+        db.test_collection.deleteOne();
+    `);
+
+    expect(result).toEqual({
+        commands: [
+            {
+                collectionName: 'test_collection',
+                method: 'deleteOne',
+                filter: {
+                    test_field: 'test_value',
+                },
+            },
+            {
+                collectionName: 'test_collection',
+                method: 'deleteOne',
+                filter: {
+                    test_field: 'test_value',
+                },
+                options: {
+                    test_option: 'test_value',
+                },
+            },
+            {
+                collectionName: 'test_collection',
+                method: 'deleteOne',
+            },
+        ],
+    });
+});
+
 test('should throw error on invalid syntax', () => {
     const result = extractMongoCommandsFromQuery('db_ERROR.test_collection1.find({})');
 

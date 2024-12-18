@@ -40,6 +40,19 @@ collectionMethod
     | updateOneMethod
     | updateManyMethod
     | replaceOneMethod
+    | deleteOneMethod
+    ;
+
+deleteOneMethod
+    : DELETE_ONE LPAREN (deleteOneArgument1 (COMMA deleteOneArgument2)?)? RPAREN
+    ;
+
+deleteOneArgument1
+    : object
+    ;
+
+deleteOneArgument2
+    : object
     ;
 
 replaceOneMethod
@@ -329,6 +342,7 @@ reservedKeyword
     | UPDATE_ONE
     | UPDATE_MANY
     | REPLACE_ONE
+    | DELETE_ONE
     ;
 
 // JSON5 rules
