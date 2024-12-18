@@ -18,6 +18,9 @@ import { CommandContext } from "./MongoParser.js";
 import { CollectionOperationContext } from "./MongoParser.js";
 import { CollectionNameContext } from "./MongoParser.js";
 import { CollectionMethodContext } from "./MongoParser.js";
+import { DeleteManyMethodContext } from "./MongoParser.js";
+import { DeleteManyArgument1Context } from "./MongoParser.js";
+import { DeleteManyArgument2Context } from "./MongoParser.js";
 import { DeleteOneMethodContext } from "./MongoParser.js";
 import { DeleteOneArgument1Context } from "./MongoParser.js";
 import { DeleteOneArgument2Context } from "./MongoParser.js";
@@ -138,6 +141,24 @@ export class MongoParserVisitor<Result> extends AbstractParseTreeVisitor<Result>
      * @return the visitor result
      */
     visitCollectionMethod?: (ctx: CollectionMethodContext) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.deleteManyMethod`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitDeleteManyMethod?: (ctx: DeleteManyMethodContext) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.deleteManyArgument1`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitDeleteManyArgument1?: (ctx: DeleteManyArgument1Context) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.deleteManyArgument2`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitDeleteManyArgument2?: (ctx: DeleteManyArgument2Context) => Result;
     /**
      * Visit a parse tree produced by `MongoParser.deleteOneMethod`.
      * @param ctx the parse tree
