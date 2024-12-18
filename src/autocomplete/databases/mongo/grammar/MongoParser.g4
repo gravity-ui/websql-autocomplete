@@ -42,6 +42,19 @@ collectionMethod
     | replaceOneMethod
     | deleteOneMethod
     | deleteManyMethod
+    | renameMethod
+    ;
+
+renameMethod
+    : RENAME LPAREN renameArgument1 (COMMA renameArgument2)? RPAREN
+    ;
+
+renameArgument1
+    : STRING
+    ;
+
+renameArgument2
+    : object
     ;
 
 deleteManyMethod
@@ -357,6 +370,7 @@ reservedKeyword
     | REPLACE_ONE
     | DELETE_ONE
     | DELETE_MANY
+    | RENAME
     ;
 
 // JSON5 rules

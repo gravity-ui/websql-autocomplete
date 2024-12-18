@@ -1004,6 +1004,37 @@ test('should extract deleteMany commands properly', () => {
     });
 });
 
+test('should extract rename commands properly', () => {
+    const result = extractMongoCommandsFromQuery(`
+        db.test_collection.rename('test_collection_new_name');
+
+        db.test_collection.rename(
+            'test_collection_new_name',
+            {
+                test_option: 'test_value',
+            }
+        );
+    `);
+
+    expect(result).toEqual({
+        commands: [
+            {
+                collectionName: 'test_collection',
+                method: 'rename',
+                newName: 'test_collection_new_name',
+            },
+            {
+                collectionName: 'test_collection',
+                method: 'rename',
+                newName: 'test_collection_new_name',
+                options: {
+                    test_option: 'test_value',
+                },
+            },
+        ],
+    });
+});
+
 test('should throw error on invalid syntax', () => {
     const result = extractMongoCommandsFromQuery('db_ERROR.test_collection1.find({})');
 

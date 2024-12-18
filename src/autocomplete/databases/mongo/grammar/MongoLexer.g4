@@ -33,6 +33,7 @@ UPDATE_MANY : 'updateMany';
 REPLACE_ONE : 'replaceOne';
 DELETE_ONE  : 'deleteOne';
 DELETE_MANY : 'deleteMany';
+RENAME      : 'rename';
 
 LBRACKET  : '[';
 RBRACKET  : ']';

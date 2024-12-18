@@ -18,6 +18,9 @@ import { CommandContext } from "./MongoParser.js";
 import { CollectionOperationContext } from "./MongoParser.js";
 import { CollectionNameContext } from "./MongoParser.js";
 import { CollectionMethodContext } from "./MongoParser.js";
+import { RenameMethodContext } from "./MongoParser.js";
+import { RenameArgument1Context } from "./MongoParser.js";
+import { RenameArgument2Context } from "./MongoParser.js";
 import { DeleteManyMethodContext } from "./MongoParser.js";
 import { DeleteManyArgument1Context } from "./MongoParser.js";
 import { DeleteManyArgument2Context } from "./MongoParser.js";
@@ -141,6 +144,24 @@ export class MongoParserVisitor<Result> extends AbstractParseTreeVisitor<Result>
      * @return the visitor result
      */
     visitCollectionMethod?: (ctx: CollectionMethodContext) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.renameMethod`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitRenameMethod?: (ctx: RenameMethodContext) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.renameArgument1`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitRenameArgument1?: (ctx: RenameArgument1Context) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.renameArgument2`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitRenameArgument2?: (ctx: RenameArgument2Context) => Result;
     /**
      * Visit a parse tree produced by `MongoParser.deleteManyMethod`.
      * @param ctx the parse tree

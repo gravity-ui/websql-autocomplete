@@ -18,6 +18,7 @@ import {
     MaxModifierContext,
     MinModifierContext,
     MongoParser,
+    RenameMethodContext,
     ReplaceOneMethodContext,
     ReturnKeyModifierContext,
     ShowRecordIdModifierContext,
@@ -146,6 +147,13 @@ export interface DeleteManyCommand {
     options?: unknown;
 }
 
+export interface RenameCommand {
+    method: 'rename';
+    collectionName: string;
+    newName: unknown;
+    options?: unknown;
+}
+
 export type Command =
     | FindCommand
     | FindOneCommand
@@ -159,7 +167,8 @@ export type Command =
     | UpdateManyCommand
     | ReplaceOneCommand
     | DeleteOneCommand
-    | DeleteManyCommand;
+    | DeleteManyCommand
+    | RenameCommand;
 
 export interface ParsingError {
     type: 'parsingError';
@@ -367,6 +376,19 @@ class CommandsVisitor extends MongoParserVisitor<unknown> {
                     collectionName,
                     method: 'deleteMany',
                     filter,
+                    options,
+                });
+                return;
+            }
+
+            if (methodContext instanceof RenameMethodContext) {
+                const newName = formatJson5(methodContext.renameArgument1()?.getText());
+                const options = formatJson5(methodContext.renameArgument2()?.getText());
+
+                this.commands.push({
+                    collectionName,
+                    method: 'rename',
+                    newName,
                     options,
                 });
                 return;
