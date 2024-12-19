@@ -56,5 +56,10 @@ test('should suggest properly keywords after collection name', () => {
         {value: 'dropIndex'},
         {value: 'dropIndexes'},
         {value: 'listIndexes'},
+        {value: 'indexes'},
+        {value: 'indexExists'},
+        {value: 'indexInformation'},
+        {value: 'estimatedDocumentCount'},
+        {value: 'countDocuments'},
     ]);
 });

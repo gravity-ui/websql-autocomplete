@@ -1,0 +1,22 @@
+import {parseMongoQueryWithoutCursor} from '../..';
+
+test('should not report errors on indexes statement', () => {
+    const autocompleteResult = parseMongoQueryWithoutCursor(`
+        db.test_collection.indexes();
+    `);
+
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should not report errors on extended indexes statement', () => {
+    const autocompleteResult = parseMongoQueryWithoutCursor(`
+        db.test_collection.indexExists(
+            ['test_index1', 'test_index2'],
+            {
+                test_option: 'test_value',
+            }
+        );
+    `);
+
+    expect(autocompleteResult.errors).toHaveLength(0);
+});

@@ -18,6 +18,18 @@ import { CommandContext } from "./MongoParser.js";
 import { CollectionOperationContext } from "./MongoParser.js";
 import { CollectionNameContext } from "./MongoParser.js";
 import { CollectionMethodContext } from "./MongoParser.js";
+import { CountDocumentsMethodContext } from "./MongoParser.js";
+import { CountDocumentsArgument2Context } from "./MongoParser.js";
+import { CountDocumentsArgument1Context } from "./MongoParser.js";
+import { EstimatedDocumentCountMethodContext } from "./MongoParser.js";
+import { EstimatedDocumentCountArgumentContext } from "./MongoParser.js";
+import { IndexInformationMethodContext } from "./MongoParser.js";
+import { IndexInformationArgumentContext } from "./MongoParser.js";
+import { IndexExistsMethodContext } from "./MongoParser.js";
+import { IndexExistsArgument2Context } from "./MongoParser.js";
+import { IndexExistsArgument1Context } from "./MongoParser.js";
+import { IndexesMethodContext } from "./MongoParser.js";
+import { IndexesArgumentContext } from "./MongoParser.js";
 import { ListIndexesMethodContext } from "./MongoParser.js";
 import { ListIndexesArgumentContext } from "./MongoParser.js";
 import { DropIndexesMethodContext } from "./MongoParser.js";
@@ -161,6 +173,78 @@ export class MongoParserVisitor<Result> extends AbstractParseTreeVisitor<Result>
      * @return the visitor result
      */
     visitCollectionMethod?: (ctx: CollectionMethodContext) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.countDocumentsMethod`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitCountDocumentsMethod?: (ctx: CountDocumentsMethodContext) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.countDocumentsArgument2`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitCountDocumentsArgument2?: (ctx: CountDocumentsArgument2Context) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.countDocumentsArgument1`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitCountDocumentsArgument1?: (ctx: CountDocumentsArgument1Context) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.estimatedDocumentCountMethod`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitEstimatedDocumentCountMethod?: (ctx: EstimatedDocumentCountMethodContext) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.estimatedDocumentCountArgument`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitEstimatedDocumentCountArgument?: (ctx: EstimatedDocumentCountArgumentContext) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.indexInformationMethod`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitIndexInformationMethod?: (ctx: IndexInformationMethodContext) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.indexInformationArgument`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitIndexInformationArgument?: (ctx: IndexInformationArgumentContext) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.indexExistsMethod`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitIndexExistsMethod?: (ctx: IndexExistsMethodContext) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.indexExistsArgument2`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitIndexExistsArgument2?: (ctx: IndexExistsArgument2Context) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.indexExistsArgument1`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitIndexExistsArgument1?: (ctx: IndexExistsArgument1Context) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.indexesMethod`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitIndexesMethod?: (ctx: IndexesMethodContext) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.indexesArgument`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitIndexesArgument?: (ctx: IndexesArgumentContext) => Result;
     /**
      * Visit a parse tree produced by `MongoParser.listIndexesMethod`.
      * @param ctx the parse tree

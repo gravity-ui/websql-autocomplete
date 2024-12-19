@@ -50,6 +50,60 @@ collectionMethod
     | dropIndexMethod
     | dropIndexesMethod
     | listIndexesMethod
+    | indexesMethod
+    | indexExistsMethod
+    | indexInformationMethod
+    | estimatedDocumentCountMethod
+    | countDocumentsMethod
+    ;
+
+countDocumentsMethod
+    : COUNT_DOCUMENTS LPAREN (countDocumentsArgument1 (COMMA countDocumentsArgument2)?)? RPAREN
+    ;
+
+countDocumentsArgument2
+    : object
+    ;
+
+countDocumentsArgument1
+    : object
+    ;
+
+estimatedDocumentCountMethod
+    : ESTIMATED_DOCUMENT_COUNT LPAREN estimatedDocumentCountArgument? RPAREN
+    ;
+
+estimatedDocumentCountArgument
+    : object
+    ;
+
+indexInformationMethod
+    : INDEX_INFORMATION LPAREN indexInformationArgument? RPAREN
+    ;
+
+indexInformationArgument
+    : object
+    ;
+
+indexExistsMethod
+    : INDEX_EXISTS LPAREN indexExistsArgument1 (COMMA indexExistsArgument2)? RPAREN
+    ;
+
+indexExistsArgument2
+    : object
+    ;
+
+indexExistsArgument1
+    : STRING
+    | LBRACKET STRING (COMMA STRING)* COMMA? RBRACKET
+    ;
+
+indexesMethod
+    : INDEXES LPAREN indexesArgument? RPAREN
+    ;
+
+indexesArgument
+    : object
     ;
 
 listIndexesMethod
@@ -455,6 +509,11 @@ reservedKeyword
     | DROP_INDEX
     | DROP_INDEXES
     | LIST_INDEXES
+    | INDEXES
+    | INDEX_EXISTS
+    | INDEX_INFORMATION
+    | ESTIMATED_DOCUMENT_COUNT
+    | COUNT_DOCUMENTS
     ;
 
 // JSON5 rules

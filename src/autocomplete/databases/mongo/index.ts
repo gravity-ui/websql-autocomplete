@@ -36,6 +36,11 @@ export {
     DropIndexCommand,
     DropIndexesCommand,
     ListIndexesCommand,
+    IndexesCommand,
+    IndexExistsCommand,
+    IndexInformationCommand,
+    EstimatedDocumentCountCommand,
+    CountDocumentsCommand,
 } from './mongo-extract-commands';
 
 export interface MongoAutocompleteResult extends SqlAutocompleteResult {

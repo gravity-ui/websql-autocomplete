@@ -2,6 +2,7 @@ import json5 from 'json5';
 import {
     BulkWriteMethodContext,
     CollectionOperationContext,
+    CountDocumentsMethodContext,
     CreateIndexMethodContext,
     CreateIndexesMethodContext,
     DeleteManyMethodContext,
@@ -9,6 +10,7 @@ import {
     DropIndexMethodContext,
     DropIndexesMethodContext,
     DropMethodContext,
+    EstimatedDocumentCountMethodContext,
     FilterModifierContext,
     FindMethodContext,
     FindMethodModifierContext,
@@ -17,6 +19,9 @@ import {
     FindOneAndUpdateMethodContext,
     FindOneMethodContext,
     HintModifierContext,
+    IndexExistsMethodContext,
+    IndexInformationMethodContext,
+    IndexesMethodContext,
     InsertManyMethodContext,
     InsertOneMethodContext,
     IsCappedMethodContext,
@@ -206,6 +211,38 @@ export interface ListIndexesCommand {
     options?: unknown;
 }
 
+export interface IndexesCommand {
+    method: 'indexes';
+    collectionName: string;
+    options?: unknown;
+}
+
+export interface IndexExistsCommand {
+    method: 'indexExists';
+    collectionName: string;
+    indexes: unknown;
+    options?: unknown;
+}
+
+export interface IndexInformationCommand {
+    method: 'indexInformation';
+    collectionName: string;
+    options?: unknown;
+}
+
+export interface EstimatedDocumentCountCommand {
+    method: 'estimatedDocumentCount';
+    collectionName: string;
+    options?: unknown;
+}
+
+export interface CountDocumentsCommand {
+    method: 'countDocuments';
+    collectionName: string;
+    filter?: unknown;
+    options?: unknown;
+}
+
 export type Command =
     | FindCommand
     | FindOneCommand
@@ -227,7 +264,12 @@ export type Command =
     | CreateIndexesCommand
     | DropIndexCommand
     | DropIndexesCommand
-    | ListIndexesCommand;
+    | ListIndexesCommand
+    | IndexesCommand
+    | IndexExistsCommand
+    | IndexInformationCommand
+    | EstimatedDocumentCountCommand
+    | CountDocumentsCommand;
 
 export interface ParsingError {
     type: 'parsingError';
@@ -531,6 +573,67 @@ class CommandsVisitor extends MongoParserVisitor<unknown> {
                 this.commands.push({
                     collectionName,
                     method: 'listIndexes',
+                    options,
+                });
+                return;
+            }
+
+            if (methodContext instanceof IndexesMethodContext) {
+                const options = formatJson5(methodContext.indexesArgument()?.getText());
+
+                this.commands.push({
+                    collectionName,
+                    method: 'indexes',
+                    options,
+                });
+                return;
+            }
+
+            if (methodContext instanceof IndexExistsMethodContext) {
+                const indexes = formatJson5(methodContext.indexExistsArgument1().getText());
+                const options = formatJson5(methodContext.indexExistsArgument2()?.getText());
+
+                this.commands.push({
+                    collectionName,
+                    method: 'indexExists',
+                    indexes,
+                    options,
+                });
+                return;
+            }
+
+            if (methodContext instanceof IndexInformationMethodContext) {
+                const options = formatJson5(methodContext.indexInformationArgument()?.getText());
+
+                this.commands.push({
+                    collectionName,
+                    method: 'indexInformation',
+                    options,
+                });
+                return;
+            }
+
+            if (methodContext instanceof EstimatedDocumentCountMethodContext) {
+                const options = formatJson5(
+                    methodContext.estimatedDocumentCountArgument()?.getText(),
+                );
+
+                this.commands.push({
+                    collectionName,
+                    method: 'estimatedDocumentCount',
+                    options,
+                });
+                return;
+            }
+
+            if (methodContext instanceof CountDocumentsMethodContext) {
+                const filter = formatJson5(methodContext.countDocumentsArgument1()?.getText());
+                const options = formatJson5(methodContext.countDocumentsArgument2()?.getText());
+
+                this.commands.push({
+                    collectionName,
+                    method: 'countDocuments',
+                    filter,
                     options,
                 });
                 return;

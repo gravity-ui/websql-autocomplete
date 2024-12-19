@@ -1306,6 +1306,150 @@ test('should extract listIndexes commands properly', () => {
     });
 });
 
+test('should extract indexes commands properly', () => {
+    const result = extractMongoCommandsFromQuery(`
+        db.test_collection.indexes();
+        db.test_collection.indexes(
+            {
+                test_option: 'test_value',
+            }
+        );
+    `);
+
+    expect(result).toEqual({
+        commands: [
+            {
+                collectionName: 'test_collection',
+                method: 'indexes',
+            },
+            {
+                collectionName: 'test_collection',
+                method: 'indexes',
+                options: {
+                    test_option: 'test_value',
+                },
+            },
+        ],
+    });
+});
+
+test('should extract indexExists commands properly', () => {
+    const result = extractMongoCommandsFromQuery(`
+        db.test_collection.indexExists('test_index');
+        db.test_collection.indexExists(
+            ['test_index1', 'test_index2'],
+            {
+                test_option: 'test_value',
+            }
+        );
+    `);
+
+    expect(result).toEqual({
+        commands: [
+            {
+                collectionName: 'test_collection',
+                method: 'indexExists',
+                indexes: 'test_index',
+            },
+            {
+                collectionName: 'test_collection',
+                method: 'indexExists',
+                indexes: ['test_index1', 'test_index2'],
+                options: {
+                    test_option: 'test_value',
+                },
+            },
+        ],
+    });
+});
+
+test('should extract indexInformation commands properly', () => {
+    const result = extractMongoCommandsFromQuery(`
+        db.test_collection.indexInformation();
+        db.test_collection.indexInformation(
+            {
+                test_option: 'test_value',
+            }
+        );
+    `);
+
+    expect(result).toEqual({
+        commands: [
+            {
+                collectionName: 'test_collection',
+                method: 'indexInformation',
+            },
+            {
+                collectionName: 'test_collection',
+                method: 'indexInformation',
+                options: {
+                    test_option: 'test_value',
+                },
+            },
+        ],
+    });
+});
+
+test('should extract estimatedDocumentCount commands properly', () => {
+    const result = extractMongoCommandsFromQuery(`
+        db.test_collection.estimatedDocumentCount();
+        db.test_collection.estimatedDocumentCount(
+            {
+                test_option: 'test_value',
+            }
+        );
+    `);
+
+    expect(result).toEqual({
+        commands: [
+            {
+                collectionName: 'test_collection',
+                method: 'estimatedDocumentCount',
+            },
+            {
+                collectionName: 'test_collection',
+                method: 'estimatedDocumentCount',
+                options: {
+                    test_option: 'test_value',
+                },
+            },
+        ],
+    });
+});
+
+test('should extract countDocuments commands properly', () => {
+    const result = extractMongoCommandsFromQuery(`
+        db.test_collection.countDocuments();
+        db.test_collection.countDocuments(
+            {
+                test_filter_option: 'test_value',
+            },
+            {
+                test_option: 'test_value',
+            }
+        );
+    `);
+
+    expect(result).toEqual({
+        commands: [
+            {
+                collectionName: 'test_collection',
+                method: 'countDocuments',
+            },
+            {
+                collectionName: 'test_collection',
+                method: 'countDocuments',
+                filter: {
+                    test_filter_option: 'test_value',
+                },
+                options: {
+                    test_option: 'test_value',
+                },
+            },
+        ],
+    });
+});
+
 test('should throw error on invalid syntax', () => {
     const result = extractMongoCommandsFromQuery('db_ERROR.test_collection1.find({})');
 
