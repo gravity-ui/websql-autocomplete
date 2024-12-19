@@ -18,6 +18,9 @@ import { CommandContext } from "./MongoParser.js";
 import { CollectionOperationContext } from "./MongoParser.js";
 import { CollectionNameContext } from "./MongoParser.js";
 import { CollectionMethodContext } from "./MongoParser.js";
+import { AggregateMethodContext } from "./MongoParser.js";
+import { AggregateArgument2Context } from "./MongoParser.js";
+import { AggregateArgument1Context } from "./MongoParser.js";
 import { DistinctMethodContext } from "./MongoParser.js";
 import { DistinctArgument1Context } from "./MongoParser.js";
 import { DistinctArgument2Context } from "./MongoParser.js";
@@ -177,6 +180,24 @@ export class MongoParserVisitor<Result> extends AbstractParseTreeVisitor<Result>
      * @return the visitor result
      */
     visitCollectionMethod?: (ctx: CollectionMethodContext) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.aggregateMethod`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitAggregateMethod?: (ctx: AggregateMethodContext) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.aggregateArgument2`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitAggregateArgument2?: (ctx: AggregateArgument2Context) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.aggregateArgument1`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitAggregateArgument1?: (ctx: AggregateArgument1Context) => Result;
     /**
      * Visit a parse tree produced by `MongoParser.distinctMethod`.
      * @param ctx the parse tree

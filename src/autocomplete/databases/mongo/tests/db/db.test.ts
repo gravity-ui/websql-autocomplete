@@ -62,5 +62,6 @@ test('should suggest properly keywords after collection name', () => {
         {value: 'estimatedDocumentCount'},
         {value: 'countDocuments'},
         {value: 'distinct'},
+        {value: 'aggregate'},
     ]);
 });

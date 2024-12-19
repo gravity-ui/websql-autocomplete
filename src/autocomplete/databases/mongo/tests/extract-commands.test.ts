@@ -1486,6 +1486,158 @@ test('should extract distinct commands properly', () => {
     });
 });
 
+test('should extract aggregate commands properly', () => {
+    const result = extractMongoCommandsFromQuery(`
+        db.test_collection.aggregate();
+
+        db.test_collection.aggregate(
+            [
+                {
+                    $limit: 10,
+                },
+                {
+                    $sort: { test_field: -1 }
+                },
+            ],
+            {
+                test_option: 'test_value',    
+            }
+        );
+
+        db.test_collection.aggregate(
+            [
+                {
+                    $limit: 10,
+                },
+                {
+                    $sort: { test_field: -1 }
+                },
+            ],
+            {
+                test_option: 'test_value',    
+            }
+        ).explain(true);
+
+        db.test_collection.aggregate(
+            [
+                {
+                    $limit: 10,
+                },
+                {
+                    $sort: { test_field: -1 }
+                },
+            ],
+            {
+                test_option: 'test_value',    
+            }
+        ).explain({
+            test_option: 'test_value',
+        });
+
+        db.test_collection.aggregate(
+            [
+                {
+                    $limit: 10,
+                },
+                {
+                    $sort: { test_field: -1 }
+                },
+            ],
+            {
+                test_option: 'test_value',    
+            }
+        ).explain('test_value');
+    `);
+
+    expect(result).toEqual({
+        commands: [
+            {
+                collectionName: 'test_collection',
+                method: 'aggregate',
+            },
+            {
+                collectionName: 'test_collection',
+                method: 'aggregate',
+                pipeline: [
+                    {
+                        $limit: 10,
+                    },
+                    {
+                        $sort: {
+                            test_field: -1,
+                        },
+                    },
+                ],
+                options: {
+                    test_option: 'test_value',
+                },
+            },
+            {
+                collectionName: 'test_collection',
+                method: 'aggregate',
+                pipeline: [
+                    {
+                        $limit: 10,
+                    },
+                    {
+                        $sort: {
+                            test_field: -1,
+                        },
+                    },
+                ],
+                options: {
+                    test_option: 'test_value',
+                },
+                explain: {
+                    parameters: true,
+                },
+            },
+            {
+                collectionName: 'test_collection',
+                method: 'aggregate',
+                pipeline: [
+                    {
+                        $limit: 10,
+                    },
+                    {
+                        $sort: {
+                            test_field: -1,
+                        },
+                    },
+                ],
+                options: {
+                    test_option: 'test_value',
+                },
+                explain: {
+                    parameters: {
+                        test_option: 'test_value',
+                    },
+                },
+            },
+            {
+                collectionName: 'test_collection',
+                method: 'aggregate',
+                pipeline: [
+                    {
+                        $limit: 10,
+                    },
+                    {
+                        $sort: {
+                            test_field: -1,
+                        },
+                    },
+                ],
+                options: {
+                    test_option: 'test_value',
+                },
+                explain: {
+                    parameters: 'test_value',
+                },
+            },
+        ],
+    });
+});
+
 test('should throw error on invalid syntax', () => {
     const result = extractMongoCommandsFromQuery('db_ERROR.test_collection1.find({})');
 

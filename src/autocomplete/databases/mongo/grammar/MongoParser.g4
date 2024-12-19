@@ -56,6 +56,19 @@ collectionMethod
     | estimatedDocumentCountMethod
     | countDocumentsMethod
     | distinctMethod
+    | aggregateMethod
+    ;
+
+aggregateMethod
+    : AGGREGATE LPAREN (aggregateArgument1 (COMMA aggregateArgument2)?)? RPAREN explainMethod?
+    ;
+
+aggregateArgument2
+    : object
+    ;
+
+aggregateArgument1
+    : array
     ;
 
 distinctMethod
@@ -532,6 +545,7 @@ reservedKeyword
     | ESTIMATED_DOCUMENT_COUNT
     | COUNT_DOCUMENTS
     | DISTINCT
+    | AGGREGATE
     ;
 
 // JSON5 rules

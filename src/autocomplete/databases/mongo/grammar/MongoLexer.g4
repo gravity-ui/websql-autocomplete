@@ -47,6 +47,7 @@ INDEX_INFORMATION        : 'indexInformation';
 ESTIMATED_DOCUMENT_COUNT : 'estimatedDocumentCount';
 COUNT_DOCUMENTS          : 'countDocuments';
 DISTINCT                 : 'distinct';
+AGGREGATE                : 'aggregate';
 
 LBRACKET  : '[';
 RBRACKET  : ']';

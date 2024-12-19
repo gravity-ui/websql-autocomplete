@@ -1,5 +1,6 @@
 import json5 from 'json5';
 import {
+    AggregateMethodContext,
     BulkWriteMethodContext,
     CollectionOperationContext,
     CountDocumentsMethodContext,
@@ -60,14 +61,16 @@ export type FindModifier =
       }
     | {method: 'sort'; parameters?: unknown; options?: unknown};
 
+interface ExplainParameters {
+    parameters?: unknown;
+}
+
 export interface FindCommand {
     method: 'find';
     collectionName: string;
     parameters?: unknown;
     options?: unknown;
-    explain?: {
-        parameters?: unknown;
-    };
+    explain?: ExplainParameters;
     modifiers: FindModifier[];
 }
 
@@ -252,6 +255,14 @@ export interface DistinctCommand {
     options?: unknown;
 }
 
+export interface AggregateCommand {
+    method: 'aggregate';
+    collectionName: string;
+    pipeline?: unknown;
+    options?: unknown;
+    explain?: ExplainParameters;
+}
+
 export type Command =
     | FindCommand
     | FindOneCommand
@@ -279,7 +290,8 @@ export type Command =
     | IndexInformationCommand
     | EstimatedDocumentCountCommand
     | CountDocumentsCommand
-    | DistinctCommand;
+    | DistinctCommand
+    | AggregateCommand;
 
 export interface ParsingError {
     type: 'parsingError';
@@ -660,6 +672,30 @@ class CommandsVisitor extends MongoParserVisitor<unknown> {
                     key,
                     filter,
                     options,
+                });
+                return;
+            }
+
+            if (methodContext instanceof AggregateMethodContext) {
+                const pipeline = formatJson5(methodContext.aggregateArgument1()?.getText());
+                const options = formatJson5(methodContext.aggregateArgument2()?.getText());
+
+                const explainMethodContext = methodContext.explainMethod();
+
+                let explain: AggregateCommand['explain'] | undefined;
+                if (explainMethodContext) {
+                    const explainParameters = formatJson5(
+                        explainMethodContext.explainMethodArgument()?.getText(),
+                    );
+                    explain = explainParameters ? {parameters: explainParameters} : {};
+                }
+
+                this.commands.push({
+                    collectionName,
+                    method: 'aggregate',
+                    pipeline,
+                    options,
+                    explain,
                 });
                 return;
             }
