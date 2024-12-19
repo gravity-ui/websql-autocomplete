@@ -44,6 +44,15 @@ collectionMethod
     | deleteManyMethod
     | renameMethod
     | dropMethod
+    | isCappedMethod
+    ;
+
+isCappedMethod
+    : IS_CAPPED LPAREN isCappedArgument? RPAREN
+    ;
+
+isCappedArgument
+    : object
     ;
 
 dropMethod
@@ -381,6 +390,7 @@ reservedKeyword
     | DELETE_MANY
     | RENAME
     | DROP
+    | IS_CAPPED
     ;
 
 // JSON5 rules

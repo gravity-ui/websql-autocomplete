@@ -18,6 +18,8 @@ import { CommandContext } from "./MongoParser.js";
 import { CollectionOperationContext } from "./MongoParser.js";
 import { CollectionNameContext } from "./MongoParser.js";
 import { CollectionMethodContext } from "./MongoParser.js";
+import { IsCappedMethodContext } from "./MongoParser.js";
+import { IsCappedArgumentContext } from "./MongoParser.js";
 import { DropMethodContext } from "./MongoParser.js";
 import { DropArgumentContext } from "./MongoParser.js";
 import { RenameMethodContext } from "./MongoParser.js";
@@ -146,6 +148,18 @@ export class MongoParserVisitor<Result> extends AbstractParseTreeVisitor<Result>
      * @return the visitor result
      */
     visitCollectionMethod?: (ctx: CollectionMethodContext) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.isCappedMethod`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitIsCappedMethod?: (ctx: IsCappedMethodContext) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.isCappedArgument`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitIsCappedArgument?: (ctx: IsCappedArgumentContext) => Result;
     /**
      * Visit a parse tree produced by `MongoParser.dropMethod`.
      * @param ctx the parse tree

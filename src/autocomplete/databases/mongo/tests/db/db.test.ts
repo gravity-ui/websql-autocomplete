@@ -50,5 +50,6 @@ test('should suggest properly keywords after collection name', () => {
         {value: 'deleteMany'},
         {value: 'rename'},
         {value: 'drop'},
+        {value: 'isCapped'},
     ]);
 });

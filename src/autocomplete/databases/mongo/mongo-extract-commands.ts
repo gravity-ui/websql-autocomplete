@@ -15,6 +15,7 @@ import {
     HintModifierContext,
     InsertManyMethodContext,
     InsertOneMethodContext,
+    IsCappedMethodContext,
     LimitModifierContext,
     MaxModifierContext,
     MinModifierContext,
@@ -161,6 +162,12 @@ export interface DropCommand {
     options?: unknown;
 }
 
+export interface IsCappedCommand {
+    method: 'isCapped';
+    collectionName: string;
+    options?: unknown;
+}
+
 export type Command =
     | FindCommand
     | FindOneCommand
@@ -176,7 +183,8 @@ export type Command =
     | DeleteOneCommand
     | DeleteManyCommand
     | RenameCommand
-    | DropCommand;
+    | DropCommand
+    | IsCappedCommand;
 
 export interface ParsingError {
     type: 'parsingError';
@@ -389,6 +397,19 @@ class CommandsVisitor extends MongoParserVisitor<unknown> {
                 return;
             }
 
+            if (methodContext instanceof RenameMethodContext) {
+                const newName = formatJson5(methodContext.renameArgument1()?.getText());
+                const options = formatJson5(methodContext.renameArgument2()?.getText());
+
+                this.commands.push({
+                    collectionName,
+                    method: 'rename',
+                    newName,
+                    options,
+                });
+                return;
+            }
+
             if (methodContext instanceof DropMethodContext) {
                 const options = formatJson5(methodContext.dropArgument()?.getText());
 
@@ -400,14 +421,12 @@ class CommandsVisitor extends MongoParserVisitor<unknown> {
                 return;
             }
 
-            if (methodContext instanceof RenameMethodContext) {
-                const newName = formatJson5(methodContext.renameArgument1()?.getText());
-                const options = formatJson5(methodContext.renameArgument2()?.getText());
+            if (methodContext instanceof IsCappedMethodContext) {
+                const options = formatJson5(methodContext.isCappedArgument()?.getText());
 
                 this.commands.push({
                     collectionName,
-                    method: 'rename',
-                    newName,
+                    method: 'isCapped',
                     options,
                 });
                 return;

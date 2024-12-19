@@ -35,6 +35,7 @@ DELETE_ONE  : 'deleteOne';
 DELETE_MANY : 'deleteMany';
 RENAME      : 'rename';
 DROP        : 'drop';
+IS_CAPPED   : 'isCapped';
 
 LBRACKET  : '[';
 RBRACKET  : ']';

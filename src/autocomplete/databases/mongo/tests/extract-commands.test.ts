@@ -1063,6 +1063,34 @@ test('should extract drop commands properly', () => {
     });
 });
 
+test('should extract isCapped commands properly', () => {
+    const result = extractMongoCommandsFromQuery(`
+        db.test_collection.isCapped();
+
+        db.test_collection.isCapped(
+            {
+                test_option: 'test_value',
+            }
+        );
+    `);
+
+    expect(result).toEqual({
+        commands: [
+            {
+                collectionName: 'test_collection',
+                method: 'isCapped',
+            },
+            {
+                collectionName: 'test_collection',
+                method: 'isCapped',
+                options: {
+                    test_option: 'test_value',
+                },
+            },
+        ],
+    });
+});
+
 test('should throw error on invalid syntax', () => {
     const result = extractMongoCommandsFromQuery('db_ERROR.test_collection1.find({})');
 
