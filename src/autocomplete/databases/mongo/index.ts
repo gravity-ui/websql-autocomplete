@@ -30,6 +30,12 @@ export {
     DeleteManyCommand,
     RenameCommand,
     DropCommand,
+    IsCappedCommand,
+    CreateIndexCommand,
+    CreateIndexesCommand,
+    DropIndexCommand,
+    DropIndexesCommand,
+    ListIndexesCommand,
 } from './mongo-extract-commands';
 
 export interface MongoAutocompleteResult extends SqlAutocompleteResult {

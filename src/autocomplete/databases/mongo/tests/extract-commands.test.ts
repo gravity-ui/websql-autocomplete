@@ -1091,6 +1091,221 @@ test('should extract isCapped commands properly', () => {
     });
 });
 
+test('should extract createIndex commands properly', () => {
+    const result = extractMongoCommandsFromQuery(`
+        db.test_collection.createIndex('test_index');
+        db.test_collection.createIndex([['test_index_1', -1], ['test_index_2', 1]]);
+        db.test_collection.createIndex({
+            test_index_1: -1,
+            test_index_2: 1,
+        });
+        db.test_collection.createIndex(
+            {
+                test_index_1: -1,
+                test_index_2: 1,
+            },
+            {
+                test_option: 'test_value',
+            }
+        );
+    `);
+
+    expect(result).toEqual({
+        commands: [
+            {
+                collectionName: 'test_collection',
+                method: 'createIndex',
+                indexSpec: 'test_index',
+            },
+            {
+                collectionName: 'test_collection',
+                method: 'createIndex',
+                indexSpec: [
+                    ['test_index_1', -1],
+                    ['test_index_2', 1],
+                ],
+            },
+            {
+                collectionName: 'test_collection',
+                method: 'createIndex',
+                indexSpec: {
+                    test_index_1: -1,
+                    test_index_2: 1,
+                },
+            },
+            {
+                collectionName: 'test_collection',
+                method: 'createIndex',
+                indexSpec: {
+                    test_index_1: -1,
+                    test_index_2: 1,
+                },
+                options: {
+                    test_option: 'test_value',
+                },
+            },
+        ],
+    });
+});
+
+test('should extract createIndexes commands properly', () => {
+    const result = extractMongoCommandsFromQuery(`
+        db.test_collection.createIndexes([
+            {
+                key: {
+                    test_index1: 1,
+                },
+            },
+            {
+                key: {
+                    test_index2: 1,
+                },
+            },
+        ]);
+        db.test_collection.createIndexes(
+            [
+                {
+                    key: {
+                        test_index1: '2d',
+                    },
+                },
+                {
+                    key: {
+                        test_index2: 1,
+                    },
+                },
+            ],
+            {
+                test_option: 'test_value',
+            }
+        );
+    `);
+
+    expect(result).toEqual({
+        commands: [
+            {
+                collectionName: 'test_collection',
+                method: 'createIndexes',
+                indexSpecs: [
+                    {
+                        key: {
+                            test_index1: 1,
+                        },
+                    },
+                    {
+                        key: {
+                            test_index2: 1,
+                        },
+                    },
+                ],
+            },
+            {
+                collectionName: 'test_collection',
+                method: 'createIndexes',
+                indexSpecs: [
+                    {
+                        key: {
+                            test_index1: '2d',
+                        },
+                    },
+                    {
+                        key: {
+                            test_index2: 1,
+                        },
+                    },
+                ],
+                options: {
+                    test_option: 'test_value',
+                },
+            },
+        ],
+    });
+});
+
+test('should extract dropIndex commands properly', () => {
+    const result = extractMongoCommandsFromQuery(`
+        db.test_collection.dropIndex('test_index');
+        db.test_collection.dropIndex(
+            'test_index',
+            {
+                test_option: 'test_value',
+            }
+        );
+    `);
+
+    expect(result).toEqual({
+        commands: [
+            {
+                collectionName: 'test_collection',
+                method: 'dropIndex',
+                index: 'test_index',
+            },
+            {
+                collectionName: 'test_collection',
+                method: 'dropIndex',
+                index: 'test_index',
+                options: {
+                    test_option: 'test_value',
+                },
+            },
+        ],
+    });
+});
+
+test('should extract dropIndexes commands properly', () => {
+    const result = extractMongoCommandsFromQuery(`
+        db.test_collection.dropIndexes();
+        db.test_collection.dropIndexes(
+            {
+                test_option: 'test_value',
+            }
+        );
+    `);
+
+    expect(result).toEqual({
+        commands: [
+            {
+                collectionName: 'test_collection',
+                method: 'dropIndexes',
+            },
+            {
+                collectionName: 'test_collection',
+                method: 'dropIndexes',
+                options: {
+                    test_option: 'test_value',
+                },
+            },
+        ],
+    });
+});
+
+test('should extract listIndexes commands properly', () => {
+    const result = extractMongoCommandsFromQuery(`
+        db.test_collection.listIndexes();
+        db.test_collection.listIndexes(
+            {
+                test_option: 'test_value',
+            }
+        );
+    `);
+
+    expect(result).toEqual({
+        commands: [
+            {
+                collectionName: 'test_collection',
+                method: 'listIndexes',
+            },
+            {
+                collectionName: 'test_collection',
+                method: 'listIndexes',
+                options: {
+                    test_option: 'test_value',
+                },
+            },
+        ],
+    });
+});
+
 test('should throw error on invalid syntax', () => {
     const result = extractMongoCommandsFromQuery('db_ERROR.test_collection1.find({})');
 

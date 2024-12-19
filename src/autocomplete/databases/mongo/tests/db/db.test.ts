@@ -51,5 +51,10 @@ test('should suggest properly keywords after collection name', () => {
         {value: 'rename'},
         {value: 'drop'},
         {value: 'isCapped'},
+        {value: 'createIndex'},
+        {value: 'createIndexes'},
+        {value: 'dropIndex'},
+        {value: 'dropIndexes'},
+        {value: 'listIndexes'},
     ]);
 });

@@ -18,6 +18,19 @@ import { CommandContext } from "./MongoParser.js";
 import { CollectionOperationContext } from "./MongoParser.js";
 import { CollectionNameContext } from "./MongoParser.js";
 import { CollectionMethodContext } from "./MongoParser.js";
+import { ListIndexesMethodContext } from "./MongoParser.js";
+import { ListIndexesArgumentContext } from "./MongoParser.js";
+import { DropIndexesMethodContext } from "./MongoParser.js";
+import { DropIndexesArgumentContext } from "./MongoParser.js";
+import { DropIndexMethodContext } from "./MongoParser.js";
+import { DropIndexArgument2Context } from "./MongoParser.js";
+import { DropIndexArgument1Context } from "./MongoParser.js";
+import { CreateIndexesMethodContext } from "./MongoParser.js";
+import { CreateIndexesArgument2Context } from "./MongoParser.js";
+import { CreateIndexesArgument1Context } from "./MongoParser.js";
+import { CreateIndexMethodContext } from "./MongoParser.js";
+import { CreateIndexArgument2Context } from "./MongoParser.js";
+import { CreateIndexArgument1Context } from "./MongoParser.js";
 import { IsCappedMethodContext } from "./MongoParser.js";
 import { IsCappedArgumentContext } from "./MongoParser.js";
 import { DropMethodContext } from "./MongoParser.js";
@@ -148,6 +161,84 @@ export class MongoParserVisitor<Result> extends AbstractParseTreeVisitor<Result>
      * @return the visitor result
      */
     visitCollectionMethod?: (ctx: CollectionMethodContext) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.listIndexesMethod`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitListIndexesMethod?: (ctx: ListIndexesMethodContext) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.listIndexesArgument`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitListIndexesArgument?: (ctx: ListIndexesArgumentContext) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.dropIndexesMethod`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitDropIndexesMethod?: (ctx: DropIndexesMethodContext) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.dropIndexesArgument`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitDropIndexesArgument?: (ctx: DropIndexesArgumentContext) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.dropIndexMethod`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitDropIndexMethod?: (ctx: DropIndexMethodContext) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.dropIndexArgument2`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitDropIndexArgument2?: (ctx: DropIndexArgument2Context) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.dropIndexArgument1`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitDropIndexArgument1?: (ctx: DropIndexArgument1Context) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.createIndexesMethod`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitCreateIndexesMethod?: (ctx: CreateIndexesMethodContext) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.createIndexesArgument2`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitCreateIndexesArgument2?: (ctx: CreateIndexesArgument2Context) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.createIndexesArgument1`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitCreateIndexesArgument1?: (ctx: CreateIndexesArgument1Context) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.createIndexMethod`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitCreateIndexMethod?: (ctx: CreateIndexMethodContext) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.createIndexArgument2`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitCreateIndexArgument2?: (ctx: CreateIndexArgument2Context) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.createIndexArgument1`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitCreateIndexArgument1?: (ctx: CreateIndexArgument1Context) => Result;
     /**
      * Visit a parse tree produced by `MongoParser.isCappedMethod`.
      * @param ctx the parse tree

@@ -45,6 +45,65 @@ collectionMethod
     | renameMethod
     | dropMethod
     | isCappedMethod
+    | createIndexMethod
+    | createIndexesMethod
+    | dropIndexMethod
+    | dropIndexesMethod
+    | listIndexesMethod
+    ;
+
+listIndexesMethod
+    : LIST_INDEXES LPAREN listIndexesArgument? RPAREN
+    ;
+
+listIndexesArgument
+    : object
+    ;
+
+dropIndexesMethod
+    : DROP_INDEXES LPAREN dropIndexesArgument? RPAREN
+    ;
+
+dropIndexesArgument
+    : object
+    ;
+
+dropIndexMethod
+    : DROP_INDEX LPAREN dropIndexArgument1 (COMMA dropIndexArgument2)? RPAREN
+    ;
+
+dropIndexArgument2
+    : object
+    ;
+
+dropIndexArgument1
+    : STRING
+    ;
+
+createIndexesMethod
+    : CREATE_INDEXES LPAREN createIndexesArgument1 (COMMA createIndexesArgument2)? RPAREN
+    ;
+
+createIndexesArgument2
+    : object
+    ;
+
+createIndexesArgument1
+    : array
+    ;
+
+createIndexMethod
+    : CREATE_INDEX LPAREN createIndexArgument1 (COMMA createIndexArgument2)? RPAREN
+    ;
+
+createIndexArgument2
+    : object
+    ;
+
+createIndexArgument1
+    : STRING
+    | object
+    | array
     ;
 
 isCappedMethod
@@ -391,6 +450,11 @@ reservedKeyword
     | RENAME
     | DROP
     | IS_CAPPED
+    | CREATE_INDEX
+    | CREATE_INDEXES
+    | DROP_INDEX
+    | DROP_INDEXES
+    | LIST_INDEXES
     ;
 
 // JSON5 rules

@@ -2,8 +2,12 @@ import json5 from 'json5';
 import {
     BulkWriteMethodContext,
     CollectionOperationContext,
+    CreateIndexMethodContext,
+    CreateIndexesMethodContext,
     DeleteManyMethodContext,
     DeleteOneMethodContext,
+    DropIndexMethodContext,
+    DropIndexesMethodContext,
     DropMethodContext,
     FilterModifierContext,
     FindMethodContext,
@@ -17,6 +21,7 @@ import {
     InsertOneMethodContext,
     IsCappedMethodContext,
     LimitModifierContext,
+    ListIndexesMethodContext,
     MaxModifierContext,
     MinModifierContext,
     MongoParser,
@@ -168,6 +173,39 @@ export interface IsCappedCommand {
     options?: unknown;
 }
 
+export interface CreateIndexCommand {
+    method: 'createIndex';
+    collectionName: string;
+    indexSpec: unknown;
+    options?: unknown;
+}
+
+export interface CreateIndexesCommand {
+    method: 'createIndexes';
+    collectionName: string;
+    indexSpecs: unknown;
+    options?: unknown;
+}
+
+export interface DropIndexCommand {
+    method: 'dropIndex';
+    collectionName: string;
+    index: unknown;
+    options?: unknown;
+}
+
+export interface DropIndexesCommand {
+    method: 'dropIndexes';
+    collectionName: string;
+    options?: unknown;
+}
+
+export interface ListIndexesCommand {
+    method: 'listIndexes';
+    collectionName: string;
+    options?: unknown;
+}
+
 export type Command =
     | FindCommand
     | FindOneCommand
@@ -184,7 +222,12 @@ export type Command =
     | DeleteManyCommand
     | RenameCommand
     | DropCommand
-    | IsCappedCommand;
+    | IsCappedCommand
+    | CreateIndexCommand
+    | CreateIndexesCommand
+    | DropIndexCommand
+    | DropIndexesCommand
+    | ListIndexesCommand;
 
 export interface ParsingError {
     type: 'parsingError';
@@ -427,6 +470,67 @@ class CommandsVisitor extends MongoParserVisitor<unknown> {
                 this.commands.push({
                     collectionName,
                     method: 'isCapped',
+                    options,
+                });
+                return;
+            }
+
+            if (methodContext instanceof CreateIndexMethodContext) {
+                const indexSpec = formatJson5(methodContext.createIndexArgument1().getText());
+                const options = formatJson5(methodContext.createIndexArgument2()?.getText());
+
+                this.commands.push({
+                    collectionName,
+                    method: 'createIndex',
+                    indexSpec,
+                    options,
+                });
+                return;
+            }
+
+            if (methodContext instanceof CreateIndexesMethodContext) {
+                const indexSpecs = formatJson5(methodContext.createIndexesArgument1().getText());
+                const options = formatJson5(methodContext.createIndexesArgument2()?.getText());
+
+                this.commands.push({
+                    collectionName,
+                    method: 'createIndexes',
+                    indexSpecs,
+                    options,
+                });
+                return;
+            }
+
+            if (methodContext instanceof DropIndexMethodContext) {
+                const index = formatJson5(methodContext.dropIndexArgument1().getText());
+                const options = formatJson5(methodContext.dropIndexArgument2()?.getText());
+
+                this.commands.push({
+                    collectionName,
+                    method: 'dropIndex',
+                    index,
+                    options,
+                });
+                return;
+            }
+
+            if (methodContext instanceof DropIndexesMethodContext) {
+                const options = formatJson5(methodContext.dropIndexesArgument()?.getText());
+
+                this.commands.push({
+                    collectionName,
+                    method: 'dropIndexes',
+                    options,
+                });
+                return;
+            }
+
+            if (methodContext instanceof ListIndexesMethodContext) {
+                const options = formatJson5(methodContext.listIndexesArgument()?.getText());
+
+                this.commands.push({
+                    collectionName,
+                    method: 'listIndexes',
                     options,
                 });
                 return;
