@@ -1450,6 +1450,42 @@ test('should extract countDocuments commands properly', () => {
     });
 });
 
+test('should extract distinct commands properly', () => {
+    const result = extractMongoCommandsFromQuery(`
+        db.test_collection.distinct('test_key');
+        db.test_collection.distinct(
+            'test_key',
+            {
+                test_filter_option: 'test_value',
+            },
+            {
+                test_option: 'test_value',
+            }
+        );
+    `);
+
+    expect(result).toEqual({
+        commands: [
+            {
+                collectionName: 'test_collection',
+                method: 'distinct',
+                key: 'test_key',
+            },
+            {
+                collectionName: 'test_collection',
+                method: 'distinct',
+                key: 'test_key',
+                filter: {
+                    test_filter_option: 'test_value',
+                },
+                options: {
+                    test_option: 'test_value',
+                },
+            },
+        ],
+    });
+});
+
 test('should throw error on invalid syntax', () => {
     const result = extractMongoCommandsFromQuery('db_ERROR.test_collection1.find({})');
 

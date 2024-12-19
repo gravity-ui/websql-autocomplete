@@ -61,5 +61,6 @@ test('should suggest properly keywords after collection name', () => {
         {value: 'indexInformation'},
         {value: 'estimatedDocumentCount'},
         {value: 'countDocuments'},
+        {value: 'distinct'},
     ]);
 });

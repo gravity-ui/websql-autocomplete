@@ -55,6 +55,23 @@ collectionMethod
     | indexInformationMethod
     | estimatedDocumentCountMethod
     | countDocumentsMethod
+    | distinctMethod
+    ;
+
+distinctMethod
+    : DISTINCT LPAREN distinctArgument1 (COMMA distinctArgument2 (COMMA distinctArgument3)?)? RPAREN
+    ;
+
+distinctArgument1
+    : STRING
+    ;
+
+distinctArgument2
+    : object
+    ;
+
+distinctArgument3
+    : object
     ;
 
 countDocumentsMethod
@@ -514,6 +531,7 @@ reservedKeyword
     | INDEX_INFORMATION
     | ESTIMATED_DOCUMENT_COUNT
     | COUNT_DOCUMENTS
+    | DISTINCT
     ;
 
 // JSON5 rules

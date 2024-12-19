@@ -7,6 +7,7 @@ import {
     CreateIndexesMethodContext,
     DeleteManyMethodContext,
     DeleteOneMethodContext,
+    DistinctMethodContext,
     DropIndexMethodContext,
     DropIndexesMethodContext,
     DropMethodContext,
@@ -243,6 +244,14 @@ export interface CountDocumentsCommand {
     options?: unknown;
 }
 
+export interface DistinctCommand {
+    method: 'distinct';
+    collectionName: string;
+    key: unknown;
+    filter?: unknown;
+    options?: unknown;
+}
+
 export type Command =
     | FindCommand
     | FindOneCommand
@@ -269,7 +278,8 @@ export type Command =
     | IndexExistsCommand
     | IndexInformationCommand
     | EstimatedDocumentCountCommand
-    | CountDocumentsCommand;
+    | CountDocumentsCommand
+    | DistinctCommand;
 
 export interface ParsingError {
     type: 'parsingError';
@@ -633,6 +643,21 @@ class CommandsVisitor extends MongoParserVisitor<unknown> {
                 this.commands.push({
                     collectionName,
                     method: 'countDocuments',
+                    filter,
+                    options,
+                });
+                return;
+            }
+
+            if (methodContext instanceof DistinctMethodContext) {
+                const key = formatJson5(methodContext.distinctArgument1().getText());
+                const filter = formatJson5(methodContext.distinctArgument2()?.getText());
+                const options = formatJson5(methodContext.distinctArgument3()?.getText());
+
+                this.commands.push({
+                    collectionName,
+                    method: 'distinct',
+                    key,
                     filter,
                     options,
                 });
