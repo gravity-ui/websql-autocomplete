@@ -11,7 +11,7 @@ test('should not report errors on indexExists statement', () => {
 test('should not report errors on extended indexExists statement', () => {
     const autocompleteResult = parseMongoQueryWithoutCursor(`
         db.test_collection.indexExists(
-            ['test_index'],
+            ['test_index1', 'test_index2', 'test_index3'],
             {
                 test_option: 'test_value',
             }

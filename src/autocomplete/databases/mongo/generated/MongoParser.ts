@@ -7613,6 +7613,9 @@ export class ReservedKeywordContext extends antlr.ParserRuleContext {
     public LIST_INDEXES(): antlr.TerminalNode | null {
         return this.getToken(MongoParser.LIST_INDEXES, 0);
     }
+    public INDEXES(): antlr.TerminalNode | null {
+        return this.getToken(MongoParser.INDEXES, 0);
+    }
     public INDEX_EXISTS(): antlr.TerminalNode | null {
         return this.getToken(MongoParser.INDEX_EXISTS, 0);
     }
@@ -7624,9 +7627,6 @@ export class ReservedKeywordContext extends antlr.ParserRuleContext {
     }
     public COUNT_DOCUMENTS(): antlr.TerminalNode | null {
         return this.getToken(MongoParser.COUNT_DOCUMENTS, 0);
-    }
-    public INDEXES(): antlr.TerminalNode | null {
-        return this.getToken(MongoParser.INDEXES, 0);
     }
     public override get ruleIndex(): number {
         return MongoParser.RULE_reservedKeyword;
