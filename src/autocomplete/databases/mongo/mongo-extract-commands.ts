@@ -1,6 +1,18 @@
 import json5 from 'json5';
 import {
+    AggregateMethodContext,
+    BulkWriteMethodContext,
     CollectionOperationContext,
+    CountDocumentsMethodContext,
+    CreateIndexMethodContext,
+    CreateIndexesMethodContext,
+    DeleteManyMethodContext,
+    DeleteOneMethodContext,
+    DistinctMethodContext,
+    DropIndexMethodContext,
+    DropIndexesMethodContext,
+    DropMethodContext,
+    EstimatedDocumentCountMethodContext,
     FilterModifierContext,
     FindMethodContext,
     FindMethodModifierContext,
@@ -9,16 +21,25 @@ import {
     FindOneAndUpdateMethodContext,
     FindOneMethodContext,
     HintModifierContext,
+    IndexExistsMethodContext,
+    IndexInformationMethodContext,
+    IndexesMethodContext,
     InsertManyMethodContext,
     InsertOneMethodContext,
+    IsCappedMethodContext,
     LimitModifierContext,
+    ListIndexesMethodContext,
     MaxModifierContext,
     MinModifierContext,
     MongoParser,
+    RenameMethodContext,
+    ReplaceOneMethodContext,
     ReturnKeyModifierContext,
     ShowRecordIdModifierContext,
     SkipModifierContext,
     SortModifierContext,
+    UpdateManyMethodContext,
+    UpdateOneMethodContext,
 } from './generated/MongoParser';
 import {MongoParserVisitor} from './generated/MongoParserVisitor';
 import {ParserSyntaxError, SqlErrorListener, createParser} from '../../shared';
@@ -40,14 +61,16 @@ export type FindModifier =
       }
     | {method: 'sort'; parameters?: unknown; options?: unknown};
 
+interface ExplainParameters {
+    parameters?: unknown;
+}
+
 export interface FindCommand {
     method: 'find';
     collectionName: string;
     parameters?: unknown;
     options?: unknown;
-    explain?: {
-        parameters?: unknown;
-    };
+    explain?: ExplainParameters;
     modifiers: FindModifier[];
 }
 
@@ -95,6 +118,151 @@ export interface InsertManyCommand {
     options: unknown;
 }
 
+export interface BulkWriteCommand {
+    method: 'bulkWrite';
+    collectionName: string;
+    operations: unknown;
+    options?: unknown;
+}
+
+export interface UpdateOneCommand {
+    method: 'updateOne';
+    collectionName: string;
+    filter: unknown;
+    updateParameters: unknown;
+    options?: unknown;
+}
+
+export interface UpdateManyCommand {
+    method: 'updateMany';
+    collectionName: string;
+    filter: unknown;
+    updateParameters: unknown;
+    options?: unknown;
+}
+
+export interface ReplaceOneCommand {
+    method: 'replaceOne';
+    collectionName: string;
+    filter: unknown;
+    replacement: unknown;
+    options?: unknown;
+}
+
+export interface DeleteOneCommand {
+    method: 'deleteOne';
+    collectionName: string;
+    filter?: unknown;
+    options?: unknown;
+}
+
+export interface DeleteManyCommand {
+    method: 'deleteMany';
+    collectionName: string;
+    filter?: unknown;
+    options?: unknown;
+}
+
+export interface RenameCommand {
+    method: 'rename';
+    collectionName: string;
+    newName: unknown;
+    options?: unknown;
+}
+
+export interface DropCommand {
+    method: 'drop';
+    collectionName: string;
+    options?: unknown;
+}
+
+export interface IsCappedCommand {
+    method: 'isCapped';
+    collectionName: string;
+    options?: unknown;
+}
+
+export interface CreateIndexCommand {
+    method: 'createIndex';
+    collectionName: string;
+    indexSpec: unknown;
+    options?: unknown;
+}
+
+export interface CreateIndexesCommand {
+    method: 'createIndexes';
+    collectionName: string;
+    indexSpecs: unknown;
+    options?: unknown;
+}
+
+export interface DropIndexCommand {
+    method: 'dropIndex';
+    collectionName: string;
+    index: unknown;
+    options?: unknown;
+}
+
+export interface DropIndexesCommand {
+    method: 'dropIndexes';
+    collectionName: string;
+    options?: unknown;
+}
+
+export interface ListIndexesCommand {
+    method: 'listIndexes';
+    collectionName: string;
+    options?: unknown;
+}
+
+export interface IndexesCommand {
+    method: 'indexes';
+    collectionName: string;
+    options?: unknown;
+}
+
+export interface IndexExistsCommand {
+    method: 'indexExists';
+    collectionName: string;
+    indexes: unknown;
+    options?: unknown;
+}
+
+export interface IndexInformationCommand {
+    method: 'indexInformation';
+    collectionName: string;
+    options?: unknown;
+}
+
+export interface EstimatedDocumentCountCommand {
+    method: 'estimatedDocumentCount';
+    collectionName: string;
+    options?: unknown;
+}
+
+export interface CountDocumentsCommand {
+    method: 'countDocuments';
+    collectionName: string;
+    filter?: unknown;
+    options?: unknown;
+}
+
+export interface DistinctCommand {
+    method: 'distinct';
+    collectionName: string;
+    key: unknown;
+    filter?: unknown;
+    options?: unknown;
+}
+
+export interface AggregateCommand {
+    method: 'aggregate';
+    collectionName: string;
+    pipeline?: unknown;
+    options?: unknown;
+    explain?: ExplainParameters;
+}
+
 export type Command =
     | FindCommand
     | FindOneCommand
@@ -102,7 +270,28 @@ export type Command =
     | FindOneAndReplaceCommand
     | FindOneAndUpdateCommand
     | InsertOneCommand
-    | InsertManyCommand;
+    | InsertManyCommand
+    | BulkWriteCommand
+    | UpdateOneCommand
+    | UpdateManyCommand
+    | ReplaceOneCommand
+    | DeleteOneCommand
+    | DeleteManyCommand
+    | RenameCommand
+    | DropCommand
+    | IsCappedCommand
+    | CreateIndexCommand
+    | CreateIndexesCommand
+    | DropIndexCommand
+    | DropIndexesCommand
+    | ListIndexesCommand
+    | IndexesCommand
+    | IndexExistsCommand
+    | IndexInformationCommand
+    | EstimatedDocumentCountCommand
+    | CountDocumentsCommand
+    | DistinctCommand
+    | AggregateCommand;
 
 export interface ParsingError {
     type: 'parsingError';
@@ -226,6 +415,288 @@ class CommandsVisitor extends MongoParserVisitor<unknown> {
                 const options = formatJson5(methodContext.insertManyArgument2()?.getText());
 
                 this.commands.push({collectionName, method: 'insertMany', documents, options});
+                return;
+            }
+
+            if (methodContext instanceof BulkWriteMethodContext) {
+                const operations = formatJson5(methodContext.bulkWriteArgument1().getText());
+                const options = formatJson5(methodContext.bulkWriteArgument2()?.getText());
+
+                this.commands.push({
+                    collectionName,
+                    method: 'bulkWrite',
+                    operations,
+                    options,
+                });
+                return;
+            }
+
+            if (methodContext instanceof UpdateOneMethodContext) {
+                const filter = formatJson5(methodContext.updateOneArgument1().getText());
+                const updateParameters = formatJson5(methodContext.updateOneArgument2()?.getText());
+                const options = formatJson5(methodContext.updateOneArgument3()?.getText());
+
+                this.commands.push({
+                    collectionName,
+                    method: 'updateOne',
+                    filter,
+                    updateParameters,
+                    options,
+                });
+                return;
+            }
+
+            if (methodContext instanceof UpdateManyMethodContext) {
+                const filter = formatJson5(methodContext.updateManyArgument1().getText());
+                const updateParameters = formatJson5(
+                    methodContext.updateManyArgument2()?.getText(),
+                );
+                const options = formatJson5(methodContext.updateManyArgument3()?.getText());
+
+                this.commands.push({
+                    collectionName,
+                    method: 'updateMany',
+                    filter,
+                    updateParameters,
+                    options,
+                });
+                return;
+            }
+
+            if (methodContext instanceof ReplaceOneMethodContext) {
+                const filter = formatJson5(methodContext.replaceOneArgument1().getText());
+                const replacement = formatJson5(methodContext.replaceOneArgument2()?.getText());
+                const options = formatJson5(methodContext.replaceOneArgument3()?.getText());
+
+                this.commands.push({
+                    collectionName,
+                    method: 'replaceOne',
+                    filter,
+                    replacement,
+                    options,
+                });
+                return;
+            }
+
+            if (methodContext instanceof DeleteOneMethodContext) {
+                const filter = formatJson5(methodContext.deleteOneArgument1()?.getText());
+                const options = formatJson5(methodContext.deleteOneArgument2()?.getText());
+
+                this.commands.push({
+                    collectionName,
+                    method: 'deleteOne',
+                    filter,
+                    options,
+                });
+                return;
+            }
+
+            if (methodContext instanceof DeleteManyMethodContext) {
+                const filter = formatJson5(methodContext.deleteManyArgument1()?.getText());
+                const options = formatJson5(methodContext.deleteManyArgument2()?.getText());
+
+                this.commands.push({
+                    collectionName,
+                    method: 'deleteMany',
+                    filter,
+                    options,
+                });
+                return;
+            }
+
+            if (methodContext instanceof RenameMethodContext) {
+                const newName = formatJson5(methodContext.renameArgument1()?.getText());
+                const options = formatJson5(methodContext.renameArgument2()?.getText());
+
+                this.commands.push({
+                    collectionName,
+                    method: 'rename',
+                    newName,
+                    options,
+                });
+                return;
+            }
+
+            if (methodContext instanceof DropMethodContext) {
+                const options = formatJson5(methodContext.dropArgument()?.getText());
+
+                this.commands.push({
+                    collectionName,
+                    method: 'drop',
+                    options,
+                });
+                return;
+            }
+
+            if (methodContext instanceof IsCappedMethodContext) {
+                const options = formatJson5(methodContext.isCappedArgument()?.getText());
+
+                this.commands.push({
+                    collectionName,
+                    method: 'isCapped',
+                    options,
+                });
+                return;
+            }
+
+            if (methodContext instanceof CreateIndexMethodContext) {
+                const indexSpec = formatJson5(methodContext.createIndexArgument1().getText());
+                const options = formatJson5(methodContext.createIndexArgument2()?.getText());
+
+                this.commands.push({
+                    collectionName,
+                    method: 'createIndex',
+                    indexSpec,
+                    options,
+                });
+                return;
+            }
+
+            if (methodContext instanceof CreateIndexesMethodContext) {
+                const indexSpecs = formatJson5(methodContext.createIndexesArgument1().getText());
+                const options = formatJson5(methodContext.createIndexesArgument2()?.getText());
+
+                this.commands.push({
+                    collectionName,
+                    method: 'createIndexes',
+                    indexSpecs,
+                    options,
+                });
+                return;
+            }
+
+            if (methodContext instanceof DropIndexMethodContext) {
+                const index = formatJson5(methodContext.dropIndexArgument1().getText());
+                const options = formatJson5(methodContext.dropIndexArgument2()?.getText());
+
+                this.commands.push({
+                    collectionName,
+                    method: 'dropIndex',
+                    index,
+                    options,
+                });
+                return;
+            }
+
+            if (methodContext instanceof DropIndexesMethodContext) {
+                const options = formatJson5(methodContext.dropIndexesArgument()?.getText());
+
+                this.commands.push({
+                    collectionName,
+                    method: 'dropIndexes',
+                    options,
+                });
+                return;
+            }
+
+            if (methodContext instanceof ListIndexesMethodContext) {
+                const options = formatJson5(methodContext.listIndexesArgument()?.getText());
+
+                this.commands.push({
+                    collectionName,
+                    method: 'listIndexes',
+                    options,
+                });
+                return;
+            }
+
+            if (methodContext instanceof IndexesMethodContext) {
+                const options = formatJson5(methodContext.indexesArgument()?.getText());
+
+                this.commands.push({
+                    collectionName,
+                    method: 'indexes',
+                    options,
+                });
+                return;
+            }
+
+            if (methodContext instanceof IndexExistsMethodContext) {
+                const indexes = formatJson5(methodContext.indexExistsArgument1().getText());
+                const options = formatJson5(methodContext.indexExistsArgument2()?.getText());
+
+                this.commands.push({
+                    collectionName,
+                    method: 'indexExists',
+                    indexes,
+                    options,
+                });
+                return;
+            }
+
+            if (methodContext instanceof IndexInformationMethodContext) {
+                const options = formatJson5(methodContext.indexInformationArgument()?.getText());
+
+                this.commands.push({
+                    collectionName,
+                    method: 'indexInformation',
+                    options,
+                });
+                return;
+            }
+
+            if (methodContext instanceof EstimatedDocumentCountMethodContext) {
+                const options = formatJson5(
+                    methodContext.estimatedDocumentCountArgument()?.getText(),
+                );
+
+                this.commands.push({
+                    collectionName,
+                    method: 'estimatedDocumentCount',
+                    options,
+                });
+                return;
+            }
+
+            if (methodContext instanceof CountDocumentsMethodContext) {
+                const filter = formatJson5(methodContext.countDocumentsArgument1()?.getText());
+                const options = formatJson5(methodContext.countDocumentsArgument2()?.getText());
+
+                this.commands.push({
+                    collectionName,
+                    method: 'countDocuments',
+                    filter,
+                    options,
+                });
+                return;
+            }
+
+            if (methodContext instanceof DistinctMethodContext) {
+                const key = formatJson5(methodContext.distinctArgument1().getText());
+                const filter = formatJson5(methodContext.distinctArgument2()?.getText());
+                const options = formatJson5(methodContext.distinctArgument3()?.getText());
+
+                this.commands.push({
+                    collectionName,
+                    method: 'distinct',
+                    key,
+                    filter,
+                    options,
+                });
+                return;
+            }
+
+            if (methodContext instanceof AggregateMethodContext) {
+                const pipeline = formatJson5(methodContext.aggregateArgument1()?.getText());
+                const options = formatJson5(methodContext.aggregateArgument2()?.getText());
+
+                const explainMethodContext = methodContext.explainMethod();
+
+                let explain: AggregateCommand['explain'] | undefined;
+                if (explainMethodContext) {
+                    const explainParameters = formatJson5(
+                        explainMethodContext.explainMethodArgument()?.getText(),
+                    );
+                    explain = explainParameters ? {parameters: explainParameters} : {};
+                }
+
+                this.commands.push({
+                    collectionName,
+                    method: 'aggregate',
+                    pipeline,
+                    options,
+                    explain,
+                });
                 return;
             }
         } catch (error) {

@@ -36,6 +36,272 @@ collectionMethod
     | findOneAndUpdateMethod
     | insertOneMethod
     | insertManyMethod
+    | bulkWriteMethod
+    | updateOneMethod
+    | updateManyMethod
+    | replaceOneMethod
+    | deleteOneMethod
+    | deleteManyMethod
+    | renameMethod
+    | dropMethod
+    | isCappedMethod
+    | createIndexMethod
+    | createIndexesMethod
+    | dropIndexMethod
+    | dropIndexesMethod
+    | listIndexesMethod
+    | indexesMethod
+    | indexExistsMethod
+    | indexInformationMethod
+    | estimatedDocumentCountMethod
+    | countDocumentsMethod
+    | distinctMethod
+    | aggregateMethod
+    ;
+
+aggregateMethod
+    : AGGREGATE LPAREN (aggregateArgument1 (COMMA aggregateArgument2)?)? RPAREN explainMethod?
+    ;
+
+aggregateArgument2
+    : object
+    ;
+
+aggregateArgument1
+    : array
+    ;
+
+distinctMethod
+    : DISTINCT LPAREN distinctArgument1 (COMMA distinctArgument2 (COMMA distinctArgument3)?)? RPAREN
+    ;
+
+distinctArgument1
+    : STRING
+    ;
+
+distinctArgument2
+    : object
+    ;
+
+distinctArgument3
+    : object
+    ;
+
+countDocumentsMethod
+    : COUNT_DOCUMENTS LPAREN (countDocumentsArgument1 (COMMA countDocumentsArgument2)?)? RPAREN
+    ;
+
+countDocumentsArgument2
+    : object
+    ;
+
+countDocumentsArgument1
+    : object
+    ;
+
+estimatedDocumentCountMethod
+    : ESTIMATED_DOCUMENT_COUNT LPAREN estimatedDocumentCountArgument? RPAREN
+    ;
+
+estimatedDocumentCountArgument
+    : object
+    ;
+
+indexInformationMethod
+    : INDEX_INFORMATION LPAREN indexInformationArgument? RPAREN
+    ;
+
+indexInformationArgument
+    : object
+    ;
+
+indexExistsMethod
+    : INDEX_EXISTS LPAREN indexExistsArgument1 (COMMA indexExistsArgument2)? RPAREN
+    ;
+
+indexExistsArgument2
+    : object
+    ;
+
+indexExistsArgument1
+    : STRING
+    | LBRACKET STRING (COMMA STRING)* COMMA? RBRACKET
+    ;
+
+indexesMethod
+    : INDEXES LPAREN indexesArgument? RPAREN
+    ;
+
+indexesArgument
+    : object
+    ;
+
+listIndexesMethod
+    : LIST_INDEXES LPAREN listIndexesArgument? RPAREN
+    ;
+
+listIndexesArgument
+    : object
+    ;
+
+dropIndexesMethod
+    : DROP_INDEXES LPAREN dropIndexesArgument? RPAREN
+    ;
+
+dropIndexesArgument
+    : object
+    ;
+
+dropIndexMethod
+    : DROP_INDEX LPAREN dropIndexArgument1 (COMMA dropIndexArgument2)? RPAREN
+    ;
+
+dropIndexArgument2
+    : object
+    ;
+
+dropIndexArgument1
+    : STRING
+    ;
+
+createIndexesMethod
+    : CREATE_INDEXES LPAREN createIndexesArgument1 (COMMA createIndexesArgument2)? RPAREN
+    ;
+
+createIndexesArgument2
+    : object
+    ;
+
+createIndexesArgument1
+    : array
+    ;
+
+createIndexMethod
+    : CREATE_INDEX LPAREN createIndexArgument1 (COMMA createIndexArgument2)? RPAREN
+    ;
+
+createIndexArgument2
+    : object
+    ;
+
+createIndexArgument1
+    : STRING
+    | object
+    | array
+    ;
+
+isCappedMethod
+    : IS_CAPPED LPAREN isCappedArgument? RPAREN
+    ;
+
+isCappedArgument
+    : object
+    ;
+
+dropMethod
+    : DROP LPAREN dropArgument? RPAREN
+    ;
+
+dropArgument
+    : object
+    ;
+
+renameMethod
+    : RENAME LPAREN renameArgument1 (COMMA renameArgument2)? RPAREN
+    ;
+
+renameArgument1
+    : STRING
+    ;
+
+renameArgument2
+    : object
+    ;
+
+deleteManyMethod
+    : DELETE_MANY LPAREN (deleteManyArgument1 (COMMA deleteManyArgument2)?)? RPAREN
+    ;
+
+deleteManyArgument1
+    : object
+    ;
+
+deleteManyArgument2
+    : object
+    ;
+
+deleteOneMethod
+    : DELETE_ONE LPAREN (deleteOneArgument1 (COMMA deleteOneArgument2)?)? RPAREN
+    ;
+
+deleteOneArgument1
+    : object
+    ;
+
+deleteOneArgument2
+    : object
+    ;
+
+replaceOneMethod
+    : REPLACE_ONE LPAREN replaceOneArgument1 COMMA replaceOneArgument2 (COMMA replaceOneArgument3)? RPAREN
+    ;
+
+replaceOneArgument1
+    : object
+    ;
+
+replaceOneArgument2
+    : documentToInsert
+    ;
+
+replaceOneArgument3
+    : object
+    ;
+
+updateManyMethod
+    : UPDATE_MANY LPAREN updateManyArgument1 COMMA updateManyArgument2 (COMMA updateManyArgument3)? RPAREN
+    ;
+
+updateManyArgument1
+    : object
+    ;
+
+updateManyArgument2
+    : object
+    | array
+    ;
+
+updateManyArgument3
+    : object
+    ;
+
+updateOneMethod
+    : UPDATE_ONE LPAREN updateOneArgument1 COMMA updateOneArgument2 (COMMA updateOneArgument3)? RPAREN
+    ;
+
+updateOneArgument1
+    : object
+    ;
+
+updateOneArgument2
+    : array
+    | object
+    ;
+
+updateOneArgument3
+    : object
+    ;
+
+bulkWriteMethod
+    : BULK_WRITE LPAREN bulkWriteArgument1 (COMMA bulkWriteArgument2)? RPAREN
+    ;
+
+bulkWriteArgument1
+    : array
+    ;
+
+bulkWriteArgument2
+    : object
     ;
 
 insertManyMethod
@@ -259,6 +525,27 @@ reservedKeyword
     | SKIP_
     | INSERT_ONE
     | INSERT_MANY
+    | BULK_WRITE
+    | UPDATE_ONE
+    | UPDATE_MANY
+    | REPLACE_ONE
+    | DELETE_ONE
+    | DELETE_MANY
+    | RENAME
+    | DROP
+    | IS_CAPPED
+    | CREATE_INDEX
+    | CREATE_INDEXES
+    | DROP_INDEX
+    | DROP_INDEXES
+    | LIST_INDEXES
+    | INDEXES
+    | INDEX_EXISTS
+    | INDEX_INFORMATION
+    | ESTIMATED_DOCUMENT_COUNT
+    | COUNT_DOCUMENTS
+    | DISTINCT
+    | AGGREGATE
     ;
 
 // JSON5 rules

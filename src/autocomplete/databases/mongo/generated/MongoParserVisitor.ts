@@ -18,6 +18,66 @@ import { CommandContext } from "./MongoParser.js";
 import { CollectionOperationContext } from "./MongoParser.js";
 import { CollectionNameContext } from "./MongoParser.js";
 import { CollectionMethodContext } from "./MongoParser.js";
+import { AggregateMethodContext } from "./MongoParser.js";
+import { AggregateArgument2Context } from "./MongoParser.js";
+import { AggregateArgument1Context } from "./MongoParser.js";
+import { DistinctMethodContext } from "./MongoParser.js";
+import { DistinctArgument1Context } from "./MongoParser.js";
+import { DistinctArgument2Context } from "./MongoParser.js";
+import { DistinctArgument3Context } from "./MongoParser.js";
+import { CountDocumentsMethodContext } from "./MongoParser.js";
+import { CountDocumentsArgument2Context } from "./MongoParser.js";
+import { CountDocumentsArgument1Context } from "./MongoParser.js";
+import { EstimatedDocumentCountMethodContext } from "./MongoParser.js";
+import { EstimatedDocumentCountArgumentContext } from "./MongoParser.js";
+import { IndexInformationMethodContext } from "./MongoParser.js";
+import { IndexInformationArgumentContext } from "./MongoParser.js";
+import { IndexExistsMethodContext } from "./MongoParser.js";
+import { IndexExistsArgument2Context } from "./MongoParser.js";
+import { IndexExistsArgument1Context } from "./MongoParser.js";
+import { IndexesMethodContext } from "./MongoParser.js";
+import { IndexesArgumentContext } from "./MongoParser.js";
+import { ListIndexesMethodContext } from "./MongoParser.js";
+import { ListIndexesArgumentContext } from "./MongoParser.js";
+import { DropIndexesMethodContext } from "./MongoParser.js";
+import { DropIndexesArgumentContext } from "./MongoParser.js";
+import { DropIndexMethodContext } from "./MongoParser.js";
+import { DropIndexArgument2Context } from "./MongoParser.js";
+import { DropIndexArgument1Context } from "./MongoParser.js";
+import { CreateIndexesMethodContext } from "./MongoParser.js";
+import { CreateIndexesArgument2Context } from "./MongoParser.js";
+import { CreateIndexesArgument1Context } from "./MongoParser.js";
+import { CreateIndexMethodContext } from "./MongoParser.js";
+import { CreateIndexArgument2Context } from "./MongoParser.js";
+import { CreateIndexArgument1Context } from "./MongoParser.js";
+import { IsCappedMethodContext } from "./MongoParser.js";
+import { IsCappedArgumentContext } from "./MongoParser.js";
+import { DropMethodContext } from "./MongoParser.js";
+import { DropArgumentContext } from "./MongoParser.js";
+import { RenameMethodContext } from "./MongoParser.js";
+import { RenameArgument1Context } from "./MongoParser.js";
+import { RenameArgument2Context } from "./MongoParser.js";
+import { DeleteManyMethodContext } from "./MongoParser.js";
+import { DeleteManyArgument1Context } from "./MongoParser.js";
+import { DeleteManyArgument2Context } from "./MongoParser.js";
+import { DeleteOneMethodContext } from "./MongoParser.js";
+import { DeleteOneArgument1Context } from "./MongoParser.js";
+import { DeleteOneArgument2Context } from "./MongoParser.js";
+import { ReplaceOneMethodContext } from "./MongoParser.js";
+import { ReplaceOneArgument1Context } from "./MongoParser.js";
+import { ReplaceOneArgument2Context } from "./MongoParser.js";
+import { ReplaceOneArgument3Context } from "./MongoParser.js";
+import { UpdateManyMethodContext } from "./MongoParser.js";
+import { UpdateManyArgument1Context } from "./MongoParser.js";
+import { UpdateManyArgument2Context } from "./MongoParser.js";
+import { UpdateManyArgument3Context } from "./MongoParser.js";
+import { UpdateOneMethodContext } from "./MongoParser.js";
+import { UpdateOneArgument1Context } from "./MongoParser.js";
+import { UpdateOneArgument2Context } from "./MongoParser.js";
+import { UpdateOneArgument3Context } from "./MongoParser.js";
+import { BulkWriteMethodContext } from "./MongoParser.js";
+import { BulkWriteArgument1Context } from "./MongoParser.js";
+import { BulkWriteArgument2Context } from "./MongoParser.js";
 import { InsertManyMethodContext } from "./MongoParser.js";
 import { InsertManyArgument1Context } from "./MongoParser.js";
 import { InsertManyArgument2Context } from "./MongoParser.js";
@@ -120,6 +180,366 @@ export class MongoParserVisitor<Result> extends AbstractParseTreeVisitor<Result>
      * @return the visitor result
      */
     visitCollectionMethod?: (ctx: CollectionMethodContext) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.aggregateMethod`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitAggregateMethod?: (ctx: AggregateMethodContext) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.aggregateArgument2`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitAggregateArgument2?: (ctx: AggregateArgument2Context) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.aggregateArgument1`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitAggregateArgument1?: (ctx: AggregateArgument1Context) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.distinctMethod`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitDistinctMethod?: (ctx: DistinctMethodContext) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.distinctArgument1`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitDistinctArgument1?: (ctx: DistinctArgument1Context) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.distinctArgument2`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitDistinctArgument2?: (ctx: DistinctArgument2Context) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.distinctArgument3`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitDistinctArgument3?: (ctx: DistinctArgument3Context) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.countDocumentsMethod`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitCountDocumentsMethod?: (ctx: CountDocumentsMethodContext) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.countDocumentsArgument2`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitCountDocumentsArgument2?: (ctx: CountDocumentsArgument2Context) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.countDocumentsArgument1`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitCountDocumentsArgument1?: (ctx: CountDocumentsArgument1Context) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.estimatedDocumentCountMethod`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitEstimatedDocumentCountMethod?: (ctx: EstimatedDocumentCountMethodContext) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.estimatedDocumentCountArgument`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitEstimatedDocumentCountArgument?: (ctx: EstimatedDocumentCountArgumentContext) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.indexInformationMethod`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitIndexInformationMethod?: (ctx: IndexInformationMethodContext) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.indexInformationArgument`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitIndexInformationArgument?: (ctx: IndexInformationArgumentContext) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.indexExistsMethod`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitIndexExistsMethod?: (ctx: IndexExistsMethodContext) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.indexExistsArgument2`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitIndexExistsArgument2?: (ctx: IndexExistsArgument2Context) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.indexExistsArgument1`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitIndexExistsArgument1?: (ctx: IndexExistsArgument1Context) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.indexesMethod`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitIndexesMethod?: (ctx: IndexesMethodContext) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.indexesArgument`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitIndexesArgument?: (ctx: IndexesArgumentContext) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.listIndexesMethod`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitListIndexesMethod?: (ctx: ListIndexesMethodContext) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.listIndexesArgument`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitListIndexesArgument?: (ctx: ListIndexesArgumentContext) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.dropIndexesMethod`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitDropIndexesMethod?: (ctx: DropIndexesMethodContext) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.dropIndexesArgument`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitDropIndexesArgument?: (ctx: DropIndexesArgumentContext) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.dropIndexMethod`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitDropIndexMethod?: (ctx: DropIndexMethodContext) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.dropIndexArgument2`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitDropIndexArgument2?: (ctx: DropIndexArgument2Context) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.dropIndexArgument1`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitDropIndexArgument1?: (ctx: DropIndexArgument1Context) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.createIndexesMethod`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitCreateIndexesMethod?: (ctx: CreateIndexesMethodContext) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.createIndexesArgument2`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitCreateIndexesArgument2?: (ctx: CreateIndexesArgument2Context) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.createIndexesArgument1`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitCreateIndexesArgument1?: (ctx: CreateIndexesArgument1Context) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.createIndexMethod`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitCreateIndexMethod?: (ctx: CreateIndexMethodContext) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.createIndexArgument2`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitCreateIndexArgument2?: (ctx: CreateIndexArgument2Context) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.createIndexArgument1`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitCreateIndexArgument1?: (ctx: CreateIndexArgument1Context) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.isCappedMethod`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitIsCappedMethod?: (ctx: IsCappedMethodContext) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.isCappedArgument`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitIsCappedArgument?: (ctx: IsCappedArgumentContext) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.dropMethod`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitDropMethod?: (ctx: DropMethodContext) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.dropArgument`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitDropArgument?: (ctx: DropArgumentContext) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.renameMethod`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitRenameMethod?: (ctx: RenameMethodContext) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.renameArgument1`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitRenameArgument1?: (ctx: RenameArgument1Context) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.renameArgument2`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitRenameArgument2?: (ctx: RenameArgument2Context) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.deleteManyMethod`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitDeleteManyMethod?: (ctx: DeleteManyMethodContext) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.deleteManyArgument1`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitDeleteManyArgument1?: (ctx: DeleteManyArgument1Context) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.deleteManyArgument2`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitDeleteManyArgument2?: (ctx: DeleteManyArgument2Context) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.deleteOneMethod`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitDeleteOneMethod?: (ctx: DeleteOneMethodContext) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.deleteOneArgument1`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitDeleteOneArgument1?: (ctx: DeleteOneArgument1Context) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.deleteOneArgument2`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitDeleteOneArgument2?: (ctx: DeleteOneArgument2Context) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.replaceOneMethod`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitReplaceOneMethod?: (ctx: ReplaceOneMethodContext) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.replaceOneArgument1`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitReplaceOneArgument1?: (ctx: ReplaceOneArgument1Context) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.replaceOneArgument2`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitReplaceOneArgument2?: (ctx: ReplaceOneArgument2Context) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.replaceOneArgument3`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitReplaceOneArgument3?: (ctx: ReplaceOneArgument3Context) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.updateManyMethod`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitUpdateManyMethod?: (ctx: UpdateManyMethodContext) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.updateManyArgument1`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitUpdateManyArgument1?: (ctx: UpdateManyArgument1Context) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.updateManyArgument2`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitUpdateManyArgument2?: (ctx: UpdateManyArgument2Context) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.updateManyArgument3`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitUpdateManyArgument3?: (ctx: UpdateManyArgument3Context) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.updateOneMethod`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitUpdateOneMethod?: (ctx: UpdateOneMethodContext) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.updateOneArgument1`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitUpdateOneArgument1?: (ctx: UpdateOneArgument1Context) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.updateOneArgument2`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitUpdateOneArgument2?: (ctx: UpdateOneArgument2Context) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.updateOneArgument3`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitUpdateOneArgument3?: (ctx: UpdateOneArgument3Context) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.bulkWriteMethod`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitBulkWriteMethod?: (ctx: BulkWriteMethodContext) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.bulkWriteArgument1`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitBulkWriteArgument1?: (ctx: BulkWriteArgument1Context) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.bulkWriteArgument2`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitBulkWriteArgument2?: (ctx: BulkWriteArgument2Context) => Result;
     /**
      * Visit a parse tree produced by `MongoParser.insertManyMethod`.
      * @param ctx the parse tree

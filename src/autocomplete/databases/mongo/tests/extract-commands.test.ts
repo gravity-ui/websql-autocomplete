@@ -413,6 +413,1231 @@ test('should extract insertMany commands properly', () => {
     });
 });
 
+test('should extract bulkWrite commands properly', () => {
+    const result = extractMongoCommandsFromQuery(`
+        db.test_collection1.bulkWrite([
+            {
+                insertOne: {
+                    document: {
+                        test_field: 'test_value',
+                    },
+                },
+                updateMany: {
+                    filter: {
+                        test_field1: 'test_value1',
+                    },
+                    update: {
+                        test_field2: 'test_value2',
+                    },
+                },
+                updateOne: {
+                    filter: {
+                        test_field1: 'test_value1',
+                    },
+                    update: {
+                        test_field2: 'test_value2',
+                    },
+                },
+                deleteMany: {
+                    filter: {
+                        test_field: 'test_value',
+                    },
+                },
+                deleteOne: {
+                    filter: {
+                        test_field: 'test_value',
+                    },
+                },
+                replaceOne: {
+                    filter: {
+                        test_field1: 'test_value1',
+                    },
+                    replacement: {
+                        test_field2: 'test_value2',
+                    },
+                },
+            },
+        ]);
+
+        db.test_collection2.bulkWrite(
+            [
+                {
+                    insertOne: {
+                        document: {
+                            test_field: 'test_value',
+                        },
+                    },
+                    updateMany: {
+                        filter: {
+                            test_field1: 'test_value1',
+                        },
+                        update: {
+                            test_field2: 'test_value2',
+                        },
+                    },
+                    updateOne: {
+                        filter: {
+                            test_field1: 'test_value1',
+                        },
+                        update: {
+                            test_field2: 'test_value2',
+                        },
+                    },
+                    deleteMany: {
+                        filter: {
+                            test_field: 'test_value',
+                        },
+                    },
+                    deleteOne: {
+                        filter: {
+                            test_field: 'test_value',
+                        },
+                    },
+                    replaceOne: {
+                        filter: {
+                            test_field1: 'test_value1',
+                        },
+                        replacement: {
+                            test_field2: 'test_value2',
+                        },
+                    },
+                },
+            ],
+            {
+                test_option: 'test_value',
+            }
+        );
+    `);
+
+    expect(result).toEqual({
+        commands: [
+            {
+                collectionName: 'test_collection1',
+                method: 'bulkWrite',
+                operations: [
+                    {
+                        deleteMany: {
+                            filter: {
+                                test_field: 'test_value',
+                            },
+                        },
+                        deleteOne: {
+                            filter: {
+                                test_field: 'test_value',
+                            },
+                        },
+                        insertOne: {
+                            document: {
+                                test_field: 'test_value',
+                            },
+                        },
+                        replaceOne: {
+                            filter: {
+                                test_field1: 'test_value1',
+                            },
+                            replacement: {
+                                test_field2: 'test_value2',
+                            },
+                        },
+                        updateMany: {
+                            filter: {
+                                test_field1: 'test_value1',
+                            },
+                            update: {
+                                test_field2: 'test_value2',
+                            },
+                        },
+                        updateOne: {
+                            filter: {
+                                test_field1: 'test_value1',
+                            },
+                            update: {
+                                test_field2: 'test_value2',
+                            },
+                        },
+                    },
+                ],
+            },
+            {
+                collectionName: 'test_collection2',
+                method: 'bulkWrite',
+                operations: [
+                    {
+                        deleteMany: {
+                            filter: {
+                                test_field: 'test_value',
+                            },
+                        },
+                        deleteOne: {
+                            filter: {
+                                test_field: 'test_value',
+                            },
+                        },
+                        insertOne: {
+                            document: {
+                                test_field: 'test_value',
+                            },
+                        },
+                        replaceOne: {
+                            filter: {
+                                test_field1: 'test_value1',
+                            },
+                            replacement: {
+                                test_field2: 'test_value2',
+                            },
+                        },
+                        updateMany: {
+                            filter: {
+                                test_field1: 'test_value1',
+                            },
+                            update: {
+                                test_field2: 'test_value2',
+                            },
+                        },
+                        updateOne: {
+                            filter: {
+                                test_field1: 'test_value1',
+                            },
+                            update: {
+                                test_field2: 'test_value2',
+                            },
+                        },
+                    },
+                ],
+                options: {
+                    test_option: 'test_value',
+                },
+            },
+        ],
+    });
+});
+
+test('should extract updateOne commands properly', () => {
+    const result = extractMongoCommandsFromQuery(`
+        db.test_collection1.updateOne(
+            {
+                test_field: 'test_value',
+            },
+            [{
+                test_field: 'test_value',
+                test_object: {
+                    test_subfield: 23,
+                }
+            }]
+        );
+
+        db.test_collection2.updateOne(
+            {
+                test_field: 'test_value',
+            },
+            [
+                {
+                    test_field: 'test_value',
+                    test_object: {
+                        test_subfield: 23,
+                    }
+                },
+                {
+                    test_field: 'test_value',
+                    test_object: {
+                        test_subfield: 23,
+                    }
+                },
+            ],
+            {
+                test_option: 'test_option_value'
+            }
+        );
+
+        db.test_collection3.updateOne(
+            {
+                test_field: 'test_value',
+            },
+            {
+                test_field: 'test_value',
+            },
+            {
+                test_option: 'test_option_value'
+            }
+        );
+    `);
+
+    expect(result).toEqual({
+        commands: [
+            {
+                collectionName: 'test_collection1',
+                filter: {
+                    test_field: 'test_value',
+                },
+                method: 'updateOne',
+                updateParameters: [
+                    {
+                        test_field: 'test_value',
+                        test_object: {
+                            test_subfield: 23,
+                        },
+                    },
+                ],
+            },
+            {
+                collectionName: 'test_collection2',
+                filter: {
+                    test_field: 'test_value',
+                },
+                method: 'updateOne',
+                options: {
+                    test_option: 'test_option_value',
+                },
+                updateParameters: [
+                    {
+                        test_field: 'test_value',
+                        test_object: {
+                            test_subfield: 23,
+                        },
+                    },
+                    {
+                        test_field: 'test_value',
+                        test_object: {
+                            test_subfield: 23,
+                        },
+                    },
+                ],
+            },
+            {
+                collectionName: 'test_collection3',
+                filter: {
+                    test_field: 'test_value',
+                },
+                method: 'updateOne',
+                options: {
+                    test_option: 'test_option_value',
+                },
+                updateParameters: {
+                    test_field: 'test_value',
+                },
+            },
+        ],
+    });
+});
+
+test('should extract updateMany commands properly', () => {
+    const result = extractMongoCommandsFromQuery(`
+        db.test_collection1.updateMany(
+            {
+                test_field: 'test_value',
+            },
+            [{
+                test_field: 'test_value',
+                test_object: {
+                    test_subfield: 23,
+                }
+            }]
+        );
+
+        db.test_collection2.updateMany(
+            {
+                test_field: 'test_value',
+            },
+            [
+                {
+                    test_field: 'test_value',
+                    test_object: {
+                        test_subfield: 23,
+                    }
+                },
+                {
+                    test_field: 'test_value',
+                    test_object: {
+                        test_subfield: 23,
+                    }
+                },
+            ],
+            {
+                test_option: 'test_option_value'
+            }
+        );
+
+        db.test_collection3.updateMany(
+            {
+                test_field: 'test_value',
+            },
+            {
+                test_field: 'test_value',
+            },
+            {
+                test_option: 'test_option_value'
+            }
+        );
+    `);
+
+    expect(result).toEqual({
+        commands: [
+            {
+                collectionName: 'test_collection1',
+                method: 'updateMany',
+                filter: {
+                    test_field: 'test_value',
+                },
+                updateParameters: [
+                    {
+                        test_field: 'test_value',
+                        test_object: {
+                            test_subfield: 23,
+                        },
+                    },
+                ],
+            },
+            {
+                collectionName: 'test_collection2',
+                method: 'updateMany',
+                filter: {
+                    test_field: 'test_value',
+                },
+                updateParameters: [
+                    {
+                        test_field: 'test_value',
+                        test_object: {
+                            test_subfield: 23,
+                        },
+                    },
+                    {
+                        test_field: 'test_value',
+                        test_object: {
+                            test_subfield: 23,
+                        },
+                    },
+                ],
+                options: {
+                    test_option: 'test_option_value',
+                },
+            },
+            {
+                collectionName: 'test_collection3',
+                method: 'updateMany',
+                filter: {
+                    test_field: 'test_value',
+                },
+                updateParameters: {
+                    test_field: 'test_value',
+                },
+                options: {
+                    test_option: 'test_option_value',
+                },
+            },
+        ],
+    });
+});
+
+test('should extract replaceOne commands properly', () => {
+    const result = extractMongoCommandsFromQuery(`
+        db.test_collection.replaceOne(
+            {
+                test_field1: 'test_value1',
+            },
+            {
+                test_field2: 'test_value2',
+            }
+        );
+
+        db.test_collection.replaceOne(
+            {
+                test_field1: 'test_value1',
+            },
+            [
+                {
+                    test_field2: 'test_value2',
+                },
+                {
+                    test_field3: 'test_value3',
+                },
+            ]
+        );
+
+        db.test_collection.replaceOne(
+            {
+                test_field1: 'test_value1',
+            },
+            {
+                test_field2: 'test_value2',
+            },
+            {
+                test_option: 'test_value',
+            }
+        );
+    `);
+
+    expect(result).toEqual({
+        commands: [
+            {
+                method: 'replaceOne',
+                collectionName: 'test_collection',
+                filter: {
+                    test_field1: 'test_value1',
+                },
+                replacement: {
+                    test_field2: 'test_value2',
+                },
+            },
+            {
+                method: 'replaceOne',
+                collectionName: 'test_collection',
+                filter: {
+                    test_field1: 'test_value1',
+                },
+                replacement: [
+                    {
+                        test_field2: 'test_value2',
+                    },
+                    {
+                        test_field3: 'test_value3',
+                    },
+                ],
+            },
+            {
+                method: 'replaceOne',
+                collectionName: 'test_collection',
+                filter: {
+                    test_field1: 'test_value1',
+                },
+                replacement: {
+                    test_field2: 'test_value2',
+                },
+                options: {
+                    test_option: 'test_value',
+                },
+            },
+        ],
+    });
+});
+
+test('should extract deleteOne commands properly', () => {
+    const result = extractMongoCommandsFromQuery(`
+        db.test_collection.deleteOne(
+            {
+                test_field: 'test_value',
+            }
+        );
+        
+        db.test_collection.deleteOne(
+            {
+                test_field: 'test_value',
+            },
+            {
+                test_option: 'test_value',
+            }
+        );
+
+        db.test_collection.deleteOne();
+    `);
+
+    expect(result).toEqual({
+        commands: [
+            {
+                collectionName: 'test_collection',
+                method: 'deleteOne',
+                filter: {
+                    test_field: 'test_value',
+                },
+            },
+            {
+                collectionName: 'test_collection',
+                method: 'deleteOne',
+                filter: {
+                    test_field: 'test_value',
+                },
+                options: {
+                    test_option: 'test_value',
+                },
+            },
+            {
+                collectionName: 'test_collection',
+                method: 'deleteOne',
+            },
+        ],
+    });
+});
+
+test('should extract deleteMany commands properly', () => {
+    const result = extractMongoCommandsFromQuery(`
+        db.test_collection.deleteMany(
+            {
+                test_field: 'test_value',
+            }
+        );
+        
+        db.test_collection.deleteMany(
+            {
+                test_field: 'test_value',
+            },
+            {
+                test_option: 'test_value',
+            }
+        );
+
+        db.test_collection.deleteMany();
+    `);
+
+    expect(result).toEqual({
+        commands: [
+            {
+                collectionName: 'test_collection',
+                method: 'deleteMany',
+                filter: {
+                    test_field: 'test_value',
+                },
+            },
+            {
+                collectionName: 'test_collection',
+                method: 'deleteMany',
+                filter: {
+                    test_field: 'test_value',
+                },
+                options: {
+                    test_option: 'test_value',
+                },
+            },
+            {
+                collectionName: 'test_collection',
+                method: 'deleteMany',
+            },
+        ],
+    });
+});
+
+test('should extract rename commands properly', () => {
+    const result = extractMongoCommandsFromQuery(`
+        db.test_collection.rename('test_collection_new_name');
+
+        db.test_collection.rename(
+            'test_collection_new_name',
+            {
+                test_option: 'test_value',
+            }
+        );
+    `);
+
+    expect(result).toEqual({
+        commands: [
+            {
+                collectionName: 'test_collection',
+                method: 'rename',
+                newName: 'test_collection_new_name',
+            },
+            {
+                collectionName: 'test_collection',
+                method: 'rename',
+                newName: 'test_collection_new_name',
+                options: {
+                    test_option: 'test_value',
+                },
+            },
+        ],
+    });
+});
+
+test('should extract drop commands properly', () => {
+    const result = extractMongoCommandsFromQuery(`
+        db.test_collection.drop();
+
+        db.test_collection.drop(
+            {
+                test_option: 'test_value',
+            }
+        );
+    `);
+
+    expect(result).toEqual({
+        commands: [
+            {
+                collectionName: 'test_collection',
+                method: 'drop',
+            },
+            {
+                collectionName: 'test_collection',
+                method: 'drop',
+                options: {
+                    test_option: 'test_value',
+                },
+            },
+        ],
+    });
+});
+
+test('should extract isCapped commands properly', () => {
+    const result = extractMongoCommandsFromQuery(`
+        db.test_collection.isCapped();
+
+        db.test_collection.isCapped(
+            {
+                test_option: 'test_value',
+            }
+        );
+    `);
+
+    expect(result).toEqual({
+        commands: [
+            {
+                collectionName: 'test_collection',
+                method: 'isCapped',
+            },
+            {
+                collectionName: 'test_collection',
+                method: 'isCapped',
+                options: {
+                    test_option: 'test_value',
+                },
+            },
+        ],
+    });
+});
+
+test('should extract createIndex commands properly', () => {
+    const result = extractMongoCommandsFromQuery(`
+        db.test_collection.createIndex('test_index');
+        db.test_collection.createIndex([['test_index_1', -1], ['test_index_2', 1]]);
+        db.test_collection.createIndex({
+            test_index_1: -1,
+            test_index_2: 1,
+        });
+        db.test_collection.createIndex(
+            {
+                test_index_1: -1,
+                test_index_2: 1,
+            },
+            {
+                test_option: 'test_value',
+            }
+        );
+    `);
+
+    expect(result).toEqual({
+        commands: [
+            {
+                collectionName: 'test_collection',
+                method: 'createIndex',
+                indexSpec: 'test_index',
+            },
+            {
+                collectionName: 'test_collection',
+                method: 'createIndex',
+                indexSpec: [
+                    ['test_index_1', -1],
+                    ['test_index_2', 1],
+                ],
+            },
+            {
+                collectionName: 'test_collection',
+                method: 'createIndex',
+                indexSpec: {
+                    test_index_1: -1,
+                    test_index_2: 1,
+                },
+            },
+            {
+                collectionName: 'test_collection',
+                method: 'createIndex',
+                indexSpec: {
+                    test_index_1: -1,
+                    test_index_2: 1,
+                },
+                options: {
+                    test_option: 'test_value',
+                },
+            },
+        ],
+    });
+});
+
+test('should extract createIndexes commands properly', () => {
+    const result = extractMongoCommandsFromQuery(`
+        db.test_collection.createIndexes([
+            {
+                key: {
+                    test_index1: 1,
+                },
+            },
+            {
+                key: {
+                    test_index2: 1,
+                },
+            },
+        ]);
+        db.test_collection.createIndexes(
+            [
+                {
+                    key: {
+                        test_index1: '2d',
+                    },
+                },
+                {
+                    key: {
+                        test_index2: 1,
+                    },
+                },
+            ],
+            {
+                test_option: 'test_value',
+            }
+        );
+    `);
+
+    expect(result).toEqual({
+        commands: [
+            {
+                collectionName: 'test_collection',
+                method: 'createIndexes',
+                indexSpecs: [
+                    {
+                        key: {
+                            test_index1: 1,
+                        },
+                    },
+                    {
+                        key: {
+                            test_index2: 1,
+                        },
+                    },
+                ],
+            },
+            {
+                collectionName: 'test_collection',
+                method: 'createIndexes',
+                indexSpecs: [
+                    {
+                        key: {
+                            test_index1: '2d',
+                        },
+                    },
+                    {
+                        key: {
+                            test_index2: 1,
+                        },
+                    },
+                ],
+                options: {
+                    test_option: 'test_value',
+                },
+            },
+        ],
+    });
+});
+
+test('should extract dropIndex commands properly', () => {
+    const result = extractMongoCommandsFromQuery(`
+        db.test_collection.dropIndex('test_index');
+        db.test_collection.dropIndex(
+            'test_index',
+            {
+                test_option: 'test_value',
+            }
+        );
+    `);
+
+    expect(result).toEqual({
+        commands: [
+            {
+                collectionName: 'test_collection',
+                method: 'dropIndex',
+                index: 'test_index',
+            },
+            {
+                collectionName: 'test_collection',
+                method: 'dropIndex',
+                index: 'test_index',
+                options: {
+                    test_option: 'test_value',
+                },
+            },
+        ],
+    });
+});
+
+test('should extract dropIndexes commands properly', () => {
+    const result = extractMongoCommandsFromQuery(`
+        db.test_collection.dropIndexes();
+        db.test_collection.dropIndexes(
+            {
+                test_option: 'test_value',
+            }
+        );
+    `);
+
+    expect(result).toEqual({
+        commands: [
+            {
+                collectionName: 'test_collection',
+                method: 'dropIndexes',
+            },
+            {
+                collectionName: 'test_collection',
+                method: 'dropIndexes',
+                options: {
+                    test_option: 'test_value',
+                },
+            },
+        ],
+    });
+});
+
+test('should extract listIndexes commands properly', () => {
+    const result = extractMongoCommandsFromQuery(`
+        db.test_collection.listIndexes();
+        db.test_collection.listIndexes(
+            {
+                test_option: 'test_value',
+            }
+        );
+    `);
+
+    expect(result).toEqual({
+        commands: [
+            {
+                collectionName: 'test_collection',
+                method: 'listIndexes',
+            },
+            {
+                collectionName: 'test_collection',
+                method: 'listIndexes',
+                options: {
+                    test_option: 'test_value',
+                },
+            },
+        ],
+    });
+});
+
+test('should extract indexes commands properly', () => {
+    const result = extractMongoCommandsFromQuery(`
+        db.test_collection.indexes();
+        db.test_collection.indexes(
+            {
+                test_option: 'test_value',
+            }
+        );
+    `);
+
+    expect(result).toEqual({
+        commands: [
+            {
+                collectionName: 'test_collection',
+                method: 'indexes',
+            },
+            {
+                collectionName: 'test_collection',
+                method: 'indexes',
+                options: {
+                    test_option: 'test_value',
+                },
+            },
+        ],
+    });
+});
+
+test('should extract indexExists commands properly', () => {
+    const result = extractMongoCommandsFromQuery(`
+        db.test_collection.indexExists('test_index');
+        db.test_collection.indexExists(
+            ['test_index1', 'test_index2', 'test_index3'],
+            {
+                test_option: 'test_value',
+            }
+        );
+    `);
+
+    expect(result).toEqual({
+        commands: [
+            {
+                collectionName: 'test_collection',
+                method: 'indexExists',
+                indexes: 'test_index',
+            },
+            {
+                collectionName: 'test_collection',
+                method: 'indexExists',
+                indexes: ['test_index1', 'test_index2', 'test_index3'],
+                options: {
+                    test_option: 'test_value',
+                },
+            },
+        ],
+    });
+});
+
+test('should extract indexInformation commands properly', () => {
+    const result = extractMongoCommandsFromQuery(`
+        db.test_collection.indexInformation();
+        db.test_collection.indexInformation(
+            {
+                test_option: 'test_value',
+            }
+        );
+    `);
+
+    expect(result).toEqual({
+        commands: [
+            {
+                collectionName: 'test_collection',
+                method: 'indexInformation',
+            },
+            {
+                collectionName: 'test_collection',
+                method: 'indexInformation',
+                options: {
+                    test_option: 'test_value',
+                },
+            },
+        ],
+    });
+});
+
+test('should extract estimatedDocumentCount commands properly', () => {
+    const result = extractMongoCommandsFromQuery(`
+        db.test_collection.estimatedDocumentCount();
+        db.test_collection.estimatedDocumentCount(
+            {
+                test_option: 'test_value',
+            }
+        );
+    `);
+
+    expect(result).toEqual({
+        commands: [
+            {
+                collectionName: 'test_collection',
+                method: 'estimatedDocumentCount',
+            },
+            {
+                collectionName: 'test_collection',
+                method: 'estimatedDocumentCount',
+                options: {
+                    test_option: 'test_value',
+                },
+            },
+        ],
+    });
+});
+
+test('should extract countDocuments commands properly', () => {
+    const result = extractMongoCommandsFromQuery(`
+        db.test_collection.countDocuments();
+        db.test_collection.countDocuments(
+            {
+                test_filter_option: 'test_value',
+            },
+            {
+                test_option: 'test_value',
+            }
+        );
+    `);
+
+    expect(result).toEqual({
+        commands: [
+            {
+                collectionName: 'test_collection',
+                method: 'countDocuments',
+            },
+            {
+                collectionName: 'test_collection',
+                method: 'countDocuments',
+                filter: {
+                    test_filter_option: 'test_value',
+                },
+                options: {
+                    test_option: 'test_value',
+                },
+            },
+        ],
+    });
+});
+
+test('should extract distinct commands properly', () => {
+    const result = extractMongoCommandsFromQuery(`
+        db.test_collection.distinct('test_key');
+        db.test_collection.distinct(
+            'test_key',
+            {
+                test_filter_option: 'test_value',
+            },
+            {
+                test_option: 'test_value',
+            }
+        );
+    `);
+
+    expect(result).toEqual({
+        commands: [
+            {
+                collectionName: 'test_collection',
+                method: 'distinct',
+                key: 'test_key',
+            },
+            {
+                collectionName: 'test_collection',
+                method: 'distinct',
+                key: 'test_key',
+                filter: {
+                    test_filter_option: 'test_value',
+                },
+                options: {
+                    test_option: 'test_value',
+                },
+            },
+        ],
+    });
+});
+
+test('should extract aggregate commands properly', () => {
+    const result = extractMongoCommandsFromQuery(`
+        db.test_collection.aggregate();
+
+        db.test_collection.aggregate(
+            [
+                {
+                    $limit: 10,
+                },
+                {
+                    $sort: { test_field: -1 }
+                },
+            ],
+            {
+                test_option: 'test_value',    
+            }
+        );
+
+        db.test_collection.aggregate(
+            [
+                {
+                    $limit: 10,
+                },
+                {
+                    $sort: { test_field: -1 }
+                },
+            ],
+            {
+                test_option: 'test_value',    
+            }
+        ).explain(true);
+
+        db.test_collection.aggregate(
+            [
+                {
+                    $limit: 10,
+                },
+                {
+                    $sort: { test_field: -1 }
+                },
+            ],
+            {
+                test_option: 'test_value',    
+            }
+        ).explain({
+            test_option: 'test_value',
+        });
+
+        db.test_collection.aggregate(
+            [
+                {
+                    $limit: 10,
+                },
+                {
+                    $sort: { test_field: -1 }
+                },
+            ],
+            {
+                test_option: 'test_value',    
+            }
+        ).explain('test_value');
+    `);
+
+    expect(result).toEqual({
+        commands: [
+            {
+                collectionName: 'test_collection',
+                method: 'aggregate',
+            },
+            {
+                collectionName: 'test_collection',
+                method: 'aggregate',
+                pipeline: [
+                    {
+                        $limit: 10,
+                    },
+                    {
+                        $sort: {
+                            test_field: -1,
+                        },
+                    },
+                ],
+                options: {
+                    test_option: 'test_value',
+                },
+            },
+            {
+                collectionName: 'test_collection',
+                method: 'aggregate',
+                pipeline: [
+                    {
+                        $limit: 10,
+                    },
+                    {
+                        $sort: {
+                            test_field: -1,
+                        },
+                    },
+                ],
+                options: {
+                    test_option: 'test_value',
+                },
+                explain: {
+                    parameters: true,
+                },
+            },
+            {
+                collectionName: 'test_collection',
+                method: 'aggregate',
+                pipeline: [
+                    {
+                        $limit: 10,
+                    },
+                    {
+                        $sort: {
+                            test_field: -1,
+                        },
+                    },
+                ],
+                options: {
+                    test_option: 'test_value',
+                },
+                explain: {
+                    parameters: {
+                        test_option: 'test_value',
+                    },
+                },
+            },
+            {
+                collectionName: 'test_collection',
+                method: 'aggregate',
+                pipeline: [
+                    {
+                        $limit: 10,
+                    },
+                    {
+                        $sort: {
+                            test_field: -1,
+                        },
+                    },
+                ],
+                options: {
+                    test_option: 'test_value',
+                },
+                explain: {
+                    parameters: 'test_value',
+                },
+            },
+        ],
+    });
+});
+
 test('should throw error on invalid syntax', () => {
     const result = extractMongoCommandsFromQuery('db_ERROR.test_collection1.find({})');
 
