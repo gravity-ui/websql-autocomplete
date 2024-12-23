@@ -27,6 +27,33 @@ databaseOperation
 
 databaseMethod
     : databaseCollectionMethod
+    | createCollectionMethod
+    | commandMethod
+    | aggregateMethod
+    ;
+
+commandMethod
+    : COMMAND LPAREN commandArgument1 (COMMA commandArgument2)? RPAREN
+    ;
+
+commandArgument1
+    : object
+    ;
+
+commandArgument2
+    : object
+    ;
+
+createCollectionMethod
+    : CREATE_COLLECTION LPAREN createCollectionArgument1 (COMMA createCollectionArgument2)? RPAREN
+    ;
+
+createCollectionArgument1
+    : STRING
+    ;
+
+createCollectionArgument2
+    : object
     ;
 
 databaseCollectionMethod
@@ -564,6 +591,8 @@ reservedKeyword
     | DISTINCT
     | AGGREGATE
     | COLLECTION
+    | CREATE_COLLECTION
+    | COMMAND
     ;
 
 // JSON5 rules

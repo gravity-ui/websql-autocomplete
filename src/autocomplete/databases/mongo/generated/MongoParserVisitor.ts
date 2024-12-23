@@ -17,6 +17,12 @@ import { CommandsContext } from "./MongoParser.js";
 import { CommandContext } from "./MongoParser.js";
 import { DatabaseOperationContext } from "./MongoParser.js";
 import { DatabaseMethodContext } from "./MongoParser.js";
+import { CommandMethodContext } from "./MongoParser.js";
+import { CommandArgument1Context } from "./MongoParser.js";
+import { CommandArgument2Context } from "./MongoParser.js";
+import { CreateCollectionMethodContext } from "./MongoParser.js";
+import { CreateCollectionArgument1Context } from "./MongoParser.js";
+import { CreateCollectionArgument2Context } from "./MongoParser.js";
 import { DatabaseCollectionMethodContext } from "./MongoParser.js";
 import { QuotedCollectionNameContext } from "./MongoParser.js";
 import { CollectionOperationContext } from "./MongoParser.js";
@@ -178,6 +184,42 @@ export class MongoParserVisitor<Result> extends AbstractParseTreeVisitor<Result>
      * @return the visitor result
      */
     visitDatabaseMethod?: (ctx: DatabaseMethodContext) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.commandMethod`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitCommandMethod?: (ctx: CommandMethodContext) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.commandArgument1`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitCommandArgument1?: (ctx: CommandArgument1Context) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.commandArgument2`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitCommandArgument2?: (ctx: CommandArgument2Context) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.createCollectionMethod`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitCreateCollectionMethod?: (ctx: CreateCollectionMethodContext) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.createCollectionArgument1`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitCreateCollectionArgument1?: (ctx: CreateCollectionArgument1Context) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.createCollectionArgument2`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitCreateCollectionArgument2?: (ctx: CreateCollectionArgument2Context) => Result;
     /**
      * Visit a parse tree produced by `MongoParser.databaseCollectionMethod`.
      * @param ctx the parse tree

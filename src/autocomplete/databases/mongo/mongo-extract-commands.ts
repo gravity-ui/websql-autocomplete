@@ -3,7 +3,9 @@ import {
     AggregateMethodContext,
     BulkWriteMethodContext,
     CollectionOperationContext,
+    CommandMethodContext,
     CountDocumentsMethodContext,
+    CreateCollectionMethodContext,
     CreateIndexMethodContext,
     CreateIndexesMethodContext,
     DatabaseCollectionMethodContext,
@@ -266,6 +268,18 @@ export interface AggregateCommand {
     explain?: ExplainParameters;
 }
 
+export interface CreateCollectionCommand {
+    method: 'createCollection';
+    collectionName: unknown;
+    options?: unknown;
+}
+
+export interface CommandCommand {
+    method: 'command';
+    document: unknown;
+    options?: unknown;
+}
+
 export type Command =
     | FindCommand
     | FindOneCommand
@@ -294,7 +308,9 @@ export type Command =
     | EstimatedDocumentCountCommand
     | CountDocumentsCommand
     | DistinctCommand
-    | AggregateCommand;
+    | AggregateCommand
+    | CreateCollectionCommand
+    | CommandCommand;
 
 export interface ParsingError {
     type: 'parsingError';
@@ -366,7 +382,19 @@ class CommandsVisitor extends MongoParserVisitor<unknown> {
         }
 
         const methodContext = context.databaseMethod().getChild(0);
+        const result = parseDatabaseMethod(methodContext);
+        if (result.command) {
+            this.commands.push(result.command);
+        } else {
+            this.error = result.error;
+        }
+    };
+}
 
+function parseDatabaseMethod(
+    methodContext: ParseTree | null,
+): CommandParsingResult | CommandParsingError {
+    try {
         if (methodContext instanceof DatabaseCollectionMethodContext) {
             const collectionName = parseQuotedCollectionName(
                 methodContext.quotedCollectionName().getText(),
@@ -375,14 +403,35 @@ class CommandsVisitor extends MongoParserVisitor<unknown> {
                 collectionName,
                 methodContext.collectionMethod().getChild(0),
             );
-            if (result.command) {
-                this.commands.push(result.command);
-            } else {
-                this.error = result.error;
-            }
-            return;
+            return result;
         }
-    };
+
+        if (methodContext instanceof CreateCollectionMethodContext) {
+            const collectionName = formatJson5(methodContext.createCollectionArgument1().getText());
+            const options = formatJson5(methodContext.createCollectionArgument2()?.getText());
+
+            return makeCommandResult({
+                method: 'createCollection',
+                collectionName,
+                options,
+            });
+        }
+
+        if (methodContext instanceof CommandMethodContext) {
+            const document = formatJson5(methodContext.commandArgument1().getText());
+            const options = formatJson5(methodContext.commandArgument2()?.getText());
+
+            return makeCommandResult({
+                method: 'command',
+                document,
+                options,
+            });
+        }
+    } catch (error) {
+        return parseExtractionError(error);
+    }
+
+    return makeMethodNotImplementedError(methodContext?.getText());
 }
 
 function parseQuotedCollectionName(quotedCollectionName: string): string {
@@ -393,11 +442,6 @@ function parseCollectionMethod(
     collectionName: string,
     methodContext: ParseTree | null,
 ): CommandParsingResult | CommandParsingError {
-    const makeCommandResult = (command: Command): CommandParsingResult => ({command});
-    const makeErrorResult = (error: ExtractionError): CommandParsingError => ({
-        error,
-    });
-
     try {
         if (methodContext instanceof FindMethodContext) {
             const command = parseFindMethodContext(methodContext);
@@ -732,17 +776,33 @@ function parseCollectionMethod(
             });
         }
     } catch (error) {
-        if (isParsingError(error)) {
-            const {message} = error;
-            return makeErrorResult(newParsingError(message));
-        }
-
-        return makeErrorResult(newUnexpectedError(error));
+        return parseExtractionError(error);
     }
 
-    return makeErrorResult(
-        newParsingError('Method is not implemented: ' + methodContext?.getText()),
-    );
+    return makeMethodNotImplementedError(methodContext?.getText());
+}
+
+function parseExtractionError(error: unknown): CommandParsingError {
+    if (isParsingError(error)) {
+        const {message} = error;
+        return makeErrorResult(newParsingError(message));
+    }
+
+    return makeErrorResult(newUnexpectedError(error));
+}
+
+function makeMethodNotImplementedError(methodText?: string): CommandParsingError {
+    return makeErrorResult(newParsingError('Method is not implemented: ' + methodText));
+}
+
+function makeCommandResult(command: Command): CommandParsingResult {
+    return {command};
+}
+
+function makeErrorResult(error: ExtractionError): CommandParsingError {
+    return {
+        error,
+    };
 }
 
 function isParsingError(error: unknown): error is ParsingError {

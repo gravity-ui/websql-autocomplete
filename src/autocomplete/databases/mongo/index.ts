@@ -42,6 +42,9 @@ export {
     EstimatedDocumentCountCommand,
     CountDocumentsCommand,
     DistinctCommand,
+    AggregateCommand,
+    CreateCollectionCommand,
+    CommandCommand,
 } from './mongo-extract-commands';
 
 export interface MongoAutocompleteResult extends SqlAutocompleteResult {
