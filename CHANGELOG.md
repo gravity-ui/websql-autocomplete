@@ -1,5 +1,12 @@
 # Changelog
 
+## [12.8.0](https://github.com/gravity-ui/websql-autocomplete/compare/v12.7.1...v12.8.0) (2024-12-23)
+
+
+### Features
+
+* Support remaining collection methods for MongoDB ([#262](https://github.com/gravity-ui/websql-autocomplete/issues/262)) ([2f357b0](https://github.com/gravity-ui/websql-autocomplete/commit/2f357b082c0ae29d610cab4a69012ae835446fdc))
+
 ## [12.7.1](https://github.com/gravity-ui/websql-autocomplete/compare/v12.7.0...v12.7.1) (2024-12-17)
 
 
