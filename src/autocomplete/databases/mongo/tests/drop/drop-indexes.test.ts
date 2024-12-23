@@ -31,7 +31,13 @@ test('should not report errors on extended dropIndexes statement', () => {
 test('should extract dropIndexes commands properly', () => {
     const result = extractMongoCommandsFromQuery(`
         db.test_collection.dropIndexes();
+        db.collection('test_collection').dropIndexes();
         db.test_collection.dropIndexes(
+            {
+                test_option: 'test_value',
+            }
+        );
+        db.collection('test_collection').dropIndexes(
             {
                 test_option: 'test_value',
             }
@@ -43,6 +49,17 @@ test('should extract dropIndexes commands properly', () => {
             {
                 collectionName: 'test_collection',
                 method: 'dropIndexes',
+            },
+            {
+                collectionName: 'test_collection',
+                method: 'dropIndexes',
+            },
+            {
+                collectionName: 'test_collection',
+                method: 'dropIndexes',
+                options: {
+                    test_option: 'test_value',
+                },
             },
             {
                 collectionName: 'test_collection',

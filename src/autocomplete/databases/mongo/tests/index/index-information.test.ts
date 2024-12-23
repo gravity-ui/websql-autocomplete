@@ -31,7 +31,13 @@ test('should not report errors on extended indexInformation statement', () => {
 test('should extract indexInformation commands properly', () => {
     const result = extractMongoCommandsFromQuery(`
         db.test_collection.indexInformation();
+        db.collection('test_collection').indexInformation();
         db.test_collection.indexInformation(
+            {
+                test_option: 'test_value',
+            }
+        );
+        db.collection('test_collection').indexInformation(
             {
                 test_option: 'test_value',
             }
@@ -43,6 +49,17 @@ test('should extract indexInformation commands properly', () => {
             {
                 collectionName: 'test_collection',
                 method: 'indexInformation',
+            },
+            {
+                collectionName: 'test_collection',
+                method: 'indexInformation',
+            },
+            {
+                collectionName: 'test_collection',
+                method: 'indexInformation',
+                options: {
+                    test_option: 'test_value',
+                },
             },
             {
                 collectionName: 'test_collection',

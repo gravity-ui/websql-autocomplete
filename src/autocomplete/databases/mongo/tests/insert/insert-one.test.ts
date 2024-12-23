@@ -78,6 +78,12 @@ test('should extract insertOne commands properly', () => {
               test_subfield: 23,
           }
       });
+      db.collection('test_collection1').insertOne({
+          test_field: 'test_value',
+          test_object: {
+              test_subfield: 23,
+          }
+      });
 
       db.test_collection2.insertOne(
           {
@@ -87,8 +93,24 @@ test('should extract insertOne commands properly', () => {
               test_option: 'test_option_value'
           }
       );
+      db.collection('test_collection2').insertOne(
+          {
+              test_field: 'test_value'
+          },
+          {
+              test_option: 'test_option_value'
+          }
+      );
 
       db.test_collection3.insertOne(
+          [{
+              test_field: 'test_value'
+          }],
+          {
+              test_option: 'test_option_value'
+          }
+      );
+      db.collection('test_collection3').insertOne(
           [{
               test_field: 'test_value'
           }],
@@ -107,8 +129,25 @@ test('should extract insertOne commands properly', () => {
             },
             {
                 method: 'insertOne',
+                collectionName: 'test_collection1',
+                document: {test_field: 'test_value', test_object: {test_subfield: 23}},
+            },
+            {
+                method: 'insertOne',
                 collectionName: 'test_collection2',
                 document: {test_field: 'test_value'},
+                options: {test_option: 'test_option_value'},
+            },
+            {
+                method: 'insertOne',
+                collectionName: 'test_collection2',
+                document: {test_field: 'test_value'},
+                options: {test_option: 'test_option_value'},
+            },
+            {
+                method: 'insertOne',
+                collectionName: 'test_collection3',
+                document: [{test_field: 'test_value'}],
                 options: {test_option: 'test_option_value'},
             },
             {

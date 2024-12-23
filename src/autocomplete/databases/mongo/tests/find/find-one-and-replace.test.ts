@@ -44,8 +44,27 @@ test('should extract findOneAndReplace commands properly', () => {
               new_test_field: 'new_test_value',
           }
       );
+      db.collection('test_collection1').findOneAndReplace(
+          {
+              test_field: 'test_value',
+          },
+          {
+              new_test_field: 'new_test_value',
+          }
+      );
 
       db.test_collection2.findOneAndReplace(
+          {
+              test_field: 'test_value',
+          },
+          {
+              new_test_field: 'new_test_value',
+          },
+          {
+              test_option: 'test_option_value'
+          }
+      );
+      db.collection('test_collection2').findOneAndReplace(
           {
               test_field: 'test_value',
           },
@@ -65,6 +84,19 @@ test('should extract findOneAndReplace commands properly', () => {
                 collectionName: 'test_collection1',
                 parameters: {test_field: 'test_value'},
                 replacement: {new_test_field: 'new_test_value'},
+            },
+            {
+                method: 'findOneAndReplace',
+                collectionName: 'test_collection1',
+                parameters: {test_field: 'test_value'},
+                replacement: {new_test_field: 'new_test_value'},
+            },
+            {
+                method: 'findOneAndReplace',
+                collectionName: 'test_collection2',
+                parameters: {test_field: 'test_value'},
+                replacement: {new_test_field: 'new_test_value'},
+                options: {test_option: 'test_option_value'},
             },
             {
                 method: 'findOneAndReplace',

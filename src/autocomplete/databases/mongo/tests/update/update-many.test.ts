@@ -109,8 +109,41 @@ test('should extract updateMany commands properly', () => {
               }
           }]
       );
+      db.collection('test_collection1').updateMany(
+          {
+              test_field: 'test_value',
+          },
+          [{
+              test_field: 'test_value',
+              test_object: {
+                  test_subfield: 23,
+              }
+          }]
+      );
 
       db.test_collection2.updateMany(
+          {
+              test_field: 'test_value',
+          },
+          [
+              {
+                  test_field: 'test_value',
+                  test_object: {
+                      test_subfield: 23,
+                  }
+              },
+              {
+                  test_field: 'test_value',
+                  test_object: {
+                      test_subfield: 23,
+                  }
+              },
+          ],
+          {
+              test_option: 'test_option_value'
+          }
+      );
+      db.collection('test_collection2').updateMany(
           {
               test_field: 'test_value',
           },
@@ -144,10 +177,36 @@ test('should extract updateMany commands properly', () => {
               test_option: 'test_option_value'
           }
       );
+      db.collection('test_collection3').updateMany(
+          {
+              test_field: 'test_value',
+          },
+          {
+              test_field: 'test_value',
+          },
+          {
+              test_option: 'test_option_value'
+          }
+      );
   `);
 
     expect(result).toEqual({
         commands: [
+            {
+                collectionName: 'test_collection1',
+                method: 'updateMany',
+                filter: {
+                    test_field: 'test_value',
+                },
+                updateParameters: [
+                    {
+                        test_field: 'test_value',
+                        test_object: {
+                            test_subfield: 23,
+                        },
+                    },
+                ],
+            },
             {
                 collectionName: 'test_collection1',
                 method: 'updateMany',
@@ -183,6 +242,43 @@ test('should extract updateMany commands properly', () => {
                         },
                     },
                 ],
+                options: {
+                    test_option: 'test_option_value',
+                },
+            },
+            {
+                collectionName: 'test_collection2',
+                method: 'updateMany',
+                filter: {
+                    test_field: 'test_value',
+                },
+                updateParameters: [
+                    {
+                        test_field: 'test_value',
+                        test_object: {
+                            test_subfield: 23,
+                        },
+                    },
+                    {
+                        test_field: 'test_value',
+                        test_object: {
+                            test_subfield: 23,
+                        },
+                    },
+                ],
+                options: {
+                    test_option: 'test_option_value',
+                },
+            },
+            {
+                collectionName: 'test_collection3',
+                method: 'updateMany',
+                filter: {
+                    test_field: 'test_value',
+                },
+                updateParameters: {
+                    test_field: 'test_value',
+                },
                 options: {
                     test_option: 'test_option_value',
                 },

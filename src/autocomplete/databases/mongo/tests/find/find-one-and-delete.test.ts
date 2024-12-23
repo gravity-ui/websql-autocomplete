@@ -35,8 +35,19 @@ test('should extract findOneAndDelete commands properly', () => {
       db.test_collection1.findOneAndDelete({
           test_field: 'test_value',
       });
+      db.collection('test_collection1').findOneAndDelete({
+          test_field: 'test_value',
+      });
 
       db.test_collection2.findOneAndDelete(
+          {
+              test_field: 'test_value'
+          },
+          {
+              test_option: 'test_option_value'
+          }
+      );
+      db.collection('test_collection2').findOneAndDelete(
           {
               test_field: 'test_value'
           },
@@ -52,6 +63,17 @@ test('should extract findOneAndDelete commands properly', () => {
                 method: 'findOneAndDelete',
                 collectionName: 'test_collection1',
                 parameters: {test_field: 'test_value'},
+            },
+            {
+                method: 'findOneAndDelete',
+                collectionName: 'test_collection1',
+                parameters: {test_field: 'test_value'},
+            },
+            {
+                method: 'findOneAndDelete',
+                collectionName: 'test_collection2',
+                parameters: {test_field: 'test_value'},
+                options: {test_option: 'test_option_value'},
             },
             {
                 method: 'findOneAndDelete',

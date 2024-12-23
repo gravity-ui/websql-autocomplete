@@ -31,8 +31,14 @@ test('should not report errors on extended isCapped statement', () => {
 test('should extract isCapped commands properly', () => {
     const result = extractMongoCommandsFromQuery(`
         db.test_collection.isCapped();
+        db.collection('test_collection').isCapped();
 
         db.test_collection.isCapped(
+            {
+                test_option: 'test_value',
+            }
+        );
+        db.collection('test_collection').isCapped(
             {
                 test_option: 'test_value',
             }
@@ -44,6 +50,17 @@ test('should extract isCapped commands properly', () => {
             {
                 collectionName: 'test_collection',
                 method: 'isCapped',
+            },
+            {
+                collectionName: 'test_collection',
+                method: 'isCapped',
+            },
+            {
+                collectionName: 'test_collection',
+                method: 'isCapped',
+                options: {
+                    test_option: 'test_value',
+                },
             },
             {
                 collectionName: 'test_collection',

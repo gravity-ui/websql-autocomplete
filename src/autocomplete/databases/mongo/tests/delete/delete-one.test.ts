@@ -42,6 +42,11 @@ test('should extract deleteOne commands properly', () => {
               test_field: 'test_value',
           }
       );
+      db.collection('test_collection').deleteOne(
+          {
+              test_field: 'test_value',
+          }
+      );
       
       db.test_collection.deleteOne(
           {
@@ -51,8 +56,17 @@ test('should extract deleteOne commands properly', () => {
               test_option: 'test_value',
           }
       );
+      db.collection('test_collection').deleteOne(
+          {
+              test_field: 'test_value',
+          },
+          {
+              test_option: 'test_value',
+          }
+      );
 
       db.test_collection.deleteOne();
+      db.collection('test_collection').deleteOne();
   `);
 
     expect(result).toEqual({
@@ -70,9 +84,30 @@ test('should extract deleteOne commands properly', () => {
                 filter: {
                     test_field: 'test_value',
                 },
+            },
+            {
+                collectionName: 'test_collection',
+                method: 'deleteOne',
+                filter: {
+                    test_field: 'test_value',
+                },
                 options: {
                     test_option: 'test_value',
                 },
+            },
+            {
+                collectionName: 'test_collection',
+                method: 'deleteOne',
+                filter: {
+                    test_field: 'test_value',
+                },
+                options: {
+                    test_option: 'test_value',
+                },
+            },
+            {
+                collectionName: 'test_collection',
+                method: 'deleteOne',
             },
             {
                 collectionName: 'test_collection',

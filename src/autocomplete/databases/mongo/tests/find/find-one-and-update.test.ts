@@ -44,8 +44,27 @@ test('should extract findOneAndUpdate commands properly', () => {
               test_field: 'new_test_value',
           }
       );
+      db.collection('test_collection1').findOneAndUpdate(
+          {
+              test_field: 'test_value',
+          },
+          {
+              test_field: 'new_test_value',
+          }
+      );
 
       db.test_collection2.findOneAndUpdate(
+          {
+              test_field: 'test_value',
+          },
+          {
+              test_field: 'new_test_value',
+          },
+          {
+              test_option: 'test_option_value'
+          }
+      );
+      db.collection('test_collection2').findOneAndUpdate(
           {
               test_field: 'test_value',
           },
@@ -65,6 +84,19 @@ test('should extract findOneAndUpdate commands properly', () => {
                 collectionName: 'test_collection1',
                 parameters: {test_field: 'test_value'},
                 newValues: {test_field: 'new_test_value'},
+            },
+            {
+                method: 'findOneAndUpdate',
+                collectionName: 'test_collection1',
+                parameters: {test_field: 'test_value'},
+                newValues: {test_field: 'new_test_value'},
+            },
+            {
+                method: 'findOneAndUpdate',
+                collectionName: 'test_collection2',
+                parameters: {test_field: 'test_value'},
+                newValues: {test_field: 'new_test_value'},
+                options: {test_option: 'test_option_value'},
             },
             {
                 method: 'findOneAndUpdate',

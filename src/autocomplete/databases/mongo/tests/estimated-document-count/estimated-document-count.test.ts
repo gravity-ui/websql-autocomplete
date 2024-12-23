@@ -31,7 +31,13 @@ test('should not report errors on extended estimatedDocumentCount statement', ()
 test('should extract estimatedDocumentCount commands properly', () => {
     const result = extractMongoCommandsFromQuery(`
         db.test_collection.estimatedDocumentCount();
+        db.collection('test_collection').estimatedDocumentCount();
         db.test_collection.estimatedDocumentCount(
+            {
+                test_option: 'test_value',
+            }
+        );
+        db.collection('test_collection').estimatedDocumentCount(
             {
                 test_option: 'test_value',
             }
@@ -43,6 +49,17 @@ test('should extract estimatedDocumentCount commands properly', () => {
             {
                 collectionName: 'test_collection',
                 method: 'estimatedDocumentCount',
+            },
+            {
+                collectionName: 'test_collection',
+                method: 'estimatedDocumentCount',
+            },
+            {
+                collectionName: 'test_collection',
+                method: 'estimatedDocumentCount',
+                options: {
+                    test_option: 'test_value',
+                },
             },
             {
                 collectionName: 'test_collection',

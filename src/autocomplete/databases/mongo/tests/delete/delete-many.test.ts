@@ -59,6 +59,11 @@ test('should extract deleteMany commands properly', () => {
               test_field: 'test_value',
           }
       );
+      db.collection('test_collection').deleteMany(
+          {
+              test_field: 'test_value',
+          }
+      );
       
       db.test_collection.deleteMany(
           {
@@ -68,8 +73,17 @@ test('should extract deleteMany commands properly', () => {
               test_option: 'test_value',
           }
       );
+      db.collection('test_collection').deleteMany(
+          {
+              test_field: 'test_value',
+          },
+          {
+              test_option: 'test_value',
+          }
+      );
 
       db.test_collection.deleteMany();
+      db.collection('test_collection').deleteMany();
   `);
 
     expect(result).toEqual({
@@ -87,9 +101,30 @@ test('should extract deleteMany commands properly', () => {
                 filter: {
                     test_field: 'test_value',
                 },
+            },
+            {
+                collectionName: 'test_collection',
+                method: 'deleteMany',
+                filter: {
+                    test_field: 'test_value',
+                },
                 options: {
                     test_option: 'test_value',
                 },
+            },
+            {
+                collectionName: 'test_collection',
+                method: 'deleteMany',
+                filter: {
+                    test_field: 'test_value',
+                },
+                options: {
+                    test_option: 'test_value',
+                },
+            },
+            {
+                collectionName: 'test_collection',
+                method: 'deleteMany',
             },
             {
                 collectionName: 'test_collection',

@@ -98,6 +98,14 @@ test('should extract replaceOne commands properly', () => {
               test_field2: 'test_value2',
           }
       );
+      db.collection('test_collection').replaceOne(
+          {
+              test_field1: 'test_value1',
+          },
+          {
+              test_field2: 'test_value2',
+          }
+      );
 
       db.test_collection.replaceOne(
           {
@@ -112,8 +120,32 @@ test('should extract replaceOne commands properly', () => {
               },
           ]
       );
+      db.collection('test_collection').replaceOne(
+          {
+              test_field1: 'test_value1',
+          },
+          [
+              {
+                  test_field2: 'test_value2',
+              },
+              {
+                  test_field3: 'test_value3',
+              },
+          ]
+      );
 
       db.test_collection.replaceOne(
+          {
+              test_field1: 'test_value1',
+          },
+          {
+              test_field2: 'test_value2',
+          },
+          {
+              test_option: 'test_value',
+          }
+      );
+      db.collection('test_collection').replaceOne(
           {
               test_field1: 'test_value1',
           },
@@ -144,6 +176,16 @@ test('should extract replaceOne commands properly', () => {
                 filter: {
                     test_field1: 'test_value1',
                 },
+                replacement: {
+                    test_field2: 'test_value2',
+                },
+            },
+            {
+                method: 'replaceOne',
+                collectionName: 'test_collection',
+                filter: {
+                    test_field1: 'test_value1',
+                },
                 replacement: [
                     {
                         test_field2: 'test_value2',
@@ -152,6 +194,34 @@ test('should extract replaceOne commands properly', () => {
                         test_field3: 'test_value3',
                     },
                 ],
+            },
+            {
+                method: 'replaceOne',
+                collectionName: 'test_collection',
+                filter: {
+                    test_field1: 'test_value1',
+                },
+                replacement: [
+                    {
+                        test_field2: 'test_value2',
+                    },
+                    {
+                        test_field3: 'test_value3',
+                    },
+                ],
+            },
+            {
+                method: 'replaceOne',
+                collectionName: 'test_collection',
+                filter: {
+                    test_field1: 'test_value1',
+                },
+                replacement: {
+                    test_field2: 'test_value2',
+                },
+                options: {
+                    test_option: 'test_value',
+                },
             },
             {
                 method: 'replaceOne',

@@ -31,8 +31,14 @@ test('should not report errors on extended drop statement', () => {
 test('should extract drop commands properly', () => {
     const result = extractMongoCommandsFromQuery(`
         db.test_collection.drop();
+        db.collection('test_collection').drop();
 
         db.test_collection.drop(
+            {
+                test_option: 'test_value',
+            }
+        );
+        db.collection('test_collection').drop(
             {
                 test_option: 'test_value',
             }
@@ -44,6 +50,17 @@ test('should extract drop commands properly', () => {
             {
                 collectionName: 'test_collection',
                 method: 'drop',
+            },
+            {
+                collectionName: 'test_collection',
+                method: 'drop',
+            },
+            {
+                collectionName: 'test_collection',
+                method: 'drop',
+                options: {
+                    test_option: 'test_value',
+                },
             },
             {
                 collectionName: 'test_collection',

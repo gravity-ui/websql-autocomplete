@@ -57,7 +57,36 @@ test('should extract createIndexes commands properly', () => {
                 },
             },
         ]);
+        db.collection('test_collection').createIndexes([
+            {
+                key: {
+                    test_index1: 1,
+                },
+            },
+            {
+                key: {
+                    test_index2: 1,
+                },
+            },
+        ]);
         db.test_collection.createIndexes(
+            [
+                {
+                    key: {
+                        test_index1: '2d',
+                    },
+                },
+                {
+                    key: {
+                        test_index2: 1,
+                    },
+                },
+            ],
+            {
+                test_option: 'test_value',
+            }
+        );
+        db.collection('test_collection').createIndexes(
             [
                 {
                     key: {
@@ -93,6 +122,41 @@ test('should extract createIndexes commands properly', () => {
                         },
                     },
                 ],
+            },
+            {
+                collectionName: 'test_collection',
+                method: 'createIndexes',
+                indexSpecs: [
+                    {
+                        key: {
+                            test_index1: 1,
+                        },
+                    },
+                    {
+                        key: {
+                            test_index2: 1,
+                        },
+                    },
+                ],
+            },
+            {
+                collectionName: 'test_collection',
+                method: 'createIndexes',
+                indexSpecs: [
+                    {
+                        key: {
+                            test_index1: '2d',
+                        },
+                    },
+                    {
+                        key: {
+                            test_index2: 1,
+                        },
+                    },
+                ],
+                options: {
+                    test_option: 'test_value',
+                },
             },
             {
                 collectionName: 'test_collection',

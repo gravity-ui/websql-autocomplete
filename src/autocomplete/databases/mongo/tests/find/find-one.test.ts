@@ -33,12 +33,24 @@ test('should not report errors on extended findOne statement', () => {
 test('should extract findOne commands properly', () => {
     const result = extractMongoCommandsFromQuery(`
         db.test_collection1.findOne();
+        db.collection('test_collection1').findOne();
 
         db.test_collection2.findOne({
             test_field: 'test_value',
         });
+        db.collection('test_collection2').findOne({
+            test_field: 'test_value',
+        });
 
         db.test_collection3.findOne(
+            {
+                test_field: 'test_value'
+            },
+            {
+                test_option: 'test_option_value'
+            }
+        );
+        db.collection('test_collection3').findOne(
             {
                 test_field: 'test_value'
             },
@@ -56,8 +68,23 @@ test('should extract findOne commands properly', () => {
             },
             {
                 method: 'findOne',
+                collectionName: 'test_collection1',
+            },
+            {
+                method: 'findOne',
                 collectionName: 'test_collection2',
                 parameters: {test_field: 'test_value'},
+            },
+            {
+                method: 'findOne',
+                collectionName: 'test_collection2',
+                parameters: {test_field: 'test_value'},
+            },
+            {
+                method: 'findOne',
+                collectionName: 'test_collection3',
+                parameters: {test_field: 'test_value'},
+                options: {test_option: 'test_option_value'},
             },
             {
                 method: 'findOne',
