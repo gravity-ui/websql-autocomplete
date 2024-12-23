@@ -18,6 +18,23 @@ commands
 
 command
     : collectionOperation
+    | databaseOperation
+    ;
+
+databaseOperation
+    : DB DOT databaseMethod
+    ;
+
+databaseMethod
+    : databaseCollectionMethod
+    ;
+
+databaseCollectionMethod
+    : COLLECTION LPAREN quotedCollectionName RPAREN DOT collectionMethod
+    ;
+
+quotedCollectionName
+    : STRING
     ;
 
 collectionOperation
@@ -546,6 +563,7 @@ reservedKeyword
     | COUNT_DOCUMENTS
     | DISTINCT
     | AGGREGATE
+    | COLLECTION
     ;
 
 // JSON5 rules

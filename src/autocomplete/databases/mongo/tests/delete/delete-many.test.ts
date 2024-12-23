@@ -7,6 +7,12 @@ test('should not report errors on deleteMany statement', () => {
             test_field: 'test_value',
           }
         );
+
+        db.collection('test_collection').deleteMany(
+          {
+            test_field: 'test_value',
+          }
+        );
     `);
 
     expect(autocompleteResult.errors).toHaveLength(0);
@@ -22,6 +28,15 @@ test('should not report errors on extended deleteMany statement', () => {
           test_option: 'test_value',
         }
       );
+
+      db.collection('test_collection').deleteMany(
+        {
+          test_field: 'test_value',
+        },
+        {
+          test_option: 'test_value',
+        }
+      );
   `);
 
     expect(autocompleteResult.errors).toHaveLength(0);
@@ -30,6 +45,8 @@ test('should not report errors on extended deleteMany statement', () => {
 test('should not report errors on deleteMany statement without arguments', () => {
     const autocompleteResult = parseMongoQueryWithoutCursor(`
         db.test_collection.deleteMany();
+
+        db.collection('test_collection').deleteMany();
     `);
 
     expect(autocompleteResult.errors).toHaveLength(0);

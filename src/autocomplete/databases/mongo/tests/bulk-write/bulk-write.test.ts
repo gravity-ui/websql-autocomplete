@@ -9,6 +9,15 @@ test('should not report errors on bulkWrite statement', () => {
             {test_field: 'test_value'}
           ]
         );
+
+
+        db.collection('test_collection').bulkWrite(
+          [
+            {test_field: 'test_value'},
+            {test_field: 'test_value'},
+            {test_field: 'test_value'}
+          ]
+        );
     `);
 
     expect(autocompleteResult.errors).toHaveLength(0);
@@ -17,6 +26,15 @@ test('should not report errors on bulkWrite statement', () => {
 test('should not report errors on extended bulkWrite statement', () => {
     const autocompleteResult = parseMongoQueryWithoutCursor(`
         db.test_collection.bulkWrite(
+          [
+            {test_field: 'test_value'},
+            {test_field: 'test_value'},
+            {test_field: 'test_value'},
+          ],
+          {test_option: 'test_value'}
+        );
+
+        db.collection('test_collection').bulkWrite(
           [
             {test_field: 'test_value'},
             {test_field: 'test_value'},

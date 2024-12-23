@@ -3,6 +3,8 @@ import {parseMongoQueryWithoutCursor} from '../..';
 test('should not report errors on estimatedDocumentCount statement', () => {
     const autocompleteResult = parseMongoQueryWithoutCursor(`
         db.test_collection.estimatedDocumentCount();
+
+        db.collection('test_collection').estimatedDocumentCount();
     `);
 
     expect(autocompleteResult.errors).toHaveLength(0);
@@ -11,6 +13,12 @@ test('should not report errors on estimatedDocumentCount statement', () => {
 test('should not report errors on extended estimatedDocumentCount statement', () => {
     const autocompleteResult = parseMongoQueryWithoutCursor(`
         db.test_collection.estimatedDocumentCount(
+            {
+                test_option: 'test_value',
+            }
+        );
+
+        db.collection('test_collection').estimatedDocumentCount(
             {
                 test_option: 'test_value',
             }

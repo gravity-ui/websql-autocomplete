@@ -3,6 +3,8 @@ import {parseMongoQueryWithoutCursor} from '../..';
 test('should not report errors on createIndex statement', () => {
     const autocompleteResult = parseMongoQueryWithoutCursor(`
         db.test_collection.createIndex('test_index');
+
+        db.collection('test_collection').createIndex('test_index');
     `);
 
     expect(autocompleteResult.errors).toHaveLength(0);
@@ -11,6 +13,8 @@ test('should not report errors on createIndex statement', () => {
 test('should not report errors on createIndex statement with array in argument', () => {
     const autocompleteResult = parseMongoQueryWithoutCursor(`
         db.test_collection.createIndex([['test_index_1', -1], ['test_index_2', 1]]);
+
+        db.collection('test_collection').createIndex([['test_index_1', -1], ['test_index_2', 1]]);
     `);
 
     expect(autocompleteResult.errors).toHaveLength(0);
@@ -22,6 +26,11 @@ test('should not report errors on createIndex statement with object argument', (
             test_index_1: -1,
             test_index_2: 1,
         });
+
+        db.collection('test_collection').createIndex({
+            test_index_1: -1,
+            test_index_2: 1,
+        });
     `);
 
     expect(autocompleteResult.errors).toHaveLength(0);
@@ -30,6 +39,16 @@ test('should not report errors on createIndex statement with object argument', (
 test('should not report errors on extended createIndex statement', () => {
     const autocompleteResult = parseMongoQueryWithoutCursor(`
         db.test_collection.createIndex(
+            {
+                test_index_1: -1,
+                test_index_2: 1,
+            },
+            {
+                test_option: 'test_value',
+            }
+        );
+
+        db.collection('test_collection').createIndex(
             {
                 test_index_1: -1,
                 test_index_2: 1,

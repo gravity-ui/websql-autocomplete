@@ -3,6 +3,7 @@ import {parseMongoQueryWithCursor, parseMongoQueryWithoutCursor} from '../..';
 test('should not report errors on multiple statements', () => {
     const autocompleteResult = parseMongoQueryWithoutCursor(`
         db.test_collection.find();
+        db.collection('test_collection').find();
         db.test_collection.insertOne({test_field: 'test_value'});
     `);
 
@@ -12,6 +13,7 @@ test('should not report errors on multiple statements', () => {
 test('should not report errors on three statements', () => {
     const autocompleteResult = parseMongoQueryWithoutCursor(`
         db.test_collection.find();
+        db.collection('test_collection').find();
         db.test_collection.insertOne({test_field: 'test_value'});
         db.test_collection.insertMany([{test_field: 'test_value'}]);
     `);
