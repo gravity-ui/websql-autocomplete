@@ -1,4 +1,4 @@
-import {parseMongoQueryWithoutCursor} from '../..';
+import {extractMongoCommandsFromQuery, parseMongoQueryWithoutCursor} from '../..';
 
 test('should not report errors on updateOne statement', () => {
     const autocompleteResult = parseMongoQueryWithoutCursor(`
@@ -94,4 +94,112 @@ test('should not report errors on extended updateOne statement', () => {
     `);
 
     expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should extract updateOne commands properly', () => {
+    const result = extractMongoCommandsFromQuery(`
+      db.test_collection1.updateOne(
+          {
+              test_field: 'test_value',
+          },
+          [{
+              test_field: 'test_value',
+              test_object: {
+                  test_subfield: 23,
+              }
+          }]
+      );
+
+      db.test_collection2.updateOne(
+          {
+              test_field: 'test_value',
+          },
+          [
+              {
+                  test_field: 'test_value',
+                  test_object: {
+                      test_subfield: 23,
+                  }
+              },
+              {
+                  test_field: 'test_value',
+                  test_object: {
+                      test_subfield: 23,
+                  }
+              },
+          ],
+          {
+              test_option: 'test_option_value'
+          }
+      );
+
+      db.test_collection3.updateOne(
+          {
+              test_field: 'test_value',
+          },
+          {
+              test_field: 'test_value',
+          },
+          {
+              test_option: 'test_option_value'
+          }
+      );
+  `);
+
+    expect(result).toEqual({
+        commands: [
+            {
+                collectionName: 'test_collection1',
+                filter: {
+                    test_field: 'test_value',
+                },
+                method: 'updateOne',
+                updateParameters: [
+                    {
+                        test_field: 'test_value',
+                        test_object: {
+                            test_subfield: 23,
+                        },
+                    },
+                ],
+            },
+            {
+                collectionName: 'test_collection2',
+                filter: {
+                    test_field: 'test_value',
+                },
+                method: 'updateOne',
+                options: {
+                    test_option: 'test_option_value',
+                },
+                updateParameters: [
+                    {
+                        test_field: 'test_value',
+                        test_object: {
+                            test_subfield: 23,
+                        },
+                    },
+                    {
+                        test_field: 'test_value',
+                        test_object: {
+                            test_subfield: 23,
+                        },
+                    },
+                ],
+            },
+            {
+                collectionName: 'test_collection3',
+                filter: {
+                    test_field: 'test_value',
+                },
+                method: 'updateOne',
+                options: {
+                    test_option: 'test_option_value',
+                },
+                updateParameters: {
+                    test_field: 'test_value',
+                },
+            },
+        ],
+    });
 });

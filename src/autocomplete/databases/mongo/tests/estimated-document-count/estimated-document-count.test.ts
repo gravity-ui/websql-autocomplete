@@ -1,4 +1,4 @@
-import {parseMongoQueryWithoutCursor} from '../..';
+import {extractMongoCommandsFromQuery, parseMongoQueryWithoutCursor} from '../..';
 
 test('should not report errors on estimatedDocumentCount statement', () => {
     const autocompleteResult = parseMongoQueryWithoutCursor(`
@@ -26,4 +26,31 @@ test('should not report errors on extended estimatedDocumentCount statement', ()
     `);
 
     expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should extract estimatedDocumentCount commands properly', () => {
+    const result = extractMongoCommandsFromQuery(`
+        db.test_collection.estimatedDocumentCount();
+        db.test_collection.estimatedDocumentCount(
+            {
+                test_option: 'test_value',
+            }
+        );
+    `);
+
+    expect(result).toEqual({
+        commands: [
+            {
+                collectionName: 'test_collection',
+                method: 'estimatedDocumentCount',
+            },
+            {
+                collectionName: 'test_collection',
+                method: 'estimatedDocumentCount',
+                options: {
+                    test_option: 'test_value',
+                },
+            },
+        ],
+    });
 });

@@ -1,4 +1,4 @@
-import {parseMongoQueryWithoutCursor} from '../..';
+import {extractMongoCommandsFromQuery, parseMongoQueryWithoutCursor} from '../..';
 
 test('should not report errors on listIndexes statement', () => {
     const autocompleteResult = parseMongoQueryWithoutCursor(`
@@ -26,4 +26,31 @@ test('should not report errors on extended listIndexes statement', () => {
     `);
 
     expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should extract listIndexes commands properly', () => {
+    const result = extractMongoCommandsFromQuery(`
+        db.test_collection.listIndexes();
+        db.test_collection.listIndexes(
+            {
+                test_option: 'test_value',
+            }
+        );
+    `);
+
+    expect(result).toEqual({
+        commands: [
+            {
+                collectionName: 'test_collection',
+                method: 'listIndexes',
+            },
+            {
+                collectionName: 'test_collection',
+                method: 'listIndexes',
+                options: {
+                    test_option: 'test_value',
+                },
+            },
+        ],
+    });
 });

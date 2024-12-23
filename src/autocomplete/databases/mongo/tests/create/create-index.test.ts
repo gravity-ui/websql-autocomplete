@@ -1,4 +1,4 @@
-import {parseMongoQueryWithoutCursor} from '../..';
+import {extractMongoCommandsFromQuery, parseMongoQueryWithoutCursor} from '../..';
 
 test('should not report errors on createIndex statement', () => {
     const autocompleteResult = parseMongoQueryWithoutCursor(`
@@ -60,4 +60,61 @@ test('should not report errors on extended createIndex statement', () => {
     `);
 
     expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should extract createIndex commands properly', () => {
+    const result = extractMongoCommandsFromQuery(`
+        db.test_collection.createIndex('test_index');
+        db.test_collection.createIndex([['test_index_1', -1], ['test_index_2', 1]]);
+        db.test_collection.createIndex({
+            test_index_1: -1,
+            test_index_2: 1,
+        });
+        db.test_collection.createIndex(
+            {
+                test_index_1: -1,
+                test_index_2: 1,
+            },
+            {
+                test_option: 'test_value',
+            }
+        );
+    `);
+
+    expect(result).toEqual({
+        commands: [
+            {
+                collectionName: 'test_collection',
+                method: 'createIndex',
+                indexSpec: 'test_index',
+            },
+            {
+                collectionName: 'test_collection',
+                method: 'createIndex',
+                indexSpec: [
+                    ['test_index_1', -1],
+                    ['test_index_2', 1],
+                ],
+            },
+            {
+                collectionName: 'test_collection',
+                method: 'createIndex',
+                indexSpec: {
+                    test_index_1: -1,
+                    test_index_2: 1,
+                },
+            },
+            {
+                collectionName: 'test_collection',
+                method: 'createIndex',
+                indexSpec: {
+                    test_index_1: -1,
+                    test_index_2: 1,
+                },
+                options: {
+                    test_option: 'test_value',
+                },
+            },
+        ],
+    });
 });

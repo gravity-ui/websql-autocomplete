@@ -1,4 +1,4 @@
-import {parseMongoQueryWithoutCursor} from '../..';
+import {extractMongoCommandsFromQuery, parseMongoQueryWithoutCursor} from '../..';
 
 test('should not report errors on deleteOne statement', () => {
     const autocompleteResult = parseMongoQueryWithoutCursor(`
@@ -33,4 +33,51 @@ test('should not report errors on deleteOne statement without arguments', () => 
     `);
 
     expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should extract deleteOne commands properly', () => {
+    const result = extractMongoCommandsFromQuery(`
+      db.test_collection.deleteOne(
+          {
+              test_field: 'test_value',
+          }
+      );
+      
+      db.test_collection.deleteOne(
+          {
+              test_field: 'test_value',
+          },
+          {
+              test_option: 'test_value',
+          }
+      );
+
+      db.test_collection.deleteOne();
+  `);
+
+    expect(result).toEqual({
+        commands: [
+            {
+                collectionName: 'test_collection',
+                method: 'deleteOne',
+                filter: {
+                    test_field: 'test_value',
+                },
+            },
+            {
+                collectionName: 'test_collection',
+                method: 'deleteOne',
+                filter: {
+                    test_field: 'test_value',
+                },
+                options: {
+                    test_option: 'test_value',
+                },
+            },
+            {
+                collectionName: 'test_collection',
+                method: 'deleteOne',
+            },
+        ],
+    });
 });

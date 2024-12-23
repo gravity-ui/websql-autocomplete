@@ -1,4 +1,4 @@
-import {parseMongoQueryWithoutCursor} from '../..';
+import {extractMongoCommandsFromQuery, parseMongoQueryWithoutCursor} from '../..';
 
 test('should not report errors on indexInformation statement', () => {
     const autocompleteResult = parseMongoQueryWithoutCursor(`
@@ -26,4 +26,31 @@ test('should not report errors on extended indexInformation statement', () => {
     `);
 
     expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should extract indexInformation commands properly', () => {
+    const result = extractMongoCommandsFromQuery(`
+        db.test_collection.indexInformation();
+        db.test_collection.indexInformation(
+            {
+                test_option: 'test_value',
+            }
+        );
+    `);
+
+    expect(result).toEqual({
+        commands: [
+            {
+                collectionName: 'test_collection',
+                method: 'indexInformation',
+            },
+            {
+                collectionName: 'test_collection',
+                method: 'indexInformation',
+                options: {
+                    test_option: 'test_value',
+                },
+            },
+        ],
+    });
 });

@@ -1,4 +1,4 @@
-import {parseMongoQueryWithoutCursor} from '../..';
+import {extractMongoCommandsFromQuery, parseMongoQueryWithoutCursor} from '../..';
 
 test('should not report errors on findOneAndReplace statement', () => {
     const autocompleteResult = parseMongoQueryWithoutCursor(`
@@ -32,4 +32,47 @@ test('should not report errors on extended findOneAndReplace statement', () => {
     `);
 
     expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should extract findOneAndReplace commands properly', () => {
+    const result = extractMongoCommandsFromQuery(`
+      db.test_collection1.findOneAndReplace(
+          {
+              test_field: 'test_value',
+          },
+          {
+              new_test_field: 'new_test_value',
+          }
+      );
+
+      db.test_collection2.findOneAndReplace(
+          {
+              test_field: 'test_value',
+          },
+          {
+              new_test_field: 'new_test_value',
+          },
+          {
+              test_option: 'test_option_value'
+          }
+      );
+  `);
+
+    expect(result).toEqual({
+        commands: [
+            {
+                method: 'findOneAndReplace',
+                collectionName: 'test_collection1',
+                parameters: {test_field: 'test_value'},
+                replacement: {new_test_field: 'new_test_value'},
+            },
+            {
+                method: 'findOneAndReplace',
+                collectionName: 'test_collection2',
+                parameters: {test_field: 'test_value'},
+                replacement: {new_test_field: 'new_test_value'},
+                options: {test_option: 'test_option_value'},
+            },
+        ],
+    });
 });
