@@ -345,10 +345,10 @@ interface CommandParsingError {
 }
 
 export type ExtractMongoCommandsFromQueryResult =
-    | {commands: Command[]; parseSyntaxErrors?: undefined; parseCommandsError?: undefined}
-    | {parseSyntaxErrors: ParserSyntaxError[]; parseCommandsError?: undefined; commands?: undefined}
+    | {commands: Command[]; parseSyntaxErrors?: undefined; parseCommandErrors?: undefined}
+    | {parseSyntaxErrors: ParserSyntaxError[]; parseCommandErrors?: undefined; commands?: undefined}
     | {
-          parseCommandsError: ExtractionError;
+          parseCommandErrors: ExtractionError[];
           parseSyntaxErrors?: undefined;
           commands?: undefined;
       };
@@ -369,13 +369,9 @@ function newUnexpectedError(message: unknown): UnexpectedError {
 
 class CommandsVisitor extends MongoParserVisitor<unknown> {
     commands: Command[] = [];
-    error?: ExtractionError;
+    errors: ExtractionError[] = [];
 
     visitCollectionOperation = (context: CollectionOperationContext): void => {
-        if (this.error) {
-            return;
-        }
-
         const collectionName = context.collectionName().getText();
         const methodContext = context.collectionMethod().getChild(0);
 
@@ -383,20 +379,16 @@ class CommandsVisitor extends MongoParserVisitor<unknown> {
         if (result.command) {
             this.commands.push(result.command);
         } else {
-            this.error = result.error;
+            this.errors.push(result.error);
         }
     };
     visitDatabaseOperation = (context: DatabaseOperationContext): void => {
-        if (this.error) {
-            return;
-        }
-
         const methodContext = context.databaseMethod().getChild(0);
         const result = parseDatabaseMethod(methodContext);
         if (result.command) {
             this.commands.push(result.command);
         } else {
-            this.error = result.error;
+            this.errors.push(result.error);
         }
     };
 }
@@ -976,9 +968,9 @@ export function extractMongoCommandsFromQuery(query: string): ExtractMongoComman
         };
     }
 
-    if (visitor.error) {
+    if (visitor.errors.length) {
         return {
-            parseCommandsError: visitor.error,
+            parseCommandErrors: visitor.errors,
         };
     }
 
