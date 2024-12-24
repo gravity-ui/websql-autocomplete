@@ -288,7 +288,14 @@ export interface DatabaseCommandCommand extends DatabaseCommandBase {
     options?: unknown;
 }
 
-type DatabaseCommand = DatabaseCreateCollectionCommand | DatabaseCommandCommand;
+export interface DatabaseAggregateCommand
+    extends DatabaseCommandBase,
+        Omit<CollectionAggregateCommand, 'collectionName' | 'type'> {}
+
+type DatabaseCommand =
+    | DatabaseCreateCollectionCommand
+    | DatabaseCommandCommand
+    | DatabaseAggregateCommand;
 
 type CollectionCommand =
     | CollectionFindCommand
@@ -429,6 +436,14 @@ function parseDatabaseMethod(
                 method: 'command',
                 document,
                 options,
+            });
+        }
+
+        if (methodContext instanceof AggregateMethodContext) {
+            return makeCommandResult({
+                type: 'database',
+                method: 'aggregate',
+                ...parseAggregateMethodContext(methodContext),
             });
         }
     } catch (error) {
@@ -795,26 +810,11 @@ function parseCollectionMethod(
         }
 
         if (methodContext instanceof AggregateMethodContext) {
-            const pipeline = formatJson5(methodContext.aggregateArgument1()?.getText());
-            const options = formatJson5(methodContext.aggregateArgument2()?.getText());
-
-            const explainMethodContext = methodContext.explainMethod();
-
-            let explain: CollectionAggregateCommand['explain'] | undefined;
-            if (explainMethodContext) {
-                const explainParameters = formatJson5(
-                    explainMethodContext.explainMethodArgument()?.getText(),
-                );
-                explain = explainParameters ? {parameters: explainParameters} : {};
-            }
-
             return makeCommandResult({
                 collectionName,
                 type: 'collection',
                 method: 'aggregate',
-                pipeline,
-                options,
-                explain,
+                ...parseAggregateMethodContext(methodContext),
             });
         }
     } catch (error) {
@@ -822,6 +822,25 @@ function parseCollectionMethod(
     }
 
     return makeMethodNotImplementedError(methodContext?.getText());
+}
+
+function parseAggregateMethodContext(
+    context: AggregateMethodContext,
+): Pick<CollectionAggregateCommand, 'pipeline' | 'options' | 'explain'> {
+    const pipeline = formatJson5(context.aggregateArgument1()?.getText());
+    const options = formatJson5(context.aggregateArgument2()?.getText());
+
+    const explainMethodContext = context.explainMethod();
+
+    let explain: CollectionAggregateCommand['explain'] | undefined;
+    if (explainMethodContext) {
+        const explainParameters = formatJson5(
+            explainMethodContext.explainMethodArgument()?.getText(),
+        );
+        explain = explainParameters ? {parameters: explainParameters} : {};
+    }
+
+    return {pipeline, options, explain};
 }
 
 function parseExtractionError(error: unknown): CommandParsingError {
