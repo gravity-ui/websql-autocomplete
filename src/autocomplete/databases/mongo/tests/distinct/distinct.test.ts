@@ -64,16 +64,19 @@ test('should extract distinct commands properly', () => {
         commands: [
             {
                 collectionName: 'test_collection',
+                type: 'collection',
                 method: 'distinct',
                 key: 'test_key',
             },
             {
                 collectionName: 'test_collection',
+                type: 'collection',
                 method: 'distinct',
                 key: 'test_key',
             },
             {
                 collectionName: 'test_collection',
+                type: 'collection',
                 method: 'distinct',
                 key: 'test_key',
                 filter: {
@@ -85,6 +88,7 @@ test('should extract distinct commands properly', () => {
             },
             {
                 collectionName: 'test_collection',
+                type: 'collection',
                 method: 'distinct',
                 key: 'test_key',
                 filter: {

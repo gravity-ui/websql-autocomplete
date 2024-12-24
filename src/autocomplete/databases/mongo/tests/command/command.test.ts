@@ -29,10 +29,12 @@ test('should extract command commands properly', () => {
     expect(result).toEqual({
         commands: [
             {
+                type: 'database',
                 method: 'command',
                 document: {ping: 1},
             },
             {
+                type: 'database',
                 method: 'command',
                 document: {ping: 1},
                 options: {

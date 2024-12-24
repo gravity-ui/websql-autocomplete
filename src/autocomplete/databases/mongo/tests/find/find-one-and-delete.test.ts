@@ -60,22 +60,26 @@ test('should extract findOneAndDelete commands properly', () => {
     expect(result).toEqual({
         commands: [
             {
+                type: 'collection',
                 method: 'findOneAndDelete',
                 collectionName: 'test_collection1',
                 parameters: {test_field: 'test_value'},
             },
             {
+                type: 'collection',
                 method: 'findOneAndDelete',
                 collectionName: 'test_collection1',
                 parameters: {test_field: 'test_value'},
             },
             {
+                type: 'collection',
                 method: 'findOneAndDelete',
                 collectionName: 'test_collection2',
                 parameters: {test_field: 'test_value'},
                 options: {test_option: 'test_option_value'},
             },
             {
+                type: 'collection',
                 method: 'findOneAndDelete',
                 collectionName: 'test_collection2',
                 parameters: {test_field: 'test_value'},

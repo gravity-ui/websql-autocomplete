@@ -109,6 +109,7 @@ test('should extract createIndexes commands properly', () => {
         commands: [
             {
                 collectionName: 'test_collection',
+                type: 'collection',
                 method: 'createIndexes',
                 indexSpecs: [
                     {
@@ -125,6 +126,7 @@ test('should extract createIndexes commands properly', () => {
             },
             {
                 collectionName: 'test_collection',
+                type: 'collection',
                 method: 'createIndexes',
                 indexSpecs: [
                     {
@@ -141,6 +143,7 @@ test('should extract createIndexes commands properly', () => {
             },
             {
                 collectionName: 'test_collection',
+                type: 'collection',
                 method: 'createIndexes',
                 indexSpecs: [
                     {
@@ -160,6 +163,7 @@ test('should extract createIndexes commands properly', () => {
             },
             {
                 collectionName: 'test_collection',
+                type: 'collection',
                 method: 'createIndexes',
                 indexSpecs: [
                     {

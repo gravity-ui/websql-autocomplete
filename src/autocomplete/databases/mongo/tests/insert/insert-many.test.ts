@@ -144,16 +144,19 @@ test('should extract insertMany commands properly', () => {
     expect(result).toEqual({
         commands: [
             {
+                type: 'collection',
                 method: 'insertMany',
                 collectionName: 'test_collection1',
                 documents: [{test_field: 'test_value', test_object: {test_subfield: 23}}],
             },
             {
+                type: 'collection',
                 method: 'insertMany',
                 collectionName: 'test_collection1',
                 documents: [{test_field: 'test_value', test_object: {test_subfield: 23}}],
             },
             {
+                type: 'collection',
                 method: 'insertMany',
                 collectionName: 'test_collection2',
                 documents: [
@@ -165,6 +168,7 @@ test('should extract insertMany commands properly', () => {
                 options: {test_option: 'test_option_value'},
             },
             {
+                type: 'collection',
                 method: 'insertMany',
                 collectionName: 'test_collection2',
                 documents: [
@@ -176,18 +180,21 @@ test('should extract insertMany commands properly', () => {
                 options: {test_option: 'test_option_value'},
             },
             {
+                type: 'collection',
                 method: 'insertMany',
                 collectionName: 'test_collection3',
                 documents: [[{test_field: 'test_value'}]],
                 options: {test_option: 'test_option_value'},
             },
             {
+                type: 'collection',
                 method: 'insertMany',
                 collectionName: 'test_collection3',
                 documents: [[{test_field: 'test_value'}]],
                 options: {test_option: 'test_option_value'},
             },
             {
+                type: 'collection',
                 method: 'insertMany',
                 collectionName: 'test_collection4',
                 documents: [
@@ -196,6 +203,7 @@ test('should extract insertMany commands properly', () => {
                 ],
             },
             {
+                type: 'collection',
                 method: 'insertMany',
                 collectionName: 'test_collection4',
                 documents: [

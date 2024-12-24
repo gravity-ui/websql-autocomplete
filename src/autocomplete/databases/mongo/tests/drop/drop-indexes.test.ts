@@ -48,14 +48,17 @@ test('should extract dropIndexes commands properly', () => {
         commands: [
             {
                 collectionName: 'test_collection',
+                type: 'collection',
                 method: 'dropIndexes',
             },
             {
                 collectionName: 'test_collection',
+                type: 'collection',
                 method: 'dropIndexes',
             },
             {
                 collectionName: 'test_collection',
+                type: 'collection',
                 method: 'dropIndexes',
                 options: {
                     test_option: 'test_value',
@@ -63,6 +66,7 @@ test('should extract dropIndexes commands properly', () => {
             },
             {
                 collectionName: 'test_collection',
+                type: 'collection',
                 method: 'dropIndexes',
                 options: {
                     test_option: 'test_value',

@@ -197,6 +197,7 @@ test('should extract updateOne commands properly', () => {
                 filter: {
                     test_field: 'test_value',
                 },
+                type: 'collection',
                 method: 'updateOne',
                 updateParameters: [
                     {
@@ -212,6 +213,7 @@ test('should extract updateOne commands properly', () => {
                 filter: {
                     test_field: 'test_value',
                 },
+                type: 'collection',
                 method: 'updateOne',
                 updateParameters: [
                     {
@@ -227,6 +229,7 @@ test('should extract updateOne commands properly', () => {
                 filter: {
                     test_field: 'test_value',
                 },
+                type: 'collection',
                 method: 'updateOne',
                 options: {
                     test_option: 'test_option_value',
@@ -251,6 +254,7 @@ test('should extract updateOne commands properly', () => {
                 filter: {
                     test_field: 'test_value',
                 },
+                type: 'collection',
                 method: 'updateOne',
                 options: {
                     test_option: 'test_option_value',
@@ -275,6 +279,7 @@ test('should extract updateOne commands properly', () => {
                 filter: {
                     test_field: 'test_value',
                 },
+                type: 'collection',
                 method: 'updateOne',
                 options: {
                     test_option: 'test_option_value',
@@ -288,6 +293,7 @@ test('should extract updateOne commands properly', () => {
                 filter: {
                     test_field: 'test_value',
                 },
+                type: 'collection',
                 method: 'updateOne',
                 options: {
                     test_option: 'test_option_value',

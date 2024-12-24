@@ -159,6 +159,7 @@ test('should extract find commands properly', () => {
     expect(result).toEqual({
         commands: [
             {
+                type: 'collection',
                 method: 'find',
                 modifiers: [
                     {method: 'skip', parameters: 1},
@@ -180,6 +181,7 @@ test('should extract find commands properly', () => {
                 parameters: {test_field: 'test_value', test_object: {test_subfield: 1}},
             },
             {
+                type: 'collection',
                 method: 'find',
                 modifiers: [
                     {method: 'skip', parameters: 1},
@@ -201,6 +203,7 @@ test('should extract find commands properly', () => {
                 parameters: {test_field: 'test_value', test_object: {test_subfield: 1}},
             },
             {
+                type: 'collection',
                 method: 'find',
                 modifiers: [],
                 collectionName: 'test_collection2',
@@ -208,6 +211,7 @@ test('should extract find commands properly', () => {
                 explain: {},
             },
             {
+                type: 'collection',
                 method: 'find',
                 modifiers: [],
                 collectionName: 'test_collection2',
@@ -215,6 +219,7 @@ test('should extract find commands properly', () => {
                 explain: {},
             },
             {
+                type: 'collection',
                 method: 'find',
                 modifiers: [],
                 collectionName: 'test_collection4',
@@ -224,6 +229,7 @@ test('should extract find commands properly', () => {
                 },
             },
             {
+                type: 'collection',
                 method: 'find',
                 modifiers: [],
                 collectionName: 'test_collection4',
@@ -233,6 +239,7 @@ test('should extract find commands properly', () => {
                 },
             },
             {
+                type: 'collection',
                 method: 'find',
                 modifiers: [],
                 collectionName: 'test_collection5',
@@ -241,6 +248,7 @@ test('should extract find commands properly', () => {
                 },
             },
             {
+                type: 'collection',
                 method: 'find',
                 modifiers: [],
                 collectionName: 'test_collection5',
@@ -249,6 +257,7 @@ test('should extract find commands properly', () => {
                 },
             },
             {
+                type: 'collection',
                 method: 'find',
                 modifiers: [],
                 collectionName: 'test_collection6',
@@ -257,6 +266,7 @@ test('should extract find commands properly', () => {
                 },
             },
             {
+                type: 'collection',
                 method: 'find',
                 modifiers: [],
                 collectionName: 'test_collection6',
@@ -265,6 +275,7 @@ test('should extract find commands properly', () => {
                 },
             },
             {
+                type: 'collection',
                 method: 'find',
                 modifiers: [],
                 collectionName: 'test_collection7',
@@ -275,6 +286,7 @@ test('should extract find commands properly', () => {
                 },
             },
             {
+                type: 'collection',
                 method: 'find',
                 modifiers: [],
                 collectionName: 'test_collection7',
@@ -285,6 +297,7 @@ test('should extract find commands properly', () => {
                 },
             },
             {
+                type: 'collection',
                 method: 'find',
                 modifiers: [],
                 collectionName: 'test_collection8',
@@ -292,6 +305,7 @@ test('should extract find commands properly', () => {
                 options: {test_find_option_field: 'test_find_option_value'},
             },
             {
+                type: 'collection',
                 method: 'find',
                 modifiers: [],
                 collectionName: 'test_collection8',

@@ -123,34 +123,40 @@ test('should extract insertOne commands properly', () => {
     expect(result).toEqual({
         commands: [
             {
+                type: 'collection',
                 method: 'insertOne',
                 collectionName: 'test_collection1',
                 document: {test_field: 'test_value', test_object: {test_subfield: 23}},
             },
             {
+                type: 'collection',
                 method: 'insertOne',
                 collectionName: 'test_collection1',
                 document: {test_field: 'test_value', test_object: {test_subfield: 23}},
             },
             {
+                type: 'collection',
                 method: 'insertOne',
                 collectionName: 'test_collection2',
                 document: {test_field: 'test_value'},
                 options: {test_option: 'test_option_value'},
             },
             {
+                type: 'collection',
                 method: 'insertOne',
                 collectionName: 'test_collection2',
                 document: {test_field: 'test_value'},
                 options: {test_option: 'test_option_value'},
             },
             {
+                type: 'collection',
                 method: 'insertOne',
                 collectionName: 'test_collection3',
                 document: [{test_field: 'test_value'}],
                 options: {test_option: 'test_option_value'},
             },
             {
+                type: 'collection',
                 method: 'insertOne',
                 collectionName: 'test_collection3',
                 document: [{test_field: 'test_value'}],

@@ -90,6 +90,7 @@ test('should extract deleteMany commands properly', () => {
         commands: [
             {
                 collectionName: 'test_collection',
+                type: 'collection',
                 method: 'deleteMany',
                 filter: {
                     test_field: 'test_value',
@@ -97,6 +98,7 @@ test('should extract deleteMany commands properly', () => {
             },
             {
                 collectionName: 'test_collection',
+                type: 'collection',
                 method: 'deleteMany',
                 filter: {
                     test_field: 'test_value',
@@ -104,16 +106,7 @@ test('should extract deleteMany commands properly', () => {
             },
             {
                 collectionName: 'test_collection',
-                method: 'deleteMany',
-                filter: {
-                    test_field: 'test_value',
-                },
-                options: {
-                    test_option: 'test_value',
-                },
-            },
-            {
-                collectionName: 'test_collection',
+                type: 'collection',
                 method: 'deleteMany',
                 filter: {
                     test_field: 'test_value',
@@ -124,10 +117,23 @@ test('should extract deleteMany commands properly', () => {
             },
             {
                 collectionName: 'test_collection',
+                type: 'collection',
+                method: 'deleteMany',
+                filter: {
+                    test_field: 'test_value',
+                },
+                options: {
+                    test_option: 'test_value',
+                },
+            },
+            {
+                collectionName: 'test_collection',
+                type: 'collection',
                 method: 'deleteMany',
             },
             {
                 collectionName: 'test_collection',
+                type: 'collection',
                 method: 'deleteMany',
             },
         ],

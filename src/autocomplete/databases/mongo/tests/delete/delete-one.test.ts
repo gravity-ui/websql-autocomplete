@@ -73,6 +73,7 @@ test('should extract deleteOne commands properly', () => {
         commands: [
             {
                 collectionName: 'test_collection',
+                type: 'collection',
                 method: 'deleteOne',
                 filter: {
                     test_field: 'test_value',
@@ -80,6 +81,7 @@ test('should extract deleteOne commands properly', () => {
             },
             {
                 collectionName: 'test_collection',
+                type: 'collection',
                 method: 'deleteOne',
                 filter: {
                     test_field: 'test_value',
@@ -87,16 +89,7 @@ test('should extract deleteOne commands properly', () => {
             },
             {
                 collectionName: 'test_collection',
-                method: 'deleteOne',
-                filter: {
-                    test_field: 'test_value',
-                },
-                options: {
-                    test_option: 'test_value',
-                },
-            },
-            {
-                collectionName: 'test_collection',
+                type: 'collection',
                 method: 'deleteOne',
                 filter: {
                     test_field: 'test_value',
@@ -107,10 +100,23 @@ test('should extract deleteOne commands properly', () => {
             },
             {
                 collectionName: 'test_collection',
+                type: 'collection',
+                method: 'deleteOne',
+                filter: {
+                    test_field: 'test_value',
+                },
+                options: {
+                    test_option: 'test_value',
+                },
+            },
+            {
+                collectionName: 'test_collection',
+                type: 'collection',
                 method: 'deleteOne',
             },
             {
                 collectionName: 'test_collection',
+                type: 'collection',
                 method: 'deleteOne',
             },
         ],

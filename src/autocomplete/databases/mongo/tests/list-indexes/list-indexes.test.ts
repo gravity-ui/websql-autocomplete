@@ -48,14 +48,17 @@ test('should extract listIndexes commands properly', () => {
         commands: [
             {
                 collectionName: 'test_collection',
+                type: 'collection',
                 method: 'listIndexes',
             },
             {
                 collectionName: 'test_collection',
+                type: 'collection',
                 method: 'listIndexes',
             },
             {
                 collectionName: 'test_collection',
+                type: 'collection',
                 method: 'listIndexes',
                 options: {
                     test_option: 'test_value',
@@ -63,6 +66,7 @@ test('should extract listIndexes commands properly', () => {
             },
             {
                 collectionName: 'test_collection',
+                type: 'collection',
                 method: 'listIndexes',
                 options: {
                     test_option: 'test_value',

@@ -48,14 +48,17 @@ test('should extract estimatedDocumentCount commands properly', () => {
         commands: [
             {
                 collectionName: 'test_collection',
+                type: 'collection',
                 method: 'estimatedDocumentCount',
             },
             {
                 collectionName: 'test_collection',
+                type: 'collection',
                 method: 'estimatedDocumentCount',
             },
             {
                 collectionName: 'test_collection',
+                type: 'collection',
                 method: 'estimatedDocumentCount',
                 options: {
                     test_option: 'test_value',
@@ -63,6 +66,7 @@ test('should extract estimatedDocumentCount commands properly', () => {
             },
             {
                 collectionName: 'test_collection',
+                type: 'collection',
                 method: 'estimatedDocumentCount',
                 options: {
                     test_option: 'test_value',

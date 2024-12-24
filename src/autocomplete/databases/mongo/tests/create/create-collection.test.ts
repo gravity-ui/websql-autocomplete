@@ -30,10 +30,12 @@ test('should extract createCollection commands properly', () => {
         commands: [
             {
                 collectionName: 'test_collection_new_name',
+                type: 'database',
                 method: 'createCollection',
             },
             {
                 collectionName: 'test_collection_new_name',
+                type: 'database',
                 method: 'createCollection',
                 options: {
                     test_option: 'test_value',

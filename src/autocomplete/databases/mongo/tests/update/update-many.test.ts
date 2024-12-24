@@ -194,6 +194,7 @@ test('should extract updateMany commands properly', () => {
         commands: [
             {
                 collectionName: 'test_collection1',
+                type: 'collection',
                 method: 'updateMany',
                 filter: {
                     test_field: 'test_value',
@@ -209,6 +210,7 @@ test('should extract updateMany commands properly', () => {
             },
             {
                 collectionName: 'test_collection1',
+                type: 'collection',
                 method: 'updateMany',
                 filter: {
                     test_field: 'test_value',
@@ -224,6 +226,7 @@ test('should extract updateMany commands properly', () => {
             },
             {
                 collectionName: 'test_collection2',
+                type: 'collection',
                 method: 'updateMany',
                 filter: {
                     test_field: 'test_value',
@@ -248,6 +251,7 @@ test('should extract updateMany commands properly', () => {
             },
             {
                 collectionName: 'test_collection2',
+                type: 'collection',
                 method: 'updateMany',
                 filter: {
                     test_field: 'test_value',
@@ -272,6 +276,7 @@ test('should extract updateMany commands properly', () => {
             },
             {
                 collectionName: 'test_collection3',
+                type: 'collection',
                 method: 'updateMany',
                 filter: {
                     test_field: 'test_value',
@@ -285,6 +290,7 @@ test('should extract updateMany commands properly', () => {
             },
             {
                 collectionName: 'test_collection3',
+                type: 'collection',
                 method: 'updateMany',
                 filter: {
                     test_field: 'test_value',

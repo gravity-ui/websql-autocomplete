@@ -70,7 +70,15 @@ interface ExplainParameters {
     parameters?: unknown;
 }
 
-export interface FindCommand {
+interface CollectionCommandBase {
+    type: 'collection';
+}
+
+interface DatabaseCommandBase {
+    type: 'database';
+}
+
+export interface CollectionFindCommand extends CollectionCommandBase {
     method: 'find';
     collectionName: string;
     parameters?: unknown;
@@ -79,21 +87,21 @@ export interface FindCommand {
     modifiers: FindModifier[];
 }
 
-export interface FindOneCommand {
+export interface CollectionFindOneCommand extends CollectionCommandBase {
     method: 'findOne';
     collectionName: string;
     parameters?: unknown;
     options?: unknown;
 }
 
-export interface FindOneAndDeleteCommand {
+export interface CollectionFindOneAndDeleteCommand extends CollectionCommandBase {
     method: 'findOneAndDelete';
     collectionName: string;
     parameters: unknown;
     options?: unknown;
 }
 
-export interface FindOneAndReplaceCommand {
+export interface CollectionFindOneAndReplaceCommand extends CollectionCommandBase {
     method: 'findOneAndReplace';
     collectionName: string;
     parameters: unknown;
@@ -101,7 +109,7 @@ export interface FindOneAndReplaceCommand {
     options?: unknown;
 }
 
-export interface FindOneAndUpdateCommand {
+export interface CollectionFindOneAndUpdateCommand extends CollectionCommandBase {
     method: 'findOneAndUpdate';
     collectionName: string;
     parameters: unknown;
@@ -109,28 +117,28 @@ export interface FindOneAndUpdateCommand {
     options?: unknown;
 }
 
-export interface InsertOneCommand {
+export interface CollectionInsertOneCommand extends CollectionCommandBase {
     method: 'insertOne';
     collectionName: string;
     document: unknown;
     options: unknown;
 }
 
-export interface InsertManyCommand {
+export interface CollectionInsertManyCommand extends CollectionCommandBase {
     method: 'insertMany';
     collectionName: string;
     documents: unknown;
     options: unknown;
 }
 
-export interface BulkWriteCommand {
+export interface CollectionBulkWriteCommand extends CollectionCommandBase {
     method: 'bulkWrite';
     collectionName: string;
     operations: unknown;
     options?: unknown;
 }
 
-export interface UpdateOneCommand {
+export interface CollectionUpdateOneCommand extends CollectionCommandBase {
     method: 'updateOne';
     collectionName: string;
     filter: unknown;
@@ -138,7 +146,7 @@ export interface UpdateOneCommand {
     options?: unknown;
 }
 
-export interface UpdateManyCommand {
+export interface CollectionUpdateManyCommand extends CollectionCommandBase {
     method: 'updateMany';
     collectionName: string;
     filter: unknown;
@@ -146,7 +154,7 @@ export interface UpdateManyCommand {
     options?: unknown;
 }
 
-export interface ReplaceOneCommand {
+export interface CollectionReplaceOneCommand extends CollectionCommandBase {
     method: 'replaceOne';
     collectionName: string;
     filter: unknown;
@@ -154,105 +162,105 @@ export interface ReplaceOneCommand {
     options?: unknown;
 }
 
-export interface DeleteOneCommand {
+export interface CollectionDeleteOneCommand extends CollectionCommandBase {
     method: 'deleteOne';
     collectionName: string;
     filter?: unknown;
     options?: unknown;
 }
 
-export interface DeleteManyCommand {
+export interface CollectionDeleteManyCommand extends CollectionCommandBase {
     method: 'deleteMany';
     collectionName: string;
     filter?: unknown;
     options?: unknown;
 }
 
-export interface RenameCommand {
+export interface CollectionRenameCommand extends CollectionCommandBase {
     method: 'rename';
     collectionName: string;
     newName: unknown;
     options?: unknown;
 }
 
-export interface DropCommand {
+export interface CollectionDropCommand extends CollectionCommandBase {
     method: 'drop';
     collectionName: string;
     options?: unknown;
 }
 
-export interface IsCappedCommand {
+export interface CollectionIsCappedCommand extends CollectionCommandBase {
     method: 'isCapped';
     collectionName: string;
     options?: unknown;
 }
 
-export interface CreateIndexCommand {
+export interface CollectionCreateIndexCommand extends CollectionCommandBase {
     method: 'createIndex';
     collectionName: string;
     indexSpec: unknown;
     options?: unknown;
 }
 
-export interface CreateIndexesCommand {
+export interface CollectionCreateIndexesCommand extends CollectionCommandBase {
     method: 'createIndexes';
     collectionName: string;
     indexSpecs: unknown;
     options?: unknown;
 }
 
-export interface DropIndexCommand {
+export interface CollectionDropIndexCommand extends CollectionCommandBase {
     method: 'dropIndex';
     collectionName: string;
     index: unknown;
     options?: unknown;
 }
 
-export interface DropIndexesCommand {
+export interface CollectionDropIndexesCommand extends CollectionCommandBase {
     method: 'dropIndexes';
     collectionName: string;
     options?: unknown;
 }
 
-export interface ListIndexesCommand {
+export interface CollectionListIndexesCommand extends CollectionCommandBase {
     method: 'listIndexes';
     collectionName: string;
     options?: unknown;
 }
 
-export interface IndexesCommand {
+export interface CollectionIndexesCommand extends CollectionCommandBase {
     method: 'indexes';
     collectionName: string;
     options?: unknown;
 }
 
-export interface IndexExistsCommand {
+export interface CollectionIndexExistsCommand extends CollectionCommandBase {
     method: 'indexExists';
     collectionName: string;
     indexes: unknown;
     options?: unknown;
 }
 
-export interface IndexInformationCommand {
+export interface CollectionIndexInformationCommand extends CollectionCommandBase {
     method: 'indexInformation';
     collectionName: string;
     options?: unknown;
 }
 
-export interface EstimatedDocumentCountCommand {
+export interface CollectionEstimatedDocumentCountCommand extends CollectionCommandBase {
     method: 'estimatedDocumentCount';
     collectionName: string;
     options?: unknown;
 }
 
-export interface CountDocumentsCommand {
+export interface CollectionCountDocumentsCommand extends CollectionCommandBase {
     method: 'countDocuments';
     collectionName: string;
     filter?: unknown;
     options?: unknown;
 }
 
-export interface DistinctCommand {
+export interface CollectionDistinctCommand extends CollectionCommandBase {
     method: 'distinct';
     collectionName: string;
     key: unknown;
@@ -260,7 +268,7 @@ export interface DistinctCommand {
     options?: unknown;
 }
 
-export interface AggregateCommand {
+export interface CollectionAggregateCommand extends CollectionCommandBase {
     method: 'aggregate';
     collectionName: string;
     pipeline?: unknown;
@@ -268,49 +276,51 @@ export interface AggregateCommand {
     explain?: ExplainParameters;
 }
 
-export interface CreateCollectionCommand {
+export interface DatabaseCreateCollectionCommand extends DatabaseCommandBase {
     method: 'createCollection';
     collectionName: unknown;
     options?: unknown;
 }
 
-export interface CommandCommand {
+export interface DatabaseCommandCommand extends DatabaseCommandBase {
     method: 'command';
     document: unknown;
     options?: unknown;
 }
 
-export type Command =
-    | FindCommand
-    | FindOneCommand
-    | FindOneAndDeleteCommand
-    | FindOneAndReplaceCommand
-    | FindOneAndUpdateCommand
-    | InsertOneCommand
-    | InsertManyCommand
-    | BulkWriteCommand
-    | UpdateOneCommand
-    | UpdateManyCommand
-    | ReplaceOneCommand
-    | DeleteOneCommand
-    | DeleteManyCommand
-    | RenameCommand
-    | DropCommand
-    | IsCappedCommand
-    | CreateIndexCommand
-    | CreateIndexesCommand
-    | DropIndexCommand
-    | DropIndexesCommand
-    | ListIndexesCommand
-    | IndexesCommand
-    | IndexExistsCommand
-    | IndexInformationCommand
-    | EstimatedDocumentCountCommand
-    | CountDocumentsCommand
-    | DistinctCommand
-    | AggregateCommand
-    | CreateCollectionCommand
-    | CommandCommand;
+type DatabaseCommand = DatabaseCreateCollectionCommand | DatabaseCommandCommand;
+
+type CollectionCommand =
+    | CollectionFindCommand
+    | CollectionFindOneCommand
+    | CollectionFindOneAndDeleteCommand
+    | CollectionFindOneAndReplaceCommand
+    | CollectionFindOneAndUpdateCommand
+    | CollectionInsertOneCommand
+    | CollectionInsertManyCommand
+    | CollectionBulkWriteCommand
+    | CollectionUpdateOneCommand
+    | CollectionUpdateManyCommand
+    | CollectionReplaceOneCommand
+    | CollectionDeleteOneCommand
+    | CollectionDeleteManyCommand
+    | CollectionRenameCommand
+    | CollectionDropCommand
+    | CollectionIsCappedCommand
+    | CollectionCreateIndexCommand
+    | CollectionCreateIndexesCommand
+    | CollectionDropIndexCommand
+    | CollectionDropIndexesCommand
+    | CollectionListIndexesCommand
+    | CollectionIndexesCommand
+    | CollectionIndexExistsCommand
+    | CollectionIndexInformationCommand
+    | CollectionEstimatedDocumentCountCommand
+    | CollectionCountDocumentsCommand
+    | CollectionDistinctCommand
+    | CollectionAggregateCommand;
+
+export type Command = CollectionCommand | DatabaseCommand;
 
 export interface ParsingError {
     type: 'parsingError';
@@ -411,6 +421,7 @@ function parseDatabaseMethod(
             const options = formatJson5(methodContext.createCollectionArgument2()?.getText());
 
             return makeCommandResult({
+                type: 'database',
                 method: 'createCollection',
                 collectionName,
                 options,
@@ -422,6 +433,7 @@ function parseDatabaseMethod(
             const options = formatJson5(methodContext.commandArgument2()?.getText());
 
             return makeCommandResult({
+                type: 'database',
                 method: 'command',
                 document,
                 options,
@@ -449,6 +461,7 @@ function parseCollectionMethod(
             return makeCommandResult({
                 ...command,
                 collectionName,
+                type: 'collection',
                 method: 'find',
             });
         }
@@ -459,6 +472,7 @@ function parseCollectionMethod(
 
             return makeCommandResult({
                 collectionName,
+                type: 'collection',
                 method: 'findOne',
                 parameters,
                 options,
@@ -471,6 +485,7 @@ function parseCollectionMethod(
 
             return makeCommandResult({
                 collectionName,
+                type: 'collection',
                 method: 'findOneAndDelete',
                 parameters,
                 options,
@@ -484,6 +499,7 @@ function parseCollectionMethod(
 
             return makeCommandResult({
                 collectionName,
+                type: 'collection',
                 method: 'findOneAndReplace',
                 parameters,
                 replacement,
@@ -498,6 +514,7 @@ function parseCollectionMethod(
 
             return makeCommandResult({
                 collectionName,
+                type: 'collection',
                 method: 'findOneAndUpdate',
                 parameters,
                 newValues,
@@ -509,14 +526,26 @@ function parseCollectionMethod(
             const document = formatJson5(methodContext.insertOneArgument1().getText());
             const options = formatJson5(methodContext.insertOneArgument2()?.getText());
 
-            return makeCommandResult({collectionName, method: 'insertOne', document, options});
+            return makeCommandResult({
+                collectionName,
+                type: 'collection',
+                method: 'insertOne',
+                document,
+                options,
+            });
         }
 
         if (methodContext instanceof InsertManyMethodContext) {
             const documents = formatJson5(methodContext.insertManyArgument1().getText());
             const options = formatJson5(methodContext.insertManyArgument2()?.getText());
 
-            return makeCommandResult({collectionName, method: 'insertMany', documents, options});
+            return makeCommandResult({
+                collectionName,
+                type: 'collection',
+                method: 'insertMany',
+                documents,
+                options,
+            });
         }
 
         if (methodContext instanceof BulkWriteMethodContext) {
@@ -525,6 +554,7 @@ function parseCollectionMethod(
 
             return makeCommandResult({
                 collectionName,
+                type: 'collection',
                 method: 'bulkWrite',
                 operations,
                 options,
@@ -538,6 +568,7 @@ function parseCollectionMethod(
 
             return makeCommandResult({
                 collectionName,
+                type: 'collection',
                 method: 'updateOne',
                 filter,
                 updateParameters,
@@ -552,6 +583,7 @@ function parseCollectionMethod(
 
             return makeCommandResult({
                 collectionName,
+                type: 'collection',
                 method: 'updateMany',
                 filter,
                 updateParameters,
@@ -566,6 +598,7 @@ function parseCollectionMethod(
 
             return makeCommandResult({
                 collectionName,
+                type: 'collection',
                 method: 'replaceOne',
                 filter,
                 replacement,
@@ -579,6 +612,7 @@ function parseCollectionMethod(
 
             return makeCommandResult({
                 collectionName,
+                type: 'collection',
                 method: 'deleteOne',
                 filter,
                 options,
@@ -591,6 +625,7 @@ function parseCollectionMethod(
 
             return makeCommandResult({
                 collectionName,
+                type: 'collection',
                 method: 'deleteMany',
                 filter,
                 options,
@@ -603,6 +638,7 @@ function parseCollectionMethod(
 
             return makeCommandResult({
                 collectionName,
+                type: 'collection',
                 method: 'rename',
                 newName,
                 options,
@@ -614,6 +650,7 @@ function parseCollectionMethod(
 
             return makeCommandResult({
                 collectionName,
+                type: 'collection',
                 method: 'drop',
                 options,
             });
@@ -624,6 +661,7 @@ function parseCollectionMethod(
 
             return makeCommandResult({
                 collectionName,
+                type: 'collection',
                 method: 'isCapped',
                 options,
             });
@@ -635,6 +673,7 @@ function parseCollectionMethod(
 
             return makeCommandResult({
                 collectionName,
+                type: 'collection',
                 method: 'createIndex',
                 indexSpec,
                 options,
@@ -647,6 +686,7 @@ function parseCollectionMethod(
 
             return makeCommandResult({
                 collectionName,
+                type: 'collection',
                 method: 'createIndexes',
                 indexSpecs,
                 options,
@@ -659,6 +699,7 @@ function parseCollectionMethod(
 
             return makeCommandResult({
                 collectionName,
+                type: 'collection',
                 method: 'dropIndex',
                 index,
                 options,
@@ -670,6 +711,7 @@ function parseCollectionMethod(
 
             return makeCommandResult({
                 collectionName,
+                type: 'collection',
                 method: 'dropIndexes',
                 options,
             });
@@ -680,6 +722,7 @@ function parseCollectionMethod(
 
             return makeCommandResult({
                 collectionName,
+                type: 'collection',
                 method: 'listIndexes',
                 options,
             });
@@ -690,6 +733,7 @@ function parseCollectionMethod(
 
             return makeCommandResult({
                 collectionName,
+                type: 'collection',
                 method: 'indexes',
                 options,
             });
@@ -701,6 +745,7 @@ function parseCollectionMethod(
 
             return makeCommandResult({
                 collectionName,
+                type: 'collection',
                 method: 'indexExists',
                 indexes,
                 options,
@@ -712,6 +757,7 @@ function parseCollectionMethod(
 
             return makeCommandResult({
                 collectionName,
+                type: 'collection',
                 method: 'indexInformation',
                 options,
             });
@@ -722,6 +768,7 @@ function parseCollectionMethod(
 
             return makeCommandResult({
                 collectionName,
+                type: 'collection',
                 method: 'estimatedDocumentCount',
                 options,
             });
@@ -733,6 +780,7 @@ function parseCollectionMethod(
 
             return makeCommandResult({
                 collectionName,
+                type: 'collection',
                 method: 'countDocuments',
                 filter,
                 options,
@@ -746,6 +794,7 @@ function parseCollectionMethod(
 
             return makeCommandResult({
                 collectionName,
+                type: 'collection',
                 method: 'distinct',
                 key,
                 filter,
@@ -759,7 +808,7 @@ function parseCollectionMethod(
 
             const explainMethodContext = methodContext.explainMethod();
 
-            let explain: AggregateCommand['explain'] | undefined;
+            let explain: CollectionAggregateCommand['explain'] | undefined;
             if (explainMethodContext) {
                 const explainParameters = formatJson5(
                     explainMethodContext.explainMethodArgument()?.getText(),
@@ -769,6 +818,7 @@ function parseCollectionMethod(
 
             return makeCommandResult({
                 collectionName,
+                type: 'collection',
                 method: 'aggregate',
                 pipeline,
                 options,
@@ -819,7 +869,7 @@ function isParsingError(error: unknown): error is ParsingError {
 
 function parseFindMethodContext(
     context: FindMethodContext,
-): Pick<FindCommand, 'parameters' | 'modifiers' | 'explain' | 'options'> {
+): Pick<CollectionFindCommand, 'parameters' | 'modifiers' | 'explain' | 'options'> {
     const findParameters = formatJson5(context.findMethodArgument1()?.getText());
     const findOptions = formatJson5(context.findMethodArgument2()?.getText());
 
@@ -828,7 +878,7 @@ function parseFindMethodContext(
 
     const explainMethodContext = context.explainMethod();
 
-    let explain: FindCommand['explain'] | undefined;
+    let explain: CollectionFindCommand['explain'] | undefined;
     if (explainMethodContext) {
         const explainParameters = formatJson5(
             explainMethodContext.explainMethodArgument()?.getText(),

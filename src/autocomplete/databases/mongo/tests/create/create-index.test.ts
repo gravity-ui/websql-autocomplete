@@ -100,16 +100,19 @@ test('should extract createIndex commands properly', () => {
         commands: [
             {
                 collectionName: 'test_collection',
+                type: 'collection',
                 method: 'createIndex',
                 indexSpec: 'test_index',
             },
             {
                 collectionName: 'test_collection',
+                type: 'collection',
                 method: 'createIndex',
                 indexSpec: 'test_index',
             },
             {
                 collectionName: 'test_collection',
+                type: 'collection',
                 method: 'createIndex',
                 indexSpec: [
                     ['test_index_1', -1],
@@ -118,6 +121,7 @@ test('should extract createIndex commands properly', () => {
             },
             {
                 collectionName: 'test_collection',
+                type: 'collection',
                 method: 'createIndex',
                 indexSpec: [
                     ['test_index_1', -1],
@@ -126,6 +130,7 @@ test('should extract createIndex commands properly', () => {
             },
             {
                 collectionName: 'test_collection',
+                type: 'collection',
                 method: 'createIndex',
                 indexSpec: {
                     test_index_1: -1,
@@ -134,6 +139,7 @@ test('should extract createIndex commands properly', () => {
             },
             {
                 collectionName: 'test_collection',
+                type: 'collection',
                 method: 'createIndex',
                 indexSpec: {
                     test_index_1: -1,
@@ -142,6 +148,7 @@ test('should extract createIndex commands properly', () => {
             },
             {
                 collectionName: 'test_collection',
+                type: 'collection',
                 method: 'createIndex',
                 indexSpec: {
                     test_index_1: -1,
@@ -153,6 +160,7 @@ test('should extract createIndex commands properly', () => {
             },
             {
                 collectionName: 'test_collection',
+                type: 'collection',
                 method: 'createIndex',
                 indexSpec: {
                     test_index_1: -1,

@@ -53,16 +53,19 @@ test('should extract rename commands properly', () => {
         commands: [
             {
                 collectionName: 'test_collection',
+                type: 'collection',
                 method: 'rename',
                 newName: 'test_collection_new_name',
             },
             {
                 collectionName: 'test_collection',
+                type: 'collection',
                 method: 'rename',
                 newName: 'test_collection_new_name',
             },
             {
                 collectionName: 'test_collection',
+                type: 'collection',
                 method: 'rename',
                 newName: 'test_collection_new_name',
                 options: {
@@ -71,6 +74,7 @@ test('should extract rename commands properly', () => {
             },
             {
                 collectionName: 'test_collection',
+                type: 'collection',
                 method: 'rename',
                 newName: 'test_collection_new_name',
                 options: {

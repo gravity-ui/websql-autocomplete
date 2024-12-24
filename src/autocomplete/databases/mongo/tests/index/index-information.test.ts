@@ -48,14 +48,17 @@ test('should extract indexInformation commands properly', () => {
         commands: [
             {
                 collectionName: 'test_collection',
+                type: 'collection',
                 method: 'indexInformation',
             },
             {
                 collectionName: 'test_collection',
+                type: 'collection',
                 method: 'indexInformation',
             },
             {
                 collectionName: 'test_collection',
+                type: 'collection',
                 method: 'indexInformation',
                 options: {
                     test_option: 'test_value',
@@ -63,6 +66,7 @@ test('should extract indexInformation commands properly', () => {
             },
             {
                 collectionName: 'test_collection',
+                type: 'collection',
                 method: 'indexInformation',
                 options: {
                     test_option: 'test_value',

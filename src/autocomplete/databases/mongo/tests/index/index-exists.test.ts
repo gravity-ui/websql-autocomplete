@@ -52,16 +52,19 @@ test('should extract indexExists commands properly', () => {
         commands: [
             {
                 collectionName: 'test_collection',
+                type: 'collection',
                 method: 'indexExists',
                 indexes: 'test_index',
             },
             {
                 collectionName: 'test_collection',
+                type: 'collection',
                 method: 'indexExists',
                 indexes: 'test_index',
             },
             {
                 collectionName: 'test_collection',
+                type: 'collection',
                 method: 'indexExists',
                 indexes: ['test_index1', 'test_index2', 'test_index3'],
                 options: {
@@ -70,6 +73,7 @@ test('should extract indexExists commands properly', () => {
             },
             {
                 collectionName: 'test_collection',
+                type: 'collection',
                 method: 'indexExists',
                 indexes: ['test_index1', 'test_index2', 'test_index3'],
                 options: {

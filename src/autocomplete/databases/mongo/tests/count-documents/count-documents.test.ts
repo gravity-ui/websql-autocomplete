@@ -60,14 +60,17 @@ test('should extract countDocuments commands properly', () => {
         commands: [
             {
                 collectionName: 'test_collection',
+                type: 'collection',
                 method: 'countDocuments',
             },
             {
                 collectionName: 'test_collection',
+                type: 'collection',
                 method: 'countDocuments',
             },
             {
                 collectionName: 'test_collection',
+                type: 'collection',
                 method: 'countDocuments',
                 filter: {
                     test_filter_option: 'test_value',
@@ -78,6 +81,7 @@ test('should extract countDocuments commands properly', () => {
             },
             {
                 collectionName: 'test_collection',
+                type: 'collection',
                 method: 'countDocuments',
                 filter: {
                     test_filter_option: 'test_value',

@@ -228,31 +228,17 @@ test('should extract aggregate commands properly', () => {
         commands: [
             {
                 collectionName: 'test_collection',
+                type: 'collection',
                 method: 'aggregate',
             },
             {
                 collectionName: 'test_collection',
+                type: 'collection',
                 method: 'aggregate',
             },
             {
                 collectionName: 'test_collection',
-                method: 'aggregate',
-                pipeline: [
-                    {
-                        $limit: 10,
-                    },
-                    {
-                        $sort: {
-                            test_field: -1,
-                        },
-                    },
-                ],
-                options: {
-                    test_option: 'test_value',
-                },
-            },
-            {
-                collectionName: 'test_collection',
+                type: 'collection',
                 method: 'aggregate',
                 pipeline: [
                     {
@@ -270,6 +256,7 @@ test('should extract aggregate commands properly', () => {
             },
             {
                 collectionName: 'test_collection',
+                type: 'collection',
                 method: 'aggregate',
                 pipeline: [
                     {
@@ -284,12 +271,10 @@ test('should extract aggregate commands properly', () => {
                 options: {
                     test_option: 'test_value',
                 },
-                explain: {
-                    parameters: true,
-                },
             },
             {
                 collectionName: 'test_collection',
+                type: 'collection',
                 method: 'aggregate',
                 pipeline: [
                     {
@@ -310,6 +295,28 @@ test('should extract aggregate commands properly', () => {
             },
             {
                 collectionName: 'test_collection',
+                type: 'collection',
+                method: 'aggregate',
+                pipeline: [
+                    {
+                        $limit: 10,
+                    },
+                    {
+                        $sort: {
+                            test_field: -1,
+                        },
+                    },
+                ],
+                options: {
+                    test_option: 'test_value',
+                },
+                explain: {
+                    parameters: true,
+                },
+            },
+            {
+                collectionName: 'test_collection',
+                type: 'collection',
                 method: 'aggregate',
                 pipeline: [
                     {
@@ -332,6 +339,7 @@ test('should extract aggregate commands properly', () => {
             },
             {
                 collectionName: 'test_collection',
+                type: 'collection',
                 method: 'aggregate',
                 pipeline: [
                     {
@@ -354,6 +362,7 @@ test('should extract aggregate commands properly', () => {
             },
             {
                 collectionName: 'test_collection',
+                type: 'collection',
                 method: 'aggregate',
                 pipeline: [
                     {
@@ -374,6 +383,7 @@ test('should extract aggregate commands properly', () => {
             },
             {
                 collectionName: 'test_collection',
+                type: 'collection',
                 method: 'aggregate',
                 pipeline: [
                     {

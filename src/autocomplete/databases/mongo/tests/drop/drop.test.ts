@@ -49,14 +49,17 @@ test('should extract drop commands properly', () => {
         commands: [
             {
                 collectionName: 'test_collection',
+                type: 'collection',
                 method: 'drop',
             },
             {
                 collectionName: 'test_collection',
+                type: 'collection',
                 method: 'drop',
             },
             {
                 collectionName: 'test_collection',
+                type: 'collection',
                 method: 'drop',
                 options: {
                     test_option: 'test_value',
@@ -64,6 +67,7 @@ test('should extract drop commands properly', () => {
             },
             {
                 collectionName: 'test_collection',
+                type: 'collection',
                 method: 'drop',
                 options: {
                     test_option: 'test_value',

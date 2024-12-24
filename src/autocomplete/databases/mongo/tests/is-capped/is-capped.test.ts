@@ -49,14 +49,17 @@ test('should extract isCapped commands properly', () => {
         commands: [
             {
                 collectionName: 'test_collection',
+                type: 'collection',
                 method: 'isCapped',
             },
             {
                 collectionName: 'test_collection',
+                type: 'collection',
                 method: 'isCapped',
             },
             {
                 collectionName: 'test_collection',
+                type: 'collection',
                 method: 'isCapped',
                 options: {
                     test_option: 'test_value',
@@ -64,6 +67,7 @@ test('should extract isCapped commands properly', () => {
             },
             {
                 collectionName: 'test_collection',
+                type: 'collection',
                 method: 'isCapped',
                 options: {
                     test_option: 'test_value',

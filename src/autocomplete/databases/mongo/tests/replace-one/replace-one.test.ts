@@ -161,6 +161,7 @@ test('should extract replaceOne commands properly', () => {
     expect(result).toEqual({
         commands: [
             {
+                type: 'collection',
                 method: 'replaceOne',
                 collectionName: 'test_collection',
                 filter: {
@@ -171,6 +172,7 @@ test('should extract replaceOne commands properly', () => {
                 },
             },
             {
+                type: 'collection',
                 method: 'replaceOne',
                 collectionName: 'test_collection',
                 filter: {
@@ -181,6 +183,7 @@ test('should extract replaceOne commands properly', () => {
                 },
             },
             {
+                type: 'collection',
                 method: 'replaceOne',
                 collectionName: 'test_collection',
                 filter: {
@@ -196,6 +199,7 @@ test('should extract replaceOne commands properly', () => {
                 ],
             },
             {
+                type: 'collection',
                 method: 'replaceOne',
                 collectionName: 'test_collection',
                 filter: {
@@ -211,6 +215,7 @@ test('should extract replaceOne commands properly', () => {
                 ],
             },
             {
+                type: 'collection',
                 method: 'replaceOne',
                 collectionName: 'test_collection',
                 filter: {
@@ -224,6 +229,7 @@ test('should extract replaceOne commands properly', () => {
                 },
             },
             {
+                type: 'collection',
                 method: 'replaceOne',
                 collectionName: 'test_collection',
                 filter: {

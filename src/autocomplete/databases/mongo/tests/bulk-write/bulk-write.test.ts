@@ -238,6 +238,7 @@ test('should extract bulkWrite commands properly', () => {
         commands: [
             {
                 collectionName: 'test_collection1',
+                type: 'collection',
                 method: 'bulkWrite',
                 operations: [
                     {
@@ -285,6 +286,7 @@ test('should extract bulkWrite commands properly', () => {
             },
             {
                 collectionName: 'test_collection1',
+                type: 'collection',
                 method: 'bulkWrite',
                 operations: [
                     {
@@ -332,6 +334,7 @@ test('should extract bulkWrite commands properly', () => {
             },
             {
                 collectionName: 'test_collection2',
+                type: 'collection',
                 method: 'bulkWrite',
                 operations: [
                     {
@@ -382,6 +385,7 @@ test('should extract bulkWrite commands properly', () => {
             },
             {
                 collectionName: 'test_collection2',
+                type: 'collection',
                 method: 'bulkWrite',
                 operations: [
                     {
