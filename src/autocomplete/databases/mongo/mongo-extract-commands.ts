@@ -13,6 +13,8 @@ import {
     DeleteManyMethodContext,
     DeleteOneMethodContext,
     DistinctMethodContext,
+    DropCollectionMethodContext,
+    DropDatabaseMethodContext,
     DropIndexMethodContext,
     DropIndexesMethodContext,
     DropMethodContext,
@@ -32,10 +34,12 @@ import {
     InsertOneMethodContext,
     IsCappedMethodContext,
     LimitModifierContext,
+    ListCollectionsMethodContext,
     ListIndexesMethodContext,
     MaxModifierContext,
     MinModifierContext,
     MongoParser,
+    RenameCollectionMethodContext,
     RenameMethodContext,
     ReplaceOneMethodContext,
     ReturnKeyModifierContext,
@@ -292,10 +296,38 @@ export interface DatabaseAggregateCommand
     extends DatabaseCommandBase,
         Omit<CollectionAggregateCommand, 'collectionName' | 'type'> {}
 
+export interface DatabaseListCollectionsCommand extends DatabaseCommandBase {
+    method: 'listCollections';
+    filter?: unknown;
+    options?: unknown;
+}
+
+export interface DatabaseRenameCollectionCommand extends DatabaseCommandBase {
+    method: 'renameCollection';
+    currentName: unknown;
+    newName: unknown;
+    options?: unknown;
+}
+
+export interface DatabaseDropCollectionCommand extends DatabaseCommandBase {
+    method: 'dropCollection';
+    collectionName: unknown;
+    options?: unknown;
+}
+
+export interface DatabaseDropDatabaseCommand extends DatabaseCommandBase {
+    method: 'dropDatabase';
+    options?: unknown;
+}
+
 type DatabaseCommand =
     | DatabaseCreateCollectionCommand
     | DatabaseCommandCommand
-    | DatabaseAggregateCommand;
+    | DatabaseAggregateCommand
+    | DatabaseListCollectionsCommand
+    | DatabaseRenameCollectionCommand
+    | DatabaseDropCollectionCommand
+    | DatabaseDropDatabaseCommand;
 
 type CollectionCommand =
     | CollectionFindCommand
@@ -444,6 +476,54 @@ function parseDatabaseMethod(
                 type: 'database',
                 method: 'aggregate',
                 ...parseAggregateMethodContext(methodContext),
+            });
+        }
+
+        if (methodContext instanceof ListCollectionsMethodContext) {
+            const filter = formatJson5(methodContext.listCollectionsArgument1()?.getText());
+            const options = formatJson5(methodContext.listCollectionsArgument2()?.getText());
+
+            return makeCommandResult({
+                type: 'database',
+                method: 'listCollections',
+                filter,
+                options,
+            });
+        }
+
+        if (methodContext instanceof RenameCollectionMethodContext) {
+            const currentName = formatJson5(methodContext.renameCollectionArgument1().getText());
+            const newName = formatJson5(methodContext.renameCollectionArgument2().getText());
+            const options = formatJson5(methodContext.renameCollectionArgument3()?.getText());
+
+            return makeCommandResult({
+                type: 'database',
+                method: 'renameCollection',
+                currentName,
+                newName,
+                options,
+            });
+        }
+
+        if (methodContext instanceof DropCollectionMethodContext) {
+            const collectionName = formatJson5(methodContext.dropCollectionArgument1().getText());
+            const options = formatJson5(methodContext.dropCollectionArgument2()?.getText());
+
+            return makeCommandResult({
+                type: 'database',
+                method: 'dropCollection',
+                collectionName,
+                options,
+            });
+        }
+
+        if (methodContext instanceof DropDatabaseMethodContext) {
+            const options = formatJson5(methodContext.dropDatabaseArgument()?.getText());
+
+            return makeCommandResult({
+                type: 'database',
+                method: 'dropDatabase',
+                options,
             });
         }
     } catch (error) {

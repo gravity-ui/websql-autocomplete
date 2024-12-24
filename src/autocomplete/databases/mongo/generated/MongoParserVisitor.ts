@@ -17,6 +17,18 @@ import { CommandsContext } from "./MongoParser.js";
 import { CommandContext } from "./MongoParser.js";
 import { DatabaseOperationContext } from "./MongoParser.js";
 import { DatabaseMethodContext } from "./MongoParser.js";
+import { DropDatabaseMethodContext } from "./MongoParser.js";
+import { DropDatabaseArgumentContext } from "./MongoParser.js";
+import { DropCollectionMethodContext } from "./MongoParser.js";
+import { DropCollectionArgument1Context } from "./MongoParser.js";
+import { DropCollectionArgument2Context } from "./MongoParser.js";
+import { RenameCollectionMethodContext } from "./MongoParser.js";
+import { RenameCollectionArgument1Context } from "./MongoParser.js";
+import { RenameCollectionArgument2Context } from "./MongoParser.js";
+import { RenameCollectionArgument3Context } from "./MongoParser.js";
+import { ListCollectionsMethodContext } from "./MongoParser.js";
+import { ListCollectionsArgument1Context } from "./MongoParser.js";
+import { ListCollectionsArgument2Context } from "./MongoParser.js";
 import { CommandMethodContext } from "./MongoParser.js";
 import { CommandArgument1Context } from "./MongoParser.js";
 import { CommandArgument2Context } from "./MongoParser.js";
@@ -184,6 +196,78 @@ export class MongoParserVisitor<Result> extends AbstractParseTreeVisitor<Result>
      * @return the visitor result
      */
     visitDatabaseMethod?: (ctx: DatabaseMethodContext) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.dropDatabaseMethod`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitDropDatabaseMethod?: (ctx: DropDatabaseMethodContext) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.dropDatabaseArgument`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitDropDatabaseArgument?: (ctx: DropDatabaseArgumentContext) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.dropCollectionMethod`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitDropCollectionMethod?: (ctx: DropCollectionMethodContext) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.dropCollectionArgument1`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitDropCollectionArgument1?: (ctx: DropCollectionArgument1Context) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.dropCollectionArgument2`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitDropCollectionArgument2?: (ctx: DropCollectionArgument2Context) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.renameCollectionMethod`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitRenameCollectionMethod?: (ctx: RenameCollectionMethodContext) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.renameCollectionArgument1`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitRenameCollectionArgument1?: (ctx: RenameCollectionArgument1Context) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.renameCollectionArgument2`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitRenameCollectionArgument2?: (ctx: RenameCollectionArgument2Context) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.renameCollectionArgument3`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitRenameCollectionArgument3?: (ctx: RenameCollectionArgument3Context) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.listCollectionsMethod`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitListCollectionsMethod?: (ctx: ListCollectionsMethodContext) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.listCollectionsArgument1`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitListCollectionsArgument1?: (ctx: ListCollectionsArgument1Context) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.listCollectionsArgument2`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitListCollectionsArgument2?: (ctx: ListCollectionsArgument2Context) => Result;
     /**
      * Visit a parse tree produced by `MongoParser.commandMethod`.
      * @param ctx the parse tree

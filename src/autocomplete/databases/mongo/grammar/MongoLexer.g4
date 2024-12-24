@@ -51,6 +51,10 @@ AGGREGATE                : 'aggregate';
 COLLECTION               : 'collection';
 CREATE_COLLECTION        : 'createCollection';
 COMMAND                  : 'command';
+LIST_COLLECTIONS         : 'listCollections';
+RENAME_COLLECTION        : 'renameCollection';
+DROP_COLLECTION          : 'dropCollection';
+DROP_DATABASE            : 'dropDatabase';
 
 LBRACKET  : '[';
 RBRACKET  : ']';

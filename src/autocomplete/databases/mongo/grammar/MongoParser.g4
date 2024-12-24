@@ -30,6 +30,60 @@ databaseMethod
     | createCollectionMethod
     | commandMethod
     | aggregateMethod
+    | listCollectionsMethod
+    | renameCollectionMethod
+    | dropCollectionMethod
+    | dropDatabaseMethod
+    ;
+
+dropDatabaseMethod
+    : DROP_DATABASE LPAREN dropDatabaseArgument? RPAREN
+    ;
+
+dropDatabaseArgument
+    : object
+    ;
+
+dropCollectionMethod
+    : DROP_COLLECTION LPAREN dropCollectionArgument1 (COMMA dropCollectionArgument2)? RPAREN
+    ;
+
+dropCollectionArgument1
+    : STRING
+    ;
+
+dropCollectionArgument2
+    : object
+    ;
+
+renameCollectionMethod
+    : RENAME_COLLECTION LPAREN renameCollectionArgument1 COMMA renameCollectionArgument2 (
+        COMMA renameCollectionArgument3
+    )? RPAREN
+    ;
+
+renameCollectionArgument1
+    : STRING
+    ;
+
+renameCollectionArgument2
+    : STRING
+    ;
+
+renameCollectionArgument3
+    : object
+    ;
+
+listCollectionsMethod
+    : LIST_COLLECTIONS LPAREN (listCollectionsArgument1 (COMMA listCollectionsArgument2))? RPAREN
+    ;
+
+listCollectionsArgument1
+    : object
+    ;
+
+listCollectionsArgument2
+    : object
     ;
 
 commandMethod
@@ -593,6 +647,10 @@ reservedKeyword
     | COLLECTION
     | CREATE_COLLECTION
     | COMMAND
+    | LIST_COLLECTIONS
+    | RENAME_COLLECTION
+    | DROP_COLLECTION
+    | DROP_DATABASE
     ;
 
 // JSON5 rules
