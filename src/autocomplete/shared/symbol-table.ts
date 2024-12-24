@@ -5,38 +5,41 @@ import {ParseTree} from 'antlr4ng';
 export class TableSymbol extends c3.TypedSymbol {
     name: string;
     alias: string | undefined;
+    columns?: string[];
 
-    constructor(name: string, alias?: string, type?: c3.IType) {
+    constructor(name: string, alias?: string, columns?: string[], type?: c3.IType) {
         super(name, type);
 
         this.name = name;
         this.alias = alias;
+        this.columns = columns;
     }
 }
 
-function getUniqueTableSuggestions(symbols: TableSymbol[] = []): Table[] {
+export function getUniqueTableSuggestions(symbols: TableSymbol[] = []): Table[] {
     const suggestionsMap = symbols.reduce(
         (acc, table) => {
-            const aliases = acc[table.name] ?? new Set();
+            const aliases = acc[table.name]?.aliases ?? new Set();
             if (table.alias) {
                 aliases.add(table.alias);
             }
 
             // It's fine to assign to accumulator here
             // eslint-disable-next-line no-param-reassign
-            acc[table.name] = aliases;
+            acc[table.name] = {aliases, columns: table.columns};
             return acc;
         },
-        {} as Record<string, Set<string>>,
+        {} as Record<string, {aliases: Set<string>; columns?: string[]}>,
     );
     return Object.keys(suggestionsMap).reduce((acc, tableName) => {
-        const aliases = suggestionsMap[tableName] as Set<string>;
-        if (aliases.size > 0) {
+        const aliases = suggestionsMap[tableName]?.aliases;
+        const columns = suggestionsMap[tableName]?.columns;
+        if (aliases && aliases.size > 0) {
             aliases?.forEach((alias) => {
-                acc.push({name: tableName, alias});
+                acc.push({name: tableName, alias, columns});
             });
         } else {
-            acc.push({name: tableName});
+            acc.push({name: tableName, columns});
         }
 
         return acc;

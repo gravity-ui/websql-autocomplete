@@ -314,7 +314,7 @@ test('should suggest tables with inline comment', () => {
         '$foo = "bar"; SELECT * FROM | --SELECT * FROM test_table',
     );
     expect(autocompleteResult.suggestEntity).toEqual(['table', 'view', 'externalTable']);
-    expect(autocompleteResult.suggestVariables).toEqual(['foo']);
+    expect(autocompleteResult.suggestVariables).toEqual([{name: 'foo'}]);
 });
 
 test('should suggest tables with multiline comment', () => {
@@ -335,7 +335,7 @@ test('should suggest variables name for column', () => {
     const autocompleteResult = parseYqlQueryWithCursor(
         'DECLARE $prefix AS String; SELECT | FROM test_table',
     );
-    const variablesSuggestions = ['prefix'];
+    const variablesSuggestions = [{name: 'prefix'}];
 
     expect(autocompleteResult.suggestVariables).toEqual(variablesSuggestions);
 });
@@ -343,37 +343,40 @@ test('should suggest variables name for table name', () => {
     const autocompleteResult = parseYqlQueryWithCursor(
         'DECLARE $prefix AS String; SELECT * FROM |',
     );
-    const variablesSuggestions = ['prefix'];
+    const variablesSuggestions = [{name: 'prefix'}];
 
     expect(autocompleteResult.suggestVariables).toEqual(variablesSuggestions);
 });
 test('should suggest variables name as columns', () => {
     const autocompleteResult = parseYqlQueryWithCursor('$prefix, $foo = (2, 3); SELECT |');
-    const variablesSuggestions = ['prefix', 'foo'];
+    const variablesSuggestions = [{name: 'prefix'}, {name: 'foo'}];
 
     expect(autocompleteResult.suggestVariables).toEqual(variablesSuggestions);
 });
+
 test('should suggest variables name in global scope', () => {
     const autocompleteResult = parseYqlQueryWithCursor(
         '$test = 1; DEFINE SUBQUERY $foo($name) AS $baz = 1;\n select * from test_table where bar == $name AND baz == $baz END DEFINE; $baz2 = 2; select |',
     );
-    const variablesSuggestions = ['test', 'foo', 'baz2'];
+    const variablesSuggestions = [{name: 'test'}, {name: 'foo'}, {name: 'baz2'}];
 
     expect(autocompleteResult.suggestVariables).toEqual(variablesSuggestions);
 });
+
 test('should suggest variables name in local scope', () => {
     const autocompleteResult = parseYqlQueryWithCursor(
         '$test = 1; DEFINE SUBQUERY $foo($name) AS $baz = 1;\n select | from test_table where bar == $name AND baz == $baz END DEFINE; $baz2 = 2; select ',
     );
-    const variablesSuggestions = ['name', 'baz'];
+    const variablesSuggestions = [{name: 'name'}, {name: 'baz'}];
 
     expect(autocompleteResult.suggestVariables).toEqual(variablesSuggestions);
 });
+
 test('should suggest variables inside lambda', () => {
     const autocompleteResult = parseYqlQueryWithCursor(
         '$f = ($y, $z) -> { $prefix = "x"; RETURN | ;}; select ',
     );
-    const variablesSuggestions = ['y', 'z', 'prefix'];
+    const variablesSuggestions = [{name: 'y'}, {name: 'z'}, {name: 'prefix'}];
 
     expect(autocompleteResult.suggestVariables).toEqual(variablesSuggestions);
 });
@@ -382,7 +385,20 @@ test('should suggest variables outside lambda', () => {
     const autocompleteResult = parseYqlQueryWithCursor(
         '$foo = "a"; \n$f = ($y) -> { $prefix = "x"; RETURN $prefix;}; select |',
     );
-    const variablesSuggestions = ['foo', 'f'];
+    const variablesSuggestions = [{name: 'foo'}, {name: 'f'}];
 
     expect(autocompleteResult.suggestVariables).toEqual(variablesSuggestions);
+});
+
+test('should suggest columns for subquery in variable', () => {
+    const autocompleteResult = parseYqlQueryWithCursor(
+        '$foo = select bar from baz; select | from $foo',
+    );
+    const variablesSuggestions = [{name: 'foo', value: {columns: ['bar']}}];
+    const columnSuggestions: YQLColumnsSuggestion = {
+        tables: [{name: '$foo'}],
+        all: true,
+    };
+    expect(autocompleteResult.suggestVariables).toEqual(variablesSuggestions);
+    expect(autocompleteResult.suggestColumns).toEqual(columnSuggestions);
 });

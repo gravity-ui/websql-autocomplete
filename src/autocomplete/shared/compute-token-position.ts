@@ -42,8 +42,10 @@ function getTokenContext(
 
     if (
         token.line === cursorPosition.line &&
-        start <= cursorPosition.column &&
-        stop >= cursorPosition.column
+        //to get context correctly we need to take previous token i.e.
+        // "select | from" - need to get match with `select` token
+        start <= cursorPosition.column - 2 &&
+        stop >= cursorPosition.column - 2
     ) {
         let index = token.tokenIndex;
         if (identifierTokenTypes.includes(token.type)) {
