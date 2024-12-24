@@ -1,4 +1,4 @@
-import {extractMongoCommandsFromQuery, parseMongoQueryWithoutCursor} from '../..';
+import {Command, extractMongoCommandsFromQuery, parseMongoQueryWithoutCursor} from '../..';
 
 test('should not report errors on deleteOne statement', () => {
     const autocompleteResult = parseMongoQueryWithoutCursor(`
@@ -69,56 +69,55 @@ test('should extract deleteOne commands properly', () => {
       db.collection('test_collection').deleteOne();
   `);
 
-    expect(result).toEqual({
-        commands: [
-            {
-                collectionName: 'test_collection',
-                type: 'collection',
-                method: 'deleteOne',
-                filter: {
-                    test_field: 'test_value',
-                },
+    const commands: Command[] = [
+        {
+            collectionName: 'test_collection',
+            type: 'collection',
+            method: 'deleteOne',
+            filter: {
+                test_field: 'test_value',
             },
-            {
-                collectionName: 'test_collection',
-                type: 'collection',
-                method: 'deleteOne',
-                filter: {
-                    test_field: 'test_value',
-                },
+        },
+        {
+            collectionName: 'test_collection',
+            type: 'collection',
+            method: 'deleteOne',
+            filter: {
+                test_field: 'test_value',
             },
-            {
-                collectionName: 'test_collection',
-                type: 'collection',
-                method: 'deleteOne',
-                filter: {
-                    test_field: 'test_value',
-                },
-                options: {
-                    test_option: 'test_value',
-                },
+        },
+        {
+            collectionName: 'test_collection',
+            type: 'collection',
+            method: 'deleteOne',
+            filter: {
+                test_field: 'test_value',
             },
-            {
-                collectionName: 'test_collection',
-                type: 'collection',
-                method: 'deleteOne',
-                filter: {
-                    test_field: 'test_value',
-                },
-                options: {
-                    test_option: 'test_value',
-                },
+            options: {
+                test_option: 'test_value',
             },
-            {
-                collectionName: 'test_collection',
-                type: 'collection',
-                method: 'deleteOne',
+        },
+        {
+            collectionName: 'test_collection',
+            type: 'collection',
+            method: 'deleteOne',
+            filter: {
+                test_field: 'test_value',
             },
-            {
-                collectionName: 'test_collection',
-                type: 'collection',
-                method: 'deleteOne',
+            options: {
+                test_option: 'test_value',
             },
-        ],
-    });
+        },
+        {
+            collectionName: 'test_collection',
+            type: 'collection',
+            method: 'deleteOne',
+        },
+        {
+            collectionName: 'test_collection',
+            type: 'collection',
+            method: 'deleteOne',
+        },
+    ];
+    expect(result).toEqual({commands});
 });

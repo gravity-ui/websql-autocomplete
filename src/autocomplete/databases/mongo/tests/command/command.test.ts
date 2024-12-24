@@ -1,4 +1,4 @@
-import {extractMongoCommandsFromQuery, parseMongoQueryWithoutCursor} from '../..';
+import {Command, extractMongoCommandsFromQuery, parseMongoQueryWithoutCursor} from '../..';
 
 test('should not report errors on command statement', () => {
     const autocompleteResult = parseMongoQueryWithoutCursor(`
@@ -26,21 +26,20 @@ test('should extract command commands properly', () => {
         });
     `);
 
-    expect(result).toEqual({
-        commands: [
-            {
-                type: 'database',
-                method: 'command',
-                document: {ping: 1},
+    const commands: Command[] = [
+        {
+            type: 'database',
+            method: 'command',
+            document: {ping: 1},
+        },
+        {
+            type: 'database',
+            method: 'command',
+            document: {ping: 1},
+            options: {
+                test_option: 'test_value',
             },
-            {
-                type: 'database',
-                method: 'command',
-                document: {ping: 1},
-                options: {
-                    test_option: 'test_value',
-                },
-            },
-        ],
-    });
+        },
+    ];
+    expect(result).toEqual({commands});
 });

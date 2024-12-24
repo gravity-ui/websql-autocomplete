@@ -1,4 +1,4 @@
-import {extractMongoCommandsFromQuery, parseMongoQueryWithoutCursor} from '../..';
+import {Command, extractMongoCommandsFromQuery, parseMongoQueryWithoutCursor} from '../..';
 
 test('should not report errors on findOne statement', () => {
     const autocompleteResult = parseMongoQueryWithoutCursor(`
@@ -60,44 +60,43 @@ test('should extract findOne commands properly', () => {
         );
     `);
 
-    expect(result).toEqual({
-        commands: [
-            {
-                type: 'collection',
-                method: 'findOne',
-                collectionName: 'test_collection1',
-            },
-            {
-                type: 'collection',
-                method: 'findOne',
-                collectionName: 'test_collection1',
-            },
-            {
-                type: 'collection',
-                method: 'findOne',
-                collectionName: 'test_collection2',
-                parameters: {test_field: 'test_value'},
-            },
-            {
-                type: 'collection',
-                method: 'findOne',
-                collectionName: 'test_collection2',
-                parameters: {test_field: 'test_value'},
-            },
-            {
-                type: 'collection',
-                method: 'findOne',
-                collectionName: 'test_collection3',
-                parameters: {test_field: 'test_value'},
-                options: {test_option: 'test_option_value'},
-            },
-            {
-                type: 'collection',
-                method: 'findOne',
-                collectionName: 'test_collection3',
-                parameters: {test_field: 'test_value'},
-                options: {test_option: 'test_option_value'},
-            },
-        ],
-    });
+    const commands: Command[] = [
+        {
+            type: 'collection',
+            method: 'findOne',
+            collectionName: 'test_collection1',
+        },
+        {
+            type: 'collection',
+            method: 'findOne',
+            collectionName: 'test_collection1',
+        },
+        {
+            type: 'collection',
+            method: 'findOne',
+            collectionName: 'test_collection2',
+            parameters: {test_field: 'test_value'},
+        },
+        {
+            type: 'collection',
+            method: 'findOne',
+            collectionName: 'test_collection2',
+            parameters: {test_field: 'test_value'},
+        },
+        {
+            type: 'collection',
+            method: 'findOne',
+            collectionName: 'test_collection3',
+            parameters: {test_field: 'test_value'},
+            options: {test_option: 'test_option_value'},
+        },
+        {
+            type: 'collection',
+            method: 'findOne',
+            collectionName: 'test_collection3',
+            parameters: {test_field: 'test_value'},
+            options: {test_option: 'test_option_value'},
+        },
+    ];
+    expect(result).toEqual({commands});
 });

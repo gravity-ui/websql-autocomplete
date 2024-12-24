@@ -1,4 +1,4 @@
-import {extractMongoCommandsFromQuery, parseMongoQueryWithoutCursor} from '../..';
+import {Command, extractMongoCommandsFromQuery, parseMongoQueryWithoutCursor} from '../..';
 
 test('should not report errors on countDocuments statement', () => {
     const autocompleteResult = parseMongoQueryWithoutCursor(`
@@ -56,40 +56,39 @@ test('should extract countDocuments commands properly', () => {
         );
     `);
 
-    expect(result).toEqual({
-        commands: [
-            {
-                collectionName: 'test_collection',
-                type: 'collection',
-                method: 'countDocuments',
+    const commands: Command[] = [
+        {
+            collectionName: 'test_collection',
+            type: 'collection',
+            method: 'countDocuments',
+        },
+        {
+            collectionName: 'test_collection',
+            type: 'collection',
+            method: 'countDocuments',
+        },
+        {
+            collectionName: 'test_collection',
+            type: 'collection',
+            method: 'countDocuments',
+            filter: {
+                test_filter_option: 'test_value',
             },
-            {
-                collectionName: 'test_collection',
-                type: 'collection',
-                method: 'countDocuments',
+            options: {
+                test_option: 'test_value',
             },
-            {
-                collectionName: 'test_collection',
-                type: 'collection',
-                method: 'countDocuments',
-                filter: {
-                    test_filter_option: 'test_value',
-                },
-                options: {
-                    test_option: 'test_value',
-                },
+        },
+        {
+            collectionName: 'test_collection',
+            type: 'collection',
+            method: 'countDocuments',
+            filter: {
+                test_filter_option: 'test_value',
             },
-            {
-                collectionName: 'test_collection',
-                type: 'collection',
-                method: 'countDocuments',
-                filter: {
-                    test_filter_option: 'test_value',
-                },
-                options: {
-                    test_option: 'test_value',
-                },
+            options: {
+                test_option: 'test_value',
             },
-        ],
-    });
+        },
+    ];
+    expect(result).toEqual({commands});
 });

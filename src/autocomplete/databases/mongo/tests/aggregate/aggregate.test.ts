@@ -1,4 +1,4 @@
-import {extractMongoCommandsFromQuery, parseMongoQueryWithoutCursor} from '../..';
+import {Command, extractMongoCommandsFromQuery, parseMongoQueryWithoutCursor} from '../..';
 
 test('should not report errors on aggregate statement', () => {
     const autocompleteResult = parseMongoQueryWithoutCursor(`
@@ -224,184 +224,186 @@ test('should extract aggregate commands properly', () => {
         ).explain('test_value');
     `);
 
+    const commands: Command[] = [
+        {
+            collectionName: 'test_collection',
+            type: 'collection',
+            method: 'aggregate',
+        },
+        {
+            collectionName: 'test_collection',
+            type: 'collection',
+            method: 'aggregate',
+        },
+        {
+            collectionName: 'test_collection',
+            type: 'collection',
+            method: 'aggregate',
+            pipeline: [
+                {
+                    $limit: 10,
+                },
+                {
+                    $sort: {
+                        test_field: -1,
+                    },
+                },
+            ],
+            options: {
+                test_option: 'test_value',
+            },
+        },
+        {
+            collectionName: 'test_collection',
+            type: 'collection',
+            method: 'aggregate',
+            pipeline: [
+                {
+                    $limit: 10,
+                },
+                {
+                    $sort: {
+                        test_field: -1,
+                    },
+                },
+            ],
+            options: {
+                test_option: 'test_value',
+            },
+        },
+        {
+            collectionName: 'test_collection',
+            type: 'collection',
+            method: 'aggregate',
+            pipeline: [
+                {
+                    $limit: 10,
+                },
+                {
+                    $sort: {
+                        test_field: -1,
+                    },
+                },
+            ],
+            options: {
+                test_option: 'test_value',
+            },
+            explain: {
+                parameters: true,
+            },
+        },
+        {
+            collectionName: 'test_collection',
+            type: 'collection',
+            method: 'aggregate',
+            pipeline: [
+                {
+                    $limit: 10,
+                },
+                {
+                    $sort: {
+                        test_field: -1,
+                    },
+                },
+            ],
+            options: {
+                test_option: 'test_value',
+            },
+            explain: {
+                parameters: true,
+            },
+        },
+        {
+            collectionName: 'test_collection',
+            type: 'collection',
+            method: 'aggregate',
+            pipeline: [
+                {
+                    $limit: 10,
+                },
+                {
+                    $sort: {
+                        test_field: -1,
+                    },
+                },
+            ],
+            options: {
+                test_option: 'test_value',
+            },
+            explain: {
+                parameters: {
+                    test_option: 'test_value',
+                },
+            },
+        },
+        {
+            collectionName: 'test_collection',
+            type: 'collection',
+            method: 'aggregate',
+            pipeline: [
+                {
+                    $limit: 10,
+                },
+                {
+                    $sort: {
+                        test_field: -1,
+                    },
+                },
+            ],
+            options: {
+                test_option: 'test_value',
+            },
+            explain: {
+                parameters: {
+                    test_option: 'test_value',
+                },
+            },
+        },
+        {
+            collectionName: 'test_collection',
+            type: 'collection',
+            method: 'aggregate',
+            pipeline: [
+                {
+                    $limit: 10,
+                },
+                {
+                    $sort: {
+                        test_field: -1,
+                    },
+                },
+            ],
+            options: {
+                test_option: 'test_value',
+            },
+            explain: {
+                parameters: 'test_value',
+            },
+        },
+        {
+            collectionName: 'test_collection',
+            type: 'collection',
+            method: 'aggregate',
+            pipeline: [
+                {
+                    $limit: 10,
+                },
+                {
+                    $sort: {
+                        test_field: -1,
+                    },
+                },
+            ],
+            options: {
+                test_option: 'test_value',
+            },
+            explain: {
+                parameters: 'test_value',
+            },
+        },
+    ];
+
     expect(result).toEqual({
-        commands: [
-            {
-                collectionName: 'test_collection',
-                type: 'collection',
-                method: 'aggregate',
-            },
-            {
-                collectionName: 'test_collection',
-                type: 'collection',
-                method: 'aggregate',
-            },
-            {
-                collectionName: 'test_collection',
-                type: 'collection',
-                method: 'aggregate',
-                pipeline: [
-                    {
-                        $limit: 10,
-                    },
-                    {
-                        $sort: {
-                            test_field: -1,
-                        },
-                    },
-                ],
-                options: {
-                    test_option: 'test_value',
-                },
-            },
-            {
-                collectionName: 'test_collection',
-                type: 'collection',
-                method: 'aggregate',
-                pipeline: [
-                    {
-                        $limit: 10,
-                    },
-                    {
-                        $sort: {
-                            test_field: -1,
-                        },
-                    },
-                ],
-                options: {
-                    test_option: 'test_value',
-                },
-            },
-            {
-                collectionName: 'test_collection',
-                type: 'collection',
-                method: 'aggregate',
-                pipeline: [
-                    {
-                        $limit: 10,
-                    },
-                    {
-                        $sort: {
-                            test_field: -1,
-                        },
-                    },
-                ],
-                options: {
-                    test_option: 'test_value',
-                },
-                explain: {
-                    parameters: true,
-                },
-            },
-            {
-                collectionName: 'test_collection',
-                type: 'collection',
-                method: 'aggregate',
-                pipeline: [
-                    {
-                        $limit: 10,
-                    },
-                    {
-                        $sort: {
-                            test_field: -1,
-                        },
-                    },
-                ],
-                options: {
-                    test_option: 'test_value',
-                },
-                explain: {
-                    parameters: true,
-                },
-            },
-            {
-                collectionName: 'test_collection',
-                type: 'collection',
-                method: 'aggregate',
-                pipeline: [
-                    {
-                        $limit: 10,
-                    },
-                    {
-                        $sort: {
-                            test_field: -1,
-                        },
-                    },
-                ],
-                options: {
-                    test_option: 'test_value',
-                },
-                explain: {
-                    parameters: {
-                        test_option: 'test_value',
-                    },
-                },
-            },
-            {
-                collectionName: 'test_collection',
-                type: 'collection',
-                method: 'aggregate',
-                pipeline: [
-                    {
-                        $limit: 10,
-                    },
-                    {
-                        $sort: {
-                            test_field: -1,
-                        },
-                    },
-                ],
-                options: {
-                    test_option: 'test_value',
-                },
-                explain: {
-                    parameters: {
-                        test_option: 'test_value',
-                    },
-                },
-            },
-            {
-                collectionName: 'test_collection',
-                type: 'collection',
-                method: 'aggregate',
-                pipeline: [
-                    {
-                        $limit: 10,
-                    },
-                    {
-                        $sort: {
-                            test_field: -1,
-                        },
-                    },
-                ],
-                options: {
-                    test_option: 'test_value',
-                },
-                explain: {
-                    parameters: 'test_value',
-                },
-            },
-            {
-                collectionName: 'test_collection',
-                type: 'collection',
-                method: 'aggregate',
-                pipeline: [
-                    {
-                        $limit: 10,
-                    },
-                    {
-                        $sort: {
-                            test_field: -1,
-                        },
-                    },
-                ],
-                options: {
-                    test_option: 'test_value',
-                },
-                explain: {
-                    parameters: 'test_value',
-                },
-            },
-        ],
+        commands,
     });
 });

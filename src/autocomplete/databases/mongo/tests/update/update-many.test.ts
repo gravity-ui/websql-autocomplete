@@ -1,4 +1,4 @@
-import {extractMongoCommandsFromQuery, parseMongoQueryWithoutCursor} from '../..';
+import {Command, extractMongoCommandsFromQuery, parseMongoQueryWithoutCursor} from '../..';
 
 test('should not report errors on updateMany statement', () => {
     const autocompleteResult = parseMongoQueryWithoutCursor(`
@@ -190,118 +190,117 @@ test('should extract updateMany commands properly', () => {
       );
   `);
 
-    expect(result).toEqual({
-        commands: [
-            {
-                collectionName: 'test_collection1',
-                type: 'collection',
-                method: 'updateMany',
-                filter: {
-                    test_field: 'test_value',
-                },
-                updateParameters: [
-                    {
-                        test_field: 'test_value',
-                        test_object: {
-                            test_subfield: 23,
-                        },
-                    },
-                ],
+    const commands: Command[] = [
+        {
+            collectionName: 'test_collection1',
+            type: 'collection',
+            method: 'updateMany',
+            filter: {
+                test_field: 'test_value',
             },
-            {
-                collectionName: 'test_collection1',
-                type: 'collection',
-                method: 'updateMany',
-                filter: {
+            updateParameters: [
+                {
                     test_field: 'test_value',
-                },
-                updateParameters: [
-                    {
-                        test_field: 'test_value',
-                        test_object: {
-                            test_subfield: 23,
-                        },
+                    test_object: {
+                        test_subfield: 23,
                     },
-                ],
-            },
-            {
-                collectionName: 'test_collection2',
-                type: 'collection',
-                method: 'updateMany',
-                filter: {
-                    test_field: 'test_value',
                 },
-                updateParameters: [
-                    {
-                        test_field: 'test_value',
-                        test_object: {
-                            test_subfield: 23,
-                        },
+            ],
+        },
+        {
+            collectionName: 'test_collection1',
+            type: 'collection',
+            method: 'updateMany',
+            filter: {
+                test_field: 'test_value',
+            },
+            updateParameters: [
+                {
+                    test_field: 'test_value',
+                    test_object: {
+                        test_subfield: 23,
                     },
-                    {
-                        test_field: 'test_value',
-                        test_object: {
-                            test_subfield: 23,
-                        },
+                },
+            ],
+        },
+        {
+            collectionName: 'test_collection2',
+            type: 'collection',
+            method: 'updateMany',
+            filter: {
+                test_field: 'test_value',
+            },
+            updateParameters: [
+                {
+                    test_field: 'test_value',
+                    test_object: {
+                        test_subfield: 23,
                     },
-                ],
-                options: {
-                    test_option: 'test_option_value',
                 },
-            },
-            {
-                collectionName: 'test_collection2',
-                type: 'collection',
-                method: 'updateMany',
-                filter: {
+                {
                     test_field: 'test_value',
-                },
-                updateParameters: [
-                    {
-                        test_field: 'test_value',
-                        test_object: {
-                            test_subfield: 23,
-                        },
+                    test_object: {
+                        test_subfield: 23,
                     },
-                    {
-                        test_field: 'test_value',
-                        test_object: {
-                            test_subfield: 23,
-                        },
+                },
+            ],
+            options: {
+                test_option: 'test_option_value',
+            },
+        },
+        {
+            collectionName: 'test_collection2',
+            type: 'collection',
+            method: 'updateMany',
+            filter: {
+                test_field: 'test_value',
+            },
+            updateParameters: [
+                {
+                    test_field: 'test_value',
+                    test_object: {
+                        test_subfield: 23,
                     },
-                ],
-                options: {
-                    test_option: 'test_option_value',
                 },
+                {
+                    test_field: 'test_value',
+                    test_object: {
+                        test_subfield: 23,
+                    },
+                },
+            ],
+            options: {
+                test_option: 'test_option_value',
             },
-            {
-                collectionName: 'test_collection3',
-                type: 'collection',
-                method: 'updateMany',
-                filter: {
-                    test_field: 'test_value',
-                },
-                updateParameters: {
-                    test_field: 'test_value',
-                },
-                options: {
-                    test_option: 'test_option_value',
-                },
+        },
+        {
+            collectionName: 'test_collection3',
+            type: 'collection',
+            method: 'updateMany',
+            filter: {
+                test_field: 'test_value',
             },
-            {
-                collectionName: 'test_collection3',
-                type: 'collection',
-                method: 'updateMany',
-                filter: {
-                    test_field: 'test_value',
-                },
-                updateParameters: {
-                    test_field: 'test_value',
-                },
-                options: {
-                    test_option: 'test_option_value',
-                },
+            updateParameters: {
+                test_field: 'test_value',
             },
-        ],
-    });
+            options: {
+                test_option: 'test_option_value',
+            },
+        },
+        {
+            collectionName: 'test_collection3',
+            type: 'collection',
+            method: 'updateMany',
+            filter: {
+                test_field: 'test_value',
+            },
+            updateParameters: {
+                test_field: 'test_value',
+            },
+            options: {
+                test_option: 'test_option_value',
+            },
+        },
+    ];
+    expect(result).toEqual({commands});
 });

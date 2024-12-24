@@ -1,4 +1,4 @@
-import {extractMongoCommandsFromQuery, parseMongoQueryWithoutCursor} from '../..';
+import {Command, extractMongoCommandsFromQuery, parseMongoQueryWithoutCursor} from '../..';
 
 test('should not report errors on createCollection statement', () => {
     const autocompleteResult = parseMongoQueryWithoutCursor(`
@@ -26,21 +26,20 @@ test('should extract createCollection commands properly', () => {
         });
     `);
 
-    expect(result).toEqual({
-        commands: [
-            {
-                collectionName: 'test_collection_new_name',
-                type: 'database',
-                method: 'createCollection',
+    const commands: Command[] = [
+        {
+            collectionName: 'test_collection_new_name',
+            type: 'database',
+            method: 'createCollection',
+        },
+        {
+            collectionName: 'test_collection_new_name',
+            type: 'database',
+            method: 'createCollection',
+            options: {
+                test_option: 'test_value',
             },
-            {
-                collectionName: 'test_collection_new_name',
-                type: 'database',
-                method: 'createCollection',
-                options: {
-                    test_option: 'test_value',
-                },
-            },
-        ],
-    });
+        },
+    ];
+    expect(result).toEqual({commands});
 });

@@ -1,4 +1,4 @@
-import {extractMongoCommandsFromQuery, parseMongoQueryWithoutCursor} from '../..';
+import {Command, extractMongoCommandsFromQuery, parseMongoQueryWithoutCursor} from '../..';
 
 test('should not report errors on isCapped statement', () => {
     const autocompleteResult = parseMongoQueryWithoutCursor(`
@@ -45,34 +45,33 @@ test('should extract isCapped commands properly', () => {
         );
     `);
 
-    expect(result).toEqual({
-        commands: [
-            {
-                collectionName: 'test_collection',
-                type: 'collection',
-                method: 'isCapped',
+    const commands: Command[] = [
+        {
+            collectionName: 'test_collection',
+            type: 'collection',
+            method: 'isCapped',
+        },
+        {
+            collectionName: 'test_collection',
+            type: 'collection',
+            method: 'isCapped',
+        },
+        {
+            collectionName: 'test_collection',
+            type: 'collection',
+            method: 'isCapped',
+            options: {
+                test_option: 'test_value',
             },
-            {
-                collectionName: 'test_collection',
-                type: 'collection',
-                method: 'isCapped',
+        },
+        {
+            collectionName: 'test_collection',
+            type: 'collection',
+            method: 'isCapped',
+            options: {
+                test_option: 'test_value',
             },
-            {
-                collectionName: 'test_collection',
-                type: 'collection',
-                method: 'isCapped',
-                options: {
-                    test_option: 'test_value',
-                },
-            },
-            {
-                collectionName: 'test_collection',
-                type: 'collection',
-                method: 'isCapped',
-                options: {
-                    test_option: 'test_value',
-                },
-            },
-        ],
-    });
+        },
+    ];
+    expect(result).toEqual({commands});
 });

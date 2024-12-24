@@ -1,4 +1,4 @@
-import {extractMongoCommandsFromQuery, parseMongoQueryWithoutCursor} from '../..';
+import {Command, extractMongoCommandsFromQuery, parseMongoQueryWithoutCursor} from '../..';
 
 test('should not report errors on rename statement', () => {
     const autocompleteResult = parseMongoQueryWithoutCursor(`
@@ -49,38 +49,37 @@ test('should extract rename commands properly', () => {
         );
     `);
 
-    expect(result).toEqual({
-        commands: [
-            {
-                collectionName: 'test_collection',
-                type: 'collection',
-                method: 'rename',
-                newName: 'test_collection_new_name',
+    const commands: Command[] = [
+        {
+            collectionName: 'test_collection',
+            type: 'collection',
+            method: 'rename',
+            newName: 'test_collection_new_name',
+        },
+        {
+            collectionName: 'test_collection',
+            type: 'collection',
+            method: 'rename',
+            newName: 'test_collection_new_name',
+        },
+        {
+            collectionName: 'test_collection',
+            type: 'collection',
+            method: 'rename',
+            newName: 'test_collection_new_name',
+            options: {
+                test_option: 'test_value',
             },
-            {
-                collectionName: 'test_collection',
-                type: 'collection',
-                method: 'rename',
-                newName: 'test_collection_new_name',
+        },
+        {
+            collectionName: 'test_collection',
+            type: 'collection',
+            method: 'rename',
+            newName: 'test_collection_new_name',
+            options: {
+                test_option: 'test_value',
             },
-            {
-                collectionName: 'test_collection',
-                type: 'collection',
-                method: 'rename',
-                newName: 'test_collection_new_name',
-                options: {
-                    test_option: 'test_value',
-                },
-            },
-            {
-                collectionName: 'test_collection',
-                type: 'collection',
-                method: 'rename',
-                newName: 'test_collection_new_name',
-                options: {
-                    test_option: 'test_value',
-                },
-            },
-        ],
-    });
+        },
+    ];
+    expect(result).toEqual({commands});
 });

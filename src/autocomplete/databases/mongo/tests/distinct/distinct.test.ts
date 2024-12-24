@@ -1,4 +1,4 @@
-import {extractMongoCommandsFromQuery, parseMongoQueryWithoutCursor} from '../..';
+import {Command, extractMongoCommandsFromQuery, parseMongoQueryWithoutCursor} from '../..';
 
 test('should not report errors on distinct statement', () => {
     const autocompleteResult = parseMongoQueryWithoutCursor(`
@@ -60,44 +60,43 @@ test('should extract distinct commands properly', () => {
         );
     `);
 
-    expect(result).toEqual({
-        commands: [
-            {
-                collectionName: 'test_collection',
-                type: 'collection',
-                method: 'distinct',
-                key: 'test_key',
+    const commands: Command[] = [
+        {
+            collectionName: 'test_collection',
+            type: 'collection',
+            method: 'distinct',
+            key: 'test_key',
+        },
+        {
+            collectionName: 'test_collection',
+            type: 'collection',
+            method: 'distinct',
+            key: 'test_key',
+        },
+        {
+            collectionName: 'test_collection',
+            type: 'collection',
+            method: 'distinct',
+            key: 'test_key',
+            filter: {
+                test_filter_option: 'test_value',
             },
-            {
-                collectionName: 'test_collection',
-                type: 'collection',
-                method: 'distinct',
-                key: 'test_key',
+            options: {
+                test_option: 'test_value',
             },
-            {
-                collectionName: 'test_collection',
-                type: 'collection',
-                method: 'distinct',
-                key: 'test_key',
-                filter: {
-                    test_filter_option: 'test_value',
-                },
-                options: {
-                    test_option: 'test_value',
-                },
+        },
+        {
+            collectionName: 'test_collection',
+            type: 'collection',
+            method: 'distinct',
+            key: 'test_key',
+            filter: {
+                test_filter_option: 'test_value',
             },
-            {
-                collectionName: 'test_collection',
-                type: 'collection',
-                method: 'distinct',
-                key: 'test_key',
-                filter: {
-                    test_filter_option: 'test_value',
-                },
-                options: {
-                    test_option: 'test_value',
-                },
+            options: {
+                test_option: 'test_value',
             },
-        ],
-    });
+        },
+    ];
+    expect(result).toEqual({commands});
 });

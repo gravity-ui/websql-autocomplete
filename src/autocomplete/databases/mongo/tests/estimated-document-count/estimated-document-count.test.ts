@@ -1,4 +1,4 @@
-import {extractMongoCommandsFromQuery, parseMongoQueryWithoutCursor} from '../..';
+import {Command, extractMongoCommandsFromQuery, parseMongoQueryWithoutCursor} from '../..';
 
 test('should not report errors on estimatedDocumentCount statement', () => {
     const autocompleteResult = parseMongoQueryWithoutCursor(`
@@ -44,34 +44,33 @@ test('should extract estimatedDocumentCount commands properly', () => {
         );
     `);
 
-    expect(result).toEqual({
-        commands: [
-            {
-                collectionName: 'test_collection',
-                type: 'collection',
-                method: 'estimatedDocumentCount',
+    const commands: Command[] = [
+        {
+            collectionName: 'test_collection',
+            type: 'collection',
+            method: 'estimatedDocumentCount',
+        },
+        {
+            collectionName: 'test_collection',
+            type: 'collection',
+            method: 'estimatedDocumentCount',
+        },
+        {
+            collectionName: 'test_collection',
+            type: 'collection',
+            method: 'estimatedDocumentCount',
+            options: {
+                test_option: 'test_value',
             },
-            {
-                collectionName: 'test_collection',
-                type: 'collection',
-                method: 'estimatedDocumentCount',
+        },
+        {
+            collectionName: 'test_collection',
+            type: 'collection',
+            method: 'estimatedDocumentCount',
+            options: {
+                test_option: 'test_value',
             },
-            {
-                collectionName: 'test_collection',
-                type: 'collection',
-                method: 'estimatedDocumentCount',
-                options: {
-                    test_option: 'test_value',
-                },
-            },
-            {
-                collectionName: 'test_collection',
-                type: 'collection',
-                method: 'estimatedDocumentCount',
-                options: {
-                    test_option: 'test_value',
-                },
-            },
-        ],
-    });
+        },
+    ];
+    expect(result).toEqual({commands});
 });

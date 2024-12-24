@@ -1,4 +1,4 @@
-import {extractMongoCommandsFromQuery, parseMongoQueryWithoutCursor} from '../..';
+import {Command, extractMongoCommandsFromQuery, parseMongoQueryWithoutCursor} from '../..';
 
 test('should not report errors on indexExists statement', () => {
     const autocompleteResult = parseMongoQueryWithoutCursor(`
@@ -48,38 +48,37 @@ test('should extract indexExists commands properly', () => {
         );
     `);
 
-    expect(result).toEqual({
-        commands: [
-            {
-                collectionName: 'test_collection',
-                type: 'collection',
-                method: 'indexExists',
-                indexes: 'test_index',
+    const commands: Command[] = [
+        {
+            collectionName: 'test_collection',
+            type: 'collection',
+            method: 'indexExists',
+            indexes: 'test_index',
+        },
+        {
+            collectionName: 'test_collection',
+            type: 'collection',
+            method: 'indexExists',
+            indexes: 'test_index',
+        },
+        {
+            collectionName: 'test_collection',
+            type: 'collection',
+            method: 'indexExists',
+            indexes: ['test_index1', 'test_index2', 'test_index3'],
+            options: {
+                test_option: 'test_value',
             },
-            {
-                collectionName: 'test_collection',
-                type: 'collection',
-                method: 'indexExists',
-                indexes: 'test_index',
+        },
+        {
+            collectionName: 'test_collection',
+            type: 'collection',
+            method: 'indexExists',
+            indexes: ['test_index1', 'test_index2', 'test_index3'],
+            options: {
+                test_option: 'test_value',
             },
-            {
-                collectionName: 'test_collection',
-                type: 'collection',
-                method: 'indexExists',
-                indexes: ['test_index1', 'test_index2', 'test_index3'],
-                options: {
-                    test_option: 'test_value',
-                },
-            },
-            {
-                collectionName: 'test_collection',
-                type: 'collection',
-                method: 'indexExists',
-                indexes: ['test_index1', 'test_index2', 'test_index3'],
-                options: {
-                    test_option: 'test_value',
-                },
-            },
-        ],
-    });
+        },
+    ];
+    expect(result).toEqual({commands});
 });

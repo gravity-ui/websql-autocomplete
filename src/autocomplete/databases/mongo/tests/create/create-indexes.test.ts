@@ -1,4 +1,4 @@
-import {extractMongoCommandsFromQuery, parseMongoQueryWithoutCursor} from '../..';
+import {Command, extractMongoCommandsFromQuery, parseMongoQueryWithoutCursor} from '../..';
 
 test('should not report errors on createIndexes statement', () => {
     const autocompleteResult = parseMongoQueryWithoutCursor(`
@@ -105,82 +105,81 @@ test('should extract createIndexes commands properly', () => {
         );
     `);
 
-    expect(result).toEqual({
-        commands: [
-            {
-                collectionName: 'test_collection',
-                type: 'collection',
-                method: 'createIndexes',
-                indexSpecs: [
-                    {
-                        key: {
-                            test_index1: 1,
-                        },
+    const commands: Command[] = [
+        {
+            collectionName: 'test_collection',
+            type: 'collection',
+            method: 'createIndexes',
+            indexSpecs: [
+                {
+                    key: {
+                        test_index1: 1,
                     },
-                    {
-                        key: {
-                            test_index2: 1,
-                        },
-                    },
-                ],
-            },
-            {
-                collectionName: 'test_collection',
-                type: 'collection',
-                method: 'createIndexes',
-                indexSpecs: [
-                    {
-                        key: {
-                            test_index1: 1,
-                        },
-                    },
-                    {
-                        key: {
-                            test_index2: 1,
-                        },
-                    },
-                ],
-            },
-            {
-                collectionName: 'test_collection',
-                type: 'collection',
-                method: 'createIndexes',
-                indexSpecs: [
-                    {
-                        key: {
-                            test_index1: '2d',
-                        },
-                    },
-                    {
-                        key: {
-                            test_index2: 1,
-                        },
-                    },
-                ],
-                options: {
-                    test_option: 'test_value',
                 },
-            },
-            {
-                collectionName: 'test_collection',
-                type: 'collection',
-                method: 'createIndexes',
-                indexSpecs: [
-                    {
-                        key: {
-                            test_index1: '2d',
-                        },
+                {
+                    key: {
+                        test_index2: 1,
                     },
-                    {
-                        key: {
-                            test_index2: 1,
-                        },
-                    },
-                ],
-                options: {
-                    test_option: 'test_value',
                 },
+            ],
+        },
+        {
+            collectionName: 'test_collection',
+            type: 'collection',
+            method: 'createIndexes',
+            indexSpecs: [
+                {
+                    key: {
+                        test_index1: 1,
+                    },
+                },
+                {
+                    key: {
+                        test_index2: 1,
+                    },
+                },
+            ],
+        },
+        {
+            collectionName: 'test_collection',
+            type: 'collection',
+            method: 'createIndexes',
+            indexSpecs: [
+                {
+                    key: {
+                        test_index1: '2d',
+                    },
+                },
+                {
+                    key: {
+                        test_index2: 1,
+                    },
+                },
+            ],
+            options: {
+                test_option: 'test_value',
             },
-        ],
-    });
+        },
+        {
+            collectionName: 'test_collection',
+            type: 'collection',
+            method: 'createIndexes',
+            indexSpecs: [
+                {
+                    key: {
+                        test_index1: '2d',
+                    },
+                },
+                {
+                    key: {
+                        test_index2: 1,
+                    },
+                },
+            ],
+            options: {
+                test_option: 'test_value',
+            },
+        },
+    ];
+    expect(result).toEqual({commands});
 });

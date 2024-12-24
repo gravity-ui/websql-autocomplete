@@ -1,4 +1,4 @@
-import {extractMongoCommandsFromQuery, parseMongoQueryWithoutCursor} from '../..';
+import {Command, extractMongoCommandsFromQuery, parseMongoQueryWithoutCursor} from '../..';
 
 test('should not report errors on bulkWrite statement', () => {
     const autocompleteResult = parseMongoQueryWithoutCursor(`
@@ -234,206 +234,205 @@ test('should extract bulkWrite commands properly', () => {
       );
   `);
 
-    expect(result).toEqual({
-        commands: [
-            {
-                collectionName: 'test_collection1',
-                type: 'collection',
-                method: 'bulkWrite',
-                operations: [
-                    {
-                        deleteMany: {
-                            filter: {
-                                test_field: 'test_value',
-                            },
-                        },
-                        deleteOne: {
-                            filter: {
-                                test_field: 'test_value',
-                            },
-                        },
-                        insertOne: {
-                            document: {
-                                test_field: 'test_value',
-                            },
-                        },
-                        replaceOne: {
-                            filter: {
-                                test_field1: 'test_value1',
-                            },
-                            replacement: {
-                                test_field2: 'test_value2',
-                            },
-                        },
-                        updateMany: {
-                            filter: {
-                                test_field1: 'test_value1',
-                            },
-                            update: {
-                                test_field2: 'test_value2',
-                            },
-                        },
-                        updateOne: {
-                            filter: {
-                                test_field1: 'test_value1',
-                            },
-                            update: {
-                                test_field2: 'test_value2',
-                            },
+    const commands: Command[] = [
+        {
+            collectionName: 'test_collection1',
+            type: 'collection',
+            method: 'bulkWrite',
+            operations: [
+                {
+                    deleteMany: {
+                        filter: {
+                            test_field: 'test_value',
                         },
                     },
-                ],
-            },
-            {
-                collectionName: 'test_collection1',
-                type: 'collection',
-                method: 'bulkWrite',
-                operations: [
-                    {
-                        deleteMany: {
-                            filter: {
-                                test_field: 'test_value',
-                            },
-                        },
-                        deleteOne: {
-                            filter: {
-                                test_field: 'test_value',
-                            },
-                        },
-                        insertOne: {
-                            document: {
-                                test_field: 'test_value',
-                            },
-                        },
-                        replaceOne: {
-                            filter: {
-                                test_field1: 'test_value1',
-                            },
-                            replacement: {
-                                test_field2: 'test_value2',
-                            },
-                        },
-                        updateMany: {
-                            filter: {
-                                test_field1: 'test_value1',
-                            },
-                            update: {
-                                test_field2: 'test_value2',
-                            },
-                        },
-                        updateOne: {
-                            filter: {
-                                test_field1: 'test_value1',
-                            },
-                            update: {
-                                test_field2: 'test_value2',
-                            },
+                    deleteOne: {
+                        filter: {
+                            test_field: 'test_value',
                         },
                     },
-                ],
-            },
-            {
-                collectionName: 'test_collection2',
-                type: 'collection',
-                method: 'bulkWrite',
-                operations: [
-                    {
-                        deleteMany: {
-                            filter: {
-                                test_field: 'test_value',
-                            },
-                        },
-                        deleteOne: {
-                            filter: {
-                                test_field: 'test_value',
-                            },
-                        },
-                        insertOne: {
-                            document: {
-                                test_field: 'test_value',
-                            },
-                        },
-                        replaceOne: {
-                            filter: {
-                                test_field1: 'test_value1',
-                            },
-                            replacement: {
-                                test_field2: 'test_value2',
-                            },
-                        },
-                        updateMany: {
-                            filter: {
-                                test_field1: 'test_value1',
-                            },
-                            update: {
-                                test_field2: 'test_value2',
-                            },
-                        },
-                        updateOne: {
-                            filter: {
-                                test_field1: 'test_value1',
-                            },
-                            update: {
-                                test_field2: 'test_value2',
-                            },
+                    insertOne: {
+                        document: {
+                            test_field: 'test_value',
                         },
                     },
-                ],
-                options: {
-                    test_option: 'test_value',
+                    replaceOne: {
+                        filter: {
+                            test_field1: 'test_value1',
+                        },
+                        replacement: {
+                            test_field2: 'test_value2',
+                        },
+                    },
+                    updateMany: {
+                        filter: {
+                            test_field1: 'test_value1',
+                        },
+                        update: {
+                            test_field2: 'test_value2',
+                        },
+                    },
+                    updateOne: {
+                        filter: {
+                            test_field1: 'test_value1',
+                        },
+                        update: {
+                            test_field2: 'test_value2',
+                        },
+                    },
                 },
-            },
-            {
-                collectionName: 'test_collection2',
-                type: 'collection',
-                method: 'bulkWrite',
-                operations: [
-                    {
-                        deleteMany: {
-                            filter: {
-                                test_field: 'test_value',
-                            },
-                        },
-                        deleteOne: {
-                            filter: {
-                                test_field: 'test_value',
-                            },
-                        },
-                        insertOne: {
-                            document: {
-                                test_field: 'test_value',
-                            },
-                        },
-                        replaceOne: {
-                            filter: {
-                                test_field1: 'test_value1',
-                            },
-                            replacement: {
-                                test_field2: 'test_value2',
-                            },
-                        },
-                        updateMany: {
-                            filter: {
-                                test_field1: 'test_value1',
-                            },
-                            update: {
-                                test_field2: 'test_value2',
-                            },
-                        },
-                        updateOne: {
-                            filter: {
-                                test_field1: 'test_value1',
-                            },
-                            update: {
-                                test_field2: 'test_value2',
-                            },
+            ],
+        },
+        {
+            collectionName: 'test_collection1',
+            type: 'collection',
+            method: 'bulkWrite',
+            operations: [
+                {
+                    deleteMany: {
+                        filter: {
+                            test_field: 'test_value',
                         },
                     },
-                ],
-                options: {
-                    test_option: 'test_value',
+                    deleteOne: {
+                        filter: {
+                            test_field: 'test_value',
+                        },
+                    },
+                    insertOne: {
+                        document: {
+                            test_field: 'test_value',
+                        },
+                    },
+                    replaceOne: {
+                        filter: {
+                            test_field1: 'test_value1',
+                        },
+                        replacement: {
+                            test_field2: 'test_value2',
+                        },
+                    },
+                    updateMany: {
+                        filter: {
+                            test_field1: 'test_value1',
+                        },
+                        update: {
+                            test_field2: 'test_value2',
+                        },
+                    },
+                    updateOne: {
+                        filter: {
+                            test_field1: 'test_value1',
+                        },
+                        update: {
+                            test_field2: 'test_value2',
+                        },
+                    },
                 },
+            ],
+        },
+        {
+            collectionName: 'test_collection2',
+            type: 'collection',
+            method: 'bulkWrite',
+            operations: [
+                {
+                    deleteMany: {
+                        filter: {
+                            test_field: 'test_value',
+                        },
+                    },
+                    deleteOne: {
+                        filter: {
+                            test_field: 'test_value',
+                        },
+                    },
+                    insertOne: {
+                        document: {
+                            test_field: 'test_value',
+                        },
+                    },
+                    replaceOne: {
+                        filter: {
+                            test_field1: 'test_value1',
+                        },
+                        replacement: {
+                            test_field2: 'test_value2',
+                        },
+                    },
+                    updateMany: {
+                        filter: {
+                            test_field1: 'test_value1',
+                        },
+                        update: {
+                            test_field2: 'test_value2',
+                        },
+                    },
+                    updateOne: {
+                        filter: {
+                            test_field1: 'test_value1',
+                        },
+                        update: {
+                            test_field2: 'test_value2',
+                        },
+                    },
+                },
+            ],
+            options: {
+                test_option: 'test_value',
             },
-        ],
-    });
+        },
+        {
+            collectionName: 'test_collection2',
+            type: 'collection',
+            method: 'bulkWrite',
+            operations: [
+                {
+                    deleteMany: {
+                        filter: {
+                            test_field: 'test_value',
+                        },
+                    },
+                    deleteOne: {
+                        filter: {
+                            test_field: 'test_value',
+                        },
+                    },
+                    insertOne: {
+                        document: {
+                            test_field: 'test_value',
+                        },
+                    },
+                    replaceOne: {
+                        filter: {
+                            test_field1: 'test_value1',
+                        },
+                        replacement: {
+                            test_field2: 'test_value2',
+                        },
+                    },
+                    updateMany: {
+                        filter: {
+                            test_field1: 'test_value1',
+                        },
+                        update: {
+                            test_field2: 'test_value2',
+                        },
+                    },
+                    updateOne: {
+                        filter: {
+                            test_field1: 'test_value1',
+                        },
+                        update: {
+                            test_field2: 'test_value2',
+                        },
+                    },
+                },
+            ],
+            options: {
+                test_option: 'test_value',
+            },
+        },
+    ];
+    expect(result).toEqual({commands});
 });

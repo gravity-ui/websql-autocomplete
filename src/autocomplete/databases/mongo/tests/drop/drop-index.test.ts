@@ -1,4 +1,4 @@
-import {extractMongoCommandsFromQuery, parseMongoQueryWithoutCursor} from '../..';
+import {Command, extractMongoCommandsFromQuery, parseMongoQueryWithoutCursor} from '../..';
 
 test('should not report errors on dropIndex statement', () => {
     const autocompleteResult = parseMongoQueryWithoutCursor(`
@@ -48,38 +48,37 @@ test('should extract dropIndex commands properly', () => {
         );
     `);
 
-    expect(result).toEqual({
-        commands: [
-            {
-                collectionName: 'test_collection',
-                type: 'collection',
-                method: 'dropIndex',
-                index: 'test_index',
+    const commands: Command[] = [
+        {
+            collectionName: 'test_collection',
+            type: 'collection',
+            method: 'dropIndex',
+            index: 'test_index',
+        },
+        {
+            collectionName: 'test_collection',
+            type: 'collection',
+            method: 'dropIndex',
+            index: 'test_index',
+        },
+        {
+            collectionName: 'test_collection',
+            type: 'collection',
+            method: 'dropIndex',
+            index: 'test_index',
+            options: {
+                test_option: 'test_value',
             },
-            {
-                collectionName: 'test_collection',
-                type: 'collection',
-                method: 'dropIndex',
-                index: 'test_index',
+        },
+        {
+            collectionName: 'test_collection',
+            type: 'collection',
+            method: 'dropIndex',
+            index: 'test_index',
+            options: {
+                test_option: 'test_value',
             },
-            {
-                collectionName: 'test_collection',
-                type: 'collection',
-                method: 'dropIndex',
-                index: 'test_index',
-                options: {
-                    test_option: 'test_value',
-                },
-            },
-            {
-                collectionName: 'test_collection',
-                type: 'collection',
-                method: 'dropIndex',
-                index: 'test_index',
-                options: {
-                    test_option: 'test_value',
-                },
-            },
-        ],
-    });
+        },
+    ];
+    expect(result).toEqual({commands});
 });

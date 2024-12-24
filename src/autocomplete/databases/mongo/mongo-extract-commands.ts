@@ -121,14 +121,14 @@ export interface CollectionInsertOneCommand extends CollectionCommandBase {
     method: 'insertOne';
     collectionName: string;
     document: unknown;
-    options: unknown;
+    options?: unknown;
 }
 
 export interface CollectionInsertManyCommand extends CollectionCommandBase {
     method: 'insertMany';
     collectionName: string;
     documents: unknown;
-    options: unknown;
+    options?: unknown;
 }
 
 export interface CollectionBulkWriteCommand extends CollectionCommandBase {

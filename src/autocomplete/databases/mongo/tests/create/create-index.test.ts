@@ -1,4 +1,4 @@
-import {extractMongoCommandsFromQuery, parseMongoQueryWithoutCursor} from '../..';
+import {Command, extractMongoCommandsFromQuery, parseMongoQueryWithoutCursor} from '../..';
 
 test('should not report errors on createIndex statement', () => {
     const autocompleteResult = parseMongoQueryWithoutCursor(`
@@ -96,80 +96,79 @@ test('should extract createIndex commands properly', () => {
         );
     `);
 
-    expect(result).toEqual({
-        commands: [
-            {
-                collectionName: 'test_collection',
-                type: 'collection',
-                method: 'createIndex',
-                indexSpec: 'test_index',
+    const commands: Command[] = [
+        {
+            collectionName: 'test_collection',
+            type: 'collection',
+            method: 'createIndex',
+            indexSpec: 'test_index',
+        },
+        {
+            collectionName: 'test_collection',
+            type: 'collection',
+            method: 'createIndex',
+            indexSpec: 'test_index',
+        },
+        {
+            collectionName: 'test_collection',
+            type: 'collection',
+            method: 'createIndex',
+            indexSpec: [
+                ['test_index_1', -1],
+                ['test_index_2', 1],
+            ],
+        },
+        {
+            collectionName: 'test_collection',
+            type: 'collection',
+            method: 'createIndex',
+            indexSpec: [
+                ['test_index_1', -1],
+                ['test_index_2', 1],
+            ],
+        },
+        {
+            collectionName: 'test_collection',
+            type: 'collection',
+            method: 'createIndex',
+            indexSpec: {
+                test_index_1: -1,
+                test_index_2: 1,
             },
-            {
-                collectionName: 'test_collection',
-                type: 'collection',
-                method: 'createIndex',
-                indexSpec: 'test_index',
+        },
+        {
+            collectionName: 'test_collection',
+            type: 'collection',
+            method: 'createIndex',
+            indexSpec: {
+                test_index_1: -1,
+                test_index_2: 1,
             },
-            {
-                collectionName: 'test_collection',
-                type: 'collection',
-                method: 'createIndex',
-                indexSpec: [
-                    ['test_index_1', -1],
-                    ['test_index_2', 1],
-                ],
+        },
+        {
+            collectionName: 'test_collection',
+            type: 'collection',
+            method: 'createIndex',
+            indexSpec: {
+                test_index_1: -1,
+                test_index_2: 1,
             },
-            {
-                collectionName: 'test_collection',
-                type: 'collection',
-                method: 'createIndex',
-                indexSpec: [
-                    ['test_index_1', -1],
-                    ['test_index_2', 1],
-                ],
+            options: {
+                test_option: 'test_value',
             },
-            {
-                collectionName: 'test_collection',
-                type: 'collection',
-                method: 'createIndex',
-                indexSpec: {
-                    test_index_1: -1,
-                    test_index_2: 1,
-                },
+        },
+        {
+            collectionName: 'test_collection',
+            type: 'collection',
+            method: 'createIndex',
+            indexSpec: {
+                test_index_1: -1,
+                test_index_2: 1,
             },
-            {
-                collectionName: 'test_collection',
-                type: 'collection',
-                method: 'createIndex',
-                indexSpec: {
-                    test_index_1: -1,
-                    test_index_2: 1,
-                },
+            options: {
+                test_option: 'test_value',
             },
-            {
-                collectionName: 'test_collection',
-                type: 'collection',
-                method: 'createIndex',
-                indexSpec: {
-                    test_index_1: -1,
-                    test_index_2: 1,
-                },
-                options: {
-                    test_option: 'test_value',
-                },
-            },
-            {
-                collectionName: 'test_collection',
-                type: 'collection',
-                method: 'createIndex',
-                indexSpec: {
-                    test_index_1: -1,
-                    test_index_2: 1,
-                },
-                options: {
-                    test_option: 'test_value',
-                },
-            },
-        ],
-    });
+        },
+    ];
+    expect(result).toEqual({commands});
 });

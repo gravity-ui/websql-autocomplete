@@ -1,4 +1,4 @@
-import {extractMongoCommandsFromQuery, parseMongoQueryWithoutCursor} from '../..';
+import {Command, extractMongoCommandsFromQuery, parseMongoQueryWithoutCursor} from '../..';
 
 test('should not report errors on updateOne statement', () => {
     const autocompleteResult = parseMongoQueryWithoutCursor(`
@@ -190,118 +190,117 @@ test('should extract updateOne commands properly', () => {
       );
   `);
 
-    expect(result).toEqual({
-        commands: [
-            {
-                collectionName: 'test_collection1',
-                filter: {
-                    test_field: 'test_value',
-                },
-                type: 'collection',
-                method: 'updateOne',
-                updateParameters: [
-                    {
-                        test_field: 'test_value',
-                        test_object: {
-                            test_subfield: 23,
-                        },
-                    },
-                ],
+    const commands: Command[] = [
+        {
+            collectionName: 'test_collection1',
+            filter: {
+                test_field: 'test_value',
             },
-            {
-                collectionName: 'test_collection1',
-                filter: {
+            type: 'collection',
+            method: 'updateOne',
+            updateParameters: [
+                {
                     test_field: 'test_value',
-                },
-                type: 'collection',
-                method: 'updateOne',
-                updateParameters: [
-                    {
-                        test_field: 'test_value',
-                        test_object: {
-                            test_subfield: 23,
-                        },
+                    test_object: {
+                        test_subfield: 23,
                     },
-                ],
+                },
+            ],
+        },
+        {
+            collectionName: 'test_collection1',
+            filter: {
+                test_field: 'test_value',
             },
-            {
-                collectionName: 'test_collection2',
-                filter: {
+            type: 'collection',
+            method: 'updateOne',
+            updateParameters: [
+                {
                     test_field: 'test_value',
-                },
-                type: 'collection',
-                method: 'updateOne',
-                options: {
-                    test_option: 'test_option_value',
-                },
-                updateParameters: [
-                    {
-                        test_field: 'test_value',
-                        test_object: {
-                            test_subfield: 23,
-                        },
+                    test_object: {
+                        test_subfield: 23,
                     },
-                    {
-                        test_field: 'test_value',
-                        test_object: {
-                            test_subfield: 23,
-                        },
+                },
+            ],
+        },
+        {
+            collectionName: 'test_collection2',
+            filter: {
+                test_field: 'test_value',
+            },
+            type: 'collection',
+            method: 'updateOne',
+            options: {
+                test_option: 'test_option_value',
+            },
+            updateParameters: [
+                {
+                    test_field: 'test_value',
+                    test_object: {
+                        test_subfield: 23,
                     },
-                ],
-            },
-            {
-                collectionName: 'test_collection2',
-                filter: {
+                },
+                {
                     test_field: 'test_value',
-                },
-                type: 'collection',
-                method: 'updateOne',
-                options: {
-                    test_option: 'test_option_value',
-                },
-                updateParameters: [
-                    {
-                        test_field: 'test_value',
-                        test_object: {
-                            test_subfield: 23,
-                        },
+                    test_object: {
+                        test_subfield: 23,
                     },
-                    {
-                        test_field: 'test_value',
-                        test_object: {
-                            test_subfield: 23,
-                        },
+                },
+            ],
+        },
+        {
+            collectionName: 'test_collection2',
+            filter: {
+                test_field: 'test_value',
+            },
+            type: 'collection',
+            method: 'updateOne',
+            options: {
+                test_option: 'test_option_value',
+            },
+            updateParameters: [
+                {
+                    test_field: 'test_value',
+                    test_object: {
+                        test_subfield: 23,
                     },
-                ],
+                },
+                {
+                    test_field: 'test_value',
+                    test_object: {
+                        test_subfield: 23,
+                    },
+                },
+            ],
+        },
+        {
+            collectionName: 'test_collection3',
+            filter: {
+                test_field: 'test_value',
             },
-            {
-                collectionName: 'test_collection3',
-                filter: {
-                    test_field: 'test_value',
-                },
-                type: 'collection',
-                method: 'updateOne',
-                options: {
-                    test_option: 'test_option_value',
-                },
-                updateParameters: {
-                    test_field: 'test_value',
-                },
+            type: 'collection',
+            method: 'updateOne',
+            options: {
+                test_option: 'test_option_value',
             },
-            {
-                collectionName: 'test_collection3',
-                filter: {
-                    test_field: 'test_value',
-                },
-                type: 'collection',
-                method: 'updateOne',
-                options: {
-                    test_option: 'test_option_value',
-                },
-                updateParameters: {
-                    test_field: 'test_value',
-                },
+            updateParameters: {
+                test_field: 'test_value',
             },
-        ],
-    });
+        },
+        {
+            collectionName: 'test_collection3',
+            filter: {
+                test_field: 'test_value',
+            },
+            type: 'collection',
+            method: 'updateOne',
+            options: {
+                test_option: 'test_option_value',
+            },
+            updateParameters: {
+                test_field: 'test_value',
+            },
+        },
+    ];
+    expect(result).toEqual({commands});
 });

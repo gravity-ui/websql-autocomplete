@@ -1,4 +1,4 @@
-import {extractMongoCommandsFromQuery, parseMongoQueryWithoutCursor} from '../..';
+import {Command, extractMongoCommandsFromQuery, parseMongoQueryWithoutCursor} from '../..';
 
 test('should not report errors on replaceOne statement', () => {
     const autocompleteResult = parseMongoQueryWithoutCursor(`
@@ -158,90 +158,89 @@ test('should extract replaceOne commands properly', () => {
       );
   `);
 
-    expect(result).toEqual({
-        commands: [
-            {
-                type: 'collection',
-                method: 'replaceOne',
-                collectionName: 'test_collection',
-                filter: {
-                    test_field1: 'test_value1',
-                },
-                replacement: {
+    const commands: Command[] = [
+        {
+            type: 'collection',
+            method: 'replaceOne',
+            collectionName: 'test_collection',
+            filter: {
+                test_field1: 'test_value1',
+            },
+            replacement: {
+                test_field2: 'test_value2',
+            },
+        },
+        {
+            type: 'collection',
+            method: 'replaceOne',
+            collectionName: 'test_collection',
+            filter: {
+                test_field1: 'test_value1',
+            },
+            replacement: {
+                test_field2: 'test_value2',
+            },
+        },
+        {
+            type: 'collection',
+            method: 'replaceOne',
+            collectionName: 'test_collection',
+            filter: {
+                test_field1: 'test_value1',
+            },
+            replacement: [
+                {
                     test_field2: 'test_value2',
                 },
-            },
-            {
-                type: 'collection',
-                method: 'replaceOne',
-                collectionName: 'test_collection',
-                filter: {
-                    test_field1: 'test_value1',
+                {
+                    test_field3: 'test_value3',
                 },
-                replacement: {
+            ],
+        },
+        {
+            type: 'collection',
+            method: 'replaceOne',
+            collectionName: 'test_collection',
+            filter: {
+                test_field1: 'test_value1',
+            },
+            replacement: [
+                {
                     test_field2: 'test_value2',
                 },
+                {
+                    test_field3: 'test_value3',
+                },
+            ],
+        },
+        {
+            type: 'collection',
+            method: 'replaceOne',
+            collectionName: 'test_collection',
+            filter: {
+                test_field1: 'test_value1',
             },
-            {
-                type: 'collection',
-                method: 'replaceOne',
-                collectionName: 'test_collection',
-                filter: {
-                    test_field1: 'test_value1',
-                },
-                replacement: [
-                    {
-                        test_field2: 'test_value2',
-                    },
-                    {
-                        test_field3: 'test_value3',
-                    },
-                ],
+            replacement: {
+                test_field2: 'test_value2',
             },
-            {
-                type: 'collection',
-                method: 'replaceOne',
-                collectionName: 'test_collection',
-                filter: {
-                    test_field1: 'test_value1',
-                },
-                replacement: [
-                    {
-                        test_field2: 'test_value2',
-                    },
-                    {
-                        test_field3: 'test_value3',
-                    },
-                ],
+            options: {
+                test_option: 'test_value',
             },
-            {
-                type: 'collection',
-                method: 'replaceOne',
-                collectionName: 'test_collection',
-                filter: {
-                    test_field1: 'test_value1',
-                },
-                replacement: {
-                    test_field2: 'test_value2',
-                },
-                options: {
-                    test_option: 'test_value',
-                },
+        },
+        {
+            type: 'collection',
+            method: 'replaceOne',
+            collectionName: 'test_collection',
+            filter: {
+                test_field1: 'test_value1',
             },
-            {
-                type: 'collection',
-                method: 'replaceOne',
-                collectionName: 'test_collection',
-                filter: {
-                    test_field1: 'test_value1',
-                },
-                replacement: {
-                    test_field2: 'test_value2',
-                },
-                options: {
-                    test_option: 'test_value',
-                },
+            replacement: {
+                test_field2: 'test_value2',
             },
-        ],
-    });
+            options: {
+                test_option: 'test_value',
+            },
+        },
+    ];
+    expect(result).toEqual({commands});
 });

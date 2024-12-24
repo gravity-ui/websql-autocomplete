@@ -1,4 +1,4 @@
-import {extractMongoCommandsFromQuery, parseMongoQueryWithoutCursor} from '../..';
+import {Command, extractMongoCommandsFromQuery, parseMongoQueryWithoutCursor} from '../..';
 
 test('should not report errors on indexes statement', () => {
     const autocompleteResult = parseMongoQueryWithoutCursor(`
@@ -44,34 +44,33 @@ test('should extract indexes commands properly', () => {
         );
     `);
 
-    expect(result).toEqual({
-        commands: [
-            {
-                collectionName: 'test_collection',
-                type: 'collection',
-                method: 'indexes',
+    const commands: Command[] = [
+        {
+            collectionName: 'test_collection',
+            type: 'collection',
+            method: 'indexes',
+        },
+        {
+            collectionName: 'test_collection',
+            type: 'collection',
+            method: 'indexes',
+        },
+        {
+            collectionName: 'test_collection',
+            type: 'collection',
+            method: 'indexes',
+            options: {
+                test_option: 'test_value',
             },
-            {
-                collectionName: 'test_collection',
-                type: 'collection',
-                method: 'indexes',
+        },
+        {
+            collectionName: 'test_collection',
+            type: 'collection',
+            method: 'indexes',
+            options: {
+                test_option: 'test_value',
             },
-            {
-                collectionName: 'test_collection',
-                type: 'collection',
-                method: 'indexes',
-                options: {
-                    test_option: 'test_value',
-                },
-            },
-            {
-                collectionName: 'test_collection',
-                type: 'collection',
-                method: 'indexes',
-                options: {
-                    test_option: 'test_value',
-                },
-            },
-        ],
-    });
+        },
+    ];
+    expect(result).toEqual({commands});
 });
