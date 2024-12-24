@@ -48,6 +48,9 @@ ESTIMATED_DOCUMENT_COUNT : 'estimatedDocumentCount';
 COUNT_DOCUMENTS          : 'countDocuments';
 DISTINCT                 : 'distinct';
 AGGREGATE                : 'aggregate';
+COLLECTION               : 'collection';
+CREATE_COLLECTION        : 'createCollection';
+COMMAND                  : 'command';
 
 LBRACKET  : '[';
 RBRACKET  : ']';

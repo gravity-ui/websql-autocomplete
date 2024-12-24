@@ -1,8 +1,13 @@
-import {parseMongoQueryWithCursor, parseMongoQueryWithoutCursor} from '../..';
+import {
+    extractMongoCommandsFromQuery,
+    parseMongoQueryWithCursor,
+    parseMongoQueryWithoutCursor,
+} from '../..';
 
 test('should not report errors on multiple statements', () => {
     const autocompleteResult = parseMongoQueryWithoutCursor(`
         db.test_collection.find();
+        db.collection('test_collection').find();
         db.test_collection.insertOne({test_field: 'test_value'});
     `);
 
@@ -12,6 +17,7 @@ test('should not report errors on multiple statements', () => {
 test('should not report errors on three statements', () => {
     const autocompleteResult = parseMongoQueryWithoutCursor(`
         db.test_collection.find();
+        db.collection('test_collection').find();
         db.test_collection.insertOne({test_field: 'test_value'});
         db.test_collection.insertMany([{test_field: 'test_value'}]);
     `);
@@ -64,4 +70,20 @@ test('should suggest properly keywords after collection name', () => {
         {value: 'distinct'},
         {value: 'aggregate'},
     ]);
+});
+
+test('should throw error on invalid syntax', () => {
+    const result = extractMongoCommandsFromQuery('db_ERROR.test_collection1.find({})');
+
+    expect(result).toEqual({
+        parseSyntaxErrors: [
+            {
+                endColumn: 8,
+                endLine: 1,
+                message: "mismatched input 'db_ERROR' expecting {<EOF>, 'db'}",
+                startColumn: 0,
+                startLine: 1,
+            },
+        ],
+    });
 });

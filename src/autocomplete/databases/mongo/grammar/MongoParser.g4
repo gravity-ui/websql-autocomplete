@@ -18,6 +18,50 @@ commands
 
 command
     : collectionOperation
+    | databaseOperation
+    ;
+
+databaseOperation
+    : DB DOT databaseMethod
+    ;
+
+databaseMethod
+    : databaseCollectionMethod
+    | createCollectionMethod
+    | commandMethod
+    | aggregateMethod
+    ;
+
+commandMethod
+    : COMMAND LPAREN commandArgument1 (COMMA commandArgument2)? RPAREN
+    ;
+
+commandArgument1
+    : object
+    ;
+
+commandArgument2
+    : object
+    ;
+
+createCollectionMethod
+    : CREATE_COLLECTION LPAREN createCollectionArgument1 (COMMA createCollectionArgument2)? RPAREN
+    ;
+
+createCollectionArgument1
+    : STRING
+    ;
+
+createCollectionArgument2
+    : object
+    ;
+
+databaseCollectionMethod
+    : COLLECTION LPAREN quotedCollectionName RPAREN DOT collectionMethod
+    ;
+
+quotedCollectionName
+    : STRING
     ;
 
 collectionOperation
@@ -546,6 +590,9 @@ reservedKeyword
     | COUNT_DOCUMENTS
     | DISTINCT
     | AGGREGATE
+    | COLLECTION
+    | CREATE_COLLECTION
+    | COMMAND
     ;
 
 // JSON5 rules
