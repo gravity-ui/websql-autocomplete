@@ -36,9 +36,12 @@ import {
     DatabaseCreateIndexMethodContext,
     DatabaseDropCollectionMethodContext,
     DatabaseDropDatabaseMethodContext,
+    DatabaseIndexInformationMethodContext,
     DatabaseListCollectionsMethodContext,
     DatabaseOperationContext,
+    DatabaseRemoveUserMethodContext,
     DatabaseRenameCollectionMethodContext,
+    DatabaseRunCursorCommandMethodContext,
     FilterModifierContext,
     HintModifierContext,
     LimitModifierContext,
@@ -328,6 +331,24 @@ export interface DatabaseCreateIndexCommand extends DatabaseCommandBase {
     options?: unknown;
 }
 
+export interface DatabaseRemoveUserCommand extends DatabaseCommandBase {
+    method: 'removeUser';
+    username: unknown;
+    options?: unknown;
+}
+
+export interface DatabaseIndexInformationCommand extends DatabaseCommandBase {
+    method: 'indexInformation';
+    collectionName: unknown;
+    options?: unknown;
+}
+
+export interface DatabaseRunCursorCommand extends DatabaseCommandBase {
+    method: 'runCursorCommand';
+    document: unknown;
+    options?: unknown;
+}
+
 type DatabaseCommand =
     | DatabaseCreateCollectionCommand
     | DatabaseCommandCommand
@@ -336,7 +357,10 @@ type DatabaseCommand =
     | DatabaseRenameCollectionCommand
     | DatabaseDropCollectionCommand
     | DatabaseDropDatabaseCommand
-    | DatabaseCreateIndexCommand;
+    | DatabaseCreateIndexCommand
+    | DatabaseRemoveUserCommand
+    | DatabaseIndexInformationCommand
+    | DatabaseRunCursorCommand;
 
 type CollectionCommand =
     | CollectionFindCommand
@@ -562,6 +586,50 @@ function parseDatabaseMethod(
                 method: 'createIndex',
                 collectionName,
                 indexSpec,
+                options,
+            });
+        }
+
+        if (methodContext instanceof DatabaseRemoveUserMethodContext) {
+            const username = formatJson5(methodContext.databaseRemoveUserArgument1().getText());
+            const options = formatJson5(methodContext.databaseRemoveUserArgument2()?.getText());
+
+            return makeCommandResult({
+                type: 'database',
+                method: 'removeUser',
+                username,
+                options,
+            });
+        }
+
+        if (methodContext instanceof DatabaseIndexInformationMethodContext) {
+            const collectionName = formatJson5(
+                methodContext.databaseIndexInformationArgument1().getText(),
+            );
+            const options = formatJson5(
+                methodContext.databaseIndexInformationArgument2()?.getText(),
+            );
+
+            return makeCommandResult({
+                type: 'database',
+                method: 'indexInformation',
+                collectionName,
+                options,
+            });
+        }
+
+        if (methodContext instanceof DatabaseRunCursorCommandMethodContext) {
+            const document = formatJson5(
+                methodContext.databaseRunCursorCommandArgument1().getText(),
+            );
+            const options = formatJson5(
+                methodContext.databaseRunCursorCommandArgument2()?.getText(),
+            );
+
+            return makeCommandResult({
+                type: 'database',
+                method: 'runCursorCommand',
+                document,
                 options,
             });
         }

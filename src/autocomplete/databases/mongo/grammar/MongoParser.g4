@@ -35,6 +35,49 @@ databaseMethod
     | databaseDropCollectionMethod
     | databaseDropDatabaseMethod
     | databaseCreateIndexMethod
+    | databaseRemoveUserMethod
+    | databaseIndexInformationMethod
+    | databaseRunCursorCommandMethod
+    ;
+
+databaseRunCursorCommandMethod
+    : RUN_CURSOR_COMMAND LPAREN databaseRunCursorCommandArgument1 (
+        COMMA databaseRunCursorCommandArgument2
+    )? RPAREN
+    ;
+
+databaseRunCursorCommandArgument1
+    : object
+    ;
+
+databaseRunCursorCommandArgument2
+    : object
+    ;
+
+databaseIndexInformationMethod
+    : INDEX_INFORMATION LPAREN databaseIndexInformationArgument1 (
+        COMMA databaseIndexInformationArgument2
+    )? RPAREN
+    ;
+
+databaseIndexInformationArgument1
+    : STRING
+    ;
+
+databaseIndexInformationArgument2
+    : object
+    ;
+
+databaseRemoveUserMethod
+    : REMOVE_USER LPAREN databaseRemoveUserArgument1 (COMMA databaseRemoveUserArgument2)? RPAREN
+    ;
+
+databaseRemoveUserArgument1
+    : STRING
+    ;
+
+databaseRemoveUserArgument2
+    : object
     ;
 
 databaseCreateIndexMethod
@@ -692,6 +735,8 @@ reservedKeyword
     | RENAME_COLLECTION
     | DROP_COLLECTION
     | DROP_DATABASE
+    | REMOVE_USER
+    | RUN_CURSOR_COMMAND
     ;
 
 // JSON5 rules

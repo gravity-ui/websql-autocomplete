@@ -17,6 +17,15 @@ import { CommandsContext } from "./MongoParser.js";
 import { CommandContext } from "./MongoParser.js";
 import { DatabaseOperationContext } from "./MongoParser.js";
 import { DatabaseMethodContext } from "./MongoParser.js";
+import { DatabaseRunCursorCommandMethodContext } from "./MongoParser.js";
+import { DatabaseRunCursorCommandArgument1Context } from "./MongoParser.js";
+import { DatabaseRunCursorCommandArgument2Context } from "./MongoParser.js";
+import { DatabaseIndexInformationMethodContext } from "./MongoParser.js";
+import { DatabaseIndexInformationArgument1Context } from "./MongoParser.js";
+import { DatabaseIndexInformationArgument2Context } from "./MongoParser.js";
+import { DatabaseRemoveUserMethodContext } from "./MongoParser.js";
+import { DatabaseRemoveUserArgument1Context } from "./MongoParser.js";
+import { DatabaseRemoveUserArgument2Context } from "./MongoParser.js";
 import { DatabaseCreateIndexMethodContext } from "./MongoParser.js";
 import { DatabaseCreateIndexArgument3Context } from "./MongoParser.js";
 import { DatabaseCreateIndexArgument2Context } from "./MongoParser.js";
@@ -200,6 +209,60 @@ export class MongoParserVisitor<Result> extends AbstractParseTreeVisitor<Result>
      * @return the visitor result
      */
     visitDatabaseMethod?: (ctx: DatabaseMethodContext) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.databaseRunCursorCommandMethod`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitDatabaseRunCursorCommandMethod?: (ctx: DatabaseRunCursorCommandMethodContext) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.databaseRunCursorCommandArgument1`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitDatabaseRunCursorCommandArgument1?: (ctx: DatabaseRunCursorCommandArgument1Context) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.databaseRunCursorCommandArgument2`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitDatabaseRunCursorCommandArgument2?: (ctx: DatabaseRunCursorCommandArgument2Context) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.databaseIndexInformationMethod`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitDatabaseIndexInformationMethod?: (ctx: DatabaseIndexInformationMethodContext) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.databaseIndexInformationArgument1`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitDatabaseIndexInformationArgument1?: (ctx: DatabaseIndexInformationArgument1Context) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.databaseIndexInformationArgument2`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitDatabaseIndexInformationArgument2?: (ctx: DatabaseIndexInformationArgument2Context) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.databaseRemoveUserMethod`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitDatabaseRemoveUserMethod?: (ctx: DatabaseRemoveUserMethodContext) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.databaseRemoveUserArgument1`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitDatabaseRemoveUserArgument1?: (ctx: DatabaseRemoveUserArgument1Context) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.databaseRemoveUserArgument2`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitDatabaseRemoveUserArgument2?: (ctx: DatabaseRemoveUserArgument2Context) => Result;
     /**
      * Visit a parse tree produced by `MongoParser.databaseCreateIndexMethod`.
      * @param ctx the parse tree
