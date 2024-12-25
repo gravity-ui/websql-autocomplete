@@ -1,5 +1,17 @@
 # Changelog
 
+## [13.0.0](https://github.com/gravity-ui/websql-autocomplete/compare/v12.8.0...v13.0.0) (2024-12-25)
+
+
+### ⚠ BREAKING CHANGES
+
+* Partially support database commands for MongoDB / Refactor interfaces / Collect command errors ([#265](https://github.com/gravity-ui/websql-autocomplete/issues/265))
+
+### Features
+
+* Partially support database commands for MongoDB / Refactor interfaces / Collect command errors ([#265](https://github.com/gravity-ui/websql-autocomplete/issues/265)) ([39476d3](https://github.com/gravity-ui/websql-autocomplete/commit/39476d3fff6dc7000da396861c46b82a521483c4))
+* **YQL:** improve work with scopes ([#264](https://github.com/gravity-ui/websql-autocomplete/issues/264)) ([66ba285](https://github.com/gravity-ui/websql-autocomplete/commit/66ba285d16c1d9b73d655b4add380bd3e1f67433))
+
 ## [12.8.0](https://github.com/gravity-ui/websql-autocomplete/compare/v12.7.1...v12.8.0) (2024-12-23)
 
 
