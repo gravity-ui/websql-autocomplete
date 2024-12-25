@@ -16,6 +16,10 @@ export class TableSymbol extends c3.TypedSymbol {
     }
 }
 
+export class ExtendedVariable extends c3.VariableSymbol {
+    value: {columns?: string[]} | undefined;
+}
+
 export function getUniqueTableSuggestions(symbols: TableSymbol[] = []): Table[] {
     const suggestionsMap = symbols.reduce(
         (acc, table) => {

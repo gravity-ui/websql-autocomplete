@@ -9,7 +9,7 @@ import {
     SymbolTableVisitor,
     VariableSuggestion,
 } from './autocomplete-types';
-import {getScope} from './symbol-table';
+import {ExtendedVariable, getScope} from './symbol-table';
 import {computeTokenContext} from './compute-token-position';
 
 export function getVariableSuggestions<L extends LexerType, P extends ParserType>(
@@ -37,16 +37,16 @@ export function getVariableSuggestions<L extends LexerType, P extends ParserType
 
 function suggestVariables(symbolTable: c3.SymbolTable, context: ParseTree): VariableSuggestion[] {
     const scope = getScope(context, symbolTable);
-    let symbols: c3.VariableSymbol[] = [];
+    let symbols: ExtendedVariable[] = [];
 
     // Local scope
     if (scope instanceof c3.ScopedSymbol) {
-        symbols = scope.getNestedSymbolsOfTypeSync(c3.VariableSymbol);
+        symbols = scope.getNestedSymbolsOfTypeSync(ExtendedVariable);
 
         // Global scope
     } else if (symbolTable) {
         symbols = symbolTable
-            .getNestedSymbolsOfTypeSync(c3.VariableSymbol)
+            .getNestedSymbolsOfTypeSync(ExtendedVariable)
             // If symbol's parent has context it means it is local scoped, so no need to suggest it in global scope
             .filter((symbol) => !symbol.parent?.context);
     }

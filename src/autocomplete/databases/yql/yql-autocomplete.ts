@@ -32,7 +32,7 @@ import {
     ISymbolTableVisitor,
     ProcessVisitedRulesResult,
 } from '../../shared/autocomplete-types';
-import {ColumnAliasSymbol, TableSymbol} from '../../shared/symbol-table.js';
+import {ColumnAliasSymbol, ExtendedVariable, TableSymbol} from '../../shared/symbol-table.js';
 import {TableQueryPosition} from '../../shared/tables';
 import {isStartingToWriteRule} from '../../shared/cursor.js';
 import {shouldSuggestTemplates} from '../../shared/query.js';
@@ -165,7 +165,7 @@ class YQLVariableSymbolTableVisitor extends YQLSymbolTableVisitor {
                 const variable = getVariable(index);
                 if (variable) {
                     this.symbolTable.addNewSymbolOfType(
-                        c3.VariableSymbol,
+                        ExtendedVariable,
                         this.scope,
                         variable,
                         variableValue,
@@ -188,7 +188,7 @@ class YQLVariableSymbolTableVisitor extends YQLSymbolTableVisitor {
             if (variable) {
                 const value = context.literal_value()?.getText();
 
-                this.symbolTable.addNewSymbolOfType(c3.VariableSymbol, this.scope, variable, value);
+                this.symbolTable.addNewSymbolOfType(ExtendedVariable, this.scope, variable, value);
             }
         } catch (error) {
             if (!(error instanceof c3.DuplicateSymbolError)) {
@@ -228,7 +228,7 @@ class YQLVariableSymbolTableVisitor extends YQLSymbolTableVisitor {
             const variable = context.bind_parameter()?.an_id_or_type()?.getText();
             if (variable) {
                 this.symbolTable.addNewSymbolOfType(
-                    c3.VariableSymbol,
+                    ExtendedVariable,
                     this.scope,
                     variable,
                     undefined,

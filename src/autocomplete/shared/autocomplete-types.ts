@@ -74,7 +74,7 @@ export interface ColumnAliasSuggestion {
 
 export interface VariableSuggestion {
     name: string;
-    value: unknown;
+    value?: {columns?: string[]};
 }
 
 export type LexerConstructor<T> = new (input: CharStream) => T;
