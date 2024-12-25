@@ -42,7 +42,7 @@ function getTokenContext(
 
     if (
         token.line === cursorPosition.line &&
-        //to get context correctly we need to take previous token i.e.
+        // To get context correctly we need to take previous token i.e.
         // "select | from" - need to get match with `select` token
         start <= cursorPosition.column - 2 &&
         stop >= cursorPosition.column - 2

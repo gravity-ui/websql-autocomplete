@@ -24,15 +24,15 @@ export function getVariableSuggestions<L extends LexerType, P extends ParserType
     const parser = createParser(Lexer, Parser, query);
     const parseTree = getParseTree(parser);
 
-    const tokenPosition = computeTokenContext(parseTree, tokenStream, cursor);
+    const tokenContext = computeTokenContext(parseTree, tokenStream, cursor);
 
-    if (!tokenPosition) {
-        throw new Error(`Could not find tokenPosition at Ln ${cursor.line}, Col ${cursor.column}`);
+    if (!tokenContext) {
+        throw new Error(`Could not find tokenContext at Ln ${cursor.line}, Col ${cursor.column}`);
     }
 
     symbolVariableVisitor.visit(parseTree);
 
-    return suggestVariables(symbolVariableVisitor.symbolTable, tokenPosition.context);
+    return suggestVariables(symbolVariableVisitor.symbolTable, tokenContext.context);
 }
 
 function suggestVariables(symbolTable: c3.SymbolTable, context: ParseTree): VariableSuggestion[] {

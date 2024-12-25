@@ -39,7 +39,7 @@ import {shouldSuggestTemplates} from '../../shared/query.js';
 import {EntitySuggestionToYqlEntity, getGranularSuggestions, tokenDictionary} from './helpers';
 import {EntitySuggestion, InternalSuggestions, YqlAutocompleteResult} from './types';
 import {getVariableSuggestions} from '../../shared/variables';
-import {getTablesSuggestions} from '../../shared/tables-unstable';
+import {getExtendedTableSuggestions} from '../../shared/extended-tables';
 
 // These are keywords that we do not want to show in autocomplete
 function getIgnoredTokens(): number[] {
@@ -543,7 +543,7 @@ function getEnrichAutocompleteResult(parseTreeGetter: GetParseTree<YQLParser>) {
 
         if (contextSuggestionsNeeded) {
             const visitor = new YQLTableSymbolTableVisitor();
-            const {tableContextSuggestion, suggestColumnAliases} = getTablesSuggestions(
+            const {tableContextSuggestion, suggestColumnAliases} = getExtendedTableSuggestions(
                 YQLLexer,
                 YQLParser,
                 visitor,

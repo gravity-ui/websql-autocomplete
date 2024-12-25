@@ -20,7 +20,7 @@ interface ContextSuggestions {
     suggestColumnAliases?: SqlAutocompleteResult['suggestColumnAliases'];
 }
 
-export function getTablesSuggestions<L extends LexerType, P extends ParserType>(
+export function getExtendedTableSuggestions<L extends LexerType, P extends ParserType>(
     Lexer: LexerConstructor<L>,
     Parser: ParserConstructor<P>,
     symbolTableVisitor: SymbolTableVisitor,
@@ -32,19 +32,19 @@ export function getTablesSuggestions<L extends LexerType, P extends ParserType>(
     const result: ContextSuggestions = {};
     const parser = createParser(Lexer, Parser, query);
     const parseTree = getParseTree(parser);
-    const tokenPosition = computeTokenContext(parseTree, tokenStream, cursor);
+    const tokenContext = computeTokenContext(parseTree, tokenStream, cursor);
 
-    if (!tokenPosition) {
-        throw new Error(`Could not find tokenPosition at Ln ${cursor.line}, Col ${cursor.column}`);
+    if (!tokenContext) {
+        throw new Error(`Could not find tokenContext at Ln ${cursor.line}, Col ${cursor.column}`);
     }
 
     symbolTableVisitor.visit(parseTree);
 
-    const tables = suggestTables(symbolTableVisitor.symbolTable, tokenPosition.context);
+    const tables = suggestTables(symbolTableVisitor.symbolTable, tokenContext.context);
 
     const columnAliases = suggestColumnAliases(
         symbolTableVisitor.symbolTable,
-        tokenPosition.context,
+        tokenContext.context,
     );
 
     if (tables.length) {
@@ -65,7 +65,7 @@ function suggestTables(symbolTable: c3.SymbolTable, context: ParseTree): Table[]
     if (scope instanceof c3.ScopedSymbol) {
         symbols = scope
             .getNestedSymbolsOfTypeSync(TableSymbol)
-            .filter((sym) => sym.parent?.context === scope.context);
+            .filter((symbol) => symbol.parent?.context === scope.context);
 
         // Global scope
     } else if (symbolTable) {
@@ -88,7 +88,7 @@ function suggestColumnAliases(
     if (scope instanceof c3.ScopedSymbol) {
         symbols = scope
             .getNestedSymbolsOfTypeSync(ColumnAliasSymbol)
-            .filter((sym) => sym.parent?.context === scope.context);
+            .filter((symbol) => symbol.parent?.context === scope.context);
 
         // Global scope
     } else if (symbolTable) {
