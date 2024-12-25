@@ -1,5 +1,12 @@
 # Changelog
 
+## [13.1.0](https://github.com/gravity-ui/websql-autocomplete/compare/v13.0.0...v13.1.0) (2024-12-25)
+
+
+### Features
+
+* **YQL:** improve variable symbol value types ([#268](https://github.com/gravity-ui/websql-autocomplete/issues/268)) ([7304b40](https://github.com/gravity-ui/websql-autocomplete/commit/7304b400319d69bc4ecaf5b4a1618a869ae75eb7))
+
 ## [13.0.0](https://github.com/gravity-ui/websql-autocomplete/compare/v12.8.0...v13.0.0) (2024-12-25)
 
 
