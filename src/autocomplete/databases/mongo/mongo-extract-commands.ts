@@ -9,6 +9,7 @@ import {
     CreateIndexMethodContext,
     CreateIndexesMethodContext,
     DatabaseCollectionMethodContext,
+    DatabaseCreateIndexMethodContext,
     DatabaseOperationContext,
     DeleteManyMethodContext,
     DeleteOneMethodContext,
@@ -320,6 +321,13 @@ export interface DatabaseDropDatabaseCommand extends DatabaseCommandBase {
     options?: unknown;
 }
 
+export interface DatabaseCreateIndexCommand extends DatabaseCommandBase {
+    method: 'createIndex';
+    collectionName: unknown;
+    indexSpec: unknown;
+    options?: unknown;
+}
+
 type DatabaseCommand =
     | DatabaseCreateCollectionCommand
     | DatabaseCommandCommand
@@ -327,7 +335,8 @@ type DatabaseCommand =
     | DatabaseListCollectionsCommand
     | DatabaseRenameCollectionCommand
     | DatabaseDropCollectionCommand
-    | DatabaseDropDatabaseCommand;
+    | DatabaseDropDatabaseCommand
+    | DatabaseCreateIndexCommand;
 
 type CollectionCommand =
     | CollectionFindCommand
@@ -523,6 +532,22 @@ function parseDatabaseMethod(
             return makeCommandResult({
                 type: 'database',
                 method: 'dropDatabase',
+                options,
+            });
+        }
+
+        if (methodContext instanceof DatabaseCreateIndexMethodContext) {
+            const collectionName = formatJson5(
+                methodContext.databaseCreateIndexArgument1().getText(),
+            );
+            const indexSpec = formatJson5(methodContext.databaseCreateIndexArgument2().getText());
+            const options = formatJson5(methodContext.databaseCreateIndexArgument3()?.getText());
+
+            return makeCommandResult({
+                type: 'database',
+                method: 'createIndex',
+                collectionName,
+                indexSpec,
                 options,
             });
         }

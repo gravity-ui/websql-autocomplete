@@ -5,6 +5,8 @@ test('should not report errors on createIndex statement', () => {
         db.test_collection.createIndex('test_index');
 
         db.collection('test_collection').createIndex('test_index');
+
+        db.createIndex('test_collection', 'test_index');
     `);
 
     expect(autocompleteResult.errors).toHaveLength(0);
@@ -15,6 +17,8 @@ test('should not report errors on createIndex statement with array in argument',
         db.test_collection.createIndex([['test_index_1', -1], ['test_index_2', 1]]);
 
         db.collection('test_collection').createIndex([['test_index_1', -1], ['test_index_2', 1]]);
+
+        db.createIndex('test_collection', [['test_index_1', -1], ['test_index_2', 1]]);
     `);
 
     expect(autocompleteResult.errors).toHaveLength(0);
@@ -28,6 +32,11 @@ test('should not report errors on createIndex statement with object argument', (
         });
 
         db.collection('test_collection').createIndex({
+            test_index_1: -1,
+            test_index_2: 1,
+        });
+
+        db.createIndex('test_collection', {
             test_index_1: -1,
             test_index_2: 1,
         });
@@ -57,6 +66,17 @@ test('should not report errors on extended createIndex statement', () => {
                 test_option: 'test_value',
             }
         );
+
+        db.createIndex(
+            'test_collection',
+            {
+                test_index_1: -1,
+                test_index_2: 1,
+            },
+            {
+                test_option: 'test_value',
+            }
+        );
     `);
 
     expect(autocompleteResult.errors).toHaveLength(0);
@@ -66,13 +86,19 @@ test('should extract createIndex commands properly', () => {
     const result = extractMongoCommandsFromQuery(`
         db.test_collection.createIndex('test_index');
         db.collection('test_collection').createIndex('test_index');
+        db.createIndex('test_collection', 'test_index');
         db.test_collection.createIndex([['test_index_1', -1], ['test_index_2', 1]]);
         db.collection('test_collection').createIndex([['test_index_1', -1], ['test_index_2', 1]]);
+        db.createIndex('test_collection', [['test_index_1', -1], ['test_index_2', 1]]);
         db.test_collection.createIndex({
             test_index_1: -1,
             test_index_2: 1,
         });
         db.collection('test_collection').createIndex({
+            test_index_1: -1,
+            test_index_2: 1,
+        });
+        db.createIndex('test_collection', {
             test_index_1: -1,
             test_index_2: 1,
         });
@@ -86,6 +112,16 @@ test('should extract createIndex commands properly', () => {
             }
         );
         db.collection('test_collection').createIndex(
+            {
+                test_index_1: -1,
+                test_index_2: 1,
+            },
+            {
+                test_option: 'test_value',
+            }
+        );
+        db.createIndex(
+            'test_collection',
             {
                 test_index_1: -1,
                 test_index_2: 1,
@@ -111,6 +147,12 @@ test('should extract createIndex commands properly', () => {
         },
         {
             collectionName: 'test_collection',
+            type: 'database',
+            method: 'createIndex',
+            indexSpec: 'test_index',
+        },
+        {
+            collectionName: 'test_collection',
             type: 'collection',
             method: 'createIndex',
             indexSpec: [
@@ -121,6 +163,15 @@ test('should extract createIndex commands properly', () => {
         {
             collectionName: 'test_collection',
             type: 'collection',
+            method: 'createIndex',
+            indexSpec: [
+                ['test_index_1', -1],
+                ['test_index_2', 1],
+            ],
+        },
+        {
+            collectionName: 'test_collection',
+            type: 'database',
             method: 'createIndex',
             indexSpec: [
                 ['test_index_1', -1],
@@ -139,6 +190,15 @@ test('should extract createIndex commands properly', () => {
         {
             collectionName: 'test_collection',
             type: 'collection',
+            method: 'createIndex',
+            indexSpec: {
+                test_index_1: -1,
+                test_index_2: 1,
+            },
+        },
+        {
+            collectionName: 'test_collection',
+            type: 'database',
             method: 'createIndex',
             indexSpec: {
                 test_index_1: -1,
@@ -160,6 +220,18 @@ test('should extract createIndex commands properly', () => {
         {
             collectionName: 'test_collection',
             type: 'collection',
+            method: 'createIndex',
+            indexSpec: {
+                test_index_1: -1,
+                test_index_2: 1,
+            },
+            options: {
+                test_option: 'test_value',
+            },
+        },
+        {
+            collectionName: 'test_collection',
+            type: 'database',
             method: 'createIndex',
             indexSpec: {
                 test_index_1: -1,

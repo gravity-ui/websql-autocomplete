@@ -34,6 +34,27 @@ databaseMethod
     | renameCollectionMethod
     | dropCollectionMethod
     | dropDatabaseMethod
+    | databaseCreateIndexMethod
+    ;
+
+databaseCreateIndexMethod
+    : CREATE_INDEX LPAREN databaseCreateIndexArgument1 COMMA databaseCreateIndexArgument2 (
+        COMMA databaseCreateIndexArgument3
+    )? RPAREN
+    ;
+
+databaseCreateIndexArgument3
+    : object
+    ;
+
+databaseCreateIndexArgument2
+    : STRING
+    | object
+    | array
+    ;
+
+databaseCreateIndexArgument1
+    : STRING
     ;
 
 dropDatabaseMethod

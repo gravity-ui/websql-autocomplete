@@ -17,6 +17,10 @@ import { CommandsContext } from "./MongoParser.js";
 import { CommandContext } from "./MongoParser.js";
 import { DatabaseOperationContext } from "./MongoParser.js";
 import { DatabaseMethodContext } from "./MongoParser.js";
+import { DatabaseCreateIndexMethodContext } from "./MongoParser.js";
+import { DatabaseCreateIndexArgument3Context } from "./MongoParser.js";
+import { DatabaseCreateIndexArgument2Context } from "./MongoParser.js";
+import { DatabaseCreateIndexArgument1Context } from "./MongoParser.js";
 import { DropDatabaseMethodContext } from "./MongoParser.js";
 import { DropDatabaseArgumentContext } from "./MongoParser.js";
 import { DropCollectionMethodContext } from "./MongoParser.js";
@@ -196,6 +200,30 @@ export class MongoParserVisitor<Result> extends AbstractParseTreeVisitor<Result>
      * @return the visitor result
      */
     visitDatabaseMethod?: (ctx: DatabaseMethodContext) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.databaseCreateIndexMethod`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitDatabaseCreateIndexMethod?: (ctx: DatabaseCreateIndexMethodContext) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.databaseCreateIndexArgument3`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitDatabaseCreateIndexArgument3?: (ctx: DatabaseCreateIndexArgument3Context) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.databaseCreateIndexArgument2`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitDatabaseCreateIndexArgument2?: (ctx: DatabaseCreateIndexArgument2Context) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.databaseCreateIndexArgument1`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitDatabaseCreateIndexArgument1?: (ctx: DatabaseCreateIndexArgument1Context) => Result;
     /**
      * Visit a parse tree produced by `MongoParser.dropDatabaseMethod`.
      * @param ctx the parse tree
