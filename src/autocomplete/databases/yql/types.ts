@@ -2,6 +2,7 @@ import {
     ColumnSuggestion,
     SqlAutocompleteResult,
     TableIndexSuggestion,
+    VariableSuggestion,
 } from '../../shared/autocomplete-types';
 import {TokenizeResult} from '../../shared/tokenize';
 
@@ -67,7 +68,7 @@ export interface YqlAutocompleteResult extends Omit<SqlAutocompleteResult, 'sugg
     suggestTableHints?: string;
     suggestEntitySettings?: YQLEntity;
     suggestColumns?: YQLColumnsSuggestion;
-    suggestVariables?: string[];
+    suggestVariables?: VariableSuggestion[];
 }
 
 export interface YqlTokenizeResult extends TokenizeResult {}

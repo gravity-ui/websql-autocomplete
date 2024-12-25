@@ -78,6 +78,14 @@ test('should suggest properly after ORDER BY in nested statement', () => {
     expect(autocompleteResult.suggestColumns).toEqual(columnSuggestion);
     getAfterOrderByCommonExpections(autocompleteResult);
 });
+test('should suggest properly after ORDER BY in nested statement for functions', () => {
+    const autocompleteResult = parseYqlQueryWithCursor(
+        'SELECT id as id1 FROM (SELECT count(*) as count, test_column t1 FROM test_table as t ORDER BY coalesce(length(|',
+    );
+    const columnSuggestion: ColumnSuggestion = {tables: [{name: 'test_table', alias: 't'}]};
+
+    expect(autocompleteResult.suggestColumns).toEqual(columnSuggestion);
+});
 
 test('should suggest properly after ORDER BY between statements in nested statement', () => {
     const autocompleteResult = parseYqlQueryWithCursor(

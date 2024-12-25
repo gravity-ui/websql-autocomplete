@@ -7,6 +7,7 @@ import {
     LexerConstructor,
     ParserConstructor,
     SymbolTableVisitor,
+    VariableSuggestion,
 } from './autocomplete-types';
 import {getScope} from './symbol-table';
 import {computeTokenContext} from './compute-token-position';
@@ -19,22 +20,22 @@ export function getVariableSuggestions<L extends LexerType, P extends ParserType
     tokenStream: TokenStream,
     cursor: CursorPosition,
     query: string,
-): string[] {
+): VariableSuggestion[] {
     const parser = createParser(Lexer, Parser, query);
     const parseTree = getParseTree(parser);
 
-    const tokenPosition = computeTokenContext(parseTree, tokenStream, cursor);
+    const tokenContext = computeTokenContext(parseTree, tokenStream, cursor);
 
-    if (!tokenPosition) {
-        throw new Error(`Could not find tokenPosition at Ln ${cursor.line}, Col ${cursor.column}`);
+    if (!tokenContext) {
+        throw new Error(`Could not find tokenContext at Ln ${cursor.line}, Col ${cursor.column}`);
     }
 
     symbolVariableVisitor.visit(parseTree);
 
-    return suggestVariables(symbolVariableVisitor.symbolTable, tokenPosition.context);
+    return suggestVariables(symbolVariableVisitor.symbolTable, tokenContext.context);
 }
 
-function suggestVariables(symbolTable: c3.SymbolTable, context: ParseTree): string[] {
+function suggestVariables(symbolTable: c3.SymbolTable, context: ParseTree): VariableSuggestion[] {
     const scope = getScope(context, symbolTable);
     let symbols: c3.VariableSymbol[] = [];
 
@@ -50,5 +51,5 @@ function suggestVariables(symbolTable: c3.SymbolTable, context: ParseTree): stri
             .filter((symbol) => !symbol.parent?.context);
     }
 
-    return symbols.map((symbol) => symbol.name);
+    return symbols.map((symbol) => ({name: symbol.name, value: symbol.value}));
 }

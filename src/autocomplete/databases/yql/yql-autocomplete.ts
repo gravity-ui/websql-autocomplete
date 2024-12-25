@@ -13,9 +13,13 @@ import {
     Named_nodes_stmtContext,
     Named_single_sourceContext,
     Result_columnContext,
+    Select_coreContext,
+    Select_stmtContext,
     Simple_table_ref_coreContext,
     Sql_queryContext,
     Sql_query_yqContext,
+    Sql_stmt_coreContext,
+    Sql_stmt_core_yqContext,
     YQLParser,
 } from './generated/YQLParser';
 import {YQLVisitor} from './generated/YQLVisitor';
@@ -29,12 +33,13 @@ import {
     ProcessVisitedRulesResult,
 } from '../../shared/autocomplete-types';
 import {ColumnAliasSymbol, TableSymbol} from '../../shared/symbol-table.js';
-import {TableQueryPosition, getContextSuggestions} from '../../shared/tables';
+import {TableQueryPosition} from '../../shared/tables';
 import {isStartingToWriteRule} from '../../shared/cursor.js';
 import {shouldSuggestTemplates} from '../../shared/query.js';
 import {EntitySuggestionToYqlEntity, getGranularSuggestions, tokenDictionary} from './helpers';
 import {EntitySuggestion, InternalSuggestions, YqlAutocompleteResult} from './types';
 import {getVariableSuggestions} from '../../shared/variables';
+import {getExtendedTableSuggestions} from '../../shared/extended-tables';
 
 // These are keywords that we do not want to show in autocomplete
 function getIgnoredTokens(): number[] {
@@ -92,7 +97,7 @@ const rulesToVisit = new Set([
     YQLParser.RULE_id_as_compat,
 ]);
 
-class YQLVariableSymbolTableVisitor extends YQLVisitor<{}> implements ISymbolTableVisitor {
+class YQLSymbolTableVisitor extends YQLVisitor<{}> implements ISymbolTableVisitor {
     symbolTable: c3.SymbolTable;
     scope: c3.ScopedSymbol;
 
@@ -102,7 +107,58 @@ class YQLVariableSymbolTableVisitor extends YQLVisitor<{}> implements ISymbolTab
         this.scope = this.symbolTable.addNewSymbolOfType(c3.ScopedSymbol, undefined);
     }
 
-    addVariableSymbol = (getVariable: (index: number) => string | undefined): void => {
+    withScope<T>(
+        tree: ParseTree,
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        type: new (...args: any[]) => c3.ScopedSymbol,
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        args: any[],
+        action: () => T,
+    ): T {
+        const scope = this.symbolTable.addNewSymbolOfType(type, this.scope, ...args);
+        scope.context = tree;
+        this.scope = scope;
+        try {
+            return action();
+        } finally {
+            this.scope = scope.parent as c3.ScopedSymbol;
+        }
+    }
+
+    getColumnsFromSelectCore(context: Select_coreContext): string[] | undefined {
+        const columns = [];
+        let i = 0;
+        while (i >= 0) {
+            const column = context?.result_column(i);
+            if (!column) {
+                i = -1;
+                continue;
+            }
+            const columnAlias =
+                column.an_id_as_compat()?.getText() || column.an_id_or_type()?.getText();
+            if (columnAlias) {
+                columns.push(columnAlias);
+            } else {
+                const columnName = column.expr()?.getText();
+                if (columnName) {
+                    columns.push(columnName);
+                }
+            }
+            i += 1;
+        }
+        return columns.length ? columns : undefined;
+    }
+
+    protected defaultResult(): c3.SymbolTable {
+        return this.symbolTable;
+    }
+}
+
+class YQLVariableSymbolTableVisitor extends YQLSymbolTableVisitor {
+    addVariableSymbol = (
+        getVariable: (index: number) => string | undefined,
+        variableValue?: unknown,
+    ): void => {
         try {
             let index: number | null = 0;
             while (index !== null) {
@@ -112,7 +168,7 @@ class YQLVariableSymbolTableVisitor extends YQLVisitor<{}> implements ISymbolTab
                         c3.VariableSymbol,
                         this.scope,
                         variable,
-                        undefined,
+                        variableValue,
                     );
                     index++;
                 } else {
@@ -152,9 +208,15 @@ class YQLVariableSymbolTableVisitor extends YQLVisitor<{}> implements ISymbolTab
     };
 
     visitNamed_nodes_stmt = (context: Named_nodes_stmtContext): {} => {
+        const selectStmt =
+            context.subselect_stmt()?.select_stmt()?.select_kind_parenthesis(0) ||
+            context.subselect_stmt()?.select_unparenthesized_stmt();
+        const selectCore = selectStmt?.select_kind_partial()?.select_kind()?.select_core();
+        const columns = selectCore ? this.getColumnsFromSelectCore(selectCore) : undefined;
         this.addVariableSymbol(
             (index: number) =>
                 context.bind_parameter_list()?.bind_parameter(index)?.an_id_or_type()?.getText(),
+            columns ? {columns} : undefined,
         );
 
         return this.visitChildren(context) as {};
@@ -199,47 +261,37 @@ class YQLVariableSymbolTableVisitor extends YQLVisitor<{}> implements ISymbolTab
                         return variable.slice(1);
                     }
                 }
-                return variable;
+                return;
             });
             return this.visitChildren(context) as {};
         };
 
         return this.withScope(context, c3.RoutineSymbol, [context.getText()], addVariables) ?? {};
     };
-
-    withScope<T>(
-        tree: ParseTree,
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        type: new (...args: any[]) => c3.ScopedSymbol,
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        args: any[],
-        action: () => T,
-    ): T {
-        const scope = this.symbolTable.addNewSymbolOfType(type, this.scope, ...args);
-        scope.context = tree;
-        this.scope = scope;
-        try {
-            return action();
-        } finally {
-            this.scope = scope.parent as c3.ScopedSymbol;
-        }
-    }
-
-    protected defaultResult(): c3.SymbolTable {
-        return this.symbolTable;
-    }
 }
 
-class YQLSymbolTableVisitor extends YQLVisitor<{}> implements ISymbolTableVisitor {
-    symbolTable: c3.SymbolTable;
-    scope: c3.ScopedSymbol;
-
-    constructor() {
-        super();
-        this.symbolTable = new c3.SymbolTable('', {allowDuplicateSymbols: true});
-        this.scope = this.symbolTable.addNewSymbolOfType(c3.ScopedSymbol, undefined);
-    }
-
+class YQLTableSymbolTableVisitor extends YQLSymbolTableVisitor {
+    visitSql_stmt_core = (context: Sql_stmt_coreContext): {} => {
+        return (
+            this.withScope(context, c3.RoutineSymbol, [context.getText()], () =>
+                this.visitChildren(context),
+            ) ?? {}
+        );
+    };
+    visitSelect_stmt = (context: Select_stmtContext): {} => {
+        return (
+            this.withScope(context, c3.RoutineSymbol, [context.getText()], () =>
+                this.visitChildren(context),
+            ) ?? {}
+        );
+    };
+    visitSql_stmt_core_yq = (context: Sql_stmt_core_yqContext): {} => {
+        return (
+            this.withScope(context, c3.RoutineSymbol, [context.getText()], () =>
+                this.visitChildren(context),
+            ) ?? {}
+        );
+    };
     visitSimple_table_ref_core = (context: Simple_table_ref_coreContext): {} => {
         try {
             const table = context.object_ref()?.id_or_at()?.an_id_or_type()?.getText();
@@ -256,11 +308,14 @@ class YQLSymbolTableVisitor extends YQLVisitor<{}> implements ISymbolTableVisito
     };
     visitAlter_table_store_stmt = (context: Alter_table_store_stmtContext): {} => {
         try {
-            this.symbolTable.addNewSymbolOfType(
-                TableSymbol,
-                this.scope,
-                context.object_ref()?.id_or_at()?.getText(),
-            );
+            const table = context.object_ref()?.id_or_at()?.getText();
+            if (table) {
+                this.symbolTable.addNewSymbolOfType(
+                    TableSymbol,
+                    this.scope,
+                    context.object_ref()?.id_or_at()?.getText(),
+                );
+            }
         } catch (error) {
             if (!(error instanceof c3.DuplicateSymbolError)) {
                 throw error;
@@ -271,11 +326,23 @@ class YQLSymbolTableVisitor extends YQLVisitor<{}> implements ISymbolTableVisito
     };
     visitNamed_single_source = (context: Named_single_sourceContext): {} => {
         try {
+            const tableName = context.single_source().table_ref()?.getText() ?? '';
+            const sourceAlias = context.an_id()?.getText() ?? context.an_id_as_compat()?.getText();
+            const selectCore = context
+                .single_source()
+                .select_stmt()
+                ?.select_kind_parenthesis(0)
+                ?.select_kind_partial()
+                ?.select_kind()
+                ?.select_core();
+            const columns = selectCore ? this.getColumnsFromSelectCore(selectCore) : undefined;
+
             this.symbolTable.addNewSymbolOfType(
                 TableSymbol,
                 this.scope,
-                context.single_source().table_ref()?.getText() ?? '',
-                context.an_id()?.getText() ?? context.an_id_as_compat()?.getText(),
+                tableName,
+                sourceAlias,
+                columns,
             );
         } catch (error) {
             if (!(error instanceof c3.DuplicateSymbolError)) {
@@ -475,17 +542,15 @@ function getEnrichAutocompleteResult(parseTreeGetter: GetParseTree<YQLParser>) {
         }
 
         if (contextSuggestionsNeeded) {
-            const visitor = new YQLSymbolTableVisitor();
-            const {tableContextSuggestion, suggestColumnAliases} = getContextSuggestions(
+            const visitor = new YQLTableSymbolTableVisitor();
+            const {tableContextSuggestion, suggestColumnAliases} = getExtendedTableSuggestions(
                 YQLLexer,
                 YQLParser,
                 visitor,
-                tokenDictionary,
                 parseTreeGetter,
                 tokenStream,
                 cursor,
                 query,
-                true,
             );
 
             if (shouldSuggestColumns && tableContextSuggestion) {

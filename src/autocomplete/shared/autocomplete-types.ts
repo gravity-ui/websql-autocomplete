@@ -44,6 +44,7 @@ export interface KeywordSuggestion {
 export interface Table {
     name: string;
     alias?: string;
+    columns?: string[];
 }
 
 export interface TableContextSuggestion {
@@ -69,6 +70,11 @@ export interface EngineSuggestion {
 
 export interface ColumnAliasSuggestion {
     name: string;
+}
+
+export interface VariableSuggestion {
+    name: string;
+    value: unknown;
 }
 
 export type LexerConstructor<T> = new (input: CharStream) => T;
