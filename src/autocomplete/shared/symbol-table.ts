@@ -16,7 +16,7 @@ export class TableSymbol extends c3.TypedSymbol {
     }
 }
 
-export class ExtendedVariable extends c3.VariableSymbol {
+export class VariableSymbol extends c3.VariableSymbol {
     value: {columns?: string[]} | undefined;
 }
 
