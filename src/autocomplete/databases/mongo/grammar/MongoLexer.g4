@@ -57,6 +57,9 @@ DROP_COLLECTION          : 'dropCollection';
 DROP_DATABASE            : 'dropDatabase';
 REMOVE_USER              : 'removeUser';
 RUN_CURSOR_COMMAND       : 'runCursorCommand';
+STATS                    : 'stats';
+PROFILING_LEVEL          : 'profilingLevel';
+SET_PROFILING_LEVEL      : 'setProfilingLevel';
 
 LBRACKET  : '[';
 RBRACKET  : ']';

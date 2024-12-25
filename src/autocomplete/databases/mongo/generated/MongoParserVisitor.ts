@@ -17,6 +17,13 @@ import { CommandsContext } from "./MongoParser.js";
 import { CommandContext } from "./MongoParser.js";
 import { DatabaseOperationContext } from "./MongoParser.js";
 import { DatabaseMethodContext } from "./MongoParser.js";
+import { DatabaseSetProfilingLevelMethodContext } from "./MongoParser.js";
+import { DatabaseSetProfilingLevelArgument1Context } from "./MongoParser.js";
+import { DatabaseSetProfilingLevelArgument2Context } from "./MongoParser.js";
+import { DatabaseProfilingLevelMethodContext } from "./MongoParser.js";
+import { DatabaseProfilingLevelArgumentContext } from "./MongoParser.js";
+import { DatabaseStatsMethodContext } from "./MongoParser.js";
+import { DatabaseStatsArgumentContext } from "./MongoParser.js";
 import { DatabaseRunCursorCommandMethodContext } from "./MongoParser.js";
 import { DatabaseRunCursorCommandArgument1Context } from "./MongoParser.js";
 import { DatabaseRunCursorCommandArgument2Context } from "./MongoParser.js";
@@ -209,6 +216,48 @@ export class MongoParserVisitor<Result> extends AbstractParseTreeVisitor<Result>
      * @return the visitor result
      */
     visitDatabaseMethod?: (ctx: DatabaseMethodContext) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.databaseSetProfilingLevelMethod`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitDatabaseSetProfilingLevelMethod?: (ctx: DatabaseSetProfilingLevelMethodContext) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.databaseSetProfilingLevelArgument1`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitDatabaseSetProfilingLevelArgument1?: (ctx: DatabaseSetProfilingLevelArgument1Context) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.databaseSetProfilingLevelArgument2`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitDatabaseSetProfilingLevelArgument2?: (ctx: DatabaseSetProfilingLevelArgument2Context) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.databaseProfilingLevelMethod`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitDatabaseProfilingLevelMethod?: (ctx: DatabaseProfilingLevelMethodContext) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.databaseProfilingLevelArgument`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitDatabaseProfilingLevelArgument?: (ctx: DatabaseProfilingLevelArgumentContext) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.databaseStatsMethod`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitDatabaseStatsMethod?: (ctx: DatabaseStatsMethodContext) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.databaseStatsArgument`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitDatabaseStatsArgument?: (ctx: DatabaseStatsArgumentContext) => Result;
     /**
      * Visit a parse tree produced by `MongoParser.databaseRunCursorCommandMethod`.
      * @param ctx the parse tree

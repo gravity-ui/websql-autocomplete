@@ -48,6 +48,9 @@ test('should suggest collections and keywords after db', () => {
         {value: 'removeUser'},
         {value: 'indexInformation'},
         {value: 'runCursorCommand'},
+        {value: 'stats'},
+        {value: 'profilingLevel'},
+        {value: 'setProfilingLevel'},
     ]);
 });
 

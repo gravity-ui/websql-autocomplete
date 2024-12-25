@@ -38,6 +38,39 @@ databaseMethod
     | databaseRemoveUserMethod
     | databaseIndexInformationMethod
     | databaseRunCursorCommandMethod
+    | databaseStatsMethod
+    | databaseProfilingLevelMethod
+    | databaseSetProfilingLevelMethod
+    ;
+
+databaseSetProfilingLevelMethod
+    : SET_PROFILING_LEVEL LPAREN databaseSetProfilingLevelArgument1 (
+        COMMA databaseSetProfilingLevelArgument2
+    )? RPAREN
+    ;
+
+databaseSetProfilingLevelArgument1
+    : STRING
+    ;
+
+databaseSetProfilingLevelArgument2
+    : object
+    ;
+
+databaseProfilingLevelMethod
+    : PROFILING_LEVEL LPAREN databaseProfilingLevelArgument? RPAREN
+    ;
+
+databaseProfilingLevelArgument
+    : object
+    ;
+
+databaseStatsMethod
+    : STATS LPAREN databaseStatsArgument? RPAREN
+    ;
+
+databaseStatsArgument
+    : object
     ;
 
 databaseRunCursorCommandMethod
@@ -737,6 +770,9 @@ reservedKeyword
     | DROP_DATABASE
     | REMOVE_USER
     | RUN_CURSOR_COMMAND
+    | STATS
+    | PROFILING_LEVEL
+    | SET_PROFILING_LEVEL
     ;
 
 // JSON5 rules

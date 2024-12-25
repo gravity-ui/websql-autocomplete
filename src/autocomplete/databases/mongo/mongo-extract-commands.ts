@@ -39,9 +39,12 @@ import {
     DatabaseIndexInformationMethodContext,
     DatabaseListCollectionsMethodContext,
     DatabaseOperationContext,
+    DatabaseProfilingLevelMethodContext,
     DatabaseRemoveUserMethodContext,
     DatabaseRenameCollectionMethodContext,
     DatabaseRunCursorCommandMethodContext,
+    DatabaseSetProfilingLevelMethodContext,
+    DatabaseStatsMethodContext,
     FilterModifierContext,
     HintModifierContext,
     LimitModifierContext,
@@ -343,9 +346,25 @@ export interface DatabaseIndexInformationCommand extends DatabaseCommandBase {
     options?: unknown;
 }
 
-export interface DatabaseRunCursorCommand extends DatabaseCommandBase {
+export interface DatabaseRunCursorCommandCommand extends DatabaseCommandBase {
     method: 'runCursorCommand';
     document: unknown;
+    options?: unknown;
+}
+
+export interface DatabaseStatsCommand extends DatabaseCommandBase {
+    method: 'stats';
+    options?: unknown;
+}
+
+export interface DatabaseProfilingLevelCommand extends DatabaseCommandBase {
+    method: 'profilingLevel';
+    options?: unknown;
+}
+
+export interface DatabaseSetProfilingLevelCommand extends DatabaseCommandBase {
+    method: 'setProfilingLevel';
+    level: unknown;
     options?: unknown;
 }
 
@@ -360,7 +379,10 @@ type DatabaseCommand =
     | DatabaseCreateIndexCommand
     | DatabaseRemoveUserCommand
     | DatabaseIndexInformationCommand
-    | DatabaseRunCursorCommand;
+    | DatabaseRunCursorCommandCommand
+    | DatabaseStatsCommand
+    | DatabaseProfilingLevelCommand
+    | DatabaseSetProfilingLevelCommand;
 
 type CollectionCommand =
     | CollectionFindCommand
@@ -630,6 +652,40 @@ function parseDatabaseMethod(
                 type: 'database',
                 method: 'runCursorCommand',
                 document,
+                options,
+            });
+        }
+
+        if (methodContext instanceof DatabaseStatsMethodContext) {
+            const options = formatJson5(methodContext.databaseStatsArgument()?.getText());
+
+            return makeCommandResult({
+                type: 'database',
+                method: 'stats',
+                options,
+            });
+        }
+
+        if (methodContext instanceof DatabaseProfilingLevelMethodContext) {
+            const options = formatJson5(methodContext.databaseProfilingLevelArgument()?.getText());
+
+            return makeCommandResult({
+                type: 'database',
+                method: 'profilingLevel',
+                options,
+            });
+        }
+
+        if (methodContext instanceof DatabaseSetProfilingLevelMethodContext) {
+            const level = formatJson5(methodContext.databaseSetProfilingLevelArgument1().getText());
+            const options = formatJson5(
+                methodContext.databaseSetProfilingLevelArgument2()?.getText(),
+            );
+
+            return makeCommandResult({
+                type: 'database',
+                method: 'setProfilingLevel',
+                level,
                 options,
             });
         }
