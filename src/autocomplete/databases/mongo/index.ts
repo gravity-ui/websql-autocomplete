@@ -8,44 +8,7 @@ import {
     extractStatementPositionsFromQuery,
 } from '../../shared/extract-statement-positions-from-query';
 
-export {
-    extractMongoCommandsFromQuery,
-    ParsingError as CommandsParsingError,
-    UnexpectedError as UnexpectedCommandsParsingError,
-    FindModifier,
-    ExtractMongoCommandsFromQueryResult,
-    Command,
-    CollectionFindCommand,
-    CollectionFindOneCommand,
-    CollectionFindOneAndDeleteCommand,
-    CollectionFindOneAndReplaceCommand,
-    CollectionFindOneAndUpdateCommand,
-    CollectionInsertOneCommand,
-    CollectionInsertManyCommand,
-    CollectionBulkWriteCommand,
-    CollectionUpdateOneCommand,
-    CollectionUpdateManyCommand,
-    CollectionReplaceOneCommand,
-    CollectionDeleteOneCommand,
-    CollectionDeleteManyCommand,
-    CollectionRenameCommand,
-    CollectionDropCommand,
-    CollectionIsCappedCommand,
-    CollectionCreateIndexCommand,
-    CollectionCreateIndexesCommand,
-    CollectionDropIndexCommand,
-    CollectionDropIndexesCommand,
-    CollectionListIndexesCommand,
-    CollectionIndexesCommand,
-    CollectionIndexExistsCommand,
-    CollectionIndexInformationCommand,
-    CollectionEstimatedDocumentCountCommand,
-    CollectionCountDocumentsCommand,
-    CollectionDistinctCommand,
-    CollectionAggregateCommand,
-    DatabaseCreateCollectionCommand,
-    DatabaseCommandCommand,
-} from './mongo-extract-commands';
+export * from './mongo-extract-commands';
 
 export interface MongoAutocompleteResult extends SqlAutocompleteResult {
     suggestCollections?: boolean;
