@@ -1,6 +1,7 @@
 import json5 from 'json5';
 import {
     AggregateMethodContext,
+    BuildInfoMethodContext,
     CollectionBulkWriteMethodContext,
     CollectionCountDocumentsMethodContext,
     CollectionCreateIndexMethodContext,
@@ -30,6 +31,7 @@ import {
     CollectionReplaceOneMethodContext,
     CollectionUpdateManyMethodContext,
     CollectionUpdateOneMethodContext,
+    DatabaseAdminMethodContext,
     DatabaseCollectionMethodContext,
     DatabaseCommandMethodContext,
     DatabaseCreateCollectionMethodContext,
@@ -48,13 +50,19 @@ import {
     FilterModifierContext,
     HintModifierContext,
     LimitModifierContext,
+    ListDatabasesMethodContext,
     MaxModifierContext,
     MinModifierContext,
     MongoParser,
+    PingMethodContext,
+    ReplSetGetStatusMethodContext,
     ReturnKeyModifierContext,
+    ServerInfoMethodContext,
+    ServerStatusMethodContext,
     ShowRecordIdModifierContext,
     SkipModifierContext,
     SortModifierContext,
+    ValidateCollectionMethodContext,
 } from './generated/MongoParser';
 import {MongoParserVisitor} from './generated/MongoParserVisitor';
 import {ParserSyntaxError, SqlErrorListener, createParser} from '../../shared';
@@ -368,6 +376,46 @@ export interface DatabaseSetProfilingLevelCommand extends DatabaseCommandBase {
     options?: unknown;
 }
 
+export interface DatabaseAdminCommand extends DatabaseCommandBase {
+    method: 'admin';
+    childMethod: ChildAdminMethod;
+}
+
+type ChildAdminMethod =
+    | CommonAdminMethod
+    | ValidateCollectionMethod
+    | RemoveUserMethod
+    | CommandMethod;
+
+export interface CommonAdminMethod {
+    method:
+        | 'buildInfo'
+        | 'serverStatus'
+        | 'serverInfo'
+        | 'ping'
+        | 'listDatabases'
+        | 'replSetGetStatus';
+    options?: unknown;
+}
+
+export interface ValidateCollectionMethod {
+    method: 'validateCollection';
+    collectionName: unknown;
+    options?: unknown;
+}
+
+export interface RemoveUserMethod {
+    method: 'removeUser';
+    username: unknown;
+    options?: unknown;
+}
+
+export interface CommandMethod {
+    method: 'command';
+    document: unknown;
+    options?: unknown;
+}
+
 type DatabaseCommand =
     | DatabaseCreateCollectionCommand
     | DatabaseCommandCommand
@@ -382,7 +430,8 @@ type DatabaseCommand =
     | DatabaseRunCursorCommandCommand
     | DatabaseStatsCommand
     | DatabaseProfilingLevelCommand
-    | DatabaseSetProfilingLevelCommand;
+    | DatabaseSetProfilingLevelCommand
+    | DatabaseAdminCommand;
 
 type CollectionCommand =
     | CollectionFindCommand
@@ -519,14 +568,10 @@ function parseDatabaseMethod(
         }
 
         if (methodContext instanceof DatabaseCommandMethodContext) {
-            const document = formatJson5(methodContext.databaseCommandArgument1().getText());
-            const options = formatJson5(methodContext.databaseCommandArgument2()?.getText());
-
             return makeCommandResult({
                 type: 'database',
                 method: 'command',
-                document,
-                options,
+                ...parseDatabaseCommandMethodContext(methodContext),
             });
         }
 
@@ -613,14 +658,10 @@ function parseDatabaseMethod(
         }
 
         if (methodContext instanceof DatabaseRemoveUserMethodContext) {
-            const username = formatJson5(methodContext.databaseRemoveUserArgument1().getText());
-            const options = formatJson5(methodContext.databaseRemoveUserArgument2()?.getText());
-
             return makeCommandResult({
                 type: 'database',
                 method: 'removeUser',
-                username,
-                options,
+                ...parseDatabaseRemoveUserMethodContext(methodContext),
             });
         }
 
@@ -689,11 +730,160 @@ function parseDatabaseMethod(
                 options,
             });
         }
+
+        if (methodContext instanceof DatabaseAdminMethodContext) {
+            return parseDatabaseAdminMethodContext(methodContext);
+        }
     } catch (error) {
         return parseExtractionError(error);
     }
 
     return makeMethodNotImplementedError(methodContext?.getText());
+}
+
+function parseDatabaseCommandMethodContext(
+    context: DatabaseCommandMethodContext,
+): Pick<DatabaseCommandCommand, 'document' | 'options'> {
+    const document = formatJson5(context.databaseCommandArgument1().getText());
+    const options = formatJson5(context.databaseCommandArgument2()?.getText());
+
+    return {
+        document,
+        options,
+    };
+}
+
+function parseDatabaseRemoveUserMethodContext(
+    context: DatabaseRemoveUserMethodContext,
+): Pick<DatabaseRemoveUserCommand, 'username' | 'options'> {
+    const username = formatJson5(context.databaseRemoveUserArgument1().getText());
+    const options = formatJson5(context.databaseRemoveUserArgument2()?.getText());
+
+    return {
+        username,
+        options,
+    };
+}
+
+function parseDatabaseAdminMethodContext(
+    context: DatabaseAdminMethodContext,
+): CommandParsingResult | CommandParsingError {
+    const childContext = context.adminMethod().getChild(0);
+
+    try {
+        if (childContext instanceof BuildInfoMethodContext) {
+            const options = formatJson5(childContext.buildInfoArgument()?.getText());
+
+            return makeCommandResult({
+                type: 'database',
+                method: 'admin',
+                childMethod: {
+                    method: 'buildInfo',
+                    options,
+                },
+            });
+        }
+        if (childContext instanceof ServerInfoMethodContext) {
+            const options = formatJson5(childContext.serverInfoArgument()?.getText());
+
+            return makeCommandResult({
+                type: 'database',
+                method: 'admin',
+                childMethod: {
+                    method: 'serverInfo',
+                    options,
+                },
+            });
+        }
+        if (childContext instanceof ServerStatusMethodContext) {
+            const options = formatJson5(childContext.serverStatusArgument()?.getText());
+
+            return makeCommandResult({
+                type: 'database',
+                method: 'admin',
+                childMethod: {
+                    method: 'serverStatus',
+                    options,
+                },
+            });
+        }
+        if (childContext instanceof PingMethodContext) {
+            const options = formatJson5(childContext.pingArgument()?.getText());
+
+            return makeCommandResult({
+                type: 'database',
+                method: 'admin',
+                childMethod: {
+                    method: 'ping',
+                    options,
+                },
+            });
+        }
+        if (childContext instanceof ListDatabasesMethodContext) {
+            const options = formatJson5(childContext.listDatabasesArgument()?.getText());
+
+            return makeCommandResult({
+                type: 'database',
+                method: 'admin',
+                childMethod: {
+                    method: 'listDatabases',
+                    options,
+                },
+            });
+        }
+        if (childContext instanceof ReplSetGetStatusMethodContext) {
+            const options = formatJson5(childContext.replSetGetStatusArgument()?.getText());
+
+            return makeCommandResult({
+                type: 'database',
+                method: 'admin',
+                childMethod: {
+                    method: 'replSetGetStatus',
+                    options,
+                },
+            });
+        }
+        if (childContext instanceof ValidateCollectionMethodContext) {
+            const collectionName = formatJson5(
+                childContext.validateCollectionArgument1().getText(),
+            );
+            const options = formatJson5(childContext.validateCollectionArgument2()?.getText());
+
+            return makeCommandResult({
+                type: 'database',
+                method: 'admin',
+                childMethod: {
+                    method: 'validateCollection',
+                    collectionName,
+                    options,
+                },
+            });
+        }
+        if (childContext instanceof DatabaseCommandMethodContext) {
+            return makeCommandResult({
+                type: 'database',
+                method: 'admin',
+                childMethod: {
+                    method: 'command',
+                    ...parseDatabaseCommandMethodContext(childContext),
+                },
+            });
+        }
+        if (childContext instanceof DatabaseRemoveUserMethodContext) {
+            return makeCommandResult({
+                type: 'database',
+                method: 'admin',
+                childMethod: {
+                    method: 'removeUser',
+                    ...parseDatabaseRemoveUserMethodContext(childContext),
+                },
+            });
+        }
+    } catch (error) {
+        return parseExtractionError(error);
+    }
+
+    return makeMethodNotImplementedError(childContext?.getText());
 }
 
 function parseQuotedCollectionName(quotedCollectionName: string): string {

@@ -51,6 +51,7 @@ test('should suggest collections and keywords after db', () => {
         {value: 'stats'},
         {value: 'profilingLevel'},
         {value: 'setProfilingLevel'},
+        {value: 'admin'},
     ]);
 });
 

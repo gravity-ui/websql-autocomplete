@@ -60,6 +60,14 @@ RUN_CURSOR_COMMAND       : 'runCursorCommand';
 STATS                    : 'stats';
 PROFILING_LEVEL          : 'profilingLevel';
 SET_PROFILING_LEVEL      : 'setProfilingLevel';
+ADMIN                    : 'admin';
+BUILD_INFO               : 'buildInfo';
+SERVER_INFO              : 'serverInfo';
+SERVER_STATUS            : 'serverStatus';
+PING                     : 'ping';
+VALIDATE_COLLECTION      : 'validateCollection';
+LIST_DATABASES           : 'listDatabases';
+REPL_SET_GET_STATUS      : 'replSetGetStatus';
 
 LBRACKET  : '[';
 RBRACKET  : ']';

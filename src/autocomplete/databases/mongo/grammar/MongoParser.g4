@@ -41,6 +41,83 @@ databaseMethod
     | databaseStatsMethod
     | databaseProfilingLevelMethod
     | databaseSetProfilingLevelMethod
+    | databaseAdminMethod
+    ;
+
+databaseAdminMethod
+    : ADMIN LPAREN RPAREN DOT adminMethod
+    ;
+
+adminMethod
+    : databaseCommandMethod
+    | databaseRemoveUserMethod
+    | buildInfoMethod
+    | serverInfoMethod
+    | serverStatusMethod
+    | pingMethod
+    | listDatabasesMethod
+    | replSetGetStatusMethod
+    | validateCollectionMethod
+    ;
+
+validateCollectionMethod
+    : VALIDATE_COLLECTION LPAREN validateCollectionArgument1 (COMMA validateCollectionArgument2)? RPAREN
+    ;
+
+validateCollectionArgument1
+    : STRING
+    ;
+
+validateCollectionArgument2
+    : object
+    ;
+
+serverStatusMethod
+    : SERVER_STATUS LPAREN serverStatusArgument? RPAREN
+    ;
+
+serverStatusArgument
+    : object
+    ;
+
+pingMethod
+    : PING LPAREN pingArgument? RPAREN
+    ;
+
+pingArgument
+    : object
+    ;
+
+listDatabasesMethod
+    : LIST_DATABASES LPAREN listDatabasesArgument? RPAREN
+    ;
+
+listDatabasesArgument
+    : object
+    ;
+
+replSetGetStatusMethod
+    : REPL_SET_GET_STATUS LPAREN replSetGetStatusArgument? RPAREN
+    ;
+
+replSetGetStatusArgument
+    : object
+    ;
+
+serverInfoMethod
+    : SERVER_INFO LPAREN serverInfoArgument? RPAREN
+    ;
+
+serverInfoArgument
+    : object
+    ;
+
+buildInfoMethod
+    : BUILD_INFO LPAREN buildInfoArgument? RPAREN
+    ;
+
+buildInfoArgument
+    : object
     ;
 
 databaseSetProfilingLevelMethod
@@ -773,6 +850,14 @@ reservedKeyword
     | STATS
     | PROFILING_LEVEL
     | SET_PROFILING_LEVEL
+    | ADMIN
+    | BUILD_INFO
+    | SERVER_INFO
+    | SERVER_STATUS
+    | PING
+    | VALIDATE_COLLECTION
+    | LIST_DATABASES
+    | REPL_SET_GET_STATUS
     ;
 
 // JSON5 rules

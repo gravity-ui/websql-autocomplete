@@ -17,6 +17,23 @@ import { CommandsContext } from "./MongoParser.js";
 import { CommandContext } from "./MongoParser.js";
 import { DatabaseOperationContext } from "./MongoParser.js";
 import { DatabaseMethodContext } from "./MongoParser.js";
+import { DatabaseAdminMethodContext } from "./MongoParser.js";
+import { AdminMethodContext } from "./MongoParser.js";
+import { ValidateCollectionMethodContext } from "./MongoParser.js";
+import { ValidateCollectionArgument1Context } from "./MongoParser.js";
+import { ValidateCollectionArgument2Context } from "./MongoParser.js";
+import { ServerStatusMethodContext } from "./MongoParser.js";
+import { ServerStatusArgumentContext } from "./MongoParser.js";
+import { PingMethodContext } from "./MongoParser.js";
+import { PingArgumentContext } from "./MongoParser.js";
+import { ListDatabasesMethodContext } from "./MongoParser.js";
+import { ListDatabasesArgumentContext } from "./MongoParser.js";
+import { ReplSetGetStatusMethodContext } from "./MongoParser.js";
+import { ReplSetGetStatusArgumentContext } from "./MongoParser.js";
+import { ServerInfoMethodContext } from "./MongoParser.js";
+import { ServerInfoArgumentContext } from "./MongoParser.js";
+import { BuildInfoMethodContext } from "./MongoParser.js";
+import { BuildInfoArgumentContext } from "./MongoParser.js";
 import { DatabaseSetProfilingLevelMethodContext } from "./MongoParser.js";
 import { DatabaseSetProfilingLevelArgument1Context } from "./MongoParser.js";
 import { DatabaseSetProfilingLevelArgument2Context } from "./MongoParser.js";
@@ -216,6 +233,108 @@ export class MongoParserVisitor<Result> extends AbstractParseTreeVisitor<Result>
      * @return the visitor result
      */
     visitDatabaseMethod?: (ctx: DatabaseMethodContext) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.databaseAdminMethod`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitDatabaseAdminMethod?: (ctx: DatabaseAdminMethodContext) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.adminMethod`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitAdminMethod?: (ctx: AdminMethodContext) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.validateCollectionMethod`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitValidateCollectionMethod?: (ctx: ValidateCollectionMethodContext) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.validateCollectionArgument1`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitValidateCollectionArgument1?: (ctx: ValidateCollectionArgument1Context) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.validateCollectionArgument2`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitValidateCollectionArgument2?: (ctx: ValidateCollectionArgument2Context) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.serverStatusMethod`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitServerStatusMethod?: (ctx: ServerStatusMethodContext) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.serverStatusArgument`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitServerStatusArgument?: (ctx: ServerStatusArgumentContext) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.pingMethod`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitPingMethod?: (ctx: PingMethodContext) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.pingArgument`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitPingArgument?: (ctx: PingArgumentContext) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.listDatabasesMethod`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitListDatabasesMethod?: (ctx: ListDatabasesMethodContext) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.listDatabasesArgument`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitListDatabasesArgument?: (ctx: ListDatabasesArgumentContext) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.replSetGetStatusMethod`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitReplSetGetStatusMethod?: (ctx: ReplSetGetStatusMethodContext) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.replSetGetStatusArgument`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitReplSetGetStatusArgument?: (ctx: ReplSetGetStatusArgumentContext) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.serverInfoMethod`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitServerInfoMethod?: (ctx: ServerInfoMethodContext) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.serverInfoArgument`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitServerInfoArgument?: (ctx: ServerInfoArgumentContext) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.buildInfoMethod`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitBuildInfoMethod?: (ctx: BuildInfoMethodContext) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.buildInfoArgument`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitBuildInfoArgument?: (ctx: BuildInfoArgumentContext) => Result;
     /**
      * Visit a parse tree produced by `MongoParser.databaseSetProfilingLevelMethod`.
      * @param ctx the parse tree
