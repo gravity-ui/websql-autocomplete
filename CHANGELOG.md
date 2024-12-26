@@ -1,5 +1,12 @@
 # Changelog
 
+## [13.3.0](https://github.com/gravity-ui/websql-autocomplete/compare/v13.2.0...v13.3.0) (2024-12-26)
+
+
+### Features
+
+* Export interfaces from command extractor in MongoDB ([#272](https://github.com/gravity-ui/websql-autocomplete/issues/272)) ([320d5b6](https://github.com/gravity-ui/websql-autocomplete/commit/320d5b6698eaab24823190e0a542b6ff1265d595))
+
 ## [13.2.0](https://github.com/gravity-ui/websql-autocomplete/compare/v13.1.0...v13.2.0) (2024-12-26)
 
 
