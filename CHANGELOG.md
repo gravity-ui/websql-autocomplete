@@ -1,5 +1,12 @@
 # Changelog
 
+## [13.2.0](https://github.com/gravity-ui/websql-autocomplete/compare/v13.1.0...v13.2.0) (2024-12-26)
+
+
+### Features
+
+* Support remaining database commands for MongoDB ([#270](https://github.com/gravity-ui/websql-autocomplete/issues/270)) ([d302bcd](https://github.com/gravity-ui/websql-autocomplete/commit/d302bcd79860fe248b81236c2508771edbecf09d))
+
 ## [13.1.0](https://github.com/gravity-ui/websql-autocomplete/compare/v13.0.0...v13.1.0) (2024-12-25)
 
 
