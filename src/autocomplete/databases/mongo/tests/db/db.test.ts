@@ -31,10 +31,28 @@ test('should suggest properly on empty statement', () => {
     expect(autocompleteResult.suggestKeywords).toEqual([{value: 'db'}]);
 });
 
-test('should suggest collections after db', () => {
+test('should suggest collections and keywords after db', () => {
     const autocompleteResult = parseMongoQueryWithCursor('db.|');
 
     expect(autocompleteResult.suggestCollections).toEqual(true);
+    expect(autocompleteResult.suggestKeywords).toEqual([
+        {value: 'collection'},
+        {value: 'createCollection'},
+        {value: 'command'},
+        {value: 'aggregate'},
+        {value: 'listCollections'},
+        {value: 'renameCollection'},
+        {value: 'dropCollection'},
+        {value: 'dropDatabase'},
+        {value: 'createIndex'},
+        {value: 'removeUser'},
+        {value: 'indexInformation'},
+        {value: 'runCursorCommand'},
+        {value: 'stats'},
+        {value: 'profilingLevel'},
+        {value: 'setProfilingLevel'},
+        {value: 'admin'},
+    ]);
 });
 
 test('should suggest properly keywords after collection name', () => {

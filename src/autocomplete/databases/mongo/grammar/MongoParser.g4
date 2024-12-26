@@ -27,32 +27,266 @@ databaseOperation
 
 databaseMethod
     : databaseCollectionMethod
-    | createCollectionMethod
-    | commandMethod
+    | databaseCreateCollectionMethod
+    | databaseCommandMethod
     | aggregateMethod
+    | databaseListCollectionsMethod
+    | databaseRenameCollectionMethod
+    | databaseDropCollectionMethod
+    | databaseDropDatabaseMethod
+    | databaseCreateIndexMethod
+    | databaseRemoveUserMethod
+    | databaseIndexInformationMethod
+    | databaseRunCursorCommandMethod
+    | databaseStatsMethod
+    | databaseProfilingLevelMethod
+    | databaseSetProfilingLevelMethod
+    | databaseAdminMethod
     ;
 
-commandMethod
-    : COMMAND LPAREN commandArgument1 (COMMA commandArgument2)? RPAREN
+databaseAdminMethod
+    : ADMIN LPAREN RPAREN DOT adminMethod
     ;
 
-commandArgument1
-    : object
+adminMethod
+    : databaseCommandMethod
+    | databaseRemoveUserMethod
+    | buildInfoMethod
+    | serverInfoMethod
+    | serverStatusMethod
+    | pingMethod
+    | listDatabasesMethod
+    | replSetGetStatusMethod
+    | validateCollectionMethod
     ;
 
-commandArgument2
-    : object
+validateCollectionMethod
+    : VALIDATE_COLLECTION LPAREN validateCollectionArgument1 (COMMA validateCollectionArgument2)? RPAREN
     ;
 
-createCollectionMethod
-    : CREATE_COLLECTION LPAREN createCollectionArgument1 (COMMA createCollectionArgument2)? RPAREN
-    ;
-
-createCollectionArgument1
+validateCollectionArgument1
     : STRING
     ;
 
-createCollectionArgument2
+validateCollectionArgument2
+    : object
+    ;
+
+serverStatusMethod
+    : SERVER_STATUS LPAREN serverStatusArgument? RPAREN
+    ;
+
+serverStatusArgument
+    : object
+    ;
+
+pingMethod
+    : PING LPAREN pingArgument? RPAREN
+    ;
+
+pingArgument
+    : object
+    ;
+
+listDatabasesMethod
+    : LIST_DATABASES LPAREN listDatabasesArgument? RPAREN
+    ;
+
+listDatabasesArgument
+    : object
+    ;
+
+replSetGetStatusMethod
+    : REPL_SET_GET_STATUS LPAREN replSetGetStatusArgument? RPAREN
+    ;
+
+replSetGetStatusArgument
+    : object
+    ;
+
+serverInfoMethod
+    : SERVER_INFO LPAREN serverInfoArgument? RPAREN
+    ;
+
+serverInfoArgument
+    : object
+    ;
+
+buildInfoMethod
+    : BUILD_INFO LPAREN buildInfoArgument? RPAREN
+    ;
+
+buildInfoArgument
+    : object
+    ;
+
+databaseSetProfilingLevelMethod
+    : SET_PROFILING_LEVEL LPAREN databaseSetProfilingLevelArgument1 (
+        COMMA databaseSetProfilingLevelArgument2
+    )? RPAREN
+    ;
+
+databaseSetProfilingLevelArgument1
+    : STRING
+    ;
+
+databaseSetProfilingLevelArgument2
+    : object
+    ;
+
+databaseProfilingLevelMethod
+    : PROFILING_LEVEL LPAREN databaseProfilingLevelArgument? RPAREN
+    ;
+
+databaseProfilingLevelArgument
+    : object
+    ;
+
+databaseStatsMethod
+    : STATS LPAREN databaseStatsArgument? RPAREN
+    ;
+
+databaseStatsArgument
+    : object
+    ;
+
+databaseRunCursorCommandMethod
+    : RUN_CURSOR_COMMAND LPAREN databaseRunCursorCommandArgument1 (
+        COMMA databaseRunCursorCommandArgument2
+    )? RPAREN
+    ;
+
+databaseRunCursorCommandArgument1
+    : object
+    ;
+
+databaseRunCursorCommandArgument2
+    : object
+    ;
+
+databaseIndexInformationMethod
+    : INDEX_INFORMATION LPAREN databaseIndexInformationArgument1 (
+        COMMA databaseIndexInformationArgument2
+    )? RPAREN
+    ;
+
+databaseIndexInformationArgument1
+    : STRING
+    ;
+
+databaseIndexInformationArgument2
+    : object
+    ;
+
+databaseRemoveUserMethod
+    : REMOVE_USER LPAREN databaseRemoveUserArgument1 (COMMA databaseRemoveUserArgument2)? RPAREN
+    ;
+
+databaseRemoveUserArgument1
+    : STRING
+    ;
+
+databaseRemoveUserArgument2
+    : object
+    ;
+
+databaseCreateIndexMethod
+    : CREATE_INDEX LPAREN databaseCreateIndexArgument1 COMMA databaseCreateIndexArgument2 (
+        COMMA databaseCreateIndexArgument3
+    )? RPAREN
+    ;
+
+databaseCreateIndexArgument3
+    : object
+    ;
+
+databaseCreateIndexArgument2
+    : STRING
+    | object
+    | array
+    ;
+
+databaseCreateIndexArgument1
+    : STRING
+    ;
+
+databaseDropDatabaseMethod
+    : DROP_DATABASE LPAREN databaseDropDatabaseArgument? RPAREN
+    ;
+
+databaseDropDatabaseArgument
+    : object
+    ;
+
+databaseDropCollectionMethod
+    : DROP_COLLECTION LPAREN databaseDropCollectionArgument1 (
+        COMMA databaseDropCollectionArgument2
+    )? RPAREN
+    ;
+
+databaseDropCollectionArgument1
+    : STRING
+    ;
+
+databaseDropCollectionArgument2
+    : object
+    ;
+
+databaseRenameCollectionMethod
+    : RENAME_COLLECTION LPAREN databaseRenameCollectionArgument1 COMMA databaseRenameCollectionArgument2 (
+        COMMA databaseRenameCollectionArgument3
+    )? RPAREN
+    ;
+
+databaseRenameCollectionArgument1
+    : STRING
+    ;
+
+databaseRenameCollectionArgument2
+    : STRING
+    ;
+
+databaseRenameCollectionArgument3
+    : object
+    ;
+
+databaseListCollectionsMethod
+    : LIST_COLLECTIONS LPAREN (
+        databaseListCollectionsArgument1 (COMMA databaseListCollectionsArgument2)
+    )? RPAREN
+    ;
+
+databaseListCollectionsArgument1
+    : object
+    ;
+
+databaseListCollectionsArgument2
+    : object
+    ;
+
+databaseCommandMethod
+    : COMMAND LPAREN databaseCommandArgument1 (COMMA databaseCommandArgument2)? RPAREN
+    ;
+
+databaseCommandArgument1
+    : object
+    ;
+
+databaseCommandArgument2
+    : object
+    ;
+
+databaseCreateCollectionMethod
+    : CREATE_COLLECTION LPAREN databaseCreateCollectionArgument1 (
+        COMMA databaseCreateCollectionArgument2
+    )? RPAREN
+    ;
+
+databaseCreateCollectionArgument1
+    : STRING
+    ;
+
+databaseCreateCollectionArgument2
     : object
     ;
 
@@ -73,33 +307,33 @@ collectionName
     ;
 
 collectionMethod
-    : findMethod
-    | findOneMethod
-    | findOneAndDeleteMethod
-    | findOneAndReplaceMethod
-    | findOneAndUpdateMethod
-    | insertOneMethod
-    | insertManyMethod
-    | bulkWriteMethod
-    | updateOneMethod
-    | updateManyMethod
-    | replaceOneMethod
-    | deleteOneMethod
-    | deleteManyMethod
-    | renameMethod
-    | dropMethod
-    | isCappedMethod
-    | createIndexMethod
-    | createIndexesMethod
-    | dropIndexMethod
-    | dropIndexesMethod
-    | listIndexesMethod
-    | indexesMethod
-    | indexExistsMethod
-    | indexInformationMethod
-    | estimatedDocumentCountMethod
-    | countDocumentsMethod
-    | distinctMethod
+    : collectionFindMethod
+    | collectionFindOneMethod
+    | collectionFindOneAndDeleteMethod
+    | collectionFindOneAndReplaceMethod
+    | collectionFindOneAndUpdateMethod
+    | collectionInsertOneMethod
+    | collectionInsertManyMethod
+    | collectionBulkWriteMethod
+    | collectionUpdateOneMethod
+    | collectionUpdateManyMethod
+    | collectionReplaceOneMethod
+    | collectionDeleteOneMethod
+    | collectionDeleteManyMethod
+    | collectionRenameMethod
+    | collectionDropMethod
+    | collectionIsCappedMethod
+    | collectionCreateIndexMethod
+    | collectionCreateIndexesMethod
+    | collectionDropIndexMethod
+    | collectionDropIndexesMethod
+    | collectionListIndexesMethod
+    | collectionIndexesMethod
+    | collectionIndexExistsMethod
+    | collectionIndexInformationMethod
+    | collectionEstimatedDocumentCountMethod
+    | collectionCountDocumentsMethod
+    | collectionDistinctMethod
     | aggregateMethod
     ;
 
@@ -115,260 +349,272 @@ aggregateArgument1
     : array
     ;
 
-distinctMethod
-    : DISTINCT LPAREN distinctArgument1 (COMMA distinctArgument2 (COMMA distinctArgument3)?)? RPAREN
+collectionDistinctMethod
+    : DISTINCT LPAREN collectionDistinctArgument1 (
+        COMMA collectionDistinctArgument2 (COMMA collectionDistinctArgument3)?
+    )? RPAREN
     ;
 
-distinctArgument1
+collectionDistinctArgument1
     : STRING
     ;
 
-distinctArgument2
+collectionDistinctArgument2
     : object
     ;
 
-distinctArgument3
+collectionDistinctArgument3
     : object
     ;
 
-countDocumentsMethod
-    : COUNT_DOCUMENTS LPAREN (countDocumentsArgument1 (COMMA countDocumentsArgument2)?)? RPAREN
+collectionCountDocumentsMethod
+    : COUNT_DOCUMENTS LPAREN (
+        collectionCountDocumentsArgument1 (COMMA collectionCountDocumentsArgument2)?
+    )? RPAREN
     ;
 
-countDocumentsArgument2
+collectionCountDocumentsArgument2
     : object
     ;
 
-countDocumentsArgument1
+collectionCountDocumentsArgument1
     : object
     ;
 
-estimatedDocumentCountMethod
-    : ESTIMATED_DOCUMENT_COUNT LPAREN estimatedDocumentCountArgument? RPAREN
+collectionEstimatedDocumentCountMethod
+    : ESTIMATED_DOCUMENT_COUNT LPAREN collectionEstimatedDocumentCountArgument? RPAREN
     ;
 
-estimatedDocumentCountArgument
+collectionEstimatedDocumentCountArgument
     : object
     ;
 
-indexInformationMethod
-    : INDEX_INFORMATION LPAREN indexInformationArgument? RPAREN
+collectionIndexInformationMethod
+    : INDEX_INFORMATION LPAREN collectionIndexInformationArgument? RPAREN
     ;
 
-indexInformationArgument
+collectionIndexInformationArgument
     : object
     ;
 
-indexExistsMethod
-    : INDEX_EXISTS LPAREN indexExistsArgument1 (COMMA indexExistsArgument2)? RPAREN
+collectionIndexExistsMethod
+    : INDEX_EXISTS LPAREN collectionIndexExistsArgument1 (COMMA collectionIndexExistsArgument2)? RPAREN
     ;
 
-indexExistsArgument2
+collectionIndexExistsArgument2
     : object
     ;
 
-indexExistsArgument1
+collectionIndexExistsArgument1
     : STRING
     | LBRACKET STRING (COMMA STRING)* COMMA? RBRACKET
     ;
 
-indexesMethod
-    : INDEXES LPAREN indexesArgument? RPAREN
+collectionIndexesMethod
+    : INDEXES LPAREN collectionIndexesArgument? RPAREN
     ;
 
-indexesArgument
+collectionIndexesArgument
     : object
     ;
 
-listIndexesMethod
-    : LIST_INDEXES LPAREN listIndexesArgument? RPAREN
+collectionListIndexesMethod
+    : LIST_INDEXES LPAREN collectionListIndexesArgument? RPAREN
     ;
 
-listIndexesArgument
+collectionListIndexesArgument
     : object
     ;
 
-dropIndexesMethod
-    : DROP_INDEXES LPAREN dropIndexesArgument? RPAREN
+collectionDropIndexesMethod
+    : DROP_INDEXES LPAREN collectionDropIndexesArgument? RPAREN
     ;
 
-dropIndexesArgument
+collectionDropIndexesArgument
     : object
     ;
 
-dropIndexMethod
-    : DROP_INDEX LPAREN dropIndexArgument1 (COMMA dropIndexArgument2)? RPAREN
+collectionDropIndexMethod
+    : DROP_INDEX LPAREN collectionDropIndexArgument1 (COMMA collectionDropIndexArgument2)? RPAREN
     ;
 
-dropIndexArgument2
+collectionDropIndexArgument2
     : object
     ;
 
-dropIndexArgument1
+collectionDropIndexArgument1
     : STRING
     ;
 
-createIndexesMethod
-    : CREATE_INDEXES LPAREN createIndexesArgument1 (COMMA createIndexesArgument2)? RPAREN
+collectionCreateIndexesMethod
+    : CREATE_INDEXES LPAREN collectionCreateIndexesArgument1 (
+        COMMA collectionCreateIndexesArgument2
+    )? RPAREN
     ;
 
-createIndexesArgument2
+collectionCreateIndexesArgument2
     : object
     ;
 
-createIndexesArgument1
+collectionCreateIndexesArgument1
     : array
     ;
 
-createIndexMethod
-    : CREATE_INDEX LPAREN createIndexArgument1 (COMMA createIndexArgument2)? RPAREN
+collectionCreateIndexMethod
+    : CREATE_INDEX LPAREN collectionCreateIndexArgument1 (COMMA collectionCreateIndexArgument2)? RPAREN
     ;
 
-createIndexArgument2
+collectionCreateIndexArgument2
     : object
     ;
 
-createIndexArgument1
+collectionCreateIndexArgument1
     : STRING
     | object
     | array
     ;
 
-isCappedMethod
-    : IS_CAPPED LPAREN isCappedArgument? RPAREN
+collectionIsCappedMethod
+    : IS_CAPPED LPAREN collectionIsCappedArgument? RPAREN
     ;
 
-isCappedArgument
+collectionIsCappedArgument
     : object
     ;
 
-dropMethod
-    : DROP LPAREN dropArgument? RPAREN
+collectionDropMethod
+    : DROP LPAREN collectionDropArgument? RPAREN
     ;
 
-dropArgument
+collectionDropArgument
     : object
     ;
 
-renameMethod
-    : RENAME LPAREN renameArgument1 (COMMA renameArgument2)? RPAREN
+collectionRenameMethod
+    : RENAME LPAREN collectionRenameArgument1 (COMMA collectionRenameArgument2)? RPAREN
     ;
 
-renameArgument1
+collectionRenameArgument1
     : STRING
     ;
 
-renameArgument2
+collectionRenameArgument2
     : object
     ;
 
-deleteManyMethod
-    : DELETE_MANY LPAREN (deleteManyArgument1 (COMMA deleteManyArgument2)?)? RPAREN
+collectionDeleteManyMethod
+    : DELETE_MANY LPAREN (collectionDeleteManyArgument1 (COMMA collectionDeleteManyArgument2)?)? RPAREN
     ;
 
-deleteManyArgument1
+collectionDeleteManyArgument1
     : object
     ;
 
-deleteManyArgument2
+collectionDeleteManyArgument2
     : object
     ;
 
-deleteOneMethod
-    : DELETE_ONE LPAREN (deleteOneArgument1 (COMMA deleteOneArgument2)?)? RPAREN
+collectionDeleteOneMethod
+    : DELETE_ONE LPAREN (collectionDeleteOneArgument1 (COMMA collectionDeleteOneArgument2)?)? RPAREN
     ;
 
-deleteOneArgument1
+collectionDeleteOneArgument1
     : object
     ;
 
-deleteOneArgument2
+collectionDeleteOneArgument2
     : object
     ;
 
-replaceOneMethod
-    : REPLACE_ONE LPAREN replaceOneArgument1 COMMA replaceOneArgument2 (COMMA replaceOneArgument3)? RPAREN
+collectionReplaceOneMethod
+    : REPLACE_ONE LPAREN collectionReplaceOneArgument1 COMMA collectionReplaceOneArgument2 (
+        COMMA collectionReplaceOneArgument3
+    )? RPAREN
     ;
 
-replaceOneArgument1
+collectionReplaceOneArgument1
     : object
     ;
 
-replaceOneArgument2
+collectionReplaceOneArgument2
     : documentToInsert
     ;
 
-replaceOneArgument3
+collectionReplaceOneArgument3
     : object
     ;
 
-updateManyMethod
-    : UPDATE_MANY LPAREN updateManyArgument1 COMMA updateManyArgument2 (COMMA updateManyArgument3)? RPAREN
+collectionUpdateManyMethod
+    : UPDATE_MANY LPAREN collectionUpdateManyArgument1 COMMA collectionUpdateManyArgument2 (
+        COMMA collectionUpdateManyArgument3
+    )? RPAREN
     ;
 
-updateManyArgument1
+collectionUpdateManyArgument1
     : object
     ;
 
-updateManyArgument2
+collectionUpdateManyArgument2
     : object
     | array
     ;
 
-updateManyArgument3
+collectionUpdateManyArgument3
     : object
     ;
 
-updateOneMethod
-    : UPDATE_ONE LPAREN updateOneArgument1 COMMA updateOneArgument2 (COMMA updateOneArgument3)? RPAREN
+collectionUpdateOneMethod
+    : UPDATE_ONE LPAREN collectionUpdateOneArgument1 COMMA collectionUpdateOneArgument2 (
+        COMMA collectionUpdateOneArgument3
+    )? RPAREN
     ;
 
-updateOneArgument1
+collectionUpdateOneArgument1
     : object
     ;
 
-updateOneArgument2
+collectionUpdateOneArgument2
     : array
     | object
     ;
 
-updateOneArgument3
+collectionUpdateOneArgument3
     : object
     ;
 
-bulkWriteMethod
-    : BULK_WRITE LPAREN bulkWriteArgument1 (COMMA bulkWriteArgument2)? RPAREN
+collectionBulkWriteMethod
+    : BULK_WRITE LPAREN collectionBulkWriteArgument1 (COMMA collectionBulkWriteArgument2)? RPAREN
     ;
 
-bulkWriteArgument1
+collectionBulkWriteArgument1
     : array
     ;
 
-bulkWriteArgument2
+collectionBulkWriteArgument2
     : object
     ;
 
-insertManyMethod
-    : INSERT_MANY LPAREN insertManyArgument1 (COMMA insertManyArgument2)? RPAREN
+collectionInsertManyMethod
+    : INSERT_MANY LPAREN collectionInsertManyArgument1 (COMMA collectionInsertManyArgument2)? RPAREN
     ;
 
-insertManyArgument1
+collectionInsertManyArgument1
     : LBRACKET documentToInsert (COMMA documentToInsert)* COMMA? RBRACKET
     ;
 
-insertManyArgument2
+collectionInsertManyArgument2
     : object
     ;
 
-insertOneMethod
-    : INSERT_ONE LPAREN insertOneArgument1 (COMMA insertOneArgument2)? RPAREN
+collectionInsertOneMethod
+    : INSERT_ONE LPAREN collectionInsertOneArgument1 (COMMA collectionInsertOneArgument2)? RPAREN
     ;
 
-insertOneArgument1
+collectionInsertOneArgument1
     : documentToInsert
     ;
 
-insertOneArgument2
+collectionInsertOneArgument2
     : object
     ;
 
@@ -377,75 +623,77 @@ documentToInsert
     | array
     ;
 
-findOneAndUpdateMethod
-    : FIND_ONE_AND_UPDATE LPAREN findOneAndUpdateArgument1 COMMA findOneAndUpdateArgument2 (
-        COMMA findOneAndUpdateArgument3
+collectionFindOneAndUpdateMethod
+    : FIND_ONE_AND_UPDATE LPAREN collectionFindOneAndUpdateArgument1 COMMA collectionFindOneAndUpdateArgument2 (
+        COMMA collectionFindOneAndUpdateArgument3
     )? RPAREN
     ;
 
-findOneAndUpdateArgument1
+collectionFindOneAndUpdateArgument1
     : object
     ;
 
-findOneAndUpdateArgument2
+collectionFindOneAndUpdateArgument2
     : object
     ;
 
-findOneAndUpdateArgument3
+collectionFindOneAndUpdateArgument3
     : object
     ;
 
-findOneAndReplaceMethod
-    : FIND_ONE_AND_REPLACE LPAREN findOneAndReplaceArgument1 COMMA findOneAndReplaceArgument2 (
-        COMMA findOneAndReplaceArgument3
+collectionFindOneAndReplaceMethod
+    : FIND_ONE_AND_REPLACE LPAREN collectionFindOneAndReplaceArgument1 COMMA collectionFindOneAndReplaceArgument2 (
+        COMMA collectionFindOneAndReplaceArgument3
     )? RPAREN
     ;
 
-findOneAndReplaceArgument1
+collectionFindOneAndReplaceArgument1
     : object
     ;
 
-findOneAndReplaceArgument2
+collectionFindOneAndReplaceArgument2
     : object
     ;
 
-findOneAndReplaceArgument3
+collectionFindOneAndReplaceArgument3
     : object
     ;
 
-findOneAndDeleteMethod
-    : FIND_ONE_AND_DELETE LPAREN findOneAndDeleteArgument1 (COMMA findOneAndDeleteArgument2)? RPAREN
+collectionFindOneAndDeleteMethod
+    : FIND_ONE_AND_DELETE LPAREN collectionFindOneAndDeleteArgument1 (
+        COMMA collectionFindOneAndDeleteArgument2
+    )? RPAREN
     ;
 
-findOneAndDeleteArgument1
+collectionFindOneAndDeleteArgument1
     : object
     ;
 
-findOneAndDeleteArgument2
+collectionFindOneAndDeleteArgument2
     : object
     ;
 
-findOneMethod
-    : FIND_ONE LPAREN (findOneArgument1 (COMMA findOneArgument2)?)? RPAREN
+collectionFindOneMethod
+    : FIND_ONE LPAREN (collectionFindOneArgument1 (COMMA collectionFindOneArgument2)?)? RPAREN
     ;
 
-findOneArgument1
+collectionFindOneArgument1
     : object
     ;
 
-findOneArgument2
+collectionFindOneArgument2
     : object
     ;
 
-findMethod
-    : FIND LPAREN (findMethodArgument1 (COMMA findMethodArgument2)?)? RPAREN findMethodModifier* explainMethod?
+collectionFindMethod
+    : FIND LPAREN (collectionFindMethodArgument1 (COMMA collectionFindMethodArgument2)?)? RPAREN collectionFindMethodModifier* explainMethod?
     ;
 
-findMethodArgument1
+collectionFindMethodArgument1
     : object
     ;
 
-findMethodArgument2
+collectionFindMethodArgument2
     : object
     ;
 
@@ -459,7 +707,7 @@ explainMethodArgument
     | object
     ;
 
-findMethodModifier
+collectionFindMethodModifier
     : DOT skipModifier
     | DOT limitModifier
     | DOT filterModifier
@@ -593,6 +841,23 @@ reservedKeyword
     | COLLECTION
     | CREATE_COLLECTION
     | COMMAND
+    | LIST_COLLECTIONS
+    | RENAME_COLLECTION
+    | DROP_COLLECTION
+    | DROP_DATABASE
+    | REMOVE_USER
+    | RUN_CURSOR_COMMAND
+    | STATS
+    | PROFILING_LEVEL
+    | SET_PROFILING_LEVEL
+    | ADMIN
+    | BUILD_INFO
+    | SERVER_INFO
+    | SERVER_STATUS
+    | PING
+    | VALIDATE_COLLECTION
+    | LIST_DATABASES
+    | REPL_SET_GET_STATUS
     ;
 
 // JSON5 rules

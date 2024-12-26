@@ -62,159 +62,225 @@ export class MongoParser extends antlr.Parser {
     public static readonly COLLECTION = 40;
     public static readonly CREATE_COLLECTION = 41;
     public static readonly COMMAND = 42;
-    public static readonly LBRACKET = 43;
-    public static readonly RBRACKET = 44;
-    public static readonly LPAREN = 45;
-    public static readonly RPAREN = 46;
-    public static readonly LBRACE = 47;
-    public static readonly RBRACE = 48;
-    public static readonly COLON = 49;
-    public static readonly COMMA = 50;
-    public static readonly SEMICOLON = 51;
-    public static readonly DOT = 52;
-    public static readonly TRUE = 53;
-    public static readonly FALSE = 54;
-    public static readonly NULL = 55;
-    public static readonly STRING = 56;
-    public static readonly NUMBER = 57;
-    public static readonly NUMERIC_LITERAL = 58;
-    public static readonly SYMBOL = 59;
-    public static readonly IDENTIFIER = 60;
-    public static readonly SINGLE_LINE_COMMENT = 61;
-    public static readonly MULTI_LINE_COMMENT = 62;
-    public static readonly WS = 63;
+    public static readonly LIST_COLLECTIONS = 43;
+    public static readonly RENAME_COLLECTION = 44;
+    public static readonly DROP_COLLECTION = 45;
+    public static readonly DROP_DATABASE = 46;
+    public static readonly REMOVE_USER = 47;
+    public static readonly RUN_CURSOR_COMMAND = 48;
+    public static readonly STATS = 49;
+    public static readonly PROFILING_LEVEL = 50;
+    public static readonly SET_PROFILING_LEVEL = 51;
+    public static readonly ADMIN = 52;
+    public static readonly BUILD_INFO = 53;
+    public static readonly SERVER_INFO = 54;
+    public static readonly SERVER_STATUS = 55;
+    public static readonly PING = 56;
+    public static readonly VALIDATE_COLLECTION = 57;
+    public static readonly LIST_DATABASES = 58;
+    public static readonly REPL_SET_GET_STATUS = 59;
+    public static readonly LBRACKET = 60;
+    public static readonly RBRACKET = 61;
+    public static readonly LPAREN = 62;
+    public static readonly RPAREN = 63;
+    public static readonly LBRACE = 64;
+    public static readonly RBRACE = 65;
+    public static readonly COLON = 66;
+    public static readonly COMMA = 67;
+    public static readonly SEMICOLON = 68;
+    public static readonly DOT = 69;
+    public static readonly TRUE = 70;
+    public static readonly FALSE = 71;
+    public static readonly NULL = 72;
+    public static readonly STRING = 73;
+    public static readonly NUMBER = 74;
+    public static readonly NUMERIC_LITERAL = 75;
+    public static readonly SYMBOL = 76;
+    public static readonly IDENTIFIER = 77;
+    public static readonly SINGLE_LINE_COMMENT = 78;
+    public static readonly MULTI_LINE_COMMENT = 79;
+    public static readonly WS = 80;
     public static readonly RULE_root = 0;
     public static readonly RULE_commands = 1;
     public static readonly RULE_command = 2;
     public static readonly RULE_databaseOperation = 3;
     public static readonly RULE_databaseMethod = 4;
-    public static readonly RULE_commandMethod = 5;
-    public static readonly RULE_commandArgument1 = 6;
-    public static readonly RULE_commandArgument2 = 7;
-    public static readonly RULE_createCollectionMethod = 8;
-    public static readonly RULE_createCollectionArgument1 = 9;
-    public static readonly RULE_createCollectionArgument2 = 10;
-    public static readonly RULE_databaseCollectionMethod = 11;
-    public static readonly RULE_quotedCollectionName = 12;
-    public static readonly RULE_collectionOperation = 13;
-    public static readonly RULE_collectionName = 14;
-    public static readonly RULE_collectionMethod = 15;
-    public static readonly RULE_aggregateMethod = 16;
-    public static readonly RULE_aggregateArgument2 = 17;
-    public static readonly RULE_aggregateArgument1 = 18;
-    public static readonly RULE_distinctMethod = 19;
-    public static readonly RULE_distinctArgument1 = 20;
-    public static readonly RULE_distinctArgument2 = 21;
-    public static readonly RULE_distinctArgument3 = 22;
-    public static readonly RULE_countDocumentsMethod = 23;
-    public static readonly RULE_countDocumentsArgument2 = 24;
-    public static readonly RULE_countDocumentsArgument1 = 25;
-    public static readonly RULE_estimatedDocumentCountMethod = 26;
-    public static readonly RULE_estimatedDocumentCountArgument = 27;
-    public static readonly RULE_indexInformationMethod = 28;
-    public static readonly RULE_indexInformationArgument = 29;
-    public static readonly RULE_indexExistsMethod = 30;
-    public static readonly RULE_indexExistsArgument2 = 31;
-    public static readonly RULE_indexExistsArgument1 = 32;
-    public static readonly RULE_indexesMethod = 33;
-    public static readonly RULE_indexesArgument = 34;
-    public static readonly RULE_listIndexesMethod = 35;
-    public static readonly RULE_listIndexesArgument = 36;
-    public static readonly RULE_dropIndexesMethod = 37;
-    public static readonly RULE_dropIndexesArgument = 38;
-    public static readonly RULE_dropIndexMethod = 39;
-    public static readonly RULE_dropIndexArgument2 = 40;
-    public static readonly RULE_dropIndexArgument1 = 41;
-    public static readonly RULE_createIndexesMethod = 42;
-    public static readonly RULE_createIndexesArgument2 = 43;
-    public static readonly RULE_createIndexesArgument1 = 44;
-    public static readonly RULE_createIndexMethod = 45;
-    public static readonly RULE_createIndexArgument2 = 46;
-    public static readonly RULE_createIndexArgument1 = 47;
-    public static readonly RULE_isCappedMethod = 48;
-    public static readonly RULE_isCappedArgument = 49;
-    public static readonly RULE_dropMethod = 50;
-    public static readonly RULE_dropArgument = 51;
-    public static readonly RULE_renameMethod = 52;
-    public static readonly RULE_renameArgument1 = 53;
-    public static readonly RULE_renameArgument2 = 54;
-    public static readonly RULE_deleteManyMethod = 55;
-    public static readonly RULE_deleteManyArgument1 = 56;
-    public static readonly RULE_deleteManyArgument2 = 57;
-    public static readonly RULE_deleteOneMethod = 58;
-    public static readonly RULE_deleteOneArgument1 = 59;
-    public static readonly RULE_deleteOneArgument2 = 60;
-    public static readonly RULE_replaceOneMethod = 61;
-    public static readonly RULE_replaceOneArgument1 = 62;
-    public static readonly RULE_replaceOneArgument2 = 63;
-    public static readonly RULE_replaceOneArgument3 = 64;
-    public static readonly RULE_updateManyMethod = 65;
-    public static readonly RULE_updateManyArgument1 = 66;
-    public static readonly RULE_updateManyArgument2 = 67;
-    public static readonly RULE_updateManyArgument3 = 68;
-    public static readonly RULE_updateOneMethod = 69;
-    public static readonly RULE_updateOneArgument1 = 70;
-    public static readonly RULE_updateOneArgument2 = 71;
-    public static readonly RULE_updateOneArgument3 = 72;
-    public static readonly RULE_bulkWriteMethod = 73;
-    public static readonly RULE_bulkWriteArgument1 = 74;
-    public static readonly RULE_bulkWriteArgument2 = 75;
-    public static readonly RULE_insertManyMethod = 76;
-    public static readonly RULE_insertManyArgument1 = 77;
-    public static readonly RULE_insertManyArgument2 = 78;
-    public static readonly RULE_insertOneMethod = 79;
-    public static readonly RULE_insertOneArgument1 = 80;
-    public static readonly RULE_insertOneArgument2 = 81;
-    public static readonly RULE_documentToInsert = 82;
-    public static readonly RULE_findOneAndUpdateMethod = 83;
-    public static readonly RULE_findOneAndUpdateArgument1 = 84;
-    public static readonly RULE_findOneAndUpdateArgument2 = 85;
-    public static readonly RULE_findOneAndUpdateArgument3 = 86;
-    public static readonly RULE_findOneAndReplaceMethod = 87;
-    public static readonly RULE_findOneAndReplaceArgument1 = 88;
-    public static readonly RULE_findOneAndReplaceArgument2 = 89;
-    public static readonly RULE_findOneAndReplaceArgument3 = 90;
-    public static readonly RULE_findOneAndDeleteMethod = 91;
-    public static readonly RULE_findOneAndDeleteArgument1 = 92;
-    public static readonly RULE_findOneAndDeleteArgument2 = 93;
-    public static readonly RULE_findOneMethod = 94;
-    public static readonly RULE_findOneArgument1 = 95;
-    public static readonly RULE_findOneArgument2 = 96;
-    public static readonly RULE_findMethod = 97;
-    public static readonly RULE_findMethodArgument1 = 98;
-    public static readonly RULE_findMethodArgument2 = 99;
-    public static readonly RULE_explainMethod = 100;
-    public static readonly RULE_explainMethodArgument = 101;
-    public static readonly RULE_findMethodModifier = 102;
-    public static readonly RULE_skipModifier = 103;
-    public static readonly RULE_skipModifierArgument = 104;
-    public static readonly RULE_limitModifier = 105;
-    public static readonly RULE_limitModifierArgument = 106;
-    public static readonly RULE_filterModifier = 107;
-    public static readonly RULE_filterModifierArgument = 108;
-    public static readonly RULE_minModifier = 109;
-    public static readonly RULE_minModifierArgument = 110;
-    public static readonly RULE_maxModifier = 111;
-    public static readonly RULE_maxModifierArgument = 112;
-    public static readonly RULE_hintModifier = 113;
-    public static readonly RULE_hintModifierArgument = 114;
-    public static readonly RULE_returnKeyModifier = 115;
-    public static readonly RULE_returnKeyModifierArgument = 116;
-    public static readonly RULE_showRecordIdModifier = 117;
-    public static readonly RULE_showRecordIdModifierArgument = 118;
-    public static readonly RULE_sortModifier = 119;
-    public static readonly RULE_sortModifierArgument1 = 120;
-    public static readonly RULE_sortModifierArgument2 = 121;
-    public static readonly RULE_reservedKeyword = 122;
-    public static readonly RULE_json5 = 123;
-    public static readonly RULE_object = 124;
-    public static readonly RULE_pair = 125;
-    public static readonly RULE_boolean = 126;
-    public static readonly RULE_key = 127;
-    public static readonly RULE_identifier = 128;
-    public static readonly RULE_value = 129;
-    public static readonly RULE_array = 130;
-    public static readonly RULE_number = 131;
+    public static readonly RULE_databaseAdminMethod = 5;
+    public static readonly RULE_adminMethod = 6;
+    public static readonly RULE_validateCollectionMethod = 7;
+    public static readonly RULE_validateCollectionArgument1 = 8;
+    public static readonly RULE_validateCollectionArgument2 = 9;
+    public static readonly RULE_serverStatusMethod = 10;
+    public static readonly RULE_serverStatusArgument = 11;
+    public static readonly RULE_pingMethod = 12;
+    public static readonly RULE_pingArgument = 13;
+    public static readonly RULE_listDatabasesMethod = 14;
+    public static readonly RULE_listDatabasesArgument = 15;
+    public static readonly RULE_replSetGetStatusMethod = 16;
+    public static readonly RULE_replSetGetStatusArgument = 17;
+    public static readonly RULE_serverInfoMethod = 18;
+    public static readonly RULE_serverInfoArgument = 19;
+    public static readonly RULE_buildInfoMethod = 20;
+    public static readonly RULE_buildInfoArgument = 21;
+    public static readonly RULE_databaseSetProfilingLevelMethod = 22;
+    public static readonly RULE_databaseSetProfilingLevelArgument1 = 23;
+    public static readonly RULE_databaseSetProfilingLevelArgument2 = 24;
+    public static readonly RULE_databaseProfilingLevelMethod = 25;
+    public static readonly RULE_databaseProfilingLevelArgument = 26;
+    public static readonly RULE_databaseStatsMethod = 27;
+    public static readonly RULE_databaseStatsArgument = 28;
+    public static readonly RULE_databaseRunCursorCommandMethod = 29;
+    public static readonly RULE_databaseRunCursorCommandArgument1 = 30;
+    public static readonly RULE_databaseRunCursorCommandArgument2 = 31;
+    public static readonly RULE_databaseIndexInformationMethod = 32;
+    public static readonly RULE_databaseIndexInformationArgument1 = 33;
+    public static readonly RULE_databaseIndexInformationArgument2 = 34;
+    public static readonly RULE_databaseRemoveUserMethod = 35;
+    public static readonly RULE_databaseRemoveUserArgument1 = 36;
+    public static readonly RULE_databaseRemoveUserArgument2 = 37;
+    public static readonly RULE_databaseCreateIndexMethod = 38;
+    public static readonly RULE_databaseCreateIndexArgument3 = 39;
+    public static readonly RULE_databaseCreateIndexArgument2 = 40;
+    public static readonly RULE_databaseCreateIndexArgument1 = 41;
+    public static readonly RULE_databaseDropDatabaseMethod = 42;
+    public static readonly RULE_databaseDropDatabaseArgument = 43;
+    public static readonly RULE_databaseDropCollectionMethod = 44;
+    public static readonly RULE_databaseDropCollectionArgument1 = 45;
+    public static readonly RULE_databaseDropCollectionArgument2 = 46;
+    public static readonly RULE_databaseRenameCollectionMethod = 47;
+    public static readonly RULE_databaseRenameCollectionArgument1 = 48;
+    public static readonly RULE_databaseRenameCollectionArgument2 = 49;
+    public static readonly RULE_databaseRenameCollectionArgument3 = 50;
+    public static readonly RULE_databaseListCollectionsMethod = 51;
+    public static readonly RULE_databaseListCollectionsArgument1 = 52;
+    public static readonly RULE_databaseListCollectionsArgument2 = 53;
+    public static readonly RULE_databaseCommandMethod = 54;
+    public static readonly RULE_databaseCommandArgument1 = 55;
+    public static readonly RULE_databaseCommandArgument2 = 56;
+    public static readonly RULE_databaseCreateCollectionMethod = 57;
+    public static readonly RULE_databaseCreateCollectionArgument1 = 58;
+    public static readonly RULE_databaseCreateCollectionArgument2 = 59;
+    public static readonly RULE_databaseCollectionMethod = 60;
+    public static readonly RULE_quotedCollectionName = 61;
+    public static readonly RULE_collectionOperation = 62;
+    public static readonly RULE_collectionName = 63;
+    public static readonly RULE_collectionMethod = 64;
+    public static readonly RULE_aggregateMethod = 65;
+    public static readonly RULE_aggregateArgument2 = 66;
+    public static readonly RULE_aggregateArgument1 = 67;
+    public static readonly RULE_collectionDistinctMethod = 68;
+    public static readonly RULE_collectionDistinctArgument1 = 69;
+    public static readonly RULE_collectionDistinctArgument2 = 70;
+    public static readonly RULE_collectionDistinctArgument3 = 71;
+    public static readonly RULE_collectionCountDocumentsMethod = 72;
+    public static readonly RULE_collectionCountDocumentsArgument2 = 73;
+    public static readonly RULE_collectionCountDocumentsArgument1 = 74;
+    public static readonly RULE_collectionEstimatedDocumentCountMethod = 75;
+    public static readonly RULE_collectionEstimatedDocumentCountArgument = 76;
+    public static readonly RULE_collectionIndexInformationMethod = 77;
+    public static readonly RULE_collectionIndexInformationArgument = 78;
+    public static readonly RULE_collectionIndexExistsMethod = 79;
+    public static readonly RULE_collectionIndexExistsArgument2 = 80;
+    public static readonly RULE_collectionIndexExistsArgument1 = 81;
+    public static readonly RULE_collectionIndexesMethod = 82;
+    public static readonly RULE_collectionIndexesArgument = 83;
+    public static readonly RULE_collectionListIndexesMethod = 84;
+    public static readonly RULE_collectionListIndexesArgument = 85;
+    public static readonly RULE_collectionDropIndexesMethod = 86;
+    public static readonly RULE_collectionDropIndexesArgument = 87;
+    public static readonly RULE_collectionDropIndexMethod = 88;
+    public static readonly RULE_collectionDropIndexArgument2 = 89;
+    public static readonly RULE_collectionDropIndexArgument1 = 90;
+    public static readonly RULE_collectionCreateIndexesMethod = 91;
+    public static readonly RULE_collectionCreateIndexesArgument2 = 92;
+    public static readonly RULE_collectionCreateIndexesArgument1 = 93;
+    public static readonly RULE_collectionCreateIndexMethod = 94;
+    public static readonly RULE_collectionCreateIndexArgument2 = 95;
+    public static readonly RULE_collectionCreateIndexArgument1 = 96;
+    public static readonly RULE_collectionIsCappedMethod = 97;
+    public static readonly RULE_collectionIsCappedArgument = 98;
+    public static readonly RULE_collectionDropMethod = 99;
+    public static readonly RULE_collectionDropArgument = 100;
+    public static readonly RULE_collectionRenameMethod = 101;
+    public static readonly RULE_collectionRenameArgument1 = 102;
+    public static readonly RULE_collectionRenameArgument2 = 103;
+    public static readonly RULE_collectionDeleteManyMethod = 104;
+    public static readonly RULE_collectionDeleteManyArgument1 = 105;
+    public static readonly RULE_collectionDeleteManyArgument2 = 106;
+    public static readonly RULE_collectionDeleteOneMethod = 107;
+    public static readonly RULE_collectionDeleteOneArgument1 = 108;
+    public static readonly RULE_collectionDeleteOneArgument2 = 109;
+    public static readonly RULE_collectionReplaceOneMethod = 110;
+    public static readonly RULE_collectionReplaceOneArgument1 = 111;
+    public static readonly RULE_collectionReplaceOneArgument2 = 112;
+    public static readonly RULE_collectionReplaceOneArgument3 = 113;
+    public static readonly RULE_collectionUpdateManyMethod = 114;
+    public static readonly RULE_collectionUpdateManyArgument1 = 115;
+    public static readonly RULE_collectionUpdateManyArgument2 = 116;
+    public static readonly RULE_collectionUpdateManyArgument3 = 117;
+    public static readonly RULE_collectionUpdateOneMethod = 118;
+    public static readonly RULE_collectionUpdateOneArgument1 = 119;
+    public static readonly RULE_collectionUpdateOneArgument2 = 120;
+    public static readonly RULE_collectionUpdateOneArgument3 = 121;
+    public static readonly RULE_collectionBulkWriteMethod = 122;
+    public static readonly RULE_collectionBulkWriteArgument1 = 123;
+    public static readonly RULE_collectionBulkWriteArgument2 = 124;
+    public static readonly RULE_collectionInsertManyMethod = 125;
+    public static readonly RULE_collectionInsertManyArgument1 = 126;
+    public static readonly RULE_collectionInsertManyArgument2 = 127;
+    public static readonly RULE_collectionInsertOneMethod = 128;
+    public static readonly RULE_collectionInsertOneArgument1 = 129;
+    public static readonly RULE_collectionInsertOneArgument2 = 130;
+    public static readonly RULE_documentToInsert = 131;
+    public static readonly RULE_collectionFindOneAndUpdateMethod = 132;
+    public static readonly RULE_collectionFindOneAndUpdateArgument1 = 133;
+    public static readonly RULE_collectionFindOneAndUpdateArgument2 = 134;
+    public static readonly RULE_collectionFindOneAndUpdateArgument3 = 135;
+    public static readonly RULE_collectionFindOneAndReplaceMethod = 136;
+    public static readonly RULE_collectionFindOneAndReplaceArgument1 = 137;
+    public static readonly RULE_collectionFindOneAndReplaceArgument2 = 138;
+    public static readonly RULE_collectionFindOneAndReplaceArgument3 = 139;
+    public static readonly RULE_collectionFindOneAndDeleteMethod = 140;
+    public static readonly RULE_collectionFindOneAndDeleteArgument1 = 141;
+    public static readonly RULE_collectionFindOneAndDeleteArgument2 = 142;
+    public static readonly RULE_collectionFindOneMethod = 143;
+    public static readonly RULE_collectionFindOneArgument1 = 144;
+    public static readonly RULE_collectionFindOneArgument2 = 145;
+    public static readonly RULE_collectionFindMethod = 146;
+    public static readonly RULE_collectionFindMethodArgument1 = 147;
+    public static readonly RULE_collectionFindMethodArgument2 = 148;
+    public static readonly RULE_explainMethod = 149;
+    public static readonly RULE_explainMethodArgument = 150;
+    public static readonly RULE_collectionFindMethodModifier = 151;
+    public static readonly RULE_skipModifier = 152;
+    public static readonly RULE_skipModifierArgument = 153;
+    public static readonly RULE_limitModifier = 154;
+    public static readonly RULE_limitModifierArgument = 155;
+    public static readonly RULE_filterModifier = 156;
+    public static readonly RULE_filterModifierArgument = 157;
+    public static readonly RULE_minModifier = 158;
+    public static readonly RULE_minModifierArgument = 159;
+    public static readonly RULE_maxModifier = 160;
+    public static readonly RULE_maxModifierArgument = 161;
+    public static readonly RULE_hintModifier = 162;
+    public static readonly RULE_hintModifierArgument = 163;
+    public static readonly RULE_returnKeyModifier = 164;
+    public static readonly RULE_returnKeyModifierArgument = 165;
+    public static readonly RULE_showRecordIdModifier = 166;
+    public static readonly RULE_showRecordIdModifierArgument = 167;
+    public static readonly RULE_sortModifier = 168;
+    public static readonly RULE_sortModifierArgument1 = 169;
+    public static readonly RULE_sortModifierArgument2 = 170;
+    public static readonly RULE_reservedKeyword = 171;
+    public static readonly RULE_json5 = 172;
+    public static readonly RULE_object = 173;
+    public static readonly RULE_pair = 174;
+    public static readonly RULE_boolean = 175;
+    public static readonly RULE_key = 176;
+    public static readonly RULE_identifier = 177;
+    public static readonly RULE_value = 178;
+    public static readonly RULE_array = 179;
+    public static readonly RULE_number = 180;
 
     public static readonly literalNames = [
         null, "'db'", "'find'", "'findOne'", "'findOneAndDelete'", "'findOneAndReplace'", 
@@ -226,8 +292,12 @@ export class MongoParser extends antlr.Parser {
         "'dropIndexes'", "'listIndexes'", "'indexes'", "'indexExists'", 
         "'indexInformation'", "'estimatedDocumentCount'", "'countDocuments'", 
         "'distinct'", "'aggregate'", "'collection'", "'createCollection'", 
-        "'command'", "'['", "']'", "'('", "')'", "'{'", "'}'", "':'", "','", 
-        "';'", "'.'", "'true'", "'false'", "'null'"
+        "'command'", "'listCollections'", "'renameCollection'", "'dropCollection'", 
+        "'dropDatabase'", "'removeUser'", "'runCursorCommand'", "'stats'", 
+        "'profilingLevel'", "'setProfilingLevel'", "'admin'", "'buildInfo'", 
+        "'serverInfo'", "'serverStatus'", "'ping'", "'validateCollection'", 
+        "'listDatabases'", "'replSetGetStatus'", "'['", "']'", "'('", "')'", 
+        "'{'", "'}'", "':'", "','", "';'", "'.'", "'true'", "'false'", "'null'"
     ];
 
     public static readonly symbolicNames = [
@@ -239,43 +309,75 @@ export class MongoParser extends antlr.Parser {
         "CREATE_INDEXES", "DROP_INDEX", "DROP_INDEXES", "LIST_INDEXES", 
         "INDEXES", "INDEX_EXISTS", "INDEX_INFORMATION", "ESTIMATED_DOCUMENT_COUNT", 
         "COUNT_DOCUMENTS", "DISTINCT", "AGGREGATE", "COLLECTION", "CREATE_COLLECTION", 
-        "COMMAND", "LBRACKET", "RBRACKET", "LPAREN", "RPAREN", "LBRACE", 
-        "RBRACE", "COLON", "COMMA", "SEMICOLON", "DOT", "TRUE", "FALSE", 
-        "NULL", "STRING", "NUMBER", "NUMERIC_LITERAL", "SYMBOL", "IDENTIFIER", 
-        "SINGLE_LINE_COMMENT", "MULTI_LINE_COMMENT", "WS"
+        "COMMAND", "LIST_COLLECTIONS", "RENAME_COLLECTION", "DROP_COLLECTION", 
+        "DROP_DATABASE", "REMOVE_USER", "RUN_CURSOR_COMMAND", "STATS", "PROFILING_LEVEL", 
+        "SET_PROFILING_LEVEL", "ADMIN", "BUILD_INFO", "SERVER_INFO", "SERVER_STATUS", 
+        "PING", "VALIDATE_COLLECTION", "LIST_DATABASES", "REPL_SET_GET_STATUS", 
+        "LBRACKET", "RBRACKET", "LPAREN", "RPAREN", "LBRACE", "RBRACE", 
+        "COLON", "COMMA", "SEMICOLON", "DOT", "TRUE", "FALSE", "NULL", "STRING", 
+        "NUMBER", "NUMERIC_LITERAL", "SYMBOL", "IDENTIFIER", "SINGLE_LINE_COMMENT", 
+        "MULTI_LINE_COMMENT", "WS"
     ];
     public static readonly ruleNames = [
         "root", "commands", "command", "databaseOperation", "databaseMethod", 
-        "commandMethod", "commandArgument1", "commandArgument2", "createCollectionMethod", 
-        "createCollectionArgument1", "createCollectionArgument2", "databaseCollectionMethod", 
+        "databaseAdminMethod", "adminMethod", "validateCollectionMethod", 
+        "validateCollectionArgument1", "validateCollectionArgument2", "serverStatusMethod", 
+        "serverStatusArgument", "pingMethod", "pingArgument", "listDatabasesMethod", 
+        "listDatabasesArgument", "replSetGetStatusMethod", "replSetGetStatusArgument", 
+        "serverInfoMethod", "serverInfoArgument", "buildInfoMethod", "buildInfoArgument", 
+        "databaseSetProfilingLevelMethod", "databaseSetProfilingLevelArgument1", 
+        "databaseSetProfilingLevelArgument2", "databaseProfilingLevelMethod", 
+        "databaseProfilingLevelArgument", "databaseStatsMethod", "databaseStatsArgument", 
+        "databaseRunCursorCommandMethod", "databaseRunCursorCommandArgument1", 
+        "databaseRunCursorCommandArgument2", "databaseIndexInformationMethod", 
+        "databaseIndexInformationArgument1", "databaseIndexInformationArgument2", 
+        "databaseRemoveUserMethod", "databaseRemoveUserArgument1", "databaseRemoveUserArgument2", 
+        "databaseCreateIndexMethod", "databaseCreateIndexArgument3", "databaseCreateIndexArgument2", 
+        "databaseCreateIndexArgument1", "databaseDropDatabaseMethod", "databaseDropDatabaseArgument", 
+        "databaseDropCollectionMethod", "databaseDropCollectionArgument1", 
+        "databaseDropCollectionArgument2", "databaseRenameCollectionMethod", 
+        "databaseRenameCollectionArgument1", "databaseRenameCollectionArgument2", 
+        "databaseRenameCollectionArgument3", "databaseListCollectionsMethod", 
+        "databaseListCollectionsArgument1", "databaseListCollectionsArgument2", 
+        "databaseCommandMethod", "databaseCommandArgument1", "databaseCommandArgument2", 
+        "databaseCreateCollectionMethod", "databaseCreateCollectionArgument1", 
+        "databaseCreateCollectionArgument2", "databaseCollectionMethod", 
         "quotedCollectionName", "collectionOperation", "collectionName", 
         "collectionMethod", "aggregateMethod", "aggregateArgument2", "aggregateArgument1", 
-        "distinctMethod", "distinctArgument1", "distinctArgument2", "distinctArgument3", 
-        "countDocumentsMethod", "countDocumentsArgument2", "countDocumentsArgument1", 
-        "estimatedDocumentCountMethod", "estimatedDocumentCountArgument", 
-        "indexInformationMethod", "indexInformationArgument", "indexExistsMethod", 
-        "indexExistsArgument2", "indexExistsArgument1", "indexesMethod", 
-        "indexesArgument", "listIndexesMethod", "listIndexesArgument", "dropIndexesMethod", 
-        "dropIndexesArgument", "dropIndexMethod", "dropIndexArgument2", 
-        "dropIndexArgument1", "createIndexesMethod", "createIndexesArgument2", 
-        "createIndexesArgument1", "createIndexMethod", "createIndexArgument2", 
-        "createIndexArgument1", "isCappedMethod", "isCappedArgument", "dropMethod", 
-        "dropArgument", "renameMethod", "renameArgument1", "renameArgument2", 
-        "deleteManyMethod", "deleteManyArgument1", "deleteManyArgument2", 
-        "deleteOneMethod", "deleteOneArgument1", "deleteOneArgument2", "replaceOneMethod", 
-        "replaceOneArgument1", "replaceOneArgument2", "replaceOneArgument3", 
-        "updateManyMethod", "updateManyArgument1", "updateManyArgument2", 
-        "updateManyArgument3", "updateOneMethod", "updateOneArgument1", 
-        "updateOneArgument2", "updateOneArgument3", "bulkWriteMethod", "bulkWriteArgument1", 
-        "bulkWriteArgument2", "insertManyMethod", "insertManyArgument1", 
-        "insertManyArgument2", "insertOneMethod", "insertOneArgument1", 
-        "insertOneArgument2", "documentToInsert", "findOneAndUpdateMethod", 
-        "findOneAndUpdateArgument1", "findOneAndUpdateArgument2", "findOneAndUpdateArgument3", 
-        "findOneAndReplaceMethod", "findOneAndReplaceArgument1", "findOneAndReplaceArgument2", 
-        "findOneAndReplaceArgument3", "findOneAndDeleteMethod", "findOneAndDeleteArgument1", 
-        "findOneAndDeleteArgument2", "findOneMethod", "findOneArgument1", 
-        "findOneArgument2", "findMethod", "findMethodArgument1", "findMethodArgument2", 
-        "explainMethod", "explainMethodArgument", "findMethodModifier", 
+        "collectionDistinctMethod", "collectionDistinctArgument1", "collectionDistinctArgument2", 
+        "collectionDistinctArgument3", "collectionCountDocumentsMethod", 
+        "collectionCountDocumentsArgument2", "collectionCountDocumentsArgument1", 
+        "collectionEstimatedDocumentCountMethod", "collectionEstimatedDocumentCountArgument", 
+        "collectionIndexInformationMethod", "collectionIndexInformationArgument", 
+        "collectionIndexExistsMethod", "collectionIndexExistsArgument2", 
+        "collectionIndexExistsArgument1", "collectionIndexesMethod", "collectionIndexesArgument", 
+        "collectionListIndexesMethod", "collectionListIndexesArgument", 
+        "collectionDropIndexesMethod", "collectionDropIndexesArgument", 
+        "collectionDropIndexMethod", "collectionDropIndexArgument2", "collectionDropIndexArgument1", 
+        "collectionCreateIndexesMethod", "collectionCreateIndexesArgument2", 
+        "collectionCreateIndexesArgument1", "collectionCreateIndexMethod", 
+        "collectionCreateIndexArgument2", "collectionCreateIndexArgument1", 
+        "collectionIsCappedMethod", "collectionIsCappedArgument", "collectionDropMethod", 
+        "collectionDropArgument", "collectionRenameMethod", "collectionRenameArgument1", 
+        "collectionRenameArgument2", "collectionDeleteManyMethod", "collectionDeleteManyArgument1", 
+        "collectionDeleteManyArgument2", "collectionDeleteOneMethod", "collectionDeleteOneArgument1", 
+        "collectionDeleteOneArgument2", "collectionReplaceOneMethod", "collectionReplaceOneArgument1", 
+        "collectionReplaceOneArgument2", "collectionReplaceOneArgument3", 
+        "collectionUpdateManyMethod", "collectionUpdateManyArgument1", "collectionUpdateManyArgument2", 
+        "collectionUpdateManyArgument3", "collectionUpdateOneMethod", "collectionUpdateOneArgument1", 
+        "collectionUpdateOneArgument2", "collectionUpdateOneArgument3", 
+        "collectionBulkWriteMethod", "collectionBulkWriteArgument1", "collectionBulkWriteArgument2", 
+        "collectionInsertManyMethod", "collectionInsertManyArgument1", "collectionInsertManyArgument2", 
+        "collectionInsertOneMethod", "collectionInsertOneArgument1", "collectionInsertOneArgument2", 
+        "documentToInsert", "collectionFindOneAndUpdateMethod", "collectionFindOneAndUpdateArgument1", 
+        "collectionFindOneAndUpdateArgument2", "collectionFindOneAndUpdateArgument3", 
+        "collectionFindOneAndReplaceMethod", "collectionFindOneAndReplaceArgument1", 
+        "collectionFindOneAndReplaceArgument2", "collectionFindOneAndReplaceArgument3", 
+        "collectionFindOneAndDeleteMethod", "collectionFindOneAndDeleteArgument1", 
+        "collectionFindOneAndDeleteArgument2", "collectionFindOneMethod", 
+        "collectionFindOneArgument1", "collectionFindOneArgument2", "collectionFindMethod", 
+        "collectionFindMethodArgument1", "collectionFindMethodArgument2", 
+        "explainMethod", "explainMethodArgument", "collectionFindMethodModifier", 
         "skipModifier", "skipModifierArgument", "limitModifier", "limitModifierArgument", 
         "filterModifier", "filterModifierArgument", "minModifier", "minModifierArgument", 
         "maxModifier", "maxModifierArgument", "hintModifier", "hintModifierArgument", 
@@ -306,17 +408,17 @@ export class MongoParser extends antlr.Parser {
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 265;
+            this.state = 363;
             this.errorHandler.sync(this);
             _la = this.tokenStream.LA(1);
             if (_la === 1) {
                 {
-                this.state = 264;
+                this.state = 362;
                 this.commands();
                 }
             }
 
-            this.state = 267;
+            this.state = 365;
             this.match(MongoParser.EOF);
             }
         }
@@ -338,20 +440,20 @@ export class MongoParser extends antlr.Parser {
         this.enterRule(localContext, 2, MongoParser.RULE_commands);
         let _la: number;
         try {
-            this.state = 277;
+            this.state = 375;
             this.errorHandler.sync(this);
             switch (this.interpreter.adaptivePredict(this.tokenStream, 2, this.context) ) {
             case 1:
                 this.enterOuterAlt(localContext, 1);
                 {
-                this.state = 269;
+                this.state = 367;
                 this.command();
-                this.state = 271;
+                this.state = 369;
                 this.errorHandler.sync(this);
                 _la = this.tokenStream.LA(1);
-                if (_la === 51) {
+                if (_la === 68) {
                     {
-                    this.state = 270;
+                    this.state = 368;
                     this.match(MongoParser.SEMICOLON);
                     }
                 }
@@ -361,11 +463,11 @@ export class MongoParser extends antlr.Parser {
             case 2:
                 this.enterOuterAlt(localContext, 2);
                 {
-                this.state = 273;
+                this.state = 371;
                 this.command();
-                this.state = 274;
+                this.state = 372;
                 this.match(MongoParser.SEMICOLON);
-                this.state = 275;
+                this.state = 373;
                 this.commands();
                 }
                 break;
@@ -388,20 +490,20 @@ export class MongoParser extends antlr.Parser {
         let localContext = new CommandContext(this.context, this.state);
         this.enterRule(localContext, 4, MongoParser.RULE_command);
         try {
-            this.state = 281;
+            this.state = 379;
             this.errorHandler.sync(this);
             switch (this.interpreter.adaptivePredict(this.tokenStream, 3, this.context) ) {
             case 1:
                 this.enterOuterAlt(localContext, 1);
                 {
-                this.state = 279;
+                this.state = 377;
                 this.collectionOperation();
                 }
                 break;
             case 2:
                 this.enterOuterAlt(localContext, 2);
                 {
-                this.state = 280;
+                this.state = 378;
                 this.databaseOperation();
                 }
                 break;
@@ -426,11 +528,11 @@ export class MongoParser extends antlr.Parser {
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 283;
+            this.state = 381;
             this.match(MongoParser.DB);
-            this.state = 284;
+            this.state = 382;
             this.match(MongoParser.DOT);
-            this.state = 285;
+            this.state = 383;
             this.databaseMethod();
             }
         }
@@ -451,35 +553,119 @@ export class MongoParser extends antlr.Parser {
         let localContext = new DatabaseMethodContext(this.context, this.state);
         this.enterRule(localContext, 8, MongoParser.RULE_databaseMethod);
         try {
-            this.state = 291;
+            this.state = 401;
             this.errorHandler.sync(this);
             switch (this.tokenStream.LA(1)) {
             case MongoParser.COLLECTION:
                 this.enterOuterAlt(localContext, 1);
                 {
-                this.state = 287;
+                this.state = 385;
                 this.databaseCollectionMethod();
                 }
                 break;
             case MongoParser.CREATE_COLLECTION:
                 this.enterOuterAlt(localContext, 2);
                 {
-                this.state = 288;
-                this.createCollectionMethod();
+                this.state = 386;
+                this.databaseCreateCollectionMethod();
                 }
                 break;
             case MongoParser.COMMAND:
                 this.enterOuterAlt(localContext, 3);
                 {
-                this.state = 289;
-                this.commandMethod();
+                this.state = 387;
+                this.databaseCommandMethod();
                 }
                 break;
             case MongoParser.AGGREGATE:
                 this.enterOuterAlt(localContext, 4);
                 {
-                this.state = 290;
+                this.state = 388;
                 this.aggregateMethod();
+                }
+                break;
+            case MongoParser.LIST_COLLECTIONS:
+                this.enterOuterAlt(localContext, 5);
+                {
+                this.state = 389;
+                this.databaseListCollectionsMethod();
+                }
+                break;
+            case MongoParser.RENAME_COLLECTION:
+                this.enterOuterAlt(localContext, 6);
+                {
+                this.state = 390;
+                this.databaseRenameCollectionMethod();
+                }
+                break;
+            case MongoParser.DROP_COLLECTION:
+                this.enterOuterAlt(localContext, 7);
+                {
+                this.state = 391;
+                this.databaseDropCollectionMethod();
+                }
+                break;
+            case MongoParser.DROP_DATABASE:
+                this.enterOuterAlt(localContext, 8);
+                {
+                this.state = 392;
+                this.databaseDropDatabaseMethod();
+                }
+                break;
+            case MongoParser.CREATE_INDEX:
+                this.enterOuterAlt(localContext, 9);
+                {
+                this.state = 393;
+                this.databaseCreateIndexMethod();
+                }
+                break;
+            case MongoParser.REMOVE_USER:
+                this.enterOuterAlt(localContext, 10);
+                {
+                this.state = 394;
+                this.databaseRemoveUserMethod();
+                }
+                break;
+            case MongoParser.INDEX_INFORMATION:
+                this.enterOuterAlt(localContext, 11);
+                {
+                this.state = 395;
+                this.databaseIndexInformationMethod();
+                }
+                break;
+            case MongoParser.RUN_CURSOR_COMMAND:
+                this.enterOuterAlt(localContext, 12);
+                {
+                this.state = 396;
+                this.databaseRunCursorCommandMethod();
+                }
+                break;
+            case MongoParser.STATS:
+                this.enterOuterAlt(localContext, 13);
+                {
+                this.state = 397;
+                this.databaseStatsMethod();
+                }
+                break;
+            case MongoParser.PROFILING_LEVEL:
+                this.enterOuterAlt(localContext, 14);
+                {
+                this.state = 398;
+                this.databaseProfilingLevelMethod();
+                }
+                break;
+            case MongoParser.SET_PROFILING_LEVEL:
+                this.enterOuterAlt(localContext, 15);
+                {
+                this.state = 399;
+                this.databaseSetProfilingLevelMethod();
+                }
+                break;
+            case MongoParser.ADMIN:
+                this.enterOuterAlt(localContext, 16);
+                {
+                this.state = 400;
+                this.databaseAdminMethod();
                 }
                 break;
             default:
@@ -499,32 +685,150 @@ export class MongoParser extends antlr.Parser {
         }
         return localContext;
     }
-    public commandMethod(): CommandMethodContext {
-        let localContext = new CommandMethodContext(this.context, this.state);
-        this.enterRule(localContext, 10, MongoParser.RULE_commandMethod);
+    public databaseAdminMethod(): DatabaseAdminMethodContext {
+        let localContext = new DatabaseAdminMethodContext(this.context, this.state);
+        this.enterRule(localContext, 10, MongoParser.RULE_databaseAdminMethod);
+        try {
+            this.enterOuterAlt(localContext, 1);
+            {
+            this.state = 403;
+            this.match(MongoParser.ADMIN);
+            this.state = 404;
+            this.match(MongoParser.LPAREN);
+            this.state = 405;
+            this.match(MongoParser.RPAREN);
+            this.state = 406;
+            this.match(MongoParser.DOT);
+            this.state = 407;
+            this.adminMethod();
+            }
+        }
+        catch (re) {
+            if (re instanceof antlr.RecognitionException) {
+                this.errorHandler.reportError(this, re);
+                this.errorHandler.recover(this, re);
+            } else {
+                throw re;
+            }
+        }
+        finally {
+            this.exitRule();
+        }
+        return localContext;
+    }
+    public adminMethod(): AdminMethodContext {
+        let localContext = new AdminMethodContext(this.context, this.state);
+        this.enterRule(localContext, 12, MongoParser.RULE_adminMethod);
+        try {
+            this.state = 418;
+            this.errorHandler.sync(this);
+            switch (this.tokenStream.LA(1)) {
+            case MongoParser.COMMAND:
+                this.enterOuterAlt(localContext, 1);
+                {
+                this.state = 409;
+                this.databaseCommandMethod();
+                }
+                break;
+            case MongoParser.REMOVE_USER:
+                this.enterOuterAlt(localContext, 2);
+                {
+                this.state = 410;
+                this.databaseRemoveUserMethod();
+                }
+                break;
+            case MongoParser.BUILD_INFO:
+                this.enterOuterAlt(localContext, 3);
+                {
+                this.state = 411;
+                this.buildInfoMethod();
+                }
+                break;
+            case MongoParser.SERVER_INFO:
+                this.enterOuterAlt(localContext, 4);
+                {
+                this.state = 412;
+                this.serverInfoMethod();
+                }
+                break;
+            case MongoParser.SERVER_STATUS:
+                this.enterOuterAlt(localContext, 5);
+                {
+                this.state = 413;
+                this.serverStatusMethod();
+                }
+                break;
+            case MongoParser.PING:
+                this.enterOuterAlt(localContext, 6);
+                {
+                this.state = 414;
+                this.pingMethod();
+                }
+                break;
+            case MongoParser.LIST_DATABASES:
+                this.enterOuterAlt(localContext, 7);
+                {
+                this.state = 415;
+                this.listDatabasesMethod();
+                }
+                break;
+            case MongoParser.REPL_SET_GET_STATUS:
+                this.enterOuterAlt(localContext, 8);
+                {
+                this.state = 416;
+                this.replSetGetStatusMethod();
+                }
+                break;
+            case MongoParser.VALIDATE_COLLECTION:
+                this.enterOuterAlt(localContext, 9);
+                {
+                this.state = 417;
+                this.validateCollectionMethod();
+                }
+                break;
+            default:
+                throw new antlr.NoViableAltException(this);
+            }
+        }
+        catch (re) {
+            if (re instanceof antlr.RecognitionException) {
+                this.errorHandler.reportError(this, re);
+                this.errorHandler.recover(this, re);
+            } else {
+                throw re;
+            }
+        }
+        finally {
+            this.exitRule();
+        }
+        return localContext;
+    }
+    public validateCollectionMethod(): ValidateCollectionMethodContext {
+        let localContext = new ValidateCollectionMethodContext(this.context, this.state);
+        this.enterRule(localContext, 14, MongoParser.RULE_validateCollectionMethod);
         let _la: number;
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 293;
-            this.match(MongoParser.COMMAND);
-            this.state = 294;
+            this.state = 420;
+            this.match(MongoParser.VALIDATE_COLLECTION);
+            this.state = 421;
             this.match(MongoParser.LPAREN);
-            this.state = 295;
-            this.commandArgument1();
-            this.state = 298;
+            this.state = 422;
+            this.validateCollectionArgument1();
+            this.state = 425;
             this.errorHandler.sync(this);
             _la = this.tokenStream.LA(1);
-            if (_la === 50) {
+            if (_la === 67) {
                 {
-                this.state = 296;
+                this.state = 423;
                 this.match(MongoParser.COMMA);
-                this.state = 297;
-                this.commandArgument2();
+                this.state = 424;
+                this.validateCollectionArgument2();
                 }
             }
 
-            this.state = 300;
+            this.state = 427;
             this.match(MongoParser.RPAREN);
             }
         }
@@ -541,101 +845,13 @@ export class MongoParser extends antlr.Parser {
         }
         return localContext;
     }
-    public commandArgument1(): CommandArgument1Context {
-        let localContext = new CommandArgument1Context(this.context, this.state);
-        this.enterRule(localContext, 12, MongoParser.RULE_commandArgument1);
+    public validateCollectionArgument1(): ValidateCollectionArgument1Context {
+        let localContext = new ValidateCollectionArgument1Context(this.context, this.state);
+        this.enterRule(localContext, 16, MongoParser.RULE_validateCollectionArgument1);
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 302;
-            this.object();
-            }
-        }
-        catch (re) {
-            if (re instanceof antlr.RecognitionException) {
-                this.errorHandler.reportError(this, re);
-                this.errorHandler.recover(this, re);
-            } else {
-                throw re;
-            }
-        }
-        finally {
-            this.exitRule();
-        }
-        return localContext;
-    }
-    public commandArgument2(): CommandArgument2Context {
-        let localContext = new CommandArgument2Context(this.context, this.state);
-        this.enterRule(localContext, 14, MongoParser.RULE_commandArgument2);
-        try {
-            this.enterOuterAlt(localContext, 1);
-            {
-            this.state = 304;
-            this.object();
-            }
-        }
-        catch (re) {
-            if (re instanceof antlr.RecognitionException) {
-                this.errorHandler.reportError(this, re);
-                this.errorHandler.recover(this, re);
-            } else {
-                throw re;
-            }
-        }
-        finally {
-            this.exitRule();
-        }
-        return localContext;
-    }
-    public createCollectionMethod(): CreateCollectionMethodContext {
-        let localContext = new CreateCollectionMethodContext(this.context, this.state);
-        this.enterRule(localContext, 16, MongoParser.RULE_createCollectionMethod);
-        let _la: number;
-        try {
-            this.enterOuterAlt(localContext, 1);
-            {
-            this.state = 306;
-            this.match(MongoParser.CREATE_COLLECTION);
-            this.state = 307;
-            this.match(MongoParser.LPAREN);
-            this.state = 308;
-            this.createCollectionArgument1();
-            this.state = 311;
-            this.errorHandler.sync(this);
-            _la = this.tokenStream.LA(1);
-            if (_la === 50) {
-                {
-                this.state = 309;
-                this.match(MongoParser.COMMA);
-                this.state = 310;
-                this.createCollectionArgument2();
-                }
-            }
-
-            this.state = 313;
-            this.match(MongoParser.RPAREN);
-            }
-        }
-        catch (re) {
-            if (re instanceof antlr.RecognitionException) {
-                this.errorHandler.reportError(this, re);
-                this.errorHandler.recover(this, re);
-            } else {
-                throw re;
-            }
-        }
-        finally {
-            this.exitRule();
-        }
-        return localContext;
-    }
-    public createCollectionArgument1(): CreateCollectionArgument1Context {
-        let localContext = new CreateCollectionArgument1Context(this.context, this.state);
-        this.enterRule(localContext, 18, MongoParser.RULE_createCollectionArgument1);
-        try {
-            this.enterOuterAlt(localContext, 1);
-            {
-            this.state = 315;
+            this.state = 429;
             this.match(MongoParser.STRING);
             }
         }
@@ -652,13 +868,1520 @@ export class MongoParser extends antlr.Parser {
         }
         return localContext;
     }
-    public createCollectionArgument2(): CreateCollectionArgument2Context {
-        let localContext = new CreateCollectionArgument2Context(this.context, this.state);
-        this.enterRule(localContext, 20, MongoParser.RULE_createCollectionArgument2);
+    public validateCollectionArgument2(): ValidateCollectionArgument2Context {
+        let localContext = new ValidateCollectionArgument2Context(this.context, this.state);
+        this.enterRule(localContext, 18, MongoParser.RULE_validateCollectionArgument2);
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 317;
+            this.state = 431;
+            this.object();
+            }
+        }
+        catch (re) {
+            if (re instanceof antlr.RecognitionException) {
+                this.errorHandler.reportError(this, re);
+                this.errorHandler.recover(this, re);
+            } else {
+                throw re;
+            }
+        }
+        finally {
+            this.exitRule();
+        }
+        return localContext;
+    }
+    public serverStatusMethod(): ServerStatusMethodContext {
+        let localContext = new ServerStatusMethodContext(this.context, this.state);
+        this.enterRule(localContext, 20, MongoParser.RULE_serverStatusMethod);
+        let _la: number;
+        try {
+            this.enterOuterAlt(localContext, 1);
+            {
+            this.state = 433;
+            this.match(MongoParser.SERVER_STATUS);
+            this.state = 434;
+            this.match(MongoParser.LPAREN);
+            this.state = 436;
+            this.errorHandler.sync(this);
+            _la = this.tokenStream.LA(1);
+            if (_la === 64) {
+                {
+                this.state = 435;
+                this.serverStatusArgument();
+                }
+            }
+
+            this.state = 438;
+            this.match(MongoParser.RPAREN);
+            }
+        }
+        catch (re) {
+            if (re instanceof antlr.RecognitionException) {
+                this.errorHandler.reportError(this, re);
+                this.errorHandler.recover(this, re);
+            } else {
+                throw re;
+            }
+        }
+        finally {
+            this.exitRule();
+        }
+        return localContext;
+    }
+    public serverStatusArgument(): ServerStatusArgumentContext {
+        let localContext = new ServerStatusArgumentContext(this.context, this.state);
+        this.enterRule(localContext, 22, MongoParser.RULE_serverStatusArgument);
+        try {
+            this.enterOuterAlt(localContext, 1);
+            {
+            this.state = 440;
+            this.object();
+            }
+        }
+        catch (re) {
+            if (re instanceof antlr.RecognitionException) {
+                this.errorHandler.reportError(this, re);
+                this.errorHandler.recover(this, re);
+            } else {
+                throw re;
+            }
+        }
+        finally {
+            this.exitRule();
+        }
+        return localContext;
+    }
+    public pingMethod(): PingMethodContext {
+        let localContext = new PingMethodContext(this.context, this.state);
+        this.enterRule(localContext, 24, MongoParser.RULE_pingMethod);
+        let _la: number;
+        try {
+            this.enterOuterAlt(localContext, 1);
+            {
+            this.state = 442;
+            this.match(MongoParser.PING);
+            this.state = 443;
+            this.match(MongoParser.LPAREN);
+            this.state = 445;
+            this.errorHandler.sync(this);
+            _la = this.tokenStream.LA(1);
+            if (_la === 64) {
+                {
+                this.state = 444;
+                this.pingArgument();
+                }
+            }
+
+            this.state = 447;
+            this.match(MongoParser.RPAREN);
+            }
+        }
+        catch (re) {
+            if (re instanceof antlr.RecognitionException) {
+                this.errorHandler.reportError(this, re);
+                this.errorHandler.recover(this, re);
+            } else {
+                throw re;
+            }
+        }
+        finally {
+            this.exitRule();
+        }
+        return localContext;
+    }
+    public pingArgument(): PingArgumentContext {
+        let localContext = new PingArgumentContext(this.context, this.state);
+        this.enterRule(localContext, 26, MongoParser.RULE_pingArgument);
+        try {
+            this.enterOuterAlt(localContext, 1);
+            {
+            this.state = 449;
+            this.object();
+            }
+        }
+        catch (re) {
+            if (re instanceof antlr.RecognitionException) {
+                this.errorHandler.reportError(this, re);
+                this.errorHandler.recover(this, re);
+            } else {
+                throw re;
+            }
+        }
+        finally {
+            this.exitRule();
+        }
+        return localContext;
+    }
+    public listDatabasesMethod(): ListDatabasesMethodContext {
+        let localContext = new ListDatabasesMethodContext(this.context, this.state);
+        this.enterRule(localContext, 28, MongoParser.RULE_listDatabasesMethod);
+        let _la: number;
+        try {
+            this.enterOuterAlt(localContext, 1);
+            {
+            this.state = 451;
+            this.match(MongoParser.LIST_DATABASES);
+            this.state = 452;
+            this.match(MongoParser.LPAREN);
+            this.state = 454;
+            this.errorHandler.sync(this);
+            _la = this.tokenStream.LA(1);
+            if (_la === 64) {
+                {
+                this.state = 453;
+                this.listDatabasesArgument();
+                }
+            }
+
+            this.state = 456;
+            this.match(MongoParser.RPAREN);
+            }
+        }
+        catch (re) {
+            if (re instanceof antlr.RecognitionException) {
+                this.errorHandler.reportError(this, re);
+                this.errorHandler.recover(this, re);
+            } else {
+                throw re;
+            }
+        }
+        finally {
+            this.exitRule();
+        }
+        return localContext;
+    }
+    public listDatabasesArgument(): ListDatabasesArgumentContext {
+        let localContext = new ListDatabasesArgumentContext(this.context, this.state);
+        this.enterRule(localContext, 30, MongoParser.RULE_listDatabasesArgument);
+        try {
+            this.enterOuterAlt(localContext, 1);
+            {
+            this.state = 458;
+            this.object();
+            }
+        }
+        catch (re) {
+            if (re instanceof antlr.RecognitionException) {
+                this.errorHandler.reportError(this, re);
+                this.errorHandler.recover(this, re);
+            } else {
+                throw re;
+            }
+        }
+        finally {
+            this.exitRule();
+        }
+        return localContext;
+    }
+    public replSetGetStatusMethod(): ReplSetGetStatusMethodContext {
+        let localContext = new ReplSetGetStatusMethodContext(this.context, this.state);
+        this.enterRule(localContext, 32, MongoParser.RULE_replSetGetStatusMethod);
+        let _la: number;
+        try {
+            this.enterOuterAlt(localContext, 1);
+            {
+            this.state = 460;
+            this.match(MongoParser.REPL_SET_GET_STATUS);
+            this.state = 461;
+            this.match(MongoParser.LPAREN);
+            this.state = 463;
+            this.errorHandler.sync(this);
+            _la = this.tokenStream.LA(1);
+            if (_la === 64) {
+                {
+                this.state = 462;
+                this.replSetGetStatusArgument();
+                }
+            }
+
+            this.state = 465;
+            this.match(MongoParser.RPAREN);
+            }
+        }
+        catch (re) {
+            if (re instanceof antlr.RecognitionException) {
+                this.errorHandler.reportError(this, re);
+                this.errorHandler.recover(this, re);
+            } else {
+                throw re;
+            }
+        }
+        finally {
+            this.exitRule();
+        }
+        return localContext;
+    }
+    public replSetGetStatusArgument(): ReplSetGetStatusArgumentContext {
+        let localContext = new ReplSetGetStatusArgumentContext(this.context, this.state);
+        this.enterRule(localContext, 34, MongoParser.RULE_replSetGetStatusArgument);
+        try {
+            this.enterOuterAlt(localContext, 1);
+            {
+            this.state = 467;
+            this.object();
+            }
+        }
+        catch (re) {
+            if (re instanceof antlr.RecognitionException) {
+                this.errorHandler.reportError(this, re);
+                this.errorHandler.recover(this, re);
+            } else {
+                throw re;
+            }
+        }
+        finally {
+            this.exitRule();
+        }
+        return localContext;
+    }
+    public serverInfoMethod(): ServerInfoMethodContext {
+        let localContext = new ServerInfoMethodContext(this.context, this.state);
+        this.enterRule(localContext, 36, MongoParser.RULE_serverInfoMethod);
+        let _la: number;
+        try {
+            this.enterOuterAlt(localContext, 1);
+            {
+            this.state = 469;
+            this.match(MongoParser.SERVER_INFO);
+            this.state = 470;
+            this.match(MongoParser.LPAREN);
+            this.state = 472;
+            this.errorHandler.sync(this);
+            _la = this.tokenStream.LA(1);
+            if (_la === 64) {
+                {
+                this.state = 471;
+                this.serverInfoArgument();
+                }
+            }
+
+            this.state = 474;
+            this.match(MongoParser.RPAREN);
+            }
+        }
+        catch (re) {
+            if (re instanceof antlr.RecognitionException) {
+                this.errorHandler.reportError(this, re);
+                this.errorHandler.recover(this, re);
+            } else {
+                throw re;
+            }
+        }
+        finally {
+            this.exitRule();
+        }
+        return localContext;
+    }
+    public serverInfoArgument(): ServerInfoArgumentContext {
+        let localContext = new ServerInfoArgumentContext(this.context, this.state);
+        this.enterRule(localContext, 38, MongoParser.RULE_serverInfoArgument);
+        try {
+            this.enterOuterAlt(localContext, 1);
+            {
+            this.state = 476;
+            this.object();
+            }
+        }
+        catch (re) {
+            if (re instanceof antlr.RecognitionException) {
+                this.errorHandler.reportError(this, re);
+                this.errorHandler.recover(this, re);
+            } else {
+                throw re;
+            }
+        }
+        finally {
+            this.exitRule();
+        }
+        return localContext;
+    }
+    public buildInfoMethod(): BuildInfoMethodContext {
+        let localContext = new BuildInfoMethodContext(this.context, this.state);
+        this.enterRule(localContext, 40, MongoParser.RULE_buildInfoMethod);
+        let _la: number;
+        try {
+            this.enterOuterAlt(localContext, 1);
+            {
+            this.state = 478;
+            this.match(MongoParser.BUILD_INFO);
+            this.state = 479;
+            this.match(MongoParser.LPAREN);
+            this.state = 481;
+            this.errorHandler.sync(this);
+            _la = this.tokenStream.LA(1);
+            if (_la === 64) {
+                {
+                this.state = 480;
+                this.buildInfoArgument();
+                }
+            }
+
+            this.state = 483;
+            this.match(MongoParser.RPAREN);
+            }
+        }
+        catch (re) {
+            if (re instanceof antlr.RecognitionException) {
+                this.errorHandler.reportError(this, re);
+                this.errorHandler.recover(this, re);
+            } else {
+                throw re;
+            }
+        }
+        finally {
+            this.exitRule();
+        }
+        return localContext;
+    }
+    public buildInfoArgument(): BuildInfoArgumentContext {
+        let localContext = new BuildInfoArgumentContext(this.context, this.state);
+        this.enterRule(localContext, 42, MongoParser.RULE_buildInfoArgument);
+        try {
+            this.enterOuterAlt(localContext, 1);
+            {
+            this.state = 485;
+            this.object();
+            }
+        }
+        catch (re) {
+            if (re instanceof antlr.RecognitionException) {
+                this.errorHandler.reportError(this, re);
+                this.errorHandler.recover(this, re);
+            } else {
+                throw re;
+            }
+        }
+        finally {
+            this.exitRule();
+        }
+        return localContext;
+    }
+    public databaseSetProfilingLevelMethod(): DatabaseSetProfilingLevelMethodContext {
+        let localContext = new DatabaseSetProfilingLevelMethodContext(this.context, this.state);
+        this.enterRule(localContext, 44, MongoParser.RULE_databaseSetProfilingLevelMethod);
+        let _la: number;
+        try {
+            this.enterOuterAlt(localContext, 1);
+            {
+            this.state = 487;
+            this.match(MongoParser.SET_PROFILING_LEVEL);
+            this.state = 488;
+            this.match(MongoParser.LPAREN);
+            this.state = 489;
+            this.databaseSetProfilingLevelArgument1();
+            this.state = 492;
+            this.errorHandler.sync(this);
+            _la = this.tokenStream.LA(1);
+            if (_la === 67) {
+                {
+                this.state = 490;
+                this.match(MongoParser.COMMA);
+                this.state = 491;
+                this.databaseSetProfilingLevelArgument2();
+                }
+            }
+
+            this.state = 494;
+            this.match(MongoParser.RPAREN);
+            }
+        }
+        catch (re) {
+            if (re instanceof antlr.RecognitionException) {
+                this.errorHandler.reportError(this, re);
+                this.errorHandler.recover(this, re);
+            } else {
+                throw re;
+            }
+        }
+        finally {
+            this.exitRule();
+        }
+        return localContext;
+    }
+    public databaseSetProfilingLevelArgument1(): DatabaseSetProfilingLevelArgument1Context {
+        let localContext = new DatabaseSetProfilingLevelArgument1Context(this.context, this.state);
+        this.enterRule(localContext, 46, MongoParser.RULE_databaseSetProfilingLevelArgument1);
+        try {
+            this.enterOuterAlt(localContext, 1);
+            {
+            this.state = 496;
+            this.match(MongoParser.STRING);
+            }
+        }
+        catch (re) {
+            if (re instanceof antlr.RecognitionException) {
+                this.errorHandler.reportError(this, re);
+                this.errorHandler.recover(this, re);
+            } else {
+                throw re;
+            }
+        }
+        finally {
+            this.exitRule();
+        }
+        return localContext;
+    }
+    public databaseSetProfilingLevelArgument2(): DatabaseSetProfilingLevelArgument2Context {
+        let localContext = new DatabaseSetProfilingLevelArgument2Context(this.context, this.state);
+        this.enterRule(localContext, 48, MongoParser.RULE_databaseSetProfilingLevelArgument2);
+        try {
+            this.enterOuterAlt(localContext, 1);
+            {
+            this.state = 498;
+            this.object();
+            }
+        }
+        catch (re) {
+            if (re instanceof antlr.RecognitionException) {
+                this.errorHandler.reportError(this, re);
+                this.errorHandler.recover(this, re);
+            } else {
+                throw re;
+            }
+        }
+        finally {
+            this.exitRule();
+        }
+        return localContext;
+    }
+    public databaseProfilingLevelMethod(): DatabaseProfilingLevelMethodContext {
+        let localContext = new DatabaseProfilingLevelMethodContext(this.context, this.state);
+        this.enterRule(localContext, 50, MongoParser.RULE_databaseProfilingLevelMethod);
+        let _la: number;
+        try {
+            this.enterOuterAlt(localContext, 1);
+            {
+            this.state = 500;
+            this.match(MongoParser.PROFILING_LEVEL);
+            this.state = 501;
+            this.match(MongoParser.LPAREN);
+            this.state = 503;
+            this.errorHandler.sync(this);
+            _la = this.tokenStream.LA(1);
+            if (_la === 64) {
+                {
+                this.state = 502;
+                this.databaseProfilingLevelArgument();
+                }
+            }
+
+            this.state = 505;
+            this.match(MongoParser.RPAREN);
+            }
+        }
+        catch (re) {
+            if (re instanceof antlr.RecognitionException) {
+                this.errorHandler.reportError(this, re);
+                this.errorHandler.recover(this, re);
+            } else {
+                throw re;
+            }
+        }
+        finally {
+            this.exitRule();
+        }
+        return localContext;
+    }
+    public databaseProfilingLevelArgument(): DatabaseProfilingLevelArgumentContext {
+        let localContext = new DatabaseProfilingLevelArgumentContext(this.context, this.state);
+        this.enterRule(localContext, 52, MongoParser.RULE_databaseProfilingLevelArgument);
+        try {
+            this.enterOuterAlt(localContext, 1);
+            {
+            this.state = 507;
+            this.object();
+            }
+        }
+        catch (re) {
+            if (re instanceof antlr.RecognitionException) {
+                this.errorHandler.reportError(this, re);
+                this.errorHandler.recover(this, re);
+            } else {
+                throw re;
+            }
+        }
+        finally {
+            this.exitRule();
+        }
+        return localContext;
+    }
+    public databaseStatsMethod(): DatabaseStatsMethodContext {
+        let localContext = new DatabaseStatsMethodContext(this.context, this.state);
+        this.enterRule(localContext, 54, MongoParser.RULE_databaseStatsMethod);
+        let _la: number;
+        try {
+            this.enterOuterAlt(localContext, 1);
+            {
+            this.state = 509;
+            this.match(MongoParser.STATS);
+            this.state = 510;
+            this.match(MongoParser.LPAREN);
+            this.state = 512;
+            this.errorHandler.sync(this);
+            _la = this.tokenStream.LA(1);
+            if (_la === 64) {
+                {
+                this.state = 511;
+                this.databaseStatsArgument();
+                }
+            }
+
+            this.state = 514;
+            this.match(MongoParser.RPAREN);
+            }
+        }
+        catch (re) {
+            if (re instanceof antlr.RecognitionException) {
+                this.errorHandler.reportError(this, re);
+                this.errorHandler.recover(this, re);
+            } else {
+                throw re;
+            }
+        }
+        finally {
+            this.exitRule();
+        }
+        return localContext;
+    }
+    public databaseStatsArgument(): DatabaseStatsArgumentContext {
+        let localContext = new DatabaseStatsArgumentContext(this.context, this.state);
+        this.enterRule(localContext, 56, MongoParser.RULE_databaseStatsArgument);
+        try {
+            this.enterOuterAlt(localContext, 1);
+            {
+            this.state = 516;
+            this.object();
+            }
+        }
+        catch (re) {
+            if (re instanceof antlr.RecognitionException) {
+                this.errorHandler.reportError(this, re);
+                this.errorHandler.recover(this, re);
+            } else {
+                throw re;
+            }
+        }
+        finally {
+            this.exitRule();
+        }
+        return localContext;
+    }
+    public databaseRunCursorCommandMethod(): DatabaseRunCursorCommandMethodContext {
+        let localContext = new DatabaseRunCursorCommandMethodContext(this.context, this.state);
+        this.enterRule(localContext, 58, MongoParser.RULE_databaseRunCursorCommandMethod);
+        let _la: number;
+        try {
+            this.enterOuterAlt(localContext, 1);
+            {
+            this.state = 518;
+            this.match(MongoParser.RUN_CURSOR_COMMAND);
+            this.state = 519;
+            this.match(MongoParser.LPAREN);
+            this.state = 520;
+            this.databaseRunCursorCommandArgument1();
+            this.state = 523;
+            this.errorHandler.sync(this);
+            _la = this.tokenStream.LA(1);
+            if (_la === 67) {
+                {
+                this.state = 521;
+                this.match(MongoParser.COMMA);
+                this.state = 522;
+                this.databaseRunCursorCommandArgument2();
+                }
+            }
+
+            this.state = 525;
+            this.match(MongoParser.RPAREN);
+            }
+        }
+        catch (re) {
+            if (re instanceof antlr.RecognitionException) {
+                this.errorHandler.reportError(this, re);
+                this.errorHandler.recover(this, re);
+            } else {
+                throw re;
+            }
+        }
+        finally {
+            this.exitRule();
+        }
+        return localContext;
+    }
+    public databaseRunCursorCommandArgument1(): DatabaseRunCursorCommandArgument1Context {
+        let localContext = new DatabaseRunCursorCommandArgument1Context(this.context, this.state);
+        this.enterRule(localContext, 60, MongoParser.RULE_databaseRunCursorCommandArgument1);
+        try {
+            this.enterOuterAlt(localContext, 1);
+            {
+            this.state = 527;
+            this.object();
+            }
+        }
+        catch (re) {
+            if (re instanceof antlr.RecognitionException) {
+                this.errorHandler.reportError(this, re);
+                this.errorHandler.recover(this, re);
+            } else {
+                throw re;
+            }
+        }
+        finally {
+            this.exitRule();
+        }
+        return localContext;
+    }
+    public databaseRunCursorCommandArgument2(): DatabaseRunCursorCommandArgument2Context {
+        let localContext = new DatabaseRunCursorCommandArgument2Context(this.context, this.state);
+        this.enterRule(localContext, 62, MongoParser.RULE_databaseRunCursorCommandArgument2);
+        try {
+            this.enterOuterAlt(localContext, 1);
+            {
+            this.state = 529;
+            this.object();
+            }
+        }
+        catch (re) {
+            if (re instanceof antlr.RecognitionException) {
+                this.errorHandler.reportError(this, re);
+                this.errorHandler.recover(this, re);
+            } else {
+                throw re;
+            }
+        }
+        finally {
+            this.exitRule();
+        }
+        return localContext;
+    }
+    public databaseIndexInformationMethod(): DatabaseIndexInformationMethodContext {
+        let localContext = new DatabaseIndexInformationMethodContext(this.context, this.state);
+        this.enterRule(localContext, 64, MongoParser.RULE_databaseIndexInformationMethod);
+        let _la: number;
+        try {
+            this.enterOuterAlt(localContext, 1);
+            {
+            this.state = 531;
+            this.match(MongoParser.INDEX_INFORMATION);
+            this.state = 532;
+            this.match(MongoParser.LPAREN);
+            this.state = 533;
+            this.databaseIndexInformationArgument1();
+            this.state = 536;
+            this.errorHandler.sync(this);
+            _la = this.tokenStream.LA(1);
+            if (_la === 67) {
+                {
+                this.state = 534;
+                this.match(MongoParser.COMMA);
+                this.state = 535;
+                this.databaseIndexInformationArgument2();
+                }
+            }
+
+            this.state = 538;
+            this.match(MongoParser.RPAREN);
+            }
+        }
+        catch (re) {
+            if (re instanceof antlr.RecognitionException) {
+                this.errorHandler.reportError(this, re);
+                this.errorHandler.recover(this, re);
+            } else {
+                throw re;
+            }
+        }
+        finally {
+            this.exitRule();
+        }
+        return localContext;
+    }
+    public databaseIndexInformationArgument1(): DatabaseIndexInformationArgument1Context {
+        let localContext = new DatabaseIndexInformationArgument1Context(this.context, this.state);
+        this.enterRule(localContext, 66, MongoParser.RULE_databaseIndexInformationArgument1);
+        try {
+            this.enterOuterAlt(localContext, 1);
+            {
+            this.state = 540;
+            this.match(MongoParser.STRING);
+            }
+        }
+        catch (re) {
+            if (re instanceof antlr.RecognitionException) {
+                this.errorHandler.reportError(this, re);
+                this.errorHandler.recover(this, re);
+            } else {
+                throw re;
+            }
+        }
+        finally {
+            this.exitRule();
+        }
+        return localContext;
+    }
+    public databaseIndexInformationArgument2(): DatabaseIndexInformationArgument2Context {
+        let localContext = new DatabaseIndexInformationArgument2Context(this.context, this.state);
+        this.enterRule(localContext, 68, MongoParser.RULE_databaseIndexInformationArgument2);
+        try {
+            this.enterOuterAlt(localContext, 1);
+            {
+            this.state = 542;
+            this.object();
+            }
+        }
+        catch (re) {
+            if (re instanceof antlr.RecognitionException) {
+                this.errorHandler.reportError(this, re);
+                this.errorHandler.recover(this, re);
+            } else {
+                throw re;
+            }
+        }
+        finally {
+            this.exitRule();
+        }
+        return localContext;
+    }
+    public databaseRemoveUserMethod(): DatabaseRemoveUserMethodContext {
+        let localContext = new DatabaseRemoveUserMethodContext(this.context, this.state);
+        this.enterRule(localContext, 70, MongoParser.RULE_databaseRemoveUserMethod);
+        let _la: number;
+        try {
+            this.enterOuterAlt(localContext, 1);
+            {
+            this.state = 544;
+            this.match(MongoParser.REMOVE_USER);
+            this.state = 545;
+            this.match(MongoParser.LPAREN);
+            this.state = 546;
+            this.databaseRemoveUserArgument1();
+            this.state = 549;
+            this.errorHandler.sync(this);
+            _la = this.tokenStream.LA(1);
+            if (_la === 67) {
+                {
+                this.state = 547;
+                this.match(MongoParser.COMMA);
+                this.state = 548;
+                this.databaseRemoveUserArgument2();
+                }
+            }
+
+            this.state = 551;
+            this.match(MongoParser.RPAREN);
+            }
+        }
+        catch (re) {
+            if (re instanceof antlr.RecognitionException) {
+                this.errorHandler.reportError(this, re);
+                this.errorHandler.recover(this, re);
+            } else {
+                throw re;
+            }
+        }
+        finally {
+            this.exitRule();
+        }
+        return localContext;
+    }
+    public databaseRemoveUserArgument1(): DatabaseRemoveUserArgument1Context {
+        let localContext = new DatabaseRemoveUserArgument1Context(this.context, this.state);
+        this.enterRule(localContext, 72, MongoParser.RULE_databaseRemoveUserArgument1);
+        try {
+            this.enterOuterAlt(localContext, 1);
+            {
+            this.state = 553;
+            this.match(MongoParser.STRING);
+            }
+        }
+        catch (re) {
+            if (re instanceof antlr.RecognitionException) {
+                this.errorHandler.reportError(this, re);
+                this.errorHandler.recover(this, re);
+            } else {
+                throw re;
+            }
+        }
+        finally {
+            this.exitRule();
+        }
+        return localContext;
+    }
+    public databaseRemoveUserArgument2(): DatabaseRemoveUserArgument2Context {
+        let localContext = new DatabaseRemoveUserArgument2Context(this.context, this.state);
+        this.enterRule(localContext, 74, MongoParser.RULE_databaseRemoveUserArgument2);
+        try {
+            this.enterOuterAlt(localContext, 1);
+            {
+            this.state = 555;
+            this.object();
+            }
+        }
+        catch (re) {
+            if (re instanceof antlr.RecognitionException) {
+                this.errorHandler.reportError(this, re);
+                this.errorHandler.recover(this, re);
+            } else {
+                throw re;
+            }
+        }
+        finally {
+            this.exitRule();
+        }
+        return localContext;
+    }
+    public databaseCreateIndexMethod(): DatabaseCreateIndexMethodContext {
+        let localContext = new DatabaseCreateIndexMethodContext(this.context, this.state);
+        this.enterRule(localContext, 76, MongoParser.RULE_databaseCreateIndexMethod);
+        let _la: number;
+        try {
+            this.enterOuterAlt(localContext, 1);
+            {
+            this.state = 557;
+            this.match(MongoParser.CREATE_INDEX);
+            this.state = 558;
+            this.match(MongoParser.LPAREN);
+            this.state = 559;
+            this.databaseCreateIndexArgument1();
+            this.state = 560;
+            this.match(MongoParser.COMMA);
+            this.state = 561;
+            this.databaseCreateIndexArgument2();
+            this.state = 564;
+            this.errorHandler.sync(this);
+            _la = this.tokenStream.LA(1);
+            if (_la === 67) {
+                {
+                this.state = 562;
+                this.match(MongoParser.COMMA);
+                this.state = 563;
+                this.databaseCreateIndexArgument3();
+                }
+            }
+
+            this.state = 566;
+            this.match(MongoParser.RPAREN);
+            }
+        }
+        catch (re) {
+            if (re instanceof antlr.RecognitionException) {
+                this.errorHandler.reportError(this, re);
+                this.errorHandler.recover(this, re);
+            } else {
+                throw re;
+            }
+        }
+        finally {
+            this.exitRule();
+        }
+        return localContext;
+    }
+    public databaseCreateIndexArgument3(): DatabaseCreateIndexArgument3Context {
+        let localContext = new DatabaseCreateIndexArgument3Context(this.context, this.state);
+        this.enterRule(localContext, 78, MongoParser.RULE_databaseCreateIndexArgument3);
+        try {
+            this.enterOuterAlt(localContext, 1);
+            {
+            this.state = 568;
+            this.object();
+            }
+        }
+        catch (re) {
+            if (re instanceof antlr.RecognitionException) {
+                this.errorHandler.reportError(this, re);
+                this.errorHandler.recover(this, re);
+            } else {
+                throw re;
+            }
+        }
+        finally {
+            this.exitRule();
+        }
+        return localContext;
+    }
+    public databaseCreateIndexArgument2(): DatabaseCreateIndexArgument2Context {
+        let localContext = new DatabaseCreateIndexArgument2Context(this.context, this.state);
+        this.enterRule(localContext, 80, MongoParser.RULE_databaseCreateIndexArgument2);
+        try {
+            this.state = 573;
+            this.errorHandler.sync(this);
+            switch (this.tokenStream.LA(1)) {
+            case MongoParser.STRING:
+                this.enterOuterAlt(localContext, 1);
+                {
+                this.state = 570;
+                this.match(MongoParser.STRING);
+                }
+                break;
+            case MongoParser.LBRACE:
+                this.enterOuterAlt(localContext, 2);
+                {
+                this.state = 571;
+                this.object();
+                }
+                break;
+            case MongoParser.LBRACKET:
+                this.enterOuterAlt(localContext, 3);
+                {
+                this.state = 572;
+                this.array();
+                }
+                break;
+            default:
+                throw new antlr.NoViableAltException(this);
+            }
+        }
+        catch (re) {
+            if (re instanceof antlr.RecognitionException) {
+                this.errorHandler.reportError(this, re);
+                this.errorHandler.recover(this, re);
+            } else {
+                throw re;
+            }
+        }
+        finally {
+            this.exitRule();
+        }
+        return localContext;
+    }
+    public databaseCreateIndexArgument1(): DatabaseCreateIndexArgument1Context {
+        let localContext = new DatabaseCreateIndexArgument1Context(this.context, this.state);
+        this.enterRule(localContext, 82, MongoParser.RULE_databaseCreateIndexArgument1);
+        try {
+            this.enterOuterAlt(localContext, 1);
+            {
+            this.state = 575;
+            this.match(MongoParser.STRING);
+            }
+        }
+        catch (re) {
+            if (re instanceof antlr.RecognitionException) {
+                this.errorHandler.reportError(this, re);
+                this.errorHandler.recover(this, re);
+            } else {
+                throw re;
+            }
+        }
+        finally {
+            this.exitRule();
+        }
+        return localContext;
+    }
+    public databaseDropDatabaseMethod(): DatabaseDropDatabaseMethodContext {
+        let localContext = new DatabaseDropDatabaseMethodContext(this.context, this.state);
+        this.enterRule(localContext, 84, MongoParser.RULE_databaseDropDatabaseMethod);
+        let _la: number;
+        try {
+            this.enterOuterAlt(localContext, 1);
+            {
+            this.state = 577;
+            this.match(MongoParser.DROP_DATABASE);
+            this.state = 578;
+            this.match(MongoParser.LPAREN);
+            this.state = 580;
+            this.errorHandler.sync(this);
+            _la = this.tokenStream.LA(1);
+            if (_la === 64) {
+                {
+                this.state = 579;
+                this.databaseDropDatabaseArgument();
+                }
+            }
+
+            this.state = 582;
+            this.match(MongoParser.RPAREN);
+            }
+        }
+        catch (re) {
+            if (re instanceof antlr.RecognitionException) {
+                this.errorHandler.reportError(this, re);
+                this.errorHandler.recover(this, re);
+            } else {
+                throw re;
+            }
+        }
+        finally {
+            this.exitRule();
+        }
+        return localContext;
+    }
+    public databaseDropDatabaseArgument(): DatabaseDropDatabaseArgumentContext {
+        let localContext = new DatabaseDropDatabaseArgumentContext(this.context, this.state);
+        this.enterRule(localContext, 86, MongoParser.RULE_databaseDropDatabaseArgument);
+        try {
+            this.enterOuterAlt(localContext, 1);
+            {
+            this.state = 584;
+            this.object();
+            }
+        }
+        catch (re) {
+            if (re instanceof antlr.RecognitionException) {
+                this.errorHandler.reportError(this, re);
+                this.errorHandler.recover(this, re);
+            } else {
+                throw re;
+            }
+        }
+        finally {
+            this.exitRule();
+        }
+        return localContext;
+    }
+    public databaseDropCollectionMethod(): DatabaseDropCollectionMethodContext {
+        let localContext = new DatabaseDropCollectionMethodContext(this.context, this.state);
+        this.enterRule(localContext, 88, MongoParser.RULE_databaseDropCollectionMethod);
+        let _la: number;
+        try {
+            this.enterOuterAlt(localContext, 1);
+            {
+            this.state = 586;
+            this.match(MongoParser.DROP_COLLECTION);
+            this.state = 587;
+            this.match(MongoParser.LPAREN);
+            this.state = 588;
+            this.databaseDropCollectionArgument1();
+            this.state = 591;
+            this.errorHandler.sync(this);
+            _la = this.tokenStream.LA(1);
+            if (_la === 67) {
+                {
+                this.state = 589;
+                this.match(MongoParser.COMMA);
+                this.state = 590;
+                this.databaseDropCollectionArgument2();
+                }
+            }
+
+            this.state = 593;
+            this.match(MongoParser.RPAREN);
+            }
+        }
+        catch (re) {
+            if (re instanceof antlr.RecognitionException) {
+                this.errorHandler.reportError(this, re);
+                this.errorHandler.recover(this, re);
+            } else {
+                throw re;
+            }
+        }
+        finally {
+            this.exitRule();
+        }
+        return localContext;
+    }
+    public databaseDropCollectionArgument1(): DatabaseDropCollectionArgument1Context {
+        let localContext = new DatabaseDropCollectionArgument1Context(this.context, this.state);
+        this.enterRule(localContext, 90, MongoParser.RULE_databaseDropCollectionArgument1);
+        try {
+            this.enterOuterAlt(localContext, 1);
+            {
+            this.state = 595;
+            this.match(MongoParser.STRING);
+            }
+        }
+        catch (re) {
+            if (re instanceof antlr.RecognitionException) {
+                this.errorHandler.reportError(this, re);
+                this.errorHandler.recover(this, re);
+            } else {
+                throw re;
+            }
+        }
+        finally {
+            this.exitRule();
+        }
+        return localContext;
+    }
+    public databaseDropCollectionArgument2(): DatabaseDropCollectionArgument2Context {
+        let localContext = new DatabaseDropCollectionArgument2Context(this.context, this.state);
+        this.enterRule(localContext, 92, MongoParser.RULE_databaseDropCollectionArgument2);
+        try {
+            this.enterOuterAlt(localContext, 1);
+            {
+            this.state = 597;
+            this.object();
+            }
+        }
+        catch (re) {
+            if (re instanceof antlr.RecognitionException) {
+                this.errorHandler.reportError(this, re);
+                this.errorHandler.recover(this, re);
+            } else {
+                throw re;
+            }
+        }
+        finally {
+            this.exitRule();
+        }
+        return localContext;
+    }
+    public databaseRenameCollectionMethod(): DatabaseRenameCollectionMethodContext {
+        let localContext = new DatabaseRenameCollectionMethodContext(this.context, this.state);
+        this.enterRule(localContext, 94, MongoParser.RULE_databaseRenameCollectionMethod);
+        let _la: number;
+        try {
+            this.enterOuterAlt(localContext, 1);
+            {
+            this.state = 599;
+            this.match(MongoParser.RENAME_COLLECTION);
+            this.state = 600;
+            this.match(MongoParser.LPAREN);
+            this.state = 601;
+            this.databaseRenameCollectionArgument1();
+            this.state = 602;
+            this.match(MongoParser.COMMA);
+            this.state = 603;
+            this.databaseRenameCollectionArgument2();
+            this.state = 606;
+            this.errorHandler.sync(this);
+            _la = this.tokenStream.LA(1);
+            if (_la === 67) {
+                {
+                this.state = 604;
+                this.match(MongoParser.COMMA);
+                this.state = 605;
+                this.databaseRenameCollectionArgument3();
+                }
+            }
+
+            this.state = 608;
+            this.match(MongoParser.RPAREN);
+            }
+        }
+        catch (re) {
+            if (re instanceof antlr.RecognitionException) {
+                this.errorHandler.reportError(this, re);
+                this.errorHandler.recover(this, re);
+            } else {
+                throw re;
+            }
+        }
+        finally {
+            this.exitRule();
+        }
+        return localContext;
+    }
+    public databaseRenameCollectionArgument1(): DatabaseRenameCollectionArgument1Context {
+        let localContext = new DatabaseRenameCollectionArgument1Context(this.context, this.state);
+        this.enterRule(localContext, 96, MongoParser.RULE_databaseRenameCollectionArgument1);
+        try {
+            this.enterOuterAlt(localContext, 1);
+            {
+            this.state = 610;
+            this.match(MongoParser.STRING);
+            }
+        }
+        catch (re) {
+            if (re instanceof antlr.RecognitionException) {
+                this.errorHandler.reportError(this, re);
+                this.errorHandler.recover(this, re);
+            } else {
+                throw re;
+            }
+        }
+        finally {
+            this.exitRule();
+        }
+        return localContext;
+    }
+    public databaseRenameCollectionArgument2(): DatabaseRenameCollectionArgument2Context {
+        let localContext = new DatabaseRenameCollectionArgument2Context(this.context, this.state);
+        this.enterRule(localContext, 98, MongoParser.RULE_databaseRenameCollectionArgument2);
+        try {
+            this.enterOuterAlt(localContext, 1);
+            {
+            this.state = 612;
+            this.match(MongoParser.STRING);
+            }
+        }
+        catch (re) {
+            if (re instanceof antlr.RecognitionException) {
+                this.errorHandler.reportError(this, re);
+                this.errorHandler.recover(this, re);
+            } else {
+                throw re;
+            }
+        }
+        finally {
+            this.exitRule();
+        }
+        return localContext;
+    }
+    public databaseRenameCollectionArgument3(): DatabaseRenameCollectionArgument3Context {
+        let localContext = new DatabaseRenameCollectionArgument3Context(this.context, this.state);
+        this.enterRule(localContext, 100, MongoParser.RULE_databaseRenameCollectionArgument3);
+        try {
+            this.enterOuterAlt(localContext, 1);
+            {
+            this.state = 614;
+            this.object();
+            }
+        }
+        catch (re) {
+            if (re instanceof antlr.RecognitionException) {
+                this.errorHandler.reportError(this, re);
+                this.errorHandler.recover(this, re);
+            } else {
+                throw re;
+            }
+        }
+        finally {
+            this.exitRule();
+        }
+        return localContext;
+    }
+    public databaseListCollectionsMethod(): DatabaseListCollectionsMethodContext {
+        let localContext = new DatabaseListCollectionsMethodContext(this.context, this.state);
+        this.enterRule(localContext, 102, MongoParser.RULE_databaseListCollectionsMethod);
+        let _la: number;
+        try {
+            this.enterOuterAlt(localContext, 1);
+            {
+            this.state = 616;
+            this.match(MongoParser.LIST_COLLECTIONS);
+            this.state = 617;
+            this.match(MongoParser.LPAREN);
+            this.state = 622;
+            this.errorHandler.sync(this);
+            _la = this.tokenStream.LA(1);
+            if (_la === 64) {
+                {
+                this.state = 618;
+                this.databaseListCollectionsArgument1();
+                {
+                this.state = 619;
+                this.match(MongoParser.COMMA);
+                this.state = 620;
+                this.databaseListCollectionsArgument2();
+                }
+                }
+            }
+
+            this.state = 624;
+            this.match(MongoParser.RPAREN);
+            }
+        }
+        catch (re) {
+            if (re instanceof antlr.RecognitionException) {
+                this.errorHandler.reportError(this, re);
+                this.errorHandler.recover(this, re);
+            } else {
+                throw re;
+            }
+        }
+        finally {
+            this.exitRule();
+        }
+        return localContext;
+    }
+    public databaseListCollectionsArgument1(): DatabaseListCollectionsArgument1Context {
+        let localContext = new DatabaseListCollectionsArgument1Context(this.context, this.state);
+        this.enterRule(localContext, 104, MongoParser.RULE_databaseListCollectionsArgument1);
+        try {
+            this.enterOuterAlt(localContext, 1);
+            {
+            this.state = 626;
+            this.object();
+            }
+        }
+        catch (re) {
+            if (re instanceof antlr.RecognitionException) {
+                this.errorHandler.reportError(this, re);
+                this.errorHandler.recover(this, re);
+            } else {
+                throw re;
+            }
+        }
+        finally {
+            this.exitRule();
+        }
+        return localContext;
+    }
+    public databaseListCollectionsArgument2(): DatabaseListCollectionsArgument2Context {
+        let localContext = new DatabaseListCollectionsArgument2Context(this.context, this.state);
+        this.enterRule(localContext, 106, MongoParser.RULE_databaseListCollectionsArgument2);
+        try {
+            this.enterOuterAlt(localContext, 1);
+            {
+            this.state = 628;
+            this.object();
+            }
+        }
+        catch (re) {
+            if (re instanceof antlr.RecognitionException) {
+                this.errorHandler.reportError(this, re);
+                this.errorHandler.recover(this, re);
+            } else {
+                throw re;
+            }
+        }
+        finally {
+            this.exitRule();
+        }
+        return localContext;
+    }
+    public databaseCommandMethod(): DatabaseCommandMethodContext {
+        let localContext = new DatabaseCommandMethodContext(this.context, this.state);
+        this.enterRule(localContext, 108, MongoParser.RULE_databaseCommandMethod);
+        let _la: number;
+        try {
+            this.enterOuterAlt(localContext, 1);
+            {
+            this.state = 630;
+            this.match(MongoParser.COMMAND);
+            this.state = 631;
+            this.match(MongoParser.LPAREN);
+            this.state = 632;
+            this.databaseCommandArgument1();
+            this.state = 635;
+            this.errorHandler.sync(this);
+            _la = this.tokenStream.LA(1);
+            if (_la === 67) {
+                {
+                this.state = 633;
+                this.match(MongoParser.COMMA);
+                this.state = 634;
+                this.databaseCommandArgument2();
+                }
+            }
+
+            this.state = 637;
+            this.match(MongoParser.RPAREN);
+            }
+        }
+        catch (re) {
+            if (re instanceof antlr.RecognitionException) {
+                this.errorHandler.reportError(this, re);
+                this.errorHandler.recover(this, re);
+            } else {
+                throw re;
+            }
+        }
+        finally {
+            this.exitRule();
+        }
+        return localContext;
+    }
+    public databaseCommandArgument1(): DatabaseCommandArgument1Context {
+        let localContext = new DatabaseCommandArgument1Context(this.context, this.state);
+        this.enterRule(localContext, 110, MongoParser.RULE_databaseCommandArgument1);
+        try {
+            this.enterOuterAlt(localContext, 1);
+            {
+            this.state = 639;
+            this.object();
+            }
+        }
+        catch (re) {
+            if (re instanceof antlr.RecognitionException) {
+                this.errorHandler.reportError(this, re);
+                this.errorHandler.recover(this, re);
+            } else {
+                throw re;
+            }
+        }
+        finally {
+            this.exitRule();
+        }
+        return localContext;
+    }
+    public databaseCommandArgument2(): DatabaseCommandArgument2Context {
+        let localContext = new DatabaseCommandArgument2Context(this.context, this.state);
+        this.enterRule(localContext, 112, MongoParser.RULE_databaseCommandArgument2);
+        try {
+            this.enterOuterAlt(localContext, 1);
+            {
+            this.state = 641;
+            this.object();
+            }
+        }
+        catch (re) {
+            if (re instanceof antlr.RecognitionException) {
+                this.errorHandler.reportError(this, re);
+                this.errorHandler.recover(this, re);
+            } else {
+                throw re;
+            }
+        }
+        finally {
+            this.exitRule();
+        }
+        return localContext;
+    }
+    public databaseCreateCollectionMethod(): DatabaseCreateCollectionMethodContext {
+        let localContext = new DatabaseCreateCollectionMethodContext(this.context, this.state);
+        this.enterRule(localContext, 114, MongoParser.RULE_databaseCreateCollectionMethod);
+        let _la: number;
+        try {
+            this.enterOuterAlt(localContext, 1);
+            {
+            this.state = 643;
+            this.match(MongoParser.CREATE_COLLECTION);
+            this.state = 644;
+            this.match(MongoParser.LPAREN);
+            this.state = 645;
+            this.databaseCreateCollectionArgument1();
+            this.state = 648;
+            this.errorHandler.sync(this);
+            _la = this.tokenStream.LA(1);
+            if (_la === 67) {
+                {
+                this.state = 646;
+                this.match(MongoParser.COMMA);
+                this.state = 647;
+                this.databaseCreateCollectionArgument2();
+                }
+            }
+
+            this.state = 650;
+            this.match(MongoParser.RPAREN);
+            }
+        }
+        catch (re) {
+            if (re instanceof antlr.RecognitionException) {
+                this.errorHandler.reportError(this, re);
+                this.errorHandler.recover(this, re);
+            } else {
+                throw re;
+            }
+        }
+        finally {
+            this.exitRule();
+        }
+        return localContext;
+    }
+    public databaseCreateCollectionArgument1(): DatabaseCreateCollectionArgument1Context {
+        let localContext = new DatabaseCreateCollectionArgument1Context(this.context, this.state);
+        this.enterRule(localContext, 116, MongoParser.RULE_databaseCreateCollectionArgument1);
+        try {
+            this.enterOuterAlt(localContext, 1);
+            {
+            this.state = 652;
+            this.match(MongoParser.STRING);
+            }
+        }
+        catch (re) {
+            if (re instanceof antlr.RecognitionException) {
+                this.errorHandler.reportError(this, re);
+                this.errorHandler.recover(this, re);
+            } else {
+                throw re;
+            }
+        }
+        finally {
+            this.exitRule();
+        }
+        return localContext;
+    }
+    public databaseCreateCollectionArgument2(): DatabaseCreateCollectionArgument2Context {
+        let localContext = new DatabaseCreateCollectionArgument2Context(this.context, this.state);
+        this.enterRule(localContext, 118, MongoParser.RULE_databaseCreateCollectionArgument2);
+        try {
+            this.enterOuterAlt(localContext, 1);
+            {
+            this.state = 654;
             this.object();
             }
         }
@@ -677,21 +2400,21 @@ export class MongoParser extends antlr.Parser {
     }
     public databaseCollectionMethod(): DatabaseCollectionMethodContext {
         let localContext = new DatabaseCollectionMethodContext(this.context, this.state);
-        this.enterRule(localContext, 22, MongoParser.RULE_databaseCollectionMethod);
+        this.enterRule(localContext, 120, MongoParser.RULE_databaseCollectionMethod);
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 319;
+            this.state = 656;
             this.match(MongoParser.COLLECTION);
-            this.state = 320;
+            this.state = 657;
             this.match(MongoParser.LPAREN);
-            this.state = 321;
+            this.state = 658;
             this.quotedCollectionName();
-            this.state = 322;
+            this.state = 659;
             this.match(MongoParser.RPAREN);
-            this.state = 323;
+            this.state = 660;
             this.match(MongoParser.DOT);
-            this.state = 324;
+            this.state = 661;
             this.collectionMethod();
             }
         }
@@ -710,11 +2433,11 @@ export class MongoParser extends antlr.Parser {
     }
     public quotedCollectionName(): QuotedCollectionNameContext {
         let localContext = new QuotedCollectionNameContext(this.context, this.state);
-        this.enterRule(localContext, 24, MongoParser.RULE_quotedCollectionName);
+        this.enterRule(localContext, 122, MongoParser.RULE_quotedCollectionName);
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 326;
+            this.state = 663;
             this.match(MongoParser.STRING);
             }
         }
@@ -733,19 +2456,19 @@ export class MongoParser extends antlr.Parser {
     }
     public collectionOperation(): CollectionOperationContext {
         let localContext = new CollectionOperationContext(this.context, this.state);
-        this.enterRule(localContext, 26, MongoParser.RULE_collectionOperation);
+        this.enterRule(localContext, 124, MongoParser.RULE_collectionOperation);
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 328;
+            this.state = 665;
             this.match(MongoParser.DB);
-            this.state = 329;
+            this.state = 666;
             this.match(MongoParser.DOT);
-            this.state = 330;
+            this.state = 667;
             this.collectionName();
-            this.state = 331;
+            this.state = 668;
             this.match(MongoParser.DOT);
-            this.state = 332;
+            this.state = 669;
             this.collectionMethod();
             }
         }
@@ -764,11 +2487,11 @@ export class MongoParser extends antlr.Parser {
     }
     public collectionName(): CollectionNameContext {
         let localContext = new CollectionNameContext(this.context, this.state);
-        this.enterRule(localContext, 28, MongoParser.RULE_collectionName);
+        this.enterRule(localContext, 126, MongoParser.RULE_collectionName);
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 334;
+            this.state = 671;
             this.match(MongoParser.IDENTIFIER);
             }
         }
@@ -787,204 +2510,204 @@ export class MongoParser extends antlr.Parser {
     }
     public collectionMethod(): CollectionMethodContext {
         let localContext = new CollectionMethodContext(this.context, this.state);
-        this.enterRule(localContext, 30, MongoParser.RULE_collectionMethod);
+        this.enterRule(localContext, 128, MongoParser.RULE_collectionMethod);
         try {
-            this.state = 364;
+            this.state = 701;
             this.errorHandler.sync(this);
             switch (this.tokenStream.LA(1)) {
             case MongoParser.FIND:
                 this.enterOuterAlt(localContext, 1);
                 {
-                this.state = 336;
-                this.findMethod();
+                this.state = 673;
+                this.collectionFindMethod();
                 }
                 break;
             case MongoParser.FIND_ONE:
                 this.enterOuterAlt(localContext, 2);
                 {
-                this.state = 337;
-                this.findOneMethod();
+                this.state = 674;
+                this.collectionFindOneMethod();
                 }
                 break;
             case MongoParser.FIND_ONE_AND_DELETE:
                 this.enterOuterAlt(localContext, 3);
                 {
-                this.state = 338;
-                this.findOneAndDeleteMethod();
+                this.state = 675;
+                this.collectionFindOneAndDeleteMethod();
                 }
                 break;
             case MongoParser.FIND_ONE_AND_REPLACE:
                 this.enterOuterAlt(localContext, 4);
                 {
-                this.state = 339;
-                this.findOneAndReplaceMethod();
+                this.state = 676;
+                this.collectionFindOneAndReplaceMethod();
                 }
                 break;
             case MongoParser.FIND_ONE_AND_UPDATE:
                 this.enterOuterAlt(localContext, 5);
                 {
-                this.state = 340;
-                this.findOneAndUpdateMethod();
+                this.state = 677;
+                this.collectionFindOneAndUpdateMethod();
                 }
                 break;
             case MongoParser.INSERT_ONE:
                 this.enterOuterAlt(localContext, 6);
                 {
-                this.state = 341;
-                this.insertOneMethod();
+                this.state = 678;
+                this.collectionInsertOneMethod();
                 }
                 break;
             case MongoParser.INSERT_MANY:
                 this.enterOuterAlt(localContext, 7);
                 {
-                this.state = 342;
-                this.insertManyMethod();
+                this.state = 679;
+                this.collectionInsertManyMethod();
                 }
                 break;
             case MongoParser.BULK_WRITE:
                 this.enterOuterAlt(localContext, 8);
                 {
-                this.state = 343;
-                this.bulkWriteMethod();
+                this.state = 680;
+                this.collectionBulkWriteMethod();
                 }
                 break;
             case MongoParser.UPDATE_ONE:
                 this.enterOuterAlt(localContext, 9);
                 {
-                this.state = 344;
-                this.updateOneMethod();
+                this.state = 681;
+                this.collectionUpdateOneMethod();
                 }
                 break;
             case MongoParser.UPDATE_MANY:
                 this.enterOuterAlt(localContext, 10);
                 {
-                this.state = 345;
-                this.updateManyMethod();
+                this.state = 682;
+                this.collectionUpdateManyMethod();
                 }
                 break;
             case MongoParser.REPLACE_ONE:
                 this.enterOuterAlt(localContext, 11);
                 {
-                this.state = 346;
-                this.replaceOneMethod();
+                this.state = 683;
+                this.collectionReplaceOneMethod();
                 }
                 break;
             case MongoParser.DELETE_ONE:
                 this.enterOuterAlt(localContext, 12);
                 {
-                this.state = 347;
-                this.deleteOneMethod();
+                this.state = 684;
+                this.collectionDeleteOneMethod();
                 }
                 break;
             case MongoParser.DELETE_MANY:
                 this.enterOuterAlt(localContext, 13);
                 {
-                this.state = 348;
-                this.deleteManyMethod();
+                this.state = 685;
+                this.collectionDeleteManyMethod();
                 }
                 break;
             case MongoParser.RENAME:
                 this.enterOuterAlt(localContext, 14);
                 {
-                this.state = 349;
-                this.renameMethod();
+                this.state = 686;
+                this.collectionRenameMethod();
                 }
                 break;
             case MongoParser.DROP:
                 this.enterOuterAlt(localContext, 15);
                 {
-                this.state = 350;
-                this.dropMethod();
+                this.state = 687;
+                this.collectionDropMethod();
                 }
                 break;
             case MongoParser.IS_CAPPED:
                 this.enterOuterAlt(localContext, 16);
                 {
-                this.state = 351;
-                this.isCappedMethod();
+                this.state = 688;
+                this.collectionIsCappedMethod();
                 }
                 break;
             case MongoParser.CREATE_INDEX:
                 this.enterOuterAlt(localContext, 17);
                 {
-                this.state = 352;
-                this.createIndexMethod();
+                this.state = 689;
+                this.collectionCreateIndexMethod();
                 }
                 break;
             case MongoParser.CREATE_INDEXES:
                 this.enterOuterAlt(localContext, 18);
                 {
-                this.state = 353;
-                this.createIndexesMethod();
+                this.state = 690;
+                this.collectionCreateIndexesMethod();
                 }
                 break;
             case MongoParser.DROP_INDEX:
                 this.enterOuterAlt(localContext, 19);
                 {
-                this.state = 354;
-                this.dropIndexMethod();
+                this.state = 691;
+                this.collectionDropIndexMethod();
                 }
                 break;
             case MongoParser.DROP_INDEXES:
                 this.enterOuterAlt(localContext, 20);
                 {
-                this.state = 355;
-                this.dropIndexesMethod();
+                this.state = 692;
+                this.collectionDropIndexesMethod();
                 }
                 break;
             case MongoParser.LIST_INDEXES:
                 this.enterOuterAlt(localContext, 21);
                 {
-                this.state = 356;
-                this.listIndexesMethod();
+                this.state = 693;
+                this.collectionListIndexesMethod();
                 }
                 break;
             case MongoParser.INDEXES:
                 this.enterOuterAlt(localContext, 22);
                 {
-                this.state = 357;
-                this.indexesMethod();
+                this.state = 694;
+                this.collectionIndexesMethod();
                 }
                 break;
             case MongoParser.INDEX_EXISTS:
                 this.enterOuterAlt(localContext, 23);
                 {
-                this.state = 358;
-                this.indexExistsMethod();
+                this.state = 695;
+                this.collectionIndexExistsMethod();
                 }
                 break;
             case MongoParser.INDEX_INFORMATION:
                 this.enterOuterAlt(localContext, 24);
                 {
-                this.state = 359;
-                this.indexInformationMethod();
+                this.state = 696;
+                this.collectionIndexInformationMethod();
                 }
                 break;
             case MongoParser.ESTIMATED_DOCUMENT_COUNT:
                 this.enterOuterAlt(localContext, 25);
                 {
-                this.state = 360;
-                this.estimatedDocumentCountMethod();
+                this.state = 697;
+                this.collectionEstimatedDocumentCountMethod();
                 }
                 break;
             case MongoParser.COUNT_DOCUMENTS:
                 this.enterOuterAlt(localContext, 26);
                 {
-                this.state = 361;
-                this.countDocumentsMethod();
+                this.state = 698;
+                this.collectionCountDocumentsMethod();
                 }
                 break;
             case MongoParser.DISTINCT:
                 this.enterOuterAlt(localContext, 27);
                 {
-                this.state = 362;
-                this.distinctMethod();
+                this.state = 699;
+                this.collectionDistinctMethod();
                 }
                 break;
             case MongoParser.AGGREGATE:
                 this.enterOuterAlt(localContext, 28);
                 {
-                this.state = 363;
+                this.state = 700;
                 this.aggregateMethod();
                 }
                 break;
@@ -1007,30 +2730,30 @@ export class MongoParser extends antlr.Parser {
     }
     public aggregateMethod(): AggregateMethodContext {
         let localContext = new AggregateMethodContext(this.context, this.state);
-        this.enterRule(localContext, 32, MongoParser.RULE_aggregateMethod);
+        this.enterRule(localContext, 130, MongoParser.RULE_aggregateMethod);
         let _la: number;
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 366;
+            this.state = 703;
             this.match(MongoParser.AGGREGATE);
-            this.state = 367;
+            this.state = 704;
             this.match(MongoParser.LPAREN);
-            this.state = 373;
+            this.state = 710;
             this.errorHandler.sync(this);
             _la = this.tokenStream.LA(1);
-            if (_la === 43) {
+            if (_la === 60) {
                 {
-                this.state = 368;
+                this.state = 705;
                 this.aggregateArgument1();
-                this.state = 371;
+                this.state = 708;
                 this.errorHandler.sync(this);
                 _la = this.tokenStream.LA(1);
-                if (_la === 50) {
+                if (_la === 67) {
                     {
-                    this.state = 369;
+                    this.state = 706;
                     this.match(MongoParser.COMMA);
-                    this.state = 370;
+                    this.state = 707;
                     this.aggregateArgument2();
                     }
                 }
@@ -1038,14 +2761,14 @@ export class MongoParser extends antlr.Parser {
                 }
             }
 
-            this.state = 375;
+            this.state = 712;
             this.match(MongoParser.RPAREN);
-            this.state = 377;
+            this.state = 714;
             this.errorHandler.sync(this);
             _la = this.tokenStream.LA(1);
-            if (_la === 52) {
+            if (_la === 69) {
                 {
-                this.state = 376;
+                this.state = 713;
                 this.explainMethod();
                 }
             }
@@ -1067,11 +2790,11 @@ export class MongoParser extends antlr.Parser {
     }
     public aggregateArgument2(): AggregateArgument2Context {
         let localContext = new AggregateArgument2Context(this.context, this.state);
-        this.enterRule(localContext, 34, MongoParser.RULE_aggregateArgument2);
+        this.enterRule(localContext, 132, MongoParser.RULE_aggregateArgument2);
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 379;
+            this.state = 716;
             this.object();
             }
         }
@@ -1090,11 +2813,11 @@ export class MongoParser extends antlr.Parser {
     }
     public aggregateArgument1(): AggregateArgument1Context {
         let localContext = new AggregateArgument1Context(this.context, this.state);
-        this.enterRule(localContext, 36, MongoParser.RULE_aggregateArgument1);
+        this.enterRule(localContext, 134, MongoParser.RULE_aggregateArgument1);
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 381;
+            this.state = 718;
             this.array();
             }
         }
@@ -1111,44 +2834,44 @@ export class MongoParser extends antlr.Parser {
         }
         return localContext;
     }
-    public distinctMethod(): DistinctMethodContext {
-        let localContext = new DistinctMethodContext(this.context, this.state);
-        this.enterRule(localContext, 38, MongoParser.RULE_distinctMethod);
+    public collectionDistinctMethod(): CollectionDistinctMethodContext {
+        let localContext = new CollectionDistinctMethodContext(this.context, this.state);
+        this.enterRule(localContext, 136, MongoParser.RULE_collectionDistinctMethod);
         let _la: number;
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 383;
+            this.state = 720;
             this.match(MongoParser.DISTINCT);
-            this.state = 384;
+            this.state = 721;
             this.match(MongoParser.LPAREN);
-            this.state = 385;
-            this.distinctArgument1();
-            this.state = 392;
+            this.state = 722;
+            this.collectionDistinctArgument1();
+            this.state = 729;
             this.errorHandler.sync(this);
             _la = this.tokenStream.LA(1);
-            if (_la === 50) {
+            if (_la === 67) {
                 {
-                this.state = 386;
+                this.state = 723;
                 this.match(MongoParser.COMMA);
-                this.state = 387;
-                this.distinctArgument2();
-                this.state = 390;
+                this.state = 724;
+                this.collectionDistinctArgument2();
+                this.state = 727;
                 this.errorHandler.sync(this);
                 _la = this.tokenStream.LA(1);
-                if (_la === 50) {
+                if (_la === 67) {
                     {
-                    this.state = 388;
+                    this.state = 725;
                     this.match(MongoParser.COMMA);
-                    this.state = 389;
-                    this.distinctArgument3();
+                    this.state = 726;
+                    this.collectionDistinctArgument3();
                     }
                 }
 
                 }
             }
 
-            this.state = 394;
+            this.state = 731;
             this.match(MongoParser.RPAREN);
             }
         }
@@ -1165,13 +2888,13 @@ export class MongoParser extends antlr.Parser {
         }
         return localContext;
     }
-    public distinctArgument1(): DistinctArgument1Context {
-        let localContext = new DistinctArgument1Context(this.context, this.state);
-        this.enterRule(localContext, 40, MongoParser.RULE_distinctArgument1);
+    public collectionDistinctArgument1(): CollectionDistinctArgument1Context {
+        let localContext = new CollectionDistinctArgument1Context(this.context, this.state);
+        this.enterRule(localContext, 138, MongoParser.RULE_collectionDistinctArgument1);
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 396;
+            this.state = 733;
             this.match(MongoParser.STRING);
             }
         }
@@ -1188,13 +2911,13 @@ export class MongoParser extends antlr.Parser {
         }
         return localContext;
     }
-    public distinctArgument2(): DistinctArgument2Context {
-        let localContext = new DistinctArgument2Context(this.context, this.state);
-        this.enterRule(localContext, 42, MongoParser.RULE_distinctArgument2);
+    public collectionDistinctArgument2(): CollectionDistinctArgument2Context {
+        let localContext = new CollectionDistinctArgument2Context(this.context, this.state);
+        this.enterRule(localContext, 140, MongoParser.RULE_collectionDistinctArgument2);
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 398;
+            this.state = 735;
             this.object();
             }
         }
@@ -1211,13 +2934,13 @@ export class MongoParser extends antlr.Parser {
         }
         return localContext;
     }
-    public distinctArgument3(): DistinctArgument3Context {
-        let localContext = new DistinctArgument3Context(this.context, this.state);
-        this.enterRule(localContext, 44, MongoParser.RULE_distinctArgument3);
+    public collectionDistinctArgument3(): CollectionDistinctArgument3Context {
+        let localContext = new CollectionDistinctArgument3Context(this.context, this.state);
+        this.enterRule(localContext, 142, MongoParser.RULE_collectionDistinctArgument3);
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 400;
+            this.state = 737;
             this.object();
             }
         }
@@ -1234,40 +2957,40 @@ export class MongoParser extends antlr.Parser {
         }
         return localContext;
     }
-    public countDocumentsMethod(): CountDocumentsMethodContext {
-        let localContext = new CountDocumentsMethodContext(this.context, this.state);
-        this.enterRule(localContext, 46, MongoParser.RULE_countDocumentsMethod);
+    public collectionCountDocumentsMethod(): CollectionCountDocumentsMethodContext {
+        let localContext = new CollectionCountDocumentsMethodContext(this.context, this.state);
+        this.enterRule(localContext, 144, MongoParser.RULE_collectionCountDocumentsMethod);
         let _la: number;
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 402;
+            this.state = 739;
             this.match(MongoParser.COUNT_DOCUMENTS);
-            this.state = 403;
+            this.state = 740;
             this.match(MongoParser.LPAREN);
-            this.state = 409;
+            this.state = 746;
             this.errorHandler.sync(this);
             _la = this.tokenStream.LA(1);
-            if (_la === 47) {
+            if (_la === 64) {
                 {
-                this.state = 404;
-                this.countDocumentsArgument1();
-                this.state = 407;
+                this.state = 741;
+                this.collectionCountDocumentsArgument1();
+                this.state = 744;
                 this.errorHandler.sync(this);
                 _la = this.tokenStream.LA(1);
-                if (_la === 50) {
+                if (_la === 67) {
                     {
-                    this.state = 405;
+                    this.state = 742;
                     this.match(MongoParser.COMMA);
-                    this.state = 406;
-                    this.countDocumentsArgument2();
+                    this.state = 743;
+                    this.collectionCountDocumentsArgument2();
                     }
                 }
 
                 }
             }
 
-            this.state = 411;
+            this.state = 748;
             this.match(MongoParser.RPAREN);
             }
         }
@@ -1284,13 +3007,13 @@ export class MongoParser extends antlr.Parser {
         }
         return localContext;
     }
-    public countDocumentsArgument2(): CountDocumentsArgument2Context {
-        let localContext = new CountDocumentsArgument2Context(this.context, this.state);
-        this.enterRule(localContext, 48, MongoParser.RULE_countDocumentsArgument2);
+    public collectionCountDocumentsArgument2(): CollectionCountDocumentsArgument2Context {
+        let localContext = new CollectionCountDocumentsArgument2Context(this.context, this.state);
+        this.enterRule(localContext, 146, MongoParser.RULE_collectionCountDocumentsArgument2);
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 413;
+            this.state = 750;
             this.object();
             }
         }
@@ -1307,13 +3030,13 @@ export class MongoParser extends antlr.Parser {
         }
         return localContext;
     }
-    public countDocumentsArgument1(): CountDocumentsArgument1Context {
-        let localContext = new CountDocumentsArgument1Context(this.context, this.state);
-        this.enterRule(localContext, 50, MongoParser.RULE_countDocumentsArgument1);
+    public collectionCountDocumentsArgument1(): CollectionCountDocumentsArgument1Context {
+        let localContext = new CollectionCountDocumentsArgument1Context(this.context, this.state);
+        this.enterRule(localContext, 148, MongoParser.RULE_collectionCountDocumentsArgument1);
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 415;
+            this.state = 752;
             this.object();
             }
         }
@@ -1330,28 +3053,28 @@ export class MongoParser extends antlr.Parser {
         }
         return localContext;
     }
-    public estimatedDocumentCountMethod(): EstimatedDocumentCountMethodContext {
-        let localContext = new EstimatedDocumentCountMethodContext(this.context, this.state);
-        this.enterRule(localContext, 52, MongoParser.RULE_estimatedDocumentCountMethod);
+    public collectionEstimatedDocumentCountMethod(): CollectionEstimatedDocumentCountMethodContext {
+        let localContext = new CollectionEstimatedDocumentCountMethodContext(this.context, this.state);
+        this.enterRule(localContext, 150, MongoParser.RULE_collectionEstimatedDocumentCountMethod);
         let _la: number;
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 417;
+            this.state = 754;
             this.match(MongoParser.ESTIMATED_DOCUMENT_COUNT);
-            this.state = 418;
+            this.state = 755;
             this.match(MongoParser.LPAREN);
-            this.state = 420;
+            this.state = 757;
             this.errorHandler.sync(this);
             _la = this.tokenStream.LA(1);
-            if (_la === 47) {
+            if (_la === 64) {
                 {
-                this.state = 419;
-                this.estimatedDocumentCountArgument();
+                this.state = 756;
+                this.collectionEstimatedDocumentCountArgument();
                 }
             }
 
-            this.state = 422;
+            this.state = 759;
             this.match(MongoParser.RPAREN);
             }
         }
@@ -1368,13 +3091,13 @@ export class MongoParser extends antlr.Parser {
         }
         return localContext;
     }
-    public estimatedDocumentCountArgument(): EstimatedDocumentCountArgumentContext {
-        let localContext = new EstimatedDocumentCountArgumentContext(this.context, this.state);
-        this.enterRule(localContext, 54, MongoParser.RULE_estimatedDocumentCountArgument);
+    public collectionEstimatedDocumentCountArgument(): CollectionEstimatedDocumentCountArgumentContext {
+        let localContext = new CollectionEstimatedDocumentCountArgumentContext(this.context, this.state);
+        this.enterRule(localContext, 152, MongoParser.RULE_collectionEstimatedDocumentCountArgument);
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 424;
+            this.state = 761;
             this.object();
             }
         }
@@ -1391,28 +3114,28 @@ export class MongoParser extends antlr.Parser {
         }
         return localContext;
     }
-    public indexInformationMethod(): IndexInformationMethodContext {
-        let localContext = new IndexInformationMethodContext(this.context, this.state);
-        this.enterRule(localContext, 56, MongoParser.RULE_indexInformationMethod);
+    public collectionIndexInformationMethod(): CollectionIndexInformationMethodContext {
+        let localContext = new CollectionIndexInformationMethodContext(this.context, this.state);
+        this.enterRule(localContext, 154, MongoParser.RULE_collectionIndexInformationMethod);
         let _la: number;
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 426;
+            this.state = 763;
             this.match(MongoParser.INDEX_INFORMATION);
-            this.state = 427;
+            this.state = 764;
             this.match(MongoParser.LPAREN);
-            this.state = 429;
+            this.state = 766;
             this.errorHandler.sync(this);
             _la = this.tokenStream.LA(1);
-            if (_la === 47) {
+            if (_la === 64) {
                 {
-                this.state = 428;
-                this.indexInformationArgument();
+                this.state = 765;
+                this.collectionIndexInformationArgument();
                 }
             }
 
-            this.state = 431;
+            this.state = 768;
             this.match(MongoParser.RPAREN);
             }
         }
@@ -1429,13 +3152,13 @@ export class MongoParser extends antlr.Parser {
         }
         return localContext;
     }
-    public indexInformationArgument(): IndexInformationArgumentContext {
-        let localContext = new IndexInformationArgumentContext(this.context, this.state);
-        this.enterRule(localContext, 58, MongoParser.RULE_indexInformationArgument);
+    public collectionIndexInformationArgument(): CollectionIndexInformationArgumentContext {
+        let localContext = new CollectionIndexInformationArgumentContext(this.context, this.state);
+        this.enterRule(localContext, 156, MongoParser.RULE_collectionIndexInformationArgument);
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 433;
+            this.state = 770;
             this.object();
             }
         }
@@ -1452,32 +3175,32 @@ export class MongoParser extends antlr.Parser {
         }
         return localContext;
     }
-    public indexExistsMethod(): IndexExistsMethodContext {
-        let localContext = new IndexExistsMethodContext(this.context, this.state);
-        this.enterRule(localContext, 60, MongoParser.RULE_indexExistsMethod);
+    public collectionIndexExistsMethod(): CollectionIndexExistsMethodContext {
+        let localContext = new CollectionIndexExistsMethodContext(this.context, this.state);
+        this.enterRule(localContext, 158, MongoParser.RULE_collectionIndexExistsMethod);
         let _la: number;
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 435;
+            this.state = 772;
             this.match(MongoParser.INDEX_EXISTS);
-            this.state = 436;
+            this.state = 773;
             this.match(MongoParser.LPAREN);
-            this.state = 437;
-            this.indexExistsArgument1();
-            this.state = 440;
+            this.state = 774;
+            this.collectionIndexExistsArgument1();
+            this.state = 777;
             this.errorHandler.sync(this);
             _la = this.tokenStream.LA(1);
-            if (_la === 50) {
+            if (_la === 67) {
                 {
-                this.state = 438;
+                this.state = 775;
                 this.match(MongoParser.COMMA);
-                this.state = 439;
-                this.indexExistsArgument2();
+                this.state = 776;
+                this.collectionIndexExistsArgument2();
                 }
             }
 
-            this.state = 442;
+            this.state = 779;
             this.match(MongoParser.RPAREN);
             }
         }
@@ -1494,13 +3217,13 @@ export class MongoParser extends antlr.Parser {
         }
         return localContext;
     }
-    public indexExistsArgument2(): IndexExistsArgument2Context {
-        let localContext = new IndexExistsArgument2Context(this.context, this.state);
-        this.enterRule(localContext, 62, MongoParser.RULE_indexExistsArgument2);
+    public collectionIndexExistsArgument2(): CollectionIndexExistsArgument2Context {
+        let localContext = new CollectionIndexExistsArgument2Context(this.context, this.state);
+        this.enterRule(localContext, 160, MongoParser.RULE_collectionIndexExistsArgument2);
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 444;
+            this.state = 781;
             this.object();
             }
         }
@@ -1517,58 +3240,58 @@ export class MongoParser extends antlr.Parser {
         }
         return localContext;
     }
-    public indexExistsArgument1(): IndexExistsArgument1Context {
-        let localContext = new IndexExistsArgument1Context(this.context, this.state);
-        this.enterRule(localContext, 64, MongoParser.RULE_indexExistsArgument1);
+    public collectionIndexExistsArgument1(): CollectionIndexExistsArgument1Context {
+        let localContext = new CollectionIndexExistsArgument1Context(this.context, this.state);
+        this.enterRule(localContext, 162, MongoParser.RULE_collectionIndexExistsArgument1);
         let _la: number;
         try {
             let alternative: number;
-            this.state = 460;
+            this.state = 797;
             this.errorHandler.sync(this);
             switch (this.tokenStream.LA(1)) {
             case MongoParser.STRING:
                 this.enterOuterAlt(localContext, 1);
                 {
-                this.state = 446;
+                this.state = 783;
                 this.match(MongoParser.STRING);
                 }
                 break;
             case MongoParser.LBRACKET:
                 this.enterOuterAlt(localContext, 2);
                 {
-                this.state = 447;
+                this.state = 784;
                 this.match(MongoParser.LBRACKET);
-                this.state = 448;
+                this.state = 785;
                 this.match(MongoParser.STRING);
-                this.state = 453;
+                this.state = 790;
                 this.errorHandler.sync(this);
-                alternative = this.interpreter.adaptivePredict(this.tokenStream, 18, this.context);
+                alternative = this.interpreter.adaptivePredict(this.tokenStream, 38, this.context);
                 while (alternative !== 2 && alternative !== antlr.ATN.INVALID_ALT_NUMBER) {
                     if (alternative === 1) {
                         {
                         {
-                        this.state = 449;
+                        this.state = 786;
                         this.match(MongoParser.COMMA);
-                        this.state = 450;
+                        this.state = 787;
                         this.match(MongoParser.STRING);
                         }
                         }
                     }
-                    this.state = 455;
+                    this.state = 792;
                     this.errorHandler.sync(this);
-                    alternative = this.interpreter.adaptivePredict(this.tokenStream, 18, this.context);
+                    alternative = this.interpreter.adaptivePredict(this.tokenStream, 38, this.context);
                 }
-                this.state = 457;
+                this.state = 794;
                 this.errorHandler.sync(this);
                 _la = this.tokenStream.LA(1);
-                if (_la === 50) {
+                if (_la === 67) {
                     {
-                    this.state = 456;
+                    this.state = 793;
                     this.match(MongoParser.COMMA);
                     }
                 }
 
-                this.state = 459;
+                this.state = 796;
                 this.match(MongoParser.RBRACKET);
                 }
                 break;
@@ -1589,28 +3312,28 @@ export class MongoParser extends antlr.Parser {
         }
         return localContext;
     }
-    public indexesMethod(): IndexesMethodContext {
-        let localContext = new IndexesMethodContext(this.context, this.state);
-        this.enterRule(localContext, 66, MongoParser.RULE_indexesMethod);
+    public collectionIndexesMethod(): CollectionIndexesMethodContext {
+        let localContext = new CollectionIndexesMethodContext(this.context, this.state);
+        this.enterRule(localContext, 164, MongoParser.RULE_collectionIndexesMethod);
         let _la: number;
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 462;
+            this.state = 799;
             this.match(MongoParser.INDEXES);
-            this.state = 463;
+            this.state = 800;
             this.match(MongoParser.LPAREN);
-            this.state = 465;
+            this.state = 802;
             this.errorHandler.sync(this);
             _la = this.tokenStream.LA(1);
-            if (_la === 47) {
+            if (_la === 64) {
                 {
-                this.state = 464;
-                this.indexesArgument();
+                this.state = 801;
+                this.collectionIndexesArgument();
                 }
             }
 
-            this.state = 467;
+            this.state = 804;
             this.match(MongoParser.RPAREN);
             }
         }
@@ -1627,13 +3350,13 @@ export class MongoParser extends antlr.Parser {
         }
         return localContext;
     }
-    public indexesArgument(): IndexesArgumentContext {
-        let localContext = new IndexesArgumentContext(this.context, this.state);
-        this.enterRule(localContext, 68, MongoParser.RULE_indexesArgument);
+    public collectionIndexesArgument(): CollectionIndexesArgumentContext {
+        let localContext = new CollectionIndexesArgumentContext(this.context, this.state);
+        this.enterRule(localContext, 166, MongoParser.RULE_collectionIndexesArgument);
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 469;
+            this.state = 806;
             this.object();
             }
         }
@@ -1650,28 +3373,28 @@ export class MongoParser extends antlr.Parser {
         }
         return localContext;
     }
-    public listIndexesMethod(): ListIndexesMethodContext {
-        let localContext = new ListIndexesMethodContext(this.context, this.state);
-        this.enterRule(localContext, 70, MongoParser.RULE_listIndexesMethod);
+    public collectionListIndexesMethod(): CollectionListIndexesMethodContext {
+        let localContext = new CollectionListIndexesMethodContext(this.context, this.state);
+        this.enterRule(localContext, 168, MongoParser.RULE_collectionListIndexesMethod);
         let _la: number;
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 471;
+            this.state = 808;
             this.match(MongoParser.LIST_INDEXES);
-            this.state = 472;
+            this.state = 809;
             this.match(MongoParser.LPAREN);
-            this.state = 474;
+            this.state = 811;
             this.errorHandler.sync(this);
             _la = this.tokenStream.LA(1);
-            if (_la === 47) {
+            if (_la === 64) {
                 {
-                this.state = 473;
-                this.listIndexesArgument();
+                this.state = 810;
+                this.collectionListIndexesArgument();
                 }
             }
 
-            this.state = 476;
+            this.state = 813;
             this.match(MongoParser.RPAREN);
             }
         }
@@ -1688,13 +3411,13 @@ export class MongoParser extends antlr.Parser {
         }
         return localContext;
     }
-    public listIndexesArgument(): ListIndexesArgumentContext {
-        let localContext = new ListIndexesArgumentContext(this.context, this.state);
-        this.enterRule(localContext, 72, MongoParser.RULE_listIndexesArgument);
+    public collectionListIndexesArgument(): CollectionListIndexesArgumentContext {
+        let localContext = new CollectionListIndexesArgumentContext(this.context, this.state);
+        this.enterRule(localContext, 170, MongoParser.RULE_collectionListIndexesArgument);
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 478;
+            this.state = 815;
             this.object();
             }
         }
@@ -1711,28 +3434,28 @@ export class MongoParser extends antlr.Parser {
         }
         return localContext;
     }
-    public dropIndexesMethod(): DropIndexesMethodContext {
-        let localContext = new DropIndexesMethodContext(this.context, this.state);
-        this.enterRule(localContext, 74, MongoParser.RULE_dropIndexesMethod);
+    public collectionDropIndexesMethod(): CollectionDropIndexesMethodContext {
+        let localContext = new CollectionDropIndexesMethodContext(this.context, this.state);
+        this.enterRule(localContext, 172, MongoParser.RULE_collectionDropIndexesMethod);
         let _la: number;
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 480;
+            this.state = 817;
             this.match(MongoParser.DROP_INDEXES);
-            this.state = 481;
+            this.state = 818;
             this.match(MongoParser.LPAREN);
-            this.state = 483;
+            this.state = 820;
             this.errorHandler.sync(this);
             _la = this.tokenStream.LA(1);
-            if (_la === 47) {
+            if (_la === 64) {
                 {
-                this.state = 482;
-                this.dropIndexesArgument();
+                this.state = 819;
+                this.collectionDropIndexesArgument();
                 }
             }
 
-            this.state = 485;
+            this.state = 822;
             this.match(MongoParser.RPAREN);
             }
         }
@@ -1749,13 +3472,13 @@ export class MongoParser extends antlr.Parser {
         }
         return localContext;
     }
-    public dropIndexesArgument(): DropIndexesArgumentContext {
-        let localContext = new DropIndexesArgumentContext(this.context, this.state);
-        this.enterRule(localContext, 76, MongoParser.RULE_dropIndexesArgument);
+    public collectionDropIndexesArgument(): CollectionDropIndexesArgumentContext {
+        let localContext = new CollectionDropIndexesArgumentContext(this.context, this.state);
+        this.enterRule(localContext, 174, MongoParser.RULE_collectionDropIndexesArgument);
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 487;
+            this.state = 824;
             this.object();
             }
         }
@@ -1772,32 +3495,32 @@ export class MongoParser extends antlr.Parser {
         }
         return localContext;
     }
-    public dropIndexMethod(): DropIndexMethodContext {
-        let localContext = new DropIndexMethodContext(this.context, this.state);
-        this.enterRule(localContext, 78, MongoParser.RULE_dropIndexMethod);
+    public collectionDropIndexMethod(): CollectionDropIndexMethodContext {
+        let localContext = new CollectionDropIndexMethodContext(this.context, this.state);
+        this.enterRule(localContext, 176, MongoParser.RULE_collectionDropIndexMethod);
         let _la: number;
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 489;
+            this.state = 826;
             this.match(MongoParser.DROP_INDEX);
-            this.state = 490;
+            this.state = 827;
             this.match(MongoParser.LPAREN);
-            this.state = 491;
-            this.dropIndexArgument1();
-            this.state = 494;
+            this.state = 828;
+            this.collectionDropIndexArgument1();
+            this.state = 831;
             this.errorHandler.sync(this);
             _la = this.tokenStream.LA(1);
-            if (_la === 50) {
+            if (_la === 67) {
                 {
-                this.state = 492;
+                this.state = 829;
                 this.match(MongoParser.COMMA);
-                this.state = 493;
-                this.dropIndexArgument2();
+                this.state = 830;
+                this.collectionDropIndexArgument2();
                 }
             }
 
-            this.state = 496;
+            this.state = 833;
             this.match(MongoParser.RPAREN);
             }
         }
@@ -1814,13 +3537,13 @@ export class MongoParser extends antlr.Parser {
         }
         return localContext;
     }
-    public dropIndexArgument2(): DropIndexArgument2Context {
-        let localContext = new DropIndexArgument2Context(this.context, this.state);
-        this.enterRule(localContext, 80, MongoParser.RULE_dropIndexArgument2);
+    public collectionDropIndexArgument2(): CollectionDropIndexArgument2Context {
+        let localContext = new CollectionDropIndexArgument2Context(this.context, this.state);
+        this.enterRule(localContext, 178, MongoParser.RULE_collectionDropIndexArgument2);
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 498;
+            this.state = 835;
             this.object();
             }
         }
@@ -1837,13 +3560,13 @@ export class MongoParser extends antlr.Parser {
         }
         return localContext;
     }
-    public dropIndexArgument1(): DropIndexArgument1Context {
-        let localContext = new DropIndexArgument1Context(this.context, this.state);
-        this.enterRule(localContext, 82, MongoParser.RULE_dropIndexArgument1);
+    public collectionDropIndexArgument1(): CollectionDropIndexArgument1Context {
+        let localContext = new CollectionDropIndexArgument1Context(this.context, this.state);
+        this.enterRule(localContext, 180, MongoParser.RULE_collectionDropIndexArgument1);
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 500;
+            this.state = 837;
             this.match(MongoParser.STRING);
             }
         }
@@ -1860,32 +3583,32 @@ export class MongoParser extends antlr.Parser {
         }
         return localContext;
     }
-    public createIndexesMethod(): CreateIndexesMethodContext {
-        let localContext = new CreateIndexesMethodContext(this.context, this.state);
-        this.enterRule(localContext, 84, MongoParser.RULE_createIndexesMethod);
+    public collectionCreateIndexesMethod(): CollectionCreateIndexesMethodContext {
+        let localContext = new CollectionCreateIndexesMethodContext(this.context, this.state);
+        this.enterRule(localContext, 182, MongoParser.RULE_collectionCreateIndexesMethod);
         let _la: number;
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 502;
+            this.state = 839;
             this.match(MongoParser.CREATE_INDEXES);
-            this.state = 503;
+            this.state = 840;
             this.match(MongoParser.LPAREN);
-            this.state = 504;
-            this.createIndexesArgument1();
-            this.state = 507;
+            this.state = 841;
+            this.collectionCreateIndexesArgument1();
+            this.state = 844;
             this.errorHandler.sync(this);
             _la = this.tokenStream.LA(1);
-            if (_la === 50) {
+            if (_la === 67) {
                 {
-                this.state = 505;
+                this.state = 842;
                 this.match(MongoParser.COMMA);
-                this.state = 506;
-                this.createIndexesArgument2();
+                this.state = 843;
+                this.collectionCreateIndexesArgument2();
                 }
             }
 
-            this.state = 509;
+            this.state = 846;
             this.match(MongoParser.RPAREN);
             }
         }
@@ -1902,13 +3625,13 @@ export class MongoParser extends antlr.Parser {
         }
         return localContext;
     }
-    public createIndexesArgument2(): CreateIndexesArgument2Context {
-        let localContext = new CreateIndexesArgument2Context(this.context, this.state);
-        this.enterRule(localContext, 86, MongoParser.RULE_createIndexesArgument2);
+    public collectionCreateIndexesArgument2(): CollectionCreateIndexesArgument2Context {
+        let localContext = new CollectionCreateIndexesArgument2Context(this.context, this.state);
+        this.enterRule(localContext, 184, MongoParser.RULE_collectionCreateIndexesArgument2);
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 511;
+            this.state = 848;
             this.object();
             }
         }
@@ -1925,13 +3648,13 @@ export class MongoParser extends antlr.Parser {
         }
         return localContext;
     }
-    public createIndexesArgument1(): CreateIndexesArgument1Context {
-        let localContext = new CreateIndexesArgument1Context(this.context, this.state);
-        this.enterRule(localContext, 88, MongoParser.RULE_createIndexesArgument1);
+    public collectionCreateIndexesArgument1(): CollectionCreateIndexesArgument1Context {
+        let localContext = new CollectionCreateIndexesArgument1Context(this.context, this.state);
+        this.enterRule(localContext, 186, MongoParser.RULE_collectionCreateIndexesArgument1);
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 513;
+            this.state = 850;
             this.array();
             }
         }
@@ -1948,32 +3671,32 @@ export class MongoParser extends antlr.Parser {
         }
         return localContext;
     }
-    public createIndexMethod(): CreateIndexMethodContext {
-        let localContext = new CreateIndexMethodContext(this.context, this.state);
-        this.enterRule(localContext, 90, MongoParser.RULE_createIndexMethod);
+    public collectionCreateIndexMethod(): CollectionCreateIndexMethodContext {
+        let localContext = new CollectionCreateIndexMethodContext(this.context, this.state);
+        this.enterRule(localContext, 188, MongoParser.RULE_collectionCreateIndexMethod);
         let _la: number;
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 515;
+            this.state = 852;
             this.match(MongoParser.CREATE_INDEX);
-            this.state = 516;
+            this.state = 853;
             this.match(MongoParser.LPAREN);
-            this.state = 517;
-            this.createIndexArgument1();
-            this.state = 520;
+            this.state = 854;
+            this.collectionCreateIndexArgument1();
+            this.state = 857;
             this.errorHandler.sync(this);
             _la = this.tokenStream.LA(1);
-            if (_la === 50) {
+            if (_la === 67) {
                 {
-                this.state = 518;
+                this.state = 855;
                 this.match(MongoParser.COMMA);
-                this.state = 519;
-                this.createIndexArgument2();
+                this.state = 856;
+                this.collectionCreateIndexArgument2();
                 }
             }
 
-            this.state = 522;
+            this.state = 859;
             this.match(MongoParser.RPAREN);
             }
         }
@@ -1990,13 +3713,13 @@ export class MongoParser extends antlr.Parser {
         }
         return localContext;
     }
-    public createIndexArgument2(): CreateIndexArgument2Context {
-        let localContext = new CreateIndexArgument2Context(this.context, this.state);
-        this.enterRule(localContext, 92, MongoParser.RULE_createIndexArgument2);
+    public collectionCreateIndexArgument2(): CollectionCreateIndexArgument2Context {
+        let localContext = new CollectionCreateIndexArgument2Context(this.context, this.state);
+        this.enterRule(localContext, 190, MongoParser.RULE_collectionCreateIndexArgument2);
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 524;
+            this.state = 861;
             this.object();
             }
         }
@@ -2013,31 +3736,31 @@ export class MongoParser extends antlr.Parser {
         }
         return localContext;
     }
-    public createIndexArgument1(): CreateIndexArgument1Context {
-        let localContext = new CreateIndexArgument1Context(this.context, this.state);
-        this.enterRule(localContext, 94, MongoParser.RULE_createIndexArgument1);
+    public collectionCreateIndexArgument1(): CollectionCreateIndexArgument1Context {
+        let localContext = new CollectionCreateIndexArgument1Context(this.context, this.state);
+        this.enterRule(localContext, 192, MongoParser.RULE_collectionCreateIndexArgument1);
         try {
-            this.state = 529;
+            this.state = 866;
             this.errorHandler.sync(this);
             switch (this.tokenStream.LA(1)) {
             case MongoParser.STRING:
                 this.enterOuterAlt(localContext, 1);
                 {
-                this.state = 526;
+                this.state = 863;
                 this.match(MongoParser.STRING);
                 }
                 break;
             case MongoParser.LBRACE:
                 this.enterOuterAlt(localContext, 2);
                 {
-                this.state = 527;
+                this.state = 864;
                 this.object();
                 }
                 break;
             case MongoParser.LBRACKET:
                 this.enterOuterAlt(localContext, 3);
                 {
-                this.state = 528;
+                this.state = 865;
                 this.array();
                 }
                 break;
@@ -2058,28 +3781,28 @@ export class MongoParser extends antlr.Parser {
         }
         return localContext;
     }
-    public isCappedMethod(): IsCappedMethodContext {
-        let localContext = new IsCappedMethodContext(this.context, this.state);
-        this.enterRule(localContext, 96, MongoParser.RULE_isCappedMethod);
+    public collectionIsCappedMethod(): CollectionIsCappedMethodContext {
+        let localContext = new CollectionIsCappedMethodContext(this.context, this.state);
+        this.enterRule(localContext, 194, MongoParser.RULE_collectionIsCappedMethod);
         let _la: number;
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 531;
+            this.state = 868;
             this.match(MongoParser.IS_CAPPED);
-            this.state = 532;
+            this.state = 869;
             this.match(MongoParser.LPAREN);
-            this.state = 534;
+            this.state = 871;
             this.errorHandler.sync(this);
             _la = this.tokenStream.LA(1);
-            if (_la === 47) {
+            if (_la === 64) {
                 {
-                this.state = 533;
-                this.isCappedArgument();
+                this.state = 870;
+                this.collectionIsCappedArgument();
                 }
             }
 
-            this.state = 536;
+            this.state = 873;
             this.match(MongoParser.RPAREN);
             }
         }
@@ -2096,13 +3819,13 @@ export class MongoParser extends antlr.Parser {
         }
         return localContext;
     }
-    public isCappedArgument(): IsCappedArgumentContext {
-        let localContext = new IsCappedArgumentContext(this.context, this.state);
-        this.enterRule(localContext, 98, MongoParser.RULE_isCappedArgument);
+    public collectionIsCappedArgument(): CollectionIsCappedArgumentContext {
+        let localContext = new CollectionIsCappedArgumentContext(this.context, this.state);
+        this.enterRule(localContext, 196, MongoParser.RULE_collectionIsCappedArgument);
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 538;
+            this.state = 875;
             this.object();
             }
         }
@@ -2119,28 +3842,28 @@ export class MongoParser extends antlr.Parser {
         }
         return localContext;
     }
-    public dropMethod(): DropMethodContext {
-        let localContext = new DropMethodContext(this.context, this.state);
-        this.enterRule(localContext, 100, MongoParser.RULE_dropMethod);
+    public collectionDropMethod(): CollectionDropMethodContext {
+        let localContext = new CollectionDropMethodContext(this.context, this.state);
+        this.enterRule(localContext, 198, MongoParser.RULE_collectionDropMethod);
         let _la: number;
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 540;
+            this.state = 877;
             this.match(MongoParser.DROP);
-            this.state = 541;
+            this.state = 878;
             this.match(MongoParser.LPAREN);
-            this.state = 543;
+            this.state = 880;
             this.errorHandler.sync(this);
             _la = this.tokenStream.LA(1);
-            if (_la === 47) {
+            if (_la === 64) {
                 {
-                this.state = 542;
-                this.dropArgument();
+                this.state = 879;
+                this.collectionDropArgument();
                 }
             }
 
-            this.state = 545;
+            this.state = 882;
             this.match(MongoParser.RPAREN);
             }
         }
@@ -2157,13 +3880,13 @@ export class MongoParser extends antlr.Parser {
         }
         return localContext;
     }
-    public dropArgument(): DropArgumentContext {
-        let localContext = new DropArgumentContext(this.context, this.state);
-        this.enterRule(localContext, 102, MongoParser.RULE_dropArgument);
+    public collectionDropArgument(): CollectionDropArgumentContext {
+        let localContext = new CollectionDropArgumentContext(this.context, this.state);
+        this.enterRule(localContext, 200, MongoParser.RULE_collectionDropArgument);
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 547;
+            this.state = 884;
             this.object();
             }
         }
@@ -2180,32 +3903,32 @@ export class MongoParser extends antlr.Parser {
         }
         return localContext;
     }
-    public renameMethod(): RenameMethodContext {
-        let localContext = new RenameMethodContext(this.context, this.state);
-        this.enterRule(localContext, 104, MongoParser.RULE_renameMethod);
+    public collectionRenameMethod(): CollectionRenameMethodContext {
+        let localContext = new CollectionRenameMethodContext(this.context, this.state);
+        this.enterRule(localContext, 202, MongoParser.RULE_collectionRenameMethod);
         let _la: number;
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 549;
+            this.state = 886;
             this.match(MongoParser.RENAME);
-            this.state = 550;
+            this.state = 887;
             this.match(MongoParser.LPAREN);
-            this.state = 551;
-            this.renameArgument1();
-            this.state = 554;
+            this.state = 888;
+            this.collectionRenameArgument1();
+            this.state = 891;
             this.errorHandler.sync(this);
             _la = this.tokenStream.LA(1);
-            if (_la === 50) {
+            if (_la === 67) {
                 {
-                this.state = 552;
+                this.state = 889;
                 this.match(MongoParser.COMMA);
-                this.state = 553;
-                this.renameArgument2();
+                this.state = 890;
+                this.collectionRenameArgument2();
                 }
             }
 
-            this.state = 556;
+            this.state = 893;
             this.match(MongoParser.RPAREN);
             }
         }
@@ -2222,13 +3945,13 @@ export class MongoParser extends antlr.Parser {
         }
         return localContext;
     }
-    public renameArgument1(): RenameArgument1Context {
-        let localContext = new RenameArgument1Context(this.context, this.state);
-        this.enterRule(localContext, 106, MongoParser.RULE_renameArgument1);
+    public collectionRenameArgument1(): CollectionRenameArgument1Context {
+        let localContext = new CollectionRenameArgument1Context(this.context, this.state);
+        this.enterRule(localContext, 204, MongoParser.RULE_collectionRenameArgument1);
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 558;
+            this.state = 895;
             this.match(MongoParser.STRING);
             }
         }
@@ -2245,13 +3968,13 @@ export class MongoParser extends antlr.Parser {
         }
         return localContext;
     }
-    public renameArgument2(): RenameArgument2Context {
-        let localContext = new RenameArgument2Context(this.context, this.state);
-        this.enterRule(localContext, 108, MongoParser.RULE_renameArgument2);
+    public collectionRenameArgument2(): CollectionRenameArgument2Context {
+        let localContext = new CollectionRenameArgument2Context(this.context, this.state);
+        this.enterRule(localContext, 206, MongoParser.RULE_collectionRenameArgument2);
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 560;
+            this.state = 897;
             this.object();
             }
         }
@@ -2268,40 +3991,40 @@ export class MongoParser extends antlr.Parser {
         }
         return localContext;
     }
-    public deleteManyMethod(): DeleteManyMethodContext {
-        let localContext = new DeleteManyMethodContext(this.context, this.state);
-        this.enterRule(localContext, 110, MongoParser.RULE_deleteManyMethod);
+    public collectionDeleteManyMethod(): CollectionDeleteManyMethodContext {
+        let localContext = new CollectionDeleteManyMethodContext(this.context, this.state);
+        this.enterRule(localContext, 208, MongoParser.RULE_collectionDeleteManyMethod);
         let _la: number;
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 562;
+            this.state = 899;
             this.match(MongoParser.DELETE_MANY);
-            this.state = 563;
+            this.state = 900;
             this.match(MongoParser.LPAREN);
-            this.state = 569;
+            this.state = 906;
             this.errorHandler.sync(this);
             _la = this.tokenStream.LA(1);
-            if (_la === 47) {
+            if (_la === 64) {
                 {
-                this.state = 564;
-                this.deleteManyArgument1();
-                this.state = 567;
+                this.state = 901;
+                this.collectionDeleteManyArgument1();
+                this.state = 904;
                 this.errorHandler.sync(this);
                 _la = this.tokenStream.LA(1);
-                if (_la === 50) {
+                if (_la === 67) {
                     {
-                    this.state = 565;
+                    this.state = 902;
                     this.match(MongoParser.COMMA);
-                    this.state = 566;
-                    this.deleteManyArgument2();
+                    this.state = 903;
+                    this.collectionDeleteManyArgument2();
                     }
                 }
 
                 }
             }
 
-            this.state = 571;
+            this.state = 908;
             this.match(MongoParser.RPAREN);
             }
         }
@@ -2318,13 +4041,13 @@ export class MongoParser extends antlr.Parser {
         }
         return localContext;
     }
-    public deleteManyArgument1(): DeleteManyArgument1Context {
-        let localContext = new DeleteManyArgument1Context(this.context, this.state);
-        this.enterRule(localContext, 112, MongoParser.RULE_deleteManyArgument1);
+    public collectionDeleteManyArgument1(): CollectionDeleteManyArgument1Context {
+        let localContext = new CollectionDeleteManyArgument1Context(this.context, this.state);
+        this.enterRule(localContext, 210, MongoParser.RULE_collectionDeleteManyArgument1);
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 573;
+            this.state = 910;
             this.object();
             }
         }
@@ -2341,13 +4064,13 @@ export class MongoParser extends antlr.Parser {
         }
         return localContext;
     }
-    public deleteManyArgument2(): DeleteManyArgument2Context {
-        let localContext = new DeleteManyArgument2Context(this.context, this.state);
-        this.enterRule(localContext, 114, MongoParser.RULE_deleteManyArgument2);
+    public collectionDeleteManyArgument2(): CollectionDeleteManyArgument2Context {
+        let localContext = new CollectionDeleteManyArgument2Context(this.context, this.state);
+        this.enterRule(localContext, 212, MongoParser.RULE_collectionDeleteManyArgument2);
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 575;
+            this.state = 912;
             this.object();
             }
         }
@@ -2364,40 +4087,40 @@ export class MongoParser extends antlr.Parser {
         }
         return localContext;
     }
-    public deleteOneMethod(): DeleteOneMethodContext {
-        let localContext = new DeleteOneMethodContext(this.context, this.state);
-        this.enterRule(localContext, 116, MongoParser.RULE_deleteOneMethod);
+    public collectionDeleteOneMethod(): CollectionDeleteOneMethodContext {
+        let localContext = new CollectionDeleteOneMethodContext(this.context, this.state);
+        this.enterRule(localContext, 214, MongoParser.RULE_collectionDeleteOneMethod);
         let _la: number;
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 577;
+            this.state = 914;
             this.match(MongoParser.DELETE_ONE);
-            this.state = 578;
+            this.state = 915;
             this.match(MongoParser.LPAREN);
-            this.state = 584;
+            this.state = 921;
             this.errorHandler.sync(this);
             _la = this.tokenStream.LA(1);
-            if (_la === 47) {
+            if (_la === 64) {
                 {
-                this.state = 579;
-                this.deleteOneArgument1();
-                this.state = 582;
+                this.state = 916;
+                this.collectionDeleteOneArgument1();
+                this.state = 919;
                 this.errorHandler.sync(this);
                 _la = this.tokenStream.LA(1);
-                if (_la === 50) {
+                if (_la === 67) {
                     {
-                    this.state = 580;
+                    this.state = 917;
                     this.match(MongoParser.COMMA);
-                    this.state = 581;
-                    this.deleteOneArgument2();
+                    this.state = 918;
+                    this.collectionDeleteOneArgument2();
                     }
                 }
 
                 }
             }
 
-            this.state = 586;
+            this.state = 923;
             this.match(MongoParser.RPAREN);
             }
         }
@@ -2414,13 +4137,13 @@ export class MongoParser extends antlr.Parser {
         }
         return localContext;
     }
-    public deleteOneArgument1(): DeleteOneArgument1Context {
-        let localContext = new DeleteOneArgument1Context(this.context, this.state);
-        this.enterRule(localContext, 118, MongoParser.RULE_deleteOneArgument1);
+    public collectionDeleteOneArgument1(): CollectionDeleteOneArgument1Context {
+        let localContext = new CollectionDeleteOneArgument1Context(this.context, this.state);
+        this.enterRule(localContext, 216, MongoParser.RULE_collectionDeleteOneArgument1);
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 588;
+            this.state = 925;
             this.object();
             }
         }
@@ -2437,13 +4160,13 @@ export class MongoParser extends antlr.Parser {
         }
         return localContext;
     }
-    public deleteOneArgument2(): DeleteOneArgument2Context {
-        let localContext = new DeleteOneArgument2Context(this.context, this.state);
-        this.enterRule(localContext, 120, MongoParser.RULE_deleteOneArgument2);
+    public collectionDeleteOneArgument2(): CollectionDeleteOneArgument2Context {
+        let localContext = new CollectionDeleteOneArgument2Context(this.context, this.state);
+        this.enterRule(localContext, 218, MongoParser.RULE_collectionDeleteOneArgument2);
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 590;
+            this.state = 927;
             this.object();
             }
         }
@@ -2460,36 +4183,36 @@ export class MongoParser extends antlr.Parser {
         }
         return localContext;
     }
-    public replaceOneMethod(): ReplaceOneMethodContext {
-        let localContext = new ReplaceOneMethodContext(this.context, this.state);
-        this.enterRule(localContext, 122, MongoParser.RULE_replaceOneMethod);
+    public collectionReplaceOneMethod(): CollectionReplaceOneMethodContext {
+        let localContext = new CollectionReplaceOneMethodContext(this.context, this.state);
+        this.enterRule(localContext, 220, MongoParser.RULE_collectionReplaceOneMethod);
         let _la: number;
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 592;
+            this.state = 929;
             this.match(MongoParser.REPLACE_ONE);
-            this.state = 593;
+            this.state = 930;
             this.match(MongoParser.LPAREN);
-            this.state = 594;
-            this.replaceOneArgument1();
-            this.state = 595;
+            this.state = 931;
+            this.collectionReplaceOneArgument1();
+            this.state = 932;
             this.match(MongoParser.COMMA);
-            this.state = 596;
-            this.replaceOneArgument2();
-            this.state = 599;
+            this.state = 933;
+            this.collectionReplaceOneArgument2();
+            this.state = 936;
             this.errorHandler.sync(this);
             _la = this.tokenStream.LA(1);
-            if (_la === 50) {
+            if (_la === 67) {
                 {
-                this.state = 597;
+                this.state = 934;
                 this.match(MongoParser.COMMA);
-                this.state = 598;
-                this.replaceOneArgument3();
+                this.state = 935;
+                this.collectionReplaceOneArgument3();
                 }
             }
 
-            this.state = 601;
+            this.state = 938;
             this.match(MongoParser.RPAREN);
             }
         }
@@ -2506,13 +4229,13 @@ export class MongoParser extends antlr.Parser {
         }
         return localContext;
     }
-    public replaceOneArgument1(): ReplaceOneArgument1Context {
-        let localContext = new ReplaceOneArgument1Context(this.context, this.state);
-        this.enterRule(localContext, 124, MongoParser.RULE_replaceOneArgument1);
+    public collectionReplaceOneArgument1(): CollectionReplaceOneArgument1Context {
+        let localContext = new CollectionReplaceOneArgument1Context(this.context, this.state);
+        this.enterRule(localContext, 222, MongoParser.RULE_collectionReplaceOneArgument1);
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 603;
+            this.state = 940;
             this.object();
             }
         }
@@ -2529,13 +4252,13 @@ export class MongoParser extends antlr.Parser {
         }
         return localContext;
     }
-    public replaceOneArgument2(): ReplaceOneArgument2Context {
-        let localContext = new ReplaceOneArgument2Context(this.context, this.state);
-        this.enterRule(localContext, 126, MongoParser.RULE_replaceOneArgument2);
+    public collectionReplaceOneArgument2(): CollectionReplaceOneArgument2Context {
+        let localContext = new CollectionReplaceOneArgument2Context(this.context, this.state);
+        this.enterRule(localContext, 224, MongoParser.RULE_collectionReplaceOneArgument2);
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 605;
+            this.state = 942;
             this.documentToInsert();
             }
         }
@@ -2552,13 +4275,13 @@ export class MongoParser extends antlr.Parser {
         }
         return localContext;
     }
-    public replaceOneArgument3(): ReplaceOneArgument3Context {
-        let localContext = new ReplaceOneArgument3Context(this.context, this.state);
-        this.enterRule(localContext, 128, MongoParser.RULE_replaceOneArgument3);
+    public collectionReplaceOneArgument3(): CollectionReplaceOneArgument3Context {
+        let localContext = new CollectionReplaceOneArgument3Context(this.context, this.state);
+        this.enterRule(localContext, 226, MongoParser.RULE_collectionReplaceOneArgument3);
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 607;
+            this.state = 944;
             this.object();
             }
         }
@@ -2575,36 +4298,36 @@ export class MongoParser extends antlr.Parser {
         }
         return localContext;
     }
-    public updateManyMethod(): UpdateManyMethodContext {
-        let localContext = new UpdateManyMethodContext(this.context, this.state);
-        this.enterRule(localContext, 130, MongoParser.RULE_updateManyMethod);
+    public collectionUpdateManyMethod(): CollectionUpdateManyMethodContext {
+        let localContext = new CollectionUpdateManyMethodContext(this.context, this.state);
+        this.enterRule(localContext, 228, MongoParser.RULE_collectionUpdateManyMethod);
         let _la: number;
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 609;
+            this.state = 946;
             this.match(MongoParser.UPDATE_MANY);
-            this.state = 610;
+            this.state = 947;
             this.match(MongoParser.LPAREN);
-            this.state = 611;
-            this.updateManyArgument1();
-            this.state = 612;
+            this.state = 948;
+            this.collectionUpdateManyArgument1();
+            this.state = 949;
             this.match(MongoParser.COMMA);
-            this.state = 613;
-            this.updateManyArgument2();
-            this.state = 616;
+            this.state = 950;
+            this.collectionUpdateManyArgument2();
+            this.state = 953;
             this.errorHandler.sync(this);
             _la = this.tokenStream.LA(1);
-            if (_la === 50) {
+            if (_la === 67) {
                 {
-                this.state = 614;
+                this.state = 951;
                 this.match(MongoParser.COMMA);
-                this.state = 615;
-                this.updateManyArgument3();
+                this.state = 952;
+                this.collectionUpdateManyArgument3();
                 }
             }
 
-            this.state = 618;
+            this.state = 955;
             this.match(MongoParser.RPAREN);
             }
         }
@@ -2621,13 +4344,13 @@ export class MongoParser extends antlr.Parser {
         }
         return localContext;
     }
-    public updateManyArgument1(): UpdateManyArgument1Context {
-        let localContext = new UpdateManyArgument1Context(this.context, this.state);
-        this.enterRule(localContext, 132, MongoParser.RULE_updateManyArgument1);
+    public collectionUpdateManyArgument1(): CollectionUpdateManyArgument1Context {
+        let localContext = new CollectionUpdateManyArgument1Context(this.context, this.state);
+        this.enterRule(localContext, 230, MongoParser.RULE_collectionUpdateManyArgument1);
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 620;
+            this.state = 957;
             this.object();
             }
         }
@@ -2644,24 +4367,24 @@ export class MongoParser extends antlr.Parser {
         }
         return localContext;
     }
-    public updateManyArgument2(): UpdateManyArgument2Context {
-        let localContext = new UpdateManyArgument2Context(this.context, this.state);
-        this.enterRule(localContext, 134, MongoParser.RULE_updateManyArgument2);
+    public collectionUpdateManyArgument2(): CollectionUpdateManyArgument2Context {
+        let localContext = new CollectionUpdateManyArgument2Context(this.context, this.state);
+        this.enterRule(localContext, 232, MongoParser.RULE_collectionUpdateManyArgument2);
         try {
-            this.state = 624;
+            this.state = 961;
             this.errorHandler.sync(this);
             switch (this.tokenStream.LA(1)) {
             case MongoParser.LBRACE:
                 this.enterOuterAlt(localContext, 1);
                 {
-                this.state = 622;
+                this.state = 959;
                 this.object();
                 }
                 break;
             case MongoParser.LBRACKET:
                 this.enterOuterAlt(localContext, 2);
                 {
-                this.state = 623;
+                this.state = 960;
                 this.array();
                 }
                 break;
@@ -2682,13 +4405,13 @@ export class MongoParser extends antlr.Parser {
         }
         return localContext;
     }
-    public updateManyArgument3(): UpdateManyArgument3Context {
-        let localContext = new UpdateManyArgument3Context(this.context, this.state);
-        this.enterRule(localContext, 136, MongoParser.RULE_updateManyArgument3);
+    public collectionUpdateManyArgument3(): CollectionUpdateManyArgument3Context {
+        let localContext = new CollectionUpdateManyArgument3Context(this.context, this.state);
+        this.enterRule(localContext, 234, MongoParser.RULE_collectionUpdateManyArgument3);
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 626;
+            this.state = 963;
             this.object();
             }
         }
@@ -2705,36 +4428,36 @@ export class MongoParser extends antlr.Parser {
         }
         return localContext;
     }
-    public updateOneMethod(): UpdateOneMethodContext {
-        let localContext = new UpdateOneMethodContext(this.context, this.state);
-        this.enterRule(localContext, 138, MongoParser.RULE_updateOneMethod);
+    public collectionUpdateOneMethod(): CollectionUpdateOneMethodContext {
+        let localContext = new CollectionUpdateOneMethodContext(this.context, this.state);
+        this.enterRule(localContext, 236, MongoParser.RULE_collectionUpdateOneMethod);
         let _la: number;
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 628;
+            this.state = 965;
             this.match(MongoParser.UPDATE_ONE);
-            this.state = 629;
+            this.state = 966;
             this.match(MongoParser.LPAREN);
-            this.state = 630;
-            this.updateOneArgument1();
-            this.state = 631;
+            this.state = 967;
+            this.collectionUpdateOneArgument1();
+            this.state = 968;
             this.match(MongoParser.COMMA);
-            this.state = 632;
-            this.updateOneArgument2();
-            this.state = 635;
+            this.state = 969;
+            this.collectionUpdateOneArgument2();
+            this.state = 972;
             this.errorHandler.sync(this);
             _la = this.tokenStream.LA(1);
-            if (_la === 50) {
+            if (_la === 67) {
                 {
-                this.state = 633;
+                this.state = 970;
                 this.match(MongoParser.COMMA);
-                this.state = 634;
-                this.updateOneArgument3();
+                this.state = 971;
+                this.collectionUpdateOneArgument3();
                 }
             }
 
-            this.state = 637;
+            this.state = 974;
             this.match(MongoParser.RPAREN);
             }
         }
@@ -2751,13 +4474,13 @@ export class MongoParser extends antlr.Parser {
         }
         return localContext;
     }
-    public updateOneArgument1(): UpdateOneArgument1Context {
-        let localContext = new UpdateOneArgument1Context(this.context, this.state);
-        this.enterRule(localContext, 140, MongoParser.RULE_updateOneArgument1);
+    public collectionUpdateOneArgument1(): CollectionUpdateOneArgument1Context {
+        let localContext = new CollectionUpdateOneArgument1Context(this.context, this.state);
+        this.enterRule(localContext, 238, MongoParser.RULE_collectionUpdateOneArgument1);
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 639;
+            this.state = 976;
             this.object();
             }
         }
@@ -2774,24 +4497,24 @@ export class MongoParser extends antlr.Parser {
         }
         return localContext;
     }
-    public updateOneArgument2(): UpdateOneArgument2Context {
-        let localContext = new UpdateOneArgument2Context(this.context, this.state);
-        this.enterRule(localContext, 142, MongoParser.RULE_updateOneArgument2);
+    public collectionUpdateOneArgument2(): CollectionUpdateOneArgument2Context {
+        let localContext = new CollectionUpdateOneArgument2Context(this.context, this.state);
+        this.enterRule(localContext, 240, MongoParser.RULE_collectionUpdateOneArgument2);
         try {
-            this.state = 643;
+            this.state = 980;
             this.errorHandler.sync(this);
             switch (this.tokenStream.LA(1)) {
             case MongoParser.LBRACKET:
                 this.enterOuterAlt(localContext, 1);
                 {
-                this.state = 641;
+                this.state = 978;
                 this.array();
                 }
                 break;
             case MongoParser.LBRACE:
                 this.enterOuterAlt(localContext, 2);
                 {
-                this.state = 642;
+                this.state = 979;
                 this.object();
                 }
                 break;
@@ -2812,13 +4535,13 @@ export class MongoParser extends antlr.Parser {
         }
         return localContext;
     }
-    public updateOneArgument3(): UpdateOneArgument3Context {
-        let localContext = new UpdateOneArgument3Context(this.context, this.state);
-        this.enterRule(localContext, 144, MongoParser.RULE_updateOneArgument3);
+    public collectionUpdateOneArgument3(): CollectionUpdateOneArgument3Context {
+        let localContext = new CollectionUpdateOneArgument3Context(this.context, this.state);
+        this.enterRule(localContext, 242, MongoParser.RULE_collectionUpdateOneArgument3);
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 645;
+            this.state = 982;
             this.object();
             }
         }
@@ -2835,32 +4558,32 @@ export class MongoParser extends antlr.Parser {
         }
         return localContext;
     }
-    public bulkWriteMethod(): BulkWriteMethodContext {
-        let localContext = new BulkWriteMethodContext(this.context, this.state);
-        this.enterRule(localContext, 146, MongoParser.RULE_bulkWriteMethod);
+    public collectionBulkWriteMethod(): CollectionBulkWriteMethodContext {
+        let localContext = new CollectionBulkWriteMethodContext(this.context, this.state);
+        this.enterRule(localContext, 244, MongoParser.RULE_collectionBulkWriteMethod);
         let _la: number;
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 647;
+            this.state = 984;
             this.match(MongoParser.BULK_WRITE);
-            this.state = 648;
+            this.state = 985;
             this.match(MongoParser.LPAREN);
-            this.state = 649;
-            this.bulkWriteArgument1();
-            this.state = 652;
+            this.state = 986;
+            this.collectionBulkWriteArgument1();
+            this.state = 989;
             this.errorHandler.sync(this);
             _la = this.tokenStream.LA(1);
-            if (_la === 50) {
+            if (_la === 67) {
                 {
-                this.state = 650;
+                this.state = 987;
                 this.match(MongoParser.COMMA);
-                this.state = 651;
-                this.bulkWriteArgument2();
+                this.state = 988;
+                this.collectionBulkWriteArgument2();
                 }
             }
 
-            this.state = 654;
+            this.state = 991;
             this.match(MongoParser.RPAREN);
             }
         }
@@ -2877,13 +4600,13 @@ export class MongoParser extends antlr.Parser {
         }
         return localContext;
     }
-    public bulkWriteArgument1(): BulkWriteArgument1Context {
-        let localContext = new BulkWriteArgument1Context(this.context, this.state);
-        this.enterRule(localContext, 148, MongoParser.RULE_bulkWriteArgument1);
+    public collectionBulkWriteArgument1(): CollectionBulkWriteArgument1Context {
+        let localContext = new CollectionBulkWriteArgument1Context(this.context, this.state);
+        this.enterRule(localContext, 246, MongoParser.RULE_collectionBulkWriteArgument1);
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 656;
+            this.state = 993;
             this.array();
             }
         }
@@ -2900,13 +4623,13 @@ export class MongoParser extends antlr.Parser {
         }
         return localContext;
     }
-    public bulkWriteArgument2(): BulkWriteArgument2Context {
-        let localContext = new BulkWriteArgument2Context(this.context, this.state);
-        this.enterRule(localContext, 150, MongoParser.RULE_bulkWriteArgument2);
+    public collectionBulkWriteArgument2(): CollectionBulkWriteArgument2Context {
+        let localContext = new CollectionBulkWriteArgument2Context(this.context, this.state);
+        this.enterRule(localContext, 248, MongoParser.RULE_collectionBulkWriteArgument2);
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 658;
+            this.state = 995;
             this.object();
             }
         }
@@ -2923,32 +4646,32 @@ export class MongoParser extends antlr.Parser {
         }
         return localContext;
     }
-    public insertManyMethod(): InsertManyMethodContext {
-        let localContext = new InsertManyMethodContext(this.context, this.state);
-        this.enterRule(localContext, 152, MongoParser.RULE_insertManyMethod);
+    public collectionInsertManyMethod(): CollectionInsertManyMethodContext {
+        let localContext = new CollectionInsertManyMethodContext(this.context, this.state);
+        this.enterRule(localContext, 250, MongoParser.RULE_collectionInsertManyMethod);
         let _la: number;
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 660;
+            this.state = 997;
             this.match(MongoParser.INSERT_MANY);
-            this.state = 661;
+            this.state = 998;
             this.match(MongoParser.LPAREN);
-            this.state = 662;
-            this.insertManyArgument1();
-            this.state = 665;
+            this.state = 999;
+            this.collectionInsertManyArgument1();
+            this.state = 1002;
             this.errorHandler.sync(this);
             _la = this.tokenStream.LA(1);
-            if (_la === 50) {
+            if (_la === 67) {
                 {
-                this.state = 663;
+                this.state = 1000;
                 this.match(MongoParser.COMMA);
-                this.state = 664;
-                this.insertManyArgument2();
+                this.state = 1001;
+                this.collectionInsertManyArgument2();
                 }
             }
 
-            this.state = 667;
+            this.state = 1004;
             this.match(MongoParser.RPAREN);
             }
         }
@@ -2965,47 +4688,47 @@ export class MongoParser extends antlr.Parser {
         }
         return localContext;
     }
-    public insertManyArgument1(): InsertManyArgument1Context {
-        let localContext = new InsertManyArgument1Context(this.context, this.state);
-        this.enterRule(localContext, 154, MongoParser.RULE_insertManyArgument1);
+    public collectionInsertManyArgument1(): CollectionInsertManyArgument1Context {
+        let localContext = new CollectionInsertManyArgument1Context(this.context, this.state);
+        this.enterRule(localContext, 252, MongoParser.RULE_collectionInsertManyArgument1);
         let _la: number;
         try {
             let alternative: number;
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 669;
+            this.state = 1006;
             this.match(MongoParser.LBRACKET);
-            this.state = 670;
+            this.state = 1007;
             this.documentToInsert();
-            this.state = 675;
+            this.state = 1012;
             this.errorHandler.sync(this);
-            alternative = this.interpreter.adaptivePredict(this.tokenStream, 42, this.context);
+            alternative = this.interpreter.adaptivePredict(this.tokenStream, 62, this.context);
             while (alternative !== 2 && alternative !== antlr.ATN.INVALID_ALT_NUMBER) {
                 if (alternative === 1) {
                     {
                     {
-                    this.state = 671;
+                    this.state = 1008;
                     this.match(MongoParser.COMMA);
-                    this.state = 672;
+                    this.state = 1009;
                     this.documentToInsert();
                     }
                     }
                 }
-                this.state = 677;
+                this.state = 1014;
                 this.errorHandler.sync(this);
-                alternative = this.interpreter.adaptivePredict(this.tokenStream, 42, this.context);
+                alternative = this.interpreter.adaptivePredict(this.tokenStream, 62, this.context);
             }
-            this.state = 679;
+            this.state = 1016;
             this.errorHandler.sync(this);
             _la = this.tokenStream.LA(1);
-            if (_la === 50) {
+            if (_la === 67) {
                 {
-                this.state = 678;
+                this.state = 1015;
                 this.match(MongoParser.COMMA);
                 }
             }
 
-            this.state = 681;
+            this.state = 1018;
             this.match(MongoParser.RBRACKET);
             }
         }
@@ -3022,13 +4745,13 @@ export class MongoParser extends antlr.Parser {
         }
         return localContext;
     }
-    public insertManyArgument2(): InsertManyArgument2Context {
-        let localContext = new InsertManyArgument2Context(this.context, this.state);
-        this.enterRule(localContext, 156, MongoParser.RULE_insertManyArgument2);
+    public collectionInsertManyArgument2(): CollectionInsertManyArgument2Context {
+        let localContext = new CollectionInsertManyArgument2Context(this.context, this.state);
+        this.enterRule(localContext, 254, MongoParser.RULE_collectionInsertManyArgument2);
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 683;
+            this.state = 1020;
             this.object();
             }
         }
@@ -3045,32 +4768,32 @@ export class MongoParser extends antlr.Parser {
         }
         return localContext;
     }
-    public insertOneMethod(): InsertOneMethodContext {
-        let localContext = new InsertOneMethodContext(this.context, this.state);
-        this.enterRule(localContext, 158, MongoParser.RULE_insertOneMethod);
+    public collectionInsertOneMethod(): CollectionInsertOneMethodContext {
+        let localContext = new CollectionInsertOneMethodContext(this.context, this.state);
+        this.enterRule(localContext, 256, MongoParser.RULE_collectionInsertOneMethod);
         let _la: number;
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 685;
+            this.state = 1022;
             this.match(MongoParser.INSERT_ONE);
-            this.state = 686;
+            this.state = 1023;
             this.match(MongoParser.LPAREN);
-            this.state = 687;
-            this.insertOneArgument1();
-            this.state = 690;
+            this.state = 1024;
+            this.collectionInsertOneArgument1();
+            this.state = 1027;
             this.errorHandler.sync(this);
             _la = this.tokenStream.LA(1);
-            if (_la === 50) {
+            if (_la === 67) {
                 {
-                this.state = 688;
+                this.state = 1025;
                 this.match(MongoParser.COMMA);
-                this.state = 689;
-                this.insertOneArgument2();
+                this.state = 1026;
+                this.collectionInsertOneArgument2();
                 }
             }
 
-            this.state = 692;
+            this.state = 1029;
             this.match(MongoParser.RPAREN);
             }
         }
@@ -3087,13 +4810,13 @@ export class MongoParser extends antlr.Parser {
         }
         return localContext;
     }
-    public insertOneArgument1(): InsertOneArgument1Context {
-        let localContext = new InsertOneArgument1Context(this.context, this.state);
-        this.enterRule(localContext, 160, MongoParser.RULE_insertOneArgument1);
+    public collectionInsertOneArgument1(): CollectionInsertOneArgument1Context {
+        let localContext = new CollectionInsertOneArgument1Context(this.context, this.state);
+        this.enterRule(localContext, 258, MongoParser.RULE_collectionInsertOneArgument1);
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 694;
+            this.state = 1031;
             this.documentToInsert();
             }
         }
@@ -3110,13 +4833,13 @@ export class MongoParser extends antlr.Parser {
         }
         return localContext;
     }
-    public insertOneArgument2(): InsertOneArgument2Context {
-        let localContext = new InsertOneArgument2Context(this.context, this.state);
-        this.enterRule(localContext, 162, MongoParser.RULE_insertOneArgument2);
+    public collectionInsertOneArgument2(): CollectionInsertOneArgument2Context {
+        let localContext = new CollectionInsertOneArgument2Context(this.context, this.state);
+        this.enterRule(localContext, 260, MongoParser.RULE_collectionInsertOneArgument2);
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 696;
+            this.state = 1033;
             this.object();
             }
         }
@@ -3135,22 +4858,22 @@ export class MongoParser extends antlr.Parser {
     }
     public documentToInsert(): DocumentToInsertContext {
         let localContext = new DocumentToInsertContext(this.context, this.state);
-        this.enterRule(localContext, 164, MongoParser.RULE_documentToInsert);
+        this.enterRule(localContext, 262, MongoParser.RULE_documentToInsert);
         try {
-            this.state = 700;
+            this.state = 1037;
             this.errorHandler.sync(this);
             switch (this.tokenStream.LA(1)) {
             case MongoParser.LBRACE:
                 this.enterOuterAlt(localContext, 1);
                 {
-                this.state = 698;
+                this.state = 1035;
                 this.object();
                 }
                 break;
             case MongoParser.LBRACKET:
                 this.enterOuterAlt(localContext, 2);
                 {
-                this.state = 699;
+                this.state = 1036;
                 this.array();
                 }
                 break;
@@ -3171,36 +4894,36 @@ export class MongoParser extends antlr.Parser {
         }
         return localContext;
     }
-    public findOneAndUpdateMethod(): FindOneAndUpdateMethodContext {
-        let localContext = new FindOneAndUpdateMethodContext(this.context, this.state);
-        this.enterRule(localContext, 166, MongoParser.RULE_findOneAndUpdateMethod);
+    public collectionFindOneAndUpdateMethod(): CollectionFindOneAndUpdateMethodContext {
+        let localContext = new CollectionFindOneAndUpdateMethodContext(this.context, this.state);
+        this.enterRule(localContext, 264, MongoParser.RULE_collectionFindOneAndUpdateMethod);
         let _la: number;
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 702;
+            this.state = 1039;
             this.match(MongoParser.FIND_ONE_AND_UPDATE);
-            this.state = 703;
+            this.state = 1040;
             this.match(MongoParser.LPAREN);
-            this.state = 704;
-            this.findOneAndUpdateArgument1();
-            this.state = 705;
+            this.state = 1041;
+            this.collectionFindOneAndUpdateArgument1();
+            this.state = 1042;
             this.match(MongoParser.COMMA);
-            this.state = 706;
-            this.findOneAndUpdateArgument2();
-            this.state = 709;
+            this.state = 1043;
+            this.collectionFindOneAndUpdateArgument2();
+            this.state = 1046;
             this.errorHandler.sync(this);
             _la = this.tokenStream.LA(1);
-            if (_la === 50) {
+            if (_la === 67) {
                 {
-                this.state = 707;
+                this.state = 1044;
                 this.match(MongoParser.COMMA);
-                this.state = 708;
-                this.findOneAndUpdateArgument3();
+                this.state = 1045;
+                this.collectionFindOneAndUpdateArgument3();
                 }
             }
 
-            this.state = 711;
+            this.state = 1048;
             this.match(MongoParser.RPAREN);
             }
         }
@@ -3217,13 +4940,13 @@ export class MongoParser extends antlr.Parser {
         }
         return localContext;
     }
-    public findOneAndUpdateArgument1(): FindOneAndUpdateArgument1Context {
-        let localContext = new FindOneAndUpdateArgument1Context(this.context, this.state);
-        this.enterRule(localContext, 168, MongoParser.RULE_findOneAndUpdateArgument1);
+    public collectionFindOneAndUpdateArgument1(): CollectionFindOneAndUpdateArgument1Context {
+        let localContext = new CollectionFindOneAndUpdateArgument1Context(this.context, this.state);
+        this.enterRule(localContext, 266, MongoParser.RULE_collectionFindOneAndUpdateArgument1);
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 713;
+            this.state = 1050;
             this.object();
             }
         }
@@ -3240,13 +4963,13 @@ export class MongoParser extends antlr.Parser {
         }
         return localContext;
     }
-    public findOneAndUpdateArgument2(): FindOneAndUpdateArgument2Context {
-        let localContext = new FindOneAndUpdateArgument2Context(this.context, this.state);
-        this.enterRule(localContext, 170, MongoParser.RULE_findOneAndUpdateArgument2);
+    public collectionFindOneAndUpdateArgument2(): CollectionFindOneAndUpdateArgument2Context {
+        let localContext = new CollectionFindOneAndUpdateArgument2Context(this.context, this.state);
+        this.enterRule(localContext, 268, MongoParser.RULE_collectionFindOneAndUpdateArgument2);
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 715;
+            this.state = 1052;
             this.object();
             }
         }
@@ -3263,13 +4986,13 @@ export class MongoParser extends antlr.Parser {
         }
         return localContext;
     }
-    public findOneAndUpdateArgument3(): FindOneAndUpdateArgument3Context {
-        let localContext = new FindOneAndUpdateArgument3Context(this.context, this.state);
-        this.enterRule(localContext, 172, MongoParser.RULE_findOneAndUpdateArgument3);
+    public collectionFindOneAndUpdateArgument3(): CollectionFindOneAndUpdateArgument3Context {
+        let localContext = new CollectionFindOneAndUpdateArgument3Context(this.context, this.state);
+        this.enterRule(localContext, 270, MongoParser.RULE_collectionFindOneAndUpdateArgument3);
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 717;
+            this.state = 1054;
             this.object();
             }
         }
@@ -3286,36 +5009,36 @@ export class MongoParser extends antlr.Parser {
         }
         return localContext;
     }
-    public findOneAndReplaceMethod(): FindOneAndReplaceMethodContext {
-        let localContext = new FindOneAndReplaceMethodContext(this.context, this.state);
-        this.enterRule(localContext, 174, MongoParser.RULE_findOneAndReplaceMethod);
+    public collectionFindOneAndReplaceMethod(): CollectionFindOneAndReplaceMethodContext {
+        let localContext = new CollectionFindOneAndReplaceMethodContext(this.context, this.state);
+        this.enterRule(localContext, 272, MongoParser.RULE_collectionFindOneAndReplaceMethod);
         let _la: number;
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 719;
+            this.state = 1056;
             this.match(MongoParser.FIND_ONE_AND_REPLACE);
-            this.state = 720;
+            this.state = 1057;
             this.match(MongoParser.LPAREN);
-            this.state = 721;
-            this.findOneAndReplaceArgument1();
-            this.state = 722;
+            this.state = 1058;
+            this.collectionFindOneAndReplaceArgument1();
+            this.state = 1059;
             this.match(MongoParser.COMMA);
-            this.state = 723;
-            this.findOneAndReplaceArgument2();
-            this.state = 726;
+            this.state = 1060;
+            this.collectionFindOneAndReplaceArgument2();
+            this.state = 1063;
             this.errorHandler.sync(this);
             _la = this.tokenStream.LA(1);
-            if (_la === 50) {
+            if (_la === 67) {
                 {
-                this.state = 724;
+                this.state = 1061;
                 this.match(MongoParser.COMMA);
-                this.state = 725;
-                this.findOneAndReplaceArgument3();
+                this.state = 1062;
+                this.collectionFindOneAndReplaceArgument3();
                 }
             }
 
-            this.state = 728;
+            this.state = 1065;
             this.match(MongoParser.RPAREN);
             }
         }
@@ -3332,13 +5055,13 @@ export class MongoParser extends antlr.Parser {
         }
         return localContext;
     }
-    public findOneAndReplaceArgument1(): FindOneAndReplaceArgument1Context {
-        let localContext = new FindOneAndReplaceArgument1Context(this.context, this.state);
-        this.enterRule(localContext, 176, MongoParser.RULE_findOneAndReplaceArgument1);
+    public collectionFindOneAndReplaceArgument1(): CollectionFindOneAndReplaceArgument1Context {
+        let localContext = new CollectionFindOneAndReplaceArgument1Context(this.context, this.state);
+        this.enterRule(localContext, 274, MongoParser.RULE_collectionFindOneAndReplaceArgument1);
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 730;
+            this.state = 1067;
             this.object();
             }
         }
@@ -3355,13 +5078,13 @@ export class MongoParser extends antlr.Parser {
         }
         return localContext;
     }
-    public findOneAndReplaceArgument2(): FindOneAndReplaceArgument2Context {
-        let localContext = new FindOneAndReplaceArgument2Context(this.context, this.state);
-        this.enterRule(localContext, 178, MongoParser.RULE_findOneAndReplaceArgument2);
+    public collectionFindOneAndReplaceArgument2(): CollectionFindOneAndReplaceArgument2Context {
+        let localContext = new CollectionFindOneAndReplaceArgument2Context(this.context, this.state);
+        this.enterRule(localContext, 276, MongoParser.RULE_collectionFindOneAndReplaceArgument2);
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 732;
+            this.state = 1069;
             this.object();
             }
         }
@@ -3378,13 +5101,13 @@ export class MongoParser extends antlr.Parser {
         }
         return localContext;
     }
-    public findOneAndReplaceArgument3(): FindOneAndReplaceArgument3Context {
-        let localContext = new FindOneAndReplaceArgument3Context(this.context, this.state);
-        this.enterRule(localContext, 180, MongoParser.RULE_findOneAndReplaceArgument3);
+    public collectionFindOneAndReplaceArgument3(): CollectionFindOneAndReplaceArgument3Context {
+        let localContext = new CollectionFindOneAndReplaceArgument3Context(this.context, this.state);
+        this.enterRule(localContext, 278, MongoParser.RULE_collectionFindOneAndReplaceArgument3);
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 734;
+            this.state = 1071;
             this.object();
             }
         }
@@ -3401,32 +5124,32 @@ export class MongoParser extends antlr.Parser {
         }
         return localContext;
     }
-    public findOneAndDeleteMethod(): FindOneAndDeleteMethodContext {
-        let localContext = new FindOneAndDeleteMethodContext(this.context, this.state);
-        this.enterRule(localContext, 182, MongoParser.RULE_findOneAndDeleteMethod);
+    public collectionFindOneAndDeleteMethod(): CollectionFindOneAndDeleteMethodContext {
+        let localContext = new CollectionFindOneAndDeleteMethodContext(this.context, this.state);
+        this.enterRule(localContext, 280, MongoParser.RULE_collectionFindOneAndDeleteMethod);
         let _la: number;
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 736;
+            this.state = 1073;
             this.match(MongoParser.FIND_ONE_AND_DELETE);
-            this.state = 737;
+            this.state = 1074;
             this.match(MongoParser.LPAREN);
-            this.state = 738;
-            this.findOneAndDeleteArgument1();
-            this.state = 741;
+            this.state = 1075;
+            this.collectionFindOneAndDeleteArgument1();
+            this.state = 1078;
             this.errorHandler.sync(this);
             _la = this.tokenStream.LA(1);
-            if (_la === 50) {
+            if (_la === 67) {
                 {
-                this.state = 739;
+                this.state = 1076;
                 this.match(MongoParser.COMMA);
-                this.state = 740;
-                this.findOneAndDeleteArgument2();
+                this.state = 1077;
+                this.collectionFindOneAndDeleteArgument2();
                 }
             }
 
-            this.state = 743;
+            this.state = 1080;
             this.match(MongoParser.RPAREN);
             }
         }
@@ -3443,13 +5166,13 @@ export class MongoParser extends antlr.Parser {
         }
         return localContext;
     }
-    public findOneAndDeleteArgument1(): FindOneAndDeleteArgument1Context {
-        let localContext = new FindOneAndDeleteArgument1Context(this.context, this.state);
-        this.enterRule(localContext, 184, MongoParser.RULE_findOneAndDeleteArgument1);
+    public collectionFindOneAndDeleteArgument1(): CollectionFindOneAndDeleteArgument1Context {
+        let localContext = new CollectionFindOneAndDeleteArgument1Context(this.context, this.state);
+        this.enterRule(localContext, 282, MongoParser.RULE_collectionFindOneAndDeleteArgument1);
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 745;
+            this.state = 1082;
             this.object();
             }
         }
@@ -3466,13 +5189,13 @@ export class MongoParser extends antlr.Parser {
         }
         return localContext;
     }
-    public findOneAndDeleteArgument2(): FindOneAndDeleteArgument2Context {
-        let localContext = new FindOneAndDeleteArgument2Context(this.context, this.state);
-        this.enterRule(localContext, 186, MongoParser.RULE_findOneAndDeleteArgument2);
+    public collectionFindOneAndDeleteArgument2(): CollectionFindOneAndDeleteArgument2Context {
+        let localContext = new CollectionFindOneAndDeleteArgument2Context(this.context, this.state);
+        this.enterRule(localContext, 284, MongoParser.RULE_collectionFindOneAndDeleteArgument2);
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 747;
+            this.state = 1084;
             this.object();
             }
         }
@@ -3489,40 +5212,40 @@ export class MongoParser extends antlr.Parser {
         }
         return localContext;
     }
-    public findOneMethod(): FindOneMethodContext {
-        let localContext = new FindOneMethodContext(this.context, this.state);
-        this.enterRule(localContext, 188, MongoParser.RULE_findOneMethod);
+    public collectionFindOneMethod(): CollectionFindOneMethodContext {
+        let localContext = new CollectionFindOneMethodContext(this.context, this.state);
+        this.enterRule(localContext, 286, MongoParser.RULE_collectionFindOneMethod);
         let _la: number;
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 749;
+            this.state = 1086;
             this.match(MongoParser.FIND_ONE);
-            this.state = 750;
+            this.state = 1087;
             this.match(MongoParser.LPAREN);
-            this.state = 756;
+            this.state = 1093;
             this.errorHandler.sync(this);
             _la = this.tokenStream.LA(1);
-            if (_la === 47) {
+            if (_la === 64) {
                 {
-                this.state = 751;
-                this.findOneArgument1();
-                this.state = 754;
+                this.state = 1088;
+                this.collectionFindOneArgument1();
+                this.state = 1091;
                 this.errorHandler.sync(this);
                 _la = this.tokenStream.LA(1);
-                if (_la === 50) {
+                if (_la === 67) {
                     {
-                    this.state = 752;
+                    this.state = 1089;
                     this.match(MongoParser.COMMA);
-                    this.state = 753;
-                    this.findOneArgument2();
+                    this.state = 1090;
+                    this.collectionFindOneArgument2();
                     }
                 }
 
                 }
             }
 
-            this.state = 758;
+            this.state = 1095;
             this.match(MongoParser.RPAREN);
             }
         }
@@ -3539,13 +5262,13 @@ export class MongoParser extends antlr.Parser {
         }
         return localContext;
     }
-    public findOneArgument1(): FindOneArgument1Context {
-        let localContext = new FindOneArgument1Context(this.context, this.state);
-        this.enterRule(localContext, 190, MongoParser.RULE_findOneArgument1);
+    public collectionFindOneArgument1(): CollectionFindOneArgument1Context {
+        let localContext = new CollectionFindOneArgument1Context(this.context, this.state);
+        this.enterRule(localContext, 288, MongoParser.RULE_collectionFindOneArgument1);
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 760;
+            this.state = 1097;
             this.object();
             }
         }
@@ -3562,13 +5285,13 @@ export class MongoParser extends antlr.Parser {
         }
         return localContext;
     }
-    public findOneArgument2(): FindOneArgument2Context {
-        let localContext = new FindOneArgument2Context(this.context, this.state);
-        this.enterRule(localContext, 192, MongoParser.RULE_findOneArgument2);
+    public collectionFindOneArgument2(): CollectionFindOneArgument2Context {
+        let localContext = new CollectionFindOneArgument2Context(this.context, this.state);
+        this.enterRule(localContext, 290, MongoParser.RULE_collectionFindOneArgument2);
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 762;
+            this.state = 1099;
             this.object();
             }
         }
@@ -3585,64 +5308,64 @@ export class MongoParser extends antlr.Parser {
         }
         return localContext;
     }
-    public findMethod(): FindMethodContext {
-        let localContext = new FindMethodContext(this.context, this.state);
-        this.enterRule(localContext, 194, MongoParser.RULE_findMethod);
+    public collectionFindMethod(): CollectionFindMethodContext {
+        let localContext = new CollectionFindMethodContext(this.context, this.state);
+        this.enterRule(localContext, 292, MongoParser.RULE_collectionFindMethod);
         let _la: number;
         try {
             let alternative: number;
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 764;
+            this.state = 1101;
             this.match(MongoParser.FIND);
-            this.state = 765;
+            this.state = 1102;
             this.match(MongoParser.LPAREN);
-            this.state = 771;
+            this.state = 1108;
             this.errorHandler.sync(this);
             _la = this.tokenStream.LA(1);
-            if (_la === 47) {
+            if (_la === 64) {
                 {
-                this.state = 766;
-                this.findMethodArgument1();
-                this.state = 769;
+                this.state = 1103;
+                this.collectionFindMethodArgument1();
+                this.state = 1106;
                 this.errorHandler.sync(this);
                 _la = this.tokenStream.LA(1);
-                if (_la === 50) {
+                if (_la === 67) {
                     {
-                    this.state = 767;
+                    this.state = 1104;
                     this.match(MongoParser.COMMA);
-                    this.state = 768;
-                    this.findMethodArgument2();
+                    this.state = 1105;
+                    this.collectionFindMethodArgument2();
                     }
                 }
 
                 }
             }
 
-            this.state = 773;
+            this.state = 1110;
             this.match(MongoParser.RPAREN);
-            this.state = 777;
+            this.state = 1114;
             this.errorHandler.sync(this);
-            alternative = this.interpreter.adaptivePredict(this.tokenStream, 53, this.context);
+            alternative = this.interpreter.adaptivePredict(this.tokenStream, 73, this.context);
             while (alternative !== 2 && alternative !== antlr.ATN.INVALID_ALT_NUMBER) {
                 if (alternative === 1) {
                     {
                     {
-                    this.state = 774;
-                    this.findMethodModifier();
+                    this.state = 1111;
+                    this.collectionFindMethodModifier();
                     }
                     }
                 }
-                this.state = 779;
+                this.state = 1116;
                 this.errorHandler.sync(this);
-                alternative = this.interpreter.adaptivePredict(this.tokenStream, 53, this.context);
+                alternative = this.interpreter.adaptivePredict(this.tokenStream, 73, this.context);
             }
-            this.state = 781;
+            this.state = 1118;
             this.errorHandler.sync(this);
             _la = this.tokenStream.LA(1);
-            if (_la === 52) {
+            if (_la === 69) {
                 {
-                this.state = 780;
+                this.state = 1117;
                 this.explainMethod();
                 }
             }
@@ -3662,13 +5385,13 @@ export class MongoParser extends antlr.Parser {
         }
         return localContext;
     }
-    public findMethodArgument1(): FindMethodArgument1Context {
-        let localContext = new FindMethodArgument1Context(this.context, this.state);
-        this.enterRule(localContext, 196, MongoParser.RULE_findMethodArgument1);
+    public collectionFindMethodArgument1(): CollectionFindMethodArgument1Context {
+        let localContext = new CollectionFindMethodArgument1Context(this.context, this.state);
+        this.enterRule(localContext, 294, MongoParser.RULE_collectionFindMethodArgument1);
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 783;
+            this.state = 1120;
             this.object();
             }
         }
@@ -3685,13 +5408,13 @@ export class MongoParser extends antlr.Parser {
         }
         return localContext;
     }
-    public findMethodArgument2(): FindMethodArgument2Context {
-        let localContext = new FindMethodArgument2Context(this.context, this.state);
-        this.enterRule(localContext, 198, MongoParser.RULE_findMethodArgument2);
+    public collectionFindMethodArgument2(): CollectionFindMethodArgument2Context {
+        let localContext = new CollectionFindMethodArgument2Context(this.context, this.state);
+        this.enterRule(localContext, 296, MongoParser.RULE_collectionFindMethodArgument2);
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 785;
+            this.state = 1122;
             this.object();
             }
         }
@@ -3710,28 +5433,28 @@ export class MongoParser extends antlr.Parser {
     }
     public explainMethod(): ExplainMethodContext {
         let localContext = new ExplainMethodContext(this.context, this.state);
-        this.enterRule(localContext, 200, MongoParser.RULE_explainMethod);
+        this.enterRule(localContext, 298, MongoParser.RULE_explainMethod);
         let _la: number;
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 787;
+            this.state = 1124;
             this.match(MongoParser.DOT);
-            this.state = 788;
+            this.state = 1125;
             this.match(MongoParser.EXPLAIN);
-            this.state = 789;
+            this.state = 1126;
             this.match(MongoParser.LPAREN);
-            this.state = 791;
+            this.state = 1128;
             this.errorHandler.sync(this);
             _la = this.tokenStream.LA(1);
-            if (((((_la - 47)) & ~0x1F) === 0 && ((1 << (_la - 47)) & 705) !== 0)) {
+            if (((((_la - 64)) & ~0x1F) === 0 && ((1 << (_la - 64)) & 705) !== 0)) {
                 {
-                this.state = 790;
+                this.state = 1127;
                 this.explainMethodArgument();
                 }
             }
 
-            this.state = 793;
+            this.state = 1130;
             this.match(MongoParser.RPAREN);
             }
         }
@@ -3750,15 +5473,15 @@ export class MongoParser extends antlr.Parser {
     }
     public explainMethodArgument(): ExplainMethodArgumentContext {
         let localContext = new ExplainMethodArgumentContext(this.context, this.state);
-        this.enterRule(localContext, 202, MongoParser.RULE_explainMethodArgument);
+        this.enterRule(localContext, 300, MongoParser.RULE_explainMethodArgument);
         try {
-            this.state = 798;
+            this.state = 1135;
             this.errorHandler.sync(this);
             switch (this.tokenStream.LA(1)) {
             case MongoParser.STRING:
                 this.enterOuterAlt(localContext, 1);
                 {
-                this.state = 795;
+                this.state = 1132;
                 this.match(MongoParser.STRING);
                 }
                 break;
@@ -3766,14 +5489,14 @@ export class MongoParser extends antlr.Parser {
             case MongoParser.FALSE:
                 this.enterOuterAlt(localContext, 2);
                 {
-                this.state = 796;
+                this.state = 1133;
                 this.boolean_();
                 }
                 break;
             case MongoParser.LBRACE:
                 this.enterOuterAlt(localContext, 3);
                 {
-                this.state = 797;
+                this.state = 1134;
                 this.object();
                 }
                 break;
@@ -3794,91 +5517,91 @@ export class MongoParser extends antlr.Parser {
         }
         return localContext;
     }
-    public findMethodModifier(): FindMethodModifierContext {
-        let localContext = new FindMethodModifierContext(this.context, this.state);
-        this.enterRule(localContext, 204, MongoParser.RULE_findMethodModifier);
+    public collectionFindMethodModifier(): CollectionFindMethodModifierContext {
+        let localContext = new CollectionFindMethodModifierContext(this.context, this.state);
+        this.enterRule(localContext, 302, MongoParser.RULE_collectionFindMethodModifier);
         try {
-            this.state = 818;
+            this.state = 1155;
             this.errorHandler.sync(this);
-            switch (this.interpreter.adaptivePredict(this.tokenStream, 57, this.context) ) {
+            switch (this.interpreter.adaptivePredict(this.tokenStream, 77, this.context) ) {
             case 1:
                 this.enterOuterAlt(localContext, 1);
                 {
-                this.state = 800;
+                this.state = 1137;
                 this.match(MongoParser.DOT);
-                this.state = 801;
+                this.state = 1138;
                 this.skipModifier();
                 }
                 break;
             case 2:
                 this.enterOuterAlt(localContext, 2);
                 {
-                this.state = 802;
+                this.state = 1139;
                 this.match(MongoParser.DOT);
-                this.state = 803;
+                this.state = 1140;
                 this.limitModifier();
                 }
                 break;
             case 3:
                 this.enterOuterAlt(localContext, 3);
                 {
-                this.state = 804;
+                this.state = 1141;
                 this.match(MongoParser.DOT);
-                this.state = 805;
+                this.state = 1142;
                 this.filterModifier();
                 }
                 break;
             case 4:
                 this.enterOuterAlt(localContext, 4);
                 {
-                this.state = 806;
+                this.state = 1143;
                 this.match(MongoParser.DOT);
-                this.state = 807;
+                this.state = 1144;
                 this.minModifier();
                 }
                 break;
             case 5:
                 this.enterOuterAlt(localContext, 5);
                 {
-                this.state = 808;
+                this.state = 1145;
                 this.match(MongoParser.DOT);
-                this.state = 809;
+                this.state = 1146;
                 this.maxModifier();
                 }
                 break;
             case 6:
                 this.enterOuterAlt(localContext, 6);
                 {
-                this.state = 810;
+                this.state = 1147;
                 this.match(MongoParser.DOT);
-                this.state = 811;
+                this.state = 1148;
                 this.hintModifier();
                 }
                 break;
             case 7:
                 this.enterOuterAlt(localContext, 7);
                 {
-                this.state = 812;
+                this.state = 1149;
                 this.match(MongoParser.DOT);
-                this.state = 813;
+                this.state = 1150;
                 this.returnKeyModifier();
                 }
                 break;
             case 8:
                 this.enterOuterAlt(localContext, 8);
                 {
-                this.state = 814;
+                this.state = 1151;
                 this.match(MongoParser.DOT);
-                this.state = 815;
+                this.state = 1152;
                 this.showRecordIdModifier();
                 }
                 break;
             case 9:
                 this.enterOuterAlt(localContext, 9);
                 {
-                this.state = 816;
+                this.state = 1153;
                 this.match(MongoParser.DOT);
-                this.state = 817;
+                this.state = 1154;
                 this.sortModifier();
                 }
                 break;
@@ -3899,17 +5622,17 @@ export class MongoParser extends antlr.Parser {
     }
     public skipModifier(): SkipModifierContext {
         let localContext = new SkipModifierContext(this.context, this.state);
-        this.enterRule(localContext, 206, MongoParser.RULE_skipModifier);
+        this.enterRule(localContext, 304, MongoParser.RULE_skipModifier);
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 820;
+            this.state = 1157;
             this.match(MongoParser.SKIP_);
-            this.state = 821;
+            this.state = 1158;
             this.match(MongoParser.LPAREN);
-            this.state = 822;
+            this.state = 1159;
             this.skipModifierArgument();
-            this.state = 823;
+            this.state = 1160;
             this.match(MongoParser.RPAREN);
             }
         }
@@ -3928,11 +5651,11 @@ export class MongoParser extends antlr.Parser {
     }
     public skipModifierArgument(): SkipModifierArgumentContext {
         let localContext = new SkipModifierArgumentContext(this.context, this.state);
-        this.enterRule(localContext, 208, MongoParser.RULE_skipModifierArgument);
+        this.enterRule(localContext, 306, MongoParser.RULE_skipModifierArgument);
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 825;
+            this.state = 1162;
             this.number_();
             }
         }
@@ -3951,17 +5674,17 @@ export class MongoParser extends antlr.Parser {
     }
     public limitModifier(): LimitModifierContext {
         let localContext = new LimitModifierContext(this.context, this.state);
-        this.enterRule(localContext, 210, MongoParser.RULE_limitModifier);
+        this.enterRule(localContext, 308, MongoParser.RULE_limitModifier);
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 827;
+            this.state = 1164;
             this.match(MongoParser.LIMIT);
-            this.state = 828;
+            this.state = 1165;
             this.match(MongoParser.LPAREN);
-            this.state = 829;
+            this.state = 1166;
             this.limitModifierArgument();
-            this.state = 830;
+            this.state = 1167;
             this.match(MongoParser.RPAREN);
             }
         }
@@ -3980,11 +5703,11 @@ export class MongoParser extends antlr.Parser {
     }
     public limitModifierArgument(): LimitModifierArgumentContext {
         let localContext = new LimitModifierArgumentContext(this.context, this.state);
-        this.enterRule(localContext, 212, MongoParser.RULE_limitModifierArgument);
+        this.enterRule(localContext, 310, MongoParser.RULE_limitModifierArgument);
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 832;
+            this.state = 1169;
             this.number_();
             }
         }
@@ -4003,17 +5726,17 @@ export class MongoParser extends antlr.Parser {
     }
     public filterModifier(): FilterModifierContext {
         let localContext = new FilterModifierContext(this.context, this.state);
-        this.enterRule(localContext, 214, MongoParser.RULE_filterModifier);
+        this.enterRule(localContext, 312, MongoParser.RULE_filterModifier);
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 834;
+            this.state = 1171;
             this.match(MongoParser.FILTER);
-            this.state = 835;
+            this.state = 1172;
             this.match(MongoParser.LPAREN);
-            this.state = 836;
+            this.state = 1173;
             this.filterModifierArgument();
-            this.state = 837;
+            this.state = 1174;
             this.match(MongoParser.RPAREN);
             }
         }
@@ -4032,11 +5755,11 @@ export class MongoParser extends antlr.Parser {
     }
     public filterModifierArgument(): FilterModifierArgumentContext {
         let localContext = new FilterModifierArgumentContext(this.context, this.state);
-        this.enterRule(localContext, 216, MongoParser.RULE_filterModifierArgument);
+        this.enterRule(localContext, 314, MongoParser.RULE_filterModifierArgument);
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 839;
+            this.state = 1176;
             this.object();
             }
         }
@@ -4055,17 +5778,17 @@ export class MongoParser extends antlr.Parser {
     }
     public minModifier(): MinModifierContext {
         let localContext = new MinModifierContext(this.context, this.state);
-        this.enterRule(localContext, 218, MongoParser.RULE_minModifier);
+        this.enterRule(localContext, 316, MongoParser.RULE_minModifier);
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 841;
+            this.state = 1178;
             this.match(MongoParser.MIN);
-            this.state = 842;
+            this.state = 1179;
             this.match(MongoParser.LPAREN);
-            this.state = 843;
+            this.state = 1180;
             this.minModifierArgument();
-            this.state = 844;
+            this.state = 1181;
             this.match(MongoParser.RPAREN);
             }
         }
@@ -4084,11 +5807,11 @@ export class MongoParser extends antlr.Parser {
     }
     public minModifierArgument(): MinModifierArgumentContext {
         let localContext = new MinModifierArgumentContext(this.context, this.state);
-        this.enterRule(localContext, 220, MongoParser.RULE_minModifierArgument);
+        this.enterRule(localContext, 318, MongoParser.RULE_minModifierArgument);
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 846;
+            this.state = 1183;
             this.object();
             }
         }
@@ -4107,17 +5830,17 @@ export class MongoParser extends antlr.Parser {
     }
     public maxModifier(): MaxModifierContext {
         let localContext = new MaxModifierContext(this.context, this.state);
-        this.enterRule(localContext, 222, MongoParser.RULE_maxModifier);
+        this.enterRule(localContext, 320, MongoParser.RULE_maxModifier);
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 848;
+            this.state = 1185;
             this.match(MongoParser.MAX);
-            this.state = 849;
+            this.state = 1186;
             this.match(MongoParser.LPAREN);
-            this.state = 850;
+            this.state = 1187;
             this.maxModifierArgument();
-            this.state = 851;
+            this.state = 1188;
             this.match(MongoParser.RPAREN);
             }
         }
@@ -4136,11 +5859,11 @@ export class MongoParser extends antlr.Parser {
     }
     public maxModifierArgument(): MaxModifierArgumentContext {
         let localContext = new MaxModifierArgumentContext(this.context, this.state);
-        this.enterRule(localContext, 224, MongoParser.RULE_maxModifierArgument);
+        this.enterRule(localContext, 322, MongoParser.RULE_maxModifierArgument);
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 853;
+            this.state = 1190;
             this.object();
             }
         }
@@ -4159,17 +5882,17 @@ export class MongoParser extends antlr.Parser {
     }
     public hintModifier(): HintModifierContext {
         let localContext = new HintModifierContext(this.context, this.state);
-        this.enterRule(localContext, 226, MongoParser.RULE_hintModifier);
+        this.enterRule(localContext, 324, MongoParser.RULE_hintModifier);
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 855;
+            this.state = 1192;
             this.match(MongoParser.HINT);
-            this.state = 856;
+            this.state = 1193;
             this.match(MongoParser.LPAREN);
-            this.state = 857;
+            this.state = 1194;
             this.hintModifierArgument();
-            this.state = 858;
+            this.state = 1195;
             this.match(MongoParser.RPAREN);
             }
         }
@@ -4188,22 +5911,22 @@ export class MongoParser extends antlr.Parser {
     }
     public hintModifierArgument(): HintModifierArgumentContext {
         let localContext = new HintModifierArgumentContext(this.context, this.state);
-        this.enterRule(localContext, 228, MongoParser.RULE_hintModifierArgument);
+        this.enterRule(localContext, 326, MongoParser.RULE_hintModifierArgument);
         try {
-            this.state = 862;
+            this.state = 1199;
             this.errorHandler.sync(this);
             switch (this.tokenStream.LA(1)) {
             case MongoParser.LBRACE:
                 this.enterOuterAlt(localContext, 1);
                 {
-                this.state = 860;
+                this.state = 1197;
                 this.object();
                 }
                 break;
             case MongoParser.STRING:
                 this.enterOuterAlt(localContext, 2);
                 {
-                this.state = 861;
+                this.state = 1198;
                 this.match(MongoParser.STRING);
                 }
                 break;
@@ -4226,17 +5949,17 @@ export class MongoParser extends antlr.Parser {
     }
     public returnKeyModifier(): ReturnKeyModifierContext {
         let localContext = new ReturnKeyModifierContext(this.context, this.state);
-        this.enterRule(localContext, 230, MongoParser.RULE_returnKeyModifier);
+        this.enterRule(localContext, 328, MongoParser.RULE_returnKeyModifier);
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 864;
+            this.state = 1201;
             this.match(MongoParser.RETURN_KEY);
-            this.state = 865;
+            this.state = 1202;
             this.match(MongoParser.LPAREN);
-            this.state = 866;
+            this.state = 1203;
             this.returnKeyModifierArgument();
-            this.state = 867;
+            this.state = 1204;
             this.match(MongoParser.RPAREN);
             }
         }
@@ -4255,11 +5978,11 @@ export class MongoParser extends antlr.Parser {
     }
     public returnKeyModifierArgument(): ReturnKeyModifierArgumentContext {
         let localContext = new ReturnKeyModifierArgumentContext(this.context, this.state);
-        this.enterRule(localContext, 232, MongoParser.RULE_returnKeyModifierArgument);
+        this.enterRule(localContext, 330, MongoParser.RULE_returnKeyModifierArgument);
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 869;
+            this.state = 1206;
             this.boolean_();
             }
         }
@@ -4278,17 +6001,17 @@ export class MongoParser extends antlr.Parser {
     }
     public showRecordIdModifier(): ShowRecordIdModifierContext {
         let localContext = new ShowRecordIdModifierContext(this.context, this.state);
-        this.enterRule(localContext, 234, MongoParser.RULE_showRecordIdModifier);
+        this.enterRule(localContext, 332, MongoParser.RULE_showRecordIdModifier);
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 871;
+            this.state = 1208;
             this.match(MongoParser.SHOW_RECORD_ID);
-            this.state = 872;
+            this.state = 1209;
             this.match(MongoParser.LPAREN);
-            this.state = 873;
+            this.state = 1210;
             this.showRecordIdModifierArgument();
-            this.state = 874;
+            this.state = 1211;
             this.match(MongoParser.RPAREN);
             }
         }
@@ -4307,11 +6030,11 @@ export class MongoParser extends antlr.Parser {
     }
     public showRecordIdModifierArgument(): ShowRecordIdModifierArgumentContext {
         let localContext = new ShowRecordIdModifierArgumentContext(this.context, this.state);
-        this.enterRule(localContext, 236, MongoParser.RULE_showRecordIdModifierArgument);
+        this.enterRule(localContext, 334, MongoParser.RULE_showRecordIdModifierArgument);
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 876;
+            this.state = 1213;
             this.boolean_();
             }
         }
@@ -4330,30 +6053,30 @@ export class MongoParser extends antlr.Parser {
     }
     public sortModifier(): SortModifierContext {
         let localContext = new SortModifierContext(this.context, this.state);
-        this.enterRule(localContext, 238, MongoParser.RULE_sortModifier);
+        this.enterRule(localContext, 336, MongoParser.RULE_sortModifier);
         let _la: number;
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 878;
+            this.state = 1215;
             this.match(MongoParser.SORT);
-            this.state = 879;
+            this.state = 1216;
             this.match(MongoParser.LPAREN);
-            this.state = 880;
+            this.state = 1217;
             this.sortModifierArgument1();
-            this.state = 883;
+            this.state = 1220;
             this.errorHandler.sync(this);
             _la = this.tokenStream.LA(1);
-            if (_la === 50) {
+            if (_la === 67) {
                 {
-                this.state = 881;
+                this.state = 1218;
                 this.match(MongoParser.COMMA);
-                this.state = 882;
+                this.state = 1219;
                 this.sortModifierArgument2();
                 }
             }
 
-            this.state = 885;
+            this.state = 1222;
             this.match(MongoParser.RPAREN);
             }
         }
@@ -4372,11 +6095,11 @@ export class MongoParser extends antlr.Parser {
     }
     public sortModifierArgument1(): SortModifierArgument1Context {
         let localContext = new SortModifierArgument1Context(this.context, this.state);
-        this.enterRule(localContext, 240, MongoParser.RULE_sortModifierArgument1);
+        this.enterRule(localContext, 338, MongoParser.RULE_sortModifierArgument1);
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 887;
+            this.state = 1224;
             this.json5();
             }
         }
@@ -4395,9 +6118,9 @@ export class MongoParser extends antlr.Parser {
     }
     public sortModifierArgument2(): SortModifierArgument2Context {
         let localContext = new SortModifierArgument2Context(this.context, this.state);
-        this.enterRule(localContext, 242, MongoParser.RULE_sortModifierArgument2);
+        this.enterRule(localContext, 340, MongoParser.RULE_sortModifierArgument2);
         try {
-            this.state = 892;
+            this.state = 1229;
             this.errorHandler.sync(this);
             switch (this.tokenStream.LA(1)) {
             case MongoParser.NUMBER:
@@ -4405,21 +6128,21 @@ export class MongoParser extends antlr.Parser {
             case MongoParser.SYMBOL:
                 this.enterOuterAlt(localContext, 1);
                 {
-                this.state = 889;
+                this.state = 1226;
                 this.number_();
                 }
                 break;
             case MongoParser.STRING:
                 this.enterOuterAlt(localContext, 2);
                 {
-                this.state = 890;
+                this.state = 1227;
                 this.match(MongoParser.STRING);
                 }
                 break;
             case MongoParser.LBRACE:
                 this.enterOuterAlt(localContext, 3);
                 {
-                this.state = 891;
+                this.state = 1228;
                 this.object();
                 }
                 break;
@@ -4442,14 +6165,14 @@ export class MongoParser extends antlr.Parser {
     }
     public reservedKeyword(): ReservedKeywordContext {
         let localContext = new ReservedKeywordContext(this.context, this.state);
-        this.enterRule(localContext, 244, MongoParser.RULE_reservedKeyword);
+        this.enterRule(localContext, 342, MongoParser.RULE_reservedKeyword);
         let _la: number;
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 894;
+            this.state = 1231;
             _la = this.tokenStream.LA(1);
-            if(!((((_la) & ~0x1F) === 0 && ((1 << _la) & 4294967294) !== 0) || ((((_la - 32)) & ~0x1F) === 0 && ((1 << (_la - 32)) & 2047) !== 0))) {
+            if(!((((_la) & ~0x1F) === 0 && ((1 << _la) & 4294967294) !== 0) || ((((_la - 32)) & ~0x1F) === 0 && ((1 << (_la - 32)) & 268435455) !== 0))) {
             this.errorHandler.recoverInline(this);
             }
             else {
@@ -4473,17 +6196,17 @@ export class MongoParser extends antlr.Parser {
     }
     public json5(): Json5Context {
         let localContext = new Json5Context(this.context, this.state);
-        this.enterRule(localContext, 246, MongoParser.RULE_json5);
+        this.enterRule(localContext, 344, MongoParser.RULE_json5);
         let _la: number;
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 897;
+            this.state = 1234;
             this.errorHandler.sync(this);
             _la = this.tokenStream.LA(1);
-            if (((((_la - 43)) & ~0x1F) === 0 && ((1 << (_la - 43)) & 130065) !== 0)) {
+            if (((((_la - 60)) & ~0x1F) === 0 && ((1 << (_la - 60)) & 130065) !== 0)) {
                 {
-                this.state = 896;
+                this.state = 1233;
                 this.value();
                 }
             }
@@ -4505,58 +6228,58 @@ export class MongoParser extends antlr.Parser {
     }
     public object(): ObjectContext {
         let localContext = new ObjectContext(this.context, this.state);
-        this.enterRule(localContext, 248, MongoParser.RULE_object);
+        this.enterRule(localContext, 346, MongoParser.RULE_object);
         let _la: number;
         try {
             let alternative: number;
-            this.state = 915;
+            this.state = 1252;
             this.errorHandler.sync(this);
-            switch (this.interpreter.adaptivePredict(this.tokenStream, 64, this.context) ) {
+            switch (this.interpreter.adaptivePredict(this.tokenStream, 84, this.context) ) {
             case 1:
                 this.enterOuterAlt(localContext, 1);
                 {
-                this.state = 899;
+                this.state = 1236;
                 this.match(MongoParser.LBRACE);
-                this.state = 900;
+                this.state = 1237;
                 this.pair();
-                this.state = 905;
+                this.state = 1242;
                 this.errorHandler.sync(this);
-                alternative = this.interpreter.adaptivePredict(this.tokenStream, 62, this.context);
+                alternative = this.interpreter.adaptivePredict(this.tokenStream, 82, this.context);
                 while (alternative !== 2 && alternative !== antlr.ATN.INVALID_ALT_NUMBER) {
                     if (alternative === 1) {
                         {
                         {
-                        this.state = 901;
+                        this.state = 1238;
                         this.match(MongoParser.COMMA);
-                        this.state = 902;
+                        this.state = 1239;
                         this.pair();
                         }
                         }
                     }
-                    this.state = 907;
+                    this.state = 1244;
                     this.errorHandler.sync(this);
-                    alternative = this.interpreter.adaptivePredict(this.tokenStream, 62, this.context);
+                    alternative = this.interpreter.adaptivePredict(this.tokenStream, 82, this.context);
                 }
-                this.state = 909;
+                this.state = 1246;
                 this.errorHandler.sync(this);
                 _la = this.tokenStream.LA(1);
-                if (_la === 50) {
+                if (_la === 67) {
                     {
-                    this.state = 908;
+                    this.state = 1245;
                     this.match(MongoParser.COMMA);
                     }
                 }
 
-                this.state = 911;
+                this.state = 1248;
                 this.match(MongoParser.RBRACE);
                 }
                 break;
             case 2:
                 this.enterOuterAlt(localContext, 2);
                 {
-                this.state = 913;
+                this.state = 1250;
                 this.match(MongoParser.LBRACE);
-                this.state = 914;
+                this.state = 1251;
                 this.match(MongoParser.RBRACE);
                 }
                 break;
@@ -4577,15 +6300,15 @@ export class MongoParser extends antlr.Parser {
     }
     public pair(): PairContext {
         let localContext = new PairContext(this.context, this.state);
-        this.enterRule(localContext, 250, MongoParser.RULE_pair);
+        this.enterRule(localContext, 348, MongoParser.RULE_pair);
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 917;
+            this.state = 1254;
             this.key();
-            this.state = 918;
+            this.state = 1255;
             this.match(MongoParser.COLON);
-            this.state = 919;
+            this.state = 1256;
             this.value();
             }
         }
@@ -4604,14 +6327,14 @@ export class MongoParser extends antlr.Parser {
     }
     public boolean_(): BooleanContext {
         let localContext = new BooleanContext(this.context, this.state);
-        this.enterRule(localContext, 252, MongoParser.RULE_boolean);
+        this.enterRule(localContext, 350, MongoParser.RULE_boolean);
         let _la: number;
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 921;
+            this.state = 1258;
             _la = this.tokenStream.LA(1);
-            if(!(_la === 53 || _la === 54)) {
+            if(!(_la === 70 || _la === 71)) {
             this.errorHandler.recoverInline(this);
             }
             else {
@@ -4635,15 +6358,15 @@ export class MongoParser extends antlr.Parser {
     }
     public key(): KeyContext {
         let localContext = new KeyContext(this.context, this.state);
-        this.enterRule(localContext, 254, MongoParser.RULE_key);
+        this.enterRule(localContext, 352, MongoParser.RULE_key);
         try {
-            this.state = 928;
+            this.state = 1265;
             this.errorHandler.sync(this);
             switch (this.tokenStream.LA(1)) {
             case MongoParser.STRING:
                 this.enterOuterAlt(localContext, 1);
                 {
-                this.state = 923;
+                this.state = 1260;
                 this.match(MongoParser.STRING);
                 }
                 break;
@@ -4689,17 +6412,34 @@ export class MongoParser extends antlr.Parser {
             case MongoParser.COLLECTION:
             case MongoParser.CREATE_COLLECTION:
             case MongoParser.COMMAND:
+            case MongoParser.LIST_COLLECTIONS:
+            case MongoParser.RENAME_COLLECTION:
+            case MongoParser.DROP_COLLECTION:
+            case MongoParser.DROP_DATABASE:
+            case MongoParser.REMOVE_USER:
+            case MongoParser.RUN_CURSOR_COMMAND:
+            case MongoParser.STATS:
+            case MongoParser.PROFILING_LEVEL:
+            case MongoParser.SET_PROFILING_LEVEL:
+            case MongoParser.ADMIN:
+            case MongoParser.BUILD_INFO:
+            case MongoParser.SERVER_INFO:
+            case MongoParser.SERVER_STATUS:
+            case MongoParser.PING:
+            case MongoParser.VALIDATE_COLLECTION:
+            case MongoParser.LIST_DATABASES:
+            case MongoParser.REPL_SET_GET_STATUS:
             case MongoParser.IDENTIFIER:
                 this.enterOuterAlt(localContext, 2);
                 {
-                this.state = 924;
+                this.state = 1261;
                 this.identifier();
                 }
                 break;
             case MongoParser.NUMERIC_LITERAL:
                 this.enterOuterAlt(localContext, 3);
                 {
-                this.state = 925;
+                this.state = 1262;
                 this.match(MongoParser.NUMERIC_LITERAL);
                 }
                 break;
@@ -4707,14 +6447,14 @@ export class MongoParser extends antlr.Parser {
             case MongoParser.FALSE:
                 this.enterOuterAlt(localContext, 4);
                 {
-                this.state = 926;
+                this.state = 1263;
                 this.boolean_();
                 }
                 break;
             case MongoParser.NULL:
                 this.enterOuterAlt(localContext, 5);
                 {
-                this.state = 927;
+                this.state = 1264;
                 this.match(MongoParser.NULL);
                 }
                 break;
@@ -4737,15 +6477,15 @@ export class MongoParser extends antlr.Parser {
     }
     public identifier(): IdentifierContext {
         let localContext = new IdentifierContext(this.context, this.state);
-        this.enterRule(localContext, 256, MongoParser.RULE_identifier);
+        this.enterRule(localContext, 354, MongoParser.RULE_identifier);
         try {
-            this.state = 932;
+            this.state = 1269;
             this.errorHandler.sync(this);
             switch (this.tokenStream.LA(1)) {
             case MongoParser.IDENTIFIER:
                 this.enterOuterAlt(localContext, 1);
                 {
-                this.state = 930;
+                this.state = 1267;
                 this.match(MongoParser.IDENTIFIER);
                 }
                 break;
@@ -4791,9 +6531,26 @@ export class MongoParser extends antlr.Parser {
             case MongoParser.COLLECTION:
             case MongoParser.CREATE_COLLECTION:
             case MongoParser.COMMAND:
+            case MongoParser.LIST_COLLECTIONS:
+            case MongoParser.RENAME_COLLECTION:
+            case MongoParser.DROP_COLLECTION:
+            case MongoParser.DROP_DATABASE:
+            case MongoParser.REMOVE_USER:
+            case MongoParser.RUN_CURSOR_COMMAND:
+            case MongoParser.STATS:
+            case MongoParser.PROFILING_LEVEL:
+            case MongoParser.SET_PROFILING_LEVEL:
+            case MongoParser.ADMIN:
+            case MongoParser.BUILD_INFO:
+            case MongoParser.SERVER_INFO:
+            case MongoParser.SERVER_STATUS:
+            case MongoParser.PING:
+            case MongoParser.VALIDATE_COLLECTION:
+            case MongoParser.LIST_DATABASES:
+            case MongoParser.REPL_SET_GET_STATUS:
                 this.enterOuterAlt(localContext, 2);
                 {
-                this.state = 931;
+                this.state = 1268;
                 this.reservedKeyword();
                 }
                 break;
@@ -4816,15 +6573,15 @@ export class MongoParser extends antlr.Parser {
     }
     public value(): ValueContext {
         let localContext = new ValueContext(this.context, this.state);
-        this.enterRule(localContext, 258, MongoParser.RULE_value);
+        this.enterRule(localContext, 356, MongoParser.RULE_value);
         try {
-            this.state = 940;
+            this.state = 1277;
             this.errorHandler.sync(this);
             switch (this.tokenStream.LA(1)) {
             case MongoParser.STRING:
                 this.enterOuterAlt(localContext, 1);
                 {
-                this.state = 934;
+                this.state = 1271;
                 this.match(MongoParser.STRING);
                 }
                 break;
@@ -4833,21 +6590,21 @@ export class MongoParser extends antlr.Parser {
             case MongoParser.SYMBOL:
                 this.enterOuterAlt(localContext, 2);
                 {
-                this.state = 935;
+                this.state = 1272;
                 this.number_();
                 }
                 break;
             case MongoParser.LBRACE:
                 this.enterOuterAlt(localContext, 3);
                 {
-                this.state = 936;
+                this.state = 1273;
                 this.object();
                 }
                 break;
             case MongoParser.LBRACKET:
                 this.enterOuterAlt(localContext, 4);
                 {
-                this.state = 937;
+                this.state = 1274;
                 this.array();
                 }
                 break;
@@ -4855,14 +6612,14 @@ export class MongoParser extends antlr.Parser {
             case MongoParser.FALSE:
                 this.enterOuterAlt(localContext, 5);
                 {
-                this.state = 938;
+                this.state = 1275;
                 this.boolean_();
                 }
                 break;
             case MongoParser.NULL:
                 this.enterOuterAlt(localContext, 6);
                 {
-                this.state = 939;
+                this.state = 1276;
                 this.match(MongoParser.NULL);
                 }
                 break;
@@ -4885,58 +6642,58 @@ export class MongoParser extends antlr.Parser {
     }
     public array(): ArrayContext {
         let localContext = new ArrayContext(this.context, this.state);
-        this.enterRule(localContext, 260, MongoParser.RULE_array);
+        this.enterRule(localContext, 358, MongoParser.RULE_array);
         let _la: number;
         try {
             let alternative: number;
-            this.state = 958;
+            this.state = 1295;
             this.errorHandler.sync(this);
-            switch (this.interpreter.adaptivePredict(this.tokenStream, 70, this.context) ) {
+            switch (this.interpreter.adaptivePredict(this.tokenStream, 90, this.context) ) {
             case 1:
                 this.enterOuterAlt(localContext, 1);
                 {
-                this.state = 942;
+                this.state = 1279;
                 this.match(MongoParser.LBRACKET);
-                this.state = 943;
+                this.state = 1280;
                 this.value();
-                this.state = 948;
+                this.state = 1285;
                 this.errorHandler.sync(this);
-                alternative = this.interpreter.adaptivePredict(this.tokenStream, 68, this.context);
+                alternative = this.interpreter.adaptivePredict(this.tokenStream, 88, this.context);
                 while (alternative !== 2 && alternative !== antlr.ATN.INVALID_ALT_NUMBER) {
                     if (alternative === 1) {
                         {
                         {
-                        this.state = 944;
+                        this.state = 1281;
                         this.match(MongoParser.COMMA);
-                        this.state = 945;
+                        this.state = 1282;
                         this.value();
                         }
                         }
                     }
-                    this.state = 950;
+                    this.state = 1287;
                     this.errorHandler.sync(this);
-                    alternative = this.interpreter.adaptivePredict(this.tokenStream, 68, this.context);
+                    alternative = this.interpreter.adaptivePredict(this.tokenStream, 88, this.context);
                 }
-                this.state = 952;
+                this.state = 1289;
                 this.errorHandler.sync(this);
                 _la = this.tokenStream.LA(1);
-                if (_la === 50) {
+                if (_la === 67) {
                     {
-                    this.state = 951;
+                    this.state = 1288;
                     this.match(MongoParser.COMMA);
                     }
                 }
 
-                this.state = 954;
+                this.state = 1291;
                 this.match(MongoParser.RBRACKET);
                 }
                 break;
             case 2:
                 this.enterOuterAlt(localContext, 2);
                 {
-                this.state = 956;
+                this.state = 1293;
                 this.match(MongoParser.LBRACKET);
-                this.state = 957;
+                this.state = 1294;
                 this.match(MongoParser.RBRACKET);
                 }
                 break;
@@ -4957,24 +6714,24 @@ export class MongoParser extends antlr.Parser {
     }
     public number_(): NumberContext {
         let localContext = new NumberContext(this.context, this.state);
-        this.enterRule(localContext, 262, MongoParser.RULE_number);
+        this.enterRule(localContext, 360, MongoParser.RULE_number);
         let _la: number;
         try {
             this.enterOuterAlt(localContext, 1);
             {
-            this.state = 961;
+            this.state = 1298;
             this.errorHandler.sync(this);
             _la = this.tokenStream.LA(1);
-            if (_la === 59) {
+            if (_la === 76) {
                 {
-                this.state = 960;
+                this.state = 1297;
                 this.match(MongoParser.SYMBOL);
                 }
             }
 
-            this.state = 963;
+            this.state = 1300;
             _la = this.tokenStream.LA(1);
-            if(!(_la === 57 || _la === 58)) {
+            if(!(_la === 74 || _la === 75)) {
             this.errorHandler.recoverInline(this);
             }
             else {
@@ -4998,348 +6755,481 @@ export class MongoParser extends antlr.Parser {
     }
 
     public static readonly _serializedATN: number[] = [
-        4,1,63,966,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,2,4,7,4,2,5,7,5,2,6,7,
-        6,2,7,7,7,2,8,7,8,2,9,7,9,2,10,7,10,2,11,7,11,2,12,7,12,2,13,7,13,
-        2,14,7,14,2,15,7,15,2,16,7,16,2,17,7,17,2,18,7,18,2,19,7,19,2,20,
-        7,20,2,21,7,21,2,22,7,22,2,23,7,23,2,24,7,24,2,25,7,25,2,26,7,26,
-        2,27,7,27,2,28,7,28,2,29,7,29,2,30,7,30,2,31,7,31,2,32,7,32,2,33,
-        7,33,2,34,7,34,2,35,7,35,2,36,7,36,2,37,7,37,2,38,7,38,2,39,7,39,
-        2,40,7,40,2,41,7,41,2,42,7,42,2,43,7,43,2,44,7,44,2,45,7,45,2,46,
-        7,46,2,47,7,47,2,48,7,48,2,49,7,49,2,50,7,50,2,51,7,51,2,52,7,52,
-        2,53,7,53,2,54,7,54,2,55,7,55,2,56,7,56,2,57,7,57,2,58,7,58,2,59,
-        7,59,2,60,7,60,2,61,7,61,2,62,7,62,2,63,7,63,2,64,7,64,2,65,7,65,
-        2,66,7,66,2,67,7,67,2,68,7,68,2,69,7,69,2,70,7,70,2,71,7,71,2,72,
-        7,72,2,73,7,73,2,74,7,74,2,75,7,75,2,76,7,76,2,77,7,77,2,78,7,78,
-        2,79,7,79,2,80,7,80,2,81,7,81,2,82,7,82,2,83,7,83,2,84,7,84,2,85,
-        7,85,2,86,7,86,2,87,7,87,2,88,7,88,2,89,7,89,2,90,7,90,2,91,7,91,
-        2,92,7,92,2,93,7,93,2,94,7,94,2,95,7,95,2,96,7,96,2,97,7,97,2,98,
-        7,98,2,99,7,99,2,100,7,100,2,101,7,101,2,102,7,102,2,103,7,103,2,
-        104,7,104,2,105,7,105,2,106,7,106,2,107,7,107,2,108,7,108,2,109,
+        4,1,80,1303,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,2,4,7,4,2,5,7,5,2,6,
+        7,6,2,7,7,7,2,8,7,8,2,9,7,9,2,10,7,10,2,11,7,11,2,12,7,12,2,13,7,
+        13,2,14,7,14,2,15,7,15,2,16,7,16,2,17,7,17,2,18,7,18,2,19,7,19,2,
+        20,7,20,2,21,7,21,2,22,7,22,2,23,7,23,2,24,7,24,2,25,7,25,2,26,7,
+        26,2,27,7,27,2,28,7,28,2,29,7,29,2,30,7,30,2,31,7,31,2,32,7,32,2,
+        33,7,33,2,34,7,34,2,35,7,35,2,36,7,36,2,37,7,37,2,38,7,38,2,39,7,
+        39,2,40,7,40,2,41,7,41,2,42,7,42,2,43,7,43,2,44,7,44,2,45,7,45,2,
+        46,7,46,2,47,7,47,2,48,7,48,2,49,7,49,2,50,7,50,2,51,7,51,2,52,7,
+        52,2,53,7,53,2,54,7,54,2,55,7,55,2,56,7,56,2,57,7,57,2,58,7,58,2,
+        59,7,59,2,60,7,60,2,61,7,61,2,62,7,62,2,63,7,63,2,64,7,64,2,65,7,
+        65,2,66,7,66,2,67,7,67,2,68,7,68,2,69,7,69,2,70,7,70,2,71,7,71,2,
+        72,7,72,2,73,7,73,2,74,7,74,2,75,7,75,2,76,7,76,2,77,7,77,2,78,7,
+        78,2,79,7,79,2,80,7,80,2,81,7,81,2,82,7,82,2,83,7,83,2,84,7,84,2,
+        85,7,85,2,86,7,86,2,87,7,87,2,88,7,88,2,89,7,89,2,90,7,90,2,91,7,
+        91,2,92,7,92,2,93,7,93,2,94,7,94,2,95,7,95,2,96,7,96,2,97,7,97,2,
+        98,7,98,2,99,7,99,2,100,7,100,2,101,7,101,2,102,7,102,2,103,7,103,
+        2,104,7,104,2,105,7,105,2,106,7,106,2,107,7,107,2,108,7,108,2,109,
         7,109,2,110,7,110,2,111,7,111,2,112,7,112,2,113,7,113,2,114,7,114,
         2,115,7,115,2,116,7,116,2,117,7,117,2,118,7,118,2,119,7,119,2,120,
         7,120,2,121,7,121,2,122,7,122,2,123,7,123,2,124,7,124,2,125,7,125,
         2,126,7,126,2,127,7,127,2,128,7,128,2,129,7,129,2,130,7,130,2,131,
-        7,131,1,0,3,0,266,8,0,1,0,1,0,1,1,1,1,3,1,272,8,1,1,1,1,1,1,1,1,
-        1,3,1,278,8,1,1,2,1,2,3,2,282,8,2,1,3,1,3,1,3,1,3,1,4,1,4,1,4,1,
-        4,3,4,292,8,4,1,5,1,5,1,5,1,5,1,5,3,5,299,8,5,1,5,1,5,1,6,1,6,1,
-        7,1,7,1,8,1,8,1,8,1,8,1,8,3,8,312,8,8,1,8,1,8,1,9,1,9,1,10,1,10,
-        1,11,1,11,1,11,1,11,1,11,1,11,1,11,1,12,1,12,1,13,1,13,1,13,1,13,
-        1,13,1,13,1,14,1,14,1,15,1,15,1,15,1,15,1,15,1,15,1,15,1,15,1,15,
-        1,15,1,15,1,15,1,15,1,15,1,15,1,15,1,15,1,15,1,15,1,15,1,15,1,15,
-        1,15,1,15,1,15,1,15,1,15,1,15,3,15,365,8,15,1,16,1,16,1,16,1,16,
-        1,16,3,16,372,8,16,3,16,374,8,16,1,16,1,16,3,16,378,8,16,1,17,1,
-        17,1,18,1,18,1,19,1,19,1,19,1,19,1,19,1,19,1,19,3,19,391,8,19,3,
-        19,393,8,19,1,19,1,19,1,20,1,20,1,21,1,21,1,22,1,22,1,23,1,23,1,
-        23,1,23,1,23,3,23,408,8,23,3,23,410,8,23,1,23,1,23,1,24,1,24,1,25,
-        1,25,1,26,1,26,1,26,3,26,421,8,26,1,26,1,26,1,27,1,27,1,28,1,28,
-        1,28,3,28,430,8,28,1,28,1,28,1,29,1,29,1,30,1,30,1,30,1,30,1,30,
-        3,30,441,8,30,1,30,1,30,1,31,1,31,1,32,1,32,1,32,1,32,1,32,5,32,
-        452,8,32,10,32,12,32,455,9,32,1,32,3,32,458,8,32,1,32,3,32,461,8,
-        32,1,33,1,33,1,33,3,33,466,8,33,1,33,1,33,1,34,1,34,1,35,1,35,1,
-        35,3,35,475,8,35,1,35,1,35,1,36,1,36,1,37,1,37,1,37,3,37,484,8,37,
-        1,37,1,37,1,38,1,38,1,39,1,39,1,39,1,39,1,39,3,39,495,8,39,1,39,
-        1,39,1,40,1,40,1,41,1,41,1,42,1,42,1,42,1,42,1,42,3,42,508,8,42,
-        1,42,1,42,1,43,1,43,1,44,1,44,1,45,1,45,1,45,1,45,1,45,3,45,521,
-        8,45,1,45,1,45,1,46,1,46,1,47,1,47,1,47,3,47,530,8,47,1,48,1,48,
-        1,48,3,48,535,8,48,1,48,1,48,1,49,1,49,1,50,1,50,1,50,3,50,544,8,
-        50,1,50,1,50,1,51,1,51,1,52,1,52,1,52,1,52,1,52,3,52,555,8,52,1,
-        52,1,52,1,53,1,53,1,54,1,54,1,55,1,55,1,55,1,55,1,55,3,55,568,8,
-        55,3,55,570,8,55,1,55,1,55,1,56,1,56,1,57,1,57,1,58,1,58,1,58,1,
-        58,1,58,3,58,583,8,58,3,58,585,8,58,1,58,1,58,1,59,1,59,1,60,1,60,
-        1,61,1,61,1,61,1,61,1,61,1,61,1,61,3,61,600,8,61,1,61,1,61,1,62,
-        1,62,1,63,1,63,1,64,1,64,1,65,1,65,1,65,1,65,1,65,1,65,1,65,3,65,
-        617,8,65,1,65,1,65,1,66,1,66,1,67,1,67,3,67,625,8,67,1,68,1,68,1,
-        69,1,69,1,69,1,69,1,69,1,69,1,69,3,69,636,8,69,1,69,1,69,1,70,1,
-        70,1,71,1,71,3,71,644,8,71,1,72,1,72,1,73,1,73,1,73,1,73,1,73,3,
-        73,653,8,73,1,73,1,73,1,74,1,74,1,75,1,75,1,76,1,76,1,76,1,76,1,
-        76,3,76,666,8,76,1,76,1,76,1,77,1,77,1,77,1,77,5,77,674,8,77,10,
-        77,12,77,677,9,77,1,77,3,77,680,8,77,1,77,1,77,1,78,1,78,1,79,1,
-        79,1,79,1,79,1,79,3,79,691,8,79,1,79,1,79,1,80,1,80,1,81,1,81,1,
-        82,1,82,3,82,701,8,82,1,83,1,83,1,83,1,83,1,83,1,83,1,83,3,83,710,
-        8,83,1,83,1,83,1,84,1,84,1,85,1,85,1,86,1,86,1,87,1,87,1,87,1,87,
-        1,87,1,87,1,87,3,87,727,8,87,1,87,1,87,1,88,1,88,1,89,1,89,1,90,
-        1,90,1,91,1,91,1,91,1,91,1,91,3,91,742,8,91,1,91,1,91,1,92,1,92,
-        1,93,1,93,1,94,1,94,1,94,1,94,1,94,3,94,755,8,94,3,94,757,8,94,1,
-        94,1,94,1,95,1,95,1,96,1,96,1,97,1,97,1,97,1,97,1,97,3,97,770,8,
-        97,3,97,772,8,97,1,97,1,97,5,97,776,8,97,10,97,12,97,779,9,97,1,
-        97,3,97,782,8,97,1,98,1,98,1,99,1,99,1,100,1,100,1,100,1,100,3,100,
-        792,8,100,1,100,1,100,1,101,1,101,1,101,3,101,799,8,101,1,102,1,
-        102,1,102,1,102,1,102,1,102,1,102,1,102,1,102,1,102,1,102,1,102,
-        1,102,1,102,1,102,1,102,1,102,1,102,3,102,819,8,102,1,103,1,103,
-        1,103,1,103,1,103,1,104,1,104,1,105,1,105,1,105,1,105,1,105,1,106,
-        1,106,1,107,1,107,1,107,1,107,1,107,1,108,1,108,1,109,1,109,1,109,
-        1,109,1,109,1,110,1,110,1,111,1,111,1,111,1,111,1,111,1,112,1,112,
-        1,113,1,113,1,113,1,113,1,113,1,114,1,114,3,114,863,8,114,1,115,
-        1,115,1,115,1,115,1,115,1,116,1,116,1,117,1,117,1,117,1,117,1,117,
-        1,118,1,118,1,119,1,119,1,119,1,119,1,119,3,119,884,8,119,1,119,
-        1,119,1,120,1,120,1,121,1,121,1,121,3,121,893,8,121,1,122,1,122,
-        1,123,3,123,898,8,123,1,124,1,124,1,124,1,124,5,124,904,8,124,10,
-        124,12,124,907,9,124,1,124,3,124,910,8,124,1,124,1,124,1,124,1,124,
-        3,124,916,8,124,1,125,1,125,1,125,1,125,1,126,1,126,1,127,1,127,
-        1,127,1,127,1,127,3,127,929,8,127,1,128,1,128,3,128,933,8,128,1,
-        129,1,129,1,129,1,129,1,129,1,129,3,129,941,8,129,1,130,1,130,1,
-        130,1,130,5,130,947,8,130,10,130,12,130,950,9,130,1,130,3,130,953,
-        8,130,1,130,1,130,1,130,1,130,3,130,959,8,130,1,131,3,131,962,8,
-        131,1,131,1,131,1,131,0,0,132,0,2,4,6,8,10,12,14,16,18,20,22,24,
-        26,28,30,32,34,36,38,40,42,44,46,48,50,52,54,56,58,60,62,64,66,68,
-        70,72,74,76,78,80,82,84,86,88,90,92,94,96,98,100,102,104,106,108,
-        110,112,114,116,118,120,122,124,126,128,130,132,134,136,138,140,
-        142,144,146,148,150,152,154,156,158,160,162,164,166,168,170,172,
-        174,176,178,180,182,184,186,188,190,192,194,196,198,200,202,204,
-        206,208,210,212,214,216,218,220,222,224,226,228,230,232,234,236,
-        238,240,242,244,246,248,250,252,254,256,258,260,262,0,3,1,0,1,42,
-        1,0,53,54,1,0,57,58,950,0,265,1,0,0,0,2,277,1,0,0,0,4,281,1,0,0,
-        0,6,283,1,0,0,0,8,291,1,0,0,0,10,293,1,0,0,0,12,302,1,0,0,0,14,304,
-        1,0,0,0,16,306,1,0,0,0,18,315,1,0,0,0,20,317,1,0,0,0,22,319,1,0,
-        0,0,24,326,1,0,0,0,26,328,1,0,0,0,28,334,1,0,0,0,30,364,1,0,0,0,
-        32,366,1,0,0,0,34,379,1,0,0,0,36,381,1,0,0,0,38,383,1,0,0,0,40,396,
-        1,0,0,0,42,398,1,0,0,0,44,400,1,0,0,0,46,402,1,0,0,0,48,413,1,0,
-        0,0,50,415,1,0,0,0,52,417,1,0,0,0,54,424,1,0,0,0,56,426,1,0,0,0,
-        58,433,1,0,0,0,60,435,1,0,0,0,62,444,1,0,0,0,64,460,1,0,0,0,66,462,
-        1,0,0,0,68,469,1,0,0,0,70,471,1,0,0,0,72,478,1,0,0,0,74,480,1,0,
-        0,0,76,487,1,0,0,0,78,489,1,0,0,0,80,498,1,0,0,0,82,500,1,0,0,0,
-        84,502,1,0,0,0,86,511,1,0,0,0,88,513,1,0,0,0,90,515,1,0,0,0,92,524,
-        1,0,0,0,94,529,1,0,0,0,96,531,1,0,0,0,98,538,1,0,0,0,100,540,1,0,
-        0,0,102,547,1,0,0,0,104,549,1,0,0,0,106,558,1,0,0,0,108,560,1,0,
-        0,0,110,562,1,0,0,0,112,573,1,0,0,0,114,575,1,0,0,0,116,577,1,0,
-        0,0,118,588,1,0,0,0,120,590,1,0,0,0,122,592,1,0,0,0,124,603,1,0,
-        0,0,126,605,1,0,0,0,128,607,1,0,0,0,130,609,1,0,0,0,132,620,1,0,
-        0,0,134,624,1,0,0,0,136,626,1,0,0,0,138,628,1,0,0,0,140,639,1,0,
-        0,0,142,643,1,0,0,0,144,645,1,0,0,0,146,647,1,0,0,0,148,656,1,0,
-        0,0,150,658,1,0,0,0,152,660,1,0,0,0,154,669,1,0,0,0,156,683,1,0,
-        0,0,158,685,1,0,0,0,160,694,1,0,0,0,162,696,1,0,0,0,164,700,1,0,
-        0,0,166,702,1,0,0,0,168,713,1,0,0,0,170,715,1,0,0,0,172,717,1,0,
-        0,0,174,719,1,0,0,0,176,730,1,0,0,0,178,732,1,0,0,0,180,734,1,0,
-        0,0,182,736,1,0,0,0,184,745,1,0,0,0,186,747,1,0,0,0,188,749,1,0,
-        0,0,190,760,1,0,0,0,192,762,1,0,0,0,194,764,1,0,0,0,196,783,1,0,
-        0,0,198,785,1,0,0,0,200,787,1,0,0,0,202,798,1,0,0,0,204,818,1,0,
-        0,0,206,820,1,0,0,0,208,825,1,0,0,0,210,827,1,0,0,0,212,832,1,0,
-        0,0,214,834,1,0,0,0,216,839,1,0,0,0,218,841,1,0,0,0,220,846,1,0,
-        0,0,222,848,1,0,0,0,224,853,1,0,0,0,226,855,1,0,0,0,228,862,1,0,
-        0,0,230,864,1,0,0,0,232,869,1,0,0,0,234,871,1,0,0,0,236,876,1,0,
-        0,0,238,878,1,0,0,0,240,887,1,0,0,0,242,892,1,0,0,0,244,894,1,0,
-        0,0,246,897,1,0,0,0,248,915,1,0,0,0,250,917,1,0,0,0,252,921,1,0,
-        0,0,254,928,1,0,0,0,256,932,1,0,0,0,258,940,1,0,0,0,260,958,1,0,
-        0,0,262,961,1,0,0,0,264,266,3,2,1,0,265,264,1,0,0,0,265,266,1,0,
-        0,0,266,267,1,0,0,0,267,268,5,0,0,1,268,1,1,0,0,0,269,271,3,4,2,
-        0,270,272,5,51,0,0,271,270,1,0,0,0,271,272,1,0,0,0,272,278,1,0,0,
-        0,273,274,3,4,2,0,274,275,5,51,0,0,275,276,3,2,1,0,276,278,1,0,0,
-        0,277,269,1,0,0,0,277,273,1,0,0,0,278,3,1,0,0,0,279,282,3,26,13,
-        0,280,282,3,6,3,0,281,279,1,0,0,0,281,280,1,0,0,0,282,5,1,0,0,0,
-        283,284,5,1,0,0,284,285,5,52,0,0,285,286,3,8,4,0,286,7,1,0,0,0,287,
-        292,3,22,11,0,288,292,3,16,8,0,289,292,3,10,5,0,290,292,3,32,16,
-        0,291,287,1,0,0,0,291,288,1,0,0,0,291,289,1,0,0,0,291,290,1,0,0,
-        0,292,9,1,0,0,0,293,294,5,42,0,0,294,295,5,45,0,0,295,298,3,12,6,
-        0,296,297,5,50,0,0,297,299,3,14,7,0,298,296,1,0,0,0,298,299,1,0,
-        0,0,299,300,1,0,0,0,300,301,5,46,0,0,301,11,1,0,0,0,302,303,3,248,
-        124,0,303,13,1,0,0,0,304,305,3,248,124,0,305,15,1,0,0,0,306,307,
-        5,41,0,0,307,308,5,45,0,0,308,311,3,18,9,0,309,310,5,50,0,0,310,
-        312,3,20,10,0,311,309,1,0,0,0,311,312,1,0,0,0,312,313,1,0,0,0,313,
-        314,5,46,0,0,314,17,1,0,0,0,315,316,5,56,0,0,316,19,1,0,0,0,317,
-        318,3,248,124,0,318,21,1,0,0,0,319,320,5,40,0,0,320,321,5,45,0,0,
-        321,322,3,24,12,0,322,323,5,46,0,0,323,324,5,52,0,0,324,325,3,30,
-        15,0,325,23,1,0,0,0,326,327,5,56,0,0,327,25,1,0,0,0,328,329,5,1,
-        0,0,329,330,5,52,0,0,330,331,3,28,14,0,331,332,5,52,0,0,332,333,
-        3,30,15,0,333,27,1,0,0,0,334,335,5,60,0,0,335,29,1,0,0,0,336,365,
-        3,194,97,0,337,365,3,188,94,0,338,365,3,182,91,0,339,365,3,174,87,
-        0,340,365,3,166,83,0,341,365,3,158,79,0,342,365,3,152,76,0,343,365,
-        3,146,73,0,344,365,3,138,69,0,345,365,3,130,65,0,346,365,3,122,61,
-        0,347,365,3,116,58,0,348,365,3,110,55,0,349,365,3,104,52,0,350,365,
-        3,100,50,0,351,365,3,96,48,0,352,365,3,90,45,0,353,365,3,84,42,0,
-        354,365,3,78,39,0,355,365,3,74,37,0,356,365,3,70,35,0,357,365,3,
-        66,33,0,358,365,3,60,30,0,359,365,3,56,28,0,360,365,3,52,26,0,361,
-        365,3,46,23,0,362,365,3,38,19,0,363,365,3,32,16,0,364,336,1,0,0,
-        0,364,337,1,0,0,0,364,338,1,0,0,0,364,339,1,0,0,0,364,340,1,0,0,
-        0,364,341,1,0,0,0,364,342,1,0,0,0,364,343,1,0,0,0,364,344,1,0,0,
-        0,364,345,1,0,0,0,364,346,1,0,0,0,364,347,1,0,0,0,364,348,1,0,0,
-        0,364,349,1,0,0,0,364,350,1,0,0,0,364,351,1,0,0,0,364,352,1,0,0,
-        0,364,353,1,0,0,0,364,354,1,0,0,0,364,355,1,0,0,0,364,356,1,0,0,
-        0,364,357,1,0,0,0,364,358,1,0,0,0,364,359,1,0,0,0,364,360,1,0,0,
-        0,364,361,1,0,0,0,364,362,1,0,0,0,364,363,1,0,0,0,365,31,1,0,0,0,
-        366,367,5,39,0,0,367,373,5,45,0,0,368,371,3,36,18,0,369,370,5,50,
-        0,0,370,372,3,34,17,0,371,369,1,0,0,0,371,372,1,0,0,0,372,374,1,
-        0,0,0,373,368,1,0,0,0,373,374,1,0,0,0,374,375,1,0,0,0,375,377,5,
-        46,0,0,376,378,3,200,100,0,377,376,1,0,0,0,377,378,1,0,0,0,378,33,
-        1,0,0,0,379,380,3,248,124,0,380,35,1,0,0,0,381,382,3,260,130,0,382,
-        37,1,0,0,0,383,384,5,38,0,0,384,385,5,45,0,0,385,392,3,40,20,0,386,
-        387,5,50,0,0,387,390,3,42,21,0,388,389,5,50,0,0,389,391,3,44,22,
-        0,390,388,1,0,0,0,390,391,1,0,0,0,391,393,1,0,0,0,392,386,1,0,0,
-        0,392,393,1,0,0,0,393,394,1,0,0,0,394,395,5,46,0,0,395,39,1,0,0,
-        0,396,397,5,56,0,0,397,41,1,0,0,0,398,399,3,248,124,0,399,43,1,0,
-        0,0,400,401,3,248,124,0,401,45,1,0,0,0,402,403,5,37,0,0,403,409,
-        5,45,0,0,404,407,3,50,25,0,405,406,5,50,0,0,406,408,3,48,24,0,407,
-        405,1,0,0,0,407,408,1,0,0,0,408,410,1,0,0,0,409,404,1,0,0,0,409,
-        410,1,0,0,0,410,411,1,0,0,0,411,412,5,46,0,0,412,47,1,0,0,0,413,
-        414,3,248,124,0,414,49,1,0,0,0,415,416,3,248,124,0,416,51,1,0,0,
-        0,417,418,5,36,0,0,418,420,5,45,0,0,419,421,3,54,27,0,420,419,1,
-        0,0,0,420,421,1,0,0,0,421,422,1,0,0,0,422,423,5,46,0,0,423,53,1,
-        0,0,0,424,425,3,248,124,0,425,55,1,0,0,0,426,427,5,35,0,0,427,429,
-        5,45,0,0,428,430,3,58,29,0,429,428,1,0,0,0,429,430,1,0,0,0,430,431,
-        1,0,0,0,431,432,5,46,0,0,432,57,1,0,0,0,433,434,3,248,124,0,434,
-        59,1,0,0,0,435,436,5,34,0,0,436,437,5,45,0,0,437,440,3,64,32,0,438,
-        439,5,50,0,0,439,441,3,62,31,0,440,438,1,0,0,0,440,441,1,0,0,0,441,
-        442,1,0,0,0,442,443,5,46,0,0,443,61,1,0,0,0,444,445,3,248,124,0,
-        445,63,1,0,0,0,446,461,5,56,0,0,447,448,5,43,0,0,448,453,5,56,0,
-        0,449,450,5,50,0,0,450,452,5,56,0,0,451,449,1,0,0,0,452,455,1,0,
-        0,0,453,451,1,0,0,0,453,454,1,0,0,0,454,457,1,0,0,0,455,453,1,0,
-        0,0,456,458,5,50,0,0,457,456,1,0,0,0,457,458,1,0,0,0,458,459,1,0,
-        0,0,459,461,5,44,0,0,460,446,1,0,0,0,460,447,1,0,0,0,461,65,1,0,
-        0,0,462,463,5,33,0,0,463,465,5,45,0,0,464,466,3,68,34,0,465,464,
-        1,0,0,0,465,466,1,0,0,0,466,467,1,0,0,0,467,468,5,46,0,0,468,67,
-        1,0,0,0,469,470,3,248,124,0,470,69,1,0,0,0,471,472,5,32,0,0,472,
-        474,5,45,0,0,473,475,3,72,36,0,474,473,1,0,0,0,474,475,1,0,0,0,475,
-        476,1,0,0,0,476,477,5,46,0,0,477,71,1,0,0,0,478,479,3,248,124,0,
-        479,73,1,0,0,0,480,481,5,31,0,0,481,483,5,45,0,0,482,484,3,76,38,
-        0,483,482,1,0,0,0,483,484,1,0,0,0,484,485,1,0,0,0,485,486,5,46,0,
-        0,486,75,1,0,0,0,487,488,3,248,124,0,488,77,1,0,0,0,489,490,5,30,
-        0,0,490,491,5,45,0,0,491,494,3,82,41,0,492,493,5,50,0,0,493,495,
-        3,80,40,0,494,492,1,0,0,0,494,495,1,0,0,0,495,496,1,0,0,0,496,497,
-        5,46,0,0,497,79,1,0,0,0,498,499,3,248,124,0,499,81,1,0,0,0,500,501,
-        5,56,0,0,501,83,1,0,0,0,502,503,5,29,0,0,503,504,5,45,0,0,504,507,
-        3,88,44,0,505,506,5,50,0,0,506,508,3,86,43,0,507,505,1,0,0,0,507,
-        508,1,0,0,0,508,509,1,0,0,0,509,510,5,46,0,0,510,85,1,0,0,0,511,
-        512,3,248,124,0,512,87,1,0,0,0,513,514,3,260,130,0,514,89,1,0,0,
-        0,515,516,5,28,0,0,516,517,5,45,0,0,517,520,3,94,47,0,518,519,5,
-        50,0,0,519,521,3,92,46,0,520,518,1,0,0,0,520,521,1,0,0,0,521,522,
-        1,0,0,0,522,523,5,46,0,0,523,91,1,0,0,0,524,525,3,248,124,0,525,
-        93,1,0,0,0,526,530,5,56,0,0,527,530,3,248,124,0,528,530,3,260,130,
-        0,529,526,1,0,0,0,529,527,1,0,0,0,529,528,1,0,0,0,530,95,1,0,0,0,
-        531,532,5,27,0,0,532,534,5,45,0,0,533,535,3,98,49,0,534,533,1,0,
-        0,0,534,535,1,0,0,0,535,536,1,0,0,0,536,537,5,46,0,0,537,97,1,0,
-        0,0,538,539,3,248,124,0,539,99,1,0,0,0,540,541,5,26,0,0,541,543,
-        5,45,0,0,542,544,3,102,51,0,543,542,1,0,0,0,543,544,1,0,0,0,544,
-        545,1,0,0,0,545,546,5,46,0,0,546,101,1,0,0,0,547,548,3,248,124,0,
-        548,103,1,0,0,0,549,550,5,25,0,0,550,551,5,45,0,0,551,554,3,106,
-        53,0,552,553,5,50,0,0,553,555,3,108,54,0,554,552,1,0,0,0,554,555,
-        1,0,0,0,555,556,1,0,0,0,556,557,5,46,0,0,557,105,1,0,0,0,558,559,
-        5,56,0,0,559,107,1,0,0,0,560,561,3,248,124,0,561,109,1,0,0,0,562,
-        563,5,24,0,0,563,569,5,45,0,0,564,567,3,112,56,0,565,566,5,50,0,
-        0,566,568,3,114,57,0,567,565,1,0,0,0,567,568,1,0,0,0,568,570,1,0,
-        0,0,569,564,1,0,0,0,569,570,1,0,0,0,570,571,1,0,0,0,571,572,5,46,
-        0,0,572,111,1,0,0,0,573,574,3,248,124,0,574,113,1,0,0,0,575,576,
-        3,248,124,0,576,115,1,0,0,0,577,578,5,23,0,0,578,584,5,45,0,0,579,
-        582,3,118,59,0,580,581,5,50,0,0,581,583,3,120,60,0,582,580,1,0,0,
-        0,582,583,1,0,0,0,583,585,1,0,0,0,584,579,1,0,0,0,584,585,1,0,0,
-        0,585,586,1,0,0,0,586,587,5,46,0,0,587,117,1,0,0,0,588,589,3,248,
-        124,0,589,119,1,0,0,0,590,591,3,248,124,0,591,121,1,0,0,0,592,593,
-        5,22,0,0,593,594,5,45,0,0,594,595,3,124,62,0,595,596,5,50,0,0,596,
-        599,3,126,63,0,597,598,5,50,0,0,598,600,3,128,64,0,599,597,1,0,0,
-        0,599,600,1,0,0,0,600,601,1,0,0,0,601,602,5,46,0,0,602,123,1,0,0,
-        0,603,604,3,248,124,0,604,125,1,0,0,0,605,606,3,164,82,0,606,127,
-        1,0,0,0,607,608,3,248,124,0,608,129,1,0,0,0,609,610,5,21,0,0,610,
-        611,5,45,0,0,611,612,3,132,66,0,612,613,5,50,0,0,613,616,3,134,67,
-        0,614,615,5,50,0,0,615,617,3,136,68,0,616,614,1,0,0,0,616,617,1,
-        0,0,0,617,618,1,0,0,0,618,619,5,46,0,0,619,131,1,0,0,0,620,621,3,
-        248,124,0,621,133,1,0,0,0,622,625,3,248,124,0,623,625,3,260,130,
-        0,624,622,1,0,0,0,624,623,1,0,0,0,625,135,1,0,0,0,626,627,3,248,
-        124,0,627,137,1,0,0,0,628,629,5,20,0,0,629,630,5,45,0,0,630,631,
-        3,140,70,0,631,632,5,50,0,0,632,635,3,142,71,0,633,634,5,50,0,0,
-        634,636,3,144,72,0,635,633,1,0,0,0,635,636,1,0,0,0,636,637,1,0,0,
-        0,637,638,5,46,0,0,638,139,1,0,0,0,639,640,3,248,124,0,640,141,1,
-        0,0,0,641,644,3,260,130,0,642,644,3,248,124,0,643,641,1,0,0,0,643,
-        642,1,0,0,0,644,143,1,0,0,0,645,646,3,248,124,0,646,145,1,0,0,0,
-        647,648,5,19,0,0,648,649,5,45,0,0,649,652,3,148,74,0,650,651,5,50,
-        0,0,651,653,3,150,75,0,652,650,1,0,0,0,652,653,1,0,0,0,653,654,1,
-        0,0,0,654,655,5,46,0,0,655,147,1,0,0,0,656,657,3,260,130,0,657,149,
-        1,0,0,0,658,659,3,248,124,0,659,151,1,0,0,0,660,661,5,18,0,0,661,
-        662,5,45,0,0,662,665,3,154,77,0,663,664,5,50,0,0,664,666,3,156,78,
-        0,665,663,1,0,0,0,665,666,1,0,0,0,666,667,1,0,0,0,667,668,5,46,0,
-        0,668,153,1,0,0,0,669,670,5,43,0,0,670,675,3,164,82,0,671,672,5,
-        50,0,0,672,674,3,164,82,0,673,671,1,0,0,0,674,677,1,0,0,0,675,673,
-        1,0,0,0,675,676,1,0,0,0,676,679,1,0,0,0,677,675,1,0,0,0,678,680,
-        5,50,0,0,679,678,1,0,0,0,679,680,1,0,0,0,680,681,1,0,0,0,681,682,
-        5,44,0,0,682,155,1,0,0,0,683,684,3,248,124,0,684,157,1,0,0,0,685,
-        686,5,17,0,0,686,687,5,45,0,0,687,690,3,160,80,0,688,689,5,50,0,
-        0,689,691,3,162,81,0,690,688,1,0,0,0,690,691,1,0,0,0,691,692,1,0,
-        0,0,692,693,5,46,0,0,693,159,1,0,0,0,694,695,3,164,82,0,695,161,
-        1,0,0,0,696,697,3,248,124,0,697,163,1,0,0,0,698,701,3,248,124,0,
-        699,701,3,260,130,0,700,698,1,0,0,0,700,699,1,0,0,0,701,165,1,0,
-        0,0,702,703,5,6,0,0,703,704,5,45,0,0,704,705,3,168,84,0,705,706,
-        5,50,0,0,706,709,3,170,85,0,707,708,5,50,0,0,708,710,3,172,86,0,
-        709,707,1,0,0,0,709,710,1,0,0,0,710,711,1,0,0,0,711,712,5,46,0,0,
-        712,167,1,0,0,0,713,714,3,248,124,0,714,169,1,0,0,0,715,716,3,248,
-        124,0,716,171,1,0,0,0,717,718,3,248,124,0,718,173,1,0,0,0,719,720,
-        5,5,0,0,720,721,5,45,0,0,721,722,3,176,88,0,722,723,5,50,0,0,723,
-        726,3,178,89,0,724,725,5,50,0,0,725,727,3,180,90,0,726,724,1,0,0,
-        0,726,727,1,0,0,0,727,728,1,0,0,0,728,729,5,46,0,0,729,175,1,0,0,
-        0,730,731,3,248,124,0,731,177,1,0,0,0,732,733,3,248,124,0,733,179,
-        1,0,0,0,734,735,3,248,124,0,735,181,1,0,0,0,736,737,5,4,0,0,737,
-        738,5,45,0,0,738,741,3,184,92,0,739,740,5,50,0,0,740,742,3,186,93,
-        0,741,739,1,0,0,0,741,742,1,0,0,0,742,743,1,0,0,0,743,744,5,46,0,
-        0,744,183,1,0,0,0,745,746,3,248,124,0,746,185,1,0,0,0,747,748,3,
-        248,124,0,748,187,1,0,0,0,749,750,5,3,0,0,750,756,5,45,0,0,751,754,
-        3,190,95,0,752,753,5,50,0,0,753,755,3,192,96,0,754,752,1,0,0,0,754,
-        755,1,0,0,0,755,757,1,0,0,0,756,751,1,0,0,0,756,757,1,0,0,0,757,
-        758,1,0,0,0,758,759,5,46,0,0,759,189,1,0,0,0,760,761,3,248,124,0,
-        761,191,1,0,0,0,762,763,3,248,124,0,763,193,1,0,0,0,764,765,5,2,
-        0,0,765,771,5,45,0,0,766,769,3,196,98,0,767,768,5,50,0,0,768,770,
-        3,198,99,0,769,767,1,0,0,0,769,770,1,0,0,0,770,772,1,0,0,0,771,766,
-        1,0,0,0,771,772,1,0,0,0,772,773,1,0,0,0,773,777,5,46,0,0,774,776,
-        3,204,102,0,775,774,1,0,0,0,776,779,1,0,0,0,777,775,1,0,0,0,777,
-        778,1,0,0,0,778,781,1,0,0,0,779,777,1,0,0,0,780,782,3,200,100,0,
-        781,780,1,0,0,0,781,782,1,0,0,0,782,195,1,0,0,0,783,784,3,248,124,
-        0,784,197,1,0,0,0,785,786,3,248,124,0,786,199,1,0,0,0,787,788,5,
-        52,0,0,788,789,5,14,0,0,789,791,5,45,0,0,790,792,3,202,101,0,791,
-        790,1,0,0,0,791,792,1,0,0,0,792,793,1,0,0,0,793,794,5,46,0,0,794,
-        201,1,0,0,0,795,799,5,56,0,0,796,799,3,252,126,0,797,799,3,248,124,
-        0,798,795,1,0,0,0,798,796,1,0,0,0,798,797,1,0,0,0,799,203,1,0,0,
-        0,800,801,5,52,0,0,801,819,3,206,103,0,802,803,5,52,0,0,803,819,
-        3,210,105,0,804,805,5,52,0,0,805,819,3,214,107,0,806,807,5,52,0,
-        0,807,819,3,218,109,0,808,809,5,52,0,0,809,819,3,222,111,0,810,811,
-        5,52,0,0,811,819,3,226,113,0,812,813,5,52,0,0,813,819,3,230,115,
-        0,814,815,5,52,0,0,815,819,3,234,117,0,816,817,5,52,0,0,817,819,
-        3,238,119,0,818,800,1,0,0,0,818,802,1,0,0,0,818,804,1,0,0,0,818,
-        806,1,0,0,0,818,808,1,0,0,0,818,810,1,0,0,0,818,812,1,0,0,0,818,
-        814,1,0,0,0,818,816,1,0,0,0,819,205,1,0,0,0,820,821,5,16,0,0,821,
-        822,5,45,0,0,822,823,3,208,104,0,823,824,5,46,0,0,824,207,1,0,0,
-        0,825,826,3,262,131,0,826,209,1,0,0,0,827,828,5,13,0,0,828,829,5,
-        45,0,0,829,830,3,212,106,0,830,831,5,46,0,0,831,211,1,0,0,0,832,
-        833,3,262,131,0,833,213,1,0,0,0,834,835,5,9,0,0,835,836,5,45,0,0,
-        836,837,3,216,108,0,837,838,5,46,0,0,838,215,1,0,0,0,839,840,3,248,
-        124,0,840,217,1,0,0,0,841,842,5,10,0,0,842,843,5,45,0,0,843,844,
-        3,220,110,0,844,845,5,46,0,0,845,219,1,0,0,0,846,847,3,248,124,0,
-        847,221,1,0,0,0,848,849,5,11,0,0,849,850,5,45,0,0,850,851,3,224,
-        112,0,851,852,5,46,0,0,852,223,1,0,0,0,853,854,3,248,124,0,854,225,
-        1,0,0,0,855,856,5,15,0,0,856,857,5,45,0,0,857,858,3,228,114,0,858,
-        859,5,46,0,0,859,227,1,0,0,0,860,863,3,248,124,0,861,863,5,56,0,
-        0,862,860,1,0,0,0,862,861,1,0,0,0,863,229,1,0,0,0,864,865,5,8,0,
-        0,865,866,5,45,0,0,866,867,3,232,116,0,867,868,5,46,0,0,868,231,
-        1,0,0,0,869,870,3,252,126,0,870,233,1,0,0,0,871,872,5,7,0,0,872,
-        873,5,45,0,0,873,874,3,236,118,0,874,875,5,46,0,0,875,235,1,0,0,
-        0,876,877,3,252,126,0,877,237,1,0,0,0,878,879,5,12,0,0,879,880,5,
-        45,0,0,880,883,3,240,120,0,881,882,5,50,0,0,882,884,3,242,121,0,
-        883,881,1,0,0,0,883,884,1,0,0,0,884,885,1,0,0,0,885,886,5,46,0,0,
-        886,239,1,0,0,0,887,888,3,246,123,0,888,241,1,0,0,0,889,893,3,262,
-        131,0,890,893,5,56,0,0,891,893,3,248,124,0,892,889,1,0,0,0,892,890,
-        1,0,0,0,892,891,1,0,0,0,893,243,1,0,0,0,894,895,7,0,0,0,895,245,
-        1,0,0,0,896,898,3,258,129,0,897,896,1,0,0,0,897,898,1,0,0,0,898,
-        247,1,0,0,0,899,900,5,47,0,0,900,905,3,250,125,0,901,902,5,50,0,
-        0,902,904,3,250,125,0,903,901,1,0,0,0,904,907,1,0,0,0,905,903,1,
-        0,0,0,905,906,1,0,0,0,906,909,1,0,0,0,907,905,1,0,0,0,908,910,5,
-        50,0,0,909,908,1,0,0,0,909,910,1,0,0,0,910,911,1,0,0,0,911,912,5,
-        48,0,0,912,916,1,0,0,0,913,914,5,47,0,0,914,916,5,48,0,0,915,899,
-        1,0,0,0,915,913,1,0,0,0,916,249,1,0,0,0,917,918,3,254,127,0,918,
-        919,5,49,0,0,919,920,3,258,129,0,920,251,1,0,0,0,921,922,7,1,0,0,
-        922,253,1,0,0,0,923,929,5,56,0,0,924,929,3,256,128,0,925,929,5,58,
-        0,0,926,929,3,252,126,0,927,929,5,55,0,0,928,923,1,0,0,0,928,924,
-        1,0,0,0,928,925,1,0,0,0,928,926,1,0,0,0,928,927,1,0,0,0,929,255,
-        1,0,0,0,930,933,5,60,0,0,931,933,3,244,122,0,932,930,1,0,0,0,932,
-        931,1,0,0,0,933,257,1,0,0,0,934,941,5,56,0,0,935,941,3,262,131,0,
-        936,941,3,248,124,0,937,941,3,260,130,0,938,941,3,252,126,0,939,
-        941,5,55,0,0,940,934,1,0,0,0,940,935,1,0,0,0,940,936,1,0,0,0,940,
-        937,1,0,0,0,940,938,1,0,0,0,940,939,1,0,0,0,941,259,1,0,0,0,942,
-        943,5,43,0,0,943,948,3,258,129,0,944,945,5,50,0,0,945,947,3,258,
-        129,0,946,944,1,0,0,0,947,950,1,0,0,0,948,946,1,0,0,0,948,949,1,
-        0,0,0,949,952,1,0,0,0,950,948,1,0,0,0,951,953,5,50,0,0,952,951,1,
-        0,0,0,952,953,1,0,0,0,953,954,1,0,0,0,954,955,5,44,0,0,955,959,1,
-        0,0,0,956,957,5,43,0,0,957,959,5,44,0,0,958,942,1,0,0,0,958,956,
-        1,0,0,0,959,261,1,0,0,0,960,962,5,59,0,0,961,960,1,0,0,0,961,962,
-        1,0,0,0,962,963,1,0,0,0,963,964,7,2,0,0,964,263,1,0,0,0,72,265,271,
-        277,281,291,298,311,364,371,373,377,390,392,407,409,420,429,440,
-        453,457,460,465,474,483,494,507,520,529,534,543,554,567,569,582,
-        584,599,616,624,635,643,652,665,675,679,690,700,709,726,741,754,
-        756,769,771,777,781,791,798,818,862,883,892,897,905,909,915,928,
-        932,940,948,952,958,961
+        7,131,2,132,7,132,2,133,7,133,2,134,7,134,2,135,7,135,2,136,7,136,
+        2,137,7,137,2,138,7,138,2,139,7,139,2,140,7,140,2,141,7,141,2,142,
+        7,142,2,143,7,143,2,144,7,144,2,145,7,145,2,146,7,146,2,147,7,147,
+        2,148,7,148,2,149,7,149,2,150,7,150,2,151,7,151,2,152,7,152,2,153,
+        7,153,2,154,7,154,2,155,7,155,2,156,7,156,2,157,7,157,2,158,7,158,
+        2,159,7,159,2,160,7,160,2,161,7,161,2,162,7,162,2,163,7,163,2,164,
+        7,164,2,165,7,165,2,166,7,166,2,167,7,167,2,168,7,168,2,169,7,169,
+        2,170,7,170,2,171,7,171,2,172,7,172,2,173,7,173,2,174,7,174,2,175,
+        7,175,2,176,7,176,2,177,7,177,2,178,7,178,2,179,7,179,2,180,7,180,
+        1,0,3,0,364,8,0,1,0,1,0,1,1,1,1,3,1,370,8,1,1,1,1,1,1,1,1,1,3,1,
+        376,8,1,1,2,1,2,3,2,380,8,2,1,3,1,3,1,3,1,3,1,4,1,4,1,4,1,4,1,4,
+        1,4,1,4,1,4,1,4,1,4,1,4,1,4,1,4,1,4,1,4,1,4,3,4,402,8,4,1,5,1,5,
+        1,5,1,5,1,5,1,5,1,6,1,6,1,6,1,6,1,6,1,6,1,6,1,6,1,6,3,6,419,8,6,
+        1,7,1,7,1,7,1,7,1,7,3,7,426,8,7,1,7,1,7,1,8,1,8,1,9,1,9,1,10,1,10,
+        1,10,3,10,437,8,10,1,10,1,10,1,11,1,11,1,12,1,12,1,12,3,12,446,8,
+        12,1,12,1,12,1,13,1,13,1,14,1,14,1,14,3,14,455,8,14,1,14,1,14,1,
+        15,1,15,1,16,1,16,1,16,3,16,464,8,16,1,16,1,16,1,17,1,17,1,18,1,
+        18,1,18,3,18,473,8,18,1,18,1,18,1,19,1,19,1,20,1,20,1,20,3,20,482,
+        8,20,1,20,1,20,1,21,1,21,1,22,1,22,1,22,1,22,1,22,3,22,493,8,22,
+        1,22,1,22,1,23,1,23,1,24,1,24,1,25,1,25,1,25,3,25,504,8,25,1,25,
+        1,25,1,26,1,26,1,27,1,27,1,27,3,27,513,8,27,1,27,1,27,1,28,1,28,
+        1,29,1,29,1,29,1,29,1,29,3,29,524,8,29,1,29,1,29,1,30,1,30,1,31,
+        1,31,1,32,1,32,1,32,1,32,1,32,3,32,537,8,32,1,32,1,32,1,33,1,33,
+        1,34,1,34,1,35,1,35,1,35,1,35,1,35,3,35,550,8,35,1,35,1,35,1,36,
+        1,36,1,37,1,37,1,38,1,38,1,38,1,38,1,38,1,38,1,38,3,38,565,8,38,
+        1,38,1,38,1,39,1,39,1,40,1,40,1,40,3,40,574,8,40,1,41,1,41,1,42,
+        1,42,1,42,3,42,581,8,42,1,42,1,42,1,43,1,43,1,44,1,44,1,44,1,44,
+        1,44,3,44,592,8,44,1,44,1,44,1,45,1,45,1,46,1,46,1,47,1,47,1,47,
+        1,47,1,47,1,47,1,47,3,47,607,8,47,1,47,1,47,1,48,1,48,1,49,1,49,
+        1,50,1,50,1,51,1,51,1,51,1,51,1,51,1,51,3,51,623,8,51,1,51,1,51,
+        1,52,1,52,1,53,1,53,1,54,1,54,1,54,1,54,1,54,3,54,636,8,54,1,54,
+        1,54,1,55,1,55,1,56,1,56,1,57,1,57,1,57,1,57,1,57,3,57,649,8,57,
+        1,57,1,57,1,58,1,58,1,59,1,59,1,60,1,60,1,60,1,60,1,60,1,60,1,60,
+        1,61,1,61,1,62,1,62,1,62,1,62,1,62,1,62,1,63,1,63,1,64,1,64,1,64,
+        1,64,1,64,1,64,1,64,1,64,1,64,1,64,1,64,1,64,1,64,1,64,1,64,1,64,
+        1,64,1,64,1,64,1,64,1,64,1,64,1,64,1,64,1,64,1,64,1,64,1,64,3,64,
+        702,8,64,1,65,1,65,1,65,1,65,1,65,3,65,709,8,65,3,65,711,8,65,1,
+        65,1,65,3,65,715,8,65,1,66,1,66,1,67,1,67,1,68,1,68,1,68,1,68,1,
+        68,1,68,1,68,3,68,728,8,68,3,68,730,8,68,1,68,1,68,1,69,1,69,1,70,
+        1,70,1,71,1,71,1,72,1,72,1,72,1,72,1,72,3,72,745,8,72,3,72,747,8,
+        72,1,72,1,72,1,73,1,73,1,74,1,74,1,75,1,75,1,75,3,75,758,8,75,1,
+        75,1,75,1,76,1,76,1,77,1,77,1,77,3,77,767,8,77,1,77,1,77,1,78,1,
+        78,1,79,1,79,1,79,1,79,1,79,3,79,778,8,79,1,79,1,79,1,80,1,80,1,
+        81,1,81,1,81,1,81,1,81,5,81,789,8,81,10,81,12,81,792,9,81,1,81,3,
+        81,795,8,81,1,81,3,81,798,8,81,1,82,1,82,1,82,3,82,803,8,82,1,82,
+        1,82,1,83,1,83,1,84,1,84,1,84,3,84,812,8,84,1,84,1,84,1,85,1,85,
+        1,86,1,86,1,86,3,86,821,8,86,1,86,1,86,1,87,1,87,1,88,1,88,1,88,
+        1,88,1,88,3,88,832,8,88,1,88,1,88,1,89,1,89,1,90,1,90,1,91,1,91,
+        1,91,1,91,1,91,3,91,845,8,91,1,91,1,91,1,92,1,92,1,93,1,93,1,94,
+        1,94,1,94,1,94,1,94,3,94,858,8,94,1,94,1,94,1,95,1,95,1,96,1,96,
+        1,96,3,96,867,8,96,1,97,1,97,1,97,3,97,872,8,97,1,97,1,97,1,98,1,
+        98,1,99,1,99,1,99,3,99,881,8,99,1,99,1,99,1,100,1,100,1,101,1,101,
+        1,101,1,101,1,101,3,101,892,8,101,1,101,1,101,1,102,1,102,1,103,
+        1,103,1,104,1,104,1,104,1,104,1,104,3,104,905,8,104,3,104,907,8,
+        104,1,104,1,104,1,105,1,105,1,106,1,106,1,107,1,107,1,107,1,107,
+        1,107,3,107,920,8,107,3,107,922,8,107,1,107,1,107,1,108,1,108,1,
+        109,1,109,1,110,1,110,1,110,1,110,1,110,1,110,1,110,3,110,937,8,
+        110,1,110,1,110,1,111,1,111,1,112,1,112,1,113,1,113,1,114,1,114,
+        1,114,1,114,1,114,1,114,1,114,3,114,954,8,114,1,114,1,114,1,115,
+        1,115,1,116,1,116,3,116,962,8,116,1,117,1,117,1,118,1,118,1,118,
+        1,118,1,118,1,118,1,118,3,118,973,8,118,1,118,1,118,1,119,1,119,
+        1,120,1,120,3,120,981,8,120,1,121,1,121,1,122,1,122,1,122,1,122,
+        1,122,3,122,990,8,122,1,122,1,122,1,123,1,123,1,124,1,124,1,125,
+        1,125,1,125,1,125,1,125,3,125,1003,8,125,1,125,1,125,1,126,1,126,
+        1,126,1,126,5,126,1011,8,126,10,126,12,126,1014,9,126,1,126,3,126,
+        1017,8,126,1,126,1,126,1,127,1,127,1,128,1,128,1,128,1,128,1,128,
+        3,128,1028,8,128,1,128,1,128,1,129,1,129,1,130,1,130,1,131,1,131,
+        3,131,1038,8,131,1,132,1,132,1,132,1,132,1,132,1,132,1,132,3,132,
+        1047,8,132,1,132,1,132,1,133,1,133,1,134,1,134,1,135,1,135,1,136,
+        1,136,1,136,1,136,1,136,1,136,1,136,3,136,1064,8,136,1,136,1,136,
+        1,137,1,137,1,138,1,138,1,139,1,139,1,140,1,140,1,140,1,140,1,140,
+        3,140,1079,8,140,1,140,1,140,1,141,1,141,1,142,1,142,1,143,1,143,
+        1,143,1,143,1,143,3,143,1092,8,143,3,143,1094,8,143,1,143,1,143,
+        1,144,1,144,1,145,1,145,1,146,1,146,1,146,1,146,1,146,3,146,1107,
+        8,146,3,146,1109,8,146,1,146,1,146,5,146,1113,8,146,10,146,12,146,
+        1116,9,146,1,146,3,146,1119,8,146,1,147,1,147,1,148,1,148,1,149,
+        1,149,1,149,1,149,3,149,1129,8,149,1,149,1,149,1,150,1,150,1,150,
+        3,150,1136,8,150,1,151,1,151,1,151,1,151,1,151,1,151,1,151,1,151,
+        1,151,1,151,1,151,1,151,1,151,1,151,1,151,1,151,1,151,1,151,3,151,
+        1156,8,151,1,152,1,152,1,152,1,152,1,152,1,153,1,153,1,154,1,154,
+        1,154,1,154,1,154,1,155,1,155,1,156,1,156,1,156,1,156,1,156,1,157,
+        1,157,1,158,1,158,1,158,1,158,1,158,1,159,1,159,1,160,1,160,1,160,
+        1,160,1,160,1,161,1,161,1,162,1,162,1,162,1,162,1,162,1,163,1,163,
+        3,163,1200,8,163,1,164,1,164,1,164,1,164,1,164,1,165,1,165,1,166,
+        1,166,1,166,1,166,1,166,1,167,1,167,1,168,1,168,1,168,1,168,1,168,
+        3,168,1221,8,168,1,168,1,168,1,169,1,169,1,170,1,170,1,170,3,170,
+        1230,8,170,1,171,1,171,1,172,3,172,1235,8,172,1,173,1,173,1,173,
+        1,173,5,173,1241,8,173,10,173,12,173,1244,9,173,1,173,3,173,1247,
+        8,173,1,173,1,173,1,173,1,173,3,173,1253,8,173,1,174,1,174,1,174,
+        1,174,1,175,1,175,1,176,1,176,1,176,1,176,1,176,3,176,1266,8,176,
+        1,177,1,177,3,177,1270,8,177,1,178,1,178,1,178,1,178,1,178,1,178,
+        3,178,1278,8,178,1,179,1,179,1,179,1,179,5,179,1284,8,179,10,179,
+        12,179,1287,9,179,1,179,3,179,1290,8,179,1,179,1,179,1,179,1,179,
+        3,179,1296,8,179,1,180,3,180,1299,8,180,1,180,1,180,1,180,0,0,181,
+        0,2,4,6,8,10,12,14,16,18,20,22,24,26,28,30,32,34,36,38,40,42,44,
+        46,48,50,52,54,56,58,60,62,64,66,68,70,72,74,76,78,80,82,84,86,88,
+        90,92,94,96,98,100,102,104,106,108,110,112,114,116,118,120,122,124,
+        126,128,130,132,134,136,138,140,142,144,146,148,150,152,154,156,
+        158,160,162,164,166,168,170,172,174,176,178,180,182,184,186,188,
+        190,192,194,196,198,200,202,204,206,208,210,212,214,216,218,220,
+        222,224,226,228,230,232,234,236,238,240,242,244,246,248,250,252,
+        254,256,258,260,262,264,266,268,270,272,274,276,278,280,282,284,
+        286,288,290,292,294,296,298,300,302,304,306,308,310,312,314,316,
+        318,320,322,324,326,328,330,332,334,336,338,340,342,344,346,348,
+        350,352,354,356,358,360,0,3,1,0,1,59,1,0,70,71,1,0,74,75,1278,0,
+        363,1,0,0,0,2,375,1,0,0,0,4,379,1,0,0,0,6,381,1,0,0,0,8,401,1,0,
+        0,0,10,403,1,0,0,0,12,418,1,0,0,0,14,420,1,0,0,0,16,429,1,0,0,0,
+        18,431,1,0,0,0,20,433,1,0,0,0,22,440,1,0,0,0,24,442,1,0,0,0,26,449,
+        1,0,0,0,28,451,1,0,0,0,30,458,1,0,0,0,32,460,1,0,0,0,34,467,1,0,
+        0,0,36,469,1,0,0,0,38,476,1,0,0,0,40,478,1,0,0,0,42,485,1,0,0,0,
+        44,487,1,0,0,0,46,496,1,0,0,0,48,498,1,0,0,0,50,500,1,0,0,0,52,507,
+        1,0,0,0,54,509,1,0,0,0,56,516,1,0,0,0,58,518,1,0,0,0,60,527,1,0,
+        0,0,62,529,1,0,0,0,64,531,1,0,0,0,66,540,1,0,0,0,68,542,1,0,0,0,
+        70,544,1,0,0,0,72,553,1,0,0,0,74,555,1,0,0,0,76,557,1,0,0,0,78,568,
+        1,0,0,0,80,573,1,0,0,0,82,575,1,0,0,0,84,577,1,0,0,0,86,584,1,0,
+        0,0,88,586,1,0,0,0,90,595,1,0,0,0,92,597,1,0,0,0,94,599,1,0,0,0,
+        96,610,1,0,0,0,98,612,1,0,0,0,100,614,1,0,0,0,102,616,1,0,0,0,104,
+        626,1,0,0,0,106,628,1,0,0,0,108,630,1,0,0,0,110,639,1,0,0,0,112,
+        641,1,0,0,0,114,643,1,0,0,0,116,652,1,0,0,0,118,654,1,0,0,0,120,
+        656,1,0,0,0,122,663,1,0,0,0,124,665,1,0,0,0,126,671,1,0,0,0,128,
+        701,1,0,0,0,130,703,1,0,0,0,132,716,1,0,0,0,134,718,1,0,0,0,136,
+        720,1,0,0,0,138,733,1,0,0,0,140,735,1,0,0,0,142,737,1,0,0,0,144,
+        739,1,0,0,0,146,750,1,0,0,0,148,752,1,0,0,0,150,754,1,0,0,0,152,
+        761,1,0,0,0,154,763,1,0,0,0,156,770,1,0,0,0,158,772,1,0,0,0,160,
+        781,1,0,0,0,162,797,1,0,0,0,164,799,1,0,0,0,166,806,1,0,0,0,168,
+        808,1,0,0,0,170,815,1,0,0,0,172,817,1,0,0,0,174,824,1,0,0,0,176,
+        826,1,0,0,0,178,835,1,0,0,0,180,837,1,0,0,0,182,839,1,0,0,0,184,
+        848,1,0,0,0,186,850,1,0,0,0,188,852,1,0,0,0,190,861,1,0,0,0,192,
+        866,1,0,0,0,194,868,1,0,0,0,196,875,1,0,0,0,198,877,1,0,0,0,200,
+        884,1,0,0,0,202,886,1,0,0,0,204,895,1,0,0,0,206,897,1,0,0,0,208,
+        899,1,0,0,0,210,910,1,0,0,0,212,912,1,0,0,0,214,914,1,0,0,0,216,
+        925,1,0,0,0,218,927,1,0,0,0,220,929,1,0,0,0,222,940,1,0,0,0,224,
+        942,1,0,0,0,226,944,1,0,0,0,228,946,1,0,0,0,230,957,1,0,0,0,232,
+        961,1,0,0,0,234,963,1,0,0,0,236,965,1,0,0,0,238,976,1,0,0,0,240,
+        980,1,0,0,0,242,982,1,0,0,0,244,984,1,0,0,0,246,993,1,0,0,0,248,
+        995,1,0,0,0,250,997,1,0,0,0,252,1006,1,0,0,0,254,1020,1,0,0,0,256,
+        1022,1,0,0,0,258,1031,1,0,0,0,260,1033,1,0,0,0,262,1037,1,0,0,0,
+        264,1039,1,0,0,0,266,1050,1,0,0,0,268,1052,1,0,0,0,270,1054,1,0,
+        0,0,272,1056,1,0,0,0,274,1067,1,0,0,0,276,1069,1,0,0,0,278,1071,
+        1,0,0,0,280,1073,1,0,0,0,282,1082,1,0,0,0,284,1084,1,0,0,0,286,1086,
+        1,0,0,0,288,1097,1,0,0,0,290,1099,1,0,0,0,292,1101,1,0,0,0,294,1120,
+        1,0,0,0,296,1122,1,0,0,0,298,1124,1,0,0,0,300,1135,1,0,0,0,302,1155,
+        1,0,0,0,304,1157,1,0,0,0,306,1162,1,0,0,0,308,1164,1,0,0,0,310,1169,
+        1,0,0,0,312,1171,1,0,0,0,314,1176,1,0,0,0,316,1178,1,0,0,0,318,1183,
+        1,0,0,0,320,1185,1,0,0,0,322,1190,1,0,0,0,324,1192,1,0,0,0,326,1199,
+        1,0,0,0,328,1201,1,0,0,0,330,1206,1,0,0,0,332,1208,1,0,0,0,334,1213,
+        1,0,0,0,336,1215,1,0,0,0,338,1224,1,0,0,0,340,1229,1,0,0,0,342,1231,
+        1,0,0,0,344,1234,1,0,0,0,346,1252,1,0,0,0,348,1254,1,0,0,0,350,1258,
+        1,0,0,0,352,1265,1,0,0,0,354,1269,1,0,0,0,356,1277,1,0,0,0,358,1295,
+        1,0,0,0,360,1298,1,0,0,0,362,364,3,2,1,0,363,362,1,0,0,0,363,364,
+        1,0,0,0,364,365,1,0,0,0,365,366,5,0,0,1,366,1,1,0,0,0,367,369,3,
+        4,2,0,368,370,5,68,0,0,369,368,1,0,0,0,369,370,1,0,0,0,370,376,1,
+        0,0,0,371,372,3,4,2,0,372,373,5,68,0,0,373,374,3,2,1,0,374,376,1,
+        0,0,0,375,367,1,0,0,0,375,371,1,0,0,0,376,3,1,0,0,0,377,380,3,124,
+        62,0,378,380,3,6,3,0,379,377,1,0,0,0,379,378,1,0,0,0,380,5,1,0,0,
+        0,381,382,5,1,0,0,382,383,5,69,0,0,383,384,3,8,4,0,384,7,1,0,0,0,
+        385,402,3,120,60,0,386,402,3,114,57,0,387,402,3,108,54,0,388,402,
+        3,130,65,0,389,402,3,102,51,0,390,402,3,94,47,0,391,402,3,88,44,
+        0,392,402,3,84,42,0,393,402,3,76,38,0,394,402,3,70,35,0,395,402,
+        3,64,32,0,396,402,3,58,29,0,397,402,3,54,27,0,398,402,3,50,25,0,
+        399,402,3,44,22,0,400,402,3,10,5,0,401,385,1,0,0,0,401,386,1,0,0,
+        0,401,387,1,0,0,0,401,388,1,0,0,0,401,389,1,0,0,0,401,390,1,0,0,
+        0,401,391,1,0,0,0,401,392,1,0,0,0,401,393,1,0,0,0,401,394,1,0,0,
+        0,401,395,1,0,0,0,401,396,1,0,0,0,401,397,1,0,0,0,401,398,1,0,0,
+        0,401,399,1,0,0,0,401,400,1,0,0,0,402,9,1,0,0,0,403,404,5,52,0,0,
+        404,405,5,62,0,0,405,406,5,63,0,0,406,407,5,69,0,0,407,408,3,12,
+        6,0,408,11,1,0,0,0,409,419,3,108,54,0,410,419,3,70,35,0,411,419,
+        3,40,20,0,412,419,3,36,18,0,413,419,3,20,10,0,414,419,3,24,12,0,
+        415,419,3,28,14,0,416,419,3,32,16,0,417,419,3,14,7,0,418,409,1,0,
+        0,0,418,410,1,0,0,0,418,411,1,0,0,0,418,412,1,0,0,0,418,413,1,0,
+        0,0,418,414,1,0,0,0,418,415,1,0,0,0,418,416,1,0,0,0,418,417,1,0,
+        0,0,419,13,1,0,0,0,420,421,5,57,0,0,421,422,5,62,0,0,422,425,3,16,
+        8,0,423,424,5,67,0,0,424,426,3,18,9,0,425,423,1,0,0,0,425,426,1,
+        0,0,0,426,427,1,0,0,0,427,428,5,63,0,0,428,15,1,0,0,0,429,430,5,
+        73,0,0,430,17,1,0,0,0,431,432,3,346,173,0,432,19,1,0,0,0,433,434,
+        5,55,0,0,434,436,5,62,0,0,435,437,3,22,11,0,436,435,1,0,0,0,436,
+        437,1,0,0,0,437,438,1,0,0,0,438,439,5,63,0,0,439,21,1,0,0,0,440,
+        441,3,346,173,0,441,23,1,0,0,0,442,443,5,56,0,0,443,445,5,62,0,0,
+        444,446,3,26,13,0,445,444,1,0,0,0,445,446,1,0,0,0,446,447,1,0,0,
+        0,447,448,5,63,0,0,448,25,1,0,0,0,449,450,3,346,173,0,450,27,1,0,
+        0,0,451,452,5,58,0,0,452,454,5,62,0,0,453,455,3,30,15,0,454,453,
+        1,0,0,0,454,455,1,0,0,0,455,456,1,0,0,0,456,457,5,63,0,0,457,29,
+        1,0,0,0,458,459,3,346,173,0,459,31,1,0,0,0,460,461,5,59,0,0,461,
+        463,5,62,0,0,462,464,3,34,17,0,463,462,1,0,0,0,463,464,1,0,0,0,464,
+        465,1,0,0,0,465,466,5,63,0,0,466,33,1,0,0,0,467,468,3,346,173,0,
+        468,35,1,0,0,0,469,470,5,54,0,0,470,472,5,62,0,0,471,473,3,38,19,
+        0,472,471,1,0,0,0,472,473,1,0,0,0,473,474,1,0,0,0,474,475,5,63,0,
+        0,475,37,1,0,0,0,476,477,3,346,173,0,477,39,1,0,0,0,478,479,5,53,
+        0,0,479,481,5,62,0,0,480,482,3,42,21,0,481,480,1,0,0,0,481,482,1,
+        0,0,0,482,483,1,0,0,0,483,484,5,63,0,0,484,41,1,0,0,0,485,486,3,
+        346,173,0,486,43,1,0,0,0,487,488,5,51,0,0,488,489,5,62,0,0,489,492,
+        3,46,23,0,490,491,5,67,0,0,491,493,3,48,24,0,492,490,1,0,0,0,492,
+        493,1,0,0,0,493,494,1,0,0,0,494,495,5,63,0,0,495,45,1,0,0,0,496,
+        497,5,73,0,0,497,47,1,0,0,0,498,499,3,346,173,0,499,49,1,0,0,0,500,
+        501,5,50,0,0,501,503,5,62,0,0,502,504,3,52,26,0,503,502,1,0,0,0,
+        503,504,1,0,0,0,504,505,1,0,0,0,505,506,5,63,0,0,506,51,1,0,0,0,
+        507,508,3,346,173,0,508,53,1,0,0,0,509,510,5,49,0,0,510,512,5,62,
+        0,0,511,513,3,56,28,0,512,511,1,0,0,0,512,513,1,0,0,0,513,514,1,
+        0,0,0,514,515,5,63,0,0,515,55,1,0,0,0,516,517,3,346,173,0,517,57,
+        1,0,0,0,518,519,5,48,0,0,519,520,5,62,0,0,520,523,3,60,30,0,521,
+        522,5,67,0,0,522,524,3,62,31,0,523,521,1,0,0,0,523,524,1,0,0,0,524,
+        525,1,0,0,0,525,526,5,63,0,0,526,59,1,0,0,0,527,528,3,346,173,0,
+        528,61,1,0,0,0,529,530,3,346,173,0,530,63,1,0,0,0,531,532,5,35,0,
+        0,532,533,5,62,0,0,533,536,3,66,33,0,534,535,5,67,0,0,535,537,3,
+        68,34,0,536,534,1,0,0,0,536,537,1,0,0,0,537,538,1,0,0,0,538,539,
+        5,63,0,0,539,65,1,0,0,0,540,541,5,73,0,0,541,67,1,0,0,0,542,543,
+        3,346,173,0,543,69,1,0,0,0,544,545,5,47,0,0,545,546,5,62,0,0,546,
+        549,3,72,36,0,547,548,5,67,0,0,548,550,3,74,37,0,549,547,1,0,0,0,
+        549,550,1,0,0,0,550,551,1,0,0,0,551,552,5,63,0,0,552,71,1,0,0,0,
+        553,554,5,73,0,0,554,73,1,0,0,0,555,556,3,346,173,0,556,75,1,0,0,
+        0,557,558,5,28,0,0,558,559,5,62,0,0,559,560,3,82,41,0,560,561,5,
+        67,0,0,561,564,3,80,40,0,562,563,5,67,0,0,563,565,3,78,39,0,564,
+        562,1,0,0,0,564,565,1,0,0,0,565,566,1,0,0,0,566,567,5,63,0,0,567,
+        77,1,0,0,0,568,569,3,346,173,0,569,79,1,0,0,0,570,574,5,73,0,0,571,
+        574,3,346,173,0,572,574,3,358,179,0,573,570,1,0,0,0,573,571,1,0,
+        0,0,573,572,1,0,0,0,574,81,1,0,0,0,575,576,5,73,0,0,576,83,1,0,0,
+        0,577,578,5,46,0,0,578,580,5,62,0,0,579,581,3,86,43,0,580,579,1,
+        0,0,0,580,581,1,0,0,0,581,582,1,0,0,0,582,583,5,63,0,0,583,85,1,
+        0,0,0,584,585,3,346,173,0,585,87,1,0,0,0,586,587,5,45,0,0,587,588,
+        5,62,0,0,588,591,3,90,45,0,589,590,5,67,0,0,590,592,3,92,46,0,591,
+        589,1,0,0,0,591,592,1,0,0,0,592,593,1,0,0,0,593,594,5,63,0,0,594,
+        89,1,0,0,0,595,596,5,73,0,0,596,91,1,0,0,0,597,598,3,346,173,0,598,
+        93,1,0,0,0,599,600,5,44,0,0,600,601,5,62,0,0,601,602,3,96,48,0,602,
+        603,5,67,0,0,603,606,3,98,49,0,604,605,5,67,0,0,605,607,3,100,50,
+        0,606,604,1,0,0,0,606,607,1,0,0,0,607,608,1,0,0,0,608,609,5,63,0,
+        0,609,95,1,0,0,0,610,611,5,73,0,0,611,97,1,0,0,0,612,613,5,73,0,
+        0,613,99,1,0,0,0,614,615,3,346,173,0,615,101,1,0,0,0,616,617,5,43,
+        0,0,617,622,5,62,0,0,618,619,3,104,52,0,619,620,5,67,0,0,620,621,
+        3,106,53,0,621,623,1,0,0,0,622,618,1,0,0,0,622,623,1,0,0,0,623,624,
+        1,0,0,0,624,625,5,63,0,0,625,103,1,0,0,0,626,627,3,346,173,0,627,
+        105,1,0,0,0,628,629,3,346,173,0,629,107,1,0,0,0,630,631,5,42,0,0,
+        631,632,5,62,0,0,632,635,3,110,55,0,633,634,5,67,0,0,634,636,3,112,
+        56,0,635,633,1,0,0,0,635,636,1,0,0,0,636,637,1,0,0,0,637,638,5,63,
+        0,0,638,109,1,0,0,0,639,640,3,346,173,0,640,111,1,0,0,0,641,642,
+        3,346,173,0,642,113,1,0,0,0,643,644,5,41,0,0,644,645,5,62,0,0,645,
+        648,3,116,58,0,646,647,5,67,0,0,647,649,3,118,59,0,648,646,1,0,0,
+        0,648,649,1,0,0,0,649,650,1,0,0,0,650,651,5,63,0,0,651,115,1,0,0,
+        0,652,653,5,73,0,0,653,117,1,0,0,0,654,655,3,346,173,0,655,119,1,
+        0,0,0,656,657,5,40,0,0,657,658,5,62,0,0,658,659,3,122,61,0,659,660,
+        5,63,0,0,660,661,5,69,0,0,661,662,3,128,64,0,662,121,1,0,0,0,663,
+        664,5,73,0,0,664,123,1,0,0,0,665,666,5,1,0,0,666,667,5,69,0,0,667,
+        668,3,126,63,0,668,669,5,69,0,0,669,670,3,128,64,0,670,125,1,0,0,
+        0,671,672,5,77,0,0,672,127,1,0,0,0,673,702,3,292,146,0,674,702,3,
+        286,143,0,675,702,3,280,140,0,676,702,3,272,136,0,677,702,3,264,
+        132,0,678,702,3,256,128,0,679,702,3,250,125,0,680,702,3,244,122,
+        0,681,702,3,236,118,0,682,702,3,228,114,0,683,702,3,220,110,0,684,
+        702,3,214,107,0,685,702,3,208,104,0,686,702,3,202,101,0,687,702,
+        3,198,99,0,688,702,3,194,97,0,689,702,3,188,94,0,690,702,3,182,91,
+        0,691,702,3,176,88,0,692,702,3,172,86,0,693,702,3,168,84,0,694,702,
+        3,164,82,0,695,702,3,158,79,0,696,702,3,154,77,0,697,702,3,150,75,
+        0,698,702,3,144,72,0,699,702,3,136,68,0,700,702,3,130,65,0,701,673,
+        1,0,0,0,701,674,1,0,0,0,701,675,1,0,0,0,701,676,1,0,0,0,701,677,
+        1,0,0,0,701,678,1,0,0,0,701,679,1,0,0,0,701,680,1,0,0,0,701,681,
+        1,0,0,0,701,682,1,0,0,0,701,683,1,0,0,0,701,684,1,0,0,0,701,685,
+        1,0,0,0,701,686,1,0,0,0,701,687,1,0,0,0,701,688,1,0,0,0,701,689,
+        1,0,0,0,701,690,1,0,0,0,701,691,1,0,0,0,701,692,1,0,0,0,701,693,
+        1,0,0,0,701,694,1,0,0,0,701,695,1,0,0,0,701,696,1,0,0,0,701,697,
+        1,0,0,0,701,698,1,0,0,0,701,699,1,0,0,0,701,700,1,0,0,0,702,129,
+        1,0,0,0,703,704,5,39,0,0,704,710,5,62,0,0,705,708,3,134,67,0,706,
+        707,5,67,0,0,707,709,3,132,66,0,708,706,1,0,0,0,708,709,1,0,0,0,
+        709,711,1,0,0,0,710,705,1,0,0,0,710,711,1,0,0,0,711,712,1,0,0,0,
+        712,714,5,63,0,0,713,715,3,298,149,0,714,713,1,0,0,0,714,715,1,0,
+        0,0,715,131,1,0,0,0,716,717,3,346,173,0,717,133,1,0,0,0,718,719,
+        3,358,179,0,719,135,1,0,0,0,720,721,5,38,0,0,721,722,5,62,0,0,722,
+        729,3,138,69,0,723,724,5,67,0,0,724,727,3,140,70,0,725,726,5,67,
+        0,0,726,728,3,142,71,0,727,725,1,0,0,0,727,728,1,0,0,0,728,730,1,
+        0,0,0,729,723,1,0,0,0,729,730,1,0,0,0,730,731,1,0,0,0,731,732,5,
+        63,0,0,732,137,1,0,0,0,733,734,5,73,0,0,734,139,1,0,0,0,735,736,
+        3,346,173,0,736,141,1,0,0,0,737,738,3,346,173,0,738,143,1,0,0,0,
+        739,740,5,37,0,0,740,746,5,62,0,0,741,744,3,148,74,0,742,743,5,67,
+        0,0,743,745,3,146,73,0,744,742,1,0,0,0,744,745,1,0,0,0,745,747,1,
+        0,0,0,746,741,1,0,0,0,746,747,1,0,0,0,747,748,1,0,0,0,748,749,5,
+        63,0,0,749,145,1,0,0,0,750,751,3,346,173,0,751,147,1,0,0,0,752,753,
+        3,346,173,0,753,149,1,0,0,0,754,755,5,36,0,0,755,757,5,62,0,0,756,
+        758,3,152,76,0,757,756,1,0,0,0,757,758,1,0,0,0,758,759,1,0,0,0,759,
+        760,5,63,0,0,760,151,1,0,0,0,761,762,3,346,173,0,762,153,1,0,0,0,
+        763,764,5,35,0,0,764,766,5,62,0,0,765,767,3,156,78,0,766,765,1,0,
+        0,0,766,767,1,0,0,0,767,768,1,0,0,0,768,769,5,63,0,0,769,155,1,0,
+        0,0,770,771,3,346,173,0,771,157,1,0,0,0,772,773,5,34,0,0,773,774,
+        5,62,0,0,774,777,3,162,81,0,775,776,5,67,0,0,776,778,3,160,80,0,
+        777,775,1,0,0,0,777,778,1,0,0,0,778,779,1,0,0,0,779,780,5,63,0,0,
+        780,159,1,0,0,0,781,782,3,346,173,0,782,161,1,0,0,0,783,798,5,73,
+        0,0,784,785,5,60,0,0,785,790,5,73,0,0,786,787,5,67,0,0,787,789,5,
+        73,0,0,788,786,1,0,0,0,789,792,1,0,0,0,790,788,1,0,0,0,790,791,1,
+        0,0,0,791,794,1,0,0,0,792,790,1,0,0,0,793,795,5,67,0,0,794,793,1,
+        0,0,0,794,795,1,0,0,0,795,796,1,0,0,0,796,798,5,61,0,0,797,783,1,
+        0,0,0,797,784,1,0,0,0,798,163,1,0,0,0,799,800,5,33,0,0,800,802,5,
+        62,0,0,801,803,3,166,83,0,802,801,1,0,0,0,802,803,1,0,0,0,803,804,
+        1,0,0,0,804,805,5,63,0,0,805,165,1,0,0,0,806,807,3,346,173,0,807,
+        167,1,0,0,0,808,809,5,32,0,0,809,811,5,62,0,0,810,812,3,170,85,0,
+        811,810,1,0,0,0,811,812,1,0,0,0,812,813,1,0,0,0,813,814,5,63,0,0,
+        814,169,1,0,0,0,815,816,3,346,173,0,816,171,1,0,0,0,817,818,5,31,
+        0,0,818,820,5,62,0,0,819,821,3,174,87,0,820,819,1,0,0,0,820,821,
+        1,0,0,0,821,822,1,0,0,0,822,823,5,63,0,0,823,173,1,0,0,0,824,825,
+        3,346,173,0,825,175,1,0,0,0,826,827,5,30,0,0,827,828,5,62,0,0,828,
+        831,3,180,90,0,829,830,5,67,0,0,830,832,3,178,89,0,831,829,1,0,0,
+        0,831,832,1,0,0,0,832,833,1,0,0,0,833,834,5,63,0,0,834,177,1,0,0,
+        0,835,836,3,346,173,0,836,179,1,0,0,0,837,838,5,73,0,0,838,181,1,
+        0,0,0,839,840,5,29,0,0,840,841,5,62,0,0,841,844,3,186,93,0,842,843,
+        5,67,0,0,843,845,3,184,92,0,844,842,1,0,0,0,844,845,1,0,0,0,845,
+        846,1,0,0,0,846,847,5,63,0,0,847,183,1,0,0,0,848,849,3,346,173,0,
+        849,185,1,0,0,0,850,851,3,358,179,0,851,187,1,0,0,0,852,853,5,28,
+        0,0,853,854,5,62,0,0,854,857,3,192,96,0,855,856,5,67,0,0,856,858,
+        3,190,95,0,857,855,1,0,0,0,857,858,1,0,0,0,858,859,1,0,0,0,859,860,
+        5,63,0,0,860,189,1,0,0,0,861,862,3,346,173,0,862,191,1,0,0,0,863,
+        867,5,73,0,0,864,867,3,346,173,0,865,867,3,358,179,0,866,863,1,0,
+        0,0,866,864,1,0,0,0,866,865,1,0,0,0,867,193,1,0,0,0,868,869,5,27,
+        0,0,869,871,5,62,0,0,870,872,3,196,98,0,871,870,1,0,0,0,871,872,
+        1,0,0,0,872,873,1,0,0,0,873,874,5,63,0,0,874,195,1,0,0,0,875,876,
+        3,346,173,0,876,197,1,0,0,0,877,878,5,26,0,0,878,880,5,62,0,0,879,
+        881,3,200,100,0,880,879,1,0,0,0,880,881,1,0,0,0,881,882,1,0,0,0,
+        882,883,5,63,0,0,883,199,1,0,0,0,884,885,3,346,173,0,885,201,1,0,
+        0,0,886,887,5,25,0,0,887,888,5,62,0,0,888,891,3,204,102,0,889,890,
+        5,67,0,0,890,892,3,206,103,0,891,889,1,0,0,0,891,892,1,0,0,0,892,
+        893,1,0,0,0,893,894,5,63,0,0,894,203,1,0,0,0,895,896,5,73,0,0,896,
+        205,1,0,0,0,897,898,3,346,173,0,898,207,1,0,0,0,899,900,5,24,0,0,
+        900,906,5,62,0,0,901,904,3,210,105,0,902,903,5,67,0,0,903,905,3,
+        212,106,0,904,902,1,0,0,0,904,905,1,0,0,0,905,907,1,0,0,0,906,901,
+        1,0,0,0,906,907,1,0,0,0,907,908,1,0,0,0,908,909,5,63,0,0,909,209,
+        1,0,0,0,910,911,3,346,173,0,911,211,1,0,0,0,912,913,3,346,173,0,
+        913,213,1,0,0,0,914,915,5,23,0,0,915,921,5,62,0,0,916,919,3,216,
+        108,0,917,918,5,67,0,0,918,920,3,218,109,0,919,917,1,0,0,0,919,920,
+        1,0,0,0,920,922,1,0,0,0,921,916,1,0,0,0,921,922,1,0,0,0,922,923,
+        1,0,0,0,923,924,5,63,0,0,924,215,1,0,0,0,925,926,3,346,173,0,926,
+        217,1,0,0,0,927,928,3,346,173,0,928,219,1,0,0,0,929,930,5,22,0,0,
+        930,931,5,62,0,0,931,932,3,222,111,0,932,933,5,67,0,0,933,936,3,
+        224,112,0,934,935,5,67,0,0,935,937,3,226,113,0,936,934,1,0,0,0,936,
+        937,1,0,0,0,937,938,1,0,0,0,938,939,5,63,0,0,939,221,1,0,0,0,940,
+        941,3,346,173,0,941,223,1,0,0,0,942,943,3,262,131,0,943,225,1,0,
+        0,0,944,945,3,346,173,0,945,227,1,0,0,0,946,947,5,21,0,0,947,948,
+        5,62,0,0,948,949,3,230,115,0,949,950,5,67,0,0,950,953,3,232,116,
+        0,951,952,5,67,0,0,952,954,3,234,117,0,953,951,1,0,0,0,953,954,1,
+        0,0,0,954,955,1,0,0,0,955,956,5,63,0,0,956,229,1,0,0,0,957,958,3,
+        346,173,0,958,231,1,0,0,0,959,962,3,346,173,0,960,962,3,358,179,
+        0,961,959,1,0,0,0,961,960,1,0,0,0,962,233,1,0,0,0,963,964,3,346,
+        173,0,964,235,1,0,0,0,965,966,5,20,0,0,966,967,5,62,0,0,967,968,
+        3,238,119,0,968,969,5,67,0,0,969,972,3,240,120,0,970,971,5,67,0,
+        0,971,973,3,242,121,0,972,970,1,0,0,0,972,973,1,0,0,0,973,974,1,
+        0,0,0,974,975,5,63,0,0,975,237,1,0,0,0,976,977,3,346,173,0,977,239,
+        1,0,0,0,978,981,3,358,179,0,979,981,3,346,173,0,980,978,1,0,0,0,
+        980,979,1,0,0,0,981,241,1,0,0,0,982,983,3,346,173,0,983,243,1,0,
+        0,0,984,985,5,19,0,0,985,986,5,62,0,0,986,989,3,246,123,0,987,988,
+        5,67,0,0,988,990,3,248,124,0,989,987,1,0,0,0,989,990,1,0,0,0,990,
+        991,1,0,0,0,991,992,5,63,0,0,992,245,1,0,0,0,993,994,3,358,179,0,
+        994,247,1,0,0,0,995,996,3,346,173,0,996,249,1,0,0,0,997,998,5,18,
+        0,0,998,999,5,62,0,0,999,1002,3,252,126,0,1000,1001,5,67,0,0,1001,
+        1003,3,254,127,0,1002,1000,1,0,0,0,1002,1003,1,0,0,0,1003,1004,1,
+        0,0,0,1004,1005,5,63,0,0,1005,251,1,0,0,0,1006,1007,5,60,0,0,1007,
+        1012,3,262,131,0,1008,1009,5,67,0,0,1009,1011,3,262,131,0,1010,1008,
+        1,0,0,0,1011,1014,1,0,0,0,1012,1010,1,0,0,0,1012,1013,1,0,0,0,1013,
+        1016,1,0,0,0,1014,1012,1,0,0,0,1015,1017,5,67,0,0,1016,1015,1,0,
+        0,0,1016,1017,1,0,0,0,1017,1018,1,0,0,0,1018,1019,5,61,0,0,1019,
+        253,1,0,0,0,1020,1021,3,346,173,0,1021,255,1,0,0,0,1022,1023,5,17,
+        0,0,1023,1024,5,62,0,0,1024,1027,3,258,129,0,1025,1026,5,67,0,0,
+        1026,1028,3,260,130,0,1027,1025,1,0,0,0,1027,1028,1,0,0,0,1028,1029,
+        1,0,0,0,1029,1030,5,63,0,0,1030,257,1,0,0,0,1031,1032,3,262,131,
+        0,1032,259,1,0,0,0,1033,1034,3,346,173,0,1034,261,1,0,0,0,1035,1038,
+        3,346,173,0,1036,1038,3,358,179,0,1037,1035,1,0,0,0,1037,1036,1,
+        0,0,0,1038,263,1,0,0,0,1039,1040,5,6,0,0,1040,1041,5,62,0,0,1041,
+        1042,3,266,133,0,1042,1043,5,67,0,0,1043,1046,3,268,134,0,1044,1045,
+        5,67,0,0,1045,1047,3,270,135,0,1046,1044,1,0,0,0,1046,1047,1,0,0,
+        0,1047,1048,1,0,0,0,1048,1049,5,63,0,0,1049,265,1,0,0,0,1050,1051,
+        3,346,173,0,1051,267,1,0,0,0,1052,1053,3,346,173,0,1053,269,1,0,
+        0,0,1054,1055,3,346,173,0,1055,271,1,0,0,0,1056,1057,5,5,0,0,1057,
+        1058,5,62,0,0,1058,1059,3,274,137,0,1059,1060,5,67,0,0,1060,1063,
+        3,276,138,0,1061,1062,5,67,0,0,1062,1064,3,278,139,0,1063,1061,1,
+        0,0,0,1063,1064,1,0,0,0,1064,1065,1,0,0,0,1065,1066,5,63,0,0,1066,
+        273,1,0,0,0,1067,1068,3,346,173,0,1068,275,1,0,0,0,1069,1070,3,346,
+        173,0,1070,277,1,0,0,0,1071,1072,3,346,173,0,1072,279,1,0,0,0,1073,
+        1074,5,4,0,0,1074,1075,5,62,0,0,1075,1078,3,282,141,0,1076,1077,
+        5,67,0,0,1077,1079,3,284,142,0,1078,1076,1,0,0,0,1078,1079,1,0,0,
+        0,1079,1080,1,0,0,0,1080,1081,5,63,0,0,1081,281,1,0,0,0,1082,1083,
+        3,346,173,0,1083,283,1,0,0,0,1084,1085,3,346,173,0,1085,285,1,0,
+        0,0,1086,1087,5,3,0,0,1087,1093,5,62,0,0,1088,1091,3,288,144,0,1089,
+        1090,5,67,0,0,1090,1092,3,290,145,0,1091,1089,1,0,0,0,1091,1092,
+        1,0,0,0,1092,1094,1,0,0,0,1093,1088,1,0,0,0,1093,1094,1,0,0,0,1094,
+        1095,1,0,0,0,1095,1096,5,63,0,0,1096,287,1,0,0,0,1097,1098,3,346,
+        173,0,1098,289,1,0,0,0,1099,1100,3,346,173,0,1100,291,1,0,0,0,1101,
+        1102,5,2,0,0,1102,1108,5,62,0,0,1103,1106,3,294,147,0,1104,1105,
+        5,67,0,0,1105,1107,3,296,148,0,1106,1104,1,0,0,0,1106,1107,1,0,0,
+        0,1107,1109,1,0,0,0,1108,1103,1,0,0,0,1108,1109,1,0,0,0,1109,1110,
+        1,0,0,0,1110,1114,5,63,0,0,1111,1113,3,302,151,0,1112,1111,1,0,0,
+        0,1113,1116,1,0,0,0,1114,1112,1,0,0,0,1114,1115,1,0,0,0,1115,1118,
+        1,0,0,0,1116,1114,1,0,0,0,1117,1119,3,298,149,0,1118,1117,1,0,0,
+        0,1118,1119,1,0,0,0,1119,293,1,0,0,0,1120,1121,3,346,173,0,1121,
+        295,1,0,0,0,1122,1123,3,346,173,0,1123,297,1,0,0,0,1124,1125,5,69,
+        0,0,1125,1126,5,14,0,0,1126,1128,5,62,0,0,1127,1129,3,300,150,0,
+        1128,1127,1,0,0,0,1128,1129,1,0,0,0,1129,1130,1,0,0,0,1130,1131,
+        5,63,0,0,1131,299,1,0,0,0,1132,1136,5,73,0,0,1133,1136,3,350,175,
+        0,1134,1136,3,346,173,0,1135,1132,1,0,0,0,1135,1133,1,0,0,0,1135,
+        1134,1,0,0,0,1136,301,1,0,0,0,1137,1138,5,69,0,0,1138,1156,3,304,
+        152,0,1139,1140,5,69,0,0,1140,1156,3,308,154,0,1141,1142,5,69,0,
+        0,1142,1156,3,312,156,0,1143,1144,5,69,0,0,1144,1156,3,316,158,0,
+        1145,1146,5,69,0,0,1146,1156,3,320,160,0,1147,1148,5,69,0,0,1148,
+        1156,3,324,162,0,1149,1150,5,69,0,0,1150,1156,3,328,164,0,1151,1152,
+        5,69,0,0,1152,1156,3,332,166,0,1153,1154,5,69,0,0,1154,1156,3,336,
+        168,0,1155,1137,1,0,0,0,1155,1139,1,0,0,0,1155,1141,1,0,0,0,1155,
+        1143,1,0,0,0,1155,1145,1,0,0,0,1155,1147,1,0,0,0,1155,1149,1,0,0,
+        0,1155,1151,1,0,0,0,1155,1153,1,0,0,0,1156,303,1,0,0,0,1157,1158,
+        5,16,0,0,1158,1159,5,62,0,0,1159,1160,3,306,153,0,1160,1161,5,63,
+        0,0,1161,305,1,0,0,0,1162,1163,3,360,180,0,1163,307,1,0,0,0,1164,
+        1165,5,13,0,0,1165,1166,5,62,0,0,1166,1167,3,310,155,0,1167,1168,
+        5,63,0,0,1168,309,1,0,0,0,1169,1170,3,360,180,0,1170,311,1,0,0,0,
+        1171,1172,5,9,0,0,1172,1173,5,62,0,0,1173,1174,3,314,157,0,1174,
+        1175,5,63,0,0,1175,313,1,0,0,0,1176,1177,3,346,173,0,1177,315,1,
+        0,0,0,1178,1179,5,10,0,0,1179,1180,5,62,0,0,1180,1181,3,318,159,
+        0,1181,1182,5,63,0,0,1182,317,1,0,0,0,1183,1184,3,346,173,0,1184,
+        319,1,0,0,0,1185,1186,5,11,0,0,1186,1187,5,62,0,0,1187,1188,3,322,
+        161,0,1188,1189,5,63,0,0,1189,321,1,0,0,0,1190,1191,3,346,173,0,
+        1191,323,1,0,0,0,1192,1193,5,15,0,0,1193,1194,5,62,0,0,1194,1195,
+        3,326,163,0,1195,1196,5,63,0,0,1196,325,1,0,0,0,1197,1200,3,346,
+        173,0,1198,1200,5,73,0,0,1199,1197,1,0,0,0,1199,1198,1,0,0,0,1200,
+        327,1,0,0,0,1201,1202,5,8,0,0,1202,1203,5,62,0,0,1203,1204,3,330,
+        165,0,1204,1205,5,63,0,0,1205,329,1,0,0,0,1206,1207,3,350,175,0,
+        1207,331,1,0,0,0,1208,1209,5,7,0,0,1209,1210,5,62,0,0,1210,1211,
+        3,334,167,0,1211,1212,5,63,0,0,1212,333,1,0,0,0,1213,1214,3,350,
+        175,0,1214,335,1,0,0,0,1215,1216,5,12,0,0,1216,1217,5,62,0,0,1217,
+        1220,3,338,169,0,1218,1219,5,67,0,0,1219,1221,3,340,170,0,1220,1218,
+        1,0,0,0,1220,1221,1,0,0,0,1221,1222,1,0,0,0,1222,1223,5,63,0,0,1223,
+        337,1,0,0,0,1224,1225,3,344,172,0,1225,339,1,0,0,0,1226,1230,3,360,
+        180,0,1227,1230,5,73,0,0,1228,1230,3,346,173,0,1229,1226,1,0,0,0,
+        1229,1227,1,0,0,0,1229,1228,1,0,0,0,1230,341,1,0,0,0,1231,1232,7,
+        0,0,0,1232,343,1,0,0,0,1233,1235,3,356,178,0,1234,1233,1,0,0,0,1234,
+        1235,1,0,0,0,1235,345,1,0,0,0,1236,1237,5,64,0,0,1237,1242,3,348,
+        174,0,1238,1239,5,67,0,0,1239,1241,3,348,174,0,1240,1238,1,0,0,0,
+        1241,1244,1,0,0,0,1242,1240,1,0,0,0,1242,1243,1,0,0,0,1243,1246,
+        1,0,0,0,1244,1242,1,0,0,0,1245,1247,5,67,0,0,1246,1245,1,0,0,0,1246,
+        1247,1,0,0,0,1247,1248,1,0,0,0,1248,1249,5,65,0,0,1249,1253,1,0,
+        0,0,1250,1251,5,64,0,0,1251,1253,5,65,0,0,1252,1236,1,0,0,0,1252,
+        1250,1,0,0,0,1253,347,1,0,0,0,1254,1255,3,352,176,0,1255,1256,5,
+        66,0,0,1256,1257,3,356,178,0,1257,349,1,0,0,0,1258,1259,7,1,0,0,
+        1259,351,1,0,0,0,1260,1266,5,73,0,0,1261,1266,3,354,177,0,1262,1266,
+        5,75,0,0,1263,1266,3,350,175,0,1264,1266,5,72,0,0,1265,1260,1,0,
+        0,0,1265,1261,1,0,0,0,1265,1262,1,0,0,0,1265,1263,1,0,0,0,1265,1264,
+        1,0,0,0,1266,353,1,0,0,0,1267,1270,5,77,0,0,1268,1270,3,342,171,
+        0,1269,1267,1,0,0,0,1269,1268,1,0,0,0,1270,355,1,0,0,0,1271,1278,
+        5,73,0,0,1272,1278,3,360,180,0,1273,1278,3,346,173,0,1274,1278,3,
+        358,179,0,1275,1278,3,350,175,0,1276,1278,5,72,0,0,1277,1271,1,0,
+        0,0,1277,1272,1,0,0,0,1277,1273,1,0,0,0,1277,1274,1,0,0,0,1277,1275,
+        1,0,0,0,1277,1276,1,0,0,0,1278,357,1,0,0,0,1279,1280,5,60,0,0,1280,
+        1285,3,356,178,0,1281,1282,5,67,0,0,1282,1284,3,356,178,0,1283,1281,
+        1,0,0,0,1284,1287,1,0,0,0,1285,1283,1,0,0,0,1285,1286,1,0,0,0,1286,
+        1289,1,0,0,0,1287,1285,1,0,0,0,1288,1290,5,67,0,0,1289,1288,1,0,
+        0,0,1289,1290,1,0,0,0,1290,1291,1,0,0,0,1291,1292,5,61,0,0,1292,
+        1296,1,0,0,0,1293,1294,5,60,0,0,1294,1296,5,61,0,0,1295,1279,1,0,
+        0,0,1295,1293,1,0,0,0,1296,359,1,0,0,0,1297,1299,5,76,0,0,1298,1297,
+        1,0,0,0,1298,1299,1,0,0,0,1299,1300,1,0,0,0,1300,1301,7,2,0,0,1301,
+        361,1,0,0,0,92,363,369,375,379,401,418,425,436,445,454,463,472,481,
+        492,503,512,523,536,549,564,573,580,591,606,622,635,648,701,708,
+        710,714,727,729,744,746,757,766,777,790,794,797,802,811,820,831,
+        844,857,866,871,880,891,904,906,919,921,936,953,961,972,980,989,
+        1002,1012,1016,1027,1037,1046,1063,1078,1091,1093,1106,1108,1114,
+        1118,1128,1135,1155,1199,1220,1229,1234,1242,1246,1252,1265,1269,
+        1277,1285,1289,1295,1298
     ];
 
     private static __ATN: antlr.ATN;
@@ -5466,14 +7356,50 @@ export class DatabaseMethodContext extends antlr.ParserRuleContext {
     public databaseCollectionMethod(): DatabaseCollectionMethodContext | null {
         return this.getRuleContext(0, DatabaseCollectionMethodContext);
     }
-    public createCollectionMethod(): CreateCollectionMethodContext | null {
-        return this.getRuleContext(0, CreateCollectionMethodContext);
+    public databaseCreateCollectionMethod(): DatabaseCreateCollectionMethodContext | null {
+        return this.getRuleContext(0, DatabaseCreateCollectionMethodContext);
     }
-    public commandMethod(): CommandMethodContext | null {
-        return this.getRuleContext(0, CommandMethodContext);
+    public databaseCommandMethod(): DatabaseCommandMethodContext | null {
+        return this.getRuleContext(0, DatabaseCommandMethodContext);
     }
     public aggregateMethod(): AggregateMethodContext | null {
         return this.getRuleContext(0, AggregateMethodContext);
+    }
+    public databaseListCollectionsMethod(): DatabaseListCollectionsMethodContext | null {
+        return this.getRuleContext(0, DatabaseListCollectionsMethodContext);
+    }
+    public databaseRenameCollectionMethod(): DatabaseRenameCollectionMethodContext | null {
+        return this.getRuleContext(0, DatabaseRenameCollectionMethodContext);
+    }
+    public databaseDropCollectionMethod(): DatabaseDropCollectionMethodContext | null {
+        return this.getRuleContext(0, DatabaseDropCollectionMethodContext);
+    }
+    public databaseDropDatabaseMethod(): DatabaseDropDatabaseMethodContext | null {
+        return this.getRuleContext(0, DatabaseDropDatabaseMethodContext);
+    }
+    public databaseCreateIndexMethod(): DatabaseCreateIndexMethodContext | null {
+        return this.getRuleContext(0, DatabaseCreateIndexMethodContext);
+    }
+    public databaseRemoveUserMethod(): DatabaseRemoveUserMethodContext | null {
+        return this.getRuleContext(0, DatabaseRemoveUserMethodContext);
+    }
+    public databaseIndexInformationMethod(): DatabaseIndexInformationMethodContext | null {
+        return this.getRuleContext(0, DatabaseIndexInformationMethodContext);
+    }
+    public databaseRunCursorCommandMethod(): DatabaseRunCursorCommandMethodContext | null {
+        return this.getRuleContext(0, DatabaseRunCursorCommandMethodContext);
+    }
+    public databaseStatsMethod(): DatabaseStatsMethodContext | null {
+        return this.getRuleContext(0, DatabaseStatsMethodContext);
+    }
+    public databaseProfilingLevelMethod(): DatabaseProfilingLevelMethodContext | null {
+        return this.getRuleContext(0, DatabaseProfilingLevelMethodContext);
+    }
+    public databaseSetProfilingLevelMethod(): DatabaseSetProfilingLevelMethodContext | null {
+        return this.getRuleContext(0, DatabaseSetProfilingLevelMethodContext);
+    }
+    public databaseAdminMethod(): DatabaseAdminMethodContext | null {
+        return this.getRuleContext(0, DatabaseAdminMethodContext);
     }
     public override get ruleIndex(): number {
         return MongoParser.RULE_databaseMethod;
@@ -5488,7 +7414,1263 @@ export class DatabaseMethodContext extends antlr.ParserRuleContext {
 }
 
 
-export class CommandMethodContext extends antlr.ParserRuleContext {
+export class DatabaseAdminMethodContext extends antlr.ParserRuleContext {
+    public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
+        super(parent, invokingState);
+    }
+    public ADMIN(): antlr.TerminalNode {
+        return this.getToken(MongoParser.ADMIN, 0)!;
+    }
+    public LPAREN(): antlr.TerminalNode {
+        return this.getToken(MongoParser.LPAREN, 0)!;
+    }
+    public RPAREN(): antlr.TerminalNode {
+        return this.getToken(MongoParser.RPAREN, 0)!;
+    }
+    public DOT(): antlr.TerminalNode {
+        return this.getToken(MongoParser.DOT, 0)!;
+    }
+    public adminMethod(): AdminMethodContext {
+        return this.getRuleContext(0, AdminMethodContext)!;
+    }
+    public override get ruleIndex(): number {
+        return MongoParser.RULE_databaseAdminMethod;
+    }
+    public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
+        if (visitor.visitDatabaseAdminMethod) {
+            return visitor.visitDatabaseAdminMethod(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
+}
+
+
+export class AdminMethodContext extends antlr.ParserRuleContext {
+    public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
+        super(parent, invokingState);
+    }
+    public databaseCommandMethod(): DatabaseCommandMethodContext | null {
+        return this.getRuleContext(0, DatabaseCommandMethodContext);
+    }
+    public databaseRemoveUserMethod(): DatabaseRemoveUserMethodContext | null {
+        return this.getRuleContext(0, DatabaseRemoveUserMethodContext);
+    }
+    public buildInfoMethod(): BuildInfoMethodContext | null {
+        return this.getRuleContext(0, BuildInfoMethodContext);
+    }
+    public serverInfoMethod(): ServerInfoMethodContext | null {
+        return this.getRuleContext(0, ServerInfoMethodContext);
+    }
+    public serverStatusMethod(): ServerStatusMethodContext | null {
+        return this.getRuleContext(0, ServerStatusMethodContext);
+    }
+    public pingMethod(): PingMethodContext | null {
+        return this.getRuleContext(0, PingMethodContext);
+    }
+    public listDatabasesMethod(): ListDatabasesMethodContext | null {
+        return this.getRuleContext(0, ListDatabasesMethodContext);
+    }
+    public replSetGetStatusMethod(): ReplSetGetStatusMethodContext | null {
+        return this.getRuleContext(0, ReplSetGetStatusMethodContext);
+    }
+    public validateCollectionMethod(): ValidateCollectionMethodContext | null {
+        return this.getRuleContext(0, ValidateCollectionMethodContext);
+    }
+    public override get ruleIndex(): number {
+        return MongoParser.RULE_adminMethod;
+    }
+    public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
+        if (visitor.visitAdminMethod) {
+            return visitor.visitAdminMethod(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
+}
+
+
+export class ValidateCollectionMethodContext extends antlr.ParserRuleContext {
+    public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
+        super(parent, invokingState);
+    }
+    public VALIDATE_COLLECTION(): antlr.TerminalNode {
+        return this.getToken(MongoParser.VALIDATE_COLLECTION, 0)!;
+    }
+    public LPAREN(): antlr.TerminalNode {
+        return this.getToken(MongoParser.LPAREN, 0)!;
+    }
+    public validateCollectionArgument1(): ValidateCollectionArgument1Context {
+        return this.getRuleContext(0, ValidateCollectionArgument1Context)!;
+    }
+    public RPAREN(): antlr.TerminalNode {
+        return this.getToken(MongoParser.RPAREN, 0)!;
+    }
+    public COMMA(): antlr.TerminalNode | null {
+        return this.getToken(MongoParser.COMMA, 0);
+    }
+    public validateCollectionArgument2(): ValidateCollectionArgument2Context | null {
+        return this.getRuleContext(0, ValidateCollectionArgument2Context);
+    }
+    public override get ruleIndex(): number {
+        return MongoParser.RULE_validateCollectionMethod;
+    }
+    public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
+        if (visitor.visitValidateCollectionMethod) {
+            return visitor.visitValidateCollectionMethod(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
+}
+
+
+export class ValidateCollectionArgument1Context extends antlr.ParserRuleContext {
+    public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
+        super(parent, invokingState);
+    }
+    public STRING(): antlr.TerminalNode {
+        return this.getToken(MongoParser.STRING, 0)!;
+    }
+    public override get ruleIndex(): number {
+        return MongoParser.RULE_validateCollectionArgument1;
+    }
+    public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
+        if (visitor.visitValidateCollectionArgument1) {
+            return visitor.visitValidateCollectionArgument1(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
+}
+
+
+export class ValidateCollectionArgument2Context extends antlr.ParserRuleContext {
+    public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
+        super(parent, invokingState);
+    }
+    public object(): ObjectContext {
+        return this.getRuleContext(0, ObjectContext)!;
+    }
+    public override get ruleIndex(): number {
+        return MongoParser.RULE_validateCollectionArgument2;
+    }
+    public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
+        if (visitor.visitValidateCollectionArgument2) {
+            return visitor.visitValidateCollectionArgument2(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
+}
+
+
+export class ServerStatusMethodContext extends antlr.ParserRuleContext {
+    public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
+        super(parent, invokingState);
+    }
+    public SERVER_STATUS(): antlr.TerminalNode {
+        return this.getToken(MongoParser.SERVER_STATUS, 0)!;
+    }
+    public LPAREN(): antlr.TerminalNode {
+        return this.getToken(MongoParser.LPAREN, 0)!;
+    }
+    public RPAREN(): antlr.TerminalNode {
+        return this.getToken(MongoParser.RPAREN, 0)!;
+    }
+    public serverStatusArgument(): ServerStatusArgumentContext | null {
+        return this.getRuleContext(0, ServerStatusArgumentContext);
+    }
+    public override get ruleIndex(): number {
+        return MongoParser.RULE_serverStatusMethod;
+    }
+    public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
+        if (visitor.visitServerStatusMethod) {
+            return visitor.visitServerStatusMethod(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
+}
+
+
+export class ServerStatusArgumentContext extends antlr.ParserRuleContext {
+    public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
+        super(parent, invokingState);
+    }
+    public object(): ObjectContext {
+        return this.getRuleContext(0, ObjectContext)!;
+    }
+    public override get ruleIndex(): number {
+        return MongoParser.RULE_serverStatusArgument;
+    }
+    public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
+        if (visitor.visitServerStatusArgument) {
+            return visitor.visitServerStatusArgument(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
+}
+
+
+export class PingMethodContext extends antlr.ParserRuleContext {
+    public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
+        super(parent, invokingState);
+    }
+    public PING(): antlr.TerminalNode {
+        return this.getToken(MongoParser.PING, 0)!;
+    }
+    public LPAREN(): antlr.TerminalNode {
+        return this.getToken(MongoParser.LPAREN, 0)!;
+    }
+    public RPAREN(): antlr.TerminalNode {
+        return this.getToken(MongoParser.RPAREN, 0)!;
+    }
+    public pingArgument(): PingArgumentContext | null {
+        return this.getRuleContext(0, PingArgumentContext);
+    }
+    public override get ruleIndex(): number {
+        return MongoParser.RULE_pingMethod;
+    }
+    public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
+        if (visitor.visitPingMethod) {
+            return visitor.visitPingMethod(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
+}
+
+
+export class PingArgumentContext extends antlr.ParserRuleContext {
+    public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
+        super(parent, invokingState);
+    }
+    public object(): ObjectContext {
+        return this.getRuleContext(0, ObjectContext)!;
+    }
+    public override get ruleIndex(): number {
+        return MongoParser.RULE_pingArgument;
+    }
+    public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
+        if (visitor.visitPingArgument) {
+            return visitor.visitPingArgument(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
+}
+
+
+export class ListDatabasesMethodContext extends antlr.ParserRuleContext {
+    public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
+        super(parent, invokingState);
+    }
+    public LIST_DATABASES(): antlr.TerminalNode {
+        return this.getToken(MongoParser.LIST_DATABASES, 0)!;
+    }
+    public LPAREN(): antlr.TerminalNode {
+        return this.getToken(MongoParser.LPAREN, 0)!;
+    }
+    public RPAREN(): antlr.TerminalNode {
+        return this.getToken(MongoParser.RPAREN, 0)!;
+    }
+    public listDatabasesArgument(): ListDatabasesArgumentContext | null {
+        return this.getRuleContext(0, ListDatabasesArgumentContext);
+    }
+    public override get ruleIndex(): number {
+        return MongoParser.RULE_listDatabasesMethod;
+    }
+    public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
+        if (visitor.visitListDatabasesMethod) {
+            return visitor.visitListDatabasesMethod(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
+}
+
+
+export class ListDatabasesArgumentContext extends antlr.ParserRuleContext {
+    public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
+        super(parent, invokingState);
+    }
+    public object(): ObjectContext {
+        return this.getRuleContext(0, ObjectContext)!;
+    }
+    public override get ruleIndex(): number {
+        return MongoParser.RULE_listDatabasesArgument;
+    }
+    public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
+        if (visitor.visitListDatabasesArgument) {
+            return visitor.visitListDatabasesArgument(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
+}
+
+
+export class ReplSetGetStatusMethodContext extends antlr.ParserRuleContext {
+    public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
+        super(parent, invokingState);
+    }
+    public REPL_SET_GET_STATUS(): antlr.TerminalNode {
+        return this.getToken(MongoParser.REPL_SET_GET_STATUS, 0)!;
+    }
+    public LPAREN(): antlr.TerminalNode {
+        return this.getToken(MongoParser.LPAREN, 0)!;
+    }
+    public RPAREN(): antlr.TerminalNode {
+        return this.getToken(MongoParser.RPAREN, 0)!;
+    }
+    public replSetGetStatusArgument(): ReplSetGetStatusArgumentContext | null {
+        return this.getRuleContext(0, ReplSetGetStatusArgumentContext);
+    }
+    public override get ruleIndex(): number {
+        return MongoParser.RULE_replSetGetStatusMethod;
+    }
+    public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
+        if (visitor.visitReplSetGetStatusMethod) {
+            return visitor.visitReplSetGetStatusMethod(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
+}
+
+
+export class ReplSetGetStatusArgumentContext extends antlr.ParserRuleContext {
+    public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
+        super(parent, invokingState);
+    }
+    public object(): ObjectContext {
+        return this.getRuleContext(0, ObjectContext)!;
+    }
+    public override get ruleIndex(): number {
+        return MongoParser.RULE_replSetGetStatusArgument;
+    }
+    public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
+        if (visitor.visitReplSetGetStatusArgument) {
+            return visitor.visitReplSetGetStatusArgument(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
+}
+
+
+export class ServerInfoMethodContext extends antlr.ParserRuleContext {
+    public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
+        super(parent, invokingState);
+    }
+    public SERVER_INFO(): antlr.TerminalNode {
+        return this.getToken(MongoParser.SERVER_INFO, 0)!;
+    }
+    public LPAREN(): antlr.TerminalNode {
+        return this.getToken(MongoParser.LPAREN, 0)!;
+    }
+    public RPAREN(): antlr.TerminalNode {
+        return this.getToken(MongoParser.RPAREN, 0)!;
+    }
+    public serverInfoArgument(): ServerInfoArgumentContext | null {
+        return this.getRuleContext(0, ServerInfoArgumentContext);
+    }
+    public override get ruleIndex(): number {
+        return MongoParser.RULE_serverInfoMethod;
+    }
+    public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
+        if (visitor.visitServerInfoMethod) {
+            return visitor.visitServerInfoMethod(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
+}
+
+
+export class ServerInfoArgumentContext extends antlr.ParserRuleContext {
+    public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
+        super(parent, invokingState);
+    }
+    public object(): ObjectContext {
+        return this.getRuleContext(0, ObjectContext)!;
+    }
+    public override get ruleIndex(): number {
+        return MongoParser.RULE_serverInfoArgument;
+    }
+    public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
+        if (visitor.visitServerInfoArgument) {
+            return visitor.visitServerInfoArgument(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
+}
+
+
+export class BuildInfoMethodContext extends antlr.ParserRuleContext {
+    public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
+        super(parent, invokingState);
+    }
+    public BUILD_INFO(): antlr.TerminalNode {
+        return this.getToken(MongoParser.BUILD_INFO, 0)!;
+    }
+    public LPAREN(): antlr.TerminalNode {
+        return this.getToken(MongoParser.LPAREN, 0)!;
+    }
+    public RPAREN(): antlr.TerminalNode {
+        return this.getToken(MongoParser.RPAREN, 0)!;
+    }
+    public buildInfoArgument(): BuildInfoArgumentContext | null {
+        return this.getRuleContext(0, BuildInfoArgumentContext);
+    }
+    public override get ruleIndex(): number {
+        return MongoParser.RULE_buildInfoMethod;
+    }
+    public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
+        if (visitor.visitBuildInfoMethod) {
+            return visitor.visitBuildInfoMethod(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
+}
+
+
+export class BuildInfoArgumentContext extends antlr.ParserRuleContext {
+    public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
+        super(parent, invokingState);
+    }
+    public object(): ObjectContext {
+        return this.getRuleContext(0, ObjectContext)!;
+    }
+    public override get ruleIndex(): number {
+        return MongoParser.RULE_buildInfoArgument;
+    }
+    public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
+        if (visitor.visitBuildInfoArgument) {
+            return visitor.visitBuildInfoArgument(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
+}
+
+
+export class DatabaseSetProfilingLevelMethodContext extends antlr.ParserRuleContext {
+    public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
+        super(parent, invokingState);
+    }
+    public SET_PROFILING_LEVEL(): antlr.TerminalNode {
+        return this.getToken(MongoParser.SET_PROFILING_LEVEL, 0)!;
+    }
+    public LPAREN(): antlr.TerminalNode {
+        return this.getToken(MongoParser.LPAREN, 0)!;
+    }
+    public databaseSetProfilingLevelArgument1(): DatabaseSetProfilingLevelArgument1Context {
+        return this.getRuleContext(0, DatabaseSetProfilingLevelArgument1Context)!;
+    }
+    public RPAREN(): antlr.TerminalNode {
+        return this.getToken(MongoParser.RPAREN, 0)!;
+    }
+    public COMMA(): antlr.TerminalNode | null {
+        return this.getToken(MongoParser.COMMA, 0);
+    }
+    public databaseSetProfilingLevelArgument2(): DatabaseSetProfilingLevelArgument2Context | null {
+        return this.getRuleContext(0, DatabaseSetProfilingLevelArgument2Context);
+    }
+    public override get ruleIndex(): number {
+        return MongoParser.RULE_databaseSetProfilingLevelMethod;
+    }
+    public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
+        if (visitor.visitDatabaseSetProfilingLevelMethod) {
+            return visitor.visitDatabaseSetProfilingLevelMethod(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
+}
+
+
+export class DatabaseSetProfilingLevelArgument1Context extends antlr.ParserRuleContext {
+    public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
+        super(parent, invokingState);
+    }
+    public STRING(): antlr.TerminalNode {
+        return this.getToken(MongoParser.STRING, 0)!;
+    }
+    public override get ruleIndex(): number {
+        return MongoParser.RULE_databaseSetProfilingLevelArgument1;
+    }
+    public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
+        if (visitor.visitDatabaseSetProfilingLevelArgument1) {
+            return visitor.visitDatabaseSetProfilingLevelArgument1(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
+}
+
+
+export class DatabaseSetProfilingLevelArgument2Context extends antlr.ParserRuleContext {
+    public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
+        super(parent, invokingState);
+    }
+    public object(): ObjectContext {
+        return this.getRuleContext(0, ObjectContext)!;
+    }
+    public override get ruleIndex(): number {
+        return MongoParser.RULE_databaseSetProfilingLevelArgument2;
+    }
+    public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
+        if (visitor.visitDatabaseSetProfilingLevelArgument2) {
+            return visitor.visitDatabaseSetProfilingLevelArgument2(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
+}
+
+
+export class DatabaseProfilingLevelMethodContext extends antlr.ParserRuleContext {
+    public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
+        super(parent, invokingState);
+    }
+    public PROFILING_LEVEL(): antlr.TerminalNode {
+        return this.getToken(MongoParser.PROFILING_LEVEL, 0)!;
+    }
+    public LPAREN(): antlr.TerminalNode {
+        return this.getToken(MongoParser.LPAREN, 0)!;
+    }
+    public RPAREN(): antlr.TerminalNode {
+        return this.getToken(MongoParser.RPAREN, 0)!;
+    }
+    public databaseProfilingLevelArgument(): DatabaseProfilingLevelArgumentContext | null {
+        return this.getRuleContext(0, DatabaseProfilingLevelArgumentContext);
+    }
+    public override get ruleIndex(): number {
+        return MongoParser.RULE_databaseProfilingLevelMethod;
+    }
+    public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
+        if (visitor.visitDatabaseProfilingLevelMethod) {
+            return visitor.visitDatabaseProfilingLevelMethod(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
+}
+
+
+export class DatabaseProfilingLevelArgumentContext extends antlr.ParserRuleContext {
+    public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
+        super(parent, invokingState);
+    }
+    public object(): ObjectContext {
+        return this.getRuleContext(0, ObjectContext)!;
+    }
+    public override get ruleIndex(): number {
+        return MongoParser.RULE_databaseProfilingLevelArgument;
+    }
+    public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
+        if (visitor.visitDatabaseProfilingLevelArgument) {
+            return visitor.visitDatabaseProfilingLevelArgument(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
+}
+
+
+export class DatabaseStatsMethodContext extends antlr.ParserRuleContext {
+    public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
+        super(parent, invokingState);
+    }
+    public STATS(): antlr.TerminalNode {
+        return this.getToken(MongoParser.STATS, 0)!;
+    }
+    public LPAREN(): antlr.TerminalNode {
+        return this.getToken(MongoParser.LPAREN, 0)!;
+    }
+    public RPAREN(): antlr.TerminalNode {
+        return this.getToken(MongoParser.RPAREN, 0)!;
+    }
+    public databaseStatsArgument(): DatabaseStatsArgumentContext | null {
+        return this.getRuleContext(0, DatabaseStatsArgumentContext);
+    }
+    public override get ruleIndex(): number {
+        return MongoParser.RULE_databaseStatsMethod;
+    }
+    public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
+        if (visitor.visitDatabaseStatsMethod) {
+            return visitor.visitDatabaseStatsMethod(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
+}
+
+
+export class DatabaseStatsArgumentContext extends antlr.ParserRuleContext {
+    public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
+        super(parent, invokingState);
+    }
+    public object(): ObjectContext {
+        return this.getRuleContext(0, ObjectContext)!;
+    }
+    public override get ruleIndex(): number {
+        return MongoParser.RULE_databaseStatsArgument;
+    }
+    public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
+        if (visitor.visitDatabaseStatsArgument) {
+            return visitor.visitDatabaseStatsArgument(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
+}
+
+
+export class DatabaseRunCursorCommandMethodContext extends antlr.ParserRuleContext {
+    public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
+        super(parent, invokingState);
+    }
+    public RUN_CURSOR_COMMAND(): antlr.TerminalNode {
+        return this.getToken(MongoParser.RUN_CURSOR_COMMAND, 0)!;
+    }
+    public LPAREN(): antlr.TerminalNode {
+        return this.getToken(MongoParser.LPAREN, 0)!;
+    }
+    public databaseRunCursorCommandArgument1(): DatabaseRunCursorCommandArgument1Context {
+        return this.getRuleContext(0, DatabaseRunCursorCommandArgument1Context)!;
+    }
+    public RPAREN(): antlr.TerminalNode {
+        return this.getToken(MongoParser.RPAREN, 0)!;
+    }
+    public COMMA(): antlr.TerminalNode | null {
+        return this.getToken(MongoParser.COMMA, 0);
+    }
+    public databaseRunCursorCommandArgument2(): DatabaseRunCursorCommandArgument2Context | null {
+        return this.getRuleContext(0, DatabaseRunCursorCommandArgument2Context);
+    }
+    public override get ruleIndex(): number {
+        return MongoParser.RULE_databaseRunCursorCommandMethod;
+    }
+    public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
+        if (visitor.visitDatabaseRunCursorCommandMethod) {
+            return visitor.visitDatabaseRunCursorCommandMethod(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
+}
+
+
+export class DatabaseRunCursorCommandArgument1Context extends antlr.ParserRuleContext {
+    public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
+        super(parent, invokingState);
+    }
+    public object(): ObjectContext {
+        return this.getRuleContext(0, ObjectContext)!;
+    }
+    public override get ruleIndex(): number {
+        return MongoParser.RULE_databaseRunCursorCommandArgument1;
+    }
+    public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
+        if (visitor.visitDatabaseRunCursorCommandArgument1) {
+            return visitor.visitDatabaseRunCursorCommandArgument1(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
+}
+
+
+export class DatabaseRunCursorCommandArgument2Context extends antlr.ParserRuleContext {
+    public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
+        super(parent, invokingState);
+    }
+    public object(): ObjectContext {
+        return this.getRuleContext(0, ObjectContext)!;
+    }
+    public override get ruleIndex(): number {
+        return MongoParser.RULE_databaseRunCursorCommandArgument2;
+    }
+    public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
+        if (visitor.visitDatabaseRunCursorCommandArgument2) {
+            return visitor.visitDatabaseRunCursorCommandArgument2(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
+}
+
+
+export class DatabaseIndexInformationMethodContext extends antlr.ParserRuleContext {
+    public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
+        super(parent, invokingState);
+    }
+    public INDEX_INFORMATION(): antlr.TerminalNode {
+        return this.getToken(MongoParser.INDEX_INFORMATION, 0)!;
+    }
+    public LPAREN(): antlr.TerminalNode {
+        return this.getToken(MongoParser.LPAREN, 0)!;
+    }
+    public databaseIndexInformationArgument1(): DatabaseIndexInformationArgument1Context {
+        return this.getRuleContext(0, DatabaseIndexInformationArgument1Context)!;
+    }
+    public RPAREN(): antlr.TerminalNode {
+        return this.getToken(MongoParser.RPAREN, 0)!;
+    }
+    public COMMA(): antlr.TerminalNode | null {
+        return this.getToken(MongoParser.COMMA, 0);
+    }
+    public databaseIndexInformationArgument2(): DatabaseIndexInformationArgument2Context | null {
+        return this.getRuleContext(0, DatabaseIndexInformationArgument2Context);
+    }
+    public override get ruleIndex(): number {
+        return MongoParser.RULE_databaseIndexInformationMethod;
+    }
+    public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
+        if (visitor.visitDatabaseIndexInformationMethod) {
+            return visitor.visitDatabaseIndexInformationMethod(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
+}
+
+
+export class DatabaseIndexInformationArgument1Context extends antlr.ParserRuleContext {
+    public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
+        super(parent, invokingState);
+    }
+    public STRING(): antlr.TerminalNode {
+        return this.getToken(MongoParser.STRING, 0)!;
+    }
+    public override get ruleIndex(): number {
+        return MongoParser.RULE_databaseIndexInformationArgument1;
+    }
+    public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
+        if (visitor.visitDatabaseIndexInformationArgument1) {
+            return visitor.visitDatabaseIndexInformationArgument1(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
+}
+
+
+export class DatabaseIndexInformationArgument2Context extends antlr.ParserRuleContext {
+    public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
+        super(parent, invokingState);
+    }
+    public object(): ObjectContext {
+        return this.getRuleContext(0, ObjectContext)!;
+    }
+    public override get ruleIndex(): number {
+        return MongoParser.RULE_databaseIndexInformationArgument2;
+    }
+    public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
+        if (visitor.visitDatabaseIndexInformationArgument2) {
+            return visitor.visitDatabaseIndexInformationArgument2(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
+}
+
+
+export class DatabaseRemoveUserMethodContext extends antlr.ParserRuleContext {
+    public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
+        super(parent, invokingState);
+    }
+    public REMOVE_USER(): antlr.TerminalNode {
+        return this.getToken(MongoParser.REMOVE_USER, 0)!;
+    }
+    public LPAREN(): antlr.TerminalNode {
+        return this.getToken(MongoParser.LPAREN, 0)!;
+    }
+    public databaseRemoveUserArgument1(): DatabaseRemoveUserArgument1Context {
+        return this.getRuleContext(0, DatabaseRemoveUserArgument1Context)!;
+    }
+    public RPAREN(): antlr.TerminalNode {
+        return this.getToken(MongoParser.RPAREN, 0)!;
+    }
+    public COMMA(): antlr.TerminalNode | null {
+        return this.getToken(MongoParser.COMMA, 0);
+    }
+    public databaseRemoveUserArgument2(): DatabaseRemoveUserArgument2Context | null {
+        return this.getRuleContext(0, DatabaseRemoveUserArgument2Context);
+    }
+    public override get ruleIndex(): number {
+        return MongoParser.RULE_databaseRemoveUserMethod;
+    }
+    public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
+        if (visitor.visitDatabaseRemoveUserMethod) {
+            return visitor.visitDatabaseRemoveUserMethod(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
+}
+
+
+export class DatabaseRemoveUserArgument1Context extends antlr.ParserRuleContext {
+    public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
+        super(parent, invokingState);
+    }
+    public STRING(): antlr.TerminalNode {
+        return this.getToken(MongoParser.STRING, 0)!;
+    }
+    public override get ruleIndex(): number {
+        return MongoParser.RULE_databaseRemoveUserArgument1;
+    }
+    public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
+        if (visitor.visitDatabaseRemoveUserArgument1) {
+            return visitor.visitDatabaseRemoveUserArgument1(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
+}
+
+
+export class DatabaseRemoveUserArgument2Context extends antlr.ParserRuleContext {
+    public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
+        super(parent, invokingState);
+    }
+    public object(): ObjectContext {
+        return this.getRuleContext(0, ObjectContext)!;
+    }
+    public override get ruleIndex(): number {
+        return MongoParser.RULE_databaseRemoveUserArgument2;
+    }
+    public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
+        if (visitor.visitDatabaseRemoveUserArgument2) {
+            return visitor.visitDatabaseRemoveUserArgument2(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
+}
+
+
+export class DatabaseCreateIndexMethodContext extends antlr.ParserRuleContext {
+    public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
+        super(parent, invokingState);
+    }
+    public CREATE_INDEX(): antlr.TerminalNode {
+        return this.getToken(MongoParser.CREATE_INDEX, 0)!;
+    }
+    public LPAREN(): antlr.TerminalNode {
+        return this.getToken(MongoParser.LPAREN, 0)!;
+    }
+    public databaseCreateIndexArgument1(): DatabaseCreateIndexArgument1Context {
+        return this.getRuleContext(0, DatabaseCreateIndexArgument1Context)!;
+    }
+    public COMMA(): antlr.TerminalNode[];
+    public COMMA(i: number): antlr.TerminalNode | null;
+    public COMMA(i?: number): antlr.TerminalNode | null | antlr.TerminalNode[] {
+    	if (i === undefined) {
+    		return this.getTokens(MongoParser.COMMA);
+    	} else {
+    		return this.getToken(MongoParser.COMMA, i);
+    	}
+    }
+    public databaseCreateIndexArgument2(): DatabaseCreateIndexArgument2Context {
+        return this.getRuleContext(0, DatabaseCreateIndexArgument2Context)!;
+    }
+    public RPAREN(): antlr.TerminalNode {
+        return this.getToken(MongoParser.RPAREN, 0)!;
+    }
+    public databaseCreateIndexArgument3(): DatabaseCreateIndexArgument3Context | null {
+        return this.getRuleContext(0, DatabaseCreateIndexArgument3Context);
+    }
+    public override get ruleIndex(): number {
+        return MongoParser.RULE_databaseCreateIndexMethod;
+    }
+    public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
+        if (visitor.visitDatabaseCreateIndexMethod) {
+            return visitor.visitDatabaseCreateIndexMethod(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
+}
+
+
+export class DatabaseCreateIndexArgument3Context extends antlr.ParserRuleContext {
+    public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
+        super(parent, invokingState);
+    }
+    public object(): ObjectContext {
+        return this.getRuleContext(0, ObjectContext)!;
+    }
+    public override get ruleIndex(): number {
+        return MongoParser.RULE_databaseCreateIndexArgument3;
+    }
+    public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
+        if (visitor.visitDatabaseCreateIndexArgument3) {
+            return visitor.visitDatabaseCreateIndexArgument3(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
+}
+
+
+export class DatabaseCreateIndexArgument2Context extends antlr.ParserRuleContext {
+    public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
+        super(parent, invokingState);
+    }
+    public STRING(): antlr.TerminalNode | null {
+        return this.getToken(MongoParser.STRING, 0);
+    }
+    public object(): ObjectContext | null {
+        return this.getRuleContext(0, ObjectContext);
+    }
+    public array(): ArrayContext | null {
+        return this.getRuleContext(0, ArrayContext);
+    }
+    public override get ruleIndex(): number {
+        return MongoParser.RULE_databaseCreateIndexArgument2;
+    }
+    public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
+        if (visitor.visitDatabaseCreateIndexArgument2) {
+            return visitor.visitDatabaseCreateIndexArgument2(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
+}
+
+
+export class DatabaseCreateIndexArgument1Context extends antlr.ParserRuleContext {
+    public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
+        super(parent, invokingState);
+    }
+    public STRING(): antlr.TerminalNode {
+        return this.getToken(MongoParser.STRING, 0)!;
+    }
+    public override get ruleIndex(): number {
+        return MongoParser.RULE_databaseCreateIndexArgument1;
+    }
+    public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
+        if (visitor.visitDatabaseCreateIndexArgument1) {
+            return visitor.visitDatabaseCreateIndexArgument1(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
+}
+
+
+export class DatabaseDropDatabaseMethodContext extends antlr.ParserRuleContext {
+    public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
+        super(parent, invokingState);
+    }
+    public DROP_DATABASE(): antlr.TerminalNode {
+        return this.getToken(MongoParser.DROP_DATABASE, 0)!;
+    }
+    public LPAREN(): antlr.TerminalNode {
+        return this.getToken(MongoParser.LPAREN, 0)!;
+    }
+    public RPAREN(): antlr.TerminalNode {
+        return this.getToken(MongoParser.RPAREN, 0)!;
+    }
+    public databaseDropDatabaseArgument(): DatabaseDropDatabaseArgumentContext | null {
+        return this.getRuleContext(0, DatabaseDropDatabaseArgumentContext);
+    }
+    public override get ruleIndex(): number {
+        return MongoParser.RULE_databaseDropDatabaseMethod;
+    }
+    public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
+        if (visitor.visitDatabaseDropDatabaseMethod) {
+            return visitor.visitDatabaseDropDatabaseMethod(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
+}
+
+
+export class DatabaseDropDatabaseArgumentContext extends antlr.ParserRuleContext {
+    public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
+        super(parent, invokingState);
+    }
+    public object(): ObjectContext {
+        return this.getRuleContext(0, ObjectContext)!;
+    }
+    public override get ruleIndex(): number {
+        return MongoParser.RULE_databaseDropDatabaseArgument;
+    }
+    public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
+        if (visitor.visitDatabaseDropDatabaseArgument) {
+            return visitor.visitDatabaseDropDatabaseArgument(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
+}
+
+
+export class DatabaseDropCollectionMethodContext extends antlr.ParserRuleContext {
+    public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
+        super(parent, invokingState);
+    }
+    public DROP_COLLECTION(): antlr.TerminalNode {
+        return this.getToken(MongoParser.DROP_COLLECTION, 0)!;
+    }
+    public LPAREN(): antlr.TerminalNode {
+        return this.getToken(MongoParser.LPAREN, 0)!;
+    }
+    public databaseDropCollectionArgument1(): DatabaseDropCollectionArgument1Context {
+        return this.getRuleContext(0, DatabaseDropCollectionArgument1Context)!;
+    }
+    public RPAREN(): antlr.TerminalNode {
+        return this.getToken(MongoParser.RPAREN, 0)!;
+    }
+    public COMMA(): antlr.TerminalNode | null {
+        return this.getToken(MongoParser.COMMA, 0);
+    }
+    public databaseDropCollectionArgument2(): DatabaseDropCollectionArgument2Context | null {
+        return this.getRuleContext(0, DatabaseDropCollectionArgument2Context);
+    }
+    public override get ruleIndex(): number {
+        return MongoParser.RULE_databaseDropCollectionMethod;
+    }
+    public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
+        if (visitor.visitDatabaseDropCollectionMethod) {
+            return visitor.visitDatabaseDropCollectionMethod(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
+}
+
+
+export class DatabaseDropCollectionArgument1Context extends antlr.ParserRuleContext {
+    public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
+        super(parent, invokingState);
+    }
+    public STRING(): antlr.TerminalNode {
+        return this.getToken(MongoParser.STRING, 0)!;
+    }
+    public override get ruleIndex(): number {
+        return MongoParser.RULE_databaseDropCollectionArgument1;
+    }
+    public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
+        if (visitor.visitDatabaseDropCollectionArgument1) {
+            return visitor.visitDatabaseDropCollectionArgument1(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
+}
+
+
+export class DatabaseDropCollectionArgument2Context extends antlr.ParserRuleContext {
+    public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
+        super(parent, invokingState);
+    }
+    public object(): ObjectContext {
+        return this.getRuleContext(0, ObjectContext)!;
+    }
+    public override get ruleIndex(): number {
+        return MongoParser.RULE_databaseDropCollectionArgument2;
+    }
+    public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
+        if (visitor.visitDatabaseDropCollectionArgument2) {
+            return visitor.visitDatabaseDropCollectionArgument2(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
+}
+
+
+export class DatabaseRenameCollectionMethodContext extends antlr.ParserRuleContext {
+    public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
+        super(parent, invokingState);
+    }
+    public RENAME_COLLECTION(): antlr.TerminalNode {
+        return this.getToken(MongoParser.RENAME_COLLECTION, 0)!;
+    }
+    public LPAREN(): antlr.TerminalNode {
+        return this.getToken(MongoParser.LPAREN, 0)!;
+    }
+    public databaseRenameCollectionArgument1(): DatabaseRenameCollectionArgument1Context {
+        return this.getRuleContext(0, DatabaseRenameCollectionArgument1Context)!;
+    }
+    public COMMA(): antlr.TerminalNode[];
+    public COMMA(i: number): antlr.TerminalNode | null;
+    public COMMA(i?: number): antlr.TerminalNode | null | antlr.TerminalNode[] {
+    	if (i === undefined) {
+    		return this.getTokens(MongoParser.COMMA);
+    	} else {
+    		return this.getToken(MongoParser.COMMA, i);
+    	}
+    }
+    public databaseRenameCollectionArgument2(): DatabaseRenameCollectionArgument2Context {
+        return this.getRuleContext(0, DatabaseRenameCollectionArgument2Context)!;
+    }
+    public RPAREN(): antlr.TerminalNode {
+        return this.getToken(MongoParser.RPAREN, 0)!;
+    }
+    public databaseRenameCollectionArgument3(): DatabaseRenameCollectionArgument3Context | null {
+        return this.getRuleContext(0, DatabaseRenameCollectionArgument3Context);
+    }
+    public override get ruleIndex(): number {
+        return MongoParser.RULE_databaseRenameCollectionMethod;
+    }
+    public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
+        if (visitor.visitDatabaseRenameCollectionMethod) {
+            return visitor.visitDatabaseRenameCollectionMethod(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
+}
+
+
+export class DatabaseRenameCollectionArgument1Context extends antlr.ParserRuleContext {
+    public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
+        super(parent, invokingState);
+    }
+    public STRING(): antlr.TerminalNode {
+        return this.getToken(MongoParser.STRING, 0)!;
+    }
+    public override get ruleIndex(): number {
+        return MongoParser.RULE_databaseRenameCollectionArgument1;
+    }
+    public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
+        if (visitor.visitDatabaseRenameCollectionArgument1) {
+            return visitor.visitDatabaseRenameCollectionArgument1(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
+}
+
+
+export class DatabaseRenameCollectionArgument2Context extends antlr.ParserRuleContext {
+    public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
+        super(parent, invokingState);
+    }
+    public STRING(): antlr.TerminalNode {
+        return this.getToken(MongoParser.STRING, 0)!;
+    }
+    public override get ruleIndex(): number {
+        return MongoParser.RULE_databaseRenameCollectionArgument2;
+    }
+    public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
+        if (visitor.visitDatabaseRenameCollectionArgument2) {
+            return visitor.visitDatabaseRenameCollectionArgument2(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
+}
+
+
+export class DatabaseRenameCollectionArgument3Context extends antlr.ParserRuleContext {
+    public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
+        super(parent, invokingState);
+    }
+    public object(): ObjectContext {
+        return this.getRuleContext(0, ObjectContext)!;
+    }
+    public override get ruleIndex(): number {
+        return MongoParser.RULE_databaseRenameCollectionArgument3;
+    }
+    public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
+        if (visitor.visitDatabaseRenameCollectionArgument3) {
+            return visitor.visitDatabaseRenameCollectionArgument3(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
+}
+
+
+export class DatabaseListCollectionsMethodContext extends antlr.ParserRuleContext {
+    public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
+        super(parent, invokingState);
+    }
+    public LIST_COLLECTIONS(): antlr.TerminalNode {
+        return this.getToken(MongoParser.LIST_COLLECTIONS, 0)!;
+    }
+    public LPAREN(): antlr.TerminalNode {
+        return this.getToken(MongoParser.LPAREN, 0)!;
+    }
+    public RPAREN(): antlr.TerminalNode {
+        return this.getToken(MongoParser.RPAREN, 0)!;
+    }
+    public databaseListCollectionsArgument1(): DatabaseListCollectionsArgument1Context | null {
+        return this.getRuleContext(0, DatabaseListCollectionsArgument1Context);
+    }
+    public COMMA(): antlr.TerminalNode | null {
+        return this.getToken(MongoParser.COMMA, 0);
+    }
+    public databaseListCollectionsArgument2(): DatabaseListCollectionsArgument2Context | null {
+        return this.getRuleContext(0, DatabaseListCollectionsArgument2Context);
+    }
+    public override get ruleIndex(): number {
+        return MongoParser.RULE_databaseListCollectionsMethod;
+    }
+    public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
+        if (visitor.visitDatabaseListCollectionsMethod) {
+            return visitor.visitDatabaseListCollectionsMethod(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
+}
+
+
+export class DatabaseListCollectionsArgument1Context extends antlr.ParserRuleContext {
+    public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
+        super(parent, invokingState);
+    }
+    public object(): ObjectContext {
+        return this.getRuleContext(0, ObjectContext)!;
+    }
+    public override get ruleIndex(): number {
+        return MongoParser.RULE_databaseListCollectionsArgument1;
+    }
+    public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
+        if (visitor.visitDatabaseListCollectionsArgument1) {
+            return visitor.visitDatabaseListCollectionsArgument1(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
+}
+
+
+export class DatabaseListCollectionsArgument2Context extends antlr.ParserRuleContext {
+    public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
+        super(parent, invokingState);
+    }
+    public object(): ObjectContext {
+        return this.getRuleContext(0, ObjectContext)!;
+    }
+    public override get ruleIndex(): number {
+        return MongoParser.RULE_databaseListCollectionsArgument2;
+    }
+    public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
+        if (visitor.visitDatabaseListCollectionsArgument2) {
+            return visitor.visitDatabaseListCollectionsArgument2(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
+}
+
+
+export class DatabaseCommandMethodContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
@@ -5498,8 +8680,8 @@ export class CommandMethodContext extends antlr.ParserRuleContext {
     public LPAREN(): antlr.TerminalNode {
         return this.getToken(MongoParser.LPAREN, 0)!;
     }
-    public commandArgument1(): CommandArgument1Context {
-        return this.getRuleContext(0, CommandArgument1Context)!;
+    public databaseCommandArgument1(): DatabaseCommandArgument1Context {
+        return this.getRuleContext(0, DatabaseCommandArgument1Context)!;
     }
     public RPAREN(): antlr.TerminalNode {
         return this.getToken(MongoParser.RPAREN, 0)!;
@@ -5507,15 +8689,15 @@ export class CommandMethodContext extends antlr.ParserRuleContext {
     public COMMA(): antlr.TerminalNode | null {
         return this.getToken(MongoParser.COMMA, 0);
     }
-    public commandArgument2(): CommandArgument2Context | null {
-        return this.getRuleContext(0, CommandArgument2Context);
+    public databaseCommandArgument2(): DatabaseCommandArgument2Context | null {
+        return this.getRuleContext(0, DatabaseCommandArgument2Context);
     }
     public override get ruleIndex(): number {
-        return MongoParser.RULE_commandMethod;
+        return MongoParser.RULE_databaseCommandMethod;
     }
     public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
-        if (visitor.visitCommandMethod) {
-            return visitor.visitCommandMethod(this);
+        if (visitor.visitDatabaseCommandMethod) {
+            return visitor.visitDatabaseCommandMethod(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -5523,7 +8705,7 @@ export class CommandMethodContext extends antlr.ParserRuleContext {
 }
 
 
-export class CommandArgument1Context extends antlr.ParserRuleContext {
+export class DatabaseCommandArgument1Context extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
@@ -5531,11 +8713,11 @@ export class CommandArgument1Context extends antlr.ParserRuleContext {
         return this.getRuleContext(0, ObjectContext)!;
     }
     public override get ruleIndex(): number {
-        return MongoParser.RULE_commandArgument1;
+        return MongoParser.RULE_databaseCommandArgument1;
     }
     public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
-        if (visitor.visitCommandArgument1) {
-            return visitor.visitCommandArgument1(this);
+        if (visitor.visitDatabaseCommandArgument1) {
+            return visitor.visitDatabaseCommandArgument1(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -5543,7 +8725,7 @@ export class CommandArgument1Context extends antlr.ParserRuleContext {
 }
 
 
-export class CommandArgument2Context extends antlr.ParserRuleContext {
+export class DatabaseCommandArgument2Context extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
@@ -5551,11 +8733,11 @@ export class CommandArgument2Context extends antlr.ParserRuleContext {
         return this.getRuleContext(0, ObjectContext)!;
     }
     public override get ruleIndex(): number {
-        return MongoParser.RULE_commandArgument2;
+        return MongoParser.RULE_databaseCommandArgument2;
     }
     public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
-        if (visitor.visitCommandArgument2) {
-            return visitor.visitCommandArgument2(this);
+        if (visitor.visitDatabaseCommandArgument2) {
+            return visitor.visitDatabaseCommandArgument2(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -5563,7 +8745,7 @@ export class CommandArgument2Context extends antlr.ParserRuleContext {
 }
 
 
-export class CreateCollectionMethodContext extends antlr.ParserRuleContext {
+export class DatabaseCreateCollectionMethodContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
@@ -5573,8 +8755,8 @@ export class CreateCollectionMethodContext extends antlr.ParserRuleContext {
     public LPAREN(): antlr.TerminalNode {
         return this.getToken(MongoParser.LPAREN, 0)!;
     }
-    public createCollectionArgument1(): CreateCollectionArgument1Context {
-        return this.getRuleContext(0, CreateCollectionArgument1Context)!;
+    public databaseCreateCollectionArgument1(): DatabaseCreateCollectionArgument1Context {
+        return this.getRuleContext(0, DatabaseCreateCollectionArgument1Context)!;
     }
     public RPAREN(): antlr.TerminalNode {
         return this.getToken(MongoParser.RPAREN, 0)!;
@@ -5582,15 +8764,15 @@ export class CreateCollectionMethodContext extends antlr.ParserRuleContext {
     public COMMA(): antlr.TerminalNode | null {
         return this.getToken(MongoParser.COMMA, 0);
     }
-    public createCollectionArgument2(): CreateCollectionArgument2Context | null {
-        return this.getRuleContext(0, CreateCollectionArgument2Context);
+    public databaseCreateCollectionArgument2(): DatabaseCreateCollectionArgument2Context | null {
+        return this.getRuleContext(0, DatabaseCreateCollectionArgument2Context);
     }
     public override get ruleIndex(): number {
-        return MongoParser.RULE_createCollectionMethod;
+        return MongoParser.RULE_databaseCreateCollectionMethod;
     }
     public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
-        if (visitor.visitCreateCollectionMethod) {
-            return visitor.visitCreateCollectionMethod(this);
+        if (visitor.visitDatabaseCreateCollectionMethod) {
+            return visitor.visitDatabaseCreateCollectionMethod(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -5598,7 +8780,7 @@ export class CreateCollectionMethodContext extends antlr.ParserRuleContext {
 }
 
 
-export class CreateCollectionArgument1Context extends antlr.ParserRuleContext {
+export class DatabaseCreateCollectionArgument1Context extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
@@ -5606,11 +8788,11 @@ export class CreateCollectionArgument1Context extends antlr.ParserRuleContext {
         return this.getToken(MongoParser.STRING, 0)!;
     }
     public override get ruleIndex(): number {
-        return MongoParser.RULE_createCollectionArgument1;
+        return MongoParser.RULE_databaseCreateCollectionArgument1;
     }
     public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
-        if (visitor.visitCreateCollectionArgument1) {
-            return visitor.visitCreateCollectionArgument1(this);
+        if (visitor.visitDatabaseCreateCollectionArgument1) {
+            return visitor.visitDatabaseCreateCollectionArgument1(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -5618,7 +8800,7 @@ export class CreateCollectionArgument1Context extends antlr.ParserRuleContext {
 }
 
 
-export class CreateCollectionArgument2Context extends antlr.ParserRuleContext {
+export class DatabaseCreateCollectionArgument2Context extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
@@ -5626,11 +8808,11 @@ export class CreateCollectionArgument2Context extends antlr.ParserRuleContext {
         return this.getRuleContext(0, ObjectContext)!;
     }
     public override get ruleIndex(): number {
-        return MongoParser.RULE_createCollectionArgument2;
+        return MongoParser.RULE_databaseCreateCollectionArgument2;
     }
     public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
-        if (visitor.visitCreateCollectionArgument2) {
-            return visitor.visitCreateCollectionArgument2(this);
+        if (visitor.visitDatabaseCreateCollectionArgument2) {
+            return visitor.visitDatabaseCreateCollectionArgument2(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -5752,86 +8934,86 @@ export class CollectionMethodContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
-    public findMethod(): FindMethodContext | null {
-        return this.getRuleContext(0, FindMethodContext);
+    public collectionFindMethod(): CollectionFindMethodContext | null {
+        return this.getRuleContext(0, CollectionFindMethodContext);
     }
-    public findOneMethod(): FindOneMethodContext | null {
-        return this.getRuleContext(0, FindOneMethodContext);
+    public collectionFindOneMethod(): CollectionFindOneMethodContext | null {
+        return this.getRuleContext(0, CollectionFindOneMethodContext);
     }
-    public findOneAndDeleteMethod(): FindOneAndDeleteMethodContext | null {
-        return this.getRuleContext(0, FindOneAndDeleteMethodContext);
+    public collectionFindOneAndDeleteMethod(): CollectionFindOneAndDeleteMethodContext | null {
+        return this.getRuleContext(0, CollectionFindOneAndDeleteMethodContext);
     }
-    public findOneAndReplaceMethod(): FindOneAndReplaceMethodContext | null {
-        return this.getRuleContext(0, FindOneAndReplaceMethodContext);
+    public collectionFindOneAndReplaceMethod(): CollectionFindOneAndReplaceMethodContext | null {
+        return this.getRuleContext(0, CollectionFindOneAndReplaceMethodContext);
     }
-    public findOneAndUpdateMethod(): FindOneAndUpdateMethodContext | null {
-        return this.getRuleContext(0, FindOneAndUpdateMethodContext);
+    public collectionFindOneAndUpdateMethod(): CollectionFindOneAndUpdateMethodContext | null {
+        return this.getRuleContext(0, CollectionFindOneAndUpdateMethodContext);
     }
-    public insertOneMethod(): InsertOneMethodContext | null {
-        return this.getRuleContext(0, InsertOneMethodContext);
+    public collectionInsertOneMethod(): CollectionInsertOneMethodContext | null {
+        return this.getRuleContext(0, CollectionInsertOneMethodContext);
     }
-    public insertManyMethod(): InsertManyMethodContext | null {
-        return this.getRuleContext(0, InsertManyMethodContext);
+    public collectionInsertManyMethod(): CollectionInsertManyMethodContext | null {
+        return this.getRuleContext(0, CollectionInsertManyMethodContext);
     }
-    public bulkWriteMethod(): BulkWriteMethodContext | null {
-        return this.getRuleContext(0, BulkWriteMethodContext);
+    public collectionBulkWriteMethod(): CollectionBulkWriteMethodContext | null {
+        return this.getRuleContext(0, CollectionBulkWriteMethodContext);
     }
-    public updateOneMethod(): UpdateOneMethodContext | null {
-        return this.getRuleContext(0, UpdateOneMethodContext);
+    public collectionUpdateOneMethod(): CollectionUpdateOneMethodContext | null {
+        return this.getRuleContext(0, CollectionUpdateOneMethodContext);
     }
-    public updateManyMethod(): UpdateManyMethodContext | null {
-        return this.getRuleContext(0, UpdateManyMethodContext);
+    public collectionUpdateManyMethod(): CollectionUpdateManyMethodContext | null {
+        return this.getRuleContext(0, CollectionUpdateManyMethodContext);
     }
-    public replaceOneMethod(): ReplaceOneMethodContext | null {
-        return this.getRuleContext(0, ReplaceOneMethodContext);
+    public collectionReplaceOneMethod(): CollectionReplaceOneMethodContext | null {
+        return this.getRuleContext(0, CollectionReplaceOneMethodContext);
     }
-    public deleteOneMethod(): DeleteOneMethodContext | null {
-        return this.getRuleContext(0, DeleteOneMethodContext);
+    public collectionDeleteOneMethod(): CollectionDeleteOneMethodContext | null {
+        return this.getRuleContext(0, CollectionDeleteOneMethodContext);
     }
-    public deleteManyMethod(): DeleteManyMethodContext | null {
-        return this.getRuleContext(0, DeleteManyMethodContext);
+    public collectionDeleteManyMethod(): CollectionDeleteManyMethodContext | null {
+        return this.getRuleContext(0, CollectionDeleteManyMethodContext);
     }
-    public renameMethod(): RenameMethodContext | null {
-        return this.getRuleContext(0, RenameMethodContext);
+    public collectionRenameMethod(): CollectionRenameMethodContext | null {
+        return this.getRuleContext(0, CollectionRenameMethodContext);
     }
-    public dropMethod(): DropMethodContext | null {
-        return this.getRuleContext(0, DropMethodContext);
+    public collectionDropMethod(): CollectionDropMethodContext | null {
+        return this.getRuleContext(0, CollectionDropMethodContext);
     }
-    public isCappedMethod(): IsCappedMethodContext | null {
-        return this.getRuleContext(0, IsCappedMethodContext);
+    public collectionIsCappedMethod(): CollectionIsCappedMethodContext | null {
+        return this.getRuleContext(0, CollectionIsCappedMethodContext);
     }
-    public createIndexMethod(): CreateIndexMethodContext | null {
-        return this.getRuleContext(0, CreateIndexMethodContext);
+    public collectionCreateIndexMethod(): CollectionCreateIndexMethodContext | null {
+        return this.getRuleContext(0, CollectionCreateIndexMethodContext);
     }
-    public createIndexesMethod(): CreateIndexesMethodContext | null {
-        return this.getRuleContext(0, CreateIndexesMethodContext);
+    public collectionCreateIndexesMethod(): CollectionCreateIndexesMethodContext | null {
+        return this.getRuleContext(0, CollectionCreateIndexesMethodContext);
     }
-    public dropIndexMethod(): DropIndexMethodContext | null {
-        return this.getRuleContext(0, DropIndexMethodContext);
+    public collectionDropIndexMethod(): CollectionDropIndexMethodContext | null {
+        return this.getRuleContext(0, CollectionDropIndexMethodContext);
     }
-    public dropIndexesMethod(): DropIndexesMethodContext | null {
-        return this.getRuleContext(0, DropIndexesMethodContext);
+    public collectionDropIndexesMethod(): CollectionDropIndexesMethodContext | null {
+        return this.getRuleContext(0, CollectionDropIndexesMethodContext);
     }
-    public listIndexesMethod(): ListIndexesMethodContext | null {
-        return this.getRuleContext(0, ListIndexesMethodContext);
+    public collectionListIndexesMethod(): CollectionListIndexesMethodContext | null {
+        return this.getRuleContext(0, CollectionListIndexesMethodContext);
     }
-    public indexesMethod(): IndexesMethodContext | null {
-        return this.getRuleContext(0, IndexesMethodContext);
+    public collectionIndexesMethod(): CollectionIndexesMethodContext | null {
+        return this.getRuleContext(0, CollectionIndexesMethodContext);
     }
-    public indexExistsMethod(): IndexExistsMethodContext | null {
-        return this.getRuleContext(0, IndexExistsMethodContext);
+    public collectionIndexExistsMethod(): CollectionIndexExistsMethodContext | null {
+        return this.getRuleContext(0, CollectionIndexExistsMethodContext);
     }
-    public indexInformationMethod(): IndexInformationMethodContext | null {
-        return this.getRuleContext(0, IndexInformationMethodContext);
+    public collectionIndexInformationMethod(): CollectionIndexInformationMethodContext | null {
+        return this.getRuleContext(0, CollectionIndexInformationMethodContext);
     }
-    public estimatedDocumentCountMethod(): EstimatedDocumentCountMethodContext | null {
-        return this.getRuleContext(0, EstimatedDocumentCountMethodContext);
+    public collectionEstimatedDocumentCountMethod(): CollectionEstimatedDocumentCountMethodContext | null {
+        return this.getRuleContext(0, CollectionEstimatedDocumentCountMethodContext);
     }
-    public countDocumentsMethod(): CountDocumentsMethodContext | null {
-        return this.getRuleContext(0, CountDocumentsMethodContext);
+    public collectionCountDocumentsMethod(): CollectionCountDocumentsMethodContext | null {
+        return this.getRuleContext(0, CollectionCountDocumentsMethodContext);
     }
-    public distinctMethod(): DistinctMethodContext | null {
-        return this.getRuleContext(0, DistinctMethodContext);
+    public collectionDistinctMethod(): CollectionDistinctMethodContext | null {
+        return this.getRuleContext(0, CollectionDistinctMethodContext);
     }
     public aggregateMethod(): AggregateMethodContext | null {
         return this.getRuleContext(0, AggregateMethodContext);
@@ -5927,7 +9109,7 @@ export class AggregateArgument1Context extends antlr.ParserRuleContext {
 }
 
 
-export class DistinctMethodContext extends antlr.ParserRuleContext {
+export class CollectionDistinctMethodContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
@@ -5937,8 +9119,8 @@ export class DistinctMethodContext extends antlr.ParserRuleContext {
     public LPAREN(): antlr.TerminalNode {
         return this.getToken(MongoParser.LPAREN, 0)!;
     }
-    public distinctArgument1(): DistinctArgument1Context {
-        return this.getRuleContext(0, DistinctArgument1Context)!;
+    public collectionDistinctArgument1(): CollectionDistinctArgument1Context {
+        return this.getRuleContext(0, CollectionDistinctArgument1Context)!;
     }
     public RPAREN(): antlr.TerminalNode {
         return this.getToken(MongoParser.RPAREN, 0)!;
@@ -5952,18 +9134,18 @@ export class DistinctMethodContext extends antlr.ParserRuleContext {
     		return this.getToken(MongoParser.COMMA, i);
     	}
     }
-    public distinctArgument2(): DistinctArgument2Context | null {
-        return this.getRuleContext(0, DistinctArgument2Context);
+    public collectionDistinctArgument2(): CollectionDistinctArgument2Context | null {
+        return this.getRuleContext(0, CollectionDistinctArgument2Context);
     }
-    public distinctArgument3(): DistinctArgument3Context | null {
-        return this.getRuleContext(0, DistinctArgument3Context);
+    public collectionDistinctArgument3(): CollectionDistinctArgument3Context | null {
+        return this.getRuleContext(0, CollectionDistinctArgument3Context);
     }
     public override get ruleIndex(): number {
-        return MongoParser.RULE_distinctMethod;
+        return MongoParser.RULE_collectionDistinctMethod;
     }
     public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
-        if (visitor.visitDistinctMethod) {
-            return visitor.visitDistinctMethod(this);
+        if (visitor.visitCollectionDistinctMethod) {
+            return visitor.visitCollectionDistinctMethod(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -5971,7 +9153,7 @@ export class DistinctMethodContext extends antlr.ParserRuleContext {
 }
 
 
-export class DistinctArgument1Context extends antlr.ParserRuleContext {
+export class CollectionDistinctArgument1Context extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
@@ -5979,11 +9161,11 @@ export class DistinctArgument1Context extends antlr.ParserRuleContext {
         return this.getToken(MongoParser.STRING, 0)!;
     }
     public override get ruleIndex(): number {
-        return MongoParser.RULE_distinctArgument1;
+        return MongoParser.RULE_collectionDistinctArgument1;
     }
     public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
-        if (visitor.visitDistinctArgument1) {
-            return visitor.visitDistinctArgument1(this);
+        if (visitor.visitCollectionDistinctArgument1) {
+            return visitor.visitCollectionDistinctArgument1(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -5991,7 +9173,7 @@ export class DistinctArgument1Context extends antlr.ParserRuleContext {
 }
 
 
-export class DistinctArgument2Context extends antlr.ParserRuleContext {
+export class CollectionDistinctArgument2Context extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
@@ -5999,11 +9181,11 @@ export class DistinctArgument2Context extends antlr.ParserRuleContext {
         return this.getRuleContext(0, ObjectContext)!;
     }
     public override get ruleIndex(): number {
-        return MongoParser.RULE_distinctArgument2;
+        return MongoParser.RULE_collectionDistinctArgument2;
     }
     public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
-        if (visitor.visitDistinctArgument2) {
-            return visitor.visitDistinctArgument2(this);
+        if (visitor.visitCollectionDistinctArgument2) {
+            return visitor.visitCollectionDistinctArgument2(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -6011,7 +9193,7 @@ export class DistinctArgument2Context extends antlr.ParserRuleContext {
 }
 
 
-export class DistinctArgument3Context extends antlr.ParserRuleContext {
+export class CollectionDistinctArgument3Context extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
@@ -6019,11 +9201,11 @@ export class DistinctArgument3Context extends antlr.ParserRuleContext {
         return this.getRuleContext(0, ObjectContext)!;
     }
     public override get ruleIndex(): number {
-        return MongoParser.RULE_distinctArgument3;
+        return MongoParser.RULE_collectionDistinctArgument3;
     }
     public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
-        if (visitor.visitDistinctArgument3) {
-            return visitor.visitDistinctArgument3(this);
+        if (visitor.visitCollectionDistinctArgument3) {
+            return visitor.visitCollectionDistinctArgument3(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -6031,7 +9213,7 @@ export class DistinctArgument3Context extends antlr.ParserRuleContext {
 }
 
 
-export class CountDocumentsMethodContext extends antlr.ParserRuleContext {
+export class CollectionCountDocumentsMethodContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
@@ -6044,21 +9226,21 @@ export class CountDocumentsMethodContext extends antlr.ParserRuleContext {
     public RPAREN(): antlr.TerminalNode {
         return this.getToken(MongoParser.RPAREN, 0)!;
     }
-    public countDocumentsArgument1(): CountDocumentsArgument1Context | null {
-        return this.getRuleContext(0, CountDocumentsArgument1Context);
+    public collectionCountDocumentsArgument1(): CollectionCountDocumentsArgument1Context | null {
+        return this.getRuleContext(0, CollectionCountDocumentsArgument1Context);
     }
     public COMMA(): antlr.TerminalNode | null {
         return this.getToken(MongoParser.COMMA, 0);
     }
-    public countDocumentsArgument2(): CountDocumentsArgument2Context | null {
-        return this.getRuleContext(0, CountDocumentsArgument2Context);
+    public collectionCountDocumentsArgument2(): CollectionCountDocumentsArgument2Context | null {
+        return this.getRuleContext(0, CollectionCountDocumentsArgument2Context);
     }
     public override get ruleIndex(): number {
-        return MongoParser.RULE_countDocumentsMethod;
+        return MongoParser.RULE_collectionCountDocumentsMethod;
     }
     public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
-        if (visitor.visitCountDocumentsMethod) {
-            return visitor.visitCountDocumentsMethod(this);
+        if (visitor.visitCollectionCountDocumentsMethod) {
+            return visitor.visitCollectionCountDocumentsMethod(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -6066,7 +9248,7 @@ export class CountDocumentsMethodContext extends antlr.ParserRuleContext {
 }
 
 
-export class CountDocumentsArgument2Context extends antlr.ParserRuleContext {
+export class CollectionCountDocumentsArgument2Context extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
@@ -6074,11 +9256,11 @@ export class CountDocumentsArgument2Context extends antlr.ParserRuleContext {
         return this.getRuleContext(0, ObjectContext)!;
     }
     public override get ruleIndex(): number {
-        return MongoParser.RULE_countDocumentsArgument2;
+        return MongoParser.RULE_collectionCountDocumentsArgument2;
     }
     public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
-        if (visitor.visitCountDocumentsArgument2) {
-            return visitor.visitCountDocumentsArgument2(this);
+        if (visitor.visitCollectionCountDocumentsArgument2) {
+            return visitor.visitCollectionCountDocumentsArgument2(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -6086,7 +9268,7 @@ export class CountDocumentsArgument2Context extends antlr.ParserRuleContext {
 }
 
 
-export class CountDocumentsArgument1Context extends antlr.ParserRuleContext {
+export class CollectionCountDocumentsArgument1Context extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
@@ -6094,11 +9276,11 @@ export class CountDocumentsArgument1Context extends antlr.ParserRuleContext {
         return this.getRuleContext(0, ObjectContext)!;
     }
     public override get ruleIndex(): number {
-        return MongoParser.RULE_countDocumentsArgument1;
+        return MongoParser.RULE_collectionCountDocumentsArgument1;
     }
     public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
-        if (visitor.visitCountDocumentsArgument1) {
-            return visitor.visitCountDocumentsArgument1(this);
+        if (visitor.visitCollectionCountDocumentsArgument1) {
+            return visitor.visitCollectionCountDocumentsArgument1(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -6106,7 +9288,7 @@ export class CountDocumentsArgument1Context extends antlr.ParserRuleContext {
 }
 
 
-export class EstimatedDocumentCountMethodContext extends antlr.ParserRuleContext {
+export class CollectionEstimatedDocumentCountMethodContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
@@ -6119,15 +9301,15 @@ export class EstimatedDocumentCountMethodContext extends antlr.ParserRuleContext
     public RPAREN(): antlr.TerminalNode {
         return this.getToken(MongoParser.RPAREN, 0)!;
     }
-    public estimatedDocumentCountArgument(): EstimatedDocumentCountArgumentContext | null {
-        return this.getRuleContext(0, EstimatedDocumentCountArgumentContext);
+    public collectionEstimatedDocumentCountArgument(): CollectionEstimatedDocumentCountArgumentContext | null {
+        return this.getRuleContext(0, CollectionEstimatedDocumentCountArgumentContext);
     }
     public override get ruleIndex(): number {
-        return MongoParser.RULE_estimatedDocumentCountMethod;
+        return MongoParser.RULE_collectionEstimatedDocumentCountMethod;
     }
     public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
-        if (visitor.visitEstimatedDocumentCountMethod) {
-            return visitor.visitEstimatedDocumentCountMethod(this);
+        if (visitor.visitCollectionEstimatedDocumentCountMethod) {
+            return visitor.visitCollectionEstimatedDocumentCountMethod(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -6135,7 +9317,7 @@ export class EstimatedDocumentCountMethodContext extends antlr.ParserRuleContext
 }
 
 
-export class EstimatedDocumentCountArgumentContext extends antlr.ParserRuleContext {
+export class CollectionEstimatedDocumentCountArgumentContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
@@ -6143,11 +9325,11 @@ export class EstimatedDocumentCountArgumentContext extends antlr.ParserRuleConte
         return this.getRuleContext(0, ObjectContext)!;
     }
     public override get ruleIndex(): number {
-        return MongoParser.RULE_estimatedDocumentCountArgument;
+        return MongoParser.RULE_collectionEstimatedDocumentCountArgument;
     }
     public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
-        if (visitor.visitEstimatedDocumentCountArgument) {
-            return visitor.visitEstimatedDocumentCountArgument(this);
+        if (visitor.visitCollectionEstimatedDocumentCountArgument) {
+            return visitor.visitCollectionEstimatedDocumentCountArgument(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -6155,7 +9337,7 @@ export class EstimatedDocumentCountArgumentContext extends antlr.ParserRuleConte
 }
 
 
-export class IndexInformationMethodContext extends antlr.ParserRuleContext {
+export class CollectionIndexInformationMethodContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
@@ -6168,15 +9350,15 @@ export class IndexInformationMethodContext extends antlr.ParserRuleContext {
     public RPAREN(): antlr.TerminalNode {
         return this.getToken(MongoParser.RPAREN, 0)!;
     }
-    public indexInformationArgument(): IndexInformationArgumentContext | null {
-        return this.getRuleContext(0, IndexInformationArgumentContext);
+    public collectionIndexInformationArgument(): CollectionIndexInformationArgumentContext | null {
+        return this.getRuleContext(0, CollectionIndexInformationArgumentContext);
     }
     public override get ruleIndex(): number {
-        return MongoParser.RULE_indexInformationMethod;
+        return MongoParser.RULE_collectionIndexInformationMethod;
     }
     public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
-        if (visitor.visitIndexInformationMethod) {
-            return visitor.visitIndexInformationMethod(this);
+        if (visitor.visitCollectionIndexInformationMethod) {
+            return visitor.visitCollectionIndexInformationMethod(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -6184,7 +9366,7 @@ export class IndexInformationMethodContext extends antlr.ParserRuleContext {
 }
 
 
-export class IndexInformationArgumentContext extends antlr.ParserRuleContext {
+export class CollectionIndexInformationArgumentContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
@@ -6192,11 +9374,11 @@ export class IndexInformationArgumentContext extends antlr.ParserRuleContext {
         return this.getRuleContext(0, ObjectContext)!;
     }
     public override get ruleIndex(): number {
-        return MongoParser.RULE_indexInformationArgument;
+        return MongoParser.RULE_collectionIndexInformationArgument;
     }
     public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
-        if (visitor.visitIndexInformationArgument) {
-            return visitor.visitIndexInformationArgument(this);
+        if (visitor.visitCollectionIndexInformationArgument) {
+            return visitor.visitCollectionIndexInformationArgument(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -6204,7 +9386,7 @@ export class IndexInformationArgumentContext extends antlr.ParserRuleContext {
 }
 
 
-export class IndexExistsMethodContext extends antlr.ParserRuleContext {
+export class CollectionIndexExistsMethodContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
@@ -6214,8 +9396,8 @@ export class IndexExistsMethodContext extends antlr.ParserRuleContext {
     public LPAREN(): antlr.TerminalNode {
         return this.getToken(MongoParser.LPAREN, 0)!;
     }
-    public indexExistsArgument1(): IndexExistsArgument1Context {
-        return this.getRuleContext(0, IndexExistsArgument1Context)!;
+    public collectionIndexExistsArgument1(): CollectionIndexExistsArgument1Context {
+        return this.getRuleContext(0, CollectionIndexExistsArgument1Context)!;
     }
     public RPAREN(): antlr.TerminalNode {
         return this.getToken(MongoParser.RPAREN, 0)!;
@@ -6223,15 +9405,15 @@ export class IndexExistsMethodContext extends antlr.ParserRuleContext {
     public COMMA(): antlr.TerminalNode | null {
         return this.getToken(MongoParser.COMMA, 0);
     }
-    public indexExistsArgument2(): IndexExistsArgument2Context | null {
-        return this.getRuleContext(0, IndexExistsArgument2Context);
+    public collectionIndexExistsArgument2(): CollectionIndexExistsArgument2Context | null {
+        return this.getRuleContext(0, CollectionIndexExistsArgument2Context);
     }
     public override get ruleIndex(): number {
-        return MongoParser.RULE_indexExistsMethod;
+        return MongoParser.RULE_collectionIndexExistsMethod;
     }
     public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
-        if (visitor.visitIndexExistsMethod) {
-            return visitor.visitIndexExistsMethod(this);
+        if (visitor.visitCollectionIndexExistsMethod) {
+            return visitor.visitCollectionIndexExistsMethod(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -6239,7 +9421,7 @@ export class IndexExistsMethodContext extends antlr.ParserRuleContext {
 }
 
 
-export class IndexExistsArgument2Context extends antlr.ParserRuleContext {
+export class CollectionIndexExistsArgument2Context extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
@@ -6247,11 +9429,11 @@ export class IndexExistsArgument2Context extends antlr.ParserRuleContext {
         return this.getRuleContext(0, ObjectContext)!;
     }
     public override get ruleIndex(): number {
-        return MongoParser.RULE_indexExistsArgument2;
+        return MongoParser.RULE_collectionIndexExistsArgument2;
     }
     public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
-        if (visitor.visitIndexExistsArgument2) {
-            return visitor.visitIndexExistsArgument2(this);
+        if (visitor.visitCollectionIndexExistsArgument2) {
+            return visitor.visitCollectionIndexExistsArgument2(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -6259,7 +9441,7 @@ export class IndexExistsArgument2Context extends antlr.ParserRuleContext {
 }
 
 
-export class IndexExistsArgument1Context extends antlr.ParserRuleContext {
+export class CollectionIndexExistsArgument1Context extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
@@ -6288,11 +9470,11 @@ export class IndexExistsArgument1Context extends antlr.ParserRuleContext {
     	}
     }
     public override get ruleIndex(): number {
-        return MongoParser.RULE_indexExistsArgument1;
+        return MongoParser.RULE_collectionIndexExistsArgument1;
     }
     public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
-        if (visitor.visitIndexExistsArgument1) {
-            return visitor.visitIndexExistsArgument1(this);
+        if (visitor.visitCollectionIndexExistsArgument1) {
+            return visitor.visitCollectionIndexExistsArgument1(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -6300,7 +9482,7 @@ export class IndexExistsArgument1Context extends antlr.ParserRuleContext {
 }
 
 
-export class IndexesMethodContext extends antlr.ParserRuleContext {
+export class CollectionIndexesMethodContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
@@ -6313,15 +9495,15 @@ export class IndexesMethodContext extends antlr.ParserRuleContext {
     public RPAREN(): antlr.TerminalNode {
         return this.getToken(MongoParser.RPAREN, 0)!;
     }
-    public indexesArgument(): IndexesArgumentContext | null {
-        return this.getRuleContext(0, IndexesArgumentContext);
+    public collectionIndexesArgument(): CollectionIndexesArgumentContext | null {
+        return this.getRuleContext(0, CollectionIndexesArgumentContext);
     }
     public override get ruleIndex(): number {
-        return MongoParser.RULE_indexesMethod;
+        return MongoParser.RULE_collectionIndexesMethod;
     }
     public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
-        if (visitor.visitIndexesMethod) {
-            return visitor.visitIndexesMethod(this);
+        if (visitor.visitCollectionIndexesMethod) {
+            return visitor.visitCollectionIndexesMethod(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -6329,7 +9511,7 @@ export class IndexesMethodContext extends antlr.ParserRuleContext {
 }
 
 
-export class IndexesArgumentContext extends antlr.ParserRuleContext {
+export class CollectionIndexesArgumentContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
@@ -6337,11 +9519,11 @@ export class IndexesArgumentContext extends antlr.ParserRuleContext {
         return this.getRuleContext(0, ObjectContext)!;
     }
     public override get ruleIndex(): number {
-        return MongoParser.RULE_indexesArgument;
+        return MongoParser.RULE_collectionIndexesArgument;
     }
     public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
-        if (visitor.visitIndexesArgument) {
-            return visitor.visitIndexesArgument(this);
+        if (visitor.visitCollectionIndexesArgument) {
+            return visitor.visitCollectionIndexesArgument(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -6349,7 +9531,7 @@ export class IndexesArgumentContext extends antlr.ParserRuleContext {
 }
 
 
-export class ListIndexesMethodContext extends antlr.ParserRuleContext {
+export class CollectionListIndexesMethodContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
@@ -6362,15 +9544,15 @@ export class ListIndexesMethodContext extends antlr.ParserRuleContext {
     public RPAREN(): antlr.TerminalNode {
         return this.getToken(MongoParser.RPAREN, 0)!;
     }
-    public listIndexesArgument(): ListIndexesArgumentContext | null {
-        return this.getRuleContext(0, ListIndexesArgumentContext);
+    public collectionListIndexesArgument(): CollectionListIndexesArgumentContext | null {
+        return this.getRuleContext(0, CollectionListIndexesArgumentContext);
     }
     public override get ruleIndex(): number {
-        return MongoParser.RULE_listIndexesMethod;
+        return MongoParser.RULE_collectionListIndexesMethod;
     }
     public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
-        if (visitor.visitListIndexesMethod) {
-            return visitor.visitListIndexesMethod(this);
+        if (visitor.visitCollectionListIndexesMethod) {
+            return visitor.visitCollectionListIndexesMethod(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -6378,7 +9560,7 @@ export class ListIndexesMethodContext extends antlr.ParserRuleContext {
 }
 
 
-export class ListIndexesArgumentContext extends antlr.ParserRuleContext {
+export class CollectionListIndexesArgumentContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
@@ -6386,11 +9568,11 @@ export class ListIndexesArgumentContext extends antlr.ParserRuleContext {
         return this.getRuleContext(0, ObjectContext)!;
     }
     public override get ruleIndex(): number {
-        return MongoParser.RULE_listIndexesArgument;
+        return MongoParser.RULE_collectionListIndexesArgument;
     }
     public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
-        if (visitor.visitListIndexesArgument) {
-            return visitor.visitListIndexesArgument(this);
+        if (visitor.visitCollectionListIndexesArgument) {
+            return visitor.visitCollectionListIndexesArgument(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -6398,7 +9580,7 @@ export class ListIndexesArgumentContext extends antlr.ParserRuleContext {
 }
 
 
-export class DropIndexesMethodContext extends antlr.ParserRuleContext {
+export class CollectionDropIndexesMethodContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
@@ -6411,15 +9593,15 @@ export class DropIndexesMethodContext extends antlr.ParserRuleContext {
     public RPAREN(): antlr.TerminalNode {
         return this.getToken(MongoParser.RPAREN, 0)!;
     }
-    public dropIndexesArgument(): DropIndexesArgumentContext | null {
-        return this.getRuleContext(0, DropIndexesArgumentContext);
+    public collectionDropIndexesArgument(): CollectionDropIndexesArgumentContext | null {
+        return this.getRuleContext(0, CollectionDropIndexesArgumentContext);
     }
     public override get ruleIndex(): number {
-        return MongoParser.RULE_dropIndexesMethod;
+        return MongoParser.RULE_collectionDropIndexesMethod;
     }
     public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
-        if (visitor.visitDropIndexesMethod) {
-            return visitor.visitDropIndexesMethod(this);
+        if (visitor.visitCollectionDropIndexesMethod) {
+            return visitor.visitCollectionDropIndexesMethod(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -6427,7 +9609,7 @@ export class DropIndexesMethodContext extends antlr.ParserRuleContext {
 }
 
 
-export class DropIndexesArgumentContext extends antlr.ParserRuleContext {
+export class CollectionDropIndexesArgumentContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
@@ -6435,11 +9617,11 @@ export class DropIndexesArgumentContext extends antlr.ParserRuleContext {
         return this.getRuleContext(0, ObjectContext)!;
     }
     public override get ruleIndex(): number {
-        return MongoParser.RULE_dropIndexesArgument;
+        return MongoParser.RULE_collectionDropIndexesArgument;
     }
     public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
-        if (visitor.visitDropIndexesArgument) {
-            return visitor.visitDropIndexesArgument(this);
+        if (visitor.visitCollectionDropIndexesArgument) {
+            return visitor.visitCollectionDropIndexesArgument(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -6447,7 +9629,7 @@ export class DropIndexesArgumentContext extends antlr.ParserRuleContext {
 }
 
 
-export class DropIndexMethodContext extends antlr.ParserRuleContext {
+export class CollectionDropIndexMethodContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
@@ -6457,8 +9639,8 @@ export class DropIndexMethodContext extends antlr.ParserRuleContext {
     public LPAREN(): antlr.TerminalNode {
         return this.getToken(MongoParser.LPAREN, 0)!;
     }
-    public dropIndexArgument1(): DropIndexArgument1Context {
-        return this.getRuleContext(0, DropIndexArgument1Context)!;
+    public collectionDropIndexArgument1(): CollectionDropIndexArgument1Context {
+        return this.getRuleContext(0, CollectionDropIndexArgument1Context)!;
     }
     public RPAREN(): antlr.TerminalNode {
         return this.getToken(MongoParser.RPAREN, 0)!;
@@ -6466,15 +9648,15 @@ export class DropIndexMethodContext extends antlr.ParserRuleContext {
     public COMMA(): antlr.TerminalNode | null {
         return this.getToken(MongoParser.COMMA, 0);
     }
-    public dropIndexArgument2(): DropIndexArgument2Context | null {
-        return this.getRuleContext(0, DropIndexArgument2Context);
+    public collectionDropIndexArgument2(): CollectionDropIndexArgument2Context | null {
+        return this.getRuleContext(0, CollectionDropIndexArgument2Context);
     }
     public override get ruleIndex(): number {
-        return MongoParser.RULE_dropIndexMethod;
+        return MongoParser.RULE_collectionDropIndexMethod;
     }
     public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
-        if (visitor.visitDropIndexMethod) {
-            return visitor.visitDropIndexMethod(this);
+        if (visitor.visitCollectionDropIndexMethod) {
+            return visitor.visitCollectionDropIndexMethod(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -6482,7 +9664,7 @@ export class DropIndexMethodContext extends antlr.ParserRuleContext {
 }
 
 
-export class DropIndexArgument2Context extends antlr.ParserRuleContext {
+export class CollectionDropIndexArgument2Context extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
@@ -6490,11 +9672,11 @@ export class DropIndexArgument2Context extends antlr.ParserRuleContext {
         return this.getRuleContext(0, ObjectContext)!;
     }
     public override get ruleIndex(): number {
-        return MongoParser.RULE_dropIndexArgument2;
+        return MongoParser.RULE_collectionDropIndexArgument2;
     }
     public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
-        if (visitor.visitDropIndexArgument2) {
-            return visitor.visitDropIndexArgument2(this);
+        if (visitor.visitCollectionDropIndexArgument2) {
+            return visitor.visitCollectionDropIndexArgument2(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -6502,7 +9684,7 @@ export class DropIndexArgument2Context extends antlr.ParserRuleContext {
 }
 
 
-export class DropIndexArgument1Context extends antlr.ParserRuleContext {
+export class CollectionDropIndexArgument1Context extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
@@ -6510,11 +9692,11 @@ export class DropIndexArgument1Context extends antlr.ParserRuleContext {
         return this.getToken(MongoParser.STRING, 0)!;
     }
     public override get ruleIndex(): number {
-        return MongoParser.RULE_dropIndexArgument1;
+        return MongoParser.RULE_collectionDropIndexArgument1;
     }
     public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
-        if (visitor.visitDropIndexArgument1) {
-            return visitor.visitDropIndexArgument1(this);
+        if (visitor.visitCollectionDropIndexArgument1) {
+            return visitor.visitCollectionDropIndexArgument1(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -6522,7 +9704,7 @@ export class DropIndexArgument1Context extends antlr.ParserRuleContext {
 }
 
 
-export class CreateIndexesMethodContext extends antlr.ParserRuleContext {
+export class CollectionCreateIndexesMethodContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
@@ -6532,8 +9714,8 @@ export class CreateIndexesMethodContext extends antlr.ParserRuleContext {
     public LPAREN(): antlr.TerminalNode {
         return this.getToken(MongoParser.LPAREN, 0)!;
     }
-    public createIndexesArgument1(): CreateIndexesArgument1Context {
-        return this.getRuleContext(0, CreateIndexesArgument1Context)!;
+    public collectionCreateIndexesArgument1(): CollectionCreateIndexesArgument1Context {
+        return this.getRuleContext(0, CollectionCreateIndexesArgument1Context)!;
     }
     public RPAREN(): antlr.TerminalNode {
         return this.getToken(MongoParser.RPAREN, 0)!;
@@ -6541,15 +9723,15 @@ export class CreateIndexesMethodContext extends antlr.ParserRuleContext {
     public COMMA(): antlr.TerminalNode | null {
         return this.getToken(MongoParser.COMMA, 0);
     }
-    public createIndexesArgument2(): CreateIndexesArgument2Context | null {
-        return this.getRuleContext(0, CreateIndexesArgument2Context);
+    public collectionCreateIndexesArgument2(): CollectionCreateIndexesArgument2Context | null {
+        return this.getRuleContext(0, CollectionCreateIndexesArgument2Context);
     }
     public override get ruleIndex(): number {
-        return MongoParser.RULE_createIndexesMethod;
+        return MongoParser.RULE_collectionCreateIndexesMethod;
     }
     public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
-        if (visitor.visitCreateIndexesMethod) {
-            return visitor.visitCreateIndexesMethod(this);
+        if (visitor.visitCollectionCreateIndexesMethod) {
+            return visitor.visitCollectionCreateIndexesMethod(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -6557,7 +9739,7 @@ export class CreateIndexesMethodContext extends antlr.ParserRuleContext {
 }
 
 
-export class CreateIndexesArgument2Context extends antlr.ParserRuleContext {
+export class CollectionCreateIndexesArgument2Context extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
@@ -6565,11 +9747,11 @@ export class CreateIndexesArgument2Context extends antlr.ParserRuleContext {
         return this.getRuleContext(0, ObjectContext)!;
     }
     public override get ruleIndex(): number {
-        return MongoParser.RULE_createIndexesArgument2;
+        return MongoParser.RULE_collectionCreateIndexesArgument2;
     }
     public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
-        if (visitor.visitCreateIndexesArgument2) {
-            return visitor.visitCreateIndexesArgument2(this);
+        if (visitor.visitCollectionCreateIndexesArgument2) {
+            return visitor.visitCollectionCreateIndexesArgument2(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -6577,7 +9759,7 @@ export class CreateIndexesArgument2Context extends antlr.ParserRuleContext {
 }
 
 
-export class CreateIndexesArgument1Context extends antlr.ParserRuleContext {
+export class CollectionCreateIndexesArgument1Context extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
@@ -6585,11 +9767,11 @@ export class CreateIndexesArgument1Context extends antlr.ParserRuleContext {
         return this.getRuleContext(0, ArrayContext)!;
     }
     public override get ruleIndex(): number {
-        return MongoParser.RULE_createIndexesArgument1;
+        return MongoParser.RULE_collectionCreateIndexesArgument1;
     }
     public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
-        if (visitor.visitCreateIndexesArgument1) {
-            return visitor.visitCreateIndexesArgument1(this);
+        if (visitor.visitCollectionCreateIndexesArgument1) {
+            return visitor.visitCollectionCreateIndexesArgument1(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -6597,7 +9779,7 @@ export class CreateIndexesArgument1Context extends antlr.ParserRuleContext {
 }
 
 
-export class CreateIndexMethodContext extends antlr.ParserRuleContext {
+export class CollectionCreateIndexMethodContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
@@ -6607,8 +9789,8 @@ export class CreateIndexMethodContext extends antlr.ParserRuleContext {
     public LPAREN(): antlr.TerminalNode {
         return this.getToken(MongoParser.LPAREN, 0)!;
     }
-    public createIndexArgument1(): CreateIndexArgument1Context {
-        return this.getRuleContext(0, CreateIndexArgument1Context)!;
+    public collectionCreateIndexArgument1(): CollectionCreateIndexArgument1Context {
+        return this.getRuleContext(0, CollectionCreateIndexArgument1Context)!;
     }
     public RPAREN(): antlr.TerminalNode {
         return this.getToken(MongoParser.RPAREN, 0)!;
@@ -6616,15 +9798,15 @@ export class CreateIndexMethodContext extends antlr.ParserRuleContext {
     public COMMA(): antlr.TerminalNode | null {
         return this.getToken(MongoParser.COMMA, 0);
     }
-    public createIndexArgument2(): CreateIndexArgument2Context | null {
-        return this.getRuleContext(0, CreateIndexArgument2Context);
+    public collectionCreateIndexArgument2(): CollectionCreateIndexArgument2Context | null {
+        return this.getRuleContext(0, CollectionCreateIndexArgument2Context);
     }
     public override get ruleIndex(): number {
-        return MongoParser.RULE_createIndexMethod;
+        return MongoParser.RULE_collectionCreateIndexMethod;
     }
     public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
-        if (visitor.visitCreateIndexMethod) {
-            return visitor.visitCreateIndexMethod(this);
+        if (visitor.visitCollectionCreateIndexMethod) {
+            return visitor.visitCollectionCreateIndexMethod(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -6632,7 +9814,7 @@ export class CreateIndexMethodContext extends antlr.ParserRuleContext {
 }
 
 
-export class CreateIndexArgument2Context extends antlr.ParserRuleContext {
+export class CollectionCreateIndexArgument2Context extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
@@ -6640,11 +9822,11 @@ export class CreateIndexArgument2Context extends antlr.ParserRuleContext {
         return this.getRuleContext(0, ObjectContext)!;
     }
     public override get ruleIndex(): number {
-        return MongoParser.RULE_createIndexArgument2;
+        return MongoParser.RULE_collectionCreateIndexArgument2;
     }
     public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
-        if (visitor.visitCreateIndexArgument2) {
-            return visitor.visitCreateIndexArgument2(this);
+        if (visitor.visitCollectionCreateIndexArgument2) {
+            return visitor.visitCollectionCreateIndexArgument2(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -6652,7 +9834,7 @@ export class CreateIndexArgument2Context extends antlr.ParserRuleContext {
 }
 
 
-export class CreateIndexArgument1Context extends antlr.ParserRuleContext {
+export class CollectionCreateIndexArgument1Context extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
@@ -6666,11 +9848,11 @@ export class CreateIndexArgument1Context extends antlr.ParserRuleContext {
         return this.getRuleContext(0, ArrayContext);
     }
     public override get ruleIndex(): number {
-        return MongoParser.RULE_createIndexArgument1;
+        return MongoParser.RULE_collectionCreateIndexArgument1;
     }
     public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
-        if (visitor.visitCreateIndexArgument1) {
-            return visitor.visitCreateIndexArgument1(this);
+        if (visitor.visitCollectionCreateIndexArgument1) {
+            return visitor.visitCollectionCreateIndexArgument1(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -6678,7 +9860,7 @@ export class CreateIndexArgument1Context extends antlr.ParserRuleContext {
 }
 
 
-export class IsCappedMethodContext extends antlr.ParserRuleContext {
+export class CollectionIsCappedMethodContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
@@ -6691,15 +9873,15 @@ export class IsCappedMethodContext extends antlr.ParserRuleContext {
     public RPAREN(): antlr.TerminalNode {
         return this.getToken(MongoParser.RPAREN, 0)!;
     }
-    public isCappedArgument(): IsCappedArgumentContext | null {
-        return this.getRuleContext(0, IsCappedArgumentContext);
+    public collectionIsCappedArgument(): CollectionIsCappedArgumentContext | null {
+        return this.getRuleContext(0, CollectionIsCappedArgumentContext);
     }
     public override get ruleIndex(): number {
-        return MongoParser.RULE_isCappedMethod;
+        return MongoParser.RULE_collectionIsCappedMethod;
     }
     public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
-        if (visitor.visitIsCappedMethod) {
-            return visitor.visitIsCappedMethod(this);
+        if (visitor.visitCollectionIsCappedMethod) {
+            return visitor.visitCollectionIsCappedMethod(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -6707,7 +9889,7 @@ export class IsCappedMethodContext extends antlr.ParserRuleContext {
 }
 
 
-export class IsCappedArgumentContext extends antlr.ParserRuleContext {
+export class CollectionIsCappedArgumentContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
@@ -6715,11 +9897,11 @@ export class IsCappedArgumentContext extends antlr.ParserRuleContext {
         return this.getRuleContext(0, ObjectContext)!;
     }
     public override get ruleIndex(): number {
-        return MongoParser.RULE_isCappedArgument;
+        return MongoParser.RULE_collectionIsCappedArgument;
     }
     public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
-        if (visitor.visitIsCappedArgument) {
-            return visitor.visitIsCappedArgument(this);
+        if (visitor.visitCollectionIsCappedArgument) {
+            return visitor.visitCollectionIsCappedArgument(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -6727,7 +9909,7 @@ export class IsCappedArgumentContext extends antlr.ParserRuleContext {
 }
 
 
-export class DropMethodContext extends antlr.ParserRuleContext {
+export class CollectionDropMethodContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
@@ -6740,15 +9922,15 @@ export class DropMethodContext extends antlr.ParserRuleContext {
     public RPAREN(): antlr.TerminalNode {
         return this.getToken(MongoParser.RPAREN, 0)!;
     }
-    public dropArgument(): DropArgumentContext | null {
-        return this.getRuleContext(0, DropArgumentContext);
+    public collectionDropArgument(): CollectionDropArgumentContext | null {
+        return this.getRuleContext(0, CollectionDropArgumentContext);
     }
     public override get ruleIndex(): number {
-        return MongoParser.RULE_dropMethod;
+        return MongoParser.RULE_collectionDropMethod;
     }
     public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
-        if (visitor.visitDropMethod) {
-            return visitor.visitDropMethod(this);
+        if (visitor.visitCollectionDropMethod) {
+            return visitor.visitCollectionDropMethod(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -6756,7 +9938,7 @@ export class DropMethodContext extends antlr.ParserRuleContext {
 }
 
 
-export class DropArgumentContext extends antlr.ParserRuleContext {
+export class CollectionDropArgumentContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
@@ -6764,11 +9946,11 @@ export class DropArgumentContext extends antlr.ParserRuleContext {
         return this.getRuleContext(0, ObjectContext)!;
     }
     public override get ruleIndex(): number {
-        return MongoParser.RULE_dropArgument;
+        return MongoParser.RULE_collectionDropArgument;
     }
     public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
-        if (visitor.visitDropArgument) {
-            return visitor.visitDropArgument(this);
+        if (visitor.visitCollectionDropArgument) {
+            return visitor.visitCollectionDropArgument(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -6776,7 +9958,7 @@ export class DropArgumentContext extends antlr.ParserRuleContext {
 }
 
 
-export class RenameMethodContext extends antlr.ParserRuleContext {
+export class CollectionRenameMethodContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
@@ -6786,8 +9968,8 @@ export class RenameMethodContext extends antlr.ParserRuleContext {
     public LPAREN(): antlr.TerminalNode {
         return this.getToken(MongoParser.LPAREN, 0)!;
     }
-    public renameArgument1(): RenameArgument1Context {
-        return this.getRuleContext(0, RenameArgument1Context)!;
+    public collectionRenameArgument1(): CollectionRenameArgument1Context {
+        return this.getRuleContext(0, CollectionRenameArgument1Context)!;
     }
     public RPAREN(): antlr.TerminalNode {
         return this.getToken(MongoParser.RPAREN, 0)!;
@@ -6795,15 +9977,15 @@ export class RenameMethodContext extends antlr.ParserRuleContext {
     public COMMA(): antlr.TerminalNode | null {
         return this.getToken(MongoParser.COMMA, 0);
     }
-    public renameArgument2(): RenameArgument2Context | null {
-        return this.getRuleContext(0, RenameArgument2Context);
+    public collectionRenameArgument2(): CollectionRenameArgument2Context | null {
+        return this.getRuleContext(0, CollectionRenameArgument2Context);
     }
     public override get ruleIndex(): number {
-        return MongoParser.RULE_renameMethod;
+        return MongoParser.RULE_collectionRenameMethod;
     }
     public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
-        if (visitor.visitRenameMethod) {
-            return visitor.visitRenameMethod(this);
+        if (visitor.visitCollectionRenameMethod) {
+            return visitor.visitCollectionRenameMethod(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -6811,7 +9993,7 @@ export class RenameMethodContext extends antlr.ParserRuleContext {
 }
 
 
-export class RenameArgument1Context extends antlr.ParserRuleContext {
+export class CollectionRenameArgument1Context extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
@@ -6819,11 +10001,11 @@ export class RenameArgument1Context extends antlr.ParserRuleContext {
         return this.getToken(MongoParser.STRING, 0)!;
     }
     public override get ruleIndex(): number {
-        return MongoParser.RULE_renameArgument1;
+        return MongoParser.RULE_collectionRenameArgument1;
     }
     public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
-        if (visitor.visitRenameArgument1) {
-            return visitor.visitRenameArgument1(this);
+        if (visitor.visitCollectionRenameArgument1) {
+            return visitor.visitCollectionRenameArgument1(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -6831,7 +10013,7 @@ export class RenameArgument1Context extends antlr.ParserRuleContext {
 }
 
 
-export class RenameArgument2Context extends antlr.ParserRuleContext {
+export class CollectionRenameArgument2Context extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
@@ -6839,11 +10021,11 @@ export class RenameArgument2Context extends antlr.ParserRuleContext {
         return this.getRuleContext(0, ObjectContext)!;
     }
     public override get ruleIndex(): number {
-        return MongoParser.RULE_renameArgument2;
+        return MongoParser.RULE_collectionRenameArgument2;
     }
     public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
-        if (visitor.visitRenameArgument2) {
-            return visitor.visitRenameArgument2(this);
+        if (visitor.visitCollectionRenameArgument2) {
+            return visitor.visitCollectionRenameArgument2(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -6851,7 +10033,7 @@ export class RenameArgument2Context extends antlr.ParserRuleContext {
 }
 
 
-export class DeleteManyMethodContext extends antlr.ParserRuleContext {
+export class CollectionDeleteManyMethodContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
@@ -6864,21 +10046,21 @@ export class DeleteManyMethodContext extends antlr.ParserRuleContext {
     public RPAREN(): antlr.TerminalNode {
         return this.getToken(MongoParser.RPAREN, 0)!;
     }
-    public deleteManyArgument1(): DeleteManyArgument1Context | null {
-        return this.getRuleContext(0, DeleteManyArgument1Context);
+    public collectionDeleteManyArgument1(): CollectionDeleteManyArgument1Context | null {
+        return this.getRuleContext(0, CollectionDeleteManyArgument1Context);
     }
     public COMMA(): antlr.TerminalNode | null {
         return this.getToken(MongoParser.COMMA, 0);
     }
-    public deleteManyArgument2(): DeleteManyArgument2Context | null {
-        return this.getRuleContext(0, DeleteManyArgument2Context);
+    public collectionDeleteManyArgument2(): CollectionDeleteManyArgument2Context | null {
+        return this.getRuleContext(0, CollectionDeleteManyArgument2Context);
     }
     public override get ruleIndex(): number {
-        return MongoParser.RULE_deleteManyMethod;
+        return MongoParser.RULE_collectionDeleteManyMethod;
     }
     public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
-        if (visitor.visitDeleteManyMethod) {
-            return visitor.visitDeleteManyMethod(this);
+        if (visitor.visitCollectionDeleteManyMethod) {
+            return visitor.visitCollectionDeleteManyMethod(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -6886,7 +10068,7 @@ export class DeleteManyMethodContext extends antlr.ParserRuleContext {
 }
 
 
-export class DeleteManyArgument1Context extends antlr.ParserRuleContext {
+export class CollectionDeleteManyArgument1Context extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
@@ -6894,11 +10076,11 @@ export class DeleteManyArgument1Context extends antlr.ParserRuleContext {
         return this.getRuleContext(0, ObjectContext)!;
     }
     public override get ruleIndex(): number {
-        return MongoParser.RULE_deleteManyArgument1;
+        return MongoParser.RULE_collectionDeleteManyArgument1;
     }
     public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
-        if (visitor.visitDeleteManyArgument1) {
-            return visitor.visitDeleteManyArgument1(this);
+        if (visitor.visitCollectionDeleteManyArgument1) {
+            return visitor.visitCollectionDeleteManyArgument1(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -6906,7 +10088,7 @@ export class DeleteManyArgument1Context extends antlr.ParserRuleContext {
 }
 
 
-export class DeleteManyArgument2Context extends antlr.ParserRuleContext {
+export class CollectionDeleteManyArgument2Context extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
@@ -6914,11 +10096,11 @@ export class DeleteManyArgument2Context extends antlr.ParserRuleContext {
         return this.getRuleContext(0, ObjectContext)!;
     }
     public override get ruleIndex(): number {
-        return MongoParser.RULE_deleteManyArgument2;
+        return MongoParser.RULE_collectionDeleteManyArgument2;
     }
     public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
-        if (visitor.visitDeleteManyArgument2) {
-            return visitor.visitDeleteManyArgument2(this);
+        if (visitor.visitCollectionDeleteManyArgument2) {
+            return visitor.visitCollectionDeleteManyArgument2(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -6926,7 +10108,7 @@ export class DeleteManyArgument2Context extends antlr.ParserRuleContext {
 }
 
 
-export class DeleteOneMethodContext extends antlr.ParserRuleContext {
+export class CollectionDeleteOneMethodContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
@@ -6939,21 +10121,21 @@ export class DeleteOneMethodContext extends antlr.ParserRuleContext {
     public RPAREN(): antlr.TerminalNode {
         return this.getToken(MongoParser.RPAREN, 0)!;
     }
-    public deleteOneArgument1(): DeleteOneArgument1Context | null {
-        return this.getRuleContext(0, DeleteOneArgument1Context);
+    public collectionDeleteOneArgument1(): CollectionDeleteOneArgument1Context | null {
+        return this.getRuleContext(0, CollectionDeleteOneArgument1Context);
     }
     public COMMA(): antlr.TerminalNode | null {
         return this.getToken(MongoParser.COMMA, 0);
     }
-    public deleteOneArgument2(): DeleteOneArgument2Context | null {
-        return this.getRuleContext(0, DeleteOneArgument2Context);
+    public collectionDeleteOneArgument2(): CollectionDeleteOneArgument2Context | null {
+        return this.getRuleContext(0, CollectionDeleteOneArgument2Context);
     }
     public override get ruleIndex(): number {
-        return MongoParser.RULE_deleteOneMethod;
+        return MongoParser.RULE_collectionDeleteOneMethod;
     }
     public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
-        if (visitor.visitDeleteOneMethod) {
-            return visitor.visitDeleteOneMethod(this);
+        if (visitor.visitCollectionDeleteOneMethod) {
+            return visitor.visitCollectionDeleteOneMethod(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -6961,7 +10143,7 @@ export class DeleteOneMethodContext extends antlr.ParserRuleContext {
 }
 
 
-export class DeleteOneArgument1Context extends antlr.ParserRuleContext {
+export class CollectionDeleteOneArgument1Context extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
@@ -6969,11 +10151,11 @@ export class DeleteOneArgument1Context extends antlr.ParserRuleContext {
         return this.getRuleContext(0, ObjectContext)!;
     }
     public override get ruleIndex(): number {
-        return MongoParser.RULE_deleteOneArgument1;
+        return MongoParser.RULE_collectionDeleteOneArgument1;
     }
     public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
-        if (visitor.visitDeleteOneArgument1) {
-            return visitor.visitDeleteOneArgument1(this);
+        if (visitor.visitCollectionDeleteOneArgument1) {
+            return visitor.visitCollectionDeleteOneArgument1(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -6981,7 +10163,7 @@ export class DeleteOneArgument1Context extends antlr.ParserRuleContext {
 }
 
 
-export class DeleteOneArgument2Context extends antlr.ParserRuleContext {
+export class CollectionDeleteOneArgument2Context extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
@@ -6989,11 +10171,11 @@ export class DeleteOneArgument2Context extends antlr.ParserRuleContext {
         return this.getRuleContext(0, ObjectContext)!;
     }
     public override get ruleIndex(): number {
-        return MongoParser.RULE_deleteOneArgument2;
+        return MongoParser.RULE_collectionDeleteOneArgument2;
     }
     public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
-        if (visitor.visitDeleteOneArgument2) {
-            return visitor.visitDeleteOneArgument2(this);
+        if (visitor.visitCollectionDeleteOneArgument2) {
+            return visitor.visitCollectionDeleteOneArgument2(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -7001,7 +10183,7 @@ export class DeleteOneArgument2Context extends antlr.ParserRuleContext {
 }
 
 
-export class ReplaceOneMethodContext extends antlr.ParserRuleContext {
+export class CollectionReplaceOneMethodContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
@@ -7011,8 +10193,8 @@ export class ReplaceOneMethodContext extends antlr.ParserRuleContext {
     public LPAREN(): antlr.TerminalNode {
         return this.getToken(MongoParser.LPAREN, 0)!;
     }
-    public replaceOneArgument1(): ReplaceOneArgument1Context {
-        return this.getRuleContext(0, ReplaceOneArgument1Context)!;
+    public collectionReplaceOneArgument1(): CollectionReplaceOneArgument1Context {
+        return this.getRuleContext(0, CollectionReplaceOneArgument1Context)!;
     }
     public COMMA(): antlr.TerminalNode[];
     public COMMA(i: number): antlr.TerminalNode | null;
@@ -7023,21 +10205,21 @@ export class ReplaceOneMethodContext extends antlr.ParserRuleContext {
     		return this.getToken(MongoParser.COMMA, i);
     	}
     }
-    public replaceOneArgument2(): ReplaceOneArgument2Context {
-        return this.getRuleContext(0, ReplaceOneArgument2Context)!;
+    public collectionReplaceOneArgument2(): CollectionReplaceOneArgument2Context {
+        return this.getRuleContext(0, CollectionReplaceOneArgument2Context)!;
     }
     public RPAREN(): antlr.TerminalNode {
         return this.getToken(MongoParser.RPAREN, 0)!;
     }
-    public replaceOneArgument3(): ReplaceOneArgument3Context | null {
-        return this.getRuleContext(0, ReplaceOneArgument3Context);
+    public collectionReplaceOneArgument3(): CollectionReplaceOneArgument3Context | null {
+        return this.getRuleContext(0, CollectionReplaceOneArgument3Context);
     }
     public override get ruleIndex(): number {
-        return MongoParser.RULE_replaceOneMethod;
+        return MongoParser.RULE_collectionReplaceOneMethod;
     }
     public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
-        if (visitor.visitReplaceOneMethod) {
-            return visitor.visitReplaceOneMethod(this);
+        if (visitor.visitCollectionReplaceOneMethod) {
+            return visitor.visitCollectionReplaceOneMethod(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -7045,7 +10227,7 @@ export class ReplaceOneMethodContext extends antlr.ParserRuleContext {
 }
 
 
-export class ReplaceOneArgument1Context extends antlr.ParserRuleContext {
+export class CollectionReplaceOneArgument1Context extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
@@ -7053,11 +10235,11 @@ export class ReplaceOneArgument1Context extends antlr.ParserRuleContext {
         return this.getRuleContext(0, ObjectContext)!;
     }
     public override get ruleIndex(): number {
-        return MongoParser.RULE_replaceOneArgument1;
+        return MongoParser.RULE_collectionReplaceOneArgument1;
     }
     public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
-        if (visitor.visitReplaceOneArgument1) {
-            return visitor.visitReplaceOneArgument1(this);
+        if (visitor.visitCollectionReplaceOneArgument1) {
+            return visitor.visitCollectionReplaceOneArgument1(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -7065,7 +10247,7 @@ export class ReplaceOneArgument1Context extends antlr.ParserRuleContext {
 }
 
 
-export class ReplaceOneArgument2Context extends antlr.ParserRuleContext {
+export class CollectionReplaceOneArgument2Context extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
@@ -7073,11 +10255,11 @@ export class ReplaceOneArgument2Context extends antlr.ParserRuleContext {
         return this.getRuleContext(0, DocumentToInsertContext)!;
     }
     public override get ruleIndex(): number {
-        return MongoParser.RULE_replaceOneArgument2;
+        return MongoParser.RULE_collectionReplaceOneArgument2;
     }
     public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
-        if (visitor.visitReplaceOneArgument2) {
-            return visitor.visitReplaceOneArgument2(this);
+        if (visitor.visitCollectionReplaceOneArgument2) {
+            return visitor.visitCollectionReplaceOneArgument2(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -7085,7 +10267,7 @@ export class ReplaceOneArgument2Context extends antlr.ParserRuleContext {
 }
 
 
-export class ReplaceOneArgument3Context extends antlr.ParserRuleContext {
+export class CollectionReplaceOneArgument3Context extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
@@ -7093,11 +10275,11 @@ export class ReplaceOneArgument3Context extends antlr.ParserRuleContext {
         return this.getRuleContext(0, ObjectContext)!;
     }
     public override get ruleIndex(): number {
-        return MongoParser.RULE_replaceOneArgument3;
+        return MongoParser.RULE_collectionReplaceOneArgument3;
     }
     public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
-        if (visitor.visitReplaceOneArgument3) {
-            return visitor.visitReplaceOneArgument3(this);
+        if (visitor.visitCollectionReplaceOneArgument3) {
+            return visitor.visitCollectionReplaceOneArgument3(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -7105,7 +10287,7 @@ export class ReplaceOneArgument3Context extends antlr.ParserRuleContext {
 }
 
 
-export class UpdateManyMethodContext extends antlr.ParserRuleContext {
+export class CollectionUpdateManyMethodContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
@@ -7115,8 +10297,8 @@ export class UpdateManyMethodContext extends antlr.ParserRuleContext {
     public LPAREN(): antlr.TerminalNode {
         return this.getToken(MongoParser.LPAREN, 0)!;
     }
-    public updateManyArgument1(): UpdateManyArgument1Context {
-        return this.getRuleContext(0, UpdateManyArgument1Context)!;
+    public collectionUpdateManyArgument1(): CollectionUpdateManyArgument1Context {
+        return this.getRuleContext(0, CollectionUpdateManyArgument1Context)!;
     }
     public COMMA(): antlr.TerminalNode[];
     public COMMA(i: number): antlr.TerminalNode | null;
@@ -7127,21 +10309,21 @@ export class UpdateManyMethodContext extends antlr.ParserRuleContext {
     		return this.getToken(MongoParser.COMMA, i);
     	}
     }
-    public updateManyArgument2(): UpdateManyArgument2Context {
-        return this.getRuleContext(0, UpdateManyArgument2Context)!;
+    public collectionUpdateManyArgument2(): CollectionUpdateManyArgument2Context {
+        return this.getRuleContext(0, CollectionUpdateManyArgument2Context)!;
     }
     public RPAREN(): antlr.TerminalNode {
         return this.getToken(MongoParser.RPAREN, 0)!;
     }
-    public updateManyArgument3(): UpdateManyArgument3Context | null {
-        return this.getRuleContext(0, UpdateManyArgument3Context);
+    public collectionUpdateManyArgument3(): CollectionUpdateManyArgument3Context | null {
+        return this.getRuleContext(0, CollectionUpdateManyArgument3Context);
     }
     public override get ruleIndex(): number {
-        return MongoParser.RULE_updateManyMethod;
+        return MongoParser.RULE_collectionUpdateManyMethod;
     }
     public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
-        if (visitor.visitUpdateManyMethod) {
-            return visitor.visitUpdateManyMethod(this);
+        if (visitor.visitCollectionUpdateManyMethod) {
+            return visitor.visitCollectionUpdateManyMethod(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -7149,7 +10331,7 @@ export class UpdateManyMethodContext extends antlr.ParserRuleContext {
 }
 
 
-export class UpdateManyArgument1Context extends antlr.ParserRuleContext {
+export class CollectionUpdateManyArgument1Context extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
@@ -7157,11 +10339,11 @@ export class UpdateManyArgument1Context extends antlr.ParserRuleContext {
         return this.getRuleContext(0, ObjectContext)!;
     }
     public override get ruleIndex(): number {
-        return MongoParser.RULE_updateManyArgument1;
+        return MongoParser.RULE_collectionUpdateManyArgument1;
     }
     public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
-        if (visitor.visitUpdateManyArgument1) {
-            return visitor.visitUpdateManyArgument1(this);
+        if (visitor.visitCollectionUpdateManyArgument1) {
+            return visitor.visitCollectionUpdateManyArgument1(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -7169,7 +10351,7 @@ export class UpdateManyArgument1Context extends antlr.ParserRuleContext {
 }
 
 
-export class UpdateManyArgument2Context extends antlr.ParserRuleContext {
+export class CollectionUpdateManyArgument2Context extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
@@ -7180,11 +10362,11 @@ export class UpdateManyArgument2Context extends antlr.ParserRuleContext {
         return this.getRuleContext(0, ArrayContext);
     }
     public override get ruleIndex(): number {
-        return MongoParser.RULE_updateManyArgument2;
+        return MongoParser.RULE_collectionUpdateManyArgument2;
     }
     public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
-        if (visitor.visitUpdateManyArgument2) {
-            return visitor.visitUpdateManyArgument2(this);
+        if (visitor.visitCollectionUpdateManyArgument2) {
+            return visitor.visitCollectionUpdateManyArgument2(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -7192,7 +10374,7 @@ export class UpdateManyArgument2Context extends antlr.ParserRuleContext {
 }
 
 
-export class UpdateManyArgument3Context extends antlr.ParserRuleContext {
+export class CollectionUpdateManyArgument3Context extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
@@ -7200,11 +10382,11 @@ export class UpdateManyArgument3Context extends antlr.ParserRuleContext {
         return this.getRuleContext(0, ObjectContext)!;
     }
     public override get ruleIndex(): number {
-        return MongoParser.RULE_updateManyArgument3;
+        return MongoParser.RULE_collectionUpdateManyArgument3;
     }
     public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
-        if (visitor.visitUpdateManyArgument3) {
-            return visitor.visitUpdateManyArgument3(this);
+        if (visitor.visitCollectionUpdateManyArgument3) {
+            return visitor.visitCollectionUpdateManyArgument3(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -7212,7 +10394,7 @@ export class UpdateManyArgument3Context extends antlr.ParserRuleContext {
 }
 
 
-export class UpdateOneMethodContext extends antlr.ParserRuleContext {
+export class CollectionUpdateOneMethodContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
@@ -7222,8 +10404,8 @@ export class UpdateOneMethodContext extends antlr.ParserRuleContext {
     public LPAREN(): antlr.TerminalNode {
         return this.getToken(MongoParser.LPAREN, 0)!;
     }
-    public updateOneArgument1(): UpdateOneArgument1Context {
-        return this.getRuleContext(0, UpdateOneArgument1Context)!;
+    public collectionUpdateOneArgument1(): CollectionUpdateOneArgument1Context {
+        return this.getRuleContext(0, CollectionUpdateOneArgument1Context)!;
     }
     public COMMA(): antlr.TerminalNode[];
     public COMMA(i: number): antlr.TerminalNode | null;
@@ -7234,21 +10416,21 @@ export class UpdateOneMethodContext extends antlr.ParserRuleContext {
     		return this.getToken(MongoParser.COMMA, i);
     	}
     }
-    public updateOneArgument2(): UpdateOneArgument2Context {
-        return this.getRuleContext(0, UpdateOneArgument2Context)!;
+    public collectionUpdateOneArgument2(): CollectionUpdateOneArgument2Context {
+        return this.getRuleContext(0, CollectionUpdateOneArgument2Context)!;
     }
     public RPAREN(): antlr.TerminalNode {
         return this.getToken(MongoParser.RPAREN, 0)!;
     }
-    public updateOneArgument3(): UpdateOneArgument3Context | null {
-        return this.getRuleContext(0, UpdateOneArgument3Context);
+    public collectionUpdateOneArgument3(): CollectionUpdateOneArgument3Context | null {
+        return this.getRuleContext(0, CollectionUpdateOneArgument3Context);
     }
     public override get ruleIndex(): number {
-        return MongoParser.RULE_updateOneMethod;
+        return MongoParser.RULE_collectionUpdateOneMethod;
     }
     public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
-        if (visitor.visitUpdateOneMethod) {
-            return visitor.visitUpdateOneMethod(this);
+        if (visitor.visitCollectionUpdateOneMethod) {
+            return visitor.visitCollectionUpdateOneMethod(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -7256,7 +10438,7 @@ export class UpdateOneMethodContext extends antlr.ParserRuleContext {
 }
 
 
-export class UpdateOneArgument1Context extends antlr.ParserRuleContext {
+export class CollectionUpdateOneArgument1Context extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
@@ -7264,11 +10446,11 @@ export class UpdateOneArgument1Context extends antlr.ParserRuleContext {
         return this.getRuleContext(0, ObjectContext)!;
     }
     public override get ruleIndex(): number {
-        return MongoParser.RULE_updateOneArgument1;
+        return MongoParser.RULE_collectionUpdateOneArgument1;
     }
     public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
-        if (visitor.visitUpdateOneArgument1) {
-            return visitor.visitUpdateOneArgument1(this);
+        if (visitor.visitCollectionUpdateOneArgument1) {
+            return visitor.visitCollectionUpdateOneArgument1(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -7276,7 +10458,7 @@ export class UpdateOneArgument1Context extends antlr.ParserRuleContext {
 }
 
 
-export class UpdateOneArgument2Context extends antlr.ParserRuleContext {
+export class CollectionUpdateOneArgument2Context extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
@@ -7287,11 +10469,11 @@ export class UpdateOneArgument2Context extends antlr.ParserRuleContext {
         return this.getRuleContext(0, ObjectContext);
     }
     public override get ruleIndex(): number {
-        return MongoParser.RULE_updateOneArgument2;
+        return MongoParser.RULE_collectionUpdateOneArgument2;
     }
     public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
-        if (visitor.visitUpdateOneArgument2) {
-            return visitor.visitUpdateOneArgument2(this);
+        if (visitor.visitCollectionUpdateOneArgument2) {
+            return visitor.visitCollectionUpdateOneArgument2(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -7299,7 +10481,7 @@ export class UpdateOneArgument2Context extends antlr.ParserRuleContext {
 }
 
 
-export class UpdateOneArgument3Context extends antlr.ParserRuleContext {
+export class CollectionUpdateOneArgument3Context extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
@@ -7307,11 +10489,11 @@ export class UpdateOneArgument3Context extends antlr.ParserRuleContext {
         return this.getRuleContext(0, ObjectContext)!;
     }
     public override get ruleIndex(): number {
-        return MongoParser.RULE_updateOneArgument3;
+        return MongoParser.RULE_collectionUpdateOneArgument3;
     }
     public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
-        if (visitor.visitUpdateOneArgument3) {
-            return visitor.visitUpdateOneArgument3(this);
+        if (visitor.visitCollectionUpdateOneArgument3) {
+            return visitor.visitCollectionUpdateOneArgument3(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -7319,7 +10501,7 @@ export class UpdateOneArgument3Context extends antlr.ParserRuleContext {
 }
 
 
-export class BulkWriteMethodContext extends antlr.ParserRuleContext {
+export class CollectionBulkWriteMethodContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
@@ -7329,8 +10511,8 @@ export class BulkWriteMethodContext extends antlr.ParserRuleContext {
     public LPAREN(): antlr.TerminalNode {
         return this.getToken(MongoParser.LPAREN, 0)!;
     }
-    public bulkWriteArgument1(): BulkWriteArgument1Context {
-        return this.getRuleContext(0, BulkWriteArgument1Context)!;
+    public collectionBulkWriteArgument1(): CollectionBulkWriteArgument1Context {
+        return this.getRuleContext(0, CollectionBulkWriteArgument1Context)!;
     }
     public RPAREN(): antlr.TerminalNode {
         return this.getToken(MongoParser.RPAREN, 0)!;
@@ -7338,15 +10520,15 @@ export class BulkWriteMethodContext extends antlr.ParserRuleContext {
     public COMMA(): antlr.TerminalNode | null {
         return this.getToken(MongoParser.COMMA, 0);
     }
-    public bulkWriteArgument2(): BulkWriteArgument2Context | null {
-        return this.getRuleContext(0, BulkWriteArgument2Context);
+    public collectionBulkWriteArgument2(): CollectionBulkWriteArgument2Context | null {
+        return this.getRuleContext(0, CollectionBulkWriteArgument2Context);
     }
     public override get ruleIndex(): number {
-        return MongoParser.RULE_bulkWriteMethod;
+        return MongoParser.RULE_collectionBulkWriteMethod;
     }
     public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
-        if (visitor.visitBulkWriteMethod) {
-            return visitor.visitBulkWriteMethod(this);
+        if (visitor.visitCollectionBulkWriteMethod) {
+            return visitor.visitCollectionBulkWriteMethod(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -7354,7 +10536,7 @@ export class BulkWriteMethodContext extends antlr.ParserRuleContext {
 }
 
 
-export class BulkWriteArgument1Context extends antlr.ParserRuleContext {
+export class CollectionBulkWriteArgument1Context extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
@@ -7362,11 +10544,11 @@ export class BulkWriteArgument1Context extends antlr.ParserRuleContext {
         return this.getRuleContext(0, ArrayContext)!;
     }
     public override get ruleIndex(): number {
-        return MongoParser.RULE_bulkWriteArgument1;
+        return MongoParser.RULE_collectionBulkWriteArgument1;
     }
     public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
-        if (visitor.visitBulkWriteArgument1) {
-            return visitor.visitBulkWriteArgument1(this);
+        if (visitor.visitCollectionBulkWriteArgument1) {
+            return visitor.visitCollectionBulkWriteArgument1(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -7374,7 +10556,7 @@ export class BulkWriteArgument1Context extends antlr.ParserRuleContext {
 }
 
 
-export class BulkWriteArgument2Context extends antlr.ParserRuleContext {
+export class CollectionBulkWriteArgument2Context extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
@@ -7382,11 +10564,11 @@ export class BulkWriteArgument2Context extends antlr.ParserRuleContext {
         return this.getRuleContext(0, ObjectContext)!;
     }
     public override get ruleIndex(): number {
-        return MongoParser.RULE_bulkWriteArgument2;
+        return MongoParser.RULE_collectionBulkWriteArgument2;
     }
     public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
-        if (visitor.visitBulkWriteArgument2) {
-            return visitor.visitBulkWriteArgument2(this);
+        if (visitor.visitCollectionBulkWriteArgument2) {
+            return visitor.visitCollectionBulkWriteArgument2(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -7394,7 +10576,7 @@ export class BulkWriteArgument2Context extends antlr.ParserRuleContext {
 }
 
 
-export class InsertManyMethodContext extends antlr.ParserRuleContext {
+export class CollectionInsertManyMethodContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
@@ -7404,8 +10586,8 @@ export class InsertManyMethodContext extends antlr.ParserRuleContext {
     public LPAREN(): antlr.TerminalNode {
         return this.getToken(MongoParser.LPAREN, 0)!;
     }
-    public insertManyArgument1(): InsertManyArgument1Context {
-        return this.getRuleContext(0, InsertManyArgument1Context)!;
+    public collectionInsertManyArgument1(): CollectionInsertManyArgument1Context {
+        return this.getRuleContext(0, CollectionInsertManyArgument1Context)!;
     }
     public RPAREN(): antlr.TerminalNode {
         return this.getToken(MongoParser.RPAREN, 0)!;
@@ -7413,15 +10595,15 @@ export class InsertManyMethodContext extends antlr.ParserRuleContext {
     public COMMA(): antlr.TerminalNode | null {
         return this.getToken(MongoParser.COMMA, 0);
     }
-    public insertManyArgument2(): InsertManyArgument2Context | null {
-        return this.getRuleContext(0, InsertManyArgument2Context);
+    public collectionInsertManyArgument2(): CollectionInsertManyArgument2Context | null {
+        return this.getRuleContext(0, CollectionInsertManyArgument2Context);
     }
     public override get ruleIndex(): number {
-        return MongoParser.RULE_insertManyMethod;
+        return MongoParser.RULE_collectionInsertManyMethod;
     }
     public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
-        if (visitor.visitInsertManyMethod) {
-            return visitor.visitInsertManyMethod(this);
+        if (visitor.visitCollectionInsertManyMethod) {
+            return visitor.visitCollectionInsertManyMethod(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -7429,7 +10611,7 @@ export class InsertManyMethodContext extends antlr.ParserRuleContext {
 }
 
 
-export class InsertManyArgument1Context extends antlr.ParserRuleContext {
+export class CollectionInsertManyArgument1Context extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
@@ -7458,11 +10640,11 @@ export class InsertManyArgument1Context extends antlr.ParserRuleContext {
     	}
     }
     public override get ruleIndex(): number {
-        return MongoParser.RULE_insertManyArgument1;
+        return MongoParser.RULE_collectionInsertManyArgument1;
     }
     public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
-        if (visitor.visitInsertManyArgument1) {
-            return visitor.visitInsertManyArgument1(this);
+        if (visitor.visitCollectionInsertManyArgument1) {
+            return visitor.visitCollectionInsertManyArgument1(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -7470,7 +10652,7 @@ export class InsertManyArgument1Context extends antlr.ParserRuleContext {
 }
 
 
-export class InsertManyArgument2Context extends antlr.ParserRuleContext {
+export class CollectionInsertManyArgument2Context extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
@@ -7478,11 +10660,11 @@ export class InsertManyArgument2Context extends antlr.ParserRuleContext {
         return this.getRuleContext(0, ObjectContext)!;
     }
     public override get ruleIndex(): number {
-        return MongoParser.RULE_insertManyArgument2;
+        return MongoParser.RULE_collectionInsertManyArgument2;
     }
     public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
-        if (visitor.visitInsertManyArgument2) {
-            return visitor.visitInsertManyArgument2(this);
+        if (visitor.visitCollectionInsertManyArgument2) {
+            return visitor.visitCollectionInsertManyArgument2(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -7490,7 +10672,7 @@ export class InsertManyArgument2Context extends antlr.ParserRuleContext {
 }
 
 
-export class InsertOneMethodContext extends antlr.ParserRuleContext {
+export class CollectionInsertOneMethodContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
@@ -7500,8 +10682,8 @@ export class InsertOneMethodContext extends antlr.ParserRuleContext {
     public LPAREN(): antlr.TerminalNode {
         return this.getToken(MongoParser.LPAREN, 0)!;
     }
-    public insertOneArgument1(): InsertOneArgument1Context {
-        return this.getRuleContext(0, InsertOneArgument1Context)!;
+    public collectionInsertOneArgument1(): CollectionInsertOneArgument1Context {
+        return this.getRuleContext(0, CollectionInsertOneArgument1Context)!;
     }
     public RPAREN(): antlr.TerminalNode {
         return this.getToken(MongoParser.RPAREN, 0)!;
@@ -7509,15 +10691,15 @@ export class InsertOneMethodContext extends antlr.ParserRuleContext {
     public COMMA(): antlr.TerminalNode | null {
         return this.getToken(MongoParser.COMMA, 0);
     }
-    public insertOneArgument2(): InsertOneArgument2Context | null {
-        return this.getRuleContext(0, InsertOneArgument2Context);
+    public collectionInsertOneArgument2(): CollectionInsertOneArgument2Context | null {
+        return this.getRuleContext(0, CollectionInsertOneArgument2Context);
     }
     public override get ruleIndex(): number {
-        return MongoParser.RULE_insertOneMethod;
+        return MongoParser.RULE_collectionInsertOneMethod;
     }
     public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
-        if (visitor.visitInsertOneMethod) {
-            return visitor.visitInsertOneMethod(this);
+        if (visitor.visitCollectionInsertOneMethod) {
+            return visitor.visitCollectionInsertOneMethod(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -7525,7 +10707,7 @@ export class InsertOneMethodContext extends antlr.ParserRuleContext {
 }
 
 
-export class InsertOneArgument1Context extends antlr.ParserRuleContext {
+export class CollectionInsertOneArgument1Context extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
@@ -7533,11 +10715,11 @@ export class InsertOneArgument1Context extends antlr.ParserRuleContext {
         return this.getRuleContext(0, DocumentToInsertContext)!;
     }
     public override get ruleIndex(): number {
-        return MongoParser.RULE_insertOneArgument1;
+        return MongoParser.RULE_collectionInsertOneArgument1;
     }
     public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
-        if (visitor.visitInsertOneArgument1) {
-            return visitor.visitInsertOneArgument1(this);
+        if (visitor.visitCollectionInsertOneArgument1) {
+            return visitor.visitCollectionInsertOneArgument1(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -7545,7 +10727,7 @@ export class InsertOneArgument1Context extends antlr.ParserRuleContext {
 }
 
 
-export class InsertOneArgument2Context extends antlr.ParserRuleContext {
+export class CollectionInsertOneArgument2Context extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
@@ -7553,11 +10735,11 @@ export class InsertOneArgument2Context extends antlr.ParserRuleContext {
         return this.getRuleContext(0, ObjectContext)!;
     }
     public override get ruleIndex(): number {
-        return MongoParser.RULE_insertOneArgument2;
+        return MongoParser.RULE_collectionInsertOneArgument2;
     }
     public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
-        if (visitor.visitInsertOneArgument2) {
-            return visitor.visitInsertOneArgument2(this);
+        if (visitor.visitCollectionInsertOneArgument2) {
+            return visitor.visitCollectionInsertOneArgument2(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -7588,7 +10770,7 @@ export class DocumentToInsertContext extends antlr.ParserRuleContext {
 }
 
 
-export class FindOneAndUpdateMethodContext extends antlr.ParserRuleContext {
+export class CollectionFindOneAndUpdateMethodContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
@@ -7598,8 +10780,8 @@ export class FindOneAndUpdateMethodContext extends antlr.ParserRuleContext {
     public LPAREN(): antlr.TerminalNode {
         return this.getToken(MongoParser.LPAREN, 0)!;
     }
-    public findOneAndUpdateArgument1(): FindOneAndUpdateArgument1Context {
-        return this.getRuleContext(0, FindOneAndUpdateArgument1Context)!;
+    public collectionFindOneAndUpdateArgument1(): CollectionFindOneAndUpdateArgument1Context {
+        return this.getRuleContext(0, CollectionFindOneAndUpdateArgument1Context)!;
     }
     public COMMA(): antlr.TerminalNode[];
     public COMMA(i: number): antlr.TerminalNode | null;
@@ -7610,21 +10792,21 @@ export class FindOneAndUpdateMethodContext extends antlr.ParserRuleContext {
     		return this.getToken(MongoParser.COMMA, i);
     	}
     }
-    public findOneAndUpdateArgument2(): FindOneAndUpdateArgument2Context {
-        return this.getRuleContext(0, FindOneAndUpdateArgument2Context)!;
+    public collectionFindOneAndUpdateArgument2(): CollectionFindOneAndUpdateArgument2Context {
+        return this.getRuleContext(0, CollectionFindOneAndUpdateArgument2Context)!;
     }
     public RPAREN(): antlr.TerminalNode {
         return this.getToken(MongoParser.RPAREN, 0)!;
     }
-    public findOneAndUpdateArgument3(): FindOneAndUpdateArgument3Context | null {
-        return this.getRuleContext(0, FindOneAndUpdateArgument3Context);
+    public collectionFindOneAndUpdateArgument3(): CollectionFindOneAndUpdateArgument3Context | null {
+        return this.getRuleContext(0, CollectionFindOneAndUpdateArgument3Context);
     }
     public override get ruleIndex(): number {
-        return MongoParser.RULE_findOneAndUpdateMethod;
+        return MongoParser.RULE_collectionFindOneAndUpdateMethod;
     }
     public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
-        if (visitor.visitFindOneAndUpdateMethod) {
-            return visitor.visitFindOneAndUpdateMethod(this);
+        if (visitor.visitCollectionFindOneAndUpdateMethod) {
+            return visitor.visitCollectionFindOneAndUpdateMethod(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -7632,7 +10814,7 @@ export class FindOneAndUpdateMethodContext extends antlr.ParserRuleContext {
 }
 
 
-export class FindOneAndUpdateArgument1Context extends antlr.ParserRuleContext {
+export class CollectionFindOneAndUpdateArgument1Context extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
@@ -7640,11 +10822,11 @@ export class FindOneAndUpdateArgument1Context extends antlr.ParserRuleContext {
         return this.getRuleContext(0, ObjectContext)!;
     }
     public override get ruleIndex(): number {
-        return MongoParser.RULE_findOneAndUpdateArgument1;
+        return MongoParser.RULE_collectionFindOneAndUpdateArgument1;
     }
     public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
-        if (visitor.visitFindOneAndUpdateArgument1) {
-            return visitor.visitFindOneAndUpdateArgument1(this);
+        if (visitor.visitCollectionFindOneAndUpdateArgument1) {
+            return visitor.visitCollectionFindOneAndUpdateArgument1(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -7652,7 +10834,7 @@ export class FindOneAndUpdateArgument1Context extends antlr.ParserRuleContext {
 }
 
 
-export class FindOneAndUpdateArgument2Context extends antlr.ParserRuleContext {
+export class CollectionFindOneAndUpdateArgument2Context extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
@@ -7660,11 +10842,11 @@ export class FindOneAndUpdateArgument2Context extends antlr.ParserRuleContext {
         return this.getRuleContext(0, ObjectContext)!;
     }
     public override get ruleIndex(): number {
-        return MongoParser.RULE_findOneAndUpdateArgument2;
+        return MongoParser.RULE_collectionFindOneAndUpdateArgument2;
     }
     public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
-        if (visitor.visitFindOneAndUpdateArgument2) {
-            return visitor.visitFindOneAndUpdateArgument2(this);
+        if (visitor.visitCollectionFindOneAndUpdateArgument2) {
+            return visitor.visitCollectionFindOneAndUpdateArgument2(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -7672,7 +10854,7 @@ export class FindOneAndUpdateArgument2Context extends antlr.ParserRuleContext {
 }
 
 
-export class FindOneAndUpdateArgument3Context extends antlr.ParserRuleContext {
+export class CollectionFindOneAndUpdateArgument3Context extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
@@ -7680,11 +10862,11 @@ export class FindOneAndUpdateArgument3Context extends antlr.ParserRuleContext {
         return this.getRuleContext(0, ObjectContext)!;
     }
     public override get ruleIndex(): number {
-        return MongoParser.RULE_findOneAndUpdateArgument3;
+        return MongoParser.RULE_collectionFindOneAndUpdateArgument3;
     }
     public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
-        if (visitor.visitFindOneAndUpdateArgument3) {
-            return visitor.visitFindOneAndUpdateArgument3(this);
+        if (visitor.visitCollectionFindOneAndUpdateArgument3) {
+            return visitor.visitCollectionFindOneAndUpdateArgument3(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -7692,7 +10874,7 @@ export class FindOneAndUpdateArgument3Context extends antlr.ParserRuleContext {
 }
 
 
-export class FindOneAndReplaceMethodContext extends antlr.ParserRuleContext {
+export class CollectionFindOneAndReplaceMethodContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
@@ -7702,8 +10884,8 @@ export class FindOneAndReplaceMethodContext extends antlr.ParserRuleContext {
     public LPAREN(): antlr.TerminalNode {
         return this.getToken(MongoParser.LPAREN, 0)!;
     }
-    public findOneAndReplaceArgument1(): FindOneAndReplaceArgument1Context {
-        return this.getRuleContext(0, FindOneAndReplaceArgument1Context)!;
+    public collectionFindOneAndReplaceArgument1(): CollectionFindOneAndReplaceArgument1Context {
+        return this.getRuleContext(0, CollectionFindOneAndReplaceArgument1Context)!;
     }
     public COMMA(): antlr.TerminalNode[];
     public COMMA(i: number): antlr.TerminalNode | null;
@@ -7714,21 +10896,21 @@ export class FindOneAndReplaceMethodContext extends antlr.ParserRuleContext {
     		return this.getToken(MongoParser.COMMA, i);
     	}
     }
-    public findOneAndReplaceArgument2(): FindOneAndReplaceArgument2Context {
-        return this.getRuleContext(0, FindOneAndReplaceArgument2Context)!;
+    public collectionFindOneAndReplaceArgument2(): CollectionFindOneAndReplaceArgument2Context {
+        return this.getRuleContext(0, CollectionFindOneAndReplaceArgument2Context)!;
     }
     public RPAREN(): antlr.TerminalNode {
         return this.getToken(MongoParser.RPAREN, 0)!;
     }
-    public findOneAndReplaceArgument3(): FindOneAndReplaceArgument3Context | null {
-        return this.getRuleContext(0, FindOneAndReplaceArgument3Context);
+    public collectionFindOneAndReplaceArgument3(): CollectionFindOneAndReplaceArgument3Context | null {
+        return this.getRuleContext(0, CollectionFindOneAndReplaceArgument3Context);
     }
     public override get ruleIndex(): number {
-        return MongoParser.RULE_findOneAndReplaceMethod;
+        return MongoParser.RULE_collectionFindOneAndReplaceMethod;
     }
     public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
-        if (visitor.visitFindOneAndReplaceMethod) {
-            return visitor.visitFindOneAndReplaceMethod(this);
+        if (visitor.visitCollectionFindOneAndReplaceMethod) {
+            return visitor.visitCollectionFindOneAndReplaceMethod(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -7736,7 +10918,7 @@ export class FindOneAndReplaceMethodContext extends antlr.ParserRuleContext {
 }
 
 
-export class FindOneAndReplaceArgument1Context extends antlr.ParserRuleContext {
+export class CollectionFindOneAndReplaceArgument1Context extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
@@ -7744,11 +10926,11 @@ export class FindOneAndReplaceArgument1Context extends antlr.ParserRuleContext {
         return this.getRuleContext(0, ObjectContext)!;
     }
     public override get ruleIndex(): number {
-        return MongoParser.RULE_findOneAndReplaceArgument1;
+        return MongoParser.RULE_collectionFindOneAndReplaceArgument1;
     }
     public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
-        if (visitor.visitFindOneAndReplaceArgument1) {
-            return visitor.visitFindOneAndReplaceArgument1(this);
+        if (visitor.visitCollectionFindOneAndReplaceArgument1) {
+            return visitor.visitCollectionFindOneAndReplaceArgument1(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -7756,7 +10938,7 @@ export class FindOneAndReplaceArgument1Context extends antlr.ParserRuleContext {
 }
 
 
-export class FindOneAndReplaceArgument2Context extends antlr.ParserRuleContext {
+export class CollectionFindOneAndReplaceArgument2Context extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
@@ -7764,11 +10946,11 @@ export class FindOneAndReplaceArgument2Context extends antlr.ParserRuleContext {
         return this.getRuleContext(0, ObjectContext)!;
     }
     public override get ruleIndex(): number {
-        return MongoParser.RULE_findOneAndReplaceArgument2;
+        return MongoParser.RULE_collectionFindOneAndReplaceArgument2;
     }
     public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
-        if (visitor.visitFindOneAndReplaceArgument2) {
-            return visitor.visitFindOneAndReplaceArgument2(this);
+        if (visitor.visitCollectionFindOneAndReplaceArgument2) {
+            return visitor.visitCollectionFindOneAndReplaceArgument2(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -7776,7 +10958,7 @@ export class FindOneAndReplaceArgument2Context extends antlr.ParserRuleContext {
 }
 
 
-export class FindOneAndReplaceArgument3Context extends antlr.ParserRuleContext {
+export class CollectionFindOneAndReplaceArgument3Context extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
@@ -7784,11 +10966,11 @@ export class FindOneAndReplaceArgument3Context extends antlr.ParserRuleContext {
         return this.getRuleContext(0, ObjectContext)!;
     }
     public override get ruleIndex(): number {
-        return MongoParser.RULE_findOneAndReplaceArgument3;
+        return MongoParser.RULE_collectionFindOneAndReplaceArgument3;
     }
     public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
-        if (visitor.visitFindOneAndReplaceArgument3) {
-            return visitor.visitFindOneAndReplaceArgument3(this);
+        if (visitor.visitCollectionFindOneAndReplaceArgument3) {
+            return visitor.visitCollectionFindOneAndReplaceArgument3(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -7796,7 +10978,7 @@ export class FindOneAndReplaceArgument3Context extends antlr.ParserRuleContext {
 }
 
 
-export class FindOneAndDeleteMethodContext extends antlr.ParserRuleContext {
+export class CollectionFindOneAndDeleteMethodContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
@@ -7806,8 +10988,8 @@ export class FindOneAndDeleteMethodContext extends antlr.ParserRuleContext {
     public LPAREN(): antlr.TerminalNode {
         return this.getToken(MongoParser.LPAREN, 0)!;
     }
-    public findOneAndDeleteArgument1(): FindOneAndDeleteArgument1Context {
-        return this.getRuleContext(0, FindOneAndDeleteArgument1Context)!;
+    public collectionFindOneAndDeleteArgument1(): CollectionFindOneAndDeleteArgument1Context {
+        return this.getRuleContext(0, CollectionFindOneAndDeleteArgument1Context)!;
     }
     public RPAREN(): antlr.TerminalNode {
         return this.getToken(MongoParser.RPAREN, 0)!;
@@ -7815,15 +10997,15 @@ export class FindOneAndDeleteMethodContext extends antlr.ParserRuleContext {
     public COMMA(): antlr.TerminalNode | null {
         return this.getToken(MongoParser.COMMA, 0);
     }
-    public findOneAndDeleteArgument2(): FindOneAndDeleteArgument2Context | null {
-        return this.getRuleContext(0, FindOneAndDeleteArgument2Context);
+    public collectionFindOneAndDeleteArgument2(): CollectionFindOneAndDeleteArgument2Context | null {
+        return this.getRuleContext(0, CollectionFindOneAndDeleteArgument2Context);
     }
     public override get ruleIndex(): number {
-        return MongoParser.RULE_findOneAndDeleteMethod;
+        return MongoParser.RULE_collectionFindOneAndDeleteMethod;
     }
     public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
-        if (visitor.visitFindOneAndDeleteMethod) {
-            return visitor.visitFindOneAndDeleteMethod(this);
+        if (visitor.visitCollectionFindOneAndDeleteMethod) {
+            return visitor.visitCollectionFindOneAndDeleteMethod(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -7831,7 +11013,7 @@ export class FindOneAndDeleteMethodContext extends antlr.ParserRuleContext {
 }
 
 
-export class FindOneAndDeleteArgument1Context extends antlr.ParserRuleContext {
+export class CollectionFindOneAndDeleteArgument1Context extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
@@ -7839,11 +11021,11 @@ export class FindOneAndDeleteArgument1Context extends antlr.ParserRuleContext {
         return this.getRuleContext(0, ObjectContext)!;
     }
     public override get ruleIndex(): number {
-        return MongoParser.RULE_findOneAndDeleteArgument1;
+        return MongoParser.RULE_collectionFindOneAndDeleteArgument1;
     }
     public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
-        if (visitor.visitFindOneAndDeleteArgument1) {
-            return visitor.visitFindOneAndDeleteArgument1(this);
+        if (visitor.visitCollectionFindOneAndDeleteArgument1) {
+            return visitor.visitCollectionFindOneAndDeleteArgument1(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -7851,7 +11033,7 @@ export class FindOneAndDeleteArgument1Context extends antlr.ParserRuleContext {
 }
 
 
-export class FindOneAndDeleteArgument2Context extends antlr.ParserRuleContext {
+export class CollectionFindOneAndDeleteArgument2Context extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
@@ -7859,11 +11041,11 @@ export class FindOneAndDeleteArgument2Context extends antlr.ParserRuleContext {
         return this.getRuleContext(0, ObjectContext)!;
     }
     public override get ruleIndex(): number {
-        return MongoParser.RULE_findOneAndDeleteArgument2;
+        return MongoParser.RULE_collectionFindOneAndDeleteArgument2;
     }
     public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
-        if (visitor.visitFindOneAndDeleteArgument2) {
-            return visitor.visitFindOneAndDeleteArgument2(this);
+        if (visitor.visitCollectionFindOneAndDeleteArgument2) {
+            return visitor.visitCollectionFindOneAndDeleteArgument2(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -7871,7 +11053,7 @@ export class FindOneAndDeleteArgument2Context extends antlr.ParserRuleContext {
 }
 
 
-export class FindOneMethodContext extends antlr.ParserRuleContext {
+export class CollectionFindOneMethodContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
@@ -7884,21 +11066,21 @@ export class FindOneMethodContext extends antlr.ParserRuleContext {
     public RPAREN(): antlr.TerminalNode {
         return this.getToken(MongoParser.RPAREN, 0)!;
     }
-    public findOneArgument1(): FindOneArgument1Context | null {
-        return this.getRuleContext(0, FindOneArgument1Context);
+    public collectionFindOneArgument1(): CollectionFindOneArgument1Context | null {
+        return this.getRuleContext(0, CollectionFindOneArgument1Context);
     }
     public COMMA(): antlr.TerminalNode | null {
         return this.getToken(MongoParser.COMMA, 0);
     }
-    public findOneArgument2(): FindOneArgument2Context | null {
-        return this.getRuleContext(0, FindOneArgument2Context);
+    public collectionFindOneArgument2(): CollectionFindOneArgument2Context | null {
+        return this.getRuleContext(0, CollectionFindOneArgument2Context);
     }
     public override get ruleIndex(): number {
-        return MongoParser.RULE_findOneMethod;
+        return MongoParser.RULE_collectionFindOneMethod;
     }
     public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
-        if (visitor.visitFindOneMethod) {
-            return visitor.visitFindOneMethod(this);
+        if (visitor.visitCollectionFindOneMethod) {
+            return visitor.visitCollectionFindOneMethod(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -7906,7 +11088,7 @@ export class FindOneMethodContext extends antlr.ParserRuleContext {
 }
 
 
-export class FindOneArgument1Context extends antlr.ParserRuleContext {
+export class CollectionFindOneArgument1Context extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
@@ -7914,11 +11096,11 @@ export class FindOneArgument1Context extends antlr.ParserRuleContext {
         return this.getRuleContext(0, ObjectContext)!;
     }
     public override get ruleIndex(): number {
-        return MongoParser.RULE_findOneArgument1;
+        return MongoParser.RULE_collectionFindOneArgument1;
     }
     public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
-        if (visitor.visitFindOneArgument1) {
-            return visitor.visitFindOneArgument1(this);
+        if (visitor.visitCollectionFindOneArgument1) {
+            return visitor.visitCollectionFindOneArgument1(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -7926,7 +11108,7 @@ export class FindOneArgument1Context extends antlr.ParserRuleContext {
 }
 
 
-export class FindOneArgument2Context extends antlr.ParserRuleContext {
+export class CollectionFindOneArgument2Context extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
@@ -7934,11 +11116,11 @@ export class FindOneArgument2Context extends antlr.ParserRuleContext {
         return this.getRuleContext(0, ObjectContext)!;
     }
     public override get ruleIndex(): number {
-        return MongoParser.RULE_findOneArgument2;
+        return MongoParser.RULE_collectionFindOneArgument2;
     }
     public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
-        if (visitor.visitFindOneArgument2) {
-            return visitor.visitFindOneArgument2(this);
+        if (visitor.visitCollectionFindOneArgument2) {
+            return visitor.visitCollectionFindOneArgument2(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -7946,7 +11128,7 @@ export class FindOneArgument2Context extends antlr.ParserRuleContext {
 }
 
 
-export class FindMethodContext extends antlr.ParserRuleContext {
+export class CollectionFindMethodContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
@@ -7959,17 +11141,17 @@ export class FindMethodContext extends antlr.ParserRuleContext {
     public RPAREN(): antlr.TerminalNode {
         return this.getToken(MongoParser.RPAREN, 0)!;
     }
-    public findMethodArgument1(): FindMethodArgument1Context | null {
-        return this.getRuleContext(0, FindMethodArgument1Context);
+    public collectionFindMethodArgument1(): CollectionFindMethodArgument1Context | null {
+        return this.getRuleContext(0, CollectionFindMethodArgument1Context);
     }
-    public findMethodModifier(): FindMethodModifierContext[];
-    public findMethodModifier(i: number): FindMethodModifierContext | null;
-    public findMethodModifier(i?: number): FindMethodModifierContext[] | FindMethodModifierContext | null {
+    public collectionFindMethodModifier(): CollectionFindMethodModifierContext[];
+    public collectionFindMethodModifier(i: number): CollectionFindMethodModifierContext | null;
+    public collectionFindMethodModifier(i?: number): CollectionFindMethodModifierContext[] | CollectionFindMethodModifierContext | null {
         if (i === undefined) {
-            return this.getRuleContexts(FindMethodModifierContext);
+            return this.getRuleContexts(CollectionFindMethodModifierContext);
         }
 
-        return this.getRuleContext(i, FindMethodModifierContext);
+        return this.getRuleContext(i, CollectionFindMethodModifierContext);
     }
     public explainMethod(): ExplainMethodContext | null {
         return this.getRuleContext(0, ExplainMethodContext);
@@ -7977,15 +11159,15 @@ export class FindMethodContext extends antlr.ParserRuleContext {
     public COMMA(): antlr.TerminalNode | null {
         return this.getToken(MongoParser.COMMA, 0);
     }
-    public findMethodArgument2(): FindMethodArgument2Context | null {
-        return this.getRuleContext(0, FindMethodArgument2Context);
+    public collectionFindMethodArgument2(): CollectionFindMethodArgument2Context | null {
+        return this.getRuleContext(0, CollectionFindMethodArgument2Context);
     }
     public override get ruleIndex(): number {
-        return MongoParser.RULE_findMethod;
+        return MongoParser.RULE_collectionFindMethod;
     }
     public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
-        if (visitor.visitFindMethod) {
-            return visitor.visitFindMethod(this);
+        if (visitor.visitCollectionFindMethod) {
+            return visitor.visitCollectionFindMethod(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -7993,7 +11175,7 @@ export class FindMethodContext extends antlr.ParserRuleContext {
 }
 
 
-export class FindMethodArgument1Context extends antlr.ParserRuleContext {
+export class CollectionFindMethodArgument1Context extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
@@ -8001,11 +11183,11 @@ export class FindMethodArgument1Context extends antlr.ParserRuleContext {
         return this.getRuleContext(0, ObjectContext)!;
     }
     public override get ruleIndex(): number {
-        return MongoParser.RULE_findMethodArgument1;
+        return MongoParser.RULE_collectionFindMethodArgument1;
     }
     public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
-        if (visitor.visitFindMethodArgument1) {
-            return visitor.visitFindMethodArgument1(this);
+        if (visitor.visitCollectionFindMethodArgument1) {
+            return visitor.visitCollectionFindMethodArgument1(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -8013,7 +11195,7 @@ export class FindMethodArgument1Context extends antlr.ParserRuleContext {
 }
 
 
-export class FindMethodArgument2Context extends antlr.ParserRuleContext {
+export class CollectionFindMethodArgument2Context extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
@@ -8021,11 +11203,11 @@ export class FindMethodArgument2Context extends antlr.ParserRuleContext {
         return this.getRuleContext(0, ObjectContext)!;
     }
     public override get ruleIndex(): number {
-        return MongoParser.RULE_findMethodArgument2;
+        return MongoParser.RULE_collectionFindMethodArgument2;
     }
     public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
-        if (visitor.visitFindMethodArgument2) {
-            return visitor.visitFindMethodArgument2(this);
+        if (visitor.visitCollectionFindMethodArgument2) {
+            return visitor.visitCollectionFindMethodArgument2(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -8091,7 +11273,7 @@ export class ExplainMethodArgumentContext extends antlr.ParserRuleContext {
 }
 
 
-export class FindMethodModifierContext extends antlr.ParserRuleContext {
+export class CollectionFindMethodModifierContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
@@ -8126,11 +11308,11 @@ export class FindMethodModifierContext extends antlr.ParserRuleContext {
         return this.getRuleContext(0, SortModifierContext);
     }
     public override get ruleIndex(): number {
-        return MongoParser.RULE_findMethodModifier;
+        return MongoParser.RULE_collectionFindMethodModifier;
     }
     public override accept<Result>(visitor: MongoParserVisitor<Result>): Result | null {
-        if (visitor.visitFindMethodModifier) {
-            return visitor.visitFindMethodModifier(this);
+        if (visitor.visitCollectionFindMethodModifier) {
+            return visitor.visitCollectionFindMethodModifier(this);
         } else {
             return visitor.visitChildren(this);
         }
@@ -8743,6 +11925,57 @@ export class ReservedKeywordContext extends antlr.ParserRuleContext {
     }
     public COMMAND(): antlr.TerminalNode | null {
         return this.getToken(MongoParser.COMMAND, 0);
+    }
+    public LIST_COLLECTIONS(): antlr.TerminalNode | null {
+        return this.getToken(MongoParser.LIST_COLLECTIONS, 0);
+    }
+    public RENAME_COLLECTION(): antlr.TerminalNode | null {
+        return this.getToken(MongoParser.RENAME_COLLECTION, 0);
+    }
+    public DROP_COLLECTION(): antlr.TerminalNode | null {
+        return this.getToken(MongoParser.DROP_COLLECTION, 0);
+    }
+    public DROP_DATABASE(): antlr.TerminalNode | null {
+        return this.getToken(MongoParser.DROP_DATABASE, 0);
+    }
+    public REMOVE_USER(): antlr.TerminalNode | null {
+        return this.getToken(MongoParser.REMOVE_USER, 0);
+    }
+    public RUN_CURSOR_COMMAND(): antlr.TerminalNode | null {
+        return this.getToken(MongoParser.RUN_CURSOR_COMMAND, 0);
+    }
+    public STATS(): antlr.TerminalNode | null {
+        return this.getToken(MongoParser.STATS, 0);
+    }
+    public PROFILING_LEVEL(): antlr.TerminalNode | null {
+        return this.getToken(MongoParser.PROFILING_LEVEL, 0);
+    }
+    public SET_PROFILING_LEVEL(): antlr.TerminalNode | null {
+        return this.getToken(MongoParser.SET_PROFILING_LEVEL, 0);
+    }
+    public ADMIN(): antlr.TerminalNode | null {
+        return this.getToken(MongoParser.ADMIN, 0);
+    }
+    public BUILD_INFO(): antlr.TerminalNode | null {
+        return this.getToken(MongoParser.BUILD_INFO, 0);
+    }
+    public SERVER_INFO(): antlr.TerminalNode | null {
+        return this.getToken(MongoParser.SERVER_INFO, 0);
+    }
+    public SERVER_STATUS(): antlr.TerminalNode | null {
+        return this.getToken(MongoParser.SERVER_STATUS, 0);
+    }
+    public PING(): antlr.TerminalNode | null {
+        return this.getToken(MongoParser.PING, 0);
+    }
+    public VALIDATE_COLLECTION(): antlr.TerminalNode | null {
+        return this.getToken(MongoParser.VALIDATE_COLLECTION, 0);
+    }
+    public LIST_DATABASES(): antlr.TerminalNode | null {
+        return this.getToken(MongoParser.LIST_DATABASES, 0);
+    }
+    public REPL_SET_GET_STATUS(): antlr.TerminalNode | null {
+        return this.getToken(MongoParser.REPL_SET_GET_STATUS, 0);
     }
     public override get ruleIndex(): number {
         return MongoParser.RULE_reservedKeyword;
