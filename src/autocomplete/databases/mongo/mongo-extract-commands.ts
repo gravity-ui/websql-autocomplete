@@ -85,7 +85,7 @@ export type FindModifier =
       }
     | {method: 'sort'; parameters?: unknown; options?: unknown};
 
-interface ExplainParameters {
+export interface ExplainParameters {
     parameters?: unknown;
 }
 
@@ -381,7 +381,7 @@ export interface DatabaseAdminCommand extends DatabaseCommandBase {
     childMethod: ChildAdminMethod;
 }
 
-type ChildAdminMethod =
+export type ChildAdminMethod =
     | CommonAdminMethod
     | ValidateCollectionMethod
     | RemoveUserMethod
@@ -416,7 +416,7 @@ export interface CommandMethod {
     options?: unknown;
 }
 
-type DatabaseCommand =
+export type DatabaseCommand =
     | DatabaseCreateCollectionCommand
     | DatabaseCommandCommand
     | DatabaseAggregateCommand
@@ -433,7 +433,7 @@ type DatabaseCommand =
     | DatabaseSetProfilingLevelCommand
     | DatabaseAdminCommand;
 
-type CollectionCommand =
+export type CollectionCommand =
     | CollectionFindCommand
     | CollectionFindOneCommand
     | CollectionFindOneAndDeleteCommand
