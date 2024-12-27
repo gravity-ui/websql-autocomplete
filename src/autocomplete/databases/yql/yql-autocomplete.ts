@@ -535,6 +535,8 @@ function getEnrichAutocompleteResult(parseTreeGetter: GetParseTree<YQLParser>) {
                 tokenStream,
                 cursor,
                 query,
+                [],
+                [YQLParser.WS],
             );
             if (data.length) {
                 result.suggestVariables = data;
@@ -551,6 +553,8 @@ function getEnrichAutocompleteResult(parseTreeGetter: GetParseTree<YQLParser>) {
                 tokenStream,
                 cursor,
                 query,
+                [],
+                [YQLParser.WS],
             );
 
             if (shouldSuggestColumns && tableContextSuggestion) {

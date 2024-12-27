@@ -68,3 +68,25 @@ test('should suggest columns from first subquery', () => {
     };
     expect(autocompleteResult.suggestColumns).toEqual(columnSuggestions);
 });
+
+test('should suggest columns from subquery with multi spaces before', () => {
+    const autocompleteResult = parseYqlQueryWithCursor(
+        '$a = select foo from bar; select   | FROM $a ',
+    );
+    const columnSuggestions: YQLColumnsSuggestion = {
+        tables: [{name: '$a'}],
+        all: true,
+    };
+    expect(autocompleteResult.suggestColumns).toEqual(columnSuggestions);
+});
+
+test('should suggest columns from subquery with multi spaces before if curson is on EOF', () => {
+    const autocompleteResult = parseYqlQueryWithCursor(
+        '$a = select foo from bar; FROM $a select   | ',
+    );
+    const columnSuggestions: YQLColumnsSuggestion = {
+        tables: [{name: '$a'}],
+        all: true,
+    };
+    expect(autocompleteResult.suggestColumns).toEqual(columnSuggestions);
+});
