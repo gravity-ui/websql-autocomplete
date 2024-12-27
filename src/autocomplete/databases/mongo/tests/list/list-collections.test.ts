@@ -13,6 +13,12 @@ test('should not report errors on extended listCollections statement', () => {
         db.listCollections(
             {
                 test_field: 'test_value'
+            }
+        );
+
+        db.listCollections(
+            {
+                test_field: 'test_value'
             },
             {
                 test_option_field: 'test_value'
@@ -29,6 +35,11 @@ test('should extract listCollections commands properly', () => {
         db.listCollections(
             {
                 test_field: 'test_value'
+            }
+        );
+        db.listCollections(
+            {
+                test_field: 'test_value'
             },
             {
                 test_option_field: 'test_value'
@@ -40,6 +51,13 @@ test('should extract listCollections commands properly', () => {
         {
             type: 'database',
             method: 'listCollections',
+        },
+        {
+            type: 'database',
+            method: 'listCollections',
+            filter: {
+                test_field: 'test_value',
+            },
         },
         {
             type: 'database',

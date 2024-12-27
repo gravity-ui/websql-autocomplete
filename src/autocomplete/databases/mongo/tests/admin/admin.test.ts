@@ -23,6 +23,7 @@ test('should not report errors on admin statements', () => {
 
 test('should not report errors on extended admin statements', () => {
     const autocompleteResult = parseMongoQueryWithoutCursor(`
+        db.admin().command({ping: 1});
         db.admin().command(
             {
                 ping: 1
@@ -52,7 +53,9 @@ test('should not report errors on extended admin statements', () => {
         db.admin().replSetGetStatus({
             test_option: 'test_value',
         });
-        db.admin().validateCollection('test_collection');
+        db.admin().validateCollection('test_collection', {
+            test_option: 'test_value',
+        });
     `);
 
     expect(autocompleteResult.errors).toHaveLength(0);
@@ -77,6 +80,7 @@ test('should suggest keywords after db.admin().', () => {
 test('should extract admin commands properly', () => {
     const result = extractMongoCommandsFromQuery(`
         db.admin().command({ping: 1});
+        db.admin().command({ping: 1}, {test_option: 'test_value'});
         db.admin().removeUser('test_user');
         db.admin().buildInfo();
         db.admin().serverInfo();
@@ -84,7 +88,9 @@ test('should extract admin commands properly', () => {
         db.admin().ping();
         db.admin().listDatabases();
         db.admin().replSetGetStatus();
-        db.admin().validateCollection('test_collection');
+        db.admin().validateCollection('test_collection', {
+            test_option: 'test_value',
+        });
     `);
 
     const commands: Command[] = [
@@ -94,6 +100,15 @@ test('should extract admin commands properly', () => {
             childMethod: {
                 method: 'command',
                 document: {ping: 1},
+            },
+        },
+        {
+            type: 'database',
+            method: 'admin',
+            childMethod: {
+                method: 'command',
+                document: {ping: 1},
+                options: {test_option: 'test_value'},
             },
         },
         {
@@ -152,6 +167,9 @@ test('should extract admin commands properly', () => {
             childMethod: {
                 method: 'validateCollection',
                 collectionName: 'test_collection',
+                options: {
+                    test_option: 'test_value',
+                },
             },
         },
     ];

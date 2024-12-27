@@ -18,6 +18,17 @@ test('should not report errors on extended aggregate statement', () => {
                 {
                     $sort: { test_field: -1 }
                 },
+            ]
+        );
+
+        db.aggregate(
+            [
+                {
+                    $limit: 10,
+                },
+                {
+                    $sort: { test_field: -1 }
+                },
             ],
             {
                 test_option: 'test_value',    
@@ -30,6 +41,17 @@ test('should not report errors on extended aggregate statement', () => {
 
 test('should not report errors on extended aggregate statements with explain modifier', () => {
     const autocompleteResult = parseMongoQueryWithoutCursor(`
+        db.aggregate(
+            [
+                {
+                    $limit: 10,
+                },
+                {
+                    $sort: { test_field: -1 }
+                },
+            ]
+        ).explain(true);
+
         db.aggregate(
             [
                 {
@@ -52,6 +74,19 @@ test('should not report errors on extended aggregate statements with explain mod
                 {
                     $sort: { test_field: -1 }
                 },
+            ]
+        ).explain({
+            test_option: 'test_value',
+        });
+
+        db.aggregate(
+            [
+                {
+                    $limit: 10,
+                },
+                {
+                    $sort: { test_field: -1 }
+                },
             ],
             {
                 test_option: 'test_value',    
@@ -59,6 +94,17 @@ test('should not report errors on extended aggregate statements with explain mod
         ).explain({
             test_option: 'test_value',
         });
+
+        db.aggregate(
+            [
+                {
+                    $limit: 10,
+                },
+                {
+                    $sort: { test_field: -1 }
+                },
+            ]
+        ).explain('test_value');
 
         db.aggregate(
             [
@@ -90,11 +136,33 @@ test('should extract aggregate commands properly', () => {
                 {
                     $sort: { test_field: -1 }
                 },
+            ]
+        );
+
+        db.aggregate(
+            [
+                {
+                    $limit: 10,
+                },
+                {
+                    $sort: { test_field: -1 }
+                },
             ],
             {
                 test_option: 'test_value',    
             }
         );
+
+        db.aggregate(
+            [
+                {
+                    $limit: 10,
+                },
+                {
+                    $sort: { test_field: -1 }
+                },
+            ]
+        ).explain(true);
 
         db.aggregate(
             [
@@ -118,6 +186,19 @@ test('should extract aggregate commands properly', () => {
                 {
                     $sort: { test_field: -1 }
                 },
+            ]
+        ).explain({
+            test_option: 'test_value',
+        });
+
+        db.aggregate(
+            [
+                {
+                    $limit: 10,
+                },
+                {
+                    $sort: { test_field: -1 }
+                },
             ],
             {
                 test_option: 'test_value',    
@@ -125,6 +206,17 @@ test('should extract aggregate commands properly', () => {
         ).explain({
             test_option: 'test_value',
         });
+
+        db.aggregate(
+            [
+                {
+                    $limit: 10,
+                },
+                {
+                    $sort: { test_field: -1 }
+                },
+            ]
+        ).explain('test_value');
 
         db.aggregate(
             [
@@ -159,8 +251,39 @@ test('should extract aggregate commands properly', () => {
                     },
                 },
             ],
+        },
+        {
+            type: 'database',
+            method: 'aggregate',
+            pipeline: [
+                {
+                    $limit: 10,
+                },
+                {
+                    $sort: {
+                        test_field: -1,
+                    },
+                },
+            ],
             options: {
                 test_option: 'test_value',
+            },
+        },
+        {
+            type: 'database',
+            method: 'aggregate',
+            pipeline: [
+                {
+                    $limit: 10,
+                },
+                {
+                    $sort: {
+                        test_field: -1,
+                    },
+                },
+            ],
+            explain: {
+                parameters: true,
             },
         },
         {
@@ -196,6 +319,25 @@ test('should extract aggregate commands properly', () => {
                     },
                 },
             ],
+            explain: {
+                parameters: {
+                    test_option: 'test_value',
+                },
+            },
+        },
+        {
+            type: 'database',
+            method: 'aggregate',
+            pipeline: [
+                {
+                    $limit: 10,
+                },
+                {
+                    $sort: {
+                        test_field: -1,
+                    },
+                },
+            ],
             options: {
                 test_option: 'test_value',
             },
@@ -203,6 +345,23 @@ test('should extract aggregate commands properly', () => {
                 parameters: {
                     test_option: 'test_value',
                 },
+            },
+        },
+        {
+            type: 'database',
+            method: 'aggregate',
+            pipeline: [
+                {
+                    $limit: 10,
+                },
+                {
+                    $sort: {
+                        test_field: -1,
+                    },
+                },
+            ],
+            explain: {
+                parameters: 'test_value',
             },
         },
         {

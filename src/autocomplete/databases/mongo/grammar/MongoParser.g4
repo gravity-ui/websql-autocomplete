@@ -252,7 +252,7 @@ databaseRenameCollectionArgument3
 
 databaseListCollectionsMethod
     : LIST_COLLECTIONS LPAREN (
-        databaseListCollectionsArgument1 (COMMA databaseListCollectionsArgument2)
+        databaseListCollectionsArgument1 (COMMA databaseListCollectionsArgument2)?
     )? RPAREN
     ;
 

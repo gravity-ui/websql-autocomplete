@@ -18,10 +18,32 @@ test('should not report errors on extended aggregate statement', () => {
                 {
                     $sort: { test_field: -1 }
                 },
+            ]
+        );
+
+        db.test_collection.aggregate(
+            [
+                {
+                    $limit: 10,
+                },
+                {
+                    $sort: { test_field: -1 }
+                },
             ],
             {
                 test_option: 'test_value',    
             }
+        );
+
+        db.collection('test_collection').aggregate(
+            [
+                {
+                    $limit: 10,
+                },
+                {
+                    $sort: { test_field: -1 }
+                },
+            ]
         );
 
         db.collection('test_collection').aggregate(
@@ -52,10 +74,32 @@ test('should not report errors on extended aggregate statements with explain mod
                 {
                     $sort: { test_field: -1 }
                 },
+            ]
+        ).explain(true);
+
+        db.test_collection.aggregate(
+            [
+                {
+                    $limit: 10,
+                },
+                {
+                    $sort: { test_field: -1 }
+                },
             ],
             {
                 test_option: 'test_value',    
             }
+        ).explain(true);
+
+        db.collection('test_collection').aggregate(
+            [
+                {
+                    $limit: 10,
+                },
+                {
+                    $sort: { test_field: -1 }
+                },
+            ]
         ).explain(true);
 
         db.collection('test_collection').aggregate(
@@ -80,6 +124,48 @@ test('should not report errors on extended aggregate statements with explain mod
                 {
                     $sort: { test_field: -1 }
                 },
+            ]
+        ).explain({
+            test_option: 'test_value',
+        });
+
+        db.test_collection.aggregate(
+            [
+                {
+                    $limit: 10,
+                },
+                {
+                    $sort: { test_field: -1 }
+                },
+            ],
+            {
+                test_option: 'test_value',    
+            }
+        ).explain({
+            test_option: 'test_value',
+        });
+
+        db.collection('test_collection').aggregate(
+            [
+                {
+                    $limit: 10,
+                },
+                {
+                    $sort: { test_field: -1 }
+                },
+            ]
+        ).explain({
+            test_option: 'test_value',
+        });
+
+        db.collection('test_collection').aggregate(
+            [
+                {
+                    $limit: 10,
+                },
+                {
+                    $sort: { test_field: -1 }
+                },
             ],
             {
                 test_option: 'test_value',    
@@ -89,6 +175,42 @@ test('should not report errors on extended aggregate statements with explain mod
         });
 
         db.test_collection.aggregate(
+            [
+                {
+                    $limit: 10,
+                },
+                {
+                    $sort: { test_field: -1 }
+                },
+            ]
+        ).explain('test_value');
+
+        db.test_collection.aggregate(
+            [
+                {
+                    $limit: 10,
+                },
+                {
+                    $sort: { test_field: -1 }
+                },
+            ],
+            {
+                test_option: 'test_value',    
+            }
+        ).explain('test_value');
+
+        db.collection('test_collection').aggregate(
+            [
+                {
+                    $limit: 10,
+                },
+                {
+                    $sort: { test_field: -1 }
+                },
+            ]
+        ).explain('test_value');
+
+        db.collection('test_collection').aggregate(
             [
                 {
                     $limit: 10,
@@ -119,6 +241,27 @@ test('should extract aggregate commands properly', () => {
                 {
                     $sort: { test_field: -1 }
                 },
+            ]
+        );
+        db.collection('test_collection').aggregate(
+            [
+                {
+                    $limit: 10,
+                },
+                {
+                    $sort: { test_field: -1 }
+                },
+            ]
+        );
+
+        db.test_collection.aggregate(
+            [
+                {
+                    $limit: 10,
+                },
+                {
+                    $sort: { test_field: -1 }
+                },
             ],
             {
                 test_option: 'test_value',    
@@ -137,6 +280,27 @@ test('should extract aggregate commands properly', () => {
                 test_option: 'test_value',    
             }
         );
+
+        db.test_collection.aggregate(
+            [
+                {
+                    $limit: 10,
+                },
+                {
+                    $sort: { test_field: -1 }
+                },
+            ]
+        ).explain(true);
+        db.collection('test_collection').aggregate(
+            [
+                {
+                    $limit: 10,
+                },
+                {
+                    $sort: { test_field: -1 }
+                },
+            ]
+        ).explain(true);
 
         db.test_collection.aggregate(
             [
@@ -173,6 +337,31 @@ test('should extract aggregate commands properly', () => {
                 {
                     $sort: { test_field: -1 }
                 },
+            ]
+        ).explain({
+            test_option: 'test_value',
+        });
+        db.collection('test_collection').aggregate(
+            [
+                {
+                    $limit: 10,
+                },
+                {
+                    $sort: { test_field: -1 }
+                },
+            ]
+        ).explain({
+            test_option: 'test_value',
+        });
+
+        db.test_collection.aggregate(
+            [
+                {
+                    $limit: 10,
+                },
+                {
+                    $sort: { test_field: -1 }
+                },
             ],
             {
                 test_option: 'test_value',    
@@ -195,6 +384,27 @@ test('should extract aggregate commands properly', () => {
         ).explain({
             test_option: 'test_value',
         });
+
+        db.test_collection.aggregate(
+            [
+                {
+                    $limit: 10,
+                },
+                {
+                    $sort: { test_field: -1 }
+                },
+            ]
+        ).explain('test_value');
+        db.collection('test_collection').aggregate(
+            [
+                {
+                    $limit: 10,
+                },
+                {
+                    $sort: { test_field: -1 }
+                },
+            ]
+        ).explain('test_value');
 
         db.test_collection.aggregate(
             [
@@ -249,6 +459,36 @@ test('should extract aggregate commands properly', () => {
                     },
                 },
             ],
+        },
+        {
+            collectionName: 'test_collection',
+            type: 'collection',
+            method: 'aggregate',
+            pipeline: [
+                {
+                    $limit: 10,
+                },
+                {
+                    $sort: {
+                        test_field: -1,
+                    },
+                },
+            ],
+        },
+        {
+            collectionName: 'test_collection',
+            type: 'collection',
+            method: 'aggregate',
+            pipeline: [
+                {
+                    $limit: 10,
+                },
+                {
+                    $sort: {
+                        test_field: -1,
+                    },
+                },
+            ],
             options: {
                 test_option: 'test_value',
             },
@@ -271,6 +511,43 @@ test('should extract aggregate commands properly', () => {
                 test_option: 'test_value',
             },
         },
+        {
+            collectionName: 'test_collection',
+            type: 'collection',
+            method: 'aggregate',
+            pipeline: [
+                {
+                    $limit: 10,
+                },
+                {
+                    $sort: {
+                        test_field: -1,
+                    },
+                },
+            ],
+            explain: {
+                parameters: true,
+            },
+        },
+        {
+            collectionName: 'test_collection',
+            type: 'collection',
+            method: 'aggregate',
+            pipeline: [
+                {
+                    $limit: 10,
+                },
+                {
+                    $sort: {
+                        test_field: -1,
+                    },
+                },
+            ],
+            explain: {
+                parameters: true,
+            },
+        },
+
         {
             collectionName: 'test_collection',
             type: 'collection',
@@ -327,6 +604,47 @@ test('should extract aggregate commands properly', () => {
                     },
                 },
             ],
+            explain: {
+                parameters: {
+                    test_option: 'test_value',
+                },
+            },
+        },
+        {
+            collectionName: 'test_collection',
+            type: 'collection',
+            method: 'aggregate',
+            pipeline: [
+                {
+                    $limit: 10,
+                },
+                {
+                    $sort: {
+                        test_field: -1,
+                    },
+                },
+            ],
+            explain: {
+                parameters: {
+                    test_option: 'test_value',
+                },
+            },
+        },
+
+        {
+            collectionName: 'test_collection',
+            type: 'collection',
+            method: 'aggregate',
+            pipeline: [
+                {
+                    $limit: 10,
+                },
+                {
+                    $sort: {
+                        test_field: -1,
+                    },
+                },
+            ],
             options: {
                 test_option: 'test_value',
             },
@@ -357,6 +675,42 @@ test('should extract aggregate commands properly', () => {
                 parameters: {
                     test_option: 'test_value',
                 },
+            },
+        },
+        {
+            collectionName: 'test_collection',
+            type: 'collection',
+            method: 'aggregate',
+            pipeline: [
+                {
+                    $limit: 10,
+                },
+                {
+                    $sort: {
+                        test_field: -1,
+                    },
+                },
+            ],
+            explain: {
+                parameters: 'test_value',
+            },
+        },
+        {
+            collectionName: 'test_collection',
+            type: 'collection',
+            method: 'aggregate',
+            pipeline: [
+                {
+                    $limit: 10,
+                },
+                {
+                    $sort: {
+                        test_field: -1,
+                    },
+                },
+            ],
+            explain: {
+                parameters: 'test_value',
             },
         },
         {
