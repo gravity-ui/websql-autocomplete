@@ -1,5 +1,12 @@
 # Changelog
 
+## [13.3.1](https://github.com/gravity-ui/websql-autocomplete/compare/v13.3.0...v13.3.1) (2024-12-28)
+
+
+### Bug Fixes
+
+* fix listCollections rule/improve tests ([#275](https://github.com/gravity-ui/websql-autocomplete/issues/275)) ([7ba9e71](https://github.com/gravity-ui/websql-autocomplete/commit/7ba9e714cb5494b5f1caa21edc72f76d7737df57))
+
 ## [13.3.0](https://github.com/gravity-ui/websql-autocomplete/compare/v13.2.0...v13.3.0) (2024-12-26)
 
 
