@@ -16,6 +16,20 @@ test('should not report errors on extended distinct statement', () => {
         'test_key',
         {
             test_filter_option: 'test_value',
+        }
+      );
+
+      db.collection('test_collection').distinct(
+        'test_key',
+        {
+            test_filter_option: 'test_value',
+        }
+      );
+
+      db.test_collection.distinct(
+        'test_key',
+        {
+            test_filter_option: 'test_value',
         },
         {
             test_option: 'test_value',
@@ -40,6 +54,18 @@ test('should extract distinct commands properly', () => {
     const result = extractMongoCommandsFromQuery(`
         db.test_collection.distinct('test_key');
         db.collection('test_collection').distinct('test_key');
+        db.test_collection.distinct(
+            'test_key',
+            {
+                test_filter_option: 'test_value',
+            }
+        );
+        db.collection('test_collection').distinct(
+            'test_key',
+            {
+                test_filter_option: 'test_value',
+            }
+        );
         db.test_collection.distinct(
             'test_key',
             {
@@ -72,6 +98,24 @@ test('should extract distinct commands properly', () => {
             type: 'collection',
             method: 'distinct',
             key: 'test_key',
+        },
+        {
+            collectionName: 'test_collection',
+            type: 'collection',
+            method: 'distinct',
+            key: 'test_key',
+            filter: {
+                test_filter_option: 'test_value',
+            },
+        },
+        {
+            collectionName: 'test_collection',
+            type: 'collection',
+            method: 'distinct',
+            key: 'test_key',
+            filter: {
+                test_filter_option: 'test_value',
+            },
         },
         {
             collectionName: 'test_collection',

@@ -7,6 +7,26 @@ import {
 
 test('should not report errors on find statement', () => {
     const autocompleteResult = parseMongoQueryWithoutCursor(`
+        db.test_collection.find({test_field: 'test_value'});
+
+        db.collection('test_collection').find({test_field: 'test_value'});
+    `);
+
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should not report errors on extended find statement', () => {
+    const autocompleteResult = parseMongoQueryWithoutCursor(`
+        db.test_collection.find({test_field: 'test_value'}, {test_option: 'test_value'});
+
+        db.collection('test_collection').find({test_field: 'test_value'}, {test_option: 'test_value'});
+    `);
+
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should not report errors on extended find statement with modifiers', () => {
+    const autocompleteResult = parseMongoQueryWithoutCursor(`
         db.test_collection.find({test_field: 'test_value'}, {test_option: 'test_value'})
             .skip(1)
             .limit(1)
@@ -71,6 +91,13 @@ test('should suggest properly find modifiers with collection method', () => {
 
 test('should extract find commands properly', () => {
     const result = extractMongoCommandsFromQuery(`
+        db.test_collection.find({test_field: 'test_value'});
+        db.collection('test_collection').find({test_field: 'test_value'});
+
+        db.test_collection.find({test_field: 'test_value'}, {test_option: 'test_value'});
+
+        db.collection('test_collection').find({test_field: 'test_value'}, {test_option: 'test_value'});
+
         db.test_collection1.find({
             test_field: 'test_value',
             test_object: {test_subfield: 1}
@@ -158,6 +185,36 @@ test('should extract find commands properly', () => {
     `);
 
     const commands: Command[] = [
+        {
+            type: 'collection',
+            method: 'find',
+            modifiers: [],
+            collectionName: 'test_collection',
+            parameters: {test_field: 'test_value'},
+        },
+        {
+            type: 'collection',
+            method: 'find',
+            modifiers: [],
+            collectionName: 'test_collection',
+            parameters: {test_field: 'test_value'},
+        },
+        {
+            type: 'collection',
+            method: 'find',
+            modifiers: [],
+            collectionName: 'test_collection',
+            parameters: {test_field: 'test_value'},
+            options: {test_option: 'test_value'},
+        },
+        {
+            type: 'collection',
+            method: 'find',
+            modifiers: [],
+            collectionName: 'test_collection',
+            parameters: {test_field: 'test_value'},
+            options: {test_option: 'test_value'},
+        },
         {
             type: 'collection',
             method: 'find',
