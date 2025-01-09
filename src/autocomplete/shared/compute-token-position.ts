@@ -47,7 +47,7 @@ export function computeTokenContext(
         cursorPosition,
         whitespaceTokenTypes,
     );
-    return computeTokenContext2(
+    return computeTokenContextInternal(
         parseTree,
         tokenStream,
         cursorPosition,
@@ -56,7 +56,7 @@ export function computeTokenContext(
     );
 }
 
-export function computeTokenContext2(
+function computeTokenContextInternal(
     parseTree: ParseTree,
     tokenStream: TokenStream,
     cursorPosition: CursorPosition,
@@ -159,7 +159,7 @@ function computeTokenContextOfChildNode(
         if (!child) {
             continue;
         }
-        const tokenContext = computeTokenContext2(
+        const tokenContext = computeTokenContextInternal(
             child,
             tokenStream,
             cursorPosition,
