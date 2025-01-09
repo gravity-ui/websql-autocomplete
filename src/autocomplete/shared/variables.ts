@@ -20,11 +20,12 @@ export function getVariableSuggestions<L extends LexerType, P extends ParserType
     tokenStream: TokenStream,
     cursor: CursorPosition,
     query: string,
+    whitespaceTokenTypes: number[] = [],
 ): VariableSuggestion[] {
     const parser = createParser(Lexer, Parser, query);
     const parseTree = getParseTree(parser);
 
-    const tokenContext = computeTokenContext(parseTree, tokenStream, cursor);
+    const tokenContext = computeTokenContext(parseTree, tokenStream, cursor, whitespaceTokenTypes);
 
     if (!tokenContext) {
         throw new Error(`Could not find tokenContext at Ln ${cursor.line}, Col ${cursor.column}`);
