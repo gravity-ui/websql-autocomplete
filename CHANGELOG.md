@@ -1,5 +1,12 @@
 # Changelog
 
+## [13.4.0](https://github.com/gravity-ui/websql-autocomplete/compare/v13.3.1...v13.4.0) (2025-01-09)
+
+
+### Features
+
+* **YQL:** handle multi spaces before cursor ([#274](https://github.com/gravity-ui/websql-autocomplete/issues/274)) ([223111b](https://github.com/gravity-ui/websql-autocomplete/commit/223111b7b738138bf498bb7b39fb95755486b95b))
+
 ## [13.3.1](https://github.com/gravity-ui/websql-autocomplete/compare/v13.3.0...v13.3.1) (2024-12-28)
 
 
