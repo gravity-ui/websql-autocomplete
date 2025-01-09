@@ -39,7 +39,6 @@ export function computeTokenContext(
     parseTree: ParseTree,
     tokenStream: TokenStream,
     cursorPosition: CursorPosition,
-    identifierTokenTypes: number[] = [],
     whitespaceTokenTypes: number[] = [],
 ): TokenContext | undefined {
     const whitespacesBeforeCursor = getWhitespaceBeforeCursor(
@@ -51,7 +50,6 @@ export function computeTokenContext(
         parseTree,
         tokenStream,
         cursorPosition,
-        identifierTokenTypes,
         whitespacesBeforeCursor,
     );
 }
@@ -60,14 +58,12 @@ function computeTokenContextInternal(
     parseTree: ParseTree,
     tokenStream: TokenStream,
     cursorPosition: CursorPosition,
-    identifierTokenTypes: number[] = [],
     whitespacesBeforeCursor: number,
 ): TokenContext | undefined {
     if (parseTree instanceof TerminalNode) {
         return computeTokenContextOfTerminalNode(
             parseTree,
             cursorPosition,
-            identifierTokenTypes,
             whitespacesBeforeCursor,
         );
     }
@@ -75,7 +71,6 @@ function computeTokenContextInternal(
         parseTree as ParserRuleContext,
         tokenStream,
         cursorPosition,
-        identifierTokenTypes,
         whitespacesBeforeCursor,
     );
 }
@@ -84,7 +79,6 @@ function getTokenContext(
     token: Token,
     text: string,
     cursorPosition: CursorPosition,
-    identifierTokenTypes: number[],
     parseTree: ParseTree,
     whitespacesBeforeCursor: number,
 ): TokenContext | undefined {
@@ -106,12 +100,8 @@ function getTokenContext(
         start <= cursorPosition.column - 1 - whitespacesBeforeCursor &&
         stop >= cursorPosition.column - 1 - whitespacesBeforeCursor
     ) {
-        let index = token.tokenIndex;
-        if (identifierTokenTypes.includes(token.type)) {
-            index--;
-        }
         return {
-            index,
+            index: token.tokenIndex,
             context: parseTree,
             text: text.substring(0, cursorPosition.column - start),
         };
@@ -123,26 +113,17 @@ function getTokenContext(
 function computeTokenContextOfTerminalNode(
     parseTree: TerminalNode,
     cursorPosition: CursorPosition,
-    identifierTokenTypes: number[],
     whitespacesBeforeCursor: number,
 ): TokenContext | undefined {
     const token = parseTree.symbol;
     const text = parseTree.getText();
-    return getTokenContext(
-        token,
-        text,
-        cursorPosition,
-        identifierTokenTypes,
-        parseTree,
-        whitespacesBeforeCursor,
-    );
+    return getTokenContext(token, text, cursorPosition, parseTree, whitespacesBeforeCursor);
 }
 
 function computeTokenContextOfChildNode(
     parseTree: ParserRuleContext,
     tokenStream: TokenStream,
     cursorPosition: CursorPosition,
-    identifierTokenTypes: number[],
     whitespacesBeforeCursor: number,
 ): TokenContext | undefined {
     if (
@@ -163,7 +144,6 @@ function computeTokenContextOfChildNode(
             child,
             tokenStream,
             cursorPosition,
-            identifierTokenTypes,
             whitespacesBeforeCursor,
         );
         if (tokenContext) {
@@ -176,7 +156,6 @@ function computeTokenContextOfChildNode(
             tokenStream.get(i),
             tokenStream.get(i).text ?? '',
             cursorPosition,
-            identifierTokenTypes,
             parseTree,
             whitespacesBeforeCursor,
         );

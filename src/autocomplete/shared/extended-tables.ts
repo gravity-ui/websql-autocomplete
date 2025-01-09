@@ -28,19 +28,12 @@ export function getExtendedTableSuggestions<L extends LexerType, P extends Parse
     tokenStream: TokenStream,
     cursor: CursorPosition,
     query: string,
-    identifierTokenTypes: number[] = [],
     whitespaceTokenTypes: number[] = [],
 ): ContextSuggestions {
     const result: ContextSuggestions = {};
     const parser = createParser(Lexer, Parser, query);
     const parseTree = getParseTree(parser);
-    const tokenContext = computeTokenContext(
-        parseTree,
-        tokenStream,
-        cursor,
-        identifierTokenTypes,
-        whitespaceTokenTypes,
-    );
+    const tokenContext = computeTokenContext(parseTree, tokenStream, cursor, whitespaceTokenTypes);
 
     if (!tokenContext) {
         throw new Error(`Could not find tokenContext at Ln ${cursor.line}, Col ${cursor.column}`);
