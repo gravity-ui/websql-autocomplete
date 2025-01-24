@@ -5,6 +5,7 @@ test('should suggest properly after CREATE', () => {
     const autocompleteResult = parseYqlQueryWithCursor('CREATE |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [
+        {value: 'TRANSFER'},
         {value: 'RESOURCE'},
         {value: 'BACKUP'},
         {value: 'VIEW'},

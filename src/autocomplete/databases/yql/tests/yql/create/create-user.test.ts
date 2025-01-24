@@ -11,7 +11,13 @@ test('should suggest properly after USER', () => {
 test('should suggest properly after user name', () => {
     const autocompleteResult = parseYqlQueryWithCursor('CREATE USER test_user |');
 
-    const keywordsSuggestion: KeywordSuggestion[] = [{value: 'ENCRYPTED'}, {value: 'PASSWORD'}];
+    const keywordsSuggestion: KeywordSuggestion[] = [
+        {value: 'ENCRYPTED'},
+        {value: 'PASSWORD'},
+        {value: 'HASH'},
+        {value: 'LOGIN'},
+        {value: 'NOLOGIN'},
+    ];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 

@@ -13,6 +13,9 @@ test('should suggest keywords after user name', () => {
         {value: 'RENAME'},
         {value: 'ENCRYPTED'},
         {value: 'PASSWORD'},
+        {value: 'HASH'},
+        {value: 'LOGIN'},
+        {value: 'NOLOGIN'},
         {value: 'WITH'},
     ];
     expect(autocompleteResult.suggestKeywords).toEqual(keywords);

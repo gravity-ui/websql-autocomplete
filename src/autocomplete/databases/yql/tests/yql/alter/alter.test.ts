@@ -5,6 +5,8 @@ test('should suggest keywords after ALTER', () => {
     const autocompleteResult = parseYqlQueryWithCursor('ALTER |');
 
     const keywords: KeywordSuggestion[] = [
+        {value: 'TRANSFER'},
+        {value: 'SEQUENCE'},
         {value: 'RESOURCE'},
         {value: 'BACKUP'},
         {value: 'ASYNC'},

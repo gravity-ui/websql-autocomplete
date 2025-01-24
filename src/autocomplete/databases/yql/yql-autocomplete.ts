@@ -33,7 +33,6 @@ import {
     ProcessVisitedRulesResult,
 } from '../../shared/autocomplete-types';
 import {ColumnAliasSymbol, TableSymbol, VariableSymbol} from '../../shared/symbol-table.js';
-import {TableQueryPosition} from '../../shared/tables';
 import {isStartingToWriteRule} from '../../shared/cursor.js';
 import {shouldSuggestTemplates} from '../../shared/query.js';
 import {EntitySuggestionToYqlEntity, getGranularSuggestions, tokenDictionary} from './helpers';
@@ -462,41 +461,12 @@ function processVisitedRules(
     return {suggestEntity: suggestEntity.length ? suggestEntity : undefined, ...restSuggestions};
 }
 
-function getParseTree(parser: YQLParser, type?: TableQueryPosition['type'] | 'select'): ParseTree {
-    if (!type) {
-        return parser.sql_query();
-    }
-
-    return getCommonParseTree(parser, type);
+function getParseTree(parser: YQLParser): ParseTree {
+    return parser.sql_query();
 }
 
-function getParseTreeYQ(
-    parser: YQLParser,
-    type?: TableQueryPosition['type'] | 'select',
-): ParseTree {
-    if (!type) {
-        return parser.sql_query_yq();
-    }
-
-    return getCommonParseTree(parser, type);
-}
-
-function getCommonParseTree(
-    parser: YQLParser,
-    type: TableQueryPosition['type'] | 'select',
-): ParseTree {
-    switch (type) {
-        case 'from':
-            return parser.from_stmt();
-        case 'alter':
-            return parser.alter_table_for_autocomplete();
-        case 'insert':
-            return parser.into_table_stmt();
-        case 'update':
-            return parser.update_stmt();
-        case 'select':
-            return parser.select_core();
-    }
+function getParseTreeYQ(parser: YQLParser): ParseTree {
+    return parser.sql_query_yq();
 }
 
 function getEnrichAutocompleteResult(parseTreeGetter: GetParseTree<YQLParser>) {

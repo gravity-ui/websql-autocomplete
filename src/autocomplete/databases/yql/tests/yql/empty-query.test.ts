@@ -19,6 +19,7 @@ test('should suggest properly for an empty query', () => {
         {value: 'UPSERT'},
         {value: 'REPLACE'},
         {value: 'COMMIT'},
+        {value: 'BATCH'},
         {value: 'UPDATE'},
         {value: 'DELETE'},
         {value: 'ROLLBACK'},
