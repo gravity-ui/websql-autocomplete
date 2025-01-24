@@ -32,10 +32,6 @@ lambda_stmt
     | import_stmt
     ;
 
-QUERY
-    : Q U E R Y
-    ;
-
 sql_stmt
     : (EXPLAIN (QUERY PLAN)?)? sql_stmt_core
     ;
@@ -97,6 +93,10 @@ sql_stmt_core
     | drop_resource_pool_classifier_stmt
     | backup_stmt
     | restore_stmt
+    | alter_sequence_stmt
+    | create_transfer_stmt
+    | alter_transfer_stmt
+    | drop_transfer_stmt
     ;
 
 expr
@@ -663,7 +663,7 @@ opt_set_quantifier
     ;
 
 select_core
-    : (from_stmt)? SELECT STREAM? opt_set_quantifier result_column (COMMA result_column)* COMMA? (WITHOUT without_column_list)? (from_stmt)? (where_expr)? group_by_clause? (HAVING expr)? window_clause? ext_order_by_clause?
+    : (FROM join_source)? SELECT STREAM? opt_set_quantifier result_column (COMMA result_column)* COMMA? (WITHOUT without_column_list)? (FROM join_source)? (where_expr)? group_by_clause? (HAVING expr)? window_clause? ext_order_by_clause?
     ;
 
 // ISO/IEC 9075-2:2016(E) 7.7 <row pattern recognition clause>
@@ -742,7 +742,7 @@ row_pattern_primary
     | DOLLAR
     | CARET
     | LPAREN row_pattern? RPAREN
-    | LBRACE_CURLY MINUS row_pattern MINUS RBRACE_CURLY //TODO This rule accepts spaces between brace and minus sign, i.e: {   -  S2 - } that is not supposed to. Handle this case in https://st.yandex-team.ru/YQL-16227
+    | LBRACE_CURLY MINUS row_pattern MINUS RBRACE_CURLY
     | row_pattern_permute
     ;
 
@@ -1338,8 +1338,17 @@ table_setting_value
     | STRING_VALUE
     | integer
     | split_boundaries
-    | expr ON an_id (AS (SECONDS | MILLISECONDS | MICROSECONDS | NANOSECONDS))?
+    | ttl_tier_list ON an_id (AS (SECONDS | MILLISECONDS | MICROSECONDS | NANOSECONDS))?
     | bool_value
+    ;
+
+ttl_tier_list
+    : expr (ttl_tier_action (COMMA expr ttl_tier_action)*)?
+    ;
+
+ttl_tier_action
+    : TO EXTERNAL DATA SOURCE an_id
+    | DELETE
     ;
 
 family_entry
@@ -1379,11 +1388,11 @@ drop_table_stmt
     ;
 
 create_user_stmt
-    : CREATE USER role_name create_user_option?
+    : CREATE USER role_name user_option*
     ;
 
 alter_user_stmt
-    : ALTER USER role_name (WITH? create_user_option | RENAME TO role_name)
+    : ALTER USER role_name (WITH? user_option+ | RENAME TO role_name)
     ;
 
 create_group_stmt
@@ -1403,8 +1412,27 @@ role_name
     | bind_parameter
     ;
 
-create_user_option
+user_option
+    : authentication_option
+    | login_option
+    ;
+
+authentication_option
+    : password_option
+    | hash_option
+    ;
+
+password_option
     : ENCRYPTED? PASSWORD expr
+    ;
+
+hash_option
+    : HASH expr
+    ;
+
+login_option
+    : LOGIN
+    | NOLOGIN
     ;
 
 grant_permissions_stmt
@@ -1487,7 +1515,7 @@ replication_settings
     ;
 
 replication_settings_entry
-    : an_id EQUALS STRING_VALUE
+    : an_id EQUALS expr
     ;
 
 alter_replication_stmt
@@ -1504,6 +1532,44 @@ alter_replication_set_setting
 
 drop_replication_stmt
     : DROP ASYNC REPLICATION object_ref CASCADE?
+    ;
+
+lambda_or_parameter
+    : lambda
+    | bind_parameter
+    ;
+
+create_transfer_stmt
+    : CREATE TRANSFER object_ref FROM object_ref TO object_ref (USING lambda_or_parameter)? WITH LPAREN transfer_settings RPAREN
+    ;
+
+transfer_settings
+    : transfer_settings_entry (COMMA transfer_settings_entry)*
+    ;
+
+transfer_settings_entry
+    : an_id EQUALS expr
+    ;
+
+alter_transfer_stmt
+    : ALTER TRANSFER object_ref alter_transfer_action (COMMA alter_transfer_action)*
+    ;
+
+alter_transfer_action
+    : alter_transfer_set_setting
+    | alter_transfer_set_using
+    ;
+
+alter_transfer_set_setting
+    : SET LPAREN transfer_settings RPAREN
+    ;
+
+alter_transfer_set_using
+    : SET USING lambda_or_parameter
+    ;
+
+drop_transfer_stmt
+    : DROP TRANSFER object_ref CASCADE?
     ;
 
 action_or_subquery_args
@@ -1566,11 +1632,11 @@ into_simple_table_ref
     ;
 
 delete_stmt
-    : DELETE FROM simple_table_ref (where_expr | ON into_values_source)? returning_columns_list?
+    : BATCH? DELETE FROM simple_table_ref (where_expr | ON into_values_source)? returning_columns_list?
     ;
 
 update_stmt
-    : UPDATE simple_table_ref (SET set_clause_choice (where_expr)? | ON into_values_source) returning_columns_list?
+    : BATCH? UPDATE simple_table_ref (SET set_clause_choice (where_expr)? | ON into_values_source) returning_columns_list?
     ;
 
 /// out of 2003 standart
@@ -1827,6 +1893,17 @@ analyze_stmt
     : ANALYZE analyze_table_list
     ;
 
+alter_sequence_stmt
+    : ALTER SEQUENCE (IF EXISTS)? object_ref alter_sequence_action+
+    ;
+
+alter_sequence_action
+    : START WITH? integer
+    | RESTART WITH? integer
+    | RESTART
+    | INCREMENT BY? integer
+    ;
+
 // Special rules that allow to use certain keywords as identifiers.
 identifier
     : ID_PLAIN
@@ -2047,7 +2124,6 @@ keyword_expr_uncompat
     | JSON_EXISTS
     | JSON_VALUE
     | JSON_QUERY
-    | LOCAL
     | NOT
     | NULL
     | PROCESS
@@ -2118,6 +2194,7 @@ keyword_as_compat
     | ATTRIBUTES
     | AUTOINCREMENT
     | BACKUP
+    | BATCH
     | BEFORE
     | BEGIN
     | BERNOULLI
@@ -2179,6 +2256,7 @@ keyword_as_compat
     | FOREIGN
     | FUNCTION
     | GLOB
+    | GLOBAL
     | GRANT
     | GROUP
     | GROUPING
@@ -2189,6 +2267,7 @@ keyword_as_compat
     | IMMEDIATE
     | IMPORT
     | IN
+    | INCREMENT
     | INCREMENTAL
     | INDEX
     | INDEXED
@@ -2207,6 +2286,8 @@ keyword_as_compat
     // | LEFT
     | LEGACY
     | LIKE
+    | LOCAL
+    | LOGIN
     | MANAGE
     | MATCH
     | MATCHES
@@ -2219,6 +2300,7 @@ keyword_as_compat
     // | NATURAL
     | NEXT
     | NO
+    | NOLOGIN
     // | NOTNULL
     | NULLS
     | OBJECT
@@ -2230,6 +2312,7 @@ keyword_as_compat
     | ONLY
     | OPTION
     | OR
+    // | ORDER
     | OTHERS
     // | OUTER
     // | OVER
@@ -2248,7 +2331,7 @@ keyword_as_compat
     // | PRESORT
     | PRIMARY
     | PRIVILEGES
-    //  | QUERY
+    | QUERY
     | QUEUE
     | RAISE
     //  | READ
@@ -2262,6 +2345,7 @@ keyword_as_compat
     | REPLICATION
     | RESET
     | RESPECT
+    | RESTART
     | RESTORE
     | RESTRICT
     // | RESULT
@@ -2279,7 +2363,9 @@ keyword_as_compat
     | SETS
     | SHOW
     | TSKIP
+    | SEQUENCE
     | SOURCE
+    | START
     | SUBQUERY
     | SUBSET
     | SYMBOLS
@@ -2296,6 +2382,7 @@ keyword_as_compat
     | TO
     | TOPIC
     | TRANSACTION
+    | TRANSFER
     | TRIGGER
     | TYPE
     | UNCONDITIONAL
@@ -2336,6 +2423,7 @@ keyword_compat
         | ATTRIBUTES
         | AUTOINCREMENT
         | BACKUP
+        | BATCH
         | BEFORE
         | BEGIN
         | BERNOULLI
@@ -2397,6 +2485,7 @@ keyword_compat
         | FOREIGN
         | FUNCTION
         | GLOB
+        | GLOBAL
         | GRANT
         | GROUP
         | GROUPING
@@ -2407,6 +2496,7 @@ keyword_compat
         | IMMEDIATE
         | IMPORT
         | IN
+        | INCREMENT
         | INCREMENTAL
         | INDEX
         | INDEXED
@@ -2425,6 +2515,8 @@ keyword_compat
         | LEFT
         | LEGACY
         | LIKE
+        | LOCAL
+        | LOGIN
         | MANAGE
         | MATCH
         | MATCHES
@@ -2437,6 +2529,7 @@ keyword_compat
         | NATURAL
         | NEXT
         | NO
+        | NOLOGIN
         | NOTNULL
         | NULLS
         | OBJECT
@@ -2467,7 +2560,7 @@ keyword_compat
         | PRESORT
         | PRIMARY
         | PRIVILEGES
-        //  | QUERY
+        | QUERY
         | QUEUE
         | RAISE
         //  | READ
@@ -2481,6 +2574,7 @@ keyword_compat
         | REPLICATION
         | RESET
         | RESPECT
+        | RESTART
         | RESTORE
         | RESTRICT
         | RESULT
@@ -2498,7 +2592,9 @@ keyword_compat
         | SETS
         | SHOW
         | TSKIP
+        | SEQUENCE
         | SOURCE
+        | START
         | SUBQUERY
         | SUBSET
         | SYMBOLS
@@ -2515,6 +2611,7 @@ keyword_compat
         | TO
         | TOPIC
         | TRANSACTION
+        | TRANSFER
         | TRIGGER
         | TYPE
         | UNCONDITIONAL
@@ -2686,10 +2783,6 @@ COMMAT
     : '@'
     ;
 
-DOUBLE_COMMAT
-    : '@@'
-    ;
-
 DOLLAR
     : '$'
     ;
@@ -2736,6 +2829,10 @@ fragment QUOTE_SINGLE
 
 fragment BACKTICK
     : '`'
+    ;
+
+fragment DOUBLE_COMMAT
+    : '@@'
     ;
 
 // http://www.antlr.org/wiki/pages/viewpage.action?pageId=1782
@@ -2929,6 +3026,10 @@ AUTOMAP
 
 BACKUP
     : B A C K U P
+    ;
+
+BATCH
+    : B A T C H
     ;
 
 COLLECTION
@@ -3324,6 +3425,10 @@ IN
     : I N
     ;
 
+INCREMENT
+    : I N C R E M E N T
+    ;
+
 INCREMENTAL
     : I N C R E M E N T A L
     ;
@@ -3424,6 +3529,10 @@ LOCAL
     : L O C A L
     ;
 
+LOGIN
+    : L O G I N
+    ;
+
 MANAGE
     : M A N A G E
     ;
@@ -3470,6 +3579,10 @@ NEXT
 
 NO
     : N O
+    ;
+
+NOLOGIN
+    : N O L O G I N
     ;
 
 NOT
@@ -3608,7 +3721,10 @@ PROCESS
     : P R O C E S S
     ;
 
-//QUERY: Q U E R Y;
+QUERY
+    : Q U E R Y
+    ;
+
 QUEUE
     : Q U E U E
     ;
@@ -3672,6 +3788,10 @@ RESOURCE
 
 RESPECT
     : R E S P E C T
+    ;
+
+RESTART
+    : R E S T A R T
     ;
 
 RESTORE
@@ -3770,8 +3890,16 @@ TSKIP
     : S K I P
     ;
 
+SEQUENCE
+    : S E Q U E N C E
+    ;
+
 SOURCE
     : S O U R C E
+    ;
+
+START
+    : S T A R T
     ;
 
 STREAM
@@ -3852,6 +3980,10 @@ TOPIC
 
 TRANSACTION
     : T R A N S A C T I O N
+    ;
+
+TRANSFER
+    : T R A N S F E R
     ;
 
 TRIGGER
@@ -4065,26 +4197,6 @@ BLOB
     : X QUOTE_SINGLE HEXDIGIT+ QUOTE_SINGLE
     ;
 
-TQ
-    : ('q' | 'Q')
-    ;
-
-TU
-    : ('u' | 'U')
-    ;
-
-TE
-    : ('e' | 'E')
-    ;
-
-TR
-    : ('r' | 'R')
-    ;
-
-TY
-    : ('y' | 'Y')
-    ;
-
 // YQL Default Lexer:
 // GRAMMAR_MULTILINE_COMMENT_CORE = .
 // ANSI Lexer:
@@ -4143,11 +4255,3 @@ where_expr
     : WHERE expr
     ;
 
-from_stmt
-    : FROM join_source
-    ;
-
-alter_table_for_autocomplete
-    : alter_table_stmt
-    | alter_table_store_stmt
-    ;

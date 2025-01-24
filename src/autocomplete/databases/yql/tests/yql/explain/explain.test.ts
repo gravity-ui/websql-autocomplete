@@ -17,6 +17,7 @@ test('should suggest keywords after EXPLAIN', () => {
         {value: 'UPSERT'},
         {value: 'REPLACE'},
         {value: 'COMMIT'},
+        {value: 'BATCH'},
         {value: 'UPDATE'},
         {value: 'DELETE'},
         {value: 'ROLLBACK'},

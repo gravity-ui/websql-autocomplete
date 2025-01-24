@@ -4,6 +4,7 @@ import {KeywordSuggestion} from '../../../../../shared/autocomplete-types';
 test('should suggest keywords after DROP', () => {
     const autocompleteResult = parseYqlQueryWithCursor('DROP |');
     const keywords: KeywordSuggestion[] = [
+        {value: 'TRANSFER'},
         {value: 'RESOURCE'},
         {value: 'BACKUP'},
         {value: 'VIEW'},
