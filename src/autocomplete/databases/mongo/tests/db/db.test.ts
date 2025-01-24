@@ -14,6 +14,22 @@ test('should not report errors on multiple statements', () => {
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
+test('should suggest collections without quotes after db', () => {
+    const autocompleteResult = parseMongoQueryWithCursor(`
+        db.|
+    `);
+
+    expect(autocompleteResult.suggestCollectionsWithoutQuotes).toEqual(true);
+});
+
+test('should suggest collections in collection method', () => {
+    const autocompleteResult = parseMongoQueryWithCursor(`
+        db.collection(|
+    `);
+
+    expect(autocompleteResult.suggestCollections).toEqual(true);
+});
+
 test('should not report errors on three statements', () => {
     const autocompleteResult = parseMongoQueryWithoutCursor(`
         db.test_collection.find();
@@ -34,7 +50,7 @@ test('should suggest properly on empty statement', () => {
 test('should suggest collections and keywords after db', () => {
     const autocompleteResult = parseMongoQueryWithCursor('db.|');
 
-    expect(autocompleteResult.suggestCollections).toEqual(true);
+    expect(autocompleteResult.suggestCollectionsWithoutQuotes).toEqual(true);
     expect(autocompleteResult.suggestKeywords).toEqual([
         {value: 'collection'},
         {value: 'createCollection'},

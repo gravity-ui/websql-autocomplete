@@ -12,6 +12,7 @@ export * from './mongo-extract-commands';
 
 export interface MongoAutocompleteResult extends SqlAutocompleteResult {
     suggestCollections?: boolean;
+    suggestCollectionsWithoutQuotes?: boolean;
 }
 
 export function parseMongoQueryWithoutCursor(

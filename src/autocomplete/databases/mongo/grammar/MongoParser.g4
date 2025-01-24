@@ -225,7 +225,7 @@ databaseDropCollectionMethod
     ;
 
 databaseDropCollectionArgument1
-    : STRING
+    : quotedCollectionName
     ;
 
 databaseDropCollectionArgument2
@@ -239,7 +239,7 @@ databaseRenameCollectionMethod
     ;
 
 databaseRenameCollectionArgument1
-    : STRING
+    : quotedCollectionName
     ;
 
 databaseRenameCollectionArgument2
