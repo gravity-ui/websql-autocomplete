@@ -49,6 +49,7 @@ import { DatabaseIndexInformationArgument1Context } from "./MongoParser.js";
 import { DatabaseIndexInformationArgument2Context } from "./MongoParser.js";
 import { DatabaseRemoveUserMethodContext } from "./MongoParser.js";
 import { DatabaseRemoveUserArgument1Context } from "./MongoParser.js";
+import { QuotedUsernameContext } from "./MongoParser.js";
 import { DatabaseRemoveUserArgument2Context } from "./MongoParser.js";
 import { DatabaseCreateIndexMethodContext } from "./MongoParser.js";
 import { DatabaseCreateIndexArgument3Context } from "./MongoParser.js";
@@ -425,6 +426,12 @@ export class MongoParserVisitor<Result> extends AbstractParseTreeVisitor<Result>
      * @return the visitor result
      */
     visitDatabaseRemoveUserArgument1?: (ctx: DatabaseRemoveUserArgument1Context) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.quotedUsername`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitQuotedUsername?: (ctx: QuotedUsernameContext) => Result;
     /**
      * Visit a parse tree produced by `MongoParser.databaseRemoveUserArgument2`.
      * @param ctx the parse tree

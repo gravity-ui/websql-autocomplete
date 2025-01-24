@@ -183,6 +183,10 @@ databaseRemoveUserMethod
     ;
 
 databaseRemoveUserArgument1
+    : quotedUsername
+    ;
+
+quotedUsername
     : STRING
     ;
 

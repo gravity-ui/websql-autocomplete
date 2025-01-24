@@ -35,6 +35,7 @@ const ignoredTokens = new Set(getIgnoredTokens());
 const rulesToVisit = new Set([
     MongoParser.RULE_collectionName,
     MongoParser.RULE_quotedCollectionName,
+    MongoParser.RULE_quotedUsername,
 ]);
 
 function processVisitedRules(
@@ -43,6 +44,7 @@ function processVisitedRules(
 ): ProcessVisitedRulesResult<MongoAutocompleteResult> {
     let suggestCollections;
     let suggestCollectionsWithoutQuotes;
+    let suggestUsers;
 
     for (const [ruleId, rule] of rules) {
         if (!isStartingToWriteRule(cursorTokenIndex, rule)) {
@@ -58,10 +60,14 @@ function processVisitedRules(
                 suggestCollections = true;
                 break;
             }
+            case MongoParser.RULE_quotedUsername: {
+                suggestUsers = true;
+                break;
+            }
         }
     }
 
-    return {suggestCollections, suggestCollectionsWithoutQuotes};
+    return {suggestCollections, suggestCollectionsWithoutQuotes, suggestUsers};
 }
 
 export function getParseTree(parser: MongoParser): ParseTree {
