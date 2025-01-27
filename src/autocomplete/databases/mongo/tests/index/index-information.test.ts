@@ -1,4 +1,9 @@
-import {Command, extractMongoCommandsFromQuery, parseMongoQueryWithoutCursor} from '../..';
+import {
+    Command,
+    extractMongoCommandsFromQuery,
+    parseMongoQueryWithCursor,
+    parseMongoQueryWithoutCursor,
+} from '../..';
 
 test('should not report errors on indexInformation statement', () => {
     const autocompleteResult = parseMongoQueryWithoutCursor(`
@@ -32,6 +37,14 @@ test('should not report errors on extended indexInformation statement', () => {
     `);
 
     expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should suggest quoted collections on first argument of indexInformation method in database context', () => {
+    const autocompleteResult = parseMongoQueryWithCursor(`
+        db.indexInformation(|
+    `);
+
+    expect(autocompleteResult.suggestQuotedCollections).toEqual(true);
 });
 
 test('should extract indexInformation commands properly', () => {

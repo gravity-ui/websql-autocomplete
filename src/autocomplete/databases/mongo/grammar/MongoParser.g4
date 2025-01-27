@@ -171,7 +171,7 @@ databaseIndexInformationMethod
     ;
 
 databaseIndexInformationArgument1
-    : STRING
+    : quotedCollectionName
     ;
 
 databaseIndexInformationArgument2
