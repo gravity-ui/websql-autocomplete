@@ -14,6 +14,24 @@ test('should not report errors on multiple statements', () => {
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
+test('should suggest collections without quotes after db', () => {
+    const autocompleteResult = parseMongoQueryWithCursor(`
+        db.|
+    `);
+
+    expect(autocompleteResult.suggestCollections).toEqual(true);
+    expect(autocompleteResult.suggestQuotedCollections).toBeUndefined();
+});
+
+test('should suggest collections in collection method', () => {
+    const autocompleteResult = parseMongoQueryWithCursor(`
+        db.collection(|
+    `);
+
+    expect(autocompleteResult.suggestCollections).toBeUndefined();
+    expect(autocompleteResult.suggestQuotedCollections).toEqual(true);
+});
+
 test('should not report errors on three statements', () => {
     const autocompleteResult = parseMongoQueryWithoutCursor(`
         db.test_collection.find();

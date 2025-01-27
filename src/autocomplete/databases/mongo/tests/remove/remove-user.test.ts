@@ -1,4 +1,9 @@
-import {Command, extractMongoCommandsFromQuery, parseMongoQueryWithoutCursor} from '../..';
+import {
+    Command,
+    extractMongoCommandsFromQuery,
+    parseMongoQueryWithCursor,
+    parseMongoQueryWithoutCursor,
+} from '../..';
 
 test('should not report errors on removeUser statement', () => {
     const autocompleteResult = parseMongoQueryWithoutCursor(`
@@ -19,6 +24,14 @@ test('should not report errors on extended removeUser statement', () => {
     `);
 
     expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should suggest users on first removeUser argument', () => {
+    const autocompleteResult = parseMongoQueryWithCursor(`
+        db.removeUser(|
+    `);
+
+    expect(autocompleteResult.suggestQuotedUsers).toEqual(true);
 });
 
 test('should extract removeUser commands properly', () => {

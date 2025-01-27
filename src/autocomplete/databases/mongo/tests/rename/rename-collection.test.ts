@@ -1,4 +1,9 @@
-import {Command, extractMongoCommandsFromQuery, parseMongoQueryWithoutCursor} from '../..';
+import {
+    Command,
+    extractMongoCommandsFromQuery,
+    parseMongoQueryWithCursor,
+    parseMongoQueryWithoutCursor,
+} from '../..';
 
 test('should not report errors on renameCollection statement', () => {
     const autocompleteResult = parseMongoQueryWithoutCursor(`
@@ -6,6 +11,14 @@ test('should not report errors on renameCollection statement', () => {
     `);
 
     expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should suggest collections on first renameCollection argument', () => {
+    const autocompleteResult = parseMongoQueryWithCursor(`
+        db.renameCollection(|
+    `);
+
+    expect(autocompleteResult.suggestQuotedCollections).toEqual(true);
 });
 
 test('should not report errors on extended renameCollection statement', () => {

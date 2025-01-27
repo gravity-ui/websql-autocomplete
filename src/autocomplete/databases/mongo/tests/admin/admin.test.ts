@@ -61,6 +61,14 @@ test('should not report errors on extended admin statements', () => {
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
+test('should suggest users on first removeUser argument', () => {
+    const autocompleteResult = parseMongoQueryWithCursor(`
+        db.admin().removeUser(|
+    `);
+
+    expect(autocompleteResult.suggestQuotedUsers).toEqual(true);
+});
+
 test('should suggest keywords after db.admin().', () => {
     const autocompleteResult = parseMongoQueryWithCursor('db.admin().|');
 

@@ -1,4 +1,9 @@
-import {Command, extractMongoCommandsFromQuery, parseMongoQueryWithoutCursor} from '../..';
+import {
+    Command,
+    extractMongoCommandsFromQuery,
+    parseMongoQueryWithCursor,
+    parseMongoQueryWithoutCursor,
+} from '../..';
 
 test('should not report errors on dropCollection statement', () => {
     const autocompleteResult = parseMongoQueryWithoutCursor(`
@@ -19,6 +24,14 @@ test('should not report errors on extended dropCollection statement', () => {
     `);
 
     expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should suggest collections on first dropCollection argument', () => {
+    const autocompleteResult = parseMongoQueryWithCursor(`
+        db.dropCollection(|
+    `);
+
+    expect(autocompleteResult.suggestQuotedCollections).toEqual(true);
 });
 
 test('should extract dropCollection commands properly', () => {

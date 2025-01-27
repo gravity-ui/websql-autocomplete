@@ -171,7 +171,7 @@ databaseIndexInformationMethod
     ;
 
 databaseIndexInformationArgument1
-    : STRING
+    : quotedCollectionName
     ;
 
 databaseIndexInformationArgument2
@@ -183,6 +183,10 @@ databaseRemoveUserMethod
     ;
 
 databaseRemoveUserArgument1
+    : quotedUsername
+    ;
+
+quotedUsername
     : STRING
     ;
 
@@ -225,7 +229,7 @@ databaseDropCollectionMethod
     ;
 
 databaseDropCollectionArgument1
-    : STRING
+    : quotedCollectionName
     ;
 
 databaseDropCollectionArgument2
@@ -239,7 +243,7 @@ databaseRenameCollectionMethod
     ;
 
 databaseRenameCollectionArgument1
-    : STRING
+    : quotedCollectionName
     ;
 
 databaseRenameCollectionArgument2
