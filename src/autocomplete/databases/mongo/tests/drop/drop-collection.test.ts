@@ -31,7 +31,7 @@ test('should suggest collections on first dropCollection argument', () => {
         db.dropCollection(|
     `);
 
-    expect(autocompleteResult.suggestCollections).toEqual(true);
+    expect(autocompleteResult.suggestQuotedCollections).toEqual(true);
 });
 
 test('should extract dropCollection commands properly', () => {

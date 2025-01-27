@@ -31,7 +31,7 @@ test('should suggest users on first removeUser argument', () => {
         db.removeUser(|
     `);
 
-    expect(autocompleteResult.suggestUsers).toEqual(true);
+    expect(autocompleteResult.suggestQuotedUsers).toEqual(true);
 });
 
 test('should extract removeUser commands properly', () => {

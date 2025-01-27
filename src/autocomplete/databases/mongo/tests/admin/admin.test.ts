@@ -66,7 +66,7 @@ test('should suggest users on first removeUser argument', () => {
         db.admin().removeUser(|
     `);
 
-    expect(autocompleteResult.suggestUsers).toEqual(true);
+    expect(autocompleteResult.suggestQuotedUsers).toEqual(true);
 });
 
 test('should suggest keywords after db.admin().', () => {

@@ -18,7 +18,7 @@ test('should suggest collections on first renameCollection argument', () => {
         db.renameCollection(|
     `);
 
-    expect(autocompleteResult.suggestCollections).toEqual(true);
+    expect(autocompleteResult.suggestQuotedCollections).toEqual(true);
 });
 
 test('should not report errors on extended renameCollection statement', () => {
