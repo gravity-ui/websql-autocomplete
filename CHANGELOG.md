@@ -1,5 +1,12 @@
 # Changelog
 
+## [13.6.0](https://github.com/gravity-ui/websql-autocomplete/compare/v13.5.0...v13.6.0) (2025-01-27)
+
+
+### Features
+
+* Suggest quoted entities for MongoDB ([#280](https://github.com/gravity-ui/websql-autocomplete/issues/280)) ([4cc7db0](https://github.com/gravity-ui/websql-autocomplete/commit/4cc7db070ecf306ec89104e9560adfa4b20dc873))
+
 ## [13.5.0](https://github.com/gravity-ui/websql-autocomplete/compare/v13.4.0...v13.5.0) (2025-01-24)
 
 
