@@ -5406,47 +5406,31 @@ export class TrinoParser extends antlr.Parser {
                 this.enterOuterAlt(localContext, 1);
                 {
                 this.state = 1488;
-                this.expression();
-                this.state = 1493;
-                this.errorHandler.sync(this);
-                switch (this.interpreter.adaptivePredict(this.tokenStream, 184, this.context) ) {
-                case 1:
-                    {
-                    this.state = 1490;
-                    this.errorHandler.sync(this);
-                    _la = this.tokenStream.LA(1);
-                    if (_la === 11) {
-                        {
-                        this.state = 1489;
-                        this.match(TrinoParser.AS_);
-                        }
-                    }
-
-                    this.state = 1492;
-                    this.aliasIdentifier();
-                    }
-                    break;
-                }
+                this.match(TrinoParser.ASTERISK_);
                 }
                 break;
             case 2:
                 this.enterOuterAlt(localContext, 2);
                 {
-                this.state = 1495;
-                this.primaryExpression(0);
-                this.state = 1496;
-                this.match(TrinoParser.DOT_);
-                this.state = 1497;
-                this.match(TrinoParser.ASTERISK_);
-                this.state = 1500;
+                this.state = 1489;
+                this.expression();
+                this.state = 1494;
                 this.errorHandler.sync(this);
-                switch (this.interpreter.adaptivePredict(this.tokenStream, 185, this.context) ) {
+                switch (this.interpreter.adaptivePredict(this.tokenStream, 184, this.context) ) {
                 case 1:
                     {
-                    this.state = 1498;
-                    this.match(TrinoParser.AS_);
-                    this.state = 1499;
-                    this.columnAliases();
+                    this.state = 1491;
+                    this.errorHandler.sync(this);
+                    _la = this.tokenStream.LA(1);
+                    if (_la === 11) {
+                        {
+                        this.state = 1490;
+                        this.match(TrinoParser.AS_);
+                        }
+                    }
+
+                    this.state = 1493;
+                    this.aliasIdentifier();
                     }
                     break;
                 }
@@ -5455,8 +5439,24 @@ export class TrinoParser extends antlr.Parser {
             case 3:
                 this.enterOuterAlt(localContext, 3);
                 {
-                this.state = 1502;
+                this.state = 1496;
+                this.primaryExpression(0);
+                this.state = 1497;
+                this.match(TrinoParser.DOT_);
+                this.state = 1498;
                 this.match(TrinoParser.ASTERISK_);
+                this.state = 1501;
+                this.errorHandler.sync(this);
+                switch (this.interpreter.adaptivePredict(this.tokenStream, 185, this.context) ) {
+                case 1:
+                    {
+                    this.state = 1499;
+                    this.match(TrinoParser.AS_);
+                    this.state = 1500;
+                    this.columnAliases();
+                    }
+                    break;
+                }
                 }
                 break;
             }
@@ -14941,8 +14941,8 @@ export class TrinoParser extends antlr.Parser {
         27,12,27,1459,9,27,3,27,1461,8,27,1,27,1,27,1,27,1,27,1,27,5,27,
         1468,8,27,10,27,12,27,1471,9,27,3,27,1473,8,27,1,27,3,27,1476,8,
         27,1,28,1,28,3,28,1480,8,28,1,28,1,28,1,28,1,28,1,28,1,29,1,29,1,
-        30,1,30,3,30,1491,8,30,1,30,3,30,1494,8,30,1,30,1,30,1,30,1,30,1,
-        30,3,30,1501,8,30,1,30,3,30,1504,8,30,1,31,1,31,1,31,1,31,1,31,1,
+        30,1,30,1,30,3,30,1492,8,30,1,30,3,30,1495,8,30,1,30,1,30,1,30,1,
+        30,1,30,3,30,1502,8,30,3,30,1504,8,30,1,31,1,31,1,31,1,31,1,31,1,
         31,1,31,1,31,1,31,1,31,1,31,1,31,1,31,1,31,1,31,1,31,1,31,3,31,1523,
         8,31,5,31,1525,8,31,10,31,12,31,1528,9,31,1,32,3,32,1531,8,32,1,
         32,1,32,3,32,1535,8,32,3,32,1537,8,32,1,33,1,33,1,33,1,33,1,33,1,
@@ -15577,12 +15577,12 @@ export class TrinoParser extends antlr.Parser {
         1480,3,94,47,0,1479,1478,1,0,0,0,1479,1480,1,0,0,0,1480,1481,1,0,
         0,0,1481,1482,5,11,0,0,1482,1483,5,313,0,0,1483,1484,3,12,6,0,1484,
         1485,5,314,0,0,1485,57,1,0,0,0,1486,1487,7,10,0,0,1487,59,1,0,0,
-        0,1488,1493,3,112,56,0,1489,1491,5,11,0,0,1490,1489,1,0,0,0,1490,
-        1491,1,0,0,0,1491,1492,1,0,0,0,1492,1494,3,250,125,0,1493,1490,1,
-        0,0,0,1493,1494,1,0,0,0,1494,1504,1,0,0,0,1495,1496,3,120,60,0,1496,
-        1497,5,310,0,0,1497,1500,5,304,0,0,1498,1499,5,11,0,0,1499,1501,
-        3,94,47,0,1500,1498,1,0,0,0,1500,1501,1,0,0,0,1501,1504,1,0,0,0,
-        1502,1504,5,304,0,0,1503,1488,1,0,0,0,1503,1495,1,0,0,0,1503,1502,
+        0,1488,1504,5,304,0,0,1489,1494,3,112,56,0,1490,1492,5,11,0,0,1491,
+        1490,1,0,0,0,1491,1492,1,0,0,0,1492,1493,1,0,0,0,1493,1495,3,250,
+        125,0,1494,1491,1,0,0,0,1494,1495,1,0,0,0,1495,1504,1,0,0,0,1496,
+        1497,3,120,60,0,1497,1498,5,310,0,0,1498,1501,5,304,0,0,1499,1500,
+        5,11,0,0,1500,1502,3,94,47,0,1501,1499,1,0,0,0,1501,1502,1,0,0,0,
+        1502,1504,1,0,0,0,1503,1488,1,0,0,0,1503,1489,1,0,0,0,1503,1496,
         1,0,0,0,1504,61,1,0,0,0,1505,1506,6,31,-1,0,1506,1507,3,68,34,0,
         1507,1526,1,0,0,0,1508,1522,10,2,0,0,1509,1510,5,37,0,0,1510,1511,
         5,119,0,0,1511,1523,3,68,34,0,1512,1513,3,64,32,0,1513,1514,5,119,
@@ -16227,7 +16227,7 @@ export class TrinoParser extends antlr.Parser {
         1216,1227,1236,1246,1249,1254,1256,1263,1269,1271,1275,1285,1291,
         1294,1296,1308,1315,1319,1323,1327,1334,1338,1342,1347,1351,1359,
         1362,1370,1374,1381,1392,1395,1405,1408,1419,1424,1432,1435,1439,
-        1448,1457,1460,1469,1472,1475,1479,1490,1493,1500,1503,1522,1526,
+        1448,1457,1460,1469,1472,1475,1479,1491,1494,1501,1503,1522,1526,
         1530,1534,1536,1547,1552,1562,1564,1573,1576,1591,1594,1603,1606,
         1614,1617,1620,1625,1628,1640,1643,1651,1656,1660,1662,1664,1679,
         1681,1692,1699,1702,1707,1717,1728,1732,1734,1742,1749,1762,1768,
@@ -20546,6 +20546,9 @@ export class SelectItemContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
+    public ASTERISK_(): antlr.TerminalNode | null {
+        return this.getToken(TrinoParser.ASTERISK_, 0);
+    }
     public expression(): ExpressionContext | null {
         return this.getRuleContext(0, ExpressionContext);
     }
@@ -20560,9 +20563,6 @@ export class SelectItemContext extends antlr.ParserRuleContext {
     }
     public DOT_(): antlr.TerminalNode | null {
         return this.getToken(TrinoParser.DOT_, 0);
-    }
-    public ASTERISK_(): antlr.TerminalNode | null {
-        return this.getToken(TrinoParser.ASTERISK_, 0);
     }
     public columnAliases(): ColumnAliasesContext | null {
         return this.getRuleContext(0, ColumnAliasesContext);

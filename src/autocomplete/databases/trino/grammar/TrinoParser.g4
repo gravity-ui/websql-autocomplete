@@ -273,9 +273,9 @@ setQuantifier
     ;
 
 selectItem
-    : expression (AS_? aliasIdentifier)?
+    : ASTERISK_
+    | expression (AS_? aliasIdentifier)?
     | primaryExpression DOT_ ASTERISK_ (AS_ columnAliases)?
-    | ASTERISK_
     ;
 
 relation

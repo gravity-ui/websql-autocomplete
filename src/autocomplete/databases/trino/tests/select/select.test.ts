@@ -9,6 +9,7 @@ test('should suggest properly after SELECT', () => {
     const autocompleteResult = parseTrinoQueryWithCursor('SELECT |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [
+        {value: '*'},
         {value: 'NULL'},
         {value: 'INTERVAL'},
         {value: 'DOUBLE'},
@@ -44,7 +45,6 @@ test('should suggest properly after SELECT', () => {
         {value: 'JSON_OBJECT'},
         {value: 'JSON_ARRAY'},
         {value: 'NOT'},
-        {value: '*'},
         {value: 'ALL'},
         {value: 'DISTINCT'},
     ];
