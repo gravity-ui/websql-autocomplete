@@ -138,8 +138,7 @@ test.skip('should suggest properly after ORDER BY between statements', () => {
     expect(autocompleteResult.suggestColumnAliases).toEqual(columnAliasSuggestion);
 });
 
-// TODO-TRINO: support nested statements column suggestions
-test.skip('should suggest properly after ORDER BY in nested statement', () => {
+test('should suggest properly after ORDER BY in nested statement', () => {
     const autocompleteResult = parseTrinoQueryWithCursor(
         'SELECT id as id1 FROM (SELECT count(*) as count, test_column t1 FROM catalog.schema.test_table as t ORDER BY |',
     );
@@ -187,7 +186,9 @@ test.skip('should suggest properly after ORDER BY in nested statement', () => {
     // expect(autocompleteResult.suggestFunctions).toEqual(true);
     // expect(autocompleteResult.suggestAggregateFunctions).toEqual(true);
 
-    const columnSuggestion: ColumnSuggestion = {tables: [{name: 'test_table', alias: 't'}]};
+    const columnSuggestion: ColumnSuggestion = {
+        tables: [{name: 'catalog.schema.test_table', alias: 't'}],
+    };
     expect(autocompleteResult.suggestColumns).toEqual(columnSuggestion);
 
     const columnAliasSuggestion: ColumnAliasSuggestion[] = [{name: 'count'}, {name: 't1'}];
