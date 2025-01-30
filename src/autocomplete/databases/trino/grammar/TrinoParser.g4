@@ -131,8 +131,8 @@ statement
     | SET_ TIME_ ZONE_ (LOCAL_ | expression)                                # setTimeZone
     | UPDATE_ tableIdentifier SET_ updateAssignment (COMMA_ updateAssignment)* (
         WHERE_ where = booleanExpression
-    )?                                                                                          # update
-    | MERGE_ INTO_ tableIdentifier (AS_? identifier)? USING_ relation ON_ expression mergeCase+ # merge
+    )?                                                                                               # update
+    | MERGE_ INTO_ tableIdentifier (AS_? aliasIdentifier)? USING_ relation ON_ expression mergeCase+ # merge
     ;
 
 rootQuery
@@ -218,11 +218,15 @@ sortItem
     ;
 
 querySpecification
-    : SELECT_ setQuantifier? selectItem (COMMA_ selectItem)* (FROM_ relation (COMMA_ relation)*)? (
+    : SELECT_ setQuantifier? selectItem (COMMA_ selectItem)* fromClause? (
         WHERE_ where = booleanExpression
     )? (GROUP_ BY_ groupBy)? (HAVING_ having = booleanExpression)? (
         WINDOW_ windowDefinition (COMMA_ windowDefinition)*
     )?
+    ;
+
+fromClause
+    : FROM_ relation (COMMA_ relation)*
     ;
 
 groupBy
@@ -261,7 +265,7 @@ setQuantifier
     ;
 
 selectItem
-    : expression (AS_? identifier)?                         # selectSingle
+    : expression (AS_? aliasIdentifier)?                    # selectSingle
     | primaryExpression DOT_ ASTERISK_ (AS_ columnAliases)? # selectAll
     | ASTERISK_                                             # selectAll
     ;
@@ -286,8 +290,8 @@ joinCriteria
     ;
 
 sampledRelation
-    : patternRecognition (TABLESAMPLE_ sampleType LPAREN_ percentage = expression RPAREN_)?
-    | tableIdentifier
+    : tableReference
+    | patternRecognition (TABLESAMPLE_ sampleType LPAREN_ percentage = expression RPAREN_)?
     ;
 
 sampleType
@@ -319,13 +323,13 @@ patternRecognition
         )? rowsPerMatch? (AFTER_ MATCH_ skipTo)? (INITIAL_ | SEEK_)? PATTERN_ LPAREN_ rowPattern RPAREN_ (
             SUBSET_ subsetDefinition (COMMA_ subsetDefinition)*
         )? DEFINE_ variableDefinition (COMMA_ variableDefinition)* RPAREN_ (
-            AS_? identifier columnAliases?
+            AS_? aliasIdentifier columnAliases?
         )?
     )?
     ;
 
 measureDefinition
-    : expression AS_ identifier
+    : expression AS_ aliasIdentifier
     ;
 
 rowsPerMatch
@@ -348,11 +352,11 @@ subsetDefinition
     ;
 
 variableDefinition
-    : identifier AS_ expression
+    : identifier AS_ aliasIdentifier
     ;
 
 aliasedRelation
-    : relationPrimary (AS_? identifier columnAliases?)?
+    : relationPrimary (AS_? aliasIdentifier columnAliases?)?
     ;
 
 columnAliases
@@ -391,8 +395,8 @@ tableArgument
     ;
 
 tableArgumentRelation
-    : TABLE_ LPAREN_ tableIdentifier RPAREN_ (AS_? identifier columnAliases?)? # tableArgumentTable
-    | TABLE_ LPAREN_ query RPAREN_ (AS_? identifier columnAliases?)?           # tableArgumentQuery
+    : TABLE_ LPAREN_ tableIdentifier RPAREN_ (AS_? aliasIdentifier columnAliases?)? # tableArgumentTable
+    | TABLE_ LPAREN_ query RPAREN_ (AS_? aliasIdentifier columnAliases?)?           # tableArgumentQuery
     ;
 
 descriptorArgument
@@ -472,7 +476,7 @@ primaryExpression
     | TRY_CAST_ LPAREN_ expression AS_ type RPAREN_                                                               # cast
     | ARRAY_ LSQUARE_ (expression (COMMA_ expression)*)? RSQUARE_                                                 # arrayConstructor
     | value = primaryExpression LSQUARE_ index = valueExpression RSQUARE_                                         # subscript
-    | identifier                                                                                                  # columnReference
+    | columnIdentifier                                                                                            # column
     | base_ = primaryExpression DOT_ fieldName = identifier                                                       # dereference
     | name = CURRENT_DATE_                                                                                        # specialDateTimeFunction
     | name = CURRENT_TIME_ (LPAREN_ precision = INTEGER_VALUE_ RPAREN_)?                                          # specialDateTimeFunction
@@ -523,7 +527,7 @@ jsonRepresentation
     ;
 
 jsonArgument
-    : jsonValueExpression AS_ identifier
+    : jsonValueExpression AS_ aliasIdentifier
     ;
 
 jsonExistsErrorBehavior
@@ -861,12 +865,24 @@ schemaIdentifier
     : catalogIdentifier DOT_ identifier
     ;
 
+tableReference
+    : tableIdentifier (AS_? aliasIdentifier)?
+    ;
+
 tableIdentifier
     : schemaIdentifier DOT_ identifier
     ;
 
 viewIdentifier
     : tableIdentifier
+    ;
+
+columnIdentifier
+    : identifier
+    ;
+
+aliasIdentifier
+    : identifier
     ;
 
 newSchemaIdentifier
