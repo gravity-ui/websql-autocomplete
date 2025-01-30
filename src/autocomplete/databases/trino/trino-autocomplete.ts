@@ -26,6 +26,46 @@ import {
 import {TrinoAutocompleteResult} from './index.js';
 import {TrinoParserVisitor} from './generated/TrinoParserVisitor.js';
 
+class TrinoSymbolTableVisitor extends TrinoParserVisitor<{}> implements ISymbolTableVisitor {
+    symbolTable: c3.SymbolTable;
+    scope: c3.ScopedSymbol;
+
+    constructor() {
+        super();
+        this.symbolTable = new c3.SymbolTable('', {allowDuplicateSymbols: true});
+        this.scope = this.symbolTable.addNewSymbolOfType(c3.ScopedSymbol, undefined);
+    }
+
+    visitTableReference = (context: TableReferenceContext): {} => {
+        try {
+            this.symbolTable.addNewSymbolOfType(
+                TableSymbol,
+                this.scope,
+                context.tableIdentifier()?.getText() || '',
+                context.aliasIdentifier()?.getText(),
+            );
+        } catch (error) {
+            if (!(error instanceof c3.DuplicateSymbolError)) {
+                throw error;
+            }
+        }
+
+        return this.visitChildren(context) as {};
+    };
+
+    visitViewIdentifier = (context: ViewIdentifierContext): {} => {
+        try {
+            this.symbolTable.addNewSymbolOfType(TableSymbol, this.scope, context.getText());
+        } catch (error) {
+            if (!(error instanceof c3.DuplicateSymbolError)) {
+                throw error;
+            }
+        }
+
+        return this.visitChildren(context) as {};
+    };
+}
+
 const tokenDictionary: TokenDictionary = {
     SPACE: TrinoParser.WS_,
     FROM: TrinoParser.FROM_,
@@ -125,6 +165,7 @@ function getParseTree(
         case 'insert':
             return parser.insertStatement();
         case 'update':
+            return parser.updateStatement();
         default:
             return parser.parse();
     }
@@ -184,43 +225,3 @@ export const trinoAutocompleteData: AutocompleteData<
     getParseTree,
     enrichAutocompleteResult,
 };
-
-class TrinoSymbolTableVisitor extends TrinoParserVisitor<{}> implements ISymbolTableVisitor {
-    symbolTable: c3.SymbolTable;
-    scope: c3.ScopedSymbol;
-
-    constructor() {
-        super();
-        this.symbolTable = new c3.SymbolTable('', {allowDuplicateSymbols: true});
-        this.scope = this.symbolTable.addNewSymbolOfType(c3.ScopedSymbol, undefined);
-    }
-
-    visitTableReference = (context: TableReferenceContext): {} => {
-        try {
-            this.symbolTable.addNewSymbolOfType(
-                TableSymbol,
-                this.scope,
-                context.tableIdentifier()?.getText() || '',
-                context.aliasIdentifier()?.getText(),
-            );
-        } catch (error) {
-            if (!(error instanceof c3.DuplicateSymbolError)) {
-                throw error;
-            }
-        }
-
-        return this.visitChildren(context) as {};
-    };
-
-    visitViewIdentifier = (context: ViewIdentifierContext): {} => {
-        try {
-            this.symbolTable.addNewSymbolOfType(TableSymbol, this.scope, context.getText());
-        } catch (error) {
-            if (!(error instanceof c3.DuplicateSymbolError)) {
-                throw error;
-            }
-        }
-
-        return this.visitChildren(context) as {};
-    };
-}

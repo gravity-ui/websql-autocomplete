@@ -14,6 +14,7 @@ test('should suggest properly for an empty query', () => {
         {value: 'DROP'},
         {value: 'ALTER'},
         {value: 'INSERT'},
+        {value: 'UPDATE'},
         {value: 'DELETE'},
         {value: 'TRUNCATE'},
         {value: 'COMMENT'},
@@ -35,7 +36,6 @@ test('should suggest properly for an empty query', () => {
         {value: 'PREPARE'},
         {value: 'DEALLOCATE'},
         {value: 'EXECUTE'},
-        {value: 'UPDATE'},
         {value: 'MERGE'},
     ];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);

@@ -1,5 +1,9 @@
 import {parseTrinoQueryWithCursor, parseTrinoQueryWithoutCursor} from '../../index';
-import {KeywordSuggestion, TableOrViewSuggestion} from '../../../../shared/autocomplete-types';
+import {
+    ColumnSuggestion,
+    KeywordSuggestion,
+    TableOrViewSuggestion,
+} from '../../../../shared/autocomplete-types';
 
 test('should suggest properly after UPDATE', () => {
     const autocompleteResult = parseTrinoQueryWithCursor('UPDATE |');
@@ -20,22 +24,24 @@ test.skip('should suggest tables after UPDATE between statements', () => {
 test('should suggest properly after table name', () => {
     const autocompleteResult = parseTrinoQueryWithCursor('UPDATE catalog.schema.test_table |');
 
-    const keywordsSuggestion: KeywordSuggestion[] = [{value: 'SET'}];
+    const keywordsSuggestion: KeywordSuggestion[] = [{value: 'AS'}, {value: 'SET'}];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
 test('should suggest properly after SET', () => {
     const autocompleteResult = parseTrinoQueryWithCursor('UPDATE catalog.schema.test_table SET |');
 
-    const keywordsSuggestion: KeywordSuggestion[] = [];
+    const keywordsSuggestion: KeywordSuggestion[] = [{value: 'SET'}];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 
-    // TODO-TRINO: Add column suggestions
-    // const columnSuggestion: ColumnSuggestion = {tables: [{name: 'catalog.schema.test_table'}]};
-    // expect(autocompleteResult.suggestColumns).toEqual(columnSuggestion);
+    // TODO-TRINO: fix SET being read as an alias
+    const columnSuggestion: ColumnSuggestion = {
+        tables: [{name: 'catalog.schema.test_table', alias: 'SET'}],
+    };
+    expect(autocompleteResult.suggestColumns).toEqual(columnSuggestion);
 });
 
-// TODO-TRINO: Add column suggestions
+// TODO-TRINO: Add multiple statements
 // test('should suggest table name for column after SET between statements', () => {
 //     const autocompleteResult = parseTrinoQueryWithCursor(
 //         'ALTER TABLE before_table DROP COLUMN id; UPDATE catalog.schema.test_table SET | ; ALTER TABLE after_table DROP COLUMN id;',
@@ -120,20 +126,22 @@ test('should suggest properly after the first column', () => {
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
-// TODO-TRINO: support column suggestions
-// test('should suggest table name for second column after SET', () => {
-//     const autocompleteResult = parseTrinoQueryWithCursor('UPDATE catalog.schema.test_table SET id = 1, |');
-//
-//     const columnSuggestion: ColumnSuggestion = {tables: [{name: 'catalog.schema.test_table'}]};
-//     expect(autocompleteResult.suggestColumns).toEqual(columnSuggestion);
-// });
-//
+test('should suggest table name for second column after SET', () => {
+    const autocompleteResult = parseTrinoQueryWithCursor(
+        'UPDATE catalog.schema.test_table SET id = 1, |',
+    );
+
+    const columnSuggestion: ColumnSuggestion = {tables: [{name: 'catalog.schema.test_table'}]};
+    expect(autocompleteResult.suggestColumns).toEqual(columnSuggestion);
+});
+
+// TODO-TRINO: support multiple statements
 // test('should suggest table name for second column after SET between statements', () => {
 //     const autocompleteResult = parseTrinoQueryWithCursor(
 //         'ALTER TABLE before_table DROP COLUMN id; UPDATE catalog.schema.test_table SET id = 1, | ; ALTER TABLE after_table DROP COLUMN id;',
 //     );
 //     const columnSuggestion: ColumnSuggestion = {tables: [{name: 'catalog.schema.test_table'}]};
-//
+
 //     expect(autocompleteResult.suggestColumns).toEqual(columnSuggestion);
 // });
 
@@ -181,11 +189,11 @@ test('should suggest properly after WHERE', () => {
     ];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 
-    // TODO-TRINO: support column suggestions
-    // const columnSuggestion: ColumnSuggestion = {tables: [{name: 'catalog.schema.test_table'}]};
-    // expect(autocompleteResult.suggestColumns).toEqual(columnSuggestion);
+    const columnSuggestion: ColumnSuggestion = {tables: [{name: 'catalog.schema.test_table'}]};
+    expect(autocompleteResult.suggestColumns).toEqual(columnSuggestion);
 });
 
+// TODO-TRINO: support multiple statements
 // test('should suggest table name for column after WHERE between statements', () => {
 //     const autocompleteResult = parseTrinoQueryWithCursor(
 //         'ALTER TABLE before_table DROP COLUMN id; UPDATE catalog.schema.test_table SET id = 1 WHERE | ; ALTER TABLE after_table DROP COLUMN id;',

@@ -26,6 +26,7 @@ import { CreateTableAsSelectContext } from "./TrinoParser.js";
 import { CreateTableContext } from "./TrinoParser.js";
 import { DropTableContext } from "./TrinoParser.js";
 import { InsertContext } from "./TrinoParser.js";
+import { UpdateContext } from "./TrinoParser.js";
 import { DeleteContext } from "./TrinoParser.js";
 import { TruncateTableContext } from "./TrinoParser.js";
 import { CommentTableContext } from "./TrinoParser.js";
@@ -92,9 +93,9 @@ import { DescribeInputContext } from "./TrinoParser.js";
 import { DescribeOutputContext } from "./TrinoParser.js";
 import { SetPathContext } from "./TrinoParser.js";
 import { SetTimeZoneContext } from "./TrinoParser.js";
-import { UpdateContext } from "./TrinoParser.js";
 import { MergeContext } from "./TrinoParser.js";
 import { InsertStatementContext } from "./TrinoParser.js";
+import { UpdateStatementContext } from "./TrinoParser.js";
 import { RootQueryContext } from "./TrinoParser.js";
 import { WithFunctionContext } from "./TrinoParser.js";
 import { QueryContext } from "./TrinoParser.js";
@@ -456,6 +457,13 @@ export class TrinoParserVisitor<Result> extends AbstractParseTreeVisitor<Result>
      * @return the visitor result
      */
     visitInsert?: (ctx: InsertContext) => Result;
+    /**
+     * Visit a parse tree produced by the `update`
+     * labeled alternative in `TrinoParser.statement`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitUpdate?: (ctx: UpdateContext) => Result;
     /**
      * Visit a parse tree produced by the `delete`
      * labeled alternative in `TrinoParser.statement`.
@@ -919,13 +927,6 @@ export class TrinoParserVisitor<Result> extends AbstractParseTreeVisitor<Result>
      */
     visitSetTimeZone?: (ctx: SetTimeZoneContext) => Result;
     /**
-     * Visit a parse tree produced by the `update`
-     * labeled alternative in `TrinoParser.statement`.
-     * @param ctx the parse tree
-     * @return the visitor result
-     */
-    visitUpdate?: (ctx: UpdateContext) => Result;
-    /**
      * Visit a parse tree produced by the `merge`
      * labeled alternative in `TrinoParser.statement`.
      * @param ctx the parse tree
@@ -938,6 +939,12 @@ export class TrinoParserVisitor<Result> extends AbstractParseTreeVisitor<Result>
      * @return the visitor result
      */
     visitInsertStatement?: (ctx: InsertStatementContext) => Result;
+    /**
+     * Visit a parse tree produced by `TrinoParser.updateStatement`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitUpdateStatement?: (ctx: UpdateStatementContext) => Result;
     /**
      * Visit a parse tree produced by `TrinoParser.rootQuery`.
      * @param ctx the parse tree

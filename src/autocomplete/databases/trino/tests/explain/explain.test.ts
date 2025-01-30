@@ -14,6 +14,7 @@ test('should suggest SELECT and contain suggestTemplates with EXPLAIN prefix', (
         {value: 'DROP'},
         {value: 'ALTER'},
         {value: 'INSERT'},
+        {value: 'UPDATE'},
         {value: 'DELETE'},
         {value: 'TRUNCATE'},
         {value: 'COMMENT'},
@@ -34,7 +35,6 @@ test('should suggest SELECT and contain suggestTemplates with EXPLAIN prefix', (
         {value: 'PREPARE'},
         {value: 'DEALLOCATE'},
         {value: 'EXECUTE'},
-        {value: 'UPDATE'},
         {value: 'MERGE'},
     ];
 

@@ -34,6 +34,7 @@ statement
     )* RPAREN_ (COMMENT_ string_)? (WITH_ properties)?                                                                     # createTable
     | DROP_ TABLE_ (IF_ EXISTS_)? tableIdentifier                                                                          # dropTable
     | insertStatement                                                                                                      # insert
+    | updateStatement                                                                                                      # update
     | DELETE_ FROM_ tableIdentifier (WHERE_ booleanExpression)?                                                            # delete
     | TRUNCATE_ TABLE_ tableIdentifier                                                                                     # truncateTable
     | COMMENT_ ON_ TABLE_ tableIdentifier IS_ (string_ | NULL_)                                                            # commentTable
@@ -112,31 +113,34 @@ statement
     | DESC_ tableIdentifier                                     # showColumns
     | SHOW_ FUNCTIONS_ ((FROM_ | IN_) schemaIdentifier)? (
         LIKE_ pattern = string_ (ESCAPE_ escape = string_)?
-    )?                                                                      # showFunctions
-    | SHOW_ SESSION_ (LIKE_ pattern = string_ (ESCAPE_ escape = string_)?)? # showSession
-    | SET_ SESSION_ AUTHORIZATION_ authorizationUser                        # setSessionAuthorization
-    | RESET_ SESSION_ AUTHORIZATION_                                        # resetSessionAuthorization
-    | SET_ SESSION_ qualifiedName EQ_ expression                            # setSession
-    | RESET_ SESSION_ qualifiedName                                         # resetSession
-    | START_ TRANSACTION_ (transactionMode (COMMA_ transactionMode)*)?      # startTransaction
-    | COMMIT_ WORK_?                                                        # commit
-    | ROLLBACK_ WORK_?                                                      # rollback
-    | PREPARE_ identifier FROM_ statement                                   # prepare
-    | DEALLOCATE_ PREPARE_ identifier                                       # deallocate
-    | EXECUTE_ identifier (USING_ expression (COMMA_ expression)*)?         # execute
-    | EXECUTE_ IMMEDIATE_ string_ (USING_ expression (COMMA_ expression)*)? # executeImmediate
-    | DESCRIBE_ INPUT_ identifier                                           # describeInput
-    | DESCRIBE_ OUTPUT_ identifier                                          # describeOutput
-    | SET_ PATH_ pathSpecification                                          # setPath
-    | SET_ TIME_ ZONE_ (LOCAL_ | expression)                                # setTimeZone
-    | UPDATE_ tableIdentifier SET_ updateAssignment (COMMA_ updateAssignment)* (
-        WHERE_ where = booleanExpression
-    )?                                                                                               # update
+    )?                                                                                               # showFunctions
+    | SHOW_ SESSION_ (LIKE_ pattern = string_ (ESCAPE_ escape = string_)?)?                          # showSession
+    | SET_ SESSION_ AUTHORIZATION_ authorizationUser                                                 # setSessionAuthorization
+    | RESET_ SESSION_ AUTHORIZATION_                                                                 # resetSessionAuthorization
+    | SET_ SESSION_ qualifiedName EQ_ expression                                                     # setSession
+    | RESET_ SESSION_ qualifiedName                                                                  # resetSession
+    | START_ TRANSACTION_ (transactionMode (COMMA_ transactionMode)*)?                               # startTransaction
+    | COMMIT_ WORK_?                                                                                 # commit
+    | ROLLBACK_ WORK_?                                                                               # rollback
+    | PREPARE_ identifier FROM_ statement                                                            # prepare
+    | DEALLOCATE_ PREPARE_ identifier                                                                # deallocate
+    | EXECUTE_ identifier (USING_ expression (COMMA_ expression)*)?                                  # execute
+    | EXECUTE_ IMMEDIATE_ string_ (USING_ expression (COMMA_ expression)*)?                          # executeImmediate
+    | DESCRIBE_ INPUT_ identifier                                                                    # describeInput
+    | DESCRIBE_ OUTPUT_ identifier                                                                   # describeOutput
+    | SET_ PATH_ pathSpecification                                                                   # setPath
+    | SET_ TIME_ ZONE_ (LOCAL_ | expression)                                                         # setTimeZone
     | MERGE_ INTO_ tableIdentifier (AS_? aliasIdentifier)? USING_ relation ON_ expression mergeCase+ # merge
     ;
 
 insertStatement
     : INSERT_ INTO_ tableReference columnAliases? rootQuery
+    ;
+
+updateStatement
+    : UPDATE_ tableReference SET_ updateAssignment (COMMA_ updateAssignment)* (
+        WHERE_ where = booleanExpression
+    )?
     ;
 
 rootQuery
@@ -723,7 +727,7 @@ patternQuantifier
     ;
 
 updateAssignment
-    : identifier EQ_ expression
+    : columnIdentifier EQ_ expression
     ;
 
 explainOption
