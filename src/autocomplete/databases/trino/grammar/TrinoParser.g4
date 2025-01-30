@@ -33,7 +33,7 @@ statement
         COMMA_ tableElement
     )* RPAREN_ (COMMENT_ string_)? (WITH_ properties)?                                                                     # createTable
     | DROP_ TABLE_ (IF_ EXISTS_)? tableIdentifier                                                                          # dropTable
-    | INSERT_ INTO_ tableIdentifier columnAliases? rootQuery                                                               # insertInto
+    | insertStatement                                                                                                      # insert
     | DELETE_ FROM_ tableIdentifier (WHERE_ booleanExpression)?                                                            # delete
     | TRUNCATE_ TABLE_ tableIdentifier                                                                                     # truncateTable
     | COMMENT_ ON_ TABLE_ tableIdentifier IS_ (string_ | NULL_)                                                            # commentTable
@@ -133,6 +133,10 @@ statement
         WHERE_ where = booleanExpression
     )?                                                                                               # update
     | MERGE_ INTO_ tableIdentifier (AS_? aliasIdentifier)? USING_ relation ON_ expression mergeCase+ # merge
+    ;
+
+insertStatement
+    : INSERT_ INTO_ tableReference columnAliases? rootQuery
     ;
 
 rootQuery
@@ -360,7 +364,7 @@ aliasedRelation
     ;
 
 columnAliases
-    : LPAREN_ identifier (COMMA_ identifier)* RPAREN_
+    : LPAREN_ columnIdentifier (COMMA_ columnIdentifier)* RPAREN_
     ;
 
 relationPrimary

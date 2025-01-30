@@ -122,6 +122,9 @@ function getParseTree(
     switch (type) {
         case 'from':
             return parser.fromClause();
+        case 'insert':
+            return parser.insertStatement();
+        case 'update':
         default:
             return parser.parse();
     }

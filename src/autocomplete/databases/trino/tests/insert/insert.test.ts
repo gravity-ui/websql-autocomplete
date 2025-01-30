@@ -1,5 +1,9 @@
 import {parseTrinoQueryWithCursor, parseTrinoQueryWithoutCursor} from '../../index';
-import {KeywordSuggestion, TableOrViewSuggestion} from '../../../../shared/autocomplete-types';
+import {
+    ColumnSuggestion,
+    KeywordSuggestion,
+    TableOrViewSuggestion,
+} from '../../../../shared/autocomplete-types';
 
 test('should suggest properly after INSERT', () => {
     const autocompleteResult = parseTrinoQueryWithCursor('INSERT |');
@@ -29,6 +33,7 @@ test('should suggest properly after table name', () => {
     const autocompleteResult = parseTrinoQueryWithCursor('INSERT INTO catalog.schema.test_table |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [
+        {value: 'AS'},
         {value: 'WITH'},
         {value: 'SELECT'},
         {value: 'TABLE'},
@@ -214,12 +219,11 @@ test('should suggest properly after table name with a bracket', () => {
     ];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 
-    // TODO-TRINO: support column suggestions
-    // const columnSuggestion: ColumnSuggestion = {tables: [{name: 'test_table'}]};
-    // expect(autocompleteResult.suggestColumns).toEqual(columnSuggestion);
+    const columnSuggestion: ColumnSuggestion = {tables: [{name: 'catalog.schema.test_table'}]};
+    expect(autocompleteResult.suggestColumns).toEqual(columnSuggestion);
 });
 
-// TODO-TRINO: support column suggestions
+// TODO-TRINO: support multi-queries
 // test('should suggest table name for column between statements', () => {
 //     const autocompleteResult = parseTrinoQueryWithCursor(
 //         'ALTER TABLE before_table DROP COLUMN id; INSERT INTO test_table(| ; ALTER TABLE after_table DROP COLUMN id',

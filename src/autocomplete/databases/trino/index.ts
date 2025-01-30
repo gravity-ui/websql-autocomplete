@@ -20,7 +20,6 @@ export interface TrinoAutocompleteResult extends SqlAutocompleteResult {
     // TODO-TRINO: enrich autocomplete
     suggestAggregateFunctions?: undefined;
     suggestFunctions?: undefined;
-    suggestColumnAliases?: undefined;
     suggestDatabases?: undefined;
 }
 
