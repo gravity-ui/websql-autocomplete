@@ -130,8 +130,7 @@ import { WindowDefinitionContext } from "./TrinoParser.js";
 import { WindowSpecificationContext } from "./TrinoParser.js";
 import { NamedQueryContext } from "./TrinoParser.js";
 import { SetQuantifierContext } from "./TrinoParser.js";
-import { SelectSingleContext } from "./TrinoParser.js";
-import { SelectAllContext } from "./TrinoParser.js";
+import { SelectItemContext } from "./TrinoParser.js";
 import { RelationDefaultContext } from "./TrinoParser.js";
 import { JoinRelationContext } from "./TrinoParser.js";
 import { JoinTypeContext } from "./TrinoParser.js";
@@ -1162,19 +1161,11 @@ export class TrinoParserVisitor<Result> extends AbstractParseTreeVisitor<Result>
      */
     visitSetQuantifier?: (ctx: SetQuantifierContext) => Result;
     /**
-     * Visit a parse tree produced by the `selectSingle`
-     * labeled alternative in `TrinoParser.selectItem`.
+     * Visit a parse tree produced by `TrinoParser.selectItem`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitSelectSingle?: (ctx: SelectSingleContext) => Result;
-    /**
-     * Visit a parse tree produced by the `selectAll`
-     * labeled alternative in `TrinoParser.selectItem`.
-     * @param ctx the parse tree
-     * @return the visitor result
-     */
-    visitSelectAll?: (ctx: SelectAllContext) => Result;
+    visitSelectItem?: (ctx: SelectItemContext) => Result;
     /**
      * Visit a parse tree produced by the `relationDefault`
      * labeled alternative in `TrinoParser.relation`.

@@ -11,11 +11,13 @@ import {
 } from '../../shared/autocomplete-types.js';
 import {TrinoLexer} from './generated/TrinoLexer.js';
 import {
+    SelectItemContext,
     TableReferenceContext,
     TrinoParser,
     ViewIdentifierContext,
 } from './generated/TrinoParser.js';
 import {
+    ColumnAliasSymbol,
     TableQueryPosition,
     TableSymbol,
     TokenDictionary,
@@ -44,6 +46,21 @@ class TrinoSymbolTableVisitor extends TrinoParserVisitor<{}> implements ISymbolT
                 context.tableIdentifier()?.getText() || '',
                 context.aliasIdentifier()?.getText(),
             );
+        } catch (error) {
+            if (!(error instanceof c3.DuplicateSymbolError)) {
+                throw error;
+            }
+        }
+
+        return this.visitChildren(context) as {};
+    };
+
+    visitSelectItem = (context: SelectItemContext): {} => {
+        try {
+            const alias = context.aliasIdentifier()?.getText();
+            if (alias) {
+                this.symbolTable.addNewSymbolOfType(ColumnAliasSymbol, this.scope, alias);
+            }
         } catch (error) {
             if (!(error instanceof c3.DuplicateSymbolError)) {
                 throw error;
@@ -192,7 +209,7 @@ function enrichAutocompleteResult(
 
     if (contextSuggestionsNeeded) {
         const visitor = new TrinoSymbolTableVisitor();
-        const {tableContextSuggestion} = getContextSuggestions(
+        const {tableContextSuggestion, suggestColumnAliases} = getContextSuggestions(
             TrinoLexer,
             TrinoParser,
             visitor,
@@ -206,6 +223,9 @@ function enrichAutocompleteResult(
 
         if (tableContextSuggestion) {
             result.suggestColumns = tableContextSuggestion;
+        }
+        if (suggestColumnAliases) {
+            result.suggestColumnAliases = suggestColumnAliases;
         }
     }
 

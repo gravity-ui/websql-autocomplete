@@ -5403,7 +5403,6 @@ export class TrinoParser extends antlr.Parser {
             this.errorHandler.sync(this);
             switch (this.interpreter.adaptivePredict(this.tokenStream, 186, this.context) ) {
             case 1:
-                localContext = new SelectSingleContext(localContext);
                 this.enterOuterAlt(localContext, 1);
                 {
                 this.state = 1488;
@@ -5431,7 +5430,6 @@ export class TrinoParser extends antlr.Parser {
                 }
                 break;
             case 2:
-                localContext = new SelectAllContext(localContext);
                 this.enterOuterAlt(localContext, 2);
                 {
                 this.state = 1495;
@@ -5455,7 +5453,6 @@ export class TrinoParser extends antlr.Parser {
                 }
                 break;
             case 3:
-                localContext = new SelectAllContext(localContext);
                 this.enterOuterAlt(localContext, 3);
                 {
                 this.state = 1502;
@@ -20549,48 +20546,8 @@ export class SelectItemContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
-    public override get ruleIndex(): number {
-        return TrinoParser.RULE_selectItem;
-    }
-    public override copyFrom(ctx: SelectItemContext): void {
-        super.copyFrom(ctx);
-    }
-}
-export class SelectAllContext extends SelectItemContext {
-    public constructor(ctx: SelectItemContext) {
-        super(ctx.parent, ctx.invokingState);
-        super.copyFrom(ctx);
-    }
-    public primaryExpression(): PrimaryExpressionContext | null {
-        return this.getRuleContext(0, PrimaryExpressionContext);
-    }
-    public DOT_(): antlr.TerminalNode | null {
-        return this.getToken(TrinoParser.DOT_, 0);
-    }
-    public ASTERISK_(): antlr.TerminalNode {
-        return this.getToken(TrinoParser.ASTERISK_, 0)!;
-    }
-    public AS_(): antlr.TerminalNode | null {
-        return this.getToken(TrinoParser.AS_, 0);
-    }
-    public columnAliases(): ColumnAliasesContext | null {
-        return this.getRuleContext(0, ColumnAliasesContext);
-    }
-    public override accept<Result>(visitor: TrinoParserVisitor<Result>): Result | null {
-        if (visitor.visitSelectAll) {
-            return visitor.visitSelectAll(this);
-        } else {
-            return visitor.visitChildren(this);
-        }
-    }
-}
-export class SelectSingleContext extends SelectItemContext {
-    public constructor(ctx: SelectItemContext) {
-        super(ctx.parent, ctx.invokingState);
-        super.copyFrom(ctx);
-    }
-    public expression(): ExpressionContext {
-        return this.getRuleContext(0, ExpressionContext)!;
+    public expression(): ExpressionContext | null {
+        return this.getRuleContext(0, ExpressionContext);
     }
     public aliasIdentifier(): AliasIdentifierContext | null {
         return this.getRuleContext(0, AliasIdentifierContext);
@@ -20598,9 +20555,24 @@ export class SelectSingleContext extends SelectItemContext {
     public AS_(): antlr.TerminalNode | null {
         return this.getToken(TrinoParser.AS_, 0);
     }
+    public primaryExpression(): PrimaryExpressionContext | null {
+        return this.getRuleContext(0, PrimaryExpressionContext);
+    }
+    public DOT_(): antlr.TerminalNode | null {
+        return this.getToken(TrinoParser.DOT_, 0);
+    }
+    public ASTERISK_(): antlr.TerminalNode | null {
+        return this.getToken(TrinoParser.ASTERISK_, 0);
+    }
+    public columnAliases(): ColumnAliasesContext | null {
+        return this.getRuleContext(0, ColumnAliasesContext);
+    }
+    public override get ruleIndex(): number {
+        return TrinoParser.RULE_selectItem;
+    }
     public override accept<Result>(visitor: TrinoParserVisitor<Result>): Result | null {
-        if (visitor.visitSelectSingle) {
-            return visitor.visitSelectSingle(this);
+        if (visitor.visitSelectItem) {
+            return visitor.visitSelectItem(this);
         } else {
             return visitor.visitChildren(this);
         }
