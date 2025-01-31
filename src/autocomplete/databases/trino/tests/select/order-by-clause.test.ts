@@ -1,5 +1,9 @@
 import {parseTrinoQueryWithCursor} from '../../index';
-import {KeywordSuggestion} from '../../../../shared/autocomplete-types';
+import {
+    ColumnAliasSuggestion,
+    ColumnSuggestion,
+    KeywordSuggestion,
+} from '../../../../shared/autocomplete-types';
 
 test('should suggest properly after ORDER', () => {
     const autocompleteResult = parseTrinoQueryWithCursor(
@@ -23,6 +27,7 @@ test('should suggest properly after ORDER BY', () => {
     const autocompleteResult = parseTrinoQueryWithCursor(
         'SELECT count(*) as count, test_column t1 FROM catalog.schema.test_table as t ORDER BY |',
     );
+
     const keywordsSuggestion: KeywordSuggestion[] = [
         {value: 'NULL'},
         {value: 'INTERVAL'},
@@ -60,18 +65,19 @@ test('should suggest properly after ORDER BY', () => {
         {value: 'JSON_ARRAY'},
         {value: 'NOT'},
     ];
-
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 
     // TODO-TRINO: support functions
     // expect(autocompleteResult.suggestFunctions).toEqual(true);
     // expect(autocompleteResult.suggestAggregateFunctions).toEqual(true);
 
-    // TODO-TRINO: support column suggestions
-    // const columnSuggestion: ColumnSuggestion = {tables: [{name: 'test_table', alias: 't'}]};
-    // expect(autocompleteResult.suggestColumns).toEqual(columnSuggestion);
-    // const columnAliasSuggestion: ColumnAliasSuggestion[] = [{name: 'count'}, {name: 't1'}];
-    // expect(autocompleteResult.suggestColumnAliases).toEqual(columnAliasSuggestion);
+    const columnSuggestion: ColumnSuggestion = {
+        tables: [{name: 'catalog.schema.test_table', alias: 't'}],
+    };
+    expect(autocompleteResult.suggestColumns).toEqual(columnSuggestion);
+
+    const columnAliasSuggestion: ColumnAliasSuggestion[] = [{name: 'count'}, {name: 't1'}];
+    expect(autocompleteResult.suggestColumnAliases).toEqual(columnAliasSuggestion);
 });
 
 // TODO-TRINO: support multi-queries
@@ -125,12 +131,11 @@ test.skip('should suggest properly after ORDER BY between statements', () => {
     // expect(autocompleteResult.suggestFunctions).toEqual(true);
     // expect(autocompleteResult.suggestAggregateFunctions).toEqual(true);
 
-    // TODO-TRINO: support column suggestions
-    // const columnSuggestion: ColumnSuggestion = {tables: [{name: 'test_table', alias: 't'}]};
-    // expect(autocompleteResult.suggestColumns).toEqual(columnSuggestion);
+    const columnSuggestion: ColumnSuggestion = {tables: [{name: 'test_table', alias: 't'}]};
+    expect(autocompleteResult.suggestColumns).toEqual(columnSuggestion);
 
-    // const columnAliasSuggestion: ColumnAliasSuggestion[] = [{name: 'count'}, {name: 't1'}];
-    // expect(autocompleteResult.suggestColumnAliases).toEqual(columnAliasSuggestion);
+    const columnAliasSuggestion: ColumnAliasSuggestion[] = [{name: 'count'}, {name: 't1'}];
+    expect(autocompleteResult.suggestColumnAliases).toEqual(columnAliasSuggestion);
 });
 
 test('should suggest properly after ORDER BY in nested statement', () => {
@@ -181,11 +186,13 @@ test('should suggest properly after ORDER BY in nested statement', () => {
     // expect(autocompleteResult.suggestFunctions).toEqual(true);
     // expect(autocompleteResult.suggestAggregateFunctions).toEqual(true);
 
-    // TODO-TRINO: support column suggestions
-    // const columnSuggestion: ColumnSuggestion = {tables: [{name: 'test_table', alias: 't'}]};
-    // expect(autocompleteResult.suggestColumns).toEqual(columnSuggestion);
-    // const columnAliasSuggestion: ColumnAliasSuggestion[] = [{name: 'count'}, {name: 't1'}];
-    // expect(autocompleteResult.suggestColumnAliases).toEqual(columnAliasSuggestion);
+    const columnSuggestion: ColumnSuggestion = {
+        tables: [{name: 'catalog.schema.test_table', alias: 't'}],
+    };
+    expect(autocompleteResult.suggestColumns).toEqual(columnSuggestion);
+
+    const columnAliasSuggestion: ColumnAliasSuggestion[] = [{name: 'count'}, {name: 't1'}];
+    expect(autocompleteResult.suggestColumnAliases).toEqual(columnAliasSuggestion);
 });
 
 // TODO-TRINO: support multi-queries
@@ -239,9 +246,9 @@ test.skip('should suggest properly after ORDER BY between statements in nested s
     // expect(autocompleteResult.suggestFunctions).toEqual(true);
     // expect(autocompleteResult.suggestAggregateFunctions).toEqual(true);
 
-    // TODO-TRINO: support column suggestions
-    // const columnSuggestion: ColumnSuggestion = {tables: [{name: 'test_table', alias: 't'}]};
-    // expect(autocompleteResult.suggestColumns).toEqual(columnSuggestion);
-    // const columnAliasSuggestion: ColumnAliasSuggestion[] = [{name: 'count'}, {name: 't1'}];
-    // expect(autocompleteResult.suggestColumnAliases).toEqual(columnAliasSuggestion);
+    const columnSuggestion: ColumnSuggestion = {tables: [{name: 'test_table', alias: 't'}]};
+    expect(autocompleteResult.suggestColumns).toEqual(columnSuggestion);
+
+    const columnAliasSuggestion: ColumnAliasSuggestion[] = [{name: 'count'}, {name: 't1'}];
+    expect(autocompleteResult.suggestColumnAliases).toEqual(columnAliasSuggestion);
 });

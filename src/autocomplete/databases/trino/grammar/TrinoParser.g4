@@ -33,7 +33,8 @@ statement
         COMMA_ tableElement
     )* RPAREN_ (COMMENT_ string_)? (WITH_ properties)?                                                                     # createTable
     | DROP_ TABLE_ (IF_ EXISTS_)? tableIdentifier                                                                          # dropTable
-    | INSERT_ INTO_ tableIdentifier columnAliases? rootQuery                                                               # insertInto
+    | insertStatement                                                                                                      # insert
+    | updateStatement                                                                                                      # update
     | DELETE_ FROM_ tableIdentifier (WHERE_ booleanExpression)?                                                            # delete
     | TRUNCATE_ TABLE_ tableIdentifier                                                                                     # truncateTable
     | COMMENT_ ON_ TABLE_ tableIdentifier IS_ (string_ | NULL_)                                                            # commentTable
@@ -112,27 +113,34 @@ statement
     | DESC_ tableIdentifier                                     # showColumns
     | SHOW_ FUNCTIONS_ ((FROM_ | IN_) schemaIdentifier)? (
         LIKE_ pattern = string_ (ESCAPE_ escape = string_)?
-    )?                                                                      # showFunctions
-    | SHOW_ SESSION_ (LIKE_ pattern = string_ (ESCAPE_ escape = string_)?)? # showSession
-    | SET_ SESSION_ AUTHORIZATION_ authorizationUser                        # setSessionAuthorization
-    | RESET_ SESSION_ AUTHORIZATION_                                        # resetSessionAuthorization
-    | SET_ SESSION_ qualifiedName EQ_ expression                            # setSession
-    | RESET_ SESSION_ qualifiedName                                         # resetSession
-    | START_ TRANSACTION_ (transactionMode (COMMA_ transactionMode)*)?      # startTransaction
-    | COMMIT_ WORK_?                                                        # commit
-    | ROLLBACK_ WORK_?                                                      # rollback
-    | PREPARE_ identifier FROM_ statement                                   # prepare
-    | DEALLOCATE_ PREPARE_ identifier                                       # deallocate
-    | EXECUTE_ identifier (USING_ expression (COMMA_ expression)*)?         # execute
-    | EXECUTE_ IMMEDIATE_ string_ (USING_ expression (COMMA_ expression)*)? # executeImmediate
-    | DESCRIBE_ INPUT_ identifier                                           # describeInput
-    | DESCRIBE_ OUTPUT_ identifier                                          # describeOutput
-    | SET_ PATH_ pathSpecification                                          # setPath
-    | SET_ TIME_ ZONE_ (LOCAL_ | expression)                                # setTimeZone
-    | UPDATE_ tableIdentifier SET_ updateAssignment (COMMA_ updateAssignment)* (
+    )?                                                                                               # showFunctions
+    | SHOW_ SESSION_ (LIKE_ pattern = string_ (ESCAPE_ escape = string_)?)?                          # showSession
+    | SET_ SESSION_ AUTHORIZATION_ authorizationUser                                                 # setSessionAuthorization
+    | RESET_ SESSION_ AUTHORIZATION_                                                                 # resetSessionAuthorization
+    | SET_ SESSION_ qualifiedName EQ_ expression                                                     # setSession
+    | RESET_ SESSION_ qualifiedName                                                                  # resetSession
+    | START_ TRANSACTION_ (transactionMode (COMMA_ transactionMode)*)?                               # startTransaction
+    | COMMIT_ WORK_?                                                                                 # commit
+    | ROLLBACK_ WORK_?                                                                               # rollback
+    | PREPARE_ identifier FROM_ statement                                                            # prepare
+    | DEALLOCATE_ PREPARE_ identifier                                                                # deallocate
+    | EXECUTE_ identifier (USING_ expression (COMMA_ expression)*)?                                  # execute
+    | EXECUTE_ IMMEDIATE_ string_ (USING_ expression (COMMA_ expression)*)?                          # executeImmediate
+    | DESCRIBE_ INPUT_ identifier                                                                    # describeInput
+    | DESCRIBE_ OUTPUT_ identifier                                                                   # describeOutput
+    | SET_ PATH_ pathSpecification                                                                   # setPath
+    | SET_ TIME_ ZONE_ (LOCAL_ | expression)                                                         # setTimeZone
+    | MERGE_ INTO_ tableIdentifier (AS_? aliasIdentifier)? USING_ relation ON_ expression mergeCase+ # merge
+    ;
+
+insertStatement
+    : INSERT_ INTO_ tableReference columnAliases? rootQuery
+    ;
+
+updateStatement
+    : UPDATE_ tableReference SET_ updateAssignment (COMMA_ updateAssignment)* (
         WHERE_ where = booleanExpression
-    )?                                                                                          # update
-    | MERGE_ INTO_ tableIdentifier (AS_? identifier)? USING_ relation ON_ expression mergeCase+ # merge
+    )?
     ;
 
 rootQuery
@@ -218,11 +226,15 @@ sortItem
     ;
 
 querySpecification
-    : SELECT_ setQuantifier? selectItem (COMMA_ selectItem)* (FROM_ relation (COMMA_ relation)*)? (
+    : SELECT_ setQuantifier? selectItem (COMMA_ selectItem)* fromClause? (
         WHERE_ where = booleanExpression
     )? (GROUP_ BY_ groupBy)? (HAVING_ having = booleanExpression)? (
         WINDOW_ windowDefinition (COMMA_ windowDefinition)*
     )?
+    ;
+
+fromClause
+    : FROM_ relation (COMMA_ relation)*
     ;
 
 groupBy
@@ -261,9 +273,9 @@ setQuantifier
     ;
 
 selectItem
-    : expression (AS_? identifier)?                         # selectSingle
-    | primaryExpression DOT_ ASTERISK_ (AS_ columnAliases)? # selectAll
-    | ASTERISK_                                             # selectAll
+    : ASTERISK_
+    | expression (AS_? aliasIdentifier)?
+    | primaryExpression DOT_ ASTERISK_ (AS_ columnAliases)?
     ;
 
 relation
@@ -286,8 +298,8 @@ joinCriteria
     ;
 
 sampledRelation
-    : patternRecognition (TABLESAMPLE_ sampleType LPAREN_ percentage = expression RPAREN_)?
-    | tableIdentifier
+    : tableReference
+    | patternRecognition (TABLESAMPLE_ sampleType LPAREN_ percentage = expression RPAREN_)?
     ;
 
 sampleType
@@ -319,13 +331,13 @@ patternRecognition
         )? rowsPerMatch? (AFTER_ MATCH_ skipTo)? (INITIAL_ | SEEK_)? PATTERN_ LPAREN_ rowPattern RPAREN_ (
             SUBSET_ subsetDefinition (COMMA_ subsetDefinition)*
         )? DEFINE_ variableDefinition (COMMA_ variableDefinition)* RPAREN_ (
-            AS_? identifier columnAliases?
+            AS_? aliasIdentifier columnAliases?
         )?
     )?
     ;
 
 measureDefinition
-    : expression AS_ identifier
+    : expression AS_ aliasIdentifier
     ;
 
 rowsPerMatch
@@ -348,15 +360,15 @@ subsetDefinition
     ;
 
 variableDefinition
-    : identifier AS_ expression
+    : identifier AS_ aliasIdentifier
     ;
 
 aliasedRelation
-    : relationPrimary (AS_? identifier columnAliases?)?
+    : relationPrimary (AS_? aliasIdentifier columnAliases?)?
     ;
 
 columnAliases
-    : LPAREN_ identifier (COMMA_ identifier)* RPAREN_
+    : LPAREN_ columnIdentifier (COMMA_ columnIdentifier)* RPAREN_
     ;
 
 relationPrimary
@@ -391,8 +403,8 @@ tableArgument
     ;
 
 tableArgumentRelation
-    : TABLE_ LPAREN_ tableIdentifier RPAREN_ (AS_? identifier columnAliases?)? # tableArgumentTable
-    | TABLE_ LPAREN_ query RPAREN_ (AS_? identifier columnAliases?)?           # tableArgumentQuery
+    : TABLE_ LPAREN_ tableIdentifier RPAREN_ (AS_? aliasIdentifier columnAliases?)? # tableArgumentTable
+    | TABLE_ LPAREN_ query RPAREN_ (AS_? aliasIdentifier columnAliases?)?           # tableArgumentQuery
     ;
 
 descriptorArgument
@@ -472,7 +484,7 @@ primaryExpression
     | TRY_CAST_ LPAREN_ expression AS_ type RPAREN_                                                               # cast
     | ARRAY_ LSQUARE_ (expression (COMMA_ expression)*)? RSQUARE_                                                 # arrayConstructor
     | value = primaryExpression LSQUARE_ index = valueExpression RSQUARE_                                         # subscript
-    | identifier                                                                                                  # columnReference
+    | columnIdentifier                                                                                            # column
     | base_ = primaryExpression DOT_ fieldName = identifier                                                       # dereference
     | name = CURRENT_DATE_                                                                                        # specialDateTimeFunction
     | name = CURRENT_TIME_ (LPAREN_ precision = INTEGER_VALUE_ RPAREN_)?                                          # specialDateTimeFunction
@@ -523,7 +535,7 @@ jsonRepresentation
     ;
 
 jsonArgument
-    : jsonValueExpression AS_ identifier
+    : jsonValueExpression AS_ aliasIdentifier
     ;
 
 jsonExistsErrorBehavior
@@ -715,7 +727,7 @@ patternQuantifier
     ;
 
 updateAssignment
-    : identifier EQ_ expression
+    : columnIdentifier EQ_ expression
     ;
 
 explainOption
@@ -861,12 +873,24 @@ schemaIdentifier
     : catalogIdentifier DOT_ identifier
     ;
 
+tableReference
+    : tableIdentifier (AS_? aliasIdentifier)?
+    ;
+
 tableIdentifier
     : schemaIdentifier DOT_ identifier
     ;
 
 viewIdentifier
     : tableIdentifier
+    ;
+
+columnIdentifier
+    : identifier
+    ;
+
+aliasIdentifier
+    : identifier
     ;
 
 newSchemaIdentifier

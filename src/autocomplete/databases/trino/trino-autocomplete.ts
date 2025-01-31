@@ -5,18 +5,83 @@ import {
     AutocompleteData,
     AutocompleteResultBase,
     CursorPosition,
+    ISymbolTableVisitor,
     ProcessVisitedRulesResult,
     TableOrViewSuggestion,
 } from '../../shared/autocomplete-types.js';
 import {TrinoLexer} from './generated/TrinoLexer.js';
-import {TrinoParser} from './generated/TrinoParser.js';
 import {
+    SelectItemContext,
+    TableReferenceContext,
+    TrinoParser,
+    ViewIdentifierContext,
+} from './generated/TrinoParser.js';
+import {
+    ColumnAliasSymbol,
     TableQueryPosition,
+    TableSymbol,
     TokenDictionary,
+    getContextSuggestions,
     isStartingToWriteRule,
     shouldSuggestTemplates,
 } from '../../shared';
 import {TrinoAutocompleteResult} from './index.js';
+import {TrinoParserVisitor} from './generated/TrinoParserVisitor.js';
+
+class TrinoSymbolTableVisitor extends TrinoParserVisitor<{}> implements ISymbolTableVisitor {
+    symbolTable: c3.SymbolTable;
+    scope: c3.ScopedSymbol;
+
+    constructor() {
+        super();
+        this.symbolTable = new c3.SymbolTable('', {allowDuplicateSymbols: true});
+        this.scope = this.symbolTable.addNewSymbolOfType(c3.ScopedSymbol, undefined);
+    }
+
+    visitTableReference = (context: TableReferenceContext): {} => {
+        try {
+            this.symbolTable.addNewSymbolOfType(
+                TableSymbol,
+                this.scope,
+                context.tableIdentifier()?.getText() || '',
+                context.aliasIdentifier()?.getText(),
+            );
+        } catch (error) {
+            if (!(error instanceof c3.DuplicateSymbolError)) {
+                throw error;
+            }
+        }
+
+        return this.visitChildren(context) as {};
+    };
+
+    visitSelectItem = (context: SelectItemContext): {} => {
+        try {
+            const alias = context.aliasIdentifier()?.getText();
+            if (alias) {
+                this.symbolTable.addNewSymbolOfType(ColumnAliasSymbol, this.scope, alias);
+            }
+        } catch (error) {
+            if (!(error instanceof c3.DuplicateSymbolError)) {
+                throw error;
+            }
+        }
+
+        return this.visitChildren(context) as {};
+    };
+
+    visitViewIdentifier = (context: ViewIdentifierContext): {} => {
+        try {
+            this.symbolTable.addNewSymbolOfType(TableSymbol, this.scope, context.getText());
+        } catch (error) {
+            if (!(error instanceof c3.DuplicateSymbolError)) {
+                throw error;
+            }
+        }
+
+        return this.visitChildren(context) as {};
+    };
+}
 
 const tokenDictionary: TokenDictionary = {
     SPACE: TrinoParser.WS_,
@@ -56,6 +121,7 @@ const rulesToVisit = new Set([
     TrinoParser.RULE_schemaIdentifier,
     TrinoParser.RULE_tableIdentifier,
     TrinoParser.RULE_viewIdentifier,
+    TrinoParser.RULE_columnIdentifier,
 
     // We don't need to go inside of those rules, we already know that this is a identifier
     TrinoParser.RULE_identifier,
@@ -69,6 +135,7 @@ function processVisitedRules(
     let suggestCatalogs: TrinoAutocompleteResult['suggestCatalogs'];
     let suggestSchemas: TrinoAutocompleteResult['suggestSchemas'];
     let suggestViewsOrTables: TrinoAutocompleteResult['suggestViewsOrTables'];
+    let shouldSuggestColumns = false;
 
     for (const [ruleId, rule] of rules) {
         if (!isStartingToWriteRule(cursorTokenIndex, rule)) {
@@ -76,6 +143,10 @@ function processVisitedRules(
         }
 
         switch (ruleId) {
+            case TrinoParser.RULE_columnIdentifier: {
+                shouldSuggestColumns = true;
+                break;
+            }
             case TrinoParser.RULE_catalogIdentifier: {
                 suggestCatalogs = true;
                 break;
@@ -97,14 +168,24 @@ function processVisitedRules(
         suggestCatalogs,
         suggestSchemas,
         suggestViewsOrTables,
+        shouldSuggestColumns,
     };
 }
 
 function getParseTree(
     parser: TrinoParser,
-    _type?: TableQueryPosition['type'] | 'select',
+    type?: TableQueryPosition['type'] | 'select',
 ): ParseTree {
-    return parser.parse();
+    switch (type) {
+        case 'from':
+            return parser.fromClause();
+        case 'insert':
+            return parser.insertStatement();
+        case 'update':
+            return parser.updateStatement();
+        default:
+            return parser.parse();
+    }
 }
 
 function enrichAutocompleteResult(
@@ -115,14 +196,40 @@ function enrichAutocompleteResult(
     cursor: CursorPosition,
     query: string,
 ): TrinoAutocompleteResult {
-    const suggestionsFromRules = processVisitedRules(rules, cursorTokenIndex, tokenStream);
+    const {shouldSuggestColumns: contextSuggestionsNeeded, ...suggestionsFromRules} =
+        processVisitedRules(rules, cursorTokenIndex, tokenStream);
     const suggestTemplates = shouldSuggestTemplates(query, cursor);
-    return {
+
+    const result: TrinoAutocompleteResult = {
         ...baseResult,
         ...suggestionsFromRules,
-        suggestDatabases: undefined,
         suggestTemplates,
+        suggestDatabases: undefined,
     };
+
+    if (contextSuggestionsNeeded) {
+        const visitor = new TrinoSymbolTableVisitor();
+        const {tableContextSuggestion, suggestColumnAliases} = getContextSuggestions(
+            TrinoLexer,
+            TrinoParser,
+            visitor,
+            tokenDictionary,
+            getParseTree,
+            tokenStream,
+            cursor,
+            query,
+            true,
+        );
+
+        if (tableContextSuggestion) {
+            result.suggestColumns = tableContextSuggestion;
+        }
+        if (suggestColumnAliases) {
+            result.suggestColumnAliases = suggestColumnAliases;
+        }
+    }
+
+    return result;
 }
 
 export const trinoAutocompleteData: AutocompleteData<
