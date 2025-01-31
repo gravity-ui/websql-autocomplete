@@ -1,5 +1,12 @@
 # Changelog
 
+## [13.7.0](https://github.com/gravity-ui/websql-autocomplete/compare/v13.6.0...v13.7.0) (2025-01-31)
+
+
+### Features
+
+* add Trino column suggestions ([#282](https://github.com/gravity-ui/websql-autocomplete/issues/282)) ([0785d15](https://github.com/gravity-ui/websql-autocomplete/commit/0785d159861d73269fa8653751e5666476ededf0))
+
 ## [13.6.0](https://github.com/gravity-ui/websql-autocomplete/compare/v13.5.0...v13.6.0) (2025-01-27)
 
 
