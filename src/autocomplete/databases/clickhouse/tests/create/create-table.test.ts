@@ -161,3 +161,22 @@ test.skip('should suggest properly after the second column', () => {
     ];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
+
+test('should suggest after engine', () => {
+    const query = `CREATE TABLE test ON CLUSTER '{cluster}' ENGINE = MergeTree() |`;
+    const keywordSuggestions: KeywordSuggestion[] = [
+        {value: 'SETTINGS'},
+        {value: 'TTL'},
+        {value: 'SAMPLE'},
+        {value: 'PRIMARY'},
+        {value: 'PARTITION'},
+        {value: 'ORDER'},
+        {value: 'AS'},
+        {value: 'FORMAT'},
+        {value: 'INTO'},
+    ];
+
+    const result = parseClickHouseQueryWithCursor(query);
+
+    expect(result.suggestKeywords).toEqual(keywordSuggestions);
+});

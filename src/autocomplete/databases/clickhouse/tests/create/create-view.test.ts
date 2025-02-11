@@ -21,3 +21,21 @@ test('should suggest properly after AS', () => {
     const keywordsSuggestion: KeywordSuggestion[] = [{value: 'WITH'}, {value: 'SELECT'}];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
+
+test('should suggest after engine', () => {
+    const query = `CREATE MATERIALIZED VIEW test ON CLUSTER '{cluster}' ENGINE = MergeTree() |`;
+    const keywordSuggestions: KeywordSuggestion[] = [
+        {value: 'SETTINGS'},
+        {value: 'TTL'},
+        {value: 'SAMPLE'},
+        {value: 'PRIMARY'},
+        {value: 'PARTITION'},
+        {value: 'ORDER'},
+        {value: 'AS'},
+        {value: 'POPULATE'},
+    ];
+
+    const result = parseClickHouseQueryWithCursor(query);
+
+    expect(result.suggestKeywords).toEqual(keywordSuggestions);
+});

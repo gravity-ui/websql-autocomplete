@@ -548,12 +548,12 @@ dictionarySchemaClause
 
 dictionaryAttributeDefinition
     locals[Set<string> attrs = new Set()]
-    : identifier columnTypeExpression ({!$attrs.has("default")}? DEFAULT literal {$attrs.add("default");} | {!$attrs.has("expression")}? EXPRESSION columnExpression {$attrs.add("expression");} | {!$attrs.has("hierarchical")}? HIERARCHICAL {$attrs.add("hierarchical");} | {!$attrs.has("injective")}? INJECTIVE {$attrs.add("injective");} | {!$attrs.has("is_object_id")}? IS_OBJECT_ID {$attrs.add("is_object_id");})*
+    : identifier columnTypeExpression ({!$attrs?.has("default")}? DEFAULT literal {$attrs?.add("default");} | {!$attrs?.has("expression")}? EXPRESSION columnExpression {$attrs?.add("expression");} | {!$attrs?.has("hierarchical")}? HIERARCHICAL {$attrs?.add("hierarchical");} | {!$attrs?.has("injective")}? INJECTIVE {$attrs?.add("injective");} | {!$attrs?.has("is_object_id")}? IS_OBJECT_ID {$attrs?.add("is_object_id");})*
     ;
 
 dictionaryEngineClause
     locals[Set<string> clauses = new Set()]
-    : dictionaryPrimaryKeyClause? ({!$clauses.has("source")}? sourceClause {$clauses.add("source");} | {!$clauses.has("lifetime")}? lifetimeClause {$clauses.add("lifetime");} | {!$clauses.has("layout")}? layoutClause {$clauses.add("layout");} | {!$clauses.has("range")}? rangeClause {$clauses.add("range");} | {!$clauses.has("settings")}? dictionarySettingsClause {$clauses.add("settings");})*
+    : dictionaryPrimaryKeyClause? ({!$clauses?.has("source")}? sourceClause {$clauses?.add("source");} | {!$clauses?.has("lifetime")}? lifetimeClause {$clauses?.add("lifetime");} | {!$clauses?.has("layout")}? layoutClause {$clauses?.add("layout");} | {!$clauses?.has("range")}? rangeClause {$clauses?.add("range");} | {!$clauses?.has("settings")}? dictionarySettingsClause {$clauses?.add("settings");})*
     ;
 
 dictionaryPrimaryKeyClause
@@ -609,14 +609,14 @@ tableSchemaClause
 engineClause
     locals[Set<string> clauses = new Set()]
     : engineExpression (
-        {!$clauses.has("orderByClause")}? orderByClause {$clauses.add("orderByClause");}
-        | {!$clauses.has("partitionByClause")}? partitionByClause {$clauses.add("partitionByClause");
+        {!$clauses?.has("orderByClause")}? orderByClause {$clauses?.add("orderByClause");}
+        | {!$clauses?.has("partitionByClause")}? partitionByClause {$clauses?.add("partitionByClause");
 			}
-        | {!$clauses.has("primaryKeyClause")}? primaryKeyClause {$clauses.add("primaryKeyClause");
+        | {!$clauses?.has("primaryKeyClause")}? primaryKeyClause {$clauses?.add("primaryKeyClause");
 			}
-        | {!$clauses.has("sampleByClause")}? sampleByClause {$clauses.add("sampleByClause");}
-        | {!$clauses.has("ttlClause")}? ttlClause {$clauses.add("ttlClause");}
-        | {!$clauses.has("settingsClause")}? settingsClause {$clauses.add("settingsClause");}
+        | {!$clauses?.has("sampleByClause")}? sampleByClause {$clauses?.add("sampleByClause");}
+        | {!$clauses?.has("ttlClause")}? ttlClause {$clauses?.add("ttlClause");}
+        | {!$clauses?.has("settingsClause")}? settingsClause {$clauses?.add("settingsClause");}
     )*
     ;
 
