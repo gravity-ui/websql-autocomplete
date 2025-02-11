@@ -1,5 +1,12 @@
 # Changelog
 
+## [13.7.1](https://github.com/gravity-ui/websql-autocomplete/compare/v13.7.0...v13.7.1) (2025-02-11)
+
+
+### Bug Fixes
+
+* clickHouse autocomplete breaking because of undefined context ([#286](https://github.com/gravity-ui/websql-autocomplete/issues/286)) ([1f7d8aa](https://github.com/gravity-ui/websql-autocomplete/commit/1f7d8aa10bcd6f32152debe91f9d93bd4fe5a6af))
+
 ## [13.7.0](https://github.com/gravity-ui/websql-autocomplete/compare/v13.6.0...v13.7.0) (2025-01-31)
 
 
