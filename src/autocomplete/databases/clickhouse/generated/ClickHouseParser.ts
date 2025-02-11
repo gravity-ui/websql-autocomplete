@@ -8614,60 +8614,60 @@ export class ClickHouseParser extends antlr.Parser {
                     case 1:
                         {
                         this.state = 1848;
-                        if (!(!localContext.attrs.has("default"))) {
-                            throw this.createFailedPredicateException("!$attrs.has(\"default\")");
+                        if (!(!localContext.attrs?.has("default"))) {
+                            throw this.createFailedPredicateException("!$attrs?.has(\"default\")");
                         }
                         this.state = 1849;
                         this.match(ClickHouseParser.DEFAULT);
                         this.state = 1850;
                         this.literal();
-                        localContext.attrs.add("default");
+                        localContext.attrs?.add("default");
                         }
                         break;
                     case 2:
                         {
                         this.state = 1853;
-                        if (!(!localContext.attrs.has("expression"))) {
-                            throw this.createFailedPredicateException("!$attrs.has(\"expression\")");
+                        if (!(!localContext.attrs?.has("expression"))) {
+                            throw this.createFailedPredicateException("!$attrs?.has(\"expression\")");
                         }
                         this.state = 1854;
                         this.match(ClickHouseParser.EXPRESSION);
                         this.state = 1855;
                         this.columnExpression(0);
-                        localContext.attrs.add("expression");
+                        localContext.attrs?.add("expression");
                         }
                         break;
                     case 3:
                         {
                         this.state = 1858;
-                        if (!(!localContext.attrs.has("hierarchical"))) {
-                            throw this.createFailedPredicateException("!$attrs.has(\"hierarchical\")");
+                        if (!(!localContext.attrs?.has("hierarchical"))) {
+                            throw this.createFailedPredicateException("!$attrs?.has(\"hierarchical\")");
                         }
                         this.state = 1859;
                         this.match(ClickHouseParser.HIERARCHICAL);
-                        localContext.attrs.add("hierarchical");
+                        localContext.attrs?.add("hierarchical");
                         }
                         break;
                     case 4:
                         {
                         this.state = 1861;
-                        if (!(!localContext.attrs.has("injective"))) {
-                            throw this.createFailedPredicateException("!$attrs.has(\"injective\")");
+                        if (!(!localContext.attrs?.has("injective"))) {
+                            throw this.createFailedPredicateException("!$attrs?.has(\"injective\")");
                         }
                         this.state = 1862;
                         this.match(ClickHouseParser.INJECTIVE);
-                        localContext.attrs.add("injective");
+                        localContext.attrs?.add("injective");
                         }
                         break;
                     case 5:
                         {
                         this.state = 1864;
-                        if (!(!localContext.attrs.has("is_object_id"))) {
-                            throw this.createFailedPredicateException("!$attrs.has(\"is_object_id\")");
+                        if (!(!localContext.attrs?.has("is_object_id"))) {
+                            throw this.createFailedPredicateException("!$attrs?.has(\"is_object_id\")");
                         }
                         this.state = 1865;
                         this.match(ClickHouseParser.IS_OBJECT_ID);
-                        localContext.attrs.add("is_object_id");
+                        localContext.attrs?.add("is_object_id");
                         }
                         break;
                     }
@@ -8721,56 +8721,56 @@ export class ClickHouseParser extends antlr.Parser {
                     case 1:
                         {
                         this.state = 1875;
-                        if (!(!localContext.clauses.has("source"))) {
-                            throw this.createFailedPredicateException("!$clauses.has(\"source\")");
+                        if (!(!localContext.clauses?.has("source"))) {
+                            throw this.createFailedPredicateException("!$clauses?.has(\"source\")");
                         }
                         this.state = 1876;
                         this.sourceClause();
-                        localContext.clauses.add("source");
+                        localContext.clauses?.add("source");
                         }
                         break;
                     case 2:
                         {
                         this.state = 1879;
-                        if (!(!localContext.clauses.has("lifetime"))) {
-                            throw this.createFailedPredicateException("!$clauses.has(\"lifetime\")");
+                        if (!(!localContext.clauses?.has("lifetime"))) {
+                            throw this.createFailedPredicateException("!$clauses?.has(\"lifetime\")");
                         }
                         this.state = 1880;
                         this.lifetimeClause();
-                        localContext.clauses.add("lifetime");
+                        localContext.clauses?.add("lifetime");
                         }
                         break;
                     case 3:
                         {
                         this.state = 1883;
-                        if (!(!localContext.clauses.has("layout"))) {
-                            throw this.createFailedPredicateException("!$clauses.has(\"layout\")");
+                        if (!(!localContext.clauses?.has("layout"))) {
+                            throw this.createFailedPredicateException("!$clauses?.has(\"layout\")");
                         }
                         this.state = 1884;
                         this.layoutClause();
-                        localContext.clauses.add("layout");
+                        localContext.clauses?.add("layout");
                         }
                         break;
                     case 4:
                         {
                         this.state = 1887;
-                        if (!(!localContext.clauses.has("range"))) {
-                            throw this.createFailedPredicateException("!$clauses.has(\"range\")");
+                        if (!(!localContext.clauses?.has("range"))) {
+                            throw this.createFailedPredicateException("!$clauses?.has(\"range\")");
                         }
                         this.state = 1888;
                         this.rangeClause();
-                        localContext.clauses.add("range");
+                        localContext.clauses?.add("range");
                         }
                         break;
                     case 5:
                         {
                         this.state = 1891;
-                        if (!(!localContext.clauses.has("settings"))) {
-                            throw this.createFailedPredicateException("!$clauses.has(\"settings\")");
+                        if (!(!localContext.clauses?.has("settings"))) {
+                            throw this.createFailedPredicateException("!$clauses?.has(\"settings\")");
                         }
                         this.state = 1892;
                         this.dictionarySettingsClause();
-                        localContext.clauses.add("settings");
+                        localContext.clauses?.add("settings");
                         }
                         break;
                     }
@@ -9720,69 +9720,69 @@ export class ClickHouseParser extends antlr.Parser {
                     case 1:
                         {
                         this.state = 2008;
-                        if (!(!localContext.clauses.has("orderByClause"))) {
-                            throw this.createFailedPredicateException("!$clauses.has(\"orderByClause\")");
+                        if (!(!localContext.clauses?.has("orderByClause"))) {
+                            throw this.createFailedPredicateException("!$clauses?.has(\"orderByClause\")");
                         }
                         this.state = 2009;
                         this.orderByClause();
-                        localContext.clauses.add("orderByClause");
+                        localContext.clauses?.add("orderByClause");
                         }
                         break;
                     case 2:
                         {
                         this.state = 2012;
-                        if (!(!localContext.clauses.has("partitionByClause"))) {
-                            throw this.createFailedPredicateException("!$clauses.has(\"partitionByClause\")");
+                        if (!(!localContext.clauses?.has("partitionByClause"))) {
+                            throw this.createFailedPredicateException("!$clauses?.has(\"partitionByClause\")");
                         }
                         this.state = 2013;
                         this.partitionByClause();
-                        localContext.clauses.add("partitionByClause");
+                        localContext.clauses?.add("partitionByClause");
                         			
                         }
                         break;
                     case 3:
                         {
                         this.state = 2016;
-                        if (!(!localContext.clauses.has("primaryKeyClause"))) {
-                            throw this.createFailedPredicateException("!$clauses.has(\"primaryKeyClause\")");
+                        if (!(!localContext.clauses?.has("primaryKeyClause"))) {
+                            throw this.createFailedPredicateException("!$clauses?.has(\"primaryKeyClause\")");
                         }
                         this.state = 2017;
                         this.primaryKeyClause();
-                        localContext.clauses.add("primaryKeyClause");
+                        localContext.clauses?.add("primaryKeyClause");
                         			
                         }
                         break;
                     case 4:
                         {
                         this.state = 2020;
-                        if (!(!localContext.clauses.has("sampleByClause"))) {
-                            throw this.createFailedPredicateException("!$clauses.has(\"sampleByClause\")");
+                        if (!(!localContext.clauses?.has("sampleByClause"))) {
+                            throw this.createFailedPredicateException("!$clauses?.has(\"sampleByClause\")");
                         }
                         this.state = 2021;
                         this.sampleByClause();
-                        localContext.clauses.add("sampleByClause");
+                        localContext.clauses?.add("sampleByClause");
                         }
                         break;
                     case 5:
                         {
                         this.state = 2024;
-                        if (!(!localContext.clauses.has("ttlClause"))) {
-                            throw this.createFailedPredicateException("!$clauses.has(\"ttlClause\")");
+                        if (!(!localContext.clauses?.has("ttlClause"))) {
+                            throw this.createFailedPredicateException("!$clauses?.has(\"ttlClause\")");
                         }
                         this.state = 2025;
                         this.ttlClause();
-                        localContext.clauses.add("ttlClause");
+                        localContext.clauses?.add("ttlClause");
                         }
                         break;
                     case 6:
                         {
                         this.state = 2028;
-                        if (!(!localContext.clauses.has("settingsClause"))) {
-                            throw this.createFailedPredicateException("!$clauses.has(\"settingsClause\")");
+                        if (!(!localContext.clauses?.has("settingsClause"))) {
+                            throw this.createFailedPredicateException("!$clauses?.has(\"settingsClause\")");
                         }
                         this.state = 2029;
                         this.settingsClause();
-                        localContext.clauses.add("settingsClause");
+                        localContext.clauses?.add("settingsClause");
                         }
                         break;
                     }
@@ -21325,47 +21325,47 @@ export class ClickHouseParser extends antlr.Parser {
     private dictionaryAttributeDefinition_sempred(localContext: DictionaryAttributeDefinitionContext | null, predIndex: number): boolean {
         switch (predIndex) {
         case 0:
-            return !localContext.attrs.has("default");
+            return !localContext.attrs?.has("default");
         case 1:
-            return !localContext.attrs.has("expression");
+            return !localContext.attrs?.has("expression");
         case 2:
-            return !localContext.attrs.has("hierarchical");
+            return !localContext.attrs?.has("hierarchical");
         case 3:
-            return !localContext.attrs.has("injective");
+            return !localContext.attrs?.has("injective");
         case 4:
-            return !localContext.attrs.has("is_object_id");
+            return !localContext.attrs?.has("is_object_id");
         }
         return true;
     }
     private dictionaryEngineClause_sempred(localContext: DictionaryEngineClauseContext | null, predIndex: number): boolean {
         switch (predIndex) {
         case 5:
-            return !localContext.clauses.has("source");
+            return !localContext.clauses?.has("source");
         case 6:
-            return !localContext.clauses.has("lifetime");
+            return !localContext.clauses?.has("lifetime");
         case 7:
-            return !localContext.clauses.has("layout");
+            return !localContext.clauses?.has("layout");
         case 8:
-            return !localContext.clauses.has("range");
+            return !localContext.clauses?.has("range");
         case 9:
-            return !localContext.clauses.has("settings");
+            return !localContext.clauses?.has("settings");
         }
         return true;
     }
     private engineClause_sempred(localContext: EngineClauseContext | null, predIndex: number): boolean {
         switch (predIndex) {
         case 10:
-            return !localContext.clauses.has("orderByClause");
+            return !localContext.clauses?.has("orderByClause");
         case 11:
-            return !localContext.clauses.has("partitionByClause");
+            return !localContext.clauses?.has("partitionByClause");
         case 12:
-            return !localContext.clauses.has("primaryKeyClause");
+            return !localContext.clauses?.has("primaryKeyClause");
         case 13:
-            return !localContext.clauses.has("sampleByClause");
+            return !localContext.clauses?.has("sampleByClause");
         case 14:
-            return !localContext.clauses.has("ttlClause");
+            return !localContext.clauses?.has("ttlClause");
         case 15:
-            return !localContext.clauses.has("settingsClause");
+            return !localContext.clauses?.has("settingsClause");
         }
         return true;
     }
