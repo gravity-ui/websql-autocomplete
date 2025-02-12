@@ -9,7 +9,7 @@ options {
 
 // TODO-TRINO: support multi-queries
 parse
-    : statement? EOF
+    : statement? SEMICOLON_? EOF
     ;
 
 statement
