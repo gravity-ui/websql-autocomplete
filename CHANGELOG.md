@@ -1,5 +1,12 @@
 # Changelog
 
+## [13.8.0](https://github.com/gravity-ui/websql-autocomplete/compare/v13.7.1...v13.8.0) (2025-02-12)
+
+
+### Features
+
+* allow semicolon at the end of trino query ([#288](https://github.com/gravity-ui/websql-autocomplete/issues/288)) ([6d9817b](https://github.com/gravity-ui/websql-autocomplete/commit/6d9817bbae417b2ad2147ef4b3ab830b95e61e4f))
+
 ## [13.7.1](https://github.com/gravity-ui/websql-autocomplete/compare/v13.7.0...v13.7.1) (2025-02-11)
 
 
