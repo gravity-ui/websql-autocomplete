@@ -90,3 +90,10 @@ test('should suggest columns from subquery with multi spaces before if curson is
     };
     expect(autocompleteResult.suggestColumns).toEqual(columnSuggestions);
 });
+
+test('should suggest properly at variable definition', () => {
+    const autocompleteResult = parseYqlQueryWithCursor(
+        '$x = SELECT |',
+    );
+    expect(autocompleteResult.suggestFunctions).toEqual(true);
+});
