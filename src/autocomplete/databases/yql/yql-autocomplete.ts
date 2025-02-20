@@ -36,8 +36,8 @@ import {ColumnAliasSymbol, TableSymbol, VariableSymbol} from '../../shared/symbo
 import {isStartingToWriteRule} from '../../shared/cursor.js';
 import {shouldSuggestTemplates} from '../../shared/query.js';
 import {
-    checkShouldSuggestKeywords,
     EntitySuggestionToYqlEntity,
+    checkShouldSuggestKeywords,
     getGranularSuggestions,
     tokenDictionary,
 } from './helpers';
