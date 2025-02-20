@@ -36,10 +36,10 @@ import {ColumnAliasSymbol, TableSymbol, VariableSymbol} from '../../shared/symbo
 import {isStartingToWriteRule} from '../../shared/cursor.js';
 import {shouldSuggestTemplates} from '../../shared/query.js';
 import {
+    checkShouldSuggestKeywords,
     EntitySuggestionToYqlEntity,
     getGranularSuggestions,
     tokenDictionary,
-    checkShouldSuggestKeywords,
 } from './helpers';
 import {EntitySuggestion, InternalSuggestions, YqlAutocompleteResult} from './types';
 import {getVariableSuggestions} from '../../shared/variables';
