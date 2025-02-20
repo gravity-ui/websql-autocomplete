@@ -93,9 +93,7 @@ test('should suggest columns from subquery with multi spaces before if curson is
 });
 
 test('should suggest properly at variable definition', () => {
-    const autocompleteResult = parseYqlQueryWithCursor(
-        '$x = SELECT |',
-    );
+    const autocompleteResult = parseYqlQueryWithCursor('$x = SELECT |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [
         {value: 'ALL'},

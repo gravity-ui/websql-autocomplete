@@ -332,7 +332,10 @@ function checkShouldSuggestAllColumns(props: GetParticularSuggestionProps): bool
         );
     }
 
-    const isSelect = allRulesInList([YQLParser.RULE_select_kind_partial, YQLParser.RULE_result_column]);
+    const isSelect = allRulesInList([
+        YQLParser.RULE_select_kind_partial,
+        YQLParser.RULE_result_column,
+    ]);
     if (isSelect) {
         return isFirstPreviousTokenOfType(
             tokenStream,
