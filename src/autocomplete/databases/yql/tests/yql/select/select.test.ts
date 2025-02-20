@@ -39,11 +39,19 @@ test('should suggest properly after SELECT', () => {
     expect(autocompleteResult.suggestUdfs).toBeTruthy();
     expect(autocompleteResult.suggestSimpleTypes).toBeTruthy();
 });
+
 test('should suggest properly after FROM', () => {
     const autocompleteResult = parseYqlQueryWithCursor('FROM |');
 
     const keywordsSuggestion: KeywordSuggestion[] = [{value: 'ANY'}];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(autocompleteResult.suggestEntity).toEqual(['table', 'view', 'externalTable']);
+});
+
+test('should suggest properly after FROM between BACKTICKs', () => {
+    const autocompleteResult = parseYqlQueryWithCursor('FROM `|`');
+
+    expect(autocompleteResult.suggestKeywords).toEqual([]);
     expect(autocompleteResult.suggestEntity).toEqual(['table', 'view', 'externalTable']);
 });
 
