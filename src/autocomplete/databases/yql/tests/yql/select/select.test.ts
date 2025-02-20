@@ -48,11 +48,27 @@ test('should suggest properly after FROM', () => {
     expect(autocompleteResult.suggestEntity).toEqual(['table', 'view', 'externalTable']);
 });
 
-test('should suggest properly after FROM between BACKTICKs', () => {
-    const autocompleteResult = parseYqlQueryWithCursor('FROM `|`');
-
-    expect(autocompleteResult.suggestKeywords).toEqual([]);
-    expect(autocompleteResult.suggestEntity).toEqual(['table', 'view', 'externalTable']);
+test('should suggest properly after FROM at ID_QUOTED', () => {
+    {
+        const autocompleteResult = parseYqlQueryWithCursor('FROM `|`');
+        expect(autocompleteResult.suggestKeywords).toEqual([]);
+    }
+    {
+        const autocompleteResult = parseYqlQueryWithCursor('FROM `|');
+        expect(autocompleteResult.suggestKeywords).toEqual([{value: 'ANY'}]);
+    }
+    {
+        const autocompleteResult = parseYqlQueryWithCursor('FROM ` |');
+        expect(autocompleteResult.suggestKeywords).toEqual([{value: 'ANY'}]);
+    }
+    {
+        const autocompleteResult = parseYqlQueryWithCursor('FROM ``|');
+        expect(autocompleteResult.suggestKeywords?.length).toBeGreaterThan(0);
+    }
+    {
+        const autocompleteResult = parseYqlQueryWithCursor('FROM `` |');
+        expect(autocompleteResult.suggestKeywords?.length).toBeGreaterThan(0);
+    }
 });
 
 test('should suggest properly after *', () => {
