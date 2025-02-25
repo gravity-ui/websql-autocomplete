@@ -172,7 +172,7 @@ test('should suggest properly after RETURNS and a type', () => {
 
 test('should not report errors', () => {
     const autocompleteResult = parsePostgreSqlQueryWithoutCursor(
-        'CREATE FUNCTION test_function (test_argument CHARACTER) RETURNS TEXT LANGUAGE PLPGSQL AS $$ BEGIN RETURN "test" END; $$;',
+        'CREATE FUNCTION test_function (test_argument CHARACTER) RETURNS TEXT LANGUAGE PLPGSQL AS $$ BEGIN RETURN "test"; END; $$;',
     );
 
     expect(autocompleteResult.errors).toHaveLength(0);
