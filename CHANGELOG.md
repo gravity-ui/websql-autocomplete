@@ -1,5 +1,13 @@
 # Changelog
 
+## [13.8.1](https://github.com/gravity-ui/websql-autocomplete/compare/v13.8.0...v13.8.1) (2025-02-26)
+
+
+### Bug Fixes
+
+* **PostgreSql:** correct plpgsql parsing ([#292](https://github.com/gravity-ui/websql-autocomplete/issues/292)) ([e837854](https://github.com/gravity-ui/websql-autocomplete/commit/e83785428d12f9938bea1ff32cde52603a405d13))
+* **YQL:** absence of function completions at named node ([#290](https://github.com/gravity-ui/websql-autocomplete/issues/290)) ([771766e](https://github.com/gravity-ui/websql-autocomplete/commit/771766e24c353fa771a886fe004aa9893de1fa40))
+
 ## [13.8.0](https://github.com/gravity-ui/websql-autocomplete/compare/v13.7.1...v13.8.0) (2025-02-12)
 
 
