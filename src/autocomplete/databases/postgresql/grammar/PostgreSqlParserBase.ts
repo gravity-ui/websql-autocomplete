@@ -27,7 +27,8 @@ abstract class PostgreSqlParserBase extends Parser {
                                     ?.nonReservedWord()
                                     ?.identifier()
                                     ?.Identifier()
-                                    ?.getText();
+                                    ?.getText()
+                                    ?.toLowerCase();
                                 break;
                             }
             }
@@ -47,7 +48,7 @@ abstract class PostgreSqlParserBase extends Parser {
             switch (lang) {
                 case 'plpgsql':
                     // @ts-ignore
-                    functionAs.functionAs().Definition = ph.plsqlroot();
+                    functionAs.functionAs().Definition = ph.plsqlRoot();
                     break;
                 case 'sql':
                     // @ts-ignore
