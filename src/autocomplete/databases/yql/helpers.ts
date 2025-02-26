@@ -66,7 +66,7 @@ function getWindowFunctionsSuggestions({
     anyRuleInList,
     allRulesInList,
 }: GetParticularSuggestionProps): boolean | undefined {
-    if (!allRulesInList([YQLParser.RULE_select_stmt, YQLParser.RULE_id_expr])) {
+    if (!allRulesInList([YQLParser.RULE_select_kind_partial, YQLParser.RULE_id_expr])) {
         return;
     }
     const noWindowFunction = anyRuleInList([
@@ -332,7 +332,10 @@ function checkShouldSuggestAllColumns(props: GetParticularSuggestionProps): bool
         );
     }
 
-    const isSelect = allRulesInList([YQLParser.RULE_select_stmt, YQLParser.RULE_result_column]);
+    const isSelect = allRulesInList([
+        YQLParser.RULE_select_kind_partial,
+        YQLParser.RULE_result_column,
+    ]);
     if (isSelect) {
         return isFirstPreviousTokenOfType(
             tokenStream,
@@ -361,7 +364,7 @@ function getSimpleTypesSuggestions({
     allRulesInList,
 }: GetParticularSuggestionProps): boolean | undefined {
     const simpleTypeInExpression =
-        allRulesInList([YQLParser.RULE_id_expr, YQLParser.RULE_select_stmt]) &&
+        allRulesInList([YQLParser.RULE_id_expr, YQLParser.RULE_select_kind_partial]) &&
         !anyRuleInList(YQLParser.RULE_table_ref);
     return anyRuleInList(YQLParser.RULE_type_name_simple) || simpleTypeInExpression;
 }
@@ -379,7 +382,7 @@ function getUdfsSuggestions({anyRuleInList}: GetParticularSuggestionProps): bool
     ) {
         return;
     }
-    return anyRuleInList(YQLParser.RULE_select_stmt);
+    return anyRuleInList(YQLParser.RULE_select_kind_partial);
 }
 
 function getTableFunctionsSuggestions({
@@ -394,14 +397,14 @@ function getFunctionsSuggestions({
     if (!anyRuleInList(YQLParser.RULE_id_expr) || anyRuleInList(YQLParser.RULE_table_ref)) {
         return;
     }
-    return anyRuleInList(YQLParser.RULE_select_stmt);
+    return anyRuleInList(YQLParser.RULE_select_kind_partial);
 }
 
 function getAggregateFunctionsSuggestions({
     anyRuleInList,
     allRulesInList,
 }: GetParticularSuggestionProps): boolean | undefined {
-    if (!allRulesInList([YQLParser.RULE_select_stmt, YQLParser.RULE_id_expr])) {
+    if (!allRulesInList([YQLParser.RULE_select_kind_partial, YQLParser.RULE_id_expr])) {
         return;
     }
     const noAggregateFunction = anyRuleInList([

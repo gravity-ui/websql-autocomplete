@@ -1,4 +1,5 @@
 import {parseYqlQueryWithCursor} from '../../../index';
+import {KeywordSuggestion} from '../../../../../shared/autocomplete-types';
 import {YQLColumnsSuggestion} from '../../../types';
 
 test('should suggest table name for column between statements', () => {
@@ -89,4 +90,42 @@ test('should suggest columns from subquery with multi spaces before if curson is
         all: true,
     };
     expect(autocompleteResult.suggestColumns).toEqual(columnSuggestions);
+});
+
+test('should suggest properly at variable definition', () => {
+    const autocompleteResult = parseYqlQueryWithCursor('$x = SELECT |');
+
+    const keywordsSuggestion: KeywordSuggestion[] = [
+        {value: 'ALL'},
+        {value: 'DISTINCT'},
+        {value: '*'},
+        {value: 'NULL'},
+        {value: 'FALSE'},
+        {value: 'TRUE'},
+        {value: 'EMPTY_ACTION'},
+        {value: 'CAST'},
+        {value: 'EXISTS'},
+        {value: 'CASE'},
+        {value: 'VARIANT'},
+        {value: 'ENUM'},
+        {value: 'CALLABLE'},
+        {value: 'BITCAST'},
+        {value: 'JSON_VALUE'},
+        {value: 'JSON_EXISTS'},
+        {value: 'JSON_QUERY'},
+        {value: 'NOT'},
+        {value: 'OPTIONAL'},
+        {value: 'TUPLE'},
+        {value: 'STRUCT'},
+        {value: 'LIST'},
+        {value: 'FLOW'},
+        {value: 'DICT'},
+        {value: 'SET'},
+        {value: 'RESOURCE'},
+        {value: 'TAGGED'},
+    ];
+    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(autocompleteResult.suggestFunctions).toBeTruthy();
+    expect(autocompleteResult.suggestUdfs).toBeTruthy();
+    expect(autocompleteResult.suggestSimpleTypes).toBeTruthy();
 });
