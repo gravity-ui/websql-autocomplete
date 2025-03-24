@@ -1,5 +1,17 @@
 # Changelog
 
+## [13.9.0](https://github.com/gravity-ui/websql-autocomplete/compare/v13.8.1...v13.9.0) (2025-03-24)
+
+
+### Features
+
+* **Trino:** enable multiple queries ([#294](https://github.com/gravity-ui/websql-autocomplete/issues/294)) ([7b2647d](https://github.com/gravity-ui/websql-autocomplete/commit/7b2647dd3bb1c953499de8de5c8828df5916173e))
+
+
+### Bug Fixes
+
+* **YQL:** keyword suggestion at ID_QUOTED ([#291](https://github.com/gravity-ui/websql-autocomplete/issues/291)) ([8a8fe71](https://github.com/gravity-ui/websql-autocomplete/commit/8a8fe718aacdf303d4c7015329590ac22539ae2c))
+
 ## [13.8.1](https://github.com/gravity-ui/websql-autocomplete/compare/v13.8.0...v13.8.1) (2025-02-26)
 
 
