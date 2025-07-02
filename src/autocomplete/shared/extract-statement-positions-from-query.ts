@@ -20,6 +20,9 @@ export interface ExtractStatementPositionsResult {
     strategy: StatementExtractionStrategy;
 }
 
+// Queries with too many statements will be too slow to extract using autocomplete
+const maxAutocompleteIterations = 30;
+
 export function extractStatementPositionsFromQuery<L extends LexerType, P extends ParserType>(
     query: string,
     Lexer: LexerConstructor<L>,
@@ -38,6 +41,19 @@ export function extractStatementPositionsFromQuery<L extends LexerType, P extend
     parser.addErrorListener(errorListener);
     getParseTree(parser);
 
+    const tokenStatementPositions = extractStatementsUsingTokens(
+        tokenStream,
+        emptySpaceTokens,
+        endStatementToken,
+    );
+    const tokenStatementResult = {
+        statementPositions: tokenStatementPositions,
+        strategy: StatementExtractionStrategy.Tokens,
+    };
+    if (tokenStatementPositions.length > maxAutocompleteIterations) {
+        return tokenStatementResult;
+    }
+
     const autocompleteStatementPositions = extractStatementsUsingAutocomplete(
         parser,
         tokenStream,
@@ -51,15 +67,7 @@ export function extractStatementPositionsFromQuery<L extends LexerType, P extend
         };
     }
 
-    const tokenStatementPositions = extractStatementsUsingTokens(
-        tokenStream,
-        emptySpaceTokens,
-        endStatementToken,
-    );
-    return {
-        statementPositions: tokenStatementPositions,
-        strategy: StatementExtractionStrategy.Tokens,
-    };
+    return tokenStatementResult;
 }
 
 export function extractStatementsUsingTokens(
