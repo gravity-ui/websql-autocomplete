@@ -43,6 +43,7 @@ export function extractStatementPositionsFromQuery<L extends LexerType, P extend
         tokenStream,
         statementsVisitor,
         emptySpaceTokens,
+        endStatementToken,
     );
     if (autocompleteStatementPositions.length) {
         return {
@@ -66,6 +67,7 @@ export function extractStatementsUsingTokens(
     tokenStream: TokenStream,
     emptySpaceTokens: number[],
     endStatementToken: number,
+    startTokenIndex = 0,
 ): StatementPosition[] {
     let statementStartIndex = 0;
     let processingNewStatement = false;
@@ -74,7 +76,7 @@ export function extractStatementsUsingTokens(
     const lastTokenIndex = tokenStream.size - 2;
     const statementPositions: StatementPosition[] = [];
 
-    for (let index = 0; index <= lastTokenIndex; index++) {
+    for (let index = startTokenIndex; index <= lastTokenIndex; index++) {
         const token = tokenStream.get(index);
         const isEndStatementToken = token.type === endStatementToken;
         const isEmptyToken = emptySpaceTokens.includes(token.type);
@@ -119,6 +121,7 @@ export function extractStatementsUsingAutocomplete(
     tokenStream: TokenStream,
     statementsVisitor: StatementsVisitor,
     emptySpaceTokens: number[],
+    endStatementToken: number,
 ): StatementPosition[] {
     statementsVisitor.visit(parseTree);
     const statementPositions = statementsVisitor.statementPositions;
@@ -127,23 +130,18 @@ export function extractStatementsUsingAutocomplete(
         return [];
     }
 
-    // If last statement is not complete, the visitor will not parse it,
-    // so we want to add the rest of the query as a new statement
+    // If last statement is not complete or there is an error in the query,
+    // the visitor will only parse first valid n statements, so we want to tokenize the rest of the query
     const lastTokenEndIndex = getLastNonEmptyTokenEndIndex(tokenStream, emptySpaceTokens);
     if (lastAutocompleteStatement.endIndex !== lastTokenEndIndex) {
-        const firstTokenStartIndex = getFirstNonEmptyTokenStartIndex(
+        const restStatements = extractStatementsUsingTokens(
             tokenStream,
             emptySpaceTokens,
+            endStatementToken,
             statementsVisitor.lastTokenIndex,
         );
 
-        return [
-            ...statementPositions,
-            {
-                startIndex: firstTokenStartIndex,
-                endIndex: lastTokenEndIndex,
-            },
-        ];
+        return [...statementPositions, ...restStatements];
     }
 
     return statementPositions;
@@ -160,21 +158,6 @@ function getLastNonEmptyTokenEndIndex(
         const token = tokenStream.get(index);
         if (!emptySpaceTokens.includes(token.type)) {
             return token.start + (token.text?.length || 0);
-        }
-    }
-
-    return -1;
-}
-
-function getFirstNonEmptyTokenStartIndex(
-    tokenStream: TokenStream,
-    emptySpaceTokens: number[],
-    lastTokenIndex: number,
-): number {
-    for (let index = lastTokenIndex + 1; index < tokenStream.size; index++) {
-        const token = tokenStream.get(index);
-        if (!emptySpaceTokens.includes(token.type)) {
-            return token.start;
         }
     }
 
