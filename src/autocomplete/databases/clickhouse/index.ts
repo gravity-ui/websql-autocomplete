@@ -11,7 +11,7 @@ import {
     ExtractStatementPositionsResult,
     extractStatementPositionsFromQuery,
 } from '../../shared/extract-statement-positions-from-query';
-import {ClickHouseParser} from './generated/ClickHouseParser';
+import {ClickHouseStatementsVisitor} from './clickhouse-extract-statements';
 
 export interface ClickHouseAutocompleteResult extends SqlAutocompleteResult {
     suggestViewsOrTables?: TableOrViewSuggestion;
@@ -63,7 +63,7 @@ export function extractClickHouseStatementPositionsFromQuery(
         clickHouseAutocompleteData.tokenDictionary.SPACE,
         [clickHouseAutocompleteData.tokenDictionary.SPACE],
         clickHouseAutocompleteData.tokenDictionary.SEMICOLON,
-        ClickHouseParser.RULE_statement,
+        new ClickHouseStatementsVisitor(),
         clickHouseAutocompleteData.getParseTree,
     );
 }

@@ -1,0 +1,34 @@
+import {IStatementsVisitor, StatementPosition} from '../../shared';
+import {CommandsContext} from './generated/MongoParser';
+import {MongoParserVisitor} from './generated/MongoParserVisitor';
+
+export class MongoStatementsVisitor
+    extends MongoParserVisitor<unknown>
+    implements IStatementsVisitor
+{
+    statementPositions: StatementPosition[] = [];
+    lastTokenIndex = 0;
+
+    visitCommands = (context: CommandsContext): void => {
+        if (!context.start || !context.stop) {
+            return;
+        }
+
+        // eslint-disable-next-line new-cap
+        const semi = context.SEMICOLON();
+
+        this.statementPositions.push({
+            startIndex: context.start.start,
+            endIndex: semi
+                ? semi.symbol.start + 1
+                : context.stop.start + (context.stop.text?.length ?? 0),
+        });
+
+        const otherStatements = context.commands();
+        if (otherStatements) {
+            this.visitCommands(otherStatements);
+        } else {
+            this.lastTokenIndex = semi ? semi.symbol.tokenIndex : context.stop.tokenIndex;
+        }
+    };
+}

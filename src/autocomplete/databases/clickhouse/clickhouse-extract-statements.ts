@@ -1,0 +1,34 @@
+import {IStatementsVisitor, StatementPosition} from '../../shared';
+import {StatementsContext} from './generated/ClickHouseParser';
+import {ClickHouseParserVisitor} from './generated/ClickHouseParserVisitor';
+
+export class ClickHouseStatementsVisitor
+    extends ClickHouseParserVisitor<unknown>
+    implements IStatementsVisitor
+{
+    statementPositions: StatementPosition[] = [];
+    lastTokenIndex = 0;
+
+    visitStatements = (context: StatementsContext): void => {
+        if (!context.start || !context.stop) {
+            return;
+        }
+
+        // eslint-disable-next-line new-cap
+        const semi = context.SEMICOLON();
+
+        this.statementPositions.push({
+            startIndex: context.start.start,
+            endIndex: semi
+                ? semi.symbol.start + 1
+                : context.stop.start + (context.stop.text?.length ?? 0),
+        });
+
+        const otherStatements = context.statements();
+        if (otherStatements) {
+            this.visitStatements(otherStatements);
+        } else {
+            this.lastTokenIndex = semi ? semi.symbol.tokenIndex : context.stop.tokenIndex;
+        }
+    };
+}

@@ -1,14 +1,14 @@
-import * as c3 from 'antlr4-c3';
-import type {Lexer as LexerType, Parser as ParserType, Token, TokenStream} from 'antlr4ng';
+import type {Lexer as LexerType, ParseTree, Parser as ParserType, TokenStream} from 'antlr4ng';
 
-import {GetParseTree, LexerConstructor, ParserConstructor} from './autocomplete-types';
+import {
+    GetParseTree,
+    LexerConstructor,
+    ParserConstructor,
+    StatementPosition,
+    StatementsVisitor,
+} from './autocomplete-types';
 import {createParser} from './query';
 import {SqlErrorListener} from './sql-error-listener';
-
-export interface StatementPosition {
-    startIndex: number;
-    endIndex: number;
-}
 
 export enum StatementExtractionStrategy {
     Autocomplete = 'autocomplete',
@@ -20,9 +20,6 @@ export interface ExtractStatementPositionsResult {
     strategy: StatementExtractionStrategy;
 }
 
-// Queries with too many statements will be too slow to extract using autocomplete
-const maxAutocompleteIterations = 30;
-
 export function extractStatementPositionsFromQuery<L extends LexerType, P extends ParserType>(
     query: string,
     Lexer: LexerConstructor<L>,
@@ -30,7 +27,7 @@ export function extractStatementPositionsFromQuery<L extends LexerType, P extend
     whitespaceToken: number,
     emptySpaceTokens: number[],
     endStatementToken: number,
-    statementRule: number,
+    statementsVisitor: StatementsVisitor,
     getParseTree: GetParseTree<P>,
 ): ExtractStatementPositionsResult {
     const parser = createParser(Lexer, Parser, query);
@@ -39,26 +36,13 @@ export function extractStatementPositionsFromQuery<L extends LexerType, P extend
 
     parser.removeErrorListeners();
     parser.addErrorListener(errorListener);
-    getParseTree(parser);
-
-    const tokenStatementPositions = extractStatementsUsingTokens(
-        tokenStream,
-        emptySpaceTokens,
-        endStatementToken,
-    );
-    const tokenStatementResult = {
-        statementPositions: tokenStatementPositions,
-        strategy: StatementExtractionStrategy.Tokens,
-    };
-    if (tokenStatementPositions.length > maxAutocompleteIterations) {
-        return tokenStatementResult;
-    }
+    const parseTree = getParseTree(parser);
 
     const autocompleteStatementPositions = extractStatementsUsingAutocomplete(
-        parser,
+        parseTree,
         tokenStream,
-        statementRule,
-        endStatementToken,
+        statementsVisitor,
+        emptySpaceTokens,
     );
     if (autocompleteStatementPositions.length) {
         return {
@@ -67,7 +51,15 @@ export function extractStatementPositionsFromQuery<L extends LexerType, P extend
         };
     }
 
-    return tokenStatementResult;
+    const tokenStatementPositions = extractStatementsUsingTokens(
+        tokenStream,
+        emptySpaceTokens,
+        endStatementToken,
+    );
+    return {
+        statementPositions: tokenStatementPositions,
+        strategy: StatementExtractionStrategy.Tokens,
+    };
 }
 
 export function extractStatementsUsingTokens(
@@ -122,54 +114,68 @@ export function extractStatementsUsingTokens(
     return statementPositions;
 }
 
-export function extractStatementsUsingAutocomplete<P extends ParserType>(
-    parser: P,
+export function extractStatementsUsingAutocomplete(
+    parseTree: ParseTree,
     tokenStream: TokenStream,
-    statementRule: number,
-    endStatementToken: number,
+    statementsVisitor: StatementsVisitor,
+    emptySpaceTokens: number[],
 ): StatementPosition[] {
-    const core = new c3.CodeCompletionCore(parser);
-    core.preferredRules = new Set([statementRule]);
-
-    // Last token is EOF, so we want to get second to last
-    let currentToken = tokenStream.get(tokenStream.size - 2);
-    const statementPositions: StatementPosition[] = [];
-
-    while (currentToken?.tokenIndex > 0) {
-        // Autocomplete triggers on 'statement' rule, i.e. if a token is inside a valid statement,
-        // then a 'statement' rule will be triggered and we can get startIndex
-        let rules = core.collectCandidates(currentToken.tokenIndex).rules;
-        // Sometimes autocomplete doesn't infer statement context on semicolon
-        // So we try to get the rule from the token before semicolon
-        if (!rules.size && currentToken.type === endStatementToken) {
-            rules = core.collectCandidates(currentToken.tokenIndex - 1).rules;
-        }
-
-        let startToken: Token | undefined;
-        for (const [ruleId, {startTokenIndex}] of rules) {
-            if (ruleId === statementRule) {
-                startToken = tokenStream.get(startTokenIndex);
-                break;
-            }
-        }
-
-        if (!startToken) {
-            break;
-        }
-
-        // Skip comments
-        if (startToken.tokenIndex > currentToken.tokenIndex) {
-            currentToken = tokenStream.get(currentToken.tokenIndex - 1);
-            continue;
-        }
-
-        statementPositions.push({
-            startIndex: startToken.start,
-            endIndex: currentToken.start + (currentToken.text?.length || 0),
-        });
-        currentToken = tokenStream.get(startToken.tokenIndex - 1);
+    statementsVisitor.visit(parseTree);
+    const statementPositions = statementsVisitor.statementPositions;
+    const lastAutocompleteStatement = statementPositions[statementPositions.length - 1];
+    if (!lastAutocompleteStatement) {
+        return [];
     }
 
-    statementPositions.reverse();
+    // If last statement is not complete, the visitor will not parse it,
+    // so we want to add the rest of the query as a new statement
+    const lastTokenEndIndex = getLastNonEmptyTokenEndIndex(tokenStream, emptySpaceTokens);
+    if (lastAutocompleteStatement.endIndex !== lastTokenEndIndex) {
+        const firstTokenStartIndex = getFirstNonEmptyTokenStartIndex(
+            tokenStream,
+            emptySpaceTokens,
+            statementsVisitor.lastTokenIndex,
+        );
+
+        return [
+            ...statementPositions,
+            {
+                startIndex: firstTokenStartIndex,
+                endIndex: lastTokenEndIndex,
+            },
+        ];
+    }
+
     return statementPositions;
+}
+
+function getLastNonEmptyTokenEndIndex(
+    tokenStream: TokenStream,
+    emptySpaceTokens: number[],
+): number {
+    const lastTokenIndex = tokenStream.size - 2;
+
+    for (let index = lastTokenIndex; index >= 0; index--) {
+        const token = tokenStream.get(index);
+        if (!emptySpaceTokens.includes(token.type)) {
+            return token.start + (token.text?.length || 0);
+        }
+    }
+
+    return -1;
+}
+
+function getFirstNonEmptyTokenStartIndex(
+    tokenStream: TokenStream,
+    emptySpaceTokens: number[],
+    lastTokenIndex: number,
+): number {
+    for (let index = lastTokenIndex + 1; index < tokenStream.size; index++) {
+        const token = tokenStream.get(index);
+        if (!emptySpaceTokens.includes(token.type)) {
+            return token.start;
+        }
+    }
+
+    return -1;
 }

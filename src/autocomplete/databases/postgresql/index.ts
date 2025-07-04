@@ -12,7 +12,7 @@ import {
     extractStatementPositionsFromQuery,
 } from '../../shared/extract-statement-positions-from-query';
 import {PostgreSqlLexer} from './generated/PostgreSqlLexer';
-import {PostgreSqlParser} from './generated/PostgreSqlParser';
+import {PostgreSqlStatementsVisitor} from './postgresql-extract-statements';
 
 export interface PostgreSqlAutocompleteResult extends SqlAutocompleteResult {
     suggestViewsOrTables?: TableOrViewSuggestion;
@@ -69,7 +69,7 @@ export function extractPostgreSqlStatementPositionsFromQuery(
         postgreSqlAutocompleteData.tokenDictionary.SPACE,
         [PostgreSqlLexer.Newline, postgreSqlAutocompleteData.tokenDictionary.SPACE],
         postgreSqlAutocompleteData.tokenDictionary.SEMICOLON,
-        PostgreSqlParser.RULE_statement,
+        new PostgreSqlStatementsVisitor(),
         postgreSqlAutocompleteData.getParseTree,
     );
 }

@@ -1,6 +1,6 @@
 import {redisAutocompleteData} from './redis-autocomplete.js';
 import {tokenize} from '../../shared/tokenize.js';
-import {StatementPosition} from '../../shared/extract-statement-positions-from-query.js';
+import {StatementPosition} from '../../shared/autocomplete-types.js';
 
 export type RedisCommands = string[][];
 

@@ -235,7 +235,7 @@ test('should extract three statements from query', () => {
     ).toBe('db.first_collection.find();');
 });
 
-test('should fallback to tokens when query is not valid', () => {
+test('should parse last invalid statement', () => {
     const query = 'db.test_collection.find({});\nsel asd aaasdjalkdj';
 
     const result = extractMongoStatementPositionsFromQuery(query);
@@ -244,7 +244,7 @@ test('should fallback to tokens when query is not valid', () => {
             {startIndex: 0, endIndex: 28},
             {startIndex: 29, endIndex: 48},
         ],
-        strategy: StatementExtractionStrategy.Tokens,
+        strategy: StatementExtractionStrategy.Autocomplete,
     };
 
     expect(result).toEqual(expectedResult);

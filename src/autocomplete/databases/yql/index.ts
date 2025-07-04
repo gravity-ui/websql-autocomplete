@@ -9,7 +9,7 @@ import {
     ExtractStatementPositionsResult,
     extractStatementPositionsFromQuery,
 } from '../../shared/extract-statement-positions-from-query';
-import {YQLParser} from './generated/YQLParser';
+import {YqlStatementsVisitor} from './yql-extract-statements';
 
 export function parseYqlQueryWithoutCursor(query: string): Pick<YqlAutocompleteResult, 'errors'> {
     return parseQueryWithoutCursor(
@@ -88,7 +88,7 @@ export function extractYqlStatementPositionsFromQuery(
         yqlAutocompleteData.tokenDictionary.SPACE,
         [yqlAutocompleteData.tokenDictionary.SPACE],
         yqlAutocompleteData.tokenDictionary.SEMICOLON,
-        YQLParser.RULE_sql_stmt,
+        new YqlStatementsVisitor(),
         yqlAutocompleteData.getParseTree,
     );
 }

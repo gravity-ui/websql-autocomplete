@@ -1,0 +1,34 @@
+import {IStatementsVisitor, StatementPosition} from '../../shared';
+import {Sql_stmt_listContext} from './generated/YQLParser';
+import {YQLVisitor} from './generated/YQLVisitor';
+
+export class YqlStatementsVisitor extends YQLVisitor<unknown> implements IStatementsVisitor {
+    statementPositions: StatementPosition[] = [];
+    lastTokenIndex = 0;
+
+    visitSql_stmt_list = (context: Sql_stmt_listContext): void => {
+        if (!context.start || !context.stop) {
+            return;
+        }
+
+        let currentIndex = 0;
+        let statement = context.sql_stmt(currentIndex);
+        // eslint-disable-next-line new-cap
+        let semi = context.SEMICOLON(currentIndex);
+
+        while (statement?.start && statement.stop) {
+            this.statementPositions.push({
+                startIndex: statement.start.start,
+                endIndex: semi
+                    ? semi.symbol.start + 1
+                    : statement.stop.start + (statement.stop.text?.length ?? 0),
+            });
+
+            this.lastTokenIndex = semi ? semi.symbol.tokenIndex : statement.stop.tokenIndex;
+            currentIndex++;
+            statement = context.sql_stmt(currentIndex);
+            // eslint-disable-next-line new-cap
+            semi = context.SEMICOLON(currentIndex);
+        }
+    };
+}
