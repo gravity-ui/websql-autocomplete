@@ -153,6 +153,7 @@ function getLastNonEmptyTokenEndIndex(
     tokenStream: TokenStream,
     emptySpaceTokens: number[],
 ): number {
+    // Last token is EOF, so we want to get second to last
     const lastTokenIndex = tokenStream.size - 2;
 
     for (let index = lastTokenIndex; index >= 0; index--) {
