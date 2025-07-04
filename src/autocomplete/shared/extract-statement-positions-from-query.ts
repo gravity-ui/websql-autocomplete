@@ -130,21 +130,25 @@ export function extractStatementsUsingAutocomplete(
         return [];
     }
 
-    // If last statement is not complete or there is an error in the query,
-    // the visitor will only parse first valid n statements, so we want to tokenize the rest of the query
     const lastTokenEndIndex = getLastNonEmptyTokenEndIndex(tokenStream, emptySpaceTokens);
-    if (lastAutocompleteStatement.endIndex !== lastTokenEndIndex) {
-        const restStatements = extractStatementsUsingTokens(
-            tokenStream,
-            emptySpaceTokens,
-            endStatementToken,
-            statementsVisitor.lastTokenIndex,
-        );
-
-        return [...statementPositions, ...restStatements];
+    if (lastAutocompleteStatement.endIndex === lastTokenEndIndex) {
+        return statementPositions;
     }
 
-    return statementPositions;
+    // If last statement is not complete or there is an error in the query,
+    // the visitor will only parse first valid n statements, so we want to tokenize the rest of the query
+    const restStatements = extractStatementsUsingTokens(
+        tokenStream,
+        emptySpaceTokens,
+        endStatementToken,
+        statementsVisitor.lastTokenIndex,
+    );
+    if (restStatements[0] && lastAutocompleteStatement.endIndex >= restStatements[0].startIndex) {
+        // Parsing methods clash too much - fallback to tokens extraction
+        return [];
+    }
+
+    return [...statementPositions, ...restStatements];
 }
 
 function getLastNonEmptyTokenEndIndex(
