@@ -261,7 +261,7 @@ test('should extract three statements from query', () => {
     ).toBe('SELECT 1;');
 });
 
-test('should fallback to tokens when query is not valid', () => {
+test('should parse last invalid statement', () => {
     const query = 'SELECT * FROM catalog.schema.test_table WHERE id = 1;\nsel asd aaasdjalkdj';
 
     const result = extractTrinoStatementPositionsFromQuery(query);
@@ -276,7 +276,7 @@ test('should fallback to tokens when query is not valid', () => {
                 endIndex: 73,
             },
         ],
-        strategy: StatementExtractionStrategy.Tokens,
+        strategy: StatementExtractionStrategy.Autocomplete,
     };
 
     expect(result).toEqual(expectedResult);

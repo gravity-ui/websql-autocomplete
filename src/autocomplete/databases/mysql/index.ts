@@ -11,7 +11,7 @@ import {
     ExtractStatementPositionsResult,
     extractStatementPositionsFromQuery,
 } from '../../shared/extract-statement-positions-from-query';
-import {MySqlParser} from './generated/MySqlParser';
+import {MySqlStatementsVisitor} from './mysql-extract-statements';
 
 export interface MySqlAutocompleteResult extends SqlAutocompleteResult {
     suggestViewsOrTables?: TableOrViewSuggestion;
@@ -62,7 +62,7 @@ export function extractMySqlStatementPositionsFromQuery(
         mySqlAutocompleteData.tokenDictionary.SPACE,
         [mySqlAutocompleteData.tokenDictionary.SPACE],
         mySqlAutocompleteData.tokenDictionary.SEMICOLON,
-        MySqlParser.RULE_statement,
+        new MySqlStatementsVisitor(),
         mySqlAutocompleteData.getParseTree,
     );
 }

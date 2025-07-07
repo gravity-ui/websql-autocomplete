@@ -260,7 +260,7 @@ test('should extract three statements from query', () => {
     ).toBe('SELECT 1;');
 });
 
-test('should fallback to tokens when query is not valid', () => {
+test('should parse last invalid statement', () => {
     const query = 'SELECT * FROM art WHERE id = 1;\nsel asd aaasdjalkdj';
 
     const result = extractMySqlStatementPositionsFromQuery(query);
@@ -275,7 +275,7 @@ test('should fallback to tokens when query is not valid', () => {
                 endIndex: 51,
             },
         ],
-        strategy: StatementExtractionStrategy.Tokens,
+        strategy: StatementExtractionStrategy.Autocomplete,
     };
 
     expect(result).toEqual(expectedResult);

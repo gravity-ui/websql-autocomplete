@@ -7,6 +7,7 @@ import {
     ExtractStatementPositionsResult,
     extractStatementPositionsFromQuery,
 } from '../../shared/extract-statement-positions-from-query';
+import {MongoStatementsVisitor} from './mongo-extract-statements';
 
 export * from './mongo-extract-commands';
 
@@ -56,7 +57,7 @@ export function extractMongoStatementPositionsFromQuery(
         mongoAutocompleteData.tokenDictionary.SPACE,
         [mongoAutocompleteData.tokenDictionary.SPACE],
         mongoAutocompleteData.tokenDictionary.SEMICOLON,
-        MongoParser.RULE_command,
+        new MongoStatementsVisitor(),
         mongoAutocompleteData.getParseTree,
     );
 }

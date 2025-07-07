@@ -14,7 +14,6 @@ import {TokenPosition} from './cursor';
 import {TableQueryPosition, TokenDictionary} from './tables';
 
 export {
-    StatementPosition,
     ExtractStatementPositionsResult,
     StatementExtractionStrategy,
 } from './extract-statement-positions-from-query';
@@ -138,3 +137,15 @@ export interface CursorPosition {
     line: number;
     column: number;
 }
+
+export interface StatementPosition {
+    startIndex: number;
+    endIndex: number;
+}
+
+export interface IStatementsVisitor {
+    statementPositions: StatementPosition[];
+    lastTokenIndex: number;
+}
+
+export type StatementsVisitor = IStatementsVisitor & AbstractParseTreeVisitor<unknown>;

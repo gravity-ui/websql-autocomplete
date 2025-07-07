@@ -10,7 +10,7 @@ import {
     ExtractStatementPositionsResult,
     extractStatementPositionsFromQuery,
 } from '../../shared/extract-statement-positions-from-query';
-import {TrinoParser} from './generated/TrinoParser';
+import {TrinoStatementsVisitor} from './trino-extract-statements';
 
 export interface TrinoAutocompleteResult extends SqlAutocompleteResult {
     suggestViewsOrTables?: TableOrViewSuggestion;
@@ -63,7 +63,7 @@ export function extractTrinoStatementPositionsFromQuery(
         trinoAutocompleteData.tokenDictionary.SPACE,
         [trinoAutocompleteData.tokenDictionary.SPACE],
         trinoAutocompleteData.tokenDictionary.SEMICOLON,
-        TrinoParser.RULE_statement,
+        new TrinoStatementsVisitor(),
         trinoAutocompleteData.getParseTree,
     );
 }
