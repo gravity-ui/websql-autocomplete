@@ -1,5 +1,12 @@
 # Changelog
 
+## [13.10.0](https://github.com/gravity-ui/websql-autocomplete/compare/v13.9.0...v13.10.0) (2025-07-07)
+
+
+### Features
+
+* rework statement extraction ([#296](https://github.com/gravity-ui/websql-autocomplete/issues/296)) ([3e3416f](https://github.com/gravity-ui/websql-autocomplete/commit/3e3416f6a76f168d7202c2b094f95071c6e1918f))
+
 ## [13.9.0](https://github.com/gravity-ui/websql-autocomplete/compare/v13.8.1...v13.9.0) (2025-03-24)
 
 
