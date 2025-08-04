@@ -262,3 +262,37 @@ test('should parse last invalid statement', () => {
         ),
     ).toBe('sel asd aaasdjalkdj');
 });
+
+test('should parse statements with emojis', () => {
+    const query = '//📊📊\ndb.first.find(); //🔥🔥🔥\n//🔥\ndb.second.find();';
+
+    const result = extractMongoStatementPositionsFromQuery(query);
+    const expectedResult: ExtractStatementPositionsResult = {
+        statementPositions: [
+            {
+                startIndex: 7,
+                endIndex: 23,
+            },
+            {
+                startIndex: 38,
+                endIndex: 55,
+            },
+        ],
+        strategy: StatementExtractionStrategy.Autocomplete,
+    };
+
+    expect(result).toEqual(expectedResult);
+
+    expect(
+        query.slice(
+            result.statementPositions[0]?.startIndex,
+            result.statementPositions[0]?.endIndex,
+        ),
+    ).toBe('db.first.find();');
+    expect(
+        query.slice(
+            result.statementPositions[1]?.startIndex,
+            result.statementPositions[1]?.endIndex,
+        ),
+    ).toBe('db.second.find();');
+});
