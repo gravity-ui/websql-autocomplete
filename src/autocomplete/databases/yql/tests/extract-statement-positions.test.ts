@@ -294,3 +294,37 @@ test('should parse last invalid statement', () => {
         ),
     ).toBe('sel asd aaasdjalkdj');
 });
+
+test('should parse statements with emojis', () => {
+    const query = '--📊📊\nSELECT --🔥🔥\n1;\n--📊📊📊\nSELECT --🔥\n2;';
+
+    const result = extractYqlStatementPositionsFromQuery(query);
+    const expectedResult: ExtractStatementPositionsResult = {
+        statementPositions: [
+            {
+                startIndex: 7,
+                endIndex: 23,
+            },
+            {
+                startIndex: 33,
+                endIndex: 47,
+            },
+        ],
+        strategy: StatementExtractionStrategy.Autocomplete,
+    };
+
+    expect(result).toEqual(expectedResult);
+
+    expect(
+        query.slice(
+            result.statementPositions[0]?.startIndex,
+            result.statementPositions[0]?.endIndex,
+        ),
+    ).toBe('SELECT --🔥🔥\n1;');
+    expect(
+        query.slice(
+            result.statementPositions[1]?.startIndex,
+            result.statementPositions[1]?.endIndex,
+        ),
+    ).toBe('SELECT --🔥\n2;');
+});
