@@ -1,5 +1,12 @@
 # Changelog
 
+## [13.10.1](https://github.com/gravity-ui/websql-autocomplete/compare/v13.10.0...v13.10.1) (2025-08-05)
+
+
+### Bug Fixes
+
+* handle emojis while extracting statements ([#298](https://github.com/gravity-ui/websql-autocomplete/issues/298)) ([6214104](https://github.com/gravity-ui/websql-autocomplete/commit/62141048e1942896a734ccfba3f43a282d03e92a))
+
 ## [13.10.0](https://github.com/gravity-ui/websql-autocomplete/compare/v13.9.0...v13.10.0) (2025-07-07)
 
 
