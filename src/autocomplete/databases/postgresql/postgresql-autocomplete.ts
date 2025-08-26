@@ -111,7 +111,7 @@ class PostgreSqlSymbolTableVisitor
             this.symbolTable.addNewSymbolOfType(
                 TableSymbol,
                 this.scope,
-                context.qualifiedName()?.getText() || '',
+                context.tableName()?.getText() || '',
             );
         } catch (error) {
             if (!(error instanceof c3.DuplicateSymbolError)) {
@@ -127,7 +127,7 @@ class PostgreSqlSymbolTableVisitor
             this.symbolTable.addNewSymbolOfType(
                 TableSymbol,
                 this.scope,
-                context.relationExpression()?.qualifiedName()?.getText() || '',
+                context.relationExpression()?.tableName()?.getText() || '',
                 context.optionalAliasClause()?.tableAliasClause()?.tableAlias()?.getText(),
             );
         } catch (error) {
@@ -144,7 +144,7 @@ class PostgreSqlSymbolTableVisitor
             this.symbolTable.addNewSymbolOfType(
                 TableSymbol,
                 this.scope,
-                context.qualifiedName()?.getText() || '',
+                context.tableName()?.getText() || '',
                 context.columnId()?.getText(),
             );
         } catch (error) {
