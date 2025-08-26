@@ -2,7 +2,7 @@ import {extractTrinoTableNamesFromQuery} from '..';
 
 test('should extract table names from query', () => {
     const result = extractTrinoTableNamesFromQuery(`
-        CREATE TABLE test_schema.test_db.test_table1 (test TEXT);
+        CREATE TABLE test_schema.test_db.test_table1 (test VARCHAR);
         INSERT INTO test_schema.test_db.test_table2 VALUES (1, 2);
         DROP TABLE test_schema.test_db.test_table3;
         COMMENT ON TABLE test_schema.test_db.test_table4 IS 'test_comment';
@@ -14,6 +14,10 @@ test('should extract table names from query', () => {
         UNION ALL
         SELECT * FROM test_schema.test_db.test_table10;
         SELECT * FROM test_schema.test_db."test_table11";
+        SELECT * FROM "test_prefix.test_table12";
+        SELECT * FROM "test_table13";
+        CREATE TABLE "test_table14" (test VARCHAR);
+        CREATE TABLE test_table15 (test VARCHAR);
     `);
 
     expect(result).toEqual([
@@ -28,5 +32,9 @@ test('should extract table names from query', () => {
         'test_schema.test_db.test_table9',
         'test_schema.test_db.test_table10',
         'test_schema.test_db."test_table11"',
+        '"test_prefix.test_table12"',
+        '"test_table13"',
+        '"test_table14"',
+        'test_table15',
     ]);
 });

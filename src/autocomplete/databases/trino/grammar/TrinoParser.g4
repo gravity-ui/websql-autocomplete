@@ -882,7 +882,7 @@ tableReference
     ;
 
 tableIdentifier
-    : schemaIdentifier DOT_ identifier
+    : (schemaIdentifier DOT_)? identifier
     ;
 
 viewIdentifier
@@ -902,7 +902,7 @@ newSchemaIdentifier
     ;
 
 newTableIdentifier
-    : newSchemaIdentifier DOT_ identifier
+    : (newSchemaIdentifier DOT_)? identifier
     ;
 
 newViewIdentifier
