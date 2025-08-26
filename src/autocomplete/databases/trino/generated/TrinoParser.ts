@@ -6633,11 +6633,11 @@ export class TrinoParser extends antlr.Parser {
             this.errorHandler.sync(this);
             switch (this.interpreter.adaptivePredict(this.tokenStream, 230, this.context) ) {
             case 1:
-                localContext = new TableNameContext(localContext);
+                localContext = new TableIdentifierRelationContext(localContext);
                 this.enterOuterAlt(localContext, 1);
                 {
                 this.state = 1759;
-                this.qualifiedName();
+                this.tableIdentifier();
                 this.state = 1761;
                 this.errorHandler.sync(this);
                 switch (this.interpreter.adaptivePredict(this.tokenStream, 227, this.context) ) {
@@ -15723,7 +15723,7 @@ export class TrinoParser extends antlr.Parser {
         0,1750,1751,5,312,0,0,1751,1753,3,250,125,0,1752,1750,1,0,0,0,1753,
         1756,1,0,0,0,1754,1752,1,0,0,0,1754,1755,1,0,0,0,1755,1757,1,0,0,
         0,1756,1754,1,0,0,0,1757,1758,5,314,0,0,1758,97,1,0,0,0,1759,1761,
-        3,226,113,0,1760,1762,3,228,114,0,1761,1760,1,0,0,0,1761,1762,1,
+        3,246,123,0,1760,1762,3,228,114,0,1761,1760,1,0,0,0,1761,1762,1,
         0,0,0,1762,1797,1,0,0,0,1763,1764,5,313,0,0,1764,1765,3,14,7,0,1765,
         1766,5,314,0,0,1766,1797,1,0,0,0,1767,1768,5,269,0,0,1768,1769,5,
         313,0,0,1769,1774,3,114,57,0,1770,1771,5,312,0,0,1771,1773,3,114,
@@ -21527,6 +21527,25 @@ export class TableFunctionInvocationContext extends RelationPrimaryContext {
         }
     }
 }
+export class TableIdentifierRelationContext extends RelationPrimaryContext {
+    public constructor(ctx: RelationPrimaryContext) {
+        super(ctx.parent, ctx.invokingState);
+        super.copyFrom(ctx);
+    }
+    public tableIdentifier(): TableIdentifierContext {
+        return this.getRuleContext(0, TableIdentifierContext)!;
+    }
+    public queryPeriod(): QueryPeriodContext | null {
+        return this.getRuleContext(0, QueryPeriodContext);
+    }
+    public override accept<Result>(visitor: TrinoParserVisitor<Result>): Result | null {
+        if (visitor.visitTableIdentifierRelation) {
+            return visitor.visitTableIdentifierRelation(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
+}
 export class LateralContext extends RelationPrimaryContext {
     public constructor(ctx: RelationPrimaryContext) {
         super(ctx.parent, ctx.invokingState);
@@ -21547,25 +21566,6 @@ export class LateralContext extends RelationPrimaryContext {
     public override accept<Result>(visitor: TrinoParserVisitor<Result>): Result | null {
         if (visitor.visitLateral) {
             return visitor.visitLateral(this);
-        } else {
-            return visitor.visitChildren(this);
-        }
-    }
-}
-export class TableNameContext extends RelationPrimaryContext {
-    public constructor(ctx: RelationPrimaryContext) {
-        super(ctx.parent, ctx.invokingState);
-        super.copyFrom(ctx);
-    }
-    public qualifiedName(): QualifiedNameContext {
-        return this.getRuleContext(0, QualifiedNameContext)!;
-    }
-    public queryPeriod(): QueryPeriodContext | null {
-        return this.getRuleContext(0, QueryPeriodContext);
-    }
-    public override accept<Result>(visitor: TrinoParserVisitor<Result>): Result | null {
-        if (visitor.visitTableName) {
-            return visitor.visitTableName(this);
         } else {
             return visitor.visitChildren(this);
         }

@@ -11,6 +11,8 @@ import {
     extractStatementPositionsFromQuery,
 } from '../../shared/extract-statement-positions-from-query';
 import {TrinoStatementsVisitor} from './trino-extract-statements';
+import {extractRulesByIndexesFromQuery} from '../../shared/extract-rules-by-indexes-from-query';
+import {TrinoParser} from './generated/TrinoParser';
 
 export interface TrinoAutocompleteResult extends SqlAutocompleteResult {
     suggestViewsOrTables?: TableOrViewSuggestion;
@@ -66,4 +68,26 @@ export function extractTrinoStatementPositionsFromQuery(
         new TrinoStatementsVisitor(),
         trinoAutocompleteData.getParseTree,
     );
+}
+
+export function extractTrinoTableNamesFromQuery(query: string): string[] {
+    const rules = extractRulesByIndexesFromQuery(
+        query,
+        trinoAutocompleteData.Lexer,
+        trinoAutocompleteData.Parser,
+        trinoAutocompleteData.getParseTree,
+        [TrinoParser.RULE_tableIdentifier, TrinoParser.RULE_newTableIdentifier],
+    );
+
+    const ruleSet = new Set();
+    return rules
+        .map((rule) => rule.text)
+        .filter((rule) => {
+            if (ruleSet.has(rule)) {
+                return false;
+            }
+
+            ruleSet.add(rule);
+            return true;
+        });
 }

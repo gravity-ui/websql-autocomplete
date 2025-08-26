@@ -376,7 +376,7 @@ columnAliases
     ;
 
 relationPrimary
-    : qualifiedName queryPeriod?                                                   # tableName
+    : tableIdentifier queryPeriod?                                                 # tableIdentifierRelation
     | LPAREN_ query RPAREN_                                                        # subqueryRelation
     | UNNEST_ LPAREN_ expression (COMMA_ expression)* RPAREN_ (WITH_ ORDINALITY_)? # unnest
     | LATERAL_ LPAREN_ query RPAREN_                                               # lateral

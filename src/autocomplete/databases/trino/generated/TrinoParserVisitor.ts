@@ -150,7 +150,7 @@ import { SubsetDefinitionContext } from "./TrinoParser.js";
 import { VariableDefinitionContext } from "./TrinoParser.js";
 import { AliasedRelationContext } from "./TrinoParser.js";
 import { ColumnAliasesContext } from "./TrinoParser.js";
-import { TableNameContext } from "./TrinoParser.js";
+import { TableIdentifierRelationContext } from "./TrinoParser.js";
 import { SubqueryRelationContext } from "./TrinoParser.js";
 import { UnnestContext } from "./TrinoParser.js";
 import { LateralContext } from "./TrinoParser.js";
@@ -1284,12 +1284,12 @@ export class TrinoParserVisitor<Result> extends AbstractParseTreeVisitor<Result>
      */
     visitColumnAliases?: (ctx: ColumnAliasesContext) => Result;
     /**
-     * Visit a parse tree produced by the `tableName`
+     * Visit a parse tree produced by the `tableIdentifierRelation`
      * labeled alternative in `TrinoParser.relationPrimary`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitTableName?: (ctx: TableNameContext) => Result;
+    visitTableIdentifierRelation?: (ctx: TableIdentifierRelationContext) => Result;
     /**
      * Visit a parse tree produced by the `subqueryRelation`
      * labeled alternative in `TrinoParser.relationPrimary`.
