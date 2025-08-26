@@ -877,7 +877,7 @@ identifier
     ;
 
 lexicalScore
-    : keyName
+    : identifier
     ;
 
 stringKeyName
