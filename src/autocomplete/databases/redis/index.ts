@@ -10,6 +10,7 @@ import {
     RedisCommands,
     extractRedisCommandsFromQuery as extractRedisCommandsFromQueryRaw,
 } from './redis-tokenize';
+import {extractRulesByIndexesFromQuery} from '../../shared/extract-rules-by-indexes-from-query';
 
 export {RedisCommands} from './redis-tokenize';
 
@@ -64,4 +65,26 @@ export function extractRedisStatementPositionsFromQuery(
 
 export function extractRedisCommandsFromQuery(query: string): RedisCommands {
     return extractRedisCommandsFromQueryRaw(query).commands;
+}
+
+export function extractRedisKeyNamesFromQuery(query: string): string[] {
+    const rules = extractRulesByIndexesFromQuery(
+        query,
+        redisAutocompleteData.Lexer,
+        redisAutocompleteData.Parser,
+        redisAutocompleteData.getParseTree,
+        [redisAutocompleteData.Parser.RULE_keyName],
+    );
+
+    const ruleSet = new Set();
+    return rules
+        .map((rule) => rule.text)
+        .filter((rule) => {
+            if (ruleSet.has(rule)) {
+                return false;
+            }
+
+            ruleSet.add(rule);
+            return true;
+        });
 }

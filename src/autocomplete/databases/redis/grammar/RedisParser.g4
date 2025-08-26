@@ -877,27 +877,27 @@ identifier
     ;
 
 lexicalScore
-    : identifier
+    : keyName
     ;
 
 stringKeyName
-    : identifier
+    : keyName
     ;
 
 listKeyName
-    : identifier
+    : keyName
     ;
 
 setKeyName
-    : identifier
+    : keyName
     ;
 
 sortedSetKeyName
-    : identifier
+    : keyName
     ;
 
 hashKeyName
-    : identifier
+    : keyName
     ;
 
 keyName

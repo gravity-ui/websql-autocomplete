@@ -7964,7 +7964,7 @@ export class RedisParser extends antlr.Parser {
             this.enterOuterAlt(localContext, 1);
             {
             this.state = 1537;
-            this.identifier();
+            this.keyName();
             }
         }
         catch (re) {
@@ -7987,7 +7987,7 @@ export class RedisParser extends antlr.Parser {
             this.enterOuterAlt(localContext, 1);
             {
             this.state = 1539;
-            this.identifier();
+            this.keyName();
             }
         }
         catch (re) {
@@ -8010,7 +8010,7 @@ export class RedisParser extends antlr.Parser {
             this.enterOuterAlt(localContext, 1);
             {
             this.state = 1541;
-            this.identifier();
+            this.keyName();
             }
         }
         catch (re) {
@@ -8033,7 +8033,7 @@ export class RedisParser extends antlr.Parser {
             this.enterOuterAlt(localContext, 1);
             {
             this.state = 1543;
-            this.identifier();
+            this.keyName();
             }
         }
         catch (re) {
@@ -8056,7 +8056,7 @@ export class RedisParser extends antlr.Parser {
             this.enterOuterAlt(localContext, 1);
             {
             this.state = 1545;
-            this.identifier();
+            this.keyName();
             }
         }
         catch (re) {
@@ -8079,7 +8079,7 @@ export class RedisParser extends antlr.Parser {
             this.enterOuterAlt(localContext, 1);
             {
             this.state = 1547;
-            this.identifier();
+            this.keyName();
             }
         }
         catch (re) {
@@ -8740,10 +8740,10 @@ export class RedisParser extends antlr.Parser {
         1525,3,354,177,0,1525,343,1,0,0,0,1526,1527,5,84,0,0,1527,1528,3,
         354,177,0,1528,1529,3,346,173,0,1529,1530,3,346,173,0,1530,345,1,
         0,0,0,1531,1532,7,9,0,0,1532,347,1,0,0,0,1533,1534,7,10,0,0,1534,
-        349,1,0,0,0,1535,1536,7,11,0,0,1536,351,1,0,0,0,1537,1538,3,350,
-        175,0,1538,353,1,0,0,0,1539,1540,3,350,175,0,1540,355,1,0,0,0,1541,
-        1542,3,350,175,0,1542,357,1,0,0,0,1543,1544,3,350,175,0,1544,359,
-        1,0,0,0,1545,1546,3,350,175,0,1546,361,1,0,0,0,1547,1548,3,350,175,
+        349,1,0,0,0,1535,1536,7,11,0,0,1536,351,1,0,0,0,1537,1538,3,364,
+        182,0,1538,353,1,0,0,0,1539,1540,3,364,182,0,1540,355,1,0,0,0,1541,
+        1542,3,364,182,0,1542,357,1,0,0,0,1543,1544,3,364,182,0,1544,359,
+        1,0,0,0,1545,1546,3,364,182,0,1546,361,1,0,0,0,1547,1548,3,364,182,
         0,1548,363,1,0,0,0,1549,1550,3,350,175,0,1550,365,1,0,0,0,1551,1552,
         3,350,175,0,1552,367,1,0,0,0,131,369,377,384,388,396,422,444,468,
         487,524,550,557,567,575,584,590,598,619,642,651,674,676,682,685,
@@ -14316,8 +14316,8 @@ export class LexicalScoreContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
-    public identifier(): IdentifierContext {
-        return this.getRuleContext(0, IdentifierContext)!;
+    public keyName(): KeyNameContext {
+        return this.getRuleContext(0, KeyNameContext)!;
     }
     public override get ruleIndex(): number {
         return RedisParser.RULE_lexicalScore;
@@ -14336,8 +14336,8 @@ export class StringKeyNameContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
-    public identifier(): IdentifierContext {
-        return this.getRuleContext(0, IdentifierContext)!;
+    public keyName(): KeyNameContext {
+        return this.getRuleContext(0, KeyNameContext)!;
     }
     public override get ruleIndex(): number {
         return RedisParser.RULE_stringKeyName;
@@ -14356,8 +14356,8 @@ export class ListKeyNameContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
-    public identifier(): IdentifierContext {
-        return this.getRuleContext(0, IdentifierContext)!;
+    public keyName(): KeyNameContext {
+        return this.getRuleContext(0, KeyNameContext)!;
     }
     public override get ruleIndex(): number {
         return RedisParser.RULE_listKeyName;
@@ -14376,8 +14376,8 @@ export class SetKeyNameContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
-    public identifier(): IdentifierContext {
-        return this.getRuleContext(0, IdentifierContext)!;
+    public keyName(): KeyNameContext {
+        return this.getRuleContext(0, KeyNameContext)!;
     }
     public override get ruleIndex(): number {
         return RedisParser.RULE_setKeyName;
@@ -14396,8 +14396,8 @@ export class SortedSetKeyNameContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
-    public identifier(): IdentifierContext {
-        return this.getRuleContext(0, IdentifierContext)!;
+    public keyName(): KeyNameContext {
+        return this.getRuleContext(0, KeyNameContext)!;
     }
     public override get ruleIndex(): number {
         return RedisParser.RULE_sortedSetKeyName;
@@ -14416,8 +14416,8 @@ export class HashKeyNameContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
-    public identifier(): IdentifierContext {
-        return this.getRuleContext(0, IdentifierContext)!;
+    public keyName(): KeyNameContext {
+        return this.getRuleContext(0, KeyNameContext)!;
     }
     public override get ruleIndex(): number {
         return RedisParser.RULE_hashKeyName;
