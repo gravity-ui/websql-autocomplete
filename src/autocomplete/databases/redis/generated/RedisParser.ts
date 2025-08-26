@@ -7964,7 +7964,7 @@ export class RedisParser extends antlr.Parser {
             this.enterOuterAlt(localContext, 1);
             {
             this.state = 1537;
-            this.keyName();
+            this.identifier();
             }
         }
         catch (re) {
@@ -8740,8 +8740,8 @@ export class RedisParser extends antlr.Parser {
         1525,3,354,177,0,1525,343,1,0,0,0,1526,1527,5,84,0,0,1527,1528,3,
         354,177,0,1528,1529,3,346,173,0,1529,1530,3,346,173,0,1530,345,1,
         0,0,0,1531,1532,7,9,0,0,1532,347,1,0,0,0,1533,1534,7,10,0,0,1534,
-        349,1,0,0,0,1535,1536,7,11,0,0,1536,351,1,0,0,0,1537,1538,3,364,
-        182,0,1538,353,1,0,0,0,1539,1540,3,364,182,0,1540,355,1,0,0,0,1541,
+        349,1,0,0,0,1535,1536,7,11,0,0,1536,351,1,0,0,0,1537,1538,3,350,
+        175,0,1538,353,1,0,0,0,1539,1540,3,364,182,0,1540,355,1,0,0,0,1541,
         1542,3,364,182,0,1542,357,1,0,0,0,1543,1544,3,364,182,0,1544,359,
         1,0,0,0,1545,1546,3,364,182,0,1546,361,1,0,0,0,1547,1548,3,364,182,
         0,1548,363,1,0,0,0,1549,1550,3,350,175,0,1550,365,1,0,0,0,1551,1552,
@@ -14316,8 +14316,8 @@ export class LexicalScoreContext extends antlr.ParserRuleContext {
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
-    public keyName(): KeyNameContext {
-        return this.getRuleContext(0, KeyNameContext)!;
+    public identifier(): IdentifierContext {
+        return this.getRuleContext(0, IdentifierContext)!;
     }
     public override get ruleIndex(): number {
         return RedisParser.RULE_lexicalScore;
