@@ -296,3 +296,11 @@ test('should not report errors', () => {
 
     expect(autocompleteResult.errors).toHaveLength(0);
 });
+
+test('should not report errors on list of the tables', () => {
+    const autocompleteResult = parseTrinoQueryWithoutCursor(
+        'SELECT c1, c2 FROM catalog.schema.test_table, catalog.schema.test_table',
+    );
+
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
