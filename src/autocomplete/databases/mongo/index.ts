@@ -2,12 +2,13 @@ import {CursorPosition, SqlAutocompleteResult} from '../../shared/autocomplete-t
 import {parseQuery, parseQueryWithoutCursor} from '../../shared/autocomplete';
 import {separateQueryAndCursor} from '../../shared/parse-query-with-cursor';
 import {mongoAutocompleteData} from './mongo-autocomplete';
-import {MongoParser} from './generated/MongoParser';
 import {
     ExtractStatementPositionsResult,
     extractStatementPositionsFromQuery,
 } from '../../shared/extract-statement-positions-from-query';
 import {MongoStatementsVisitor} from './mongo-extract-statements';
+import {extractRulesByIndexesFromQuery} from '../../shared/extract-rules-by-indexes-from-query';
+import {parseQuotedCollectionName} from './mongo-extract-commands';
 
 export * from './mongo-extract-commands';
 
@@ -23,7 +24,7 @@ export function parseMongoQueryWithoutCursor(
     return parseQueryWithoutCursor(
         mongoAutocompleteData.Lexer,
         mongoAutocompleteData.Parser,
-        MongoParser.DOT,
+        mongoAutocompleteData.Parser.DOT,
         mongoAutocompleteData.getParseTree,
         query,
     );
@@ -60,4 +61,35 @@ export function extractMongoStatementPositionsFromQuery(
         new MongoStatementsVisitor(),
         mongoAutocompleteData.getParseTree,
     );
+}
+
+export function extractMongoCollectionNamesFromQuery(query: string): string[] {
+    const rules = extractRulesByIndexesFromQuery(
+        query,
+        mongoAutocompleteData.Lexer,
+        mongoAutocompleteData.Parser,
+        mongoAutocompleteData.getParseTree,
+        [
+            mongoAutocompleteData.Parser.RULE_collectionName,
+            mongoAutocompleteData.Parser.RULE_quotedCollectionName,
+        ],
+    );
+
+    const collectionNames = rules.map((rule) => {
+        if (rule.ruleIndex === mongoAutocompleteData.Parser.RULE_quotedCollectionName) {
+            return parseQuotedCollectionName(rule.text);
+        }
+
+        return rule.text;
+    });
+
+    const ruleSet = new Set();
+    return collectionNames.filter((rule) => {
+        if (ruleSet.has(rule)) {
+            return false;
+        }
+
+        ruleSet.add(rule);
+        return true;
+    });
 }

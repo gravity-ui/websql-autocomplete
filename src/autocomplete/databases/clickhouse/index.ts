@@ -12,6 +12,8 @@ import {
     extractStatementPositionsFromQuery,
 } from '../../shared/extract-statement-positions-from-query';
 import {ClickHouseStatementsVisitor} from './clickhouse-extract-statements';
+import {ClickHouseParser} from './generated/ClickHouseParser';
+import {extractRulesByIndexesFromQuery} from '../../shared/extract-rules-by-indexes-from-query';
 
 export interface ClickHouseAutocompleteResult extends SqlAutocompleteResult {
     suggestViewsOrTables?: TableOrViewSuggestion;
@@ -66,4 +68,26 @@ export function extractClickHouseStatementPositionsFromQuery(
         new ClickHouseStatementsVisitor(),
         clickHouseAutocompleteData.getParseTree,
     );
+}
+
+export function extractClickHouseTableNamesFromQuery(query: string): string[] {
+    const rules = extractRulesByIndexesFromQuery(
+        query,
+        clickHouseAutocompleteData.Lexer,
+        clickHouseAutocompleteData.Parser,
+        clickHouseAutocompleteData.getParseTree,
+        [ClickHouseParser.RULE_tableIdentifier],
+    );
+
+    const ruleSet = new Set();
+    return rules
+        .map((rule) => rule.text)
+        .filter((rule) => {
+            if (ruleSet.has(rule)) {
+                return false;
+            }
+
+            ruleSet.add(rule);
+            return true;
+        });
 }

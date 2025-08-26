@@ -886,7 +886,7 @@ function parseDatabaseAdminMethodContext(
     return makeMethodNotImplementedError(childContext?.getText());
 }
 
-function parseQuotedCollectionName(quotedCollectionName: string): string {
+export function parseQuotedCollectionName(quotedCollectionName: string): string {
     return quotedCollectionName.substring(1, quotedCollectionName.length - 1);
 }
 
