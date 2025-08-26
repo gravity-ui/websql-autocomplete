@@ -13,7 +13,7 @@ import {
 } from '../../shared/extract-statement-positions-from-query';
 import {PostgreSqlLexer} from './generated/PostgreSqlLexer';
 import {PostgreSqlStatementsVisitor} from './postgresql-extract-statements';
-import {extractRulesByIndexesFromQuery} from '../../shared/extract-rules-by-indexes-from-query';
+import {extractUniqueRuleTextByIndexesFromQuery} from '../../shared/extract-unique-rule-text-by-indexes-from-query';
 import {PostgreSqlParser} from './generated/PostgreSqlParser';
 
 export interface PostgreSqlAutocompleteResult extends SqlAutocompleteResult {
@@ -77,23 +77,11 @@ export function extractPostgreSqlStatementPositionsFromQuery(
 }
 
 export function extractPostgreSqlTableNamesFromQuery(query: string): string[] {
-    const rules = extractRulesByIndexesFromQuery(
+    return extractUniqueRuleTextByIndexesFromQuery(
         query,
         postgreSqlAutocompleteData.Lexer,
         postgreSqlAutocompleteData.Parser,
         postgreSqlAutocompleteData.getParseTree,
         [PostgreSqlParser.RULE_tableName],
     );
-
-    const ruleSet = new Set();
-    return rules
-        .map((rule) => rule.text)
-        .filter((rule) => {
-            if (ruleSet.has(rule)) {
-                return false;
-            }
-
-            ruleSet.add(rule);
-            return true;
-        });
 }

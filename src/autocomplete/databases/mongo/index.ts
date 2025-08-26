@@ -7,8 +7,7 @@ import {
     extractStatementPositionsFromQuery,
 } from '../../shared/extract-statement-positions-from-query';
 import {MongoStatementsVisitor} from './mongo-extract-statements';
-import {extractRulesByIndexesFromQuery} from '../../shared/extract-rules-by-indexes-from-query';
-import {parseQuotedCollectionName} from './mongo-extract-commands';
+import {extractUniqueRuleTextByIndexesFromQuery} from '../../shared/extract-unique-rule-text-by-indexes-from-query';
 
 export * from './mongo-extract-commands';
 
@@ -64,7 +63,7 @@ export function extractMongoStatementPositionsFromQuery(
 }
 
 export function extractMongoCollectionNamesFromQuery(query: string): string[] {
-    const rules = extractRulesByIndexesFromQuery(
+    return extractUniqueRuleTextByIndexesFromQuery(
         query,
         mongoAutocompleteData.Lexer,
         mongoAutocompleteData.Parser,
@@ -74,22 +73,4 @@ export function extractMongoCollectionNamesFromQuery(query: string): string[] {
             mongoAutocompleteData.Parser.RULE_quotedCollectionName,
         ],
     );
-
-    const collectionNames = rules.map((rule) => {
-        if (rule.ruleIndex === mongoAutocompleteData.Parser.RULE_quotedCollectionName) {
-            return parseQuotedCollectionName(rule.text);
-        }
-
-        return rule.text;
-    });
-
-    const ruleSet = new Set();
-    return collectionNames.filter((rule) => {
-        if (ruleSet.has(rule)) {
-            return false;
-        }
-
-        ruleSet.add(rule);
-        return true;
-    });
 }

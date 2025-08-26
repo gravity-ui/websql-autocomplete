@@ -12,6 +12,10 @@ test('should extract table names from query', () => {
         SELECT * FROM test_table10
         UNION ALL
         SELECT * FROM test_table11;
+        SELECT * FROM \`test_table12\` LIMIT 100;
+        CREATE TABLE \`test_table13\` (test_column TEXT);
+        SELECT * FROM test_db.test_table14 LIMIT 100;
+        SELECT * FROM \`test_prefix.test_table15\` LIMIT 100;
     `);
 
     expect(result).toEqual([
@@ -26,5 +30,9 @@ test('should extract table names from query', () => {
         'test_table9',
         'test_table10',
         'test_table11',
+        '`test_table12`',
+        '`test_table13`',
+        'test_db.test_table14',
+        '`test_prefix.test_table15`',
     ]);
 });

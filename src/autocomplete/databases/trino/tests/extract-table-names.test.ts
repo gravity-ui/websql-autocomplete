@@ -13,6 +13,7 @@ test('should extract table names from query', () => {
         SELECT * FROM test_schema.test_db.test_table9
         UNION ALL
         SELECT * FROM test_schema.test_db.test_table10;
+        SELECT * FROM test_schema.test_db."test_table11";
     `);
 
     expect(result).toEqual([
@@ -26,5 +27,6 @@ test('should extract table names from query', () => {
         'test_schema.test_db.test_table8',
         'test_schema.test_db.test_table9',
         'test_schema.test_db.test_table10',
+        'test_schema.test_db."test_table11"',
     ]);
 });

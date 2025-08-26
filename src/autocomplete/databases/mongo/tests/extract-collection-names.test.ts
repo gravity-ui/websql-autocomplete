@@ -11,9 +11,9 @@ test('should extract collection names from query', () => {
 
     expect(result).toEqual([
         'test_collection1',
-        'test_collection2',
-        'test_collection3',
-        'test_collection4',
-        'test_collection5',
+        "'test_collection2'",
+        "'test_collection3'",
+        "'test_collection4'",
+        "'test_collection5'",
     ]);
 });

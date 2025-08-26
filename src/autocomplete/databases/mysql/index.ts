@@ -12,7 +12,7 @@ import {
     extractStatementPositionsFromQuery,
 } from '../../shared/extract-statement-positions-from-query';
 import {MySqlStatementsVisitor} from './mysql-extract-statements';
-import {extractRulesByIndexesFromQuery} from '../../shared/extract-rules-by-indexes-from-query';
+import {extractUniqueRuleTextByIndexesFromQuery} from '../../shared/extract-unique-rule-text-by-indexes-from-query';
 import {MySqlParser} from './generated/MySqlParser';
 
 export interface MySqlAutocompleteResult extends SqlAutocompleteResult {
@@ -70,23 +70,11 @@ export function extractMySqlStatementPositionsFromQuery(
 }
 
 export function extractMySqlTableNamesFromQuery(query: string): string[] {
-    const rules = extractRulesByIndexesFromQuery(
+    return extractUniqueRuleTextByIndexesFromQuery(
         query,
         mySqlAutocompleteData.Lexer,
         mySqlAutocompleteData.Parser,
         mySqlAutocompleteData.getParseTree,
         [MySqlParser.RULE_tableName],
     );
-
-    const ruleSet = new Set();
-    return rules
-        .map((rule) => rule.text)
-        .filter((rule) => {
-            if (ruleSet.has(rule)) {
-                return false;
-            }
-
-            ruleSet.add(rule);
-            return true;
-        });
 }
