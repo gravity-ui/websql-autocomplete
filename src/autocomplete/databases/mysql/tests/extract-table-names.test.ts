@@ -108,3 +108,11 @@ test('should extract table names as is from query', () => {
         'test_db.`test_table1`',
     ]);
 });
+
+test('should extract table name without its alias', () => {
+    const result = extractMySqlTableNamesFromQuery(`
+        SELECT * FROM test_table as test_table_alias;
+    `);
+
+    expect(result).toEqual(['test_table']);
+});
