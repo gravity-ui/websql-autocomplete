@@ -1,5 +1,12 @@
 # Changelog
 
+## [13.10.2](https://github.com/gravity-ui/websql-autocomplete/compare/v13.10.1...v13.10.2) (2025-08-29)
+
+
+### Bug Fixes
+
+* statementPositions sometimes throwing error on valid statements ([#301](https://github.com/gravity-ui/websql-autocomplete/issues/301)) ([8bf7276](https://github.com/gravity-ui/websql-autocomplete/commit/8bf7276586d85f3124688526fa51809d3bacd296))
+
 ## [13.10.1](https://github.com/gravity-ui/websql-autocomplete/compare/v13.10.0...v13.10.1) (2025-08-05)
 
 
