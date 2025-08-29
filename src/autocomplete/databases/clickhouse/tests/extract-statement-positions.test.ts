@@ -327,3 +327,26 @@ test('should parse statements with emojis', () => {
         ),
     ).toBe('SELECT --🔥\n2;');
 });
+
+test('should extract statement from INSERT from SELECT statement', () => {
+    const query = 'INSERT INTO target_table SELECT * FROM source_table;';
+    const result = extractClickHouseStatementPositionsFromQuery(query);
+    const expectedResult: ExtractStatementPositionsResult = {
+        statementPositions: [
+            {
+                startIndex: 0,
+                endIndex: 52,
+            },
+        ],
+        strategy: StatementExtractionStrategy.Autocomplete,
+    };
+
+    expect(result).toEqual(expectedResult);
+
+    expect(
+        query.slice(
+            result.statementPositions[0]?.startIndex,
+            result.statementPositions[0]?.endIndex,
+        ),
+    ).toBe('INSERT INTO target_table SELECT * FROM source_table;');
+});
