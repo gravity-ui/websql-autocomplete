@@ -10,7 +10,8 @@ import {
     RedisCommands,
     extractRedisCommandsFromQuery as extractRedisCommandsFromQueryRaw,
 } from './redis-tokenize';
-import {extractUniqueRuleTextByIndexesFromQuery} from '../../shared/extract-unique-rule-text-by-indexes-from-query';
+import {extractRuleContextsFromQuery} from '../../shared/extract-rule-contexts-from-query';
+import {KeyNameContext} from './generated/RedisParser';
 
 export {RedisCommands} from './redis-tokenize';
 
@@ -22,6 +23,10 @@ export interface RedisAutocompleteResult extends AutocompleteResultBase {
     suggestSortedSets?: boolean;
     suggestHashes?: boolean;
 }
+
+export type ExtractRedisKeysFromQueryResult = {
+    keyName: string;
+}[];
 
 export function parseRedisQueryWithoutCursor(
     query: string,
@@ -67,12 +72,16 @@ export function extractRedisCommandsFromQuery(query: string): RedisCommands {
     return extractRedisCommandsFromQueryRaw(query).commands;
 }
 
-export function extractRedisKeyNamesFromQuery(query: string): string[] {
-    return extractUniqueRuleTextByIndexesFromQuery(
+export function extractRedisKeysFromQuery(query: string): ExtractRedisKeysFromQueryResult {
+    const ruleContexts = extractRuleContextsFromQuery(
         query,
         redisAutocompleteData.Lexer,
         redisAutocompleteData.Parser,
         redisAutocompleteData.getParseTree,
-        [redisAutocompleteData.Parser.RULE_keyName],
+        [KeyNameContext],
     );
+
+    return ruleContexts.map((ruleContext) => ({
+        keyName: ruleContext.getText(),
+    }));
 }

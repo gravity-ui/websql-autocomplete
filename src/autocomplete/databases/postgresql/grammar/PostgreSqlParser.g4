@@ -607,7 +607,7 @@ copyGenericOptionArgument
     ;
 
 createStatement
-    : CREATE temporaryOption TABLE (IF_P NOT EXISTS)? tableName (
+    : CREATE temporaryOption TABLE (IF_P NOT EXISTS)? tableIdentifier (
         OPEN_PAREN optionalTableElementList CLOSE_PAREN inheritClause optionalPartitionSpecification optionalTableAccessMethodClause with onCommitOption optionalTablespace
         | OF anyName optionalTypedTableElementList optionalPartitionSpecification optionalTableAccessMethodClause with onCommitOption optionalTablespace
         | PARTITION OF qualifiedName optionalTypedTableElementList partitionBoundSpecification optionalPartitionSpecification optionalTableAccessMethodClause with onCommitOption optionalTablespace
@@ -976,7 +976,7 @@ alterExtensionContentsStatement
     | ALTER EXTENSION name addOrDrop SCHEMA schemaName
     | ALTER EXTENSION name addOrDrop INDEX indexName
     | ALTER EXTENSION name addOrDrop objectTypeAnyName anyName
-    | ALTER EXTENSION name addOrDrop TABLE tableName
+    | ALTER EXTENSION name addOrDrop TABLE tableIdentifier
     | ALTER EXTENSION name addOrDrop SEQUENCE sequenceName
     | ALTER EXTENSION name addOrDrop AGGREGATE aggregateWithArgumentTypes
     | ALTER EXTENSION name addOrDrop CAST OPEN_PAREN typeName AS typeName CLOSE_PAREN
@@ -1411,7 +1411,7 @@ reassignOwnedStatement
 
 dropStatement
     : DROP objectTypeAnyName (IF_P EXISTS)? anyNameList optionalDropBehavior
-    | DROP TABLE (IF_P EXISTS)? tableNameList optionalDropBehavior
+    | DROP TABLE (IF_P EXISTS)? tableIdentifierList optionalDropBehavior
     | DROP SEQUENCE (IF_P EXISTS)? sequenceNameList optionalDropBehavior
     | DROP INDEX (IF_P EXISTS)? indexNameList optionalDropBehavior
     | DROP SCHEMA (IF_P EXISTS)? schemaNameList optionalDropBehavior
@@ -1488,7 +1488,7 @@ optionalRestartSequences
 
 commentStatement
     : COMMENT ON objectTypeAnyName anyName IS commentText
-    | COMMENT ON TABLE tableName IS commentText
+    | COMMENT ON TABLE tableIdentifier IS commentText
     | COMMENT ON SEQUENCE sequenceName IS commentText
     | COMMENT ON INDEX indexName IS commentText
     | COMMENT ON COLUMN anyName IS commentText
@@ -1520,7 +1520,7 @@ commentText
 
 securityLabelStatement
     : SECURITY LABEL optionalProvider ON objectTypeAnyName anyName IS securityLabel
-    | SECURITY LABEL optionalProvider ON TABLE tableName IS securityLabel
+    | SECURITY LABEL optionalProvider ON TABLE tableIdentifier IS securityLabel
     | SECURITY LABEL optionalProvider ON SEQUENCE sequenceName IS securityLabel
     | SECURITY LABEL optionalProvider ON INDEX indexName IS securityLabel
     | SECURITY LABEL optionalProvider ON COLUMN anyName IS securityLabel
@@ -2532,7 +2532,7 @@ insertStatement
     ;
 
 insertTarget
-    : tableName (AS columnId)?
+    : tableIdentifier (AS columnId)?
     ;
 
 insertRest
@@ -2913,8 +2913,8 @@ viewName
     ;
 
 relationExpression
-    : tableName STAR?
-    | ONLY (tableName | OPEN_PAREN tableName CLOSE_PAREN)
+    : tableIdentifier STAR?
+    | ONLY (tableIdentifier | OPEN_PAREN tableIdentifier CLOSE_PAREN)
     ;
 
 relationExpressionList
@@ -3760,8 +3760,14 @@ tableName
     : qualifiedName
     ;
 
-tableNameList
-    : tableName (COMMA tableName)*
+tableIdentifier
+    : databaseName DOT schemaName DOT tableName
+    | schemaName DOT tableName
+    | tableName
+    ;
+
+tableIdentifierList
+    : tableIdentifier (COMMA tableIdentifier)*
     ;
 
 sequenceName

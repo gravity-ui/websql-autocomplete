@@ -210,7 +210,7 @@ createEvent
     ;
 
 createIndex
-    : CREATE intimeAction = (ONLINE | OFFLINE)? indexCategory = (UNIQUE | FULLTEXT | SPATIAL)? INDEX uid indexType? ON tableName indexColumnNames indexOption* (ALGORITHM EQUAL_SYMBOL? algType = (DEFAULT | INPLACE | COPY) | LOCK EQUAL_SYMBOL? lockType = (DEFAULT | NONE | SHARED | EXCLUSIVE))*
+    : CREATE intimeAction = (ONLINE | OFFLINE)? indexCategory = (UNIQUE | FULLTEXT | SPATIAL)? INDEX uid indexType? ON tableIdentifier indexColumnNames indexOption* (ALGORITHM EQUAL_SYMBOL? algType = (DEFAULT | INPLACE | COPY) | LOCK EQUAL_SYMBOL? lockType = (DEFAULT | NONE | SHARED | EXCLUSIVE))*
     ;
 
 createLogfileGroup
@@ -236,9 +236,9 @@ createServer
     ;
 
 createTable
-    : CREATE TEMPORARY? TABLE ifNotExists? tableName (LIKE tableName | LR_BRACKET LIKE parenthesisTable = tableName RR_BRACKET)                                                          # copyCreateTable
-    | CREATE TEMPORARY? TABLE ifNotExists? tableName createDefinitions? ( tableOption (COMMA? tableOption)*)? partitionDefinitions? keyViolate = (IGNORE | REPLACE)? AS? selectStatement # queryCreateTable
-    | CREATE TEMPORARY? TABLE ifNotExists? tableName createDefinitions ( tableOption (COMMA? tableOption)*)? partitionDefinitions?                                                       # columnCreateTable
+    : CREATE TEMPORARY? TABLE ifNotExists? tableIdentifier (LIKE tableIdentifier | LR_BRACKET LIKE parenthesisTable = tableIdentifier RR_BRACKET)                                              # copyCreateTable
+    | CREATE TEMPORARY? TABLE ifNotExists? tableIdentifier createDefinitions? ( tableOption (COMMA? tableOption)*)? partitionDefinitions? keyViolate = (IGNORE | REPLACE)? AS? selectStatement # queryCreateTable
+    | CREATE TEMPORARY? TABLE ifNotExists? tableIdentifier createDefinitions ( tableOption (COMMA? tableOption)*)? partitionDefinitions?                                                       # columnCreateTable
     ;
 
 createTablespaceInnodb
@@ -252,7 +252,7 @@ createTablespaceNdb
     ;
 
 createTrigger
-    : CREATE ownerStatement? TRIGGER ifNotExists? thisTrigger = fullId triggerTime = (BEFORE | AFTER) triggerEvent = (INSERT | UPDATE | DELETE) ON tableName FOR EACH ROW (triggerPlace = (FOLLOWS | PRECEDES) otherTrigger = fullId)? routineBody
+    : CREATE ownerStatement? TRIGGER ifNotExists? thisTrigger = fullId triggerTime = (BEFORE | AFTER) triggerEvent = (INSERT | UPDATE | DELETE) ON tableIdentifier FOR EACH ROW (triggerPlace = (FOLLOWS | PRECEDES) otherTrigger = fullId)? routineBody
     ;
 
 withClause
@@ -419,7 +419,7 @@ tableConstraint
     ;
 
 referenceDefinition
-    : REFERENCES tableName indexColumnNames? (MATCH matchType = (FULL | PARTIAL | SIMPLE))? referenceAction?
+    : REFERENCES tableIdentifier indexColumnNames? (MATCH matchType = (FULL | PARTIAL | SIMPLE))? referenceAction?
     ;
 
 referenceAction
@@ -568,7 +568,7 @@ alterServer
     ;
 
 alterTable
-    : ALTER intimeAction = (ONLINE | OFFLINE)? IGNORE? TABLE tableName waitNowaitClause? (alterSpecification (COMMA alterSpecification)*)? partitionDefinitions?
+    : ALTER intimeAction = (ONLINE | OFFLINE)? IGNORE? TABLE tableIdentifier waitNowaitClause? (alterSpecification (COMMA alterSpecification)*)? partitionDefinitions?
     ;
 
 alterTablespace
@@ -629,7 +629,7 @@ alterPartitionSpecification
     | TRUNCATE PARTITION (uidList | ALL)                                                                       # alterByTruncatePartition
     | COALESCE PARTITION decimalLiteral                                                                        # alterByCoalescePartition
     | REORGANIZE PARTITION uidList INTO LR_BRACKET partitionDefinition (COMMA partitionDefinition)* RR_BRACKET # alterByReorganizePartition
-    | EXCHANGE PARTITION uid WITH TABLE tableName (validationFormat = (WITH | WITHOUT) VALIDATION)?            # alterByExchangePartition
+    | EXCHANGE PARTITION uid WITH TABLE tableIdentifier (validationFormat = (WITH | WITHOUT) VALIDATION)?      # alterByExchangePartition
     | ANALYZE PARTITION (uidList | ALL)                                                                        # alterByAnalyzePartition
     | CHECK PARTITION (uidList | ALL)                                                                          # alterByCheckPartition
     | OPTIMIZE PARTITION (uidList | ALL)                                                                       # alterByOptimizePartition
@@ -650,7 +650,7 @@ dropEvent
     ;
 
 dropIndex
-    : DROP INDEX intimeAction = (ONLINE | OFFLINE)? indexName ON tableName (ALGORITHM EQUAL_SYMBOL? algType = (DEFAULT | INPLACE | COPY) | LOCK EQUAL_SYMBOL? lockType = (DEFAULT | NONE | SHARED | EXCLUSIVE))*
+    : DROP INDEX intimeAction = (ONLINE | OFFLINE)? indexName ON tableIdentifier (ALGORITHM EQUAL_SYMBOL? algType = (DEFAULT | INPLACE | COPY) | LOCK EQUAL_SYMBOL? lockType = (DEFAULT | NONE | SHARED | EXCLUSIVE))*
     ;
 
 dropLogfileGroup
@@ -701,11 +701,11 @@ renameTable
     ;
 
 renameTableClause
-    : tableName TO tableName
+    : tableIdentifier TO tableIdentifier
     ;
 
 truncateTable
-    : TRUNCATE TABLE? tableName
+    : TRUNCATE TABLE? tableIdentifier
     ;
 
 // Data Manipulation Language
@@ -733,25 +733,25 @@ handlerStatement
     ;
 
 insertStatement
-    : INSERT priority = (LOW_PRIORITY | DELAYED | HIGH_PRIORITY)? IGNORE? INTO? tableName (PARTITION LR_BRACKET partitions = uidList? RR_BRACKET)? ((LR_BRACKET columns = fullColumnNameList? RR_BRACKET)? insertStatementValue (AS? uid)? | SET setFirst = updatedElement (COMMA setElements += updatedElement)*) (
+    : INSERT priority = (LOW_PRIORITY | DELAYED | HIGH_PRIORITY)? IGNORE? INTO? tableIdentifier (PARTITION LR_BRACKET partitions = uidList? RR_BRACKET)? ((LR_BRACKET columns = fullColumnNameList? RR_BRACKET)? insertStatementValue (AS? uid)? | SET setFirst = updatedElement (COMMA setElements += updatedElement)*) (
         ON DUPLICATE KEY UPDATE duplicatedFirst = updatedElement ( COMMA duplicatedElements += updatedElement)*
     )?
     ;
 
 loadDataStatement
-    : LOAD DATA priority = (LOW_PRIORITY | CONCURRENT)? LOCAL? INFILE filename = STRING_LITERAL violation = (REPLACE | IGNORE)? INTO TABLE tableName (PARTITION LR_BRACKET uidList RR_BRACKET)? (CHARACTER SET charset = charsetName)? (fieldsFormat = (FIELDS | COLUMNS) selectFieldsInto+)? (LINES selectLinesInto+)? (
+    : LOAD DATA priority = (LOW_PRIORITY | CONCURRENT)? LOCAL? INFILE filename = STRING_LITERAL violation = (REPLACE | IGNORE)? INTO TABLE tableIdentifier (PARTITION LR_BRACKET uidList RR_BRACKET)? (CHARACTER SET charset = charsetName)? (fieldsFormat = (FIELDS | COLUMNS) selectFieldsInto+)? (LINES selectLinesInto+)? (
         IGNORE decimalLiteral linesFormat = (LINES | ROWS)
     )? (LR_BRACKET assignmentField (COMMA assignmentField)* RR_BRACKET)? (SET updatedElement (COMMA updatedElement)*)?
     ;
 
 loadXmlStatement
-    : LOAD XML priority = (LOW_PRIORITY | CONCURRENT)? LOCAL? INFILE filename = STRING_LITERAL violation = (REPLACE | IGNORE)? INTO TABLE tableName (CHARACTER SET charset = charsetName)? (ROWS IDENTIFIED BY LESS_SYMBOL tag = STRING_LITERAL GREATER_SYMBOL)? (IGNORE decimalLiteral linesFormat = (LINES | ROWS))? (
+    : LOAD XML priority = (LOW_PRIORITY | CONCURRENT)? LOCAL? INFILE filename = STRING_LITERAL violation = (REPLACE | IGNORE)? INTO TABLE tableIdentifier (CHARACTER SET charset = charsetName)? (ROWS IDENTIFIED BY LESS_SYMBOL tag = STRING_LITERAL GREATER_SYMBOL)? (IGNORE decimalLiteral linesFormat = (LINES | ROWS))? (
         LR_BRACKET assignmentField (COMMA assignmentField)* RR_BRACKET
     )? (SET updatedElement (COMMA updatedElement)*)?
     ;
 
 replaceStatement
-    : REPLACE priority = (LOW_PRIORITY | DELAYED)? INTO? tableName (PARTITION LR_BRACKET partitions = uidList RR_BRACKET)? ((LR_BRACKET columns = uidList RR_BRACKET)? insertStatementValue | SET setFirst = updatedElement (COMMA setElements += updatedElement)*)
+    : REPLACE priority = (LOW_PRIORITY | DELAYED)? INTO? tableIdentifier (PARTITION LR_BRACKET partitions = uidList RR_BRACKET)? ((LR_BRACKET columns = uidList RR_BRACKET)? insertStatementValue | SET setFirst = updatedElement (COMMA setElements += updatedElement)*)
     ;
 
 selectStatement
@@ -796,35 +796,35 @@ lockClause
 //    Detailed DML Statements
 
 singleDeleteStatement
-    : DELETE priority = LOW_PRIORITY? QUICK? IGNORE? FROM tableName (AS? uid)? (PARTITION LR_BRACKET uidList RR_BRACKET)? (WHERE expression)? orderByClause? (LIMIT limitClauseAtom)?
+    : DELETE priority = LOW_PRIORITY? QUICK? IGNORE? FROM tableIdentifier (AS? uid)? (PARTITION LR_BRACKET uidList RR_BRACKET)? (WHERE expression)? orderByClause? (LIMIT limitClauseAtom)?
     ;
 
 multipleDeleteStatement
-    : DELETE priority = LOW_PRIORITY? QUICK? IGNORE? (tableName (DOT STAR)? ( COMMA tableName (DOT STAR)?)* FROM tableSources | FROM tableName (DOT STAR)? ( COMMA tableName (DOT STAR)?)* USING tableSources) (WHERE expression)?
+    : DELETE priority = LOW_PRIORITY? QUICK? IGNORE? (tableIdentifier (DOT STAR)? ( COMMA tableIdentifier (DOT STAR)?)* FROM tableSources | FROM tableIdentifier (DOT STAR)? ( COMMA tableIdentifier (DOT STAR)?)* USING tableSources) (WHERE expression)?
     ;
 
 handlerOpenStatement
-    : HANDLER tableName OPEN (AS? uid)?
+    : HANDLER tableIdentifier OPEN (AS? uid)?
     ;
 
 handlerReadIndexStatement
-    : HANDLER tableName READ index = uid (comparisonOperator LR_BRACKET constants RR_BRACKET | moveOrder = (FIRST | NEXT | PREV | LAST)) (WHERE expression)? (LIMIT limitClauseAtom)?
+    : HANDLER tableIdentifier READ index = uid (comparisonOperator LR_BRACKET constants RR_BRACKET | moveOrder = (FIRST | NEXT | PREV | LAST)) (WHERE expression)? (LIMIT limitClauseAtom)?
     ;
 
 handlerReadStatement
-    : HANDLER tableName READ moveOrder = (FIRST | NEXT) (WHERE expression)? (LIMIT limitClauseAtom)?
+    : HANDLER tableIdentifier READ moveOrder = (FIRST | NEXT) (WHERE expression)? (LIMIT limitClauseAtom)?
     ;
 
 handlerCloseStatement
-    : HANDLER tableName CLOSE
+    : HANDLER tableIdentifier CLOSE
     ;
 
 singleUpdateStatement
-    : UPDATE priority = LOW_PRIORITY? IGNORE? tableName (AS? uid)? SET updatedElement (COMMA updatedElement)* (WHERE expression)? orderByClause? limitClause?
+    : UPDATE priority = LOW_PRIORITY? IGNORE? tableIdentifier (AS? uid)? SET updatedElement (COMMA updatedElement)* (WHERE expression)? orderByClause? limitClause?
     ;
 
 multipleUpdateStatement
-    : UPDATE priority = LOW_PRIORITY? IGNORE? tableNames SET updatedElement (COMMA updatedElement)* (WHERE expression)?
+    : UPDATE priority = LOW_PRIORITY? IGNORE? tableIdentifiers SET updatedElement (COMMA updatedElement)* (WHERE expression)?
     ;
 
 // details
@@ -848,9 +848,9 @@ tableSource
     ;
 
 tableSourceItem
-    : tableName (PARTITION LR_BRACKET uidList RR_BRACKET)? (AS? alias = uid)? (indexHint (COMMA indexHint)*)? # atomTableItem
-    | (LR_BRACKET parenthesisSubquery = selectStatement RR_BRACKET) AS? alias = uid                           # subqueryTableItem
-    | LR_BRACKET tableSources RR_BRACKET                                                                      # tableSourcesItem
+    : tableIdentifier (PARTITION LR_BRACKET uidList RR_BRACKET)? (AS? alias = uid)? (indexHint (COMMA indexHint)*)? # atomTableItem
+    | (LR_BRACKET parenthesisSubquery = selectStatement RR_BRACKET) AS? alias = uid                                 # subqueryTableItem
+    | LR_BRACKET tableSources RR_BRACKET                                                                            # tableSourcesItem
     ;
 
 indexHint
@@ -1062,7 +1062,7 @@ transactionMode
     ;
 
 lockTableElement
-    : tableName (AS? uid)? lockAction
+    : tableIdentifier (AS? uid)? lockAction
     ;
 
 lockAction
@@ -1180,7 +1180,7 @@ replicationFilter
     ;
 
 tablePair
-    : LR_BRACKET firstTable = tableName COMMA secondTable = tableName RR_BRACKET
+    : LR_BRACKET firstTable = tableIdentifier COMMA secondTable = tableIdentifier RR_BRACKET
     ;
 
 threadType
@@ -1595,10 +1595,10 @@ showStatement
     : SHOW logFormat = (BINARY | MASTER) LOGS                                                                                                                                                # showMasterLogs
     | SHOW logFormat = (BINLOG | RELAYLOG) EVENTS (IN filename = STRING_LITERAL)? ( FROM fromPosition = decimalLiteral)? (LIMIT (offset = decimalLiteral COMMA)? rowCount = decimalLiteral)? # showLogEvents
     | SHOW showCommonEntity showFilter?                                                                                                                                                      # showObjectFilter
-    | SHOW FULL? columnsFormat = (COLUMNS | FIELDS) tableFormat = (FROM | IN) tableName ( schemaFormat = (FROM | IN) uid)? showFilter?                                                       # showColumns
+    | SHOW FULL? columnsFormat = (COLUMNS | FIELDS) tableFormat = (FROM | IN) tableIdentifier ( schemaFormat = (FROM | IN) uid)? showFilter?                                                 # showColumns
     | SHOW CREATE schemaFormat = (DATABASE | SCHEMA) ifNotExists? databaseName                                                                                                               # showCreateDb
     | SHOW CREATE namedEntity = (EVENT | FUNCTION | PROCEDURE) fullId                                                                                                                        # showCreateFullIdObject
-    | SHOW CREATE (TABLE | VIEW) tableName                                                                                                                                                   # showCreateTableOrView
+    | SHOW CREATE (TABLE | VIEW) tableIdentifier                                                                                                                                             # showCreateTableOrView
     | SHOW CREATE TRIGGER triggerName                                                                                                                                                        # showCreateTrigger
     | SHOW CREATE USER userName                                                                                                                                                              # showCreateUser
     | SHOW ENGINE engineName engineOption = (STATUS | MUTEX)                                                                                                                                 # showEngine
@@ -1608,7 +1608,7 @@ showStatement
     | SHOW showSchemaEntity (schemaFormat = (FROM | IN) uid)? showFilter?                                                                                                                    # showSchemaFilter
     | SHOW routine = (FUNCTION | PROCEDURE) CODE fullId                                                                                                                                      # showRoutine
     | SHOW GRANTS (FOR userName)?                                                                                                                                                            # showGrants
-    | SHOW indexFormat = (INDEX | INDEXES | KEYS) tableFormat = (FROM | IN) tableName ( schemaFormat = (FROM | IN) uid)? (WHERE expression)?                                                 # showIndexes
+    | SHOW indexFormat = (INDEX | INDEXES | KEYS) tableFormat = (FROM | IN) tableIdentifier ( schemaFormat = (FROM | IN) uid)? (WHERE expression)?                                           # showIndexes
     | SHOW OPEN TABLES (schemaFormat = (FROM | IN) uid)? showFilter?                                                                                                                         # showOpenTables
     | SHOW PROFILE showProfileType (COMMA showProfileType)* (FOR QUERY queryCount = decimalLiteral)? ( LIMIT (offset = decimalLiteral COMMA)? rowCount = decimalLiteral)                     # showProfile
     | SHOW SLAVE STATUS (FOR CHANNEL STRING_LITERAL)?                                                                                                                                        # showSlaveStatus
@@ -1703,7 +1703,7 @@ shutdownStatement
 // details
 
 tableIndexes
-    : tableName (indexFormat = (INDEX | KEY)? LR_BRACKET indexNameList RR_BRACKET)?
+    : tableIdentifier (indexFormat = (INDEX | KEY)? LR_BRACKET indexNameList RR_BRACKET)?
     ;
 
 flushOption
@@ -1718,13 +1718,13 @@ flushTableOption
     ;
 
 loadedTableIndexes
-    : tableName (PARTITION LR_BRACKET (partitionList = uidList | ALL) RR_BRACKET)? (indexFormat = (INDEX | KEY)? LR_BRACKET indexNameList RR_BRACKET)? (IGNORE LEAVES)?
+    : tableIdentifier (PARTITION LR_BRACKET (partitionList = uidList | ALL) RR_BRACKET)? (indexFormat = (INDEX | KEY)? LR_BRACKET indexNameList RR_BRACKET)? (IGNORE LEAVES)?
     ;
 
 // Utility Statements
 
 simpleDescribeStatement
-    : command = (EXPLAIN | DESCRIBE | DESC) tableName (column = uid | pattern = STRING_LITERAL)?
+    : command = (EXPLAIN | DESCRIBE | DESC) tableIdentifier (column = uid | pattern = STRING_LITERAL)?
     ;
 
 fullDescribeStatement
@@ -1756,7 +1756,7 @@ withStatement
     ;
 
 tableStatement
-    : TABLE tableName orderByClause? limitClause?
+    : TABLE tableIdentifier orderByClause? limitClause?
     ;
 
 diagnosticsStatement
@@ -1798,11 +1798,20 @@ fullId
     ;
 
 tableName
-    : fullId
+    : uid
     ;
 
-tableNames
-    : tableName (COMMA tableName)*
+tableNameWithDotPrefix
+    : DOT_ID
+    ;
+
+tableIdentifier
+    : databaseName tableNameWithDotPrefix
+    | (databaseName DOT)? tableName
+    ;
+
+tableIdentifiers
+    : tableIdentifier (COMMA tableIdentifier)*
     ;
 
 userOrRoleName
@@ -2061,7 +2070,7 @@ fullColumnNameList
     ;
 
 tables
-    : tableName (COMMA tableName)*
+    : tableIdentifier (COMMA tableIdentifier)*
     ;
 
 indexColumnNames

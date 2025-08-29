@@ -7,7 +7,8 @@ import {
     extractStatementPositionsFromQuery,
 } from '../../shared/extract-statement-positions-from-query';
 import {MongoStatementsVisitor} from './mongo-extract-statements';
-import {extractUniqueRuleTextByIndexesFromQuery} from '../../shared/extract-unique-rule-text-by-indexes-from-query';
+import {extractRuleContextsFromQuery} from '../../shared/extract-rule-contexts-from-query';
+import {CollectionNameContext, QuotedCollectionNameContext} from './generated/MongoParser';
 
 export * from './mongo-extract-commands';
 
@@ -16,6 +17,10 @@ export interface MongoAutocompleteResult extends SqlAutocompleteResult {
     suggestCollections?: boolean;
     suggestQuotedUsers?: boolean;
 }
+
+export type ExtractMongoCollectionsFromQueryResult = {
+    collectionName: string;
+}[];
 
 export function parseMongoQueryWithoutCursor(
     query: string,
@@ -62,15 +67,36 @@ export function extractMongoStatementPositionsFromQuery(
     );
 }
 
-export function extractMongoCollectionNamesFromQuery(query: string): string[] {
-    return extractUniqueRuleTextByIndexesFromQuery(
+export function extractMongoCollectionsFromQuery(
+    query: string,
+): ExtractMongoCollectionsFromQueryResult {
+    const ruleContexts = extractRuleContextsFromQuery(
         query,
         mongoAutocompleteData.Lexer,
         mongoAutocompleteData.Parser,
         mongoAutocompleteData.getParseTree,
-        [
-            mongoAutocompleteData.Parser.RULE_collectionName,
-            mongoAutocompleteData.Parser.RULE_quotedCollectionName,
-        ],
+        [CollectionNameContext, QuotedCollectionNameContext],
     );
+
+    const result: ExtractMongoCollectionsFromQueryResult = [];
+    ruleContexts.forEach((ruleContext) => {
+        if (
+            !(ruleContext instanceof CollectionNameContext) &&
+            !(ruleContext instanceof QuotedCollectionNameContext)
+        ) {
+            return;
+        }
+
+        let collectionName: string;
+        if (ruleContext instanceof CollectionNameContext) {
+            collectionName = ruleContext.getText();
+        } else {
+            const quotedCollectonName = ruleContext.getText();
+            collectionName = quotedCollectonName.slice(1, quotedCollectonName.length - 1);
+        }
+
+        result.push({collectionName});
+    });
+
+    return result;
 }
