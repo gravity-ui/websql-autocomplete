@@ -78,15 +78,7 @@ export function extractMongoCollectionsFromQuery(
         [CollectionNameContext, QuotedCollectionNameContext],
     );
 
-    const result: ExtractMongoCollectionsFromQueryResult = [];
-    ruleContexts.forEach((ruleContext) => {
-        if (
-            !(ruleContext instanceof CollectionNameContext) &&
-            !(ruleContext instanceof QuotedCollectionNameContext)
-        ) {
-            return;
-        }
-
+    return ruleContexts.map((ruleContext) => {
         let collectionName: string;
         if (ruleContext instanceof CollectionNameContext) {
             collectionName = ruleContext.getText();
@@ -95,8 +87,6 @@ export function extractMongoCollectionsFromQuery(
             collectionName = quotedCollectonName.slice(1, quotedCollectonName.length - 1);
         }
 
-        result.push({collectionName});
+        return {collectionName};
     });
-
-    return result;
 }

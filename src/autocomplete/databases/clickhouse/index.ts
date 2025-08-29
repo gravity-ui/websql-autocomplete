@@ -96,20 +96,15 @@ export function extractClickHouseTablesFromQuery(
 
         return name;
     };
-    const result: ExtractClickHouseTablesFromQueryResult = [];
-    ruleContexts.forEach((ruleContext) => {
-        if (ruleContext instanceof TableIdentifierContext) {
-            let databaseName = ruleContext.databaseIdentifier()?.getText();
-            if (databaseName) {
-                databaseName = getNormalizedName(databaseName);
-            }
-
-            result.push({
-                databaseName,
-                tableName: getNormalizedName(ruleContext.tableName().getText()),
-            });
+    return ruleContexts.map((ruleContext) => {
+        let databaseName = ruleContext.databaseIdentifier()?.getText();
+        if (databaseName) {
+            databaseName = getNormalizedName(databaseName);
         }
-    });
 
-    return result;
+        return {
+            databaseName,
+            tableName: getNormalizedName(ruleContext.tableName().getText()),
+        };
+    });
 }

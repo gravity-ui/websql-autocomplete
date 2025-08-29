@@ -100,25 +100,21 @@ export function extractPostgreSqlTableNamesFromQuery(
 
         return name;
     };
-    const result: ExtractPostgreSqlTablesFromQueryResult = [];
-    ruleContexts.forEach((ruleContext) => {
-        if (ruleContext instanceof TableIdentifierContext) {
-            let schemaName = ruleContext.schemaName()?.getText();
-            let databaseName = ruleContext.databaseName()?.getText();
-            if (schemaName) {
-                schemaName = getNormalizedName(schemaName);
-            }
-            if (databaseName) {
-                databaseName = getNormalizedName(databaseName);
-            }
 
-            result.push({
-                databaseName,
-                schemaName,
-                tableName: getNormalizedName(ruleContext.tableName().getText()),
-            });
+    return ruleContexts.map((ruleContext) => {
+        let schemaName = ruleContext.schemaName()?.getText();
+        let databaseName = ruleContext.databaseName()?.getText();
+        if (schemaName) {
+            schemaName = getNormalizedName(schemaName);
         }
-    });
+        if (databaseName) {
+            databaseName = getNormalizedName(databaseName);
+        }
 
-    return result;
+        return {
+            databaseName,
+            schemaName,
+            tableName: getNormalizedName(ruleContext.tableName().getText()),
+        };
+    });
 }

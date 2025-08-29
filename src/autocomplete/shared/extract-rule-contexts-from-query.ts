@@ -3,25 +3,27 @@ import type {Lexer as LexerType, ParserRuleContext, Parser as ParserType} from '
 import {GetParseTree, LexerConstructor, ParserConstructor} from './autocomplete-types';
 import {createParser} from './query';
 
-export function extractRuleContextsFromQuery<L extends LexerType, P extends ParserType>(
+export function extractRuleContextsFromQuery<
+    L extends LexerType,
+    P extends ParserType,
+    R extends new (parent: ParserRuleContext | null, invokingState: number) => ParserRuleContext,
+>(
     query: string,
     Lexer: LexerConstructor<L>,
     Parser: ParserConstructor<P>,
     getParseTree: GetParseTree<P>,
-    ruleContextTypes: (new (
-        parent: ParserRuleContext | null,
-        invokingState: number,
-    ) => ParserRuleContext)[],
-): ParserRuleContext[] {
+    ruleContextTypes: R[],
+): InstanceType<R>[] {
     const parser = createParser(Lexer, Parser, query);
 
-    const result: ParserRuleContext[] = [];
+    const result: InstanceType<R>[] = [];
     parser.addParseListener({
         exitEveryRule(ruleContext) {
             if (
                 ruleContextTypes.some((ruleContextType) => ruleContext instanceof ruleContextType)
             ) {
-                result.push(ruleContext);
+                // Unfortunately, TypeScript cannot correctly handle type casting in condition above
+                result.push(ruleContext as unknown as InstanceType<R>);
             }
         },
         // ParseListener requires functions to be declared

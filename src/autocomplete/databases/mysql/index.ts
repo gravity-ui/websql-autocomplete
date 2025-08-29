@@ -94,22 +94,21 @@ export function extractMySqlTablesFromQuery(query: string): ExtractMySqlTablesFr
 
         return name;
     };
+
     const result: ExtractMySqlTablesFromQueryResult = [];
     ruleContexts.forEach((ruleContext) => {
-        if (ruleContext instanceof TableIdentifierContext) {
-            let databaseName = ruleContext.databaseName()?.getText();
-            if (databaseName) {
-                databaseName = getNormalizedName(databaseName);
-            }
-            const tableName =
-                ruleContext.tableName()?.getText() ||
-                ruleContext.tableNameWithDotPrefix()?.getText().slice(1);
-            if (tableName) {
-                result.push({
-                    databaseName,
-                    tableName: getNormalizedName(tableName),
-                });
-            }
+        let databaseName = ruleContext.databaseName()?.getText();
+        if (databaseName) {
+            databaseName = getNormalizedName(databaseName);
+        }
+        const tableName =
+            ruleContext.tableName()?.getText() ||
+            ruleContext.tableNameWithDotPrefix()?.getText().slice(1);
+        if (tableName) {
+            result.push({
+                databaseName,
+                tableName: getNormalizedName(tableName),
+            });
         }
     });
 
