@@ -1,4 +1,5 @@
 import {IStatementsVisitor, StatementPosition} from '../../shared';
+import {getStatementEndIndex} from '../../shared/extract-statement-positions-from-query';
 import {Sql_stmt_listContext} from './generated/YQLParser';
 import {YQLVisitor} from './generated/YQLVisitor';
 
@@ -20,9 +21,7 @@ export class YqlStatementsVisitor extends YQLVisitor<unknown> implements IStatem
         while (statement?.start && statement.stop) {
             this.statementPositions.push({
                 startIndex: statement.start.start,
-                endIndex: semi
-                    ? semi.symbol.start + 1
-                    : statement.stop.start + (statement.stop.text?.length ?? 0),
+                endIndex: getStatementEndIndex(statement.stop, semi),
             });
 
             this.lastTokenIndex = semi ? semi.symbol.tokenIndex : statement.stop.tokenIndex;

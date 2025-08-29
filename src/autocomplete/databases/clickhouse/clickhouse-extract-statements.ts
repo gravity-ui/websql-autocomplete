@@ -1,4 +1,5 @@
 import {IStatementsVisitor, StatementPosition} from '../../shared';
+import {getStatementEndIndex} from '../../shared/extract-statement-positions-from-query';
 import {StatementsContext} from './generated/ClickHouseParser';
 import {ClickHouseParserVisitor} from './generated/ClickHouseParserVisitor';
 
@@ -20,9 +21,7 @@ export class ClickHouseStatementsVisitor
 
         this.statementPositions.push({
             startIndex: context.start.start,
-            endIndex: semi
-                ? semi.symbol.start + 1
-                : context.stop.start + (context.stop.text?.length ?? 0),
+            endIndex: getStatementEndIndex(context.stop, semi),
         });
 
         const otherStatements = context.statements();

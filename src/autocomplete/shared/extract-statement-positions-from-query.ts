@@ -1,4 +1,11 @@
-import type {Lexer as LexerType, ParseTree, Parser as ParserType, TokenStream} from 'antlr4ng';
+import type {
+    Lexer as LexerType,
+    ParseTree,
+    Parser as ParserType,
+    TerminalNode,
+    Token,
+    TokenStream,
+} from 'antlr4ng';
 
 import {
     GetParseTree,
@@ -206,4 +213,17 @@ function normalizeStatementPositions(
             endIndex: normalizedEndIndex,
         };
     });
+}
+
+export function getStatementEndIndex(stopToken: Token, semicolon: TerminalNode | null): number {
+    if (semicolon) {
+        return semicolon.symbol.start + 1;
+    }
+
+    // Sometimes stopToken is EOF token, so we want to return its start index
+    if (stopToken.type === -1) {
+        return stopToken.start;
+    }
+
+    return stopToken.start + (stopToken.text?.length ?? 0);
 }
