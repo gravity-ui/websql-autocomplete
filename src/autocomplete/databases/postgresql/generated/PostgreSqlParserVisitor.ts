@@ -631,6 +631,9 @@ import { IndexNameContext } from "./PostgreSqlParser.js";
 import { IndexNameListContext } from "./PostgreSqlParser.js";
 import { TriggerNameContext } from "./PostgreSqlParser.js";
 import { ConstraintNameContext } from "./PostgreSqlParser.js";
+import { TableNameContext } from "./PostgreSqlParser.js";
+import { TableIdentifierContext } from "./PostgreSqlParser.js";
+import { TableIdentifierListContext } from "./PostgreSqlParser.js";
 import { SequenceNameContext } from "./PostgreSqlParser.js";
 import { SequenceNameListContext } from "./PostgreSqlParser.js";
 import { QualifiedNameContext } from "./PostgreSqlParser.js";
@@ -4491,6 +4494,24 @@ export class PostgreSqlParserVisitor<Result> extends AbstractParseTreeVisitor<Re
      * @return the visitor result
      */
     visitConstraintName?: (ctx: ConstraintNameContext) => Result;
+    /**
+     * Visit a parse tree produced by `PostgreSqlParser.tableName`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitTableName?: (ctx: TableNameContext) => Result;
+    /**
+     * Visit a parse tree produced by `PostgreSqlParser.tableIdentifier`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitTableIdentifier?: (ctx: TableIdentifierContext) => Result;
+    /**
+     * Visit a parse tree produced by `PostgreSqlParser.tableIdentifierList`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitTableIdentifierList?: (ctx: TableIdentifierListContext) => Result;
     /**
      * Visit a parse tree produced by `PostgreSqlParser.sequenceName`.
      * @param ctx the parse tree

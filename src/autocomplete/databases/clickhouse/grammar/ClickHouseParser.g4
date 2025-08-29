@@ -1387,7 +1387,11 @@ tableFunctionExpression
     ;
 
 tableIdentifier
-    : (databaseIdentifier DOT)? identifier
+    : (databaseIdentifier DOT)? tableName
+    ;
+
+tableName
+    : identifier
     ;
 
 tableArgList

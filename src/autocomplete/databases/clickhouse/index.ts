@@ -12,11 +12,18 @@ import {
     extractStatementPositionsFromQuery,
 } from '../../shared/extract-statement-positions-from-query';
 import {ClickHouseStatementsVisitor} from './clickhouse-extract-statements';
+import {TableIdentifierContext} from './generated/ClickHouseParser';
+import {extractRuleContextsFromQuery} from '../../shared/extract-rule-contexts-from-query';
 
 export interface ClickHouseAutocompleteResult extends SqlAutocompleteResult {
     suggestViewsOrTables?: TableOrViewSuggestion;
     suggestEngines?: EngineSuggestion;
 }
+
+export type ExtractClickHouseTablesFromQueryResult = {
+    databaseName?: string;
+    tableName: string;
+}[];
 
 export function parseClickHouseQueryWithoutCursor(
     query: string,
@@ -66,4 +73,38 @@ export function extractClickHouseStatementPositionsFromQuery(
         new ClickHouseStatementsVisitor(),
         clickHouseAutocompleteData.getParseTree,
     );
+}
+
+export function extractClickHouseTablesFromQuery(
+    query: string,
+): ExtractClickHouseTablesFromQueryResult {
+    const ruleContexts = extractRuleContextsFromQuery(
+        query,
+        clickHouseAutocompleteData.Lexer,
+        clickHouseAutocompleteData.Parser,
+        clickHouseAutocompleteData.getParseTree,
+        [TableIdentifierContext],
+    );
+
+    const getNormalizedName = (name: string): string => {
+        if (
+            (name.startsWith('`') && name.endsWith('`')) ||
+            (name.startsWith('"') && name.endsWith('"'))
+        ) {
+            return name.slice(1, name.length - 1);
+        }
+
+        return name;
+    };
+    return ruleContexts.map((ruleContext) => {
+        let databaseName = ruleContext.databaseIdentifier()?.getText();
+        if (databaseName) {
+            databaseName = getNormalizedName(databaseName);
+        }
+
+        return {
+            databaseName,
+            tableName: getNormalizedName(ruleContext.tableName().getText()),
+        };
+    });
 }

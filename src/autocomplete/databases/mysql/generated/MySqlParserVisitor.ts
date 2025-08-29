@@ -495,7 +495,9 @@ import { DescribeStatementsContext } from "./MySqlParser.js";
 import { DescribeConnectionContext } from "./MySqlParser.js";
 import { FullIdContext } from "./MySqlParser.js";
 import { TableNameContext } from "./MySqlParser.js";
-import { TableNamesContext } from "./MySqlParser.js";
+import { TableNameWithDotPrefixContext } from "./MySqlParser.js";
+import { TableIdentifierContext } from "./MySqlParser.js";
+import { TableIdentifiersContext } from "./MySqlParser.js";
 import { UserOrRoleNameContext } from "./MySqlParser.js";
 import { UserOrRoleNameListContext } from "./MySqlParser.js";
 import { NewRoleNameListContext } from "./MySqlParser.js";
@@ -3797,11 +3799,23 @@ export class MySqlParserVisitor<Result> extends AbstractParseTreeVisitor<Result>
      */
     visitTableName?: (ctx: TableNameContext) => Result;
     /**
-     * Visit a parse tree produced by `MySqlParser.tableNames`.
+     * Visit a parse tree produced by `MySqlParser.tableNameWithDotPrefix`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitTableNames?: (ctx: TableNamesContext) => Result;
+    visitTableNameWithDotPrefix?: (ctx: TableNameWithDotPrefixContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.tableIdentifier`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitTableIdentifier?: (ctx: TableIdentifierContext) => Result;
+    /**
+     * Visit a parse tree produced by `MySqlParser.tableIdentifiers`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitTableIdentifiers?: (ctx: TableIdentifiersContext) => Result;
     /**
      * Visit a parse tree produced by `MySqlParser.userOrRoleName`.
      * @param ctx the parse tree

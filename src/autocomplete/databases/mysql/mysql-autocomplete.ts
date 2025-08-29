@@ -15,7 +15,7 @@ import {
     AtomTableItemContext,
     MySqlParser,
     SelectElementAliasContext,
-    TableNameContext,
+    TableIdentifierContext,
 } from './generated/MySqlParser.js';
 import {MySqlParserVisitor} from './generated/MySqlParserVisitor.js';
 import {
@@ -92,7 +92,7 @@ const rulesToVisit = new Set([
     MySqlParser.RULE_triggerName,
     MySqlParser.RULE_indexName,
     MySqlParser.RULE_fullColumnName,
-    MySqlParser.RULE_tableName,
+    MySqlParser.RULE_tableIdentifier,
     MySqlParser.RULE_simpleUserName,
     // TODO: merge with uid???
     // We don't need to go inside of next rules, we already know that this is identifier of sorts.
@@ -118,7 +118,7 @@ class MySqlSymbolTableVisitor extends MySqlParserVisitor<{}> implements ISymbolT
         this.scope = this.symbolTable.addNewSymbolOfType(c3.ScopedSymbol, undefined);
     }
 
-    visitTableName = (context: TableNameContext): {} => {
+    visitTableIdentifier = (context: TableIdentifierContext): {} => {
         try {
             this.symbolTable.addNewSymbolOfType(TableSymbol, this.scope, context.getText());
         } catch (error) {
@@ -140,7 +140,7 @@ class MySqlSymbolTableVisitor extends MySqlParserVisitor<{}> implements ISymbolT
             this.symbolTable.addNewSymbolOfType(
                 TableSymbol,
                 this.scope,
-                context.tableName().getText(),
+                context.tableIdentifier().getText(),
                 isAliasPartOfJoinStatement ? undefined : rawAlias,
             );
         } catch (error) {
@@ -193,7 +193,7 @@ function processVisitedRules(
         }
 
         switch (ruleId) {
-            case MySqlParser.RULE_tableName: {
+            case MySqlParser.RULE_tableIdentifier: {
                 if (rule.ruleList.includes(MySqlParser.RULE_createTable)) {
                     break;
                 }

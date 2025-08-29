@@ -10,6 +10,8 @@ import {
     RedisCommands,
     extractRedisCommandsFromQuery as extractRedisCommandsFromQueryRaw,
 } from './redis-tokenize';
+import {extractRuleContextsFromQuery} from '../../shared/extract-rule-contexts-from-query';
+import {KeyNameContext} from './generated/RedisParser';
 
 export {RedisCommands} from './redis-tokenize';
 
@@ -21,6 +23,10 @@ export interface RedisAutocompleteResult extends AutocompleteResultBase {
     suggestSortedSets?: boolean;
     suggestHashes?: boolean;
 }
+
+export type ExtractRedisKeysFromQueryResult = {
+    keyName: string;
+}[];
 
 export function parseRedisQueryWithoutCursor(
     query: string,
@@ -64,4 +70,18 @@ export function extractRedisStatementPositionsFromQuery(
 
 export function extractRedisCommandsFromQuery(query: string): RedisCommands {
     return extractRedisCommandsFromQueryRaw(query).commands;
+}
+
+export function extractRedisKeysFromQuery(query: string): ExtractRedisKeysFromQueryResult {
+    const ruleContexts = extractRuleContextsFromQuery(
+        query,
+        redisAutocompleteData.Lexer,
+        redisAutocompleteData.Parser,
+        redisAutocompleteData.getParseTree,
+        [KeyNameContext],
+    );
+
+    return ruleContexts.map((ruleContext) => ({
+        keyName: ruleContext.getText(),
+    }));
 }

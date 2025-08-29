@@ -12,6 +12,8 @@ import {
     extractStatementPositionsFromQuery,
 } from '../../shared/extract-statement-positions-from-query';
 import {MySqlStatementsVisitor} from './mysql-extract-statements';
+import {extractRuleContextsFromQuery} from '../../shared/extract-rule-contexts-from-query';
+import {TableIdentifierContext} from './generated/MySqlParser';
 
 export interface MySqlAutocompleteResult extends SqlAutocompleteResult {
     suggestViewsOrTables?: TableOrViewSuggestion;
@@ -21,6 +23,11 @@ export interface MySqlAutocompleteResult extends SqlAutocompleteResult {
     suggestRoles?: boolean;
     suggestUsers?: boolean;
 }
+
+export type ExtractMySqlTablesFromQueryResult = {
+    databaseName?: string;
+    tableName: string;
+}[];
 
 export function parseMySqlQueryWithoutCursor(
     query: string,
@@ -65,4 +72,45 @@ export function extractMySqlStatementPositionsFromQuery(
         new MySqlStatementsVisitor(),
         mySqlAutocompleteData.getParseTree,
     );
+}
+
+export function extractMySqlTablesFromQuery(query: string): ExtractMySqlTablesFromQueryResult {
+    const ruleContexts = extractRuleContextsFromQuery(
+        query,
+        mySqlAutocompleteData.Lexer,
+        mySqlAutocompleteData.Parser,
+        mySqlAutocompleteData.getParseTree,
+        [TableIdentifierContext],
+    );
+
+    const getNormalizedName = (name: string): string => {
+        if (
+            (name.startsWith('`') && name.endsWith('`')) ||
+            (name.startsWith('"') && name.endsWith('"')) ||
+            (name.startsWith("'") && name.endsWith("'"))
+        ) {
+            return name.slice(1, name.length - 1);
+        }
+
+        return name;
+    };
+
+    const result: ExtractMySqlTablesFromQueryResult = [];
+    ruleContexts.forEach((ruleContext) => {
+        let databaseName = ruleContext.databaseName()?.getText();
+        if (databaseName) {
+            databaseName = getNormalizedName(databaseName);
+        }
+        const tableName =
+            ruleContext.tableName()?.getText() ||
+            ruleContext.tableNameWithDotPrefix()?.getText().slice(1);
+        if (tableName) {
+            result.push({
+                databaseName,
+                tableName: getNormalizedName(tableName),
+            });
+        }
+    });
+
+    return result;
 }

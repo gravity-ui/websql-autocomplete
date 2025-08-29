@@ -13,6 +13,8 @@ import {
 } from '../../shared/extract-statement-positions-from-query';
 import {PostgreSqlLexer} from './generated/PostgreSqlLexer';
 import {PostgreSqlStatementsVisitor} from './postgresql-extract-statements';
+import {TableIdentifierContext} from './generated/PostgreSqlParser';
+import {extractRuleContextsFromQuery} from '../../shared/extract-rule-contexts-from-query';
 
 export interface PostgreSqlAutocompleteResult extends SqlAutocompleteResult {
     suggestViewsOrTables?: TableOrViewSuggestion;
@@ -23,6 +25,12 @@ export interface PostgreSqlAutocompleteResult extends SqlAutocompleteResult {
     suggestSchemas?: boolean;
     suggestRoles?: boolean;
 }
+
+export type ExtractPostgreSqlTablesFromQueryResult = {
+    databaseName?: string;
+    schemaName?: string;
+    tableName: string;
+}[];
 
 export function parsePostgreSqlQueryWithoutCursor(
     query: string,
@@ -72,4 +80,41 @@ export function extractPostgreSqlStatementPositionsFromQuery(
         new PostgreSqlStatementsVisitor(),
         postgreSqlAutocompleteData.getParseTree,
     );
+}
+
+export function extractPostgreSqlTableNamesFromQuery(
+    query: string,
+): ExtractPostgreSqlTablesFromQueryResult {
+    const ruleContexts = extractRuleContextsFromQuery(
+        query,
+        postgreSqlAutocompleteData.Lexer,
+        postgreSqlAutocompleteData.Parser,
+        postgreSqlAutocompleteData.getParseTree,
+        [TableIdentifierContext],
+    );
+
+    const getNormalizedName = (name: string): string => {
+        if (name.startsWith('"') && name.endsWith('"')) {
+            return name.slice(1, name.length - 1);
+        }
+
+        return name;
+    };
+
+    return ruleContexts.map((ruleContext) => {
+        let schemaName = ruleContext.schemaName()?.getText();
+        let databaseName = ruleContext.databaseName()?.getText();
+        if (schemaName) {
+            schemaName = getNormalizedName(schemaName);
+        }
+        if (databaseName) {
+            databaseName = getNormalizedName(databaseName);
+        }
+
+        return {
+            databaseName,
+            schemaName,
+            tableName: getNormalizedName(ruleContext.tableName().getText()),
+        };
+    });
 }

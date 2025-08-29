@@ -376,7 +376,7 @@ columnAliases
     ;
 
 relationPrimary
-    : qualifiedName queryPeriod?                                                   # tableName
+    : tableIdentifier queryPeriod?                                                 # tableIdentifierRelation
     | LPAREN_ query RPAREN_                                                        # subqueryRelation
     | UNNEST_ LPAREN_ expression (COMMA_ expression)* RPAREN_ (WITH_ ORDINALITY_)? # unnest
     | LATERAL_ LPAREN_ query RPAREN_                                               # lateral
@@ -869,20 +869,32 @@ identifier
     | DIGIT_IDENTIFIER_      # digitIdentifier
     ;
 
+catalogName
+    : identifier
+    ;
+
 catalogIdentifier
+    : catalogName
+    ;
+
+schemaName
     : identifier
     ;
 
 schemaIdentifier
-    : catalogIdentifier DOT_ identifier
+    : catalogIdentifier DOT_ schemaName
     ;
 
 tableReference
     : tableIdentifier (AS_? aliasIdentifier)?
     ;
 
+tableName
+    : identifier
+    ;
+
 tableIdentifier
-    : schemaIdentifier DOT_ identifier
+    : (schemaIdentifier DOT_)? tableName
     ;
 
 viewIdentifier
@@ -898,11 +910,11 @@ aliasIdentifier
     ;
 
 newSchemaIdentifier
-    : identifier DOT_ identifier
+    : schemaIdentifier
     ;
 
 newTableIdentifier
-    : newSchemaIdentifier DOT_ identifier
+    : (newSchemaIdentifier DOT_)? tableName
     ;
 
 newViewIdentifier
