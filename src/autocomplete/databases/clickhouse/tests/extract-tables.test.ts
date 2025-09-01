@@ -17,8 +17,6 @@ test('should extract tables from query', () => {
     expect(result).toEqual([
         {tableName: 'test_table1'},
         {tableName: 'test_table2'},
-        {tableName: 'test_table1'},
-        {tableName: 'test_table2'},
         {tableName: 'test_table3'},
         {tableName: 'test_table4'},
         {tableName: 'test_table5'},
@@ -45,8 +43,6 @@ test('should extract quoted tables from query', () => {
     `);
 
     expect(result).toEqual([
-        {tableName: 'test_table1'},
-        {tableName: 'test_table2'},
         {tableName: 'test_table1'},
         {tableName: 'test_table2'},
         {tableName: 'test_table3'},
@@ -77,8 +73,6 @@ test('should extract tables with databases from query', () => {
     expect(result).toEqual([
         {databaseName: 'test_db', tableName: 'test_table1'},
         {databaseName: 'test_db', tableName: 'test_table2'},
-        {databaseName: 'test_db', tableName: 'test_table1'},
-        {databaseName: 'test_db', tableName: 'test_table2'},
         {databaseName: 'test_db', tableName: 'test_table3'},
         {databaseName: 'test_db', tableName: 'test_table4'},
         {databaseName: 'test_db', tableName: 'test_table5'},
@@ -105,9 +99,6 @@ test('should extract normalized tables and databases from query', () => {
 
     expect(result).toEqual([
         {tableName: 'test_table1'},
-        {tableName: 'test_table1'},
-        {databaseName: 'test_db', tableName: 'test_table1'},
-        {databaseName: 'test_db', tableName: 'test_table1'},
         {databaseName: 'test_db', tableName: 'test_table1'},
     ]);
 });

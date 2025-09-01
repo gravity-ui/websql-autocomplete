@@ -102,9 +102,6 @@ test('should extract normalized tables, schemas and databases from query', () =>
 
     expect(result).toEqual([
         {tableName: 'test_table1'},
-        {tableName: 'test_table1'},
-        {databaseName: 'test_db', tableName: 'test_table1'},
-        {databaseName: 'test_db', tableName: 'test_table1'},
         {databaseName: 'test_db', tableName: 'test_table1'},
     ]);
 });

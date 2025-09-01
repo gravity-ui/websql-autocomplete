@@ -99,7 +99,6 @@ test('should extract normalized tables from query', () => {
     expect(result).toEqual([
         {tableName: 'test_table1'},
         {catalogName: 'test_catalog', schemaName: 'test_schema', tableName: 'test_table1'},
-        {catalogName: 'test_catalog', schemaName: 'test_schema', tableName: 'test_table1'},
     ]);
 });
 

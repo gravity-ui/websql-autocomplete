@@ -96,15 +96,26 @@ export function extractClickHouseTablesFromQuery(
 
         return name;
     };
-    return ruleContexts.map((ruleContext) => {
+
+    return ruleContexts.reduce<ExtractClickHouseTablesFromQueryResult>((acc, ruleContext) => {
         let databaseName = ruleContext.databaseIdentifier()?.getText();
         if (databaseName) {
             databaseName = getNormalizedName(databaseName);
         }
 
-        return {
-            databaseName,
-            tableName: getNormalizedName(ruleContext.tableName().getText()),
-        };
-    });
+        const tableName = getNormalizedName(ruleContext.tableName().getText());
+        const isUnique = acc.every(
+            (previousTable) =>
+                previousTable.databaseName !== databaseName ||
+                previousTable.tableName !== tableName,
+        );
+        if (isUnique) {
+            acc.push({
+                databaseName,
+                tableName,
+            });
+        }
+
+        return acc;
+    }, []);
 }

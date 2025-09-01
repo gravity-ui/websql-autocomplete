@@ -127,8 +127,6 @@ test('should extract normalized tables, schemas and databases from query', () =>
         {tableName: 'test_table1'},
         {schemaName: 'test_schema', tableName: 'test_table1'},
         {databaseName: 'test_db', schemaName: 'test_schema', tableName: 'test_table1'},
-        {databaseName: 'test_db', schemaName: 'test_schema', tableName: 'test_table1'},
-        {databaseName: 'test_db', schemaName: 'test_schema', tableName: 'test_table1'},
     ]);
 });
 

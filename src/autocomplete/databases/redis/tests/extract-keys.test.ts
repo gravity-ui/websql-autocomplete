@@ -10,6 +10,7 @@ test('should extract key from command', () => {
         UNLINK test_key6
         DUMP test_key7
         EXISTS test_key8
+        EXISTS test_key8
     `);
 
     expect(result).toEqual([

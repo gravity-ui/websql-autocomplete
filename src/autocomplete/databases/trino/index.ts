@@ -100,7 +100,7 @@ export function extractTrinoTablesFromQuery(query: string): ExtractTrinoTablesFr
         return name;
     };
 
-    return ruleContexts.map((ruleContext) => {
+    return ruleContexts.reduce<ExtractTrinoTablesFromQueryResult>((acc, ruleContext) => {
         let schemaIdentifierContext: SchemaIdentifierContext | null;
         if (ruleContext instanceof TableIdentifierContext) {
             schemaIdentifierContext = ruleContext.schemaIdentifier();
@@ -117,10 +117,22 @@ export function extractTrinoTablesFromQuery(query: string): ExtractTrinoTablesFr
             schemaName = getNormalizedName(schemaName);
         }
 
-        return {
-            catalogName,
-            schemaName,
-            tableName: getNormalizedName(ruleContext.tableName().getText()),
-        };
-    });
+        const tableName = getNormalizedName(ruleContext.tableName().getText());
+
+        const isUnique = acc.every(
+            (previousTable) =>
+                previousTable.catalogName !== catalogName ||
+                previousTable.schemaName !== schemaName ||
+                previousTable.tableName !== tableName,
+        );
+        if (isUnique) {
+            acc.push({
+                catalogName,
+                schemaName,
+                tableName,
+            });
+        }
+
+        return acc;
+    }, []);
 }

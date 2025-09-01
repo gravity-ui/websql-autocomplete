@@ -101,7 +101,7 @@ export function extractPostgreSqlTableNamesFromQuery(
         return name;
     };
 
-    return ruleContexts.map((ruleContext) => {
+    return ruleContexts.reduce<ExtractPostgreSqlTablesFromQueryResult>((acc, ruleContext) => {
         let schemaName = ruleContext.schemaName()?.getText();
         let databaseName = ruleContext.databaseName()?.getText();
         if (schemaName) {
@@ -111,10 +111,21 @@ export function extractPostgreSqlTableNamesFromQuery(
             databaseName = getNormalizedName(databaseName);
         }
 
-        return {
-            databaseName,
-            schemaName,
-            tableName: getNormalizedName(ruleContext.tableName().getText()),
-        };
-    });
+        const tableName = getNormalizedName(ruleContext.tableName().getText());
+        const isUnique = acc.every(
+            (previousTable) =>
+                previousTable.schemaName !== schemaName ||
+                previousTable.databaseName !== databaseName ||
+                previousTable.tableName !== tableName,
+        );
+        if (isUnique) {
+            acc.push({
+                databaseName,
+                schemaName,
+                tableName,
+            });
+        }
+
+        return acc;
+    }, []);
 }

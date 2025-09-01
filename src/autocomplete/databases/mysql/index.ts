@@ -95,22 +95,33 @@ export function extractMySqlTablesFromQuery(query: string): ExtractMySqlTablesFr
         return name;
     };
 
-    const result: ExtractMySqlTablesFromQueryResult = [];
-    ruleContexts.forEach((ruleContext) => {
+    return ruleContexts.reduce<ExtractMySqlTablesFromQueryResult>((acc, ruleContext) => {
         let databaseName = ruleContext.databaseName()?.getText();
         if (databaseName) {
             databaseName = getNormalizedName(databaseName);
         }
-        const tableName =
+
+        const rawTableName =
             ruleContext.tableName()?.getText() ||
             ruleContext.tableNameWithDotPrefix()?.getText().slice(1);
-        if (tableName) {
-            result.push({
+
+        if (!rawTableName) {
+            return acc;
+        }
+
+        const tableName = getNormalizedName(rawTableName);
+        const isUnique = acc.every(
+            (previousTable) =>
+                previousTable.databaseName !== databaseName ||
+                previousTable.tableName !== tableName,
+        );
+        if (isUnique) {
+            acc.push({
                 databaseName,
-                tableName: getNormalizedName(tableName),
+                tableName,
             });
         }
-    });
 
-    return result;
+        return acc;
+    }, []);
 }

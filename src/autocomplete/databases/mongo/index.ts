@@ -78,7 +78,7 @@ export function extractMongoCollectionsFromQuery(
         [CollectionNameContext, QuotedCollectionNameContext],
     );
 
-    return ruleContexts.map((ruleContext) => {
+    return ruleContexts.reduce<ExtractMongoCollectionsFromQueryResult>((acc, ruleContext) => {
         let collectionName: string;
         if (ruleContext instanceof CollectionNameContext) {
             collectionName = ruleContext.getText();
@@ -87,6 +87,10 @@ export function extractMongoCollectionsFromQuery(
             collectionName = quotedCollectonName.slice(1, quotedCollectonName.length - 1);
         }
 
-        return {collectionName};
-    });
+        if (acc.every((collection) => collection.collectionName !== collectionName)) {
+            acc.push({collectionName});
+        }
+
+        return acc;
+    }, []);
 }

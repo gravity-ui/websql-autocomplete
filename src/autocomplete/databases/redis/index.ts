@@ -81,7 +81,14 @@ export function extractRedisKeysFromQuery(query: string): ExtractRedisKeysFromQu
         [KeyNameContext],
     );
 
-    return ruleContexts.map((ruleContext) => ({
-        keyName: ruleContext.getText(),
-    }));
+    return ruleContexts.reduce<ExtractRedisKeysFromQueryResult>((acc, ruleContext) => {
+        const keyName = ruleContext.getText();
+        if (acc.every((key) => key.keyName !== keyName)) {
+            acc.push({
+                keyName,
+            });
+        }
+
+        return acc;
+    }, []);
 }
