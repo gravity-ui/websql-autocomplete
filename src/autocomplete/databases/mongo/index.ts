@@ -7,20 +7,16 @@ import {
     extractStatementPositionsFromQuery,
 } from '../../shared/extract-statement-positions-from-query';
 import {MongoStatementsVisitor} from './mongo-extract-statements';
-import {extractRuleContextsFromQuery} from '../../shared/extract-rule-contexts-from-query';
-import {CollectionNameContext, QuotedCollectionNameContext} from './generated/MongoParser';
 
 export * from './mongo-extract-commands';
+
+export {extractMongoCollectionsFromQuery} from './mongo-extract-collections';
 
 export interface MongoAutocompleteResult extends SqlAutocompleteResult {
     suggestQuotedCollections?: boolean;
     suggestCollections?: boolean;
     suggestQuotedUsers?: boolean;
 }
-
-export type ExtractMongoCollectionsFromQueryResult = {
-    collectionName: string;
-}[];
 
 export function parseMongoQueryWithoutCursor(
     query: string,
@@ -65,32 +61,4 @@ export function extractMongoStatementPositionsFromQuery(
         new MongoStatementsVisitor(),
         mongoAutocompleteData.getParseTree,
     );
-}
-
-export function extractMongoCollectionsFromQuery(
-    query: string,
-): ExtractMongoCollectionsFromQueryResult {
-    const ruleContexts = extractRuleContextsFromQuery(
-        query,
-        mongoAutocompleteData.Lexer,
-        mongoAutocompleteData.Parser,
-        mongoAutocompleteData.getParseTree,
-        [CollectionNameContext, QuotedCollectionNameContext],
-    );
-
-    return ruleContexts.reduce<ExtractMongoCollectionsFromQueryResult>((acc, ruleContext) => {
-        let collectionName: string;
-        if (ruleContext instanceof CollectionNameContext) {
-            collectionName = ruleContext.getText();
-        } else {
-            const quotedCollectonName = ruleContext.getText();
-            collectionName = quotedCollectonName.slice(1, quotedCollectonName.length - 1);
-        }
-
-        if (acc.every((collection) => collection.collectionName !== collectionName)) {
-            acc.push({collectionName});
-        }
-
-        return acc;
-    }, []);
 }

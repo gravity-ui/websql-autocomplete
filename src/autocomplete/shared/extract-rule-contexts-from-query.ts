@@ -3,7 +3,7 @@ import type {Lexer as LexerType, ParserRuleContext, Parser as ParserType} from '
 import {GetParseTree, LexerConstructor, ParserConstructor} from './autocomplete-types';
 import {createParser} from './query';
 
-export function extractRuleContextsFromQuery<
+export function extractRuleContextFromQuery<
     L extends LexerType,
     P extends ParserType,
     R extends new (parent: ParserRuleContext | null, invokingState: number) => ParserRuleContext,
