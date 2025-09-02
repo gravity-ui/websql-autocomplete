@@ -13,6 +13,8 @@ import {
 
 export {RedisCommands} from './redis-tokenize';
 
+export {extractRedisKeysFromQuery} from './redis-extract-keys';
+
 export interface RedisAutocompleteResult extends AutocompleteResultBase {
     suggestKeys?: boolean;
     suggestStrings?: boolean;

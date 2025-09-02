@@ -2,7 +2,6 @@ import {CursorPosition, SqlAutocompleteResult} from '../../shared/autocomplete-t
 import {parseQuery, parseQueryWithoutCursor} from '../../shared/autocomplete';
 import {separateQueryAndCursor} from '../../shared/parse-query-with-cursor';
 import {mongoAutocompleteData} from './mongo-autocomplete';
-import {MongoParser} from './generated/MongoParser';
 import {
     ExtractStatementPositionsResult,
     extractStatementPositionsFromQuery,
@@ -10,6 +9,8 @@ import {
 import {MongoStatementsVisitor} from './mongo-extract-statements';
 
 export * from './mongo-extract-commands';
+
+export {extractMongoCollectionsFromQuery} from './mongo-extract-collections';
 
 export interface MongoAutocompleteResult extends SqlAutocompleteResult {
     suggestQuotedCollections?: boolean;
@@ -23,7 +24,7 @@ export function parseMongoQueryWithoutCursor(
     return parseQueryWithoutCursor(
         mongoAutocompleteData.Lexer,
         mongoAutocompleteData.Parser,
-        MongoParser.DOT,
+        mongoAutocompleteData.Parser.DOT,
         mongoAutocompleteData.getParseTree,
         query,
     );

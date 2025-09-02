@@ -12,6 +12,8 @@ import {
 } from '../../shared/extract-statement-positions-from-query';
 import {TrinoStatementsVisitor} from './trino-extract-statements';
 
+export {extractTrinoTablesFromQuery} from './trino-extract-tables';
+
 export interface TrinoAutocompleteResult extends SqlAutocompleteResult {
     suggestViewsOrTables?: TableOrViewSuggestion;
     suggestSchemas?: true;

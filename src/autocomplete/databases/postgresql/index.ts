@@ -14,6 +14,8 @@ import {
 import {PostgreSqlLexer} from './generated/PostgreSqlLexer';
 import {PostgreSqlStatementsVisitor} from './postgresql-extract-statements';
 
+export {extractPostgreSqlTableNamesFromQuery} from './postgresql-extract-tables';
+
 export interface PostgreSqlAutocompleteResult extends SqlAutocompleteResult {
     suggestViewsOrTables?: TableOrViewSuggestion;
     suggestIndexes?: boolean;

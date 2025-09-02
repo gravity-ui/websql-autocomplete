@@ -13,6 +13,8 @@ import {
 } from '../../shared/extract-statement-positions-from-query';
 import {MySqlStatementsVisitor} from './mysql-extract-statements';
 
+export {extractMySqlTablesFromQuery} from './mysql-extract-tables';
+
 export interface MySqlAutocompleteResult extends SqlAutocompleteResult {
     suggestViewsOrTables?: TableOrViewSuggestion;
     suggestIndexes?: boolean;

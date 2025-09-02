@@ -13,6 +13,8 @@ import {
 } from '../../shared/extract-statement-positions-from-query';
 import {ClickHouseStatementsVisitor} from './clickhouse-extract-statements';
 
+export {extractClickHouseTablesFromQuery} from './clickhouse-extract-tables';
+
 export interface ClickHouseAutocompleteResult extends SqlAutocompleteResult {
     suggestViewsOrTables?: TableOrViewSuggestion;
     suggestEngines?: EngineSuggestion;
