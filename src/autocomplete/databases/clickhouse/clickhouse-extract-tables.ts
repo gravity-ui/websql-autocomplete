@@ -29,6 +29,7 @@ export function extractClickHouseTablesFromQuery(
         return name;
     };
 
+    const uniqueTableKeys = new Set();
     return ruleContexts.reduce<ExtractClickHouseTablesFromQueryResult>((acc, ruleContext) => {
         let databaseName = ruleContext.databaseIdentifier()?.getText();
         if (databaseName) {
@@ -36,16 +37,13 @@ export function extractClickHouseTablesFromQuery(
         }
 
         const tableName = getNormalizedName(ruleContext.tableName().getText());
-        const isUnique = acc.every(
-            (previousTable) =>
-                previousTable.databaseName !== databaseName ||
-                previousTable.tableName !== tableName,
-        );
-        if (isUnique) {
+        const tableKey = `${databaseName ?? ''}|${tableName}`;
+        if (!uniqueTableKeys.has(tableKey)) {
             acc.push({
                 databaseName,
                 tableName,
             });
+            uniqueTableKeys.add(tableKey);
         }
 
         return acc;

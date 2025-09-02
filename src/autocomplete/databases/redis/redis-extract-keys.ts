@@ -15,12 +15,14 @@ export function extractRedisKeysFromQuery(query: string): ExtractRedisKeysFromQu
         [KeyNameContext],
     );
 
+    const uniqueKeyNames = new Set();
     return ruleContexts.reduce<ExtractRedisKeysFromQueryResult>((acc, ruleContext) => {
         const keyName = ruleContext.getText();
-        if (acc.every((key) => key.keyName !== keyName)) {
+        if (!uniqueKeyNames.has(keyName)) {
             acc.push({
                 keyName,
             });
+            uniqueKeyNames.add(keyName);
         }
 
         return acc;

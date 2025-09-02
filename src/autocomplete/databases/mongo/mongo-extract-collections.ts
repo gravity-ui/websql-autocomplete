@@ -17,6 +17,7 @@ export function extractMongoCollectionsFromQuery(
         [CollectionNameContext, QuotedCollectionNameContext],
     );
 
+    const uniqueCollectionNames = new Set();
     return ruleContexts.reduce<ExtractMongoCollectionsFromQueryResult>((acc, ruleContext) => {
         let collectionName: string;
         if (ruleContext instanceof CollectionNameContext) {
@@ -26,8 +27,9 @@ export function extractMongoCollectionsFromQuery(
             collectionName = quotedCollectonName.slice(1, quotedCollectonName.length - 1);
         }
 
-        if (acc.every((collection) => collection.collectionName !== collectionName)) {
+        if (!uniqueCollectionNames.has(collectionName)) {
             acc.push({collectionName});
+            uniqueCollectionNames.add(collectionName);
         }
 
         return acc;

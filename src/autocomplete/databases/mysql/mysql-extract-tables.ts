@@ -28,6 +28,7 @@ export function extractMySqlTablesFromQuery(query: string): ExtractMySqlTablesFr
         return name;
     };
 
+    const uniqueTableKeys = new Set();
     return ruleContexts.reduce<ExtractMySqlTablesFromQueryResult>((acc, ruleContext) => {
         let databaseName = ruleContext.databaseName()?.getText();
         if (databaseName) {
@@ -45,16 +46,13 @@ export function extractMySqlTablesFromQuery(query: string): ExtractMySqlTablesFr
         }
 
         const tableName = getNormalizedName(rawTableName);
-        const isUnique = acc.every(
-            (previousTable) =>
-                previousTable.databaseName !== databaseName ||
-                previousTable.tableName !== tableName,
-        );
-        if (isUnique) {
+        const tableKey = `${databaseName ?? ''}|${tableName}`;
+        if (!uniqueTableKeys.has(tableKey)) {
             acc.push({
                 databaseName,
                 tableName,
             });
+            uniqueTableKeys.add(tableKey);
         }
 
         return acc;

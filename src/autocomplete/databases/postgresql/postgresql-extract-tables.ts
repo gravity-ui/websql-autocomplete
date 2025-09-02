@@ -27,6 +27,7 @@ export function extractPostgreSqlTableNamesFromQuery(
         return name;
     };
 
+    const uniqueTableKeys = new Set();
     return ruleContexts.reduce<ExtractPostgreSqlTablesFromQueryResult>((acc, ruleContext) => {
         let schemaName = ruleContext.schemaName()?.getText();
         let databaseName = ruleContext.databaseName()?.getText();
@@ -38,18 +39,14 @@ export function extractPostgreSqlTableNamesFromQuery(
         }
 
         const tableName = getNormalizedName(ruleContext.tableName().getText());
-        const isUnique = acc.every(
-            (previousTable) =>
-                previousTable.schemaName !== schemaName ||
-                previousTable.databaseName !== databaseName ||
-                previousTable.tableName !== tableName,
-        );
-        if (isUnique) {
+        const tableKey = `${schemaName ?? ''}|${databaseName ?? ''}|${tableName}`;
+        if (!uniqueTableKeys.has(tableKey)) {
             acc.push({
                 databaseName,
                 schemaName,
                 tableName,
             });
+            uniqueTableKeys.add(tableKey);
         }
 
         return acc;

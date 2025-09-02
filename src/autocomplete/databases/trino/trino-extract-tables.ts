@@ -32,6 +32,7 @@ export function extractTrinoTablesFromQuery(query: string): ExtractTrinoTablesFr
         return name;
     };
 
+    const uniqueTableKeys = new Set();
     return ruleContexts.reduce<ExtractTrinoTablesFromQueryResult>((acc, ruleContext) => {
         let schemaIdentifierContext: SchemaIdentifierContext | null;
         if (ruleContext instanceof TableIdentifierContext) {
@@ -50,19 +51,14 @@ export function extractTrinoTablesFromQuery(query: string): ExtractTrinoTablesFr
         }
 
         const tableName = getNormalizedName(ruleContext.tableName().getText());
-
-        const isUnique = acc.every(
-            (previousTable) =>
-                previousTable.catalogName !== catalogName ||
-                previousTable.schemaName !== schemaName ||
-                previousTable.tableName !== tableName,
-        );
-        if (isUnique) {
+        const tableKey = `${catalogName ?? ''}|${schemaName ?? ''}|${tableName}`;
+        if (!uniqueTableKeys.has(tableKey)) {
             acc.push({
                 catalogName,
                 schemaName,
                 tableName,
             });
+            uniqueTableKeys.add(tableKey);
         }
 
         return acc;
