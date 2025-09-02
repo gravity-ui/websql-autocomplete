@@ -1,5 +1,12 @@
 # Changelog
 
+## [13.11.0](https://github.com/gravity-ui/websql-autocomplete/compare/v13.10.2...v13.11.0) (2025-09-02)
+
+
+### Features
+
+* Add table/collection/key name extraction ([#300](https://github.com/gravity-ui/websql-autocomplete/issues/300)) ([1d69085](https://github.com/gravity-ui/websql-autocomplete/commit/1d690856a22b0ea2863c0b5c6027d1137cc7bed2))
+
 ## [13.10.2](https://github.com/gravity-ui/websql-autocomplete/compare/v13.10.1...v13.10.2) (2025-08-29)
 
 
