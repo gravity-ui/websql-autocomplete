@@ -1,5 +1,12 @@
 # Changelog
 
+## [13.11.2](https://github.com/gravity-ui/websql-autocomplete/compare/v13.11.1...v13.11.2) (2025-09-03)
+
+
+### Bug Fixes
+
+* **PostgreSql:** Fix extract tables function name ([#306](https://github.com/gravity-ui/websql-autocomplete/issues/306)) ([88e1adc](https://github.com/gravity-ui/websql-autocomplete/commit/88e1adcbaa5f185ac2041fe7e63b1a665ecaa33d))
+
 ## [13.11.1](https://github.com/gravity-ui/websql-autocomplete/compare/v13.11.0...v13.11.1) (2025-09-03)
 
 
