@@ -5,7 +5,7 @@
 
 ### Bug Fixes
 
-* **PostgreSql:** don't suggest schema and database inside table identifier ([#304](https://github.com/gravity-ui/websql-autocomplete/issues/304)) ([38725b8](https://github.com/gravity-ui/websql-autocomplete/commit/38725b88c4714b96cc84c5da45065db88e42899f))
+* **PostgreSql:** Fix schema and database suggestions inside table identifier ([#304](https://github.com/gravity-ui/websql-autocomplete/issues/304)) ([38725b8](https://github.com/gravity-ui/websql-autocomplete/commit/38725b88c4714b96cc84c5da45065db88e42899f))
 
 ## [13.11.0](https://github.com/gravity-ui/websql-autocomplete/compare/v13.10.2...v13.11.0) (2025-09-02)
 
