@@ -1,7 +1,7 @@
-import {extractPostgreSqlTableNamesFromQuery} from '..';
+import {extractPostgreSqlTablesFromQuery} from '..';
 
 test('should extract tables from query', () => {
-    const result = extractPostgreSqlTableNamesFromQuery(`
+    const result = extractPostgreSqlTablesFromQuery(`
         SELECT * FROM test_table1 LEFT JOIN test_table2 ON test_table1.test_id = test_table2.test_id;
         SELECT * FROM test_table3;
         CREATE TABLE test_table4 (test_column TEXT);
@@ -37,7 +37,7 @@ test('should extract tables from query', () => {
 });
 
 test('should extract tables with schemas from query', () => {
-    const result = extractPostgreSqlTableNamesFromQuery(`
+    const result = extractPostgreSqlTablesFromQuery(`
         SELECT * FROM test_schema.test_table1 LEFT JOIN test_schema.test_table2 ON test_schema.test_table1.test_id = test_schema.test_table2.test_id;
         SELECT * FROM test_schema.test_table3;
         CREATE TABLE test_schema.test_table4 (test_column TEXT);
@@ -73,7 +73,7 @@ test('should extract tables with schemas from query', () => {
 });
 
 test('should extract tables with databases and schemas from query', () => {
-    const result = extractPostgreSqlTableNamesFromQuery(`
+    const result = extractPostgreSqlTablesFromQuery(`
         SELECT * FROM test_db.test_schema.test_table1
             LEFT JOIN test_db.test_schema.test_table2
             ON test_db.test_schema.test_table1.test_id = test_db.test_schema.test_table2.test_id;
@@ -111,7 +111,7 @@ test('should extract tables with databases and schemas from query', () => {
 });
 
 test('should extract normalized tables, schemas and databases from query', () => {
-    const result = extractPostgreSqlTableNamesFromQuery(`
+    const result = extractPostgreSqlTablesFromQuery(`
         SELECT * FROM test_table1
         UNION ALL
         SELECT * FROM test_schema.test_table1
@@ -131,7 +131,7 @@ test('should extract normalized tables, schemas and databases from query', () =>
 });
 
 test('should extract table without its alias', () => {
-    const result = extractPostgreSqlTableNamesFromQuery(`
+    const result = extractPostgreSqlTablesFromQuery(`
         SELECT * FROM test_table as test_table_alias;
     `);
 

@@ -8,7 +8,7 @@ export type ExtractPostgreSqlTablesFromQueryResult = {
     tableName: string;
 }[];
 
-export function extractPostgreSqlTableNamesFromQuery(
+export function extractPostgreSqlTablesFromQuery(
     query: string,
 ): ExtractPostgreSqlTablesFromQueryResult {
     const ruleContexts = extractRuleContextFromQuery(
