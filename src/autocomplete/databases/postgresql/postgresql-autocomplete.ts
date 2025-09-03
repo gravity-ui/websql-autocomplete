@@ -217,13 +217,13 @@ function processVisitedRules(
                 break;
             }
             case PostgreSqlParser.RULE_columnId: {
-                const isInsideQualifiedName =
-                    rule.ruleList.includes(PostgreSqlParser.RULE_qualifiedName) &&
+                const isInsideTableIdentifier =
+                    rule.ruleList.includes(PostgreSqlParser.RULE_tableIdentifier) &&
                     (rule.ruleList.includes(PostgreSqlParser.RULE_insertTarget) ||
                         rule.ruleList.includes(PostgreSqlParser.RULE_relationExpression));
                 const canSuggestTables =
                     !rule.ruleList.includes(PostgreSqlParser.RULE_createStatement) &&
-                    (isInsideQualifiedName ||
+                    (isInsideTableIdentifier ||
                         rule.ruleList.includes(PostgreSqlParser.RULE_functionTable));
 
                 if (
@@ -295,11 +295,17 @@ function processVisitedRules(
                 break;
             }
             case PostgreSqlParser.RULE_schemaName: {
-                suggestSchemas = true;
+                if (!rule.ruleList.includes(PostgreSqlParser.RULE_tableIdentifier)) {
+                    suggestSchemas = true;
+                }
+
                 break;
             }
             case PostgreSqlParser.RULE_databaseName: {
-                suggestDatabases = true;
+                if (!rule.ruleList.includes(PostgreSqlParser.RULE_tableIdentifier)) {
+                    suggestDatabases = true;
+                }
+
                 break;
             }
             case PostgreSqlParser.RULE_roleName: {

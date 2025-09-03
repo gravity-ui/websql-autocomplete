@@ -65,6 +65,8 @@ test('should suggest properly after FROM', () => {
     ];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
     expect(autocompleteResult.suggestViewsOrTables).toEqual(TableOrViewSuggestion.ALL);
+    expect(autocompleteResult.suggestDatabases).toEqual(false);
+    expect(autocompleteResult.suggestSchemas).toEqual(false);
 });
 
 test('should suggest ALL tables between statements', () => {
@@ -73,6 +75,8 @@ test('should suggest ALL tables between statements', () => {
     );
 
     expect(autocompleteResult.suggestViewsOrTables).toEqual(TableOrViewSuggestion.ALL);
+    expect(autocompleteResult.suggestDatabases).toEqual(false);
+    expect(autocompleteResult.suggestSchemas).toEqual(false);
 });
 
 test('should suggest tables with inline comment', () => {
@@ -81,6 +85,8 @@ test('should suggest tables with inline comment', () => {
     );
 
     expect(autocompleteResult.suggestViewsOrTables).toEqual(TableOrViewSuggestion.ALL);
+    expect(autocompleteResult.suggestDatabases).toEqual(false);
+    expect(autocompleteResult.suggestSchemas).toEqual(false);
 });
 
 test('should suggest tables with multiline comment', () => {
@@ -89,6 +95,8 @@ test('should suggest tables with multiline comment', () => {
     );
 
     expect(autocompleteResult.suggestViewsOrTables).toEqual(TableOrViewSuggestion.ALL);
+    expect(autocompleteResult.suggestDatabases).toEqual(false);
+    expect(autocompleteResult.suggestSchemas).toEqual(false);
 });
 
 test('should suggest properly after table name', () => {
