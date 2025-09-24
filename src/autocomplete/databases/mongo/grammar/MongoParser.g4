@@ -921,7 +921,7 @@ value
     ;
 
 numberLongFunction
-    : NUMBER_LONG LPAREN numberLongFunctionArgument1 (COMMA numberLongFunctionArgument2) RPAREN
+    : NUMBER_LONG LPAREN numberLongFunctionArgument1 (COMMA numberLongFunctionArgument2)? RPAREN
     ;
 
 numberLongFunctionArgument1
