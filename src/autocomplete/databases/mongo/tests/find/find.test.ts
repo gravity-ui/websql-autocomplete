@@ -425,6 +425,7 @@ test('should extract find commands with functions properly', () => {
             function6: NumberDecimal('20.12002123'),
             function7: NumberInt(123123),
             function8: NumberLong('123123123123123123123123123123123124', 10),
+            "'double_quoted'": 18,
         });
         db.test_collection2.find({
             functions: [
@@ -479,6 +480,7 @@ test('should extract find commands with functions properly', () => {
                 function6: functionParsers.NumberDecimal('20.12002123'),
                 function7: functionParsers.NumberInt(123123),
                 function8: functionParsers.NumberLong('123123123123123123123123123123123124', 10),
+                "'double_quoted'": 18,
             },
         },
         {
