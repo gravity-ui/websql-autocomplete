@@ -647,8 +647,11 @@ class CommandsVisitor extends MongoParserVisitor<unknown> {
             }
 
             if (methodContext instanceof DatabaseRenameCollectionMethodContext) {
-                const currentName = this.parseArgumentContext(
-                    methodContext.databaseRenameCollectionArgument1().quotedCollectionName(),
+                const currentName = parseQuotedCollectionName(
+                    methodContext
+                        .databaseRenameCollectionArgument1()
+                        .quotedCollectionName()
+                        .getText(),
                 );
                 const newName = this.parseArgumentContext(
                     methodContext.databaseRenameCollectionArgument2(),
@@ -667,8 +670,11 @@ class CommandsVisitor extends MongoParserVisitor<unknown> {
             }
 
             if (methodContext instanceof DatabaseDropCollectionMethodContext) {
-                const collectionName = this.parseArgumentContext(
-                    methodContext.databaseDropCollectionArgument1().quotedCollectionName(),
+                const collectionName = parseQuotedCollectionName(
+                    methodContext
+                        .databaseDropCollectionArgument1()
+                        .quotedCollectionName()
+                        .getText(),
                 );
                 const options = this.parseArgumentContext(
                     methodContext.databaseDropCollectionArgument2(),
@@ -723,8 +729,11 @@ class CommandsVisitor extends MongoParserVisitor<unknown> {
             }
 
             if (methodContext instanceof DatabaseIndexInformationMethodContext) {
-                const collectionName = this.parseArgumentContext(
-                    methodContext.databaseIndexInformationArgument1().quotedCollectionName(),
+                const collectionName = parseQuotedCollectionName(
+                    methodContext
+                        .databaseIndexInformationArgument1()
+                        .quotedCollectionName()
+                        .getText(),
                 );
                 const options = this.parseArgumentContext(
                     methodContext.databaseIndexInformationArgument2(),
