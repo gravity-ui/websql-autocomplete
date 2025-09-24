@@ -48,16 +48,23 @@ import {
     DatabaseRunCursorCommandMethodContext,
     DatabaseSetProfilingLevelMethodContext,
     DatabaseStatsMethodContext,
+    DateFunctionContext,
     FilterModifierContext,
     HintModifierContext,
     LimitModifierContext,
     ListDatabasesMethodContext,
+    MaxKeyFunctionContext,
     MaxModifierContext,
+    MinKeyFunctionContext,
     MinModifierContext,
     MongoParser,
     NullContext,
     NumberContext,
+    NumberDecimalFunctionContext,
+    NumberIntFunctionContext,
+    NumberLongFunctionContext,
     ObjectContext,
+    ObjectIdFunctionContext,
     PingMethodContext,
     ReplSetGetStatusMethodContext,
     ReturnKeyModifierContext,
@@ -67,6 +74,7 @@ import {
     SkipModifierContext,
     SortModifierContext,
     StringContext,
+    UuidFunctionContext,
     ValidateCollectionMethodContext,
 } from './generated/MongoParser';
 import {MongoParserVisitor} from './generated/MongoParserVisitor';
@@ -501,6 +509,34 @@ export type ExtractMongoCommandsFromQueryResult =
           commands?: undefined;
       };
 
+type FunctionParsers = Partial<{
+    ObjectId: (id: unknown) => unknown;
+    Date: (date?: unknown) => unknown;
+    UUID: (uuid?: unknown) => unknown;
+    MinKey: () => unknown;
+    MaxKey: () => unknown;
+    NumberDecimal: (number: unknown) => unknown;
+    NumberInt: (number: unknown) => unknown;
+    NumberLong: (number: unknown, radix?: unknown) => unknown;
+}>;
+
+type AnyValueContext = {
+    object?: () => ObjectContext | null;
+    array?: () => ArrayContext | null;
+    string?: () => StringContext | null;
+    number?: () => NumberContext | null;
+    null?: () => NullContext | null;
+    boolean?: () => BooleanContext | null;
+    objectIdFunction?: () => ObjectIdFunctionContext | null;
+    dateFunction?: () => DateFunctionContext | null;
+    uuidFunction?: () => UuidFunctionContext | null;
+    minKeyFunction?: () => MinKeyFunctionContext | null;
+    maxKeyFunction?: () => MaxKeyFunctionContext | null;
+    numberIntFunction?: () => NumberIntFunctionContext | null;
+    numberDecimalFunction?: () => NumberDecimalFunctionContext | null;
+    numberLongFunction?: () => NumberLongFunctionContext | null;
+};
+
 function newParsingError(message: string): ParsingError {
     return {
         type: 'parsingError',
@@ -518,12 +554,19 @@ function newUnexpectedError(message: unknown): UnexpectedError {
 class CommandsVisitor extends MongoParserVisitor<unknown> {
     commands: Command[] = [];
     errors: ExtractionError[] = [];
+    parseArgumentContext: typeof parseAnyValueContext;
+
+    constructor(parseArgumentContext: typeof parseAnyValueContext) {
+        super();
+
+        this.parseArgumentContext = parseArgumentContext;
+    }
 
     visitCollectionOperation = (context: CollectionOperationContext): void => {
         const collectionName = context.collectionName().getText();
         const methodContext = context.collectionMethod().getChild(0);
 
-        const result = parseCollectionMethod(collectionName, methodContext);
+        const result = this.parseCollectionMethod(collectionName, methodContext);
         if (result.command) {
             this.commands.push(result.command);
         } else {
@@ -532,829 +575,956 @@ class CommandsVisitor extends MongoParserVisitor<unknown> {
     };
     visitDatabaseOperation = (context: DatabaseOperationContext): void => {
         const methodContext = context.databaseMethod().getChild(0);
-        const result = parseDatabaseMethod(methodContext);
+        const result = this.parseDatabaseMethod(methodContext);
         if (result.command) {
             this.commands.push(result.command);
         } else {
             this.errors.push(result.error);
         }
     };
-}
 
-function parseDatabaseMethod(
-    methodContext: ParseTree | null,
-): CommandParsingResult | CommandParsingError {
-    try {
-        if (methodContext instanceof DatabaseCollectionMethodContext) {
-            const collectionName = parseQuotedCollectionName(
-                methodContext.quotedCollectionName().getText(),
-            );
-            const result = parseCollectionMethod(
-                collectionName,
-                methodContext.collectionMethod().getChild(0),
-            );
-            return result;
-        }
+    parseDatabaseMethod(
+        methodContext: ParseTree | null,
+    ): CommandParsingResult | CommandParsingError {
+        try {
+            if (methodContext instanceof DatabaseCollectionMethodContext) {
+                const collectionName = parseQuotedCollectionName(
+                    methodContext.quotedCollectionName().getText(),
+                );
+                const result = this.parseCollectionMethod(
+                    collectionName,
+                    methodContext.collectionMethod().getChild(0),
+                );
+                return result;
+            }
 
-        if (methodContext instanceof DatabaseCreateCollectionMethodContext) {
-            const collectionName = parseValueContextIfExists(
-                methodContext.databaseCreateCollectionArgument1(),
-            );
-            const options = parseValueContextIfExists(
-                methodContext.databaseCreateCollectionArgument2(),
-            );
+            if (methodContext instanceof DatabaseCreateCollectionMethodContext) {
+                const collectionName = this.parseArgumentContext(
+                    methodContext.databaseCreateCollectionArgument1(),
+                );
+                const options = this.parseArgumentContext(
+                    methodContext.databaseCreateCollectionArgument2(),
+                );
 
-            return makeCommandResult({
-                type: 'database',
-                method: 'createCollection',
-                collectionName,
-                options,
-            });
-        }
-
-        if (methodContext instanceof DatabaseCommandMethodContext) {
-            return makeCommandResult({
-                type: 'database',
-                method: 'command',
-                ...parseDatabaseCommandMethodContext(methodContext),
-            });
-        }
-
-        if (methodContext instanceof AggregateMethodContext) {
-            return makeCommandResult({
-                type: 'database',
-                method: 'aggregate',
-                ...parseAggregateMethodContext(methodContext),
-            });
-        }
-
-        if (methodContext instanceof DatabaseListCollectionsMethodContext) {
-            const filter = parseValueContextIfExists(
-                methodContext.databaseListCollectionsArgument1(),
-            );
-            const options = parseValueContextIfExists(
-                methodContext.databaseListCollectionsArgument2(),
-            );
-
-            return makeCommandResult({
-                type: 'database',
-                method: 'listCollections',
-                filter,
-                options,
-            });
-        }
-
-        if (methodContext instanceof DatabaseRenameCollectionMethodContext) {
-            const currentName = parseValueContextIfExists(
-                methodContext.databaseRenameCollectionArgument1().quotedCollectionName(),
-            );
-            const newName = parseValueContextIfExists(
-                methodContext.databaseRenameCollectionArgument2(),
-            );
-            const options = parseValueContextIfExists(
-                methodContext.databaseRenameCollectionArgument3(),
-            );
-
-            return makeCommandResult({
-                type: 'database',
-                method: 'renameCollection',
-                currentName,
-                newName,
-                options,
-            });
-        }
-
-        if (methodContext instanceof DatabaseDropCollectionMethodContext) {
-            const collectionName = parseValueContextIfExists(
-                methodContext.databaseDropCollectionArgument1().quotedCollectionName(),
-            );
-            const options = parseValueContextIfExists(
-                methodContext.databaseDropCollectionArgument2(),
-            );
-
-            return makeCommandResult({
-                type: 'database',
-                method: 'dropCollection',
-                collectionName,
-                options,
-            });
-        }
-
-        if (methodContext instanceof DatabaseDropDatabaseMethodContext) {
-            const options = parseValueContextIfExists(methodContext.databaseDropDatabaseArgument());
-
-            return makeCommandResult({
-                type: 'database',
-                method: 'dropDatabase',
-                options,
-            });
-        }
-
-        if (methodContext instanceof DatabaseCreateIndexMethodContext) {
-            const collectionName = parseValueContextIfExists(
-                methodContext.databaseCreateIndexArgument1(),
-            );
-            const indexSpec = parseValueContextIfExists(
-                methodContext.databaseCreateIndexArgument2(),
-            );
-            const options = parseValueContextIfExists(methodContext.databaseCreateIndexArgument3());
-
-            return makeCommandResult({
-                type: 'database',
-                method: 'createIndex',
-                collectionName,
-                indexSpec,
-                options,
-            });
-        }
-
-        if (methodContext instanceof DatabaseRemoveUserMethodContext) {
-            return makeCommandResult({
-                type: 'database',
-                method: 'removeUser',
-                ...parseDatabaseRemoveUserMethodContext(methodContext),
-            });
-        }
-
-        if (methodContext instanceof DatabaseIndexInformationMethodContext) {
-            const collectionName = parseValueContextIfExists(
-                methodContext.databaseIndexInformationArgument1().quotedCollectionName(),
-            );
-            const options = parseValueContextIfExists(
-                methodContext.databaseIndexInformationArgument2(),
-            );
-
-            return makeCommandResult({
-                type: 'database',
-                method: 'indexInformation',
-                collectionName,
-                options,
-            });
-        }
-
-        if (methodContext instanceof DatabaseRunCursorCommandMethodContext) {
-            const document = parseValueContextIfExists(
-                methodContext.databaseRunCursorCommandArgument1(),
-            );
-            const options = parseValueContextIfExists(
-                methodContext.databaseRunCursorCommandArgument2(),
-            );
-
-            return makeCommandResult({
-                type: 'database',
-                method: 'runCursorCommand',
-                document,
-                options,
-            });
-        }
-
-        if (methodContext instanceof DatabaseStatsMethodContext) {
-            const options = parseValueContextIfExists(methodContext.databaseStatsArgument());
-
-            return makeCommandResult({
-                type: 'database',
-                method: 'stats',
-                options,
-            });
-        }
-
-        if (methodContext instanceof DatabaseProfilingLevelMethodContext) {
-            const options = parseValueContextIfExists(
-                methodContext.databaseProfilingLevelArgument(),
-            );
-
-            return makeCommandResult({
-                type: 'database',
-                method: 'profilingLevel',
-                options,
-            });
-        }
-
-        if (methodContext instanceof DatabaseSetProfilingLevelMethodContext) {
-            const level = parseValueContextIfExists(
-                methodContext.databaseSetProfilingLevelArgument1(),
-            );
-            const options = parseValueContextIfExists(
-                methodContext.databaseSetProfilingLevelArgument2(),
-            );
-
-            return makeCommandResult({
-                type: 'database',
-                method: 'setProfilingLevel',
-                level,
-                options,
-            });
-        }
-
-        if (methodContext instanceof DatabaseAdminMethodContext) {
-            return parseDatabaseAdminMethodContext(methodContext);
-        }
-    } catch (error) {
-        return parseExtractionError(error);
-    }
-
-    return makeMethodNotImplementedError(methodContext?.getText());
-}
-
-function parseDatabaseCommandMethodContext(
-    context: DatabaseCommandMethodContext,
-): Pick<DatabaseCommandCommand, 'document' | 'options'> {
-    const document = parseValueContextIfExists(context.databaseCommandArgument1());
-    const options = parseValueContextIfExists(context.databaseCommandArgument2());
-
-    return {
-        document,
-        options,
-    };
-}
-
-function parseDatabaseRemoveUserMethodContext(
-    context: DatabaseRemoveUserMethodContext,
-): Pick<DatabaseRemoveUserCommand, 'username' | 'options'> {
-    const username = parseValueContextIfExists(
-        context.databaseRemoveUserArgument1().quotedUsername(),
-    );
-    const options = parseValueContextIfExists(context.databaseRemoveUserArgument2());
-
-    return {
-        username,
-        options,
-    };
-}
-
-function parseDatabaseAdminMethodContext(
-    context: DatabaseAdminMethodContext,
-): CommandParsingResult | CommandParsingError {
-    const childContext = context.adminMethod().getChild(0);
-
-    try {
-        if (childContext instanceof BuildInfoMethodContext) {
-            const options = parseValueContextIfExists(childContext.buildInfoArgument());
-
-            return makeCommandResult({
-                type: 'database',
-                method: 'admin',
-                childMethod: {
-                    method: 'buildInfo',
-                    options,
-                },
-            });
-        }
-        if (childContext instanceof ServerInfoMethodContext) {
-            const options = parseValueContextIfExists(childContext.serverInfoArgument());
-
-            return makeCommandResult({
-                type: 'database',
-                method: 'admin',
-                childMethod: {
-                    method: 'serverInfo',
-                    options,
-                },
-            });
-        }
-        if (childContext instanceof ServerStatusMethodContext) {
-            const options = parseValueContextIfExists(childContext.serverStatusArgument());
-
-            return makeCommandResult({
-                type: 'database',
-                method: 'admin',
-                childMethod: {
-                    method: 'serverStatus',
-                    options,
-                },
-            });
-        }
-        if (childContext instanceof PingMethodContext) {
-            const options = parseValueContextIfExists(childContext.pingArgument());
-
-            return makeCommandResult({
-                type: 'database',
-                method: 'admin',
-                childMethod: {
-                    method: 'ping',
-                    options,
-                },
-            });
-        }
-        if (childContext instanceof ListDatabasesMethodContext) {
-            const options = parseValueContextIfExists(childContext.listDatabasesArgument());
-
-            return makeCommandResult({
-                type: 'database',
-                method: 'admin',
-                childMethod: {
-                    method: 'listDatabases',
-                    options,
-                },
-            });
-        }
-        if (childContext instanceof ReplSetGetStatusMethodContext) {
-            const options = parseValueContextIfExists(childContext.replSetGetStatusArgument());
-
-            return makeCommandResult({
-                type: 'database',
-                method: 'admin',
-                childMethod: {
-                    method: 'replSetGetStatus',
-                    options,
-                },
-            });
-        }
-        if (childContext instanceof ValidateCollectionMethodContext) {
-            const collectionName = parseValueContextIfExists(
-                childContext.validateCollectionArgument1(),
-            );
-            const options = parseValueContextIfExists(childContext.validateCollectionArgument2());
-
-            return makeCommandResult({
-                type: 'database',
-                method: 'admin',
-                childMethod: {
-                    method: 'validateCollection',
+                return makeCommandResult({
+                    type: 'database',
+                    method: 'createCollection',
                     collectionName,
                     options,
-                },
-            });
-        }
-        if (childContext instanceof DatabaseCommandMethodContext) {
-            return makeCommandResult({
-                type: 'database',
-                method: 'admin',
-                childMethod: {
-                    method: 'command',
-                    ...parseDatabaseCommandMethodContext(childContext),
-                },
-            });
-        }
-        if (childContext instanceof DatabaseRemoveUserMethodContext) {
-            return makeCommandResult({
-                type: 'database',
-                method: 'admin',
-                childMethod: {
-                    method: 'removeUser',
-                    ...parseDatabaseRemoveUserMethodContext(childContext),
-                },
-            });
-        }
-    } catch (error) {
-        return parseExtractionError(error);
-    }
+                });
+            }
 
-    return makeMethodNotImplementedError(childContext?.getText());
+            if (methodContext instanceof DatabaseCommandMethodContext) {
+                return makeCommandResult({
+                    type: 'database',
+                    method: 'command',
+                    ...this.parseDatabaseCommandMethodContext(methodContext),
+                });
+            }
+
+            if (methodContext instanceof AggregateMethodContext) {
+                return makeCommandResult({
+                    type: 'database',
+                    method: 'aggregate',
+                    ...this.parseAggregateMethodContext(methodContext),
+                });
+            }
+
+            if (methodContext instanceof DatabaseListCollectionsMethodContext) {
+                const filter = this.parseArgumentContext(
+                    methodContext.databaseListCollectionsArgument1(),
+                );
+                const options = this.parseArgumentContext(
+                    methodContext.databaseListCollectionsArgument2(),
+                );
+
+                return makeCommandResult({
+                    type: 'database',
+                    method: 'listCollections',
+                    filter,
+                    options,
+                });
+            }
+
+            if (methodContext instanceof DatabaseRenameCollectionMethodContext) {
+                const currentName = this.parseArgumentContext(
+                    methodContext.databaseRenameCollectionArgument1().quotedCollectionName(),
+                );
+                const newName = this.parseArgumentContext(
+                    methodContext.databaseRenameCollectionArgument2(),
+                );
+                const options = this.parseArgumentContext(
+                    methodContext.databaseRenameCollectionArgument3(),
+                );
+
+                return makeCommandResult({
+                    type: 'database',
+                    method: 'renameCollection',
+                    currentName,
+                    newName,
+                    options,
+                });
+            }
+
+            if (methodContext instanceof DatabaseDropCollectionMethodContext) {
+                const collectionName = this.parseArgumentContext(
+                    methodContext.databaseDropCollectionArgument1().quotedCollectionName(),
+                );
+                const options = this.parseArgumentContext(
+                    methodContext.databaseDropCollectionArgument2(),
+                );
+
+                return makeCommandResult({
+                    type: 'database',
+                    method: 'dropCollection',
+                    collectionName,
+                    options,
+                });
+            }
+
+            if (methodContext instanceof DatabaseDropDatabaseMethodContext) {
+                const options = this.parseArgumentContext(
+                    methodContext.databaseDropDatabaseArgument(),
+                );
+
+                return makeCommandResult({
+                    type: 'database',
+                    method: 'dropDatabase',
+                    options,
+                });
+            }
+
+            if (methodContext instanceof DatabaseCreateIndexMethodContext) {
+                const collectionName = this.parseArgumentContext(
+                    methodContext.databaseCreateIndexArgument1(),
+                );
+                const indexSpec = this.parseArgumentContext(
+                    methodContext.databaseCreateIndexArgument2(),
+                );
+                const options = this.parseArgumentContext(
+                    methodContext.databaseCreateIndexArgument3(),
+                );
+
+                return makeCommandResult({
+                    type: 'database',
+                    method: 'createIndex',
+                    collectionName,
+                    indexSpec,
+                    options,
+                });
+            }
+
+            if (methodContext instanceof DatabaseRemoveUserMethodContext) {
+                return makeCommandResult({
+                    type: 'database',
+                    method: 'removeUser',
+                    ...this.parseDatabaseRemoveUserMethodContext(methodContext),
+                });
+            }
+
+            if (methodContext instanceof DatabaseIndexInformationMethodContext) {
+                const collectionName = this.parseArgumentContext(
+                    methodContext.databaseIndexInformationArgument1().quotedCollectionName(),
+                );
+                const options = this.parseArgumentContext(
+                    methodContext.databaseIndexInformationArgument2(),
+                );
+
+                return makeCommandResult({
+                    type: 'database',
+                    method: 'indexInformation',
+                    collectionName,
+                    options,
+                });
+            }
+
+            if (methodContext instanceof DatabaseRunCursorCommandMethodContext) {
+                const document = this.parseArgumentContext(
+                    methodContext.databaseRunCursorCommandArgument1(),
+                );
+                const options = this.parseArgumentContext(
+                    methodContext.databaseRunCursorCommandArgument2(),
+                );
+
+                return makeCommandResult({
+                    type: 'database',
+                    method: 'runCursorCommand',
+                    document,
+                    options,
+                });
+            }
+
+            if (methodContext instanceof DatabaseStatsMethodContext) {
+                const options = this.parseArgumentContext(methodContext.databaseStatsArgument());
+
+                return makeCommandResult({
+                    type: 'database',
+                    method: 'stats',
+                    options,
+                });
+            }
+
+            if (methodContext instanceof DatabaseProfilingLevelMethodContext) {
+                const options = this.parseArgumentContext(
+                    methodContext.databaseProfilingLevelArgument(),
+                );
+
+                return makeCommandResult({
+                    type: 'database',
+                    method: 'profilingLevel',
+                    options,
+                });
+            }
+
+            if (methodContext instanceof DatabaseSetProfilingLevelMethodContext) {
+                const level = this.parseArgumentContext(
+                    methodContext.databaseSetProfilingLevelArgument1(),
+                );
+                const options = this.parseArgumentContext(
+                    methodContext.databaseSetProfilingLevelArgument2(),
+                );
+
+                return makeCommandResult({
+                    type: 'database',
+                    method: 'setProfilingLevel',
+                    level,
+                    options,
+                });
+            }
+
+            if (methodContext instanceof DatabaseAdminMethodContext) {
+                return this.parseDatabaseAdminMethodContext(methodContext);
+            }
+        } catch (error) {
+            return parseExtractionError(error);
+        }
+
+        return makeMethodNotImplementedError(methodContext?.getText());
+    }
+    parseDatabaseCommandMethodContext(
+        context: DatabaseCommandMethodContext,
+    ): Pick<DatabaseCommandCommand, 'document' | 'options'> {
+        const document = this.parseArgumentContext(context.databaseCommandArgument1());
+        const options = this.parseArgumentContext(context.databaseCommandArgument2());
+
+        return {
+            document,
+            options,
+        };
+    }
+    parseDatabaseRemoveUserMethodContext(
+        context: DatabaseRemoveUserMethodContext,
+    ): Pick<DatabaseRemoveUserCommand, 'username' | 'options'> {
+        const username = this.parseArgumentContext(
+            context.databaseRemoveUserArgument1().quotedUsername(),
+        );
+        const options = this.parseArgumentContext(context.databaseRemoveUserArgument2());
+
+        return {
+            username,
+            options,
+        };
+    }
+    parseDatabaseAdminMethodContext(
+        context: DatabaseAdminMethodContext,
+    ): CommandParsingResult | CommandParsingError {
+        const childContext = context.adminMethod().getChild(0);
+
+        try {
+            if (childContext instanceof BuildInfoMethodContext) {
+                const options = this.parseArgumentContext(childContext.buildInfoArgument());
+
+                return makeCommandResult({
+                    type: 'database',
+                    method: 'admin',
+                    childMethod: {
+                        method: 'buildInfo',
+                        options,
+                    },
+                });
+            }
+            if (childContext instanceof ServerInfoMethodContext) {
+                const options = this.parseArgumentContext(childContext.serverInfoArgument());
+
+                return makeCommandResult({
+                    type: 'database',
+                    method: 'admin',
+                    childMethod: {
+                        method: 'serverInfo',
+                        options,
+                    },
+                });
+            }
+            if (childContext instanceof ServerStatusMethodContext) {
+                const options = this.parseArgumentContext(childContext.serverStatusArgument());
+
+                return makeCommandResult({
+                    type: 'database',
+                    method: 'admin',
+                    childMethod: {
+                        method: 'serverStatus',
+                        options,
+                    },
+                });
+            }
+            if (childContext instanceof PingMethodContext) {
+                const options = this.parseArgumentContext(childContext.pingArgument());
+
+                return makeCommandResult({
+                    type: 'database',
+                    method: 'admin',
+                    childMethod: {
+                        method: 'ping',
+                        options,
+                    },
+                });
+            }
+            if (childContext instanceof ListDatabasesMethodContext) {
+                const options = this.parseArgumentContext(childContext.listDatabasesArgument());
+
+                return makeCommandResult({
+                    type: 'database',
+                    method: 'admin',
+                    childMethod: {
+                        method: 'listDatabases',
+                        options,
+                    },
+                });
+            }
+            if (childContext instanceof ReplSetGetStatusMethodContext) {
+                const options = this.parseArgumentContext(childContext.replSetGetStatusArgument());
+
+                return makeCommandResult({
+                    type: 'database',
+                    method: 'admin',
+                    childMethod: {
+                        method: 'replSetGetStatus',
+                        options,
+                    },
+                });
+            }
+            if (childContext instanceof ValidateCollectionMethodContext) {
+                const collectionName = this.parseArgumentContext(
+                    childContext.validateCollectionArgument1(),
+                );
+                const options = this.parseArgumentContext(
+                    childContext.validateCollectionArgument2(),
+                );
+
+                return makeCommandResult({
+                    type: 'database',
+                    method: 'admin',
+                    childMethod: {
+                        method: 'validateCollection',
+                        collectionName,
+                        options,
+                    },
+                });
+            }
+            if (childContext instanceof DatabaseCommandMethodContext) {
+                return makeCommandResult({
+                    type: 'database',
+                    method: 'admin',
+                    childMethod: {
+                        method: 'command',
+                        ...this.parseDatabaseCommandMethodContext(childContext),
+                    },
+                });
+            }
+            if (childContext instanceof DatabaseRemoveUserMethodContext) {
+                return makeCommandResult({
+                    type: 'database',
+                    method: 'admin',
+                    childMethod: {
+                        method: 'removeUser',
+                        ...this.parseDatabaseRemoveUserMethodContext(childContext),
+                    },
+                });
+            }
+        } catch (error) {
+            return parseExtractionError(error);
+        }
+
+        return makeMethodNotImplementedError(childContext?.getText());
+    }
+    parseCollectionMethod(
+        collectionName: string,
+        methodContext: ParseTree | null,
+    ): CommandParsingResult | CommandParsingError {
+        try {
+            if (methodContext instanceof CollectionFindMethodContext) {
+                const command = this.parseFindMethodContext(methodContext);
+
+                return makeCommandResult({
+                    ...command,
+                    collectionName,
+                    type: 'collection',
+                    method: 'find',
+                });
+            }
+
+            if (methodContext instanceof CollectionFindOneMethodContext) {
+                const parameters = this.parseArgumentContext(
+                    methodContext.collectionFindOneArgument1(),
+                );
+                const options = this.parseArgumentContext(
+                    methodContext.collectionFindOneArgument2(),
+                );
+
+                return makeCommandResult({
+                    collectionName,
+                    type: 'collection',
+                    method: 'findOne',
+                    parameters,
+                    options,
+                });
+            }
+
+            if (methodContext instanceof CollectionFindOneAndDeleteMethodContext) {
+                const parameters = this.parseArgumentContext(
+                    methodContext.collectionFindOneAndDeleteArgument1(),
+                );
+                const options = this.parseArgumentContext(
+                    methodContext.collectionFindOneAndDeleteArgument2(),
+                );
+
+                return makeCommandResult({
+                    collectionName,
+                    type: 'collection',
+                    method: 'findOneAndDelete',
+                    parameters,
+                    options,
+                });
+            }
+
+            if (methodContext instanceof CollectionFindOneAndReplaceMethodContext) {
+                const parameters = this.parseArgumentContext(
+                    methodContext.collectionFindOneAndReplaceArgument1(),
+                );
+                const replacement = this.parseArgumentContext(
+                    methodContext.collectionFindOneAndReplaceArgument2(),
+                );
+                const options = this.parseArgumentContext(
+                    methodContext.collectionFindOneAndReplaceArgument3(),
+                );
+
+                return makeCommandResult({
+                    collectionName,
+                    type: 'collection',
+                    method: 'findOneAndReplace',
+                    parameters,
+                    replacement,
+                    options,
+                });
+            }
+
+            if (methodContext instanceof CollectionFindOneAndUpdateMethodContext) {
+                const parameters = this.parseArgumentContext(
+                    methodContext.collectionFindOneAndUpdateArgument1(),
+                );
+                const newValues = this.parseArgumentContext(
+                    methodContext.collectionFindOneAndUpdateArgument2(),
+                );
+                const options = this.parseArgumentContext(
+                    methodContext.collectionFindOneAndUpdateArgument3(),
+                );
+
+                return makeCommandResult({
+                    collectionName,
+                    type: 'collection',
+                    method: 'findOneAndUpdate',
+                    parameters,
+                    newValues,
+                    options,
+                });
+            }
+
+            if (methodContext instanceof CollectionInsertOneMethodContext) {
+                const document = this.parseArgumentContext(
+                    methodContext.collectionInsertOneArgument1().documentToInsert(),
+                );
+                const options = this.parseArgumentContext(
+                    methodContext.collectionInsertOneArgument2(),
+                );
+
+                return makeCommandResult({
+                    collectionName,
+                    type: 'collection',
+                    method: 'insertOne',
+                    document,
+                    options,
+                });
+            }
+
+            if (methodContext instanceof CollectionInsertManyMethodContext) {
+                const documents = this.parseArgumentContext(
+                    methodContext.collectionInsertManyArgument1().documentToInsert(),
+                );
+                const options = this.parseArgumentContext(
+                    methodContext.collectionInsertManyArgument2(),
+                );
+
+                return makeCommandResult({
+                    collectionName,
+                    type: 'collection',
+                    method: 'insertMany',
+                    documents,
+                    options,
+                });
+            }
+
+            if (methodContext instanceof CollectionBulkWriteMethodContext) {
+                const operations = this.parseArgumentContext(
+                    methodContext.collectionBulkWriteArgument1(),
+                );
+                const options = this.parseArgumentContext(
+                    methodContext.collectionBulkWriteArgument2(),
+                );
+
+                return makeCommandResult({
+                    collectionName,
+                    type: 'collection',
+                    method: 'bulkWrite',
+                    operations,
+                    options,
+                });
+            }
+
+            if (methodContext instanceof CollectionUpdateOneMethodContext) {
+                const filter = this.parseArgumentContext(
+                    methodContext.collectionUpdateOneArgument1(),
+                );
+                const updateParameters = this.parseArgumentContext(
+                    methodContext.collectionUpdateOneArgument2(),
+                );
+                const options = this.parseArgumentContext(
+                    methodContext.collectionUpdateOneArgument3(),
+                );
+
+                return makeCommandResult({
+                    collectionName,
+                    type: 'collection',
+                    method: 'updateOne',
+                    filter,
+                    updateParameters,
+                    options,
+                });
+            }
+
+            if (methodContext instanceof CollectionUpdateManyMethodContext) {
+                const filter = this.parseArgumentContext(
+                    methodContext.collectionUpdateManyArgument1(),
+                );
+                const updateParameters = this.parseArgumentContext(
+                    methodContext.collectionUpdateManyArgument2(),
+                );
+                const options = this.parseArgumentContext(
+                    methodContext.collectionUpdateManyArgument3(),
+                );
+
+                return makeCommandResult({
+                    collectionName,
+                    type: 'collection',
+                    method: 'updateMany',
+                    filter,
+                    updateParameters,
+                    options,
+                });
+            }
+
+            if (methodContext instanceof CollectionReplaceOneMethodContext) {
+                const filter = this.parseArgumentContext(
+                    methodContext.collectionReplaceOneArgument1(),
+                );
+                const replacement = this.parseArgumentContext(
+                    methodContext.collectionReplaceOneArgument2().documentToInsert(),
+                );
+                const options = this.parseArgumentContext(
+                    methodContext.collectionReplaceOneArgument3(),
+                );
+
+                return makeCommandResult({
+                    collectionName,
+                    type: 'collection',
+                    method: 'replaceOne',
+                    filter,
+                    replacement,
+                    options,
+                });
+            }
+
+            if (methodContext instanceof CollectionDeleteOneMethodContext) {
+                const filter = this.parseArgumentContext(
+                    methodContext.collectionDeleteOneArgument1(),
+                );
+                const options = this.parseArgumentContext(
+                    methodContext.collectionDeleteOneArgument2(),
+                );
+
+                return makeCommandResult({
+                    collectionName,
+                    type: 'collection',
+                    method: 'deleteOne',
+                    filter,
+                    options,
+                });
+            }
+
+            if (methodContext instanceof CollectionDeleteManyMethodContext) {
+                const filter = this.parseArgumentContext(
+                    methodContext.collectionDeleteManyArgument1(),
+                );
+                const options = this.parseArgumentContext(
+                    methodContext.collectionDeleteManyArgument2(),
+                );
+
+                return makeCommandResult({
+                    collectionName,
+                    type: 'collection',
+                    method: 'deleteMany',
+                    filter,
+                    options,
+                });
+            }
+
+            if (methodContext instanceof CollectionRenameMethodContext) {
+                const newName = this.parseArgumentContext(
+                    methodContext.collectionRenameArgument1(),
+                );
+                const options = this.parseArgumentContext(
+                    methodContext.collectionRenameArgument2(),
+                );
+
+                return makeCommandResult({
+                    collectionName,
+                    type: 'collection',
+                    method: 'rename',
+                    newName,
+                    options,
+                });
+            }
+
+            if (methodContext instanceof CollectionDropMethodContext) {
+                const options = this.parseArgumentContext(methodContext.collectionDropArgument());
+
+                return makeCommandResult({
+                    collectionName,
+                    type: 'collection',
+                    method: 'drop',
+                    options,
+                });
+            }
+
+            if (methodContext instanceof CollectionIsCappedMethodContext) {
+                const options = this.parseArgumentContext(
+                    methodContext.collectionIsCappedArgument(),
+                );
+
+                return makeCommandResult({
+                    collectionName,
+                    type: 'collection',
+                    method: 'isCapped',
+                    options,
+                });
+            }
+
+            if (methodContext instanceof CollectionCreateIndexMethodContext) {
+                const indexSpec = this.parseArgumentContext(
+                    methodContext.collectionCreateIndexArgument1(),
+                );
+                const options = this.parseArgumentContext(
+                    methodContext.collectionCreateIndexArgument2(),
+                );
+
+                return makeCommandResult({
+                    collectionName,
+                    type: 'collection',
+                    method: 'createIndex',
+                    indexSpec,
+                    options,
+                });
+            }
+
+            if (methodContext instanceof CollectionCreateIndexesMethodContext) {
+                const indexSpecs = this.parseArgumentContext(
+                    methodContext.collectionCreateIndexesArgument1(),
+                );
+                const options = this.parseArgumentContext(
+                    methodContext.collectionCreateIndexesArgument2(),
+                );
+
+                return makeCommandResult({
+                    collectionName,
+                    type: 'collection',
+                    method: 'createIndexes',
+                    indexSpecs,
+                    options,
+                });
+            }
+
+            if (methodContext instanceof CollectionDropIndexMethodContext) {
+                const index = this.parseArgumentContext(
+                    methodContext.collectionDropIndexArgument1(),
+                );
+                const options = this.parseArgumentContext(
+                    methodContext.collectionDropIndexArgument2(),
+                );
+
+                return makeCommandResult({
+                    collectionName,
+                    type: 'collection',
+                    method: 'dropIndex',
+                    index,
+                    options,
+                });
+            }
+
+            if (methodContext instanceof CollectionDropIndexesMethodContext) {
+                const options = this.parseArgumentContext(
+                    methodContext.collectionDropIndexesArgument(),
+                );
+
+                return makeCommandResult({
+                    collectionName,
+                    type: 'collection',
+                    method: 'dropIndexes',
+                    options,
+                });
+            }
+
+            if (methodContext instanceof CollectionListIndexesMethodContext) {
+                const options = this.parseArgumentContext(
+                    methodContext.collectionListIndexesArgument(),
+                );
+
+                return makeCommandResult({
+                    collectionName,
+                    type: 'collection',
+                    method: 'listIndexes',
+                    options,
+                });
+            }
+
+            if (methodContext instanceof CollectionIndexesMethodContext) {
+                const options = this.parseArgumentContext(
+                    methodContext.collectionIndexesArgument(),
+                );
+
+                return makeCommandResult({
+                    collectionName,
+                    type: 'collection',
+                    method: 'indexes',
+                    options,
+                });
+            }
+
+            if (methodContext instanceof CollectionIndexExistsMethodContext) {
+                const indexNameContexts = methodContext
+                    .collectionIndexExistsArgument1()
+                    .indexName();
+                const indexes = this.parseArgumentContext(
+                    indexNameContexts.length <= 1 ? indexNameContexts[0] : indexNameContexts,
+                );
+                const options = this.parseArgumentContext(
+                    methodContext.collectionIndexExistsArgument2(),
+                );
+
+                return makeCommandResult({
+                    collectionName,
+                    type: 'collection',
+                    method: 'indexExists',
+                    indexes,
+                    options,
+                });
+            }
+
+            if (methodContext instanceof CollectionIndexInformationMethodContext) {
+                const options = this.parseArgumentContext(
+                    methodContext.collectionIndexInformationArgument(),
+                );
+
+                return makeCommandResult({
+                    collectionName,
+                    type: 'collection',
+                    method: 'indexInformation',
+                    options,
+                });
+            }
+
+            if (methodContext instanceof CollectionEstimatedDocumentCountMethodContext) {
+                const options = this.parseArgumentContext(
+                    methodContext.collectionEstimatedDocumentCountArgument(),
+                );
+
+                return makeCommandResult({
+                    collectionName,
+                    type: 'collection',
+                    method: 'estimatedDocumentCount',
+                    options,
+                });
+            }
+
+            if (methodContext instanceof CollectionCountDocumentsMethodContext) {
+                const filter = this.parseArgumentContext(
+                    methodContext.collectionCountDocumentsArgument1(),
+                );
+                const options = this.parseArgumentContext(
+                    methodContext.collectionCountDocumentsArgument2(),
+                );
+
+                return makeCommandResult({
+                    collectionName,
+                    type: 'collection',
+                    method: 'countDocuments',
+                    filter,
+                    options,
+                });
+            }
+
+            if (methodContext instanceof CollectionDistinctMethodContext) {
+                const key = this.parseArgumentContext(methodContext.collectionDistinctArgument1());
+                const filter = this.parseArgumentContext(
+                    methodContext.collectionDistinctArgument2(),
+                );
+                const options = this.parseArgumentContext(
+                    methodContext.collectionDistinctArgument3(),
+                );
+
+                return makeCommandResult({
+                    collectionName,
+                    type: 'collection',
+                    method: 'distinct',
+                    key,
+                    filter,
+                    options,
+                });
+            }
+
+            if (methodContext instanceof AggregateMethodContext) {
+                return makeCommandResult({
+                    collectionName,
+                    type: 'collection',
+                    method: 'aggregate',
+                    ...this.parseAggregateMethodContext(methodContext),
+                });
+            }
+        } catch (error) {
+            return parseExtractionError(error);
+        }
+
+        return makeMethodNotImplementedError(methodContext?.getText());
+    }
+    parseAggregateMethodContext(
+        context: AggregateMethodContext,
+    ): Pick<CollectionAggregateCommand, 'pipeline' | 'options' | 'explain'> {
+        const pipeline = this.parseArgumentContext(context.aggregateArgument1());
+        const options = this.parseArgumentContext(context.aggregateArgument2());
+
+        const explainMethodContext = context.explainMethod();
+
+        let explain: CollectionAggregateCommand['explain'] | undefined;
+        if (explainMethodContext) {
+            const explainParameters = this.parseArgumentContext(
+                explainMethodContext.explainMethodArgument(),
+            );
+            explain = explainParameters ? {parameters: explainParameters} : {};
+        }
+
+        return {pipeline, options, explain};
+    }
+    parseFindMethodContext(
+        context: CollectionFindMethodContext,
+    ): Pick<CollectionFindCommand, 'parameters' | 'modifiers' | 'explain' | 'options'> {
+        const findParameters = this.parseArgumentContext(context.collectionFindMethodArgument1());
+        const findOptions = this.parseArgumentContext(context.collectionFindMethodArgument2());
+
+        const modifierContexts = context.collectionFindMethodModifier();
+        const modifiers: FindModifier[] = modifierContexts.map((modifierContext) =>
+            this.parseFindMethodModifierContext(modifierContext),
+        );
+
+        const explainMethodContext = context.explainMethod();
+
+        let explain: CollectionFindCommand['explain'] | undefined;
+        if (explainMethodContext) {
+            const explainParameters = this.parseArgumentContext(
+                explainMethodContext.explainMethodArgument(),
+            );
+            explain = explainParameters ? {parameters: explainParameters} : {};
+        }
+
+        return {
+            parameters: findParameters,
+            options: findOptions,
+            modifiers,
+            explain,
+        };
+    }
+    parseFindMethodModifierContext(context: CollectionFindMethodModifierContext): FindModifier {
+        const childContext = context.getChild(1);
+
+        if (childContext instanceof SkipModifierContext) {
+            return {
+                method: 'skip',
+                parameters: this.parseArgumentContext(childContext.skipModifierArgument()),
+            };
+        }
+        if (childContext instanceof LimitModifierContext) {
+            return {
+                method: 'limit',
+                parameters: this.parseArgumentContext(childContext.limitModifierArgument()),
+            };
+        }
+        if (childContext instanceof FilterModifierContext) {
+            return {
+                method: 'filter',
+                parameters: this.parseArgumentContext(childContext.filterModifierArgument()),
+            };
+        }
+        if (childContext instanceof MinModifierContext) {
+            return {
+                method: 'min',
+                parameters: this.parseArgumentContext(childContext.minModifierArgument()),
+            };
+        }
+        if (childContext instanceof MaxModifierContext) {
+            return {
+                method: 'max',
+                parameters: this.parseArgumentContext(childContext.maxModifierArgument()),
+            };
+        }
+        if (childContext instanceof ReturnKeyModifierContext) {
+            return {
+                method: 'returnKey',
+                parameters: this.parseArgumentContext(childContext.returnKeyModifierArgument()),
+            };
+        }
+        if (childContext instanceof ShowRecordIdModifierContext) {
+            return {
+                method: 'showRecordId',
+                parameters: this.parseArgumentContext(childContext.showRecordIdModifierArgument()),
+            };
+        }
+        if (childContext instanceof SortModifierContext) {
+            return {
+                method: 'sort',
+                parameters: this.parseArgumentContext(childContext.sortModifierArgument1().value()),
+                options: this.parseArgumentContext(childContext.sortModifierArgument2()),
+            };
+        }
+        if (childContext instanceof HintModifierContext) {
+            return {
+                method: 'hint',
+                parameters: this.parseArgumentContext(childContext.hintModifierArgument()),
+            };
+        }
+
+        throw newParsingError('Modifier is not implemented: ' + childContext?.getText());
+    }
 }
 
 function parseQuotedCollectionName(quotedCollectionName: string): string {
     return quotedCollectionName.substring(1, quotedCollectionName.length - 1);
-}
-
-function parseCollectionMethod(
-    collectionName: string,
-    methodContext: ParseTree | null,
-): CommandParsingResult | CommandParsingError {
-    try {
-        if (methodContext instanceof CollectionFindMethodContext) {
-            const command = parseFindMethodContext(methodContext);
-
-            return makeCommandResult({
-                ...command,
-                collectionName,
-                type: 'collection',
-                method: 'find',
-            });
-        }
-
-        if (methodContext instanceof CollectionFindOneMethodContext) {
-            const parameters = parseValueContextIfExists(
-                methodContext.collectionFindOneArgument1(),
-            );
-            const options = parseValueContextIfExists(methodContext.collectionFindOneArgument2());
-
-            return makeCommandResult({
-                collectionName,
-                type: 'collection',
-                method: 'findOne',
-                parameters,
-                options,
-            });
-        }
-
-        if (methodContext instanceof CollectionFindOneAndDeleteMethodContext) {
-            const parameters = parseValueContextIfExists(
-                methodContext.collectionFindOneAndDeleteArgument1(),
-            );
-            const options = parseValueContextIfExists(
-                methodContext.collectionFindOneAndDeleteArgument2(),
-            );
-
-            return makeCommandResult({
-                collectionName,
-                type: 'collection',
-                method: 'findOneAndDelete',
-                parameters,
-                options,
-            });
-        }
-
-        if (methodContext instanceof CollectionFindOneAndReplaceMethodContext) {
-            const parameters = parseValueContextIfExists(
-                methodContext.collectionFindOneAndReplaceArgument1(),
-            );
-            const replacement = parseValueContextIfExists(
-                methodContext.collectionFindOneAndReplaceArgument2(),
-            );
-            const options = parseValueContextIfExists(
-                methodContext.collectionFindOneAndReplaceArgument3(),
-            );
-
-            return makeCommandResult({
-                collectionName,
-                type: 'collection',
-                method: 'findOneAndReplace',
-                parameters,
-                replacement,
-                options,
-            });
-        }
-
-        if (methodContext instanceof CollectionFindOneAndUpdateMethodContext) {
-            const parameters = parseValueContextIfExists(
-                methodContext.collectionFindOneAndUpdateArgument1(),
-            );
-            const newValues = parseValueContextIfExists(
-                methodContext.collectionFindOneAndUpdateArgument2(),
-            );
-            const options = parseValueContextIfExists(
-                methodContext.collectionFindOneAndUpdateArgument3(),
-            );
-
-            return makeCommandResult({
-                collectionName,
-                type: 'collection',
-                method: 'findOneAndUpdate',
-                parameters,
-                newValues,
-                options,
-            });
-        }
-
-        if (methodContext instanceof CollectionInsertOneMethodContext) {
-            const document = parseValueContextIfExists(
-                methodContext.collectionInsertOneArgument1().documentToInsert(),
-            );
-            const options = parseValueContextIfExists(methodContext.collectionInsertOneArgument2());
-
-            return makeCommandResult({
-                collectionName,
-                type: 'collection',
-                method: 'insertOne',
-                document,
-                options,
-            });
-        }
-
-        if (methodContext instanceof CollectionInsertManyMethodContext) {
-            const documents = parseValueContexts(
-                methodContext.collectionInsertManyArgument1().documentToInsert(),
-            );
-            const options = parseValueContextIfExists(
-                methodContext.collectionInsertManyArgument2(),
-            );
-
-            return makeCommandResult({
-                collectionName,
-                type: 'collection',
-                method: 'insertMany',
-                documents,
-                options,
-            });
-        }
-
-        if (methodContext instanceof CollectionBulkWriteMethodContext) {
-            const operations = parseValueContextIfExists(
-                methodContext.collectionBulkWriteArgument1(),
-            );
-            const options = parseValueContextIfExists(methodContext.collectionBulkWriteArgument2());
-
-            return makeCommandResult({
-                collectionName,
-                type: 'collection',
-                method: 'bulkWrite',
-                operations,
-                options,
-            });
-        }
-
-        if (methodContext instanceof CollectionUpdateOneMethodContext) {
-            const filter = parseValueContextIfExists(methodContext.collectionUpdateOneArgument1());
-            const updateParameters = parseValueContextIfExists(
-                methodContext.collectionUpdateOneArgument2(),
-            );
-            const options = parseValueContextIfExists(methodContext.collectionUpdateOneArgument3());
-
-            return makeCommandResult({
-                collectionName,
-                type: 'collection',
-                method: 'updateOne',
-                filter,
-                updateParameters,
-                options,
-            });
-        }
-
-        if (methodContext instanceof CollectionUpdateManyMethodContext) {
-            const filter = parseValueContextIfExists(methodContext.collectionUpdateManyArgument1());
-            const updateParameters = parseValueContextIfExists(
-                methodContext.collectionUpdateManyArgument2(),
-            );
-            const options = parseValueContextIfExists(
-                methodContext.collectionUpdateManyArgument3(),
-            );
-
-            return makeCommandResult({
-                collectionName,
-                type: 'collection',
-                method: 'updateMany',
-                filter,
-                updateParameters,
-                options,
-            });
-        }
-
-        if (methodContext instanceof CollectionReplaceOneMethodContext) {
-            const filter = parseValueContextIfExists(methodContext.collectionReplaceOneArgument1());
-            const replacement = parseValueContextIfExists(
-                methodContext.collectionReplaceOneArgument2().documentToInsert(),
-            );
-            const options = parseValueContextIfExists(
-                methodContext.collectionReplaceOneArgument3(),
-            );
-
-            return makeCommandResult({
-                collectionName,
-                type: 'collection',
-                method: 'replaceOne',
-                filter,
-                replacement,
-                options,
-            });
-        }
-
-        if (methodContext instanceof CollectionDeleteOneMethodContext) {
-            const filter = parseValueContextIfExists(methodContext.collectionDeleteOneArgument1());
-            const options = parseValueContextIfExists(methodContext.collectionDeleteOneArgument2());
-
-            return makeCommandResult({
-                collectionName,
-                type: 'collection',
-                method: 'deleteOne',
-                filter,
-                options,
-            });
-        }
-
-        if (methodContext instanceof CollectionDeleteManyMethodContext) {
-            const filter = parseValueContextIfExists(methodContext.collectionDeleteManyArgument1());
-            const options = parseValueContextIfExists(
-                methodContext.collectionDeleteManyArgument2(),
-            );
-
-            return makeCommandResult({
-                collectionName,
-                type: 'collection',
-                method: 'deleteMany',
-                filter,
-                options,
-            });
-        }
-
-        if (methodContext instanceof CollectionRenameMethodContext) {
-            const newName = parseValueContextIfExists(methodContext.collectionRenameArgument1());
-            const options = parseValueContextIfExists(methodContext.collectionRenameArgument2());
-
-            return makeCommandResult({
-                collectionName,
-                type: 'collection',
-                method: 'rename',
-                newName,
-                options,
-            });
-        }
-
-        if (methodContext instanceof CollectionDropMethodContext) {
-            const options = parseValueContextIfExists(methodContext.collectionDropArgument());
-
-            return makeCommandResult({
-                collectionName,
-                type: 'collection',
-                method: 'drop',
-                options,
-            });
-        }
-
-        if (methodContext instanceof CollectionIsCappedMethodContext) {
-            const options = parseValueContextIfExists(methodContext.collectionIsCappedArgument());
-
-            return makeCommandResult({
-                collectionName,
-                type: 'collection',
-                method: 'isCapped',
-                options,
-            });
-        }
-
-        if (methodContext instanceof CollectionCreateIndexMethodContext) {
-            const indexSpec = parseValueContextIfExists(
-                methodContext.collectionCreateIndexArgument1(),
-            );
-            const options = parseValueContextIfExists(
-                methodContext.collectionCreateIndexArgument2(),
-            );
-
-            return makeCommandResult({
-                collectionName,
-                type: 'collection',
-                method: 'createIndex',
-                indexSpec,
-                options,
-            });
-        }
-
-        if (methodContext instanceof CollectionCreateIndexesMethodContext) {
-            const indexSpecs = parseValueContextIfExists(
-                methodContext.collectionCreateIndexesArgument1(),
-            );
-            const options = parseValueContextIfExists(
-                methodContext.collectionCreateIndexesArgument2(),
-            );
-
-            return makeCommandResult({
-                collectionName,
-                type: 'collection',
-                method: 'createIndexes',
-                indexSpecs,
-                options,
-            });
-        }
-
-        if (methodContext instanceof CollectionDropIndexMethodContext) {
-            const index = parseValueContextIfExists(methodContext.collectionDropIndexArgument1());
-            const options = parseValueContextIfExists(methodContext.collectionDropIndexArgument2());
-
-            return makeCommandResult({
-                collectionName,
-                type: 'collection',
-                method: 'dropIndex',
-                index,
-                options,
-            });
-        }
-
-        if (methodContext instanceof CollectionDropIndexesMethodContext) {
-            const options = parseValueContextIfExists(
-                methodContext.collectionDropIndexesArgument(),
-            );
-
-            return makeCommandResult({
-                collectionName,
-                type: 'collection',
-                method: 'dropIndexes',
-                options,
-            });
-        }
-
-        if (methodContext instanceof CollectionListIndexesMethodContext) {
-            const options = parseValueContextIfExists(
-                methodContext.collectionListIndexesArgument(),
-            );
-
-            return makeCommandResult({
-                collectionName,
-                type: 'collection',
-                method: 'listIndexes',
-                options,
-            });
-        }
-
-        if (methodContext instanceof CollectionIndexesMethodContext) {
-            const options = parseValueContextIfExists(methodContext.collectionIndexesArgument());
-
-            return makeCommandResult({
-                collectionName,
-                type: 'collection',
-                method: 'indexes',
-                options,
-            });
-        }
-
-        if (methodContext instanceof CollectionIndexExistsMethodContext) {
-            const indexNameContexts = methodContext.collectionIndexExistsArgument1().indexName();
-            const indexes =
-                indexNameContexts.length <= 1
-                    ? parseValueContextIfExists(indexNameContexts[0])
-                    : parseValueContexts(indexNameContexts);
-            const options = parseValueContextIfExists(
-                methodContext.collectionIndexExistsArgument2(),
-            );
-
-            return makeCommandResult({
-                collectionName,
-                type: 'collection',
-                method: 'indexExists',
-                indexes,
-                options,
-            });
-        }
-
-        if (methodContext instanceof CollectionIndexInformationMethodContext) {
-            const options = parseValueContextIfExists(
-                methodContext.collectionIndexInformationArgument(),
-            );
-
-            return makeCommandResult({
-                collectionName,
-                type: 'collection',
-                method: 'indexInformation',
-                options,
-            });
-        }
-
-        if (methodContext instanceof CollectionEstimatedDocumentCountMethodContext) {
-            const options = parseValueContextIfExists(
-                methodContext.collectionEstimatedDocumentCountArgument(),
-            );
-
-            return makeCommandResult({
-                collectionName,
-                type: 'collection',
-                method: 'estimatedDocumentCount',
-                options,
-            });
-        }
-
-        if (methodContext instanceof CollectionCountDocumentsMethodContext) {
-            const filter = parseValueContextIfExists(
-                methodContext.collectionCountDocumentsArgument1(),
-            );
-            const options = parseValueContextIfExists(
-                methodContext.collectionCountDocumentsArgument2(),
-            );
-
-            return makeCommandResult({
-                collectionName,
-                type: 'collection',
-                method: 'countDocuments',
-                filter,
-                options,
-            });
-        }
-
-        if (methodContext instanceof CollectionDistinctMethodContext) {
-            const key = parseValueContextIfExists(methodContext.collectionDistinctArgument1());
-            const filter = parseValueContextIfExists(methodContext.collectionDistinctArgument2());
-            const options = parseValueContextIfExists(methodContext.collectionDistinctArgument3());
-
-            return makeCommandResult({
-                collectionName,
-                type: 'collection',
-                method: 'distinct',
-                key,
-                filter,
-                options,
-            });
-        }
-
-        if (methodContext instanceof AggregateMethodContext) {
-            return makeCommandResult({
-                collectionName,
-                type: 'collection',
-                method: 'aggregate',
-                ...parseAggregateMethodContext(methodContext),
-            });
-        }
-    } catch (error) {
-        return parseExtractionError(error);
-    }
-
-    return makeMethodNotImplementedError(methodContext?.getText());
-}
-
-function parseAggregateMethodContext(
-    context: AggregateMethodContext,
-): Pick<CollectionAggregateCommand, 'pipeline' | 'options' | 'explain'> {
-    const pipeline = parseValueContextIfExists(context.aggregateArgument1());
-    const options = parseValueContextIfExists(context.aggregateArgument2());
-
-    const explainMethodContext = context.explainMethod();
-
-    let explain: CollectionAggregateCommand['explain'] | undefined;
-    if (explainMethodContext) {
-        const explainParameters = parseValueContextIfExists(
-            explainMethodContext.explainMethodArgument(),
-        );
-        explain = explainParameters ? {parameters: explainParameters} : {};
-    }
-
-    return {pipeline, options, explain};
 }
 
 function parseExtractionError(error: unknown): CommandParsingError {
@@ -1392,104 +1562,16 @@ function isParsingError(error: unknown): error is ParsingError {
     );
 }
 
-function parseFindMethodContext(
-    context: CollectionFindMethodContext,
-): Pick<CollectionFindCommand, 'parameters' | 'modifiers' | 'explain' | 'options'> {
-    const findParameters = parseValueContextIfExists(context.collectionFindMethodArgument1());
-    const findOptions = parseValueContextIfExists(context.collectionFindMethodArgument2());
-
-    const modifierContexts = context.collectionFindMethodModifier();
-    const modifiers: FindModifier[] = modifierContexts.map(parseFindMethodModifierContext);
-
-    const explainMethodContext = context.explainMethod();
-
-    let explain: CollectionFindCommand['explain'] | undefined;
-    if (explainMethodContext) {
-        const explainParameters = parseValueContextIfExists(
-            explainMethodContext.explainMethodArgument(),
-        );
-        explain = explainParameters ? {parameters: explainParameters} : {};
-    }
-
-    return {
-        parameters: findParameters,
-        options: findOptions,
-        modifiers,
-        explain,
-    };
-}
-
-function parseFindMethodModifierContext(
-    context: CollectionFindMethodModifierContext,
-): FindModifier {
-    const childContext = context.getChild(1);
-
-    if (childContext instanceof SkipModifierContext) {
-        return {
-            method: 'skip',
-            parameters: parseValueContextIfExists(childContext.skipModifierArgument()),
-        };
-    }
-    if (childContext instanceof LimitModifierContext) {
-        return {
-            method: 'limit',
-            parameters: parseValueContextIfExists(childContext.limitModifierArgument()),
-        };
-    }
-    if (childContext instanceof FilterModifierContext) {
-        return {
-            method: 'filter',
-            parameters: parseValueContextIfExists(childContext.filterModifierArgument()),
-        };
-    }
-    if (childContext instanceof MinModifierContext) {
-        return {
-            method: 'min',
-            parameters: parseValueContextIfExists(childContext.minModifierArgument()),
-        };
-    }
-    if (childContext instanceof MaxModifierContext) {
-        return {
-            method: 'max',
-            parameters: parseValueContextIfExists(childContext.maxModifierArgument()),
-        };
-    }
-    if (childContext instanceof ReturnKeyModifierContext) {
-        return {
-            method: 'returnKey',
-            parameters: parseValueContextIfExists(childContext.returnKeyModifierArgument()),
-        };
-    }
-    if (childContext instanceof ShowRecordIdModifierContext) {
-        return {
-            method: 'showRecordId',
-            parameters: parseValueContextIfExists(childContext.showRecordIdModifierArgument()),
-        };
-    }
-    if (childContext instanceof SortModifierContext) {
-        return {
-            method: 'sort',
-            parameters: parseValueContextIfExists(childContext.sortModifierArgument1().value()),
-            options: parseValueContextIfExists(childContext.sortModifierArgument2()),
-        };
-    }
-    if (childContext instanceof HintModifierContext) {
-        return {
-            method: 'hint',
-            parameters: parseValueContextIfExists(childContext.hintModifierArgument()),
-        };
-    }
-
-    throw newParsingError('Modifier is not implemented: ' + childContext?.getText());
-}
-
-export function extractMongoCommandsFromQuery(query: string): ExtractMongoCommandsFromQueryResult {
+export function extractMongoCommandsFromQuery(
+    query: string,
+    functionParsers?: FunctionParsers,
+): ExtractMongoCommandsFromQueryResult {
     const parser = createParser(MongoLexer, MongoParser, query);
 
     const syntaxErrorListener = new SqlErrorListener(MongoParser.WS);
     parser.addErrorListener(syntaxErrorListener);
 
-    const visitor = new CommandsVisitor();
+    const visitor = new CommandsVisitor(createArgumentContextParser(functionParsers));
     const parseTree = getParseTree(parser);
     visitor.visit(parseTree);
 
@@ -1508,37 +1590,26 @@ export function extractMongoCommandsFromQuery(query: string): ExtractMongoComman
     return {commands: visitor.commands};
 }
 
-type AnyValueContext = {
-    object?: () => ObjectContext | null;
-    array?: () => ArrayContext | null;
-    string?: () => StringContext | null;
-    number?: () => NumberContext | null;
-    null?: () => NullContext | null;
-    boolean?: () => BooleanContext | null;
-};
+function createArgumentContextParser(
+    functionParsers?: FunctionParsers,
+): typeof parseAnyValueContext {
+    return (value?: AnyValueContext | AnyValueContext[] | null) =>
+        parseAnyValueContext(value, functionParsers);
+}
 
-type Value = object | string | number | boolean | null | Value[];
-
-function parseValueContextIfExists(value?: AnyValueContext | null): Value | undefined {
+function parseAnyValueContext(
+    value?: AnyValueContext | AnyValueContext[] | null,
+    functionParsers?: FunctionParsers,
+): unknown {
     if (!value) {
         return;
     }
 
-    return parseValueContext(value);
-}
+    if (Array.isArray(value)) {
+        return value.map((valueContext) => parseAnyValueContext(valueContext, functionParsers));
+    }
 
-function parseValueContexts(contexts: AnyValueContext[]): Value[] {
-    return contexts.map(parseValueContext);
-}
-
-function parseValueContext(value: AnyValueContext): Value {
     const objectContext = value.object?.();
-    const arrayContext = value.array?.();
-    const stringContext = value.string?.();
-    const numberContext = value.number?.();
-    const nullContext = value.null?.();
-    const booleanContext = value.boolean?.();
-
     if (objectContext) {
         const object: Record<string, unknown> = {};
         objectContext.pair().forEach((pairContext) => {
@@ -1548,14 +1619,25 @@ function parseValueContext(value: AnyValueContext): Value {
                 key = key.slice(1, key.length - 1);
             }
 
-            object[key] = parseValueContext(pairContext.value());
+            object[key] = parseAnyValueContext(pairContext.value(), functionParsers);
         });
         return object;
-    } else if (arrayContext) {
-        return arrayContext.value().map((valueContext) => parseValueContext(valueContext));
-    } else if (numberContext) {
+    }
+
+    const arrayContext = value.array?.();
+    if (arrayContext) {
+        return arrayContext
+            .value()
+            .map((valueContext) => parseAnyValueContext(valueContext, functionParsers));
+    }
+
+    const numberContext = value.number?.();
+    if (numberContext) {
         return Number(numberContext.getText());
-    } else if (booleanContext) {
+    }
+
+    const booleanContext = value.boolean?.();
+    if (booleanContext) {
         const booleanText = booleanContext.getText();
         if (booleanText === 'true') {
             return true;
@@ -1563,11 +1645,125 @@ function parseValueContext(value: AnyValueContext): Value {
             return false;
         }
         throw new Error(`unexpected boolean value: ${booleanContext.getText()}`);
-    } else if (nullContext) {
+    }
+
+    const nullContext = value.null?.();
+    if (nullContext) {
         return null;
-    } else if (stringContext) {
+    }
+
+    const stringContext = value.string?.();
+    if (stringContext) {
         const rawString = stringContext.getText();
         return rawString.slice(1, rawString.length - 1);
+    }
+
+    const objectIdFunctionContext = value.objectIdFunction?.();
+    if (objectIdFunctionContext) {
+        const objectIdParser = functionParsers?.ObjectId;
+        if (!objectIdParser) {
+            throw new Error('ObjectId parser is not provided to function parsers');
+        }
+
+        return objectIdParser(
+            parseAnyValueContext(
+                objectIdFunctionContext.objectIdFunctionArgument(),
+                functionParsers,
+            ),
+        );
+    }
+
+    const dateFunctionContext = value.dateFunction?.();
+    if (dateFunctionContext) {
+        const dateParser = functionParsers?.Date;
+        if (!dateParser) {
+            throw new Error('Date parser is not provided to function parsers');
+        }
+
+        return dateParser(
+            parseAnyValueContext(dateFunctionContext.dateFunctionArgument(), functionParsers),
+        );
+    }
+
+    const uuidFunctionContext = value.uuidFunction?.();
+    if (uuidFunctionContext) {
+        const uuidParser = functionParsers?.UUID;
+        if (!uuidParser) {
+            throw new Error('UUID parser is not provided to function parsers');
+        }
+
+        return uuidParser(
+            parseAnyValueContext(uuidFunctionContext.uuidFunctionArgument(), functionParsers),
+        );
+    }
+
+    const minKeyFunctionContext = value.minKeyFunction?.();
+    if (minKeyFunctionContext) {
+        const minKeyParser = functionParsers?.MinKey;
+        if (!minKeyParser) {
+            throw new Error('MinKey parser is not provided to function parsers');
+        }
+
+        return minKeyParser();
+    }
+
+    const maxKeyFunctionContext = value.maxKeyFunction?.();
+    if (maxKeyFunctionContext) {
+        const maxKeyParser = functionParsers?.MaxKey;
+        if (!maxKeyParser) {
+            throw new Error('MaxKey parser is not provided to function parsers');
+        }
+
+        return maxKeyParser();
+    }
+
+    const numberIntFunctionContext = value.numberIntFunction?.();
+    if (numberIntFunctionContext) {
+        const numberIntParser = functionParsers?.NumberInt;
+        if (!numberIntParser) {
+            throw new Error('NumberInt parser is not provided to function parsers');
+        }
+
+        return numberIntParser(
+            parseAnyValueContext(
+                numberIntFunctionContext.numberIntFunctionArgument(),
+                functionParsers,
+            ),
+        );
+    }
+
+    const numberLongFunctionContext = value.numberLongFunction?.();
+    if (numberLongFunctionContext) {
+        const numberLongParser = functionParsers?.NumberLong;
+        if (!numberLongParser) {
+            throw new Error('NumberLong parser is not provided to function parsers');
+        }
+
+        return numberLongParser(
+            parseAnyValueContext(
+                numberLongFunctionContext.numberLongFunctionArgument1(),
+                functionParsers,
+            ),
+            parseAnyValueContext(
+                numberLongFunctionContext.numberLongFunctionArgument2(),
+                functionParsers,
+            ),
+        );
+    }
+
+    const numberDecimalFunctionContext = value.numberDecimalFunction?.();
+    if (numberDecimalFunctionContext) {
+        const numberDecimalParser = functionParsers?.NumberDecimal;
+        if (!numberDecimalParser) {
+            throw new Error('NumberDecimal parser is not provided to function parsers');
+        }
+
+        return numberDecimalParser(
+            parseAnyValueContext(
+                numberDecimalFunctionContext.numberDecimalFunctionArgument(),
+                functionParsers,
+            ),
+        );
     }
 
     throw new Error(`unknown value constructor: ${value.constructor.name}`);

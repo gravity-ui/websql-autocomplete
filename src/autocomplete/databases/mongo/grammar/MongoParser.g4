@@ -866,6 +866,14 @@ reservedKeyword
     | VALIDATE_COLLECTION
     | LIST_DATABASES
     | REPL_SET_GET_STATUS
+    | OBJECT_ID
+    | DATE
+    | UUID
+    | MIN_KEY
+    | MAX_KEY
+    | NUMBER_DECIMAL
+    | NUMBER_INT
+    | NUMBER_LONG
     ;
 
 object
@@ -902,6 +910,77 @@ value
     | array
     | boolean
     | null
+    | objectIdFunction
+    | dateFunction
+    | uuidFunction
+    | minKeyFunction
+    | maxKeyFunction
+    | numberIntFunction
+    | numberDecimalFunction
+    | numberLongFunction
+    ;
+
+numberLongFunction
+    : NUMBER_LONG LPAREN numberLongFunctionArgument1 (COMMA numberLongFunctionArgument2) RPAREN
+    ;
+
+numberLongFunctionArgument1
+    : string
+    ;
+
+numberLongFunctionArgument2
+    : number
+    ;
+
+numberDecimalFunction
+    : NUMBER_DECIMAL LPAREN numberDecimalFunctionArgument RPAREN
+    ;
+
+numberDecimalFunctionArgument
+    : string
+    ;
+
+numberIntFunction
+    : NUMBER_INT LPAREN numberIntFunctionArgument RPAREN
+    ;
+
+numberIntFunctionArgument
+    : string
+    | number
+    ;
+
+maxKeyFunction
+    : MAX_KEY LPAREN RPAREN
+    ;
+
+minKeyFunction
+    : MIN_KEY LPAREN RPAREN
+    ;
+
+uuidFunction
+    : UUID LPAREN uuidFunctionArgument? RPAREN
+    ;
+
+uuidFunctionArgument
+    : string
+    ;
+
+objectIdFunction
+    : OBJECT_ID LPAREN objectIdFunctionArgument RPAREN
+    ;
+
+objectIdFunctionArgument
+    : string
+    | number
+    ;
+
+dateFunction
+    : DATE LPAREN dateFunctionArgument? RPAREN
+    ;
+
+dateFunctionArgument
+    : string
+    | number
     ;
 
 string

@@ -192,6 +192,21 @@ import { BooleanContext } from "./MongoParser.js";
 import { KeyContext } from "./MongoParser.js";
 import { IdentifierContext } from "./MongoParser.js";
 import { ValueContext } from "./MongoParser.js";
+import { NumberLongFunctionContext } from "./MongoParser.js";
+import { NumberLongFunctionArgument1Context } from "./MongoParser.js";
+import { NumberLongFunctionArgument2Context } from "./MongoParser.js";
+import { NumberDecimalFunctionContext } from "./MongoParser.js";
+import { NumberDecimalFunctionArgumentContext } from "./MongoParser.js";
+import { NumberIntFunctionContext } from "./MongoParser.js";
+import { NumberIntFunctionArgumentContext } from "./MongoParser.js";
+import { MaxKeyFunctionContext } from "./MongoParser.js";
+import { MinKeyFunctionContext } from "./MongoParser.js";
+import { UuidFunctionContext } from "./MongoParser.js";
+import { UuidFunctionArgumentContext } from "./MongoParser.js";
+import { ObjectIdFunctionContext } from "./MongoParser.js";
+import { ObjectIdFunctionArgumentContext } from "./MongoParser.js";
+import { DateFunctionContext } from "./MongoParser.js";
+import { DateFunctionArgumentContext } from "./MongoParser.js";
 import { StringContext } from "./MongoParser.js";
 import { NullContext } from "./MongoParser.js";
 import { ArrayContext } from "./MongoParser.js";
@@ -1286,6 +1301,96 @@ export class MongoParserVisitor<Result> extends AbstractParseTreeVisitor<Result>
      * @return the visitor result
      */
     visitValue?: (ctx: ValueContext) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.numberLongFunction`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitNumberLongFunction?: (ctx: NumberLongFunctionContext) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.numberLongFunctionArgument1`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitNumberLongFunctionArgument1?: (ctx: NumberLongFunctionArgument1Context) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.numberLongFunctionArgument2`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitNumberLongFunctionArgument2?: (ctx: NumberLongFunctionArgument2Context) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.numberDecimalFunction`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitNumberDecimalFunction?: (ctx: NumberDecimalFunctionContext) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.numberDecimalFunctionArgument`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitNumberDecimalFunctionArgument?: (ctx: NumberDecimalFunctionArgumentContext) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.numberIntFunction`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitNumberIntFunction?: (ctx: NumberIntFunctionContext) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.numberIntFunctionArgument`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitNumberIntFunctionArgument?: (ctx: NumberIntFunctionArgumentContext) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.maxKeyFunction`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitMaxKeyFunction?: (ctx: MaxKeyFunctionContext) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.minKeyFunction`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitMinKeyFunction?: (ctx: MinKeyFunctionContext) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.uuidFunction`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitUuidFunction?: (ctx: UuidFunctionContext) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.uuidFunctionArgument`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitUuidFunctionArgument?: (ctx: UuidFunctionArgumentContext) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.objectIdFunction`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitObjectIdFunction?: (ctx: ObjectIdFunctionContext) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.objectIdFunctionArgument`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitObjectIdFunctionArgument?: (ctx: ObjectIdFunctionArgumentContext) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.dateFunction`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitDateFunction?: (ctx: DateFunctionContext) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.dateFunctionArgument`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitDateFunctionArgument?: (ctx: DateFunctionArgumentContext) => Result;
     /**
      * Visit a parse tree produced by `MongoParser.string`.
      * @param ctx the parse tree

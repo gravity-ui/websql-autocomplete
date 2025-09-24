@@ -68,6 +68,14 @@ PING                     : 'ping';
 VALIDATE_COLLECTION      : 'validateCollection';
 LIST_DATABASES           : 'listDatabases';
 REPL_SET_GET_STATUS      : 'replSetGetStatus';
+OBJECT_ID                : 'ObjectId';
+DATE                     : 'Date';
+UUID                     : 'UUID';
+MIN_KEY                  : 'MinKey';
+MAX_KEY                  : 'MaxKey';
+NUMBER_DECIMAL           : 'NumberDecimal';
+NUMBER_INT               : 'NumberInt';
+NUMBER_LONG              : 'NumberLong';
 
 LBRACKET  : '[';
 RBRACKET  : ']';

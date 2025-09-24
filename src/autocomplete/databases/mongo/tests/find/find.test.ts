@@ -1,3 +1,4 @@
+/* eslint-disable new-cap */
 import {
     Command,
     extractMongoCommandsFromQuery,
@@ -51,6 +52,21 @@ test('should not report errors on extended find statement with modifiers', () =>
     `);
 
     expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should suggest functions', () => {
+    const autocompleteResult = parseMongoQueryWithCursor('db.test_collection.find({test_key: |})');
+
+    expect(autocompleteResult.suggestKeywords).toEqual([
+        {value: 'ObjectId'},
+        {value: 'Date'},
+        {value: 'UUID'},
+        {value: 'MinKey'},
+        {value: 'MaxKey'},
+        {value: 'NumberInt'},
+        {value: 'NumberDecimal'},
+        {value: 'NumberLong'},
+    ]);
 });
 
 test('should suggest properly find modifiers', () => {
@@ -374,8 +390,20 @@ test('should extract find commands properly', () => {
     expect(result).toEqual({commands});
 });
 
-test('should properly parse parameters', () => {
-    const result = extractMongoCommandsFromQuery(`
+test('should extract find commands with functions properly', () => {
+    const functionParsers = {
+        ObjectId: (...args: unknown[]): unknown => `$ObjectId ${args.join('/')}`,
+        Date: (...args: unknown[]): unknown => `$Date ${args.join('/')}`,
+        UUID: (...args: unknown[]): unknown => `$UUID ${args.join('/')}`,
+        MinKey: (...args: unknown[]): unknown => `$MinKey ${args.join('/')}`,
+        MaxKey: (...args: unknown[]): unknown => `$MaxKey ${args.join('/')}`,
+        NumberDecimal: (...args: unknown[]): unknown => `$NumberDecimal ${args.join('/')}`,
+        NumberInt: (...args: unknown[]): unknown => `$NumberInt ${args.join('/')}`,
+        NumberLong: (...args: unknown[]): unknown => `$NumberLong ${args.join('/')}`,
+    };
+
+    const result = extractMongoCommandsFromQuery(
+        `
         db.test_collection.find({
             one: 1,
             two: 2,
@@ -389,8 +417,40 @@ test('should properly parse parameters', () => {
             "quoted": 18,
             Infinity: 19,
             NaN: 20,
+            function1: ObjectId('test_id'),
+            function2: Date('2022-12-13'),
+            function3: UUID('string'),
+            function4: MinKey(),
+            function5: MaxKey(),
+            function6: NumberDecimal('20.12002123'),
+            function7: NumberInt(123123),
+            function8: NumberLong('123123123123123123123123123123123124', 10),
         });
-    `);
+        db.test_collection2.find({
+            functions: [
+                ObjectId('test_id'),
+                Date('2022-12-13'),
+                UUID('string'),
+                MinKey(),
+                MaxKey(),
+                NumberDecimal('20.12002123'),
+                NumberInt(123123),
+                NumberLong('123123123123123123123123123123123124', 10),
+                [
+                    ObjectId('test_id'),
+                    Date('2022-12-13'),
+                    UUID('string'),
+                    MinKey(),
+                    MaxKey(),
+                    NumberDecimal('20.12002123'),
+                    NumberInt(123123),
+                    NumberLong('123123123123123123123123123123123124', 10),
+                ]
+            ]
+        });
+    `,
+        functionParsers,
+    );
 
     const commands: Command[] = [
         {
@@ -411,6 +471,42 @@ test('should properly parse parameters', () => {
                 quoted: 18,
                 Infinity: 19,
                 NaN: 20,
+                function1: functionParsers.ObjectId('test_id'),
+                function2: functionParsers.Date('2022-12-13'),
+                function3: functionParsers.UUID('string'),
+                function4: functionParsers.MinKey(),
+                function5: functionParsers.MaxKey(),
+                function6: functionParsers.NumberDecimal('20.12002123'),
+                function7: functionParsers.NumberInt(123123),
+                function8: functionParsers.NumberLong('123123123123123123123123123123123124', 10),
+            },
+        },
+        {
+            type: 'collection',
+            method: 'find',
+            modifiers: [],
+            collectionName: 'test_collection2',
+            parameters: {
+                functions: [
+                    functionParsers.ObjectId('test_id'),
+                    functionParsers.Date('2022-12-13'),
+                    functionParsers.UUID('string'),
+                    functionParsers.MinKey(),
+                    functionParsers.MaxKey(),
+                    functionParsers.NumberDecimal('20.12002123'),
+                    functionParsers.NumberInt(123123),
+                    functionParsers.NumberLong('123123123123123123123123123123123124', 10),
+                    [
+                        functionParsers.ObjectId('test_id'),
+                        functionParsers.Date('2022-12-13'),
+                        functionParsers.UUID('string'),
+                        functionParsers.MinKey(),
+                        functionParsers.MaxKey(),
+                        functionParsers.NumberDecimal('20.12002123'),
+                        functionParsers.NumberInt(123123),
+                        functionParsers.NumberLong('123123123123123123123123123123123124', 10),
+                    ],
+                ],
             },
         },
     ];
