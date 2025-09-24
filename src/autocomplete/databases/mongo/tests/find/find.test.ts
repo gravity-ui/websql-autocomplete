@@ -370,5 +370,50 @@ test('should extract find commands properly', () => {
             options: {test_find_option_field: 'test_find_option_value'},
         },
     ];
+
+    expect(result).toEqual({commands});
+});
+
+test('should properly parse parameters', () => {
+    const result = extractMongoCommandsFromQuery(`
+        db.test_collection.find({
+            one: 1,
+            two: 2,
+            three: 'three',
+            four: ['five', 6, 7, {eight: 8, nine: 9, ten: 10}, 'eleven', 12],
+            thirteen: 13,
+            fourteen: 'fourteen',
+            true: true,
+            false: false,
+            null: null,
+            "quoted": 18,
+            Infinity: 19,
+            NaN: 20,
+        });
+    `);
+
+    const commands: Command[] = [
+        {
+            type: 'collection',
+            method: 'find',
+            modifiers: [],
+            collectionName: 'test_collection',
+            parameters: {
+                one: 1,
+                two: 2,
+                three: 'three',
+                four: ['five', 6, 7, {eight: 8, nine: 9, ten: 10}, 'eleven', 12],
+                thirteen: 13,
+                fourteen: 'fourteen',
+                true: true,
+                false: false,
+                null: null,
+                quoted: 18,
+                Infinity: 19,
+                NaN: 20,
+            },
+        },
+    ];
+
     expect(result).toEqual({commands});
 });

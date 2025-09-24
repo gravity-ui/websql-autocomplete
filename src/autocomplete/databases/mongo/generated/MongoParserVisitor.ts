@@ -95,6 +95,7 @@ import { CollectionIndexInformationArgumentContext } from "./MongoParser.js";
 import { CollectionIndexExistsMethodContext } from "./MongoParser.js";
 import { CollectionIndexExistsArgument2Context } from "./MongoParser.js";
 import { CollectionIndexExistsArgument1Context } from "./MongoParser.js";
+import { IndexNameContext } from "./MongoParser.js";
 import { CollectionIndexesMethodContext } from "./MongoParser.js";
 import { CollectionIndexesArgumentContext } from "./MongoParser.js";
 import { CollectionListIndexesMethodContext } from "./MongoParser.js";
@@ -185,13 +186,14 @@ import { SortModifierContext } from "./MongoParser.js";
 import { SortModifierArgument1Context } from "./MongoParser.js";
 import { SortModifierArgument2Context } from "./MongoParser.js";
 import { ReservedKeywordContext } from "./MongoParser.js";
-import { Json5Context } from "./MongoParser.js";
 import { ObjectContext } from "./MongoParser.js";
 import { PairContext } from "./MongoParser.js";
 import { BooleanContext } from "./MongoParser.js";
 import { KeyContext } from "./MongoParser.js";
 import { IdentifierContext } from "./MongoParser.js";
 import { ValueContext } from "./MongoParser.js";
+import { StringContext } from "./MongoParser.js";
+import { NullContext } from "./MongoParser.js";
 import { ArrayContext } from "./MongoParser.js";
 import { NumberContext } from "./MongoParser.js";
 
@@ -702,6 +704,12 @@ export class MongoParserVisitor<Result> extends AbstractParseTreeVisitor<Result>
      * @return the visitor result
      */
     visitCollectionIndexExistsArgument1?: (ctx: CollectionIndexExistsArgument1Context) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.indexName`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitIndexName?: (ctx: IndexNameContext) => Result;
     /**
      * Visit a parse tree produced by `MongoParser.collectionIndexesMethod`.
      * @param ctx the parse tree
@@ -1243,12 +1251,6 @@ export class MongoParserVisitor<Result> extends AbstractParseTreeVisitor<Result>
      */
     visitReservedKeyword?: (ctx: ReservedKeywordContext) => Result;
     /**
-     * Visit a parse tree produced by `MongoParser.json5`.
-     * @param ctx the parse tree
-     * @return the visitor result
-     */
-    visitJson5?: (ctx: Json5Context) => Result;
-    /**
      * Visit a parse tree produced by `MongoParser.object`.
      * @param ctx the parse tree
      * @return the visitor result
@@ -1284,6 +1286,18 @@ export class MongoParserVisitor<Result> extends AbstractParseTreeVisitor<Result>
      * @return the visitor result
      */
     visitValue?: (ctx: ValueContext) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.string`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitString?: (ctx: StringContext) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.null`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitNull?: (ctx: NullContext) => Result;
     /**
      * Visit a parse tree produced by `MongoParser.array`.
      * @param ctx the parse tree

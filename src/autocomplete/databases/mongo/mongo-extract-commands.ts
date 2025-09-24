@@ -1,6 +1,7 @@
-import json5 from 'json5';
 import {
     AggregateMethodContext,
+    ArrayContext,
+    BooleanContext,
     BuildInfoMethodContext,
     CollectionBulkWriteMethodContext,
     CollectionCountDocumentsMethodContext,
@@ -54,6 +55,9 @@ import {
     MaxModifierContext,
     MinModifierContext,
     MongoParser,
+    NullContext,
+    NumberContext,
+    ObjectContext,
     PingMethodContext,
     ReplSetGetStatusMethodContext,
     ReturnKeyModifierContext,
@@ -62,6 +66,7 @@ import {
     ShowRecordIdModifierContext,
     SkipModifierContext,
     SortModifierContext,
+    StringContext,
     ValidateCollectionMethodContext,
 } from './generated/MongoParser';
 import {MongoParserVisitor} from './generated/MongoParserVisitor';
@@ -552,11 +557,11 @@ function parseDatabaseMethod(
         }
 
         if (methodContext instanceof DatabaseCreateCollectionMethodContext) {
-            const collectionName = formatJson5(
-                methodContext.databaseCreateCollectionArgument1().getText(),
+            const collectionName = parseValueContextIfExists(
+                methodContext.databaseCreateCollectionArgument1(),
             );
-            const options = formatJson5(
-                methodContext.databaseCreateCollectionArgument2()?.getText(),
+            const options = parseValueContextIfExists(
+                methodContext.databaseCreateCollectionArgument2(),
             );
 
             return makeCommandResult({
@@ -584,9 +589,11 @@ function parseDatabaseMethod(
         }
 
         if (methodContext instanceof DatabaseListCollectionsMethodContext) {
-            const filter = formatJson5(methodContext.databaseListCollectionsArgument1()?.getText());
-            const options = formatJson5(
-                methodContext.databaseListCollectionsArgument2()?.getText(),
+            const filter = parseValueContextIfExists(
+                methodContext.databaseListCollectionsArgument1(),
+            );
+            const options = parseValueContextIfExists(
+                methodContext.databaseListCollectionsArgument2(),
             );
 
             return makeCommandResult({
@@ -598,14 +605,14 @@ function parseDatabaseMethod(
         }
 
         if (methodContext instanceof DatabaseRenameCollectionMethodContext) {
-            const currentName = formatJson5(
-                methodContext.databaseRenameCollectionArgument1().getText(),
+            const currentName = parseValueContextIfExists(
+                methodContext.databaseRenameCollectionArgument1().quotedCollectionName(),
             );
-            const newName = formatJson5(
-                methodContext.databaseRenameCollectionArgument2().getText(),
+            const newName = parseValueContextIfExists(
+                methodContext.databaseRenameCollectionArgument2(),
             );
-            const options = formatJson5(
-                methodContext.databaseRenameCollectionArgument3()?.getText(),
+            const options = parseValueContextIfExists(
+                methodContext.databaseRenameCollectionArgument3(),
             );
 
             return makeCommandResult({
@@ -618,10 +625,12 @@ function parseDatabaseMethod(
         }
 
         if (methodContext instanceof DatabaseDropCollectionMethodContext) {
-            const collectionName = formatJson5(
-                methodContext.databaseDropCollectionArgument1().getText(),
+            const collectionName = parseValueContextIfExists(
+                methodContext.databaseDropCollectionArgument1().quotedCollectionName(),
             );
-            const options = formatJson5(methodContext.databaseDropCollectionArgument2()?.getText());
+            const options = parseValueContextIfExists(
+                methodContext.databaseDropCollectionArgument2(),
+            );
 
             return makeCommandResult({
                 type: 'database',
@@ -632,7 +641,7 @@ function parseDatabaseMethod(
         }
 
         if (methodContext instanceof DatabaseDropDatabaseMethodContext) {
-            const options = formatJson5(methodContext.databaseDropDatabaseArgument()?.getText());
+            const options = parseValueContextIfExists(methodContext.databaseDropDatabaseArgument());
 
             return makeCommandResult({
                 type: 'database',
@@ -642,11 +651,13 @@ function parseDatabaseMethod(
         }
 
         if (methodContext instanceof DatabaseCreateIndexMethodContext) {
-            const collectionName = formatJson5(
-                methodContext.databaseCreateIndexArgument1().getText(),
+            const collectionName = parseValueContextIfExists(
+                methodContext.databaseCreateIndexArgument1(),
             );
-            const indexSpec = formatJson5(methodContext.databaseCreateIndexArgument2().getText());
-            const options = formatJson5(methodContext.databaseCreateIndexArgument3()?.getText());
+            const indexSpec = parseValueContextIfExists(
+                methodContext.databaseCreateIndexArgument2(),
+            );
+            const options = parseValueContextIfExists(methodContext.databaseCreateIndexArgument3());
 
             return makeCommandResult({
                 type: 'database',
@@ -666,11 +677,11 @@ function parseDatabaseMethod(
         }
 
         if (methodContext instanceof DatabaseIndexInformationMethodContext) {
-            const collectionName = formatJson5(
-                methodContext.databaseIndexInformationArgument1().getText(),
+            const collectionName = parseValueContextIfExists(
+                methodContext.databaseIndexInformationArgument1().quotedCollectionName(),
             );
-            const options = formatJson5(
-                methodContext.databaseIndexInformationArgument2()?.getText(),
+            const options = parseValueContextIfExists(
+                methodContext.databaseIndexInformationArgument2(),
             );
 
             return makeCommandResult({
@@ -682,11 +693,11 @@ function parseDatabaseMethod(
         }
 
         if (methodContext instanceof DatabaseRunCursorCommandMethodContext) {
-            const document = formatJson5(
-                methodContext.databaseRunCursorCommandArgument1().getText(),
+            const document = parseValueContextIfExists(
+                methodContext.databaseRunCursorCommandArgument1(),
             );
-            const options = formatJson5(
-                methodContext.databaseRunCursorCommandArgument2()?.getText(),
+            const options = parseValueContextIfExists(
+                methodContext.databaseRunCursorCommandArgument2(),
             );
 
             return makeCommandResult({
@@ -698,7 +709,7 @@ function parseDatabaseMethod(
         }
 
         if (methodContext instanceof DatabaseStatsMethodContext) {
-            const options = formatJson5(methodContext.databaseStatsArgument()?.getText());
+            const options = parseValueContextIfExists(methodContext.databaseStatsArgument());
 
             return makeCommandResult({
                 type: 'database',
@@ -708,7 +719,9 @@ function parseDatabaseMethod(
         }
 
         if (methodContext instanceof DatabaseProfilingLevelMethodContext) {
-            const options = formatJson5(methodContext.databaseProfilingLevelArgument()?.getText());
+            const options = parseValueContextIfExists(
+                methodContext.databaseProfilingLevelArgument(),
+            );
 
             return makeCommandResult({
                 type: 'database',
@@ -718,9 +731,11 @@ function parseDatabaseMethod(
         }
 
         if (methodContext instanceof DatabaseSetProfilingLevelMethodContext) {
-            const level = formatJson5(methodContext.databaseSetProfilingLevelArgument1().getText());
-            const options = formatJson5(
-                methodContext.databaseSetProfilingLevelArgument2()?.getText(),
+            const level = parseValueContextIfExists(
+                methodContext.databaseSetProfilingLevelArgument1(),
+            );
+            const options = parseValueContextIfExists(
+                methodContext.databaseSetProfilingLevelArgument2(),
             );
 
             return makeCommandResult({
@@ -744,8 +759,8 @@ function parseDatabaseMethod(
 function parseDatabaseCommandMethodContext(
     context: DatabaseCommandMethodContext,
 ): Pick<DatabaseCommandCommand, 'document' | 'options'> {
-    const document = formatJson5(context.databaseCommandArgument1().getText());
-    const options = formatJson5(context.databaseCommandArgument2()?.getText());
+    const document = parseValueContextIfExists(context.databaseCommandArgument1());
+    const options = parseValueContextIfExists(context.databaseCommandArgument2());
 
     return {
         document,
@@ -756,8 +771,10 @@ function parseDatabaseCommandMethodContext(
 function parseDatabaseRemoveUserMethodContext(
     context: DatabaseRemoveUserMethodContext,
 ): Pick<DatabaseRemoveUserCommand, 'username' | 'options'> {
-    const username = formatJson5(context.databaseRemoveUserArgument1().getText());
-    const options = formatJson5(context.databaseRemoveUserArgument2()?.getText());
+    const username = parseValueContextIfExists(
+        context.databaseRemoveUserArgument1().quotedUsername(),
+    );
+    const options = parseValueContextIfExists(context.databaseRemoveUserArgument2());
 
     return {
         username,
@@ -772,7 +789,7 @@ function parseDatabaseAdminMethodContext(
 
     try {
         if (childContext instanceof BuildInfoMethodContext) {
-            const options = formatJson5(childContext.buildInfoArgument()?.getText());
+            const options = parseValueContextIfExists(childContext.buildInfoArgument());
 
             return makeCommandResult({
                 type: 'database',
@@ -784,7 +801,7 @@ function parseDatabaseAdminMethodContext(
             });
         }
         if (childContext instanceof ServerInfoMethodContext) {
-            const options = formatJson5(childContext.serverInfoArgument()?.getText());
+            const options = parseValueContextIfExists(childContext.serverInfoArgument());
 
             return makeCommandResult({
                 type: 'database',
@@ -796,7 +813,7 @@ function parseDatabaseAdminMethodContext(
             });
         }
         if (childContext instanceof ServerStatusMethodContext) {
-            const options = formatJson5(childContext.serverStatusArgument()?.getText());
+            const options = parseValueContextIfExists(childContext.serverStatusArgument());
 
             return makeCommandResult({
                 type: 'database',
@@ -808,7 +825,7 @@ function parseDatabaseAdminMethodContext(
             });
         }
         if (childContext instanceof PingMethodContext) {
-            const options = formatJson5(childContext.pingArgument()?.getText());
+            const options = parseValueContextIfExists(childContext.pingArgument());
 
             return makeCommandResult({
                 type: 'database',
@@ -820,7 +837,7 @@ function parseDatabaseAdminMethodContext(
             });
         }
         if (childContext instanceof ListDatabasesMethodContext) {
-            const options = formatJson5(childContext.listDatabasesArgument()?.getText());
+            const options = parseValueContextIfExists(childContext.listDatabasesArgument());
 
             return makeCommandResult({
                 type: 'database',
@@ -832,7 +849,7 @@ function parseDatabaseAdminMethodContext(
             });
         }
         if (childContext instanceof ReplSetGetStatusMethodContext) {
-            const options = formatJson5(childContext.replSetGetStatusArgument()?.getText());
+            const options = parseValueContextIfExists(childContext.replSetGetStatusArgument());
 
             return makeCommandResult({
                 type: 'database',
@@ -844,10 +861,10 @@ function parseDatabaseAdminMethodContext(
             });
         }
         if (childContext instanceof ValidateCollectionMethodContext) {
-            const collectionName = formatJson5(
-                childContext.validateCollectionArgument1().getText(),
+            const collectionName = parseValueContextIfExists(
+                childContext.validateCollectionArgument1(),
             );
-            const options = formatJson5(childContext.validateCollectionArgument2()?.getText());
+            const options = parseValueContextIfExists(childContext.validateCollectionArgument2());
 
             return makeCommandResult({
                 type: 'database',
@@ -907,8 +924,10 @@ function parseCollectionMethod(
         }
 
         if (methodContext instanceof CollectionFindOneMethodContext) {
-            const parameters = formatJson5(methodContext.collectionFindOneArgument1()?.getText());
-            const options = formatJson5(methodContext.collectionFindOneArgument2()?.getText());
+            const parameters = parseValueContextIfExists(
+                methodContext.collectionFindOneArgument1(),
+            );
+            const options = parseValueContextIfExists(methodContext.collectionFindOneArgument2());
 
             return makeCommandResult({
                 collectionName,
@@ -920,11 +939,11 @@ function parseCollectionMethod(
         }
 
         if (methodContext instanceof CollectionFindOneAndDeleteMethodContext) {
-            const parameters = formatJson5(
-                methodContext.collectionFindOneAndDeleteArgument1().getText(),
+            const parameters = parseValueContextIfExists(
+                methodContext.collectionFindOneAndDeleteArgument1(),
             );
-            const options = formatJson5(
-                methodContext.collectionFindOneAndDeleteArgument2()?.getText(),
+            const options = parseValueContextIfExists(
+                methodContext.collectionFindOneAndDeleteArgument2(),
             );
 
             return makeCommandResult({
@@ -937,14 +956,14 @@ function parseCollectionMethod(
         }
 
         if (methodContext instanceof CollectionFindOneAndReplaceMethodContext) {
-            const parameters = formatJson5(
-                methodContext.collectionFindOneAndReplaceArgument1().getText(),
+            const parameters = parseValueContextIfExists(
+                methodContext.collectionFindOneAndReplaceArgument1(),
             );
-            const replacement = formatJson5(
-                methodContext.collectionFindOneAndReplaceArgument2().getText(),
+            const replacement = parseValueContextIfExists(
+                methodContext.collectionFindOneAndReplaceArgument2(),
             );
-            const options = formatJson5(
-                methodContext.collectionFindOneAndReplaceArgument3()?.getText(),
+            const options = parseValueContextIfExists(
+                methodContext.collectionFindOneAndReplaceArgument3(),
             );
 
             return makeCommandResult({
@@ -958,14 +977,14 @@ function parseCollectionMethod(
         }
 
         if (methodContext instanceof CollectionFindOneAndUpdateMethodContext) {
-            const parameters = formatJson5(
-                methodContext.collectionFindOneAndUpdateArgument1().getText(),
+            const parameters = parseValueContextIfExists(
+                methodContext.collectionFindOneAndUpdateArgument1(),
             );
-            const newValues = formatJson5(
-                methodContext.collectionFindOneAndUpdateArgument2().getText(),
+            const newValues = parseValueContextIfExists(
+                methodContext.collectionFindOneAndUpdateArgument2(),
             );
-            const options = formatJson5(
-                methodContext.collectionFindOneAndUpdateArgument3()?.getText(),
+            const options = parseValueContextIfExists(
+                methodContext.collectionFindOneAndUpdateArgument3(),
             );
 
             return makeCommandResult({
@@ -979,8 +998,10 @@ function parseCollectionMethod(
         }
 
         if (methodContext instanceof CollectionInsertOneMethodContext) {
-            const document = formatJson5(methodContext.collectionInsertOneArgument1().getText());
-            const options = formatJson5(methodContext.collectionInsertOneArgument2()?.getText());
+            const document = parseValueContextIfExists(
+                methodContext.collectionInsertOneArgument1().documentToInsert(),
+            );
+            const options = parseValueContextIfExists(methodContext.collectionInsertOneArgument2());
 
             return makeCommandResult({
                 collectionName,
@@ -992,8 +1013,12 @@ function parseCollectionMethod(
         }
 
         if (methodContext instanceof CollectionInsertManyMethodContext) {
-            const documents = formatJson5(methodContext.collectionInsertManyArgument1().getText());
-            const options = formatJson5(methodContext.collectionInsertManyArgument2()?.getText());
+            const documents = parseValueContexts(
+                methodContext.collectionInsertManyArgument1().documentToInsert(),
+            );
+            const options = parseValueContextIfExists(
+                methodContext.collectionInsertManyArgument2(),
+            );
 
             return makeCommandResult({
                 collectionName,
@@ -1005,8 +1030,10 @@ function parseCollectionMethod(
         }
 
         if (methodContext instanceof CollectionBulkWriteMethodContext) {
-            const operations = formatJson5(methodContext.collectionBulkWriteArgument1().getText());
-            const options = formatJson5(methodContext.collectionBulkWriteArgument2()?.getText());
+            const operations = parseValueContextIfExists(
+                methodContext.collectionBulkWriteArgument1(),
+            );
+            const options = parseValueContextIfExists(methodContext.collectionBulkWriteArgument2());
 
             return makeCommandResult({
                 collectionName,
@@ -1018,11 +1045,11 @@ function parseCollectionMethod(
         }
 
         if (methodContext instanceof CollectionUpdateOneMethodContext) {
-            const filter = formatJson5(methodContext.collectionUpdateOneArgument1().getText());
-            const updateParameters = formatJson5(
-                methodContext.collectionUpdateOneArgument2()?.getText(),
+            const filter = parseValueContextIfExists(methodContext.collectionUpdateOneArgument1());
+            const updateParameters = parseValueContextIfExists(
+                methodContext.collectionUpdateOneArgument2(),
             );
-            const options = formatJson5(methodContext.collectionUpdateOneArgument3()?.getText());
+            const options = parseValueContextIfExists(methodContext.collectionUpdateOneArgument3());
 
             return makeCommandResult({
                 collectionName,
@@ -1035,11 +1062,13 @@ function parseCollectionMethod(
         }
 
         if (methodContext instanceof CollectionUpdateManyMethodContext) {
-            const filter = formatJson5(methodContext.collectionUpdateManyArgument1().getText());
-            const updateParameters = formatJson5(
-                methodContext.collectionUpdateManyArgument2()?.getText(),
+            const filter = parseValueContextIfExists(methodContext.collectionUpdateManyArgument1());
+            const updateParameters = parseValueContextIfExists(
+                methodContext.collectionUpdateManyArgument2(),
             );
-            const options = formatJson5(methodContext.collectionUpdateManyArgument3()?.getText());
+            const options = parseValueContextIfExists(
+                methodContext.collectionUpdateManyArgument3(),
+            );
 
             return makeCommandResult({
                 collectionName,
@@ -1052,11 +1081,13 @@ function parseCollectionMethod(
         }
 
         if (methodContext instanceof CollectionReplaceOneMethodContext) {
-            const filter = formatJson5(methodContext.collectionReplaceOneArgument1().getText());
-            const replacement = formatJson5(
-                methodContext.collectionReplaceOneArgument2()?.getText(),
+            const filter = parseValueContextIfExists(methodContext.collectionReplaceOneArgument1());
+            const replacement = parseValueContextIfExists(
+                methodContext.collectionReplaceOneArgument2().documentToInsert(),
             );
-            const options = formatJson5(methodContext.collectionReplaceOneArgument3()?.getText());
+            const options = parseValueContextIfExists(
+                methodContext.collectionReplaceOneArgument3(),
+            );
 
             return makeCommandResult({
                 collectionName,
@@ -1069,8 +1100,8 @@ function parseCollectionMethod(
         }
 
         if (methodContext instanceof CollectionDeleteOneMethodContext) {
-            const filter = formatJson5(methodContext.collectionDeleteOneArgument1()?.getText());
-            const options = formatJson5(methodContext.collectionDeleteOneArgument2()?.getText());
+            const filter = parseValueContextIfExists(methodContext.collectionDeleteOneArgument1());
+            const options = parseValueContextIfExists(methodContext.collectionDeleteOneArgument2());
 
             return makeCommandResult({
                 collectionName,
@@ -1082,8 +1113,10 @@ function parseCollectionMethod(
         }
 
         if (methodContext instanceof CollectionDeleteManyMethodContext) {
-            const filter = formatJson5(methodContext.collectionDeleteManyArgument1()?.getText());
-            const options = formatJson5(methodContext.collectionDeleteManyArgument2()?.getText());
+            const filter = parseValueContextIfExists(methodContext.collectionDeleteManyArgument1());
+            const options = parseValueContextIfExists(
+                methodContext.collectionDeleteManyArgument2(),
+            );
 
             return makeCommandResult({
                 collectionName,
@@ -1095,8 +1128,8 @@ function parseCollectionMethod(
         }
 
         if (methodContext instanceof CollectionRenameMethodContext) {
-            const newName = formatJson5(methodContext.collectionRenameArgument1()?.getText());
-            const options = formatJson5(methodContext.collectionRenameArgument2()?.getText());
+            const newName = parseValueContextIfExists(methodContext.collectionRenameArgument1());
+            const options = parseValueContextIfExists(methodContext.collectionRenameArgument2());
 
             return makeCommandResult({
                 collectionName,
@@ -1108,7 +1141,7 @@ function parseCollectionMethod(
         }
 
         if (methodContext instanceof CollectionDropMethodContext) {
-            const options = formatJson5(methodContext.collectionDropArgument()?.getText());
+            const options = parseValueContextIfExists(methodContext.collectionDropArgument());
 
             return makeCommandResult({
                 collectionName,
@@ -1119,7 +1152,7 @@ function parseCollectionMethod(
         }
 
         if (methodContext instanceof CollectionIsCappedMethodContext) {
-            const options = formatJson5(methodContext.collectionIsCappedArgument()?.getText());
+            const options = parseValueContextIfExists(methodContext.collectionIsCappedArgument());
 
             return makeCommandResult({
                 collectionName,
@@ -1130,8 +1163,12 @@ function parseCollectionMethod(
         }
 
         if (methodContext instanceof CollectionCreateIndexMethodContext) {
-            const indexSpec = formatJson5(methodContext.collectionCreateIndexArgument1().getText());
-            const options = formatJson5(methodContext.collectionCreateIndexArgument2()?.getText());
+            const indexSpec = parseValueContextIfExists(
+                methodContext.collectionCreateIndexArgument1(),
+            );
+            const options = parseValueContextIfExists(
+                methodContext.collectionCreateIndexArgument2(),
+            );
 
             return makeCommandResult({
                 collectionName,
@@ -1143,11 +1180,11 @@ function parseCollectionMethod(
         }
 
         if (methodContext instanceof CollectionCreateIndexesMethodContext) {
-            const indexSpecs = formatJson5(
-                methodContext.collectionCreateIndexesArgument1().getText(),
+            const indexSpecs = parseValueContextIfExists(
+                methodContext.collectionCreateIndexesArgument1(),
             );
-            const options = formatJson5(
-                methodContext.collectionCreateIndexesArgument2()?.getText(),
+            const options = parseValueContextIfExists(
+                methodContext.collectionCreateIndexesArgument2(),
             );
 
             return makeCommandResult({
@@ -1160,8 +1197,8 @@ function parseCollectionMethod(
         }
 
         if (methodContext instanceof CollectionDropIndexMethodContext) {
-            const index = formatJson5(methodContext.collectionDropIndexArgument1().getText());
-            const options = formatJson5(methodContext.collectionDropIndexArgument2()?.getText());
+            const index = parseValueContextIfExists(methodContext.collectionDropIndexArgument1());
+            const options = parseValueContextIfExists(methodContext.collectionDropIndexArgument2());
 
             return makeCommandResult({
                 collectionName,
@@ -1173,7 +1210,9 @@ function parseCollectionMethod(
         }
 
         if (methodContext instanceof CollectionDropIndexesMethodContext) {
-            const options = formatJson5(methodContext.collectionDropIndexesArgument()?.getText());
+            const options = parseValueContextIfExists(
+                methodContext.collectionDropIndexesArgument(),
+            );
 
             return makeCommandResult({
                 collectionName,
@@ -1184,7 +1223,9 @@ function parseCollectionMethod(
         }
 
         if (methodContext instanceof CollectionListIndexesMethodContext) {
-            const options = formatJson5(methodContext.collectionListIndexesArgument()?.getText());
+            const options = parseValueContextIfExists(
+                methodContext.collectionListIndexesArgument(),
+            );
 
             return makeCommandResult({
                 collectionName,
@@ -1195,7 +1236,7 @@ function parseCollectionMethod(
         }
 
         if (methodContext instanceof CollectionIndexesMethodContext) {
-            const options = formatJson5(methodContext.collectionIndexesArgument()?.getText());
+            const options = parseValueContextIfExists(methodContext.collectionIndexesArgument());
 
             return makeCommandResult({
                 collectionName,
@@ -1206,8 +1247,14 @@ function parseCollectionMethod(
         }
 
         if (methodContext instanceof CollectionIndexExistsMethodContext) {
-            const indexes = formatJson5(methodContext.collectionIndexExistsArgument1().getText());
-            const options = formatJson5(methodContext.collectionIndexExistsArgument2()?.getText());
+            const indexNameContexts = methodContext.collectionIndexExistsArgument1().indexName();
+            const indexes =
+                indexNameContexts.length <= 1
+                    ? parseValueContextIfExists(indexNameContexts[0])
+                    : parseValueContexts(indexNameContexts);
+            const options = parseValueContextIfExists(
+                methodContext.collectionIndexExistsArgument2(),
+            );
 
             return makeCommandResult({
                 collectionName,
@@ -1219,8 +1266,8 @@ function parseCollectionMethod(
         }
 
         if (methodContext instanceof CollectionIndexInformationMethodContext) {
-            const options = formatJson5(
-                methodContext.collectionIndexInformationArgument()?.getText(),
+            const options = parseValueContextIfExists(
+                methodContext.collectionIndexInformationArgument(),
             );
 
             return makeCommandResult({
@@ -1232,8 +1279,8 @@ function parseCollectionMethod(
         }
 
         if (methodContext instanceof CollectionEstimatedDocumentCountMethodContext) {
-            const options = formatJson5(
-                methodContext.collectionEstimatedDocumentCountArgument()?.getText(),
+            const options = parseValueContextIfExists(
+                methodContext.collectionEstimatedDocumentCountArgument(),
             );
 
             return makeCommandResult({
@@ -1245,11 +1292,11 @@ function parseCollectionMethod(
         }
 
         if (methodContext instanceof CollectionCountDocumentsMethodContext) {
-            const filter = formatJson5(
-                methodContext.collectionCountDocumentsArgument1()?.getText(),
+            const filter = parseValueContextIfExists(
+                methodContext.collectionCountDocumentsArgument1(),
             );
-            const options = formatJson5(
-                methodContext.collectionCountDocumentsArgument2()?.getText(),
+            const options = parseValueContextIfExists(
+                methodContext.collectionCountDocumentsArgument2(),
             );
 
             return makeCommandResult({
@@ -1262,9 +1309,9 @@ function parseCollectionMethod(
         }
 
         if (methodContext instanceof CollectionDistinctMethodContext) {
-            const key = formatJson5(methodContext.collectionDistinctArgument1().getText());
-            const filter = formatJson5(methodContext.collectionDistinctArgument2()?.getText());
-            const options = formatJson5(methodContext.collectionDistinctArgument3()?.getText());
+            const key = parseValueContextIfExists(methodContext.collectionDistinctArgument1());
+            const filter = parseValueContextIfExists(methodContext.collectionDistinctArgument2());
+            const options = parseValueContextIfExists(methodContext.collectionDistinctArgument3());
 
             return makeCommandResult({
                 collectionName,
@@ -1294,15 +1341,15 @@ function parseCollectionMethod(
 function parseAggregateMethodContext(
     context: AggregateMethodContext,
 ): Pick<CollectionAggregateCommand, 'pipeline' | 'options' | 'explain'> {
-    const pipeline = formatJson5(context.aggregateArgument1()?.getText());
-    const options = formatJson5(context.aggregateArgument2()?.getText());
+    const pipeline = parseValueContextIfExists(context.aggregateArgument1());
+    const options = parseValueContextIfExists(context.aggregateArgument2());
 
     const explainMethodContext = context.explainMethod();
 
     let explain: CollectionAggregateCommand['explain'] | undefined;
     if (explainMethodContext) {
-        const explainParameters = formatJson5(
-            explainMethodContext.explainMethodArgument()?.getText(),
+        const explainParameters = parseValueContextIfExists(
+            explainMethodContext.explainMethodArgument(),
         );
         explain = explainParameters ? {parameters: explainParameters} : {};
     }
@@ -1348,8 +1395,8 @@ function isParsingError(error: unknown): error is ParsingError {
 function parseFindMethodContext(
     context: CollectionFindMethodContext,
 ): Pick<CollectionFindCommand, 'parameters' | 'modifiers' | 'explain' | 'options'> {
-    const findParameters = formatJson5(context.collectionFindMethodArgument1()?.getText());
-    const findOptions = formatJson5(context.collectionFindMethodArgument2()?.getText());
+    const findParameters = parseValueContextIfExists(context.collectionFindMethodArgument1());
+    const findOptions = parseValueContextIfExists(context.collectionFindMethodArgument2());
 
     const modifierContexts = context.collectionFindMethodModifier();
     const modifiers: FindModifier[] = modifierContexts.map(parseFindMethodModifierContext);
@@ -1358,8 +1405,8 @@ function parseFindMethodContext(
 
     let explain: CollectionFindCommand['explain'] | undefined;
     if (explainMethodContext) {
-        const explainParameters = formatJson5(
-            explainMethodContext.explainMethodArgument()?.getText(),
+        const explainParameters = parseValueContextIfExists(
+            explainMethodContext.explainMethodArgument(),
         );
         explain = explainParameters ? {parameters: explainParameters} : {};
     }
@@ -1380,64 +1427,60 @@ function parseFindMethodModifierContext(
     if (childContext instanceof SkipModifierContext) {
         return {
             method: 'skip',
-            parameters: formatJson5(childContext.skipModifierArgument().getText()),
+            parameters: parseValueContextIfExists(childContext.skipModifierArgument()),
         };
     }
     if (childContext instanceof LimitModifierContext) {
         return {
             method: 'limit',
-            parameters: formatJson5(childContext.limitModifierArgument().getText()),
+            parameters: parseValueContextIfExists(childContext.limitModifierArgument()),
         };
     }
     if (childContext instanceof FilterModifierContext) {
         return {
             method: 'filter',
-            parameters: formatJson5(childContext.filterModifierArgument().getText()),
+            parameters: parseValueContextIfExists(childContext.filterModifierArgument()),
         };
     }
     if (childContext instanceof MinModifierContext) {
         return {
             method: 'min',
-            parameters: formatJson5(childContext.minModifierArgument().getText()),
+            parameters: parseValueContextIfExists(childContext.minModifierArgument()),
         };
     }
     if (childContext instanceof MaxModifierContext) {
         return {
             method: 'max',
-            parameters: formatJson5(childContext.maxModifierArgument().getText()),
+            parameters: parseValueContextIfExists(childContext.maxModifierArgument()),
         };
     }
     if (childContext instanceof ReturnKeyModifierContext) {
         return {
             method: 'returnKey',
-            parameters: formatJson5(childContext.returnKeyModifierArgument().getText()),
+            parameters: parseValueContextIfExists(childContext.returnKeyModifierArgument()),
         };
     }
     if (childContext instanceof ShowRecordIdModifierContext) {
         return {
             method: 'showRecordId',
-            parameters: formatJson5(childContext.showRecordIdModifierArgument().getText()),
+            parameters: parseValueContextIfExists(childContext.showRecordIdModifierArgument()),
         };
     }
     if (childContext instanceof SortModifierContext) {
         return {
             method: 'sort',
-            parameters: formatJson5(childContext.sortModifierArgument1().getText()),
-            options: formatJson5(childContext.sortModifierArgument2()?.getText()),
+            parameters: parseValueContextIfExists(childContext.sortModifierArgument1().value()),
+            options: parseValueContextIfExists(childContext.sortModifierArgument2()),
         };
     }
     if (childContext instanceof HintModifierContext) {
         return {
             method: 'hint',
-            parameters: formatJson5(childContext.hintModifierArgument().getText()),
+            parameters: parseValueContextIfExists(childContext.hintModifierArgument()),
         };
     }
 
     throw newParsingError('Modifier is not implemented: ' + childContext?.getText());
-}
-
-function formatJson5(string?: string): unknown | undefined {
-    return string ? json5.parse<unknown>(string) : undefined;
 }
 
 export function extractMongoCommandsFromQuery(query: string): ExtractMongoCommandsFromQueryResult {
@@ -1463,4 +1506,69 @@ export function extractMongoCommandsFromQuery(query: string): ExtractMongoComman
     }
 
     return {commands: visitor.commands};
+}
+
+type AnyValueContext = {
+    object?: () => ObjectContext | null;
+    array?: () => ArrayContext | null;
+    string?: () => StringContext | null;
+    number?: () => NumberContext | null;
+    null?: () => NullContext | null;
+    boolean?: () => BooleanContext | null;
+};
+
+type Value = object | string | number | boolean | null | Value[];
+
+function parseValueContextIfExists(value?: AnyValueContext | null): Value | undefined {
+    if (!value) {
+        return;
+    }
+
+    return parseValueContext(value);
+}
+
+function parseValueContexts(contexts: AnyValueContext[]): Value[] {
+    return contexts.map(parseValueContext);
+}
+
+function parseValueContext(value: AnyValueContext): Value {
+    const objectContext = value.object?.();
+    const arrayContext = value.array?.();
+    const stringContext = value.string?.();
+    const numberContext = value.number?.();
+    const nullContext = value.null?.();
+    const booleanContext = value.boolean?.();
+
+    if (objectContext) {
+        const object: Record<string, unknown> = {};
+        objectContext.pair().forEach((pairContext) => {
+            let key = pairContext.key().getText();
+            if (pairContext.key().string()) {
+                // If we in the string rule, then key is quoted
+                key = key.slice(1, key.length - 1);
+            }
+
+            object[key] = parseValueContext(pairContext.value());
+        });
+        return object;
+    } else if (arrayContext) {
+        return arrayContext.value().map((valueContext) => parseValueContext(valueContext));
+    } else if (numberContext) {
+        return Number(numberContext.getText());
+    } else if (booleanContext) {
+        const booleanText = booleanContext.getText();
+        if (booleanText === 'true') {
+            return true;
+        } else if (booleanText === 'false') {
+            return false;
+        }
+        throw new Error(`unexpected boolean value: ${booleanContext.getText()}`);
+    } else if (nullContext) {
+        return null;
+    } else if (stringContext) {
+        const rawString = stringContext.getText();
+        return rawString.slice(1, rawString.length - 1);
+    }
+
+    throw new Error(`unknown value constructor: ${value.constructor.name}`);
 }
