@@ -509,7 +509,7 @@ export type ExtractMongoCommandsFromQueryResult =
           commands?: undefined;
       };
 
-type FunctionParsers = Partial<{
+export type MongoFunctionParsers = Partial<{
     ObjectId: (id: unknown) => unknown;
     Date: (date?: unknown) => unknown;
     UUID: (uuid?: unknown) => unknown;
@@ -520,7 +520,7 @@ type FunctionParsers = Partial<{
     NumberLong: (number: unknown, radix?: unknown) => unknown;
 }>;
 
-type AnyValueContext = {
+interface ArgumentContext {
     object?: () => ObjectContext | null;
     array?: () => ArrayContext | null;
     string?: () => StringContext | null;
@@ -535,7 +535,7 @@ type AnyValueContext = {
     numberIntFunction?: () => NumberIntFunctionContext | null;
     numberDecimalFunction?: () => NumberDecimalFunctionContext | null;
     numberLongFunction?: () => NumberLongFunctionContext | null;
-};
+}
 
 function newParsingError(message: string): ParsingError {
     return {
@@ -554,12 +554,12 @@ function newUnexpectedError(message: unknown): UnexpectedError {
 class CommandsVisitor extends MongoParserVisitor<unknown> {
     commands: Command[] = [];
     errors: ExtractionError[] = [];
-    parseArgumentContext: typeof parseAnyValueContext;
+    parseArgumentContext: typeof parseArgumentContext;
 
-    constructor(parseArgumentContext: typeof parseAnyValueContext) {
+    constructor(currentParseArgumentContext: typeof parseArgumentContext) {
         super();
 
-        this.parseArgumentContext = parseArgumentContext;
+        this.parseArgumentContext = currentParseArgumentContext;
     }
 
     visitCollectionOperation = (context: CollectionOperationContext): void => {
@@ -1564,7 +1564,7 @@ function isParsingError(error: unknown): error is ParsingError {
 
 export function extractMongoCommandsFromQuery(
     query: string,
-    functionParsers?: FunctionParsers,
+    functionParsers?: MongoFunctionParsers,
 ): ExtractMongoCommandsFromQueryResult {
     const parser = createParser(MongoLexer, MongoParser, query);
 
@@ -1591,22 +1591,22 @@ export function extractMongoCommandsFromQuery(
 }
 
 function createArgumentContextParser(
-    functionParsers?: FunctionParsers,
-): typeof parseAnyValueContext {
-    return (value?: AnyValueContext | AnyValueContext[] | null) =>
-        parseAnyValueContext(value, functionParsers);
+    functionParsers?: MongoFunctionParsers,
+): typeof parseArgumentContext {
+    return (value?: ArgumentContext | ArgumentContext[] | null) =>
+        parseArgumentContext(value, functionParsers);
 }
 
-function parseAnyValueContext(
-    value?: AnyValueContext | AnyValueContext[] | null,
-    functionParsers?: FunctionParsers,
+function parseArgumentContext(
+    value?: ArgumentContext | ArgumentContext[] | null,
+    functionParsers?: MongoFunctionParsers,
 ): unknown {
     if (!value) {
         return;
     }
 
     if (Array.isArray(value)) {
-        return value.map((valueContext) => parseAnyValueContext(valueContext, functionParsers));
+        return value.map((valueContext) => parseArgumentContext(valueContext, functionParsers));
     }
 
     const objectContext = value.object?.();
@@ -1619,7 +1619,7 @@ function parseAnyValueContext(
                 key = key.slice(1, key.length - 1);
             }
 
-            object[key] = parseAnyValueContext(pairContext.value(), functionParsers);
+            object[key] = parseArgumentContext(pairContext.value(), functionParsers);
         });
         return object;
     }
@@ -1628,7 +1628,7 @@ function parseAnyValueContext(
     if (arrayContext) {
         return arrayContext
             .value()
-            .map((valueContext) => parseAnyValueContext(valueContext, functionParsers));
+            .map((valueContext) => parseArgumentContext(valueContext, functionParsers));
     }
 
     const numberContext = value.number?.();
@@ -1666,7 +1666,7 @@ function parseAnyValueContext(
         }
 
         return objectIdParser(
-            parseAnyValueContext(
+            parseArgumentContext(
                 objectIdFunctionContext.objectIdFunctionArgument(),
                 functionParsers,
             ),
@@ -1681,7 +1681,7 @@ function parseAnyValueContext(
         }
 
         return dateParser(
-            parseAnyValueContext(dateFunctionContext.dateFunctionArgument(), functionParsers),
+            parseArgumentContext(dateFunctionContext.dateFunctionArgument(), functionParsers),
         );
     }
 
@@ -1693,7 +1693,7 @@ function parseAnyValueContext(
         }
 
         return uuidParser(
-            parseAnyValueContext(uuidFunctionContext.uuidFunctionArgument(), functionParsers),
+            parseArgumentContext(uuidFunctionContext.uuidFunctionArgument(), functionParsers),
         );
     }
 
@@ -1725,7 +1725,7 @@ function parseAnyValueContext(
         }
 
         return numberIntParser(
-            parseAnyValueContext(
+            parseArgumentContext(
                 numberIntFunctionContext.numberIntFunctionArgument(),
                 functionParsers,
             ),
@@ -1740,11 +1740,11 @@ function parseAnyValueContext(
         }
 
         return numberLongParser(
-            parseAnyValueContext(
+            parseArgumentContext(
                 numberLongFunctionContext.numberLongFunctionArgument1(),
                 functionParsers,
             ),
-            parseAnyValueContext(
+            parseArgumentContext(
                 numberLongFunctionContext.numberLongFunctionArgument2(),
                 functionParsers,
             ),
@@ -1759,7 +1759,7 @@ function parseAnyValueContext(
         }
 
         return numberDecimalParser(
-            parseAnyValueContext(
+            parseArgumentContext(
                 numberDecimalFunctionContext.numberDecimalFunctionArgument(),
                 functionParsers,
             ),
