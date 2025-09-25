@@ -1,5 +1,6 @@
 /* eslint-disable new-cap */
 import {
+    CollectionFindCommand,
     Command,
     extractMongoCommandsFromQuery,
     parseMongoQueryWithCursor,
@@ -404,7 +405,8 @@ test('should extract find commands with functions properly', () => {
         NumberLong: (...args: unknown[]): unknown => `$NumberLong ${args.join('/')}`,
     };
 
-    const result = extractMongoCommandsFromQuery(
+    // @ts-expect-error we need to cast the type to the expected result for simple transformations
+    const result: {commands: CollectionFindCommand[]} = extractMongoCommandsFromQuery(
         `
         db.test_collection.find({
             one: 1,
@@ -458,7 +460,7 @@ test('should extract find commands with functions properly', () => {
         functionParsers,
     );
 
-    const commands: Command[] = [
+    const commands: CollectionFindCommand[] = [
         {
             type: 'collection',
             method: 'find',
@@ -520,6 +522,11 @@ test('should extract find commands with functions properly', () => {
             },
         },
     ];
+
+    const resultCommandParameters = result.commands.map((command) => command.parameters);
+    const commandParameters = commands.map((command) => command.parameters);
+    // This way we test a consistent sequence of object keys
+    expect(JSON.stringify(resultCommandParameters)).toBe(JSON.stringify(commandParameters));
 
     expect(result).toEqual({commands});
 });
