@@ -51,6 +51,7 @@ import {
     DateFunctionContext,
     FilterModifierContext,
     HintModifierContext,
+    IsoDateFunctionContext,
     LimitModifierContext,
     ListDatabasesMethodContext,
     MaxKeyFunctionContext,
@@ -512,6 +513,7 @@ export type ExtractMongoCommandsFromQueryResult =
 export type MongoFunctionParsers = Partial<{
     ObjectId: (id: unknown) => unknown;
     Date: (date?: unknown) => unknown;
+    ISODate: (date?: unknown) => unknown;
     UUID: (uuid?: unknown) => unknown;
     MinKey: () => unknown;
     MaxKey: () => unknown;
@@ -529,6 +531,7 @@ interface ArgumentContext {
     boolean?: () => BooleanContext | null;
     objectIdFunction?: () => ObjectIdFunctionContext | null;
     dateFunction?: () => DateFunctionContext | null;
+    isoDateFunction?: () => IsoDateFunctionContext | null;
     uuidFunction?: () => UuidFunctionContext | null;
     minKeyFunction?: () => MinKeyFunctionContext | null;
     maxKeyFunction?: () => MaxKeyFunctionContext | null;
@@ -1691,6 +1694,18 @@ function parseArgumentContext(
 
         return dateParser(
             parseArgumentContext(dateFunctionContext.dateFunctionArgument(), functionParsers),
+        );
+    }
+
+    const isoDateFunctionContext = value.isoDateFunction?.();
+    if (isoDateFunctionContext) {
+        const isoDateParser = functionParsers?.ISODate;
+        if (!isoDateParser) {
+            throw new Error('ISODate parser is not provided to function parsers');
+        }
+
+        return isoDateParser(
+            parseArgumentContext(isoDateFunctionContext.isoDateFunctionArgument(), functionParsers),
         );
     }
 

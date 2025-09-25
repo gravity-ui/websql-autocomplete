@@ -60,6 +60,7 @@ test('should suggest functions', () => {
     expect(autocompleteResult.suggestKeywords).toEqual([
         {value: 'ObjectId'},
         {value: 'Date'},
+        {value: 'ISODate'},
         {value: 'UUID'},
         {value: 'MinKey'},
         {value: 'MaxKey'},
@@ -394,6 +395,7 @@ test('should extract find commands with functions properly', () => {
     const functionParsers = {
         ObjectId: (...args: unknown[]): unknown => `$ObjectId ${args.join('/')}`,
         Date: (...args: unknown[]): unknown => `$Date ${args.join('/')}`,
+        ISODate: (...args: unknown[]): unknown => `$ISODate ${args.join('/')}`,
         UUID: (...args: unknown[]): unknown => `$UUID ${args.join('/')}`,
         MinKey: (...args: unknown[]): unknown => `$MinKey ${args.join('/')}`,
         MaxKey: (...args: unknown[]): unknown => `$MaxKey ${args.join('/')}`,
@@ -425,6 +427,7 @@ test('should extract find commands with functions properly', () => {
             function6: NumberDecimal('20.12002123'),
             function7: NumberInt(123123),
             function8: NumberLong('123123123123123123123123123123123124', 10),
+            function9: ISODate('2022-12-14'),
             "'double_quoted'": 18,
         });
         db.test_collection2.find({
@@ -437,6 +440,7 @@ test('should extract find commands with functions properly', () => {
                 NumberDecimal('20.12002123'),
                 NumberInt(123123),
                 NumberLong('123123123123123123123123123123123124', 10),
+                ISODate('2022-12-14'),
                 [
                     ObjectId('test_id'),
                     Date('2022-12-13'),
@@ -446,6 +450,7 @@ test('should extract find commands with functions properly', () => {
                     NumberDecimal('20.12002123'),
                     NumberInt(123123),
                     NumberLong('123123123123123123123123123123123124', 10),
+                    ISODate('2022-12-14'),
                 ]
             ]
         });
@@ -480,6 +485,7 @@ test('should extract find commands with functions properly', () => {
                 function6: functionParsers.NumberDecimal('20.12002123'),
                 function7: functionParsers.NumberInt(123123),
                 function8: functionParsers.NumberLong('123123123123123123123123123123123124', 10),
+                function9: functionParsers.ISODate('2022-12-14'),
                 "'double_quoted'": 18,
             },
         },
@@ -498,6 +504,7 @@ test('should extract find commands with functions properly', () => {
                     functionParsers.NumberDecimal('20.12002123'),
                     functionParsers.NumberInt(123123),
                     functionParsers.NumberLong('123123123123123123123123123123123124', 10),
+                    functionParsers.ISODate('2022-12-14'),
                     [
                         functionParsers.ObjectId('test_id'),
                         functionParsers.Date('2022-12-13'),
@@ -507,6 +514,7 @@ test('should extract find commands with functions properly', () => {
                         functionParsers.NumberDecimal('20.12002123'),
                         functionParsers.NumberInt(123123),
                         functionParsers.NumberLong('123123123123123123123123123123123124', 10),
+                        functionParsers.ISODate('2022-12-14'),
                     ],
                 ],
             },

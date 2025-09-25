@@ -70,6 +70,7 @@ LIST_DATABASES           : 'listDatabases';
 REPL_SET_GET_STATUS      : 'replSetGetStatus';
 OBJECT_ID                : 'ObjectId';
 DATE                     : 'Date';
+ISO_DATE                 : 'ISODate';
 UUID                     : 'UUID';
 MIN_KEY                  : 'MinKey';
 MAX_KEY                  : 'MaxKey';

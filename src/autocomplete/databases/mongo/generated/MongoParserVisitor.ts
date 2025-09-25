@@ -205,6 +205,8 @@ import { UuidFunctionContext } from "./MongoParser.js";
 import { UuidFunctionArgumentContext } from "./MongoParser.js";
 import { ObjectIdFunctionContext } from "./MongoParser.js";
 import { ObjectIdFunctionArgumentContext } from "./MongoParser.js";
+import { IsoDateFunctionContext } from "./MongoParser.js";
+import { IsoDateFunctionArgumentContext } from "./MongoParser.js";
 import { DateFunctionContext } from "./MongoParser.js";
 import { DateFunctionArgumentContext } from "./MongoParser.js";
 import { StringContext } from "./MongoParser.js";
@@ -1379,6 +1381,18 @@ export class MongoParserVisitor<Result> extends AbstractParseTreeVisitor<Result>
      * @return the visitor result
      */
     visitObjectIdFunctionArgument?: (ctx: ObjectIdFunctionArgumentContext) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.isoDateFunction`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitIsoDateFunction?: (ctx: IsoDateFunctionContext) => Result;
+    /**
+     * Visit a parse tree produced by `MongoParser.isoDateFunctionArgument`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitIsoDateFunctionArgument?: (ctx: IsoDateFunctionArgumentContext) => Result;
     /**
      * Visit a parse tree produced by `MongoParser.dateFunction`.
      * @param ctx the parse tree

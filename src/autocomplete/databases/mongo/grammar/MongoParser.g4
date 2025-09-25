@@ -868,6 +868,7 @@ reservedKeyword
     | REPL_SET_GET_STATUS
     | OBJECT_ID
     | DATE
+    | ISO_DATE
     | UUID
     | MIN_KEY
     | MAX_KEY
@@ -912,6 +913,7 @@ value
     | null
     | objectIdFunction
     | dateFunction
+    | isoDateFunction
     | uuidFunction
     | minKeyFunction
     | maxKeyFunction
@@ -970,6 +972,15 @@ objectIdFunction
     ;
 
 objectIdFunctionArgument
+    : string
+    | number
+    ;
+
+isoDateFunction
+    : ISO_DATE LPAREN isoDateFunctionArgument? RPAREN
+    ;
+
+isoDateFunctionArgument
     : string
     | number
     ;
