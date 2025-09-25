@@ -431,6 +431,8 @@ test('should extract find commands with functions properly', () => {
             function8: NumberLong('123123123123123123123123123123123124', 10),
             function9: ISODate('2022-12-14'),
             "'double_quoted'": 18,
+            numbers: [ 111 ,  +    1,  -     2, -     0.40130420341023],
+            strings: [ '"!@#$#%$#&%^(*&)(*_+?><|"\\':string1"' ]
         });
         db.test_collection2.find({
             functions: [
@@ -489,6 +491,8 @@ test('should extract find commands with functions properly', () => {
                 function8: functionParsers.NumberLong('123123123123123123123123123123123124', 10),
                 function9: functionParsers.ISODate('2022-12-14'),
                 "'double_quoted'": 18,
+                numbers: [111, 1, -2, -0.40130420341023],
+                strings: ['"!@#$#%$#&%^(*&)(*_+?><|"\\\':string1"'],
             },
         },
         {
@@ -523,10 +527,10 @@ test('should extract find commands with functions properly', () => {
         },
     ];
 
+    expect(result).toEqual({commands});
+
     const resultCommandParameters = result.commands.map((command) => command.parameters);
     const commandParameters = commands.map((command) => command.parameters);
     // This way we test a consistent sequence of object keys
     expect(JSON.stringify(resultCommandParameters)).toBe(JSON.stringify(commandParameters));
-
-    expect(result).toEqual({commands});
 });
