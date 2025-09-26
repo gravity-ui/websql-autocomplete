@@ -1,4 +1,6 @@
+/* eslint-disable new-cap */
 import {
+    CollectionFindCommand,
     Command,
     extractMongoCommandsFromQuery,
     parseMongoQueryWithCursor,
@@ -51,6 +53,22 @@ test('should not report errors on extended find statement with modifiers', () =>
     `);
 
     expect(autocompleteResult.errors).toHaveLength(0);
+});
+
+test('should suggest functions', () => {
+    const autocompleteResult = parseMongoQueryWithCursor('db.test_collection.find({test_key: |})');
+
+    expect(autocompleteResult.suggestKeywords).toEqual([
+        {value: 'ObjectId'},
+        {value: 'Date'},
+        {value: 'ISODate'},
+        {value: 'UUID'},
+        {value: 'MinKey'},
+        {value: 'MaxKey'},
+        {value: 'NumberInt'},
+        {value: 'NumberDecimal'},
+        {value: 'NumberLong'},
+    ]);
 });
 
 test('should suggest properly find modifiers', () => {
@@ -370,5 +388,149 @@ test('should extract find commands properly', () => {
             options: {test_find_option_field: 'test_find_option_value'},
         },
     ];
+
     expect(result).toEqual({commands});
+});
+
+test('should extract find commands with functions properly', () => {
+    const functionParsers = {
+        ObjectId: (...args: unknown[]): unknown => `$ObjectId ${args.join('/')}`,
+        Date: (...args: unknown[]): unknown => `$Date ${args.join('/')}`,
+        ISODate: (...args: unknown[]): unknown => `$ISODate ${args.join('/')}`,
+        UUID: (...args: unknown[]): unknown => `$UUID ${args.join('/')}`,
+        MinKey: (...args: unknown[]): unknown => `$MinKey ${args.join('/')}`,
+        MaxKey: (...args: unknown[]): unknown => `$MaxKey ${args.join('/')}`,
+        NumberDecimal: (...args: unknown[]): unknown => `$NumberDecimal ${args.join('/')}`,
+        NumberInt: (...args: unknown[]): unknown => `$NumberInt ${args.join('/')}`,
+        NumberLong: (...args: unknown[]): unknown => `$NumberLong ${args.join('/')}`,
+    };
+
+    // @ts-expect-error we need to cast the type to the expected result for simple transformations
+    const result: {commands: CollectionFindCommand[]} = extractMongoCommandsFromQuery(
+        `
+        db.test_collection.find({
+            one: 1,
+            two: 2,
+            three: 'three',
+            four: ['five', 6, 7, {eight: 8, nine: 9, ten: 10}, 'eleven', 12],
+            thirteen: 13,
+            fourteen: 'fourteen',
+            true: true,
+            false: false,
+            null: null,
+            "quoted": 18,
+            Infinity: 19,
+            NaN: 20,
+            function1: ObjectId('test_id'),
+            function2: Date('2022-12-13'),
+            function3: UUID('string'),
+            function4: MinKey(),
+            function5: MaxKey(),
+            function6: NumberDecimal('20.12002123'),
+            function7: NumberInt(123123),
+            function8: NumberLong('123123123123123123123123123123123124', 10),
+            function9: ISODate('2022-12-14'),
+            "'double_quoted'": 18,
+            numbers: [ 111 ,  +    1,  -     2, -     0.40130420341023],
+            strings: [ '"!@#$#%$#&%^(*&)(*_+?><|"\\':string1"' ]
+        });
+        db.test_collection2.find({
+            functions: [
+                ObjectId('test_id'),
+                Date('2022-12-13'),
+                UUID('string'),
+                MinKey(),
+                MaxKey(),
+                NumberDecimal('20.12002123'),
+                NumberInt(123123),
+                NumberLong('123123123123123123123123123123123124', 10),
+                ISODate('2022-12-14'),
+                [
+                    ObjectId('test_id'),
+                    Date('2022-12-13'),
+                    UUID('string'),
+                    MinKey(),
+                    MaxKey(),
+                    NumberDecimal('20.12002123'),
+                    NumberInt(123123),
+                    NumberLong('123123123123123123123123123123123124', 10),
+                    ISODate('2022-12-14'),
+                ]
+            ]
+        });
+    `,
+        functionParsers,
+    );
+
+    const commands: CollectionFindCommand[] = [
+        {
+            type: 'collection',
+            method: 'find',
+            modifiers: [],
+            collectionName: 'test_collection',
+            parameters: {
+                one: 1,
+                two: 2,
+                three: 'three',
+                four: ['five', 6, 7, {eight: 8, nine: 9, ten: 10}, 'eleven', 12],
+                thirteen: 13,
+                fourteen: 'fourteen',
+                true: true,
+                false: false,
+                null: null,
+                quoted: 18,
+                Infinity: 19,
+                NaN: 20,
+                function1: functionParsers.ObjectId('test_id'),
+                function2: functionParsers.Date('2022-12-13'),
+                function3: functionParsers.UUID('string'),
+                function4: functionParsers.MinKey(),
+                function5: functionParsers.MaxKey(),
+                function6: functionParsers.NumberDecimal('20.12002123'),
+                function7: functionParsers.NumberInt(123123),
+                function8: functionParsers.NumberLong('123123123123123123123123123123123124', 10),
+                function9: functionParsers.ISODate('2022-12-14'),
+                "'double_quoted'": 18,
+                numbers: [111, 1, -2, -0.40130420341023],
+                strings: ['"!@#$#%$#&%^(*&)(*_+?><|"\\\':string1"'],
+            },
+        },
+        {
+            type: 'collection',
+            method: 'find',
+            modifiers: [],
+            collectionName: 'test_collection2',
+            parameters: {
+                functions: [
+                    functionParsers.ObjectId('test_id'),
+                    functionParsers.Date('2022-12-13'),
+                    functionParsers.UUID('string'),
+                    functionParsers.MinKey(),
+                    functionParsers.MaxKey(),
+                    functionParsers.NumberDecimal('20.12002123'),
+                    functionParsers.NumberInt(123123),
+                    functionParsers.NumberLong('123123123123123123123123123123123124', 10),
+                    functionParsers.ISODate('2022-12-14'),
+                    [
+                        functionParsers.ObjectId('test_id'),
+                        functionParsers.Date('2022-12-13'),
+                        functionParsers.UUID('string'),
+                        functionParsers.MinKey(),
+                        functionParsers.MaxKey(),
+                        functionParsers.NumberDecimal('20.12002123'),
+                        functionParsers.NumberInt(123123),
+                        functionParsers.NumberLong('123123123123123123123123123123123124', 10),
+                        functionParsers.ISODate('2022-12-14'),
+                    ],
+                ],
+            },
+        },
+    ];
+
+    expect(result).toEqual({commands});
+
+    const resultCommandParameters = result.commands.map((command) => command.parameters);
+    const commandParameters = commands.map((command) => command.parameters);
+    // This way we test a consistent sequence of object keys
+    expect(JSON.stringify(resultCommandParameters)).toBe(JSON.stringify(commandParameters));
 });

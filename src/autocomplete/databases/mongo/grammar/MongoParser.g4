@@ -65,7 +65,7 @@ validateCollectionMethod
     ;
 
 validateCollectionArgument1
-    : STRING
+    : string
     ;
 
 validateCollectionArgument2
@@ -127,7 +127,7 @@ databaseSetProfilingLevelMethod
     ;
 
 databaseSetProfilingLevelArgument1
-    : STRING
+    : string
     ;
 
 databaseSetProfilingLevelArgument2
@@ -187,7 +187,7 @@ databaseRemoveUserArgument1
     ;
 
 quotedUsername
-    : STRING
+    : string
     ;
 
 databaseRemoveUserArgument2
@@ -205,13 +205,13 @@ databaseCreateIndexArgument3
     ;
 
 databaseCreateIndexArgument2
-    : STRING
+    : string
     | object
     | array
     ;
 
 databaseCreateIndexArgument1
-    : STRING
+    : string
     ;
 
 databaseDropDatabaseMethod
@@ -247,7 +247,7 @@ databaseRenameCollectionArgument1
     ;
 
 databaseRenameCollectionArgument2
-    : STRING
+    : string
     ;
 
 databaseRenameCollectionArgument3
@@ -287,7 +287,7 @@ databaseCreateCollectionMethod
     ;
 
 databaseCreateCollectionArgument1
-    : STRING
+    : string
     ;
 
 databaseCreateCollectionArgument2
@@ -299,7 +299,7 @@ databaseCollectionMethod
     ;
 
 quotedCollectionName
-    : STRING
+    : string
     ;
 
 collectionOperation
@@ -360,7 +360,7 @@ collectionDistinctMethod
     ;
 
 collectionDistinctArgument1
-    : STRING
+    : string
     ;
 
 collectionDistinctArgument2
@@ -410,8 +410,12 @@ collectionIndexExistsArgument2
     ;
 
 collectionIndexExistsArgument1
-    : STRING
-    | LBRACKET STRING (COMMA STRING)* COMMA? RBRACKET
+    : indexName
+    | LBRACKET indexName (COMMA indexName)* COMMA? RBRACKET
+    ;
+
+indexName
+    : string
     ;
 
 collectionIndexesMethod
@@ -447,7 +451,7 @@ collectionDropIndexArgument2
     ;
 
 collectionDropIndexArgument1
-    : STRING
+    : string
     ;
 
 collectionCreateIndexesMethod
@@ -473,7 +477,7 @@ collectionCreateIndexArgument2
     ;
 
 collectionCreateIndexArgument1
-    : STRING
+    : string
     | object
     | array
     ;
@@ -499,7 +503,7 @@ collectionRenameMethod
     ;
 
 collectionRenameArgument1
-    : STRING
+    : string
     ;
 
 collectionRenameArgument2
@@ -706,7 +710,7 @@ explainMethod
     ;
 
 explainMethodArgument
-    : STRING
+    : string
     | boolean
     | object
     ;
@@ -769,7 +773,7 @@ hintModifier
 
 hintModifierArgument
     : object
-    | STRING
+    | string
     ;
 
 returnKeyModifier
@@ -793,12 +797,12 @@ sortModifier
     ;
 
 sortModifierArgument1
-    : json5
+    : value?
     ;
 
 sortModifierArgument2
     : number
-    | STRING
+    | string
     | object
     ;
 
@@ -862,11 +866,15 @@ reservedKeyword
     | VALIDATE_COLLECTION
     | LIST_DATABASES
     | REPL_SET_GET_STATUS
-    ;
-
-// JSON5 rules
-json5
-    : value?
+    | OBJECT_ID
+    | DATE
+    | ISO_DATE
+    | UUID
+    | MIN_KEY
+    | MAX_KEY
+    | NUMBER_DECIMAL
+    | NUMBER_INT
+    | NUMBER_LONG
     ;
 
 object
@@ -884,11 +892,11 @@ boolean
     ;
 
 key
-    : STRING
+    : string
     | identifier
     | NUMERIC_LITERAL
     | boolean
-    | NULL
+    | null
     ;
 
 identifier
@@ -897,12 +905,101 @@ identifier
     ;
 
 value
-    : STRING
+    : string
     | number
     | object
     | array
     | boolean
-    | NULL
+    | null
+    | objectIdFunction
+    | dateFunction
+    | isoDateFunction
+    | uuidFunction
+    | minKeyFunction
+    | maxKeyFunction
+    | numberIntFunction
+    | numberDecimalFunction
+    | numberLongFunction
+    ;
+
+numberLongFunction
+    : NUMBER_LONG LPAREN numberLongFunctionArgument1 (COMMA numberLongFunctionArgument2)? RPAREN
+    ;
+
+numberLongFunctionArgument1
+    : string
+    ;
+
+numberLongFunctionArgument2
+    : number
+    ;
+
+numberDecimalFunction
+    : NUMBER_DECIMAL LPAREN numberDecimalFunctionArgument RPAREN
+    ;
+
+numberDecimalFunctionArgument
+    : string
+    ;
+
+numberIntFunction
+    : NUMBER_INT LPAREN numberIntFunctionArgument RPAREN
+    ;
+
+numberIntFunctionArgument
+    : string
+    | number
+    ;
+
+maxKeyFunction
+    : MAX_KEY LPAREN RPAREN
+    ;
+
+minKeyFunction
+    : MIN_KEY LPAREN RPAREN
+    ;
+
+uuidFunction
+    : UUID LPAREN uuidFunctionArgument? RPAREN
+    ;
+
+uuidFunctionArgument
+    : string
+    ;
+
+objectIdFunction
+    : OBJECT_ID LPAREN objectIdFunctionArgument RPAREN
+    ;
+
+objectIdFunctionArgument
+    : string
+    | number
+    ;
+
+isoDateFunction
+    : ISO_DATE LPAREN isoDateFunctionArgument? RPAREN
+    ;
+
+isoDateFunctionArgument
+    : string
+    | number
+    ;
+
+dateFunction
+    : DATE LPAREN dateFunctionArgument? RPAREN
+    ;
+
+dateFunctionArgument
+    : string
+    | number
+    ;
+
+string
+    : STRING
+    ;
+
+null
+    : NULL
     ;
 
 array
