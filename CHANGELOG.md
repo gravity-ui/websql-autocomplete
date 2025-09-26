@@ -1,5 +1,12 @@
 # Changelog
 
+## [13.12.0](https://github.com/gravity-ui/websql-autocomplete/compare/v13.11.2...v13.12.0) (2025-09-26)
+
+
+### Features
+
+* **Mongo:** Implement functions in MongoDB syntax and allow parsing them ([#308](https://github.com/gravity-ui/websql-autocomplete/issues/308)) ([c2db9b8](https://github.com/gravity-ui/websql-autocomplete/commit/c2db9b82b2a9687da9fba7f3678eeaa83023ed78))
+
 ## [13.11.2](https://github.com/gravity-ui/websql-autocomplete/compare/v13.11.1...v13.11.2) (2025-09-03)
 
 
