@@ -1,5 +1,12 @@
 # Changelog
 
+## [13.12.1](https://github.com/gravity-ui/websql-autocomplete/compare/v13.12.0...v13.12.1) (2025-10-13)
+
+
+### Bug Fixes
+
+* **PostgreSql:** columns are suggested when tableIdentifier contains schemaName ([#310](https://github.com/gravity-ui/websql-autocomplete/issues/310)) ([5b4d2fe](https://github.com/gravity-ui/websql-autocomplete/commit/5b4d2fe797c6cb3d98234a0547b8c59118fe0e4b))
+
 ## [13.12.0](https://github.com/gravity-ui/websql-autocomplete/compare/v13.11.2...v13.12.0) (2025-09-26)
 
 
