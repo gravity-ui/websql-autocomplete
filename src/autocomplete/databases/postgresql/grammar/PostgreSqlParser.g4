@@ -3757,7 +3757,7 @@ constraintName
     ;
 
 tableName
-    : qualifiedName
+    : name
     ;
 
 tableIdentifier
