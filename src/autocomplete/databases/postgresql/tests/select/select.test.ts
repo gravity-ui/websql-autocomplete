@@ -137,6 +137,13 @@ test('should suggest table name for column', () => {
     expect(autocompleteResult.suggestColumns).toEqual(columnSuggestions);
 });
 
+test('should suggest table name for column with schema', () => {
+    const autocompleteResult = parsePostgreSqlQueryWithCursor('SELECT | FROM public.test_table');
+    const columnSuggestions: ColumnSuggestion = {tables: [{name: 'public.test_table'}]};
+
+    expect(autocompleteResult.suggestColumns).toEqual(columnSuggestions);
+});
+
 test('should suggest table name for column between statements', () => {
     const autocompleteResult = parsePostgreSqlQueryWithCursor(
         'ALTER TABLE before_table DROP COLUMN id; SELECT | FROM test_table ; ALTER TABLE after_table DROP COLUMN id;',
@@ -149,6 +156,13 @@ test('should suggest table name for column between statements', () => {
 test('should suggest table name and alias for column', () => {
     const autocompleteResult = parsePostgreSqlQueryWithCursor('SELECT | FROM test_table t');
     const columnSuggestions: ColumnSuggestion = {tables: [{name: 'test_table', alias: 't'}]};
+
+    expect(autocompleteResult.suggestColumns).toEqual(columnSuggestions);
+});
+
+test('should suggest table name and alias for column with schema', () => {
+    const autocompleteResult = parsePostgreSqlQueryWithCursor('SELECT | FROM public.test_table t');
+    const columnSuggestions: ColumnSuggestion = {tables: [{name: 'public.test_table', alias: 't'}]};
 
     expect(autocompleteResult.suggestColumns).toEqual(columnSuggestions);
 });
