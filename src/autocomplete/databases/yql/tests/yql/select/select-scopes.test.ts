@@ -123,6 +123,8 @@ test('should suggest properly at variable definition', () => {
         {value: 'SET'},
         {value: 'RESOURCE'},
         {value: 'TAGGED'},
+        {value: 'LINEAR'},
+        {value: 'DYNAMICLINEAR'},
     ];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
     expect(autocompleteResult.suggestFunctions).toBeTruthy();

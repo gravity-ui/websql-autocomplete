@@ -29,6 +29,8 @@ const afterGroupByKeywords: KeywordSuggestion[] = [
     {value: 'SET'},
     {value: 'RESOURCE'},
     {value: 'TAGGED'},
+    {value: 'LINEAR'},
+    {value: 'DYNAMICLINEAR'},
     {value: 'ROLLUP'},
     {value: 'CUBE'},
     {value: 'GROUPING'},

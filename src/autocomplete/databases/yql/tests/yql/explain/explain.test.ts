@@ -37,6 +37,7 @@ test('should suggest keywords after EXPLAIN', () => {
         {value: 'ANALYZE'},
         {value: 'BACKUP'},
         {value: 'RESTORE'},
+        {value: 'SHOW'},
         {value: 'QUERY'},
     ];
 

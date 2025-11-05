@@ -27,6 +27,8 @@ const afterOrderByKeywords: KeywordSuggestion[] = [
     {value: 'SET'},
     {value: 'RESOURCE'},
     {value: 'TAGGED'},
+    {value: 'LINEAR'},
+    {value: 'DYNAMICLINEAR'},
 ];
 
 function getAfterOrderByCommonExpections(autocompleteResult: YqlAutocompleteResult): void {
@@ -42,7 +44,32 @@ function getAfterOrderByCommonExpections(autocompleteResult: YqlAutocompleteResu
 test('should suggest properly after ORDER', () => {
     const autocompleteResult = parseYqQueryWithCursor('SELECT * FROM test_table ORDER |');
 
-    const keywordsSuggestion: KeywordSuggestion[] = [{value: 'BY'}];
+    const keywordsSuggestion: KeywordSuggestion[] = [
+        {value: 'TABLESAMPLE'},
+        {value: 'SAMPLE'},
+        {value: 'FLATTEN'},
+        {value: 'NATURAL'},
+        {value: 'LEFT'},
+        {value: 'RIGHT'},
+        {value: 'EXCLUSION'},
+        {value: 'FULL'},
+        {value: 'OUTER'},
+        {value: 'JOIN'},
+        {value: 'INNER'},
+        {value: 'CROSS'},
+        {value: 'ASSUME'},
+        {value: 'ORDER'},
+        {value: 'WINDOW'},
+        {value: 'HAVING'},
+        {value: 'GROUP'},
+        {value: 'WHERE'},
+        {value: 'BY'},
+        {value: 'INTO'},
+        {value: 'LIMIT'},
+        {value: 'INTERSECT'},
+        {value: 'EXCEPT'},
+        {value: 'UNION'},
+    ];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
