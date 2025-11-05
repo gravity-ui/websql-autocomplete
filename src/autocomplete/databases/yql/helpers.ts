@@ -132,6 +132,18 @@ function getTableSuggestions({
         return false;
     }
 
+    const hasPreviousTokenExternal = Boolean(
+        getPreviousToken(tokenStream, tokenDictionary, cursorTokenIndex, YQLParser.EXTERNAL),
+    );
+
+    // Don't suggest regular tables in DROP EXTERNAL TABLE
+    const externalTableInDropTable =
+        allRulesInList([YQLParser.RULE_id_or_at, YQLParser.RULE_drop_table_stmt]) &&
+        hasPreviousTokenExternal;
+    if (externalTableInDropTable) {
+        return false;
+    }
+
     const isTargetForReplication =
         anyRuleInList(YQLParser.RULE_replication_target) &&
         !anyRuleInList(YQLParser.RULE_replication_name);
