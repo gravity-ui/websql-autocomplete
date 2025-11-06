@@ -69,9 +69,7 @@ test('should suggest keywords after IF NOT', () => {
 });
 
 test('should suggest streaming query settings after WITH (', () => {
-    const autocompleteResult = parseYqlQueryWithCursor(
-        'CREATE STREAMING QUERY test_query WITH (|',
-    );
+    const autocompleteResult = parseYqlQueryWithCursor('CREATE STREAMING QUERY test_query WITH (|');
 
     expect(autocompleteResult.suggestKeywords).toEqual([]);
     expect(autocompleteResult.suggestEntitySettings).toEqual('streamingQuery');
