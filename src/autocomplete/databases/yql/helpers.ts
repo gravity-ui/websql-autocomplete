@@ -522,10 +522,7 @@ function getEntitySettingsSuggestions({
     if (allRulesInList([YQLParser.RULE_replication_settings, YQLParser.RULE_an_id])) {
         return 'replication';
     }
-    if (
-        allRulesInList([YQLParser.RULE_streaming_query_settings, YQLParser.RULE_an_id]) &&
-        anyRuleInList(YQLParser.RULE_create_streaming_query_features)
-    ) {
+    if (allRulesInList([YQLParser.RULE_streaming_query_settings, YQLParser.RULE_an_id_or_type])) {
         return 'streamingQuery';
     }
     return;
