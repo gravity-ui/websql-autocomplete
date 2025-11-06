@@ -1,5 +1,12 @@
 # Changelog
 
+## [13.13.0](https://github.com/gravity-ui/websql-autocomplete/compare/v13.12.1...v13.13.0) (2025-11-06)
+
+
+### Features
+
+* **YQL:** update grammar ([#312](https://github.com/gravity-ui/websql-autocomplete/issues/312)) ([c302a7e](https://github.com/gravity-ui/websql-autocomplete/commit/c302a7e0ef80e39cb23ad40b039b44e05b21dfd8))
+
 ## [13.12.1](https://github.com/gravity-ui/websql-autocomplete/compare/v13.12.0...v13.12.1) (2025-10-13)
 
 
