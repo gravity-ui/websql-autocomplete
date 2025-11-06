@@ -1,5 +1,12 @@
 # Changelog
 
+## [13.14.0](https://github.com/gravity-ui/websql-autocomplete/compare/v13.13.0...v13.14.0) (2025-11-06)
+
+
+### Features
+
+* **YQL:** suggest settings for streaming query ([#314](https://github.com/gravity-ui/websql-autocomplete/issues/314)) ([bcbacee](https://github.com/gravity-ui/websql-autocomplete/commit/bcbacee3bf68ff609f006c1c98e0e39135e4cfe5))
+
 ## [13.13.0](https://github.com/gravity-ui/websql-autocomplete/compare/v13.12.1...v13.13.0) (2025-11-06)
 
 
