@@ -33,6 +33,8 @@ test('should suggest properly after SELECT', () => {
         {value: 'SET'},
         {value: 'RESOURCE'},
         {value: 'TAGGED'},
+        {value: 'LINEAR'},
+        {value: 'DYNAMICLINEAR'},
     ];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
     expect(autocompleteResult.suggestFunctions).toBeTruthy();
@@ -61,9 +63,9 @@ test('should suggest properly after *', () => {
         {value: 'WITHOUT'},
         {value: 'INTO'},
         {value: 'LIMIT'},
-        {value: 'UNION'},
         {value: 'INTERSECT'},
         {value: 'EXCEPT'},
+        {value: 'UNION'},
     ];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
@@ -122,16 +124,20 @@ test('should suggest properly after table name', () => {
         {value: 'WHERE'},
         {value: 'INTO'},
         {value: 'LIMIT'},
-        {value: 'UNION'},
         {value: 'INTERSECT'},
         {value: 'EXCEPT'},
+        {value: 'UNION'},
     ];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });
 
 test('should suggest table hints after WITH', () => {
     const autocompleteResult = parseYqQueryWithCursor('SELECT * FROM test_table WITH |');
-    const keywordsSuggestion: KeywordSuggestion[] = [{value: 'COLUMNS'}, {value: 'SCHEMA'}];
+    const keywordsSuggestion: KeywordSuggestion[] = [
+        {value: 'COLUMNS'},
+        {value: 'SCHEMA'},
+        {value: 'WATERMARK'},
+    ];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
     expect(autocompleteResult.suggestTableHints).toEqual('select_stmt');
 });
@@ -266,6 +272,8 @@ test('should suggest properly after HAVING', () => {
         {value: 'SET'},
         {value: 'RESOURCE'},
         {value: 'TAGGED'},
+        {value: 'LINEAR'},
+        {value: 'DYNAMICLINEAR'},
     ];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
     expect(autocompleteResult.suggestFunctions).toBeTruthy();
@@ -302,6 +310,8 @@ test('should suggest properly after LIMIT', () => {
         {value: 'SET'},
         {value: 'RESOURCE'},
         {value: 'TAGGED'},
+        {value: 'LINEAR'},
+        {value: 'DYNAMICLINEAR'},
     ];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
     expect(autocompleteResult.suggestFunctions).toBeTruthy();

@@ -30,6 +30,7 @@ test('should suggest properly after with statement', () => {
 test('should suggest properly after AS', () => {
     const autocompleteResult = parseYqlQueryWithCursor('CREATE VIEW test_view WITH (a=b) AS |');
     const keywordsSuggestion: KeywordSuggestion[] = [
+        {value: 'DO'},
         {value: 'DISCARD'},
         {value: 'PROCESS'},
         {value: 'REDUCE'},

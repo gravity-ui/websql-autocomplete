@@ -120,9 +120,9 @@ test('should suggest keywords after JOIN table', () => {
         {value: 'WHERE'},
         {value: 'INTO'},
         {value: 'LIMIT'},
-        {value: 'UNION'},
         {value: 'INTERSECT'},
         {value: 'EXCEPT'},
+        {value: 'UNION'},
     ];
 
     expect(autocompleteResult.suggestKeywords).toEqual(keywords);

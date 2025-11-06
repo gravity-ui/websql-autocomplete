@@ -122,19 +122,51 @@ function getTableSuggestions({
     if (!anyRuleInList([YQLParser.RULE_id_or_at, YQLParser.RULE_id_table_or_type])) {
         return;
     }
+
+    const hasPreviousTokenView = Boolean(
+        getPreviousToken(tokenStream, tokenDictionary, cursorTokenIndex, YQLParser.VIEW),
+    );
+
+    // Don't suggest tables in SHOW CREATE VIEW
+    if (anyRuleInList(YQLParser.RULE_show_create_table_stmt) && hasPreviousTokenView) {
+        return false;
+    }
+
+    const hasPreviousTokenExternal = Boolean(
+        getPreviousToken(tokenStream, tokenDictionary, cursorTokenIndex, YQLParser.EXTERNAL),
+    );
+
+    // Don't suggest regular tables in DROP EXTERNAL TABLE
+    const externalTableInDropTable =
+        allRulesInList([YQLParser.RULE_id_or_at, YQLParser.RULE_drop_table_stmt]) &&
+        hasPreviousTokenExternal;
+    if (externalTableInDropTable) {
+        return false;
+    }
+
     const isTargetForReplication =
         anyRuleInList(YQLParser.RULE_replication_target) &&
         !anyRuleInList(YQLParser.RULE_replication_name);
 
     const isExistingTableInSimpleTableRef =
         allRulesInList([YQLParser.RULE_simple_table_ref]) &&
-        !getPreviousToken(tokenStream, tokenDictionary, cursorTokenIndex, YQLParser.CREATE) &&
-        !getPreviousToken(tokenStream, tokenDictionary, cursorTokenIndex, YQLParser.EXTERNAL);
+        !anyRuleInList([
+            YQLParser.RULE_create_table_stmt,
+            YQLParser.RULE_alter_external_table_stmt,
+        ]);
+
+    const hasPreviousTokenTable = Boolean(
+        getPreviousToken(tokenStream, tokenDictionary, cursorTokenIndex, YQLParser.TABLE),
+    );
+
+    const tableInShowCreate =
+        anyRuleInList(YQLParser.RULE_show_create_table_stmt) && hasPreviousTokenTable;
 
     return (
         anyRuleInList([YQLParser.RULE_table_ref, YQLParser.RULE_table_inherits]) ||
         isExistingTableInSimpleTableRef ||
-        isTargetForReplication
+        isTargetForReplication ||
+        tableInShowCreate
     );
 }
 
@@ -221,10 +253,23 @@ function getTopicSuggestions({anyRuleInList}: GetParticularSuggestionProps): boo
     return anyRuleInList([YQLParser.RULE_drop_topic_stmt, YQLParser.RULE_alter_topic_stmt]);
 }
 
-function getViewSuggestions({allRulesInList}: GetParticularSuggestionProps): boolean | undefined {
+function getViewSuggestions({
+    allRulesInList,
+    anyRuleInList,
+    tokenStream,
+    cursorTokenIndex,
+}: GetParticularSuggestionProps): boolean | undefined {
+    const hasPreviousTokenView = Boolean(
+        getPreviousToken(tokenStream, tokenDictionary, cursorTokenIndex, YQLParser.VIEW),
+    );
+
+    const viewInShowCreate =
+        anyRuleInList(YQLParser.RULE_show_create_table_stmt) && hasPreviousTokenView;
+
     return (
         allRulesInList([YQLParser.RULE_drop_view_stmt, YQLParser.RULE_id_or_at]) ||
-        allRulesInList([YQLParser.RULE_table_ref, YQLParser.RULE_id_table_or_type])
+        allRulesInList([YQLParser.RULE_table_ref, YQLParser.RULE_id_table_or_type]) ||
+        viewInShowCreate
     );
 }
 
@@ -268,6 +313,19 @@ function getExternalDatasourceSuggestions({
     return anyRuleInList([
         YQLParser.RULE_drop_external_data_source_stmt,
         YQLParser.RULE_alter_external_data_source_stmt,
+    ]);
+}
+
+function getStreamingQuerySuggestions({
+    anyRuleInList,
+}: GetParticularSuggestionProps): boolean | undefined {
+    if (!anyRuleInList([YQLParser.RULE_id_or_at, YQLParser.RULE_object_ref])) {
+        return;
+    }
+    return anyRuleInList([
+        YQLParser.RULE_create_streaming_query_stmt,
+        YQLParser.RULE_alter_streaming_query_stmt,
+        YQLParser.RULE_drop_streaming_query_stmt,
     ]);
 }
 
@@ -489,6 +547,7 @@ export const EntitySuggestionToYqlEntity: Record<EntitySuggestion, YQLEntity> = 
     suggestTable: 'table',
     suggestExternalTable: 'externalTable',
     suggestExternalDatasource: 'externalDataSource',
+    suggestStreamingQuery: 'streamingQuery',
     suggestTopic: 'topic',
     suggestView: 'view',
     suggestReplication: 'replication',
@@ -515,6 +574,7 @@ export function getGranularSuggestions(
     const suggestReplication = getReplicationSuggestions(props);
     const suggestExternalTable = getExternalTableSuggestions(props);
     const suggestExternalDatasource = getExternalDatasourceSuggestions(props);
+    const suggestStreamingQuery = getStreamingQuerySuggestions(props);
     const shouldSuggestTableIndexes = checkShouldSuggestTableIndexes(props);
     const shouldSuggestColumns = checkShouldSuggestColumns(props);
     const shouldSuggestAllColumns = checkShouldSuggestAllColumns(props);
@@ -553,5 +613,6 @@ export function getGranularSuggestions(
         suggestReplication,
         suggestExternalTable,
         suggestExternalDatasource,
+        suggestStreamingQuery,
     };
 }

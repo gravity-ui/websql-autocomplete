@@ -16,6 +16,7 @@ export type EntitySuggestion =
     | 'suggestGroup'
     | 'suggestView'
     | 'suggestExternalDatasource'
+    | 'suggestStreamingQuery'
     | 'suggestTable';
 
 type YqlAutocompleteResultPartial = Pick<
@@ -52,6 +53,7 @@ export type YQLEntity =
     | 'topic'
     | 'group'
     | 'user'
+    | 'streamingQuery'
     | 'tableIndex'
     | 'topicConsumer';
 

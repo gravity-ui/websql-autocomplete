@@ -42,6 +42,8 @@ test('should suggest properly column schema', () => {
         {value: 'RESOURCE'},
         {value: 'TAGGED'},
         {value: 'CALLABLE'},
+        {value: 'LINEAR'},
+        {value: 'DYNAMICLINEAR'},
         {value: 'DECIMAL'},
     ];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
@@ -64,6 +66,8 @@ test('should suggest properly after composite type', () => {
         {value: 'RESOURCE'},
         {value: 'TAGGED'},
         {value: 'CALLABLE'},
+        {value: 'LINEAR'},
+        {value: 'DYNAMICLINEAR'},
         {value: 'DECIMAL'},
     ];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
@@ -84,13 +88,21 @@ test('should suggest properly after column schema', () => {
 });
 test('should suggest properly after WITH', () => {
     const autocompleteResult = parseYqlQueryWithCursor('CREATE TABLE test_table WITH |');
-    const keywordsSuggestion: KeywordSuggestion[] = [{value: 'COLUMNS'}, {value: 'SCHEMA'}];
+    const keywordsSuggestion: KeywordSuggestion[] = [
+        {value: 'COLUMNS'},
+        {value: 'SCHEMA'},
+        {value: 'WATERMARK'},
+    ];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
     expect(autocompleteResult.suggestTableHints).toEqual('create_table_stmt');
 });
 test('should suggest properly table hints', () => {
     const autocompleteResult = parseYqlQueryWithCursor('CREATE TABLE test_table WITH (|');
-    const keywordsSuggestion: KeywordSuggestion[] = [{value: 'COLUMNS'}, {value: 'SCHEMA'}];
+    const keywordsSuggestion: KeywordSuggestion[] = [
+        {value: 'COLUMNS'},
+        {value: 'SCHEMA'},
+        {value: 'WATERMARK'},
+    ];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
     expect(autocompleteResult.suggestTableHints).toEqual('create_table_stmt');
     expect(autocompleteResult.suggestEntitySettings).toBeFalsy();

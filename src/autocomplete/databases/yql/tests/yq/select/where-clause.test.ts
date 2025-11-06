@@ -27,6 +27,8 @@ const AfterWhereKeywords: KeywordSuggestion[] = [
     {value: 'SET'},
     {value: 'RESOURCE'},
     {value: 'TAGGED'},
+    {value: 'LINEAR'},
+    {value: 'DYNAMICLINEAR'},
 ];
 
 function getAfterWhereCommonExpections(autocompleteResult: YqlAutocompleteResult): void {

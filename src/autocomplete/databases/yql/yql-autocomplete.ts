@@ -212,10 +212,12 @@ class YQLVariableSymbolTableVisitor extends YQLSymbolTableVisitor {
     };
 
     visitNamed_nodes_stmt = (context: Named_nodes_stmtContext): {} => {
-        const selectStmt =
-            context.subselect_stmt()?.select_stmt()?.select_kind_parenthesis(0) ||
-            context.subselect_stmt()?.select_unparenthesized_stmt();
-        const selectCore = selectStmt?.select_kind_partial()?.select_kind()?.select_core();
+        const selectStmt = context.select_unparenthesized_stmt();
+        const selectCore = selectStmt
+            ?.select_unparenthesized_stmt_intersect()
+            ?.select_kind_partial()
+            ?.select_kind()
+            ?.select_core();
         const columns = selectCore ? this.getColumnsFromSelectCore(selectCore) : undefined;
         this.addVariableSymbol(
             (index: number) =>
@@ -257,9 +259,13 @@ class YQLVariableSymbolTableVisitor extends YQLSymbolTableVisitor {
     visitLambda = (context: LambdaContext): {} => {
         // This variable should be in local scope, so it should be extracted inside withScope callback
         const addVariables = (): {} => {
-            const lambdaArgs = context.smart_parenthesis()?.named_expr_list();
+            const selectSubexpr = context.smart_parenthesis()?.select_subexpr();
+            const tupleOrExpr = selectSubexpr
+                ?.select_subexpr_intersect(0)
+                ?.select_or_expr(0)
+                ?.tuple_or_expr();
             this.addVariableSymbol((index: number) => {
-                const variable = lambdaArgs?.named_expr(index)?.expr()?.getText();
+                const variable = tupleOrExpr?.named_expr(index)?.expr()?.getText();
                 if (variable) {
                     if (variable.startsWith('$')) {
                         return variable.slice(1);
@@ -335,6 +341,7 @@ class YQLTableSymbolTableVisitor extends YQLSymbolTableVisitor {
             const selectCore = context
                 .single_source()
                 .select_stmt()
+                ?.select_stmt_intersect(0)
                 ?.select_kind_parenthesis(0)
                 ?.select_kind_partial()
                 ?.select_kind()
@@ -443,6 +450,7 @@ function processVisitedRules(
         suggestReplication,
         suggestExternalTable,
         suggestExternalDatasource,
+        suggestStreamingQuery,
         ...restSuggestions
     } = suggestionsResult;
 
@@ -457,6 +465,7 @@ function processVisitedRules(
         suggestReplication,
         suggestExternalTable,
         suggestExternalDatasource,
+        suggestStreamingQuery,
     };
 
     const suggestEntity: YqlAutocompleteResult['suggestEntity'] = Object.entries(entitiesSuggestion)

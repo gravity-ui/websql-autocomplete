@@ -50,7 +50,7 @@ test('should suggest table name after ALTER COLUMN between statements', () => {
 
 test('should suggest SET after column name', () => {
     const autocompleteResult = parseYqlQueryWithCursor('ALTER TABLE test_table ALTER COLUMN id |');
-    const keywords: KeywordSuggestion[] = [{value: 'DROP'}, {value: 'SET'}];
+    const keywords: KeywordSuggestion[] = [{value: 'SET'}, {value: 'DROP'}];
 
     expect(autocompleteResult.suggestKeywords).toEqual(keywords);
 });
@@ -63,6 +63,32 @@ test('should not suggest after FAMILY', () => {
     expect(autocompleteResult.suggestKeywords).toEqual(keywords);
     expect(autocompleteResult.suggestColumns).toBeFalsy();
 });
+test('should suggest keywords after ALTER COLUMN SET', () => {
+    const autocompleteResult = parseYqlQueryWithCursor(
+        'ALTER TABLE test_table ALTER COLUMN id SET |',
+    );
+    const keywords: KeywordSuggestion[] = [{value: 'NOT'}, {value: 'FAMILY'}];
+
+    expect(autocompleteResult.suggestKeywords).toEqual(keywords);
+});
+
+test('should suggest keywords after ALTER COLUMN SET NOT', () => {
+    const autocompleteResult = parseYqlQueryWithCursor(
+        'ALTER TABLE test_table ALTER COLUMN id SET NOT |',
+    );
+    const keywords: KeywordSuggestion[] = [{value: 'NULL'}];
+
+    expect(autocompleteResult.suggestKeywords).toEqual(keywords);
+});
+
+test('should not report errors for SET NOT NULL', () => {
+    const autocompleteResult = parseYqlQueryWithoutCursor(
+        'ALTER TABLE test_table ALTER COLUMN id SET NOT NULL;',
+    );
+
+    expect(autocompleteResult.errors).toHaveLength(0);
+});
+
 test('should not report errors', () => {
     const autocompleteResult = parseYqlQueryWithoutCursor(
         'ALTER TABLE test_table ALTER COLUMN id SET FAMILY test;',
@@ -106,6 +132,8 @@ test('should suggest types after column name', () => {
         {value: 'RESOURCE'},
         {value: 'TAGGED'},
         {value: 'CALLABLE'},
+        {value: 'LINEAR'},
+        {value: 'DYNAMICLINEAR'},
         {value: 'DECIMAL'},
     ];
 
@@ -117,10 +145,10 @@ test('should suggest keywords after column type', () => {
         'ALTER TABLE test_table ADD COLUMN test test_type |',
     );
     const keywords: KeywordSuggestion[] = [
+        {value: 'FAMILY'},
         {value: 'NOT'},
         {value: 'NULL'},
         {value: 'DEFAULT'},
-        {value: 'FAMILY'},
     ];
 
     expect(autocompleteResult.suggestKeywords).toEqual(keywords);
