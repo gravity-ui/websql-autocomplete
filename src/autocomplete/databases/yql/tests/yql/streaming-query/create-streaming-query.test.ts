@@ -67,3 +67,27 @@ test('should suggest keywords after IF NOT', () => {
 
     expect(autocompleteResult.suggestKeywords).toEqual(keywords);
 });
+
+test('should suggest streaming query settings after WITH (', () => {
+    const autocompleteResult = parseYqlQueryWithCursor('CREATE STREAMING QUERY test_query WITH (|');
+
+    expect(autocompleteResult.suggestKeywords).toEqual([]);
+    expect(autocompleteResult.suggestEntitySettings).toEqual('streamingQuery');
+});
+
+test('should suggest streaming query settings after first setting', () => {
+    const autocompleteResult = parseYqlQueryWithCursor(
+        'CREATE STREAMING QUERY test_query WITH (setting1 = "value1", |',
+    );
+
+    expect(autocompleteResult.suggestKeywords).toEqual([]);
+    expect(autocompleteResult.suggestEntitySettings).toEqual('streamingQuery');
+});
+
+test('should not suggest settings when typing setting value', () => {
+    const autocompleteResult = parseYqlQueryWithCursor(
+        'CREATE STREAMING QUERY test_query WITH (setting1 = |',
+    );
+
+    expect(autocompleteResult.suggestEntitySettings).toBeFalsy();
+});
