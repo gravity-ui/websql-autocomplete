@@ -496,6 +496,7 @@ function getEntitySettingsSuggestions({
             YQLParser.RULE_table_setting_value,
             YQLParser.RULE_topic_setting_value,
             YQLParser.RULE_topic_consumer_setting_value,
+            YQLParser.RULE_streaming_query_setting_value,
         ])
     ) {
         return;
@@ -520,6 +521,12 @@ function getEntitySettingsSuggestions({
     }
     if (allRulesInList([YQLParser.RULE_replication_settings, YQLParser.RULE_an_id])) {
         return 'replication';
+    }
+    if (
+        allRulesInList([YQLParser.RULE_streaming_query_settings, YQLParser.RULE_an_id]) &&
+        anyRuleInList(YQLParser.RULE_create_streaming_query_features)
+    ) {
+        return 'streamingQuery';
     }
     return;
 }
