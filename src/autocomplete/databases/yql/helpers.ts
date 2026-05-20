@@ -69,19 +69,71 @@ interface GetParticularSuggestionProps {
     tokenStream: TokenStream;
 }
 
-function getWindowFunctionsSuggestions({
-    anyRuleInList,
-    allRulesInList,
-}: GetParticularSuggestionProps): boolean | undefined {
+const whereExpressionBoundaryTokens = new Set([
+    YQLParser.ASSUME,
+    YQLParser.GROUP,
+    YQLParser.HAVING,
+    YQLParser.INTO,
+    YQLParser.LIMIT,
+    YQLParser.ORDER,
+    YQLParser.RETURNING,
+    YQLParser.WINDOW,
+]);
+
+function isInsideWhereExpression({
+    cursorTokenIndex,
+    tokenStream,
+}: GetParticularSuggestionProps): boolean {
+    let currentIndex = cursorTokenIndex - 1;
+    let nestingLevel = 0;
+
+    while (currentIndex >= 0) {
+        const token = tokenStream.get(currentIndex);
+
+        if (token.type === YQLParser.SEMICOLON) {
+            return false;
+        }
+
+        if (token.type === YQLParser.RPAREN) {
+            nestingLevel++;
+            currentIndex--;
+            continue;
+        }
+
+        if (token.type === YQLParser.LPAREN) {
+            nestingLevel = Math.max(0, nestingLevel - 1);
+            currentIndex--;
+            continue;
+        }
+
+        if (nestingLevel === 0) {
+            if (token.type === YQLParser.WHERE) {
+                return true;
+            }
+
+            if (whereExpressionBoundaryTokens.has(token.type)) {
+                return false;
+            }
+        }
+
+        currentIndex--;
+    }
+
+    return false;
+}
+
+function getWindowFunctionsSuggestions(props: GetParticularSuggestionProps): boolean | undefined {
+    const {anyRuleInList, allRulesInList} = props;
     if (!allRulesInList([YQLParser.RULE_select_kind_partial, YQLParser.RULE_id_expr])) {
         return;
     }
-    const noWindowFunction = anyRuleInList([
-        YQLParser.RULE_window_specification_details,
-        YQLParser.RULE_group_by_clause,
-        YQLParser.RULE_table_ref,
-        YQLParser.RULE_where_expr,
-    ]);
+    const noWindowFunction =
+        isInsideWhereExpression(props) ||
+        anyRuleInList([
+            YQLParser.RULE_window_specification_details,
+            YQLParser.RULE_group_by_clause,
+            YQLParser.RULE_table_ref,
+        ]);
     if (!noWindowFunction) {
         return true;
     }
@@ -111,6 +163,33 @@ function getTablestoreSuggestions({
         );
 
     return anyRuleInList(YQLParser.RULE_alter_table_store_stmt) || tableStoreInDropTable;
+}
+
+function isFirstObjectRefInReplicationTarget({
+    tokenStream,
+    cursorTokenIndex,
+}: GetParticularSuggestionProps): boolean {
+    let currentIndex = cursorTokenIndex - 1;
+
+    while (currentIndex >= 0) {
+        const token = tokenStream.get(currentIndex);
+
+        if (token.type === YQLParser.SEMICOLON || token.type === YQLParser.WITH) {
+            return false;
+        }
+
+        if (token.type === YQLParser.AS) {
+            return false;
+        }
+
+        if (token.type === YQLParser.FOR || token.type === YQLParser.COMMA) {
+            return true;
+        }
+
+        currentIndex--;
+    }
+
+    return false;
 }
 
 function getTableSuggestions({
@@ -146,7 +225,12 @@ function getTableSuggestions({
 
     const isTargetForReplication =
         anyRuleInList(YQLParser.RULE_replication_target) &&
-        !anyRuleInList(YQLParser.RULE_replication_name);
+        isFirstObjectRefInReplicationTarget({
+            anyRuleInList,
+            allRulesInList,
+            tokenStream,
+            cursorTokenIndex,
+        });
 
     const isExistingTableInSimpleTableRef =
         allRulesInList([YQLParser.RULE_simple_table_ref]) &&
@@ -465,18 +549,16 @@ function getFunctionsSuggestions({
     return anyRuleInList(YQLParser.RULE_select_kind_partial);
 }
 
-function getAggregateFunctionsSuggestions({
-    anyRuleInList,
-    allRulesInList,
-}: GetParticularSuggestionProps): boolean | undefined {
+function getAggregateFunctionsSuggestions(
+    props: GetParticularSuggestionProps,
+): boolean | undefined {
+    const {anyRuleInList, allRulesInList} = props;
     if (!allRulesInList([YQLParser.RULE_select_kind_partial, YQLParser.RULE_id_expr])) {
         return;
     }
-    const noAggregateFunction = anyRuleInList([
-        YQLParser.RULE_group_by_clause,
-        YQLParser.RULE_table_ref,
-        YQLParser.RULE_where_expr,
-    ]);
+    const noAggregateFunction =
+        isInsideWhereExpression(props) ||
+        anyRuleInList([YQLParser.RULE_group_by_clause, YQLParser.RULE_table_ref]);
     if (!noAggregateFunction) {
         return true;
     }
@@ -485,6 +567,31 @@ function getAggregateFunctionsSuggestions({
 
 function checkShouldSuggestTableHints({allRulesInList}: GetParticularSuggestionProps): boolean {
     return allRulesInList([YQLParser.RULE_an_id_hint, YQLParser.RULE_table_hint]);
+}
+
+function checkShouldSuggestCompressionSettings({
+    allRulesInList,
+    anyRuleInList,
+}: GetParticularSuggestionProps): boolean {
+    if (anyRuleInList(YQLParser.RULE_compression_setting_value)) {
+        return false;
+    }
+    return allRulesInList([YQLParser.RULE_compression, YQLParser.RULE_an_id]);
+}
+
+function checkShouldSuggestEncodingSettings({
+    allRulesInList,
+    anyRuleInList,
+}: GetParticularSuggestionProps): boolean {
+    if (
+        anyRuleInList([
+            YQLParser.RULE_encoding_setting_entry,
+            YQLParser.RULE_encoding_setting_value,
+        ])
+    ) {
+        return false;
+    }
+    return allRulesInList([YQLParser.RULE_encoding, YQLParser.RULE_encoding_config_name]);
 }
 
 function getEntitySettingsSuggestions({
@@ -596,6 +703,8 @@ export function getGranularSuggestions(
     const suggestAggregateFunctions = getAggregateFunctionsSuggestions(props);
     const shouldSuggestTableHints = checkShouldSuggestTableHints(props);
     const suggestEntitySettings = getEntitySettingsSuggestions(props);
+    const suggestCompressionSettings = checkShouldSuggestCompressionSettings(props);
+    const suggestEncodingSettings = checkShouldSuggestEncodingSettings(props);
     const shouldSuggestVariables = checkShouldSuggestVariables(props);
 
     return {
@@ -613,6 +722,8 @@ export function getGranularSuggestions(
         suggestAggregateFunctions,
         suggestTableHints: shouldSuggestTableHints ? getParticularStatement(ruleList) : undefined,
         suggestEntitySettings,
+        suggestCompressionSettings,
+        suggestEncodingSettings,
         suggestObject,
         suggestTableStore,
         suggestTable,

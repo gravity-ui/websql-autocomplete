@@ -48,6 +48,7 @@ test('should suggest properly after ON', () => {
         {value: 'REDUCE'},
         {value: 'FROM'},
         {value: 'SELECT'},
+        {value: 'COMBINE'},
         {value: 'DEFAULT'},
     ];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);

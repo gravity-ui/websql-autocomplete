@@ -37,6 +37,7 @@ test('should suggest properly after table name', () => {
         {value: 'REDUCE'},
         {value: 'FROM'},
         {value: 'SELECT'},
+        {value: 'COMBINE'},
         {value: 'DEFAULT'},
     ];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
@@ -50,6 +51,7 @@ test('should suggest properly after table name with a bracket', () => {
         {value: 'REDUCE'},
         {value: 'FROM'},
         {value: 'SELECT'},
+        {value: 'COMBINE'},
     ];
     const columnSuggestion: YQLColumnsSuggestion = {tables: [{name: 'test_table'}], all: true};
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
@@ -75,6 +77,7 @@ test('should suggest properly after table name', () => {
         {value: 'REDUCE'},
         {value: 'FROM'},
         {value: 'SELECT'},
+        {value: 'COMBINE'},
     ];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });

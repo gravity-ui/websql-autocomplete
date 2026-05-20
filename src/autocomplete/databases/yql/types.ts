@@ -30,6 +30,8 @@ type YqlAutocompleteResultPartial = Pick<
     | 'suggestPragmas'
     | 'suggestTableHints'
     | 'suggestEntitySettings'
+    | 'suggestCompressionSettings'
+    | 'suggestEncodingSettings'
 >;
 
 export interface InternalSuggestions
@@ -69,6 +71,8 @@ export interface YqlAutocompleteResult extends Omit<SqlAutocompleteResult, 'sugg
     suggestPragmas?: boolean;
     suggestTableHints?: string;
     suggestEntitySettings?: YQLEntity;
+    suggestCompressionSettings?: boolean;
+    suggestEncodingSettings?: boolean;
     suggestColumns?: YQLColumnsSuggestion;
     suggestVariables?: VariableSuggestion[];
 }
