@@ -72,6 +72,7 @@ function getIgnoredTokens(): number[] {
 }
 
 const ignoredTokens = new Set(getIgnoredTokens());
+const ignoredTokensYQ = new Set([...getIgnoredTokens(), YQLParser.COMBINE]);
 
 const rulesToVisit = new Set([
     YQLParser.RULE_id_or_type,
@@ -355,6 +356,56 @@ class YQLTableSymbolTableVisitor extends YQLSymbolTableVisitor {
                 sourceAlias,
                 columns,
             );
+
+            // For subquery sources, also register the inner FROM tables under an auxiliary
+            // scope tied to the Single_source context. This makes them discoverable when
+            // ANTLR's error recovery attaches the cursor's context directly to this outer
+            // Single_source (e.g. an unclosed function call inside the inner subquery),
+            // skipping the inner Select_stmt subtree where these tables would normally live.
+            if (selectCore && !tableName) {
+                const singleSourceCtx = context.single_source();
+                const joinSources = selectCore.join_source();
+                const innerTables: {name: string; alias?: string}[] = [];
+                for (const joinSource of joinSources) {
+                    for (const flattenSource of joinSource.flatten_source()) {
+                        const innerSource = flattenSource.named_single_source();
+                        if (!innerSource) {
+                            continue;
+                        }
+                        const innerName = innerSource.single_source().table_ref()?.getText() ?? '';
+                        if (!innerName) {
+                            continue;
+                        }
+                        const innerAlias =
+                            innerSource.an_id()?.getText() ??
+                            innerSource.an_id_as_compat()?.getText();
+                        innerTables.push({name: innerName, alias: innerAlias});
+                    }
+                }
+                if (innerTables.length) {
+                    this.withScope(
+                        singleSourceCtx,
+                        c3.RoutineSymbol,
+                        [singleSourceCtx.getText()],
+                        () => {
+                            for (const {name, alias} of innerTables) {
+                                try {
+                                    this.symbolTable.addNewSymbolOfType(
+                                        TableSymbol,
+                                        this.scope,
+                                        name,
+                                        alias,
+                                    );
+                                } catch (innerError) {
+                                    if (!(innerError instanceof c3.DuplicateSymbolError)) {
+                                        throw innerError;
+                                    }
+                                }
+                            }
+                        },
+                    );
+                }
+            }
         } catch (error) {
             if (!(error instanceof c3.DuplicateSymbolError)) {
                 throw error;
@@ -582,7 +633,7 @@ export const yqlAutocompleteDataYQ: AutocompleteData<YqlAutocompleteResult, YQLL
     Lexer: YQLLexer,
     Parser: YQLParser,
     tokenDictionary,
-    ignoredTokens,
+    ignoredTokens: ignoredTokensYQ,
     rulesToVisit,
     getParseTree: getParseTreeYQ,
     enrichAutocompleteResult: getEnrichAutocompleteResult(getParseTreeYQ),

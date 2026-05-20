@@ -36,6 +36,7 @@ test('should suggest properly after AS', () => {
         {value: 'REDUCE'},
         {value: 'FROM'},
         {value: 'SELECT'},
+        {value: 'COMBINE'},
     ];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
 });

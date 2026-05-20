@@ -12,6 +12,7 @@ test('should suggest properly for an empty query', () => {
         {value: 'REDUCE'},
         {value: 'FROM'},
         {value: 'SELECT'},
+        {value: 'COMBINE'},
         {value: 'CREATE'},
         {value: 'DROP'},
         {value: 'USE'},
@@ -40,6 +41,7 @@ test('should suggest properly for an empty query', () => {
         {value: 'BACKUP'},
         {value: 'RESTORE'},
         {value: 'SHOW'},
+        {value: 'TRUNCATE'},
     ];
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
     expect(autocompleteResult.suggestTemplates).toEqual(true);

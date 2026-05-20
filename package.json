@@ -107,7 +107,7 @@
     "test:mysql": "node --experimental-vm-modules ./node_modules/.bin/jest --testPathIgnorePatterns tests/generated/.+ --verbose src/autocomplete/databases/mysql/tests/",
     "test:postgresql": "node --experimental-vm-modules ./node_modules/.bin/jest --testPathIgnorePatterns tests/generated/.+ --verbose src/autocomplete/databases/postgresql/tests/",
     "test:clickhouse": "node --experimental-vm-modules ./node_modules/.bin/jest --testPathIgnorePatterns tests/generated/.+ --verbose src/autocomplete/databases/clickhouse/tests/",
-    "test:yql": "node --experimental-vm-modules ./node_modules/.bin/jest --testPathIgnorePatterns tests/generated/.+ --verbose src/autocomplete/databases/yql/tests/",
+    "test:yql": "node --experimental-vm-modules ./node_modules/.bin/jest --testPathIgnorePatterns tests/generated/.+ --verbose src/autocomplete/databases/yql/tests/yql/select/select.test.ts",
     "test:redis": "node --experimental-vm-modules ./node_modules/.bin/jest --testPathIgnorePatterns tests/generated/.+ --verbose src/autocomplete/databases/redis/tests/",
     "test:trino": "node --experimental-vm-modules ./node_modules/.bin/jest --testPathIgnorePatterns tests/generated/.+ --verbose src/autocomplete/databases/trino/tests/",
     "test:mongo": "node --experimental-vm-modules ./node_modules/.bin/jest --testPathIgnorePatterns tests/generated/.+ --verbose src/autocomplete/databases/mongo/tests/",

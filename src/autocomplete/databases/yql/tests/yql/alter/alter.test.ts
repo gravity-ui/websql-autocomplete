@@ -78,6 +78,7 @@ test('should suggest keywords after table name', () => {
         {value: 'SET'},
         {value: 'RESET'},
         {value: 'RENAME'},
+        {value: 'COMPACT'},
     ];
     expect(autocompleteResult.suggestKeywords).toEqual(keywords);
 });

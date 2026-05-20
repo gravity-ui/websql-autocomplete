@@ -15,6 +15,7 @@ test('should suggest keywords after table name', () => {
         {value: 'SET'},
         {value: 'RESET'},
         {value: 'RENAME'},
+        {value: 'COMPACT'},
     ];
 
     expect(autocompleteResult.suggestKeywords).toEqual(keywords);
@@ -67,7 +68,13 @@ test('should suggest keywords after ALTER COLUMN SET', () => {
     const autocompleteResult = parseYqlQueryWithCursor(
         'ALTER TABLE test_table ALTER COLUMN id SET |',
     );
-    const keywords: KeywordSuggestion[] = [{value: 'NOT'}, {value: 'FAMILY'}];
+    const keywords: KeywordSuggestion[] = [
+        {value: 'ENCODING'},
+        {value: 'DEFAULT'},
+        {value: 'COMPRESSION'},
+        {value: 'NOT'},
+        {value: 'FAMILY'},
+    ];
 
     expect(autocompleteResult.suggestKeywords).toEqual(keywords);
 });
@@ -149,6 +156,8 @@ test('should suggest keywords after column type', () => {
         {value: 'NOT'},
         {value: 'NULL'},
         {value: 'DEFAULT'},
+        {value: 'COMPRESSION'},
+        {value: 'ENCODING'},
     ];
 
     expect(autocompleteResult.suggestKeywords).toEqual(keywords);

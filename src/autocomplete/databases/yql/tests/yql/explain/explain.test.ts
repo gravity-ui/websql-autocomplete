@@ -10,6 +10,7 @@ test('should suggest keywords after EXPLAIN', () => {
         {value: 'REDUCE'},
         {value: 'FROM'},
         {value: 'SELECT'},
+        {value: 'COMBINE'},
         {value: 'CREATE'},
         {value: 'DROP'},
         {value: 'USE'},
@@ -38,6 +39,7 @@ test('should suggest keywords after EXPLAIN', () => {
         {value: 'BACKUP'},
         {value: 'RESTORE'},
         {value: 'SHOW'},
+        {value: 'TRUNCATE'},
         {value: 'QUERY'},
     ];
 

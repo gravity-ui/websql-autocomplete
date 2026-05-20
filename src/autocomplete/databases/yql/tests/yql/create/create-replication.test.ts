@@ -29,7 +29,27 @@ test('should suggest properly after FOR', () => {
     expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
     expect(autocompleteResult.suggestEntity).toEqual(['table']);
 });
-test('should suggest properly after FOR', () => {
+test('should not suggest tables after target AS', () => {
+    const autocompleteResult = parseYqlQueryWithCursor(
+        'CREATE ASYNC REPLICATION test FOR target AS |',
+    );
+
+    const keywordsSuggestion: KeywordSuggestion[] = [];
+    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(autocompleteResult.suggestEntity).toBeFalsy();
+});
+
+test('should suggest tables for the next target after comma', () => {
+    const autocompleteResult = parseYqlQueryWithCursor(
+        'CREATE ASYNC REPLICATION test FOR source AS target, |',
+    );
+
+    const keywordsSuggestion: KeywordSuggestion[] = [];
+    expect(autocompleteResult.suggestKeywords).toEqual(keywordsSuggestion);
+    expect(autocompleteResult.suggestEntity).toEqual(['table']);
+});
+
+test('should suggest properly after replication target', () => {
     const autocompleteResult = parseYqlQueryWithCursor(
         'CREATE ASYNC REPLICATION test FOR target AS target |',
     );
