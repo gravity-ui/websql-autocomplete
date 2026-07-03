@@ -2,6 +2,7 @@ import {CharStream, CommonTokenStream, Lexer as LexerType, Parser as ParserType}
 
 import {CursorPosition, LexerConstructor, ParserConstructor} from './autocomplete-types';
 import {getCursorIndex} from './cursor';
+import {PlaceholderTokenSource} from './placeholder-token-source';
 
 export function getCurrentStatement(
     query: string,
@@ -48,10 +49,17 @@ export function createParser<L extends LexerType, P extends ParserType>(
     Lexer: LexerConstructor<L>,
     Parser: ParserConstructor<P>,
     query: string,
+    // When provided, `{{ ... }}` placeholders are collapsed into a single synthetic
+    // token of this native token type, so the unchanged grammar accepts them.
+    placeholderTokenType?: number,
 ): P {
     const inputStream = CharStream.fromString(query);
     const lexer = new Lexer(inputStream);
-    const tokenStream = new CommonTokenStream(lexer);
+    const tokenSource =
+        placeholderTokenType === undefined
+            ? lexer
+            : new PlaceholderTokenSource(lexer, placeholderTokenType);
+    const tokenStream = new CommonTokenStream(tokenSource);
     const parser = new Parser(tokenStream);
 
     parser.removeErrorListeners();

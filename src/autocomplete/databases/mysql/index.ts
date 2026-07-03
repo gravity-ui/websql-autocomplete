@@ -5,6 +5,7 @@ import {
     TableOrViewSuggestion,
 } from '../../shared/autocomplete-types';
 import {mySqlAutocompleteData} from './mysql-autocomplete';
+import {MySqlLexer} from './generated/MySqlLexer';
 import {parseQuery, parseQueryWithoutCursor} from '../../shared/autocomplete';
 import {separateQueryAndCursor} from '../../shared/parse-query-with-cursor';
 import {
@@ -24,8 +25,21 @@ export interface MySqlAutocompleteResult extends SqlAutocompleteResult {
     suggestUsers?: boolean;
 }
 
+export interface MySqlParseOptions {
+    // When true, `{{ ... }}` template placeholders are treated as opaque values
+    // instead of raising syntax errors.
+    supportPlaceholders?: boolean;
+}
+
+// `{{ ... }}` placeholders masquerade as a string literal — the broadest value
+// position in the grammar (after `=`, `IN`, `VALUES`, `LIMIT`, etc.).
+function getPlaceholderTokenType(options?: MySqlParseOptions): number | undefined {
+    return options?.supportPlaceholders ? MySqlLexer.STRING_LITERAL : undefined;
+}
+
 export function parseMySqlQueryWithoutCursor(
     query: string,
+    options?: MySqlParseOptions,
 ): Pick<MySqlAutocompleteResult, 'errors'> {
     return parseQueryWithoutCursor(
         mySqlAutocompleteData.Lexer,
@@ -33,10 +47,15 @@ export function parseMySqlQueryWithoutCursor(
         mySqlAutocompleteData.tokenDictionary.SPACE,
         mySqlAutocompleteData.getParseTree,
         query,
+        getPlaceholderTokenType(options),
     );
 }
 
-export function parseMySqlQuery(query: string, cursor: CursorPosition): MySqlAutocompleteResult {
+export function parseMySqlQuery(
+    query: string,
+    cursor: CursorPosition,
+    options?: MySqlParseOptions,
+): MySqlAutocompleteResult {
     return parseQuery(
         mySqlAutocompleteData.Lexer,
         mySqlAutocompleteData.Parser,
@@ -47,11 +66,16 @@ export function parseMySqlQuery(query: string, cursor: CursorPosition): MySqlAut
         mySqlAutocompleteData.enrichAutocompleteResult,
         query,
         cursor,
+        undefined,
+        getPlaceholderTokenType(options),
     );
 }
 
-export function parseMySqlQueryWithCursor(queryWithCursor: string): MySqlAutocompleteResult {
-    return parseMySqlQuery(...separateQueryAndCursor(queryWithCursor));
+export function parseMySqlQueryWithCursor(
+    queryWithCursor: string,
+    options?: MySqlParseOptions,
+): MySqlAutocompleteResult {
+    return parseMySqlQuery(...separateQueryAndCursor(queryWithCursor), options);
 }
 
 export function extractMySqlStatementPositionsFromQuery(

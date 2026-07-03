@@ -19,8 +19,9 @@ export function parseQueryWithoutCursor<L extends LexerType, P extends ParserTyp
     whitespaceToken: number,
     getParseTree: GetParseTree<P>,
     query: string,
+    placeholderTokenType?: number,
 ): Pick<AutocompleteResultBase, 'errors'> {
-    const parser = createParser(Lexer, Parser, query);
+    const parser = createParser(Lexer, Parser, query, placeholderTokenType);
     const errorListener = new SqlErrorListener(whitespaceToken);
 
     parser.removeErrorListeners();
@@ -47,8 +48,9 @@ export function parseQuery<
     query: string,
     cursor: CursorPosition,
     context?: ParserRuleContext,
+    placeholderTokenType?: number,
 ): A {
-    const parser = createParser(Lexer, Parser, query);
+    const parser = createParser(Lexer, Parser, query, placeholderTokenType);
     const {tokenStream} = parser;
     const errorListener = new SqlErrorListener(whitespaceToken);
 
