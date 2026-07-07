@@ -99,4 +99,32 @@ describe('mysql template placeholders {{ ... }}', () => {
             expect(errors.every((error) => !error.message.includes('STRING_LITERAL'))).toBe(true);
         });
     });
+
+    describe('a syntax error after a valid placeholder keeps the real position', () => {
+        test('error is anchored on the offending token, not shifted by the placeholder', () => {
+            // The placeholder sits in a valid value position (`id = {{test_id}}`),
+            // so it must not itself raise an error. The syntax error is `beta`, a
+            // stray token dangling after `AND alpha`.
+            const query = 'SELECT * FROM users WHERE id = {{test_id}} AND alpha beta';
+            const {errors} = parseMySqlQueryWithoutCursor(query, OPTIONS);
+
+            // `{{test_id}}` is 11 characters wide. If the placeholder substitution
+            // shifted downstream coordinates, `beta`'s column would no longer line
+            // up with its raw offset in the original string — so this offset check
+            // is exactly what proves positions stay put.
+            const errorStart = query.indexOf('beta');
+
+            expect(errors.length).toBeGreaterThan(0);
+            expect(
+                errors.some(
+                    (error) =>
+                        error.startColumn === errorStart &&
+                        error.endColumn === errorStart + 'beta'.length,
+                ),
+            ).toBe(true);
+
+            // The placeholder never leaks its STRING_LITERAL masquerade into the message.
+            expect(errors.every((error) => !error.message.includes('STRING_LITERAL'))).toBe(true);
+        });
+    });
 });
