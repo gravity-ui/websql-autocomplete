@@ -7,23 +7,43 @@ import {
     parseMySqlQueryWithoutCursor,
 } from '../index';
 
-import {PlaceholderTokenSource} from '../../../shared/placeholder-token-source';
+import {PlaceholderInfo, PlaceholderTokenSource} from '../../../shared/placeholder-token-source';
 
 // `{{ ... }}` placeholders masquerade as a value token, choosing per position:
 // a string literal where one is expected, a numeric literal in numeric-only spots
 // (e.g. LIMIT). The token source asks `getMySqlParserExpectedTokens` at each `{{`
 // to pick a valid masquerade type; string is preferred when both fit.
+const MASQUERADE_FILLERS = {
+    [MySqlLexer.STRING_LITERAL]: "'x'",
+    [MySqlLexer.DECIMAL_LITERAL]: '1',
+};
+
 const createTokenSource: CreateTokenSource = (lexer) =>
-    new PlaceholderTokenSource(
-        lexer,
-        {
-            [MySqlLexer.STRING_LITERAL]: "'x'",
-            [MySqlLexer.DECIMAL_LITERAL]: '1',
-        },
-        getMySqlParserExpectedTokens,
-    );
+    new PlaceholderTokenSource(lexer, MASQUERADE_FILLERS, getMySqlParserExpectedTokens);
 
 const OPTIONS: MySqlParseOptions = {createTokenSource};
+
+// Parses `query` and hands back the placeholders the token source actually
+// substituted (only the valid ones — a `{{ ... }}` in a position where no masquerade
+// fits is left raw and never recorded), in document order, alongside parse errors.
+function parseAndExtractPlaceholders(query: string): {
+    errors: ReturnType<typeof parseMySqlQueryWithoutCursor>['errors'];
+    placeholders: PlaceholderInfo[];
+} {
+    let tokenSource: PlaceholderTokenSource | undefined;
+    const {errors} = parseMySqlQueryWithoutCursor(query, {
+        createTokenSource: (lexer) => {
+            tokenSource = new PlaceholderTokenSource(
+                lexer,
+                MASQUERADE_FILLERS,
+                getMySqlParserExpectedTokens,
+            );
+            return tokenSource;
+        },
+    });
+
+    return {errors, placeholders: Array.from(tokenSource?.placeholders.values() ?? [])};
+}
 
 describe('mysql template placeholders {{ ... }}', () => {
     describe('valid positions parse without errors', () => {
@@ -176,6 +196,75 @@ describe('mysql template placeholders {{ ... }}', () => {
 
             // The placeholder never leaks its STRING_LITERAL masquerade into the message.
             expect(errors.every((error) => !error.message.includes('STRING_LITERAL'))).toBe(true);
+        });
+    });
+
+    describe('extracting substituted placeholders', () => {
+        test('recovers the name and the exact original offsets', () => {
+            const query = 'SELECT * FROM users WHERE id = {{user_id}}';
+            const {errors, placeholders} = parseAndExtractPlaceholders(query);
+
+            expect(errors).toHaveLength(0);
+            expect(placeholders).toHaveLength(1);
+            expect(placeholders[0]).toMatchObject({
+                name: 'user_id',
+                // `start`/`stop` are inclusive offsets of the first `{` and last `}`
+                // in the *original* text, so they point straight back at the source.
+                start: query.indexOf('{{'),
+                stop: query.indexOf('}}') + 1,
+                masqueradeTokenType: MySqlLexer.STRING_LITERAL,
+            });
+        });
+
+        test('trims whitespace around the name', () => {
+            const {placeholders} = parseAndExtractPlaceholders(
+                'SELECT * FROM users WHERE id = {{  user_id  }}',
+            );
+
+            expect(placeholders.map((placeholder) => placeholder.name)).toEqual(['user_id']);
+        });
+
+        test('extracts several placeholders in document order', () => {
+            const {placeholders} = parseAndExtractPlaceholders(
+                'SELECT * FROM users WHERE id = {{first}} AND status = {{second}}',
+            );
+
+            expect(placeholders.map((placeholder) => placeholder.name)).toEqual([
+                'first',
+                'second',
+            ]);
+        });
+
+        test('records the masquerade type chosen per position', () => {
+            const {placeholders} = parseAndExtractPlaceholders(
+                'SELECT * FROM t WHERE a = {{value}} LIMIT {{count}}',
+            );
+
+            // The value position becomes a string literal, the LIMIT position a number.
+            expect(placeholders.map((placeholder) => placeholder.masqueradeTokenType)).toEqual([
+                MySqlLexer.STRING_LITERAL,
+                MySqlLexer.DECIMAL_LITERAL,
+            ]);
+        });
+
+        test('a placeholder inside a string literal is not extracted', () => {
+            const {errors, placeholders} = parseAndExtractPlaceholders(
+                "SELECT * FROM users WHERE name = 'hello {{user}} world'",
+            );
+
+            expect(errors).toHaveLength(0);
+            expect(placeholders).toHaveLength(0);
+        });
+
+        test('a placeholder in an invalid position is left raw and not extracted', () => {
+            const {errors, placeholders} = parseAndExtractPlaceholders(
+                'SELECT * FROM t GROUP {{by}}',
+            );
+
+            // Only substituted (valid) placeholders are recorded; the raw one surfaces
+            // as a parse error instead.
+            expect(placeholders).toHaveLength(0);
+            expect(errors.length).toBeGreaterThan(0);
         });
     });
 });

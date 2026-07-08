@@ -1,5 +1,5 @@
 import {CreateTokenSource} from '../../../shared/autocomplete-types';
-import {PlaceholderTokenSource} from '../../../shared/placeholder-token-source';
+import {PlaceholderInfo, PlaceholderTokenSource} from '../../../shared/placeholder-token-source';
 import {PostgreSqlLexer} from '../generated/PostgreSqlLexer';
 import {
     PostgreSqlParseOptions,
@@ -12,17 +12,37 @@ import {
 // a string constant where one is expected, an integer literal in numeric-only spots
 // (e.g. SET STATISTICS). The token source asks `getPostgreSqlParserExpectedTokens`
 // at each `{{` to pick a valid masquerade type; string is preferred when both fit.
+const MASQUERADE_FILLERS = {
+    [PostgreSqlLexer.StringConstant]: "'x'",
+    [PostgreSqlLexer.Integral]: '1',
+};
+
 const createTokenSource: CreateTokenSource = (lexer) =>
-    new PlaceholderTokenSource(
-        lexer,
-        {
-            [PostgreSqlLexer.StringConstant]: "'x'",
-            [PostgreSqlLexer.Integral]: '1',
-        },
-        getPostgreSqlParserExpectedTokens,
-    );
+    new PlaceholderTokenSource(lexer, MASQUERADE_FILLERS, getPostgreSqlParserExpectedTokens);
 
 const OPTIONS: PostgreSqlParseOptions = {createTokenSource};
+
+// Parses `query` and hands back the placeholders the token source actually
+// substituted (only the valid ones — a `{{ ... }}` in a position where no masquerade
+// fits is left raw and never recorded), in document order, alongside parse errors.
+function parseAndExtractPlaceholders(query: string): {
+    errors: ReturnType<typeof parsePostgreSqlQueryWithoutCursor>['errors'];
+    placeholders: PlaceholderInfo[];
+} {
+    let tokenSource: PlaceholderTokenSource | undefined;
+    const {errors} = parsePostgreSqlQueryWithoutCursor(query, {
+        createTokenSource: (lexer) => {
+            tokenSource = new PlaceholderTokenSource(
+                lexer,
+                MASQUERADE_FILLERS,
+                getPostgreSqlParserExpectedTokens,
+            );
+            return tokenSource;
+        },
+    });
+
+    return {errors, placeholders: Array.from(tokenSource?.placeholders.values() ?? [])};
+}
 
 describe('postgresql template placeholders {{ ... }}', () => {
     describe('valid positions parse without errors', () => {
@@ -203,6 +223,74 @@ describe('postgresql template placeholders {{ ... }}', () => {
 
             // The placeholder never leaks its StringConstant masquerade into the message.
             expect(errors.every((error) => !error.message.includes('StringConstant'))).toBe(true);
+        });
+    });
+
+    describe('extracting substituted placeholders', () => {
+        test('recovers the name and the exact original offsets', () => {
+            const query = 'SELECT * FROM users WHERE id = {{user_id}}';
+            const {errors, placeholders} = parseAndExtractPlaceholders(query);
+
+            expect(errors).toHaveLength(0);
+            expect(placeholders).toHaveLength(1);
+            expect(placeholders[0]).toMatchObject({
+                name: 'user_id',
+                // `start`/`stop` are inclusive offsets of the first `{` and last `}`
+                // in the *original* text, so they point straight back at the source.
+                start: query.indexOf('{{'),
+                stop: query.indexOf('}}') + 1,
+                masqueradeTokenType: PostgreSqlLexer.StringConstant,
+            });
+        });
+
+        test('trims whitespace around the name', () => {
+            const {placeholders} = parseAndExtractPlaceholders(
+                'SELECT * FROM users WHERE id = {{  user_id  }}',
+            );
+
+            expect(placeholders.map((placeholder) => placeholder.name)).toEqual(['user_id']);
+        });
+
+        test('extracts several placeholders in document order', () => {
+            const {placeholders} = parseAndExtractPlaceholders(
+                'SELECT * FROM t WHERE a = {{first}} AND b = {{second}}',
+            );
+
+            expect(placeholders.map((placeholder) => placeholder.name)).toEqual([
+                'first',
+                'second',
+            ]);
+        });
+
+        test('records the masquerade type chosen per position', () => {
+            const {placeholders} = parseAndExtractPlaceholders(
+                'CREATE SEQUENCE s INCREMENT BY {{step}} START WITH {{start}}',
+            );
+
+            // Both sit in numeric-only positions, so both were substituted as integers.
+            expect(
+                placeholders.map((placeholder) => placeholder.masqueradeTokenType),
+            ).toEqual([PostgreSqlLexer.Integral, PostgreSqlLexer.Integral]);
+        });
+
+        test('a placeholder inside a string literal is not extracted', () => {
+            const {errors, placeholders} = parseAndExtractPlaceholders(
+                "SELECT * FROM users WHERE name = 'hello {{user}} world'",
+            );
+
+            expect(errors).toHaveLength(0);
+            expect(placeholders).toHaveLength(0);
+        });
+
+        test('a placeholder in an invalid position is left raw and not extracted', () => {
+            const {errors, placeholders} = parseAndExtractPlaceholders(
+                'SELECT * FROM t GROUP {{by}}',
+            );
+
+            // Only substituted (valid) placeholders are recorded; the raw one surfaces
+            // as a parse error instead.
+            expect(placeholders).toHaveLength(0);
+            expect(errors.length).toBeGreaterThan(0);
         });
     });
 });
