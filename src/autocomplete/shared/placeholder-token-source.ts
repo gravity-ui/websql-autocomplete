@@ -5,17 +5,27 @@ import {CursorPosition} from './autocomplete-types';
 const OPENING_BRACE = 0x7b; // {
 const CLOSING_BRACE = 0x7d; // }
 
-// Maps each native token type a placeholder may masquerade as to a literal of that
-// type (e.g. `StringConstant -> "'x'"`, `Integral -> '1'`). Two roles:
-// - At each `{{` the placeholder collapses into whichever key the grammar expects
-//   at that position. When several keys fit, the lowest token id wins (plain JS
-//   object key order); this never affects parse validity, since any key the grammar
-//   expects there is by definition valid there.
-// - The literal stands in for an *already-substituted* placeholder when a later
+// One native token type a placeholder may masquerade as, paired with a literal of
+// that type (e.g. `StringConstant`/`"'x'"`, `Integral`/`'1'`). The `filler` has two
+// roles:
+// - At each `{{` the placeholder collapses into this token type when the grammar
+//   expects it at that position.
+// - The `filler` stands in for an *already-substituted* placeholder when a later
 //   position is re-inspected, so it only has to be a syntactically valid literal of
 //   that type. Its width need not match the original `{{ ... }}` — the cursor is
 //   recomputed from the masked text, so coordinates cannot drift.
-export type MasqueradeFillers = Record<number, string>;
+export interface MasqueradeToken {
+    tokenType: number;
+    filler: string;
+}
+
+// The ordered list of token types a placeholder may masquerade as. At each `{{` the
+// placeholder collapses into the first entry whose token type the grammar expects at
+// that position, so the order is the precedence — list the string type before the
+// numeric one to prefer a string wherever both fit. Precedence never affects parse
+// validity: any type the grammar expects there is by definition valid there. (Order
+// matters because it must not hinge on token-id magnitude, which differs per dialect.)
+export type MasqueradeFillers = MasqueradeToken[];
 
 // The 1-based line/column just past the end of `text` — i.e. where the next token
 // (the `{{`) begins. Derived from the (masked) prefix itself, so it stays correct
@@ -42,8 +52,8 @@ export interface PlaceholderInfo {
 /**
  * Wraps a generated ANTLR lexer and collapses `{{ ... }}` template placeholders
  * into a single synthetic token. The token masquerades as one of several native
- * token types (the keys of `masqueradeTokens`) — at each `{{` it picks whichever
- * of them the grammar actually expects at that position, so the unchanged grammar
+ * token types (the entries of `masqueradeTokens`) — at each `{{` it picks the first
+ * one the grammar actually expects at that position, so the unchanged grammar
  * accepts the placeholder wherever any of those types is valid.
  *
  * Key properties:
@@ -61,9 +71,9 @@ export class PlaceholderTokenSource implements TokenSource {
 
     constructor(
         private readonly lexer: Lexer,
-        // Native token types the placeholder may stand in for, each paired with a
-        // literal of that type. At each `{{` the placeholder collapses into whichever
-        // key the grammar expects at that position; if none is expected it is left alone.
+        // Ordered token types the placeholder may stand in for, each paired with a
+        // literal of that type. At each `{{` the placeholder collapses into the first
+        // one the grammar expects at that position; if none is expected it is left alone.
         private readonly masqueradeTokens: MasqueradeFillers,
         // Reports the token types the grammar expects at a given position, used to
         // choose the masquerade type from `masqueradeTokens`.
@@ -108,10 +118,9 @@ export class PlaceholderTokenSource implements TokenSource {
 
         const expectedTokens = this.getExpectedTokens(maskedPrefix, endCursorOf(maskedPrefix));
 
-        for (const tokenType of Object.keys(this.masqueradeTokens)) {
-            const tokenTypeNumber = Number(tokenType);
-            if (expectedTokens.includes(tokenTypeNumber)) {
-                return tokenTypeNumber;
+        for (const {tokenType} of this.masqueradeTokens) {
+            if (expectedTokens.includes(tokenType)) {
+                return tokenType;
             }
         }
 
@@ -138,9 +147,10 @@ export class PlaceholderTokenSource implements TokenSource {
                 break;
             }
             const end = Math.min(stop, prefix.length - 1);
-            const filler = this.masqueradeTokens[masqueradeTokenType];
-            result +=
-                prefix.slice(cursor, start) + (filler ?? prefix.slice(start, end + 1));
+            const filler = this.masqueradeTokens.find(
+                (token) => token.tokenType === masqueradeTokenType,
+            )?.filler;
+            result += prefix.slice(cursor, start) + (filler ?? prefix.slice(start, end + 1));
             cursor = end + 1;
         }
         result += prefix.slice(cursor);

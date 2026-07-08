@@ -1,42 +1,41 @@
 import {CreateTokenSource} from '../../../shared/autocomplete-types';
 import {PlaceholderInfo, PlaceholderTokenSource} from '../../../shared/placeholder-token-source';
-import {PostgreSqlLexer} from '../generated/PostgreSqlLexer';
+import {ClickHouseLexer} from '../generated/ClickHouseLexer';
 import {
-    PostgreSqlParseOptions,
-    getPostgreSqlParserExpectedTokens,
-    parsePostgreSqlQueryWithCursor,
-    parsePostgreSqlQueryWithoutCursor,
+    ClickHouseParseOptions,
+    getClickHouseParserExpectedTokens,
+    parseClickHouseQueryWithCursor,
+    parseClickHouseQueryWithoutCursor,
 } from '../index';
 
 // `{{ ... }}` placeholders masquerade as a value token, choosing per position:
-// a string constant where one is expected, an integer literal in numeric-only spots
-// (e.g. SET STATISTICS). The token source asks `getPostgreSqlParserExpectedTokens`
-// at each `{{` to pick a valid masquerade type; string comes first, so it is preferred
-// when both fit.
+// a string literal where one is expected, a decimal literal in numeric-only spots
+// (e.g. TOP). The token source asks `getClickHouseParserExpectedTokens` at each `{{`
+// to pick a valid masquerade type; string comes first, so it is preferred when both fit.
 const MASQUERADE_FILLERS = [
-    {tokenType: PostgreSqlLexer.StringConstant, filler: "'x'"},
-    {tokenType: PostgreSqlLexer.Integral, filler: '1'},
+    {tokenType: ClickHouseLexer.STRING_LITERAL, filler: "'x'"},
+    {tokenType: ClickHouseLexer.DECIMAL_LITERAL, filler: '1'},
 ];
 
 const createTokenSource: CreateTokenSource = (lexer) =>
-    new PlaceholderTokenSource(lexer, MASQUERADE_FILLERS, getPostgreSqlParserExpectedTokens);
+    new PlaceholderTokenSource(lexer, MASQUERADE_FILLERS, getClickHouseParserExpectedTokens);
 
-const OPTIONS: PostgreSqlParseOptions = {createTokenSource};
+const OPTIONS: ClickHouseParseOptions = {createTokenSource};
 
 // Parses `query` and hands back the placeholders the token source actually
 // substituted (only the valid ones — a `{{ ... }}` in a position where no masquerade
 // fits is left raw and never recorded), in document order, alongside parse errors.
 function parseAndExtractPlaceholders(query: string): {
-    errors: ReturnType<typeof parsePostgreSqlQueryWithoutCursor>['errors'];
+    errors: ReturnType<typeof parseClickHouseQueryWithoutCursor>['errors'];
     placeholders: PlaceholderInfo[];
 } {
     let tokenSource: PlaceholderTokenSource | undefined;
-    const {errors} = parsePostgreSqlQueryWithoutCursor(query, {
+    const {errors} = parseClickHouseQueryWithoutCursor(query, {
         createTokenSource: (lexer) => {
             tokenSource = new PlaceholderTokenSource(
                 lexer,
                 MASQUERADE_FILLERS,
-                getPostgreSqlParserExpectedTokens,
+                getClickHouseParserExpectedTokens,
             );
             return tokenSource;
         },
@@ -45,10 +44,10 @@ function parseAndExtractPlaceholders(query: string): {
     return {errors, placeholders: Array.from(tokenSource?.placeholders.values() ?? [])};
 }
 
-describe('postgresql template placeholders {{ ... }}', () => {
+describe('clickhouse template placeholders {{ ... }}', () => {
     describe('valid positions parse without errors', () => {
         test('value position after `=`', () => {
-            const {errors} = parsePostgreSqlQueryWithoutCursor(
+            const {errors} = parseClickHouseQueryWithoutCursor(
                 'SELECT * FROM users WHERE id = {{user_id}}',
                 OPTIONS,
             );
@@ -57,7 +56,7 @@ describe('postgresql template placeholders {{ ... }}', () => {
         });
 
         test('several placeholders in one query', () => {
-            const {errors} = parsePostgreSqlQueryWithoutCursor(
+            const {errors} = parseClickHouseQueryWithoutCursor(
                 'SELECT * FROM users WHERE id = {{user_id}} AND status = {{status}}',
                 OPTIONS,
             );
@@ -66,12 +65,12 @@ describe('postgresql template placeholders {{ ... }}', () => {
         });
 
         test('a numeric-position placeholder precedes another placeholder', () => {
-            // `{{step}}` sits in a numeric-only position (INCREMENT BY), so when the
-            // second placeholder is resolved the first must be masked as the integer it
-            // became — not a string, which INCREMENT BY rejects and which would break
-            // recovery and leave `{{start}}` unsubstituted.
-            const {errors} = parsePostgreSqlQueryWithoutCursor(
-                'CREATE SEQUENCE s INCREMENT BY {{step}} START WITH {{start}}',
+            // `{{n}}` sits in a numeric-only position (TOP), so when the second
+            // placeholder is resolved the first must be masked as the integer it became —
+            // not a string, which TOP rejects and which would break recovery and leave
+            // `{{user_id}}` unsubstituted.
+            const {errors} = parseClickHouseQueryWithoutCursor(
+                'SELECT TOP {{n}} * FROM users WHERE id = {{user_id}}',
                 OPTIONS,
             );
 
@@ -79,7 +78,7 @@ describe('postgresql template placeholders {{ ... }}', () => {
         });
 
         test('inside an IN list', () => {
-            const {errors} = parsePostgreSqlQueryWithoutCursor(
+            const {errors} = parseClickHouseQueryWithoutCursor(
                 'SELECT * FROM users WHERE id IN ({{ids}})',
                 OPTIONS,
             );
@@ -88,7 +87,7 @@ describe('postgresql template placeholders {{ ... }}', () => {
         });
 
         test('placeholder inside a string literal is left untouched', () => {
-            const {errors} = parsePostgreSqlQueryWithoutCursor(
+            const {errors} = parseClickHouseQueryWithoutCursor(
                 "SELECT * FROM users WHERE name = 'hello {{user}} world'",
                 OPTIONS,
             );
@@ -96,21 +95,21 @@ describe('postgresql template placeholders {{ ... }}', () => {
             expect(errors).toHaveLength(0);
         });
 
-        test('numeric-only position after SET STATISTICS (masquerades as a number)', () => {
-            // `SET STATISTICS` expects a bare integer (`signedIconst`) and rejects a
-            // string, so the placeholder must masquerade as `Integral`, not a string.
-            const {errors} = parsePostgreSqlQueryWithoutCursor(
-                'ALTER TABLE t ALTER COLUMN c SET STATISTICS {{count}}',
+        test('numeric-only position after TOP (masquerades as a number)', () => {
+            // `SELECT TOP` expects a bare `DECIMAL_LITERAL` and rejects a string, so the
+            // placeholder must masquerade as a number, not a string.
+            const {errors} = parseClickHouseQueryWithoutCursor(
+                'SELECT TOP {{count}} * FROM t',
                 OPTIONS,
             );
 
             expect(errors).toHaveLength(0);
         });
 
-        test('LIMIT accepts an expression, so the placeholder masquerades as a string', () => {
-            // Unlike MySQL, PostgreSQL `LIMIT` takes a full expression, so a string
-            // constant is valid here and the (preferred) string masquerade parses.
-            const {errors} = parsePostgreSqlQueryWithoutCursor(
+        test('LIMIT accepts a string too, so the placeholder masquerades as a string', () => {
+            // Unlike TOP, ClickHouse `LIMIT` accepts a string literal as well, so the
+            // (preferred) string masquerade is valid here and parses.
+            const {errors} = parseClickHouseQueryWithoutCursor(
                 'SELECT * FROM t LIMIT {{count}}',
                 OPTIONS,
             );
@@ -121,9 +120,9 @@ describe('postgresql template placeholders {{ ... }}', () => {
         test('multi-word content collapses into a single value token', () => {
             // Without substitution `first last` would be two dangling tokens and the
             // query would fail to parse; collapsing the placeholder into one string
-            // constant keeps it valid — proof the substitution actually happens rather
+            // literal keeps it valid — proof the substitution actually happens rather
             // than the (invisible) braces simply being dropped.
-            const {errors} = parsePostgreSqlQueryWithoutCursor(
+            const {errors} = parseClickHouseQueryWithoutCursor(
                 'SELECT * FROM users WHERE name = {{first last}}',
                 OPTIONS,
             );
@@ -134,7 +133,7 @@ describe('postgresql template placeholders {{ ... }}', () => {
 
     describe('autocomplete after a placeholder', () => {
         test('suggests continuation keywords right after a placeholder', () => {
-            const result = parsePostgreSqlQueryWithCursor(
+            const result = parseClickHouseQueryWithCursor(
                 'SELECT * FROM users WHERE id = {{user_id}} |',
                 OPTIONS,
             );
@@ -148,7 +147,7 @@ describe('postgresql template placeholders {{ ... }}', () => {
         });
 
         test('suggests tables after FROM even when a placeholder precedes it', () => {
-            const result = parsePostgreSqlQueryWithCursor('SELECT {{col}} FROM |', OPTIONS);
+            const result = parseClickHouseQueryWithCursor('SELECT {{col}} FROM |', OPTIONS);
 
             expect(result.suggestViewsOrTables).toBeDefined();
         });
@@ -160,22 +159,20 @@ describe('postgresql template placeholders {{ ... }}', () => {
         // consults to pick the masquerade type.
         function expectedAtPlaceholder(query: string): number[] {
             const prefix = query.slice(0, query.indexOf('{{'));
-            return getPostgreSqlParserExpectedTokens(prefix, {line: 1, column: prefix.length + 1});
+            return getClickHouseParserExpectedTokens(prefix, {line: 1, column: prefix.length + 1});
         }
 
-        test('a value position expects a string constant', () => {
+        test('a value position expects a string literal', () => {
             const expected = expectedAtPlaceholder('SELECT * FROM users WHERE id = {{user_id}}');
 
-            expect(expected).toContain(PostgreSqlLexer.StringConstant);
+            expect(expected).toContain(ClickHouseLexer.STRING_LITERAL);
         });
 
-        test('the SET STATISTICS position expects an integer but not a string', () => {
-            const expected = expectedAtPlaceholder(
-                'ALTER TABLE t ALTER COLUMN c SET STATISTICS {{count}}',
-            );
+        test('the TOP position expects a decimal literal but not a string', () => {
+            const expected = expectedAtPlaceholder('SELECT TOP {{count}} * FROM t');
 
-            expect(expected).toContain(PostgreSqlLexer.Integral);
-            expect(expected).not.toContain(PostgreSqlLexer.StringConstant);
+            expect(expected).toContain(ClickHouseLexer.DECIMAL_LITERAL);
+            expect(expected).not.toContain(ClickHouseLexer.STRING_LITERAL);
         });
     });
 
@@ -184,46 +181,46 @@ describe('postgresql template placeholders {{ ... }}', () => {
             const query = 'SELECT * FROM t GROUP {{by}}';
             const prefix = query.slice(0, query.indexOf('{{'));
 
-            // Neither a string nor an integer literal is valid right after GROUP, so the
+            // Neither a string nor a decimal literal is valid right after GROUP, so the
             // token source finds no masquerade and leaves the raw braces in place.
-            const expected = getPostgreSqlParserExpectedTokens(prefix, {
+            const expected = getClickHouseParserExpectedTokens(prefix, {
                 line: 1,
                 column: prefix.length + 1,
             });
-            expect(expected).not.toContain(PostgreSqlLexer.StringConstant);
-            expect(expected).not.toContain(PostgreSqlLexer.Integral);
+            expect(expected).not.toContain(ClickHouseLexer.STRING_LITERAL);
+            expect(expected).not.toContain(ClickHouseLexer.DECIMAL_LITERAL);
 
             // As a result the query no longer parses cleanly.
-            const {errors} = parsePostgreSqlQueryWithoutCursor(query, OPTIONS);
+            const {errors} = parseClickHouseQueryWithoutCursor(query, OPTIONS);
             expect(errors.length).toBeGreaterThan(0);
         });
     });
 
     describe('a syntax error after a valid placeholder keeps the real position', () => {
         test('error is anchored on the offending token, not shifted by the placeholder', () => {
-            // The placeholder sits in a valid value position (`id = {{test_id}}`),
-            // so it must not itself raise an error. The syntax error is `beta`, a
-            // stray token dangling after `AND alpha`.
-            const query = 'SELECT * FROM users WHERE id = {{test_id}} AND alpha beta';
-            const {errors} = parsePostgreSqlQueryWithoutCursor(query, OPTIONS);
+            // The placeholder sits in a valid value position (`id = {{test_id}}`), so it
+            // must not itself raise an error. The syntax error is `zzz`, a stray token
+            // dangling after `ORDER` (where `BY` is required).
+            const query = 'SELECT * FROM users WHERE id = {{test_id}} ORDER zzz';
+            const {errors} = parseClickHouseQueryWithoutCursor(query, OPTIONS);
 
             // `{{test_id}}` is 11 characters wide. If the placeholder substitution
-            // shifted downstream coordinates, `beta`'s column would no longer line
-            // up with its raw offset in the original string — so this offset check
-            // is exactly what proves positions stay put.
-            const errorStart = query.indexOf('beta');
+            // shifted downstream coordinates, `zzz`'s column would no longer line up
+            // with its raw offset in the original string — so this offset check is
+            // exactly what proves positions stay put.
+            const errorStart = query.indexOf('zzz');
 
             expect(errors.length).toBeGreaterThan(0);
             expect(
                 errors.some(
                     (error) =>
                         error.startColumn === errorStart &&
-                        error.endColumn === errorStart + 'beta'.length,
+                        error.endColumn === errorStart + 'zzz'.length,
                 ),
             ).toBe(true);
 
-            // The placeholder never leaks its StringConstant masquerade into the message.
-            expect(errors.every((error) => !error.message.includes('StringConstant'))).toBe(true);
+            // The placeholder never leaks its STRING_LITERAL masquerade into the message.
+            expect(errors.every((error) => !error.message.includes('STRING_LITERAL'))).toBe(true);
         });
     });
 
@@ -240,7 +237,7 @@ describe('postgresql template placeholders {{ ... }}', () => {
                 // in the *original* text, so they point straight back at the source.
                 start: query.indexOf('{{'),
                 stop: query.indexOf('}}') + 1,
-                masqueradeTokenType: PostgreSqlLexer.StringConstant,
+                masqueradeTokenType: ClickHouseLexer.STRING_LITERAL,
             });
         });
 
@@ -254,7 +251,7 @@ describe('postgresql template placeholders {{ ... }}', () => {
 
         test('extracts several placeholders in document order', () => {
             const {placeholders} = parseAndExtractPlaceholders(
-                'SELECT * FROM t WHERE a = {{first}} AND b = {{second}}',
+                'SELECT * FROM users WHERE id = {{first}} AND status = {{second}}',
             );
 
             expect(placeholders.map((placeholder) => placeholder.name)).toEqual([
@@ -265,13 +262,14 @@ describe('postgresql template placeholders {{ ... }}', () => {
 
         test('records the masquerade type chosen per position', () => {
             const {placeholders} = parseAndExtractPlaceholders(
-                'CREATE SEQUENCE s INCREMENT BY {{step}} START WITH {{start}}',
+                'SELECT TOP {{count}} * FROM t WHERE a = {{value}}',
             );
 
-            // Both sit in numeric-only positions, so both were substituted as integers.
-            expect(
-                placeholders.map((placeholder) => placeholder.masqueradeTokenType),
-            ).toEqual([PostgreSqlLexer.Integral, PostgreSqlLexer.Integral]);
+            // The TOP position is numeric-only (a decimal), the value position a string.
+            expect(placeholders.map((placeholder) => placeholder.masqueradeTokenType)).toEqual([
+                ClickHouseLexer.DECIMAL_LITERAL,
+                ClickHouseLexer.STRING_LITERAL,
+            ]);
         });
 
         test('a placeholder inside a string literal is not extracted', () => {

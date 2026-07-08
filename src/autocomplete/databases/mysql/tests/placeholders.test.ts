@@ -12,11 +12,11 @@ import {PlaceholderInfo, PlaceholderTokenSource} from '../../../shared/placehold
 // `{{ ... }}` placeholders masquerade as a value token, choosing per position:
 // a string literal where one is expected, a numeric literal in numeric-only spots
 // (e.g. LIMIT). The token source asks `getMySqlParserExpectedTokens` at each `{{`
-// to pick a valid masquerade type; string is preferred when both fit.
-const MASQUERADE_FILLERS = {
-    [MySqlLexer.STRING_LITERAL]: "'x'",
-    [MySqlLexer.DECIMAL_LITERAL]: '1',
-};
+// to pick a valid masquerade type; string comes first, so it is preferred when both fit.
+const MASQUERADE_FILLERS = [
+    {tokenType: MySqlLexer.STRING_LITERAL, filler: "'x'"},
+    {tokenType: MySqlLexer.DECIMAL_LITERAL, filler: '1'},
+];
 
 const createTokenSource: CreateTokenSource = (lexer) =>
     new PlaceholderTokenSource(lexer, MASQUERADE_FILLERS, getMySqlParserExpectedTokens);
