@@ -6,6 +6,7 @@ import {
     ParseTree,
     ParserRuleContext,
     Parser as ParserType,
+    TokenSource,
     TokenStream,
 } from 'antlr4ng';
 import * as c3 from 'antlr4-c3';
@@ -79,6 +80,11 @@ export interface VariableSuggestion {
 export type LexerConstructor<T> = new (input: CharStream) => T;
 
 export type ParserConstructor<T> = new (input: CommonTokenStream) => T;
+
+// A factory that wraps the base lexer to intercept or rewrite tokens before they
+// reach the parser (e.g. collapsing template placeholders into a single token).
+// Returns the token source the parser should read from.
+export type CreateTokenSource = (lexer: LexerType) => TokenSource;
 
 export type SymbolTableVisitorConstructor<T> = new () => T;
 

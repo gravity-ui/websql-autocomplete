@@ -1,5 +1,6 @@
 import {
     AutocompleteResultBase,
+    CreateTokenSource,
     CursorPosition,
     EnrichAutocompleteResult,
     GetParseTree,
@@ -19,9 +20,9 @@ export function parseQueryWithoutCursor<L extends LexerType, P extends ParserTyp
     whitespaceToken: number,
     getParseTree: GetParseTree<P>,
     query: string,
-    placeholderTokenType?: number,
+    createTokenSource?: CreateTokenSource,
 ): Pick<AutocompleteResultBase, 'errors'> {
-    const parser = createParser(Lexer, Parser, query, placeholderTokenType);
+    const parser = createParser(Lexer, Parser, query, createTokenSource);
     const errorListener = new SqlErrorListener(whitespaceToken);
 
     parser.removeErrorListeners();
@@ -32,6 +33,46 @@ export function parseQueryWithoutCursor<L extends LexerType, P extends ParserTyp
 }
 
 const quotesRegex = /^'(.*)'$/;
+
+// Collects the raw token types the grammar expects at the cursor position and
+// returns them. This is the same candidate collection `parseQuery` runs, exposed
+// on its own so callers can inspect which tokens are valid at a given point —
+// e.g. to decide which native token a `{{ ... }}` placeholder should masquerade
+// as instead of hardcoding one.
+export function getExpectedTokens<L extends LexerType, P extends ParserType>(
+    Lexer: LexerConstructor<L>,
+    Parser: ParserConstructor<P>,
+    whitespaceToken: number,
+    ignoredTokens: Set<number>,
+    rulesToVisit: Set<number>,
+    getParseTree: GetParseTree<P>,
+    query: string,
+    cursor: CursorPosition,
+    context?: ParserRuleContext,
+    createTokenSource?: CreateTokenSource,
+): number[] {
+    const parser = createParser(Lexer, Parser, query, createTokenSource);
+    const {tokenStream} = parser;
+
+    parser.removeErrorListeners();
+    getParseTree(parser);
+
+    const core = new c3.CodeCompletionCore(parser);
+    core.ignoredTokens = ignoredTokens;
+    core.preferredRules = rulesToVisit;
+
+    const cursorTokenIndex = findCursorTokenIndex(tokenStream, cursor, whitespaceToken);
+
+    if (cursorTokenIndex === undefined) {
+        throw new Error(
+            `Could not find cursor token index for line: ${cursor.line}, column: ${cursor.column}`,
+        );
+    }
+
+    const {tokens} = core.collectCandidates(cursorTokenIndex, context);
+
+    return Array.from(tokens.keys());
+}
 
 export function parseQuery<
     A extends AutocompleteResultBase,
@@ -48,9 +89,9 @@ export function parseQuery<
     query: string,
     cursor: CursorPosition,
     context?: ParserRuleContext,
-    placeholderTokenType?: number,
+    createTokenSource?: CreateTokenSource,
 ): A {
-    const parser = createParser(Lexer, Parser, query, placeholderTokenType);
+    const parser = createParser(Lexer, Parser, query, createTokenSource);
     const {tokenStream} = parser;
     const errorListener = new SqlErrorListener(whitespaceToken);
 

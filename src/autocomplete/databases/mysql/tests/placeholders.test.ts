@@ -1,6 +1,26 @@
-import {parseMySqlQueryWithCursor, parseMySqlQueryWithoutCursor} from '../index';
+import {CreateTokenSource} from '../../../shared/autocomplete-types';
+import {MySqlLexer} from '../generated/MySqlLexer';
+import {
+    MySqlParseOptions,
+    getMySqlParserExpectedTokens,
+    parseMySqlQueryWithCursor,
+    parseMySqlQueryWithoutCursor,
+} from '../index';
 
-const OPTIONS = {supportPlaceholders: true} as const;
+import {PlaceholderTokenSource} from './placeholder-token-source';
+
+// `{{ ... }}` placeholders masquerade as a value token, choosing per position:
+// a string literal where one is expected, a numeric literal in numeric-only spots
+// (e.g. LIMIT). The token source asks `getMySqlParserExpectedTokens` at each `{{`
+// to pick a valid masquerade type; string is preferred when both fit.
+const createTokenSource: CreateTokenSource = (lexer) =>
+    new PlaceholderTokenSource(
+        lexer,
+        [MySqlLexer.STRING_LITERAL, MySqlLexer.DECIMAL_LITERAL],
+        getMySqlParserExpectedTokens,
+    );
+
+const OPTIONS: MySqlParseOptions = {createTokenSource};
 
 describe('mysql template placeholders {{ ... }}', () => {
     describe('valid positions parse without errors', () => {
@@ -39,6 +59,28 @@ describe('mysql template placeholders {{ ... }}', () => {
 
             expect(errors).toHaveLength(0);
         });
+
+        test('numeric position after LIMIT (masquerades as a number)', () => {
+            const {errors} = parseMySqlQueryWithoutCursor(
+                'SELECT * FROM t LIMIT {{count}}',
+                OPTIONS,
+            );
+
+            expect(errors).toHaveLength(0);
+        });
+
+        test('multi-word content collapses into a single value token', () => {
+            // Without substitution `first last` would be two dangling tokens and the
+            // query would fail to parse; collapsing the placeholder into one string
+            // literal keeps it valid — proof the substitution actually happens rather
+            // than the (invisible) braces simply being dropped.
+            const {errors} = parseMySqlQueryWithoutCursor(
+                'SELECT * FROM users WHERE name = {{first last}}',
+                OPTIONS,
+            );
+
+            expect(errors).toHaveLength(0);
+        });
     });
 
     describe('autocomplete after a placeholder', () => {
@@ -63,40 +105,46 @@ describe('mysql template placeholders {{ ... }}', () => {
         });
     });
 
-    describe('placeholders in invalid positions raise a valid error on the placeholder', () => {
-        test('placeholder where a keyword is required (GROUP ... BY)', () => {
-            const query = 'SELECT * FROM t GROUP {{by}}';
-            const {errors} = parseMySqlQueryWithoutCursor(query, OPTIONS);
-            const placeholderStart = query.indexOf('{{by}}');
+    describe('the masquerade type is chosen to fit the position', () => {
+        // The expected tokens at the placeholder position are computed from the text
+        // before the `{{`, with the cursor at its end — exactly what the token source
+        // consults to pick the masquerade type.
+        function expectedAtPlaceholder(query: string): number[] {
+            const prefix = query.slice(0, query.indexOf('{{'));
+            return getMySqlParserExpectedTokens(prefix, {line: 1, column: prefix.length + 1});
+        }
 
-            expect(errors.length).toBeGreaterThan(0);
+        test('a value position expects a string literal', () => {
+            const expected = expectedAtPlaceholder('SELECT * FROM users WHERE id = {{user_id}}');
 
-            // The error is anchored on the placeholder's real span (0-based column),
-            // i.e. positions are not shifted by the substitution.
-            expect(errors.some((error) => error.startColumn === placeholderStart)).toBe(true);
-            expect(
-                errors.some(
-                    (error) =>
-                        error.startColumn === placeholderStart &&
-                        error.endColumn === placeholderStart + '{{by}}'.length,
-                ),
-            ).toBe(true);
-
-            // The message blames the placeholder text, and never leaks the
-            // internal STRING_LITERAL masquerade.
-            expect(errors.some((error) => error.message.includes('{{by}}'))).toBe(true);
-            expect(errors.every((error) => !error.message.includes('STRING_LITERAL'))).toBe(true);
+            expect(expected).toContain(MySqlLexer.STRING_LITERAL);
         });
 
-        test('placeholder in the numeric-only LIMIT position', () => {
-            const query = 'SELECT * FROM t LIMIT {{count}}';
-            const {errors} = parseMySqlQueryWithoutCursor(query, OPTIONS);
-            const placeholderStart = query.indexOf('{{count}}');
+        test('the LIMIT position expects a numeric literal but not a string', () => {
+            const expected = expectedAtPlaceholder('SELECT * FROM t LIMIT {{count}}');
 
+            expect(expected).toContain(MySqlLexer.DECIMAL_LITERAL);
+            expect(expected).not.toContain(MySqlLexer.STRING_LITERAL);
+        });
+    });
+
+    describe('a placeholder where no value token fits is left untouched', () => {
+        test('after GROUP a keyword (BY) is required, so the placeholder is not substituted', () => {
+            const query = 'SELECT * FROM t GROUP {{by}}';
+            const prefix = query.slice(0, query.indexOf('{{'));
+
+            // Neither a string nor a numeric literal is valid right after GROUP, so the
+            // token source finds no masquerade and leaves the raw braces in place.
+            const expected = getMySqlParserExpectedTokens(prefix, {
+                line: 1,
+                column: prefix.length + 1,
+            });
+            expect(expected).not.toContain(MySqlLexer.STRING_LITERAL);
+            expect(expected).not.toContain(MySqlLexer.DECIMAL_LITERAL);
+
+            // As a result the query no longer parses cleanly.
+            const {errors} = parseMySqlQueryWithoutCursor(query, OPTIONS);
             expect(errors.length).toBeGreaterThan(0);
-            expect(errors.some((error) => error.startColumn === placeholderStart)).toBe(true);
-            expect(errors.some((error) => error.message.includes('{{count}}'))).toBe(true);
-            expect(errors.every((error) => !error.message.includes('STRING_LITERAL'))).toBe(true);
         });
     });
 

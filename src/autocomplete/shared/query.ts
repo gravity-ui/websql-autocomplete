@@ -1,8 +1,12 @@
 import {CharStream, CommonTokenStream, Lexer as LexerType, Parser as ParserType} from 'antlr4ng';
 
-import {CursorPosition, LexerConstructor, ParserConstructor} from './autocomplete-types';
+import {
+    CreateTokenSource,
+    CursorPosition,
+    LexerConstructor,
+    ParserConstructor,
+} from './autocomplete-types';
 import {getCursorIndex} from './cursor';
-import {PlaceholderTokenSource} from './placeholder-token-source';
 
 export function getCurrentStatement(
     query: string,
@@ -49,16 +53,13 @@ export function createParser<L extends LexerType, P extends ParserType>(
     Lexer: LexerConstructor<L>,
     Parser: ParserConstructor<P>,
     query: string,
-    // When provided, `{{ ... }}` placeholders are collapsed into a single synthetic
-    // token of this native token type, so the unchanged grammar accepts them.
-    placeholderTokenType?: number,
+    // When provided, wraps the base lexer to intercept or rewrite tokens before
+    // they reach the parser. Defaults to reading the raw lexer unchanged.
+    createTokenSource?: CreateTokenSource,
 ): P {
     const inputStream = CharStream.fromString(query);
     const lexer = new Lexer(inputStream);
-    const tokenSource =
-        placeholderTokenType === undefined
-            ? lexer
-            : new PlaceholderTokenSource(lexer, placeholderTokenType);
+    const tokenSource = createTokenSource?.(lexer) ?? lexer;
     const tokenStream = new CommonTokenStream(tokenSource);
     const parser = new Parser(tokenStream);
 

@@ -1,12 +1,12 @@
 import {
     ConstraintSuggestion,
+    CreateTokenSource,
     CursorPosition,
     SqlAutocompleteResult,
     TableOrViewSuggestion,
 } from '../../shared/autocomplete-types';
 import {mySqlAutocompleteData} from './mysql-autocomplete';
-import {MySqlLexer} from './generated/MySqlLexer';
-import {parseQuery, parseQueryWithoutCursor} from '../../shared/autocomplete';
+import {getExpectedTokens, parseQuery, parseQueryWithoutCursor} from '../../shared/autocomplete';
 import {separateQueryAndCursor} from '../../shared/parse-query-with-cursor';
 import {
     ExtractStatementPositionsResult,
@@ -26,15 +26,11 @@ export interface MySqlAutocompleteResult extends SqlAutocompleteResult {
 }
 
 export interface MySqlParseOptions {
-    // When true, `{{ ... }}` template placeholders are treated as opaque values
-    // instead of raising syntax errors.
-    supportPlaceholders?: boolean;
-}
-
-// `{{ ... }}` placeholders masquerade as a string literal — the broadest value
-// position in the grammar (after `=`, `IN`, `VALUES`, `LIMIT`, etc.).
-function getPlaceholderTokenType(options?: MySqlParseOptions): number | undefined {
-    return options?.supportPlaceholders ? MySqlLexer.STRING_LITERAL : undefined;
+    // Wraps the base lexer to intercept or rewrite tokens before they reach the
+    // parser — e.g. collapsing `{{ ... }}` template placeholders into a single
+    // token that masquerades as a native value token. When omitted, the query is
+    // parsed with the unmodified token stream.
+    createTokenSource?: CreateTokenSource;
 }
 
 export function parseMySqlQueryWithoutCursor(
@@ -47,7 +43,7 @@ export function parseMySqlQueryWithoutCursor(
         mySqlAutocompleteData.tokenDictionary.SPACE,
         mySqlAutocompleteData.getParseTree,
         query,
-        getPlaceholderTokenType(options),
+        options?.createTokenSource,
     );
 }
 
@@ -67,7 +63,7 @@ export function parseMySqlQuery(
         query,
         cursor,
         undefined,
-        getPlaceholderTokenType(options),
+        options?.createTokenSource,
     );
 }
 
@@ -76,6 +72,27 @@ export function parseMySqlQueryWithCursor(
     options?: MySqlParseOptions,
 ): MySqlAutocompleteResult {
     return parseMySqlQuery(...separateQueryAndCursor(queryWithCursor), options);
+}
+
+// Returns the raw token types the MySQL grammar expects at `cursor`. Parsed with
+// the plain lexer (no `createTokenSource`), so it is safe to call from within a
+// token source without recursing back into itself.
+//
+// Unlike autocomplete, no `ignoredTokens` are applied: autocomplete hides literals
+// and identifiers (the `VAR_ASSIGN..ERROR_RECONGNIGION` range) because they make no
+// sense as suggestions, but those are exactly the tokens we need here to tell, say,
+// a string-literal position from a numeric one.
+export function getMySqlParserExpectedTokens(query: string, cursor: CursorPosition): number[] {
+    return getExpectedTokens(
+        mySqlAutocompleteData.Lexer,
+        mySqlAutocompleteData.Parser,
+        mySqlAutocompleteData.tokenDictionary.SPACE,
+        new Set(),
+        mySqlAutocompleteData.rulesToVisit,
+        mySqlAutocompleteData.getParseTree,
+        query,
+        cursor,
+    );
 }
 
 export function extractMySqlStatementPositionsFromQuery(

@@ -1,5 +1,7 @@
 import {CharStream, Lexer, Token, TokenFactory, TokenSource} from 'antlr4ng';
 
+import {CursorPosition} from '../../../shared/autocomplete-types';
+
 const OPENING_BRACE = 0x7b; // {
 const CLOSING_BRACE = 0x7d; // }
 
@@ -14,9 +16,10 @@ export interface PlaceholderInfo {
 
 /**
  * Wraps a generated ANTLR lexer and collapses `{{ ... }}` template placeholders
- * into a single synthetic token. The token masquerades as an existing native
- * token type (`masqueradeTokenType`), so the unchanged grammar accepts it
- * wherever that type is valid.
+ * into a single synthetic token. The token masquerades as one of several native
+ * token types (`masqueradeTokenTypes`) — at each `{{` it picks whichever of them
+ * the grammar actually expects at that position, so the unchanged grammar accepts
+ * the placeholder wherever any of those types is valid.
  *
  * Key properties:
  * - Original character offsets are preserved (the synthetic token spans the whole
@@ -33,7 +36,13 @@ export class PlaceholderTokenSource implements TokenSource {
 
     constructor(
         private readonly lexer: Lexer,
-        private readonly masqueradeTokenType: number,
+        // Native token types the placeholder may stand in for (e.g. string/number
+        // literals). At each `{{` the placeholder collapses into whichever of these
+        // the grammar expects at that position; if none is expected it is left alone.
+        private readonly masqueradeTokenTypes: number[],
+        // Reports the token types the grammar expects at a given position, used to
+        // choose the masquerade type from `masqueradeTokenTypes`.
+        private readonly getExpectedTokens: (query: string, cursor: CursorPosition) => number[],
     ) {}
 
     nextToken(): Token {
@@ -42,13 +51,39 @@ export class PlaceholderTokenSource implements TokenSource {
         // Peek at the token boundary. `{{` never legally starts a native SQL token,
         // so intercepting it here cannot shadow real grammar constructs.
         if (input.LA(1) === OPENING_BRACE && input.LA(2) === OPENING_BRACE) {
-            return this.readPlaceholder(input);
+            const masqueradeTokenType = this.resolveMasqueradeTokenType();
+
+            // Collapse the placeholder only when it has a valid masquerade here;
+            // otherwise leave the raw braces for the base lexer to handle.
+            if (masqueradeTokenType !== undefined) {
+                return this.readPlaceholder(input, masqueradeTokenType);
+            }
         }
 
         return this.lexer.nextToken();
     }
 
-    private readPlaceholder(input: CharStream): Token {
+    // Picks the token type the placeholder should masquerade as at the current lexer
+    // position: the first configured type the grammar expects there, or undefined
+    // when none of them is valid.
+    private resolveMasqueradeTokenType(): number | undefined {
+        const input = this.lexer.inputStream;
+        // Ask what the grammar expects at the placeholder position using only the text
+        // *before* the `{{`, with the cursor at its end. Feeding the whole query would
+        // let the placeholder's own content (an identifier-looking name) steer the
+        // parser down a column-reference branch and hide the value tokens we look for.
+        const queryBeforePlaceholder = input.index > 0 ? input.getTextFromRange(0, input.index - 1) : '';
+
+        const expectedTokens = this.getExpectedTokens(queryBeforePlaceholder, {
+            // The lexer's line is 1-based and its column is 0-based; cursor column is 1-based.
+            line: this.lexer.line,
+            column: this.lexer.column + 1,
+        });
+
+        return this.masqueradeTokenTypes.find((tokenType) => expectedTokens.includes(tokenType));
+    }
+
+    private readPlaceholder(input: CharStream, masqueradeTokenType: number): Token {
         const start = input.index;
         const line = this.lexer.line;
         const column = this.lexer.column;
@@ -77,7 +112,7 @@ export class PlaceholderTokenSource implements TokenSource {
 
         const token = this.lexer.tokenFactory.create(
             [this, input],
-            this.masqueradeTokenType,
+            masqueradeTokenType,
             text,
             Token.DEFAULT_CHANNEL,
             start,
