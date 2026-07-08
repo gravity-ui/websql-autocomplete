@@ -1,34 +1,33 @@
 import {CreateTokenSource} from '../../../shared/autocomplete-types';
-import {MySqlLexer} from '../generated/MySqlLexer';
+import {PlaceholderTokenSource} from '../../../shared/placeholder-token-source';
+import {PostgreSqlLexer} from '../generated/PostgreSqlLexer';
 import {
-    MySqlParseOptions,
-    getMySqlParserExpectedTokens,
-    parseMySqlQueryWithCursor,
-    parseMySqlQueryWithoutCursor,
+    PostgreSqlParseOptions,
+    getPostgreSqlParserExpectedTokens,
+    parsePostgreSqlQueryWithCursor,
+    parsePostgreSqlQueryWithoutCursor,
 } from '../index';
 
-import {PlaceholderTokenSource} from '../../../shared/placeholder-token-source';
-
 // `{{ ... }}` placeholders masquerade as a value token, choosing per position:
-// a string literal where one is expected, a numeric literal in numeric-only spots
-// (e.g. LIMIT). The token source asks `getMySqlParserExpectedTokens` at each `{{`
-// to pick a valid masquerade type; string is preferred when both fit.
+// a string constant where one is expected, an integer literal in numeric-only spots
+// (e.g. SET STATISTICS). The token source asks `getPostgreSqlParserExpectedTokens`
+// at each `{{` to pick a valid masquerade type; string is preferred when both fit.
 const createTokenSource: CreateTokenSource = (lexer) =>
     new PlaceholderTokenSource(
         lexer,
         {
-            [MySqlLexer.STRING_LITERAL]: "'x'",
-            [MySqlLexer.DECIMAL_LITERAL]: '1',
+            [PostgreSqlLexer.StringConstant]: "'x'",
+            [PostgreSqlLexer.Integral]: '1',
         },
-        getMySqlParserExpectedTokens,
+        getPostgreSqlParserExpectedTokens,
     );
 
-const OPTIONS: MySqlParseOptions = {createTokenSource};
+const OPTIONS: PostgreSqlParseOptions = {createTokenSource};
 
-describe('mysql template placeholders {{ ... }}', () => {
+describe('postgresql template placeholders {{ ... }}', () => {
     describe('valid positions parse without errors', () => {
         test('value position after `=`', () => {
-            const {errors} = parseMySqlQueryWithoutCursor(
+            const {errors} = parsePostgreSqlQueryWithoutCursor(
                 'SELECT * FROM users WHERE id = {{user_id}}',
                 OPTIONS,
             );
@@ -37,7 +36,7 @@ describe('mysql template placeholders {{ ... }}', () => {
         });
 
         test('several placeholders in one query', () => {
-            const {errors} = parseMySqlQueryWithoutCursor(
+            const {errors} = parsePostgreSqlQueryWithoutCursor(
                 'SELECT * FROM users WHERE id = {{user_id}} AND status = {{status}}',
                 OPTIONS,
             );
@@ -45,8 +44,21 @@ describe('mysql template placeholders {{ ... }}', () => {
             expect(errors).toHaveLength(0);
         });
 
+        test('a numeric-position placeholder precedes another placeholder', () => {
+            // `{{step}}` sits in a numeric-only position (INCREMENT BY), so when the
+            // second placeholder is resolved the first must be masked as the integer it
+            // became — not a string, which INCREMENT BY rejects and which would break
+            // recovery and leave `{{start}}` unsubstituted.
+            const {errors} = parsePostgreSqlQueryWithoutCursor(
+                'CREATE SEQUENCE s INCREMENT BY {{step}} START WITH {{start}}',
+                OPTIONS,
+            );
+
+            expect(errors).toHaveLength(0);
+        });
+
         test('inside an IN list', () => {
-            const {errors} = parseMySqlQueryWithoutCursor(
+            const {errors} = parsePostgreSqlQueryWithoutCursor(
                 'SELECT * FROM users WHERE id IN ({{ids}})',
                 OPTIONS,
             );
@@ -55,7 +67,7 @@ describe('mysql template placeholders {{ ... }}', () => {
         });
 
         test('placeholder inside a string literal is left untouched', () => {
-            const {errors} = parseMySqlQueryWithoutCursor(
+            const {errors} = parsePostgreSqlQueryWithoutCursor(
                 "SELECT * FROM users WHERE name = 'hello {{user}} world'",
                 OPTIONS,
             );
@@ -63,8 +75,21 @@ describe('mysql template placeholders {{ ... }}', () => {
             expect(errors).toHaveLength(0);
         });
 
-        test('numeric position after LIMIT (masquerades as a number)', () => {
-            const {errors} = parseMySqlQueryWithoutCursor(
+        test('numeric-only position after SET STATISTICS (masquerades as a number)', () => {
+            // `SET STATISTICS` expects a bare integer (`signedIconst`) and rejects a
+            // string, so the placeholder must masquerade as `Integral`, not a string.
+            const {errors} = parsePostgreSqlQueryWithoutCursor(
+                'ALTER TABLE t ALTER COLUMN c SET STATISTICS {{count}}',
+                OPTIONS,
+            );
+
+            expect(errors).toHaveLength(0);
+        });
+
+        test('LIMIT accepts an expression, so the placeholder masquerades as a string', () => {
+            // Unlike MySQL, PostgreSQL `LIMIT` takes a full expression, so a string
+            // constant is valid here and the (preferred) string masquerade parses.
+            const {errors} = parsePostgreSqlQueryWithoutCursor(
                 'SELECT * FROM t LIMIT {{count}}',
                 OPTIONS,
             );
@@ -75,9 +100,9 @@ describe('mysql template placeholders {{ ... }}', () => {
         test('multi-word content collapses into a single value token', () => {
             // Without substitution `first last` would be two dangling tokens and the
             // query would fail to parse; collapsing the placeholder into one string
-            // literal keeps it valid — proof the substitution actually happens rather
+            // constant keeps it valid — proof the substitution actually happens rather
             // than the (invisible) braces simply being dropped.
-            const {errors} = parseMySqlQueryWithoutCursor(
+            const {errors} = parsePostgreSqlQueryWithoutCursor(
                 'SELECT * FROM users WHERE name = {{first last}}',
                 OPTIONS,
             );
@@ -88,7 +113,7 @@ describe('mysql template placeholders {{ ... }}', () => {
 
     describe('autocomplete after a placeholder', () => {
         test('suggests continuation keywords right after a placeholder', () => {
-            const result = parseMySqlQueryWithCursor(
+            const result = parsePostgreSqlQueryWithCursor(
                 'SELECT * FROM users WHERE id = {{user_id}} |',
                 OPTIONS,
             );
@@ -102,7 +127,7 @@ describe('mysql template placeholders {{ ... }}', () => {
         });
 
         test('suggests tables after FROM even when a placeholder precedes it', () => {
-            const result = parseMySqlQueryWithCursor('SELECT {{col}} FROM |', OPTIONS);
+            const result = parsePostgreSqlQueryWithCursor('SELECT {{col}} FROM |', OPTIONS);
 
             expect(result.suggestViewsOrTables).toBeDefined();
         });
@@ -114,20 +139,22 @@ describe('mysql template placeholders {{ ... }}', () => {
         // consults to pick the masquerade type.
         function expectedAtPlaceholder(query: string): number[] {
             const prefix = query.slice(0, query.indexOf('{{'));
-            return getMySqlParserExpectedTokens(prefix, {line: 1, column: prefix.length + 1});
+            return getPostgreSqlParserExpectedTokens(prefix, {line: 1, column: prefix.length + 1});
         }
 
-        test('a value position expects a string literal', () => {
+        test('a value position expects a string constant', () => {
             const expected = expectedAtPlaceholder('SELECT * FROM users WHERE id = {{user_id}}');
 
-            expect(expected).toContain(MySqlLexer.STRING_LITERAL);
+            expect(expected).toContain(PostgreSqlLexer.StringConstant);
         });
 
-        test('the LIMIT position expects a numeric literal but not a string', () => {
-            const expected = expectedAtPlaceholder('SELECT * FROM t LIMIT {{count}}');
+        test('the SET STATISTICS position expects an integer but not a string', () => {
+            const expected = expectedAtPlaceholder(
+                'ALTER TABLE t ALTER COLUMN c SET STATISTICS {{count}}',
+            );
 
-            expect(expected).toContain(MySqlLexer.DECIMAL_LITERAL);
-            expect(expected).not.toContain(MySqlLexer.STRING_LITERAL);
+            expect(expected).toContain(PostgreSqlLexer.Integral);
+            expect(expected).not.toContain(PostgreSqlLexer.StringConstant);
         });
     });
 
@@ -136,17 +163,17 @@ describe('mysql template placeholders {{ ... }}', () => {
             const query = 'SELECT * FROM t GROUP {{by}}';
             const prefix = query.slice(0, query.indexOf('{{'));
 
-            // Neither a string nor a numeric literal is valid right after GROUP, so the
+            // Neither a string nor an integer literal is valid right after GROUP, so the
             // token source finds no masquerade and leaves the raw braces in place.
-            const expected = getMySqlParserExpectedTokens(prefix, {
+            const expected = getPostgreSqlParserExpectedTokens(prefix, {
                 line: 1,
                 column: prefix.length + 1,
             });
-            expect(expected).not.toContain(MySqlLexer.STRING_LITERAL);
-            expect(expected).not.toContain(MySqlLexer.DECIMAL_LITERAL);
+            expect(expected).not.toContain(PostgreSqlLexer.StringConstant);
+            expect(expected).not.toContain(PostgreSqlLexer.Integral);
 
             // As a result the query no longer parses cleanly.
-            const {errors} = parseMySqlQueryWithoutCursor(query, OPTIONS);
+            const {errors} = parsePostgreSqlQueryWithoutCursor(query, OPTIONS);
             expect(errors.length).toBeGreaterThan(0);
         });
     });
@@ -157,7 +184,7 @@ describe('mysql template placeholders {{ ... }}', () => {
             // so it must not itself raise an error. The syntax error is `beta`, a
             // stray token dangling after `AND alpha`.
             const query = 'SELECT * FROM users WHERE id = {{test_id}} AND alpha beta';
-            const {errors} = parseMySqlQueryWithoutCursor(query, OPTIONS);
+            const {errors} = parsePostgreSqlQueryWithoutCursor(query, OPTIONS);
 
             // `{{test_id}}` is 11 characters wide. If the placeholder substitution
             // shifted downstream coordinates, `beta`'s column would no longer line
@@ -174,8 +201,8 @@ describe('mysql template placeholders {{ ... }}', () => {
                 ),
             ).toBe(true);
 
-            // The placeholder never leaks its STRING_LITERAL masquerade into the message.
-            expect(errors.every((error) => !error.message.includes('STRING_LITERAL'))).toBe(true);
+            // The placeholder never leaks its StringConstant masquerade into the message.
+            expect(errors.every((error) => !error.message.includes('StringConstant'))).toBe(true);
         });
     });
 });
