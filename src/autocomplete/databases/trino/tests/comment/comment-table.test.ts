@@ -1,4 +1,4 @@
-import {parseTrinoQueryWithCursor, parseTrinoQueryWithoutCursor} from '../../index';
+import {parseTrinoQueryWithCursor, parseTrinoQueryWithoutCursor} from '../../index.js';
 
 // TODO Get context of table in COMMENT statement
 test.skip('should suggest properly after COMMENT ON CONSTRAINT', () => {

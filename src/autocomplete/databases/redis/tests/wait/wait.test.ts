@@ -1,4 +1,4 @@
-import {parseRedisQueryWithoutCursor} from '../../index';
+import {parseRedisQueryWithoutCursor} from '../../index.js';
 
 test('should not report errors on WAIT command', () => {
     const autocompleteResult = parseRedisQueryWithoutCursor('WAIT 0 1');

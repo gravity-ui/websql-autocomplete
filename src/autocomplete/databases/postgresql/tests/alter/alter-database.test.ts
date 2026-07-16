@@ -1,5 +1,5 @@
-import {KeywordSuggestion} from '../../../../shared/autocomplete-types';
-import {parsePostgreSqlQueryWithCursor, parsePostgreSqlQueryWithoutCursor} from '../../index';
+import {KeywordSuggestion} from '../../../../shared/autocomplete-types.js';
+import {parsePostgreSqlQueryWithCursor, parsePostgreSqlQueryWithoutCursor} from '../../index.js';
 
 test('should suggest after ALTER', () => {
     const autocompleteResult = parsePostgreSqlQueryWithCursor('ALTER DATABASE |');

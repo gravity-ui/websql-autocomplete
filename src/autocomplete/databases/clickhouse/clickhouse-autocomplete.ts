@@ -24,9 +24,9 @@ import {
     getContextSuggestions,
     getPreviousToken,
 } from '../../shared/tables.js';
-import {isStartingToWriteRule} from '../../shared/cursor';
+import {isStartingToWriteRule} from '../../shared/cursor.js';
 import {shouldSuggestTemplates} from '../../shared/query.js';
-import {ClickHouseAutocompleteResult} from './index';
+import {ClickHouseAutocompleteResult} from './index.js';
 
 const engines = ['Null', 'Set', 'Log', 'Memory', 'TinyLog', 'StripeLog'];
 

@@ -1,8 +1,8 @@
 import {
     ExtractStatementPositionsResult,
     StatementExtractionStrategy,
-} from '../../../shared/extract-statement-positions-from-query';
-import {extractClickHouseStatementPositionsFromQuery} from '../index';
+} from '../../../shared/extract-statement-positions-from-query.js';
+import {extractClickHouseStatementPositionsFromQuery} from '../index.js';
 
 test('should extract statements from single query', () => {
     const query = 'SELECT * FROM art WHERE id = 1;';

@@ -13,9 +13,9 @@ import {
     ParserConstructor,
     StatementPosition,
     StatementsVisitor,
-} from './autocomplete-types';
-import {createParser} from './query';
-import {SqlErrorListener} from './sql-error-listener';
+} from './autocomplete-types.js';
+import {createParser} from './query.js';
+import {SqlErrorListener} from './sql-error-listener.js';
 
 export enum StatementExtractionStrategy {
     Autocomplete = 'autocomplete',

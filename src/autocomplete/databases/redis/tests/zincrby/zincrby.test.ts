@@ -1,4 +1,4 @@
-import {parseRedisQueryWithCursor, parseRedisQueryWithoutCursor} from '../../index';
+import {parseRedisQueryWithCursor, parseRedisQueryWithoutCursor} from '../../index.js';
 
 test('should not report errors on ZINCRBY command', () => {
     const autocompleteResult = parseRedisQueryWithoutCursor('ZINCRBY test 1 key');

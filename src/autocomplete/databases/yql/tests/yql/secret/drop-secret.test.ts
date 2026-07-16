@@ -1,4 +1,4 @@
-import {parseYqlQueryWithCursor} from '../../../index';
+import {parseYqlQueryWithCursor} from '../../../index.js';
 
 test('should suggest keywords after DROP', () => {
     const autocompleteResult = parseYqlQueryWithCursor('DROP |');

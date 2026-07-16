@@ -1,8 +1,8 @@
 import {
     ExtractStatementPositionsResult,
     StatementExtractionStrategy,
-} from '../../../shared/extract-statement-positions-from-query';
-import {extractRedisStatementPositionsFromQuery} from '../index';
+} from '../../../shared/extract-statement-positions-from-query.js';
+import {extractRedisStatementPositionsFromQuery} from '../index.js';
 
 test('should extract statements from single query', () => {
     const query = 'GET test';

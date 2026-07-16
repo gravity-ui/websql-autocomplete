@@ -1,6 +1,6 @@
 import * as c3 from 'antlr4-c3';
 import {Lexer as LexerType, ParseTree, Parser as ParserType, TokenStream} from 'antlr4ng';
-import {createParser} from './query';
+import {createParser} from './query.js';
 import {
     CursorPosition,
     GetParseTree,
@@ -8,9 +8,9 @@ import {
     ParserConstructor,
     SymbolTableVisitor,
     VariableSuggestion,
-} from './autocomplete-types';
-import {VariableSymbol, getScope} from './symbol-table';
-import {computeTokenContext} from './compute-token-position';
+} from './autocomplete-types.js';
+import {VariableSymbol, getScope} from './symbol-table.js';
+import {computeTokenContext} from './compute-token-position.js';
 
 export function getVariableSuggestions<L extends LexerType, P extends ParserType>(
     Lexer: LexerConstructor<L>,

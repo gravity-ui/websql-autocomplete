@@ -1,4 +1,4 @@
-import {parseRedisQueryWithCursor, parseRedisQueryWithoutCursor} from '../../index';
+import {parseRedisQueryWithCursor, parseRedisQueryWithoutCursor} from '../../index.js';
 
 test('should not report errors on SETRANGE command', () => {
     const autocompleteResult = parseRedisQueryWithoutCursor('SETRANGE test 1 test');

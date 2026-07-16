@@ -1,4 +1,4 @@
-import {extractMongoCollectionsFromQuery} from '..';
+import {extractMongoCollectionsFromQuery} from '../index.js';
 
 test('should extract collections from query', () => {
     const result = extractMongoCollectionsFromQuery(`

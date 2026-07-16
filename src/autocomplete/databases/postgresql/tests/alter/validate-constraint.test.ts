@@ -1,5 +1,5 @@
-import {parsePostgreSqlQueryWithCursor, parsePostgreSqlQueryWithoutCursor} from '../../index';
-import {ConstraintSuggestion} from '../../../../shared/autocomplete-types';
+import {parsePostgreSqlQueryWithCursor, parsePostgreSqlQueryWithoutCursor} from '../../index.js';
+import {ConstraintSuggestion} from '../../../../shared/autocomplete-types.js';
 
 test('should suggest view name after VALIDATE CONSTRAINT', () => {
     const autocompleteResult = parsePostgreSqlQueryWithCursor(

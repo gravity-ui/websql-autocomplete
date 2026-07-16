@@ -1,4 +1,4 @@
-import {parseYqQueryWithoutCursor} from '../../index';
+import {parseYqQueryWithoutCursor} from '../../index.js';
 
 test('should not report errors on multiple statements', () => {
     const autocompleteResult = parseYqQueryWithoutCursor(`

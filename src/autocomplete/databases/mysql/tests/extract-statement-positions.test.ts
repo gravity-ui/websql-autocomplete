@@ -1,8 +1,8 @@
 import {
     ExtractStatementPositionsResult,
     StatementExtractionStrategy,
-} from '../../../shared/extract-statement-positions-from-query';
-import {extractMySqlStatementPositionsFromQuery} from '../index';
+} from '../../../shared/extract-statement-positions-from-query.js';
+import {extractMySqlStatementPositionsFromQuery} from '../index.js';
 
 test('should extract statements from single query', () => {
     const query = 'SELECT * FROM art WHERE id = 1;';

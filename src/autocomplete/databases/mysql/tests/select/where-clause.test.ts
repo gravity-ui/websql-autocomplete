@@ -1,5 +1,5 @@
-import {parseMySqlQueryWithCursor, parseMySqlQueryWithoutCursor} from '../../index';
-import {ColumnSuggestion, KeywordSuggestion} from '../../../../shared/autocomplete-types';
+import {parseMySqlQueryWithCursor, parseMySqlQueryWithoutCursor} from '../../index.js';
+import {ColumnSuggestion, KeywordSuggestion} from '../../../../shared/autocomplete-types.js';
 
 test('should suggest properly after WHERE', () => {
     const autocompleteResult = parseMySqlQueryWithCursor('SELECT * FROM test_table WHERE |');

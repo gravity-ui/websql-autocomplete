@@ -1,4 +1,4 @@
-import {parseRedisQueryWithCursor, parseRedisQueryWithoutCursor} from '../../index';
+import {parseRedisQueryWithCursor, parseRedisQueryWithoutCursor} from '../../index.js';
 
 test('should not report errors on SMOVE command', () => {
     const autocompleteResult = parseRedisQueryWithoutCursor('SMOVE test1 test2');

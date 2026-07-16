@@ -1,4 +1,4 @@
-import {parseRedisQueryWithCursor, parseRedisQueryWithoutCursor} from '../../index';
+import {parseRedisQueryWithCursor, parseRedisQueryWithoutCursor} from '../../index.js';
 
 test('should not report errors on HINCRBY command', () => {
     const autocompleteResult = parseRedisQueryWithoutCursor('HINCRBY test key1 1');

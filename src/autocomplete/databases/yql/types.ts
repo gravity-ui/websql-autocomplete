@@ -3,8 +3,8 @@ import {
     SqlAutocompleteResult,
     TableIndexSuggestion,
     VariableSuggestion,
-} from '../../shared/autocomplete-types';
-import {TokenizeResult} from '../../shared/tokenize';
+} from '../../shared/autocomplete-types.js';
+import {TokenizeResult} from '../../shared/tokenize.js';
 
 export type EntitySuggestion =
     | 'suggestObject'

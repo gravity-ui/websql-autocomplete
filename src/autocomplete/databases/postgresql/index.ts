@@ -3,18 +3,18 @@ import {
     CursorPosition,
     SqlAutocompleteResult,
     TableOrViewSuggestion,
-} from '../../shared/autocomplete-types';
-import {postgreSqlAutocompleteData} from './postgresql-autocomplete';
-import {parseQuery, parseQueryWithoutCursor} from '../../shared/autocomplete';
-import {separateQueryAndCursor} from '../../shared/parse-query-with-cursor';
+} from '../../shared/autocomplete-types.js';
+import {postgreSqlAutocompleteData} from './postgresql-autocomplete.js';
+import {parseQuery, parseQueryWithoutCursor} from '../../shared/autocomplete.js';
+import {separateQueryAndCursor} from '../../shared/parse-query-with-cursor.js';
 import {
     ExtractStatementPositionsResult,
     extractStatementPositionsFromQuery,
-} from '../../shared/extract-statement-positions-from-query';
-import {PostgreSqlLexer} from './generated/PostgreSqlLexer';
-import {PostgreSqlStatementsVisitor} from './postgresql-extract-statements';
+} from '../../shared/extract-statement-positions-from-query.js';
+import {PostgreSqlLexer} from './generated/PostgreSqlLexer.js';
+import {PostgreSqlStatementsVisitor} from './postgresql-extract-statements.js';
 
-export {extractPostgreSqlTablesFromQuery} from './postgresql-extract-tables';
+export {extractPostgreSqlTablesFromQuery} from './postgresql-extract-tables.js';
 
 export interface PostgreSqlAutocompleteResult extends SqlAutocompleteResult {
     suggestViewsOrTables?: TableOrViewSuggestion;

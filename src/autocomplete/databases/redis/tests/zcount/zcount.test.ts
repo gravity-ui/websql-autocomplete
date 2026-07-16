@@ -1,4 +1,4 @@
-import {parseRedisQueryWithCursor, parseRedisQueryWithoutCursor} from '../../index';
+import {parseRedisQueryWithCursor, parseRedisQueryWithoutCursor} from '../../index.js';
 
 test('should not report errors on ZCOUNT command', () => {
     const autocompleteResult = parseRedisQueryWithoutCursor('ZCOUNT test -1 1');

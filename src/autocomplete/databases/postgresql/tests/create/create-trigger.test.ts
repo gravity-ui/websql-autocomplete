@@ -1,5 +1,5 @@
-import {parsePostgreSqlQueryWithCursor} from '../../index';
-import {KeywordSuggestion} from '../../../../shared/autocomplete-types';
+import {parsePostgreSqlQueryWithCursor} from '../../index.js';
+import {KeywordSuggestion} from '../../../../shared/autocomplete-types.js';
 
 test('should suggest properly after TRIGGER', () => {
     const autocompleteResult = parsePostgreSqlQueryWithCursor('CREATE TRIGGER |');

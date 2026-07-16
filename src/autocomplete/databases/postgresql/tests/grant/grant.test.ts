@@ -1,5 +1,5 @@
-import {parsePostgreSqlQueryWithCursor} from '../../index';
-import {KeywordSuggestion} from '../../../../shared/autocomplete-types';
+import {parsePostgreSqlQueryWithCursor} from '../../index.js';
+import {KeywordSuggestion} from '../../../../shared/autocomplete-types.js';
 
 // TODO Grammar is not full?
 test('should suggest keywords after GRANT', () => {

@@ -1,9 +1,9 @@
-import {parseMySqlQueryWithCursor} from '../../index';
+import {parseMySqlQueryWithCursor} from '../../index.js';
 import {
     ColumnAliasSuggestion,
     ColumnSuggestion,
     KeywordSuggestion,
-} from '../../../../shared/autocomplete-types';
+} from '../../../../shared/autocomplete-types.js';
 
 // TODO: fix, grammar is written this way that ORDER might be an alias
 test.skip('should suggest properly after ORDER', () => {

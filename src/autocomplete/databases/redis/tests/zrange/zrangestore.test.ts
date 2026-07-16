@@ -1,5 +1,5 @@
-import {KeywordSuggestion} from '../../../../shared';
-import {parseRedisQueryWithCursor, parseRedisQueryWithoutCursor} from '../../index';
+import {KeywordSuggestion} from '../../../../shared/index.js';
+import {parseRedisQueryWithCursor, parseRedisQueryWithoutCursor} from '../../index.js';
 
 test('should not report errors on ZRANGESTORE command', () => {
     const autocompleteResult = parseRedisQueryWithoutCursor('ZRANGESTORE dest test lex1 lex2');

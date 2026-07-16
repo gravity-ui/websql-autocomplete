@@ -1,4 +1,4 @@
-import {parseRedisQueryWithoutCursor} from '../../index';
+import {parseRedisQueryWithoutCursor} from '../../index.js';
 
 test('should not report errors on string identifier', () => {
     const autocompleteResult = parseRedisQueryWithoutCursor('GET test');

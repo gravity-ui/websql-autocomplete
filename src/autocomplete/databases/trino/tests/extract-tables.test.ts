@@ -1,4 +1,4 @@
-import {extractTrinoTablesFromQuery} from '..';
+import {extractTrinoTablesFromQuery} from '../index.js';
 
 test('should extract tables from query', () => {
     const result = extractTrinoTablesFromQuery(`

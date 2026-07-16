@@ -1,5 +1,5 @@
-import {ColumnSuggestion} from '../../../../shared/autocomplete-types';
-import {parseMySqlQueryWithCursor, parseMySqlQueryWithoutCursor} from '../../index';
+import {ColumnSuggestion} from '../../../../shared/autocomplete-types.js';
+import {parseMySqlQueryWithCursor, parseMySqlQueryWithoutCursor} from '../../index.js';
 
 test('should suggest table name after MODIFY COLUMN', () => {
     const autocompleteResult = parseMySqlQueryWithCursor('ALTER TABLE test_table MODIFY COLUMN |');

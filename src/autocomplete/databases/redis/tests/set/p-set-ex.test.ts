@@ -1,4 +1,4 @@
-import {parseRedisQueryWithCursor, parseRedisQueryWithoutCursor} from '../../index';
+import {parseRedisQueryWithCursor, parseRedisQueryWithoutCursor} from '../../index.js';
 
 test('should not report errors on PSETEX command', () => {
     const autocompleteResult = parseRedisQueryWithoutCursor('PSETEX test 1 test');

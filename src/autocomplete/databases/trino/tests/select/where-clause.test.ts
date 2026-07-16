@@ -1,5 +1,5 @@
-import {parseTrinoQueryWithCursor, parseTrinoQueryWithoutCursor} from '../../index';
-import {ColumnSuggestion, KeywordSuggestion} from '../../../../shared/autocomplete-types';
+import {parseTrinoQueryWithCursor, parseTrinoQueryWithoutCursor} from '../../index.js';
+import {ColumnSuggestion, KeywordSuggestion} from '../../../../shared/autocomplete-types.js';
 
 test('should suggest properly after WHERE', () => {
     const autocompleteResult = parseTrinoQueryWithCursor(

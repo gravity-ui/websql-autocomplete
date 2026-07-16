@@ -1,6 +1,6 @@
-import {parseYqlQueryWithCursor, parseYqlQueryWithoutCursor} from '../../../index';
-import {KeywordSuggestion} from '../../../../../shared/autocomplete-types';
-import {YQLColumnsSuggestion} from '../../../types';
+import {parseYqlQueryWithCursor, parseYqlQueryWithoutCursor} from '../../../index.js';
+import {KeywordSuggestion} from '../../../../../shared/autocomplete-types.js';
+import {YQLColumnsSuggestion} from '../../../types.js';
 
 test('should suggest properly after SELECT', () => {
     const autocompleteResult = parseYqlQueryWithCursor('SELECT |');

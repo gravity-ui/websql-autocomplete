@@ -1,4 +1,4 @@
-import {parsePostgreSqlQueryWithCursor, parsePostgreSqlQueryWithoutCursor} from '../../index';
+import {parsePostgreSqlQueryWithCursor, parsePostgreSqlQueryWithoutCursor} from '../../index.js';
 
 // TODO Get context of table in COMMENT statement
 test.skip('should suggest properly after COMMENT ON CONSTRAINT', () => {

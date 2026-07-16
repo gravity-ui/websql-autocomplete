@@ -1,4 +1,4 @@
-import {parseMySqlQueryWithCursor} from '../index';
+import {parseMySqlQueryWithCursor} from '../index.js';
 
 // Checkout isStartingToWriteRule comment for more information about these tests
 

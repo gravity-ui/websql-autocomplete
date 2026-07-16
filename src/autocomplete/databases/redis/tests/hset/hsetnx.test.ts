@@ -1,4 +1,4 @@
-import {parseRedisQueryWithCursor, parseRedisQueryWithoutCursor} from '../../index';
+import {parseRedisQueryWithCursor, parseRedisQueryWithoutCursor} from '../../index.js';
 
 test('should not report errors on HSETNX command', () => {
     const autocompleteResult = parseRedisQueryWithoutCursor('HSETNX test key1 val1');

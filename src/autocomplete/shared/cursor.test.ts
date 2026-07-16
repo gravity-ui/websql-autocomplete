@@ -1,8 +1,8 @@
 import {CharStream, CommonTokenStream} from 'antlr4ng';
 
-import {findCursorTokenIndex} from './cursor';
-import {mySqlAutocompleteData} from '../databases/mysql/mysql-autocomplete';
-import {CursorPosition} from './autocomplete-types';
+import {findCursorTokenIndex} from './cursor.js';
+import {mySqlAutocompleteData} from '../databases/mysql/mysql-autocomplete.js';
+import {CursorPosition} from './autocomplete-types.js';
 
 function getCursorIndex(query: string, cursor: CursorPosition): number | undefined {
     const inputStream = CharStream.fromString(query);

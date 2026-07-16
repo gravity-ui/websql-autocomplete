@@ -2,7 +2,7 @@ import {
     extractMongoCommandsFromQuery,
     parseMongoQueryWithCursor,
     parseMongoQueryWithoutCursor,
-} from '../..';
+} from '../../index.js';
 
 test('should not report errors on multiple statements', () => {
     const autocompleteResult = parseMongoQueryWithoutCursor(`

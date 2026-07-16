@@ -1,5 +1,5 @@
-import {parseTrinoQueryWithCursor, parseTrinoQueryWithoutCursor} from '../../index';
-import {KeywordSuggestion} from '../../../../shared/autocomplete-types';
+import {parseTrinoQueryWithCursor, parseTrinoQueryWithoutCursor} from '../../index.js';
+import {KeywordSuggestion} from '../../../../shared/autocomplete-types.js';
 
 test('should suggest properly after DROP ROLE', () => {
     const autocompleteResult = parseTrinoQueryWithCursor('DROP ROLE |');

@@ -1,4 +1,4 @@
-import {parseMySqlQueryWithoutCursor} from '../index';
+import {parseMySqlQueryWithoutCursor} from '../index.js';
 
 test('should not report errors on multiple statements', () => {
     const autocompleteResult = parseMySqlQueryWithoutCursor(`

@@ -9,7 +9,7 @@ import {
     ISymbolTableVisitor,
     ProcessVisitedRulesResult,
     TableOrViewSuggestion,
-} from '../../shared/autocomplete-types';
+} from '../../shared/autocomplete-types.js';
 import {MySqlLexer} from './generated/MySqlLexer.js';
 import {
     AtomTableItemContext,
@@ -24,7 +24,7 @@ import {
     getContextSuggestions,
     getPreviousToken,
 } from '../../shared/tables.js';
-import {isStartingToWriteRule} from '../../shared/cursor';
+import {isStartingToWriteRule} from '../../shared/cursor.js';
 import {shouldSuggestTemplates} from '../../shared/query.js';
 import {MySqlAutocompleteResult} from './index.js';
 

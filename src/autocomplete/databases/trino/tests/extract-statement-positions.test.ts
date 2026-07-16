@@ -1,8 +1,8 @@
 import {
     ExtractStatementPositionsResult,
     StatementExtractionStrategy,
-} from '../../../shared/extract-statement-positions-from-query';
-import {extractTrinoStatementPositionsFromQuery} from '../index';
+} from '../../../shared/extract-statement-positions-from-query.js';
+import {extractTrinoStatementPositionsFromQuery} from '../index.js';
 
 test('should extract statements from single query', () => {
     const query = 'SELECT * FROM catalog.schema.test_table WHERE id = 1;';

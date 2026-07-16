@@ -1,5 +1,5 @@
-import {parseTrinoQueryWithCursor} from '../../index';
-import {KeywordSuggestion, TableOrViewSuggestion} from '../../../../shared/autocomplete-types';
+import {parseTrinoQueryWithCursor} from '../../index.js';
+import {KeywordSuggestion, TableOrViewSuggestion} from '../../../../shared/autocomplete-types.js';
 
 test('should suggest properly after DELETE', () => {
     const autocompleteResult = parseTrinoQueryWithCursor('DELETE |');

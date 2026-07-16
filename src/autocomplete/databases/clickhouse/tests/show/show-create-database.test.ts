@@ -1,5 +1,5 @@
-import {parseClickHouseQueryWithCursor, parseClickHouseQueryWithoutCursor} from '../../index';
-import {KeywordSuggestion} from '../../../../shared/autocomplete-types';
+import {parseClickHouseQueryWithCursor, parseClickHouseQueryWithoutCursor} from '../../index.js';
+import {KeywordSuggestion} from '../../../../shared/autocomplete-types.js';
 
 test('should suggest keywords after SHOW CREATE', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor('SHOW CREATE DATABASE |');

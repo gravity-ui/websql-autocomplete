@@ -1,6 +1,6 @@
-import {parseYqQueryWithCursor} from '../../../index';
-import {ColumnSuggestion, KeywordSuggestion} from '../../../../../shared/autocomplete-types';
-import {YqlAutocompleteResult} from '../../../types';
+import {parseYqQueryWithCursor} from '../../../index.js';
+import {ColumnSuggestion, KeywordSuggestion} from '../../../../../shared/autocomplete-types.js';
+import {YqlAutocompleteResult} from '../../../types.js';
 
 const afterGroupByKeywords: KeywordSuggestion[] = [
     {value: 'ALL'},

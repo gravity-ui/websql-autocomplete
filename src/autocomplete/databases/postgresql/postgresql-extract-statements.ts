@@ -1,7 +1,7 @@
-import {IStatementsVisitor, StatementPosition} from '../../shared';
-import {getStatementEndIndex} from '../../shared/extract-statement-positions-from-query';
-import {StatementsContext} from './generated/PostgreSqlParser';
-import {PostgreSqlParserVisitor} from './generated/PostgreSqlParserVisitor';
+import {IStatementsVisitor, StatementPosition} from '../../shared/index.js';
+import {getStatementEndIndex} from '../../shared/extract-statement-positions-from-query.js';
+import {StatementsContext} from './generated/PostgreSqlParser.js';
+import {PostgreSqlParserVisitor} from './generated/PostgreSqlParserVisitor.js';
 
 export class PostgreSqlStatementsVisitor
     extends PostgreSqlParserVisitor<unknown>

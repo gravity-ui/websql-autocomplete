@@ -26,7 +26,7 @@ import {
     getContextSuggestions,
     getPreviousToken,
 } from '../../shared/tables.js';
-import {isStartingToWriteRule} from '../../shared/cursor';
+import {isStartingToWriteRule} from '../../shared/cursor.js';
 import {shouldSuggestTemplates} from '../../shared/query.js';
 import {PostgreSqlAutocompleteResult} from './index.js';
 

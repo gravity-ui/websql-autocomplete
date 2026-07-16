@@ -1,5 +1,5 @@
-import {parseClickHouseQueryWithCursor, parseClickHouseQueryWithoutCursor} from '../..';
-import {KeywordSuggestion} from '../../../../shared';
+import {parseClickHouseQueryWithCursor, parseClickHouseQueryWithoutCursor} from '../../index.js';
+import {KeywordSuggestion} from '../../../../shared/index.js';
 
 test('should not report errors', () => {
     const autocompleteResult = parseClickHouseQueryWithoutCursor('ALTER QUOTA test_quota;');

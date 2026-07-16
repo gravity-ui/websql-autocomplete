@@ -1,4 +1,4 @@
-import {parseRedisQueryWithCursor, parseRedisQueryWithoutCursor} from '../../index';
+import {parseRedisQueryWithCursor, parseRedisQueryWithoutCursor} from '../../index.js';
 
 test('should not report errors on ZDIFFSTORE command', () => {
     const autocompleteResult = parseRedisQueryWithoutCursor('ZDIFFSTORE dest 1 test');

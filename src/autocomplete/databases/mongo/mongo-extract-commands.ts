@@ -77,11 +77,11 @@ import {
     StringContext,
     UuidFunctionContext,
     ValidateCollectionMethodContext,
-} from './generated/MongoParser';
-import {MongoParserVisitor} from './generated/MongoParserVisitor';
-import {ParserSyntaxError, SqlErrorListener, createParser} from '../../shared';
-import {MongoLexer} from './generated/MongoLexer';
-import {getParseTree} from './mongo-autocomplete';
+} from './generated/MongoParser.js';
+import {MongoParserVisitor} from './generated/MongoParserVisitor.js';
+import {ParserSyntaxError, SqlErrorListener, createParser} from '../../shared/index.js';
+import {MongoLexer} from './generated/MongoLexer.js';
+import {getParseTree} from './mongo-autocomplete.js';
 import {ParseTree} from 'antlr4ng';
 
 export type FindModifier =

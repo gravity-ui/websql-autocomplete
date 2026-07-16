@@ -1,7 +1,7 @@
-import {IStatementsVisitor, StatementPosition} from '../../shared';
-import {getStatementEndIndex} from '../../shared/extract-statement-positions-from-query';
-import {Sql_stmt_listContext} from './generated/YQLParser';
-import {YQLVisitor} from './generated/YQLVisitor';
+import {IStatementsVisitor, StatementPosition} from '../../shared/index.js';
+import {getStatementEndIndex} from '../../shared/extract-statement-positions-from-query.js';
+import {Sql_stmt_listContext} from './generated/YQLParser.js';
+import {YQLVisitor} from './generated/YQLVisitor.js';
 
 export class YqlStatementsVisitor extends YQLVisitor<unknown> implements IStatementsVisitor {
     statementPositions: StatementPosition[] = [];

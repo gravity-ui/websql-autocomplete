@@ -1,4 +1,4 @@
-import {parseYqlQueryWithCursor, parseYqlQueryWithoutCursor} from '../../../index';
+import {parseYqlQueryWithCursor, parseYqlQueryWithoutCursor} from '../../../index.js';
 
 // ------------------- CREATE TABLE: column COMPRESSION ---------------------
 

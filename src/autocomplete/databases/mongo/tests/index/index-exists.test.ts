@@ -1,4 +1,4 @@
-import {Command, extractMongoCommandsFromQuery, parseMongoQueryWithoutCursor} from '../..';
+import {Command, extractMongoCommandsFromQuery, parseMongoQueryWithoutCursor} from '../../index.js';
 
 test('should not report errors on indexExists statement', () => {
     const autocompleteResult = parseMongoQueryWithoutCursor(`

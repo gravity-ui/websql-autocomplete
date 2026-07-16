@@ -1,15 +1,15 @@
-import {CursorPosition} from '../../shared/autocomplete-types';
-import {yqlAutocompleteData, yqlAutocompleteDataYQ} from './yql-autocomplete';
-import {parseQuery, parseQueryWithoutCursor} from '../../shared/autocomplete';
-import {separateQueryAndCursor} from '../../shared/parse-query-with-cursor';
-import {YQLEntity, YqlAutocompleteResult, YqlTokenizeResult} from './types';
-import {tokenize} from '../../shared/tokenize';
-import {YQLLexer} from './generated/YQLLexer';
+import {CursorPosition} from '../../shared/autocomplete-types.js';
+import {yqlAutocompleteData, yqlAutocompleteDataYQ} from './yql-autocomplete.js';
+import {parseQuery, parseQueryWithoutCursor} from '../../shared/autocomplete.js';
+import {separateQueryAndCursor} from '../../shared/parse-query-with-cursor.js';
+import {YQLEntity, YqlAutocompleteResult, YqlTokenizeResult} from './types.js';
+import {tokenize} from '../../shared/tokenize.js';
+import {YQLLexer} from './generated/YQLLexer.js';
 import {
     ExtractStatementPositionsResult,
     extractStatementPositionsFromQuery,
-} from '../../shared/extract-statement-positions-from-query';
-import {YqlStatementsVisitor} from './yql-extract-statements';
+} from '../../shared/extract-statement-positions-from-query.js';
+import {YqlStatementsVisitor} from './yql-extract-statements.js';
 
 export function parseYqlQueryWithoutCursor(query: string): Pick<YqlAutocompleteResult, 'errors'> {
     return parseQueryWithoutCursor(

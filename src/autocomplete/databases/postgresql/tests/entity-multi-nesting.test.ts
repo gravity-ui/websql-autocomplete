@@ -1,4 +1,4 @@
-import {parsePostgreSqlQueryWithCursor} from '../index';
+import {parsePostgreSqlQueryWithCursor} from '../index.js';
 
 // Checkout isStartingToWriteRule comment for more information about these tests
 

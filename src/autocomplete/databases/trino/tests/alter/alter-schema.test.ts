@@ -1,5 +1,5 @@
-import {KeywordSuggestion} from '../../../../shared/autocomplete-types';
-import {parseTrinoQueryWithCursor, parseTrinoQueryWithoutCursor} from '../../index';
+import {KeywordSuggestion} from '../../../../shared/autocomplete-types.js';
+import {parseTrinoQueryWithCursor, parseTrinoQueryWithoutCursor} from '../../index.js';
 
 test('should suggest after ALTER SCHEMA', () => {
     const autocompleteResult = parseTrinoQueryWithCursor('ALTER SCHEMA |');

@@ -24,7 +24,7 @@ import {
     getContextSuggestions,
     isStartingToWriteRule,
     shouldSuggestTemplates,
-} from '../../shared';
+} from '../../shared/index.js';
 import {TrinoAutocompleteResult} from './index.js';
 import {TrinoParserVisitor} from './generated/TrinoParserVisitor.js';
 

@@ -3,7 +3,7 @@ import {
     extractMongoCommandsFromQuery,
     parseMongoQueryWithCursor,
     parseMongoQueryWithoutCursor,
-} from '../..';
+} from '../../index.js';
 
 test('should not report errors on admin statements', () => {
     const autocompleteResult = parseMongoQueryWithoutCursor(`

@@ -1,6 +1,6 @@
-import {TableIdentifierContext} from './generated/PostgreSqlParser';
-import {extractRuleContextFromQuery} from '../../shared/extract-rule-contexts-from-query';
-import {postgreSqlAutocompleteData} from './postgresql-autocomplete';
+import {TableIdentifierContext} from './generated/PostgreSqlParser.js';
+import {extractRuleContextFromQuery} from '../../shared/extract-rule-contexts-from-query.js';
+import {postgreSqlAutocompleteData} from './postgresql-autocomplete.js';
 
 export type ExtractPostgreSqlTablesFromQueryResult = {
     databaseName?: string;

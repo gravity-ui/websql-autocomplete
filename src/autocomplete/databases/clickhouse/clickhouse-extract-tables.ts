@@ -1,6 +1,6 @@
-import {extractRuleContextFromQuery} from '../../shared/extract-rule-contexts-from-query';
-import {clickHouseAutocompleteData} from './clickhouse-autocomplete';
-import {TableIdentifierContext} from './generated/ClickHouseParser';
+import {extractRuleContextFromQuery} from '../../shared/extract-rule-contexts-from-query.js';
+import {clickHouseAutocompleteData} from './clickhouse-autocomplete.js';
+import {TableIdentifierContext} from './generated/ClickHouseParser.js';
 
 export type ExtractClickHouseTablesFromQueryResult = {
     databaseName?: string;

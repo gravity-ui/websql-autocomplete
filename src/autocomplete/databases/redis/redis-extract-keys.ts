@@ -1,6 +1,6 @@
-import {extractRuleContextFromQuery} from '../../shared/extract-rule-contexts-from-query';
-import {KeyNameContext} from './generated/RedisParser';
-import {redisAutocompleteData} from './redis-autocomplete';
+import {extractRuleContextFromQuery} from '../../shared/extract-rule-contexts-from-query.js';
+import {KeyNameContext} from './generated/RedisParser.js';
+import {redisAutocompleteData} from './redis-autocomplete.js';
 
 export type ExtractRedisKeysFromQueryResult = {
     keyName: string;

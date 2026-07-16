@@ -1,5 +1,5 @@
-import {KeywordSuggestion} from '../../../../shared/autocomplete-types';
-import {parseYqQueryWithCursor} from '../../index';
+import {KeywordSuggestion} from '../../../../shared/autocomplete-types.js';
+import {parseYqQueryWithCursor} from '../../index.js';
 
 test('should suggest properly for an empty query', () => {
     const autocompleteResult = parseYqQueryWithCursor('|');
