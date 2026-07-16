@@ -1,4 +1,4 @@
-import {parseTrinoQueryWithoutCursor} from '../index';
+import {parseTrinoQueryWithoutCursor} from '../index.js';
 
 test('should not report errors with newlines \n', () => {
     const autocompleteResult = parseTrinoQueryWithoutCursor('SELECT *\n\n\nFROM test_table');

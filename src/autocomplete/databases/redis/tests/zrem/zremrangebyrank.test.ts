@@ -1,4 +1,4 @@
-import {parseRedisQueryWithCursor, parseRedisQueryWithoutCursor} from '../../index';
+import {parseRedisQueryWithCursor, parseRedisQueryWithoutCursor} from '../../index.js';
 
 test('should not report errors on ZREMRANGEBYRANK command', () => {
     const autocompleteResult = parseRedisQueryWithoutCursor('ZREMRANGEBYRANK test 1 2');

@@ -1,5 +1,5 @@
-import {ColumnSuggestion} from '../../../../shared/autocomplete-types';
-import {parsePostgreSqlQueryWithCursor, parsePostgreSqlQueryWithoutCursor} from '../../index';
+import {ColumnSuggestion} from '../../../../shared/autocomplete-types.js';
+import {parsePostgreSqlQueryWithCursor, parsePostgreSqlQueryWithoutCursor} from '../../index.js';
 
 test('should suggest view name after ALTER COLUMN', () => {
     const autocompleteResult = parsePostgreSqlQueryWithCursor(

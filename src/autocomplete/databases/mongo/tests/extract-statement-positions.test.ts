@@ -1,8 +1,8 @@
 import {
     ExtractStatementPositionsResult,
     StatementExtractionStrategy,
-} from '../../../shared/extract-statement-positions-from-query';
-import {extractMongoStatementPositionsFromQuery} from '../index';
+} from '../../../shared/extract-statement-positions-from-query.js';
+import {extractMongoStatementPositionsFromQuery} from '../index.js';
 
 test('should extract statements from single find query', () => {
     const query = 'db.test_collection.find();';

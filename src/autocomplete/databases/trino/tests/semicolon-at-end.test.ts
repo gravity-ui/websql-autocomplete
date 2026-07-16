@@ -1,4 +1,4 @@
-import {parseTrinoQueryWithoutCursor} from '../index';
+import {parseTrinoQueryWithoutCursor} from '../index.js';
 
 test('should not report errors on semicolons at the end', () => {
     const autocompleteResult = parseTrinoQueryWithoutCursor(`

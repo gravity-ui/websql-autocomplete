@@ -1,6 +1,6 @@
-import {extractRuleContextFromQuery} from '../../shared/extract-rule-contexts-from-query';
-import {CollectionNameContext, QuotedCollectionNameContext} from './generated/MongoParser';
-import {mongoAutocompleteData} from './mongo-autocomplete';
+import {extractRuleContextFromQuery} from '../../shared/extract-rule-contexts-from-query.js';
+import {CollectionNameContext, QuotedCollectionNameContext} from './generated/MongoParser.js';
+import {mongoAutocompleteData} from './mongo-autocomplete.js';
 
 export type ExtractMongoCollectionsFromQueryResult = {
     collectionName: string;

@@ -1,4 +1,4 @@
-import {parseRedisQueryWithCursor, parseRedisQueryWithoutCursor} from '../../index';
+import {parseRedisQueryWithCursor, parseRedisQueryWithoutCursor} from '../../index.js';
 
 test('should not report errors on BLPOP command', () => {
     const autocompleteResult = parseRedisQueryWithoutCursor('BLPOP test1 test2 1');

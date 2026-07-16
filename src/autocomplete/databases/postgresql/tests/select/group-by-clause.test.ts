@@ -1,9 +1,9 @@
-import {parsePostgreSqlQueryWithCursor} from '../../index';
+import {parsePostgreSqlQueryWithCursor} from '../../index.js';
 import {
     ColumnAliasSuggestion,
     ColumnSuggestion,
     KeywordSuggestion,
-} from '../../../../shared/autocomplete-types';
+} from '../../../../shared/autocomplete-types.js';
 
 test('should suggest properly after GROUP', () => {
     const autocompleteResult = parsePostgreSqlQueryWithCursor(

@@ -1,5 +1,5 @@
-import {KeywordSuggestion, TableOrViewSuggestion} from '../../../../shared/autocomplete-types';
-import {parseTrinoQueryWithCursor} from '../../index';
+import {KeywordSuggestion, TableOrViewSuggestion} from '../../../../shared/autocomplete-types.js';
+import {parseTrinoQueryWithCursor} from '../../index.js';
 
 test('should suggest keywords after ALTER', () => {
     const autocompleteResult = parseTrinoQueryWithCursor('ALTER |');

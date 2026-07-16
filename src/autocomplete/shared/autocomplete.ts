@@ -6,12 +6,12 @@ import {
     KeywordSuggestion,
     LexerConstructor,
     ParserConstructor,
-} from './autocomplete-types';
+} from './autocomplete-types.js';
 import {Lexer as LexerType, ParserRuleContext, Parser as ParserType} from 'antlr4ng';
-import {createParser} from './query';
-import {SqlErrorListener} from './sql-error-listener';
+import {createParser} from './query.js';
+import {SqlErrorListener} from './sql-error-listener.js';
 import * as c3 from 'antlr4-c3';
-import {findCursorTokenIndex} from './cursor';
+import {findCursorTokenIndex} from './cursor.js';
 
 export function parseQueryWithoutCursor<L extends LexerType, P extends ParserType>(
     Lexer: LexerConstructor<L>,

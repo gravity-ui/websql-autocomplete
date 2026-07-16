@@ -1,7 +1,7 @@
-import {IStatementsVisitor, StatementPosition} from '../../shared';
-import {getStatementEndIndex} from '../../shared/extract-statement-positions-from-query';
-import {StatementsContext} from './generated/MySqlParser';
-import {MySqlParserVisitor} from './generated/MySqlParserVisitor';
+import {IStatementsVisitor, StatementPosition} from '../../shared/index.js';
+import {getStatementEndIndex} from '../../shared/extract-statement-positions-from-query.js';
+import {StatementsContext} from './generated/MySqlParser.js';
+import {MySqlParserVisitor} from './generated/MySqlParserVisitor.js';
 
 export class MySqlStatementsVisitor
     extends MySqlParserVisitor<unknown>

@@ -1,5 +1,5 @@
-import {KeywordSuggestion} from '../../../../shared';
-import {parseRedisQueryWithCursor, parseRedisQueryWithoutCursor} from '../../index';
+import {KeywordSuggestion} from '../../../../shared/index.js';
+import {parseRedisQueryWithCursor, parseRedisQueryWithoutCursor} from '../../index.js';
 
 test('should not report errors on multiple (2) commands', () => {
     const autocompleteResult = parseRedisQueryWithoutCursor('GET test\nSET test test');

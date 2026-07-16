@@ -1,7 +1,7 @@
 import {ParseTree, TokenStream} from 'antlr4ng';
 import * as c3 from 'antlr4-c3';
 
-import {YQLLexer} from './generated/YQLLexer';
+import {YQLLexer} from './generated/YQLLexer.js';
 import {
     Action_or_subquery_argsContext,
     Alter_table_store_stmtContext,
@@ -21,8 +21,8 @@ import {
     Sql_stmt_coreContext,
     Sql_stmt_core_yqContext,
     YQLParser,
-} from './generated/YQLParser';
-import {YQLVisitor} from './generated/YQLVisitor';
+} from './generated/YQLParser.js';
+import {YQLVisitor} from './generated/YQLVisitor.js';
 
 import {
     AutocompleteData,
@@ -31,7 +31,7 @@ import {
     GetParseTree,
     ISymbolTableVisitor,
     ProcessVisitedRulesResult,
-} from '../../shared/autocomplete-types';
+} from '../../shared/autocomplete-types.js';
 import {ColumnAliasSymbol, TableSymbol, VariableSymbol} from '../../shared/symbol-table.js';
 import {isStartingToWriteRule} from '../../shared/cursor.js';
 import {shouldSuggestTemplates} from '../../shared/query.js';
@@ -40,10 +40,10 @@ import {
     checkShouldSuggestKeywords,
     getGranularSuggestions,
     tokenDictionary,
-} from './helpers';
-import {EntitySuggestion, InternalSuggestions, YqlAutocompleteResult} from './types';
-import {getVariableSuggestions} from '../../shared/variables';
-import {getExtendedTableSuggestions} from '../../shared/extended-tables';
+} from './helpers.js';
+import {EntitySuggestion, InternalSuggestions, YqlAutocompleteResult} from './types.js';
+import {getVariableSuggestions} from '../../shared/variables.js';
+import {getExtendedTableSuggestions} from '../../shared/extended-tables.js';
 
 // These are keywords that we do not want to show in autocomplete
 function getIgnoredTokens(): number[] {

@@ -1,4 +1,4 @@
-import {extractPostgreSqlTablesFromQuery} from '..';
+import {extractPostgreSqlTablesFromQuery} from '../index.js';
 
 test('should extract tables from query', () => {
     const result = extractPostgreSqlTablesFromQuery(`

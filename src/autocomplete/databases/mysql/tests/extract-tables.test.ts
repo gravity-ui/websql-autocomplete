@@ -1,4 +1,4 @@
-import {extractMySqlTablesFromQuery} from '..';
+import {extractMySqlTablesFromQuery} from '../index.js';
 
 test('should extract tables from query', () => {
     const result = extractMySqlTablesFromQuery(`

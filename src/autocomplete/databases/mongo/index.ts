@@ -1,16 +1,16 @@
-import {CursorPosition, SqlAutocompleteResult} from '../../shared/autocomplete-types';
-import {parseQuery, parseQueryWithoutCursor} from '../../shared/autocomplete';
-import {separateQueryAndCursor} from '../../shared/parse-query-with-cursor';
-import {mongoAutocompleteData} from './mongo-autocomplete';
+import {CursorPosition, SqlAutocompleteResult} from '../../shared/autocomplete-types.js';
+import {parseQuery, parseQueryWithoutCursor} from '../../shared/autocomplete.js';
+import {separateQueryAndCursor} from '../../shared/parse-query-with-cursor.js';
+import {mongoAutocompleteData} from './mongo-autocomplete.js';
 import {
     ExtractStatementPositionsResult,
     extractStatementPositionsFromQuery,
-} from '../../shared/extract-statement-positions-from-query';
-import {MongoStatementsVisitor} from './mongo-extract-statements';
+} from '../../shared/extract-statement-positions-from-query.js';
+import {MongoStatementsVisitor} from './mongo-extract-statements.js';
 
-export * from './mongo-extract-commands';
+export * from './mongo-extract-commands.js';
 
-export {extractMongoCollectionsFromQuery} from './mongo-extract-collections';
+export {extractMongoCollectionsFromQuery} from './mongo-extract-collections.js';
 
 export interface MongoAutocompleteResult extends SqlAutocompleteResult {
     suggestQuotedCollections?: boolean;

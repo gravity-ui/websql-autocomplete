@@ -1,4 +1,4 @@
-import {parseMySqlQueryWithCursor, parseMySqlQueryWithoutCursor} from '../../index';
+import {parseMySqlQueryWithCursor, parseMySqlQueryWithoutCursor} from '../../index.js';
 
 test('should suggest roles after REVOKE', () => {
     const autocompleteResult = parseMySqlQueryWithCursor('REVOKE |');

@@ -10,13 +10,13 @@ import {
 } from 'antlr4ng';
 import * as c3 from 'antlr4-c3';
 
-import {TokenPosition} from './cursor';
-import {TableQueryPosition, TokenDictionary} from './tables';
+import {TokenPosition} from './cursor.js';
+import {TableQueryPosition, TokenDictionary} from './tables.js';
 
 export {
     ExtractStatementPositionsResult,
     StatementExtractionStrategy,
-} from './extract-statement-positions-from-query';
+} from './extract-statement-positions-from-query.js';
 
 export interface AutocompleteResultBase {
     errors: ParserSyntaxError[];

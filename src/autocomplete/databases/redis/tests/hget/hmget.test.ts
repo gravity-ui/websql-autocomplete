@@ -1,4 +1,4 @@
-import {parseRedisQueryWithCursor, parseRedisQueryWithoutCursor} from '../../index';
+import {parseRedisQueryWithCursor, parseRedisQueryWithoutCursor} from '../../index.js';
 
 test('should not report errors on HMGET command', () => {
     const autocompleteResult = parseRedisQueryWithoutCursor('HMGET test key1');

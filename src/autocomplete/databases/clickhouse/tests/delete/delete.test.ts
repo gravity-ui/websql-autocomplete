@@ -1,5 +1,5 @@
-import {parseClickHouseQueryWithCursor} from '../../index';
-import {KeywordSuggestion} from '../../../../shared/autocomplete-types';
+import {parseClickHouseQueryWithCursor} from '../../index.js';
+import {KeywordSuggestion} from '../../../../shared/autocomplete-types.js';
 
 test('should suggest properly after DELETE', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor('DELETE |');

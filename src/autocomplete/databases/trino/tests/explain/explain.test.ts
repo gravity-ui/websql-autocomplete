@@ -1,5 +1,5 @@
-import {KeywordSuggestion} from '../../../../shared/autocomplete-types';
-import {parseTrinoQueryWithCursor} from '../../index';
+import {KeywordSuggestion} from '../../../../shared/autocomplete-types.js';
+import {parseTrinoQueryWithCursor} from '../../index.js';
 
 test('should suggest SELECT and contain suggestTemplates with EXPLAIN prefix', () => {
     const autocompleteResult = parseTrinoQueryWithCursor('EXPLAIN |');

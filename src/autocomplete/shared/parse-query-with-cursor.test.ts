@@ -1,4 +1,4 @@
-import {separateQueryAndCursor} from './parse-query-with-cursor';
+import {separateQueryAndCursor} from './parse-query-with-cursor.js';
 
 test('should work at the query end', () => {
     const [query, cursor] = separateQueryAndCursor('SELECT |');

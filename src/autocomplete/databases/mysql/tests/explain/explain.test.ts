@@ -1,5 +1,5 @@
-import {KeywordSuggestion} from '../../../../shared/autocomplete-types';
-import {parseMySqlQueryWithCursor} from '../../index';
+import {KeywordSuggestion} from '../../../../shared/autocomplete-types.js';
+import {parseMySqlQueryWithCursor} from '../../index.js';
 
 test('should suggest SELECT and contain suggestTemplates with EXPLAIN prefix', () => {
     const autocompleteResult = parseMySqlQueryWithCursor('EXPLAIN |');

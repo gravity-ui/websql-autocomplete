@@ -1,9 +1,9 @@
-import {parseClickHouseQueryWithCursor, parseClickHouseQueryWithoutCursor} from '../../index';
+import {parseClickHouseQueryWithCursor, parseClickHouseQueryWithoutCursor} from '../../index.js';
 import {
     ColumnSuggestion,
     KeywordSuggestion,
     TableOrViewSuggestion,
-} from '../../../../shared/autocomplete-types';
+} from '../../../../shared/autocomplete-types.js';
 
 test('should not report errors on extended statement', () => {
     const autocompleteResult = parseClickHouseQueryWithoutCursor(`

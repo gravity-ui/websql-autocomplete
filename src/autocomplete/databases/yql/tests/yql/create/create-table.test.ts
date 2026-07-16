@@ -1,5 +1,5 @@
-import {parseYqlQueryWithCursor} from '../../../index';
-import {KeywordSuggestion} from '../../../../../shared/autocomplete-types';
+import {parseYqlQueryWithCursor} from '../../../index.js';
+import {KeywordSuggestion} from '../../../../../shared/autocomplete-types.js';
 
 test('should suggest properly after TABLE', () => {
     const autocompleteResult = parseYqlQueryWithCursor('CREATE TABLE |');

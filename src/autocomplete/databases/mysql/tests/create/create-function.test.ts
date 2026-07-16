@@ -1,5 +1,5 @@
-import {parseMySqlQueryWithCursor} from '../../index';
-import {KeywordSuggestion} from '../../../../shared/autocomplete-types';
+import {parseMySqlQueryWithCursor} from '../../index.js';
+import {KeywordSuggestion} from '../../../../shared/autocomplete-types.js';
 
 test('should suggest properly after FUNCTION', () => {
     const autocompleteResult = parseMySqlQueryWithCursor('CREATE FUNCTION |');

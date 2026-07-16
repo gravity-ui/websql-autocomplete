@@ -1,5 +1,5 @@
-import {parsePostgreSqlQueryWithCursor, parsePostgreSqlQueryWithoutCursor} from '../../index';
-import {ColumnSuggestion, KeywordSuggestion} from '../../../../shared/autocomplete-types';
+import {parsePostgreSqlQueryWithCursor, parsePostgreSqlQueryWithoutCursor} from '../../index.js';
+import {ColumnSuggestion, KeywordSuggestion} from '../../../../shared/autocomplete-types.js';
 
 test('should suggest nested SELECT', () => {
     const autocompleteResult = parsePostgreSqlQueryWithCursor('SELECT * FROM (|');

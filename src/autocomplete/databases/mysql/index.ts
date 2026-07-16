@@ -3,17 +3,17 @@ import {
     CursorPosition,
     SqlAutocompleteResult,
     TableOrViewSuggestion,
-} from '../../shared/autocomplete-types';
-import {mySqlAutocompleteData} from './mysql-autocomplete';
-import {parseQuery, parseQueryWithoutCursor} from '../../shared/autocomplete';
-import {separateQueryAndCursor} from '../../shared/parse-query-with-cursor';
+} from '../../shared/autocomplete-types.js';
+import {mySqlAutocompleteData} from './mysql-autocomplete.js';
+import {parseQuery, parseQueryWithoutCursor} from '../../shared/autocomplete.js';
+import {separateQueryAndCursor} from '../../shared/parse-query-with-cursor.js';
 import {
     ExtractStatementPositionsResult,
     extractStatementPositionsFromQuery,
-} from '../../shared/extract-statement-positions-from-query';
-import {MySqlStatementsVisitor} from './mysql-extract-statements';
+} from '../../shared/extract-statement-positions-from-query.js';
+import {MySqlStatementsVisitor} from './mysql-extract-statements.js';
 
-export {extractMySqlTablesFromQuery} from './mysql-extract-tables';
+export {extractMySqlTablesFromQuery} from './mysql-extract-tables.js';
 
 export interface MySqlAutocompleteResult extends SqlAutocompleteResult {
     suggestViewsOrTables?: TableOrViewSuggestion;

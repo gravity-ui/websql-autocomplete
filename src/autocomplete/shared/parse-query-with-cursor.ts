@@ -1,5 +1,5 @@
-import {CursorPosition} from './autocomplete-types';
-import {lineSeparatorRegex} from './cursor';
+import {CursorPosition} from './autocomplete-types.js';
+import {lineSeparatorRegex} from './cursor.js';
 
 // separateQueryAndCursor helps to calculate cursor position based on the pipe symbol `|`.
 //

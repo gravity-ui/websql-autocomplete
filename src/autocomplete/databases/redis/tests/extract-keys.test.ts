@@ -1,4 +1,4 @@
-import {extractRedisKeysFromQuery} from '..';
+import {extractRedisKeysFromQuery} from '../index.js';
 
 test('should extract key from command', () => {
     const result = extractRedisKeysFromQuery(`

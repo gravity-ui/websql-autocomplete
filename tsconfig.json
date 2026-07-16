@@ -1,7 +1,8 @@
 {
   "extends": "@gravity-ui/tsconfig",
   "compilerOptions": {
-    "module": "ES2022",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
     "outDir": "dist",
     "noEmitOnError": false,
     "noErrorTruncation": true,

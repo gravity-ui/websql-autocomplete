@@ -1,5 +1,5 @@
-import {KeywordSuggestion, TableOrViewSuggestion} from '../../../../shared/autocomplete-types';
-import {parseTrinoQueryWithCursor, parseTrinoQueryWithoutCursor} from '../../index';
+import {KeywordSuggestion, TableOrViewSuggestion} from '../../../../shared/autocomplete-types.js';
+import {parseTrinoQueryWithCursor, parseTrinoQueryWithoutCursor} from '../../index.js';
 
 test('should suggest keywords after DROP', () => {
     const autocompleteResult = parseTrinoQueryWithCursor('DROP |');

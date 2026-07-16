@@ -1,7 +1,7 @@
-import {LexerConstructor, ParserSyntaxError} from './autocomplete-types';
+import {LexerConstructor, ParserSyntaxError} from './autocomplete-types.js';
 import {Lexer as LexerType} from 'antlr4ng';
-import {createLexer} from './query';
-import {SqlErrorListener} from './sql-error-listener';
+import {createLexer} from './query.js';
+import {SqlErrorListener} from './sql-error-listener.js';
 
 export type Token = {
     ruleName: string;

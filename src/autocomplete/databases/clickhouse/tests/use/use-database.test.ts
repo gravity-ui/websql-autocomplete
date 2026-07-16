@@ -1,5 +1,5 @@
-import {KeywordSuggestion} from '../../../../shared/autocomplete-types';
-import {parseClickHouseQueryWithCursor, parseClickHouseQueryWithoutCursor} from '../../index';
+import {KeywordSuggestion} from '../../../../shared/autocomplete-types.js';
+import {parseClickHouseQueryWithCursor, parseClickHouseQueryWithoutCursor} from '../../index.js';
 
 test('should suggest keywords after USE', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor('USE |');

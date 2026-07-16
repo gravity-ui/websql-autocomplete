@@ -1,5 +1,5 @@
-import {parsePostgreSqlQueryWithCursor, parsePostgreSqlQueryWithoutCursor} from '../../index';
-import {ColumnSuggestion, KeywordSuggestion} from '../../../../shared/autocomplete-types';
+import {parsePostgreSqlQueryWithCursor, parsePostgreSqlQueryWithoutCursor} from '../../index.js';
+import {ColumnSuggestion, KeywordSuggestion} from '../../../../shared/autocomplete-types.js';
 
 test('should suggest properly after WHERE', () => {
     const autocompleteResult = parsePostgreSqlQueryWithCursor('SELECT * FROM test_table WHERE |');

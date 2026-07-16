@@ -3,17 +3,17 @@ import {
     EngineSuggestion,
     SqlAutocompleteResult,
     TableOrViewSuggestion,
-} from '../../shared/autocomplete-types';
-import {clickHouseAutocompleteData} from './clickhouse-autocomplete';
-import {parseQuery, parseQueryWithoutCursor} from '../../shared/autocomplete';
-import {separateQueryAndCursor} from '../../shared/parse-query-with-cursor';
+} from '../../shared/autocomplete-types.js';
+import {clickHouseAutocompleteData} from './clickhouse-autocomplete.js';
+import {parseQuery, parseQueryWithoutCursor} from '../../shared/autocomplete.js';
+import {separateQueryAndCursor} from '../../shared/parse-query-with-cursor.js';
 import {
     ExtractStatementPositionsResult,
     extractStatementPositionsFromQuery,
-} from '../../shared/extract-statement-positions-from-query';
-import {ClickHouseStatementsVisitor} from './clickhouse-extract-statements';
+} from '../../shared/extract-statement-positions-from-query.js';
+import {ClickHouseStatementsVisitor} from './clickhouse-extract-statements.js';
 
-export {extractClickHouseTablesFromQuery} from './clickhouse-extract-tables';
+export {extractClickHouseTablesFromQuery} from './clickhouse-extract-tables.js';
 
 export interface ClickHouseAutocompleteResult extends SqlAutocompleteResult {
     suggestViewsOrTables?: TableOrViewSuggestion;

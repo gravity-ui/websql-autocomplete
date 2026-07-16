@@ -1,4 +1,4 @@
-import {parseRedisQueryWithCursor, parseRedisQueryWithoutCursor} from '../../index';
+import {parseRedisQueryWithCursor, parseRedisQueryWithoutCursor} from '../../index.js';
 
 test('should not report errors on BZPOPMAX command', () => {
     const autocompleteResult = parseRedisQueryWithoutCursor('BZPOPMAX test 1');

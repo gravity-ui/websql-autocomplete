@@ -1,6 +1,6 @@
 import {ParseTree, ParserRuleContext, TerminalNode, Token, TokenStream} from 'antlr4ng';
 
-import {CursorPosition} from './autocomplete-types';
+import {CursorPosition} from './autocomplete-types.js';
 
 type TokenContext = {index: number; context: ParseTree; text: string};
 

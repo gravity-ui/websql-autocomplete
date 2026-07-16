@@ -1,7 +1,7 @@
 import {Lexer as LexerType, Parser as ParserType, Token, TokenStream} from 'antlr4ng';
-import {findCursorTokenIndex} from './cursor';
-import {createParser} from './query';
-import {getColumnAliasesFromSymbolTable, getTablesFromSymbolTable} from './symbol-table';
+import {findCursorTokenIndex} from './cursor.js';
+import {createParser} from './query.js';
+import {getColumnAliasesFromSymbolTable, getTablesFromSymbolTable} from './symbol-table.js';
 import {
     CursorPosition,
     GetParseTree,
@@ -10,7 +10,7 @@ import {
     SqlAutocompleteResult,
     SymbolTableVisitor,
     TableContextSuggestion,
-} from './autocomplete-types';
+} from './autocomplete-types.js';
 
 interface TableQueryPositionBase {
     start: number;

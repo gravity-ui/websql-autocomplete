@@ -1,5 +1,5 @@
-import {TableOrViewSuggestion} from '../../../../shared';
-import {parseClickHouseQueryWithCursor, parseClickHouseQueryWithoutCursor} from '../../index';
+import {TableOrViewSuggestion} from '../../../../shared/index.js';
+import {parseClickHouseQueryWithCursor, parseClickHouseQueryWithoutCursor} from '../../index.js';
 
 test('should not report errors', () => {
     const autocompleteResult = parseClickHouseQueryWithoutCursor(

@@ -2,17 +2,17 @@ import {
     CursorPosition,
     SqlAutocompleteResult,
     TableOrViewSuggestion,
-} from '../../shared/autocomplete-types';
-import {trinoAutocompleteData} from './trino-autocomplete';
-import {parseQuery, parseQueryWithoutCursor} from '../../shared/autocomplete';
-import {separateQueryAndCursor} from '../../shared/parse-query-with-cursor';
+} from '../../shared/autocomplete-types.js';
+import {trinoAutocompleteData} from './trino-autocomplete.js';
+import {parseQuery, parseQueryWithoutCursor} from '../../shared/autocomplete.js';
+import {separateQueryAndCursor} from '../../shared/parse-query-with-cursor.js';
 import {
     ExtractStatementPositionsResult,
     extractStatementPositionsFromQuery,
-} from '../../shared/extract-statement-positions-from-query';
-import {TrinoStatementsVisitor} from './trino-extract-statements';
+} from '../../shared/extract-statement-positions-from-query.js';
+import {TrinoStatementsVisitor} from './trino-extract-statements.js';
 
-export {extractTrinoTablesFromQuery} from './trino-extract-tables';
+export {extractTrinoTablesFromQuery} from './trino-extract-tables.js';
 
 export interface TrinoAutocompleteResult extends SqlAutocompleteResult {
     suggestViewsOrTables?: TableOrViewSuggestion;

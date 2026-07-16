@@ -1,4 +1,4 @@
-import {parseRedisQueryWithCursor, parseRedisQueryWithoutCursor} from '../../index';
+import {parseRedisQueryWithCursor, parseRedisQueryWithoutCursor} from '../../index.js';
 
 test('should not report errors on RPUSHX command', () => {
     const autocompleteResult = parseRedisQueryWithoutCursor('RPUSHX test key');

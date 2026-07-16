@@ -1,4 +1,4 @@
-import {extractClickHouseTablesFromQuery} from '..';
+import {extractClickHouseTablesFromQuery} from '../index.js';
 
 test('should extract tables from query', () => {
     const result = extractClickHouseTablesFromQuery(`

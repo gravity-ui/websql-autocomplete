@@ -1,7 +1,7 @@
-import {IStatementsVisitor, StatementPosition} from '../../shared';
-import {getStatementEndIndex} from '../../shared/extract-statement-positions-from-query';
-import {StatementsContext} from './generated/TrinoParser';
-import {TrinoParserVisitor} from './generated/TrinoParserVisitor';
+import {IStatementsVisitor, StatementPosition} from '../../shared/index.js';
+import {getStatementEndIndex} from '../../shared/extract-statement-positions-from-query.js';
+import {StatementsContext} from './generated/TrinoParser.js';
+import {TrinoParserVisitor} from './generated/TrinoParserVisitor.js';
 
 export class TrinoStatementsVisitor
     extends TrinoParserVisitor<unknown>

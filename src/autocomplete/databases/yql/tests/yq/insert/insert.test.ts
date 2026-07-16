@@ -1,6 +1,6 @@
-import {parseYqQueryWithCursor} from '../../../index';
-import {KeywordSuggestion} from '../../../../../shared/autocomplete-types';
-import {YQLColumnsSuggestion} from '../../../types';
+import {parseYqQueryWithCursor} from '../../../index.js';
+import {KeywordSuggestion} from '../../../../../shared/autocomplete-types.js';
+import {YQLColumnsSuggestion} from '../../../types.js';
 
 test('should suggest properly after INSERT', () => {
     const autocompleteResult = parseYqQueryWithCursor('INSERT |');

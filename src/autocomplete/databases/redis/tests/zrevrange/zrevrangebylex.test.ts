@@ -1,5 +1,5 @@
-import {KeywordSuggestion} from '../../../../shared';
-import {parseRedisQueryWithCursor, parseRedisQueryWithoutCursor} from '../../index';
+import {KeywordSuggestion} from '../../../../shared/index.js';
+import {parseRedisQueryWithCursor, parseRedisQueryWithoutCursor} from '../../index.js';
 
 test('should not report errors on ZREVRANGEBYLEX command', () => {
     const autocompleteResult = parseRedisQueryWithoutCursor('ZREVRANGEBYLEX test lex1 lex2');

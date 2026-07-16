@@ -1,5 +1,5 @@
-import {KeywordSuggestion} from '../../../../../shared/autocomplete-types';
-import {parseYqlQueryWithCursor} from '../../../index';
+import {KeywordSuggestion} from '../../../../../shared/autocomplete-types.js';
+import {parseYqlQueryWithCursor} from '../../../index.js';
 
 test('should suggest keywords after CREATE', () => {
     const autocompleteResult = parseYqlQueryWithCursor('CREATE |');

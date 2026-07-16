@@ -1,7 +1,7 @@
-import {IStatementsVisitor, StatementPosition} from '../../shared';
-import {getStatementEndIndex} from '../../shared/extract-statement-positions-from-query';
-import {CommandsContext} from './generated/MongoParser';
-import {MongoParserVisitor} from './generated/MongoParserVisitor';
+import {IStatementsVisitor, StatementPosition} from '../../shared/index.js';
+import {getStatementEndIndex} from '../../shared/extract-statement-positions-from-query.js';
+import {CommandsContext} from './generated/MongoParser.js';
+import {MongoParserVisitor} from './generated/MongoParserVisitor.js';
 
 export class MongoStatementsVisitor
     extends MongoParserVisitor<unknown>

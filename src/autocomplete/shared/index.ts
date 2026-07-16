@@ -1,15 +1,15 @@
-export * from './autocomplete';
+export * from './autocomplete.js';
 
-export * from './autocomplete-types';
+export * from './autocomplete-types.js';
 
-export * from './cursor';
+export * from './cursor.js';
 
-export * from './parse-query-with-cursor';
+export * from './parse-query-with-cursor.js';
 
-export * from './query';
+export * from './query.js';
 
-export * from './sql-error-listener';
+export * from './sql-error-listener.js';
 
-export * from './symbol-table';
+export * from './symbol-table.js';
 
-export * from './tables';
+export * from './tables.js';

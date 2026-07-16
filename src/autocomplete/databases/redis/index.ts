@@ -1,19 +1,19 @@
-import {AutocompleteResultBase, CursorPosition} from '../../shared/autocomplete-types';
-import {redisAutocompleteData} from './redis-autocomplete';
-import {parseQuery, parseQueryWithoutCursor} from '../../shared/autocomplete';
-import {separateQueryAndCursor} from '../../shared';
+import {AutocompleteResultBase, CursorPosition} from '../../shared/autocomplete-types.js';
+import {redisAutocompleteData} from './redis-autocomplete.js';
+import {parseQuery, parseQueryWithoutCursor} from '../../shared/autocomplete.js';
+import {separateQueryAndCursor} from '../../shared/index.js';
 import {
     ExtractStatementPositionsResult,
     StatementExtractionStrategy,
-} from '../../shared/extract-statement-positions-from-query';
+} from '../../shared/extract-statement-positions-from-query.js';
 import {
     RedisCommands,
     extractRedisCommandsFromQuery as extractRedisCommandsFromQueryRaw,
-} from './redis-tokenize';
+} from './redis-tokenize.js';
 
-export {RedisCommands} from './redis-tokenize';
+export {RedisCommands} from './redis-tokenize.js';
 
-export {extractRedisKeysFromQuery} from './redis-extract-keys';
+export {extractRedisKeysFromQuery} from './redis-extract-keys.js';
 
 export interface RedisAutocompleteResult extends AutocompleteResultBase {
     suggestKeys?: boolean;

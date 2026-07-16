@@ -1,6 +1,6 @@
-import {extractRuleContextFromQuery} from '../../shared/extract-rule-contexts-from-query';
-import {TableIdentifierContext} from './generated/MySqlParser';
-import {mySqlAutocompleteData} from './mysql-autocomplete';
+import {extractRuleContextFromQuery} from '../../shared/extract-rule-contexts-from-query.js';
+import {TableIdentifierContext} from './generated/MySqlParser.js';
+import {mySqlAutocompleteData} from './mysql-autocomplete.js';
 
 export type ExtractMySqlTablesFromQueryResult = {
     databaseName?: string;

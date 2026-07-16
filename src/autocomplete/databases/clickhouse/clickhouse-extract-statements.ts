@@ -1,7 +1,7 @@
-import {IStatementsVisitor, StatementPosition} from '../../shared';
-import {getStatementEndIndex} from '../../shared/extract-statement-positions-from-query';
-import {StatementsContext} from './generated/ClickHouseParser';
-import {ClickHouseParserVisitor} from './generated/ClickHouseParserVisitor';
+import {IStatementsVisitor, StatementPosition} from '../../shared/index.js';
+import {getStatementEndIndex} from '../../shared/extract-statement-positions-from-query.js';
+import {StatementsContext} from './generated/ClickHouseParser.js';
+import {ClickHouseParserVisitor} from './generated/ClickHouseParserVisitor.js';
 
 export class ClickHouseStatementsVisitor
     extends ClickHouseParserVisitor<unknown>

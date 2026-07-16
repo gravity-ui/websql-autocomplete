@@ -2,9 +2,9 @@ import {
     NewTableIdentifierContext,
     SchemaIdentifierContext,
     TableIdentifierContext,
-} from './generated/TrinoParser';
-import {extractRuleContextFromQuery} from '../../shared/extract-rule-contexts-from-query';
-import {trinoAutocompleteData} from './trino-autocomplete';
+} from './generated/TrinoParser.js';
+import {extractRuleContextFromQuery} from '../../shared/extract-rule-contexts-from-query.js';
+import {trinoAutocompleteData} from './trino-autocomplete.js';
 
 export type ExtractTrinoTablesFromQueryResult = {
     catalogName?: string;

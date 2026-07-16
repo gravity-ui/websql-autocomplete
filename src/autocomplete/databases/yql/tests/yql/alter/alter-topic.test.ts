@@ -1,5 +1,5 @@
-import {KeywordSuggestion} from '../../../../../shared/autocomplete-types';
-import {parseYqlQueryWithCursor, parseYqlQueryWithoutCursor} from '../../../index';
+import {KeywordSuggestion} from '../../../../../shared/autocomplete-types.js';
+import {parseYqlQueryWithCursor, parseYqlQueryWithoutCursor} from '../../../index.js';
 
 test('should suggest keywords after TOPIC ', () => {
     const autocompleteResult = parseYqlQueryWithCursor('ALTER TOPIC |');

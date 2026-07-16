@@ -1,4 +1,4 @@
-import {parseRedisQueryWithCursor, parseRedisQueryWithoutCursor} from '../../index';
+import {parseRedisQueryWithCursor, parseRedisQueryWithoutCursor} from '../../index.js';
 
 test('should not report errors on SUBSTR command', () => {
     const autocompleteResult = parseRedisQueryWithoutCursor('SUBSTR test 1 2');

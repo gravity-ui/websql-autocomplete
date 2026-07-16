@@ -1,4 +1,4 @@
-import {parseRedisQueryWithCursor, parseRedisQueryWithoutCursor} from '../../index';
+import {parseRedisQueryWithCursor, parseRedisQueryWithoutCursor} from '../../index.js';
 
 test('should not report errors on BRPOPLPUSH command', () => {
     const autocompleteResult = parseRedisQueryWithoutCursor('BRPOPLPUSH test1 test2 1');
