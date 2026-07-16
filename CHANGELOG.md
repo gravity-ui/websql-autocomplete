@@ -1,5 +1,12 @@
 # Changelog
 
+## [13.15.1](https://github.com/gravity-ui/websql-autocomplete/compare/v13.15.0...v13.15.1) (2026-07-16)
+
+
+### Bug Fixes
+
+* make types resolvable under moduleResolution nodenext ([#319](https://github.com/gravity-ui/websql-autocomplete/issues/319)) ([2beb79b](https://github.com/gravity-ui/websql-autocomplete/commit/2beb79b43268aa735ca4d941bbc15fcd8ef52836))
+
 ## [13.15.0](https://github.com/gravity-ui/websql-autocomplete/compare/v13.14.0...v13.15.0) (2026-05-20)
 
 
