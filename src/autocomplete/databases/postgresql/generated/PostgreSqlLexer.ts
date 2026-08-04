@@ -1083,9 +1083,7 @@ export class PostgreSqlLexer extends PostgreSqlLexerBase {
     ];
 
 
-    /* This field stores the tags which are used to detect the end of a dollar-quoted string literal.
-     */
-    public doubleCurlyPlaceholdersEnabled = false;
+        public doubleCurlyPlaceholdersEnabled = false;
 
 
     public constructor(input: antlr.CharStream) {

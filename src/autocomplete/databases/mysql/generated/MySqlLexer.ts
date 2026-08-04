@@ -1860,7 +1860,7 @@ export class MySqlLexer extends antlr.Lexer {
     ];
 
 
-    public doubleCurlyPlaceholdersEnabled = false;
+        public doubleCurlyPlaceholdersEnabled = false;
 
 
     public constructor(input: antlr.CharStream) {
