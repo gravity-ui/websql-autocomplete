@@ -85,6 +85,7 @@ function getIgnoredTokens(): number[] {
 
     tokens.push(ClickHouseParser.EOF);
     tokens.push(ClickHouseParser.QUESTIONMARK);
+    tokens.push(ClickHouseParser.DOUBLE_CURLY_PLACEHOLDER);
 
     return tokens;
 }

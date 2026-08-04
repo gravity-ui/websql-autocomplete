@@ -6,6 +6,7 @@ import {
     KeywordSuggestion,
     LexerConstructor,
     ParserConstructor,
+    ParserOptions,
 } from './autocomplete-types.js';
 import {Lexer as LexerType, ParserRuleContext, Parser as ParserType} from 'antlr4ng';
 import {createParser} from './query.js';
@@ -19,8 +20,9 @@ export function parseQueryWithoutCursor<L extends LexerType, P extends ParserTyp
     whitespaceToken: number,
     getParseTree: GetParseTree<P>,
     query: string,
+    parserOptions?: ParserOptions,
 ): Pick<AutocompleteResultBase, 'errors'> {
-    const parser = createParser(Lexer, Parser, query);
+    const parser = createParser(Lexer, Parser, query, parserOptions);
     const errorListener = new SqlErrorListener(whitespaceToken);
 
     parser.removeErrorListeners();
@@ -47,8 +49,9 @@ export function parseQuery<
     query: string,
     cursor: CursorPosition,
     context?: ParserRuleContext,
+    parserOptions?: ParserOptions,
 ): A {
-    const parser = createParser(Lexer, Parser, query);
+    const parser = createParser(Lexer, Parser, query, parserOptions);
     const {tokenStream} = parser;
     const errorListener = new SqlErrorListener(whitespaceToken);
 

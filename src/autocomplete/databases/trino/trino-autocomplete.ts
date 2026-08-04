@@ -110,6 +110,7 @@ function getIgnoredTokens(): number[] {
     }
 
     tokens.push(TrinoParser.EOF);
+    tokens.push(TrinoParser.DOUBLE_CURLY_PLACEHOLDER_);
 
     return tokens;
 }

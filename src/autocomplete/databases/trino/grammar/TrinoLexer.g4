@@ -8,6 +8,10 @@ options {
     caseInsensitive = true;
 }
 
+@members {
+    public doubleCurlyPlaceholdersEnabled = false;
+}
+
 ABSENT_            : 'ABSENT';
 ADD_               : 'ADD';
 ADMIN_             : 'ADMIN';
@@ -346,6 +350,10 @@ CARET_  : '^';
 STRING_: '\'' ( ~'\'' | '\'\'')* '\'';
 
 UNICODE_STRING_: 'U&\'' ( ~'\'' | '\'\'')* '\'';
+
+// It's important that the body is `~[{}]*` and not `.*?`: the latter would let an unclosed `{{`
+// reach for the nearest `}}` anywhere later in the text, gluing half a statement into one token.
+DOUBLE_CURLY_PLACEHOLDER_: {this.doubleCurlyPlaceholdersEnabled}? '{{' ~[{}]* '}}';
 
 // Note_: we allow any character inside the binary literal and validate
 // its a correct literal when the AST is being constructed. This

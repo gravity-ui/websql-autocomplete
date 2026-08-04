@@ -1,3 +1,4 @@
+import {ParserOptions} from '../../shared/autocomplete-types.js';
 import {extractRuleContextFromQuery} from '../../shared/extract-rule-contexts-from-query.js';
 import {clickHouseAutocompleteData} from './clickhouse-autocomplete.js';
 import {TableIdentifierContext} from './generated/ClickHouseParser.js';
@@ -9,6 +10,7 @@ export type ExtractClickHouseTablesFromQueryResult = {
 
 export function extractClickHouseTablesFromQuery(
     query: string,
+    parserOptions?: ParserOptions,
 ): ExtractClickHouseTablesFromQueryResult {
     const ruleContexts = extractRuleContextFromQuery(
         query,
@@ -16,6 +18,7 @@ export function extractClickHouseTablesFromQuery(
         clickHouseAutocompleteData.Parser,
         clickHouseAutocompleteData.getParseTree,
         [TableIdentifierContext],
+        parserOptions,
     );
 
     const getNormalizedName = (name: string): string => {

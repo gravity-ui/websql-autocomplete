@@ -80,6 +80,10 @@ export type LexerConstructor<T> = new (input: CharStream) => T;
 
 export type ParserConstructor<T> = new (input: CommonTokenStream) => T;
 
+export interface ParserOptions {
+    doubleCurlyPlaceholdersEnabled?: boolean;
+}
+
 export type SymbolTableVisitorConstructor<T> = new () => T;
 
 export interface ISymbolTableVisitor {

@@ -1,5 +1,6 @@
 import {
     CursorPosition,
+    ParserOptions,
     SqlAutocompleteResult,
     TableOrViewSuggestion,
 } from '../../shared/autocomplete-types.js';
@@ -27,6 +28,7 @@ export interface TrinoAutocompleteResult extends SqlAutocompleteResult {
 
 export function parseTrinoQueryWithoutCursor(
     query: string,
+    parserOptions?: ParserOptions,
 ): Pick<TrinoAutocompleteResult, 'errors'> {
     return parseQueryWithoutCursor(
         trinoAutocompleteData.Lexer,
@@ -34,10 +36,15 @@ export function parseTrinoQueryWithoutCursor(
         trinoAutocompleteData.tokenDictionary.SPACE,
         trinoAutocompleteData.getParseTree,
         query,
+        parserOptions,
     );
 }
 
-export function parseTrinoQuery(query: string, cursor: CursorPosition): TrinoAutocompleteResult {
+export function parseTrinoQuery(
+    query: string,
+    cursor: CursorPosition,
+    parserOptions?: ParserOptions,
+): TrinoAutocompleteResult {
     return parseQuery(
         trinoAutocompleteData.Lexer,
         trinoAutocompleteData.Parser,
@@ -48,15 +55,23 @@ export function parseTrinoQuery(query: string, cursor: CursorPosition): TrinoAut
         trinoAutocompleteData.enrichAutocompleteResult,
         query,
         cursor,
+        trinoAutocompleteData.context,
+        parserOptions,
     );
 }
 
-export function parseTrinoQueryWithCursor(queryWithCursor: string): TrinoAutocompleteResult {
-    return parseTrinoQuery(...separateQueryAndCursor(queryWithCursor));
+export function parseTrinoQueryWithCursor(
+    queryWithCursor: string,
+    parserOptions?: ParserOptions,
+): TrinoAutocompleteResult {
+    const [query, cursor] = separateQueryAndCursor(queryWithCursor);
+
+    return parseTrinoQuery(query, cursor, parserOptions);
 }
 
 export function extractTrinoStatementPositionsFromQuery(
     query: string,
+    parserOptions?: ParserOptions,
 ): ExtractStatementPositionsResult {
     return extractStatementPositionsFromQuery(
         query,
@@ -67,5 +82,6 @@ export function extractTrinoStatementPositionsFromQuery(
         trinoAutocompleteData.tokenDictionary.SEMICOLON,
         new TrinoStatementsVisitor(),
         trinoAutocompleteData.getParseTree,
+        parserOptions,
     );
 }

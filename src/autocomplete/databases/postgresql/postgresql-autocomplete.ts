@@ -64,6 +64,7 @@ function getIgnoredTokens(): number[] {
     }
 
     tokens.push(PostgreSqlParser.EOF);
+    tokens.push(PostgreSqlParser.DOUBLE_CURLY_PLACEHOLDER);
 
     return tokens;
 }

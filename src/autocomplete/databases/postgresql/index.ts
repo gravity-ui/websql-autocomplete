@@ -1,6 +1,7 @@
 import {
     ConstraintSuggestion,
     CursorPosition,
+    ParserOptions,
     SqlAutocompleteResult,
     TableOrViewSuggestion,
 } from '../../shared/autocomplete-types.js';
@@ -28,6 +29,7 @@ export interface PostgreSqlAutocompleteResult extends SqlAutocompleteResult {
 
 export function parsePostgreSqlQueryWithoutCursor(
     query: string,
+    parserOptions?: ParserOptions,
 ): Pick<PostgreSqlAutocompleteResult, 'errors'> {
     return parseQueryWithoutCursor(
         postgreSqlAutocompleteData.Lexer,
@@ -35,12 +37,14 @@ export function parsePostgreSqlQueryWithoutCursor(
         postgreSqlAutocompleteData.tokenDictionary.SPACE,
         postgreSqlAutocompleteData.getParseTree,
         query,
+        parserOptions,
     );
 }
 
 export function parsePostgreSqlQuery(
     query: string,
     cursor: CursorPosition,
+    parserOptions?: ParserOptions,
 ): PostgreSqlAutocompleteResult {
     return parseQuery(
         postgreSqlAutocompleteData.Lexer,
@@ -52,17 +56,23 @@ export function parsePostgreSqlQuery(
         postgreSqlAutocompleteData.enrichAutocompleteResult,
         query,
         cursor,
+        postgreSqlAutocompleteData.context,
+        parserOptions,
     );
 }
 
 export function parsePostgreSqlQueryWithCursor(
     queryWithCursor: string,
+    parserOptions?: ParserOptions,
 ): PostgreSqlAutocompleteResult {
-    return parsePostgreSqlQuery(...separateQueryAndCursor(queryWithCursor));
+    const [query, cursor] = separateQueryAndCursor(queryWithCursor);
+
+    return parsePostgreSqlQuery(query, cursor, parserOptions);
 }
 
 export function extractPostgreSqlStatementPositionsFromQuery(
     query: string,
+    parserOptions?: ParserOptions,
 ): ExtractStatementPositionsResult {
     return extractStatementPositionsFromQuery(
         query,
@@ -73,5 +83,6 @@ export function extractPostgreSqlStatementPositionsFromQuery(
         postgreSqlAutocompleteData.tokenDictionary.SEMICOLON,
         new PostgreSqlStatementsVisitor(),
         postgreSqlAutocompleteData.getParseTree,
+        parserOptions,
     );
 }

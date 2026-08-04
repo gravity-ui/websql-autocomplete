@@ -1,6 +1,11 @@
 import {CharStream, CommonTokenStream, Lexer as LexerType, Parser as ParserType} from 'antlr4ng';
 
-import {CursorPosition, LexerConstructor, ParserConstructor} from './autocomplete-types.js';
+import {
+    CursorPosition,
+    LexerConstructor,
+    ParserConstructor,
+    ParserOptions,
+} from './autocomplete-types.js';
 import {getCursorIndex} from './cursor.js';
 
 export function getCurrentStatement(
@@ -48,9 +53,17 @@ export function createParser<L extends LexerType, P extends ParserType>(
     Lexer: LexerConstructor<L>,
     Parser: ParserConstructor<P>,
     query: string,
+    parserOptions?: ParserOptions,
 ): P {
     const inputStream = CharStream.fromString(query);
     const lexer = new Lexer(inputStream);
+
+    // Only the dialects whose grammars declare the token have the field, the rest ignore the option
+    if ('doubleCurlyPlaceholdersEnabled' in lexer) {
+        lexer.doubleCurlyPlaceholdersEnabled =
+            parserOptions?.doubleCurlyPlaceholdersEnabled ?? false;
+    }
+
     const tokenStream = new CommonTokenStream(lexer);
     const parser = new Parser(tokenStream);
 

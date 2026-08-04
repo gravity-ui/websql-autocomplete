@@ -11,6 +11,7 @@ import {
     GetParseTree,
     LexerConstructor,
     ParserConstructor,
+    ParserOptions,
     StatementPosition,
     StatementsVisitor,
 } from './autocomplete-types.js';
@@ -36,8 +37,9 @@ export function extractStatementPositionsFromQuery<L extends LexerType, P extend
     endStatementToken: number,
     statementsVisitor: StatementsVisitor,
     getParseTree: GetParseTree<P>,
+    parserOptions?: ParserOptions,
 ): ExtractStatementPositionsResult {
-    const parser = createParser(Lexer, Parser, query);
+    const parser = createParser(Lexer, Parser, query, parserOptions);
     const {tokenStream} = parser;
     const errorListener = new SqlErrorListener(whitespaceToken);
 

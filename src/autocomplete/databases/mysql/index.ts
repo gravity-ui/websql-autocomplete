@@ -1,6 +1,7 @@
 import {
     ConstraintSuggestion,
     CursorPosition,
+    ParserOptions,
     SqlAutocompleteResult,
     TableOrViewSuggestion,
 } from '../../shared/autocomplete-types.js';
@@ -26,6 +27,7 @@ export interface MySqlAutocompleteResult extends SqlAutocompleteResult {
 
 export function parseMySqlQueryWithoutCursor(
     query: string,
+    parserOptions?: ParserOptions,
 ): Pick<MySqlAutocompleteResult, 'errors'> {
     return parseQueryWithoutCursor(
         mySqlAutocompleteData.Lexer,
@@ -33,10 +35,15 @@ export function parseMySqlQueryWithoutCursor(
         mySqlAutocompleteData.tokenDictionary.SPACE,
         mySqlAutocompleteData.getParseTree,
         query,
+        parserOptions,
     );
 }
 
-export function parseMySqlQuery(query: string, cursor: CursorPosition): MySqlAutocompleteResult {
+export function parseMySqlQuery(
+    query: string,
+    cursor: CursorPosition,
+    parserOptions?: ParserOptions,
+): MySqlAutocompleteResult {
     return parseQuery(
         mySqlAutocompleteData.Lexer,
         mySqlAutocompleteData.Parser,
@@ -47,15 +54,23 @@ export function parseMySqlQuery(query: string, cursor: CursorPosition): MySqlAut
         mySqlAutocompleteData.enrichAutocompleteResult,
         query,
         cursor,
+        mySqlAutocompleteData.context,
+        parserOptions,
     );
 }
 
-export function parseMySqlQueryWithCursor(queryWithCursor: string): MySqlAutocompleteResult {
-    return parseMySqlQuery(...separateQueryAndCursor(queryWithCursor));
+export function parseMySqlQueryWithCursor(
+    queryWithCursor: string,
+    parserOptions?: ParserOptions,
+): MySqlAutocompleteResult {
+    const [query, cursor] = separateQueryAndCursor(queryWithCursor);
+
+    return parseMySqlQuery(query, cursor, parserOptions);
 }
 
 export function extractMySqlStatementPositionsFromQuery(
     query: string,
+    parserOptions?: ParserOptions,
 ): ExtractStatementPositionsResult {
     return extractStatementPositionsFromQuery(
         query,
@@ -66,5 +81,6 @@ export function extractMySqlStatementPositionsFromQuery(
         mySqlAutocompleteData.tokenDictionary.SEMICOLON,
         new MySqlStatementsVisitor(),
         mySqlAutocompleteData.getParseTree,
+        parserOptions,
     );
 }

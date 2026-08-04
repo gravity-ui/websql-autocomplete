@@ -74,6 +74,7 @@ function getIgnoredTokens(): number[] {
     }
 
     tokens.push(MySqlParser.EOF);
+    tokens.push(MySqlParser.DOUBLE_CURLY_PLACEHOLDER);
 
     // KEY is an alias for INDEX, and we should not suggest it because it's legacy
     tokens.push(MySqlParser.KEY);

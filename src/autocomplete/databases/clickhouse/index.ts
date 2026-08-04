@@ -1,6 +1,7 @@
 import {
     CursorPosition,
     EngineSuggestion,
+    ParserOptions,
     SqlAutocompleteResult,
     TableOrViewSuggestion,
 } from '../../shared/autocomplete-types.js';
@@ -22,6 +23,7 @@ export interface ClickHouseAutocompleteResult extends SqlAutocompleteResult {
 
 export function parseClickHouseQueryWithoutCursor(
     query: string,
+    parserOptions?: ParserOptions,
 ): Pick<ClickHouseAutocompleteResult, 'errors'> {
     return parseQueryWithoutCursor(
         clickHouseAutocompleteData.Lexer,
@@ -29,12 +31,14 @@ export function parseClickHouseQueryWithoutCursor(
         clickHouseAutocompleteData.tokenDictionary.SPACE,
         clickHouseAutocompleteData.getParseTree,
         query,
+        parserOptions,
     );
 }
 
 export function parseClickHouseQuery(
     query: string,
     cursor: CursorPosition,
+    parserOptions?: ParserOptions,
 ): ClickHouseAutocompleteResult {
     return parseQuery(
         clickHouseAutocompleteData.Lexer,
@@ -46,17 +50,23 @@ export function parseClickHouseQuery(
         clickHouseAutocompleteData.enrichAutocompleteResult,
         query,
         cursor,
+        clickHouseAutocompleteData.context,
+        parserOptions,
     );
 }
 
 export function parseClickHouseQueryWithCursor(
     queryWithCursor: string,
+    parserOptions?: ParserOptions,
 ): ClickHouseAutocompleteResult {
-    return parseClickHouseQuery(...separateQueryAndCursor(queryWithCursor));
+    const [query, cursor] = separateQueryAndCursor(queryWithCursor);
+
+    return parseClickHouseQuery(query, cursor, parserOptions);
 }
 
 export function extractClickHouseStatementPositionsFromQuery(
     query: string,
+    parserOptions?: ParserOptions,
 ): ExtractStatementPositionsResult {
     return extractStatementPositionsFromQuery(
         query,
@@ -67,5 +77,6 @@ export function extractClickHouseStatementPositionsFromQuery(
         clickHouseAutocompleteData.tokenDictionary.SEMICOLON,
         new ClickHouseStatementsVisitor(),
         clickHouseAutocompleteData.getParseTree,
+        parserOptions,
     );
 }

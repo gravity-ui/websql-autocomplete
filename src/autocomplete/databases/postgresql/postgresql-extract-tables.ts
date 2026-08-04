@@ -1,4 +1,5 @@
 import {TableIdentifierContext} from './generated/PostgreSqlParser.js';
+import {ParserOptions} from '../../shared/autocomplete-types.js';
 import {extractRuleContextFromQuery} from '../../shared/extract-rule-contexts-from-query.js';
 import {postgreSqlAutocompleteData} from './postgresql-autocomplete.js';
 
@@ -10,6 +11,7 @@ export type ExtractPostgreSqlTablesFromQueryResult = {
 
 export function extractPostgreSqlTablesFromQuery(
     query: string,
+    parserOptions?: ParserOptions,
 ): ExtractPostgreSqlTablesFromQueryResult {
     const ruleContexts = extractRuleContextFromQuery(
         query,
@@ -17,6 +19,7 @@ export function extractPostgreSqlTablesFromQuery(
         postgreSqlAutocompleteData.Parser,
         postgreSqlAutocompleteData.getParseTree,
         [TableIdentifierContext],
+        parserOptions,
     );
 
     const getNormalizedName = (name: string): string => {

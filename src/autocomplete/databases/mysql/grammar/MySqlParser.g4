@@ -1005,6 +1005,7 @@ limitClauseAtom
     : decimalLiteral
     | mysqlVariable
     | simpleId
+    | DOUBLE_CURLY_PLACEHOLDER
     ;
 
 // Transaction's Statements
@@ -2018,6 +2019,7 @@ constant
     | REAL_LITERAL
     | BIT_STRING
     | NOT? nullLiteral = (NULL_LITERAL | NULL_SPEC_LITERAL)
+    | DOUBLE_CURLY_PLACEHOLDER
     ;
 
 //    Data Types

@@ -187,6 +187,7 @@ import { TypeConstructorContext } from "./TrinoParser.js";
 import { JsonValueContext } from "./TrinoParser.js";
 import { SpecialDateTimeFunctionContext } from "./TrinoParser.js";
 import { SubstringContext } from "./TrinoParser.js";
+import { DoubleCurlyPlaceholderContext } from "./TrinoParser.js";
 import { CastContext } from "./TrinoParser.js";
 import { LambdaContext } from "./TrinoParser.js";
 import { ParenthesizedExpressionContext } from "./TrinoParser.js";
@@ -1538,6 +1539,13 @@ export class TrinoParserVisitor<Result> extends AbstractParseTreeVisitor<Result>
      * @return the visitor result
      */
     visitSubstring?: (ctx: SubstringContext) => Result;
+    /**
+     * Visit a parse tree produced by the `doubleCurlyPlaceholder`
+     * labeled alternative in `TrinoParser.primaryExpression`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitDoubleCurlyPlaceholder?: (ctx: DoubleCurlyPlaceholderContext) => Result;
     /**
      * Visit a parse tree produced by the `cast`
      * labeled alternative in `TrinoParser.primaryExpression`.
