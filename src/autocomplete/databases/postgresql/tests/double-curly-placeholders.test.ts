@@ -1,4 +1,8 @@
-import {parsePostgreSqlQueryWithCursor, parsePostgreSqlQueryWithoutCursor} from '../index.js';
+import {
+    extractPostgreSqlDoubleCurlyPlaceholdersFromQuery,
+    parsePostgreSqlQueryWithCursor,
+    parsePostgreSqlQueryWithoutCursor,
+} from '../index.js';
 
 const parserOptions = {doubleCurlyPlaceholdersEnabled: true};
 
@@ -91,4 +95,88 @@ test('should not suggest placeholders as keywords', () => {
     expect(autocompleteResult.suggestKeywords?.map(({value}) => value)).not.toContain(
         'DOUBLE_CURLY_PLACEHOLDER',
     );
+});
+
+test('should extract placeholder with its name, text and position', () => {
+    const placeholders = extractPostgreSqlDoubleCurlyPlaceholdersFromQuery(
+        'SELECT * FROM test_table WHERE test_column = {{test_placeholder}}',
+    );
+
+    expect(placeholders).toEqual([
+        {
+            name: 'test_placeholder',
+            text: '{{test_placeholder}}',
+            startIndex: 45,
+            endIndex: 65,
+        },
+    ]);
+});
+
+test('should trim whitespace around extracted placeholder name', () => {
+    const placeholders = extractPostgreSqlDoubleCurlyPlaceholdersFromQuery(
+        'SELECT * FROM test_table WHERE test_column = {{ test_placeholder }}',
+    );
+
+    expect(placeholders).toEqual([
+        {
+            name: 'test_placeholder',
+            text: '{{ test_placeholder }}',
+            startIndex: 45,
+            endIndex: 67,
+        },
+    ]);
+});
+
+test('should extract every placeholder occurrence in order', () => {
+    const placeholders = extractPostgreSqlDoubleCurlyPlaceholdersFromQuery(
+        'SELECT {{first}}, {{second}} FROM test_table WHERE test_column = {{first}}',
+    );
+
+    expect(placeholders.map(({name}) => name)).toEqual(['first', 'second', 'first']);
+});
+
+test('should not extract placeholders from string literals and comments', () => {
+    const placeholders = extractPostgreSqlDoubleCurlyPlaceholdersFromQuery(
+        `
+        SELECT '{{not_a_placeholder}}' -- {{not_a_placeholder_either}}
+        FROM test_table
+        WHERE test_column = {{test_placeholder}}
+    `,
+    );
+
+    expect(placeholders.map(({name}) => name)).toEqual(['test_placeholder']);
+});
+
+test('should not extract unclosed placeholder', () => {
+    const placeholders = extractPostgreSqlDoubleCurlyPlaceholdersFromQuery(
+        'SELECT * FROM test_table WHERE test_column = {{unclosed',
+    );
+
+    expect(placeholders).toEqual([]);
+});
+
+test('should extract placeholders from a query which cannot be parsed', () => {
+    const placeholders = extractPostgreSqlDoubleCurlyPlaceholdersFromQuery(
+        'SELECT FROM WHERE = {{test_placeholder}}',
+    );
+
+    expect(placeholders.map(({name}) => name)).toEqual(['test_placeholder']);
+});
+
+test('should extract placeholders from separate statements', () => {
+    const placeholders = extractPostgreSqlDoubleCurlyPlaceholdersFromQuery(
+        'SELECT * FROM test_table1 WHERE test_column = {{first}}; SELECT * FROM test_table2 WHERE test_column = {{second}};',
+    );
+
+    expect(placeholders.map(({name}) => name)).toEqual(['first', 'second']);
+});
+
+test('should extract placeholder position which is not shifted by emojis', () => {
+    const query = "SELECT '🙂' FROM test_table WHERE test_column = {{test_placeholder}}";
+    const placeholders = extractPostgreSqlDoubleCurlyPlaceholdersFromQuery(query);
+
+    expect(placeholders).toHaveLength(1);
+    placeholders.forEach(({text, startIndex, endIndex}) => {
+        expect(query.slice(startIndex, endIndex)).toBe(text);
+    });
 });

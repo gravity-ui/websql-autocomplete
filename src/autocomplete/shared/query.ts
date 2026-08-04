@@ -55,6 +55,20 @@ export function createParser<L extends LexerType, P extends ParserType>(
     query: string,
     parserOptions?: ParserOptions,
 ): P {
+    const lexer = createLexer(Lexer, query, parserOptions);
+    const tokenStream = new CommonTokenStream(lexer);
+    const parser = new Parser(tokenStream);
+
+    parser.removeErrorListeners();
+
+    return parser;
+}
+
+export function createLexer<L extends LexerType>(
+    Lexer: LexerConstructor<L>,
+    query: string,
+    parserOptions?: ParserOptions,
+): L {
     const inputStream = CharStream.fromString(query);
     const lexer = new Lexer(inputStream);
 
@@ -64,15 +78,5 @@ export function createParser<L extends LexerType, P extends ParserType>(
             parserOptions?.doubleCurlyPlaceholdersEnabled ?? false;
     }
 
-    const tokenStream = new CommonTokenStream(lexer);
-    const parser = new Parser(tokenStream);
-
-    parser.removeErrorListeners();
-
-    return parser;
-}
-
-export function createLexer<L extends LexerType>(Lexer: LexerConstructor<L>, query: string): L {
-    const inputStream = CharStream.fromString(query);
-    return new Lexer(inputStream);
+    return lexer;
 }
