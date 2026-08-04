@@ -1,4 +1,3 @@
-import {LexerOptions} from '../../shared/autocomplete-types.js';
 import {extractRuleContextFromQuery} from '../../shared/extract-rule-contexts-from-query.js';
 import {clickHouseAutocompleteData} from './clickhouse-autocomplete.js';
 import {TableIdentifierContext} from './generated/ClickHouseParser.js';

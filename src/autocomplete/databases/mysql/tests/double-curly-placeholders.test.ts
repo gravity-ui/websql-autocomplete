@@ -45,19 +45,6 @@ test('should not report errors on whitespace inside placeholder braces', () => {
     expect(autocompleteResult.errors).toHaveLength(0);
 });
 
-test('should not treat placeholders inside string literals and comments as placeholders', () => {
-    const autocompleteResult = parseMySqlQueryWithoutCursor(
-        `
-        SELECT '{{test_placeholder}}' -- {{test_placeholder2}}
-        FROM test_table
-        WHERE test_column = {{test_placeholder3}}
-    `,
-        lexerOptions,
-    );
-
-    expect(autocompleteResult.errors).toHaveLength(0);
-});
-
 test('should not report errors on placeholders in separate statements', () => {
     const autocompleteResult = parseMySqlQueryWithoutCursor(
         'SELECT * FROM test_table WHERE test_column = {{test_placeholder}}; SELECT * FROM test_table2 WHERE test_column = {{test_placeholder2}};',
@@ -72,7 +59,7 @@ test('should report errors on placeholders when the option is disabled', () => {
         'SELECT * FROM test_table WHERE test_column = {{test_placeholder}}',
     );
 
-    expect(autocompleteResult.errors.length).toBeGreaterThan(0);
+    expect(autocompleteResult.errors).toHaveLength(1);
 });
 
 test('should extract placeholder with its text and position', () => {

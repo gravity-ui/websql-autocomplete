@@ -14,7 +14,7 @@ export type ExtractTrinoTablesFromQueryResult = {
 
 export function extractTrinoTablesFromQuery(query: string): ExtractTrinoTablesFromQueryResult {
     const ruleContexts = extractRuleContextFromQuery(
-        query,/
+        query,
         trinoAutocompleteData.Lexer,
         trinoAutocompleteData.Parser,
         trinoAutocompleteData.getParseTree,
