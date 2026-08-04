@@ -10,18 +10,18 @@ test('should not report errors on placeholders in value positions', () => {
     const autocompleteResult = parsePostgreSqlQueryWithoutCursor(
         `
         SELECT
-            CASE WHEN test_column1 = {{case_value}} THEN {{then_value}} ELSE {{else_value}} END,
-            concat({{first_argument}}, {{second_argument}})
+            CASE WHEN test_column = {{test_placeholder}} THEN {{test_placeholder2}} ELSE {{test_placeholder3}} END,
+            CONCAT({{test_placeholder4}}, {{test_placeholder5}})
         FROM test_table
         WHERE
-            test_column2 = {{equality_value}}
-            AND test_column3 IN ({{in_value1}}, {{in_value2}})
-            AND test_column4 BETWEEN {{from_value}} AND {{to_value}}
-            AND test_column5 LIKE {{pattern}}
-        GROUP BY test_column1
-        HAVING count(*) > {{count_value}}
-        LIMIT {{limit_value}}
-        OFFSET {{offset_value}}
+            test_column2 = {{test_placeholder6}}
+            AND test_column3 IN ({{test_placeholder7}}, {{test_placeholder8}})
+            AND test_column4 BETWEEN {{test_placeholder9}} AND {{test_placeholder10}}
+            AND test_column5 LIKE {{test_placeholder11}}
+        GROUP BY test_column
+        HAVING COUNT(*) > {{test_placeholder12}}
+        LIMIT {{test_placeholder13}}
+        OFFSET {{test_placeholder14}}
     `,
         parserOptions,
     );
@@ -31,7 +31,7 @@ test('should not report errors on placeholders in value positions', () => {
 
 test('should not report errors on placeholders in update statement', () => {
     const autocompleteResult = parsePostgreSqlQueryWithoutCursor(
-        'UPDATE test_table SET test_column1 = {{new_value}} WHERE test_column2 = {{condition_value}}',
+        'UPDATE test_table SET test_column = {{test_placeholder}} WHERE test_column2 = {{test_placeholder2}}',
         parserOptions,
     );
 
@@ -40,7 +40,7 @@ test('should not report errors on placeholders in update statement', () => {
 
 test('should not report errors on whitespace inside placeholder braces', () => {
     const autocompleteResult = parsePostgreSqlQueryWithoutCursor(
-        'SELECT * FROM test_table WHERE test_column = {{ test placeholder }}',
+        'SELECT * FROM test_table WHERE test_column = {{ test_placeholder }}',
         parserOptions,
     );
 
@@ -50,9 +50,9 @@ test('should not report errors on whitespace inside placeholder braces', () => {
 test('should not treat placeholders inside string literals and comments as placeholders', () => {
     const autocompleteResult = parsePostgreSqlQueryWithoutCursor(
         `
-        SELECT '{{not_a_placeholder}}' -- {{not_a_placeholder_either}}
+        SELECT '{{test_placeholder}}' -- {{test_placeholder2}}
         FROM test_table
-        WHERE test_column = {{test_placeholder}}
+        WHERE test_column = {{test_placeholder3}}
     `,
         parserOptions,
     );
@@ -62,7 +62,7 @@ test('should not treat placeholders inside string literals and comments as place
 
 test('should not report errors on placeholders in separate statements', () => {
     const autocompleteResult = parsePostgreSqlQueryWithoutCursor(
-        'SELECT * FROM test_table1 WHERE test_column = {{first}}; SELECT * FROM test_table2 WHERE test_column = {{second}};',
+        'SELECT * FROM test_table WHERE test_column = {{test_placeholder}}; SELECT * FROM test_table2 WHERE test_column = {{test_placeholder2}};',
         parserOptions,
     );
 
@@ -71,7 +71,7 @@ test('should not report errors on placeholders in separate statements', () => {
 
 test('should not let an unclosed placeholder swallow the next one', () => {
     const autocompleteResult = parsePostgreSqlQueryWithoutCursor(
-        'SELECT * FROM test_table WHERE test_column1 = {{unclosed AND test_column2 = {{test_placeholder}}',
+        'SELECT * FROM test_table WHERE test_column = {{test_placeholder AND test_column2 = {{test_placeholder2}}',
         parserOptions,
     );
 
@@ -80,7 +80,7 @@ test('should not let an unclosed placeholder swallow the next one', () => {
 
 test('should report errors on placeholders when the option is disabled', () => {
     const autocompleteResult = parsePostgreSqlQueryWithoutCursor(
-        'SELECT * FROM test_table WHERE test_column = {{ test placeholder }}',
+        'SELECT * FROM test_table WHERE test_column = {{test_placeholder}}',
     );
 
     expect(autocompleteResult.errors.length).toBeGreaterThan(0);
@@ -97,14 +97,13 @@ test('should not suggest placeholders as keywords', () => {
     );
 });
 
-test('should extract placeholder with its name, text and position', () => {
+test('should extract placeholder with its text and position', () => {
     const placeholders = extractPostgreSqlDoubleCurlyPlaceholdersFromQuery(
         'SELECT * FROM test_table WHERE test_column = {{test_placeholder}}',
     );
 
     expect(placeholders).toEqual([
         {
-            name: 'test_placeholder',
             text: '{{test_placeholder}}',
             startIndex: 45,
             endIndex: 65,
@@ -112,44 +111,33 @@ test('should extract placeholder with its name, text and position', () => {
     ]);
 });
 
-test('should trim whitespace around extracted placeholder name', () => {
-    const placeholders = extractPostgreSqlDoubleCurlyPlaceholdersFromQuery(
-        'SELECT * FROM test_table WHERE test_column = {{ test_placeholder }}',
-    );
-
-    expect(placeholders).toEqual([
-        {
-            name: 'test_placeholder',
-            text: '{{ test_placeholder }}',
-            startIndex: 45,
-            endIndex: 67,
-        },
-    ]);
-});
-
 test('should extract every placeholder occurrence in order', () => {
     const placeholders = extractPostgreSqlDoubleCurlyPlaceholdersFromQuery(
-        'SELECT {{first}}, {{second}} FROM test_table WHERE test_column = {{first}}',
+        'SELECT {{test_placeholder}}, {{test_placeholder2}} FROM test_table WHERE test_column = {{test_placeholder}}',
     );
 
-    expect(placeholders.map(({name}) => name)).toEqual(['first', 'second', 'first']);
+    expect(placeholders.map(({text}) => text)).toEqual([
+        '{{test_placeholder}}',
+        '{{test_placeholder2}}',
+        '{{test_placeholder}}',
+    ]);
 });
 
 test('should not extract placeholders from string literals and comments', () => {
     const placeholders = extractPostgreSqlDoubleCurlyPlaceholdersFromQuery(
         `
-        SELECT '{{not_a_placeholder}}' -- {{not_a_placeholder_either}}
+        SELECT '{{test_placeholder}}' -- {{test_placeholder2}}
         FROM test_table
-        WHERE test_column = {{test_placeholder}}
+        WHERE test_column = {{test_placeholder3}}
     `,
     );
 
-    expect(placeholders.map(({name}) => name)).toEqual(['test_placeholder']);
+    expect(placeholders.map(({text}) => text)).toEqual(['{{test_placeholder3}}']);
 });
 
 test('should not extract unclosed placeholder', () => {
     const placeholders = extractPostgreSqlDoubleCurlyPlaceholdersFromQuery(
-        'SELECT * FROM test_table WHERE test_column = {{unclosed',
+        'SELECT * FROM test_table WHERE test_column = {{test_placeholder',
     );
 
     expect(placeholders).toEqual([]);
@@ -160,15 +148,18 @@ test('should extract placeholders from a query which cannot be parsed', () => {
         'SELECT FROM WHERE = {{test_placeholder}}',
     );
 
-    expect(placeholders.map(({name}) => name)).toEqual(['test_placeholder']);
+    expect(placeholders.map(({text}) => text)).toEqual(['{{test_placeholder}}']);
 });
 
 test('should extract placeholders from separate statements', () => {
     const placeholders = extractPostgreSqlDoubleCurlyPlaceholdersFromQuery(
-        'SELECT * FROM test_table1 WHERE test_column = {{first}}; SELECT * FROM test_table2 WHERE test_column = {{second}};',
+        'SELECT * FROM test_table WHERE test_column = {{test_placeholder}}; SELECT * FROM test_table2 WHERE test_column = {{test_placeholder2}};',
     );
 
-    expect(placeholders.map(({name}) => name)).toEqual(['first', 'second']);
+    expect(placeholders.map(({text}) => text)).toEqual([
+        '{{test_placeholder}}',
+        '{{test_placeholder2}}',
+    ]);
 });
 
 test('should extract placeholder position which is not shifted by emojis', () => {

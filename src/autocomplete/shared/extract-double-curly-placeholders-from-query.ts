@@ -5,7 +5,6 @@ import {normalizePositions} from './normalize-positions.js';
 import {createLexer} from './query.js';
 
 export interface DoubleCurlyPlaceholder {
-    name: string;
     text: string;
     startIndex: number;
     endIndex: number;
@@ -29,7 +28,6 @@ export function extractDoubleCurlyPlaceholdersFromQuery<L extends LexerType>(
         const text = token.text ?? '';
 
         placeholders.push({
-            name: text.slice(2, -2).trim(),
             text,
             startIndex: token.start,
             endIndex: token.stop + 1,
