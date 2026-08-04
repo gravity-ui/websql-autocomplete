@@ -3,7 +3,6 @@ import {
     SchemaIdentifierContext,
     TableIdentifierContext,
 } from './generated/TrinoParser.js';
-import {ParserOptions} from '../../shared/autocomplete-types.js';
 import {extractRuleContextFromQuery} from '../../shared/extract-rule-contexts-from-query.js';
 import {trinoAutocompleteData} from './trino-autocomplete.js';
 
@@ -13,17 +12,13 @@ export type ExtractTrinoTablesFromQueryResult = {
     tableName: string;
 }[];
 
-export function extractTrinoTablesFromQuery(
-    query: string,
-    parserOptions?: ParserOptions,
-): ExtractTrinoTablesFromQueryResult {
+export function extractTrinoTablesFromQuery(query: string): ExtractTrinoTablesFromQueryResult {
     const ruleContexts = extractRuleContextFromQuery(
-        query,
+        query,/
         trinoAutocompleteData.Lexer,
         trinoAutocompleteData.Parser,
         trinoAutocompleteData.getParseTree,
         [TableIdentifierContext, NewTableIdentifierContext],
-        parserOptions,
     );
 
     const getNormalizedName = (name: string): string => {

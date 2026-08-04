@@ -1,4 +1,3 @@
-import {ParserOptions} from '../../shared/autocomplete-types.js';
 import {extractRuleContextFromQuery} from '../../shared/extract-rule-contexts-from-query.js';
 import {TableIdentifierContext} from './generated/MySqlParser.js';
 import {mySqlAutocompleteData} from './mysql-autocomplete.js';
@@ -8,17 +7,13 @@ export type ExtractMySqlTablesFromQueryResult = {
     tableName: string;
 }[];
 
-export function extractMySqlTablesFromQuery(
-    query: string,
-    parserOptions?: ParserOptions,
-): ExtractMySqlTablesFromQueryResult {
+export function extractMySqlTablesFromQuery(query: string): ExtractMySqlTablesFromQueryResult {
     const ruleContexts = extractRuleContextFromQuery(
         query,
         mySqlAutocompleteData.Lexer,
         mySqlAutocompleteData.Parser,
         mySqlAutocompleteData.getParseTree,
         [TableIdentifierContext],
-        parserOptions,
     );
 
     const getNormalizedName = (name: string): string => {

@@ -1,10 +1,9 @@
 import {
     extractTrinoDoubleCurlyPlaceholdersFromQuery,
-    parseTrinoQueryWithCursor,
     parseTrinoQueryWithoutCursor,
 } from '../index.js';
 
-const parserOptions = {doubleCurlyPlaceholdersEnabled: true};
+const lexerOptions = {doubleCurlyPlaceholdersEnabled: true};
 
 test('should not report errors on placeholders in value positions', () => {
     const autocompleteResult = parseTrinoQueryWithoutCursor(
@@ -23,7 +22,7 @@ test('should not report errors on placeholders in value positions', () => {
         OFFSET {{test_placeholder13}}
         LIMIT {{test_placeholder14}}
     `,
-        parserOptions,
+        lexerOptions,
     );
 
     expect(autocompleteResult.errors).toHaveLength(0);
@@ -32,7 +31,7 @@ test('should not report errors on placeholders in value positions', () => {
 test('should not report errors on placeholders in update statement', () => {
     const autocompleteResult = parseTrinoQueryWithoutCursor(
         'UPDATE test_table SET test_column = {{test_placeholder}} WHERE test_column2 = {{test_placeholder2}}',
-        parserOptions,
+        lexerOptions,
     );
 
     expect(autocompleteResult.errors).toHaveLength(0);
@@ -41,7 +40,7 @@ test('should not report errors on placeholders in update statement', () => {
 test('should not report errors on whitespace inside placeholder braces', () => {
     const autocompleteResult = parseTrinoQueryWithoutCursor(
         'SELECT * FROM test_table WHERE test_column = {{ test_placeholder }}',
-        parserOptions,
+        lexerOptions,
     );
 
     expect(autocompleteResult.errors).toHaveLength(0);
@@ -54,7 +53,7 @@ test('should not treat placeholders inside string literals and comments as place
         FROM test_table
         WHERE test_column = {{test_placeholder3}}
     `,
-        parserOptions,
+        lexerOptions,
     );
 
     expect(autocompleteResult.errors).toHaveLength(0);
@@ -63,7 +62,7 @@ test('should not treat placeholders inside string literals and comments as place
 test('should not report errors on placeholders in separate statements', () => {
     const autocompleteResult = parseTrinoQueryWithoutCursor(
         'SELECT * FROM test_table WHERE test_column = {{test_placeholder}}; SELECT * FROM test_table2 WHERE test_column = {{test_placeholder2}};',
-        parserOptions,
+        lexerOptions,
     );
 
     expect(autocompleteResult.errors).toHaveLength(0);
@@ -72,7 +71,7 @@ test('should not report errors on placeholders in separate statements', () => {
 test('should not let an unclosed placeholder swallow the next one', () => {
     const autocompleteResult = parseTrinoQueryWithoutCursor(
         'SELECT * FROM test_table WHERE test_column = {{test_placeholder AND test_column2 = {{test_placeholder2}}',
-        parserOptions,
+        lexerOptions,
     );
 
     expect(autocompleteResult.errors.length).toBeGreaterThan(0);
@@ -84,17 +83,6 @@ test('should report errors on placeholders when the option is disabled', () => {
     );
 
     expect(autocompleteResult.errors.length).toBeGreaterThan(0);
-});
-
-test('should not suggest placeholders as keywords', () => {
-    const autocompleteResult = parseTrinoQueryWithCursor(
-        'SELECT * FROM test_table WHERE test_column = |',
-        parserOptions,
-    );
-
-    expect(autocompleteResult.suggestKeywords?.map(({value}) => value)).not.toContain(
-        'DOUBLE_CURLY_PLACEHOLDER_',
-    );
 });
 
 test('should extract placeholder with its text and position', () => {

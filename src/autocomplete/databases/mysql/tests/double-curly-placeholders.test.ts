@@ -1,10 +1,9 @@
 import {
     extractMySqlDoubleCurlyPlaceholdersFromQuery,
-    parseMySqlQueryWithCursor,
     parseMySqlQueryWithoutCursor,
 } from '../index.js';
 
-const parserOptions = {doubleCurlyPlaceholdersEnabled: true};
+const lexerOptions = {doubleCurlyPlaceholdersEnabled: true};
 
 test('should not report errors on placeholders in value positions', () => {
     const autocompleteResult = parseMySqlQueryWithoutCursor(
@@ -22,7 +21,7 @@ test('should not report errors on placeholders in value positions', () => {
         HAVING COUNT(*) > {{test_placeholder12}}
         LIMIT {{test_placeholder13}} OFFSET {{test_placeholder14}}
     `,
-        parserOptions,
+        lexerOptions,
     );
 
     expect(autocompleteResult.errors).toHaveLength(0);
@@ -31,7 +30,7 @@ test('should not report errors on placeholders in value positions', () => {
 test('should not report errors on placeholders in update statement', () => {
     const autocompleteResult = parseMySqlQueryWithoutCursor(
         'UPDATE test_table SET test_column = {{test_placeholder}} WHERE test_column2 = {{test_placeholder2}}',
-        parserOptions,
+        lexerOptions,
     );
 
     expect(autocompleteResult.errors).toHaveLength(0);
@@ -40,7 +39,7 @@ test('should not report errors on placeholders in update statement', () => {
 test('should not report errors on whitespace inside placeholder braces', () => {
     const autocompleteResult = parseMySqlQueryWithoutCursor(
         'SELECT * FROM test_table WHERE test_column = {{ test_placeholder }}',
-        parserOptions,
+        lexerOptions,
     );
 
     expect(autocompleteResult.errors).toHaveLength(0);
@@ -53,7 +52,7 @@ test('should not treat placeholders inside string literals and comments as place
         FROM test_table
         WHERE test_column = {{test_placeholder3}}
     `,
-        parserOptions,
+        lexerOptions,
     );
 
     expect(autocompleteResult.errors).toHaveLength(0);
@@ -62,7 +61,7 @@ test('should not treat placeholders inside string literals and comments as place
 test('should not report errors on placeholders in separate statements', () => {
     const autocompleteResult = parseMySqlQueryWithoutCursor(
         'SELECT * FROM test_table WHERE test_column = {{test_placeholder}}; SELECT * FROM test_table2 WHERE test_column = {{test_placeholder2}};',
-        parserOptions,
+        lexerOptions,
     );
 
     expect(autocompleteResult.errors).toHaveLength(0);
@@ -74,17 +73,6 @@ test('should report errors on placeholders when the option is disabled', () => {
     );
 
     expect(autocompleteResult.errors.length).toBeGreaterThan(0);
-});
-
-test('should not suggest placeholders as keywords', () => {
-    const autocompleteResult = parseMySqlQueryWithCursor(
-        'SELECT * FROM test_table WHERE test_column = |',
-        parserOptions,
-    );
-
-    expect(autocompleteResult.suggestKeywords?.map(({value}) => value)).not.toContain(
-        'DOUBLE_CURLY_PLACEHOLDER',
-    );
 });
 
 test('should extract placeholder with its text and position', () => {

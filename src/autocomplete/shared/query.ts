@@ -3,8 +3,8 @@ import {CharStream, CommonTokenStream, Lexer as LexerType, Parser as ParserType}
 import {
     CursorPosition,
     LexerConstructor,
+    LexerOptions,
     ParserConstructor,
-    ParserOptions,
 } from './autocomplete-types.js';
 import {getCursorIndex} from './cursor.js';
 
@@ -53,9 +53,9 @@ export function createParser<L extends LexerType, P extends ParserType>(
     Lexer: LexerConstructor<L>,
     Parser: ParserConstructor<P>,
     query: string,
-    parserOptions?: ParserOptions,
+    lexerOptions?: LexerOptions,
 ): P {
-    const lexer = createLexer(Lexer, query, parserOptions);
+    const lexer = createLexer(Lexer, query, lexerOptions);
     const tokenStream = new CommonTokenStream(lexer);
     const parser = new Parser(tokenStream);
 
@@ -67,7 +67,7 @@ export function createParser<L extends LexerType, P extends ParserType>(
 export function createLexer<L extends LexerType>(
     Lexer: LexerConstructor<L>,
     query: string,
-    parserOptions?: ParserOptions,
+    lexerOptions?: LexerOptions,
 ): L {
     const inputStream = CharStream.fromString(query);
     const lexer = new Lexer(inputStream);
@@ -75,7 +75,7 @@ export function createLexer<L extends LexerType>(
     // Only the dialects whose grammars declare the token have the field, the rest ignore the option
     if ('doubleCurlyPlaceholdersEnabled' in lexer) {
         lexer.doubleCurlyPlaceholdersEnabled =
-            parserOptions?.doubleCurlyPlaceholdersEnabled ?? false;
+            lexerOptions?.doubleCurlyPlaceholdersEnabled ?? false;
     }
 
     return lexer;

@@ -1,7 +1,7 @@
 import {
     ConstraintSuggestion,
     CursorPosition,
-    ParserOptions,
+    LexerOptions,
     SqlAutocompleteResult,
     TableOrViewSuggestion,
 } from '../../shared/autocomplete-types.js';
@@ -31,7 +31,7 @@ export interface MySqlAutocompleteResult extends SqlAutocompleteResult {
 
 export function parseMySqlQueryWithoutCursor(
     query: string,
-    parserOptions?: ParserOptions,
+    lexerOptions?: LexerOptions,
 ): Pick<MySqlAutocompleteResult, 'errors'> {
     return parseQueryWithoutCursor(
         mySqlAutocompleteData.Lexer,
@@ -39,14 +39,14 @@ export function parseMySqlQueryWithoutCursor(
         mySqlAutocompleteData.tokenDictionary.SPACE,
         mySqlAutocompleteData.getParseTree,
         query,
-        parserOptions,
+        lexerOptions,
     );
 }
 
 export function parseMySqlQuery(
     query: string,
     cursor: CursorPosition,
-    parserOptions?: ParserOptions,
+    lexerOptions?: LexerOptions,
 ): MySqlAutocompleteResult {
     return parseQuery(
         mySqlAutocompleteData.Lexer,
@@ -59,22 +59,22 @@ export function parseMySqlQuery(
         query,
         cursor,
         mySqlAutocompleteData.context,
-        parserOptions,
+        lexerOptions,
     );
 }
 
 export function parseMySqlQueryWithCursor(
     queryWithCursor: string,
-    parserOptions?: ParserOptions,
+    lexerOptions?: LexerOptions,
 ): MySqlAutocompleteResult {
     const [query, cursor] = separateQueryAndCursor(queryWithCursor);
 
-    return parseMySqlQuery(query, cursor, parserOptions);
+    return parseMySqlQuery(query, cursor, lexerOptions);
 }
 
 export function extractMySqlStatementPositionsFromQuery(
     query: string,
-    parserOptions?: ParserOptions,
+    lexerOptions?: LexerOptions,
 ): ExtractStatementPositionsResult {
     return extractStatementPositionsFromQuery(
         query,
@@ -85,6 +85,6 @@ export function extractMySqlStatementPositionsFromQuery(
         mySqlAutocompleteData.tokenDictionary.SEMICOLON,
         new MySqlStatementsVisitor(),
         mySqlAutocompleteData.getParseTree,
-        parserOptions,
+        lexerOptions,
     );
 }

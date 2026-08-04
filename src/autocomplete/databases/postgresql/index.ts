@@ -1,7 +1,7 @@
 import {
     ConstraintSuggestion,
     CursorPosition,
-    ParserOptions,
+    LexerOptions,
     SqlAutocompleteResult,
     TableOrViewSuggestion,
 } from '../../shared/autocomplete-types.js';
@@ -33,7 +33,7 @@ export interface PostgreSqlAutocompleteResult extends SqlAutocompleteResult {
 
 export function parsePostgreSqlQueryWithoutCursor(
     query: string,
-    parserOptions?: ParserOptions,
+    lexerOptions?: LexerOptions,
 ): Pick<PostgreSqlAutocompleteResult, 'errors'> {
     return parseQueryWithoutCursor(
         postgreSqlAutocompleteData.Lexer,
@@ -41,14 +41,14 @@ export function parsePostgreSqlQueryWithoutCursor(
         postgreSqlAutocompleteData.tokenDictionary.SPACE,
         postgreSqlAutocompleteData.getParseTree,
         query,
-        parserOptions,
+        lexerOptions,
     );
 }
 
 export function parsePostgreSqlQuery(
     query: string,
     cursor: CursorPosition,
-    parserOptions?: ParserOptions,
+    lexerOptions?: LexerOptions,
 ): PostgreSqlAutocompleteResult {
     return parseQuery(
         postgreSqlAutocompleteData.Lexer,
@@ -61,22 +61,22 @@ export function parsePostgreSqlQuery(
         query,
         cursor,
         postgreSqlAutocompleteData.context,
-        parserOptions,
+        lexerOptions,
     );
 }
 
 export function parsePostgreSqlQueryWithCursor(
     queryWithCursor: string,
-    parserOptions?: ParserOptions,
+    lexerOptions?: LexerOptions,
 ): PostgreSqlAutocompleteResult {
     const [query, cursor] = separateQueryAndCursor(queryWithCursor);
 
-    return parsePostgreSqlQuery(query, cursor, parserOptions);
+    return parsePostgreSqlQuery(query, cursor, lexerOptions);
 }
 
 export function extractPostgreSqlStatementPositionsFromQuery(
     query: string,
-    parserOptions?: ParserOptions,
+    lexerOptions?: LexerOptions,
 ): ExtractStatementPositionsResult {
     return extractStatementPositionsFromQuery(
         query,
@@ -87,6 +87,6 @@ export function extractPostgreSqlStatementPositionsFromQuery(
         postgreSqlAutocompleteData.tokenDictionary.SEMICOLON,
         new PostgreSqlStatementsVisitor(),
         postgreSqlAutocompleteData.getParseTree,
-        parserOptions,
+        lexerOptions,
     );
 }
