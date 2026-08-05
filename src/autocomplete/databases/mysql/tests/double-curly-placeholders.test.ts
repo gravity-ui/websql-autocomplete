@@ -56,7 +56,7 @@ test('should not report errors on placeholders in separate statements', () => {
 
 test('should report errors on placeholders when the option is disabled', () => {
     const autocompleteResult = parseMySqlQueryWithoutCursor(
-        'SELECT * FROM test_table WHERE test_column = {{test_placeholder}}',
+        'CREATE TABLE test_table (test_column INT DEFAULT {{test_placeholder}})',
     );
 
     expect(autocompleteResult.errors).toHaveLength(1);
