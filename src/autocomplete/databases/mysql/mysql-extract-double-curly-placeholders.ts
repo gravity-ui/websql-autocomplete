@@ -1,15 +1,6 @@
-import {
-    DoubleCurlyPlaceholder,
-    extractDoubleCurlyPlaceholdersFromQuery,
-} from '../../shared/extract-double-curly-placeholders-from-query.js';
+import {Token, extractTokensFromQuery} from '../../shared/extract-tokens-from-query.js';
 import {MySqlLexer} from './generated/MySqlLexer.js';
 
-export function extractMySqlDoubleCurlyPlaceholdersFromQuery(
-    query: string,
-): DoubleCurlyPlaceholder[] {
-    return extractDoubleCurlyPlaceholdersFromQuery(
-        query,
-        MySqlLexer,
-        MySqlLexer.DOUBLE_CURLY_PLACEHOLDER,
-    );
+export function extractMySqlDoubleCurlyPlaceholdersFromQuery(query: string): Token[] {
+    return extractTokensFromQuery(query, MySqlLexer, MySqlLexer.DOUBLE_CURLY_PLACEHOLDER);
 }

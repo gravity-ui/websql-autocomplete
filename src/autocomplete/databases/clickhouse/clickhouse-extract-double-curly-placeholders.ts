@@ -1,15 +1,6 @@
-import {
-    DoubleCurlyPlaceholder,
-    extractDoubleCurlyPlaceholdersFromQuery,
-} from '../../shared/extract-double-curly-placeholders-from-query.js';
+import {Token, extractTokensFromQuery} from '../../shared/extract-tokens-from-query.js';
 import {ClickHouseLexer} from './generated/ClickHouseLexer.js';
 
-export function extractClickHouseDoubleCurlyPlaceholdersFromQuery(
-    query: string,
-): DoubleCurlyPlaceholder[] {
-    return extractDoubleCurlyPlaceholdersFromQuery(
-        query,
-        ClickHouseLexer,
-        ClickHouseLexer.DOUBLE_CURLY_PLACEHOLDER,
-    );
+export function extractClickHouseDoubleCurlyPlaceholdersFromQuery(query: string): Token[] {
+    return extractTokensFromQuery(query, ClickHouseLexer, ClickHouseLexer.DOUBLE_CURLY_PLACEHOLDER);
 }

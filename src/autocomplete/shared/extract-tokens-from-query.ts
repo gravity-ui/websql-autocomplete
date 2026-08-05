@@ -1,38 +1,38 @@
-import {Lexer as LexerType, Token} from 'antlr4ng';
+import {Token as Antlr4Token, Lexer as LexerType} from 'antlr4ng';
 
 import {LexerConstructor} from './autocomplete-types.js';
 import {normalizePositions} from './normalize-positions.js';
 import {createLexer} from './query.js';
 
-export interface DoubleCurlyPlaceholder {
+export interface Token {
     text: string;
     startIndex: number;
     endIndex: number;
 }
 
-export function extractDoubleCurlyPlaceholdersFromQuery<L extends LexerType>(
+export function extractTokensFromQuery<L extends LexerType>(
     query: string,
     Lexer: LexerConstructor<L>,
-    doubleCurlyPlaceholderToken: number,
-): DoubleCurlyPlaceholder[] {
+    tokenType: number,
+): Token[] {
     const lexer = createLexer(Lexer, query, {doubleCurlyPlaceholdersEnabled: true});
     lexer.removeErrorListeners();
 
-    const placeholders: DoubleCurlyPlaceholder[] = [];
+    const tokens: Token[] = [];
 
-    for (let token = lexer.nextToken(); token.type !== Token.EOF; token = lexer.nextToken()) {
-        if (token.type !== doubleCurlyPlaceholderToken) {
+    for (let token = lexer.nextToken(); token.type !== Antlr4Token.EOF; token = lexer.nextToken()) {
+        if (token.type !== tokenType) {
             continue;
         }
 
         const text = token.text ?? '';
 
-        placeholders.push({
+        tokens.push({
             text,
             startIndex: token.start,
             endIndex: token.stop + 1,
         });
     }
 
-    return normalizePositions(query, placeholders);
+    return normalizePositions(query, tokens);
 }

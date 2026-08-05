@@ -17,8 +17,6 @@ export {extractTrinoTablesFromQuery} from './trino-extract-tables.js';
 
 export {extractTrinoDoubleCurlyPlaceholdersFromQuery} from './trino-extract-double-curly-placeholders.js';
 
-export type {DoubleCurlyPlaceholder} from '../../shared/extract-double-curly-placeholders-from-query.js';
-
 export interface TrinoAutocompleteResult extends SqlAutocompleteResult {
     suggestViewsOrTables?: TableOrViewSuggestion;
     suggestSchemas?: true;

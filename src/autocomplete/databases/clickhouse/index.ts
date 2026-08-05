@@ -18,8 +18,6 @@ export {extractClickHouseTablesFromQuery} from './clickhouse-extract-tables.js';
 
 export {extractClickHouseDoubleCurlyPlaceholdersFromQuery} from './clickhouse-extract-double-curly-placeholders.js';
 
-export type {DoubleCurlyPlaceholder} from '../../shared/extract-double-curly-placeholders-from-query.js';
-
 export interface ClickHouseAutocompleteResult extends SqlAutocompleteResult {
     suggestViewsOrTables?: TableOrViewSuggestion;
     suggestEngines?: EngineSuggestion;

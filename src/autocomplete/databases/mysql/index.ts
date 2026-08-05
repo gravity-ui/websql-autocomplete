@@ -18,8 +18,6 @@ export {extractMySqlTablesFromQuery} from './mysql-extract-tables.js';
 
 export {extractMySqlDoubleCurlyPlaceholdersFromQuery} from './mysql-extract-double-curly-placeholders.js';
 
-export type {DoubleCurlyPlaceholder} from '../../shared/extract-double-curly-placeholders-from-query.js';
-
 export interface MySqlAutocompleteResult extends SqlAutocompleteResult {
     suggestViewsOrTables?: TableOrViewSuggestion;
     suggestIndexes?: boolean;

@@ -1,15 +1,6 @@
-import {
-    DoubleCurlyPlaceholder,
-    extractDoubleCurlyPlaceholdersFromQuery,
-} from '../../shared/extract-double-curly-placeholders-from-query.js';
+import {Token, extractTokensFromQuery} from '../../shared/extract-tokens-from-query.js';
 import {PostgreSqlLexer} from './generated/PostgreSqlLexer.js';
 
-export function extractPostgreSqlDoubleCurlyPlaceholdersFromQuery(
-    query: string,
-): DoubleCurlyPlaceholder[] {
-    return extractDoubleCurlyPlaceholdersFromQuery(
-        query,
-        PostgreSqlLexer,
-        PostgreSqlLexer.DOUBLE_CURLY_PLACEHOLDER,
-    );
+export function extractPostgreSqlDoubleCurlyPlaceholdersFromQuery(query: string): Token[] {
+    return extractTokensFromQuery(query, PostgreSqlLexer, PostgreSqlLexer.DOUBLE_CURLY_PLACEHOLDER);
 }

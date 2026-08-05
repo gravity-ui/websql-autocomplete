@@ -19,8 +19,6 @@ export {extractPostgreSqlTablesFromQuery} from './postgresql-extract-tables.js';
 
 export {extractPostgreSqlDoubleCurlyPlaceholdersFromQuery} from './postgresql-extract-double-curly-placeholders.js';
 
-export type {DoubleCurlyPlaceholder} from '../../shared/extract-double-curly-placeholders-from-query.js';
-
 export interface PostgreSqlAutocompleteResult extends SqlAutocompleteResult {
     suggestViewsOrTables?: TableOrViewSuggestion;
     suggestIndexes?: boolean;
