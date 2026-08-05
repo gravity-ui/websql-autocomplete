@@ -2,5 +2,7 @@ import {Token, extractTokensFromQuery} from '../../shared/extract-tokens-from-qu
 import {MySqlLexer} from './generated/MySqlLexer.js';
 
 export function extractMySqlDoubleCurlyPlaceholdersFromQuery(query: string): Token[] {
-    return extractTokensFromQuery(query, MySqlLexer, MySqlLexer.DOUBLE_CURLY_PLACEHOLDER);
+    return extractTokensFromQuery(query, MySqlLexer, MySqlLexer.DOUBLE_CURLY_PLACEHOLDER, {
+        doubleCurlyPlaceholdersEnabled: true,
+    });
 }

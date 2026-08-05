@@ -2,5 +2,7 @@ import {Token, extractTokensFromQuery} from '../../shared/extract-tokens-from-qu
 import {TrinoLexer} from './generated/TrinoLexer.js';
 
 export function extractTrinoDoubleCurlyPlaceholdersFromQuery(query: string): Token[] {
-    return extractTokensFromQuery(query, TrinoLexer, TrinoLexer.DOUBLE_CURLY_PLACEHOLDER_);
+    return extractTokensFromQuery(query, TrinoLexer, TrinoLexer.DOUBLE_CURLY_PLACEHOLDER_, {
+        doubleCurlyPlaceholdersEnabled: true,
+    });
 }
