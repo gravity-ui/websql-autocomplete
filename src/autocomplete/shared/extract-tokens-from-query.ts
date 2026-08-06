@@ -1,13 +1,11 @@
 import {Token as Antlr4Token, Lexer as LexerType} from 'antlr4ng';
 
 import {LexerConstructor, LexerOptions} from './autocomplete-types.js';
-import {normalizePositions} from './normalize-positions.js';
+import {Position, normalizePositions} from './normalize-positions.js';
 import {createLexer} from './query.js';
 
-export interface Token {
+export interface Token extends Position {
     text: string;
-    startIndex: number;
-    endIndex: number;
 }
 
 export function extractTokensFromQuery<L extends LexerType>(
