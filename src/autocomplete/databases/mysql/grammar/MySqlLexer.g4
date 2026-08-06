@@ -1269,7 +1269,7 @@ NULL_SPEC_LITERAL   : '\\' 'N';
 BIT_STRING          : BIT_STRING_L;
 STRING_CHARSET_NAME : '_' CHARSET_NAME;
 
-DOUBLE_CURLY_PLACEHOLDER: {this.doubleCurlyPlaceholdersEnabled}? '{{' ~[{}]* '}}';
+DOUBLE_CURLY_PLACEHOLDER: {this.doubleCurlyPlaceholdersEnabled}? '{{' ~[{}\r\n]* '}}';
 
 // Hack for dotID
 // Prevent recognize string:         .123somelatin AS ((.123), FLOAT_LITERAL), ((somelatin), ID)

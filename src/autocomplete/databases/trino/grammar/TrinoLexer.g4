@@ -351,7 +351,7 @@ STRING_: '\'' ( ~'\'' | '\'\'')* '\'';
 
 UNICODE_STRING_: 'U&\'' ( ~'\'' | '\'\'')* '\'';
 
-DOUBLE_CURLY_PLACEHOLDER_: {this.doubleCurlyPlaceholdersEnabled}? '{{' ~[{}]* '}}';
+DOUBLE_CURLY_PLACEHOLDER_: {this.doubleCurlyPlaceholdersEnabled}? '{{' ~[{}\r\n]* '}}';
 
 // Note_: we allow any character inside the binary literal and validate
 // its a correct literal when the AST is being constructed. This

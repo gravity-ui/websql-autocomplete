@@ -110,7 +110,7 @@ PERCENT: '%';
 
 PARAM: '$' ([0-9])+;
 
-DOUBLE_CURLY_PLACEHOLDER: {this.doubleCurlyPlaceholdersEnabled}? '{{' ~[{}]* '}}';
+DOUBLE_CURLY_PLACEHOLDER: {this.doubleCurlyPlaceholdersEnabled}? '{{' ~[{}\r\n]* '}}';
 //
 
 // OPERATORS (4.1.3)

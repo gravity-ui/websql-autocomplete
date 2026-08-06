@@ -1,11 +1,6 @@
 import type {Lexer as LexerType, ParserRuleContext, Parser as ParserType} from 'antlr4ng';
 
-import {
-    GetParseTree,
-    LexerConstructor,
-    LexerOptions,
-    ParserConstructor,
-} from './autocomplete-types.js';
+import {GetParseTree, LexerConstructor, ParserConstructor} from './autocomplete-types.js';
 import {createParser} from './query.js';
 
 export function extractRuleContextFromQuery<
@@ -18,9 +13,8 @@ export function extractRuleContextFromQuery<
     Parser: ParserConstructor<P>,
     getParseTree: GetParseTree<P>,
     ruleContextTypes: R[],
-    lexerOptions?: LexerOptions,
 ): InstanceType<R>[] {
-    const parser = createParser(Lexer, Parser, query, lexerOptions);
+    const parser = createParser(Lexer, Parser, query);
 
     const result: InstanceType<R>[] = [];
     parser.addParseListener({
