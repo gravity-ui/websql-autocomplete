@@ -7,7 +7,7 @@ export function extractPostgreSqlDoubleCurlyPlaceholdersFromQuery(query: string)
         PostgreSqlLexer,
         PostgreSqlLexer.DOUBLE_CURLY_PLACEHOLDER,
         {
-            doubleCurlyPlaceholdersEnabled: true,
+            doubleCurlyPlaceholders: true,
         },
     );
 }

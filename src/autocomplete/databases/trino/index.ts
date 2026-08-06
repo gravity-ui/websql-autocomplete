@@ -1,6 +1,6 @@
 import {
     CursorPosition,
-    LexerOptions,
+    ParseOptions,
     SqlAutocompleteResult,
     TableOrViewSuggestion,
 } from '../../shared/autocomplete-types.js';
@@ -30,7 +30,7 @@ export interface TrinoAutocompleteResult extends SqlAutocompleteResult {
 
 export function parseTrinoQueryWithoutCursor(
     query: string,
-    lexerOptions?: LexerOptions,
+    parseOptions?: ParseOptions,
 ): Pick<TrinoAutocompleteResult, 'errors'> {
     return parseQueryWithoutCursor(
         trinoAutocompleteData.Lexer,
@@ -38,14 +38,14 @@ export function parseTrinoQueryWithoutCursor(
         trinoAutocompleteData.tokenDictionary.SPACE,
         trinoAutocompleteData.getParseTree,
         query,
-        lexerOptions,
+        parseOptions,
     );
 }
 
 export function parseTrinoQuery(
     query: string,
     cursor: CursorPosition,
-    lexerOptions?: LexerOptions,
+    parseOptions?: ParseOptions,
 ): TrinoAutocompleteResult {
     return parseQuery(
         trinoAutocompleteData.Lexer,
@@ -58,22 +58,22 @@ export function parseTrinoQuery(
         query,
         cursor,
         trinoAutocompleteData.context,
-        lexerOptions,
+        parseOptions,
     );
 }
 
 export function parseTrinoQueryWithCursor(
     queryWithCursor: string,
-    lexerOptions?: LexerOptions,
+    parseOptions?: ParseOptions,
 ): TrinoAutocompleteResult {
     const [query, cursor] = separateQueryAndCursor(queryWithCursor);
 
-    return parseTrinoQuery(query, cursor, lexerOptions);
+    return parseTrinoQuery(query, cursor, parseOptions);
 }
 
 export function extractTrinoStatementPositionsFromQuery(
     query: string,
-    lexerOptions?: LexerOptions,
+    parseOptions?: ParseOptions,
 ): ExtractStatementPositionsResult {
     return extractStatementPositionsFromQuery(
         query,
@@ -84,6 +84,6 @@ export function extractTrinoStatementPositionsFromQuery(
         trinoAutocompleteData.tokenDictionary.SEMICOLON,
         new TrinoStatementsVisitor(),
         trinoAutocompleteData.getParseTree,
-        lexerOptions,
+        parseOptions,
     );
 }

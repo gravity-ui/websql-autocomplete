@@ -3,7 +3,7 @@ import {
     parseClickHouseQueryWithoutCursor,
 } from '../index.js';
 
-const lexerOptions = {doubleCurlyPlaceholdersEnabled: true};
+const parseOptions = {doubleCurlyPlaceholders: true};
 
 test('should not report errors on placeholders in value positions', () => {
     const autocompleteResult = parseClickHouseQueryWithoutCursor(
@@ -22,7 +22,7 @@ test('should not report errors on placeholders in value positions', () => {
         LIMIT {{test_placeholder13}}
         OFFSET {{test_placeholder14}}
     `,
-        lexerOptions,
+        parseOptions,
     );
 
     expect(autocompleteResult.errors).toHaveLength(0);
@@ -31,7 +31,7 @@ test('should not report errors on placeholders in value positions', () => {
 test('should not report errors on whitespace inside placeholder braces', () => {
     const autocompleteResult = parseClickHouseQueryWithoutCursor(
         'SELECT * FROM test_table WHERE test_column = {{ test_placeholder }}',
-        lexerOptions,
+        parseOptions,
     );
 
     expect(autocompleteResult.errors).toHaveLength(0);
@@ -40,7 +40,7 @@ test('should not report errors on whitespace inside placeholder braces', () => {
 test('should not report errors on placeholders in separate statements', () => {
     const autocompleteResult = parseClickHouseQueryWithoutCursor(
         'SELECT * FROM test_table WHERE test_column = {{test_placeholder}}; SELECT * FROM test_table2 WHERE test_column = {{test_placeholder2}};',
-        lexerOptions,
+        parseOptions,
     );
 
     expect(autocompleteResult.errors).toHaveLength(0);
@@ -49,7 +49,7 @@ test('should not report errors on placeholders in separate statements', () => {
 test('should not let an unclosed placeholder swallow the next one', () => {
     const autocompleteResult = parseClickHouseQueryWithoutCursor(
         'SELECT * FROM test_table WHERE test_column = {{test_placeholder AND test_column2 = {{test_placeholder2}}',
-        lexerOptions,
+        parseOptions,
     );
 
     expect(autocompleteResult.errors).toHaveLength(1);

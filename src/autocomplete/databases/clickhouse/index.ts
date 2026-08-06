@@ -1,7 +1,7 @@
 import {
     CursorPosition,
     EngineSuggestion,
-    LexerOptions,
+    ParseOptions,
     SqlAutocompleteResult,
     TableOrViewSuggestion,
 } from '../../shared/autocomplete-types.js';
@@ -25,7 +25,7 @@ export interface ClickHouseAutocompleteResult extends SqlAutocompleteResult {
 
 export function parseClickHouseQueryWithoutCursor(
     query: string,
-    lexerOptions?: LexerOptions,
+    parseOptions?: ParseOptions,
 ): Pick<ClickHouseAutocompleteResult, 'errors'> {
     return parseQueryWithoutCursor(
         clickHouseAutocompleteData.Lexer,
@@ -33,14 +33,14 @@ export function parseClickHouseQueryWithoutCursor(
         clickHouseAutocompleteData.tokenDictionary.SPACE,
         clickHouseAutocompleteData.getParseTree,
         query,
-        lexerOptions,
+        parseOptions,
     );
 }
 
 export function parseClickHouseQuery(
     query: string,
     cursor: CursorPosition,
-    lexerOptions?: LexerOptions,
+    parseOptions?: ParseOptions,
 ): ClickHouseAutocompleteResult {
     return parseQuery(
         clickHouseAutocompleteData.Lexer,
@@ -53,22 +53,22 @@ export function parseClickHouseQuery(
         query,
         cursor,
         clickHouseAutocompleteData.context,
-        lexerOptions,
+        parseOptions,
     );
 }
 
 export function parseClickHouseQueryWithCursor(
     queryWithCursor: string,
-    lexerOptions?: LexerOptions,
+    parseOptions?: ParseOptions,
 ): ClickHouseAutocompleteResult {
     const [query, cursor] = separateQueryAndCursor(queryWithCursor);
 
-    return parseClickHouseQuery(query, cursor, lexerOptions);
+    return parseClickHouseQuery(query, cursor, parseOptions);
 }
 
 export function extractClickHouseStatementPositionsFromQuery(
     query: string,
-    lexerOptions?: LexerOptions,
+    parseOptions?: ParseOptions,
 ): ExtractStatementPositionsResult {
     return extractStatementPositionsFromQuery(
         query,
@@ -79,6 +79,6 @@ export function extractClickHouseStatementPositionsFromQuery(
         clickHouseAutocompleteData.tokenDictionary.SEMICOLON,
         new ClickHouseStatementsVisitor(),
         clickHouseAutocompleteData.getParseTree,
-        lexerOptions,
+        parseOptions,
     );
 }

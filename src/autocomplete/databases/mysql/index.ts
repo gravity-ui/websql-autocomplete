@@ -1,7 +1,7 @@
 import {
     ConstraintSuggestion,
     CursorPosition,
-    LexerOptions,
+    ParseOptions,
     SqlAutocompleteResult,
     TableOrViewSuggestion,
 } from '../../shared/autocomplete-types.js';
@@ -29,7 +29,7 @@ export interface MySqlAutocompleteResult extends SqlAutocompleteResult {
 
 export function parseMySqlQueryWithoutCursor(
     query: string,
-    lexerOptions?: LexerOptions,
+    parseOptions?: ParseOptions,
 ): Pick<MySqlAutocompleteResult, 'errors'> {
     return parseQueryWithoutCursor(
         mySqlAutocompleteData.Lexer,
@@ -37,14 +37,14 @@ export function parseMySqlQueryWithoutCursor(
         mySqlAutocompleteData.tokenDictionary.SPACE,
         mySqlAutocompleteData.getParseTree,
         query,
-        lexerOptions,
+        parseOptions,
     );
 }
 
 export function parseMySqlQuery(
     query: string,
     cursor: CursorPosition,
-    lexerOptions?: LexerOptions,
+    parseOptions?: ParseOptions,
 ): MySqlAutocompleteResult {
     return parseQuery(
         mySqlAutocompleteData.Lexer,
@@ -57,22 +57,22 @@ export function parseMySqlQuery(
         query,
         cursor,
         mySqlAutocompleteData.context,
-        lexerOptions,
+        parseOptions,
     );
 }
 
 export function parseMySqlQueryWithCursor(
     queryWithCursor: string,
-    lexerOptions?: LexerOptions,
+    parseOptions?: ParseOptions,
 ): MySqlAutocompleteResult {
     const [query, cursor] = separateQueryAndCursor(queryWithCursor);
 
-    return parseMySqlQuery(query, cursor, lexerOptions);
+    return parseMySqlQuery(query, cursor, parseOptions);
 }
 
 export function extractMySqlStatementPositionsFromQuery(
     query: string,
-    lexerOptions?: LexerOptions,
+    parseOptions?: ParseOptions,
 ): ExtractStatementPositionsResult {
     return extractStatementPositionsFromQuery(
         query,
@@ -83,6 +83,6 @@ export function extractMySqlStatementPositionsFromQuery(
         mySqlAutocompleteData.tokenDictionary.SEMICOLON,
         new MySqlStatementsVisitor(),
         mySqlAutocompleteData.getParseTree,
-        lexerOptions,
+        parseOptions,
     );
 }

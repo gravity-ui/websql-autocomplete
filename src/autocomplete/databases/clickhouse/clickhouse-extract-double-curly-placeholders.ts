@@ -7,7 +7,7 @@ export function extractClickHouseDoubleCurlyPlaceholdersFromQuery(query: string)
         ClickHouseLexer,
         ClickHouseLexer.DOUBLE_CURLY_PLACEHOLDER,
         {
-            doubleCurlyPlaceholdersEnabled: true,
+            doubleCurlyPlaceholders: true,
         },
     );
 }

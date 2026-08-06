@@ -1,6 +1,6 @@
 import {Token as Antlr4Token, Lexer as LexerType} from 'antlr4ng';
 
-import {LexerConstructor, LexerOptions} from './autocomplete-types.js';
+import {LexerConstructor, ParseOptions} from './autocomplete-types.js';
 import {Position, normalizePositions} from './normalize-positions.js';
 import {createLexer} from './query.js';
 
@@ -12,9 +12,9 @@ export function extractTokensFromQuery<L extends LexerType>(
     query: string,
     Lexer: LexerConstructor<L>,
     tokenType: number,
-    lexerOptions?: LexerOptions,
+    parseOptions?: ParseOptions,
 ): Token[] {
-    const lexer = createLexer(Lexer, query, lexerOptions);
+    const lexer = createLexer(Lexer, query, parseOptions);
     lexer.removeErrorListeners();
 
     const tokens: Token[] = [];

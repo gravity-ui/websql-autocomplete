@@ -10,7 +10,7 @@ import type {
 import {
     GetParseTree,
     LexerConstructor,
-    LexerOptions,
+    ParseOptions,
     ParserConstructor,
     StatementPosition,
     StatementsVisitor,
@@ -38,9 +38,9 @@ export function extractStatementPositionsFromQuery<L extends LexerType, P extend
     endStatementToken: number,
     statementsVisitor: StatementsVisitor,
     getParseTree: GetParseTree<P>,
-    lexerOptions?: LexerOptions,
+    parseOptions?: ParseOptions,
 ): ExtractStatementPositionsResult {
-    const parser = createParser(Lexer, Parser, query, lexerOptions);
+    const parser = createParser(Lexer, Parser, query, parseOptions);
     const {tokenStream} = parser;
     const errorListener = new SqlErrorListener(whitespaceToken);
 
