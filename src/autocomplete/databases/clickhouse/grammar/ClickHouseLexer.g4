@@ -4,6 +4,10 @@
 
 lexer grammar ClickHouseLexer;
 
+@members {
+    public doubleCurlyPlaceholdersEnabled = false;
+}
+
 // NOTE: don't forget to add new keywords to the parser rule "keyword"!
 
 // Keywords
@@ -413,6 +417,8 @@ HEXADECIMAL_LITERAL : '0' X HEX_DIGIT+;
 
 // It's important that quote-symbol is a single character.
 STRING_LITERAL: QUOTE_SINGLE ( ~([\\']) | (BACKSLASH .) | (QUOTE_SINGLE QUOTE_SINGLE))* QUOTE_SINGLE;
+
+DOUBLE_CURLY_PLACEHOLDER: {this.doubleCurlyPlaceholdersEnabled}? '{{' ~[{}\r\n]* '}}';
 
 // Alphabet and allowed symbols
 

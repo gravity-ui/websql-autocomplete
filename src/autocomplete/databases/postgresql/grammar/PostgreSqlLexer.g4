@@ -41,8 +41,7 @@ options {
 @header {
 }
 @members {
-/* This field stores the tags which are used to detect the end of a dollar-quoted string literal.
- */
+    public doubleCurlyPlaceholdersEnabled = false;
 }
 //
 
@@ -110,6 +109,8 @@ TYPECAST: '::';
 PERCENT: '%';
 
 PARAM: '$' ([0-9])+;
+
+DOUBLE_CURLY_PLACEHOLDER: {this.doubleCurlyPlaceholdersEnabled}? '{{' ~[{}\r\n]* '}}';
 //
 
 // OPERATORS (4.1.3)

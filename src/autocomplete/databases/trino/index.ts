@@ -1,5 +1,6 @@
 import {
     CursorPosition,
+    ParseOptions,
     SqlAutocompleteResult,
     TableOrViewSuggestion,
 } from '../../shared/autocomplete-types.js';
@@ -14,6 +15,8 @@ import {TrinoStatementsVisitor} from './trino-extract-statements.js';
 
 export {extractTrinoTablesFromQuery} from './trino-extract-tables.js';
 
+export {extractTrinoDoubleCurlyPlaceholdersFromQuery} from './trino-extract-double-curly-placeholders.js';
+
 export interface TrinoAutocompleteResult extends SqlAutocompleteResult {
     suggestViewsOrTables?: TableOrViewSuggestion;
     suggestSchemas?: true;
@@ -27,6 +30,7 @@ export interface TrinoAutocompleteResult extends SqlAutocompleteResult {
 
 export function parseTrinoQueryWithoutCursor(
     query: string,
+    parseOptions?: ParseOptions,
 ): Pick<TrinoAutocompleteResult, 'errors'> {
     return parseQueryWithoutCursor(
         trinoAutocompleteData.Lexer,
@@ -34,10 +38,15 @@ export function parseTrinoQueryWithoutCursor(
         trinoAutocompleteData.tokenDictionary.SPACE,
         trinoAutocompleteData.getParseTree,
         query,
+        parseOptions,
     );
 }
 
-export function parseTrinoQuery(query: string, cursor: CursorPosition): TrinoAutocompleteResult {
+export function parseTrinoQuery(
+    query: string,
+    cursor: CursorPosition,
+    parseOptions?: ParseOptions,
+): TrinoAutocompleteResult {
     return parseQuery(
         trinoAutocompleteData.Lexer,
         trinoAutocompleteData.Parser,
@@ -48,15 +57,23 @@ export function parseTrinoQuery(query: string, cursor: CursorPosition): TrinoAut
         trinoAutocompleteData.enrichAutocompleteResult,
         query,
         cursor,
+        trinoAutocompleteData.context,
+        parseOptions,
     );
 }
 
-export function parseTrinoQueryWithCursor(queryWithCursor: string): TrinoAutocompleteResult {
-    return parseTrinoQuery(...separateQueryAndCursor(queryWithCursor));
+export function parseTrinoQueryWithCursor(
+    queryWithCursor: string,
+    parseOptions?: ParseOptions,
+): TrinoAutocompleteResult {
+    const [query, cursor] = separateQueryAndCursor(queryWithCursor);
+
+    return parseTrinoQuery(query, cursor, parseOptions);
 }
 
 export function extractTrinoStatementPositionsFromQuery(
     query: string,
+    parseOptions?: ParseOptions,
 ): ExtractStatementPositionsResult {
     return extractStatementPositionsFromQuery(
         query,
@@ -67,5 +84,6 @@ export function extractTrinoStatementPositionsFromQuery(
         trinoAutocompleteData.tokenDictionary.SEMICOLON,
         new TrinoStatementsVisitor(),
         trinoAutocompleteData.getParseTree,
+        parseOptions,
     );
 }

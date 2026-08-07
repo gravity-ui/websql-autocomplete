@@ -3818,6 +3818,7 @@ aExpressionConst
     | TRUE_P
     | FALSE_P
     | NULL_P
+    | DOUBLE_CURLY_PLACEHOLDER
     ;
 
 xconst

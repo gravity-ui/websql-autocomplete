@@ -1,6 +1,7 @@
 import {
     CursorPosition,
     EngineSuggestion,
+    ParseOptions,
     SqlAutocompleteResult,
     TableOrViewSuggestion,
 } from '../../shared/autocomplete-types.js';
@@ -15,6 +16,8 @@ import {ClickHouseStatementsVisitor} from './clickhouse-extract-statements.js';
 
 export {extractClickHouseTablesFromQuery} from './clickhouse-extract-tables.js';
 
+export {extractClickHouseDoubleCurlyPlaceholdersFromQuery} from './clickhouse-extract-double-curly-placeholders.js';
+
 export interface ClickHouseAutocompleteResult extends SqlAutocompleteResult {
     suggestViewsOrTables?: TableOrViewSuggestion;
     suggestEngines?: EngineSuggestion;
@@ -22,6 +25,7 @@ export interface ClickHouseAutocompleteResult extends SqlAutocompleteResult {
 
 export function parseClickHouseQueryWithoutCursor(
     query: string,
+    parseOptions?: ParseOptions,
 ): Pick<ClickHouseAutocompleteResult, 'errors'> {
     return parseQueryWithoutCursor(
         clickHouseAutocompleteData.Lexer,
@@ -29,12 +33,14 @@ export function parseClickHouseQueryWithoutCursor(
         clickHouseAutocompleteData.tokenDictionary.SPACE,
         clickHouseAutocompleteData.getParseTree,
         query,
+        parseOptions,
     );
 }
 
 export function parseClickHouseQuery(
     query: string,
     cursor: CursorPosition,
+    parseOptions?: ParseOptions,
 ): ClickHouseAutocompleteResult {
     return parseQuery(
         clickHouseAutocompleteData.Lexer,
@@ -46,17 +52,23 @@ export function parseClickHouseQuery(
         clickHouseAutocompleteData.enrichAutocompleteResult,
         query,
         cursor,
+        clickHouseAutocompleteData.context,
+        parseOptions,
     );
 }
 
 export function parseClickHouseQueryWithCursor(
     queryWithCursor: string,
+    parseOptions?: ParseOptions,
 ): ClickHouseAutocompleteResult {
-    return parseClickHouseQuery(...separateQueryAndCursor(queryWithCursor));
+    const [query, cursor] = separateQueryAndCursor(queryWithCursor);
+
+    return parseClickHouseQuery(query, cursor, parseOptions);
 }
 
 export function extractClickHouseStatementPositionsFromQuery(
     query: string,
+    parseOptions?: ParseOptions,
 ): ExtractStatementPositionsResult {
     return extractStatementPositionsFromQuery(
         query,
@@ -67,5 +79,6 @@ export function extractClickHouseStatementPositionsFromQuery(
         clickHouseAutocompleteData.tokenDictionary.SEMICOLON,
         new ClickHouseStatementsVisitor(),
         clickHouseAutocompleteData.getParseTree,
+        parseOptions,
     );
 }

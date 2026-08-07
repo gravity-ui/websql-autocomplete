@@ -210,6 +210,7 @@ limitRowCount
 rowCount
     : INTEGER_VALUE_
     | QUESTION_MARK_
+    | DOUBLE_CURLY_PLACEHOLDER_
     ;
 
 queryTerm
@@ -466,6 +467,7 @@ primaryExpression
     | string_                                                       # stringLiteral
     | BINARY_LITERAL_                                               # binaryLiteral
     | QUESTION_MARK_                                                # parameter
+    | DOUBLE_CURLY_PLACEHOLDER_                                     # doubleCurlyPlaceholder
     | POSITION_ LPAREN_ valueExpression IN_ valueExpression RPAREN_ # position
     | LPAREN_ expression (COMMA_ expression)+ RPAREN_               # rowConstructor
     | ROW_ LPAREN_ expression (COMMA_ expression)* RPAREN_          # rowConstructor

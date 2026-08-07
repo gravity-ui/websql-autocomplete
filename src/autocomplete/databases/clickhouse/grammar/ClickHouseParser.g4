@@ -1427,6 +1427,7 @@ literal
     : numberLiteral
     | STRING_LITERAL
     | NULL_SQL
+    | DOUBLE_CURLY_PLACEHOLDER
     ;
 
 interval

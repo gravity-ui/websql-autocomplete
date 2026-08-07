@@ -34,6 +34,10 @@ channels {
     ERRORCHANNEL
 }
 
+@members {
+    public doubleCurlyPlaceholdersEnabled = false;
+}
+
 // SKIP
 
 SPACE              : [ \t\r\n]+                                                                  -> channel(HIDDEN);
@@ -1264,6 +1268,8 @@ REAL_LITERAL        : DEC_DIGIT* '.' DEC_DIGIT+ | DEC_DIGIT+ '.' EXPONENT_NUM_PA
 NULL_SPEC_LITERAL   : '\\' 'N';
 BIT_STRING          : BIT_STRING_L;
 STRING_CHARSET_NAME : '_' CHARSET_NAME;
+
+DOUBLE_CURLY_PLACEHOLDER: {this.doubleCurlyPlaceholdersEnabled}? '{{' ~[{}\r\n]* '}}';
 
 // Hack for dotID
 // Prevent recognize string:         .123somelatin AS ((.123), FLOAT_LITERAL), ((somelatin), ID)

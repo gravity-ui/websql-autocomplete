@@ -1,6 +1,7 @@
 import {
     ConstraintSuggestion,
     CursorPosition,
+    ParseOptions,
     SqlAutocompleteResult,
     TableOrViewSuggestion,
 } from '../../shared/autocomplete-types.js';
@@ -16,6 +17,8 @@ import {PostgreSqlStatementsVisitor} from './postgresql-extract-statements.js';
 
 export {extractPostgreSqlTablesFromQuery} from './postgresql-extract-tables.js';
 
+export {extractPostgreSqlDoubleCurlyPlaceholdersFromQuery} from './postgresql-extract-double-curly-placeholders.js';
+
 export interface PostgreSqlAutocompleteResult extends SqlAutocompleteResult {
     suggestViewsOrTables?: TableOrViewSuggestion;
     suggestIndexes?: boolean;
@@ -28,6 +31,7 @@ export interface PostgreSqlAutocompleteResult extends SqlAutocompleteResult {
 
 export function parsePostgreSqlQueryWithoutCursor(
     query: string,
+    parseOptions?: ParseOptions,
 ): Pick<PostgreSqlAutocompleteResult, 'errors'> {
     return parseQueryWithoutCursor(
         postgreSqlAutocompleteData.Lexer,
@@ -35,12 +39,14 @@ export function parsePostgreSqlQueryWithoutCursor(
         postgreSqlAutocompleteData.tokenDictionary.SPACE,
         postgreSqlAutocompleteData.getParseTree,
         query,
+        parseOptions,
     );
 }
 
 export function parsePostgreSqlQuery(
     query: string,
     cursor: CursorPosition,
+    parseOptions?: ParseOptions,
 ): PostgreSqlAutocompleteResult {
     return parseQuery(
         postgreSqlAutocompleteData.Lexer,
@@ -52,17 +58,23 @@ export function parsePostgreSqlQuery(
         postgreSqlAutocompleteData.enrichAutocompleteResult,
         query,
         cursor,
+        postgreSqlAutocompleteData.context,
+        parseOptions,
     );
 }
 
 export function parsePostgreSqlQueryWithCursor(
     queryWithCursor: string,
+    parseOptions?: ParseOptions,
 ): PostgreSqlAutocompleteResult {
-    return parsePostgreSqlQuery(...separateQueryAndCursor(queryWithCursor));
+    const [query, cursor] = separateQueryAndCursor(queryWithCursor);
+
+    return parsePostgreSqlQuery(query, cursor, parseOptions);
 }
 
 export function extractPostgreSqlStatementPositionsFromQuery(
     query: string,
+    parseOptions?: ParseOptions,
 ): ExtractStatementPositionsResult {
     return extractStatementPositionsFromQuery(
         query,
@@ -73,5 +85,6 @@ export function extractPostgreSqlStatementPositionsFromQuery(
         postgreSqlAutocompleteData.tokenDictionary.SEMICOLON,
         new PostgreSqlStatementsVisitor(),
         postgreSqlAutocompleteData.getParseTree,
+        parseOptions,
     );
 }
