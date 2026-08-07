@@ -1,5 +1,12 @@
 # Changelog
 
+## [13.16.0](https://github.com/gravity-ui/websql-autocomplete/compare/v13.15.1...v13.16.0) (2026-08-07)
+
+
+### Features
+
+* Support double curly placeholders as option for ch, pg, mysql, trino grammars ([#321](https://github.com/gravity-ui/websql-autocomplete/issues/321)) ([10cbd52](https://github.com/gravity-ui/websql-autocomplete/commit/10cbd52623a34b1e55e5cb804f8c97862e5c124d))
+
 ## [13.15.1](https://github.com/gravity-ui/websql-autocomplete/compare/v13.15.0...v13.15.1) (2026-07-16)
 
 
