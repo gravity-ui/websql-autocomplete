@@ -300,6 +300,7 @@ import { TableExpressionIdentifierContext } from "./ClickHouseParser.js";
 import { TableExpressionAliasContext } from "./ClickHouseParser.js";
 import { TableExpressionSubqueryContext } from "./ClickHouseParser.js";
 import { TableFunctionExpressionContext } from "./ClickHouseParser.js";
+import { TableQualifierContext } from "./ClickHouseParser.js";
 import { TableIdentifierContext } from "./ClickHouseParser.js";
 import { TableNameContext } from "./ClickHouseParser.js";
 import { TableArgListContext } from "./ClickHouseParser.js";
@@ -2132,6 +2133,12 @@ export class ClickHouseParserVisitor<Result> extends AbstractParseTreeVisitor<Re
      * @return the visitor result
      */
     visitTableFunctionExpression?: (ctx: TableFunctionExpressionContext) => Result;
+    /**
+     * Visit a parse tree produced by `ClickHouseParser.tableQualifier`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitTableQualifier?: (ctx: TableQualifierContext) => Result;
     /**
      * Visit a parse tree produced by `ClickHouseParser.tableIdentifier`.
      * @param ctx the parse tree

@@ -95,6 +95,7 @@ const ignoredTokens = new Set(getIgnoredTokens());
 const rulesToVisit = new Set([
     ClickHouseParser.RULE_databaseIdentifier,
     ClickHouseParser.RULE_tableIdentifier,
+    ClickHouseParser.RULE_tableQualifier,
     ClickHouseParser.RULE_identifier,
     ClickHouseParser.RULE_columnIdentifier,
     ClickHouseParser.RULE_identifierOrNull,

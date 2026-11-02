@@ -296,6 +296,51 @@ test('should suggest table name for column', () => {
     expect(autocompleteResult.suggestColumns).toEqual(columnSuggestions);
 });
 
+test('should preserve database-qualified table for column suggestions after WHERE', () => {
+    const autocompleteResult = parseClickHouseQueryWithCursor(
+        'SELECT * FROM db1.apiRequests WHERE |',
+    );
+    const columnSuggestions: ColumnSuggestion = {tables: [{name: 'db1.apiRequests'}]};
+
+    expect(autocompleteResult.suggestColumns).toEqual(columnSuggestions);
+    expect(autocompleteResult.suggestDatabases).toBe(false);
+    expect(autocompleteResult.suggestViewsOrTables).toBeUndefined();
+});
+
+test.each(['PREWHERE', 'HAVING', 'GROUP BY', 'ORDER BY'])(
+    'should preserve database-qualified table for column suggestions after %s',
+    (clause) => {
+        const result = parseClickHouseQueryWithCursor(`SELECT * FROM db1.apiRequests ${clause} |`);
+
+        expect(result.suggestColumns).toEqual({tables: [{name: 'db1.apiRequests'}]});
+        expect(result.suggestDatabases).toBe(false);
+        expect(result.suggestViewsOrTables).toBeUndefined();
+    },
+);
+
+test.each([
+    ['SELECT * FROM `db1`.`apiRequests` WHERE |', [{name: '`db1`.`apiRequests`'}]],
+    ['SELECT * FROM db1.apiRequests AS r WHERE |', [{name: 'db1.apiRequests', alias: 'r'}]],
+    [
+        'SELECT * FROM db1.apiRequests r JOIN db2.users u ON r.id = u.id WHERE |',
+        [
+            {name: 'db1.apiRequests', alias: 'r'},
+            {name: 'db2.users', alias: 'u'},
+        ],
+    ],
+    ['SELECT r.id, | FROM db1.apiRequests AS r', [{name: 'db1.apiRequests', alias: 'r'}]],
+    ['SELECT r.*, | FROM db1.apiRequests AS r', [{name: 'db1.apiRequests', alias: 'r'}]],
+])(
+    'should suggest declared tables without treating column qualifiers as tables in %s',
+    (query, tables) => {
+        const result = parseClickHouseQueryWithCursor(query);
+
+        expect(result.suggestColumns).toEqual({tables});
+        expect(result.suggestDatabases).toBe(false);
+        expect(result.suggestViewsOrTables).toBeUndefined();
+    },
+);
+
 test('should suggest table name for column between statements', () => {
     const autocompleteResult = parseClickHouseQueryWithCursor(
         'ALTER TABLE before_table DROP COLUMN id; SELECT | FROM test_table ; ALTER TABLE after_table DROP COLUMN id;',
