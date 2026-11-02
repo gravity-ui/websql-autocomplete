@@ -884,9 +884,9 @@ export class ClickHouseParser extends antlr.Parser {
         "columnExpressionList", "columnsExpression", "columnExpression", 
         "columnArgumentList", "columnArgumentExpression", "columnLambdaExpression", 
         "columnIdentifier", "tableExpression", "tableFunctionExpression", 
-        "tableQualifier", "tableIdentifier", "tableName", "tableArgList",
-        "tableArgExpression", "databaseIdentifier", "floatingLiteral", "numberLiteral",
-        "literal", "interval", "keyword", "keywordForAlias", "alias", "identifier",
+        "tableQualifier", "tableIdentifier", "tableName", "tableArgList", 
+        "tableArgExpression", "databaseIdentifier", "floatingLiteral", "numberLiteral", 
+        "literal", "interval", "keyword", "keywordForAlias", "alias", "identifier", 
         "identifierOrNull", "enumValue",
     ];
 
