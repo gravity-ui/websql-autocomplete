@@ -1294,7 +1294,7 @@ columnExpressionList
     ;
 
 columnsExpression
-    : (tableIdentifier DOT)? ASTERISK    # ColumnsExpressionAsterisk
+    : (tableQualifier DOT)? ASTERISK     # ColumnsExpressionAsterisk
     | LPAREN selectUnionStatement RPAREN # ColumnsExpressionSubquery
     // NOTE: asterisk and subquery goes before |columnExpression| so that we can mark them as multi-column expressions.
     | columnExpression # ColumnsExpressionColumn
@@ -1347,7 +1347,7 @@ columnExpression
     | columnExpression NOT? BETWEEN columnExpression AND columnExpression                   # ColumnExpressionBetween
     | <assoc = right> columnExpression QUESTIONMARK columnExpression COLON columnExpression # ColumnExpressionTernaryOp
     | columnExpression (alias | AS identifier)                                              # ColumnExpressionAlias
-    | (tableIdentifier DOT)? ASTERISK                                                       # ColumnExpressionAsterisk // single-column only
+    | (tableQualifier DOT)? ASTERISK                                                        # ColumnExpressionAsterisk // single-column only
     | LPAREN selectUnionStatement RPAREN                                                    # ColumnExpressionSubquery // single-column only
     | LPAREN columnExpression RPAREN                                                        # ColumnExpressionParens   // single-column only
     | LPAREN columnExpressionList RPAREN                                                    # ColumnExpressionTuple
@@ -1370,7 +1370,7 @@ columnLambdaExpression
     ;
 
 columnIdentifier
-    : (tableIdentifier DOT)? identifier (DOT identifier)?
+    : (tableQualifier DOT)? identifier (DOT identifier)?
     ;
 
 // Tables
@@ -1384,6 +1384,11 @@ tableExpression
 
 tableFunctionExpression
     : identifier LPAREN tableArgList? RPAREN
+    ;
+
+// Keep column qualifiers separate so their trailing DOT does not affect table-name prediction.
+tableQualifier
+    : (databaseIdentifier DOT)? tableName
     ;
 
 tableIdentifier
