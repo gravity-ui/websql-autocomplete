@@ -1,5 +1,12 @@
 # Changelog
 
+## [13.16.1](https://github.com/gravity-ui/websql-autocomplete/compare/v13.16.0...v13.16.1) (2026-11-03)
+
+
+### Bug Fixes
+
+* **clickhouse:** preserve qualified tables in column suggestions ([#323](https://github.com/gravity-ui/websql-autocomplete/issues/323)) ([cb60169](https://github.com/gravity-ui/websql-autocomplete/commit/cb60169a907a0167a1605a6d08ed6700bbbd03cc))
+
 ## [13.16.0](https://github.com/gravity-ui/websql-autocomplete/compare/v13.15.1...v13.16.0) (2026-08-07)
 
 
