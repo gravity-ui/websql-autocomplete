@@ -1209,7 +1209,7 @@ FETCH_STATUS : '@@FETCH_STATUS';
 
 IPV4_ADDR: DEC_DIGIT+ '.' DEC_DIGIT+ '.' DEC_DIGIT+ '.' DEC_DIGIT+;
 
-SPACE: [ \t\r\n]+ -> skip;
+SPACE: [ \t\r\n]+ -> channel(HIDDEN);
 // https://docs.microsoft.com/en-us/sql/t-sql/language-elements/slash-star-comment-transact-sql
 COMMENT      : '/*' (COMMENT | .)*? '*/' -> channel(HIDDEN);
 LINE_COMMENT : '--' ~[\r\n]*             -> channel(HIDDEN);

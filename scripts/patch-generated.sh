@@ -2,6 +2,7 @@ DIALECT=$1
 
 # Check that dialect is correct
 if  [ "$DIALECT" != "mysql" ] &&
+    [ "$DIALECT" != "mssql" ] &&
     [ "$DIALECT" != "postgresql" ] &&
     [ "$DIALECT" != "clickhouse" ] &&
     [ "$DIALECT" != "yql" ] &&
@@ -17,6 +18,9 @@ fi
 if [ "$DIALECT" == "mysql" ]
 then
   FILE_PREFIX=src/autocomplete/databases/$DIALECT/generated/MySql
+elif [ "$DIALECT" == "mssql" ]
+then
+  FILE_PREFIX=src/autocomplete/databases/$DIALECT/generated/TSql
 elif [ "$DIALECT" == "postgresql" ]
 then
   FILE_PREFIX=src/autocomplete/databases/$DIALECT/generated/PostgreSql
