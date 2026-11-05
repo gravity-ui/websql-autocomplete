@@ -1,6 +1,6 @@
 import {build} from 'esbuild';
 
-const databases = ['clickhouse', 'mysql', 'postgresql', 'yql', 'redis', 'trino', 'mongo'];
+const databases = ['clickhouse', 'mysql', 'mssql', 'postgresql', 'yql', 'redis', 'trino', 'mongo'];
 
 const sharedOptions = {
     external: ['antlr4ng', 'antlr4-c3'],

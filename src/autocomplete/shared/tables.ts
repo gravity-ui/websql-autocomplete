@@ -76,6 +76,8 @@ export function getTableQueryPosition(
         const token = tokenStream.get(currentIndex);
 
         // We don't want to check nested statement
+        // TODO Brackets are not always a nested statement, e.g. table hints, bracketed joins or PIVOT:
+        // SELECT * FROM a WITH (NOLOCK) JOIN b ON |, so FROM is not found and columns are not suggested
         if (
             token.type === dictionary.OPENING_BRACKET ||
             token.type === dictionary.CLOSING_BRACKET ||

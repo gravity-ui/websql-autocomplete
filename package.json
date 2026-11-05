@@ -22,6 +22,11 @@
       "require": "./dist/databases/mysql/index.cjs",
       "import": "./dist/databases/mysql/index.js"
     },
+    "./mssql": {
+      "types": "./dist/types/databases/mssql/index.d.ts",
+      "require": "./dist/databases/mssql/index.cjs",
+      "import": "./dist/databases/mssql/index.js"
+    },
     "./postgresql": {
       "types": "./dist/types/databases/postgresql/index.d.ts",
       "require": "./dist/databases/postgresql/index.cjs",
@@ -60,6 +65,9 @@
       ],
       "mysql": [
         "./dist/types/databases/mysql/index.d.ts"
+      ],
+      "mssql": [
+        "./dist/types/databases/mssql/index.d.ts"
       ],
       "yql": [
         "./dist/types/databases/yql/index.d.ts"
@@ -106,6 +114,7 @@
     "generate:mongo": "rimraf src/autocomplete/databases/mongo/generated && antlr4ng -Dlanguage=TypeScript -o src/autocomplete/databases/mongo/generated/ -visitor -no-listener -Xexact-output-dir src/autocomplete/databases/mongo/grammar/MongoLexer.g4 src/autocomplete/databases/mongo/grammar/MongoParser.g4 && bash scripts/patch-generated.sh mongo",
     "test": "node --experimental-vm-modules ./node_modules/.bin/jest --testPathIgnorePatterns tests/generated/.+ --verbose src",
     "test:mysql": "node --experimental-vm-modules ./node_modules/.bin/jest --testPathIgnorePatterns tests/generated/.+ --verbose src/autocomplete/databases/mysql/tests/",
+    "test:mssql": "node --experimental-vm-modules ./node_modules/.bin/jest --testPathIgnorePatterns tests/generated/.+ --verbose src/autocomplete/databases/mssql/tests/",
     "test:postgresql": "node --experimental-vm-modules ./node_modules/.bin/jest --testPathIgnorePatterns tests/generated/.+ --verbose src/autocomplete/databases/postgresql/tests/",
     "test:clickhouse": "node --experimental-vm-modules ./node_modules/.bin/jest --testPathIgnorePatterns tests/generated/.+ --verbose src/autocomplete/databases/clickhouse/tests/",
     "test:yql": "node --experimental-vm-modules ./node_modules/.bin/jest --testPathIgnorePatterns tests/generated/.+ --verbose src/autocomplete/databases/yql/tests/",
