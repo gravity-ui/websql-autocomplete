@@ -33,9 +33,9 @@ test('should not report errors on multiple batches', () => {
 
 test('should suggest table name for column after GO', () => {
     const autocompleteResult = parseMsSqlQueryWithCursor(`
-        SELECT * FROM before_table
+        SELECT * FROM before_table;
         GO
-        SELECT | FROM test_table
+        SELECT | FROM test_table;
     `);
     const columnSuggestions: ColumnSuggestion = {tables: [{name: 'test_table'}]};
 

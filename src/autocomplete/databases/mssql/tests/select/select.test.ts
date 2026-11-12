@@ -110,9 +110,9 @@ test('should suggest table name for column between statements', () => {
     expect(autocompleteResult.suggestColumns).toEqual(columnSuggestions);
 });
 
-test('should suggest table name for column between statements without semicolons', () => {
+test('should suggest table name for column between batches', () => {
     const autocompleteResult = parseMsSqlQueryWithCursor(
-        'SELECT * FROM before_table\nSELECT | FROM test_table\nSELECT * FROM after_table',
+        'SELECT * FROM before_table;\nGO\nSELECT | FROM test_table;\nGO\nSELECT * FROM after_table;',
     );
     const columnSuggestions: ColumnSuggestion = {tables: [{name: 'test_table'}]};
 

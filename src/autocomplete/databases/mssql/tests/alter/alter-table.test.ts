@@ -56,9 +56,9 @@ test.each([
     expect(autocompleteResult.suggestColumns).toEqual(columnSuggestions);
 });
 
-test('should suggest table name for column after previous statement without semicolon', () => {
+test('should suggest table name for column after previous statement', () => {
     const autocompleteResult = parseMsSqlQueryWithCursor(
-        'SELECT * FROM before_table\nALTER TABLE test_table DROP COLUMN |',
+        'SELECT * FROM before_table;\nALTER TABLE test_table DROP COLUMN |',
     );
     const columnSuggestions: ColumnSuggestion = {tables: [{name: 'test_table'}]};
 

@@ -1,5 +1,4 @@
 import {
-    CommonTokenStream,
     ParseTree,
     ParserRuleContext,
     RuleTransition,
@@ -34,10 +33,9 @@ import {
     getPreviousToken,
 } from '../../shared/tables.js';
 import {isStartingToWriteRule} from '../../shared/cursor.js';
-import {createLexer, shouldSuggestTemplates} from '../../shared/query.js';
+import {shouldSuggestTemplates} from '../../shared/query.js';
 import {getTokenName} from '../../shared/autocomplete.js';
 import {MsSqlAutocompleteResult} from './index.js';
-import {getMsSqlCurrentStatementQuery} from './mssql-current-statement.js';
 
 const tokenDictionary: TokenDictionary = {
     SPACE: TSqlParser.SPACE,
@@ -557,20 +555,15 @@ function enrichAutocompleteResult(
 
     if (contextSuggestionsNeeded) {
         const visitor = new MsSqlSymbolTableVisitor();
-        const currentStatementQuery = getMsSqlCurrentStatementQuery(query, tokenStream, cursor);
-        const currentStatementLexer = createLexer(TSqlLexer, currentStatementQuery);
-        currentStatementLexer.removeErrorListeners();
-        const currentStatementTokenStream = new CommonTokenStream(currentStatementLexer);
-        currentStatementTokenStream.fill();
         const {tableContextSuggestion, suggestColumnAliases} = getContextSuggestions(
             TSqlLexer,
             TSqlParser,
             visitor,
             tokenDictionary,
             getParseTree,
-            currentStatementTokenStream,
+            tokenStream,
             cursor,
-            currentStatementQuery,
+            query,
         );
 
         if (shouldSuggestColumns && tableContextSuggestion) {

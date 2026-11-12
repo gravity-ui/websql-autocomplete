@@ -40,9 +40,9 @@ test('should suggest table name for column in value expression', () => {
     expect(autocompleteResult.suggestFunctions).toEqual(true);
 });
 
-test('should suggest table name for column after previous statement without semicolon', () => {
+test('should suggest table name for column after previous statement', () => {
     const autocompleteResult = parseMsSqlQueryWithCursor(
-        'SELECT * FROM before_table\nUPDATE test_table SET |',
+        'SELECT * FROM before_table;\nUPDATE test_table SET |',
     );
     const columnSuggestions: ColumnSuggestion = {tables: [{name: 'test_table'}]};
 
