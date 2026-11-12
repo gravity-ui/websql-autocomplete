@@ -71,6 +71,7 @@ function getIgnoredTokens(): number[] {
     }
 
     tokens.push(TSqlParser.EOF);
+    tokens.push(TSqlParser.DOUBLE_CURLY_PLACEHOLDER);
     // EVENTDATA() is a function that is only available in DDL triggers
     tokens.push(TSqlParser.EVENTDATA);
 

@@ -7,6 +7,8 @@ The upstream MIT license and copyright notices are preserved in both grammar fil
 ## Local changes
 
 - `TSqlLexer.g4`: send `SPACE` tokens to `channel(HIDDEN)` instead of skipping them. The shared autocomplete code needs whitespace tokens to locate the cursor.
+- `TSqlLexer.g4`: add `DOUBLE_CURLY_PLACEHOLDER` token for `{{ ... }}`, guarded by the `doubleCurlyPlaceholdersEnabled` lexer member and disabled by default.
+- `TSqlParser.g4`: allow `DOUBLE_CURLY_PLACEHOLDER` in `parameter` (so wherever a constant is allowed) and in `top_count` (`TOP {{n}}`).
 
 ## Regeneration
 

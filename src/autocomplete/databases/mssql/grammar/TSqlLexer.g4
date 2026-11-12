@@ -35,6 +35,10 @@ options {
     caseInsensitive = true;
 }
 
+@members {
+    public doubleCurlyPlaceholdersEnabled = false;
+}
+
 //Keywords that can exist in ID etc
 //More keywords that can also be used as IDs
 ABORT                                       : 'ABORT';
@@ -1268,6 +1272,8 @@ BIT_AND      : '&';
 BIT_XOR      : '^';
 
 PLACEHOLDER: '?';
+
+DOUBLE_CURLY_PLACEHOLDER: {this.doubleCurlyPlaceholdersEnabled}? '{{' ~[{}\r\n]* '}}';
 
 fragment LETTER      : [A-Z_];
 fragment DEC_DOT_DEC : (DEC_DIGIT+ '.' DEC_DIGIT+ | DEC_DIGIT+ '.' | '.' DEC_DIGIT+);

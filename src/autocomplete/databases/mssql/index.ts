@@ -17,6 +17,8 @@ import {TSqlParser} from './generated/TSqlParser.js';
 
 export {extractMsSqlTablesFromQuery} from './mssql-extract-tables.js';
 
+export {extractMsSqlDoubleCurlyPlaceholdersFromQuery} from './mssql-extract-double-curly-placeholders.js';
+
 export interface MsSqlAutocompleteResult extends SqlAutocompleteResult {
     suggestViewsOrTables?: TableOrViewSuggestion;
     suggestIndexes?: boolean;

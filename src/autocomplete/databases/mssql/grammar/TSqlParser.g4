@@ -3918,6 +3918,7 @@ expression
 
 parameter
     : PLACEHOLDER
+    | DOUBLE_CURLY_PLACEHOLDER
     ;
 
 time_zone
@@ -4034,6 +4035,7 @@ top_percent
 
 top_count
     : count_constant = DECIMAL
+    | DOUBLE_CURLY_PLACEHOLDER
     | '(' topcount_expression = expression ')'
     ;
 
