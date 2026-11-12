@@ -284,6 +284,8 @@ function processVisitedRules(
     let suggestIndexes = false;
     let suggestTriggers = false;
     let suggestDatabases = false;
+    let suggestSequences = false;
+    let suggestRoles = false;
 
     let shouldSuggestConstraints = false;
     let shouldSuggestColumns = false;
@@ -299,6 +301,12 @@ function processVisitedRules(
         switch (ruleId) {
             case TSqlParser.RULE_full_table_name:
             case TSqlParser.RULE_table_name: {
+                // NEXT VALUE FOR is the only built-in function that takes an object name
+                if (parentRule === TSqlParser.RULE_built_in_functions) {
+                    suggestSequences = true;
+                    break;
+                }
+
                 if (
                     // These are names of new tables
                     parentRule === TSqlParser.RULE_create_table ||
@@ -402,6 +410,30 @@ function processVisitedRules(
                         suggestIndexes = true;
                         break;
                     }
+                    case TSqlParser.RULE_drop_sequence:
+                    case TSqlParser.RULE_alter_sequence: {
+                        suggestSequences = true;
+                        break;
+                    }
+                    case TSqlParser.RULE_principal_id:
+                    case TSqlParser.RULE_drop_db_role: {
+                        suggestRoles = true;
+                        break;
+                    }
+                    case TSqlParser.RULE_alter_db_role: {
+                        // WITH NAME = contains new name of the role
+                        if (
+                            !getPreviousToken(
+                                tokenStream,
+                                tokenDictionary,
+                                cursorTokenIndex,
+                                TSqlParser.NAME,
+                            )
+                        ) {
+                            suggestRoles = true;
+                        }
+                        break;
+                    }
                     case TSqlParser.RULE_insert_column_id: {
                         shouldSuggestColumns = true;
                         break;
@@ -465,6 +497,8 @@ function processVisitedRules(
         suggestIndexes,
         suggestTriggers,
         suggestDatabases,
+        suggestSequences,
+        suggestRoles,
         shouldSuggestConstraints,
         shouldSuggestColumns,
         shouldSuggestColumnAliases,

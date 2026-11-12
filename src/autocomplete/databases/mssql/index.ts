@@ -24,6 +24,9 @@ export interface MsSqlAutocompleteResult extends SqlAutocompleteResult {
     suggestIndexes?: boolean;
     suggestTriggers?: boolean;
     suggestConstraints?: ConstraintSuggestion;
+    suggestSequences?: boolean;
+    // Database principals that permissions are granted to: roles and users
+    suggestRoles?: boolean;
 }
 
 export function parseMsSqlQueryWithoutCursor(
