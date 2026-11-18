@@ -37,6 +37,66 @@ export interface TokenDictionary {
     SELECT: number;
 }
 
+// Returns index of the bracket matching the one at tokenIndex, or undefined if there is none
+function getMatchingBracketIndex(
+    tokenStream: TokenStream,
+    tokenIndex: number,
+    dictionary: TokenDictionary,
+): number | undefined {
+    const isOpening = tokenStream.get(tokenIndex).type === dictionary.OPENING_BRACKET;
+    const step = isOpening ? 1 : -1;
+    let depth = 0;
+
+    for (let index = tokenIndex; index >= 0 && index < tokenStream.size; index += step) {
+        const {type} = tokenStream.get(index);
+
+        if (type === dictionary.OPENING_BRACKET) {
+            depth += step;
+        } else if (type === dictionary.CLOSING_BRACKET) {
+            depth -= step;
+        } else if (type === dictionary.SEMICOLON) {
+            return undefined;
+        }
+
+        if (depth === 0) {
+            return index;
+        }
+    }
+
+    return undefined;
+}
+
+// Same as getPreviousToken, but skips nested brackets and doesn't leave the current ones
+function getPreviousTokenOnSameLevel(
+    tokenStream: TokenStream,
+    dictionary: TokenDictionary,
+    tokenIndex: number,
+    tokenType: number,
+): Token | undefined {
+    for (let index = tokenIndex - 1; index >= 0; index--) {
+        const token = tokenStream.get(index);
+
+        if (token.type === dictionary.CLOSING_BRACKET) {
+            const openingBracketIndex = getMatchingBracketIndex(tokenStream, index, dictionary);
+            if (openingBracketIndex === undefined) {
+                return undefined;
+            }
+            index = openingBracketIndex;
+            continue;
+        }
+
+        if (token.type === dictionary.OPENING_BRACKET || token.type === dictionary.SEMICOLON) {
+            return undefined;
+        }
+
+        if (token.type === tokenType) {
+            return token;
+        }
+    }
+
+    return undefined;
+}
+
 function getClosingBracketIndex(
     tokenStream: TokenStream,
     tokenIndex: number,
@@ -52,7 +112,16 @@ function getClosingBracketIndex(
         }
 
         if (token.type === dictionary.OPENING_BRACKET) {
-            return undefined;
+            // Skip nested brackets, e.g. subqueries or function calls
+            const matchingBracketIndex = getMatchingBracketIndex(
+                tokenStream,
+                currentIndex,
+                dictionary,
+            );
+            if (matchingBracketIndex === undefined) {
+                return undefined;
+            }
+            currentIndex = matchingBracketIndex;
         }
 
         currentIndex++;
@@ -75,8 +144,19 @@ export function getTableQueryPosition(
     while (currentIndex >= 0 && currentIndex < tokenStream.size) {
         const token = tokenStream.get(currentIndex);
 
-        // We don't want to check nested statement
-        if (
+        // Skip nested brackets, e.g. subqueries or function calls
+        const nestedBracketType = isAscending
+            ? dictionary.OPENING_BRACKET
+            : dictionary.CLOSING_BRACKET;
+        const matchingBracketIndex =
+            token.type === nestedBracketType
+                ? getMatchingBracketIndex(tokenStream, currentIndex, dictionary)
+                : undefined;
+
+        if (matchingBracketIndex !== undefined) {
+            currentIndex = matchingBracketIndex;
+        } else if (
+            // We don't want to check outer statement
             token.type === dictionary.OPENING_BRACKET ||
             token.type === dictionary.CLOSING_BRACKET ||
             token.type === dictionary.SEMICOLON
@@ -109,10 +189,10 @@ export function getTableQueryPosition(
                   } as const)
                 : undefined;
 
-            const selectToken = getPreviousToken(
+            const selectToken = getPreviousTokenOnSameLevel(
                 tokenStream,
                 dictionary,
-                closingBracketIndex.tokenIndex,
+                currentIndex,
                 dictionary.SELECT,
             );
             const selectTableQueryPosition = selectToken
@@ -204,6 +284,19 @@ function getJoinIndex(
 
         if (token.type === dictionary.JOIN) {
             return token.stop + 1;
+        }
+
+        if (token.type === dictionary.OPENING_BRACKET) {
+            // Skip JOIN inside subqueries
+            const matchingBracketIndex = getMatchingBracketIndex(
+                tokenStream,
+                currentIndex,
+                dictionary,
+            );
+            if (matchingBracketIndex === undefined) {
+                return undefined;
+            }
+            currentIndex = matchingBracketIndex;
         }
 
         currentIndex++;

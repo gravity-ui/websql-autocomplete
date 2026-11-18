@@ -113,3 +113,58 @@ test.skip('should report errors on missing alias', () => {
 
     expect(autocompleteResult.errors).toHaveLength(1);
 });
+
+test('should suggest subquery alias', () => {
+    const autocompleteResult = parsePostgreSqlQueryWithCursor(
+        'SELECT | FROM (SELECT test_column FROM test_table) AS t1',
+    );
+    const columnSuggestion: ColumnSuggestion = {tables: [{name: '', alias: 't1'}]};
+
+    expect(autocompleteResult.suggestColumns).toEqual(columnSuggestion);
+});
+
+test('should suggest subquery alias and table listed after subquery', () => {
+    const autocompleteResult = parsePostgreSqlQueryWithCursor(
+        'SELECT | FROM (SELECT test_column FROM test_table) AS t1, test_table_2 AS t2',
+    );
+    const columnSuggestion: ColumnSuggestion = {
+        tables: [
+            {name: '', alias: 't1'},
+            {name: 'test_table_2', alias: 't2'},
+        ],
+    };
+
+    expect(autocompleteResult.suggestColumns).toEqual(columnSuggestion);
+});
+
+test('should suggest subquery alias and joined table in WHERE condition', () => {
+    const autocompleteResult = parsePostgreSqlQueryWithCursor(
+        'SELECT * FROM (SELECT test_column FROM test_table) AS t1 JOIN test_table_2 AS t2 ON t1.test_column = t2.test_column WHERE |',
+    );
+    const columnSuggestion: ColumnSuggestion = {
+        tables: [
+            {name: '', alias: 't1'},
+            {name: 'test_table_2', alias: 't2'},
+        ],
+    };
+
+    expect(autocompleteResult.suggestColumns).toEqual(columnSuggestion);
+});
+
+test('should suggest table name inside subquery joined with table', () => {
+    const autocompleteResult = parsePostgreSqlQueryWithCursor(
+        'SELECT * FROM (SELECT | FROM test_table) AS t1 JOIN test_table_2 AS t2 ON t1.test_column = t2.test_column',
+    );
+    const columnSuggestion: ColumnSuggestion = {tables: [{name: 'test_table'}]};
+
+    expect(autocompleteResult.suggestColumns).toEqual(columnSuggestion);
+});
+
+test('should suggest outer table name after subquery in WHERE condition', () => {
+    const autocompleteResult = parsePostgreSqlQueryWithCursor(
+        'SELECT * FROM test_table WHERE test_column IN (SELECT test_column FROM test_table_2) AND |',
+    );
+    const columnSuggestion: ColumnSuggestion = {tables: [{name: 'test_table'}]};
+
+    expect(autocompleteResult.suggestColumns).toEqual(columnSuggestion);
+});
