@@ -27,8 +27,9 @@ export function getUniqueTableSuggestions(symbols: TableSymbol[] = []): Table[] 
     >();
 
     symbols.forEach(({name, alias, columns}) => {
-        // Subqueries have no name, so they are told apart by alias, otherwise columns get mixed up
-        const key = name || `subquery:${alias ?? ''}`;
+        // Subqueries have no name, so they are told apart by alias and columns,
+        // otherwise columns of different subqueries get mixed up
+        const key = name || `subquery:${alias ?? ''}:${JSON.stringify(columns ?? [])}`;
         const suggestion = suggestionsMap.get(key) ?? {name, aliases: new Set<string>()};
 
         if (alias) {

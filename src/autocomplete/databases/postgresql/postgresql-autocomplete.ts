@@ -2,7 +2,6 @@ import {ParseTree, ParserRuleContext, TokenStream} from 'antlr4ng';
 import * as c3 from 'antlr4-c3';
 
 import {ColumnAliasSymbol, TableSymbol} from '../../shared/symbol-table.js';
-import {getSubqueryColumnName} from '../../shared/subquery.js';
 import {
     AutocompleteData,
     AutocompleteResultBase,
@@ -13,6 +12,12 @@ import {
 } from '../../shared/autocomplete-types.js';
 import {PostgreSqlLexer} from './generated/PostgreSqlLexer.js';
 import {
+    C_expr_caseContext,
+    ColumnReferenceContext,
+    Expression1TypecastContext,
+    FunctionExpressionContext,
+    FunctionNameContext,
+    IndirectionContext,
     InsertTargetContext,
     PostgreSqlParser,
     RelationExpressionContext,
@@ -118,6 +123,103 @@ function getSubqueryTargetList(context: SelectWithParenthesisContext): TargetLis
     return selectStart?.targetList() ?? selectStart?.optionalTargetList()?.targetList() ?? null;
 }
 
+// Unquoted identifiers are folded to lower case
+function normalizeName(name: string): string {
+    return name.startsWith('"') ? name : name.toLowerCase();
+}
+
+// Last name of a qualified name, e.g. "column" for schema.table.column
+function getLastName(name: ParserRuleContext, indirection: IndirectionContext | null): string {
+    const attributeNames =
+        indirection
+            ?.indirectionElement()
+            .map((element) => element.attributeName())
+            .filter((attributeName) => attributeName !== null) ?? [];
+
+    return normalizeName((attributeNames[attributeNames.length - 1] ?? name).getText());
+}
+
+// Output column name PostgreSQL assigns to an expression without alias,
+// undefined if it's a generic "?column?" name that can't be suggested
+function getOutputColumnName(tree: ParseTree): string | undefined {
+    let node: ParseTree | null = tree;
+
+    while (node) {
+        if (node instanceof ColumnReferenceContext) {
+            return getLastName(node.columnId(), node.indirection());
+        }
+
+        if (node instanceof FunctionExpressionContext) {
+            const functionName: FunctionNameContext | undefined = node
+                .functionApplication()
+                ?.functionName();
+            if (functionName) {
+                return getLastName(
+                    functionName.columnId() ?? functionName,
+                    functionName.indirection(),
+                );
+            }
+
+            // Function-like keywords, e.g. COALESCE(...), CURRENT_DATE
+            const commonFunction = node.functionExpressionCommonSubexpr();
+            const firstToken = commonFunction?.start;
+            // CAST(expression AS type) is named after the expression
+            if (firstToken?.type === PostgreSqlParser.CAST) {
+                const expression = commonFunction?.expression1(0);
+                return expression ? getOutputColumnName(expression) : undefined;
+            }
+
+            return firstToken?.text?.toLowerCase();
+        }
+
+        if (node instanceof C_expr_caseContext) {
+            return 'case';
+        }
+
+        // expression::type is named after the expression
+        if (node instanceof Expression1TypecastContext && node.typeName().length) {
+            return getOutputColumnName(node.expression3());
+        }
+
+        if (node.getChildCount() !== 1) {
+            return undefined;
+        }
+        node = node.getChild(0);
+    }
+
+    return undefined;
+}
+
+// Output column names of the subquery by position, or undefined if they can't be determined
+// without schema
+function getSubqueryOutputColumnNames(
+    subquery: SelectWithParenthesisContext,
+): (string | undefined)[] | undefined {
+    const names: (string | undefined)[] = [];
+
+    for (const targetElement of getSubqueryTargetList(subquery)?.targetElement() ?? []) {
+        // SELECT *
+        if (!(targetElement instanceof Target_labelContext)) {
+            return undefined;
+        }
+
+        const alias = (targetElement.columnLabel() ?? targetElement.identifier())?.getText();
+        if (alias) {
+            names.push(normalizeName(alias));
+            continue;
+        }
+
+        // SELECT t.*
+        if (targetElement.expression1().getText().endsWith('*')) {
+            return undefined;
+        }
+
+        names.push(getOutputColumnName(targetElement.expression1()));
+    }
+
+    return names;
+}
+
 // Result column names of the subquery, or undefined if they can't be determined without schema
 function getSubqueryColumns(context: TableReferenceContext): string[] | undefined {
     const subquery = context.selectWithParenthesis();
@@ -126,27 +228,25 @@ function getSubqueryColumns(context: TableReferenceContext): string[] | undefine
     }
 
     // Column aliases, e.g. (SELECT ...) AS t (a, b)
-    const columnAliases = context.optionalAliasClause()?.tableAliasClause()?.nameList()?.name();
-    if (columnAliases?.length) {
-        return columnAliases.map((name) => name.getText());
+    const columnAliases =
+        context
+            .optionalAliasClause()
+            ?.tableAliasClause()
+            ?.nameList()
+            ?.name()
+            .map((name) => normalizeName(name.getText())) ?? [];
+    const outputColumnNames = getSubqueryOutputColumnNames(subquery);
+
+    if (!outputColumnNames) {
+        return columnAliases.length ? columnAliases : undefined;
     }
 
-    const columns: string[] = [];
-    for (const targetElement of getSubqueryTargetList(subquery)?.targetElement() ?? []) {
-        // SELECT *
-        if (!(targetElement instanceof Target_labelContext)) {
-            return undefined;
-        }
-
-        const alias = (targetElement.columnLabel() ?? targetElement.identifier())?.getText();
-        const expression = targetElement.expression1().getText();
-        // SELECT t.*
-        if (!alias && expression.endsWith('*')) {
-            return undefined;
-        }
-
-        columns.push(alias ?? getSubqueryColumnName(expression));
-    }
+    // Column aliases rename columns by position, the rest keep their names,
+    // e.g. (SELECT a, b ...) AS t (u) has columns u and b
+    const columns = Array.from(
+        {length: Math.max(columnAliases.length, outputColumnNames.length)},
+        (_, index) => columnAliases[index] ?? outputColumnNames[index],
+    ).filter((name): name is string => Boolean(name));
 
     return columns.length ? columns : undefined;
 }

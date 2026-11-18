@@ -236,6 +236,17 @@ test('should suggest table name of the first SELECT in UNION after function call
     expect(autocompleteResult.suggestColumns).toEqual(columnSuggestion);
 });
 
+test('should keep dots inside quoted subquery column name', () => {
+    const autocompleteResult = parseMySqlQueryWithCursor(
+        'SELECT | FROM (SELECT t.`test.column` FROM test_table t) AS t1',
+    );
+    const columnSuggestion: ColumnSuggestion = {
+        tables: [{name: '', alias: 't1', columns: ['`test.column`']}],
+    };
+
+    expect(autocompleteResult.suggestColumns).toEqual(columnSuggestion);
+});
+
 test('should suggest table name of subquery if closing bracket is right after cursor', () => {
     const autocompleteResult = parseMySqlQueryWithCursor(
         'SELECT * FROM test_table WHERE test_column IN (SELECT test_column FROM test_table_2 WHERE |)',

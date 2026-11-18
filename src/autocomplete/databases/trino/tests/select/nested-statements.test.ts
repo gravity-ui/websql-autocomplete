@@ -252,6 +252,31 @@ test('should suggest table name of the first SELECT in UNION after function call
     expect(autocompleteResult.suggestColumns).toEqual(columnSuggestion);
 });
 
+test('should keep dots inside quoted subquery column name', () => {
+    const autocompleteResult = parseTrinoQueryWithCursor(
+        'SELECT | FROM (SELECT t."test.column" FROM test_table t) AS t1',
+    );
+    const columnSuggestion: ColumnSuggestion = {
+        tables: [{name: '', alias: 't1', columns: ['"test.column"']}],
+    };
+
+    expect(autocompleteResult.suggestColumns).toEqual(columnSuggestion);
+});
+
+test('should suggest columns of each subquery without alias separately', () => {
+    const autocompleteResult = parseTrinoQueryWithCursor(
+        'SELECT | FROM (SELECT test_column FROM test_table), (SELECT test_column_2 FROM test_table_2)',
+    );
+    const columnSuggestion: ColumnSuggestion = {
+        tables: [
+            {name: '', columns: ['test_column']},
+            {name: '', columns: ['test_column_2']},
+        ],
+    };
+
+    expect(autocompleteResult.suggestColumns).toEqual(columnSuggestion);
+});
+
 test('should suggest table name of subquery if closing bracket is right after cursor', () => {
     const autocompleteResult = parseTrinoQueryWithCursor(
         'SELECT * FROM test_table WHERE test_column IN (SELECT test_column FROM test_table_2 WHERE |)',

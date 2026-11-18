@@ -24,15 +24,12 @@ export function findFirstContextOfType<T extends ParseTree>(
     return undefined;
 }
 
-const identifierRegex = /^([A-Za-z_][\w$]*|"[^"]+"|`[^`]+`)$/;
+const identifier = '[A-Za-z_][\\w$]*|"(?:[^"]|"")*"|`(?:[^`]|``)*`';
+// A column reference like column, table.column or "schema"."table"."column.with.dots"
+const columnReferenceRegex = new RegExp(`^(?:(?:${identifier})\\.)*(${identifier})$`);
 
 // Name of the subquery result column for a select item without alias:
-// a qualified column (t.column) gives "column", any other expression is kept as is
+// a column reference (t.column) gives its last identifier, any other expression is kept as is
 export function getSubqueryColumnName(expressionText: string): string {
-    const parts = expressionText.split('.');
-    if (parts.every((part) => identifierRegex.test(part))) {
-        return parts[parts.length - 1] ?? expressionText;
-    }
-
-    return expressionText;
+    return columnReferenceRegex.exec(expressionText)?.[1] ?? expressionText;
 }

@@ -176,7 +176,7 @@ test('should suggest subquery columns by aliases and qualified names', () => {
         'SELECT | FROM (SELECT t.test_column, test_column_2 AS test_alias, COUNT(*) FROM test_table t) AS t1',
     );
     const columnSuggestion: ColumnSuggestion = {
-        tables: [{name: '', alias: 't1', columns: ['test_column', 'test_alias', 'COUNT(*)']}],
+        tables: [{name: '', alias: 't1', columns: ['test_column', 'test_alias', 'count']}],
     };
 
     expect(autocompleteResult.suggestColumns).toEqual(columnSuggestion);
@@ -246,6 +246,59 @@ test('should suggest table name of the first SELECT in UNION after function call
         'SELECT abs(test_column), | FROM test_table UNION ALL SELECT test_column_2 FROM test_table_2',
     );
     const columnSuggestion: ColumnSuggestion = {tables: [{name: 'test_table'}]};
+
+    expect(autocompleteResult.suggestColumns).toEqual(columnSuggestion);
+});
+
+test('should keep dots inside quoted subquery column name', () => {
+    const autocompleteResult = parsePostgreSqlQueryWithCursor(
+        'SELECT | FROM (SELECT t."test.column" FROM test_table t) AS t1',
+    );
+    const columnSuggestion: ColumnSuggestion = {
+        tables: [{name: '', alias: 't1', columns: ['"test.column"']}],
+    };
+
+    expect(autocompleteResult.suggestColumns).toEqual(columnSuggestion);
+});
+
+test('should suggest columns of each subquery without alias separately', () => {
+    const autocompleteResult = parsePostgreSqlQueryWithCursor(
+        'SELECT | FROM (SELECT test_column FROM test_table), (SELECT test_column_2 FROM test_table_2)',
+    );
+    const columnSuggestion: ColumnSuggestion = {
+        tables: [
+            {name: '', columns: ['test_column']},
+            {name: '', columns: ['test_column_2']},
+        ],
+    };
+
+    expect(autocompleteResult.suggestColumns).toEqual(columnSuggestion);
+});
+
+test('should suggest subquery columns renamed by partial column alias list', () => {
+    const autocompleteResult = parsePostgreSqlQueryWithCursor(
+        'SELECT | FROM (SELECT test_column, test_column_2 FROM test_table) AS t1 (test_alias)',
+    );
+    const columnSuggestion: ColumnSuggestion = {
+        tables: [{name: '', alias: 't1', columns: ['test_alias', 'test_column_2']}],
+    };
+
+    expect(autocompleteResult.suggestColumns).toEqual(columnSuggestion);
+});
+
+test('should suggest subquery columns named like PostgreSQL names expressions', () => {
+    const autocompleteResult = parsePostgreSqlQueryWithCursor(
+        "SELECT | FROM (SELECT test_column::TEXT, CAST(test_column_2 AS TEXT), COALESCE(test_column, 'test_value'), CASE WHEN test_column = 1 THEN 1 END, test_column + 1, test_schema.test_function(test_column) FROM test_table) AS t1",
+    );
+    const columnSuggestion: ColumnSuggestion = {
+        tables: [
+            {
+                name: '',
+                alias: 't1',
+                columns: ['test_column', 'test_column_2', 'coalesce', 'case', 'test_function'],
+            },
+        ],
+    };
 
     expect(autocompleteResult.suggestColumns).toEqual(columnSuggestion);
 });
