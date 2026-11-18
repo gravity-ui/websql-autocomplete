@@ -21,33 +21,33 @@ export class VariableSymbol extends c3.VariableSymbol {
 }
 
 export function getUniqueTableSuggestions(symbols: TableSymbol[] = []): Table[] {
-    const suggestionsMap = symbols.reduce(
-        (acc, table) => {
-            const aliases = acc[table.name]?.aliases ?? new Set();
-            if (table.alias) {
-                aliases.add(table.alias);
-            }
+    const suggestionsMap = new Map<
+        string,
+        {name: string; aliases: Set<string>; columns?: string[]}
+    >();
 
-            // It's fine to assign to accumulator here
-            // eslint-disable-next-line no-param-reassign
-            acc[table.name] = {aliases, columns: table.columns};
-            return acc;
-        },
-        {} as Record<string, {aliases: Set<string>; columns?: string[]}>,
-    );
-    return Object.keys(suggestionsMap).reduce((acc, tableName) => {
-        const aliases = suggestionsMap[tableName]?.aliases;
-        const columns = suggestionsMap[tableName]?.columns;
-        if (aliases && aliases.size > 0) {
-            aliases?.forEach((alias) => {
-                acc.push({name: tableName, alias, columns});
-            });
-        } else {
-            acc.push({name: tableName, columns});
+    symbols.forEach(({name, alias, columns}) => {
+        // Subqueries have no name, so they are told apart by alias, otherwise columns get mixed up
+        const key = name || `subquery:${alias ?? ''}`;
+        const suggestion = suggestionsMap.get(key) ?? {name, aliases: new Set<string>()};
+
+        if (alias) {
+            suggestion.aliases.add(alias);
         }
+        suggestion.columns = columns;
+        suggestionsMap.set(key, suggestion);
+    });
 
-        return acc;
-    }, [] as Table[]);
+    const tables: Table[] = [];
+    suggestionsMap.forEach(({name, aliases, columns}) => {
+        if (aliases.size > 0) {
+            aliases.forEach((alias) => tables.push({name, alias, columns}));
+        } else {
+            tables.push({name, columns});
+        }
+    });
+
+    return tables;
 }
 
 export function getTablesFromSymbolTable(visitor: SymbolTableVisitor): Table[] {

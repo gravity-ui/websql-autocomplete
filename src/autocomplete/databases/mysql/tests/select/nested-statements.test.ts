@@ -115,7 +115,9 @@ test('should suggest subquery alias', () => {
     const autocompleteResult = parseMySqlQueryWithCursor(
         'SELECT | FROM (SELECT test_column FROM test_table) AS t1',
     );
-    const columnSuggestion: ColumnSuggestion = {tables: [{name: '', alias: 't1'}]};
+    const columnSuggestion: ColumnSuggestion = {
+        tables: [{name: '', alias: 't1', columns: ['test_column']}],
+    };
 
     expect(autocompleteResult.suggestColumns).toEqual(columnSuggestion);
 });
@@ -126,7 +128,7 @@ test('should suggest subquery alias and table listed after subquery', () => {
     );
     const columnSuggestion: ColumnSuggestion = {
         tables: [
-            {name: '', alias: 't1'},
+            {name: '', alias: 't1', columns: ['test_column']},
             {name: 'test_table_2', alias: 't2'},
         ],
     };
@@ -140,7 +142,7 @@ test('should suggest subquery alias and joined table in WHERE condition', () => 
     );
     const columnSuggestion: ColumnSuggestion = {
         tables: [
-            {name: '', alias: 't1'},
+            {name: '', alias: 't1', columns: ['test_column']},
             {name: 'test_table_2', alias: 't2'},
         ],
     };
@@ -162,6 +164,56 @@ test('should suggest outer table name after subquery in WHERE condition', () => 
         'SELECT * FROM test_table WHERE test_column IN (SELECT test_column FROM test_table_2) AND |',
     );
     const columnSuggestion: ColumnSuggestion = {tables: [{name: 'test_table'}]};
+
+    expect(autocompleteResult.suggestColumns).toEqual(columnSuggestion);
+});
+
+test('should suggest subquery columns by aliases and qualified names', () => {
+    const autocompleteResult = parseMySqlQueryWithCursor(
+        'SELECT | FROM (SELECT t.test_column, test_column_2 AS test_alias, COUNT(*) FROM test_table t) AS t1',
+    );
+    const columnSuggestion: ColumnSuggestion = {
+        tables: [{name: '', alias: 't1', columns: ['test_column', 'test_alias', 'COUNT(*)']}],
+    };
+
+    expect(autocompleteResult.suggestColumns).toEqual(columnSuggestion);
+});
+
+test('should not suggest subquery columns if subquery selects asterisk', () => {
+    const autocompleteResult = parseMySqlQueryWithCursor(
+        'SELECT | FROM (SELECT * FROM test_table) AS t1, (SELECT t.* FROM test_table t) AS t2',
+    );
+    const columnSuggestion: ColumnSuggestion = {
+        tables: [
+            {name: '', alias: 't1'},
+            {name: '', alias: 't2'},
+        ],
+    };
+
+    expect(autocompleteResult.suggestColumns).toEqual(columnSuggestion);
+});
+
+test('should suggest columns of each subquery separately', () => {
+    const autocompleteResult = parseMySqlQueryWithCursor(
+        'SELECT | FROM (SELECT test_column FROM test_table) AS t1 JOIN (SELECT test_column_2 FROM test_table_2) AS t2 ON TRUE',
+    );
+    const columnSuggestion: ColumnSuggestion = {
+        tables: [
+            {name: '', alias: 't1', columns: ['test_column']},
+            {name: '', alias: 't2', columns: ['test_column_2']},
+        ],
+    };
+
+    expect(autocompleteResult.suggestColumns).toEqual(columnSuggestion);
+});
+
+test('should suggest columns of the first SELECT in UNION subquery', () => {
+    const autocompleteResult = parseMySqlQueryWithCursor(
+        'SELECT | FROM (SELECT test_column FROM test_table UNION SELECT test_column_2 FROM test_table_2) AS t1',
+    );
+    const columnSuggestion: ColumnSuggestion = {
+        tables: [{name: '', alias: 't1', columns: ['test_column']}],
+    };
 
     expect(autocompleteResult.suggestColumns).toEqual(columnSuggestion);
 });

@@ -2,6 +2,7 @@ import {ParseTree, ParserRuleContext, TokenStream} from 'antlr4ng';
 import * as c3 from 'antlr4-c3';
 
 import {ColumnAliasSymbol, TableSymbol} from '../../shared/symbol-table.js';
+import {findFirstContextOfType, getSubqueryColumnName} from '../../shared/subquery.js';
 import {
     AutocompleteData,
     AutocompleteResultBase,
@@ -14,7 +15,11 @@ import {MySqlLexer} from './generated/MySqlLexer.js';
 import {
     AtomTableItemContext,
     MySqlParser,
+    SelectColumnElementContext,
     SelectElementAliasContext,
+    SelectElementsContext,
+    SelectExpressionElementContext,
+    SelectFunctionElementContext,
     SelectStatementContext,
     SubqueryTableItemContext,
     TableIdentifierContext,
@@ -111,6 +116,45 @@ const rulesToVisit = new Set([
     MySqlParser.RULE_passwordFunctionClause,
 ]);
 
+// Result column names of the subquery, or undefined if they can't be determined without schema
+function getSubqueryColumns(context: SubqueryTableItemContext): string[] | undefined {
+    const selectStatement = context.selectStatement();
+    const selectElements = selectStatement
+        ? findFirstContextOfType(selectStatement, SelectElementsContext)
+        : undefined;
+
+    // SELECT *
+    if (!selectElements || selectElements._star) {
+        return undefined;
+    }
+
+    const columns: string[] = [];
+    for (const selectElement of selectElements.selectElement()) {
+        if (selectElement instanceof SelectColumnElementContext) {
+            columns.push(
+                selectElement.selectElementAlias()?.uid().getText() ??
+                    getSubqueryColumnName(selectElement.fullColumnName().getText()),
+            );
+        } else if (
+            selectElement instanceof SelectFunctionElementContext ||
+            selectElement instanceof SelectExpressionElementContext
+        ) {
+            const expression =
+                selectElement instanceof SelectFunctionElementContext
+                    ? selectElement.functionCall()
+                    : selectElement.expression();
+            columns.push(
+                selectElement.selectElementAlias()?.uid().getText() ?? expression.getText(),
+            );
+        } else {
+            // SELECT t.*
+            return undefined;
+        }
+    }
+
+    return columns.length ? columns : undefined;
+}
+
 class MySqlSymbolTableVisitor extends MySqlParserVisitor<{}> implements ISymbolTableVisitor {
     symbolTable: c3.SymbolTable;
     scope: c3.ScopedSymbol;
@@ -171,6 +215,7 @@ class MySqlSymbolTableVisitor extends MySqlParserVisitor<{}> implements ISymbolT
                 this.scope,
                 '',
                 context.uid()?.getText(),
+                getSubqueryColumns(context),
             );
         } catch (error) {
             if (!(error instanceof c3.DuplicateSymbolError)) {

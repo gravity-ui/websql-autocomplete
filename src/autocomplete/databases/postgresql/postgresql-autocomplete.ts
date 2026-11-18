@@ -2,6 +2,7 @@ import {ParseTree, ParserRuleContext, TokenStream} from 'antlr4ng';
 import * as c3 from 'antlr4-c3';
 
 import {ColumnAliasSymbol, TableSymbol} from '../../shared/symbol-table.js';
+import {getSubqueryColumnName} from '../../shared/subquery.js';
 import {
     AutocompleteData,
     AutocompleteResultBase,
@@ -17,6 +18,7 @@ import {
     RelationExpressionContext,
     SelectWithParenthesisContext,
     TableReferenceContext,
+    TargetListContext,
     Target_labelContext,
     ViewNameContext,
 } from './generated/PostgreSqlParser.js';
@@ -95,6 +97,60 @@ const rulesToVisit = new Set([
     PostgreSqlParser.RULE_reservedKeyword,
 ]);
 
+function getSubqueryTargetList(context: SelectWithParenthesisContext): TargetListContext | null {
+    const parenthesizedSelect = context.selectWithParenthesis();
+    if (parenthesizedSelect) {
+        return getSubqueryTargetList(parenthesizedSelect);
+    }
+
+    // In case of UNION, INTERSECT, etc. the first SELECT determines column names
+    const simpleSelect = context
+        .selectWithoutParenthesis()
+        ?.selectClause()
+        .simpleSelectIntersect(0)
+        ?.simpleSelectPramary(0);
+    const nestedSelect = simpleSelect?.selectWithParenthesis();
+    if (nestedSelect) {
+        return getSubqueryTargetList(nestedSelect);
+    }
+
+    const selectStart = simpleSelect?.simpleSelectStart();
+    return selectStart?.targetList() ?? selectStart?.optionalTargetList()?.targetList() ?? null;
+}
+
+// Result column names of the subquery, or undefined if they can't be determined without schema
+function getSubqueryColumns(context: TableReferenceContext): string[] | undefined {
+    const subquery = context.selectWithParenthesis();
+    if (!subquery) {
+        return undefined;
+    }
+
+    // Column aliases, e.g. (SELECT ...) AS t (a, b)
+    const columnAliases = context.optionalAliasClause()?.tableAliasClause()?.nameList()?.name();
+    if (columnAliases?.length) {
+        return columnAliases.map((name) => name.getText());
+    }
+
+    const columns: string[] = [];
+    for (const targetElement of getSubqueryTargetList(subquery)?.targetElement() ?? []) {
+        // SELECT *
+        if (!(targetElement instanceof Target_labelContext)) {
+            return undefined;
+        }
+
+        const alias = (targetElement.columnLabel() ?? targetElement.identifier())?.getText();
+        const expression = targetElement.expression1().getText();
+        // SELECT t.*
+        if (!alias && expression.endsWith('*')) {
+            return undefined;
+        }
+
+        columns.push(alias ?? getSubqueryColumnName(expression));
+    }
+
+    return columns.length ? columns : undefined;
+}
+
 class PostgreSqlSymbolTableVisitor
     extends PostgreSqlParserVisitor<{}>
     implements ISymbolTableVisitor
@@ -140,6 +196,7 @@ class PostgreSqlSymbolTableVisitor
                 this.scope,
                 context.relationExpression()?.tableIdentifier()?.getText() || '',
                 context.optionalAliasClause()?.tableAliasClause()?.tableAlias()?.getText(),
+                getSubqueryColumns(context),
             );
         } catch (error) {
             if (!(error instanceof c3.DuplicateSymbolError)) {

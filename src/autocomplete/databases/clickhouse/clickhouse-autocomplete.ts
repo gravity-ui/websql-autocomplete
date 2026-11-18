@@ -2,6 +2,7 @@ import {ParseTree, ParserRuleContext, TokenStream} from 'antlr4ng';
 import * as c3 from 'antlr4-c3';
 
 import {ColumnAliasSymbol, TableSymbol} from '../../shared/symbol-table.js';
+import {findFirstContextOfType, getSubqueryColumnName} from '../../shared/subquery.js';
 import {
     AutocompleteData,
     AutocompleteResultBase,
@@ -14,6 +15,9 @@ import {ClickHouseLexer} from './generated/ClickHouseLexer.js';
 import {
     ClickHouseParser,
     ColumnExpressionAliasContext,
+    ColumnExpressionAsteriskContext,
+    ColumnsExpressionColumnContext,
+    SelectStatementContext,
     SelectUnionStatementContext,
     TableExpressionAliasContext,
     TableExpressionSubqueryContext,
@@ -105,6 +109,40 @@ const rulesToVisit = new Set([
     ClickHouseParser.RULE_anyValue,
 ]);
 
+// Result column names of the subquery, or undefined if they can't be determined without schema
+function getSubqueryColumns(context: TableExpressionSubqueryContext): string[] | undefined {
+    const selectStatement = findFirstContextOfType(
+        context.selectUnionStatement(),
+        SelectStatementContext,
+    );
+    const columns: string[] = [];
+
+    for (const columnsExpression of selectStatement?.columnExpressionList().columnsExpression() ??
+        []) {
+        // SELECT * or SELECT (subquery)
+        if (!(columnsExpression instanceof ColumnsExpressionColumnContext)) {
+            return undefined;
+        }
+
+        const columnExpression = columnsExpression.columnExpression();
+        // SELECT t.*
+        if (columnExpression instanceof ColumnExpressionAsteriskContext) {
+            return undefined;
+        }
+
+        if (columnExpression instanceof ColumnExpressionAliasContext) {
+            const alias = (columnExpression.alias() ?? columnExpression.identifier())?.getText();
+            if (alias) {
+                columns.push(alias);
+            }
+        } else {
+            columns.push(getSubqueryColumnName(columnExpression.getText()));
+        }
+    }
+
+    return columns.length ? columns : undefined;
+}
+
 class ClickHouseSymbolTableVisitor
     extends ClickHouseParserVisitor<{}>
     implements ISymbolTableVisitor
@@ -145,13 +183,23 @@ class ClickHouseSymbolTableVisitor
             const alias =
                 context.alias()?.getText() || context.identifier()?.getText() || undefined;
 
-            // Subquery has no name, only alias
-            const name =
-                tableExpression instanceof TableExpressionSubqueryContext
-                    ? ''
-                    : tableExpression?.getText();
-
-            this.symbolTable.addNewSymbolOfType(TableSymbol, this.scope, name, alias);
+            if (tableExpression instanceof TableExpressionSubqueryContext) {
+                // Subquery has no name, only alias
+                this.symbolTable.addNewSymbolOfType(
+                    TableSymbol,
+                    this.scope,
+                    '',
+                    alias,
+                    getSubqueryColumns(tableExpression),
+                );
+            } else {
+                this.symbolTable.addNewSymbolOfType(
+                    TableSymbol,
+                    this.scope,
+                    tableExpression?.getText(),
+                    alias,
+                );
+            }
         } catch (error) {
             if (!(error instanceof c3.DuplicateSymbolError)) {
                 throw error;
@@ -168,7 +216,13 @@ class ClickHouseSymbolTableVisitor
         }
 
         try {
-            this.symbolTable.addNewSymbolOfType(TableSymbol, this.scope, '');
+            this.symbolTable.addNewSymbolOfType(
+                TableSymbol,
+                this.scope,
+                '',
+                undefined,
+                getSubqueryColumns(context),
+            );
         } catch (error) {
             if (!(error instanceof c3.DuplicateSymbolError)) {
                 throw error;
