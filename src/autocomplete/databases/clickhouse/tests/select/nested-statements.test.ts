@@ -280,3 +280,12 @@ test('should suggest table name if semicolon is right after cursor', () => {
 
     expect(autocompleteResult.suggestColumns).toEqual(columnSuggestion);
 });
+
+test('should not suggest subquery columns if subquery selects asterisk with EXCEPT', () => {
+    const autocompleteResult = parseClickHouseQueryWithCursor(
+        'SELECT | FROM (SELECT * EXCEPT test_column FROM test_table) AS t1',
+    );
+    const columnSuggestion: ColumnSuggestion = {tables: [{name: '', alias: 't1'}]};
+
+    expect(autocompleteResult.suggestColumns).toEqual(columnSuggestion);
+});

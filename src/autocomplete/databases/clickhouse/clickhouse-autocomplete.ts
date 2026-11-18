@@ -16,6 +16,7 @@ import {
     ClickHouseParser,
     ColumnExpressionAliasContext,
     ColumnExpressionAsteriskContext,
+    ColumnExpressionExceptContext,
     ColumnsExpressionColumnContext,
     SelectStatementContext,
     SelectUnionStatementContext,
@@ -125,8 +126,11 @@ function getSubqueryColumns(context: TableExpressionSubqueryContext): string[] |
         }
 
         const columnExpression = columnsExpression.columnExpression();
-        // SELECT t.*
-        if (columnExpression instanceof ColumnExpressionAsteriskContext) {
+        // SELECT t.* or SELECT * EXCEPT column
+        if (
+            columnExpression instanceof ColumnExpressionAsteriskContext ||
+            columnExpression instanceof ColumnExpressionExceptContext
+        ) {
             return undefined;
         }
 

@@ -178,7 +178,7 @@ test('should suggest subquery columns by aliases and qualified names', () => {
         'SELECT | FROM (SELECT t.test_column, test_column_2 AS test_alias, COUNT(*) FROM test_table t) AS t1',
     );
     const columnSuggestion: ColumnSuggestion = {
-        tables: [{name: '', alias: 't1', columns: ['test_column', 'test_alias', 'COUNT(*)']}],
+        tables: [{name: '', alias: 't1', columns: ['test_column', 'test_alias', '_col2']}],
     };
 
     expect(autocompleteResult.suggestColumns).toEqual(columnSuggestion);
@@ -291,6 +291,19 @@ test('should suggest table name if semicolon is right after cursor', () => {
         'SELECT * FROM test_table WHERE |; SELECT * FROM test_table_2',
     );
     const columnSuggestion: ColumnSuggestion = {tables: [{name: 'test_table'}]};
+
+    expect(autocompleteResult.suggestColumns).toEqual(columnSuggestion);
+});
+
+test('should fold unquoted subquery column names to lower case', () => {
+    const autocompleteResult = parseTrinoQueryWithCursor(
+        'SELECT | FROM (SELECT Test_Column, "Test_Column_2", test_column_3 AS Test_Alias FROM test_table) AS t1',
+    );
+    const columnSuggestion: ColumnSuggestion = {
+        tables: [
+            {name: '', alias: 't1', columns: ['test_column', '"Test_Column_2"', 'test_alias']},
+        ],
+    };
 
     expect(autocompleteResult.suggestColumns).toEqual(columnSuggestion);
 });

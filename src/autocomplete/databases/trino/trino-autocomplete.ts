@@ -22,7 +22,7 @@ import {
     TrinoParser,
     ViewIdentifierContext,
 } from './generated/TrinoParser.js';
-import {findFirstContextOfType, getSubqueryColumnName} from '../../shared/subquery.js';
+import {findFirstContextOfType, getColumnReferenceName} from '../../shared/subquery.js';
 
 import {
     ColumnAliasSymbol,
@@ -37,6 +37,11 @@ import {TrinoAutocompleteResult} from './index.js';
 import {TrinoParserVisitor} from './generated/TrinoParserVisitor.js';
 
 // Result column names of the subquery, or undefined if they can't be determined without schema
+// Unquoted identifiers are folded to lower case
+function normalizeName(name: string): string {
+    return name.startsWith('"') ? name : name.toLowerCase();
+}
+
 function getSubqueryColumns(
     context: AliasedRelationContext,
     subquery: SubqueryRelationContext,
@@ -44,7 +49,7 @@ function getSubqueryColumns(
     // Column aliases, e.g. (SELECT ...) AS t (a, b)
     const columnAliases = context.columnAliases()?.columnIdentifier();
     if (columnAliases?.length) {
-        return columnAliases.map((column) => column.getText());
+        return columnAliases.map((column) => normalizeName(column.getText()));
     }
 
     const querySpecification = findFirstContextOfType(
@@ -53,16 +58,17 @@ function getSubqueryColumns(
     );
 
     const columns: string[] = [];
-    for (const selectItem of querySpecification?.selectItem() ?? []) {
+    for (const [index, selectItem] of (querySpecification?.selectItem() ?? []).entries()) {
         const expression = selectItem.expression();
         // SELECT * or SELECT t.*
         if (!expression) {
             return undefined;
         }
 
-        columns.push(
-            selectItem.aliasIdentifier()?.getText() ?? getSubqueryColumnName(expression.getText()),
-        );
+        const alias = selectItem.aliasIdentifier()?.getText();
+        // Expressions other than column references are named by position, e.g. _col0
+        const columnName = alias ?? getColumnReferenceName(expression.getText()) ?? `_col${index}`;
+        columns.push(normalizeName(columnName));
     }
 
     return columns.length ? columns : undefined;

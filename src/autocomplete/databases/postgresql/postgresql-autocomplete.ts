@@ -1,4 +1,4 @@
-import {ParseTree, ParserRuleContext, TokenStream} from 'antlr4ng';
+import {ParseTree, ParserRuleContext, TerminalNode, TokenStream} from 'antlr4ng';
 import * as c3 from 'antlr4-c3';
 
 import {ColumnAliasSymbol, TableSymbol} from '../../shared/symbol-table.js';
@@ -13,7 +13,9 @@ import {
 import {PostgreSqlLexer} from './generated/PostgreSqlLexer.js';
 import {
     C_expr_caseContext,
+    C_expr_exprContext,
     ColumnReferenceContext,
+    Expression1CollateContext,
     Expression1TypecastContext,
     FunctionExpressionContext,
     FunctionNameContext,
@@ -162,14 +164,48 @@ function getOutputColumnName(tree: ParseTree): string | undefined {
 
             // Function-like keywords, e.g. COALESCE(...), CURRENT_DATE
             const commonFunction = node.functionExpressionCommonSubexpr();
-            const firstToken = commonFunction?.start;
-            // CAST(expression AS type) is named after the expression
-            if (firstToken?.type === PostgreSqlParser.CAST) {
-                const expression = commonFunction?.expression1(0);
-                return expression ? getOutputColumnName(expression) : undefined;
+            if (!commonFunction) {
+                return undefined;
             }
 
-            return firstToken?.text?.toLowerCase();
+            const keywordType = commonFunction.start?.type;
+            // CAST(expression AS type) is named after the expression
+            if (keywordType === PostgreSqlParser.CAST) {
+                const expression = commonFunction.expression1(0);
+                return expression ? getOutputColumnName(expression) : undefined;
+            }
+            // Some keywords map to differently named functions
+            if (keywordType === PostgreSqlParser.TRIM) {
+                // TRIM ( [BOTH | LEADING | TRAILING] ...
+                const sideToken = commonFunction.getChild(2);
+                const sideType = sideToken instanceof TerminalNode ? sideToken.symbol.type : null;
+                if (sideType === PostgreSqlParser.LEADING) {
+                    return 'ltrim';
+                }
+                return sideType === PostgreSqlParser.TRAILING ? 'rtrim' : 'btrim';
+            }
+            if (keywordType === PostgreSqlParser.COLLATION) {
+                return 'pg_collation_for';
+            }
+
+            return commonFunction.start?.text?.toLowerCase();
+        }
+
+        // (expression) is named after the expression, (row).field after the field
+        if (node instanceof C_expr_exprContext && node._a_expr_in_parens) {
+            const indirection = node.optionalIndirection();
+            const hasAttributes = indirection
+                ?.indirectionElement()
+                .some((element) => element.attributeName() !== null);
+            if (hasAttributes && indirection) {
+                return getLastName(node, indirection);
+            }
+            return getOutputColumnName(node._a_expr_in_parens);
+        }
+
+        // expression COLLATE collation is named after the expression
+        if (node instanceof Expression1CollateContext && node.getChildCount() > 1) {
+            return getOutputColumnName(node.expression1Typecast());
         }
 
         if (node instanceof C_expr_caseContext) {

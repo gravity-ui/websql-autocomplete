@@ -286,18 +286,69 @@ test('should suggest subquery columns renamed by partial column alias list', () 
     expect(autocompleteResult.suggestColumns).toEqual(columnSuggestion);
 });
 
-test('should suggest subquery columns named like PostgreSQL names expressions', () => {
+test('should name subquery column after cast expression', () => {
     const autocompleteResult = parsePostgreSqlQueryWithCursor(
-        "SELECT | FROM (SELECT test_column::TEXT, CAST(test_column_2 AS TEXT), COALESCE(test_column, 'test_value'), CASE WHEN test_column = 1 THEN 1 END, test_column + 1, test_schema.test_function(test_column) FROM test_table) AS t1",
+        'SELECT | FROM (SELECT test_column::TEXT, CAST(test_column_2 AS TEXT) FROM test_table) AS t1',
+    );
+    const columnSuggestion: ColumnSuggestion = {
+        tables: [{name: '', alias: 't1', columns: ['test_column', 'test_column_2']}],
+    };
+
+    expect(autocompleteResult.suggestColumns).toEqual(columnSuggestion);
+});
+
+test('should name subquery column after function', () => {
+    const autocompleteResult = parsePostgreSqlQueryWithCursor(
+        "SELECT | FROM (SELECT COALESCE(test_column, 'test_value'), test_schema.test_function(test_column), COUNT(*) FILTER (WHERE test_column > 1) FROM test_table) AS t1",
+    );
+    const columnSuggestion: ColumnSuggestion = {
+        tables: [{name: '', alias: 't1', columns: ['coalesce', 'test_function', 'count']}],
+    };
+
+    expect(autocompleteResult.suggestColumns).toEqual(columnSuggestion);
+});
+
+test('should name subquery column after TRIM and COLLATION FOR like PostgreSQL does', () => {
+    const autocompleteResult = parsePostgreSqlQueryWithCursor(
+        'SELECT | FROM (SELECT TRIM(test_column), TRIM(LEADING FROM test_column), TRIM(TRAILING FROM test_column), COLLATION FOR (test_column) FROM test_table) AS t1',
+    );
+    const columnSuggestion: ColumnSuggestion = {
+        tables: [{name: '', alias: 't1', columns: ['btrim', 'ltrim', 'rtrim', 'pg_collation_for']}],
+    };
+
+    expect(autocompleteResult.suggestColumns).toEqual(columnSuggestion);
+});
+
+test('should name subquery column case', () => {
+    const autocompleteResult = parsePostgreSqlQueryWithCursor(
+        'SELECT | FROM (SELECT CASE WHEN test_column = 1 THEN 1 END FROM test_table) AS t1',
+    );
+    const columnSuggestion: ColumnSuggestion = {
+        tables: [{name: '', alias: 't1', columns: ['case']}],
+    };
+
+    expect(autocompleteResult.suggestColumns).toEqual(columnSuggestion);
+});
+
+test('should name subquery column after parenthesized expression', () => {
+    const autocompleteResult = parsePostgreSqlQueryWithCursor(
+        'SELECT | FROM (SELECT (test_column), (test_table).test_column_2, test_column_3 COLLATE "C" FROM test_table) AS t1',
     );
     const columnSuggestion: ColumnSuggestion = {
         tables: [
-            {
-                name: '',
-                alias: 't1',
-                columns: ['test_column', 'test_column_2', 'coalesce', 'case', 'test_function'],
-            },
+            {name: '', alias: 't1', columns: ['test_column', 'test_column_2', 'test_column_3']},
         ],
+    };
+
+    expect(autocompleteResult.suggestColumns).toEqual(columnSuggestion);
+});
+
+test('should not suggest subquery column without name', () => {
+    const autocompleteResult = parsePostgreSqlQueryWithCursor(
+        'SELECT | FROM (SELECT test_column + 1, test_column_2 FROM test_table) AS t1',
+    );
+    const columnSuggestion: ColumnSuggestion = {
+        tables: [{name: '', alias: 't1', columns: ['test_column_2']}],
     };
 
     expect(autocompleteResult.suggestColumns).toEqual(columnSuggestion);
