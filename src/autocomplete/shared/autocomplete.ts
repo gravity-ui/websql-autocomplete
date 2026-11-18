@@ -8,7 +8,7 @@ import {
     ParseOptions,
     ParserConstructor,
 } from './autocomplete-types.js';
-import {Lexer as LexerType, ParserRuleContext, Parser as ParserType} from 'antlr4ng';
+import {Lexer as LexerType, ParserRuleContext, Parser as ParserType, Vocabulary} from 'antlr4ng';
 import {createParser} from './query.js';
 import {SqlErrorListener} from './sql-error-listener.js';
 import * as c3 from 'antlr4-c3';
@@ -33,6 +33,19 @@ export function parseQueryWithoutCursor<L extends LexerType, P extends ParserTyp
 }
 
 const quotesRegex = /^'(.*)'$/;
+
+export function getTokenName(vocabulary: Vocabulary, tokenType: number): string {
+    // Literal keyword names are quoted
+    const literalName = vocabulary.getLiteralName(tokenType)?.replace(quotesRegex, '$1');
+    // ClickHouse Parser does not give out literal names
+    const name = literalName || vocabulary.getSymbolicName(tokenType);
+
+    if (!name) {
+        throw new Error(`Could not get name for token ${tokenType}`);
+    }
+
+    return name;
+}
 
 export function parseQuery<
     A extends AutocompleteResultBase,
@@ -73,17 +86,8 @@ export function parseQuery<
     const suggestKeywords: KeywordSuggestion[] = [];
     const {tokens, rules} = core.collectCandidates(cursorTokenIndex, context);
     tokens.forEach((_, tokenType) => {
-        // Literal keyword names are quoted
-        const literalName = parser.vocabulary.getLiteralName(tokenType)?.replace(quotesRegex, '$1');
-        // ClickHouse Parser does not give out literal names
-        const name = literalName || parser.vocabulary.getSymbolicName(tokenType);
-
-        if (!name) {
-            throw new Error(`Could not get name for token ${tokenType}`);
-        }
-
         suggestKeywords.push({
-            value: name,
+            value: getTokenName(parser.vocabulary, tokenType),
         });
     });
 
