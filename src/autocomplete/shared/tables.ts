@@ -107,7 +107,12 @@ function getClosingBracketIndex(
     while (currentIndex < tokenStream.size) {
         const token = tokenStream.get(currentIndex);
 
-        if (token.type === dictionary.CLOSING_BRACKET || token.type === dictionary.SEMICOLON) {
+        if (
+            token.type === dictionary.CLOSING_BRACKET ||
+            token.type === dictionary.SEMICOLON ||
+            // Next query starts, e.g. in UNION
+            token.type === dictionary.SELECT
+        ) {
             return {cursorIndex: token.start, tokenIndex: currentIndex};
         }
 
@@ -159,7 +164,10 @@ export function getTableQueryPosition(
             // We don't want to check outer statement
             token.type === dictionary.OPENING_BRACKET ||
             token.type === dictionary.CLOSING_BRACKET ||
-            token.type === dictionary.SEMICOLON
+            token.type === dictionary.SEMICOLON ||
+            // FROM of the current query can't be before its SELECT, and SELECT after the cursor
+            // starts another query, e.g. in UNION
+            token.type === dictionary.SELECT
         ) {
             if (isAscending) {
                 break;

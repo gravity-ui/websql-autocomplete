@@ -165,3 +165,21 @@ test('should suggest outer table name after subquery in WHERE condition', () => 
 
     expect(autocompleteResult.suggestColumns).toEqual(columnSuggestion);
 });
+
+test('should suggest table name of the second SELECT in UNION after function call', () => {
+    const autocompleteResult = parseMySqlQueryWithCursor(
+        'SELECT test_column FROM test_table UNION ALL SELECT abs(test_column_2), | FROM test_table_2',
+    );
+    const columnSuggestion: ColumnSuggestion = {tables: [{name: 'test_table_2'}]};
+
+    expect(autocompleteResult.suggestColumns).toEqual(columnSuggestion);
+});
+
+test('should suggest table name of the first SELECT in UNION after function call', () => {
+    const autocompleteResult = parseMySqlQueryWithCursor(
+        'SELECT abs(test_column), | FROM test_table UNION ALL SELECT test_column_2 FROM test_table_2',
+    );
+    const columnSuggestion: ColumnSuggestion = {tables: [{name: 'test_table'}]};
+
+    expect(autocompleteResult.suggestColumns).toEqual(columnSuggestion);
+});
