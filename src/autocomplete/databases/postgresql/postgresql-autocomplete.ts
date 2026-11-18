@@ -1,4 +1,4 @@
-import {ParseTree, TokenStream} from 'antlr4ng';
+import {ParseTree, ParserRuleContext, TokenStream} from 'antlr4ng';
 import * as c3 from 'antlr4-c3';
 
 import {ColumnAliasSymbol, TableSymbol} from '../../shared/symbol-table.js';
@@ -15,6 +15,7 @@ import {
     InsertTargetContext,
     PostgreSqlParser,
     RelationExpressionContext,
+    SelectWithParenthesisContext,
     TableReferenceContext,
     Target_labelContext,
     ViewNameContext,
@@ -105,6 +106,15 @@ class PostgreSqlSymbolTableVisitor
         super();
         this.symbolTable = new c3.SymbolTable('', {allowDuplicateSymbols: true});
         this.scope = this.symbolTable.addNewSymbolOfType(c3.ScopedSymbol, undefined);
+    }
+
+    visitChildren(node: ParserRuleContext): {} {
+        // Tables and column aliases of nested subqueries are not visible outside of them
+        if (node instanceof SelectWithParenthesisContext) {
+            return {};
+        }
+
+        return super.visitChildren(node) as {};
     }
 
     visitRelationExpression = (context: RelationExpressionContext): {} => {

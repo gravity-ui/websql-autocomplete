@@ -1,4 +1,4 @@
-import {ParseTree, TokenStream} from 'antlr4ng';
+import {ParseTree, ParserRuleContext, TokenStream} from 'antlr4ng';
 import * as c3 from 'antlr4-c3';
 
 import {ColumnAliasSymbol, TableSymbol} from '../../shared/symbol-table.js';
@@ -15,6 +15,8 @@ import {
     AtomTableItemContext,
     MySqlParser,
     SelectElementAliasContext,
+    SelectStatementContext,
+    SubqueryTableItemContext,
     TableIdentifierContext,
 } from './generated/MySqlParser.js';
 import {MySqlParserVisitor} from './generated/MySqlParserVisitor.js';
@@ -119,6 +121,15 @@ class MySqlSymbolTableVisitor extends MySqlParserVisitor<{}> implements ISymbolT
         this.scope = this.symbolTable.addNewSymbolOfType(c3.ScopedSymbol, undefined);
     }
 
+    visitChildren(node: ParserRuleContext): {} {
+        // Tables and column aliases of nested subqueries are not visible outside of them
+        if (node instanceof SelectStatementContext && node.parent) {
+            return {};
+        }
+
+        return super.visitChildren(node) as {};
+    }
+
     visitTableIdentifier = (context: TableIdentifierContext): {} => {
         try {
             this.symbolTable.addNewSymbolOfType(TableSymbol, this.scope, context.getText());
@@ -143,6 +154,23 @@ class MySqlSymbolTableVisitor extends MySqlParserVisitor<{}> implements ISymbolT
                 this.scope,
                 context.tableIdentifier().getText(),
                 isAliasPartOfJoinStatement ? undefined : rawAlias,
+            );
+        } catch (error) {
+            if (!(error instanceof c3.DuplicateSymbolError)) {
+                throw error;
+            }
+        }
+
+        return this.visitChildren(context) as {};
+    };
+
+    visitSubqueryTableItem = (context: SubqueryTableItemContext): {} => {
+        try {
+            this.symbolTable.addNewSymbolOfType(
+                TableSymbol,
+                this.scope,
+                '',
+                context.uid()?.getText(),
             );
         } catch (error) {
             if (!(error instanceof c3.DuplicateSymbolError)) {
