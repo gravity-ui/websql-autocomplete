@@ -1,4 +1,4 @@
-import {ParseTree, TokenStream} from 'antlr4ng';
+import {ParseTree, ParserRuleContext, TokenStream} from 'antlr4ng';
 import * as c3 from 'antlr4-c3';
 
 import {
@@ -11,11 +11,17 @@ import {
 } from '../../shared/autocomplete-types.js';
 import {TrinoLexer} from './generated/TrinoLexer.js';
 import {
+    AliasedRelationContext,
+    QueryContext,
+    RootQueryContext,
     SelectItemContext,
+    SubqueryContext,
+    SubqueryRelationContext,
     TableReferenceContext,
     TrinoParser,
     ViewIdentifierContext,
 } from './generated/TrinoParser.js';
+
 import {
     ColumnAliasSymbol,
     TableQueryPosition,
@@ -37,6 +43,37 @@ class TrinoSymbolTableVisitor extends TrinoParserVisitor<{}> implements ISymbolT
         this.symbolTable = new c3.SymbolTable('', {allowDuplicateSymbols: true});
         this.scope = this.symbolTable.addNewSymbolOfType(c3.ScopedSymbol, undefined);
     }
+
+    visitChildren(node: ParserRuleContext): {} {
+        // Tables and column aliases of nested subqueries are not visible outside of them
+        if (
+            node instanceof SubqueryContext ||
+            (node instanceof QueryContext && !(node.parent instanceof RootQueryContext))
+        ) {
+            return {};
+        }
+
+        return super.visitChildren(node) as {};
+    }
+
+    visitAliasedRelation = (context: AliasedRelationContext): {} => {
+        if (context.relationPrimary() instanceof SubqueryRelationContext) {
+            try {
+                this.symbolTable.addNewSymbolOfType(
+                    TableSymbol,
+                    this.scope,
+                    '',
+                    context.aliasIdentifier()?.getText(),
+                );
+            } catch (error) {
+                if (!(error instanceof c3.DuplicateSymbolError)) {
+                    throw error;
+                }
+            }
+        }
+
+        return this.visitChildren(context) as {};
+    };
 
     visitTableReference = (context: TableReferenceContext): {} => {
         try {

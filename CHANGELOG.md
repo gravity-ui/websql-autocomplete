@@ -1,5 +1,12 @@
 # Changelog
 
+## [13.16.2](https://github.com/gravity-ui/websql-autocomplete/compare/v13.16.1...v13.16.2) (2026-11-18)
+
+
+### Bug Fixes
+
+* suggest columns when FROM contains a subquery ([#325](https://github.com/gravity-ui/websql-autocomplete/issues/325)) ([3abef0d](https://github.com/gravity-ui/websql-autocomplete/commit/3abef0dd4467f22578bcd20babb9424f58e31d52))
+
 ## [13.16.1](https://github.com/gravity-ui/websql-autocomplete/compare/v13.16.0...v13.16.1) (2026-11-03)
 
 

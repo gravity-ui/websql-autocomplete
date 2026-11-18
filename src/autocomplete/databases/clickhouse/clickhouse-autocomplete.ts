@@ -1,4 +1,4 @@
-import {ParseTree, TokenStream} from 'antlr4ng';
+import {ParseTree, ParserRuleContext, TokenStream} from 'antlr4ng';
 import * as c3 from 'antlr4-c3';
 
 import {ColumnAliasSymbol, TableSymbol} from '../../shared/symbol-table.js';
@@ -14,7 +14,9 @@ import {ClickHouseLexer} from './generated/ClickHouseLexer.js';
 import {
     ClickHouseParser,
     ColumnExpressionAliasContext,
+    SelectUnionStatementContext,
     TableExpressionAliasContext,
+    TableExpressionSubqueryContext,
     TableIdentifierContext,
 } from './generated/ClickHouseParser.js';
 import {ClickHouseParserVisitor} from './generated/ClickHouseParserVisitor.js';
@@ -128,14 +130,45 @@ class ClickHouseSymbolTableVisitor
         return this.visitChildren(context) as {};
     };
 
+    visitChildren(node: ParserRuleContext): {} {
+        // Tables and column aliases of nested subqueries are not visible outside of them
+        if (node instanceof SelectUnionStatementContext) {
+            return {};
+        }
+
+        return super.visitChildren(node) as {};
+    }
+
     visitTableExpressionAlias = (context: TableExpressionAliasContext): {} => {
         try {
-            this.symbolTable.addNewSymbolOfType(
-                TableSymbol,
-                this.scope,
-                context.tableExpression()?.getText(),
-                context.alias()?.getText() || context.identifier()?.getText() || undefined,
-            );
+            const tableExpression = context.tableExpression();
+            const alias =
+                context.alias()?.getText() || context.identifier()?.getText() || undefined;
+
+            // Subquery has no name, only alias
+            const name =
+                tableExpression instanceof TableExpressionSubqueryContext
+                    ? ''
+                    : tableExpression?.getText();
+
+            this.symbolTable.addNewSymbolOfType(TableSymbol, this.scope, name, alias);
+        } catch (error) {
+            if (!(error instanceof c3.DuplicateSymbolError)) {
+                throw error;
+            }
+        }
+
+        return this.visitChildren(context) as {};
+    };
+
+    visitTableExpressionSubquery = (context: TableExpressionSubqueryContext): {} => {
+        // Aliased subqueries are handled in visitTableExpressionAlias
+        if (context.parent instanceof TableExpressionAliasContext) {
+            return this.visitChildren(context) as {};
+        }
+
+        try {
+            this.symbolTable.addNewSymbolOfType(TableSymbol, this.scope, '');
         } catch (error) {
             if (!(error instanceof c3.DuplicateSymbolError)) {
                 throw error;
