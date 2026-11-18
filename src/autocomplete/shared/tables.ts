@@ -142,8 +142,14 @@ export function getTableQueryPosition(
     dictionary: TokenDictionary,
 ): TableQueryPosition | undefined {
     const end = tokenStream.get(tokenStream.size - 1).start;
-    let currentIndex = tokenIndex;
+    // The token at the cursor may be a closing bracket or semicolon right after the cursor,
+    // so it's checked only when going forward
+    let currentIndex = tokenIndex - 1;
     let isAscending = false;
+    if (currentIndex < 0) {
+        currentIndex = tokenIndex;
+        isAscending = true;
+    }
 
     // Go backward at first
     while (currentIndex >= 0 && currentIndex < tokenStream.size) {
@@ -172,7 +178,8 @@ export function getTableQueryPosition(
             if (isAscending) {
                 break;
             } else {
-                currentIndex = tokenIndex;
+                // Going forward starts from the token at the cursor
+                currentIndex = tokenIndex - 1;
                 isAscending = true;
             }
         }

@@ -186,3 +186,21 @@ test('should suggest table name of the first SELECT in UNION after function call
 
     expect(autocompleteResult.suggestColumns).toEqual(columnSuggestion);
 });
+
+test('should suggest table name of subquery if closing bracket is right after cursor', () => {
+    const autocompleteResult = parsePostgreSqlQueryWithCursor(
+        'SELECT * FROM test_table WHERE test_column IN (SELECT test_column FROM test_table_2 WHERE |)',
+    );
+    const columnSuggestion: ColumnSuggestion = {tables: [{name: 'test_table_2'}]};
+
+    expect(autocompleteResult.suggestColumns).toEqual(columnSuggestion);
+});
+
+test('should suggest table name if semicolon is right after cursor', () => {
+    const autocompleteResult = parsePostgreSqlQueryWithCursor(
+        'SELECT * FROM test_table WHERE |; SELECT * FROM test_table_2',
+    );
+    const columnSuggestion: ColumnSuggestion = {tables: [{name: 'test_table'}]};
+
+    expect(autocompleteResult.suggestColumns).toEqual(columnSuggestion);
+});
