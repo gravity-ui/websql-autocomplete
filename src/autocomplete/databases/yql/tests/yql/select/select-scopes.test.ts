@@ -131,3 +131,17 @@ test('should suggest properly at variable definition', () => {
     expect(autocompleteResult.suggestUdfs).toBeTruthy();
     expect(autocompleteResult.suggestSimpleTypes).toBeTruthy();
 });
+
+test('should suggest columns of each subquery separately', () => {
+    const autocompleteResult = parseYqlQueryWithCursor(
+        'SELECT | FROM (SELECT test_column FROM test_table) AS t1 JOIN (SELECT test_column_2 FROM test_table_2) AS t2 ON t1.test_column = t2.test_column_2;',
+    );
+    const columnSuggestions: YQLColumnsSuggestion = {
+        tables: [
+            {name: '', alias: 't1', columns: ['test_column']},
+            {name: '', alias: 't2', columns: ['test_column_2']},
+        ],
+        all: true,
+    };
+    expect(autocompleteResult.suggestColumns).toEqual(columnSuggestions);
+});

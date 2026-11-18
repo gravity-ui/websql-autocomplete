@@ -1,4 +1,4 @@
-import {ParseTree, ParserRuleContext, TokenStream} from 'antlr4ng';
+import {ParseTree, ParserRuleContext, TerminalNode, TokenStream} from 'antlr4ng';
 import * as c3 from 'antlr4-c3';
 
 import {ColumnAliasSymbol, TableSymbol} from '../../shared/symbol-table.js';
@@ -12,11 +12,20 @@ import {
 } from '../../shared/autocomplete-types.js';
 import {PostgreSqlLexer} from './generated/PostgreSqlLexer.js';
 import {
+    C_expr_caseContext,
+    C_expr_exprContext,
+    ColumnReferenceContext,
+    Expression1CollateContext,
+    Expression1TypecastContext,
+    FunctionExpressionContext,
+    FunctionNameContext,
+    IndirectionContext,
     InsertTargetContext,
     PostgreSqlParser,
     RelationExpressionContext,
     SelectWithParenthesisContext,
     TableReferenceContext,
+    TargetListContext,
     Target_labelContext,
     ViewNameContext,
 } from './generated/PostgreSqlParser.js';
@@ -95,6 +104,189 @@ const rulesToVisit = new Set([
     PostgreSqlParser.RULE_reservedKeyword,
 ]);
 
+function getSubqueryTargetList(context: SelectWithParenthesisContext): TargetListContext | null {
+    const parenthesizedSelect = context.selectWithParenthesis();
+    if (parenthesizedSelect) {
+        return getSubqueryTargetList(parenthesizedSelect);
+    }
+
+    // In case of UNION, INTERSECT, etc. the first SELECT determines column names
+    const simpleSelect = context
+        .selectWithoutParenthesis()
+        ?.selectClause()
+        .simpleSelectIntersect(0)
+        ?.simpleSelectPramary(0);
+    const nestedSelect = simpleSelect?.selectWithParenthesis();
+    if (nestedSelect) {
+        return getSubqueryTargetList(nestedSelect);
+    }
+
+    const selectStart = simpleSelect?.simpleSelectStart();
+    return selectStart?.targetList() ?? selectStart?.optionalTargetList()?.targetList() ?? null;
+}
+
+// Unquoted identifiers are folded to lower case
+function normalizeName(name: string): string {
+    return name.startsWith('"') ? name : name.toLowerCase();
+}
+
+// Last name of a qualified name, e.g. "column" for schema.table.column
+function getLastName(name: ParserRuleContext, indirection: IndirectionContext | null): string {
+    const attributeNames =
+        indirection
+            ?.indirectionElement()
+            .map((element) => element.attributeName())
+            .filter((attributeName) => attributeName !== null) ?? [];
+
+    return normalizeName((attributeNames[attributeNames.length - 1] ?? name).getText());
+}
+
+// Output column name PostgreSQL assigns to an expression without alias,
+// undefined if it's a generic "?column?" name that can't be suggested
+function getOutputColumnName(tree: ParseTree): string | undefined {
+    let node: ParseTree | null = tree;
+
+    while (node) {
+        if (node instanceof ColumnReferenceContext) {
+            return getLastName(node.columnId(), node.indirection());
+        }
+
+        if (node instanceof FunctionExpressionContext) {
+            const functionName: FunctionNameContext | undefined = node
+                .functionApplication()
+                ?.functionName();
+            if (functionName) {
+                return getLastName(
+                    functionName.columnId() ?? functionName,
+                    functionName.indirection(),
+                );
+            }
+
+            // Function-like keywords, e.g. COALESCE(...), CURRENT_DATE
+            const commonFunction = node.functionExpressionCommonSubexpr();
+            if (!commonFunction) {
+                return undefined;
+            }
+
+            const keywordType = commonFunction.start?.type;
+            // CAST(expression AS type) is named after the expression
+            if (keywordType === PostgreSqlParser.CAST) {
+                const expression = commonFunction.expression1(0);
+                return expression ? getOutputColumnName(expression) : undefined;
+            }
+            // Some keywords map to differently named functions
+            if (keywordType === PostgreSqlParser.TRIM) {
+                // TRIM ( [BOTH | LEADING | TRAILING] ...
+                const sideToken = commonFunction.getChild(2);
+                const sideType = sideToken instanceof TerminalNode ? sideToken.symbol.type : null;
+                if (sideType === PostgreSqlParser.LEADING) {
+                    return 'ltrim';
+                }
+                return sideType === PostgreSqlParser.TRAILING ? 'rtrim' : 'btrim';
+            }
+            if (keywordType === PostgreSqlParser.COLLATION) {
+                return 'pg_collation_for';
+            }
+
+            return commonFunction.start?.text?.toLowerCase();
+        }
+
+        // (expression) is named after the expression, (row).field after the field
+        if (node instanceof C_expr_exprContext && node._a_expr_in_parens) {
+            const indirection = node.optionalIndirection();
+            const hasAttributes = indirection
+                ?.indirectionElement()
+                .some((element) => element.attributeName() !== null);
+            if (hasAttributes && indirection) {
+                return getLastName(node, indirection);
+            }
+            return getOutputColumnName(node._a_expr_in_parens);
+        }
+
+        // expression COLLATE collation is named after the expression
+        if (node instanceof Expression1CollateContext && node.getChildCount() > 1) {
+            return getOutputColumnName(node.expression1Typecast());
+        }
+
+        if (node instanceof C_expr_caseContext) {
+            return 'case';
+        }
+
+        // expression::type is named after the expression
+        if (node instanceof Expression1TypecastContext && node.typeName().length) {
+            return getOutputColumnName(node.expression3());
+        }
+
+        if (node.getChildCount() !== 1) {
+            return undefined;
+        }
+        node = node.getChild(0);
+    }
+
+    return undefined;
+}
+
+// Output column names of the subquery by position, or undefined if they can't be determined
+// without schema
+function getSubqueryOutputColumnNames(
+    subquery: SelectWithParenthesisContext,
+): (string | undefined)[] | undefined {
+    const names: (string | undefined)[] = [];
+
+    for (const targetElement of getSubqueryTargetList(subquery)?.targetElement() ?? []) {
+        // SELECT *
+        if (!(targetElement instanceof Target_labelContext)) {
+            return undefined;
+        }
+
+        const alias = (targetElement.columnLabel() ?? targetElement.identifier())?.getText();
+        if (alias) {
+            names.push(normalizeName(alias));
+            continue;
+        }
+
+        // SELECT t.*
+        if (targetElement.expression1().getText().endsWith('*')) {
+            return undefined;
+        }
+
+        names.push(getOutputColumnName(targetElement.expression1()));
+    }
+
+    return names;
+}
+
+// Result column names of the subquery, or undefined if they can't be determined without schema
+function getSubqueryColumns(context: TableReferenceContext): string[] | undefined {
+    const subquery = context.selectWithParenthesis();
+    if (!subquery) {
+        return undefined;
+    }
+
+    // Column aliases, e.g. (SELECT ...) AS t (a, b)
+    const columnAliases =
+        context
+            .optionalAliasClause()
+            ?.tableAliasClause()
+            ?.nameList()
+            ?.name()
+            .map((name) => normalizeName(name.getText())) ?? [];
+    const outputColumnNames = getSubqueryOutputColumnNames(subquery);
+
+    if (!outputColumnNames) {
+        return columnAliases.length ? columnAliases : undefined;
+    }
+
+    // Column aliases rename columns by position, the rest keep their names,
+    // e.g. (SELECT a, b ...) AS t (u) has columns u and b
+    const columns = Array.from(
+        {length: Math.max(columnAliases.length, outputColumnNames.length)},
+        (_, index) => columnAliases[index] ?? outputColumnNames[index],
+    ).filter((name): name is string => Boolean(name));
+
+    return columns.length ? columns : undefined;
+}
+
 class PostgreSqlSymbolTableVisitor
     extends PostgreSqlParserVisitor<{}>
     implements ISymbolTableVisitor
@@ -140,6 +332,7 @@ class PostgreSqlSymbolTableVisitor
                 this.scope,
                 context.relationExpression()?.tableIdentifier()?.getText() || '',
                 context.optionalAliasClause()?.tableAliasClause()?.tableAlias()?.getText(),
+                getSubqueryColumns(context),
             );
         } catch (error) {
             if (!(error instanceof c3.DuplicateSymbolError)) {
