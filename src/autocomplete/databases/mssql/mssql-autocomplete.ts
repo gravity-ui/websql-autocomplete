@@ -21,6 +21,7 @@ import {TSqlLexer} from './generated/TSqlLexer.js';
 import {
     Ddl_objectContext,
     Expression_elemContext,
+    SubqueryContext,
     TSqlParser,
     Table_nameContext,
     Table_source_itemContext,
@@ -147,6 +148,15 @@ class MsSqlSymbolTableVisitor extends TSqlParserVisitor<{}> implements ISymbolTa
         this.scope = this.symbolTable.addNewSymbolOfType(c3.ScopedSymbol, undefined);
     }
 
+    visitChildren(node: ParserRuleContext): {} {
+        // Tables and column aliases of nested subqueries are not visible outside of them
+        if (node instanceof SubqueryContext) {
+            return {};
+        }
+
+        return super.visitChildren(node) as {};
+    }
+
     addTableSymbol(name: string, alias?: string): void {
         try {
             this.symbolTable.addNewSymbolOfType(TableSymbol, this.scope, name, alias);
@@ -178,8 +188,12 @@ class MsSqlSymbolTableVisitor extends TSqlParserVisitor<{}> implements ISymbolTa
 
     visitTable_source_item = (context: Table_source_itemContext): {} => {
         const tableName = context.full_table_name()?.getText();
+        const alias = context.as_table_alias()?.table_alias().getText();
         if (tableName) {
-            this.addTableSymbol(tableName, context.as_table_alias()?.table_alias().getText());
+            this.addTableSymbol(tableName, alias);
+        } else if (context.derived_table() && alias) {
+            // Columns of subquery are accessed by its alias only
+            this.addTableSymbol('', alias);
         }
 
         return this.visitChildren(context) as {};

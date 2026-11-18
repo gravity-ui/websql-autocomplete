@@ -126,3 +126,14 @@ test('should suggest table names and aliases after CROSS APPLY', () => {
 
     expect(autocompleteResult.suggestColumns).toEqual(columnSuggestions);
 });
+
+test('should suggest table names for column in JOIN condition after table hints', () => {
+    const autocompleteResult = parseMsSqlQueryWithCursor(
+        'SELECT * FROM test_table WITH (NOLOCK) JOIN test_table_2 ON |',
+    );
+    const columnSuggestions: ColumnSuggestion = {
+        tables: [{name: 'test_table'}, {name: 'test_table_2'}],
+    };
+
+    expect(autocompleteResult.suggestColumns).toEqual(columnSuggestions);
+});
